@@ -1,8 +1,6 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.CatalogueSensor;
-import SmartHome.domain.SensorTypeFactory;
-import SmartHome.domain.Unit;
+import SmartHome.domain.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,7 +36,7 @@ class SwitchSensorTest {
     }
 
     @Test
-    void getStatusReturnOff() throws InstantiationException {
+    void getSensorTypeReturnsCorrectSensorType() throws InstantiationException {
         // Arrange
         String filePathName = "config.properties";
         String description = "Switch";
@@ -47,9 +45,41 @@ class SwitchSensorTest {
         SwitchSensor switchSensor = new SwitchSensor( catalogue );
 
         // Act
-        String status = switchSensor.getStatus();
+        SensorType result = switchSensor.getSensorType();
 
         // Assert
-        assertEquals( "Off", status );
+        assertEquals( description, result.getDescription() );
+    }
+
+    @Test
+    void getSensorTypeReturnsWrongSensorType() throws InstantiationException {
+        // Arrange
+        String filePathName = "config.properties";
+        String description = "Switch";
+        CatalogueSensor catalogue = new CatalogueSensor( filePathName );
+        catalogue.addSensorType( description, Unit.Switch, new SensorTypeFactory());
+        SwitchSensor switchSensor = new SwitchSensor( catalogue );
+
+        // Act
+        SensorType result = switchSensor.getSensorType();
+
+        // Assert
+        assertNotEquals( "Temperature", result.getDescription() );
+    }
+
+    @Test
+    void getValueReturnsOff() throws InstantiationException {
+        // Arrange
+        String filePathName = "config.properties";
+        String description = "Switch";
+        CatalogueSensor catalogue = new CatalogueSensor( filePathName );
+        catalogue.addSensorType( description, Unit.Switch, new SensorTypeFactory());
+        SwitchSensor switchSensor = new SwitchSensor( catalogue );
+
+        // Act
+        Value result = switchSensor.getValue();
+
+        // Assert
+        assertEquals( "Off", result.toString() );
     }
 }
