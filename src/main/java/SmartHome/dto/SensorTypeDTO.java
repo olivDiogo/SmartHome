@@ -4,11 +4,11 @@ import SmartHome.domain.SensorType;
 import SmartHome.domain.Unit;
 
 public class SensorTypeDTO {
-    public String sensorTypeDescription;
-    public Unit unit;
+    public final String sensorTypeDescription;
+    public final Unit unit;
 
     public SensorTypeDTO (SensorType sensorType){
-        sensorTypeDescription = sensorType.getDescription();
-        unit = sensorType.getUnit();
+        this.sensorTypeDescription = sensorType.getDescription();
+        this.unit = sensorType.getUnit();
     }
 }
