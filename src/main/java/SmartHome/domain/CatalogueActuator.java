@@ -13,6 +13,12 @@ public class CatalogueActuator {
     private List<ActuatorType> _listActuatorTypes;
     private List<String> _listStringClassesActuator;
 
+    /**
+     * Constructor for the CatalogueActuator class.
+     *
+     * @param filePathname the file pathname
+     * @throws InstantiationException if the filePathname is null
+     */
     public CatalogueActuator(String filePathname) throws InstantiationException {
         Configurations configs = new Configurations();
         if (!validateConstructorParameters(filePathname)) {
@@ -32,14 +38,27 @@ public class CatalogueActuator {
         }
     }
 
+    /**
+     * Validates the parameters of the constructor.
+     * @param strDescription
+     * @return
+     */
     private boolean validateConstructorParameters(String strDescription) {
         return strDescription != null && !strDescription.trim().isEmpty();
     }
 
+    /**
+     * Gets the list of actuator types.
+     * @return the list of actuator types
+     */
     public List<ActuatorType> getActuatorTypes() {
         return _listActuatorTypes;
     }
 
+    /**
+     * Gets the list of actuator models.
+     * @return the list of actuator models
+     */
     public List<String> getActuatorModels(){
         return _listStringClassesActuator;
     }
