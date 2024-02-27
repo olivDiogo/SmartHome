@@ -74,13 +74,18 @@ class CatalogueActuatorTest {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
 
-        ActuatorType actuatorType = new ActuatorType();
-        ActuatorType actuatorType2 = new ActuatorType();
+        String strDescription = "Temperature";
+        Unit unit = Unit.Temperature;
+        ActuatorType actuatorType = new ActuatorType(strDescription, unit);
 
-        List<ActuatorType> actuatorTypes = new ArrayList<>();
+        String strDescription2 = "Humidity";
+        Unit unit2 = Unit.Humidity;
+        ActuatorType actuatorType2 = new ActuatorType(strDescription2, unit2);
 
-        actuatorTypes.add(actuatorType);
-        actuatorTypes.add(actuatorType2);
+        List<ActuatorType> actuatorTypesList = new ArrayList<>();
+
+        actuatorTypesList.add(actuatorType);
+        actuatorTypesList.add(actuatorType2);
 
         int expected = 2;
 
@@ -88,7 +93,7 @@ class CatalogueActuatorTest {
         catalogueActuator.getActuatorTypes();
 
         //Assert
-        assertEquals(expected, actuatorTypes.size());
+        assertEquals(expected, actuatorTypesList.size());
 
     }
 
@@ -102,11 +107,62 @@ class CatalogueActuatorTest {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
 
+        int expected = 0;
+
         //Act
-        List<ActuatorType> actuatorTypes = catalogueActuator.getActuatorTypes();
+        List<ActuatorType> actuatorTypesList = catalogueActuator.getActuatorTypes();
 
         //Assert
-        assertTrue(actuatorTypes.isEmpty());
+        assertEquals(expected, actuatorTypesList.size());
+    }
+
+    /**
+     * Tests if return Actuator Models List
+     * @throws InstantiationException
+     */
+    @Test
+    void shouldReturnActuatorModelsList() throws InstantiationException {
+        //Arrange
+        CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
+
+        String strDescription = "Temperature";
+        Unit unit = Unit.Temperature;
+        ActuatorType actuatorType = new ActuatorType(strDescription, unit);
+
+        String strDescription2 = "Humidity";
+        Unit unit2 = Unit.Humidity;
+        ActuatorType actuatorType2 = new ActuatorType(strDescription2, unit2);
+
+        List<ActuatorType> actuatorModelsList = new ArrayList<>();
+
+        actuatorModelsList.add(actuatorType);
+        actuatorModelsList.add(actuatorType2);
+
+        int expected = 2;
+
+        //Act
+        catalogueActuator.getActuatorModels();
+
+        //Assert
+        assertEquals(expected, actuatorModelsList.size());
+    }
+
+    /**
+     * Tests if returns an empty Actuator Models List
+     * @throws InstantiationException
+     */
+    @Test
+    void shouldReturnEmptyActuatorModelsList() throws InstantiationException {
+        //Arrange
+        CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
+
+        int expected = 0;
+
+        //Act
+        List<String> actuatorModelsList = catalogueActuator.getActuatorModels();
+
+        //Assert
+        assertEquals(expected, actuatorModelsList.size());
     }
 }
 */
