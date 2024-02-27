@@ -5,20 +5,26 @@ public class SensorType
     private final String _strDescription;
     private final Unit _unit;
 
-    protected SensorType( String strDescription, Unit unit ) throws InstantiationException
+    protected SensorType( String strDescription, Unit unit )
     {
-        if( !isValidConstructorArguments(strDescription) )
-            throw( new InstantiationException("Invalid arguments"));
-
-        this._strDescription = strDescription;
-        this._unit = unit;
+        this._strDescription = setStrDescription(strDescription);
+        this._unit = setUnit(unit);
     }
 
-    private boolean isValidConstructorArguments( String strDescription )
+    private String setStrDescription( String strDescription ) throws IllegalArgumentException
     {
-        return strDescription != null && !strDescription.trim().isEmpty();
+        if (strDescription == null || strDescription.trim().isEmpty()) {
+            throw new IllegalArgumentException("Invalid arguments");
+        }
+        return strDescription;
+    }
 
-        // implement here the rest of validations
+    private Unit setUnit( Unit unit ) throws IllegalArgumentException
+    {
+        if (unit == null) {
+            throw new IllegalArgumentException("Invalid arguments");
+        }
+        return unit;
     }
 
     public String getDescription() {

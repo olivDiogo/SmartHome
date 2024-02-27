@@ -214,6 +214,26 @@ public class RoomTest {
         // Assert
         assertEquals(expected, result);
     }
+    @Test
+    void ifSetDimensionIllegalArgumentExceptionIsThrown() {
+        // Arrange
+        DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
+        String name = "Room";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
+
+        when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(null);
+
+        String expectedMessage = "Invalid dimensions";
+
+        // Act
+        String exception = assertThrows(IllegalArgumentException.class, () -> new Room(name, floor, width, length, height, dimensionsFactory)).getMessage();
+
+        // Assert
+        assertTrue(exception.contains(expectedMessage));
+    }
 
 
 }
