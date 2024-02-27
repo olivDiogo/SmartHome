@@ -4,18 +4,23 @@ import SmartHome.domain.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class SwitchSensorTest {
     @Test
     void newValidSwitchSensor() throws InstantiationException {
         // Arrange
-        String filePathName = "config.properties";
+
         String description = "Switch";
-        CatalogueSensor catalogue = new CatalogueSensor( filePathName );
-        catalogue.addSensorType( description, Unit.Switch, new SensorTypeFactory());
+
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         // Act
-        SwitchSensor switchSensor = new SwitchSensor( catalogue );
+        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble );
 
         // Assert
         assertNotNull( switchSensor );
@@ -24,57 +29,66 @@ class SwitchSensorTest {
     @Test
     void newInvalidSwitchSensor() throws InstantiationException {
         // Arrange
-        String filePathName = "config.properties";
-        CatalogueSensor catalogue = new CatalogueSensor( filePathName);
-        String expectedMessage = "SensorType with description 'Switch' does not exist.";
+        String description = "Switch";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
 
-        // Act & Assert
-        Exception exception = assertThrows( InstantiationException.class, () ->
-                new SwitchSensor( catalogue )
-        );
-        assertEquals( expectedMessage, exception.getMessage() );
+            when(catalogueDouble.getSensorType(description)).thenReturn(null);
+
+            // Act
+            Exception exception = assertThrows(InstantiationException.class, () -> new SwitchSensor( catalogueDouble ));
+
+            // Assert
+            assertEquals( "SensorType with description 'Switch' does not exist.", exception.getMessage() );
     }
 
     @Test
     void getSensorTypeReturnsCorrectSensorType() throws InstantiationException {
         // Arrange
-        String filePathName = "config.properties";
         String description = "Switch";
-        CatalogueSensor catalogue = new CatalogueSensor( filePathName );
-        catalogue.addSensorType( description, Unit.Switch, new SensorTypeFactory());
-        SwitchSensor switchSensor = new SwitchSensor( catalogue );
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble );
 
         // Act
         SensorType result = switchSensor.getSensorType();
 
         // Assert
-        assertEquals( description, result.getDescription() );
+        assertEquals( sensorTypeDouble, result );
     }
 
     @Test
     void getSensorTypeReturnsWrongSensorType() throws InstantiationException {
         // Arrange
-        String filePathName = "config.properties";
         String description = "Switch";
-        CatalogueSensor catalogue = new CatalogueSensor( filePathName );
-        catalogue.addSensorType( description, Unit.Switch, new SensorTypeFactory());
-        SwitchSensor switchSensor = new SwitchSensor( catalogue );
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        SensorType wrongSensorTypeDouble = mock(SensorType.class);
+
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble );
 
         // Act
         SensorType result = switchSensor.getSensorType();
 
         // Assert
-        assertNotEquals( "Temperature", result.getDescription() );
+        assertNotEquals( wrongSensorTypeDouble, result );
     }
 
     @Test
     void getValueReturnsOff() throws InstantiationException {
         // Arrange
-        String filePathName = "config.properties";
         String description = "Switch";
-        CatalogueSensor catalogue = new CatalogueSensor( filePathName );
-        catalogue.addSensorType( description, Unit.Switch, new SensorTypeFactory());
-        SwitchSensor switchSensor = new SwitchSensor( catalogue );
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble );
 
         // Act
         Value result = switchSensor.getValue();
