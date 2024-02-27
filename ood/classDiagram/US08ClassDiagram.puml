@@ -1,0 +1,69 @@
+@startuml
+!pragma layout smetana
+
+
+class DeactivateDevice_Controller {
+    'Attributes'
+    - house: House
+    - allDevices: List<Device>
+    - device: Device
+
+    'Methods'
+    +getDevices()
+    +deactivateDevice()
+}
+
+class DeviceAssembler{
+    'Methods'
+
+    +domainToDto()
+}
+
+class DeviceDTO{
+    'Attributes'
+    - deviceID: UUID
+    - name: String
+    - status: boolean
+
+    'Methods'
+    +DeviceDTO(name, id, status)
+    +domain2Dto()
+}
+
+class House {
+    'Attributes'
+    - rooms: List<Room>
+
+    'Methods'
+    +House()
+    +getRooms()
+}
+
+class Room{
+    'Attributes'
+    - id: UUID
+    - name: String
+    - devices: List<Device>
+
+    'Methods'
+    +Room()
+    +getDevices()
+}
+
+class Device {
+    'Attributes'
+    - id: UUID
+    - name: String
+    - status: String
+
+    'Methods'
+    +Device()
+    +deactivateDevice()
+}
+
+DeactivateDevice_Controller "1" ..> "1" House : uses
+DeactivateDevice_Controller "1" ..> "1" DeviceAssembler : uses
+DeviceAssembler ..>  DeviceDTO : creates
+House "1" *-- "0.*" Room : contains
+Room "1" o-- "0.*" Device : has
+@enduml

@@ -1,0 +1,53 @@
+@startuml
+
+participant " " as User
+participant ":Controller" as Controller
+participant ":LocationAssembler" as Assembler
+participant "locationDTO:LocationDTO" as LocationDTO
+participant ":House" as House
+participant "location:Location" as Location
+participant "address:Address" as Address
+participant "gpsLocation:GPS" as GPS
+
+autonumber
+User o-> Controller: configureLocation(street ,zipCode, doorNumber, latitude, longitude)
+activate Controller
+
+Controller -> House : configureLocation (street ,zipCode, doorNumber, latitude, longitude)
+activate House
+create Location
+
+House -> Location : configureLocation(street,zipCode, doorNumber, latitude, longitude)
+
+activate Location
+
+create Address
+Location -> Address : configureAddress (street,zipCode, doorNumber)
+activate Address
+
+Address --> Location : address
+deactivate Address
+
+create GPS
+Location -> GPS : configureGPS (latitude, longitude)
+activate GPS
+
+GPS --> Location : gpsLocation
+deactivate GPS
+Location --> House : location
+deactivate Location
+House --> Controller : location
+deactivate House
+Controller -> Assembler: createLocationDTO(location)
+activate Assembler
+create LocationDTO
+Assembler -> LocationDTO: domainToDTO(location)
+activate LocationDTO
+LocationDTO --> Assembler: locationDTO
+deactivate LocationDTO
+
+Assembler --> Controller: locationDTO
+deactivate Assembler
+Controller --> User: locationDTO
+deactivate Controller
+@enduml

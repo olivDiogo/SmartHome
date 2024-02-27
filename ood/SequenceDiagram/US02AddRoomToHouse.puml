@@ -1,0 +1,40 @@
+@startuml
+autonumber
+
+participant " " as User
+participant ":AddRoomToHouse" as Controller
+participant ":Assembler" as Assembler
+participant ":RoomDTO" as RoomDTO
+participant ":House" as House
+participant ":Room" as Room
+
+User -> Controller: addRoom
+activate Controller
+Controller -> House: addRoom(Name,Floor,Width, Lenght, Height)
+activate House
+create Room
+House -> Room: Room(Floor, Width, Lenght, Height)
+create RoomDimension
+activate Room
+Room -> RoomDimension: RoomDimension(Width, Lenght, Height)
+activate RoomDimension
+RoomDimension --> Room: RoomDimension
+deactivate RoomDimension
+deactivate Room
+Room --> House: room
+House -> House: addRoom(room)
+House --> Controller: room
+deactivate House
+Controller -> Assembler: domainToDTO(room)
+activate Assembler
+create RoomDTO
+Assembler -> RoomDTO: roomDTO(room)
+activate RoomDTO
+RoomDTO --> Assembler: roomDTO
+deactivate RoomDTO
+Assembler --> Controller: roomDTO
+deactivate Assembler
+Controller --> User: roomDTO
+deactivate Controller
+
+@enduml

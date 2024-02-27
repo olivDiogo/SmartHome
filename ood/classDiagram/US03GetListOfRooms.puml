@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/class-diagram
+!pragma layout smetana
+
+
+class GetListOfRoomsController {
+'Attributes'
+-_house : House
+
+'Methods'
++GetListOfRoomsController(house:House)
+-isValidConstructorArguments(house:house): boolean
++getRooms() : List<Room>
+}
+
+class RoomAssembler{
+
+'Methods'
++ Domain2DTO(room: Room): RoomDTO
++ Domain2DTO(List<Room> rooms): Map<RoomDTO, Room>
+}
+
+class House {
+'Attributes'
+-_rooms : List<Room>
+
+'Methods'
++House()
++getRooms() : List<Room>
+}
+
+class RoomDTO {
+'Attributes'
++name : String
++dimensions : Dimension
++floor : int
+-roomID : UUID
+
+'Methods'
++RoomDTO(room: Room)
++domain2DTO(List<Room> rooms): Map<RoomDTO, Room>
+}
+
+GetListOfRoomsController "1" ..> "1" House : uses
+RoomAssembler "1" ..> "1" RoomDTO : creates
+GetListOfRoomsController "1" ..> "1" RoomAssembler : uses
+
+@enduml

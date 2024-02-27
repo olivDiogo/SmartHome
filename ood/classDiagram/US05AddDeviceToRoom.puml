@@ -1,0 +1,48 @@
+@startuml
+!pragma layout smetana
+
+' Definição de classes
+class US05 {
+    -house: House
+    -roomsDTOAndRooms: Map<RoomDTO, Room>
+    +addDeviceToRoom(Room room, String deviceName)
+    +getRoomList(): List<Room>
+}
+
+class House {
+    -rooms: List<Room>
+    +getRoomList(): List<Room>
+}
+
+class Room {
+    -devices: List<Device>
+    +addDevice(deviceName: String)
+}
+
+class Device {
+    -deviceName: String
+    -status: boolean
+    -sensor: List<Sensor>
+    +createDevice(deviceName: String, status: boolean, sensor: List<Sensor>)
+}
+
+class DeviceAssembler {
+    +domainToDTO(device: Device): DeviceDTO
+}
+
+class DeviceDTO {
+    -deviceName: String
+    -status: boolean
+    +createDeviceDTO(): DeviceDTO
+}
+
+' Relacionamentos
+House "       1" ..* "0..*" Room : contains
+Room "1" --|> "                     0..*" Device : creates
+DeviceAssembler ..> DeviceDTO : "creates"
+US05 ..> House : "uses"
+US05 ..> DeviceAssembler : "uses"
+
+@enduml
+
+

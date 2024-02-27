@@ -1,0 +1,50 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class AddRoomToHouseController{
+- house: House
++addRoomToHouse(Name,Floor, Width, Lenght, Height)
+}
+
+class House{
+- Name: String
+- Floor: int
+- Width: double
+- Lenght: double
+- Height: double
++addRoom()
+}
+
+class Room{
+- Name: String
+- Floor: int
+- Width: double
+- Lenght: double
+- Height: double
++setName()
++setDimensions()
+}
+
+class RoomDimension{
+- Width: double
+- Lenght: double
+-Height: double
++setWidth()
++setLenght()
++setHeight()
+}
+
+class RoomAssembler{
++domainToDto(room)
+}
+
+class RoomDto{
++createRoomDto(room)
+}
+
+AddRoomToHouseController  ..>  House: uses
+House  ..>  Room: contains
+Room  ..>  RoomDimension: creates
+AddRoomToHouseController ..>  RoomAssembler: uses
+RoomAssembler  ..>  RoomDto: creates
+@enduml

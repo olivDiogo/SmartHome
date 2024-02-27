@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant " " as User
+
+participant ":DeactivateDevice_Controller" as AddSensorToDevice_Controller
+
+participant "DeviceAssembler" as DeviceAssembler
+
+participant ":deviceDTO: DeviceDTO" as DeviceDTO
+
+participant ":House" as House
+
+participant ":Room" as Room
+
+participant ":Device" as Device
+
+autonumber
+
+User o-> AddSensorToDevice_Controller: getDevices()
+
+activate AddSensorToDevice_Controller
+
+AddSensorToDevice_Controller -> House: getRooms()
+activate House
+House --> AddSensorToDevice_Controller: roomsList
+deactivate House
+
+AddSensorToDevice_Controller --> User: copyAllDTOdevices
+
+User o-> AddSensorToDevice_Controller: deactivateDevice()
+AddSensorToDevice_Controller -> AddSensorToDevice_Controller: checkIfDeviceExists()
+AddSensorToDevice_Controller -> Device: deactivateDevice()
+activate Device
+Device --> AddSensorToDevice_Controller: boolean
+deactivate Device
+
+AddSensorToDevice_Controller -> DeviceAssembler: domainToDTO(device)
+activate DeviceAssembler
+DeviceAssembler -> DeviceDTO: toDTO(device)
+activate DeviceDTO
+DeviceDTO --> DeviceAssembler: deviceDTO
+deactivate DeviceDTO
+DeviceAssembler --> AddSensorToDevice_Controller: deviceDTO
+deactivate DeviceAssembler
+AddSensorToDevice_Controller --> User: deviceDTO
+
+@enduml

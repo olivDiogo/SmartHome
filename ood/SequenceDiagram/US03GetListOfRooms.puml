@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant " " as User
+
+participant ":GetListOfRooms_Controller" as GetListOfRooms_Controller
+
+participant "roomAssembler:RoomAssembler" as RoomAssembler
+
+participant "roomDTO:RoomDTO" as RoomDTO
+
+participant "house:House" as House
+
+
+autonumber
+
+User o-> GetListOfRooms_Controller: getRooms()
+
+activate GetListOfRooms_Controller
+
+GetListOfRooms_Controller -> House: getRooms()
+
+activate House
+
+House --> GetListOfRooms_Controller: copyListOfRooms
+
+deactivate House
+
+loop  for each room in Rooms
+GetListOfRooms_Controller -> RoomAssembler: domain2DTO(copyListOfRooms)
+create RoomDTO
+activate RoomAssembler
+RoomAssembler -> RoomDTO: domain2DTO(copyListOfRooms)
+activate RoomDTO
+RoomDTO --> RoomAssembler: roomDTO
+deactivate RoomDTO
+RoomAssembler --> GetListOfRooms_Controller: roomDTO
+deactivate RoomAssembler
+end
+
+<-- GetListOfRooms_Controller : copylistOfRoomsDTO
+deactivate GetListOfRooms_Controller
+
+
+@enduml

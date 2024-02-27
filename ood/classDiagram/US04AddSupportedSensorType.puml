@@ -1,0 +1,51 @@
+@startuml
+!pragma layout smetana
+top to bottom direction
+skinparam linetype ortho
+
+class AddSensorTypeController {
+-Catalogue catalogue
++AddSensorTypeController(Catalogue catalogue)
++getAllSupportedUnits(): List<String>
++addSensorType(String name, String units): SensorTypeDTO
+}
+class Catalogue {
+-List<SensorType> sensorTypes
++Catalogue()
++addSensorType(String name, String units): SensorType
+}
+class SensorType {
+-String name
+-Unit unit
++SensorType(String name, String units)
++getName(): String
++getUnits(): String
+}
+enum Unit {
++TEMPERATURE
++HUMIDITY
++getName(): String
++getUnit():String name
++getAllSupportedUnits(): List<String>
+}
+class SensorTypeAssembler {
+
++sensorTypeToDTO(SensorType sensorType): SensorTypeDTO
+
+}
+class SensorTypeDTO {
+-String name
+-String units
++SensorTypeDTO(String name, String units)
++getName(): String
++getUnits(): String
+}
+
+AddSensorTypeController "1"-->"1" Catalogue: Uses
+Catalogue "1"--o "0..*  " SensorType: Composed
+SensorType "*"..>"1" Unit: Uses
+AddSensorTypeController "1"-->"1     " SensorTypeAssembler: Uses
+SensorTypeAssembler "1"..>"*" SensorTypeDTO: Creates
+
+
+@enduml
