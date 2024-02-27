@@ -7,6 +7,7 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CatalogueActuator {
     private List<ActuatorType> _listActuatorTypes;
@@ -34,5 +35,12 @@ public class CatalogueActuator {
     private boolean validateConstructorParameters(String strDescription) {
         return strDescription != null && !strDescription.trim().isEmpty();
     }
+
+    public List<ActuatorType> getActuatorTypes() {
+        return _listActuatorTypes;
+    }
+
+
+
 
 }
