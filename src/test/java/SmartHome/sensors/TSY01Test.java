@@ -1,7 +1,8 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.Catalogue;
+import SmartHome.domain.CatalogueSensors;
 import SmartHome.domain.SensorType;
+import SmartHome.domain.SensorTypeFactory;
 import SmartHome.domain.Unit;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.plist.PropertyListConfiguration;
@@ -9,15 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TSY01Test
-{
+class TSY01Test {
     @Test
     void NewValidTSY01() throws InstantiationException
     {
         // arrange
         Configuration config = new PropertyListConfiguration();
-        Catalogue catalogue = new Catalogue( config );
-        SensorType sensorType = catalogue.addSensorType( "Humidity", Unit.Humidity );
+        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        SensorType sensorType = catalogue.addSensorType( "Humidity", Unit.Humidity, new SensorTypeFactory());
         // act
         TSY01 tsy01 = new TSY01( catalogue );
 
@@ -28,12 +28,10 @@ class TSY01Test
     }
 
     @Test
-    void NewInexistentSensorTypeForTSY01()
-    {
+    void NewInexistentSensorTypeForTSY01() throws InstantiationException {
         // arrange
-        Configuration config = new PropertyListConfiguration();
-        Catalogue catalogue = new Catalogue( config );
-        // SensorType sensorType = catalogue.addSensorType( "Humidity", Unit.Humidity );
+        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        //SensorType sensorType = catalogue.addSensorType( "Humidity", Unit.Humidity, new SensorTypeFactory() );
         String expectedMessage = "SensorType with description 'Humidity' does not exist.";
 
         // act + assert
@@ -46,4 +44,5 @@ class TSY01Test
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
 }

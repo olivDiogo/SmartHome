@@ -1,15 +1,23 @@
 package SmartHome.dto;
 
+
 import SmartHome.domain.Location;
 
 public class LocationDTO
 {
-    public final String street;
-    public final String postalCode;
+    public final String _address;
+    public final String _gps;
 
     public LocationDTO( Location location )
     {
-        this.street = location.getStreet();
-        this.postalCode = location.getPostalCode();
+        this._address = location.getAddress().toString();
+        this._gps = location.getGpsLocation().toString();
+    }
+    @Override
+    public String toString() {
+        return "Location{" +
+                _address.toString() +
+                _gps.toString() +
+                '}';
     }
 }

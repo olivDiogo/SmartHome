@@ -2,241 +2,218 @@ package SmartHome.domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-class RoomTest
-{
+public class RoomTest {
+
     @Test
-    void NewValidRoom() throws InstantiationException {
-        // arrange
+    void testConstructRoom() {
+        // Arrange
+        Dimensions dimensionsDouble = mock(Dimensions.class);
+        DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
+        String name = "Room";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
 
-        // act
-        new Room( "Living Room", 0, 10, 9, 2.5);
+        when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
 
-        // act
-        // currently there is no methods to access the object, hence, for now, there is no way to check it
-        // then, for now, if it is created, it is ok
+        // Act
+        Room room = new Room(name, floor, width, length, height, dimensionsFactory);
+
+        // Assert
+        assertNotNull(room);
     }
 
     @Test
-    void NewEmptyNameRoom()
-    {
-        // arrange
-        String expectedMessage = "Invalid arguments";
+    void setNameShouldThrowExceptionWhenNameIsInvalid() {
+        // Arrange
+        Dimensions dimensionsDouble = mock(Dimensions.class);
+        DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
+        String name = " ";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            new Room( "", 0, 10, 9, 2.5)
-        );
+        when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
 
-        // assert
-        String actualMessage = exception.getMessage();
+        String expectedMessage = "Please enter a valid name for the room.";
 
-        // act
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Act
+        String exception = assertThrows(IllegalArgumentException.class, () -> new Room(name, floor, width, length, height, dimensionsFactory)).getMessage();
+
+        // Assert
+        assertTrue(exception.contains(expectedMessage));
     }
 
     @Test
-    void NewNullNameRoom()
-    {
-        // arrange
-        String expectedMessage = "Invalid arguments";
+    void testGetName() {
+        // Arrange
+        Dimensions dimensionsDouble = mock(Dimensions.class);
+        DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
+        String name = "Room";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            new Room( null, 0, 10, 9, 2.5)
-        );
+        when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
 
-        // assert
-        String actualMessage = exception.getMessage();
+        Room room = new Room(name, floor, width, length, height, dimensionsFactory);
 
-        // act
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Act
+        String result = room.getName();
+
+        // Assert
+        assertEquals(name, result);
     }
 
     @Test
-    void NewZeroLengthRoom()
-    {
-        // arrange
-        String expectedMessage = "Invalid arguments";
+    void testGetDimensions() {
+        // Arrange
+        Dimensions dimensionsDouble = mock(Dimensions.class);
+        DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
+        String name = "Room";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            new Room( "Living Room", 0, 0, 9, 2.5)
-        );
+        when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
 
-        // assert
-        String actualMessage = exception.getMessage();
+        Room room = new Room(name, floor, width, length, height, dimensionsFactory);
 
-        // act
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Act
+        Dimensions result = room.getDimensions();
+
+        // Assert
+        assertEquals(dimensionsDouble, result);
     }
 
     @Test
-    void NewNegativeLengthRoom()
-    {
-        // arrange
-        String expectedMessage = "Invalid arguments";
+    void testGetId() {
+        // Arrange
+        Dimensions dimensionsDouble = mock(Dimensions.class);
+        DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
+        String name = "Room";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            new Room( "Living Room", 0, -1, 9, 2.5)
-        );
+        when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
 
-        // assert
-        String actualMessage = exception.getMessage();
+        Room room = new Room(name, floor, width, length, height, dimensionsFactory);
 
-        // act
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Act
+        UUID result = room.getRoomId();
+
+        // Assert
+        assertNotNull(result);
     }
 
     @Test
-    void NewZeroWidthRoom()
-    {
-        // arrange
-        String expectedMessage = "Invalid arguments";
+    void testGetFloor() {
+        // Arrange
+        Dimensions dimensionsDouble = mock(Dimensions.class);
+        DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
+        String name = "Room";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            new Room( "Living Room", 0, 10, 0, 2.5)
-        );
+        when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
 
-        // assert
-        String actualMessage = exception.getMessage();
+        Room room = new Room(name, floor, width, length, height, dimensionsFactory);
 
-        // act
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Act
+        int result = room.getFloor();
+
+        // Assert
+        assertEquals(floor, result);
     }
 
     @Test
-    void NewNegativeWidthRoom()
-    {
-        // arrange
-        String expectedMessage = "Invalid arguments";
+    void shouldAddDeviceToRoomSuccessfully() {
+        // Arrange
+        Dimensions dimensionsDouble = mock(Dimensions.class);
+        DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
+        String name = "Room";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            new Room( "Living Room", 0, 10, -9, 2.5)
-        );
+        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        Device deviceDouble = mock(Device.class);
+        String deviceName = "Device";
 
-        // assert
-        String actualMessage = exception.getMessage();
+        when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
+        when(deviceFactory.createDevice(deviceName)).thenReturn(deviceDouble);
 
-        // act
-        assertTrue(actualMessage.contains(expectedMessage));
+        Room room = new Room(name, floor, width, length, height, dimensionsFactory);
+
+        // Act
+        Device result = room.addDevice(deviceName, deviceFactory);
+
+        // Assert
+        assertEquals(deviceDouble, result);
     }
 
     @Test
-    void NewZeroHeightRoom()
-    {
-        // arrange
-        String expectedMessage = "Invalid arguments";
+    void shouldReturnListOfDevices() {
+        // Arrange
+        Dimensions dimensionsDouble = mock(Dimensions.class);
+        DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
+        String name = "Room";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            new Room( "Living Room", 0, 10, 9, 0)
-        );
+        Device deviceDouble = mock(Device.class);
 
-        // assert
-        String actualMessage = exception.getMessage();
+        when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
 
-        // act
-        assertTrue(actualMessage.contains(expectedMessage));
+        Room room = new Room(name, floor, width, length, height, dimensionsFactory);
+        int expected = 1;
+
+        // Act
+        room.addDeviceToList(deviceDouble);
+
+        // Assert
+        assertEquals(expected, room.getDevices().size());
     }
 
     @Test
-    void NewNegativeHeightRoom()
-    {
-        // arrange
-        String expectedMessage = "Invalid arguments";
+    void shouldReturnEmptyListOfDevices() {
+        // Arrange
+        Dimensions dimensionsDouble = mock(Dimensions.class);
+        DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
+        String name = "Room";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            new Room( "Living Room", 0, 10, 9, -2.5)
-        );
+        when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
 
-        // assert
-        String actualMessage = exception.getMessage();
+        Room room = new Room(name, floor, width, length, height, dimensionsFactory);
+        int expected = 0;
 
-        // act
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Act
+        int result = room.getDevices().size();
+
+        // Assert
+        assertEquals(expected, result);
     }
 
-    @Test
-    void originallyRoomHasNoDevices() throws InstantiationException
-    {
-        // arrange
-        Room room = new Room( "Living Room", 0, 10, 9, 2.5);
 
-        // act
-
-        // assert
-        assertEquals(room.getDevices().size(), 0);
-    }
-    @Test
-    void addValidDevice() throws InstantiationException
-    {
-        // arrange
-        Room room = new Room( "Living Room", 0, 10, 9, 2.5);
-
-        // act
-        room.addDevice( "device1");
-
-        // assert
-        assertEquals( room.getDevices().size(), 1);
-    }
-
-    @Test
-    void add2ValidDevices() throws InstantiationException
-    {
-        // arrange
-        Room room = new Room( "Living Room", 0, 10, 9, 2.5);
-
-        // act
-        room.addDevice( "device1");
-        room.addDevice( "device2");
-
-        // assert
-        assertEquals( room.getDevices().size(), 2);
-    }
-
-    @Test
-    void NewEmptyNameDevice() throws InstantiationException
-    {
-        // arrange
-        Room livingRoom = new Room( "Living Room", 0, 10, 9, 2.5);
-        String expectedMessage = "Invalid arguments";
-
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            livingRoom.addDevice( "")
-        );
-
-        // assert
-        String actualMessage = exception.getMessage();
-
-        // act
-        assertTrue(actualMessage.contains(expectedMessage));
-        assertEquals(livingRoom.getDevices().size(), 0);
-    }
-
-    @Test
-    void NewNullNameDevice() throws InstantiationException
-    {
-        // arrange
-        Room livingRoom = new Room( "Living Room", 0, 10, 9, 2.5);
-        String expectedMessage = "Invalid arguments";
-
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            livingRoom.addDevice( null)
-        );
-
-        // assert
-        String actualMessage = exception.getMessage();
-
-        // act
-        assertTrue(actualMessage.contains(expectedMessage));
-        assertEquals(livingRoom.getDevices().size(), 0);
-    }
 }

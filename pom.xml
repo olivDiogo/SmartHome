@@ -10,7 +10,7 @@
 
     <properties>
         <!-- Java Version Configuration -->
-        <java.version>17</java.version>
+        <java.version>21</java.version>
 
         <!-- Maven Version Configuration -->
         <maven-compiler-plugin>3.10.1</maven-compiler-plugin>
@@ -22,17 +22,17 @@
         <project.reporting.outputEncoding>${project.sourceEncoding}</project.reporting.outputEncoding>
 
         <!-- Junit Version Configuration -->
-        <junit-jupiter>5.10.2</junit-jupiter>
+        <junit-jupiter>5.9.2</junit-jupiter>
 
         <!-- Coverage configuration -->
-        <jacoco-maven-plugin>0.8.11</jacoco-maven-plugin>
+        <jacoco-maven-plugin>0.8.8</jacoco-maven-plugin>
 
         <!-- Pitest Version Configuration-->
-        <pitest-maven>1.15.8</pitest-maven>
+        <pitest-maven>1.11.0</pitest-maven>
         <pitest-junit5-plugin>1.1.2</pitest-junit5-plugin>
 
         <!-- Surefire Version Configuration -->
-        <maven-surefire-plugin>3.2.5</maven-surefire-plugin>
+        <maven-surefire-plugin>3.0.0-M9</maven-surefire-plugin>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.10.0</version>
+            <version>3.5.10</version>
             <scope>test</scope>
         </dependency>
 
@@ -70,6 +70,12 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -124,7 +130,7 @@
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
-                <version>${pitest-maven}</version>
+                <version>1.15.0</version>
                 <dependencies>
                     <dependency> <!-- Only required because PITest does not work with JUnit5 without it -->
                         <groupId>org.pitest</groupId>

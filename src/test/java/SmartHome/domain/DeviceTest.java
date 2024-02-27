@@ -1,91 +1,158 @@
 package SmartHome.domain;
 
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.plist.PropertyListConfiguration;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-class DeviceTest
-{
+class DeviceTest {
+
     @Test
-    void NewValidDevice() throws InstantiationException
-    {
-        // arrange
+    void seeIfConstructorWorks() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        // Act & Assert
+        assertNotNull(device);
+    }
+    @Test
+    void constructorThrowsIllegalArgumentException() {
+        // Arrange
+        String expected = "Please enter a valid name for the device type.";
+        String name = " ";
+        // Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Device(name));
+        // Assert
+        assertEquals(expected, exception.getMessage());
+    }
+    @Test
+    void deactivateDeviceSuccessfully() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        // Act
+        boolean actualResult = device.deactivateDevice();
+        // Assert
+        assertTrue(actualResult);
+    }
+    @Test
+    void getNameShouldReturnName() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        // Act
+        String actualResult = device.getName();
+        // Assert
+        assertEquals(deviceName, actualResult);
+    }
+    @Test
+    void getStatusShouldReturnStatus() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        // Act
+        boolean actualResult = device.getStatus();
+        // Assert
+        assertFalse(actualResult);
+    }
+    @Test
+    void getDeviceIdShouldReturnDeviceId() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        // Act
+        UUID deviceID = device.getDeviceId();
+        // Assert
+        assertNotNull(deviceID);
+    }
+    @Test
+    void getDeviceFunctionalitiesShouldReturnList() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        Sensor sensorDouble = mock(Sensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
 
-        // act
-        new Device( "device1");
+        when(sensorDouble.getSensorType()).thenReturn(sensorTypeDouble);
+        when(sensorTypeDouble.getDescription()).thenReturn("Temperature");
 
-        // assert
-        // currently there is no methods to access the object, hence, for now, there is no way to check it
-        // then, for now, if it is created, it is ok
+        device.addSensorToDevice(sensorDouble);
+
+        // Act
+        List<String> functionalities = device.getDeviceFunctionalities();
+
+        // Assert
+        assertEquals(1, functionalities.size());
+    }
+    @Test
+    void successfullyAddSensor() throws InstantiationException {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+
+        CatalogueSensors catalogueDouble = mock(CatalogueSensors.class);
+        Sensor sensorDouble = mock(Sensor.class);
+        String sensorModel = "model";
+        SensorFactory sensorFactory = mock(SensorFactory.class);
+
+        when(catalogueDouble.getSensor(sensorModel, sensorFactory)).thenReturn(sensorDouble);
+
+        // Act
+        Sensor actualResult = device.addSensor(sensorModel, catalogueDouble, sensorFactory);
+
+        // Assert
+        assertEquals(sensorDouble, actualResult);
     }
 
     @Test
-    void NewEmptyNameDevice()
-    {
-        // arrange
-        String expectedMessage = "Invalid arguments";
+    void addSensorReturnsNull() throws InstantiationException {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            new Device( "" )
-        );
+        CatalogueSensors catalogueDouble = mock(CatalogueSensors.class);
+        String sensorModel = "model";
 
-        // assert
-        String actualMessage = exception.getMessage();
+        when(catalogueDouble.getSensor(sensorModel, new SensorFactory())).thenReturn(null);
 
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Act
+        Sensor actualResult = device.addSensor(sensorModel, catalogueDouble, new SensorFactory());
+
+        // Assert
+        assertNull(actualResult);
     }
 
     @Test
-    void NewNullNameDevice()
-    {
-        // arrange
-        String expectedMessage = "Invalid arguments";
+    void successfullyAddSensorToDeviceList() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        Sensor sensorDouble = mock(Sensor.class);
+        String expected = "_sensors=[" + sensorDouble + "]";
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            new Device( null )
-        );
+        // Act
+        device.addSensorToDevice(sensorDouble);
 
-        // assert
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Assert
+        assertTrue(device.toString().contains(expected));
     }
 
     @Test
-    void addValidSensor() throws Exception
-    {
-        // arrange
-        Configuration config = new PropertyListConfiguration();
-        config.addProperty("sensor", "SmartHome.sensors.GA100K");
-        Catalogue catalogue = new Catalogue( config );
-        catalogue.addSensorType("Temperature", Unit.Temperature);
+    void addNullSensorToDeviceShouldReturnEmptyList() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        Sensor sensor = null;
+        String expected = "_sensors=[]";
 
-        Device device = new Device( "device1");
+        // Act
+        device.addSensorToDevice(sensor);
 
-        // act
-        Sensor sensor = device.addSensor( "SmartHome.sensors.GA100K", catalogue );
-
-        // assert
-        assertEquals( sensor.getSensorType().getDescription(), "Temperature" );
-        // how to check if sensor was added to the device?
-    }
-
-    @Test
-    void addInvalidSensor() throws Exception
-    {
-        // arrange
-        Configuration config = new PropertyListConfiguration();
-        Catalogue catalogue = new Catalogue( config );
-        Device device = new Device( "device1");
-
-        // act
-        Sensor sensor = device.addSensor( "123", catalogue );
-
-        // assert
-        assertNull( sensor );
+        // Assert
+        assertTrue(device.toString().contains(expected));
     }
 }

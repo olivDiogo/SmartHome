@@ -5,7 +5,7 @@ public class SensorType
     private final String _strDescription;
     private final Unit _unit;
 
-    public SensorType( String strDescription, Unit unit ) throws InstantiationException
+    protected SensorType( String strDescription, Unit unit ) throws InstantiationException
     {
         if( !isValidConstructorArguments(strDescription) )
             throw( new InstantiationException("Invalid arguments"));
@@ -16,7 +16,7 @@ public class SensorType
 
     private boolean isValidConstructorArguments( String strDescription )
     {
-        return strDescription != null && !strDescription.isEmpty();
+        return strDescription != null && !strDescription.trim().isEmpty();
 
         // implement here the rest of validations
     }

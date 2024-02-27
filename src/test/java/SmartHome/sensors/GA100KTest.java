@@ -1,23 +1,20 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.Catalogue;
+import SmartHome.domain.CatalogueSensors;
 import SmartHome.domain.SensorType;
+import SmartHome.domain.SensorTypeFactory;
 import SmartHome.domain.Unit;
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.plist.PropertyListConfiguration;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GA100KTest
-{
+class GA100KTest {
     @Test
     void NewValidGA100K() throws InstantiationException
     {
         // arrange
-        Configuration config = new PropertyListConfiguration();
-        Catalogue catalogue = new Catalogue( config );
-        SensorType sensorType = catalogue.addSensorType( "Temperature", Unit.Temperature );
+        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        SensorType sensorType = catalogue.addSensorType( "Temperature", Unit.Temperature, new SensorTypeFactory());
         // act
         GA100K ga100k = new GA100K( catalogue );
 
@@ -28,11 +25,9 @@ class GA100KTest
     }
 
     @Test
-    void NewInexistentSensorTypeForGA100K()
-    {
+    void NewNonexistentSensorTypeForGA100K() throws InstantiationException {
         // arrange
-        Configuration config = new PropertyListConfiguration();
-        Catalogue catalogue = new Catalogue( config );
+        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
         //SensorType sensorType = catalogue.addSensorType( "Temperature", Unit.Temperature );
         String expectedMessage = "SensorType with description 'Temperature' does not exist.";
 
@@ -46,4 +41,5 @@ class GA100KTest
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
 }

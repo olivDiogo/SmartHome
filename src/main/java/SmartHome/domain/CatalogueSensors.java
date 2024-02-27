@@ -1,29 +1,27 @@
 package SmartHome.domain;
-
-import java.io.File;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
-public class Catalogue
+public class CatalogueSensors
 {
-    private List<SensorType> _listSensorTypes = new ArrayList<>();
+    private List<SensorType> _listSensorTypes;
     private List<String> _listStringClassesSensors;
 
-    public Catalogue( Configuration config )
+   /* public CatalogueSensors(Configuration config )
     {
         // access configuration properties
         String [] arrayStringClassesSensors = config.getStringArray("sensor");
         this._listStringClassesSensors = List.of(arrayStringClassesSensors);
-    }
+    }*/
 
-    public Catalogue( String filePathname ) throws InstantiationException
+    public CatalogueSensors(String filePathname ) throws InstantiationException
     {
         Configurations configs = new Configurations();
         try
@@ -32,6 +30,7 @@ public class Catalogue
 
             // access configuration properties
             String [] arrayStringClassesSensors = config.getStringArray("sensor");
+            _listSensorTypes = new ArrayList<>();
             this._listStringClassesSensors = List.of(arrayStringClassesSensors);
         }
         catch (ConfigurationException exception)
@@ -41,13 +40,20 @@ public class Catalogue
         }
     }
 
-    public SensorType addSensorType(String strDescription, Unit unit) throws InstantiationException
+    //Validate that the sensor type is not already in the list
+    public SensorType addSensorType(String strDescription, Unit unit, SensorTypeFactory sensorTypeFactory) throws InstantiationException
     {
-        SensorType _sensor = new SensorType(strDescription, unit);
+        SensorType _sensorType = sensorTypeFactory.createSensorType(strDescription, unit);
 
-        this._listSensorTypes.add(_sensor);
+        addSensorTypeToList(_sensorType);
 
-        return _sensor;
+        return _sensorType;
+    }
+
+    protected SensorType addSensorTypeToList(SensorType sensorType)
+    {
+        this._listSensorTypes.add(sensorType);
+        return sensorType;
     }
 
     public SensorType getSensorType( String strDescription )
@@ -57,30 +63,23 @@ public class Catalogue
         return optSensorType.orElse(null);
     }
 
-    public List<String> getSensorModels()
+    public List<SensorType> getSensorTypes()
     {
-        return new ArrayList<>(this._listStringClassesSensors);
+        return List.copyOf(this._listSensorTypes);
     }
 
-    public Sensor getSensor( String strModel )
+    public List<String> getSensorModels()
     {
-        Optional<String> optSensorType = this.getSensorModels().stream().filter(s -> s.equals(strModel) ).findFirst();
+        return List.copyOf(this._listStringClassesSensors);
+    }
+
+    public Sensor getSensor(String strModel, SensorFactory sensorFactory) throws InstantiationException {
+        Optional<String> optSensorType = this.getSensorModels().stream().filter(s -> s.equals(strModel)).findFirst();
 
         if(optSensorType.isPresent())
         {
-            try {
-                Sensor sensor = (Sensor) Class.forName(strModel).getConstructor(Catalogue.class).newInstance(this);
+                Sensor sensor = sensorFactory.createSensor(strModel, this);
                 return sensor;
-            }
-            // due to the previous conditions, exception will not throw, but Class.forName... requires the catch
-            catch(  ClassNotFoundException |
-                    NoSuchMethodException |
-                    InstantiationException |
-                    IllegalAccessException |
-                    InvocationTargetException e )
-            {
-                return null;
-            }
         }
         else
             return null;

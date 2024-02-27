@@ -1,5 +1,6 @@
 package SmartHome.sensors;
 
+
 import SmartHome.domain.Value;
 
 public class TSY01Value implements Value

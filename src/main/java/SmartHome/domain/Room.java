@@ -1,78 +1,65 @@
 package SmartHome.domain;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-public class Room
-{
-    private final String _strName;
-    private final int _nFloor;
-    private final double _dLength;
-    private final double _dWidth;
-    private final double _dHeight;
 
-    private List<Device> _listDevices = new ArrayList<>();
-
-    public Room(String strName, int nFloor, double dLenght, double dWidth, double dHeight) throws InstantiationException
-    {
-        if( !isValidConstructorArguments(strName, nFloor, dLenght, dWidth, dHeight) )
-            throw( new InstantiationException("Invalid arguments"));
-
-        this._strName = strName;
-        this._nFloor = nFloor;
-        this._dLength = dLenght;
-        this._dWidth = dWidth;
-        this._dHeight = dHeight;
+public class Room {
+    private String _name;
+    private int _floor;
+    private DimensionsFactory _dimensionsFactory;
+    private Dimensions _dimensions;
+    private UUID _roomId;
+    private List<Device> _deviceList;
+    protected Room(String name, int floor, double width, double length, double height, DimensionsFactory dimensionsFactory) throws IllegalArgumentException {
+        _dimensionsFactory = dimensionsFactory;
+        setName(name);
+        setDimension(width, length, height);
+        this._floor = floor;
+        this._deviceList = new ArrayList<>();
+        this._roomId = UUID.randomUUID();
+    }
+    private void setDimension (double width, double length, double height) {
+        Dimensions dimensions = _dimensionsFactory.createDimensions(width, length, height);
+        if (dimensions == null) {
+            throw new IllegalArgumentException("Invalid dimensions");
+        }
+        else this._dimensions = dimensions;
     }
 
-    private boolean isValidConstructorArguments( String strName, int nFloor, double dLength, double dWidth, double dHeight )
-    {
-        if( strName==null || strName.isEmpty() )
-            return false;
-        if( dLength<=0 || dWidth<=0 || dHeight<=0  )
-            return false;
-
-        // implement here the rest of validations
-
-        return true;
+    private void setName(String name) throws IllegalArgumentException {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Please enter a valid name for the room.");
+        }
+        this._name = name;
     }
 
-    public Device addDevice( String strName ) throws InstantiationException
-    {
-        Device device = new Device( strName );
-
-        this._listDevices.add( device );
-
+    public String getName() {
+        return this._name;
+    }
+    public Dimensions getDimensions() {
+        return this._dimensions;
+    }
+    public UUID getRoomId() {
+        return this._roomId;
+    }
+    public int getFloor() {
+        return this._floor;
+    }
+    public Device addDevice(String name, DeviceFactory deviceFactory) {
+        Device device = deviceFactory.createDevice(name);
+        addDeviceToList(device);
         return device;
     }
 
-    public List<Device> getDevices()
-    {
-        return new ArrayList<>( this._listDevices );
+    protected Device addDeviceToList(Device device) {
+        _deviceList.add(device);
+        return device;
+    }
+    public List<Device> getDevices() {
+        return List.copyOf(this._deviceList);
     }
 
-    public String getName()
-    {
-        return this._strName;
-    }
 
-    public double getLength()
-    {
-        return this._dLength;
-    }
-
-    public double getWidth()
-    {
-        return this._dWidth;
-    }
-
-    public double getHeight()
-    {
-        return this._dHeight;
-    }
-
-    public int getFloor()
-    {
-        return this._nFloor;
-    }
 }

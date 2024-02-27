@@ -1,7 +1,6 @@
 package SmartHome.domain;
 
-public interface Sensor
-{
+public interface Sensor {
     SensorType getSensorType();
 
     Value getValue();

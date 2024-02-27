@@ -4,149 +4,140 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-class HouseTest
-{
+class HouseTest {
+
     @Test
-    void defineValidLocation() throws InstantiationException
-    {
-        // arrange
-        House house = new House();
-
-        String strStreet = "Rua de S. Tomé, s/n";
-        String strPostalCode = "4200 Porto";
-
-        // act
-        Location location = house.defineLocation( strStreet, strPostalCode );
-
-        // assert
-        assertEquals(location.getStreet(), strStreet);
-        assertEquals(location.getPostalCode(), strPostalCode);
-
-        // how to check location set in house?
+    void seeIfConstructorWorks() {
+        // Arrange
+        House house = new House(new LocationFactory(), new RoomFactory());
+        // Act
+        // Assert
+        assertNotNull(house);
     }
 
     @Test
-    void defineInvalidStreetLocation()
-    {
-        // arrange
-        House house = new House();
+    void shouldReturnLocation() {
+        // Arrange
+        LocationFactory locationFactory = mock(LocationFactory.class);
+        RoomFactory roomFactory = mock(RoomFactory.class);
+        House house = new House(locationFactory, roomFactory);
+        Location locationDouble = mock(Location.class);
 
-        String strStreet = "";
-        String strPostalCode = "4200 Porto";
-        String expectedMessage = "Invalid Street or Postal Code";
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            house.defineLocation( strStreet, strPostalCode )
-        );
+        String street = "Rua de Teste";
+        String zipCode = "4000-007";
+        int doorNumber = 123;
+        double latitude = 41.14961;
+        double longitude = -8.61099;
 
-        // assert
-        String actualMessage = exception.getMessage();
+        when(locationFactory.createLocation(street, zipCode, doorNumber, latitude, longitude))
+                .thenReturn(locationDouble);
 
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Act
+        Location location = house.defineLocation(street, zipCode, doorNumber, latitude, longitude);
+
+        // Assert
+        assertEquals(locationDouble, location);
     }
 
     @Test
-    void defineInvalidPostalCodeLocation()
-    {
-        // arrange
-        House house = new House();
+    void shouldReturnRoom() {
+        // Arrange
+        LocationFactory locationFactory = mock(LocationFactory.class);
+        RoomFactory roomFactory = mock(RoomFactory.class);
+        House house = new House(locationFactory, roomFactory);
+        Room roomDouble = mock(Room.class);
 
-        String strStreet = "Rua de S. Tomé, s/n";
-        String strPostalCode = null;
-        String expectedMessage = "Invalid Street or Postal Code";
+        String name = "Room";
+        int floor = 1;
+        double length = 10;
+        double width = 10;
+        double height = 10;
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            house.defineLocation( strStreet, strPostalCode )
-        );
+        when(roomFactory.createRoom(name, floor, length, width, height))
+                .thenReturn(roomDouble);
 
-        // assert
-        String actualMessage = exception.getMessage();
+        // Act
+        Room room = house.addRoom(name, floor, length, width, height);
 
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Assert
+        assertEquals(roomDouble, room);
     }
 
     @Test
-    void defineInvalidStreetAndPostalCodeLocation()
-    {
-        // arrange
-        House house = new House();
+    void shouldReturnListOfRooms() {
+        // Arrange
+        House house = new House(new LocationFactory(), new RoomFactory());
+        Room roomDouble = mock(Room.class);
 
-        String strStreet = null;
-        String strPostalCode = null;
-        String expectedMessage = "Invalid Street or Postal Code";
+        house.addRoomToList(roomDouble);
+        int expected = 1;
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            house.defineLocation( strStreet, strPostalCode )
-        );
+        // Act
+        List<Room> rooms = house.getRooms();
 
-        // assert
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
+        // Assert
+        assertEquals(rooms.size(), expected);
     }
 
     @Test
-    void originallyHouseHasNoRooms()
-    {
+    void shouldReturnEmptyListOfRooms() {
+        // Arrange
+        House house = new House(new LocationFactory(), new RoomFactory());
+        int expected = 0;
 
-        // arrange
-        House house = new House();
+        // Act
+        List<Room> rooms = house.getRooms();
 
-        // act
-        List<Room> listRooms = house.getRooms();
-
-        // assert
-        assertEquals(listRooms.size(), 0);
+        // Assert
+        assertEquals(rooms.size(), expected);
     }
 
     @Test
-    void addValidRoom() throws InstantiationException {
+    void shouldReturnListOfDevices() {
+        // Arrange
+        House house = new House(new LocationFactory(), new RoomFactory());
+        Room roomDouble = mock(Room.class);
+        Room roomDouble2 = mock(Room.class);
 
-        // arrange
-        House house = new House();
+        Device deviceDouble = mock(Device.class);
+        Device deviceDouble2 = mock(Device.class);
 
-        // act
-        Room livingRoom = house.addRoom( "Living Room", 0, 10, 9, 2.5);
+        when(roomDouble.getDevices())
+                    .thenReturn(List.of(deviceDouble));
+        when(roomDouble2.getDevices())
+                .thenReturn(List.of(deviceDouble2));
 
-        // assert
-        assertEquals(house.getRooms().size(), 1);
-        assertEquals( livingRoom.getDevices().size(), 0);
+        house.addRoomToList(roomDouble);
+        house.addRoomToList(roomDouble2);
+
+        int expected = 2;
+
+        // Act
+        List<Device> devices = house.getAllDevices();
+
+        // Assert
+        assertEquals(devices.size(), expected);
     }
 
     @Test
-    void add2ValidRooms() throws InstantiationException
-    {
-        // arrange
-        House house = new House();
+    void shouldReturnEmptyListOfDevices() {
+        // Arrange
+        House house = new House(new LocationFactory(), new RoomFactory());
+        Room roomDouble = mock(Room.class);
 
-        // act
-        house.addRoom( "Living Room1", 0, 10, 9, 2.5);
-        house.addRoom( "Living Room2", 0, 10, 9, 2.5);
+        house.addRoomToList(roomDouble);
+        int expected = 0;
 
-        // assert
-        assertEquals(house.getRooms().size(), 2);
-    }
-    @Test
-    void addInvalidRoom() {
-        // arrange
-        House house = new House();
-        String expectedMessage = "Invalid arguments";
+        // Act
+        List<Device> devices = house.getAllDevices();
 
-        // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
-            house.addRoom( null, 0, 10, 9, 2.5)
-        );
-
-        // assert
-        String actualMessage = exception.getMessage();
-
-        // assert
-        assertTrue(actualMessage.contains(expectedMessage));
-        assertEquals(house.getRooms().size(), 0);
+        // Assert
+        assertEquals(devices.size(), expected);
     }
 }

@@ -1,5 +1,4 @@
 package SmartHome.sensors;
-
 import SmartHome.domain.Value;
 
 public class GA100KValue implements Value

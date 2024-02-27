@@ -4,53 +4,101 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SensorTypeTest
-{
+class SensorTypeTest {
 
+    /**
+     * Tests the instantiation of the SensorType
+     * when the description is valid.
+     *
+     * @throws InstantiationException if the description is null
+     */
     @Test
-    void NewValidSensorType() throws InstantiationException
-    {
-        // arrange
+    void whenDescriptionIsValid_thenInstantiateSensorType() throws InstantiationException {
+        // Arrange
+        String strDescription = "Temperature";
 
-        // act
-        SensorType sensorType = new SensorType( "Humidity", Unit.Humidity );
+        // Act
+        new SensorType(strDescription, Unit.Temperature);
 
-        // assert
-        assertEquals( sensorType.getDescription(), "Humidity");
-        assertEquals( sensorType.getUnit(), Unit.Humidity );
+        // Assert
     }
 
+    /**
+     * Tests the instantiation of the SensorType
+     * when the description is null.
+     */
     @Test
-    void NewEmptyDescriptionSensorType()
-    {
-        // arrange
+    void whenDescriptionIsNull_thenThrowsException() {
+        // Arrange
+        String strDescription = null;
+
         String expectedMessage = "Invalid arguments";
 
-        // act + assert
-        Exception exception = assertThrows( InstantiationException.class, () ->
-            new SensorType( "", Unit.Humidity )
-        );
+        // Act + Assert
+        Exception exception = assertThrows(InstantiationException.class, () -> new SensorType(strDescription, Unit.Temperature));
 
-        // assert
+        // Assert
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * Tests the instantiation of the SensorType
+     * when the description is empty.
+     */
     @Test
-    void NewNullDescriptionSensorType()
-    {
-        // arrange
+    void whenDescriptionIsEmpty_thenThrowsException() {
+        // Arrange
+        String strDescription = "";
+
         String expectedMessage = "Invalid arguments";
 
-        // act + assert
-        Exception exception = assertThrows( InstantiationException.class, () ->
-                new SensorType( null, Unit.Humidity )
-        );
+        // Act + Assert
+        Exception exception = assertThrows(InstantiationException.class, () -> new SensorType(strDescription, Unit.Temperature));
 
-        // assert
+        // Assert
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    /**
+     * Tests the method getDescription
+     *
+     * @throws InstantiationException if the description is null
+     */
+    @Test
+    void getDescription() throws InstantiationException {
+        // Arrange
+        String strDescription = "Temperature";
+
+        SensorType sensorType = new SensorType(strDescription, Unit.Temperature);
+
+        // Act
+        String result = sensorType.getDescription();
+
+        // Assert
+        assertEquals(strDescription, result);
+    }
+
+    /**
+     * Tests the method getUnit
+     *
+     * @throws InstantiationException if the description is null
+     */
+    @Test
+    void getUnit() throws InstantiationException {
+        // Arrange
+        String strDescription = "Temperature";
+
+        SensorType sensorType = new SensorType(strDescription, Unit.Temperature);
+
+        // Act
+        Unit result = sensorType.getUnit();
+
+        // Assert
+        assertEquals(Unit.Temperature, result);
+    }
+
 }
