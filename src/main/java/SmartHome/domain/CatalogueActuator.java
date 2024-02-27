@@ -49,22 +49,19 @@ public class CatalogueActuator {
 
     /**
      * Gets the list of actuator types.
-     * @return the list of actuator types
+     * @return a copy of the list of actuator types
      */
     public List<ActuatorType> getActuatorTypes() {
-        return _listActuatorTypes;
+        return List.copyOf(_listActuatorTypes);
     }
 
     /**
      * Gets the list of actuator models.
-     * @return the list of actuator models
+     * @return a copy of the list of actuator models
      */
     public List<String> getActuatorModels(){
-        return _listStringClassesActuator;
+        return List.copyOf(_listStringClassesActuator);
     }
-
-
-
 
 
 }
