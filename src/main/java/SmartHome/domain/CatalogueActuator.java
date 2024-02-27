@@ -40,6 +40,11 @@ public class CatalogueActuator {
         return _listActuatorTypes;
     }
 
+    public List<String> getActuatorModels(){
+        return _listStringClassesActuator;
+    }
+
+
 
 
 
