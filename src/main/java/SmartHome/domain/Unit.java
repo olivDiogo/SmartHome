@@ -5,8 +5,10 @@ import java.util.List;
 
 public enum Unit
 {
+    Switch("Switch", "On/Off"),
     Temperature("Temperature",  "C"),
     Humidity("Humidity", "%");
+
 
 
     private final String type;

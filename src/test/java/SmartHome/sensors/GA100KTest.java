@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GA100KTest {
     @Test
-    void NewValidGA100K() throws InstantiationException
+    void newValidGA100K() throws InstantiationException
     {
         // arrange
         CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
@@ -25,7 +25,7 @@ class GA100KTest {
     }
 
     @Test
-    void NewNonexistentSensorTypeForGA100K() throws InstantiationException {
+    void newNonexistentSensorTypeForGA100K() throws InstantiationException {
         // arrange
         CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
         //SensorType sensorType = catalogue.addSensorType( "Temperature", Unit.Temperature );
@@ -41,5 +41,4 @@ class GA100KTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
-
 }
