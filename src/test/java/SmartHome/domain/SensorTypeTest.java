@@ -35,7 +35,7 @@ class SensorTypeTest {
         String expectedMessage = "Invalid arguments";
 
         // Act + Assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new SensorType(strDescription, Unit.Temperature));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorType(strDescription, Unit.Temperature));
 
         // Assert
         String actualMessage = exception.getMessage();
@@ -55,7 +55,7 @@ class SensorTypeTest {
         String expectedMessage = "Invalid arguments";
 
         // Act + Assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new SensorType(strDescription, Unit.Temperature));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorType(strDescription, Unit.Temperature));
 
         // Assert
         String actualMessage = exception.getMessage();
@@ -99,6 +99,21 @@ class SensorTypeTest {
 
         // Assert
         assertEquals(Unit.Temperature, result);
+    }
+    @Test
+    void whenUnitIsNull_thenThrowsException() {
+        // Arrange
+        Unit unit = null;
+
+        String expectedMessage = "Invalid arguments";
+
+        // Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorType("Temperature", unit));
+
+        // Assert
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
 }

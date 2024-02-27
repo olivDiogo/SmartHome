@@ -1,5 +1,7 @@
 package SmartHome.domain;
 
+import SmartHome.dto.RoomDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,7 +18,7 @@ public class Room {
         _dimensionsFactory = dimensionsFactory;
         setName(name);
         setDimension(width, length, height);
-        this._floor = floor;
+        setFloor(floor);
         this._deviceList = new ArrayList<>();
         this._roomId = UUID.randomUUID();
     }
@@ -33,6 +35,9 @@ public class Room {
             throw new IllegalArgumentException("Please enter a valid name for the room.");
         }
         this._name = name;
+    }
+    private void setFloor (int floor){
+        this._floor = floor;
     }
 
     public String getName() {
