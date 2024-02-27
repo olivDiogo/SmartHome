@@ -1,22 +1,32 @@
 package SmartHome.domain;
 
+import SmartHome.controller.AddSensorToDeviceController;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class CatalogueSensorsTest {
+class CatalogueSensorTest {
     @Test
-    void newConfiguredCatalogueFromExistingFile() throws InstantiationException
-    {
+    void newConfiguredCatalogueFromExistingFile() throws InstantiationException, ConfigurationException {
         // arrange
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
+        House house = new House(new LocationFactory(), new RoomFactory());
+        AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
+
+        Configurations configs = new Configurations();
+        Configuration config = configs.properties("config.properties");
+        int supportedSensors = config.getStringArray("sensor").length;
 
         // act
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogueFromPath = new CatalogueSensor( "config.properties" );
 
         // assert
-        assertEquals( catalogue.getSensorModels().size(), 2);
+        assertEquals(supportedSensors, catalogueFromPath.getSensorModels().size());
     }
 
     @Test
@@ -27,7 +37,7 @@ class CatalogueSensorsTest {
 
         // act + assert
         Exception exception = assertThrows( InstantiationException.class, () ->
-                new CatalogueSensors( "asdfasdfasdf" )
+                new CatalogueSensor( "asdfasdfasdf" )
         );
 
         // assert
@@ -53,7 +63,7 @@ class CatalogueSensorsTest {
     void getExistingSensorType() throws InstantiationException
     {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         String strDescription = "Humidity";
@@ -74,7 +84,7 @@ class CatalogueSensorsTest {
     void whenGetEmptySensorTypeList_thenReturnsNull() throws InstantiationException
     {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         String strDescription = "Temperature";
 
         // act
@@ -88,7 +98,7 @@ class CatalogueSensorsTest {
     void addValidSensorType() throws InstantiationException
     {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         SensorType sensorTypeDouble = mock(SensorType.class);
         SensorTypeFactory sensorTypeFactory = mock(SensorTypeFactory.class);
 
@@ -107,7 +117,7 @@ class CatalogueSensorsTest {
     @Test
     void addEmptyDescriptionSensorType_thenThrowsException() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         SensorTypeFactory sensorTypeFactory = mock(SensorTypeFactory.class);
 
         String strDescription = "";
@@ -123,7 +133,7 @@ class CatalogueSensorsTest {
     @Test
     void addNullDescriptionSensorType() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         SensorTypeFactory sensorTypeFactory = mock(SensorTypeFactory.class);
 
         String strDescription = null;
@@ -141,7 +151,7 @@ class CatalogueSensorsTest {
     void getSensorOfUniqueModel()  throws InstantiationException
     {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         Sensor sensorDouble = mock(Sensor.class);
         SensorFactory sensorFactory = mock(SensorFactory.class);
 
@@ -161,7 +171,7 @@ class CatalogueSensorsTest {
     void getNullSensorOfEmptyListOfModels() throws InstantiationException
     {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         SensorFactory sensorFactory = mock(SensorFactory.class);
 
         String strModel = "";

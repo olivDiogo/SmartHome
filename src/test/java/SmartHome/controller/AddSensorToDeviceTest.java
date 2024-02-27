@@ -19,7 +19,7 @@ public class AddSensorToDeviceTest {
     void NewAddSensorToDeviceController() throws InstantiationException {
         // arrange
 
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
 
         // act
@@ -68,7 +68,7 @@ public class AddSensorToDeviceTest {
     @Test
     void getNonEmptyRooms() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
         AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
 
@@ -89,7 +89,7 @@ public class AddSensorToDeviceTest {
     @Test
     void getEmptyRooms() throws InstantiationException {
         // assert
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
         AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
 
@@ -104,7 +104,7 @@ public class AddSensorToDeviceTest {
     @Test
     void getSizeOf2Rooms() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
         AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
 
@@ -128,7 +128,7 @@ public class AddSensorToDeviceTest {
     @Test
     void getDuplicatedEmptyRooms() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
         AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
 
@@ -142,7 +142,7 @@ public class AddSensorToDeviceTest {
     @Test
     void getDevicesFromExistingRoomWithoutDevices() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
         AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
 
@@ -165,7 +165,7 @@ public class AddSensorToDeviceTest {
     @Test
     void getDevicesFromExistingRoomWithDevice() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
         AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
 
@@ -191,7 +191,7 @@ public class AddSensorToDeviceTest {
     @Test
     void getDevicesFromExistingRoomWith2Devices() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
         AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
 
@@ -218,7 +218,7 @@ public class AddSensorToDeviceTest {
     @Test
     void GetEmptySensorModels() throws InstantiationException, ConfigurationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
         AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
 
@@ -236,7 +236,7 @@ public class AddSensorToDeviceTest {
     @Test
     void AddInexistingSensorModelToDevice() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
         AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
 
@@ -268,7 +268,7 @@ public class AddSensorToDeviceTest {
     @Test
     void AddExistingSensorModelToDevice() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
         AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
 

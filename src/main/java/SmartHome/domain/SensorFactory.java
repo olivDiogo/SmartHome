@@ -3,10 +3,10 @@ package SmartHome.domain;
 import java.lang.reflect.InvocationTargetException;
 
 public class SensorFactory {
-    public Sensor createSensor(String strModel, CatalogueSensors catalogue) throws InstantiationException {
+    public Sensor createSensor(String strModel, CatalogueSensor catalogue) throws InstantiationException {
         try {
             //String strModel2 = "SmartHome.".concat(strModel);
-            Sensor sensor = (Sensor) Class.forName(strModel).getConstructor(CatalogueSensors.class).newInstance(catalogue);
+            Sensor sensor = (Sensor) Class.forName(strModel).getConstructor(CatalogueSensor.class).newInstance(catalogue);
             return sensor;
         }
         // due to the previous conditions, exception will not throw, but Class.forName... requires the catch

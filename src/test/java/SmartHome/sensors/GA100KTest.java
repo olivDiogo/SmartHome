@@ -1,6 +1,6 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.CatalogueSensors;
+import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.SensorTypeFactory;
 import SmartHome.domain.Unit;
@@ -13,7 +13,7 @@ class GA100KTest {
     void newValidGA100K() throws InstantiationException
     {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         SensorType sensorType = catalogue.addSensorType( "Temperature", Unit.Temperature, new SensorTypeFactory());
         // act
         GA100K ga100k = new GA100K( catalogue );
@@ -27,7 +27,7 @@ class GA100KTest {
     @Test
     void newNonexistentSensorTypeForGA100K() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         //SensorType sensorType = catalogue.addSensorType( "Temperature", Unit.Temperature );
         String expectedMessage = "SensorType with description 'Temperature' does not exist.";
 

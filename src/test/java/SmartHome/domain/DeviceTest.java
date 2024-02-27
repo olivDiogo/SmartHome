@@ -94,7 +94,7 @@ class DeviceTest {
         String deviceName = "Device";
         Device device = new Device(deviceName);
 
-        CatalogueSensors catalogueDouble = mock(CatalogueSensors.class);
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         Sensor sensorDouble = mock(Sensor.class);
         String sensorModel = "model";
         SensorFactory sensorFactory = mock(SensorFactory.class);
@@ -114,7 +114,7 @@ class DeviceTest {
         String deviceName = "Device";
         Device device = new Device(deviceName);
 
-        CatalogueSensors catalogueDouble = mock(CatalogueSensors.class);
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         String sensorModel = "model";
 
         when(catalogueDouble.getSensor(sensorModel, new SensorFactory())).thenReturn(null);

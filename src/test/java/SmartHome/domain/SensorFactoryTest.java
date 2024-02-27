@@ -9,7 +9,7 @@ class SensorFactoryTest {
         void createSensor() throws InstantiationException {
             // arrange
             SensorFactory sensorFactory = new SensorFactory();
-            CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+            CatalogueSensor catalogue = new CatalogueSensor("config.properties");
             catalogue.addSensorType("Humidity", Unit.Humidity, new SensorTypeFactory());
             String strModel = "SmartHome.sensors.TSY01";
 

@@ -1,6 +1,6 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.CatalogueSensors;
+import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.Sensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
@@ -10,7 +10,7 @@ import java.util.Random;
 public class GA100K implements Sensor {
     private final SensorType _sensorType;
 
-    public GA100K(CatalogueSensors catalogue) throws InstantiationException
+    public GA100K(CatalogueSensor catalogue) throws InstantiationException
     {
         // this is a sensor of temperature
         SensorType sensorType = catalogue.getSensorType("Temperature");

@@ -1,6 +1,6 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.CatalogueSensors;
+import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorTypeFactory;
 import SmartHome.domain.Unit;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ class SwitchSensorTest {
         // Arrange
         String filePathName = "config.properties";
         String description = "Switch";
-        CatalogueSensors catalogue = new CatalogueSensors( filePathName );
+        CatalogueSensor catalogue = new CatalogueSensor( filePathName );
         catalogue.addSensorType( description, Unit.Switch, new SensorTypeFactory());
 
         // Act
@@ -27,7 +27,7 @@ class SwitchSensorTest {
     void newInvalidSwitchSensor() throws InstantiationException {
         // Arrange
         String filePathName = "config.properties";
-        CatalogueSensors catalogue = new CatalogueSensors( filePathName);
+        CatalogueSensor catalogue = new CatalogueSensor( filePathName);
         String expectedMessage = "SensorType with description 'Switch' does not exist.";
 
         // Act & Assert
@@ -42,7 +42,7 @@ class SwitchSensorTest {
         // Arrange
         String filePathName = "config.properties";
         String description = "Switch";
-        CatalogueSensors catalogue = new CatalogueSensors( filePathName );
+        CatalogueSensor catalogue = new CatalogueSensor( filePathName );
         catalogue.addSensorType( description, Unit.Switch, new SensorTypeFactory());
         SwitchSensor switchSensor = new SwitchSensor( catalogue );
 

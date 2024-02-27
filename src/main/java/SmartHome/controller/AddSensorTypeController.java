@@ -1,6 +1,6 @@
 package SmartHome.controller;
 
-import SmartHome.domain.CatalogueSensors;
+import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.SensorTypeFactory;
 import SmartHome.domain.Unit;
@@ -11,15 +11,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class AddSensorTypeController {
-    private CatalogueSensors _catalogue;
+    private CatalogueSensor _catalogue;
 
-    public AddSensorTypeController(CatalogueSensors catalogue) throws IllegalArgumentException {
+    public AddSensorTypeController(CatalogueSensor catalogue) throws IllegalArgumentException {
         if (!checksIfCatalogueInValidState(catalogue))
             throw new IllegalArgumentException("Catalogue is not in a valid state");
         else _catalogue = catalogue;
     }
 
-    private boolean checksIfCatalogueInValidState(CatalogueSensors catalogue) {
+    private boolean checksIfCatalogueInValidState(CatalogueSensor catalogue) {
         return (catalogue != null);
     }
 

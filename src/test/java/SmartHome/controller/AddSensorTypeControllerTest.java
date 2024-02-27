@@ -1,6 +1,6 @@
 package SmartHome.controller;
 
-import SmartHome.domain.CatalogueSensors;
+import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.Unit;
 import SmartHome.dto.SensorTypeDTO;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ class AddSensorTypeControllerTest {
     @Test
     void shouldReturnAllSupportedUnits() throws InstantiationException {
         // Arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         AddSensorTypeController controller = new AddSensorTypeController(catalogue);
         int result = Unit.getAllSupportedUnits().size();
         // Act
@@ -25,7 +25,7 @@ class AddSensorTypeControllerTest {
     @Test
     void shouldAddSensorTypeIfOfSupportedUnitType() throws InstantiationException {
         // Arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         AddSensorTypeController controller = new AddSensorTypeController(catalogue);
         // Act
         Optional<SensorTypeDTO> sensorTypeDTO = controller.addSensorType("Water Temperature", "Temperature");
@@ -35,14 +35,14 @@ class AddSensorTypeControllerTest {
     @Test
     void shouldThrowIllegalArgumentExceptionWhenNullCatalogue() {
         // Arrange
-        CatalogueSensors catalogue = null;
+        CatalogueSensor catalogue = null;
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(catalogue));
     }
     @Test
     void shouldReturnOptionalEmptyIfUnitNotSupported() throws InstantiationException {
         // Arrange
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         AddSensorTypeController controller = new AddSensorTypeController(catalogue);
         // Act
         Optional<SensorTypeDTO> sensorTypeDTO = controller.addSensorType("Water Pressure", "Pressure");

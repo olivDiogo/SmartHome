@@ -18,7 +18,7 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
     public void whenHouseAndCatalogueAreValid_thenInstantiateGetAllDevicesGroupedByFunctionalityController() throws InstantiationException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
 
         // Act
         new GetAllDevicesGroupedByFunctionalityController(house, catalogue);
@@ -36,7 +36,7 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
     public void whenHouseIsNull_thenThrowsException() throws InstantiationException {
         // Arrange
         House house = null;
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
 
         String expectedMessage = "Arguments cannot be null!";
 
@@ -59,7 +59,7 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
     public void whenCatalogueIsNull_thenThrowsException() throws InstantiationException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
-        CatalogueSensors catalogue = null;
+        CatalogueSensor catalogue = null;
 
         String expectedMessage = "Arguments cannot be null!";
 
@@ -81,7 +81,7 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
     public void whenGetDevicesWithNoFunctionality() throws InstantiationException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
 
         String roomName = "Living Room";
         int floor = 1;
@@ -115,7 +115,7 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
     public void get1DeviceWith1Functionality() throws InstantiationException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
 
         String roomName = "Living Room";
         int floor = 1;
@@ -153,7 +153,7 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
     public void get1DeviceWith2Functionalities() throws InstantiationException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
-        CatalogueSensors catalogue = new CatalogueSensors("config.properties");
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
 
         String roomName = "Living Room";
         int floor = 1;

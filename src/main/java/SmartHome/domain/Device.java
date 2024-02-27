@@ -43,7 +43,7 @@ public class Device {
         }
         return functionalities;
     }
-    public Sensor addSensor(String strModel, CatalogueSensors catalogue, SensorFactory sensorFactory) throws InstantiationException {
+    public Sensor addSensor(String strModel, CatalogueSensor catalogue, SensorFactory sensorFactory) throws InstantiationException {
         Sensor sensor = catalogue.getSensor( strModel, sensorFactory );
         sensor = addSensorToDevice(sensor);
         return sensor;

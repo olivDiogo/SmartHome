@@ -2,7 +2,7 @@ package SmartHome.sensors;
 
 
 
-import SmartHome.domain.CatalogueSensors;
+import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.Sensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
@@ -12,7 +12,7 @@ import java.util.Random;
 public class TSY01 implements Sensor {
     private final SensorType _sensorType;
 
-    public TSY01(CatalogueSensors catalogue) throws InstantiationException {
+    public TSY01(CatalogueSensor catalogue) throws InstantiationException {
         SensorType sensorType = catalogue.getSensorType("Humidity");
         if (sensorType == null)
             throw new InstantiationException("SensorType with description 'Humidity' does not exist.");

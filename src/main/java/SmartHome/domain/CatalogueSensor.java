@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class CatalogueSensors
+public class CatalogueSensor
 {
     private List<SensorType> _listSensorTypes;
     private List<String> _listStringClassesSensors;
@@ -21,7 +21,7 @@ public class CatalogueSensors
         this._listStringClassesSensors = List.of(arrayStringClassesSensors);
     }*/
 
-    public CatalogueSensors(String filePathname ) throws InstantiationException
+    public CatalogueSensor(String filePathname ) throws InstantiationException
     {
         Configurations configs = new Configurations();
         try

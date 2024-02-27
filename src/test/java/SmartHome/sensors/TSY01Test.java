@@ -1,6 +1,6 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.CatalogueSensors;
+import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.SensorTypeFactory;
 import SmartHome.domain.Unit;
@@ -16,7 +16,7 @@ class TSY01Test {
     {
         // arrange
         Configuration config = new PropertyListConfiguration();
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         SensorType sensorType = catalogue.addSensorType( "Humidity", Unit.Humidity, new SensorTypeFactory());
         // act
         TSY01 tsy01 = new TSY01( catalogue );
@@ -30,7 +30,7 @@ class TSY01Test {
     @Test
     void NewInexistentSensorTypeForTSY01() throws InstantiationException {
         // arrange
-        CatalogueSensors catalogue = new CatalogueSensors( "config.properties" );
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         //SensorType sensorType = catalogue.addSensorType( "Humidity", Unit.Humidity, new SensorTypeFactory() );
         String expectedMessage = "SensorType with description 'Humidity' does not exist.";
 

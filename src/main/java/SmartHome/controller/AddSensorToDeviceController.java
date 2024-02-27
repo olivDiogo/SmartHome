@@ -10,12 +10,12 @@ import java.util.Map;
 
 public class AddSensorToDeviceController {
     private final House _house;
-    private final CatalogueSensors _catalogue;
+    private final CatalogueSensor _catalogue;
     private Map<RoomDTO, Room> _roomsDTOAndRooms = new HashMap<>();
 
     private Map<DeviceDTO, Device> _devicesDTOAndDevices = new HashMap<>();
 
-    public AddSensorToDeviceController(House house, CatalogueSensors catalogue) throws InstantiationException {
+    public AddSensorToDeviceController(House house, CatalogueSensor catalogue) throws InstantiationException {
         if (!isValidConstructorArguments(house, catalogue))
             throw (new InstantiationException("Invalid arguments"));
 
@@ -23,7 +23,7 @@ public class AddSensorToDeviceController {
         _catalogue = catalogue;
     }
 
-    private boolean isValidConstructorArguments(House house, CatalogueSensors catalogue) {
+    private boolean isValidConstructorArguments(House house, CatalogueSensor catalogue) {
         return house != null && catalogue != null;
 
         // implement here the rest of validations

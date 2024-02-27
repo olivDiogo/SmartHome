@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GetAllDevicesGroupedByFunctionalityController {
-    private CatalogueSensors _catalogue;
+    private CatalogueSensor _catalogue;
     private House _house;
 
 
@@ -18,7 +18,7 @@ public class GetAllDevicesGroupedByFunctionalityController {
      * @param house is an instance of House
      * @throws InstantiationException if an error occurs
      */
-    public GetAllDevicesGroupedByFunctionalityController(House house, CatalogueSensors catalogue) throws InstantiationException {
+    public GetAllDevicesGroupedByFunctionalityController(House house, CatalogueSensor catalogue) throws InstantiationException {
         if (isValidConstructorArguments(house, catalogue))
             throw new InstantiationException("Arguments cannot be null!");
 
@@ -33,7 +33,7 @@ public class GetAllDevicesGroupedByFunctionalityController {
      * @param catalogue is an instance of Catalogue
      * @return true if the arguments are valid, false otherwise
      */
-    private boolean isValidConstructorArguments(House house, CatalogueSensors catalogue) {
+    private boolean isValidConstructorArguments(House house, CatalogueSensor catalogue) {
         return house == null || catalogue == null;
     }
 
