@@ -37,23 +37,22 @@ class GetDevicesFromRoomControllerTest {
 
         House house = new House(new LocationFactory(), new RoomFactory());
 
+        Room room = house.addRoom(roomName2, roomFloor, roomLength, roomWidth, roomHeight);
+
+        room.addDevice(deviceName1, new DeviceFactory());
+        room.addDevice(deviceName2, new DeviceFactory());
+        room.addDevice(deviceName3, new DeviceFactory());
+
         GetDevicesFromRoomController getDevicesFromRoomController = new GetDevicesFromRoomController(house);
 
-        house.addRoom(roomName1, roomFloor, roomLength, roomWidth, roomHeight);
-        Room room2 = house.addRoom(roomName2, roomFloor, roomLength, roomWidth, roomHeight);
-        UUID room2Id = room2.getRoomId();
-        house.addRoom(roomName3, roomFloor, roomLength, roomWidth, roomHeight);
-
-        room2.addDevice(deviceName1, new DeviceFactory());
-        room2.addDevice(deviceName2, new DeviceFactory());
-        room2.addDevice(deviceName3, new DeviceFactory());
-
-        List<RoomDTO> roomDTOS = getDevicesFromRoomController.getRooms();
-        RoomDTO roomDTO = roomDTOS.stream().filter(r -> r._roomId.equals(room2Id)).findFirst().get();
         int expected = 3;
 
         // Act
-        int result = getDevicesFromRoomController.getDevicesFromRoom(roomDTO).size();
+        List<RoomDTO> roomDTOS = getDevicesFromRoomController.getRooms();
+        RoomDTO roomDTO = roomDTOS.get(0);
+
+        List<DeviceDTO> deviceDTOList = getDevicesFromRoomController.getDevicesFromRoom(roomDTO);
+        int result = deviceDTOList.size();
 
         // Assert
         assertEquals(expected, result);
@@ -82,7 +81,8 @@ class GetDevicesFromRoomControllerTest {
         int expected = 2;
 
         //Act
-        int result = getDevicesFromRoomController.getRooms().size();
+        List <RoomDTO> roomDTOList = getDevicesFromRoomController.getRooms();
+        int result = roomDTOList.size();
 
         //Assert
         assertEquals(expected, result);
@@ -102,7 +102,8 @@ class GetDevicesFromRoomControllerTest {
         int expected = 0;
 
         //Act
-        int result = getDevicesFromRoomController.getRooms().size();
+        List <RoomDTO> roomDTOList = getDevicesFromRoomController.getRooms();
+        int result = roomDTOList.size();
 
         //Assert
         assertEquals(expected, result);

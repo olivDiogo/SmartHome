@@ -9,6 +9,7 @@ import SmartHome.dto.RoomAssembler;
 import SmartHome.dto.RoomDTO;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class GetDevicesFromRoomController {
         if (!isValidConstructorArguments(house))
             throw (new InstantiationException("Invalid arguments"));
         _house = house;
-        this._roomsDTOAndRooms = new HashMap<>();
+        this._roomsDTOAndRooms = new LinkedHashMap<>();
     }
 
     /**
