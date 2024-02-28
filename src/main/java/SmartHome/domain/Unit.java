@@ -1,5 +1,7 @@
 package SmartHome.domain;
 
+import SmartHome.sensors.PowerConsumptionSensor;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,7 +9,8 @@ public enum Unit
 {
     Switch("Switch", "On/Off"),
     Temperature("Temperature",  "C"),
-    Humidity("Humidity", "%");
+    Humidity("Humidity", "%"),
+    PowerConsumption("Power Consumption", "W");
 
 
 
