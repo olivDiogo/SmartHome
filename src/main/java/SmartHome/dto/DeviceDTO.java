@@ -7,18 +7,20 @@ import java.util.List;
 import java.util.UUID;
 
 public class DeviceDTO {
-    private String name;
-    private UUID deviceID;
-    private boolean status;
-    private RoomDTO roomDTO;
-    private List<String> deviceFunctionalities;
+    private String _name;
+    private UUID _deviceID;
+    private boolean _status;
+    private RoomDTO _roomDTO;
+    private List<String> _deviceFunctionalities;
+    private List<String> _listStringClassesSensors;
+
 
 
 
     public DeviceDTO(Device device) {
-        this.name = device.getName();
-        this.status = device.getStatus();
-        this.deviceID = device.getDeviceId();
+        this._name = device.getName();
+        this._status = device.getStatus();
+        this._deviceID = device.getDeviceId();
     }
 
 
@@ -29,28 +31,33 @@ public class DeviceDTO {
      * @param room is an instance of Room
      */
     public DeviceDTO(Device device, Room room) {
-        this.name = device.getName();
-        this.status = device.getStatus();
-        this.deviceID = device.getDeviceId();
-        this.roomDTO = RoomAssembler.domain2DTO(room);
-        this.deviceFunctionalities = device.getDeviceFunctionalities();
+        this._name = device.getName();
+        this._status = device.getStatus();
+        this._deviceID = device.getDeviceId();
+        this._roomDTO = RoomAssembler.domain2DTO(room);
+        this._deviceFunctionalities = device.getDeviceFunctionalities();
+        this._listStringClassesSensors = device.getSensorList();
     }
 
     public UUID getID (){
-        return this.deviceID;
+        return this._deviceID;
     }
 
     public List<String> getFunctionalities(){
-        return this.deviceFunctionalities;
+        return this._deviceFunctionalities;
+    }
+
+    public List<String> getSensorList(){
+        return this._listStringClassesSensors;
     }
 
     @Override
     public String toString() {
         return "DeviceDTO{" +
-                "name='" + name + '\'' +
-                ", status=" + status +
-                ", roomDTO=" + roomDTO +
-                ", deviceFunctionalities=" + deviceFunctionalities +
+                "name='" + _name + '\'' +
+                ", status=" + _status +
+                ", roomDTO=" + _roomDTO +
+                ", deviceFunctionalities=" + _deviceFunctionalities +
                 '}';
     }
 }
