@@ -30,8 +30,8 @@ public class CatalogueSensor
 
             // access configuration properties
             String [] arrayStringClassesSensors = config.getStringArray("sensor");
-            _listSensorTypes = new ArrayList<>();
-            this._listStringClassesSensors = List.of(arrayStringClassesSensors);
+            setListSensorTypes();
+            setListStringClassesSensors(arrayStringClassesSensors);
         }
         catch (ConfigurationException exception)
         {
@@ -40,20 +40,14 @@ public class CatalogueSensor
         }
     }
 
-    private void setListSensorTypes(List<SensorType> listSensorTypes)
+    private void setListSensorTypes()
     {
-        if(listSensorTypes == null || !listSensorTypes.isEmpty()){
-        throw new IllegalArgumentException("Please enter a valid sensor type list.");
-        }
-        this._listSensorTypes = listSensorTypes;
+        this._listSensorTypes = new ArrayList<>();
     }
 
-    private void setListStringClassesSensors(List<String> listStringClassesSensors)
+    private void setListStringClassesSensors(String [] arrayStringClassesSensors)
     {
-        if(listStringClassesSensors == null || !listStringClassesSensors.isEmpty()){
-            throw new IllegalArgumentException("Please enter a valid sensor class list.");
-        }
-        this._listStringClassesSensors = listStringClassesSensors;
+        this._listStringClassesSensors = List.of(arrayStringClassesSensors);
     }
 
     //Validate that the sensor type is not already in the list

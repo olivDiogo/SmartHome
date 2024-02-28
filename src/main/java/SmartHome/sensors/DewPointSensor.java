@@ -10,21 +10,23 @@ public class DewPointSensor implements Sensor {
 
     /**
      * Constructor of the class. It validates the sensor type.
+     *
      * @param catalogue The catalogue of sensors.
      * @throws InstantiationException If the sensor type does not exist.
      */
     public DewPointSensor(CatalogueSensor catalogue) throws InstantiationException {
-        this._sensorType = validationOfSensorType(catalogue);
-        }
+        this._sensorType = setSensorType(catalogue);
+    }
 
 
     /**
      * Validates the sensor type.
+     *
      * @param catalogue The catalogue of sensors.
      * @return The sensor type.
      * @throws InstantiationException If the sensor type does not exist.
      */
-    private SensorType validationOfSensorType (CatalogueSensor catalogue) throws InstantiationException {
+    private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
         SensorType sensorType = catalogue.getSensorType("DewPoint");
         if (sensorType == null)
             throw new InstantiationException("SensorType with description 'DewPoint' does not exist.");
@@ -35,7 +37,8 @@ public class DewPointSensor implements Sensor {
 
     /**
      * Gets the sensor type.
-      * @return The sensor type.
+     *
+     * @return The sensor type.
      */
     @Override
     public SensorType getSensorType() {
@@ -44,12 +47,13 @@ public class DewPointSensor implements Sensor {
 
     /**
      * Gets the value of the sensor. In this case is returning a fixed value, unitl the service with real data is implemented.
-      * @return The value measured by the sensor.
+     *
+     * @return The value measured by the sensor.
      */
     @Override
     public Value getValue() {
         int dewPointValue = 25;
 
-        return new DewPointValue(dewPointValue) ;
+        return new DewPointValue(dewPointValue);
     }
 }
