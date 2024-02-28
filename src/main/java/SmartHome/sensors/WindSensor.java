@@ -17,14 +17,18 @@ public class WindSensor implements Sensor{
      * @throws InstantiationException
      */
     public WindSensor(CatalogueSensor catalogue) throws InstantiationException {
+        this._sensorType = setSensorType(catalogue);
+    }
+
+    private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
         SensorType sensorType = catalogue.getSensorType("WindSpeedAndDirection");
-        if( sensorType == null){
+        if (sensorType == null)
             throw new InstantiationException("\"SensorType with description 'WindSpeedAndDirection' does not exist.\"");
-        }
         else {
-            this._sensorType = sensorType;
+            return sensorType;
         }
     }
+
     /**
      * Method to get the sensor type
      * @return SensorType
