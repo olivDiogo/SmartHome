@@ -30,14 +30,24 @@ public class CatalogueSensor
 
             // access configuration properties
             String [] arrayStringClassesSensors = config.getStringArray("sensor");
-            _listSensorTypes = new ArrayList<>();
-            this._listStringClassesSensors = List.of(arrayStringClassesSensors);
+            setListSensorTypes();
+            setListStringClassesSensors(arrayStringClassesSensors);
         }
         catch (ConfigurationException exception)
         {
             // Something went wrong
             throw new InstantiationException("something went wrong in reading the configuration: " + exception.getMessage());
         }
+    }
+
+    private void setListSensorTypes()
+    {
+        this._listSensorTypes = new ArrayList<>();
+    }
+
+    private void setListStringClassesSensors(String [] arrayStringClassesSensors)
+    {
+        this._listStringClassesSensors = List.of(arrayStringClassesSensors);
     }
 
     //Validate that the sensor type is not already in the list

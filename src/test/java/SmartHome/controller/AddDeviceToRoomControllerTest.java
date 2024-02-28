@@ -68,7 +68,7 @@ public class AddDeviceToRoomControllerTest {
         // Assert
         assertTrue(result.isPresent());
     }
-  
+
     @Test
     public void addDeviceToRoomWithInvalidDeviceNameShouldFail() {
         // Arrange
