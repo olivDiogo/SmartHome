@@ -7,7 +7,6 @@ import java.util.List;
 
 public class SensorDTO {
     private final SensorType _sensorType;
-    private List<String> _listStringClassesSensors;
 
     public SensorDTO(Sensor sensor) {
 
