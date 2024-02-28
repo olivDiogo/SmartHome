@@ -10,6 +10,7 @@ import SmartHome.domain.RoomFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,6 +41,7 @@ class GetDevicesFromRoomControllerTest {
 
         house.addRoom(roomName1, roomFloor, roomLength, roomWidth, roomHeight);
         Room room2 = house.addRoom(roomName2, roomFloor, roomLength, roomWidth, roomHeight);
+        UUID room2Id = room2.getRoomId();
         house.addRoom(roomName3, roomFloor, roomLength, roomWidth, roomHeight);
 
         room2.addDevice(deviceName1, new DeviceFactory());
@@ -47,7 +49,7 @@ class GetDevicesFromRoomControllerTest {
         room2.addDevice(deviceName3, new DeviceFactory());
 
         List<RoomDTO> roomDTOS = getDevicesFromRoomController.getRooms();
-        RoomDTO roomDTO = roomDTOS.stream().filter(r -> r.getRoomId().equals(room2.getRoomId())).findFirst().orElseThrow(() -> new IllegalArgumentException("Room not found"));
+        RoomDTO roomDTO = roomDTOS.stream().filter(r -> r._roomId.equals(room2Id)).findFirst().get();
         int expected = 3;
 
         // Act
