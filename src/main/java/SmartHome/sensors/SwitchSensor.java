@@ -6,23 +6,21 @@ import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 
 public class SwitchSensor implements Sensor {
-    private final SensorType _sensorType; // This needs to be initialized in the constructor
-    private boolean status;
+    private final SensorType _sensorType;
+    private SwitchSensorValue _value;
 
-    // Modified to use the passed 'catalogue' parameter correctly
     public SwitchSensor(CatalogueSensor catalogue) throws InstantiationException {
         this._sensorType = setSensorType(catalogue);
-        status = false;
+        this._value = new SwitchSensorValue(false);
     }
 
-    // Modified to return SensorType and use the passed 'catalogue' object
     private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
 
         SensorType sensorType = catalogue.getSensorType("Switch");
         if (sensorType == null)
             throw new InstantiationException("SensorType with description 'Switch' does not exist.");
         else {
-            return sensorType; // Return the sensorType instead of setting it directly
+            return sensorType;
         }
     }
 
@@ -33,6 +31,6 @@ public class SwitchSensor implements Sensor {
 
     @Override
     public Value getValue() {
-        return new SwitchSensorValue(status);
+        return this._value.clone();
     }
 }
