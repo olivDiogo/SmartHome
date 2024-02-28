@@ -16,8 +16,7 @@ public class SwitchActuatorTest {
      * @throws InstantiationException
      */
     @Test
-    void shouldCreateInstanceOfSwitchActuator() throws InstantiationException
-    {
+    void shouldCreateInstanceOfSwitchActuator() throws InstantiationException {
         // arrange
         String description = "SwitchActuator";
 
@@ -60,15 +59,16 @@ public class SwitchActuatorTest {
         // arrange
         String description = "SwitchActuator";
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
-
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
-        // act
         SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
 
+        // act
+        ActuatorType actuatorType = switchActuator.getActuatorType();
+
         // assert
-        assertEquals(switchActuator.getActuatorType(), actuatorTypeDouble);
+        assertEquals(actuatorType, actuatorTypeDouble);
     }
 
 
