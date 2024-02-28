@@ -9,7 +9,7 @@ public class RoomDTO {
     public final String _name;
     public final Dimensions _dimensions;
     public final int _floor;
-    private final UUID _roomId;
+    public final UUID _roomId;
 
     public RoomDTO(Room room)
     {
@@ -19,13 +19,5 @@ public class RoomDTO {
         this._roomId = room.getRoomId();
     }
 
-
-    public String getName() {
-        return _name;
-    }
-
-    public UUID getRoomId() {
-        return _roomId;
-    }
 
 }

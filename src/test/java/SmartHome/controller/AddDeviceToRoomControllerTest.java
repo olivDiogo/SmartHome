@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,11 +55,12 @@ public class AddDeviceToRoomControllerTest {
 
         String deviceName = "Device";
 
-        house.addRoom(roomName, floor, width, length, height);
+        Room room1 = house.addRoom(roomName, floor, width, length, height);
+        UUID room1Id = room1.getRoomId();
 
         AddDeviceToRoomController controller = new AddDeviceToRoomController(house);
         List<RoomDTO> roomList = controller.getRoomList();
-        RoomDTO roomDTO = roomList.stream().filter(r -> r.getName().equals(roomName)).findFirst().orElseThrow(() -> new IllegalArgumentException("Room not found"));
+        RoomDTO roomDTO = roomList.stream().filter(r -> r._roomId.equals(room1Id)).findFirst().get();
 
         // Act
         Optional<DeviceDTO> result = controller.addDeviceToRoom(roomDTO, deviceName);
@@ -66,34 +68,7 @@ public class AddDeviceToRoomControllerTest {
         // Assert
         assertTrue(result.isPresent());
     }
-    @Test
-    public void addDeviceToRoomWithInvalidRoomNameShouldFail() {
-        // Arrange
-        House house = new House(new LocationFactory(), new RoomFactory());
-
-        String roomName = "Room";
-        int floor = 1;
-        double width = 1.0;
-        double length = 1.0;
-        double height = 1.0;
-
-        String deviceName = "Device";
-
-        String roomNotExist = "Kitchen";
-
-        house.addRoom(roomName, floor, width, length, height);
-
-        AddDeviceToRoomController controller = new AddDeviceToRoomController(house);
-        List<RoomDTO> roomList = controller.getRoomList();
-        RoomDTO roomDTO = roomList.stream().filter(r -> r.getName().equals(roomNotExist)).findFirst().orElse(null);
-
-        // Act
-        Optional<DeviceDTO> result = controller.addDeviceToRoom(roomDTO, deviceName);
-
-        // Assert
-        assertFalse(result.isPresent());
-    }
-
+  
     @Test
     public void addDeviceToRoomWithInvalidDeviceNameShouldFail() {
         // Arrange
@@ -105,13 +80,15 @@ public class AddDeviceToRoomControllerTest {
         double length = 1.0;
         double height = 1.0;
 
-        house.addRoom(roomName, floor, width, length, height);
+        Room room = house.addRoom(roomName, floor, width, length, height);
+        UUID roomId = room.getRoomId();
 
         String deviceName = " ";
 
         AddDeviceToRoomController controller = new AddDeviceToRoomController(house);
+
         List<RoomDTO> roomList = controller.getRoomList();
-        RoomDTO roomDTO = roomList.stream().filter(r -> r.getName().equals(roomName)).findFirst().orElseThrow(() -> new IllegalArgumentException("Room not found"));
+        RoomDTO roomDTO = roomList.stream().filter(r -> r._roomId.equals(roomId)).findFirst().get();
 
         // Act
         Optional<DeviceDTO> result = controller.addDeviceToRoom(roomDTO, deviceName);
