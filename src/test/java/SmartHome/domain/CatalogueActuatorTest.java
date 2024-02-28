@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class CatalogueActuatorTest {
 
@@ -159,5 +161,64 @@ class CatalogueActuatorTest {
 
         //Assert
         assertEquals(expected, actuatorModelsList.size());
+    }
+
+    /**
+     * Tests if the Actuator Type is created and added to the list
+     * @throws InstantiationException if the actuator type cannot be created
+     */
+    @Test
+    void addValidActuatorType() throws InstantiationException {
+        //Arrange
+        CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        ActuatorTypeFactory actuatorTypeFactory = mock(ActuatorTypeFactory.class);
+
+        String strDescription = "Switch";
+
+        when(actuatorTypeFactory.createActuatorType(strDescription)).thenReturn(actuatorTypeDouble);
+        when(actuatorTypeDouble.getDescription()).thenReturn(strDescription);
+
+        //Act
+        ActuatorType actuatorType = catalogueActuator.addActuatorType(strDescription, actuatorTypeFactory);
+
+        //Assert
+        assertEquals(actuatorType, actuatorTypeDouble);
+    }
+
+    /**
+     * Tests if by trying to add an Actuator Type with an empty description an InstantiationException is thrown
+     * @throws InstantiationException
+     */
+    @Test
+    void addActuatorTypeWithEmptyDescription_thenThrowException() throws InstantiationException {
+        //Arrange
+        CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
+        ActuatorTypeFactory actuatorTypeFactory = mock(ActuatorTypeFactory.class);
+
+        String strDescription = "";
+
+        when(actuatorTypeFactory.createActuatorType(strDescription)).thenThrow(new InstantiationException());
+
+        //Act + Assert
+        assertThrows( InstantiationException.class, () -> catalogueActuator.addActuatorType(strDescription, actuatorTypeFactory));
+    }
+
+    /**
+     * Tests if by trying to add an Actuator Type with a null description an InstantiationException is thrown
+     * @throws InstantiationException if the actuator type cannot be created
+     */
+    @Test
+    void addActuatorTypeWithNullDescription_thenThrowException() throws InstantiationException {
+        //Arrange
+        CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
+        ActuatorTypeFactory actuatorTypeFactory = mock(ActuatorTypeFactory.class);
+
+        String strDescription = null;
+
+        when(actuatorTypeFactory.createActuatorType(strDescription)).thenThrow(new InstantiationException());
+
+        //Act + Assert
+        assertThrows( InstantiationException.class, () -> catalogueActuator.addActuatorType(strDescription, actuatorTypeFactory));
     }
 }

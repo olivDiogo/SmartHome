@@ -48,6 +48,33 @@ public class CatalogueActuator {
     }
 
     /**
+     * Instantiates an actuator type to the list of actuator types.
+     *
+     * @param strDescription the description of the actuator type
+     * @param actuatorTypeFactory the actuator type factory
+     * @return the created actuator type
+     * @throws InstantiationException if the actuator type cannot be created
+     */
+    public ActuatorType addActuatorType(String strDescription, ActuatorTypeFactory actuatorTypeFactory) throws InstantiationException {
+        ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(strDescription);
+
+        addActuatorTypeToList(actuatorType);
+
+        return actuatorType;
+    }
+
+    /**
+     * Adds an actuator type to the list of actuator types.
+     *
+     * @param actuatorType the actuator type to be added
+     * @return the actuator type added to the list
+     */
+    protected ActuatorType addActuatorTypeToList(ActuatorType actuatorType) {
+        this._listActuatorTypes.add(actuatorType);
+        return actuatorType;
+    }
+
+    /**
      * Gets the list of actuator types.
      * @return a copy of the list of actuator types
      */
