@@ -205,6 +205,10 @@ class CatalogueActuatorTest {
         assertThrows( InstantiationException.class, () -> catalogueActuator.addActuatorType(strDescription, actuatorTypeFactory));
     }
 
+    /**
+     * Tests if the Actuator is created and added to the list
+     * @throws InstantiationException
+     */
     @Test
     void getActuatorOfUniqueModel()  throws InstantiationException
     {
@@ -224,6 +228,10 @@ class CatalogueActuatorTest {
         assertEquals(actuator, actuatorDouble);
     }
 
+    /**
+     * Tests if the Actuator is created and added to the list if no actuator models exist
+     * @throws InstantiationException if the actuator cannot be created
+     */
     @Test
     void getNullSensorOfEmptyListOfModels() throws InstantiationException {
         // Arrange
@@ -239,6 +247,10 @@ class CatalogueActuatorTest {
         assertNull(actuator);
     }
 
+    /**
+     * Tests if the Actuator is created and added to the list if the actuator model does not exist
+     * @throws InstantiationException if the actuator cannot be created
+     */
     @Test
     void getNullSensorOfNonExistingModel() throws InstantiationException {
         // Arrange
@@ -252,5 +264,46 @@ class CatalogueActuatorTest {
 
         // Assert
         assertNull(actuator);
+    }
+
+    /**
+     * Tests if the Actuator Type is returned
+     * @throws InstantiationException if the actuator type cannot be created
+     */
+    @Test
+    void getActuatorType() throws InstantiationException {
+        // Arrange
+        CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        String strDescription = "LightSwitch";
+
+        catalogue.addActuatorTypeToList(actuatorTypeDouble);
+
+        when(actuatorTypeDouble.getDescription()).thenReturn(strDescription);
+
+        // Act
+        ActuatorType actuatorType = catalogue.getActuatorType(strDescription);
+
+        // Assert
+        assertEquals(actuatorType, actuatorTypeDouble);
+    }
+
+    /**
+     * Tests if the Actuator Type is returned when the description does not exist
+     * @throws InstantiationException
+     */
+    @Test
+    void getNonExistingActuatorType_thenReturnNull() throws InstantiationException {
+        // Arrange
+        CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
+
+        String strDescription = "LightSwitch";
+
+        // Act
+        ActuatorType actuatorType = catalogue.getActuatorType(strDescription);
+
+        // Assert
+        assertNull(actuatorType);
     }
 }
