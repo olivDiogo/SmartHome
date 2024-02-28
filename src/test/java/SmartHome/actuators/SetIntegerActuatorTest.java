@@ -18,6 +18,8 @@ public class SetIntegerActuatorTest {
     void shouldCreateInstanceOfSetIntegerActuator() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
+        int lowerLimit = 0;
+        int upperLimit = 100;
 
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
@@ -25,7 +27,7 @@ public class SetIntegerActuatorTest {
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
         // Act
-        new SetIntegerActuator(catalogueDouble);
+        new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
     }
 
     /**
@@ -35,12 +37,14 @@ public class SetIntegerActuatorTest {
     void createSetIntegerActuatorWithInvalidActuatorType_thenThrowException() {
         // Arrange
         String description = "SetInteger";
+        int lowerLimit = 0;
+        int upperLimit = 100;
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
 
         when(catalogueDouble.getActuatorType(description)).thenReturn(null);
 
         // Act
-        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(InstantiationException.class, () -> new SetIntegerActuator(catalogueDouble));
+        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(InstantiationException.class, () -> new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit));
 
         // Assert
         org.junit.jupiter.api.Assertions.assertEquals("ActuatorType with description 'SetInteger' does not exist.", exception.getMessage());
@@ -54,12 +58,14 @@ public class SetIntegerActuatorTest {
     void getActuatorTypeReturnsCorrectActuatorType() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
+        int lowerLimit = 0;
+        int upperLimit = 100;
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
 
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
 
         // Act
         ActuatorType actuatorType = setIntegerActuator.getActuatorType();
@@ -70,24 +76,105 @@ public class SetIntegerActuatorTest {
 
     /**
      * Should get a different actuator type than expected
-     * @throws InstantiationException
+     * @throws InstantiationException if the actuator type cannot be created
      */
     @Test
     void getActuatorTypeReturnsWrongActuatorType() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
+        int lowerLimit = 0;
+        int upperLimit = 100;
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
         ActuatorType actuatorTypeDouble2 = mock(ActuatorType.class);
 
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
 
         // Act
         ActuatorType actuatorType = setIntegerActuator.getActuatorType();
 
         // Assert
         assertNotEquals(actuatorTypeDouble2, actuatorType);
+    }
+
+    /**
+     * Set value in range.
+     * @throws InstantiationException if the value cannot be set
+     */
+    @Test
+    void setValueInRange() throws InstantiationException {
+        // Arrange
+        String description = "SetInteger";
+        int lowerLimit = 0;
+        int upperLimit = 100;
+        int value = 50;
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
+
+        // Act
+        int result = setIntegerActuator.setValueInRange(value);
+
+        // Assert
+        assertEquals(value, result);
+    }
+
+    /**
+     * Set value below lower limit.
+     * @throws InstantiationException if the value cannot be set
+     */
+    @Test
+    void setValueBelowLowerLimit_thenThrowException() throws InstantiationException {
+        // Arrange
+        String description = "SetInteger";
+        int lowerLimit = 0;
+        int upperLimit = 100;
+        int value = -1;
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
+
+        String expected = "Value cannot be less than the lower limit.";
+
+        // Act
+        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setIntegerActuator.setValueInRange(value));
+
+        // Assert
+        org.junit.jupiter.api.Assertions.assertEquals(expected, exception.getMessage());
+    }
+
+    /**
+     * Set value above upper limit.
+     * @throws InstantiationException if the value cannot be set
+     */
+    @Test
+    void setValueAboveUpperLimit_thenThrowException() throws InstantiationException {
+        // Arrange
+        String description = "SetInteger";
+        int lowerLimit = 0;
+        int upperLimit = 100;
+        int value = 101;
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
+
+        String expected = "Value cannot be greater than the upper limit.";
+
+        // Act
+        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setIntegerActuator.setValueInRange(value));
+
+        // Assert
+        org.junit.jupiter.api.Assertions.assertEquals(expected, exception.getMessage());
     }
 }

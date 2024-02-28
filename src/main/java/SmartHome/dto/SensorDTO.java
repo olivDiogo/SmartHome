@@ -12,6 +12,5 @@ public class SensorDTO {
     public SensorDTO(Sensor sensor) {
 
         this._sensorType= sensor.getSensorType();
-        this._listStringClassesSensors = sensor.getSensorList();
     }
 }
