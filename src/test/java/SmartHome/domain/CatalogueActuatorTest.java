@@ -75,12 +75,10 @@ class CatalogueActuatorTest {
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
 
         String strDescription = "Temperature";
-        Unit unit = Unit.Temperature;
-        ActuatorType actuatorType = new ActuatorType(strDescription, unit);
+        ActuatorType actuatorType = new ActuatorType(strDescription);
 
         String strDescription2 = "Humidity";
-        Unit unit2 = Unit.Humidity;
-        ActuatorType actuatorType2 = new ActuatorType(strDescription2, unit2);
+        ActuatorType actuatorType2 = new ActuatorType(strDescription2);
 
         List<ActuatorType> actuatorTypesList = new ArrayList<>();
 
@@ -126,12 +124,10 @@ class CatalogueActuatorTest {
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
 
         String strDescription = "Temperature";
-        Unit unit = Unit.Temperature;
-        ActuatorType actuatorType = new ActuatorType(strDescription, unit);
+        ActuatorType actuatorType = new ActuatorType(strDescription);
 
         String strDescription2 = "Humidity";
-        Unit unit2 = Unit.Humidity;
-        ActuatorType actuatorType2 = new ActuatorType(strDescription2, unit2);
+        ActuatorType actuatorType2 = new ActuatorType(strDescription2);
 
         List<ActuatorType> actuatorModelsList = new ArrayList<>();
 

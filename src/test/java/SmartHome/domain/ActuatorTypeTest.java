@@ -1,9 +1,9 @@
 package SmartHome.domain;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ActuatorTypeTest {
 
@@ -17,7 +17,7 @@ public class ActuatorTypeTest {
         String strDescription = "Temperature";
 
         // Act
-        new ActuatorType(strDescription, Unit.Temperature);
+        new ActuatorType(strDescription);
 
         // Assert
     }
@@ -34,12 +34,12 @@ public class ActuatorTypeTest {
         String expectedMessage = "Please enter a valid description for the actuator type.";
 
         // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorType(strDescription, Unit.Temperature));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorType(strDescription));
 
         // Assert
         String actualMessage = exception.getMessage();
 
-        assertTrue(actualMessage.contains(expectedMessage));
+        Assertions.assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
@@ -54,31 +54,24 @@ public class ActuatorTypeTest {
         String expectedMessage = "Please enter a valid description for the actuator type.";
 
         // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorType(strDescription, Unit.Temperature));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorType(strDescription));
 
         // Assert
         String actualMessage = exception.getMessage();
 
-        assertTrue(actualMessage.contains(expectedMessage));
+        Assertions.assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    /**
-     * Tests the instantiation of the ActuatorType
-     * when the description is null.
-     */
     @Test
-    void whenUnitIsNull_thenThrowsException() {
+    void getDescription() {
         // Arrange
         String strDescription = "Temperature";
+        ActuatorType actuatorType = new ActuatorType(strDescription);
 
-        String expectedMessage = "Please enter a valid unit for the actuator type.";
-
-        // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorType(strDescription, null));
+        // Act
+        String result = actuatorType.getDescription();
 
         // Assert
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
+        Assertions.assertEquals(result, strDescription);
     }
 }
