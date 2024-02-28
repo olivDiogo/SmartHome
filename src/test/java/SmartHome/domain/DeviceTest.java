@@ -19,6 +19,7 @@ class DeviceTest {
         // Act & Assert
         assertNotNull(device);
     }
+
     @Test
     void constructorThrowsIllegalArgumentException() {
         // Arrange
@@ -29,6 +30,7 @@ class DeviceTest {
         // Assert
         assertEquals(expected, exception.getMessage());
     }
+
     @Test
     void deactivateDeviceSuccessfully() {
         // Arrange
@@ -39,6 +41,7 @@ class DeviceTest {
         // Assert
         assertTrue(actualResult);
     }
+
     @Test
     void getNameShouldReturnName() {
         // Arrange
@@ -49,6 +52,7 @@ class DeviceTest {
         // Assert
         assertEquals(deviceName, actualResult);
     }
+
     @Test
     void getStatusShouldReturnStatus() {
         // Arrange
@@ -59,6 +63,7 @@ class DeviceTest {
         // Assert
         assertFalse(actualResult);
     }
+
     @Test
     void getDeviceIdShouldReturnDeviceId() {
         // Arrange
@@ -69,6 +74,7 @@ class DeviceTest {
         // Assert
         assertNotNull(deviceID);
     }
+
     @Test
     void getDeviceFunctionalitiesShouldReturnList() {
         // Arrange
@@ -88,6 +94,25 @@ class DeviceTest {
         // Assert
         assertEquals(1, functionalities.size());
     }
+
+    /**
+     * Test if the method getActuatorList returns a list with success.
+     */
+    @Test
+    void getActuatorListShouldReturnList() {
+        //Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+
+        int expected = 0;
+
+        //Act
+        int result = device.getActuatorList().size();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
     @Test
     void successfullyAddSensor() throws InstantiationException {
         // Arrange
@@ -155,4 +180,6 @@ class DeviceTest {
         // Assert
         assertTrue(device.toString().contains(expected));
     }
+
+
 }
