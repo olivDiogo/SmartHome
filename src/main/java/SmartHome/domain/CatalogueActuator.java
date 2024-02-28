@@ -83,6 +83,19 @@ public class CatalogueActuator {
     }
 
     /**
+     * Gets the actuator type with the specified description.
+     *
+     * @param strDescription the description of the actuator type
+     * @return the actuator type with the specified description
+     */
+    public ActuatorType getActuatorType(String strDescription) {
+
+        Optional<ActuatorType> optActuatorType = this._listActuatorTypes.stream().filter(s -> s.getDescription().equals(strDescription)).findFirst();
+
+        return optActuatorType.orElse(null);
+    }
+
+    /**
      * Gets the list of actuator models.
      * @return a copy of the list of actuator models
      */
