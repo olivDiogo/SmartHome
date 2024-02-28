@@ -42,16 +42,16 @@ public class CatalogueSensor
 
     private void setListSensorTypes(List<SensorType> listSensorTypes)
     {
-        if(listSensorTypes != null || !listSensorTypes.isEmpty()){
-        throw new IllegalArgumentException("Please enter a valid sensor type.");
+        if(listSensorTypes == null || !listSensorTypes.isEmpty()){
+        throw new IllegalArgumentException("Please enter a valid sensor type list.");
         }
         this._listSensorTypes = listSensorTypes;
     }
 
     private void setListStringClassesSensors(List<String> listStringClassesSensors)
     {
-        if(listStringClassesSensors != null || !listStringClassesSensors.isEmpty()){
-            throw new IllegalArgumentException("Please enter a valid sensor class.");
+        if(listStringClassesSensors == null || !listStringClassesSensors.isEmpty()){
+            throw new IllegalArgumentException("Please enter a valid sensor class list.");
         }
         this._listStringClassesSensors = listStringClassesSensors;
     }
