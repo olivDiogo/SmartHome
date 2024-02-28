@@ -27,6 +27,18 @@ public class Dimensions {
         }
         this._width = width;
     }
+
+    public double getHeight(){
+        return _height;
+    }
+
+    public double getLength(){
+        return _length;
+    }
+
+    public double getWidth(){
+        return _width;
+    }
     @Override
     public String toString() {
         return "Dimensions{" +
