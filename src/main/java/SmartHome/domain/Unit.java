@@ -10,7 +10,8 @@ public enum Unit
     Humidity("Humidity", "%"),
     PowerConsumption("Power Consumption", "W"),
     WindSpeedAndDirection("WindSpeedAndDirection", "km/h & Cardinal Points"),
-    SolarIrradiance("SolarIrradiance", "W/m^2");
+    SolarIrradiance("SolarIrradiance", "W/m^2"),
+    Percented("Percented", "%");
 
     private final String type;
     private final String unit;
