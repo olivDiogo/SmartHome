@@ -18,8 +18,4 @@ public class WindSensorValue implements Value {
     public String getDirection() {
         return _dValue;
     }
-    public String toString()
-    {
-        return this._nValue + " " + this._dValue + "";
-    }
 }

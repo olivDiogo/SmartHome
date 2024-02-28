@@ -2,8 +2,9 @@ package SmartHome.actuators;
 
 import SmartHome.domain.ActuatorType;
 import SmartHome.domain.CatalogueActuator;
+import SmartHome.domain.Actuator;
 
-public class SwitchActuator {
+public class SwitchActuator implements Actuator {
 
     private ActuatorType _actuatorType;
 
@@ -27,12 +28,17 @@ public class SwitchActuator {
     public void setActuatorType(CatalogueActuator catalogue) throws InstantiationException {
         ActuatorType actuatorType = catalogue.getActuatorType("SwitchActuator");
         if (actuatorType == null)
-            throw new InstantiationException("ActuatorType with description 'BinarySwitch' does not exist.");
+            throw new InstantiationException("ActuatorType with description 'SwitchActuator' does not exist.");
         else {
             this._actuatorType = actuatorType;
         }
     }
 
+    /**
+     * Gets the actuator type.
+     *
+     * @return the actuator type
+     */
     public ActuatorType getActuatorType(){
         return this._actuatorType;
     }
