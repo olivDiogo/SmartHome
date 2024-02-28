@@ -9,7 +9,8 @@ public enum Unit
     Temperature("Temperature",  "C"),
     Humidity("Humidity", "%"),
     PowerConsumption("Power Consumption", "W"),
-    WindSpeedAndDirection("WindSpeedAndDirection", "km/h & Cardinal Points");
+    WindSpeedAndDirection("WindSpeedAndDirection", "km/h & Cardinal Points"),
+    SolarIrradiance("SolarIrradiance", "W/m^2");
 
     private final String type;
     private final String unit;
