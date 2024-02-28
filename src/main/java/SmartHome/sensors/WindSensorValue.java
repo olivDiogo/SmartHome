@@ -12,10 +12,4 @@ public class WindSensorValue implements Value {
         this._nValue = nValue;
         this._dValue = direction;
     }
-    public int getSpeed() {
-        return _nValue;
-    }
-    public String getDirection() {
-        return _dValue;
-    }
 }
