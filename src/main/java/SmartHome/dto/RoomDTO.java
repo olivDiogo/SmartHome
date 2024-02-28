@@ -23,17 +23,7 @@ public class RoomDTO {
         return _name;
     }
 
-    public Dimensions getDimensions() {
-        return _dimensions;
-    }
-
-    public int getFloor() {
-        return _floor;
-    }
-
     public UUID getRoomId() {
         return _roomId;
     }
-
-
 }
