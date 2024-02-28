@@ -19,6 +19,7 @@ public class RoomDTO {
         this._roomId = room.getRoomId();
     }
 
+
     public String getName() {
         return _name;
     }
@@ -26,4 +27,5 @@ public class RoomDTO {
     public UUID getRoomId() {
         return _roomId;
     }
+
 }
