@@ -9,12 +9,14 @@ public class Device {
     private boolean _status;
     private List<Sensor> _sensors;
     private UUID _deviceId;
+    private List<Actuator> _actuators;
 
     public Device(String name) throws IllegalArgumentException {
         setName(name);
         this._sensors = new ArrayList<>();
         this._status = false;
         this._deviceId = UUID.randomUUID();
+        this._actuators = new ArrayList<>();
     }
     private void setName(String name) throws IllegalArgumentException{
         if (name == null || name.trim().isEmpty()) {
@@ -49,8 +51,16 @@ public class Device {
         for (Sensor sensor : _sensors) {
             sensorList.add(sensor.getSensorType().getDescription());
         }
-        return sensorList;
+        return List.copyOf(sensorList);
 
+    }
+
+    public List<String> getActuatorList() {
+        List<String> actuatorList = new ArrayList<>();
+        for (Actuator actuator : _actuators) {
+            actuatorList.add(actuator.getActuatorType().getDescription());
+        }
+        return List.copyOf(actuatorList);
     }
 
     public Sensor addSensor(String strModel, CatalogueSensor catalogue, SensorFactory sensorFactory) throws InstantiationException {
