@@ -1,5 +1,6 @@
 package SmartHome.dto;
 
+import SmartHome.domain.Actuator;
 import SmartHome.domain.Device;
 import SmartHome.domain.Room;
 
@@ -14,6 +15,8 @@ public class DeviceDTO {
     public List<String> _deviceFunctionalities;
     private List<String> _listStringClassesSensors;
 
+    private List<String> _actuators;
+
 
     public DeviceDTO(Device device) {
         this._name = device.getName();
@@ -21,6 +24,7 @@ public class DeviceDTO {
         this._deviceID = device.getDeviceId();
         this._deviceFunctionalities = device.getDeviceFunctionalities();
         this._listStringClassesSensors = device.getSensorList();
+        this._actuators = device.getActuatorList();
     }
 
     /**
