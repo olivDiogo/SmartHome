@@ -19,21 +19,5 @@ public class RoomDTO {
         this._roomId = room.getRoomId();
     }
 
-    public String getName() {
-        return _name;
-    }
-
-    public Dimensions getDimensions() {
-        return _dimensions;
-    }
-
-    public int getFloor() {
-        return _floor;
-    }
-
-    public UUID getRoomId() {
-        return _roomId;
-    }
-
 
 }
