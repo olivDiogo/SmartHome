@@ -7,7 +7,8 @@ public enum Unit
 {
     Switch("Switch", "On/Off"),
     Temperature("Temperature",  "C"),
-    Humidity("Humidity", "%");
+    Humidity("Humidity", "%"),
+    DewPoint ("DewPoint", "C");
 
 
 

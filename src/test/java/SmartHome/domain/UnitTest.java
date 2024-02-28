@@ -57,4 +57,32 @@ class UnitTest {
         assertEquals(expected, result.size());
     }
 
+    /**
+     * Test to check if the method getType returns the correct type for DewPoint
+      */
+    @Test
+    void shouldReturnTypeForDewPointInString() {
+        // Arrange
+        Unit unit = Unit.DewPoint;
+        String expected = "DewPoint";
+        // Act
+        String result = unit.getType();
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test to check if the method getUnit returns the correct unit for DewPoint
+     */
+    @Test
+    void shouldReturnUnitsForDewPointInString() {
+        // Arrange
+        Unit unit = Unit.DewPoint;
+        String expected = "C";
+        // Act
+        String result = unit.getUnit();
+        // Assert
+        assertEquals(expected, result);
+    }
+
 }
