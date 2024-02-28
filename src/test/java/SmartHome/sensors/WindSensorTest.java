@@ -101,7 +101,7 @@ class WindSensorTest {
         WindSensorValue value = (WindSensorValue) windSensor.getValue();
 
         //Assert
-        assertTrue(value._nValue >= 0 && value._nValue <= 408);
+        assertTrue(value._speed >= 0 && value._speed <= 408);
     }
 
     /**
@@ -121,6 +121,6 @@ class WindSensorTest {
         WindSensorValue value = (WindSensorValue) windSensor.getValue();
 
         //Assert
-        assertTrue(Arrays.asList(directions).contains(value._dValue));
+        assertTrue(Arrays.asList(directions).contains(value._direction));
     }
 }
