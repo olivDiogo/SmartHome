@@ -90,5 +90,24 @@ public class CatalogueActuator {
         return List.copyOf(_listStringClassesActuator);
     }
 
+    /**
+     * Instantiates an actuator if the actuator model required exists.
+     *
+     * @param strModel the model of the actuator
+     * @param actuatorFactory the actuator factory that instantiates the actuator
+     * @return the actuator instantiated
+     * @throws InstantiationException if the actuator cannot be created
+     */
+    public Actuator getActuator(String strModel, ActuatorFactory actuatorFactory) throws InstantiationException {
+        Optional<String> optActuatorType = this.getActuatorModels().stream().filter(s -> s.equals(strModel)).findFirst();
+
+        if(optActuatorType.isPresent())
+        {
+            Actuator actuator = actuatorFactory.createActuator(strModel, this);
+            return actuator;
+        }
+        else
+            return null;
+    }
 
 }

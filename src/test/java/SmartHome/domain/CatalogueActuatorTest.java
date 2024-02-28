@@ -221,4 +221,53 @@ class CatalogueActuatorTest {
         //Act + Assert
         assertThrows( InstantiationException.class, () -> catalogueActuator.addActuatorType(strDescription, actuatorTypeFactory));
     }
+
+    @Test
+    void getActuatorOfUniqueModel()  throws InstantiationException
+    {
+        // arrange
+        CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
+        Actuator actuatorDouble = mock(Actuator.class);
+        ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
+
+        String strModel = "SmartHome.actuators.SwitchActuator";
+
+        when(actuatorFactory.createActuator(strModel, catalogue)).thenReturn(actuatorDouble);
+
+        // act
+        Actuator actuator = catalogue.getActuator(strModel, actuatorFactory);
+
+        // assert
+        assertEquals(actuator, actuatorDouble);
+    }
+
+    @Test
+    void getNullSensorOfEmptyListOfModels() throws InstantiationException {
+        // Arrange
+        CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
+        ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
+
+        String strModel = "";
+
+        // Act
+        Actuator actuator = catalogue.getActuator(strModel, actuatorFactory);
+
+        // Assert
+        assertNull(actuator);
+    }
+
+    @Test
+    void getNullSensorOfNonExistingModel() throws InstantiationException {
+        // Arrange
+        CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
+        ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
+
+        String strModel = "SmartHome.actuators.ActuatorXYJ4563";
+
+        // Act
+        Actuator actuator = catalogue.getActuator(strModel, actuatorFactory);
+
+        // Assert
+        assertNull(actuator);
+    }
 }
