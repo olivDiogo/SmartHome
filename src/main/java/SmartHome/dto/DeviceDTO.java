@@ -8,10 +8,10 @@ import java.util.UUID;
 
 public class DeviceDTO {
     private String _name;
-    private UUID _deviceID;
+    public UUID _deviceID;
     private boolean _status;
     private RoomDTO _roomDTO;
-    private List<String> _deviceFunctionalities;
+    public List<String> _deviceFunctionalities;
     private List<String> _listStringClassesSensors;
 
 
@@ -38,24 +38,6 @@ public class DeviceDTO {
         this._listStringClassesSensors = device.getSensorList();
     }
 
-    /**
-     * Getter for the ID of the device
-     *
-     * @return The ID of the device
-     */
-
-    public UUID getID() {
-        return this._deviceID;
-    }
-
-    /**
-     * Getter for the device functionalities
-     *
-     * @return a list of strings with the functionalities of the device
-     */
-    public List<String> getFunctionalities() {
-        return this._deviceFunctionalities;
-    }
 
     /**
      * Returns a string representation of the DeviceDTO object.

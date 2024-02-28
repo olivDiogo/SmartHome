@@ -253,14 +253,16 @@ public class AddSensorToDeviceTest {
         String sensorModel = "SmartHome.sensors.GA100K";
 
         Room livingRoom = house.addRoom(roomName1, floor, width, length, height);
-        Device device = livingRoom.addDevice(deviceName, new DeviceFactory());
         UUID livingRoomId = livingRoom.getRoomId();
+
+        Device device = livingRoom.addDevice(deviceName, new DeviceFactory());
+        UUID deviceId = device.getDeviceId();
 
         List<RoomDTO> roomDTOS = addSensorToDeviceController.getRooms();
         RoomDTO roomDTO = roomDTOS.stream().filter(r -> r._roomId.equals(livingRoomId)).findFirst().get();
 
         List<DeviceDTO> devicesDTO = addSensorToDeviceController.getDevicesFromRoom(roomDTO);
-        DeviceDTO deviceDTO = devicesDTO.stream().filter(r -> r.getID().equals(device.getDeviceId())).findFirst().orElseThrow(() -> new IllegalArgumentException("Device not found"));
+        DeviceDTO deviceDTO = devicesDTO.stream().filter(r -> r._deviceID.equals(deviceId)).findFirst().get();
 
 
         // act
@@ -292,12 +294,13 @@ public class AddSensorToDeviceTest {
         UUID livingRoomId = livingRoom.getRoomId();
 
         Device device = livingRoom.addDevice(deviceName, new DeviceFactory());
+        UUID deviceId = device.getDeviceId();
 
         List<RoomDTO> roomDTOS = addSensorToDeviceController.getRooms();
         RoomDTO roomDTO = roomDTOS.stream().filter(r -> r._roomId.equals(livingRoomId)).findFirst().get();
         ;
         List<DeviceDTO> devicesDTO = addSensorToDeviceController.getDevicesFromRoom(roomDTO);
-        DeviceDTO deviceDTO = devicesDTO.stream().filter(r -> r.getID().equals(device.getDeviceId())).findFirst().orElseThrow(() -> new IllegalArgumentException("Room not found"));
+        DeviceDTO deviceDTO = devicesDTO.stream().filter(r -> r._deviceID.equals(deviceId)).findFirst().get();
 
         // act
         SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(deviceDTO, sensorModel);
