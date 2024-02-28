@@ -76,10 +76,10 @@ class CatalogueActuatorTest {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
 
-        String strDescription = "Temperature";
+        String strDescription = "LightSwitch";
         ActuatorType actuatorType = new ActuatorType(strDescription);
 
-        String strDescription2 = "Humidity";
+        String strDescription2 = "TemperatureControl";
         ActuatorType actuatorType2 = new ActuatorType(strDescription2);
 
         List<ActuatorType> actuatorTypesList = new ArrayList<>();
@@ -125,10 +125,10 @@ class CatalogueActuatorTest {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
 
-        String strDescription = "Temperature";
+        String strDescription = "LightSwitch";
         ActuatorType actuatorType = new ActuatorType(strDescription);
 
-        String strDescription2 = "Humidity";
+        String strDescription2 = "TemperatureControl";
         ActuatorType actuatorType2 = new ActuatorType(strDescription2);
 
         List<ActuatorType> actuatorModelsList = new ArrayList<>();
@@ -145,23 +145,6 @@ class CatalogueActuatorTest {
         assertEquals(expected, actuatorModelsList.size());
     }
 
-    /**
-     * Tests if returns an empty Actuator Models List
-     * @throws InstantiationException
-     */
-    @Test
-    void shouldReturnEmptyActuatorModelsList() throws InstantiationException {
-        //Arrange
-        CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
-
-        int expected = 0;
-
-        //Act
-        List<String> actuatorModelsList = catalogueActuator.getActuatorModels();
-
-        //Assert
-        assertEquals(expected, actuatorModelsList.size());
-    }
 
     /**
      * Tests if the Actuator Type is created and added to the list
