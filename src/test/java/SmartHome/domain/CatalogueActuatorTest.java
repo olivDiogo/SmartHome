@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class CatalogueActuatorTest {
 
@@ -74,13 +76,11 @@ class CatalogueActuatorTest {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
 
-        String strDescription = "Temperature";
-        Unit unit = Unit.Temperature;
-        ActuatorType actuatorType = new ActuatorType(strDescription, unit);
+        String strDescription = "LightSwitch";
+        ActuatorType actuatorType = new ActuatorType(strDescription);
 
-        String strDescription2 = "Humidity";
-        Unit unit2 = Unit.Humidity;
-        ActuatorType actuatorType2 = new ActuatorType(strDescription2, unit2);
+        String strDescription2 = "TemperatureControl";
+        ActuatorType actuatorType2 = new ActuatorType(strDescription2);
 
         List<ActuatorType> actuatorTypesList = new ArrayList<>();
 
@@ -125,13 +125,11 @@ class CatalogueActuatorTest {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
 
-        String strDescription = "Temperature";
-        Unit unit = Unit.Temperature;
-        ActuatorType actuatorType = new ActuatorType(strDescription, unit);
+        String strDescription = "LightSwitch";
+        ActuatorType actuatorType = new ActuatorType(strDescription);
 
-        String strDescription2 = "Humidity";
-        Unit unit2 = Unit.Humidity;
-        ActuatorType actuatorType2 = new ActuatorType(strDescription2, unit2);
+        String strDescription2 = "TemperatureControl";
+        ActuatorType actuatorType2 = new ActuatorType(strDescription2);
 
         List<ActuatorType> actuatorModelsList = new ArrayList<>();
 
@@ -147,21 +145,112 @@ class CatalogueActuatorTest {
         assertEquals(expected, actuatorModelsList.size());
     }
 
+
     /**
-     * Tests if returns an empty Actuator Models List
+     * Tests if the Actuator Type is created and added to the list
+     * @throws InstantiationException if the actuator type cannot be created
+     */
+    @Test
+    void addValidActuatorType() throws InstantiationException {
+        //Arrange
+        CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        ActuatorTypeFactory actuatorTypeFactory = mock(ActuatorTypeFactory.class);
+
+        String strDescription = "Switch";
+
+        when(actuatorTypeFactory.createActuatorType(strDescription)).thenReturn(actuatorTypeDouble);
+        when(actuatorTypeDouble.getDescription()).thenReturn(strDescription);
+
+        //Act
+        ActuatorType actuatorType = catalogueActuator.addActuatorType(strDescription, actuatorTypeFactory);
+
+        //Assert
+        assertEquals(actuatorType, actuatorTypeDouble);
+    }
+
+    /**
+     * Tests if by trying to add an Actuator Type with an empty description an InstantiationException is thrown
      * @throws InstantiationException
      */
     @Test
-    void shouldReturnEmptyActuatorModelsList() throws InstantiationException {
+    void addActuatorTypeWithEmptyDescription_thenThrowException() throws InstantiationException {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
+        ActuatorTypeFactory actuatorTypeFactory = mock(ActuatorTypeFactory.class);
 
-        int expected = 0;
+        String strDescription = "";
 
-        //Act
-        List<String> actuatorModelsList = catalogueActuator.getActuatorModels();
+        when(actuatorTypeFactory.createActuatorType(strDescription)).thenThrow(new InstantiationException());
 
-        //Assert
-        assertEquals(expected, actuatorModelsList.size());
+        //Act + Assert
+        assertThrows( InstantiationException.class, () -> catalogueActuator.addActuatorType(strDescription, actuatorTypeFactory));
+    }
+
+    /**
+     * Tests if by trying to add an Actuator Type with a null description an InstantiationException is thrown
+     * @throws InstantiationException if the actuator type cannot be created
+     */
+    @Test
+    void addActuatorTypeWithNullDescription_thenThrowException() throws InstantiationException {
+        //Arrange
+        CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
+        ActuatorTypeFactory actuatorTypeFactory = mock(ActuatorTypeFactory.class);
+
+        String strDescription = null;
+
+        when(actuatorTypeFactory.createActuatorType(strDescription)).thenThrow(new InstantiationException());
+
+        //Act + Assert
+        assertThrows( InstantiationException.class, () -> catalogueActuator.addActuatorType(strDescription, actuatorTypeFactory));
+    }
+
+    @Test
+    void getActuatorOfUniqueModel()  throws InstantiationException
+    {
+        // arrange
+        CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
+        Actuator actuatorDouble = mock(Actuator.class);
+        ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
+
+        String strModel = "SmartHome.actuators.SwitchActuator";
+
+        when(actuatorFactory.createActuator(strModel, catalogue)).thenReturn(actuatorDouble);
+
+        // act
+        Actuator actuator = catalogue.getActuator(strModel, actuatorFactory);
+
+        // assert
+        assertEquals(actuator, actuatorDouble);
+    }
+
+    @Test
+    void getNullSensorOfEmptyListOfModels() throws InstantiationException {
+        // Arrange
+        CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
+        ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
+
+        String strModel = "";
+
+        // Act
+        Actuator actuator = catalogue.getActuator(strModel, actuatorFactory);
+
+        // Assert
+        assertNull(actuator);
+    }
+
+    @Test
+    void getNullSensorOfNonExistingModel() throws InstantiationException {
+        // Arrange
+        CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
+        ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
+
+        String strModel = "SmartHome.actuators.ActuatorXYJ4563";
+
+        // Act
+        Actuator actuator = catalogue.getActuator(strModel, actuatorFactory);
+
+        // Assert
+        assertNull(actuator);
     }
 }

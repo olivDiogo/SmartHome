@@ -43,6 +43,16 @@ public class Device {
         }
         return functionalities;
     }
+
+    public List<String> getSensorList() {
+        List<String> sensorList = new ArrayList<>();
+        for (Sensor sensor : _sensors) {
+            sensorList.add(sensor.getSensorType().getDescription());
+        }
+        return sensorList;
+
+    }
+
     public Sensor addSensor(String strModel, CatalogueSensor catalogue, SensorFactory sensorFactory) throws InstantiationException {
         Sensor sensor = catalogue.getSensor( strModel, sensorFactory );
         sensor = addSensorToDevice(sensor);
@@ -65,4 +75,6 @@ public class Device {
                 ", _deviceId=" + _deviceId +
                 '}';
     }
+
+
 }
