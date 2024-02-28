@@ -4,6 +4,8 @@ import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -99,7 +101,7 @@ class WindSensorTest {
         WindSensorValue value = (WindSensorValue) windSensor.getValue();
 
         //Assert
-        assertTrue(value.getSpeed() >= 0 && value.getSpeed() <= 408);
+        assertTrue(value._speed >= 0 && value._speed <= 408);
     }
 
     /**
@@ -113,12 +115,12 @@ class WindSensorTest {
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueDouble.getSensorType(strDescription)).thenReturn(sensorTypeDouble);
         WindSensor windSensor = new WindSensor(catalogueDouble);
+        String[] directions = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
 
         //Act
         WindSensorValue value = (WindSensorValue) windSensor.getValue();
 
         //Assert
-        String[] directions = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
-        assertTrue(value.getDirection().equals(directions[0]) || value.getDirection().equals(directions[1]) || value.getDirection().equals(directions[2]) || value.getDirection().equals(directions[3]) || value.getDirection().equals(directions[4]) || value.getDirection().equals(directions[5]) || value.getDirection().equals(directions[6]) || value.getDirection().equals(directions[7]));
+        assertTrue(Arrays.asList(directions).contains(value._direction));
     }
 }

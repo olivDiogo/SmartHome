@@ -178,10 +178,10 @@ public class AddSensorToDeviceTest {
 
         Room livingRoom = house.addRoom(roomName1, floor, width, length, height);
         livingRoom.addDevice("device1", new DeviceFactory());
-        UUID livingRoomId = livingRoom.getRoomId();
+
 
         List<RoomDTO> roomDTOS = addSensorToDeviceController.getRooms();
-        RoomDTO livingRoomDTO = roomDTOS.stream().filter(r -> r._roomId.equals(livingRoomId)).findFirst().get();
+        RoomDTO livingRoomDTO = roomDTOS.get(0);
 
         // act
         List<DeviceDTO> devices = addSensorToDeviceController.getDevicesFromRoom(livingRoomDTO);
@@ -206,10 +206,9 @@ public class AddSensorToDeviceTest {
         Room livingRoom = house.addRoom(roomName1, floor, width, length, height);
         livingRoom.addDevice("device1", new DeviceFactory());
         livingRoom.addDevice("device2", new DeviceFactory());
-        UUID livingRoomId = livingRoom.getRoomId();
 
         List<RoomDTO> roomDTOS = addSensorToDeviceController.getRooms();
-        RoomDTO livingRoomDTO = roomDTOS.stream().filter(r -> r._roomId.equals(livingRoomId)).findFirst().get();
+        RoomDTO livingRoomDTO = roomDTOS.get(0);
 
         // act
         List<DeviceDTO> devicesDTO = addSensorToDeviceController.getDevicesFromRoom(livingRoomDTO);
@@ -253,16 +252,14 @@ public class AddSensorToDeviceTest {
         String sensorModel = "SmartHome.sensors.GA100K";
 
         Room livingRoom = house.addRoom(roomName1, floor, width, length, height);
-        UUID livingRoomId = livingRoom.getRoomId();
 
-        Device device = livingRoom.addDevice(deviceName, new DeviceFactory());
-        UUID deviceId = device.getDeviceId();
+        livingRoom.addDevice(deviceName, new DeviceFactory());
 
         List<RoomDTO> roomDTOS = addSensorToDeviceController.getRooms();
-        RoomDTO roomDTO = roomDTOS.stream().filter(r -> r._roomId.equals(livingRoomId)).findFirst().get();
+        RoomDTO roomDTO = roomDTOS.get(0);
 
         List<DeviceDTO> devicesDTO = addSensorToDeviceController.getDevicesFromRoom(roomDTO);
-        DeviceDTO deviceDTO = devicesDTO.stream().filter(r -> r._deviceID.equals(deviceId)).findFirst().get();
+        DeviceDTO deviceDTO = devicesDTO.get(0);
 
 
         // act
@@ -291,16 +288,14 @@ public class AddSensorToDeviceTest {
         catalogue.addSensorType("Temperature", Unit.Temperature, new SensorTypeFactory());
 
         Room livingRoom = house.addRoom(roomName1, floor, width, length, height);
-        UUID livingRoomId = livingRoom.getRoomId();
 
-        Device device = livingRoom.addDevice(deviceName, new DeviceFactory());
-        UUID deviceId = device.getDeviceId();
+        livingRoom.addDevice(deviceName, new DeviceFactory());
 
         List<RoomDTO> roomDTOS = addSensorToDeviceController.getRooms();
-        RoomDTO roomDTO = roomDTOS.stream().filter(r -> r._roomId.equals(livingRoomId)).findFirst().get();
+        RoomDTO roomDTO = roomDTOS.get(0);
         ;
         List<DeviceDTO> devicesDTO = addSensorToDeviceController.getDevicesFromRoom(roomDTO);
-        DeviceDTO deviceDTO = devicesDTO.stream().filter(r -> r._deviceID.equals(deviceId)).findFirst().get();
+        DeviceDTO deviceDTO = devicesDTO.get(0);
 
         // act
         SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(deviceDTO, sensorModel);

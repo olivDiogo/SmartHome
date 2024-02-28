@@ -11,6 +11,7 @@ public class Location {
         this._address = _addressFactory.createAddress(street, zipCode, doorNumber);
         this._gpsLocation = _gpsFactory.createGps(latitude, longitude);
     }
+    
     public Address getAddress() {
         return this._address;
     }

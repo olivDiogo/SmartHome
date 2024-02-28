@@ -55,12 +55,11 @@ public class AddDeviceToRoomControllerTest {
 
         String deviceName = "Device";
 
-        Room room1 = house.addRoom(roomName, floor, width, length, height);
-        UUID room1Id = room1.getRoomId();
+        house.addRoom(roomName, floor, width, length, height);
 
         AddDeviceToRoomController controller = new AddDeviceToRoomController(house);
         List<RoomDTO> roomList = controller.getRoomList();
-        RoomDTO roomDTO = roomList.stream().filter(r -> r._roomId.equals(room1Id)).findFirst().get();
+        RoomDTO roomDTO = roomList.get(0);
 
         // Act
         Optional<DeviceDTO> result = controller.addDeviceToRoom(roomDTO, deviceName);
@@ -80,15 +79,14 @@ public class AddDeviceToRoomControllerTest {
         double length = 1.0;
         double height = 1.0;
 
-        Room room = house.addRoom(roomName, floor, width, length, height);
-        UUID roomId = room.getRoomId();
+        house.addRoom(roomName, floor, width, length, height);
 
         String deviceName = " ";
 
         AddDeviceToRoomController controller = new AddDeviceToRoomController(house);
 
         List<RoomDTO> roomList = controller.getRoomList();
-        RoomDTO roomDTO = roomList.stream().filter(r -> r._roomId.equals(roomId)).findFirst().get();
+        RoomDTO roomDTO = roomList.get(0);
 
         // Act
         Optional<DeviceDTO> result = controller.addDeviceToRoom(roomDTO, deviceName);

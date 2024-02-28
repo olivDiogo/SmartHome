@@ -17,6 +17,7 @@ public class SolarIrradianceSensorTest {
     void getValidSolarIrradianceSensor(){
         //Arrange
         String description = "SolarIrradiance";
+        double value = 10;
 
         CatalogueSensor catalogue = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
@@ -24,7 +25,7 @@ public class SolarIrradianceSensorTest {
         when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         //Act
-        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue);
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue, value);
 
         //Assert
         assertNotNull(solarIrradianceSensor);
@@ -37,12 +38,13 @@ public class SolarIrradianceSensorTest {
     void invalidSolarIrradianceSensor(){
         // Arrange
         String description = "SolarIrradiance";
+        double value = 10;
 
         CatalogueSensor catalogue = mock(CatalogueSensor.class);
         when(catalogue.getSensorType(description)).thenReturn(null);
 
         // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SolarIrradianceSensor(catalogue));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SolarIrradianceSensor(catalogue, value));
 
         // Assert
         assert exception.getMessage().equals("SensorType with description 'SolarIrradiance' does not exist.");
@@ -55,13 +57,14 @@ public class SolarIrradianceSensorTest {
     void getSensorType(){
         //Arrange
         String description = "SolarIrradiance";
+        double value = 10;
 
         CatalogueSensor catalogue = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue);
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue, value);
 
         //Act
         SensorType sensorType = solarIrradianceSensor.getSensorType();
@@ -70,5 +73,27 @@ public class SolarIrradianceSensorTest {
         assertEquals(sensorType, sensorTypeDouble);
     }
 
-
+//    /**
+//     * Test to get the value of the sensor
+//     */
+//    @Test
+//    void getValue(){
+//        //Arrange
+//        String description = "SolarIrradiance";
+//        double value = 10;
+//        CatalogueSensor catalogue = mock(CatalogueSensor.class);
+//        SensorType sensorTypeDouble = mock(SensorType.class);
+//        SolarIrradianceValue solarIrradianceValueDouble = mock(SolarIrradianceValue.class);
+//
+//        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue, value);
+//
+//        when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
+//        when(solarIrradianceValueDouble.getValue()).thenReturn(value);
+//
+//        //Act
+//        SolarIrradianceValue solarIrradianceValue = (SolarIrradianceValue) solarIrradianceSensor.getValue();
+//
+//        //Assert
+//        assertEquals(solarIrradianceValue, solarIrradianceValueDouble);
+//    }
 }
