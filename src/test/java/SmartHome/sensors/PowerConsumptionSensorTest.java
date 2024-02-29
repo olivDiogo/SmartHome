@@ -6,6 +6,11 @@ import org.apache.commons.beanutils.BasicDynaBean;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -80,4 +85,81 @@ public class PowerConsumptionSensorTest {
         Assertions.assertEquals(expectedMessage, exception.getMessage());
     }
 
+    @Test
+    void getAverageValueTest() throws InstantiationException {
+        // Arrange
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        when(catalogueDouble.getSensorType("Power Consumption")).thenReturn(sensorTypeDouble);
+
+        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+
+        LocalDateTime initialTime = LocalDateTime.of(2024,2,29,10,10,5);
+        LocalDateTime finalTime = LocalDateTime.of(2024,2,29,10,10,10);
+
+        powerConsumptionSensor.getValue(initialTime);
+        powerConsumptionSensor.getValue(finalTime);
+
+        // Act
+        double averageValue = powerConsumptionSensor.getAverageValue(initialTime, finalTime);
+
+        // Assert
+        Assertions.assertEquals(powerConsumptionSensor.getAverageValue(initialTime, finalTime), averageValue);
+
+    }
+
+    @Test
+    void getAverageValueUsingAnotherTime() throws InstantiationException {
+        // Arrange
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        when(catalogueDouble.getSensorType("Power Consumption")).thenReturn(sensorTypeDouble);
+
+        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+
+        LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
+        LocalDateTime finalTime = LocalDateTime.now();
+
+        powerConsumptionSensor.getValue(initialTime);
+        powerConsumptionSensor.getValue(finalTime);
+
+        // Act
+        double averageValue = powerConsumptionSensor.getAverageValue(initialTime, finalTime);
+
+        // Assert
+        Assertions.assertTrue(averageValue >= 0 && averageValue <= 2000);
+    }
+
+    @Test
+    void getAverageValueOfMMoreValuesThanTheInitialAndFinalTime() throws InstantiationException {
+        // Arrange
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        when(catalogueDouble.getSensorType("Power Consumption")).thenReturn(sensorTypeDouble);
+
+        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+
+        LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
+        LocalDateTime secondTime = LocalDateTime.now().minusHours(1);
+        LocalDateTime finalTime = LocalDateTime.now();
+
+        powerConsumptionSensor.getValue(initialTime);
+        powerConsumptionSensor.getValue(secondTime);
+        powerConsumptionSensor.getValue(finalTime);
+
+        // Act
+        double averageValue = powerConsumptionSensor.getAverageValue(initialTime, finalTime);
+
+        // Assert
+        Assertions.assertTrue(averageValue >= 0 && averageValue <= 2000);
+    }
+
+
 }
+
+
+
+
