@@ -6,6 +6,7 @@ import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 
 public class SolarIrradianceSensor implements Sensor {
+    private SolarIrradianceValueFactory _solarIrradianceValueFactory;
     private SensorType _sensorType;
     private SolarIrradianceValue _value;
 
@@ -14,7 +15,8 @@ public class SolarIrradianceSensor implements Sensor {
      *
      * @param catalogue is the catalogue of sensors
      */
-    public SolarIrradianceSensor(CatalogueSensor catalogue, double value) {
+    public SolarIrradianceSensor(CatalogueSensor catalogue, SolarIrradianceValueFactory solarIrradianceValueFactory, double value) {
+        this._solarIrradianceValueFactory = solarIrradianceValueFactory;
         setSensorType(catalogue);
         setValue(value);
     }
@@ -38,7 +40,7 @@ public class SolarIrradianceSensor implements Sensor {
      * Method to set the value of the sensor
      */
     private void setValue(double value){
-        this._value = new SolarIrradianceValue(value);
+        this._value = _solarIrradianceValueFactory.createSolarIrradianceValue(value);
     }
 
 
@@ -56,7 +58,7 @@ public class SolarIrradianceSensor implements Sensor {
      *
      * @return Value
      */
-    public Value getValue() {
+    public SolarIrradianceValue getValue() {
         return this._value.clone();
     }
 }
