@@ -33,17 +33,6 @@ public class SolarIrradianceValue implements Value, Cloneable {
         return this._dValue + "";
     }
 
-
-    @Override
-    public SolarIrradianceValue clone() {
-        try {
-            // Call the Object clone() method
-            return (SolarIrradianceValue) super.clone();
-        } catch (CloneNotSupportedException e) {
-            // This should never happen since we are Cloneable
-            throw new AssertionError();
-        }
-    }
 }
 
 

@@ -3,10 +3,12 @@ package SmartHome.sensors;
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class SolarIrradianceSensorTest {
 
@@ -17,18 +19,13 @@ public class SolarIrradianceSensorTest {
     void getValidSolarIrradianceSensor(){
         //Arrange
         String description = "SolarIrradiance";
-        double value = 10;
 
         CatalogueSensor catalogue = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        SolarIrradianceValue solarIrradianceValueDouble = mock(SolarIrradianceValue.class);
-        SolarIrradianceValueFactory solarIrradianceValueFactory = mock(SolarIrradianceValueFactory.class);
-        when(solarIrradianceValueFactory.createSolarIrradianceValue(value)).thenReturn(solarIrradianceValueDouble);
-
         //Act
-        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue, solarIrradianceValueFactory, value);
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue);
 
         //Assert
         assertNotNull(solarIrradianceSensor);
@@ -41,17 +38,12 @@ public class SolarIrradianceSensorTest {
     void invalidSolarIrradianceSensor(){
         // Arrange
         String description = "SolarIrradiance";
-        double value = 10;
 
         CatalogueSensor catalogue = mock(CatalogueSensor.class);
         when(catalogue.getSensorType(description)).thenReturn(null);
 
-        SolarIrradianceValue solarIrradianceValueDouble = mock(SolarIrradianceValue.class);
-        SolarIrradianceValueFactory solarIrradianceValueFactory = mock(SolarIrradianceValueFactory.class);
-        when(solarIrradianceValueFactory.createSolarIrradianceValue(value)).thenReturn(solarIrradianceValueDouble);
-
         // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SolarIrradianceSensor(catalogue, solarIrradianceValueFactory, value));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SolarIrradianceSensor(catalogue));
 
         // Assert
         assert exception.getMessage().equals("SensorType with description 'SolarIrradiance' does not exist.");
@@ -64,17 +56,12 @@ public class SolarIrradianceSensorTest {
     void getSensorType(){
         //Arrange
         String description = "SolarIrradiance";
-        double value = 10;
 
         CatalogueSensor catalogue = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        SolarIrradianceValue solarIrradianceValueDouble = mock(SolarIrradianceValue.class);
-        SolarIrradianceValueFactory solarIrradianceValueFactory = mock(SolarIrradianceValueFactory.class);
-        when(solarIrradianceValueFactory.createSolarIrradianceValue(value)).thenReturn(solarIrradianceValueDouble);
-
-        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue, solarIrradianceValueFactory, value);
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue);
 
         //Act
         SensorType sensorType = solarIrradianceSensor.getSensorType();
@@ -90,23 +77,26 @@ public class SolarIrradianceSensorTest {
     void getValue(){
         //Arrange
         String description = "SolarIrradiance";
-        double value = 10;
+        String value = "10.0";
 
-        CatalogueSensor catalogue = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
+        int expectedSize = 1;
 
-        SolarIrradianceValue solarIrradianceValueDouble = mock(SolarIrradianceValue.class);
-        when(solarIrradianceValueDouble.clone()).thenReturn(solarIrradianceValueDouble);
-        SolarIrradianceValueFactory solarIrradianceValueFactory = mock(SolarIrradianceValueFactory.class);
-        when(solarIrradianceValueFactory.createSolarIrradianceValue(value)).thenReturn(solarIrradianceValueDouble);
+        try(MockedConstruction<SolarIrradianceValue> solarIrradianceValueDouble = mockConstruction(SolarIrradianceValue.class, (mock, context) ->
+                when(mock.toString()).thenReturn(value)))
+        {
+            CatalogueSensor catalogue = mock(CatalogueSensor.class);
+            SensorType sensorTypeDouble = mock(SensorType.class);
+            when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue, solarIrradianceValueFactory, value);
+            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue);
 
-        //Act
-        SolarIrradianceValue solarIrradianceValue = solarIrradianceSensor.getValue();
+            //Act
+            solarIrradianceSensor.getValue();
 
-        //Assert
-        assertEquals(solarIrradianceValue, solarIrradianceValueDouble);
+            //Assert
+            List<SolarIrradianceValue> solarIrradianceValues = solarIrradianceValueDouble.constructed();
+            assertEquals(expectedSize, solarIrradianceValues.size());
+            assertEquals(value, solarIrradianceValues.get(0).toString());
+        }
     }
 }

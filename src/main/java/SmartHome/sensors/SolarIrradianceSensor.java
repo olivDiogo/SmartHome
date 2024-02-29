@@ -5,20 +5,18 @@ import SmartHome.domain.Sensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 
+import java.util.Random;
+
 public class SolarIrradianceSensor implements Sensor {
-    private SolarIrradianceValueFactory _solarIrradianceValueFactory;
     private SensorType _sensorType;
-    private SolarIrradianceValue _value;
 
     /**
      * Constructor for SolarIrradianceSensor
      *
      * @param catalogue is the catalogue of sensors
      */
-    public SolarIrradianceSensor(CatalogueSensor catalogue, SolarIrradianceValueFactory solarIrradianceValueFactory, double value) {
-        this._solarIrradianceValueFactory = solarIrradianceValueFactory;
+    public SolarIrradianceSensor(CatalogueSensor catalogue) {
         setSensorType(catalogue);
-        setValue(value);
     }
 
     /**
@@ -37,14 +35,6 @@ public class SolarIrradianceSensor implements Sensor {
     }
 
     /**
-     * Method to set the value of the sensor
-     */
-    private void setValue(double value){
-        this._value = _solarIrradianceValueFactory.createSolarIrradianceValue(value);
-    }
-
-
-    /**
      * Method to get the sensor type
      *
      * @return SensorType
@@ -59,6 +49,9 @@ public class SolarIrradianceSensor implements Sensor {
      * @return Value
      */
     public SolarIrradianceValue getValue() {
-        return this._value.clone();
+        Random rand = new Random();
+        double solarIrradiance = rand.nextDouble() * 1500;
+
+        return new SolarIrradianceValue(solarIrradiance);
     }
 }
