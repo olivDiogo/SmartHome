@@ -11,10 +11,10 @@ public class SwitchSensor implements Sensor {
     private final SensorType _sensorType;
     private SwitchSensorValue _value;
 
-    public SwitchSensor(CatalogueSensor catalogue, SwitchSensorValueFactory _switchSensorValueFactory, boolean initialState) throws InstantiationException {
+    public SwitchSensor(CatalogueSensor catalogue, SwitchSensorValueFactory switchSensorValueFactory, boolean initialState) throws InstantiationException {
         this._sensorType = setSensorType(catalogue);
-        this._switchSensorValueFactory = _switchSensorValueFactory;
-        this._value = _switchSensorValueFactory.create(initialState);
+        this._switchSensorValueFactory = switchSensorValueFactory;
+        this._value = this._switchSensorValueFactory.create(initialState);
     }
 
     private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {

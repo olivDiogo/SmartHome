@@ -92,19 +92,24 @@ class SwitchSensorTest {
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SwitchSensorValueFactory switchSensorValueFactoryDouble = mock(SwitchSensorValueFactory.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
+        SwitchSensorValue switchSensorValueDouble = mock(SwitchSensorValue.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        when(switchSensorValueFactoryDouble.create(false)).thenReturn(new SwitchSensorValue(false));
+        when(switchSensorValueFactoryDouble.create(initialState)).thenReturn(switchSensorValueDouble);
+        // Configura o comportamento do clone() para o mock switchSensorValueDouble
+        when(switchSensorValueDouble.clone()).thenReturn(switchSensorValueDouble);
+        // Configura o comportamento esperado de toString() para o mock switchSensorValueDouble
+        when(switchSensorValueDouble.toString()).thenReturn("Off");
 
-
-        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble, switchSensorValueFactoryDouble, initialState);
+        SwitchSensor switchSensor = new SwitchSensor(catalogueDouble, switchSensorValueFactoryDouble, initialState);
 
         // Act
         Value result = switchSensor.getValue();
 
         // Assert
-        assertEquals( "Off", result.toString() );
+        assertEquals("Off", result.toString());
     }
+
 
     @Test
     void getValueReturnsOn() throws InstantiationException {
@@ -114,9 +119,14 @@ class SwitchSensorTest {
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SwitchSensorValueFactory switchSensorValueFactoryDouble = mock(SwitchSensorValueFactory.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
+        SwitchSensorValue switchSensorValueDouble = mock(SwitchSensorValue.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        when(switchSensorValueFactoryDouble.create(true)).thenReturn(new SwitchSensorValue(true));
+        when(switchSensorValueFactoryDouble.create(initialState)).thenReturn(switchSensorValueDouble);
+        // Configura o comportamento do clone() para o mock switchSensorValueDouble
+        when(switchSensorValueDouble.clone()).thenReturn(switchSensorValueDouble);
+        // Configura o comportamento esperado de toString() para o mock switchSensorValueDouble
+        when(switchSensorValueDouble.toString()).thenReturn("On");
 
         SwitchSensor switchSensor = new SwitchSensor(catalogueDouble, switchSensorValueFactoryDouble, initialState);
 
