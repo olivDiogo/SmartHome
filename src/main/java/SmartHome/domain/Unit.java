@@ -11,7 +11,9 @@ public enum Unit
     PowerConsumption("Power Consumption", "W"),
     WindSpeedAndDirection("WindSpeedAndDirection", "km/h & Cardinal Points"),
     SolarIrradiance("SolarIrradiance", "W/m^2"),
-    Percented("Percented", "%");
+    Percented("Percented", "%"),
+    Time("Time", "s");
+
 
     private final String type;
     private final String unit;
