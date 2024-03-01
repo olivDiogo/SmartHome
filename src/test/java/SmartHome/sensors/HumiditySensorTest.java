@@ -1,54 +1,56 @@
 package SmartHome.sensors;
 
 import SmartHome.domain.*;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.plist.PropertyListConfiguration;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class TemperatureSensorTest {
+class HumiditySensorTest {
     @Test
-    void newValidTemperatureSensor() throws InstantiationException {
+    void newValidHumiditySensor() throws InstantiationException {
         // Arrange
-        String description = "Temperature";
+        String description = "Humidity";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         // Act
-        new TemperatureSensor( catalogueDouble);
+        new HumiditySensor( catalogueDouble );
     }
 
     @Test
-    void newInvalidTemperatureSensor() {
+    void newInvalidHumiditySensor() {
         // Arrange
-        String description = "Temperature";
+        String description = "Humidity";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(null);
 
         // Act
-        Exception exception = assertThrows(InstantiationException.class, () -> new TemperatureSensor( catalogueDouble));
+        Exception exception = assertThrows(InstantiationException.class, () -> new HumiditySensor( catalogueDouble));
 
         // Assert
-        assertEquals( "SensorType with description 'Temperature' does not exist.", exception.getMessage() );
+        assertEquals( "SensorType with description 'Humidity' does not exist.", exception.getMessage() );
     }
 
     @Test
     void getSensorTypeReturnsCorrectSensorType() throws InstantiationException {
         // Arrange
-        String description = "Temperature";
+        String description = "Humidity";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        TemperatureSensor temperatureSensor = new TemperatureSensor( catalogueDouble);
+        HumiditySensor humiditySensor = new HumiditySensor( catalogueDouble);
 
         // Act
-        SensorType result = temperatureSensor.getSensorType();
+        SensorType result = humiditySensor.getSensorType();
 
         // Assert
         assertEquals( sensorTypeDouble, result );
@@ -57,19 +59,19 @@ class TemperatureSensorTest {
     @Test
     void getValueReturnsCorrectValue() throws InstantiationException {
         // Arrange
-        String description = "Temperature";
+        String description = "Humidity";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        TemperatureSensor temperatureSensor = new TemperatureSensor(catalogueDouble);
+        HumiditySensor humiditySensor = new HumiditySensor( catalogueDouble);
 
         // Act
-        Value value = temperatureSensor.getValue();
-        int tempValue = Integer.parseInt(value.toString());
+        Value value = humiditySensor.getValue();
+        double humidityValue = Double.parseDouble(value.toString());
 
         // Assert
-        assertTrue(tempValue >= -70 && tempValue <= 70, "The temperature value should be between -70 and 70.");
+        assertTrue(humidityValue >= 0 && humidityValue <= 100);
     }
 }

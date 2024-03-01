@@ -9,10 +9,12 @@ import SmartHome.domain.Value;
 
 import java.util.Random;
 
-public class TSY01 implements Sensor {
+public class HumiditySensor implements Sensor {
     private final SensorType _sensorType;
 
-    public TSY01(CatalogueSensor catalogue) throws InstantiationException {
+    private HumiditySensorValue _value;
+
+    public HumiditySensor(CatalogueSensor catalogue) throws InstantiationException {
         SensorType sensorType = catalogue.getSensorType("Humidity");
         if (sensorType == null)
             throw new InstantiationException("SensorType with description 'Humidity' does not exist.");
@@ -26,8 +28,9 @@ public class TSY01 implements Sensor {
 
     public Value getValue() {
         Random rand = new Random();
-        int nValue = rand.nextInt(100); // valor entre 0 e 100
+        int nValue = rand.nextInt(100); // values between 0 and 100
+        _value = new HumiditySensorValue(nValue);
 
-        return new TSY01Value(nValue);
+        return _value.clone();
     }
 }

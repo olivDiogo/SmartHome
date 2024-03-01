@@ -155,7 +155,7 @@ class CatalogueSensorTest {
         Sensor sensorDouble = mock(Sensor.class);
         SensorFactory sensorFactory = mock(SensorFactory.class);
 
-        String strModel = "SmartHome.sensors.TSY01";
+        String strModel = "SmartHome.sensors.HumiditySensor";
 
         when(sensorFactory.createSensor(strModel, catalogue)).thenReturn(sensorDouble);
 

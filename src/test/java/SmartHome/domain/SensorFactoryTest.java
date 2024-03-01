@@ -11,7 +11,7 @@ class SensorFactoryTest {
             SensorFactory sensorFactory = new SensorFactory();
             CatalogueSensor catalogue = new CatalogueSensor("config.properties");
             catalogue.addSensorType("Humidity", Unit.Humidity, new SensorTypeFactory());
-            String strModel = "SmartHome.sensors.TSY01";
+            String strModel = "SmartHome.sensors.HumiditySensor";
 
             // act
             Sensor sensor = sensorFactory.createSensor(strModel, catalogue);
@@ -19,5 +19,4 @@ class SensorFactoryTest {
             // assert
             assertNotNull(sensor);
         }
-
 }
