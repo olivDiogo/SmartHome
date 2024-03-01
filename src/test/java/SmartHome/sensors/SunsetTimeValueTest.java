@@ -10,77 +10,33 @@ class SunsetTimeValueTest {
     @Test
     void shouldInstantiateSunsetTimeValue() {
         //Arrange
-        int timeInSeconds = 50;
+        LocalTime time = LocalTime.of(00, 0, 0);
         //Act
-        new SunsetTimeValue(timeInSeconds);
+        new SunsetTimeValue(time);
     }
     @Test
-    void shouldThrowExceptionWhenTimeIsNegative() {
+    void shouldThrowExceptionWhenTimeIsNull() {
         //Arrange
-        int timeInSeconds = -1;
-        String expectedMessage = "Invalid time range";
+        LocalTime time = null;
+        String expectedMessage = "Time is required";
         //Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeValue(timeInSeconds));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeValue(time));
         //Assert
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
     @Test
-    void shouldThrowExceptionWhenTimeIsGreaterThan86400() {
+    void shouldReturnSunsetTime() {
         //Arrange
-        int timeInSeconds = 86401;
-        String expectedMessage = "Invalid time range";
+        LocalTime time = LocalTime.of(18, 5, 20);
+        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(time);
+        String expected = "Sunset Time: 18:05:20";
         //Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeValue(timeInSeconds));
+        String actual = sunsetTimeValue.toString();
         //Assert
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertEquals(expected, actual);
     }
 
-    @Test
-    void shouldReturnTimeInHHMMSSFormat() {
-        //Arrange
-        int timeInSeconds = 3661;
-        String expectedTime = "01:01:01";
-        //Act
-        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(timeInSeconds);
-        //Assert
-        String actualTime = sunsetTimeValue.toString();
-        assertEquals(expectedTime, actualTime);
-    }
-    @Test
-    void shouldReturnTimeForMidnight() {
-        //Arrange
-        int timeInSeconds = 0;
-        String expectedTime = "00:00:00";
-        //Act
-        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(timeInSeconds);
-        //Assert
-        String actualTime = sunsetTimeValue.toString();
-        assertEquals(expectedTime, actualTime);
-    }
-    @Test
-    void shouldReturnTimeForMidday() {
-        //Arrange
-        int timeInSeconds = 43200;
-        LocalTime expectedTime = LocalTime.of(12, 0, 0);
-        //Act
-        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(timeInSeconds);
-        //Assert
-        LocalTime actualTime = sunsetTimeValue.toLocalTime();
-        assertEquals(expectedTime, actualTime);
-    }
-    @Test
-    void shouldReturnTimeForMidnightInLocalTime() {
-        //Arrange
-        int timeInSeconds = 0;
-        LocalTime expectedTime = LocalTime.of(0, 0, 0);
-        //Act
-        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(timeInSeconds);
-        //Assert
-        LocalTime actualTime = sunsetTimeValue.toLocalTime();
-        assertEquals(expectedTime, actualTime);
-    }
 
 
 }
