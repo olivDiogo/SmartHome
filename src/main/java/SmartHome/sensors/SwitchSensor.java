@@ -7,14 +7,12 @@ import SmartHome.domain.Value;
 
 public class SwitchSensor implements Sensor {
 
-    private SwitchSensorValueFactory _switchSensorValueFactory;
     private final SensorType _sensorType;
     private SwitchSensorValue _value;
 
-    public SwitchSensor(CatalogueSensor catalogue, SwitchSensorValueFactory switchSensorValueFactory, boolean initialState) throws InstantiationException {
+    public SwitchSensor(CatalogueSensor catalogue) throws InstantiationException {
         this._sensorType = setSensorType(catalogue);
-        this._switchSensorValueFactory = switchSensorValueFactory;
-        this._value = this._switchSensorValueFactory.create(initialState);
+        this._value = new SwitchSensorValue(false);
     }
 
     private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
