@@ -13,7 +13,6 @@ class SwitchSensorTest {
         // Arrange
 
         String description = "Switch";
-        boolean initialState = false;
 
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
@@ -21,40 +20,36 @@ class SwitchSensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         // Act
-        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble, new SwitchSensorValueFactory(), initialState );
-
-        // Assert
-        assertNotNull( switchSensor );
+        new SwitchSensor( catalogueDouble);
     }
 
     @Test
     void newInvalidSwitchSensor() {
         // Arrange
         String description = "Switch";
-        boolean initialState = false;
+
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
 
-            when(catalogueDouble.getSensorType(description)).thenReturn(null);
+        when(catalogueDouble.getSensorType(description)).thenReturn(null);
 
-            // Act
-            Exception exception = assertThrows(InstantiationException.class, () -> new SwitchSensor( catalogueDouble, new SwitchSensorValueFactory(), initialState ));
+        // Act
+        Exception exception = assertThrows(InstantiationException.class, () -> new SwitchSensor( catalogueDouble));
 
-            // Assert
-            assertEquals( "SensorType with description 'Switch' does not exist.", exception.getMessage() );
+        // Assert
+        assertEquals( "SensorType with description 'Switch' does not exist.", exception.getMessage() );
     }
 
     @Test
     void getSensorTypeReturnsCorrectSensorType() throws InstantiationException {
         // Arrange
         String description = "Switch";
-        boolean initialState = false;
+
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SwitchSensorValueFactory switchSensorValueFactoryDouble = mock(SwitchSensorValueFactory.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble, switchSensorValueFactoryDouble, initialState);
+        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble);
 
         // Act
         SensorType result = switchSensor.getSensorType();
@@ -67,15 +62,14 @@ class SwitchSensorTest {
     void getSensorTypeReturnsWrongSensorType() throws InstantiationException {
         // Arrange
         String description = "Switch";
-        boolean initialState = false;
+
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SwitchSensorValueFactory switchSensorValueFactoryDouble = mock(SwitchSensorValueFactory.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         SensorType wrongSensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble, switchSensorValueFactoryDouble, initialState);
+        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble);
 
         // Act
         SensorType result = switchSensor.getSensorType();
@@ -88,52 +82,21 @@ class SwitchSensorTest {
     void getValueReturnsOff() throws InstantiationException {
         // Arrange
         String description = "Switch";
-        boolean initialState = false;
+
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SwitchSensorValueFactory switchSensorValueFactoryDouble = mock(SwitchSensorValueFactory.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         SwitchSensorValue switchSensorValueDouble = mock(SwitchSensorValue.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        when(switchSensorValueFactoryDouble.create(initialState)).thenReturn(switchSensorValueDouble);
-        // Configura o comportamento do clone() para o mock switchSensorValueDouble
         when(switchSensorValueDouble.clone()).thenReturn(switchSensorValueDouble);
-        // Configura o comportamento esperado de toString() para o mock switchSensorValueDouble
         when(switchSensorValueDouble.toString()).thenReturn("Off");
 
-        SwitchSensor switchSensor = new SwitchSensor(catalogueDouble, switchSensorValueFactoryDouble, initialState);
+        SwitchSensor switchSensor = new SwitchSensor(catalogueDouble);
 
         // Act
         Value result = switchSensor.getValue();
 
         // Assert
         assertEquals("Off", result.toString());
-    }
-
-
-    @Test
-    void getValueReturnsOn() throws InstantiationException {
-        // Arrange
-        String description = "Switch";
-        boolean initialState = true;
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SwitchSensorValueFactory switchSensorValueFactoryDouble = mock(SwitchSensorValueFactory.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        SwitchSensorValue switchSensorValueDouble = mock(SwitchSensorValue.class);
-
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        when(switchSensorValueFactoryDouble.create(initialState)).thenReturn(switchSensorValueDouble);
-        // Configura o comportamento do clone() para o mock switchSensorValueDouble
-        when(switchSensorValueDouble.clone()).thenReturn(switchSensorValueDouble);
-        // Configura o comportamento esperado de toString() para o mock switchSensorValueDouble
-        when(switchSensorValueDouble.toString()).thenReturn("On");
-
-        SwitchSensor switchSensor = new SwitchSensor(catalogueDouble, switchSensorValueFactoryDouble, initialState);
-
-        // Act
-        Value result = switchSensor.getValue();
-
-        // Assert
-        assertEquals("On", result.toString());
     }
 }
