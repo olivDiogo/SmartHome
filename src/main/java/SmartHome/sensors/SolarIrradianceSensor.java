@@ -7,8 +7,9 @@ import SmartHome.domain.Value;
 
 import java.util.Random;
 
-public class SolarIrradianceSensor implements Sensor {
+public class SolarIrradianceSensor implements Sensor, Cloneable {
     private SensorType _sensorType;
+    private SolarIrradianceValue _value;
 
     /**
      * Constructor for SolarIrradianceSensor
@@ -52,6 +53,10 @@ public class SolarIrradianceSensor implements Sensor {
         Random rand = new Random();
         double solarIrradiance = rand.nextDouble() * 1500;
 
-        return new SolarIrradianceValue(solarIrradiance);
+        this._value = new SolarIrradianceValue(solarIrradiance);
+
+        return this._value.clone();
     }
+
+
 }
