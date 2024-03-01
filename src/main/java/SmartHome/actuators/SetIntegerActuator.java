@@ -17,10 +17,8 @@ public class SetIntegerActuator implements Actuator {
      *
      * @param catalogue is the catalogue of the actuator
      */
-    public SetIntegerActuator(CatalogueActuator catalogue, int _lowerLimit, int _upperLimit) throws InstantiationException {
+    public SetIntegerActuator(CatalogueActuator catalogue) throws InstantiationException {
         setActuatorType(catalogue);
-        setLowerLimit(_lowerLimit);
-        setUpperLimit(_upperLimit);
     }
 
     /**
@@ -43,16 +41,18 @@ public class SetIntegerActuator implements Actuator {
      * Sets the lower limit.
      * @param lowerLimit the lower limit
      */
-    private void setLowerLimit(int lowerLimit) {
+    private int setLowerLimit(int lowerLimit) {
         this._lowerLimit = lowerLimit;
+        return lowerLimit;
     }
 
     /**
      * Sets the upper limit.
      * @param upperLimit the upper limit
      */
-    private void setUpperLimit(int upperLimit) {
+    private int setUpperLimit(int upperLimit) {
         this._upperLimit = upperLimit;
+        return upperLimit;
     }
 
     /**
@@ -68,10 +68,10 @@ public class SetIntegerActuator implements Actuator {
      * Sets the value if within range.
      * @param value the value
      */
-    public int setValueInRange(int value) {
-        if (value < _lowerLimit) {
+    public int setValueInRange(int value, int lowerLimit, int upperLimit) {
+        if (value < setLowerLimit(lowerLimit)) {
             throw new IllegalArgumentException("Value cannot be less than the lower limit.");
-        } else if (value > _upperLimit) {
+        } else if (value > setUpperLimit(upperLimit)) {
             throw new IllegalArgumentException("Value cannot be greater than the upper limit.");
         } else {
             this._value = value;
