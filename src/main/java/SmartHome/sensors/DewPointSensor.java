@@ -5,8 +5,12 @@ import SmartHome.domain.Sensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 
+import java.util.Random;
+
 public class DewPointSensor implements Sensor {
-    private final SensorType _sensorType;
+    private SensorType _sensorType;
+    private DewPointValue _dewPointValue;
+
 
     /**
      * Constructor of the class. It validates the sensor type.
@@ -15,7 +19,8 @@ public class DewPointSensor implements Sensor {
      * @throws InstantiationException If the sensor type does not exist.
      */
     public DewPointSensor(CatalogueSensor catalogue) throws InstantiationException {
-        this._sensorType = setSensorType(catalogue);
+        setSensorType(catalogue);
+
     }
 
 
@@ -23,16 +28,17 @@ public class DewPointSensor implements Sensor {
      * Validates the sensor type.
      *
      * @param catalogue The catalogue of sensors.
-     * @return The sensor type.
-     * @throws InstantiationException If the sensor type does not exist.
+     * @throws IllegalArgumentException If the sensor type does not exist.
      */
-    private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
+    private void setSensorType(CatalogueSensor catalogue) throws InstantiationException {
         SensorType sensorType = catalogue.getSensorType("DewPoint");
+
         if (sensorType == null)
             throw new InstantiationException("SensorType with description 'DewPoint' does not exist.");
-        else {
-            return sensorType;
-        }
+
+
+        this._sensorType = sensorType;
+
     }
 
     /**
@@ -40,13 +46,12 @@ public class DewPointSensor implements Sensor {
      *
      * @return The sensor type.
      */
-    @Override
     public SensorType getSensorType() {
         return this._sensorType;
     }
 
     /**
-     * Gets the value of the sensor. In this case is returning a fixed value, unitl the service with real data is implemented.
+     * Gets the value of the sensor. In this case is returning a fixed value, until the service with real data is implemented.
      *
      * @return The value measured by the sensor.
      */
@@ -54,6 +59,9 @@ public class DewPointSensor implements Sensor {
     public Value getValue() {
         int dewPointValue = 25;
 
-        return new DewPointValue(dewPointValue);
+        this._dewPointValue = new DewPointValue(dewPointValue);
+
+        return this._dewPointValue.clone();
     }
+
 }
