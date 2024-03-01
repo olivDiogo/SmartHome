@@ -39,7 +39,11 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.shredzone.commons</groupId>
+            <artifactId>commons-suncalc</artifactId>
+            <version>3.9</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
