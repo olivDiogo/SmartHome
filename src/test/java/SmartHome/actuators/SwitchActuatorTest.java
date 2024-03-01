@@ -1,6 +1,7 @@
 package SmartHome.actuators;
 
 import SmartHome.domain.ActuatorType;
+import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 import SmartHome.domain.CatalogueActuator;
 
@@ -96,6 +97,99 @@ public class SwitchActuatorTest {
 
         // assert
         assertNotEquals(actuatorType, actuatorTypeDouble2);
+    }
+
+    @Test
+    void turnOnActuator() throws InstantiationException {
+        // arrange
+        String description = "SwitchActuator";
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
+
+        // act
+        boolean result = switchActuator.setTheActuatorOn();
+
+        // assert
+        assertTrue(result);
+    }
+
+    @Test
+    void turnOffActuator() throws InstantiationException {
+        // arrange
+        String description = "SwitchActuator";
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
+
+        // act
+        boolean result = switchActuator.setTheActuatorOff();
+
+        // assert
+        assertFalse(result);
+    }
+
+    @Test
+    void toStringOn() throws InstantiationException {
+        // arrange
+        String description = "SwitchActuator";
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
+        switchActuator.setTheActuatorOn();
+
+        // act
+        String result = switchActuator.toString();
+
+        // assert
+        assertEquals("On", result);
+    }
+
+    @Test
+    void toStringOff() throws InstantiationException {
+        // arrange
+        String description = "SwitchActuator";
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
+        switchActuator.setTheActuatorOff();
+
+        // act
+        String result = switchActuator.toString();
+
+        // assert
+        assertEquals("Off", result);
+    }
+
+    @Test
+    void setValue() throws InstantiationException {
+        // arrange
+        String description = "SwitchActuator";
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        Value valueDouble = mock(Value.class);
+
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
+
+        // act
+        Value result = switchActuator.setValue(valueDouble);
+
+        // assert
+        assertEquals(valueDouble, result);
     }
 
 }
