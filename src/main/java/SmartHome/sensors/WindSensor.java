@@ -45,8 +45,7 @@ public class WindSensor implements Sensor{
         Random rand = new Random();
         int speed = rand.nextInt(408); //wind speed world record
         int directionIndex = rand.nextInt(8);
-        String[] directions = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
-        String direction = directions[directionIndex];
+        double direction = rand.nextDouble() * 2 * Math.PI; // direction in radians
         return new WindSensorValue(speed, direction);
     }
 }
