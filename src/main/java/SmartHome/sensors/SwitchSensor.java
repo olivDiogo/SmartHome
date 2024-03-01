@@ -24,13 +24,10 @@ public class SwitchSensor implements Sensor {
             return sensorType;
         }
     }
-
-    @Override
     public SensorType getSensorType() {
         return this._sensorType;
     }
 
-    @Override
     public Value getValue() {
         return this._value.clone();
     }

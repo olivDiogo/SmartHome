@@ -20,6 +20,7 @@ public class SwitchSensorValue implements Value, Cloneable{
         }
     }
 
+    @Override
     public String toString() {
         return _bValue ? "On" : "Off";
     }

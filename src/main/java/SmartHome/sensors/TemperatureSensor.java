@@ -7,17 +7,22 @@ import SmartHome.domain.Value;
 
 import java.util.Random;
 
-public class GA100K implements Sensor {
+public class TemperatureSensor implements Sensor {
     private final SensorType _sensorType;
+    private TemperatureSensorValue _value;
 
-    public GA100K(CatalogueSensor catalogue) throws InstantiationException
+    public TemperatureSensor(CatalogueSensor catalogue) throws InstantiationException
     {
-        // this is a sensor of temperature
+        this._sensorType = setSensorType(catalogue);
+    }
+
+    private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException
+    {
         SensorType sensorType = catalogue.getSensorType("Temperature");
         if( sensorType == null )
             throw new InstantiationException("SensorType with description 'Temperature' does not exist.");
         else
-            this._sensorType = sensorType;
+            return sensorType;
     }
 
     public SensorType getSensorType()
@@ -28,8 +33,9 @@ public class GA100K implements Sensor {
     public Value getValue()
     {
         Random rand = new Random();
-        int nValue = rand.nextInt(140) - 70; // valor entre -70 e 70
+        int temperatureReading = rand.nextInt(140) - 70; // valor entre -70 e 70
+        this._value = new TemperatureSensorValue(temperatureReading);
 
-        return new GA100KValue( nValue );
+        return _value.clone();
     }
 }

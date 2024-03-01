@@ -7,76 +7,68 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class SwitchSensorTest {
+class TemperatureSensorTest {
     @Test
-    void newValidSwitchSensor() throws InstantiationException {
+    void newValidTemperatureSensor() throws InstantiationException {
         // Arrange
-
-        String description = "Switch";
-
+        String description = "Temperature";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         // Act
-        new SwitchSensor( catalogueDouble);
+        new TemperatureSensor( catalogueDouble);
     }
 
     @Test
-    void newInvalidSwitchSensor() {
+    void newInvalidTemperatureSensor() {
         // Arrange
-        String description = "Switch";
-
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
 
-        when(catalogueDouble.getSensorType(description)).thenReturn(null);
+        when(catalogueDouble.getSensorType("Temperature")).thenReturn(null);
 
         // Act
-        Exception exception = assertThrows(InstantiationException.class, () -> new SwitchSensor( catalogueDouble));
+        Exception exception = assertThrows(InstantiationException.class, () -> new TemperatureSensor( catalogueDouble));
 
         // Assert
-        assertEquals( "SensorType with description 'Switch' does not exist.", exception.getMessage() );
+        assertEquals( "SensorType with description 'Temperature' does not exist.", exception.getMessage() );
     }
 
     @Test
     void getSensorTypeReturnsCorrectSensorType() throws InstantiationException {
         // Arrange
-        String description = "Switch";
-
+        String description = "Temperature";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        SwitchSensor switchSensor = new SwitchSensor( catalogueDouble);
+        TemperatureSensor temperatureSensor = new TemperatureSensor( catalogueDouble);
 
         // Act
-        SensorType result = switchSensor.getSensorType();
+        SensorType result = temperatureSensor.getSensorType();
 
         // Assert
         assertEquals( sensorTypeDouble, result );
     }
 
     @Test
-    void getValueReturnsOff() throws InstantiationException {
+    void getValueReturnsCorrectValue() throws InstantiationException {
         // Arrange
-        String description = "Switch";
-
+        String description = "Temperature";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
-        SwitchSensorValue switchSensorValueDouble = mock(SwitchSensorValue.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        when(switchSensorValueDouble.clone()).thenReturn(switchSensorValueDouble);
-        when(switchSensorValueDouble.toString()).thenReturn("Off");
 
-        SwitchSensor switchSensor = new SwitchSensor(catalogueDouble);
+        TemperatureSensor temperatureSensor = new TemperatureSensor(catalogueDouble);
 
         // Act
-        Value result = switchSensor.getValue();
+        Value value = temperatureSensor.getValue();
+        int tempValue = Integer.parseInt(value.toString());
 
         // Assert
-        assertEquals("Off", result.toString());
+        assertTrue(tempValue >= -70 && tempValue <= 70, "The temperature value should be between -70 and 70.");
     }
 }
