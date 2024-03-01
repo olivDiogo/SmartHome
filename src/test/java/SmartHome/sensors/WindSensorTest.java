@@ -3,12 +3,11 @@ package SmartHome.sensors;
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
+import org.mockito.MockedConstruction;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class WindSensorTest {
 
@@ -74,14 +73,15 @@ class WindSensorTest {
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueDouble.getSensorType(strDescription)).thenReturn(sensorTypeDouble);
-        WindSensor windSensor = new WindSensor(catalogueDouble);
 
-        //Act
-        WindSensorValue value = (WindSensorValue) windSensor.getValue();
+        try (MockedConstruction<WindSensorValue> mockedConstruction = Mockito.mockConstruction(WindSensorValue.class)) {
+            WindSensor windSensor = new WindSensor(catalogueDouble);
+            //Act
+            windSensor.getValue();
 
-        //Assert
-        assertNotNull(value);
-        assertTrue(value instanceof WindSensorValue); //TODO: check this line
+            //Assert
+            assertEquals(1, mockedConstruction.constructed().size());
+        }
     }
     /**
      * Testing getValue method speed is within bounds
@@ -91,17 +91,22 @@ class WindSensorTest {
     @Test
     void shouldReturnValidWindSpeed() throws InstantiationException {
         //Arrange
+        double speed = 10.0;
         String strDescription = "WindSpeedAndDirection";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueDouble.getSensorType(strDescription)).thenReturn(sensorTypeDouble);
         WindSensor windSensor = new WindSensor(catalogueDouble);
 
-        //Act
-        WindSensorValue value = (WindSensorValue) windSensor.getValue();
+        try(MockedConstruction<WindSensorValue> windSensorValueDouble = mockConstruction(WindSensorValue.class,(mock, context)->{
+            when(mock.getSpeed()).thenReturn(speed);
+        })){
+            //Act
+            windSensor.getValue();
 
-        //Assert
-        assertTrue(value._speed >= 0 && value._speed <= 408);
+            //Assert
+            assertEquals(speed, windSensorValueDouble.constructed().get(0).getSpeed());
+        }
     }
 
     /**
@@ -110,17 +115,21 @@ class WindSensorTest {
     @Test
     void shouldReturnValidDirection() throws InstantiationException {
         //Arrange
+        Double direction = 10.0;
         String strDescription = "WindSpeedAndDirection";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueDouble.getSensorType(strDescription)).thenReturn(sensorTypeDouble);
         WindSensor windSensor = new WindSensor(catalogueDouble);
-        String[] directions = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
 
-        //Act
-        WindSensorValue value = (WindSensorValue) windSensor.getValue();
+        try(MockedConstruction<WindSensorValue> windSensorValueDouble = mockConstruction(WindSensorValue.class,(mock, context)->{
+            when(mock.getDirection()).thenReturn(direction);
+        })){
+            //Act
+            windSensor.getValue();
 
-        //Assert
-        assertTrue(Arrays.asList(directions).contains(value._direction));
+            //Assert
+            assertEquals(direction, windSensorValueDouble.constructed().get(0).getDirection());
+        }
     }
 }
