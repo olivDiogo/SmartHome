@@ -283,7 +283,7 @@ public class AddSensorToDeviceTest {
         double height = 3;
 
         String deviceName = "device1";
-        String sensorModel = "SmartHome.sensors.GA100K";
+        String sensorModel = "SmartHome.sensors.TemperatureSensor";
 
         catalogue.addSensorType("Temperature", Unit.Temperature, new SensorTypeFactory());
 
