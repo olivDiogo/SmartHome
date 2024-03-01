@@ -1,10 +1,10 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.CatalogueSensor;
-import SmartHome.domain.SensorType;
+import SmartHome.domain.*;
 
 public class SunsetTimeSensor {
     private SensorType _sensorType;
+    private Gps _gps;
     public SunsetTimeSensor(CatalogueSensor catalogueSensor) throws InstantiationException {
     setSensorType(catalogueSensor);
     }
@@ -18,4 +18,14 @@ public class SunsetTimeSensor {
             return sensorType;
         }
     }
+    public Gps configureGpsLocation(Gps gps) {
+        if (gps == null)
+            throw new IllegalArgumentException("GPS location is required");
+        else {
+            this._gps = gps;
+            return gps;
+        }
+    }
+
+
 }
