@@ -2,42 +2,54 @@ package SmartHome.sensors;
 
 import SmartHome.domain.*;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+import org.mockito.Mockito;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class DewPointSensorTest {
 
     /**
      * Test if the sensor type is created correctly.
+     *
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    void newValidDewPoint() throws InstantiationException
-    {
+    void newValidDewPoint() throws InstantiationException {
         // arrange
-        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
-        SensorType sensorType = catalogue.addSensorType( "DewPoint", Unit.Temperature, new SensorTypeFactory());
+        String description = "DewPoint";
+
+        CatalogueSensor catalogue = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         // act
-        DewPointSensor dewPoint = new DewPointSensor( catalogue );
+        DewPointSensor dewPoint = new DewPointSensor(catalogue);
 
         // assert
-        assertEquals( dewPoint.getSensorType(), sensorType );
+        assertNotNull(dewPoint);
     }
 
     /**
      * Test if the sensor type is not created correctly.
-      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    void newNonexistentSensorTypeForDewPoint() throws InstantiationException {
+    void newNonexistentSensorTypeForDewPoint() {
         // arrange
-        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
+        String description = "Temperature";
+
+        CatalogueSensor catalogue = mock(CatalogueSensor.class);
+
+        when(catalogue.getSensorType(description)).thenReturn(null);
+
         String expectedMessage = "SensorType with description 'DewPoint' does not exist.";
 
         // act + assert
-        Exception exception = assertThrows( InstantiationException.class, () ->
-                new DewPointSensor( catalogue )
+        Exception exception = assertThrows(InstantiationException.class, () ->
+                new DewPointSensor(catalogue)
         );
 
         // assert
@@ -48,78 +60,140 @@ class DewPointSensorTest {
 
     /**
      * Tests if the sensor type is returned correctly.
+     *
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
     void testGetSensorType() throws InstantiationException {
         // arrange
-        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
-        SensorType sensorType = catalogue.addSensorType( "DewPoint", Unit.Temperature, new SensorTypeFactory());
+        String description = "DewPoint";
+
+        CatalogueSensor catalogueSensor = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        when(catalogueSensor.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        DewPointSensor dewPoint = new DewPointSensor(catalogueSensor);
 
         // act
-        DewPointSensor dewPoint = new DewPointSensor( catalogue );
-        SensorType result = dewPoint.getSensorType();
+        SensorType sensorType = dewPoint.getSensorType();
 
         // assert
-        assertEquals( sensorType, result );
+        assertEquals(sensorType, sensorTypeDouble);
+
     }
 
     /**
      * Tests if the sensor type is not returned correctly.
-      * @throws InstantiationException If the sensor type does not exist.
+     *
+     * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
     void testGetWrongSensorType() throws InstantiationException {
         // arrange
-        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
-        SensorType sensorType = catalogue.addSensorType( "DewPoint", Unit.Temperature, new SensorTypeFactory());
-        SensorType sensorTypeWrong = catalogue.addSensorType( "Temperature", Unit.Temperature, new SensorTypeFactory());
+        String description = "DewPoint";
+
+        CatalogueSensor catalogueSensor = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        SensorType wrongSensorType = mock(SensorType.class);
+
+        when(catalogueSensor.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        DewPointSensor dewPoint = new DewPointSensor(catalogueSensor);
 
         // act
-        DewPointSensor dewPoint = new DewPointSensor( catalogue );
-        SensorType result = dewPoint.getSensorType();
+        SensorType sensorType = dewPoint.getSensorType();
 
         // assert
-        assertNotEquals( sensorTypeWrong, result );
+        assertNotEquals(sensorType, wrongSensorType);
     }
 
     /**
-     * Tests if the value of the sensor is returned correctly.
-      * @throws InstantiationException If the sensor type does not exist.
-     */
-    @Test
-    void shouldReturnTheDewPointValueDefined() throws InstantiationException {
-        // arrange
-        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
-        SensorType sensorType = catalogue.addSensorType( "DewPoint", Unit.Temperature, new SensorTypeFactory());
-        int valueExpected = 25;
-
-        // act
-        DewPointSensor dewPoint = new DewPointSensor( catalogue );
-        int valueResult = Integer.parseInt(dewPoint.getValue().toString());
-
-        // assert
-        assertEquals(valueExpected, valueResult);
-    }
-
-    /**
-     * Tests if a wrong value of the sensor is not returned.
+     * Tests if the value is returned correctly.
+     *
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    void testWrongDewPointValue() throws InstantiationException {
+    void testGetValue() throws InstantiationException {
         // arrange
-        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
-        SensorType sensorType = catalogue.addSensorType( "DewPoint", Unit.Temperature, new SensorTypeFactory());
+        String description = "DewPoint";
+        int value = 25;
 
-        int valueWrong = 30;
+        CatalogueSensor catalogueSensor = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        DewPointValue dewPointValueDouble = mock(DewPointValue.class);
+
+        when(catalogueSensor.getSensorType(description)).thenReturn(sensorTypeDouble);
+        when(dewPointValueDouble.clone()).thenReturn(dewPointValueDouble);
+        when(dewPointValueDouble.toString()).thenReturn(Integer.toString(value));
+
+        DewPointSensor dewPoint = new DewPointSensor(catalogueSensor);
 
         // act
-        DewPointSensor dewPoint = new DewPointSensor( catalogue );
-        int valueResult = Integer.parseInt(dewPoint.getValue().toString());
+        Value valueReturned = dewPoint.getValue();
 
         // assert
-        assertNotEquals(valueWrong, valueResult);
+        assertEquals(valueReturned.toString(), Integer.toString(value));
     }
+
+    /**
+     * Tests if the value is not returned correctly.
+     *
+     * @throws InstantiationException If the sensor type does not exist.
+     */
+    @Test
+    void testGetWrongValue() throws InstantiationException {
+        // arrange
+        String description = "DewPoint";
+        int value = 25;
+
+        int wrongValue = 0;
+
+        CatalogueSensor catalogueSensor = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        DewPointValue dewPointValueDouble = mock(DewPointValue.class);
+
+        when(catalogueSensor.getSensorType(description)).thenReturn(sensorTypeDouble);
+        when(dewPointValueDouble.clone()).thenReturn(dewPointValueDouble);
+        when(dewPointValueDouble.toString()).thenReturn(Integer.toString(value));
+
+        DewPointSensor dewPoint = new DewPointSensor(catalogueSensor);
+
+        // act
+        Value valueReturned = dewPoint.getValue();
+
+        // assert
+        assertNotEquals(valueReturned.toString(), Integer.toString(wrongValue));
+    }
+
+    @Test
+    void getValue () throws InstantiationException {
+        //Arrange
+        String description = "DewPoint";
+        int value = 25;
+
+        int expectedSize = 1;
+
+        try (MockedConstruction<DewPointValue> dewPointValueDouble = mockConstruction(DewPointValue.class, (mock, context) ->
+                when(mock.toString()).thenReturn(Integer.toString(value))) )
+        {
+
+            CatalogueSensor catalogue = mock(CatalogueSensor.class);
+            SensorType sensorTypeDouble = mock(SensorType.class);
+            when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+            DewPointSensor dewPoint = new DewPointSensor(catalogue);
+
+            //Act
+            dewPoint.getValue();
+
+            //Assert
+            List<DewPointValue> dewPointValues = dewPointValueDouble.constructed();
+            assertEquals(expectedSize, dewPointValues.size());
+            assertEquals(Integer.toString(value), dewPointValues.get(0).toString());
+
+        }
+    }
+
 
 }
