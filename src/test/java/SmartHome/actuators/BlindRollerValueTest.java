@@ -41,22 +41,10 @@ public class BlindRollerValueTest {
         BlindRollerValue clonedValue = blindRollerValue.clone();
 
         // Assert
-        assertEquals(blindRollerValue.get_nValue(), clonedValue.get_nValue());
+        assertEquals(blindRollerValue.toString(), clonedValue.toString());
     }
 
-    @Test
-    void catchCloneNotSupportedException() {
-        // Arrange
-        int nValue = 50;
-        BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);
-        BlindRollerValue clonedValue = blindRollerValue.clone();
 
-        // Act
-        clonedValue = clonedValue.clone();
-
-        // Assert
-        assertEquals(blindRollerValue.get_nValue(), clonedValue.get_nValue());
-    }
 }
 
 

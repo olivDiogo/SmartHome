@@ -30,8 +30,12 @@ public class BlindRollerValue implements Value, Cloneable {
             throw new AssertionError();
         }
     }
-    public int get_nValue() {
-        return _nValue;
+    /**
+     * Gets the value of the blind roller.
+     */
+    public String toString() {
+        return this._nValue + "";
+
     }
 
 }
