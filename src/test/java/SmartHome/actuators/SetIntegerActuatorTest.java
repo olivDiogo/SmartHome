@@ -18,8 +18,6 @@ public class SetIntegerActuatorTest {
     void shouldCreateInstanceOfSetIntegerActuator() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
-        int lowerLimit = 0;
-        int upperLimit = 100;
 
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
@@ -27,7 +25,7 @@ public class SetIntegerActuatorTest {
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
         // Act
-        new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
+        new SetIntegerActuator(catalogueDouble);
     }
 
     /**
@@ -37,14 +35,12 @@ public class SetIntegerActuatorTest {
     void createSetIntegerActuatorWithInvalidActuatorType_thenThrowException() {
         // Arrange
         String description = "SetInteger";
-        int lowerLimit = 0;
-        int upperLimit = 100;
-        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
 
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         when(catalogueDouble.getActuatorType(description)).thenReturn(null);
 
         // Act
-        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(InstantiationException.class, () -> new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit));
+        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(InstantiationException.class, () -> new SetIntegerActuator(catalogueDouble));
 
         // Assert
         org.junit.jupiter.api.Assertions.assertEquals("ActuatorType with description 'SetInteger' does not exist.", exception.getMessage());
@@ -58,14 +54,13 @@ public class SetIntegerActuatorTest {
     void getActuatorTypeReturnsCorrectActuatorType() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
-        int lowerLimit = 0;
-        int upperLimit = 100;
+
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
 
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
 
         // Act
         ActuatorType actuatorType = setIntegerActuator.getActuatorType();
@@ -82,15 +77,14 @@ public class SetIntegerActuatorTest {
     void getActuatorTypeReturnsWrongActuatorType() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
-        int lowerLimit = 0;
-        int upperLimit = 100;
+
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
-        ActuatorType actuatorTypeDouble2 = mock(ActuatorType.class);
-
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
+        ActuatorType actuatorTypeDouble2 = mock(ActuatorType.class);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
 
         // Act
         ActuatorType actuatorType = setIntegerActuator.getActuatorType();
@@ -110,15 +104,15 @@ public class SetIntegerActuatorTest {
         int lowerLimit = 0;
         int upperLimit = 100;
         int value = 50;
+
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
-
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
 
         // Act
-        int result = setIntegerActuator.setValueInRange(value);
+        int result = setIntegerActuator.setValueInRange(value, lowerLimit, upperLimit);
 
         // Assert
         assertEquals(value, result);
@@ -135,17 +129,17 @@ public class SetIntegerActuatorTest {
         int lowerLimit = 0;
         int upperLimit = 100;
         int value = -1;
+
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
-
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
 
         String expected = "Value cannot be less than the lower limit.";
 
         // Act
-        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setIntegerActuator.setValueInRange(value));
+        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setIntegerActuator.setValueInRange(value, lowerLimit, upperLimit));
 
         // Assert
         org.junit.jupiter.api.Assertions.assertEquals(expected, exception.getMessage());
@@ -162,17 +156,17 @@ public class SetIntegerActuatorTest {
         int lowerLimit = 0;
         int upperLimit = 100;
         int value = 101;
+
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
-
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
 
         String expected = "Value cannot be greater than the upper limit.";
 
         // Act
-        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setIntegerActuator.setValueInRange(value));
+        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setIntegerActuator.setValueInRange(value, lowerLimit, upperLimit));
 
         // Assert
         org.junit.jupiter.api.Assertions.assertEquals(expected, exception.getMessage());
