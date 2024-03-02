@@ -8,7 +8,7 @@ import SmartHome.domain.Value;
 public class SwitchActuator implements Actuator {
 
     private ActuatorType _actuatorType;
-    private boolean _value;
+    private SwitchActuatorValue _value;
 
     /**
      * Instantiates a new SwitchActuator.
@@ -18,7 +18,7 @@ public class SwitchActuator implements Actuator {
 
     public SwitchActuator(CatalogueActuator catalogue) throws InstantiationException {
         setActuatorType(catalogue);
-        _value = false;
+        this._value = new SwitchActuatorValue(false);
     }
 
     /**
@@ -42,53 +42,23 @@ public class SwitchActuator implements Actuator {
      *
      * @return the actuator type
      */
-    public ActuatorType getActuatorType(){
+    public ActuatorType getActuatorType() {
         return this._actuatorType;
     }
 
-    /**
-     * Set the actuator on
-     */
-    public boolean setTheActuatorOn(){
-        if (!_value) {
-            _value = true;
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
     /**
-     * Set the actuator off
-     */
-    public boolean setTheActuatorOff(){
-        if (_value) {
-            _value = false;
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    /**
-     * Gets the value.
+     * Sets the value of the switch actuator.
      *
-     * @return the value
+     * @return the value of the switch actuator.
      */
-    public Value setValue(Value value) {
-        return value;
-    }
+    public Value setValue(boolean value) {
 
-    /**
-     * Gets the value.
-     *
-     * @return the value
-     */
-    @Override
-    public String toString() {
-        return (_value) ? "On" : "Off";
+        if (value){
+            _value.setValueOn();
+        } else {
+            _value.setValueOff();
+        }
+        return _value.clone();
     }
-
 }

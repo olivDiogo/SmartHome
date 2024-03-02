@@ -94,102 +94,118 @@ public class SwitchActuatorTest {
         // act
         ActuatorType actuatorType = switchActuator.getActuatorType();
 
-
         // assert
         assertNotEquals(actuatorType, actuatorTypeDouble2);
     }
 
+    /**
+     * Should set the value of the actuator to on.
+     *
+     * @throws InstantiationException
+     */
+
     @Test
-    void turnOnActuator() throws InstantiationException {
+    void setValueOn() throws InstantiationException {
         // arrange
         String description = "SwitchActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        SwitchActuatorValue switchActuatorValueDouble = mock(SwitchActuatorValue.class);
 
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+        when(switchActuatorValueDouble.clone()).thenReturn(switchActuatorValueDouble);
+
+        boolean actuatorValue = true;
 
         SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
 
         // act
-        boolean result = switchActuator.setTheActuatorOn();
+        Value value = switchActuator.setValue(actuatorValue);
 
         // assert
-        assertTrue(result);
+        assertEquals("On", value.toString());
     }
 
+    /**
+     * Set Invalid Value when actuator value is false
+     *
+     * @throws InstantiationException
+     */
     @Test
-    void turnOffActuator() throws InstantiationException {
+    void setInavlidValue_On() throws InstantiationException {
         // arrange
         String description = "SwitchActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        SwitchActuatorValue switchActuatorValueDouble = mock(SwitchActuatorValue.class);
 
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+        when(switchActuatorValueDouble.clone()).thenReturn(switchActuatorValueDouble);
+
+        boolean actuatorValue = false;
 
         SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
 
         // act
-        boolean result = switchActuator.setTheActuatorOff();
+        Value value = switchActuator.setValue(actuatorValue);
 
         // assert
-        assertFalse(result);
+        assertNotEquals("On", value.toString());
     }
 
+    /**
+     * Should set the value of the actuator to off.
+     *
+     * @throws InstantiationException
+     */
+
     @Test
-    void toStringOn() throws InstantiationException {
+    void setValueOff() throws InstantiationException {
         // arrange
         String description = "SwitchActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        SwitchActuatorValue switchActuatorValueDouble = mock(SwitchActuatorValue.class);
 
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+        when(switchActuatorValueDouble.clone()).thenReturn(switchActuatorValueDouble);
+
+        boolean actuatorValue = false;
 
         SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
-        switchActuator.setTheActuatorOn();
 
         // act
-        String result = switchActuator.toString();
+        Value value = switchActuator.setValue(actuatorValue);
 
         // assert
-        assertEquals("On", result);
+        assertEquals("Off", value.toString());
     }
 
+    /**
+     * Set Invalid Value when actuator value is true
+     *
+     * @throws InstantiationException
+     */
+
     @Test
-    void toStringOff() throws InstantiationException {
+    void setInvalidValue_Off() throws InstantiationException {
         // arrange
         String description = "SwitchActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        SwitchActuatorValue switchActuatorValueDouble = mock(SwitchActuatorValue.class);
 
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+        when(switchActuatorValueDouble.clone()).thenReturn(switchActuatorValueDouble);
 
-        SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
-        switchActuator.setTheActuatorOff();
-
-        // act
-        String result = switchActuator.toString();
-
-        // assert
-        assertEquals("Off", result);
-    }
-
-    @Test
-    void setValue() throws InstantiationException {
-        // arrange
-        String description = "SwitchActuator";
-        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
-        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
-        Value valueDouble = mock(Value.class);
-
-        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+        boolean actuatorValue = true;
 
         SwitchActuator switchActuator = new SwitchActuator(catalogueDouble);
 
         // act
-        Value result = switchActuator.setValue(valueDouble);
+        Value value = switchActuator.setValue(actuatorValue);
 
         // assert
-        assertEquals(valueDouble, result);
+        assertNotEquals("Off", value.toString());
     }
-
 }
