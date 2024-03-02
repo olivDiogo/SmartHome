@@ -2,10 +2,11 @@ package SmartHome.sensors;
 
 import SmartHome.domain.*;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class SwitchSensorTest {
     @Test
@@ -62,21 +63,24 @@ class SwitchSensorTest {
     void getValueReturnsOff() throws InstantiationException {
         // Arrange
         String description = "Switch";
+        String state = "Off";
 
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
-        SwitchSensorValue switchSensorValueDouble = mock(SwitchSensorValue.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        when(switchSensorValueDouble.clone()).thenReturn(switchSensorValueDouble);
-        when(switchSensorValueDouble.toString()).thenReturn("Off");
 
-        SwitchSensor switchSensor = new SwitchSensor(catalogueDouble);
+        try (MockedConstruction<SwitchSensorValue> switchSensorValueDouble = mockConstruction(SwitchSensorValue.class, (mock, context) -> {
+            when(mock.clone()).thenReturn(mock);
+            when(mock.toString()).thenReturn(state);
+        })) {
+            SwitchSensor switchSensor = new SwitchSensor(catalogueDouble);
 
-        // Act
-        Value result = switchSensor.getValue();
+            // Act
+            Value result = switchSensor.getValue();
 
-        // Assert
-        assertEquals("Off", result.toString());
+            // Assert
+            assertEquals("Off", result.toString());
+        }
     }
 }
