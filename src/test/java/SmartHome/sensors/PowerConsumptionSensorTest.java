@@ -54,26 +54,33 @@ public class PowerConsumptionSensorTest {
 
         int expectedSize = 1;
 
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        PowerConsumptionSensorValue powerConsumptionSensorValue = mock(PowerConsumptionSensorValue.class);
+
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+
+        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+
         try (MockedConstruction<PowerConsumptionSensorValue> powerConsumptionSensorValueDouble = mockConstruction(PowerConsumptionSensorValue.class, (mock, context) ->
-                when(mock.toString()).thenReturn(value))) {
+        {
+            when(powerConsumptionSensorValue.clone()).thenReturn(powerConsumptionSensorValue);
+            when(powerConsumptionSensorValue.toString()).thenReturn(value);
+            when(mock.toString()).thenReturn(value);
+        })) {
 
-            CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-            SensorType sensorTypeDouble = mock(SensorType.class);
+            LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
+            LocalDateTime finalTime = LocalDateTime.now();
 
-            when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-            PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
-
-//            LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
-//            LocalDateTime finalTime = LocalDateTime.now();
-//
-//            powerConsumptionSensor.setValue(initialTime, 1000);
-//            powerConsumptionSensor.setValue(finalTime, 2000);
+            powerConsumptionSensor.setValue(initialTime, 1000);
+            powerConsumptionSensor.setValue(finalTime, 2000);
 
             // Act
-//            powerConsumptionSensor.getAverageValue(initialTime, finalTime);
+            powerConsumptionSensor.getAverageValue(initialTime, finalTime);
             Value result = powerConsumptionSensor.getValue();
-//            System.out.println(result);
+            System.out.println(result);
+
 
             // Assert
             List<PowerConsumptionSensorValue> powerConsumptionSensorValues = powerConsumptionSensorValueDouble.constructed();
