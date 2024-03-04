@@ -2,6 +2,7 @@ package SmartHome.actuators;
 
 import SmartHome.domain.ActuatorType;
 import SmartHome.domain.CatalogueActuator;
+import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -24,9 +25,6 @@ public class BlindRollerActuatorTest {
 
         // Act
         new BlindRollerActuator(catalogueDouble);
-
-        // Assert
-        assertNotNull(BlindRollerActuator.class);
     }
 
     @Test
@@ -67,16 +65,20 @@ public class BlindRollerActuatorTest {
         String description = "BlindRollerActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        Value valueMock = mock(Value.class);
+
+        String value = "50";
 
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+        when(valueMock.toString()).thenReturn(value);
+
         BlindRollerActuator blindRollerActuator = new BlindRollerActuator(catalogueDouble);
-        int value = 50;
 
         // Act
-        blindRollerActuator.setValue(new BlindRollerValue(value));
+        Value result = blindRollerActuator.setValue(valueMock);
 
         // Assert
-        assertNotNull(blindRollerActuator);
+        assertEquals(value, result.toString());
     }
 
     @Test

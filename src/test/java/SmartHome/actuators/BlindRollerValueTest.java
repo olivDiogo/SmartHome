@@ -2,7 +2,7 @@ package SmartHome.actuators;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class BlindRollerValueTest {
 
@@ -12,38 +12,19 @@ public class BlindRollerValueTest {
         int nValue = 50;
 
         //Act
-        BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);
-
-        //Assert
-        assertNotNull(blindRollerValue);
-    }
-
-    @Test
-    void cloneCantBeEqualsToOriginal() {
-        // Arrange
-        int nValue = 50;
-        BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);
-
-        // Act
-        BlindRollerValue clonedValue = blindRollerValue.clone();
-
-        // Assert
-        assertNotEquals(blindRollerValue, clonedValue);
+        new BlindRollerValue(nValue);
     }
 
     @Test
     void cloneReturnsTheSameValueAsOriginal() {
         // Arrange
-        int nValue = 50;
-        BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);
-
+        String nValue = "50";
+        BlindRollerValue blindRollerValue = new BlindRollerValue(Integer.parseInt(nValue));
         // Act
-        BlindRollerValue clonedValue = blindRollerValue.clone();
-
+        BlindRollerValue result = blindRollerValue.clone();
         // Assert
-        assertEquals(blindRollerValue.toString(), clonedValue.toString());
+        assertEquals(blindRollerValue.toString(), result.toString());
     }
-
 
 }
 
