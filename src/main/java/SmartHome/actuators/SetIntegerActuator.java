@@ -5,11 +5,9 @@ import SmartHome.domain.ActuatorType;
 import SmartHome.domain.CatalogueActuator;
 import SmartHome.domain.Value;
 
-import java.util.Random;
-
 public class SetIntegerActuator implements Actuator {
     private ActuatorType _actuatorType;
-    private SetIntegerActuatorValue _value;
+    private SetIntegerValue _value;
     private int _lowerLimit;
     private int _upperLimit;
 
@@ -80,7 +78,7 @@ public class SetIntegerActuator implements Actuator {
             throw new IllegalArgumentException("Value cannot be greater than the upper limit.");
 
         } else {
-            this._value = new SetIntegerActuatorValue(nValue);
+            this._value = new SetIntegerValue(nValue);
 
             return this._value.clone();
         }

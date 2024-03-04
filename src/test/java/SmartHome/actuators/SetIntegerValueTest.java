@@ -6,9 +6,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-public class SetIntegerActuatorValueTest {
+public class SetIntegerValueTest {
 
     /**
      * Should create instance of SetIntegerActuatorValue class.
@@ -19,10 +18,10 @@ public class SetIntegerActuatorValueTest {
         int value = 4;
 
         // Act
-        SetIntegerActuatorValue setIntegerActuatorValue = new SetIntegerActuatorValue(value);
+        SetIntegerValue setIntegerValue = new SetIntegerValue(value);
 
         // Assert
-        assertNotNull(setIntegerActuatorValue);
+        assertNotNull(setIntegerValue);
     }
 
     /**
@@ -33,13 +32,13 @@ public class SetIntegerActuatorValueTest {
         // arrange
         int value = 10;
 
-        SetIntegerActuatorValue setIntegerActuatorValue = new SetIntegerActuatorValue(value);
+        SetIntegerValue setIntegerValue = new SetIntegerValue(value);
 
         // act
-        SetIntegerActuatorValue clonedSetIntegerActuatorValue = setIntegerActuatorValue.clone();
+        SetIntegerValue clonedSetIntegerValue = setIntegerValue.clone();
 
         // assert
-        assertNotEquals(setIntegerActuatorValue, clonedSetIntegerActuatorValue);
+        assertNotEquals(setIntegerValue, clonedSetIntegerValue);
     }
 
 
@@ -48,10 +47,10 @@ public class SetIntegerActuatorValueTest {
         // Arrange
         int value = 10;
 
-        SetIntegerActuatorValue setIntegerActuatorValue = new SetIntegerActuatorValue(value);
+        SetIntegerValue setIntegerValue = new SetIntegerValue(value);
 
         // Act
-        String result = setIntegerActuatorValue.toString();
+        String result = setIntegerValue.toString();
 
         // Assert
         assertEquals("10", result);

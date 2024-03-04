@@ -2,7 +2,7 @@ package SmartHome.actuators;
 
 import SmartHome.domain.Value;
 
-public class SetIntegerActuatorValue implements Value, Cloneable{
+public class SetIntegerValue implements Value, Cloneable{
     private int _value;
 
     /**
@@ -10,7 +10,7 @@ public class SetIntegerActuatorValue implements Value, Cloneable{
      *
      * @param value The value of the integer actuator.
      */
-    public SetIntegerActuatorValue(int value) {
+    public SetIntegerValue(int value) {
         setValue(value);
     }
 
@@ -29,10 +29,10 @@ public class SetIntegerActuatorValue implements Value, Cloneable{
      * @return The cloned value of the integer actuator.
      */
     @Override
-    public SetIntegerActuatorValue clone() {
+    public SetIntegerValue clone() {
         try {
             // Call the Object clone() method
-            return (SetIntegerActuatorValue) super.clone();
+            return (SetIntegerValue) super.clone();
         } catch (CloneNotSupportedException e) {
             // This should never happen since we are Cloneable
             throw new AssertionError();
