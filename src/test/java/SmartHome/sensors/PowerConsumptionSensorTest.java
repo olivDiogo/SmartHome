@@ -14,6 +14,9 @@ import static org.mockito.Mockito.*;
 
 public class PowerConsumptionSensorTest {
 
+    /**
+     * See if the constructor works.
+     */
     @Test
     void shouldInstantiatePowerConsumptionSensor() throws InstantiationException {
         // Arrange
@@ -24,10 +27,13 @@ public class PowerConsumptionSensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         // Act
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        new PowerConsumptionSensor(catalogueDouble);
 
     }
 
+    /**
+     * See if the getSensorType method works.
+     */
     @Test
     void getSensorType() throws InstantiationException {
         // Arrange
@@ -46,6 +52,9 @@ public class PowerConsumptionSensorTest {
         Assertions.assertEquals(sensorTypeDouble, result);
     }
 
+    /**
+     * See if the getValue method works.
+     */
     @Test
     void newPowerConsumptionSensorWithValidValue() throws InstantiationException {
         // Arrange
@@ -89,6 +98,9 @@ public class PowerConsumptionSensorTest {
         }
     }
 
+    /**
+     * tests if Exception is thrown for non-existing Sensor type.
+     */
     @Test
     void newNonExistentSensorTypeForPowerConsumptionSensor() {
         // Arrange
@@ -104,6 +116,9 @@ public class PowerConsumptionSensorTest {
         Assertions.assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * Tests if Exception is thrown for null Sensor type.
+     */
     @Test
     void newNullSensorTypeForPowerConsumptionSensor() {
         //Arrange
@@ -119,6 +134,10 @@ public class PowerConsumptionSensorTest {
         //Assert
         Assertions.assertEquals(expectedMessage, exception.getMessage());
     }
+
+    /**
+     * See if the getAverageValue method works.
+     */
 
     @Test
     void getAverageValueTest() throws InstantiationException {
@@ -147,6 +166,10 @@ public class PowerConsumptionSensorTest {
 
     }
 
+    /**
+     * See if the getAverageValue method works with another time.
+     */
+
     @Test
     void getAverageValueUsingAnotherTime() throws InstantiationException {
         // Arrange
@@ -173,6 +196,10 @@ public class PowerConsumptionSensorTest {
         Assertions.assertEquals(expectedAverage, averageValue, 0.01);
     }
 
+
+    /**
+     * See if the getAverageValue method works with more values than the initial and final time.
+     */
     @Test
     void getAverageValueOfMoreValuesThanTheInitialAndFinalTime() throws InstantiationException {
         // Arrange
@@ -200,6 +227,10 @@ public class PowerConsumptionSensorTest {
         // Assert
         Assertions.assertEquals(expectedAverage, averageValue, 0.01);
     }
+
+    /**
+     * See if the getAverageValue method works with readings out of range of the initial and final times.
+     */
 
     @Test
     void getAverageValueWithReadingsOutOfRange() throws InstantiationException {
@@ -233,6 +264,9 @@ public class PowerConsumptionSensorTest {
         Assertions.assertEquals(expectedAverage, averageValue, 0.01);
     }
 
+    /**
+     * See if the getAverageValue method works with non-sequential readings.
+     */
     @Test
     void getAverageValueWithNonSequencialReadings() throws InstantiationException {
         // Arrange
@@ -265,6 +299,9 @@ public class PowerConsumptionSensorTest {
         Assertions.assertEquals(expectedAverage, averageValue, 0.01);
     }
 
+    /**
+     * Tests if Exception is thrown for average with only one reading.
+     */
     @Test
     void getAverageValueWithOnlyOneReading() throws InstantiationException {
         // Arrange
@@ -289,6 +326,9 @@ public class PowerConsumptionSensorTest {
         ;
     }
 
+    /**
+     * Tests if Exception is thrown for initial time after final time.
+     */
     @Test
     void getAverageValueWithInitialTimeAfterFinalTime() throws InstantiationException {
         // Arrange
@@ -312,6 +352,9 @@ public class PowerConsumptionSensorTest {
         ;
     }
 
+    /**
+     * Tests if Exception is thrown for initial time equals to final time.
+     */
     @Test
     void getAverageValueWithInitialEqualsToFinalTime() throws InstantiationException {
         // Arrange
@@ -335,26 +378,7 @@ public class PowerConsumptionSensorTest {
         Assertions.assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    @Test
-    void getAverageValueWithNegativeValue() throws InstantiationException {
-        // Arrange
-        String description = "Power Consumption";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        String expectedMessage = "Value must be positive";
 
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
-
-        LocalDateTime initialTime = LocalDateTime.now();
-
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> powerConsumptionSensor.setValue(initialTime, -1));
-
-        // Assert
-        String actualMessage = exception.getMessage();
-        Assertions.assertTrue(actualMessage.contains(expectedMessage));
-    }
 }
 
 

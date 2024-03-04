@@ -2,10 +2,12 @@ package SmartHome.actuators;
 
 import SmartHome.domain.ActuatorType;
 import SmartHome.domain.CatalogueActuator;
+import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -103,19 +105,24 @@ public class SetIntegerActuatorTest {
         String description = "SetInteger";
         int lowerLimit = 0;
         int upperLimit = 100;
-        int value = 50;
+
+        String value = "50";
 
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
+        Value valueDouble = mock(Value.class);
+        when(valueDouble.toString()).thenReturn(value);
+
+
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
 
         // Act
-        int result = setIntegerActuator.setValueInRange(value, lowerLimit, upperLimit);
+        Value result = setIntegerActuator.setValueInRange(lowerLimit, upperLimit, valueDouble);
 
         // Assert
-        assertEquals(value, result);
+        assertEquals(value, result.toString());
     }
 
     /**
@@ -128,18 +135,22 @@ public class SetIntegerActuatorTest {
         String description = "SetInteger";
         int lowerLimit = 0;
         int upperLimit = 100;
-        int value = -1;
+
+        String value = "-1";
 
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        Value valueDouble = mock(Value.class);
+        when(valueDouble.toString()).thenReturn(value);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
 
         String expected = "Value cannot be less than the lower limit.";
 
         // Act
-        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setIntegerActuator.setValueInRange(value, lowerLimit, upperLimit));
+        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setIntegerActuator.setValueInRange(lowerLimit, upperLimit, valueDouble));
 
         // Assert
         org.junit.jupiter.api.Assertions.assertEquals(expected, exception.getMessage());
@@ -155,18 +166,22 @@ public class SetIntegerActuatorTest {
         String description = "SetInteger";
         int lowerLimit = 0;
         int upperLimit = 100;
-        int value = 101;
+
+        String value = "101";
 
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        Value valueDouble = mock(Value.class);
+        when(valueDouble.toString()).thenReturn(value);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
 
         String expected = "Value cannot be greater than the upper limit.";
 
         // Act
-        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setIntegerActuator.setValueInRange(value, lowerLimit, upperLimit));
+        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setIntegerActuator.setValueInRange(lowerLimit, upperLimit, valueDouble));
 
         // Assert
         org.junit.jupiter.api.Assertions.assertEquals(expected, exception.getMessage());

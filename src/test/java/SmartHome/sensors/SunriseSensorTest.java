@@ -8,13 +8,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class SunriseSensorTest {
+
+    /**
+     * See if the constructor works.
+     */
     @Test
     void shouldInstantiateSunriseTimeSensor() throws InstantiationException {
         //Arrange
@@ -26,6 +29,9 @@ public class SunriseSensorTest {
         new SunriseTimeSensor(catalogueSensorDouble);
     }
 
+    /**
+     * See if the constructor throws an exception when the SensorType does not exist.
+     */
     @Test
     void shouldThrowExceptionWhenSensorTypeIsNotSupported() {
         //Arrange
@@ -42,6 +48,9 @@ public class SunriseSensorTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * See if the configureGpsLocation method works.
+     */
     @Test
     void shouldConfigureGpsLocation() throws InstantiationException {
         //Arrange
@@ -60,6 +69,9 @@ public class SunriseSensorTest {
         assertEquals(gps, gpsDouble);
     }
 
+    /**
+     * See if the configureGpsLocation method throws an exception when the GPS location is null.
+     */
     @Test
     void shouldThrowExceptionWhenGpsLocationIsNull() throws InstantiationException {
         //Arrange
@@ -80,6 +92,9 @@ public class SunriseSensorTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * See if the getSensorType method works.
+     */
     @Test
     void shouldReturnSensorType() throws InstantiationException {
         //Arrange
@@ -97,6 +112,9 @@ public class SunriseSensorTest {
         assertEquals(sensorType, sensorTypeDouble);
     }
 
+    /**
+     * See if the getValue method works for the current day.
+     */
     @Test
     void shouldReturnSunriseTimeValueForCurrentDay() throws InstantiationException {
         //Arrange
@@ -135,6 +153,9 @@ public class SunriseSensorTest {
 
     }
 
+    /**
+     * See if the getValue method works for a specific day.
+     */
     @Test
     void shouldReturnSunriseTimeValueForSpecificDay() throws InstantiationException {
         //Arrange

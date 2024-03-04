@@ -3,14 +3,14 @@ package SmartHome.actuators;
 import SmartHome.domain.Actuator;
 import SmartHome.domain.ActuatorType;
 import SmartHome.domain.CatalogueActuator;
-
-import java.util.Random;
+import SmartHome.domain.Value;
 
 public class SetIntegerActuator implements Actuator {
     private ActuatorType _actuatorType;
+    private SetIntegerValue _value;
     private int _lowerLimit;
     private int _upperLimit;
-    private int _value;
+
 
     /**
      * Instantiates a new SetIntegerActuator.
@@ -68,14 +68,19 @@ public class SetIntegerActuator implements Actuator {
      * Sets the value if within range.
      * @param value the value
      */
-    public int setValueInRange(int value, int lowerLimit, int upperLimit) {
-        if (value < setLowerLimit(lowerLimit)) {
+    public Value setValueInRange(int lowerLimit, int upperLimit, Value value) {
+        int nValue = Integer.parseInt(value.toString());
+
+        if (nValue < setLowerLimit(lowerLimit)) {
             throw new IllegalArgumentException("Value cannot be less than the lower limit.");
-        } else if (value > setUpperLimit(upperLimit)) {
+
+        } else if (nValue > setUpperLimit(upperLimit)) {
             throw new IllegalArgumentException("Value cannot be greater than the upper limit.");
+
         } else {
-            this._value = value;
-            return value;
+            this._value = new SetIntegerValue(nValue);
+
+            return this._value.clone();
         }
     }
 }

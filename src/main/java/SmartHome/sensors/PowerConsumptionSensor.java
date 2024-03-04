@@ -12,15 +12,29 @@ import java.util.stream.Collectors;
 public class PowerConsumptionSensor implements Sensor {
     private final SensorType _sensorType;
     private final Map<LocalDateTime, Double> powerConsumptions;
-    private double result;
+    private double averageResult;
 
+    private PowerConsumptionSensorValue powerConsumptionSensorValue;
+
+    /**
+     * Creates a new PowerConsumptionSensor with a given catalogue.
+     * @param catalogue the catalogue to be set.
+     * @throws InstantiationException if the SensorType with description 'Power Consumption' does not exist.
+     */
 
     public PowerConsumptionSensor(CatalogueSensor catalogue) throws InstantiationException {
         this._sensorType = setSensorType(catalogue);
         this.powerConsumptions = setPowerConsumptions();
-        this.result = setResult();
+        this.averageResult = setResult();
 
     }
+
+    /**
+     * Sets the SensorType of the PowerConsumptionSensor.
+     * @param catalogue the catalogue to be set.
+     * @return the SensorType with description 'Power Consumption'.
+     * @throws InstantiationException if the SensorType with description 'Power Consumption' does not exist.
+     */
 
     private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
         SensorType sensorType = catalogue.getSensorType("Power Consumption");
@@ -31,34 +45,68 @@ public class PowerConsumptionSensor implements Sensor {
         }
     }
 
+    /**
+     * Sets the power consumptions of the PowerConsumptionSensor.
+     * @return a new HashMap with the power consumptions.
+     */
+
     private HashMap<LocalDateTime, Double> setPowerConsumptions() {
         return new HashMap<>();
     }
 
+    /**
+     * Sets the average result of the PowerConsumptionSensor.
+     * @return the average result.
+     */
+
     private double setResult() {
-        return result = 0;
+        return averageResult = 0;
     }
+
+    /**
+     * Gets the SensorType of the PowerConsumptionSensor.
+     * @return the SensorType with description 'Power Consumption'.
+     */
 
     public SensorType getSensorType() {
         return this._sensorType;
     }
 
+    /**
+     * Gets the value of the PowerConsumptionSensor.
+     * @return the value of the PowerConsumptionSensor.
+     */
 
     public Value getValue() {
-        return new PowerConsumptionSensorValue(result).clone();
+        return this.powerConsumptionSensorValue = new PowerConsumptionSensorValue(averageResult).clone();
     }
+
+    /**
+     * Sets the value of the PowerConsumptionSensor.
+     * @param readTime the time of the reading.
+     * @param reading the reading to be set.
+     * @return a new HashMap with the power consumptions.
+     * @throws IllegalArgumentException if there is already a reading for this time.
+     */
 
     public Map<LocalDateTime, Double> setValue(LocalDateTime readTime, double reading) {
         if (powerConsumptions.containsKey(readTime))
             throw new IllegalArgumentException("There is already a reading for this time");
-        if (reading < 0)
-            throw new IllegalArgumentException("Value must be positive");
+
         else {
             powerConsumptions.put(readTime, reading);
             return powerConsumptions;
         }
     }
 
+    /**
+     * Gets the average value of the PowerConsumptionSensor.
+     * @param initialTime the initial time of the range.
+     * @param finalTime the final time of the range.
+     * @return the average value of the PowerConsumptionSensor.
+     * @throws IllegalArgumentException if the initial time is after the final time.
+     * @throws IllegalArgumentException if the initial time is equal to the final time.
+     */
 
     public double getAverageValue(LocalDateTime initialTime, LocalDateTime finalTime) {
         if (initialTime.isAfter(finalTime)) {
@@ -74,10 +122,17 @@ public class PowerConsumptionSensor implements Sensor {
                 .average()
                 .orElse(0);
 
-        this.result = average;
+        this.averageResult = average;
 
         return average;
     }
+
+    /**
+     * Filters the power consumptions of the PowerConsumptionSensor by time.
+     * @param initialTime the initial time of the range.
+     * @param finalTime the final time of the range.
+     * @return a new HashMap with the filtered power consumptions.
+     */
 
     public Map<LocalDateTime, Double> filterPowerConsumptionsByTime(LocalDateTime initialTime, LocalDateTime finalTime) {
         // Filter the powerConsumptions map to only include entries within the specified time range

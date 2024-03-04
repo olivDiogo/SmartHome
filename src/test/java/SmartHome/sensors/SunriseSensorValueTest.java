@@ -8,6 +8,9 @@ import java.time.LocalTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SunriseSensorValueTest {
+    /**
+     * See if the constructor works.
+     */
     @Test
     void shouldInstantiateSunriseTimeValue() {
         //Arrange
@@ -15,6 +18,10 @@ public class SunriseSensorValueTest {
         //Act
         new SunsetTimeValue(time);
     }
+
+    /**
+     * See if the constructor throws an exception when the time is null.
+     */
     @Test
     void shouldThrowExceptionWhenTimeIsNull() {
         //Arrange
@@ -26,6 +33,10 @@ public class SunriseSensorValueTest {
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    /**
+     * See if the toString method works.
+     */
     @Test
     void shouldReturnSunsetTime() {
         //Arrange
@@ -38,6 +49,9 @@ public class SunriseSensorValueTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * See if the clone method works.
+     */
     @Test
     void shouldReturnClone(){
         //Arrange
