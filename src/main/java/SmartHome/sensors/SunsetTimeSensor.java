@@ -2,7 +2,9 @@ package SmartHome.sensors;
 
 import SmartHome.domain.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class SunsetTimeSensor implements Sensor {
     private SensorType _sensorType;
@@ -48,7 +50,9 @@ public class SunsetTimeSensor implements Sensor {
         this._sunsetTimeValue = new SunsetTimeValue(sunset);
         return this._sunsetTimeValue;
     }
-
-
-
+    public Value getValue(LocalDate date) {
+        LocalTime sunset = _sunTimesProvider.getSunsetTime(_gps.getLatitude(), _gps.getLongitude(), date);
+        this._sunsetTimeValue = new SunsetTimeValue(sunset);
+        return this._sunsetTimeValue;
+    }
 }

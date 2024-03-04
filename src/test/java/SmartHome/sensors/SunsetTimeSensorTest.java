@@ -7,6 +7,7 @@ import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -137,7 +138,31 @@ class SunsetTimeSensorTest {
             //Assert
             assertTrue(mocked.constructed().contains(result));
         }
-
     }
+    @Test
+    void shouldReturnSunsetTimeValueForSelectedDay() throws InstantiationException {
+        //Arrange
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueSensorDouble.getSensorType("SunsetTime")).thenReturn(sensorTypeDouble);
+        Gps gpsDouble = mock(Gps.class);
+        when(gpsDouble.getLatitude()).thenReturn(41.1579); // Coordinates to oporto
+        when(gpsDouble.getLongitude()).thenReturn(8.6291);
 
+        ISunTimesProviders sunTimesProvidersDouble = mock(ISunTimesProviders.class);
+        LocalDate dateDouble = mock(LocalDate.class);
+        when(sunTimesProvidersDouble.getSunsetTime(gpsDouble.getLatitude(), gpsDouble.getLongitude(), dateDouble)).thenReturn(LocalTime.of(20, 0));
+
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(catalogueSensorDouble);
+
+        sunsetTimeSensor.configureGpsLocation(gpsDouble);
+        sunsetTimeSensor.configureSunTimeProvider(sunTimesProvidersDouble);
+
+        try (MockedConstruction<SunsetTimeValue> mocked = mockConstruction(SunsetTimeValue.class)) {
+            //Act
+            Value result = sunsetTimeSensor.getValue(dateDouble);
+            //Assert
+            assertTrue(mocked.constructed().contains(result));
+        }
+    }
 }
