@@ -48,6 +48,13 @@ public class SunriseTimeSensor implements Sensor {
         LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();
         return new SunriseTimeValue(sunrise).clone();
     }
+
+    public Value getValue(LocalDate date) {
+        SunTimes time = SunTimes.compute().on(date).at(this._gps.getLatitude(), this._gps.getLongitude()).execute();
+        LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();
+        return new SunriseTimeValue(sunrise).clone();
+    }
+
 }
 
 
