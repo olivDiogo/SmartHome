@@ -18,7 +18,7 @@ class SwitchSensorValueTest {
         boolean bValue = true;
 
         // Act & Assert
-        assertNotNull(new SwitchSensorValue(bValue), "SwitchSensorValue should be initialized with a boolean value.");
+        new SwitchSensorValue(bValue);
     }
 
     /**

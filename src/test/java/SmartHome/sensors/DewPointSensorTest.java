@@ -22,15 +22,12 @@ class DewPointSensorTest {
         // arrange
         String description = "DewPoint";
 
-        CatalogueSensor catalogue = mock(CatalogueSensor.class);
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
-        when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
+        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         // act
-        DewPointSensor dewPoint = new DewPointSensor(catalogue);
-
-        // assert
-        assertNotNull(dewPoint);
+        new DewPointSensor(catalogueSensorDouble);
     }
 
     /**
@@ -41,15 +38,15 @@ class DewPointSensorTest {
         // arrange
         String description = "Temperature";
 
-        CatalogueSensor catalogue = mock(CatalogueSensor.class);
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
 
-        when(catalogue.getSensorType(description)).thenReturn(null);
+        when(catalogueSensorDouble.getSensorType(description)).thenReturn(null);
 
         String expectedMessage = "SensorType with description 'DewPoint' does not exist.";
 
         // act + assert
         Exception exception = assertThrows(InstantiationException.class, () ->
-                new DewPointSensor(catalogue)
+                new DewPointSensor(catalogueSensorDouble)
         );
 
         // assert
@@ -68,12 +65,12 @@ class DewPointSensorTest {
         // arrange
         String description = "DewPoint";
 
-        CatalogueSensor catalogueSensor = mock(CatalogueSensor.class);
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
-        when(catalogueSensor.getSensorType(description)).thenReturn(sensorTypeDouble);
+        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        DewPointSensor dewPoint = new DewPointSensor(catalogueSensor);
+        DewPointSensor dewPoint = new DewPointSensor(catalogueSensorDouble);
 
         // act
         SensorType sensorType = dewPoint.getSensorType();
@@ -93,13 +90,13 @@ class DewPointSensorTest {
         // arrange
         String description = "DewPoint";
 
-        CatalogueSensor catalogueSensor = mock(CatalogueSensor.class);
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         SensorType wrongSensorType = mock(SensorType.class);
 
-        when(catalogueSensor.getSensorType(description)).thenReturn(sensorTypeDouble);
+        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        DewPointSensor dewPoint = new DewPointSensor(catalogueSensor);
+        DewPointSensor dewPoint = new DewPointSensor(catalogueSensorDouble);
 
         // act
         SensorType sensorType = dewPoint.getSensorType();
@@ -119,15 +116,15 @@ class DewPointSensorTest {
         String description = "DewPoint";
         int value = 25;
 
-        CatalogueSensor catalogueSensor = mock(CatalogueSensor.class);
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         DewPointValue dewPointValueDouble = mock(DewPointValue.class);
 
-        when(catalogueSensor.getSensorType(description)).thenReturn(sensorTypeDouble);
+        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
         when(dewPointValueDouble.clone()).thenReturn(dewPointValueDouble);
         when(dewPointValueDouble.toString()).thenReturn(Integer.toString(value));
 
-        DewPointSensor dewPoint = new DewPointSensor(catalogueSensor);
+        DewPointSensor dewPoint = new DewPointSensor(catalogueSensorDouble);
 
         // act
         Value valueReturned = dewPoint.getValue();
@@ -149,15 +146,15 @@ class DewPointSensorTest {
 
         int wrongValue = 0;
 
-        CatalogueSensor catalogueSensor = mock(CatalogueSensor.class);
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         DewPointValue dewPointValueDouble = mock(DewPointValue.class);
 
-        when(catalogueSensor.getSensorType(description)).thenReturn(sensorTypeDouble);
+        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
         when(dewPointValueDouble.clone()).thenReturn(dewPointValueDouble);
         when(dewPointValueDouble.toString()).thenReturn(Integer.toString(value));
 
-        DewPointSensor dewPoint = new DewPointSensor(catalogueSensor);
+        DewPointSensor dewPoint = new DewPointSensor(catalogueSensorDouble);
 
         // act
         Value valueReturned = dewPoint.getValue();
@@ -166,8 +163,13 @@ class DewPointSensorTest {
         assertNotEquals(valueReturned.toString(), Integer.toString(wrongValue));
     }
 
+    /**
+     * Tests if the value is returned correctly.
+     *
+     * @throws InstantiationException If the sensor type does not exist.
+     */
     @Test
-    void getValue () throws InstantiationException {
+    void getValue() throws InstantiationException {
         //Arrange
         String description = "DewPoint";
         int value = 25;
@@ -175,14 +177,13 @@ class DewPointSensorTest {
         int expectedSize = 1;
 
         try (MockedConstruction<DewPointValue> dewPointValueDouble = mockConstruction(DewPointValue.class, (mock, context) ->
-                when(mock.toString()).thenReturn(Integer.toString(value))) )
-        {
+                when(mock.toString()).thenReturn(Integer.toString(value)))) {
 
-            CatalogueSensor catalogue = mock(CatalogueSensor.class);
+            CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
             SensorType sensorTypeDouble = mock(SensorType.class);
-            when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
+            when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-            DewPointSensor dewPoint = new DewPointSensor(catalogue);
+            DewPointSensor dewPoint = new DewPointSensor(catalogueSensorDouble);
 
             //Act
             dewPoint.getValue();
