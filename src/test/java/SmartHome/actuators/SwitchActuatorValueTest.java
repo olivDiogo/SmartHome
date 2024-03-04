@@ -3,6 +3,8 @@ package SmartHome.actuators;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class SwitchActuatorValueTest {
 
@@ -10,15 +12,13 @@ public class SwitchActuatorValueTest {
      * Should create instance of SwitchActuatorValue class.
      */
     @Test
-    void switchActuatorValueConstructortest() {
+    void shouldCreateInstanceOfSwitchActuator(){
         // arrange
         boolean value = true;
 
         // act
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(value);
+        new SwitchActuatorValue(value);
 
-        // assert
-        assertNotNull(switchActuatorValue);
     }
 
     /**
