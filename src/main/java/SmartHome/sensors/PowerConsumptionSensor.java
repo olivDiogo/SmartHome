@@ -12,13 +12,14 @@ import java.util.stream.Collectors;
 public class PowerConsumptionSensor implements Sensor {
     private final SensorType _sensorType;
     private final Map<LocalDateTime, Double> powerConsumptions;
-    private double result;
+    private double averageResult;
 
+    private PowerConsumptionSensorValue powerConsumptionSensorValue;
 
     public PowerConsumptionSensor(CatalogueSensor catalogue) throws InstantiationException {
         this._sensorType = setSensorType(catalogue);
         this.powerConsumptions = setPowerConsumptions();
-        this.result = setResult();
+        this.averageResult = setResult();
 
     }
 
@@ -36,7 +37,7 @@ public class PowerConsumptionSensor implements Sensor {
     }
 
     private double setResult() {
-        return result = 0;
+        return averageResult = 0;
     }
 
     public SensorType getSensorType() {
@@ -45,14 +46,13 @@ public class PowerConsumptionSensor implements Sensor {
 
 
     public Value getValue() {
-        return new PowerConsumptionSensorValue(result).clone();
+        return this.powerConsumptionSensorValue = new PowerConsumptionSensorValue(averageResult).clone();
     }
 
     public Map<LocalDateTime, Double> setValue(LocalDateTime readTime, double reading) {
         if (powerConsumptions.containsKey(readTime))
             throw new IllegalArgumentException("There is already a reading for this time");
-        if (reading < 0)
-            throw new IllegalArgumentException("Value must be positive");
+
         else {
             powerConsumptions.put(readTime, reading);
             return powerConsumptions;
@@ -74,7 +74,7 @@ public class PowerConsumptionSensor implements Sensor {
                 .average()
                 .orElse(0);
 
-        this.result = average;
+        this.averageResult = average;
 
         return average;
     }

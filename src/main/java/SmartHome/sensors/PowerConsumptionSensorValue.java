@@ -10,6 +10,8 @@ public class PowerConsumptionSensorValue implements Value, Cloneable {
     }
 
     private void setValue(double dValue) {
+        if (dValue < 0)
+            throw new IllegalArgumentException("Value must be positive");
         this._dValue = dValue;
     }
 

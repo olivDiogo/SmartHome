@@ -1,12 +1,18 @@
 package SmartHome.sensors;
 
 import SmartHome.domain.Actuator;
+import SmartHome.domain.CatalogueSensor;
+import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class PowerConsumptionSensorValueTest {
     @Test
@@ -42,4 +48,19 @@ public class PowerConsumptionSensorValueTest {
         //Assert
         Assertions.assertEquals(expected, actualString);
     }
+
+    @Test
+    void getAverageValueWithNegativeValue() throws InstantiationException {
+        // Arrange
+        double dValue = -1;
+        String expectedMessage = "Value must be positive";
+
+
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> new PowerConsumptionSensorValue(dValue));
+
+        // Assert
+        String actualMessage = exception.getMessage();
+        Assertions.assertTrue(actualMessage.contains(expectedMessage));
+    }
+
 }
