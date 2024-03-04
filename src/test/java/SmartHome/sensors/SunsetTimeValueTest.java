@@ -36,7 +36,36 @@ class SunsetTimeValueTest {
         //Assert
         assertEquals(expected, actual);
     }
-
+    @Test
+    void cloneInstanceShouldReturnSameInformation() {
+        //Arrange
+        LocalTime time = LocalTime.of(18, 5, 20);
+        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(time);
+        //Act
+        SunsetTimeValue clonedSunsetTimeValue = sunsetTimeValue.clone();
+        //Assert
+        assertEquals(sunsetTimeValue.toString(), clonedSunsetTimeValue.toString());
+    }
+    @Test
+    void comparingCloneShouldReturnTrue() {
+        //Arrange
+        LocalTime time = LocalTime.of(18, 5, 20);
+        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(time);
+        //Act
+        SunsetTimeValue clonedSunsetTimeValue = sunsetTimeValue.clone();
+        //Assert
+        assertEquals(sunsetTimeValue, clonedSunsetTimeValue);
+    }
+    @Test
+    void clonedInstanceShouldPointToDifferentMemoryLocation() {
+        //Arrange
+        LocalTime time = LocalTime.of(18, 5, 20);
+        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(time);
+        //Act
+        SunsetTimeValue clonedSunsetTimeValue = sunsetTimeValue.clone();
+        //Assert
+        assertNotSame(sunsetTimeValue.hashCode(), clonedSunsetTimeValue.hashCode());
+    }
 
 
 }
