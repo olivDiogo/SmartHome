@@ -1,15 +1,14 @@
 package SmartHome.sensors;
 
 import SmartHome.domain.*;
-import org.shredzone.commons.suncalc.SunTimes;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Objects;
 
 public class SunsetTimeSensor implements Sensor {
     private SensorType _sensorType;
     private Gps _gps;
+    private ISunTimesProviders _sunTimesProvider;
+    private SunsetTimeValue _sunsetTimeValue;
     public SunsetTimeSensor(CatalogueSensor catalogueSensor) throws InstantiationException {
     setSensorType(catalogueSensor);
     }
@@ -30,6 +29,14 @@ public class SunsetTimeSensor implements Sensor {
             return gps;
         }
     }
+    public ISunTimesProviders configureSunTimeProvider(ISunTimesProviders sunTimesProvider) {
+        if (sunTimesProvider == null)
+            throw new IllegalArgumentException("SunTimesProvider is required");
+        else {
+            this._sunTimesProvider = sunTimesProvider;
+            return sunTimesProvider;
+        }
+    }
 
     public SensorType getSensorType() {
         return this._sensorType;
@@ -37,9 +44,9 @@ public class SunsetTimeSensor implements Sensor {
 
     //Default behavior will return sunset for current day
     public Value getValue() {
-        SunTimes time = SunTimes.compute().on(LocalDate.now()).at(this._gps.getLatitude(), this._gps.getLongitude()).execute();
-        LocalTime sunset = Objects.requireNonNull(time.getSet()).toLocalTime();
-        return new SunsetTimeValue(sunset);
+        LocalTime sunset = _sunTimesProvider.getSunsetTime(_gps.getLatitude(), _gps.getLongitude());
+        this._sunsetTimeValue = new SunsetTimeValue(sunset);
+        return this._sunsetTimeValue;
     }
 
 

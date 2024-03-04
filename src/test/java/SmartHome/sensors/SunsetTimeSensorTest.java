@@ -7,8 +7,9 @@ import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.time.LocalTime;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class SunsetTimeSensorTest {
@@ -82,6 +83,35 @@ class SunsetTimeSensorTest {
         //Assert
         assertTrue(sensorType.equals(sensorTypeDouble));
     }
+    @Test
+    void shouldSetSunTimesProvider() throws InstantiationException {
+        //Arrange
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueSensorDouble.getSensorType("SunsetTime")).thenReturn(sensorTypeDouble);
+        ISunTimesProviders sunTimesProviderDouble = mock(ISunTimesProviders.class);
+
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(catalogueSensorDouble);
+        //Act
+        ISunTimesProviders sunTimesProvider = sunsetTimeSensor.configureSunTimeProvider(sunTimesProviderDouble);
+        //Assert
+        assertEquals(sunTimesProvider, sunTimesProviderDouble);
+    }
+    @Test
+    void shouldThrowExceptionWhenSunTimesProviderIsNull() throws InstantiationException {
+        //Arrange
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+        when(catalogueSensorDouble.getSensorType("SunsetTime")).thenReturn(mock(SensorType.class));
+        ISunTimesProviders sunTimesProvider = null;
+
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(catalogueSensorDouble);
+        String expectedMessage = "SunTimesProvider is required";
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> sunsetTimeSensor.configureSunTimeProvider(sunTimesProvider));
+        //Assert
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 
     @Test
     void shouldReturnSunsetTimeValueForCurrentDay() throws InstantiationException {
@@ -93,8 +123,13 @@ class SunsetTimeSensorTest {
         when(gpsDouble.getLatitude()).thenReturn(41.1579); // Coordinates to oporto
         when(gpsDouble.getLongitude()).thenReturn(8.6291);
 
+        ISunTimesProviders sunTimesProvidersDouble = mock(ISunTimesProviders.class);
+        when(sunTimesProvidersDouble.getSunsetTime(41.1579, 8.6291)).thenReturn(LocalTime.of(20, 0));
+
         SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(catalogueSensorDouble);
+
         sunsetTimeSensor.configureGpsLocation(gpsDouble);
+        sunsetTimeSensor.configureSunTimeProvider(sunTimesProvidersDouble);
 
         try (MockedConstruction<SunsetTimeValue> mocked = mockConstruction(SunsetTimeValue.class)) {
             //Act
