@@ -66,6 +66,40 @@ class SunsetTimeValueTest {
         //Assert
         assertNotSame(sunsetTimeValue.hashCode(), clonedSunsetTimeValue.hashCode());
     }
+    @Test
+    void shouldReturnTrueIfSameObject() {
+        //Arrange
+        LocalTime time = LocalTime.of(18, 5, 20);
+        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(time);
+        //Act
+        boolean actual = sunsetTimeValue.equals(sunsetTimeValue);
+        //Assert
+        assertTrue(actual);
+    }
+    @Test
+    void shouldReturnFalseWhenComparedToNull() {
+        //Arrange
+        LocalTime time = LocalTime.of(18, 5, 20);
+        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(time);
+        //Act
+        boolean actual = sunsetTimeValue.equals(null);
+        //Assert
+        assertFalse(actual);
+    }
+    @Test
+    void shouldReturnFalseIfObjectsHoldDifferentInformation() {
+        //Arrange
+        LocalTime time = LocalTime.of(18, 5, 20);
+        LocalTime secondTime = LocalTime.of(18, 5, 21);
+
+        SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(time);
+        SunsetTimeValue sunsetTimeValue2 = new SunsetTimeValue(secondTime);
+        //Act
+        boolean actual = sunsetTimeValue.equals(sunsetTimeValue2);
+        //Assert
+        assertFalse(actual);
+    }
+
 
 
 }
