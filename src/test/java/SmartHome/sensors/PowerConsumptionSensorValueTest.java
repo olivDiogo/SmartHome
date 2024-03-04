@@ -15,6 +15,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class PowerConsumptionSensorValueTest {
+
+    /**
+     * See if the constructor works.
+     */
     @Test
     void seeIfConstructorWorks() {
         //Arrange
@@ -22,6 +26,10 @@ public class PowerConsumptionSensorValueTest {
         //Act
         new PowerConsumptionSensorValue(dValue);
     }
+
+    /**
+     * See if the clone method works.
+     */
 
     @Test
     void seeIfCloneWorks() {
@@ -36,6 +44,10 @@ public class PowerConsumptionSensorValueTest {
         Assertions.assertEquals(powerConsumptionSensorValue.toString(), clonedResult.toString());
     }
 
+    /**
+     * See if the toString method works.
+     */
+
     @Test
     void seeIfToStringWorks() {
         //Arrange
@@ -49,8 +61,12 @@ public class PowerConsumptionSensorValueTest {
         Assertions.assertEquals(expected, actualString);
     }
 
+    /**
+     * See if the constructor throws an exception when the value is negative.
+     */
+
     @Test
-    void getAverageValueWithNegativeValue() throws InstantiationException {
+    void seeIfThrowsExceptionWhenNegativeValue() throws InstantiationException {
         // Arrange
         double dValue = -1;
         String expectedMessage = "Value must be positive";
