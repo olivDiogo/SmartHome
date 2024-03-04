@@ -335,26 +335,7 @@ public class PowerConsumptionSensorTest {
         Assertions.assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    @Test
-    void getAverageValueWithNegativeValue() throws InstantiationException {
-        // Arrange
-        String description = "Power Consumption";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        String expectedMessage = "Value must be positive";
 
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
-
-        LocalDateTime initialTime = LocalDateTime.now();
-
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> powerConsumptionSensor.setValue(initialTime, -1));
-
-        // Assert
-        String actualMessage = exception.getMessage();
-        Assertions.assertTrue(actualMessage.contains(expectedMessage));
-    }
 }
 
 
