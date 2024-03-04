@@ -118,8 +118,10 @@ class SunsetTimeSensorTest {
     void shouldReturnSunsetTimeValueForCurrentDay() throws InstantiationException {
         //Arrange
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueSensorDouble.getSensorType("SunsetTime")).thenReturn(sensorTypeDouble);
+
         Gps gpsDouble = mock(Gps.class);
         when(gpsDouble.getLatitude()).thenReturn(41.1579); // Coordinates to oporto
         when(gpsDouble.getLongitude()).thenReturn(8.6291);
@@ -132,7 +134,8 @@ class SunsetTimeSensorTest {
         sunsetTimeSensor.configureGpsLocation(gpsDouble);
         sunsetTimeSensor.configureSunTimeProvider(sunTimesProvidersDouble);
 
-        try (MockedConstruction<SunsetTimeValue> mocked = mockConstruction(SunsetTimeValue.class)) {
+        try (MockedConstruction<SunsetTimeValue> mocked = mockConstruction(SunsetTimeValue.class, (mock, context) -> {
+            when(mock.clone()).thenReturn(mock);})) {
             //Act
             Value result = sunsetTimeSensor.getValue();
             //Assert
@@ -143,8 +146,10 @@ class SunsetTimeSensorTest {
     void shouldReturnSunsetTimeValueForSelectedDay() throws InstantiationException {
         //Arrange
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueSensorDouble.getSensorType("SunsetTime")).thenReturn(sensorTypeDouble);
+
         Gps gpsDouble = mock(Gps.class);
         when(gpsDouble.getLatitude()).thenReturn(41.1579); // Coordinates to oporto
         when(gpsDouble.getLongitude()).thenReturn(8.6291);
@@ -158,7 +163,8 @@ class SunsetTimeSensorTest {
         sunsetTimeSensor.configureGpsLocation(gpsDouble);
         sunsetTimeSensor.configureSunTimeProvider(sunTimesProvidersDouble);
 
-        try (MockedConstruction<SunsetTimeValue> mocked = mockConstruction(SunsetTimeValue.class)) {
+        try (MockedConstruction<SunsetTimeValue> mocked = mockConstruction(SunsetTimeValue.class, (mock, context) -> {
+            when(mock.clone()).thenReturn(mock);})) {
             //Act
             Value result = sunsetTimeSensor.getValue(dateDouble);
             //Assert

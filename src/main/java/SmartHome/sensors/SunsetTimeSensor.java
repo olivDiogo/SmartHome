@@ -48,11 +48,11 @@ public class SunsetTimeSensor implements Sensor {
     public Value getValue() {
         LocalTime sunset = _sunTimesProvider.getSunsetTime(_gps.getLatitude(), _gps.getLongitude());
         this._sunsetTimeValue = new SunsetTimeValue(sunset);
-        return this._sunsetTimeValue;
+        return this._sunsetTimeValue.clone();
     }
     public Value getValue(LocalDate date) {
         LocalTime sunset = _sunTimesProvider.getSunsetTime(_gps.getLatitude(), _gps.getLongitude(), date);
         this._sunsetTimeValue = new SunsetTimeValue(sunset);
-        return this._sunsetTimeValue;
+        return this._sunsetTimeValue.clone();
     }
 }
