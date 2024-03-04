@@ -5,8 +5,8 @@ import java.time.LocalTime;
 
 public interface ISunTimesProviders {
 
-    public LocalTime getSunsetTime();
-    public LocalTime getSunriseTime();
-    public LocalTime getSunsetTime(LocalDate date);
-    public LocalTime getSunriseTime(LocalDate date);
+    public LocalTime getSunsetTime(double latitude, double longitude);
+    public LocalTime getSunriseTime(double latitude, double longitude);
+    public LocalTime getSunsetTime(double latitude, double longitude, LocalDate date);
+    public LocalTime getSunriseTime(double latitude, double longitude, LocalDate date);
 }
