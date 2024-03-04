@@ -7,12 +7,14 @@ import SmartHome.domain.Value;
 
 import java.util.Random;
 
-public class WindSensor implements Sensor{
+public class WindSensor implements Sensor {
 
     private final SensorType _sensorType;
+    private WindSensorValue _value;
 
     /**
      * Constructor for WindSensor
+     *
      * @param catalogue
      * @throws InstantiationException
      */
@@ -20,6 +22,13 @@ public class WindSensor implements Sensor{
         this._sensorType = setSensorType(catalogue);
     }
 
+    /**
+     * Method to set the sensor type
+     *
+     * @param catalogue
+     * @return SensorType
+     * @throws InstantiationException
+     */
     private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
         SensorType sensorType = catalogue.getSensorType("WindSpeedAndDirection");
         if (sensorType == null)
@@ -31,6 +40,7 @@ public class WindSensor implements Sensor{
 
     /**
      * Method to get the sensor type
+     *
      * @return SensorType
      */
     public SensorType getSensorType() {
@@ -39,13 +49,14 @@ public class WindSensor implements Sensor{
 
     /**
      * Method to get the value of the sensor
+     *
      * @return
      */
     public Value getValue() {
         Random rand = new Random();
         int speed = rand.nextInt(408); //wind speed world record
-        int directionIndex = rand.nextInt(8);
         double direction = rand.nextDouble() * 2 * Math.PI; // direction in radians
-        return new WindSensorValue(speed, direction);
+        this._value = new WindSensorValue(speed, direction);
+        return this._value.clone();
     }
 }
