@@ -1,15 +1,23 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.*;
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.plist.PropertyListConfiguration;
+import SmartHome.domain.CatalogueSensor;
+import SmartHome.domain.SensorType;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class for {@link HumiditySensor}.
+ */
 class HumiditySensorTest {
+
+    /**
+     * Tests the creation of a valid HumiditySensor instance.
+     *
+     * @throws InstantiationException if the sensor type does not exist.
+     */
     @Test
     void newValidHumiditySensor() throws InstantiationException {
         // Arrange
@@ -20,9 +28,13 @@ class HumiditySensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         // Act
-        new HumiditySensor( catalogueDouble );
+        new HumiditySensor(catalogueDouble);
     }
 
+    /**
+     * Tests the creation of a HumiditySensor instance with an invalid sensor type,
+     * expecting an InstantiationException.
+     */
     @Test
     void newInvalidHumiditySensor() {
         // Arrange
@@ -31,13 +43,18 @@ class HumiditySensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(null);
 
-        // Act
-        Exception exception = assertThrows(InstantiationException.class, () -> new HumiditySensor( catalogueDouble));
+        // Act & Assert
+        Exception exception = assertThrows(InstantiationException.class, () -> new HumiditySensor(catalogueDouble));
 
         // Assert
-        assertEquals( "SensorType with description 'Humidity' does not exist.", exception.getMessage() );
+        assertEquals("SensorType with description 'Humidity' does not exist.", exception.getMessage());
     }
 
+    /**
+     * Tests that {@link HumiditySensor#getSensorType()} returns the correct {@link SensorType}.
+     *
+     * @throws InstantiationException if the sensor type does not exist.
+     */
     @Test
     void getSensorTypeReturnsCorrectSensorType() throws InstantiationException {
         // Arrange
@@ -47,84 +64,40 @@ class HumiditySensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        HumiditySensor humiditySensor = new HumiditySensor( catalogueDouble);
+        HumiditySensor humiditySensor = new HumiditySensor(catalogueDouble);
 
         // Act
         SensorType result = humiditySensor.getSensorType();
 
         // Assert
-        assertEquals( sensorTypeDouble, result );
+        assertEquals(sensorTypeDouble, result);
     }
 
+    /**
+     * Tests that {@link HumiditySensor#getValue()} returns the correct humidity value.
+     *
+     * @throws InstantiationException if the sensor type does not exist.
+     */
     @Test
-    void getValueReturnsPositiveValue() throws InstantiationException {
+    void getValueReturnCorrectValue() throws InstantiationException {
         // Arrange
         String description = "Humidity";
-        String humidity = "100";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        try(MockedConstruction<HumiditySensorValue> humiditySensorValue = mockConstruction(HumiditySensorValue.class, (mock, context) -> {
+        try (MockedConstruction<HumiditySensorValue> humiditySensorValue = mockConstruction(HumiditySensorValue.class, (mock, context) -> {
             when(mock.clone()).thenReturn(mock);
-            when(mock.toString()).thenReturn(humidity);
+            when(mock.toString()).thenReturn("50");
         })) {
-            HumiditySensor humiditySensor = new HumiditySensor( catalogueDouble);
+            HumiditySensor humiditySensor = new HumiditySensor(catalogueDouble);
 
             // Act
-            double result =Double.parseDouble(humiditySensor.getValue().toString());
+            double result = Double.parseDouble(humiditySensor.getValue().toString());
 
             // Assert
-            assertTrue(result >= 0 && result <= 100, "The humidity value should be between 0 and 100.");
-        }
-    }
-
-    @Test
-    void getValueReturnsZero() throws InstantiationException {
-        // Arrange
-        String description = "Humidity";
-        String humidity = "0";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        try(MockedConstruction<HumiditySensorValue> humiditySensorValue = mockConstruction(HumiditySensorValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
-            when(mock.toString()).thenReturn(humidity);
-        })) {
-            HumiditySensor humiditySensor = new HumiditySensor( catalogueDouble);
-
-            // Act
-            double result =Double.parseDouble(humiditySensor.getValue().toString());
-
-            // Assert
-            assertTrue(result >= 0 && result <= 100,"The humidity value should be between 0 and 100.");
-        }
-    }
-
-    @Test
-    void getValueReturnsInvalidValue() throws InstantiationException {
-        // Arrange
-        String description = "Humidity";
-        String humidity = "-1";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        try(MockedConstruction<HumiditySensorValue> humiditySensorValue = mockConstruction(HumiditySensorValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
-            when(mock.toString()).thenReturn(humidity);
-        })) {
-            HumiditySensor humiditySensor = new HumiditySensor( catalogueDouble);
-
-            // Act
-            double result =Double.parseDouble(humiditySensor.getValue().toString());
-
-            // Assert
-            assertFalse(result >= 0 && result <= 100,"The humidity value should be between 0 and 100.");
+            assertEquals(50, result);
         }
     }
 }
