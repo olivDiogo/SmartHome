@@ -1,0 +1,167 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant " " as User
+
+participant ":AddActuatorToDevice_Controller" as AddActuatorToDevice_Controller
+
+participant ":RoomAssembler" as RoomAssembler
+
+participant ":DeviceAssembler" as DeviceAssembler
+
+participant ":House" as House
+
+participant "room:Room" as Room
+
+participant "device:Device" as Device
+
+participant "catalogue:ActuatorCatalogue" as CatalogueActuator
+
+participant "actuatorFactory:ActuatorFactory" as ActuatorFactory
+
+participant "actuator:Actuator" as Actuator
+
+participant "roomDTO:RoomDTO" as RoomDTO
+
+participant "deviceDTO:DeviceDTO" as DeviceDTO
+
+participant "actuatorDTO:ActuatorDTO" as ActuatorDTO
+
+autonumber
+
+'----------------------------------------------------'
+
+User o-> AddActuatorToDevice_Controller: getRooms()
+
+activate AddActuatorToDevice_Controller
+
+AddActuatorToDevice_Controller -> House: getRooms()
+
+activate House
+
+House --> AddActuatorToDevice_Controller: copyOfRooms
+
+deactivate House
+
+AddActuatorToDevice_Controller -> RoomAssembler: domain2DTO(copyOfRooms)
+
+activate RoomAssembler
+
+loop for each room in copyOfRooms
+
+create RoomDTO
+    RoomAssembler -> RoomDTO: createRoomDTO(room)
+    activate RoomDTO
+    RoomDTO --> RoomAssembler: roomDTO
+    deactivate RoomDTO
+end
+
+RoomAssembler --> AddActuatorToDevice_Controller: roomDTOs
+
+deactivate RoomAssembler
+
+AddActuatorToDevice_Controller --> User: roomDTOs
+
+deactivate AddActuatorToDevice_Controller
+
+'----------------------------------------------------'
+
+User o-> AddActuatorToDevice_Controller: getDevices(roomDTO)
+
+activate AddActuatorToDevice_Controller
+
+AddActuatorToDevice_Controller -> Room: getDevices()
+
+activate Room
+
+Room --> AddActuatorToDevice_Controller: copyOfDevices
+
+deactivate Room
+
+AddActuatorToDevice_Controller -> DeviceAssembler: domain2DTO(copyOfDevices)
+
+activate DeviceAssembler
+
+loop for each device in copyOfDevices
+
+create DeviceDTO
+    DeviceAssembler -> DeviceDTO: createDeviceDTO(device)
+    activate DeviceDTO
+    DeviceDTO --> DeviceAssembler: deviceDTO
+    deactivate DeviceDTO
+end
+
+DeviceAssembler --> AddActuatorToDevice_Controller: deviceDTOs
+
+deactivate DeviceAssembler
+
+AddActuatorToDevice_Controller --> User: deviceDTOs
+
+deactivate AddActuatorToDevice_Controller
+
+'----------------------------------------------------'
+
+User o-> AddActuatorToDevice_Controller: addActuatorToDevice(deviceDTO, model)
+
+activate AddActuatorToDevice_Controller
+
+AddActuatorToDevice_Controller -> DeviceAssembler: dto2Domain(deviceDTO)
+
+activate DeviceAssembler
+
+DeviceAssembler --> AddActuatorToDevice_Controller: device
+
+deactivate DeviceAssembler
+
+AddActuatorToDevice_Controller -> Device: addActuator(model, catalogue, actuatorFactory)
+
+activate Device
+
+Device --> CatalogueActuator: getActuator(model, actuatorFactory)
+
+activate CatalogueActuator
+
+CatalogueActuator --> ActuatorFactory: createActuator(model, catalogue)
+
+activate ActuatorFactory
+
+create Actuator
+
+ActuatorFactory -> Actuator: createActuator(catalogue)
+
+activate Actuator
+
+Actuator --> ActuatorFactory: actuator
+
+deactivate Actuator
+
+ActuatorFactory --> CatalogueActuator: actuator
+
+deactivate ActuatorFactory
+
+CatalogueActuator --> Device: actuator
+
+deactivate CatalogueActuator
+
+Device -> Device: addActuatorToDevice(actuator)
+
+Device --> AddActuatorToDevice_Controller: actuator
+
+deactivate Device
+
+create ActuatorDTO
+
+AddActuatorToDevice_Controller -> ActuatorDTO: domain2DTO(actuator)
+
+activate ActuatorDTO
+
+ActuatorDTO --> AddActuatorToDevice_Controller: actuatorDTO
+
+deactivate ActuatorDTO
+
+AddActuatorToDevice_Controller --> User: actuatorDTO
+
+deactivate AddActuatorToDevice_Controller
+
+
+@enduml

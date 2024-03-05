@@ -4,7 +4,6 @@ import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.Sensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
-import java.util.Random;
 
 /**
  * Represents a humidity sensor that measures the percentage of humidity in the air.
@@ -50,8 +49,8 @@ public class HumiditySensor implements Sensor {
      */
 
     public Value getValue() {
-        Random rand = new Random();
-        int nValue = rand.nextInt(100); // values between 0 and 100, inclusive
+
+        int nValue = 100;
         _value = new HumiditySensorValue(nValue);
 
         return _value.clone();
