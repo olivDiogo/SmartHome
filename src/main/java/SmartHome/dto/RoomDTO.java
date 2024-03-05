@@ -19,5 +19,15 @@ public class RoomDTO {
         this._roomId = room.getRoomId();
     }
 
+    @Override
+    public String toString (){
+        return "Room{" +
+                "name='" + _name + '\'' +
+                ", dimensions=" + _dimensions.toString() +
+                ", floor=" + _floor +
+                ", roomId=" + _roomId.toString() +
+                '}';
+    }
+
 
 }
