@@ -109,7 +109,6 @@ public class AveragePowerConsumptionSensorTest {
         }
     }
 
-
     /**
      * tests if Exception is thrown for non-existing Sensor type.
      */

@@ -71,15 +71,6 @@ public class AveragePowerConsumptionSensor implements Sensor {
     }
 
     /**
-     * Gets the value of the PowerConsumptionSensor.
-     *
-     * @return the value of the PowerConsumptionSensor.
-     */
-    public Value getValue() {
-        return this._Average_powerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(_averageResult).clone();
-    }
-
-    /**
      * Sets the value of the PowerConsumptionSensor.
      *
      * @param readTime the time of the reading.
@@ -138,6 +129,15 @@ public class AveragePowerConsumptionSensor implements Sensor {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
         return filteredPowerConsumptions;
+    }
+
+    /**
+     * Gets the value of the PowerConsumptionSensor.
+     *
+     * @return the value of the PowerConsumptionSensor.
+     */
+    public Value getValue() {
+        return this._Average_powerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(_averageResult).clone();
     }
 }
 
