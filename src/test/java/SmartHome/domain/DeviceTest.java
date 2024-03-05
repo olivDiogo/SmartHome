@@ -11,6 +11,9 @@ import static org.mockito.Mockito.when;
 
 class DeviceTest {
 
+    /**
+     * Test for the constructor of the Device class.
+     */
     @Test
     void seeIfConstructorWorks() {
         // Arrange
@@ -20,6 +23,10 @@ class DeviceTest {
         assertNotNull(device);
     }
 
+    /**
+     * Test for the constructor of the Device class.
+     * This test is used to check if the constructor throws an IllegalArgumentException when the name is empty.
+     */
     @Test
     void constructorThrowsIllegalArgumentException() {
         // Arrange
@@ -31,6 +38,10 @@ class DeviceTest {
         assertEquals(expected, exception.getMessage());
     }
 
+    /**
+     * Test for the deactivateDevice method.
+     * This test is used to check if the method returns true when the device is deactivated.
+     */
     @Test
     void deactivateDeviceSuccessfully() {
         // Arrange
@@ -42,6 +53,10 @@ class DeviceTest {
         assertTrue(actualResult);
     }
 
+    /**
+     * Test for the getName method.
+     * This test is used to check if the method returns the name of the device.
+     */
     @Test
     void getNameShouldReturnName() {
         // Arrange
@@ -53,6 +68,10 @@ class DeviceTest {
         assertEquals(deviceName, actualResult);
     }
 
+    /**
+     * Test for the getStatus method.
+     * This test is used to check if the method returns the status of the device.
+     */
     @Test
     void getStatusShouldReturnStatus() {
         // Arrange
@@ -64,6 +83,10 @@ class DeviceTest {
         assertFalse(actualResult);
     }
 
+    /**
+     * Test for the getDeviceId method.
+     * This test is used to check if the method returns the device id.
+     */
     @Test
     void getDeviceIdShouldReturnDeviceId() {
         // Arrange
@@ -75,6 +98,10 @@ class DeviceTest {
         assertNotNull(deviceID);
     }
 
+    /**
+     * Test for the getDeviceFunctionalities method.
+     * This test is used to check if the method returns a list of functionalities.
+     */
     @Test
     void getDeviceFunctionalitiesShouldReturnList() {
         // Arrange
@@ -96,23 +123,9 @@ class DeviceTest {
     }
 
     /**
-     * Test if the method getActuatorList returns a list with success.
+     *Test for addSensor method.
+     * This test is used to check if the method returns a sensor when it is added to the device.
      */
-    @Test
-    void getActuatorListShouldReturnList() {
-        //Arrange
-        String deviceName = "Device";
-        Device device = new Device(deviceName);
-
-        int expected = 0;
-
-        //Act
-        int result = device.getActuatorList().size();
-
-        //Assert
-        assertEquals(expected, result);
-    }
-
     @Test
     void successfullyAddSensor() throws InstantiationException {
         // Arrange
@@ -133,6 +146,10 @@ class DeviceTest {
         assertEquals(sensorDouble, actualResult);
     }
 
+    /**
+     * Test for AddSensor method.
+     * This test is used to check if the method returns null when the sensor is not added to the device.
+     */
     @Test
     void addSensorReturnsNull() throws InstantiationException {
         // Arrange
@@ -151,6 +168,10 @@ class DeviceTest {
         assertNull(actualResult);
     }
 
+    /**
+     * Test for addSensorToDevice method.
+     * This test is used to check if the method returns a sensor when it is added to the device.
+     */
     @Test
     void successfullyAddSensorToDeviceList() {
         // Arrange
@@ -166,6 +187,10 @@ class DeviceTest {
         assertTrue(device.toString().contains(expected));
     }
 
+    /**
+     * Test for the getDeviceFunctionalities method.
+     * This test is used to check if the method returns an empty list when there are no functionalities.
+     */
     @Test
     void addNullSensorToDeviceShouldReturnEmptyList() {
         // Arrange
@@ -181,5 +206,30 @@ class DeviceTest {
         assertTrue(device.toString().contains(expected));
     }
 
+    /**
+     *Test for GetSensorList method.
+     * This test is used to check if the method returns a list of sensors.
+     */
+    @Test
+    void testForGetSensorList() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        Sensor sensorDouble = mock(Sensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        String strDescription = "Temperature";
+
+        when(sensorDouble.getSensorType()).thenReturn(sensorTypeDouble);
+        when(sensorTypeDouble.getDescription()).thenReturn(strDescription);
+
+        device.addSensorToDevice(sensorDouble);
+
+        // Act
+        List<String> sensorList = device.getSensorList();
+
+        // Assert
+        assertEquals(1, sensorList.size());
+    }
 
 }
