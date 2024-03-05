@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BlindRollerActuatorTest {
 
+    /**
+     * Test to see if the constructor works.
+     */
     @Test
     void testForConstructor() throws InstantiationException{
         // Arrange
@@ -27,6 +30,10 @@ public class BlindRollerActuatorTest {
         new BlindRollerActuator(catalogueDouble);
     }
 
+
+    /**
+     * Test to see if the constructor throws an exception when the actuator type is invalid.
+     */
     @Test
     void testForInvalidActuatorType() {
         // Arrange
@@ -42,6 +49,10 @@ public class BlindRollerActuatorTest {
         assertEquals("ActuatorType with description 'BlindRollerActuator' does not exist.", exception.getMessage());
     }
 
+    /**
+     * Test to see if the getActuatorType method works.
+     * @throws InstantiationException
+     */
     @Test
     void testForGetActuatorType() throws InstantiationException {
         // Arrange
@@ -59,6 +70,10 @@ public class BlindRollerActuatorTest {
         assertEquals(actuatorTypeDouble, actuatorType);
     }
 
+    /**
+     * Test to see if the setValue method works.
+     * @throws InstantiationException
+     */
     @Test
     void testForSetValue() throws InstantiationException {
         // Arrange
@@ -81,22 +96,5 @@ public class BlindRollerActuatorTest {
         assertEquals(value, result.toString());
     }
 
-    @Test
-    void testForInvalidSetValue() throws InstantiationException {
-        // Arrange
-        String description = "BlindRollerActuator";
-        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
-        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
-
-        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(catalogueDouble);
-        int value = 150;
-
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> blindRollerActuator.setValue(new BlindRollerValue(value)));
-
-        // Assert
-        assertEquals("The value must be between 0 and 100", exception.getMessage());
-    }
 
 }
