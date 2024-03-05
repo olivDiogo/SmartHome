@@ -82,6 +82,8 @@ class HumiditySensorTest {
     void getValueReturnCorrectValue() throws InstantiationException {
         // Arrange
         String description = "Humidity";
+        String humidity = "50";
+        double expected = 50;
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
@@ -89,7 +91,7 @@ class HumiditySensorTest {
 
         try (MockedConstruction<HumiditySensorValue> humiditySensorValue = mockConstruction(HumiditySensorValue.class, (mock, context) -> {
             when(mock.clone()).thenReturn(mock);
-            when(mock.toString()).thenReturn("50");
+            when(mock.toString()).thenReturn(humidity);
         })) {
             HumiditySensor humiditySensor = new HumiditySensor(catalogueDouble);
 
@@ -97,7 +99,24 @@ class HumiditySensorTest {
             double result = Double.parseDouble(humiditySensor.getValue().toString());
 
             // Assert
-            assertEquals(50, result);
+            assertEquals(expected, result);
         }
+    }
+
+    /**
+     * Tests if the {@link HumiditySensor#getValue()} constructor throws an {@link InstantiationException} when the humidity value is below the lower boundary.
+     */
+
+    @Test
+    void seeIfConstructorThrowsException() {
+        // Arrange
+        int nValue = -1;
+        String expected = "Humidity value must be between 0 and 100";
+
+        // Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new HumiditySensorValue(nValue));
+
+        // Assert
+        assertEquals(expected, exception.getMessage());
     }
 }
