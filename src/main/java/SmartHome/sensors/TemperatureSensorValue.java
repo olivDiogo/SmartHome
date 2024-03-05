@@ -20,7 +20,22 @@ public class TemperatureSensorValue implements Value, Cloneable {
      * @param nValue The numeric value of the temperature, in degrees Celsius.
      */
     public TemperatureSensorValue(double nValue) {
-        this._nValue = nValue;
+        validateValue(nValue);
+    }
+
+    /**
+     * Validates the temperature value by ensuring it falls above or equal to -273.15 degrees Celsius.
+     *
+     * @param nValue The temperature value to validate.
+     * @throws IllegalArgumentException if the value is not above -273.15.
+     */
+
+    private void validateValue(double nValue) throws IllegalArgumentException {
+        if (nValue < -273.15) {
+            throw new IllegalArgumentException("Temperature value must be above or equal to -273.15");
+        } else {
+            this._nValue = nValue;
+        }
     }
 
     /**
@@ -31,6 +46,7 @@ public class TemperatureSensorValue implements Value, Cloneable {
      * @return A clone of this TemperatureSensorValue instance.
      * @throws AssertionError if the object cannot be cloned, which should never happen.
      */
+
     @Override
     public TemperatureSensorValue clone() {
         try {
@@ -38,7 +54,7 @@ public class TemperatureSensorValue implements Value, Cloneable {
             return (TemperatureSensorValue) super.clone();
         } catch (CloneNotSupportedException e) {
             // This should never happen since we are Cloneable
-            throw new AssertionError("TemperatureSensorValue instance could not be cloned.");
+            throw new AssertionError();
         }
     }
 
@@ -54,3 +70,4 @@ public class TemperatureSensorValue implements Value, Cloneable {
         return this._nValue + "";
     }
 }
+

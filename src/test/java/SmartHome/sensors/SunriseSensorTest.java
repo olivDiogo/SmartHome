@@ -6,8 +6,10 @@ import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
+import org.shredzone.commons.suncalc.SunTimes;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -193,5 +195,54 @@ public class SunriseSensorTest {
             assertEquals(expectedSize, sunriseTimeSensorValues.size());
         }
 
+    }
+
+    @Test
+    void seeIfSunriseTimeMethodWorks() throws InstantiationException {
+        //Arrange
+        String description = "SunriseTime";
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        Gps gpsDouble = mock(Gps.class);
+        when(gpsDouble.getLatitude()).thenReturn(41.1579); // Coordinates to oporto
+        when(gpsDouble.getLongitude()).thenReturn(8.6291);
+
+        LocalTime expected = SunTimes.compute().on(LocalDate.now()).at(41.1579, 8.6291).execute().getRise().toLocalTime();
+        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
+        sunriseTimeSensor.configureGpsLocation(gpsDouble);
+
+        //Act
+        LocalTime result = sunriseTimeSensor.getSunriseTime();
+        System.out.println(result);
+        //Assert
+        assertNotNull(result);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void seeIfSunriseTimeMethodWorksForSpecificDate() throws InstantiationException {
+        //Arrange
+        String description = "SunriseTime";
+        LocalDate date = LocalDate.of(2024, 10, 10);
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        Gps gpsDouble = mock(Gps.class);
+        when(gpsDouble.getLatitude()).thenReturn(41.1579); // Coordinates to oporto
+        when(gpsDouble.getLongitude()).thenReturn(8.6291);
+
+        LocalTime expected = SunTimes.compute().on(date).at(41.1579, 8.6291).execute().getRise().toLocalTime();
+        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
+        sunriseTimeSensor.configureGpsLocation(gpsDouble);
+
+        //Act
+        LocalTime result = sunriseTimeSensor.getSunriseTime(date);
+
+        //Assert
+        assertNotNull(result);
+        assertEquals(expected, result);
     }
 }

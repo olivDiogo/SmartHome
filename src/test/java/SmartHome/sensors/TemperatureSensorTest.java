@@ -69,14 +69,16 @@ class TemperatureSensorTest {
     }
 
     /**
-     * Tests that the getValue method returns a positive temperature value within the expected range.
+     * Tests that the getValue method returns a valid value.
+     *
      * @throws InstantiationException If the sensor type "Temperature" does not exist.
      */
     @Test
-    void getValueReturnsPositiveValidValue() throws InstantiationException {
+    void getValueReturnsValidValue() throws InstantiationException {
         // Arrange
         String description = "Temperature";
-        String temperature = "70";
+        String temperature = "10";
+        double expected = 10;
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
@@ -89,122 +91,10 @@ class TemperatureSensorTest {
             TemperatureSensor temperatureSensor = new TemperatureSensor(catalogueDouble);
 
             // Act
-            int tempValue = Integer.parseInt(temperatureSensor.getValue().toString());
+            double tempValue = Double.parseDouble(temperatureSensor.getValue().toString());
 
             // Assert
-            assertTrue(tempValue >= -70 && tempValue <= 70, "The temperature value should be between -70 and 70.");
-        }
-    }
-
-    /**
-     * Tests that the getValue method returns zero as a valid temperature.
-     * @throws InstantiationException If the sensor type "Temperature" does not exist.
-     */
-    @Test
-    void getValueReturnsZero() throws InstantiationException {
-        // Arrange
-        String description = "Temperature";
-        String temperature = "0";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        try(MockedConstruction<TemperatureSensorValue> temperatureSensorValue = mockConstruction(TemperatureSensorValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
-            when(mock.toString()).thenReturn(temperature);
-        })) {
-            TemperatureSensor temperatureSensor = new TemperatureSensor(catalogueDouble);
-
-            // Act
-            int tempValue = Integer.parseInt(temperatureSensor.getValue().toString());
-
-            // Assert
-            assertTrue(tempValue >= -70 && tempValue <= 70, "The temperature value should be between -70 and 70.");
-        }
-    }
-
-    /**
-     * Tests that the getValue method returns a valid negative temperature value within the expected range.
-     * @throws InstantiationException If the sensor type "Temperature" does not exist.
-     */
-    @Test
-    void getValueReturnsValidNegativeValue() throws InstantiationException {
-        // Arrange
-        String description = "Temperature";
-        String temperature = "-70";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        try(MockedConstruction<TemperatureSensorValue> temperatureSensorValue = mockConstruction(TemperatureSensorValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
-            when(mock.toString()).thenReturn(temperature);
-        })) {
-            TemperatureSensor temperatureSensor = new TemperatureSensor(catalogueDouble);
-
-            // Act
-            int tempValue = Integer.parseInt(temperatureSensor.getValue().toString());
-
-            // Assert
-            assertTrue(tempValue >= -70 && tempValue <= 70, "The temperature value should be between -70 and 70.");
-        }
-    }
-
-    /**
-     * Tests that the getValue method returns an invalid value when the temperature is above the valid range.
-     * @throws InstantiationException If the sensor type "Temperature" does not exist.
-     */
-    @Test
-    void getValueReturnsInvalidValueAboveRange() throws InstantiationException {
-        // Arrange
-        String description = "Temperature";
-        String temperature = "71";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        try(MockedConstruction<TemperatureSensorValue> temperatureSensorValue = mockConstruction(TemperatureSensorValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
-            when(mock.toString()).thenReturn(temperature);
-        })) {
-            TemperatureSensor temperatureSensor = new TemperatureSensor(catalogueDouble);
-
-            // Act
-            int tempValue = Integer.parseInt(temperatureSensor.getValue().toString());
-
-            // Assert
-            assertFalse(tempValue >= -70 && tempValue <= 70, "The temperature value should be between -70 and 70.");
-        }
-    }
-
-    /**
-     * Tests that the getValue method returns an invalid value when the temperature is below the valid range.
-     * @throws InstantiationException If the sensor type "Temperature" does not exist.
-     */
-    @Test
-    void getValueReturnsInvalidValueUnderRange() throws InstantiationException {
-        // Arrange
-        String description = "Temperature";
-        String temperature = "-71";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        try(MockedConstruction<TemperatureSensorValue> temperatureSensorValue = mockConstruction(TemperatureSensorValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
-            when(mock.toString()).thenReturn(temperature);
-        })) {
-            TemperatureSensor temperatureSensor = new TemperatureSensor(catalogueDouble);
-
-            // Act
-            int tempValue = Integer.parseInt(temperatureSensor.getValue().toString());
-
-            // Assert
-            assertFalse(tempValue >= -70 && tempValue <= 70, "The temperature value should be between -70 and 70.");
+            assertEquals(expected, tempValue);
         }
     }
 }

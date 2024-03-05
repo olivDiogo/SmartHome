@@ -16,7 +16,8 @@ public class DewPointValueTest {
         int value = 1;
         //Act
         DewPointValue dewPointValue = new DewPointValue(value);
-
+        //Assert
+        assertNotNull(dewPointValue);
     }
 
     /**

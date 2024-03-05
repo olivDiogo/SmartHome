@@ -5,8 +5,6 @@ import SmartHome.domain.Sensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 
-import java.util.Random;
-
 /**
  * Represents a temperature sensor that measures the temperature in degrees Celsius.
  * This sensor is part of a Smart Home system and can provide current temperature readings.
@@ -59,15 +57,13 @@ public class TemperatureSensor implements Sensor {
     }
 
     /**
-     * Generates and returns a new temperature value within a realistic range.
-     * The temperature is generated randomly between -70 and 70 degrees Celsius to simulate a real temperature measurement.
+     * Generates and returns a new temperature value.
      *
      * @return A Value object representing the current temperature.
      */
     @Override
     public Value getValue() {
-        Random rand = new Random();
-        double temperatureReading = rand.nextInt(140) - 70; // temperature between -70 and 70 degrees Celsius
+        double temperatureReading = 70.5;
         this._value = new TemperatureSensorValue(temperatureReading);
 
         return _value.clone();
