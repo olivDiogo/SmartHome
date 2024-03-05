@@ -2,7 +2,7 @@ package SmartHome.sensors;
 
 import SmartHome.domain.Value;
 
-public class PowerConsumptionSensorValue implements Value, Cloneable {
+public class AveragePowerConsumptionSensorValue implements Value, Cloneable {
     public double _dValue;
 
     /**
@@ -10,7 +10,7 @@ public class PowerConsumptionSensorValue implements Value, Cloneable {
      * @param dValue the value to be set.
      */
 
-    public PowerConsumptionSensorValue(double dValue) {
+    public AveragePowerConsumptionSensorValue(double dValue) {
         setValue(dValue);
     }
 
@@ -23,6 +23,10 @@ public class PowerConsumptionSensorValue implements Value, Cloneable {
         if (dValue < 0)
             throw new IllegalArgumentException("Value must be positive");
         this._dValue = dValue;
+    }
+
+    public double getValue() {
+        return this._dValue;
     }
 
     /**
@@ -40,9 +44,9 @@ public class PowerConsumptionSensorValue implements Value, Cloneable {
      */
 
     @Override
-    public PowerConsumptionSensorValue clone() {
+    public AveragePowerConsumptionSensorValue clone() {
         try {
-            return (PowerConsumptionSensorValue) super.clone();
+            return (AveragePowerConsumptionSensorValue) super.clone();
 
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
