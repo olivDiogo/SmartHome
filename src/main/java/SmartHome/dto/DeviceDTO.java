@@ -13,8 +13,7 @@ public class DeviceDTO {
     private boolean _status;
     private RoomDTO _roomDTO;
     public List<String> _deviceFunctionalities;
-    private List<String> _listStringClassesSensors;
-
+    private List<String> _sensors;
     private List<String> _actuators;
 
 
@@ -23,7 +22,7 @@ public class DeviceDTO {
         this._status = device.getStatus();
         this._deviceID = device.getDeviceId();
         this._deviceFunctionalities = device.getDeviceFunctionalities();
-        this._listStringClassesSensors = device.getSensorList();
+        this._sensors = device.getSensorList();
         this._actuators = device.getActuatorList();
     }
 
@@ -39,7 +38,7 @@ public class DeviceDTO {
         this._deviceID = device.getDeviceId();
         this._roomDTO = RoomAssembler.domain2DTO(room);
         this._deviceFunctionalities = device.getDeviceFunctionalities();
-        this._listStringClassesSensors = device.getSensorList();
+        this._sensors = device.getSensorList();
     }
 
 

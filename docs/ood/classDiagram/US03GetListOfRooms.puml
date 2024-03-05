@@ -16,16 +16,20 @@ class GetListOfRoomsController {
 class RoomAssembler{
 
 'Methods'
-+ Domain2DTO(room: Room): RoomDTO
-+ Domain2DTO(List<Room> rooms): Map<RoomDTO, Room>
++ <<static>> domain2DTO(room: Room): RoomDTO
++ <<static>> domain2DTO(List<Room> rooms): List <RoomDTO>
++ <<static>> domain2Map(rooms: List<Room>): Map <RoomDTO, Room>
 }
 
 class House {
 'Attributes'
--_rooms : List<Room>
+- _locationFactory : LocationFactory
+- _roomFactory : RoomFactory
+- _location : Location
+- _rooms : List<Room>
 
 'Methods'
-+House()
++House(locationFactory: LocationFactory, roomFactory: RoomFactory)
 +getRooms() : List<Room>
 }
 
@@ -34,11 +38,10 @@ class RoomDTO {
 +name : String
 +dimensions : Dimension
 +floor : int
--roomID : UUID
++roomID : UUID
 
 'Methods'
 +RoomDTO(room: Room)
-+domain2DTO(List<Room> rooms): Map<RoomDTO, Room>
 }
 
 GetListOfRoomsController "1" ..> "1" House : uses
