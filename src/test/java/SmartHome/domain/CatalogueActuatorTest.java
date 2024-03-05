@@ -306,4 +306,93 @@ class CatalogueActuatorTest {
         // Assert
         assertNull(actuatorType);
     }
+
+    /**
+     * Test when adding an actuator type to the list is null, then return null.
+     * @throws InstantiationException
+     */
+    @Test
+    void addActuatorTypeWithNullDescription_thenReturnNull() throws InstantiationException {
+        // Arrange
+        CatalogueActuator catalogue = new CatalogueActuator("config.properties");
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        when(actuatorTypeDouble.getDescription()).thenReturn(null);
+
+        // Act
+        ActuatorType actuatorType = catalogue.addActuatorTypeToList(actuatorTypeDouble);
+
+        // Assert
+        assertNotNull(actuatorType);
+    }
+
+    /**
+     * Test when adding an actuator type to the list, verify if the list is not empty and contains the actuator type.
+     */
+    @Test
+    void addActuatorTypeToList() throws InstantiationException {
+        // Arrange
+        CatalogueActuator catalogue = new CatalogueActuator("config.properties");
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        String strDescription = "LightSwitch";
+
+        when(actuatorTypeDouble.getDescription()).thenReturn(strDescription);
+
+        catalogue.addActuatorTypeToList(actuatorTypeDouble);
+
+        // Act
+        List<ActuatorType> actuatorTypes = catalogue.getActuatorTypes();
+
+        // Assert
+        assertTrue(actuatorTypes.contains(actuatorTypeDouble));
+    }
+
+    /**
+     * Test to verify two different actuator types are added to the list.
+     */
+    @Test
+    void testToAddTwoDifferentActuatorTypes() throws InstantiationException {
+        // Arrange
+        CatalogueActuator catalogue = new CatalogueActuator("config.properties");
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        ActuatorType actuatorTypeDouble2 = mock(ActuatorType.class);
+
+        String strDescription = "LightSwitch";
+        String strDescription2 = "TemperatureControl";
+
+        when(actuatorTypeDouble.getDescription()).thenReturn(strDescription);
+        when(actuatorTypeDouble2.getDescription()).thenReturn(strDescription2);
+
+        // Act
+        ActuatorType actuatorType = catalogue.addActuatorTypeToList(actuatorTypeDouble);
+        ActuatorType actuatorType2 = catalogue.addActuatorTypeToList(actuatorTypeDouble2);
+
+        // Assert
+        assertEquals(actuatorType, catalogue.getActuatorType(strDescription));
+        assertEquals(actuatorType2, catalogue.getActuatorType(strDescription2));
+    }
+
+    /**
+     *Tests that the {@link CatalogueActuator#getActuator(String, ActuatorFactory)} method returns {@code null} when
+     *provided with a {@code null} description
+     *@throws InstantiationException
+     */
+    @Test
+    void testGetActuatorWithNonExistingModel() throws InstantiationException {
+        // Arrange
+        CatalogueActuator catalogue = new CatalogueActuator("config.properties");
+        ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
+        String nullDescription = null;
+
+        when(actuatorFactory.createActuator(nullDescription, catalogue)).thenThrow(new InstantiationException());
+
+        // Act
+        Actuator actuator = catalogue.getActuator(nullDescription, actuatorFactory);
+
+        // Assert
+        assertNull(actuator);
+    }
+
+
 }
