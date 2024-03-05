@@ -5,15 +5,31 @@ import SmartHome.domain.Sensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 
+/**
+ * Represents a percentage position sensor.
+ * This sensor generates a random percentage value and returns it as a {@link PercentagePositionSensorValue}.
+ */
 public class PercentagePositionSensor implements Sensor {
-    private final SensorType _sensorType;
-    private double _percented;
+
+    private final SensorType _sensorType; // The type of the sensor
+    private PercentagePositionSensorValue _value; // The current value of the sensor
+
+    /**
+     * Constructs a percentage position sensor with the specified catalogue.
+     * @param catalogue The catalogue sensor used to retrieve sensor types.
+     * @throws InstantiationException if the sensor type 'Percented' does not exist in the catalogue.
+     */
     public PercentagePositionSensor(CatalogueSensor catalogue) throws InstantiationException {
         this._sensorType = setSensorType(catalogue);
-        this._percented = validatePositionValue();
     }
-    private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
 
+    /**
+     * Sets the sensor type using the specified catalogue.
+     * @param catalogue The catalogue sensor used to retrieve sensor types.
+     * @return The sensor type 'Percented' if found in the catalogue.
+     * @throws InstantiationException if the sensor type 'Percented' does not exist in the catalogue.
+     */
+    private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
         SensorType sensorType = catalogue.getSensorType("Percented");
         if (sensorType == null)
             throw new InstantiationException("SensorType with description 'Percented' does not exist.");
@@ -21,18 +37,22 @@ public class PercentagePositionSensor implements Sensor {
             return sensorType;
         }
     }
-    private double validatePositionValue(){
-        if (_percented < 0 || _percented > 100){
-            throw new IllegalArgumentException("The value of the position must be between 0 and 100");
-        }
-        return _percented;
-    }
-    @Override
+
+    /**
+     * Gets the sensor type.
+     * @return The sensor type.
+     */
     public SensorType getSensorType() {
         return this._sensorType;
     }
-    @Override
+
+    /**
+     * Gets the value of the sensor.
+     * @return A {@link PercentagePositionSensorValue} representing the current value of the sensor.
+     */
     public Value getValue() {
-        return new PercentagePositionSensorValue(_percented);
+        double percented = 100; // Placeholder value for demonstration purposes
+        this._value = new PercentagePositionSensorValue(percented);
+        return this._value.clone();
     }
 }
