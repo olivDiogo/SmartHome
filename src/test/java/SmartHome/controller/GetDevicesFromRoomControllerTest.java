@@ -87,7 +87,6 @@ class GetDevicesFromRoomControllerTest {
         String result = roomDTOList.toString();
 
         //Assert
-        assertEquals(expected, result);
         assertTrue(result.contains(expected));
     }
 

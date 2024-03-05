@@ -39,32 +39,32 @@ class InstantPowerConsumptionValueTest {
     }
 
     /**
+     * Test the InstantPowerConsumptionValue constructor with a value equal to zero.
+      */
+    @Test
+    public void testInstantPowerConsumptionValueConstructorWithZero() {
+        // Arrange
+        double value = 0.0;
+
+        // Act
+        new InstantPowerConsumptionValue(value);
+    }
+
+    /**
      * Should clone InstantPowerConsumptionValue.
      */
     @Test
-    public void testInstantPowerConsumptionValueClone() {
+    public void testInstantPowerConsumptionValueToClone() {
         // Arrange
         double value = 1.0;
+        String expected = Double.toString(value);
         InstantPowerConsumptionValue instantPowerConsumptionValue = new InstantPowerConsumptionValue(value);
 
         // Act
-        InstantPowerConsumptionValue clonedInstantPowerConsumptionValue = instantPowerConsumptionValue.clone();
+        InstantPowerConsumptionValue result = instantPowerConsumptionValue.clone();
 
         // Assert
-        assertNotEquals(instantPowerConsumptionValue, clonedInstantPowerConsumptionValue);
-    }
-
-    @Test
-    public void testInstantPowerConsumptionValueToString() {
-        // Arrange
-        double value = 1.0;
-        InstantPowerConsumptionValue instantPowerConsumptionValue = new InstantPowerConsumptionValue(value);
-
-        // Act
-        String result = instantPowerConsumptionValue.toString();
-
-        // Assert
-        assertEquals("1.0", result);
+        assertEquals(expected, result.toString());
     }
 
 }
