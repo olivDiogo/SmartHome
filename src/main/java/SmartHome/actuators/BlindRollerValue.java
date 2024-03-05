@@ -12,15 +12,14 @@ public class BlindRollerValue implements Value, Cloneable {
      *It must be between 0 and 100.
      */
     public BlindRollerValue(int nValue) {
-        setValue(nValue);
+        validateValue(nValue);
     }
 
-    public int setValue(int nValue) {
+    public void validateValue(int nValue) {
         if (nValue < 0 || nValue > 100) {
             throw new IllegalArgumentException("The value must be between 0 and 100.");
         }
         this._nValue = nValue;
-        return this._nValue;
     }
 
     /**
@@ -34,7 +33,7 @@ public class BlindRollerValue implements Value, Cloneable {
             // Call the Object clone() method
             return (BlindRollerValue) super.clone();
         } catch (CloneNotSupportedException e) {
-            // This should never happen since we are Cloneable
+            // This should never happen
             throw new AssertionError();
         }
     }
