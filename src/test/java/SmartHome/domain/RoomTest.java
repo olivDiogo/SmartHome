@@ -2,7 +2,7 @@ package SmartHome.domain;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 public class RoomTest {
 
     @Test
-    void testConstructRoom() {
+    void testConstructWithValidArguments() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -25,9 +25,6 @@ public class RoomTest {
 
         // Act
         Room room = new Room(name, floor, width, length, height, dimensionsFactory);
-
-        // Assert
-        assertNotNull(room);
     }
 
     @Test
@@ -53,7 +50,7 @@ public class RoomTest {
     }
 
     @Test
-    void testGetName() {
+    void getNameShouldReturnRoomName() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -75,7 +72,7 @@ public class RoomTest {
     }
 
     @Test
-    void testGetDimensions() {
+    void getDimensionsShouldReturnRoomDimensions() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -97,7 +94,7 @@ public class RoomTest {
     }
 
     @Test
-    void testGetId() {
+    void getIdShouldReturnRoomID() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -110,16 +107,17 @@ public class RoomTest {
         when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
 
         Room room = new Room(name, floor, width, length, height, dimensionsFactory);
+        String expected = room.toString();
 
         // Act
-        UUID result = room.getRoomId();
+        String result = room.getRoomId().toString();
 
         // Assert
-        assertNotNull(result);
+        assertTrue(expected.contains(result));
     }
 
     @Test
-    void testGetFloor() {
+    void getFloorShouldReturnCorrectFloor() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -141,7 +139,7 @@ public class RoomTest {
     }
 
     @Test
-    void shouldAddDeviceToRoomSuccessfully() {
+    void shouldInstantiateDeviceSuccessfully() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -168,7 +166,7 @@ public class RoomTest {
     }
 
     @Test
-    void shouldReturnListOfDevices() {
+    void shouldAddDeviceToList() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -183,13 +181,13 @@ public class RoomTest {
         when(dimensionsFactory.createDimensions(width, length, height)).thenReturn(dimensionsDouble);
 
         Room room = new Room(name, floor, width, length, height, dimensionsFactory);
-        int expected = 1;
 
         // Act
-        room.addDeviceToList(deviceDouble);
+        Device device = room.addDeviceToList(deviceDouble);
 
         // Assert
-        assertEquals(expected, room.getDevices().size());
+        List<Device> expected = room.getDevices(); // Done after the fact as returning copy of list
+        assertTrue(expected.contains(device));
     }
 
     @Test
@@ -215,7 +213,7 @@ public class RoomTest {
         assertEquals(expected, result);
     }
     @Test
-    void ifSetDimensionIllegalArgumentExceptionIsThrown() {
+    void ifDimensionsNullShouldIllegalArgumentExceptionIsThrown() {
         // Arrange
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
         String name = "Room";
