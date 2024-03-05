@@ -3,9 +3,10 @@ package SmartHome.domain;
 public class Gps {
     private double _latitude;
     private double _longitude;
+
     public Gps(double latitude, double longitude) {
-        this._latitude = setLatitude(latitude);
-        this._longitude = setLongitude(longitude);
+        setLatitude(latitude);
+        setLongitude(longitude);
     }
     private double setLatitude(double latitude) throws IllegalArgumentException {
         if (latitude < -90 || latitude > 90) {

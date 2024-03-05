@@ -14,7 +14,9 @@ class HouseTest {
     @Test
     void seeIfConstructorWorks() {
         // Arrange
-        House house = new House(new LocationFactory(), new RoomFactory());
+        LocationFactory locationFactoryDouble = mock(LocationFactory.class);
+        RoomFactory roomFactoryDouble = mock(RoomFactory.class);
+        House house = new House(locationFactoryDouble, roomFactoryDouble);
         // Act
         // Assert
         assertNotNull(house);
@@ -72,7 +74,9 @@ class HouseTest {
     @Test
     void shouldReturnListOfRooms() {
         // Arrange
-        House house = new House(new LocationFactory(), new RoomFactory());
+        LocationFactory locationFactory = mock(LocationFactory.class);
+        RoomFactory roomFactory = mock(RoomFactory.class);
+        House house = new House(locationFactory, roomFactory);
         Room roomDouble = mock(Room.class);
 
         house.addRoomToList(roomDouble);
@@ -88,7 +92,9 @@ class HouseTest {
     @Test
     void shouldReturnEmptyListOfRooms() {
         // Arrange
-        House house = new House(new LocationFactory(), new RoomFactory());
+        LocationFactory locationFactory = mock(LocationFactory.class);
+        RoomFactory roomFactory = mock(RoomFactory.class);
+        House house = new House(locationFactory, roomFactory);
         int expected = 0;
 
         // Act
@@ -101,7 +107,9 @@ class HouseTest {
     @Test
     void shouldReturnListOfDevices() {
         // Arrange
-        House house = new House(new LocationFactory(), new RoomFactory());
+        LocationFactory locationFactory = mock(LocationFactory.class);
+        RoomFactory roomFactory = mock(RoomFactory.class);
+        House house = new House(locationFactory, roomFactory);
         Room roomDouble = mock(Room.class);
         Room roomDouble2 = mock(Room.class);
 
@@ -128,7 +136,10 @@ class HouseTest {
     @Test
     void shouldReturnEmptyListOfDevices() {
         // Arrange
-        House house = new House(new LocationFactory(), new RoomFactory());
+        LocationFactory locationFactory = mock(LocationFactory.class);
+        RoomFactory roomFactory = mock(RoomFactory.class);
+        House house = new House(locationFactory, roomFactory);
+        //House house = new House(new LocationFactory(), new RoomFactory()); - changed this line on all
         Room roomDouble = mock(Room.class);
 
         house.addRoomToList(roomDouble);
