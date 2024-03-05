@@ -2,9 +2,12 @@ package SmartHome.sensors;
 
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
+import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
+
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -74,12 +77,15 @@ class WindSensorTest {
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueDouble.getSensorType(strDescription)).thenReturn(sensorTypeDouble);
 
-        try (MockedConstruction<WindSensorValue> mockedConstruction = Mockito.mockConstruction(WindSensorValue.class)) {
+        try (MockedConstruction<WindSensorValue> mockedConstruction = Mockito.mockConstruction(WindSensorValue.class, (mock, context) -> {
+            when(mock.clone()).thenReturn(mock);
+        })) {
             WindSensor windSensor = new WindSensor(catalogueDouble);
             //Act
-            windSensor.getValue();
+            Value value = windSensor.getValue();
 
             //Assert
+            assertNotNull(value);
             assertEquals(1, mockedConstruction.constructed().size());
         }
     }
@@ -115,21 +121,23 @@ class WindSensorTest {
     @Test
     void shouldReturnValidDirection() throws InstantiationException {
         //Arrange
-        Double direction = 10.0;
+        Double directionRadians = 0.5;
         String strDescription = "WindSpeedAndDirection";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
+        Random mockRandom = mock(Random.class);
         when(catalogueDouble.getSensorType(strDescription)).thenReturn(sensorTypeDouble);
+        when(mockRandom.nextDouble()).thenReturn(directionRadians);
         WindSensor windSensor = new WindSensor(catalogueDouble);
 
         try(MockedConstruction<WindSensorValue> windSensorValueDouble = mockConstruction(WindSensorValue.class,(mock, context)->{
-            when(mock.getDirection()).thenReturn(direction);
+            when(mock.getDirection()).thenReturn(directionRadians);
         })){
             //Act
             windSensor.getValue();
 
             //Assert
-            assertEquals(direction, windSensorValueDouble.constructed().get(0).getDirection());
+            assertEquals(directionRadians, windSensorValueDouble.constructed().get(0).getDirection());
         }
     }
 }

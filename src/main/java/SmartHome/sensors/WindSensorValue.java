@@ -2,7 +2,9 @@ package SmartHome.sensors;
 
 import SmartHome.domain.Value;
 
-public class WindSensorValue implements Value {
+import java.util.concurrent.ConcurrentNavigableMap;
+
+public class WindSensorValue implements Value, Cloneable {
 
     public double _speed;
     public double _direction;
@@ -41,10 +43,8 @@ public class WindSensorValue implements Value {
     @Override
     public WindSensorValue clone() {
         try {
-            // Call the Object clone() method
-            return (WindSensorValue) super.clone();   // (DewPointValue) super.clone();
+            return (WindSensorValue) super.clone();
         } catch (CloneNotSupportedException e) {
-
             throw new AssertionError();
         }
     }
