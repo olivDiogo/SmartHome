@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -12,18 +13,18 @@ import static org.mockito.Mockito.when;
 class HouseTest {
 
     @Test
-    void seeIfConstructorWorks() {
+    void shouldInstantiateHouseIfValidParameters() {
         // Arrange
         LocationFactory locationFactoryDouble = mock(LocationFactory.class);
         RoomFactory roomFactoryDouble = mock(RoomFactory.class);
-        House house = new House(locationFactoryDouble, roomFactoryDouble);
         // Act
+        new House(locationFactoryDouble, roomFactoryDouble);
+
         // Assert
-        assertNotNull(house);
     }
 
     @Test
-    void shouldReturnLocation() {
+    void shouldReturnLocationIfSuccessfullyConfigured() {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
@@ -48,7 +49,7 @@ class HouseTest {
     }
 
     @Test
-    void shouldReturnRoom() {
+    void shouldReturnRoomIfSuccessfullyCreated() {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
@@ -72,25 +73,24 @@ class HouseTest {
     }
 
     @Test
-    void shouldReturnListOfRooms() {
+    void shouldReturnListOfRoomsContainingAddedRoom() {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
         House house = new House(locationFactory, roomFactory);
         Room roomDouble = mock(Room.class);
 
-        house.addRoomToList(roomDouble);
-        int expected = 1;
+        Room room = house.addRoomToList(roomDouble);
 
         // Act
         List<Room> rooms = house.getRooms();
 
         // Assert
-        assertEquals(rooms.size(), expected);
+        assertTrue(rooms.contains(room));
     }
 
     @Test
-    void shouldReturnEmptyListOfRooms() {
+    void shouldReturnEmptyListOfRoomsIfNoAddedRoom() {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
@@ -109,6 +109,7 @@ class HouseTest {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
+
         House house = new House(locationFactory, roomFactory);
         Room roomDouble = mock(Room.class);
         Room roomDouble2 = mock(Room.class);
@@ -123,14 +124,12 @@ class HouseTest {
 
         house.addRoomToList(roomDouble);
         house.addRoomToList(roomDouble2);
-
-        int expected = 2;
-
+        String expected = "["+deviceDouble+", "+deviceDouble2+"]";
         // Act
         List<Device> devices = house.getAllDevices();
-
         // Assert
-        assertEquals(devices.size(), expected);
+        String result = devices.toString();
+        assertTrue(result.contains(expected));
     }
 
     @Test
@@ -139,7 +138,6 @@ class HouseTest {
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
         House house = new House(locationFactory, roomFactory);
-        //House house = new House(new LocationFactory(), new RoomFactory()); - changed this line on all
         Room roomDouble = mock(Room.class);
 
         house.addRoomToList(roomDouble);
