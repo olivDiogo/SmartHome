@@ -76,6 +76,19 @@ public class Device {
         return sensor;
     }
 
+    public Actuator addActuator(String strModel, CatalogueActuator catalogue, ActuatorFactory actuatorFactory) throws InstantiationException {
+        Actuator actuator = catalogue.getActuator( strModel, actuatorFactory );
+        actuator = addActuatorToDevice(actuator);
+        return actuator;
+    }
+
+    protected Actuator addActuatorToDevice(Actuator actuator) {
+        if( actuator == null )
+            return null;
+        this._actuators.add(actuator);
+        return actuator;
+    }
+
     @Override
     public String toString() {
         return "Device{" +

@@ -45,17 +45,19 @@ class GetDevicesFromRoomControllerTest {
 
         GetDevicesFromRoomController getDevicesFromRoomController = new GetDevicesFromRoomController(house);
 
-        int expected = 3;
+        String expected = room.getDevices().toString();
 
-        // Act
         List<RoomDTO> roomDTOS = getDevicesFromRoomController.getRooms();
         RoomDTO roomDTO = roomDTOS.get(0);
 
+        // Act
         List<DeviceDTO> deviceDTOList = getDevicesFromRoomController.getDevicesFromRoom(roomDTO);
-        int result = deviceDTOList.size();
+
+        String resultList = deviceDTOList.toString();
 
         // Assert
-        assertEquals(expected, result);
+        assertEquals(expected, resultList);
+        assertTrue(resultList.contains(expected));
     }
 
     /**
@@ -76,16 +78,17 @@ class GetDevicesFromRoomControllerTest {
         house.addRoom(roomName1, roomFloor, roomLength, roomWidth, roomHeight);
         house.addRoom(roomName2, roomFloor, roomLength, roomWidth, roomHeight);
 
+        String expected = house.getRooms().toString();
         GetDevicesFromRoomController getDevicesFromRoomController = new GetDevicesFromRoomController(house);
-
-        int expected = 2;
 
         //Act
         List <RoomDTO> roomDTOList = getDevicesFromRoomController.getRooms();
-        int result = roomDTOList.size();
+
+        String result = roomDTOList.toString();
 
         //Assert
         assertEquals(expected, result);
+        assertTrue(result.contains(expected));
     }
 
     /**

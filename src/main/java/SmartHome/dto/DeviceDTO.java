@@ -52,11 +52,12 @@ public class DeviceDTO {
      */
     @Override
     public String toString() {
-        return "DeviceDTO{" +
-                "name='" + _name + '\'' +
-                ", status=" + _status +
-                ", roomDTO=" + _roomDTO +
-                ", deviceFunctionalities=" + _deviceFunctionalities +
+        return "Device{" +
+                "_name='" + _name + '\'' +
+                ", _status=" + _status +
+                ", _sensors=" + _sensors +
+                ", _deviceId=" + _deviceID +
                 '}';
     }
+
 }

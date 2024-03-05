@@ -66,5 +66,15 @@ public class Room {
         return List.copyOf(this._deviceList);
     }
 
+    @Override
+    public String toString (){
+        return "Room{" +
+                "name='" + _name + '\'' +
+                ", dimensions=" + _dimensions.toString() +
+                ", floor=" + _floor +
+                ", roomId=" + _roomId.toString() +
+                '}';
+    }
+
 
 }
