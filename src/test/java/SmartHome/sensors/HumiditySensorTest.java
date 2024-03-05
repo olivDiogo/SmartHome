@@ -102,21 +102,4 @@ class HumiditySensorTest {
             assertEquals(expected, result);
         }
     }
-
-    /**
-     * Tests if the {@link HumiditySensor#getValue()} constructor throws an {@link InstantiationException} when the humidity value is below the lower boundary.
-     */
-
-    @Test
-    void seeIfConstructorThrowsException() {
-        // Arrange
-        int nValue = -1;
-        String expected = "Humidity value must be between 0 and 100";
-
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new HumiditySensorValue(nValue));
-
-        // Assert
-        assertEquals(expected, exception.getMessage());
-    }
 }

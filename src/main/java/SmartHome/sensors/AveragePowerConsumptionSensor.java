@@ -13,7 +13,7 @@ public class AveragePowerConsumptionSensor implements Sensor {
     private SensorType _sensorType;
     private HashMap<LocalDateTime, Double> _powerConsumptions;
     private double _averageResult;
-    private PowerConsumptionSensorValue _powerConsumptionSensorValue;
+    private AveragePowerConsumptionSensorValue _Average_powerConsumptionSensorValue;
 
     /**
      * Creates a new PowerConsumptionSensor with a given catalogue.
@@ -68,15 +68,6 @@ public class AveragePowerConsumptionSensor implements Sensor {
      */
     public SensorType getSensorType() {
         return this._sensorType;
-    }
-
-    /**
-     * Gets the value of the PowerConsumptionSensor.
-     *
-     * @return the value of the PowerConsumptionSensor.
-     */
-    public Value getValue() {
-        return this._powerConsumptionSensorValue = new PowerConsumptionSensorValue(_averageResult).clone();
     }
 
     /**
@@ -138,6 +129,15 @@ public class AveragePowerConsumptionSensor implements Sensor {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
         return filteredPowerConsumptions;
+    }
+
+    /**
+     * Gets the value of the PowerConsumptionSensor.
+     *
+     * @return the value of the PowerConsumptionSensor.
+     */
+    public Value getValue() {
+        return this._Average_powerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(_averageResult).clone();
     }
 }
 

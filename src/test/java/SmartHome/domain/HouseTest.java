@@ -41,7 +41,7 @@ class HouseTest {
                 .thenReturn(locationDouble);
 
         // Act
-        Location location = house.defineLocation(street, zipCode, doorNumber, latitude, longitude);
+        Location location = house.configureLocation(street, zipCode, doorNumber, latitude, longitude);
 
         // Assert
         assertEquals(locationDouble, location);

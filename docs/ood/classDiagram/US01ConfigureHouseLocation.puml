@@ -1,0 +1,92 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class ConfigureHouseLocationController{
+- _house: House
++ ConfigureHouseLocationController(house: House)
+- isValidConstructorArguments(house: House): boolean
++ configureHouseLocation(street: String, zipCode: String, doorNumber: int, latitude: double, longitude: double): LocationDTO
+}
+
+class House {
+- _locationFactory : LocationFactory
+- _roomFactory : RoomFactory
+- _location : Location
++ House(locationFactory: LocationFactory, roomFactory: RoomFactory)
++ defineLocation(street: String, zipCode: String, doorNumber: int, latitude: double, longitude: double): Location
+}
+
+class Location {
+- _addressFactory : AddressFactory
+- _gpsFactory : GPSFactory
+- _adress : Adress
+- _gps : GPS
+# Location(street: String, zipCode: String, doorNumber: int, latitude: double, longitude: double, addressFactory: AddressFactory, gpsFactory: GpsFactory): throws IllegalArgumentException |
++ getAddress(): Address
++ getGpsLocation(): Gps
++ toString(): String
+- setAddress(address: Address): Address
+- setGps(gps: Gps): Gps
+}
+
+class LocationFactory{
++ createLocation(street: String, zipCode: String, doorNumber: int, latitude: double, longitude: double): Location
+}
+
+class LocationAssembler{
++ <<static>> domain2DTO(location: Location) : LocationDTO
+}
+
+class LocationDTO {
+- _adress: String
+- _gps: String
++ LocationDTO(location: Location)
++ toString(): String
+}
+
+
+class Address {
+- _street: String
+- _zipCode: String
+- _doorNumber: int
+# Address(street: String, zipCode: String, doorNumber: int) : Adress
+- setStreet(street: String): void
+- setZipCode(zipCode: String): void
+- setDoorNumber(doorNumber: int): void
++ getStreet(): String
++ getZipCode(): String
++ getDoorNumber(): int
++ toString(): String
+}
+
+class AddressFactory{
++ createAddress(street: String, zipCode: String, doorNumber: int): Adress
+}
+
+class Gps {
+- _latitude: double
+- _longitude: double
+# Gps(latitude: double, longitude: double)
+- setLatitude(latitude: double): double
+- setLongitude(longitude: double): double
++ getLatitude(): double
++ getLongitude(): double
++ toString(): String
+}
+
+class GpsFactory{
++ createGps(latitude: double, longitude: double): Gps
+}
+
+ConfigureHouseLocationController "1"..>"1"House : <<uses>>
+ConfigureHouseLocationController "1"..>"1"LocationAssembler : <<uses>>
+House "1"..>"1" LocationFactory : <<uses>>
+AddressFactory "1"..>"1" Address: <<create>>
+GpsFactory "1"..>"1" Gps: <<create>>
+LocationFactory "1"..>"1" AddressFactory : <<uses>>
+LocationFactory "1"..>"1" GpsFactory : <<uses>>
+LocationFactory ..> Location: <<create>>
+LocationAssembler ..> Location: <<uses>>
+LocationAssembler ..> LocationDTO: <<transform>>
+
+@enduml

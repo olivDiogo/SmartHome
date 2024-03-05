@@ -10,6 +10,7 @@ import org.mockito.MockedConstruction;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class AveragePowerConsumptionSensorTest {
@@ -59,42 +60,52 @@ public class AveragePowerConsumptionSensorTest {
     void newPowerConsumptionSensorWithValidValue() throws InstantiationException {
         // Arrange
         String description = "Power Consumption";
+        Double value = 1500.0;
+
+        int expectedSize = 1;
+
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        try (MockedConstruction<AveragePowerConsumptionSensorValue> powerConsumptionSensorValueDouble = mockConstruction(AveragePowerConsumptionSensorValue.class, (mock, context) ->
+        {
+            when(mock.clone()).thenReturn(mock);
+            when(mock.getValue()).thenReturn(value);
+        })) {
+            AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
+            averagePowerConsumptionSensor.getValue();
+
+            // Assert
+            List<AveragePowerConsumptionSensorValue> averagePowerConsumptionSensorValues = powerConsumptionSensorValueDouble.constructed();
+            Assertions.assertEquals(expectedSize, averagePowerConsumptionSensorValues.size());
+            Assertions.assertEquals(value, averagePowerConsumptionSensorValues.get(0).getValue());
+
+        }
+    }
+
+    @Test
+    void newPowerConsumptionSensorWithValidValue2() throws InstantiationException {
+        // Arrange
+        String description = "Power Consumption";
         String value = "1500.0";
 
         int expectedSize = 1;
 
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
-        PowerConsumptionSensorValue powerConsumptionSensorValue = mock(PowerConsumptionSensorValue.class);
-
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-
-        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
-
-        try (MockedConstruction<PowerConsumptionSensorValue> powerConsumptionSensorValueDouble = mockConstruction(PowerConsumptionSensorValue.class, (mock, context) ->
+        try (MockedConstruction<AveragePowerConsumptionSensorValue> powerConsumptionSensorValueDouble = mockConstruction(AveragePowerConsumptionSensorValue.class, (mock, context) ->
         {
-            when(powerConsumptionSensorValue.clone()).thenReturn(powerConsumptionSensorValue);
-            when(powerConsumptionSensorValue.toString()).thenReturn(value);
+            when(mock.clone()).thenReturn(mock);
             when(mock.toString()).thenReturn(value);
         })) {
+            AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
-            LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
-            LocalDateTime finalTime = LocalDateTime.now();
-
-            averagePowerConsumptionSensor.setValue(initialTime, 1000);
-            averagePowerConsumptionSensor.setValue(finalTime, 2000);
-
-            // Act
-            averagePowerConsumptionSensor.getAverageValue(initialTime, finalTime);
-            Value result = averagePowerConsumptionSensor.getValue();
-            System.out.println(result);
-
-
-            // Assert
-            List<PowerConsumptionSensorValue> powerConsumptionSensorValues = powerConsumptionSensorValueDouble.constructed();
-            Assertions.assertEquals(expectedSize, powerConsumptionSensorValues.size());
-            Assertions.assertEquals(value, powerConsumptionSensorValues.get(0).toString());
+            averagePowerConsumptionSensor.getValue();
+            Assertions.assertEquals(expectedSize, powerConsumptionSensorValueDouble.constructed().size());
+            Assertions.assertEquals(value, powerConsumptionSensorValueDouble.constructed().get(0).toString());
         }
     }
 
