@@ -9,6 +9,8 @@ participant ":RoomAssembler" as RoomAssembler
 
 participant ":DeviceAssembler" as DeviceAssembler
 
+participant ":ActuatorAssembler" as ActuatorAssembler
+
 participant ":House" as House
 
 participant "room:Room" as Room
@@ -56,11 +58,11 @@ create RoomDTO
     deactivate RoomDTO
 end
 
-RoomAssembler --> AddActuatorToDevice_Controller: roomDTOs
+RoomAssembler --> AddActuatorToDevice_Controller: roomsDTO
 
 deactivate RoomAssembler
 
-AddActuatorToDevice_Controller --> User: roomDTOs
+AddActuatorToDevice_Controller --> User: roomsDTO
 
 deactivate AddActuatorToDevice_Controller
 
@@ -69,6 +71,14 @@ deactivate AddActuatorToDevice_Controller
 User o-> AddActuatorToDevice_Controller: getDevices(roomDTO)
 
 activate AddActuatorToDevice_Controller
+
+AddActuatorToDevice_Controller -> RoomAssembler: dto2Domain(roomDTO)
+
+activate RoomAssembler
+
+RoomAssembler --> AddActuatorToDevice_Controller: room
+
+deactivate RoomAssembler
 
 AddActuatorToDevice_Controller -> Room: getDevices()
 
@@ -91,11 +101,11 @@ create DeviceDTO
     deactivate DeviceDTO
 end
 
-DeviceAssembler --> AddActuatorToDevice_Controller: deviceDTOs
+DeviceAssembler --> AddActuatorToDevice_Controller: devicesDTO
 
 deactivate DeviceAssembler
 
-AddActuatorToDevice_Controller --> User: deviceDTOs
+AddActuatorToDevice_Controller --> User: devicesDTO
 
 deactivate AddActuatorToDevice_Controller
 
@@ -149,15 +159,23 @@ Device --> AddActuatorToDevice_Controller: actuator
 
 deactivate Device
 
+AddActuatorToDevice_Controller -> ActuatorAssembler: domain2DTO(actuator)
+
+activate ActuatorAssembler
+
 create ActuatorDTO
 
-AddActuatorToDevice_Controller -> ActuatorDTO: domain2DTO(actuator)
+ActuatorAssembler -> ActuatorDTO: createActuatorDTO(actuator)
 
 activate ActuatorDTO
 
-ActuatorDTO --> AddActuatorToDevice_Controller: actuatorDTO
+ActuatorDTO --> ActuatorAssembler: actuatorDTO
 
 deactivate ActuatorDTO
+
+ActuatorAssembler --> AddActuatorToDevice_Controller: actuatorDTO
+
+deactivate ActuatorAssembler
 
 AddActuatorToDevice_Controller --> User: actuatorDTO
 
