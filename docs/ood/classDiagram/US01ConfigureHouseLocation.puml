@@ -2,25 +2,36 @@
 'https://plantuml.com/class-diagram
 
 class ConfigureHouseLocationController{
+'Attributes'
 - _house: House
+
+'Methods'
 + ConfigureHouseLocationController(house: House)
 - isValidConstructorArguments(house: House): boolean
 + configureHouseLocation(street: String, zipCode: String, doorNumber: int, latitude: double, longitude: double): LocationDTO
 }
 
 class House {
+
+'Attributes'
 - _locationFactory : LocationFactory
 - _roomFactory : RoomFactory
 - _location : Location
+
+'Methods'
 + House(locationFactory: LocationFactory, roomFactory: RoomFactory)
 + defineLocation(street: String, zipCode: String, doorNumber: int, latitude: double, longitude: double): Location
 }
 
 class Location {
+
+'Attributes'
 - _addressFactory : AddressFactory
 - _gpsFactory : GPSFactory
 - _adress : Adress
 - _gps : GPS
+
+'Methods'
 # Location(street: String, zipCode: String, doorNumber: int, latitude: double, longitude: double, addressFactory: AddressFactory, gpsFactory: GpsFactory): throws IllegalArgumentException |
 + getAddress(): Address
 + getGpsLocation(): Gps
@@ -30,25 +41,33 @@ class Location {
 }
 
 class LocationFactory{
+'Methods'
 + createLocation(street: String, zipCode: String, doorNumber: int, latitude: double, longitude: double): Location
 }
 
 class LocationAssembler{
+'Methods'
 + <<static>> domain2DTO(location: Location) : LocationDTO
 }
 
 class LocationDTO {
+'Attributes'
 - _adress: String
 - _gps: String
+
+'Methods'
 + LocationDTO(location: Location)
 + toString(): String
 }
 
 
 class Address {
+'Attributes'
 - _street: String
 - _zipCode: String
 - _doorNumber: int
+
+'Methods'
 # Address(street: String, zipCode: String, doorNumber: int) : Adress
 - setStreet(street: String): void
 - setZipCode(zipCode: String): void
@@ -60,12 +79,16 @@ class Address {
 }
 
 class AddressFactory{
+'Methods'
 + createAddress(street: String, zipCode: String, doorNumber: int): Adress
 }
 
 class Gps {
+'Attributes'
 - _latitude: double
 - _longitude: double
+
+'Methods'
 # Gps(latitude: double, longitude: double)
 - setLatitude(latitude: double): double
 - setLongitude(longitude: double): double
@@ -75,6 +98,7 @@ class Gps {
 }
 
 class GpsFactory{
+'Methods'
 + createGps(latitude: double, longitude: double): Gps
 }
 

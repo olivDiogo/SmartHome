@@ -1,7 +1,7 @@
 @startuml
 
 participant " " as User
-participant ":ConfigureHouseLocation" as Controller
+participant ":ConfigureHouseLocationController" as Controller
 participant ":LocationAssembler" as Assembler
 participant "locationDTO:LocationDTO" as LocationDTO
 participant ":House" as House
