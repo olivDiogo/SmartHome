@@ -66,6 +66,35 @@ public class BlindRollerValueTest {
         assertEquals(blindRollerValue.toString(), result.toString());
     }
 
+    /**
+     * Test for low boundary value
+     */
+    @Test
+    void testLowBoundaryValue() {
+        // Arrange
+        int nValue = 0;
+        BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);
+        // Act
+        BlindRollerValue result = blindRollerValue.clone();
+
+        // Assert
+        assertEquals(blindRollerValue.toString(), result.toString());
+    }
+
+    /**
+     * Test for high boundary value
+     */
+    @Test
+    void testHighBoundaryValue() {
+        // Arrange
+        int nValue = 100;
+        BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);
+        // Act
+        BlindRollerValue result = blindRollerValue.clone();
+
+        // Assert
+        assertEquals(blindRollerValue.toString(), result.toString());
+    }
 }
 
 
