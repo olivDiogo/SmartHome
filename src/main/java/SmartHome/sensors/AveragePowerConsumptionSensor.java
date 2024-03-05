@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PowerConsumptionSensor implements Sensor {
+public class AveragePowerConsumptionSensor implements Sensor {
     private final SensorType _sensorType;
     private final Map<LocalDateTime, Double> powerConsumptions;
     private double averageResult;
@@ -22,7 +22,7 @@ public class PowerConsumptionSensor implements Sensor {
      * @throws InstantiationException if the SensorType with description 'Power Consumption' does not exist.
      */
 
-    public PowerConsumptionSensor(CatalogueSensor catalogue) throws InstantiationException {
+    public AveragePowerConsumptionSensor(CatalogueSensor catalogue) throws InstantiationException {
         this._sensorType = setSensorType(catalogue);
         this.powerConsumptions = setPowerConsumptions();
         this.averageResult = setResult();

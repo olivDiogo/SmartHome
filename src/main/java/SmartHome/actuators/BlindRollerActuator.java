@@ -53,19 +53,13 @@ public class BlindRollerActuator implements Actuator {
     /**
      * Sets the value of the blind roller to a specific position after validating the input.
      * converted to an integer.
-     * The method ensures the value is within the acceptable range (0 to 100).
-     * If the value is outside this range, it throws an IllegalArgumentException.
-     *
      * @param value The desired position of the blind roller, potentially including non-digit characters.
      * @return A cloned instance of BlindRollerValue representing the sanitized and validated position.
-     * @throws IllegalArgumentException If the parsed value is not between 0 and 100.
      * @throws NumberFormatException If the string value after sanitization is not a valid integer.
      */
     public Value setValue(Value value) {
         int rollerValue = Integer.parseInt(value.toString());
-        if (rollerValue < 0 || rollerValue > 100) {
-            throw new IllegalArgumentException("The value must be between 0 and 100");
-        }
+
         this._value = new BlindRollerValue(rollerValue);
 
         return _value.clone();
