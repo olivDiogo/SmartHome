@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-public class PowerConsumptionSensorTest {
+public class AveragePowerConsumptionSensorTest {
 
     /**
      * See if the constructor works.
@@ -27,7 +27,7 @@ public class PowerConsumptionSensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         // Act
-        new PowerConsumptionSensor(catalogueDouble);
+        new AveragePowerConsumptionSensor(catalogueDouble);
 
     }
 
@@ -43,10 +43,10 @@ public class PowerConsumptionSensorTest {
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
         // Act
-        SensorType result = powerConsumptionSensor.getSensorType();
+        SensorType result = averagePowerConsumptionSensor.getSensorType();
 
         // Assert
         Assertions.assertEquals(sensorTypeDouble, result);
@@ -70,7 +70,7 @@ public class PowerConsumptionSensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
 
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
         try (MockedConstruction<PowerConsumptionSensorValue> powerConsumptionSensorValueDouble = mockConstruction(PowerConsumptionSensorValue.class, (mock, context) ->
         {
@@ -82,12 +82,12 @@ public class PowerConsumptionSensorTest {
             LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
             LocalDateTime finalTime = LocalDateTime.now();
 
-            powerConsumptionSensor.setValue(initialTime, 1000);
-            powerConsumptionSensor.setValue(finalTime, 2000);
+            averagePowerConsumptionSensor.setValue(initialTime, 1000);
+            averagePowerConsumptionSensor.setValue(finalTime, 2000);
 
             // Act
-            powerConsumptionSensor.getAverageValue(initialTime, finalTime);
-            Value result = powerConsumptionSensor.getValue();
+            averagePowerConsumptionSensor.getAverageValue(initialTime, finalTime);
+            Value result = averagePowerConsumptionSensor.getValue();
             System.out.println(result);
 
 
@@ -109,7 +109,7 @@ public class PowerConsumptionSensorTest {
 
         // Act + Assert
         Exception exception = Assertions.assertThrows(InstantiationException.class,
-                () -> new PowerConsumptionSensor(catalogueDouble));
+                () -> new AveragePowerConsumptionSensor(catalogueDouble));
 
         // Assert
         String actualMessage = exception.getMessage();
@@ -129,7 +129,7 @@ public class PowerConsumptionSensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(null);
         //Act + Assert
-        Exception exception = Assertions.assertThrows(InstantiationException.class, () -> new PowerConsumptionSensor(catalogueDouble));
+        Exception exception = Assertions.assertThrows(InstantiationException.class, () -> new AveragePowerConsumptionSensor(catalogueDouble));
 
         //Assert
         Assertions.assertEquals(expectedMessage, exception.getMessage());
@@ -148,18 +148,18 @@ public class PowerConsumptionSensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
         LocalDateTime initialTime = LocalDateTime.of(2024, 2, 29, 10, 10, 5);
         LocalDateTime finalTime = LocalDateTime.of(2024, 2, 29, 10, 10, 10);
 
-        powerConsumptionSensor.setValue(initialTime, 1000);
-        powerConsumptionSensor.setValue(finalTime, 1500);
+        averagePowerConsumptionSensor.setValue(initialTime, 1000);
+        averagePowerConsumptionSensor.setValue(finalTime, 1500);
 
         double expectedAverage = 1250;
 
         // Act
-        double averageValue = powerConsumptionSensor.getAverageValue(initialTime, finalTime);
+        double averageValue = averagePowerConsumptionSensor.getAverageValue(initialTime, finalTime);
 
         // Assert
         Assertions.assertEquals(expectedAverage, averageValue, 0.01);
@@ -179,18 +179,18 @@ public class PowerConsumptionSensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
         LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
         LocalDateTime finalTime = LocalDateTime.now();
 
-        powerConsumptionSensor.setValue(initialTime, 1000);
-        powerConsumptionSensor.setValue(finalTime, 2000);
+        averagePowerConsumptionSensor.setValue(initialTime, 1000);
+        averagePowerConsumptionSensor.setValue(finalTime, 2000);
 
         double expectedAverage = 1500;
 
         // Act
-        double averageValue = powerConsumptionSensor.getAverageValue(initialTime, finalTime);
+        double averageValue = averagePowerConsumptionSensor.getAverageValue(initialTime, finalTime);
 
         // Assert
         Assertions.assertEquals(expectedAverage, averageValue, 0.01);
@@ -209,20 +209,20 @@ public class PowerConsumptionSensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
         LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
         LocalDateTime secondTime = LocalDateTime.now().minusHours(1);
         LocalDateTime finalTime = LocalDateTime.now();
 
-        powerConsumptionSensor.setValue(initialTime, 1000);
-        powerConsumptionSensor.setValue(secondTime, 1500);
-        powerConsumptionSensor.setValue(finalTime, 2000);
+        averagePowerConsumptionSensor.setValue(initialTime, 1000);
+        averagePowerConsumptionSensor.setValue(secondTime, 1500);
+        averagePowerConsumptionSensor.setValue(finalTime, 2000);
 
         double expectedAverage = 1500;
 
         // Act
-        double averageValue = powerConsumptionSensor.getAverageValue(initialTime, finalTime);
+        double averageValue = averagePowerConsumptionSensor.getAverageValue(initialTime, finalTime);
 
         // Assert
         Assertions.assertEquals(expectedAverage, averageValue, 0.01);
@@ -241,7 +241,7 @@ public class PowerConsumptionSensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
         LocalDateTime OtherTime1 = LocalDateTime.now().minusHours(3);
         LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
@@ -249,16 +249,16 @@ public class PowerConsumptionSensorTest {
         LocalDateTime finalTime = LocalDateTime.now();
         LocalDateTime OtherTime3 = LocalDateTime.now().plusHours(1);
 
-        powerConsumptionSensor.setValue(OtherTime1, 500);
-        powerConsumptionSensor.setValue(initialTime, 1000);
-        powerConsumptionSensor.setValue(OtherTime2, 1200);
-        powerConsumptionSensor.setValue(finalTime, 2000);
-        powerConsumptionSensor.setValue(OtherTime3, 400);
+        averagePowerConsumptionSensor.setValue(OtherTime1, 500);
+        averagePowerConsumptionSensor.setValue(initialTime, 1000);
+        averagePowerConsumptionSensor.setValue(OtherTime2, 1200);
+        averagePowerConsumptionSensor.setValue(finalTime, 2000);
+        averagePowerConsumptionSensor.setValue(OtherTime3, 400);
 
         double expectedAverage = 1400;
 
         // Act
-        double averageValue = powerConsumptionSensor.getAverageValue(initialTime, finalTime);
+        double averageValue = averagePowerConsumptionSensor.getAverageValue(initialTime, finalTime);
 
         // Assert
         Assertions.assertEquals(expectedAverage, averageValue, 0.01);
@@ -276,7 +276,7 @@ public class PowerConsumptionSensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
         LocalDateTime initialTime = LocalDateTime.now();
         LocalDateTime finalTime = LocalDateTime.now().plusHours(2);
@@ -284,16 +284,16 @@ public class PowerConsumptionSensorTest {
         LocalDateTime otherTime2 = LocalDateTime.now().plusHours(3);
         LocalDateTime otherTime3 = LocalDateTime.now().plusHours(1);
 
-        powerConsumptionSensor.setValue(otherTime2, 500);
-        powerConsumptionSensor.setValue(initialTime, 1000);
-        powerConsumptionSensor.setValue(otherTime1, 1200);
-        powerConsumptionSensor.setValue(finalTime, 2000);
-        powerConsumptionSensor.setValue(otherTime3, 400);
+        averagePowerConsumptionSensor.setValue(otherTime2, 500);
+        averagePowerConsumptionSensor.setValue(initialTime, 1000);
+        averagePowerConsumptionSensor.setValue(otherTime1, 1200);
+        averagePowerConsumptionSensor.setValue(finalTime, 2000);
+        averagePowerConsumptionSensor.setValue(otherTime3, 400);
 
         double expectedAverage = 1133.33;
 
         // Act
-        double averageValue = powerConsumptionSensor.getAverageValue(initialTime, finalTime);
+        double averageValue = averagePowerConsumptionSensor.getAverageValue(initialTime, finalTime);
 
         // Assert
         Assertions.assertEquals(expectedAverage, averageValue, 0.01);
@@ -312,13 +312,13 @@ public class PowerConsumptionSensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
         LocalDateTime BeforeInitialTime = LocalDateTime.now().minusHours(3);
 
-        powerConsumptionSensor.setValue(BeforeInitialTime, 500);
+        averagePowerConsumptionSensor.setValue(BeforeInitialTime, 500);
 
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> powerConsumptionSensor.getAverageValue(BeforeInitialTime, BeforeInitialTime));
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> averagePowerConsumptionSensor.getAverageValue(BeforeInitialTime, BeforeInitialTime));
 
         // Assert
         String actualMessage = exception.getMessage();
@@ -339,12 +339,12 @@ public class PowerConsumptionSensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
         LocalDateTime initialTime = LocalDateTime.now().plusHours(3);
         LocalDateTime finalTime = LocalDateTime.now();
 
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> powerConsumptionSensor.getAverageValue(initialTime, finalTime));
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> averagePowerConsumptionSensor.getAverageValue(initialTime, finalTime));
 
         // Assert
         String actualMessage = exception.getMessage();
@@ -365,13 +365,13 @@ public class PowerConsumptionSensorTest {
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        PowerConsumptionSensor powerConsumptionSensor = new PowerConsumptionSensor(catalogueDouble);
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
         LocalDateTime initialTime = LocalDateTime.now();
 
-        powerConsumptionSensor.setValue(initialTime, 1000);
+        averagePowerConsumptionSensor.setValue(initialTime, 1000);
 
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> powerConsumptionSensor.setValue(initialTime, 1000));
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> averagePowerConsumptionSensor.setValue(initialTime, 1000));
 
         // Assert
         String actualMessage = exception.getMessage();

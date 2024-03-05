@@ -8,11 +8,19 @@ public class BlindRollerValue implements Value, Cloneable {
 
     /**
      * Constructor of the class.
-     *
      * @param nValue The value of the blind roller.
+     *It must be between 0 and 100.
      */
     public BlindRollerValue(int nValue) {
+        setValue(nValue);
+    }
+
+    public int setValue(int nValue) {
+        if (nValue < 0 || nValue > 100) {
+            throw new IllegalArgumentException("The value must be between 0 and 100.");
+        }
         this._nValue = nValue;
+        return this._nValue;
     }
 
     /**
