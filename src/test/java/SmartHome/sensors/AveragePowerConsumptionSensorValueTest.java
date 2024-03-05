@@ -1,18 +1,12 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.Actuator;
-import SmartHome.domain.CatalogueSensor;
-import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class AveragePowerConsumptionSensorValueTest {
 
@@ -24,7 +18,22 @@ public class AveragePowerConsumptionSensorValueTest {
         //Arrange
         double dValue = 12.3;
         //Act
-        new PowerConsumptionSensorValue(dValue);
+        new AveragePowerConsumptionSensorValue(dValue);
+    }
+
+    /**
+     * See if the getValue method works.
+     */
+    @Test
+    void seeIfGetValueWorks() {
+        //Arrange
+        double dValue = 12.3;
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue);
+        double expected = 12.3;
+        //Act
+        double actualResult = averagePowerConsumptionSensorValue.getValue();
+        //Assert
+        Assertions.assertEquals(expected, actualResult);
     }
 
     /**
@@ -35,13 +44,13 @@ public class AveragePowerConsumptionSensorValueTest {
     void seeIfCloneWorks() {
         //Arrange
         double dValue = 12.3;
-        PowerConsumptionSensorValue powerConsumptionSensorValue = new PowerConsumptionSensorValue(dValue);
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue);
 
         //Act
-        Value clonedResult = powerConsumptionSensorValue.clone();
+        Value clonedResult = averagePowerConsumptionSensorValue.clone();
 
         //Assert
-        Assertions.assertEquals(powerConsumptionSensorValue.toString(), clonedResult.toString());
+        Assertions.assertEquals(averagePowerConsumptionSensorValue.toString(), clonedResult.toString());
     }
 
     /**
@@ -52,10 +61,10 @@ public class AveragePowerConsumptionSensorValueTest {
     void seeIfToStringWorks() {
         //Arrange
         double dValue = 12.3;
-        PowerConsumptionSensorValue powerConsumptionSensorValue = new PowerConsumptionSensorValue(dValue);
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue);
         String expected = "12.3";
         //Act
-        String actualString = powerConsumptionSensorValue.toString();
+        String actualString = averagePowerConsumptionSensorValue.toString();
 
         //Assert
         Assertions.assertEquals(expected, actualString);
@@ -72,7 +81,7 @@ public class AveragePowerConsumptionSensorValueTest {
         String expectedMessage = "Value must be positive";
 
 
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> new PowerConsumptionSensorValue(dValue));
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> new AveragePowerConsumptionSensorValue(dValue));
 
         // Assert
         String actualMessage = exception.getMessage();

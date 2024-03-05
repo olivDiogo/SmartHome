@@ -25,6 +25,10 @@ public class AveragePowerConsumptionSensorValue implements Value, Cloneable {
         this._dValue = dValue;
     }
 
+    /**
+     * Gets the value of the PowerConsumptionSensorValue.
+     * @return the value of the PowerConsumptionSensorValue.
+     */
     public double getValue() {
         return this._dValue;
     }
