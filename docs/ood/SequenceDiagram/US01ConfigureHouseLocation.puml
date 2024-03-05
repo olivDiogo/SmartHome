@@ -1,13 +1,16 @@
 @startuml
 
 participant " " as User
-participant ":Controller" as Controller
+participant ":ConfigureHouseLocation" as Controller
 participant ":LocationAssembler" as Assembler
 participant "locationDTO:LocationDTO" as LocationDTO
 participant ":House" as House
+participant ":LocationFactory" as LocationFactory
 participant "location:Location" as Location
+participant ":AddressFactory" as AddressFactory
 participant "address:Address" as Address
-participant "gpsLocation:GPS" as GPS
+participant ":GpsFactory" as GpsFactory
+participant "gps:GPS" as GPS
 
 autonumber
 User o-> Controller: configureLocation(street ,zipCode, doorNumber, latitude, longitude)
@@ -15,29 +18,47 @@ activate Controller
 
 Controller -> House : configureLocation (street ,zipCode, doorNumber, latitude, longitude)
 activate House
+create LocationFactory
+
+House -> LocationFactory: configureLocation(street,zipCode, doorNumber, latitude, longitude)
+deactivate House
+activate LocationFactory
+
 create Location
-
-House -> Location : configureLocation(street,zipCode, doorNumber, latitude, longitude)
-
+LocationFactory -> Location: createLocation(street, zipCode, doorNumber, latitude, longitude)
 activate Location
 
+create AddressFactory
+Location -> AddressFactory: setAdress(street, zipCode, doorNumber)
+activate AddressFactory
 create Address
-Location -> Address : configureAddress (street,zipCode, doorNumber)
+AddressFactory -> Address: createAddress(street, zipCode, doorNumber)
 activate Address
-
-Address --> Location : address
+Address --> AddressFactory: address
 deactivate Address
+AddressFactory --> Location : address
+deactivate AddressFactory
 
+
+
+create GpsFactory
+Location -> GpsFactory: setGpsLocation(latitude, longitude)
+activate GpsFactory
 create GPS
-Location -> GPS : configureGPS (latitude, longitude)
+GpsFactory-> GPS : createGPS (latitude, longitude)
 activate GPS
-
-GPS --> Location : gpsLocation
+GPS --> GpsFactory: gps
+GpsFactory --> Location : gps
+deactivate GpsFactory
 deactivate GPS
-Location --> House : location
+
+Location --> LocationFactory: location
 deactivate Location
-House --> Controller : location
-deactivate House
+LocationFactory --> House: location
+deactivate LocationFactory
+House --> Controller: location
+
+create Assembler
 Controller -> Assembler: createLocationDTO(location)
 activate Assembler
 create LocationDTO

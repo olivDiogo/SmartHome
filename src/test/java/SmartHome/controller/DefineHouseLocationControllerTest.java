@@ -20,7 +20,7 @@ class DefineHouseLocationControllerTest {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
         // Act
-        DefineHouseLocationController controller = new DefineHouseLocationController(house);
+        ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
         // Assert
         assertNotNull(controller);
     }
@@ -34,10 +34,10 @@ class DefineHouseLocationControllerTest {
         int doorNumber = 1;
         double latitude = 10.0;
         double longitude = 10.0;
-        DefineHouseLocationController controller = new DefineHouseLocationController(house);
-        Location location = house.defineLocation(street, zipCode, doorNumber, latitude, longitude);
+        ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
+        Location location = house.configureLocation(street, zipCode, doorNumber, latitude, longitude);
         // Act
-        LocationDTO result = controller.defineHouseLocation(street, zipCode, doorNumber, latitude, longitude);
+        LocationDTO result = controller.configureLocation(street, zipCode, doorNumber, latitude, longitude);
         // Assert
         assertEquals(result.toString(), location.toString());
     }
@@ -52,10 +52,10 @@ class DefineHouseLocationControllerTest {
         int doorNumber = 1;
         double latitude = 10.0;
         double longitude = 10.0;
-        DefineHouseLocationController controller = new DefineHouseLocationController(house);
+        ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
         // Act & Assert
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.defineHouseLocation(street, zipCode, doorNumber, latitude, longitude));
+                () -> controller.configureLocation(street, zipCode, doorNumber, latitude, longitude));
     }
 
     @Test
@@ -67,10 +67,10 @@ class DefineHouseLocationControllerTest {
         int doorNumber = 1;
         double latitude = 10.0;
         double longitude = 10.0;
-        DefineHouseLocationController controller = new DefineHouseLocationController(house);
+        ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
         // Act & Assert
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.defineHouseLocation(street, zipCode, doorNumber, latitude, longitude));
+                () -> controller.configureLocation(street, zipCode, doorNumber, latitude, longitude));
     }
 
     @Test
@@ -82,10 +82,10 @@ class DefineHouseLocationControllerTest {
         int doorNumber = 1;
         double latitude = 10.0;
         double longitude = 10.0;
-        DefineHouseLocationController controller = new DefineHouseLocationController(house);
+        ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
         // Act & Assert
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.defineHouseLocation(street, zipCode, doorNumber, latitude, longitude));
+                () -> controller.configureLocation(street, zipCode, doorNumber, latitude, longitude));
     }
 
     @Test
@@ -97,10 +97,10 @@ class DefineHouseLocationControllerTest {
         int doorNumber = 1;
         double latitude = 10.0;
         double longitude = 10.0;
-        DefineHouseLocationController controller = new DefineHouseLocationController(house);
+        ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
         // Act & Assert
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.defineHouseLocation(street, zipCode, doorNumber, latitude, longitude));
+                () -> controller.configureLocation(street, zipCode, doorNumber, latitude, longitude));
     }
 
     @Test
@@ -112,10 +112,10 @@ class DefineHouseLocationControllerTest {
         int doorNumber = -1;
         double latitude = 10.0;
         double longitude = 10.0;
-        DefineHouseLocationController controller = new DefineHouseLocationController(house);
+        ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
         // Act & Assert
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.defineHouseLocation(street, zipCode, doorNumber, latitude, longitude));
+                () -> controller.configureLocation(street, zipCode, doorNumber, latitude, longitude));
     }
 
     @Test
@@ -128,10 +128,10 @@ class DefineHouseLocationControllerTest {
         int doorNumber = 0;
         double latitude = 10.0;
         double longitude = 10.0;
-        DefineHouseLocationController controller = new DefineHouseLocationController(house);
+        ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
         // Act & Assert
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.defineHouseLocation(street, zipCode, doorNumber, latitude, longitude));
+                () -> controller.configureLocation(street, zipCode, doorNumber, latitude, longitude));
     }
 
     @Test
@@ -143,10 +143,10 @@ class DefineHouseLocationControllerTest {
         int doorNumber = 1;
         double latitude = 91.0;
         double longitude = 10.0;
-        DefineHouseLocationController controller = new DefineHouseLocationController(house);
+        ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
         // Act & Assert
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.defineHouseLocation(street, zipCode, doorNumber, latitude, longitude));
+                () -> controller.configureLocation(street, zipCode, doorNumber, latitude, longitude));
     }
 
     @Test
@@ -158,10 +158,10 @@ class DefineHouseLocationControllerTest {
         int doorNumber = 1;
         double latitude = 10.0;
         double longitude = -181.0;
-        DefineHouseLocationController controller = new DefineHouseLocationController(house);
+        ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
         // Act & Assert
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.defineHouseLocation(street, zipCode, doorNumber, latitude, longitude));
+                () -> controller.configureLocation(street, zipCode, doorNumber, latitude, longitude));
     }
 
 }
