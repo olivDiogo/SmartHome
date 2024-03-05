@@ -25,7 +25,6 @@ public class AveragePowerConsumptionSensor implements Sensor {
         setSensorType(catalogue);
         setPowerConsumptions();
         setResult();
-
     }
 
     /**
@@ -122,7 +121,6 @@ public class AveragePowerConsumptionSensor implements Sensor {
                 .orElse(0);
 
         this._averageResult = average;
-
         return average;
     }
 
@@ -140,7 +138,6 @@ public class AveragePowerConsumptionSensor implements Sensor {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
         return filteredPowerConsumptions;
-
     }
 }
 

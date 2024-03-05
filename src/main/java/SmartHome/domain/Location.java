@@ -21,11 +21,11 @@ public class Location {
     public Gps getGpsLocation() {
         return this._gpsLocation;
     }
-    public Address setAddress(String street, String zipCode, int doorNumber) {
+    private Address setAddress(String street, String zipCode, int doorNumber) {
         this._address = _addressFactory.createAddress(street, zipCode, doorNumber);
         return this._address;
     }
-    public Gps setGpsLocation(double latitude, double longitude) {
+    private Gps setGpsLocation(double latitude, double longitude) {
         this._gpsLocation = _gpsFactory.createGps(latitude, longitude);
         return this._gpsLocation;
     }
