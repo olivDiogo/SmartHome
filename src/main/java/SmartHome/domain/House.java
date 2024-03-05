@@ -14,7 +14,7 @@ public class House {
         this._roomFactory = roomFactory;
         this._rooms = new ArrayList<>();
     }
-    public Location defineLocation(String street, String zipCode, int doorNumber, double latitude, double longitude) throws IllegalArgumentException {
+    public Location configureLocation(String street, String zipCode, int doorNumber, double latitude, double longitude) throws IllegalArgumentException {
         _location = _locationFactory.createLocation(street, zipCode, doorNumber, latitude, longitude);
         return _location;
     }

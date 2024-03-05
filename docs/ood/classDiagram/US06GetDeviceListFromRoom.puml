@@ -16,7 +16,7 @@ class GetDevicesFromRoomController{
 
 class RoomAssembler{
 
-+ <<static>> Domain2DTOMap (rooms : List<Room>) : Map<RoomDTO, Room>
++ <<static>> domain2DTOMap (rooms : List<Room>) : Map<RoomDTO, Room>
 }
 
 
@@ -31,7 +31,7 @@ class RoomDTO{
 
 class DeviceAssembler{
 
-+<<static>> domain2DTOMapper (devices : List<Device>) : Map<DeviceDTO, Device>
++<<static>> domain2DTO (devices : List<Device>) : List<DeviceDTO>
 }
 
 
@@ -44,11 +44,13 @@ class DeviceDTO{
 }
 
 class House {
-- _location : Location
 - _rooms : List<Room>
+- _location : Location
+- _locationFactory : LocationFactory
+- _roomFactory : RoomFactory
 
-+House ()
-+getAllRooms() : List<Room>
++House (locationFactory : LocationFactory, roomFactory : RoomFactory)
++geRooms() : List<Room>
 }
 
 class Room{
@@ -57,20 +59,19 @@ class Room{
 - _dimensions : Dimensions
 - _roomId : UUID
 _ deviceList : List<Device>
+- _dimensionsFactory : DimensionsFactory
 
-+Room(name : String, floor : int, length : double, width : double, height : double)
-+ setName(name : String) : void
-+ setDimensions(length : double, width : double, height : double) : Dimensions
++Room(name : String, floor : int, length : double, width : double, height : double, dimensionsFactory : DimensionsFactory)
 +getDevices() : List<Device>
 }
 
+
 class Device{
 - _name : String
-- _deviceID : UUID
 
 +Device(name : String)
-+ setName(name : String) : void
 }
+
 
 
 GetDevicesFromRoomController "1"..>"1" House: uses
@@ -81,8 +82,8 @@ GetDevicesFromRoomController "1"..>"1" DeviceAssembler: uses
 RoomAssembler "1"..>"*" RoomDTO: creates
 DeviceAssembler "1" ..>"*" DeviceDTO: creates
 
-House "1" ..> "*" Room: creates
-Room "1" ..> "*" Device: creates
+House "1" ..> "*" Room: uses
+Room "1" ..> "*" Device: uses
 
 House "1" *-- "0.*" Room : has
 Room "1" *-- "0.*" Device : has

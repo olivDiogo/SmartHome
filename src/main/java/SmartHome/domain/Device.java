@@ -11,7 +11,7 @@ public class Device {
     private UUID _deviceId;
     private List<Actuator> _actuators;
 
-    public Device(String name) throws IllegalArgumentException {
+    protected Device(String name) throws IllegalArgumentException {
         setName(name);
         this._sensors = new ArrayList<>();
         this._status = false;

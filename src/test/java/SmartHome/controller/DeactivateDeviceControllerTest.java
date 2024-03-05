@@ -68,13 +68,17 @@ class DeactivateDeviceControllerTest {
     @Test
     void deactivateDeviceReturnEmptyOptional() {
         //Arrange
+        String name = "Luz";
         House house = new House(new LocationFactory(), new RoomFactory());
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(house);
-        Device device = new Device("Luz");
+        DeviceFactory deviceFactory = new DeviceFactory();
+        Device device = deviceFactory.createDevice(name);
         DeviceDTO deviceDTO = new DeviceDTO(device);
         deactivateDeviceController.getDeviceList();
+
         //Act
         Optional<DeviceDTO> optionalDeviceDTO1 = deactivateDeviceController.deactivateDevice(deviceDTO);
+
         //Assert
         assertTrue(optionalDeviceDTO1.isEmpty());
     }
