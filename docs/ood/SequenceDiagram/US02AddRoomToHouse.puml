@@ -2,36 +2,61 @@
 autonumber
 
 participant " " as User
-participant ":AddRoomToHouse" as Controller
-participant ":Assembler" as Assembler
-participant ":RoomDTO" as RoomDTO
+participant ":AddRoomToHouseController" as Controller
+participant ":RoomAssembler" as Assembler
+participant "roomDTO:RoomDTO" as RoomDTO
 participant ":House" as House
-participant ":Room" as Room
+participant ":RoomFactory" as RoomFactory
+participant "room:Room" as Room
+participant ":DimensionsFactory" as DimensionsFactory
+participant "dimensions:Dimensions" as Dimensions
+
 
 User -> Controller: addRoom
 activate Controller
-Controller -> House: addRoom(Name,Floor,Width, Lenght, Height)
+Controller -> House: addRoom(StrName,nFloor,dLenght, dWidth, dHeight)
 activate House
+
+create RoomFactory
+House -> RoomFactory: addRoom(StrName,nFloor,dLenght, dWidth, dHeight)
+activate RoomFactory
+
 create Room
-House -> Room: Room(Floor, Width, Lenght, Height)
-create RoomDimension
+RoomFactory -> Room: createRoom(name, floor, length, width, height)
 activate Room
-Room -> RoomDimension: RoomDimension(Width, Lenght, Height)
-activate RoomDimension
-RoomDimension --> Room: RoomDimension
-deactivate RoomDimension
+Room -> Room: setDimension(width, length, height))
+
+create DimensionsFactory
+Room -> DimensionsFactory: createDimensions(length, width, height)
+activate DimensionsFactory
+
+create Dimensions
+DimensionsFactory -> Dimensions: createDimensions(length, width, height)
+activate Dimensions
+Dimensions -> DimensionsFactory: dimensions
+deactivate Dimensions
+
+DimensionsFactory --> Room: dimensions
+deactivate DimensionsFactory
+Room --> RoomFactory:dimensions
 deactivate Room
-Room --> House: room
+
+RoomFactory --> House: room
+deactivate RoomFactory
+
 House -> House: addRoom(room)
 House --> Controller: room
 deactivate House
-Controller -> Assembler: domainToDTO(room)
+
+Controller -> Assembler: domain2DTO(room)
 activate Assembler
+
 create RoomDTO
-Assembler -> RoomDTO: roomDTO(room)
+Assembler -> RoomDTO : createRoomDTO(room)
 activate RoomDTO
 RoomDTO --> Assembler: roomDTO
 deactivate RoomDTO
+
 Assembler --> Controller: roomDTO
 deactivate Assembler
 Controller --> User: roomDTO
