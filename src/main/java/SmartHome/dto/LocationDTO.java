@@ -16,8 +16,8 @@ public class LocationDTO
     @Override
     public String toString() {
         return "Location{" +
-                _address.toString() +
-                _gps.toString() +
+                _address +
+                _gps +
                 '}';
     }
 }
