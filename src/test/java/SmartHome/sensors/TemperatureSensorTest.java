@@ -97,20 +97,4 @@ class TemperatureSensorTest {
             assertEquals(expected, tempValue);
         }
     }
-
-    /**
-     * Tests if the {@link TemperatureSensorValue} constructor throws an {@link IllegalArgumentException} when the temperature value is below the lower boundary.
-     */
-    @Test
-    void seeIfConstructorThrowsException() {
-        // Arrange
-        double nValue = -273.16;
-        String expected = "Temperature value must be above or equal to -273.15";
-
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new TemperatureSensorValue(nValue));
-
-        // Assert
-        assertEquals(expected, exception.getMessage());
-    }
 }

@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DimensionsTest {
+
+    /**
+     * Test of constructor, of class Dimensions, with valid input.
+     */
     @Test
     void testConstructor_validInput() {
         // Arrange
@@ -19,6 +23,9 @@ class DimensionsTest {
         assertEquals(expectedResult, roomDimensions.toString());
     }
 
+    /**
+    * Test of constructor, of class Dimensions, with invalid input.
+    */
     @Test
     void testConstructor_negativeWidth() {
         // Arrange
@@ -32,6 +39,9 @@ class DimensionsTest {
         assertEquals("Width must be a positive value", thrown.getMessage());
     }
 
+    /**
+     * Test of constructor, of class Dimensions, with zero width.
+     */
     @Test
     void testConstructor_zeroWidth() {
         // Arrange
@@ -45,6 +55,9 @@ class DimensionsTest {
         assertEquals("Width must be a positive value", thrown.getMessage());
     }
 
+    /**
+     * Test of constructor, of class Dimensions, with invalid length.
+     */
     @Test
     void testConstructor_invalidLength() {
         // Arrange
@@ -56,6 +69,10 @@ class DimensionsTest {
         //Expected message
         assertEquals("Length must be a positive value", thrown.getMessage());
     }
+
+    /**
+     * Test of constructor, of class Dimensions, with zero length.
+     */
     @Test
     void testConstructor_invalidZeroLength() {
         // Arrange
@@ -68,6 +85,9 @@ class DimensionsTest {
         assertEquals("Length must be a positive value", thrown.getMessage());
     }
 
+    /**
+     * Test of constructor, of class Dimensions, with invalid height.
+     */
     @Test
     void testConstructor_invalidHeight() {
         // Arrange
@@ -80,6 +100,10 @@ class DimensionsTest {
         //Expected message
         assertEquals("Height must be a non-negative value", thrown.getMessage());
     }
+
+    /**
+     * Test of constructor, of class Dimensions, with zero height.
+     */
     @Test
     void testConstructor_validZeroHeight() {
         // Arrange
@@ -91,6 +115,53 @@ class DimensionsTest {
         Dimensions roomDimensions = new Dimensions(width, length, height);
         // Assert
         assertNotNull(roomDimensions);
+    }
+
+    /**
+     * Test of getWidth method, of class Dimensions.
+     */
+    @Test
+    void testGetWidth() {
+        // Arrange
+        double width = 5;
+        double length = 5;
+        double height = 5;
+        Dimensions roomDimensions = new Dimensions(width, length, height);
+        // Act
+        double result = roomDimensions.getWidth();
+        // Assert
+        assertEquals(width, result);
+    }
+
+    /**
+     * Test of getLength method, of class Dimensions.
+     */
+    @Test
+    void testGetLength() {
+        // Arrange
+        double width = 5;
+        double length = 5;
+        double height = 5;
+        Dimensions roomDimensions = new Dimensions(width, length, height);
+        // Act
+        double result = roomDimensions.getLength();
+        // Assert
+        assertEquals(length, result);
+    }
+    /**
+     * Test of getHeight method, of class Dimensions.
+     */
+    @Test
+    void testGetHeight() {
+        // Arrange
+        double width = 5;
+        double length = 5;
+        double height = 5;
+        Dimensions roomDimensions = new Dimensions(width, length, height);
+        // Act
+        double result = roomDimensions.getHeight();
+        // Assert
+        assertEquals(height, result);
     }
 
 }
