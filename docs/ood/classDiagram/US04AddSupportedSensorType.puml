@@ -43,7 +43,7 @@ class SensorTypeDTO {
 
 AddSensorTypeController "1"-->"1" Catalogue: Uses
 Catalogue "1"--o "0..*  " SensorType: Composed
-SensorType "*"..>"1" Unit: Uses
+SensorType "*"--o "1" Unit: Has
 AddSensorTypeController "1"-->"1     " SensorTypeAssembler: Uses
 SensorTypeAssembler "1"..>"*" SensorTypeDTO: Creates
 
