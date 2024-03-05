@@ -232,4 +232,87 @@ class DeviceTest {
         assertEquals(1, sensorList.size());
     }
 
+    /**
+     * Test for the addActuator method.
+     * @throws InstantiationException
+     */
+    @Test
+    void testForAddActuator() throws InstantiationException {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        Actuator actuatorDouble = mock(Actuator.class);
+        String actuatorModel = "model";
+        ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
+
+        when(catalogueDouble.getActuator(actuatorModel, actuatorFactory)).thenReturn(actuatorDouble);
+
+        // Act
+        Actuator actualResult = device.addActuator(actuatorModel, catalogueDouble, actuatorFactory);
+
+        // Assert
+        assertEquals(actuatorDouble, actualResult);
+    }
+
+    /**
+     * Test for the addActuator method when the actuator is not added to the device.
+     * @throws InstantiationException
+     */
+    @Test
+    void addInvalidActuatorToDevice() throws InstantiationException {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        String actuatorModel = "model";
+
+        when(catalogueDouble.getActuator(actuatorModel, new ActuatorFactory())).thenReturn(null);
+
+        // Act
+        Actuator actualResult = device.addActuator(actuatorModel, catalogueDouble, new ActuatorFactory());
+
+        // Assert
+        assertNull(actualResult);
+    }
+
+    /**
+     * Test for getActuatorList method.
+     */
+
+    @Test
+    void testToAddOneActuatorToDeviceList() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        Actuator actuatorDouble = mock(Actuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        String strDescription = "Temperature";
+
+        when(actuatorDouble.getActuatorType()).thenReturn(actuatorTypeDouble);
+        when(actuatorTypeDouble.getDescription()).thenReturn(strDescription);
+
+        device.addActuatorToDevice(actuatorDouble);
+
+        // Act
+        List<String> actuatorList = device.getActuatorList();
+
+        // Assert
+        assertEquals(1, actuatorList.size());
+    }
+
+    @Test
+    void testForEmptyActuatorList() {
+        // Arrange
+        String deviceName = "Device";
+        Device device = new Device(deviceName);
+        // Act
+        List<String> actuatorList = device.getActuatorList();
+        // Assert
+        assertEquals(0, actuatorList.size());
+    }
+
 }
