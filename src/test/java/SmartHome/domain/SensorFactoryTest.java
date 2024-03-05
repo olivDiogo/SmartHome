@@ -1,22 +1,44 @@
 package SmartHome.domain;
 
 
+import SmartHome.sensors.TemperatureSensor;
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
 class SensorFactoryTest {
 
-        @org.junit.jupiter.api.Test
-        void createSensor() throws InstantiationException {
-            // arrange
-            SensorFactory sensorFactory = new SensorFactory();
-            CatalogueSensor catalogue = new CatalogueSensor("config.properties");
-            catalogue.addSensorType("Humidity", Unit.Humidity, new SensorTypeFactory());
-            String strModel = "SmartHome.sensors.HumiditySensor";
+    /**
+     * Test to create a sensor.
+     *
+     * @throws InstantiationException If the sensor type does not exist.
+     */
+    @Test
+    public void createSensor() throws InstantiationException {
+        //Arrange
+        String model = "SmartHome.sensors.TemperatureSensor";
+        String description = "Temperature";
 
-            // act
-            Sensor sensor = sensorFactory.createSensor(strModel, catalogue);
+        SensorFactory sensorFactory = new SensorFactory();
 
-            // assert
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        try (MockedConstruction<TemperatureSensor> sensorMockedConstruction = Mockito.mockConstruction(TemperatureSensor.class)) {
+
+            //Act
+            Sensor sensor = sensorFactory.createSensor(model, catalogueSensorDouble);
+
+
+            //Assert
             assertNotNull(sensor);
+            assertEquals(sensor, sensorMockedConstruction.constructed().get(0));
         }
+
+    }
 }
