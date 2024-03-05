@@ -54,8 +54,6 @@ public class GetListOfRoomsControllerTest {
     @Test
     public void testIfSuccessfulyReturnsTheListOfRooms() throws InstantiationException {
         //Arrange
-        House house = new House(new LocationFactory(), new RoomFactory());
-
         String roomName1 = "Sala";
         int floor1 = 2;
         int lenght1 = 2;
@@ -68,17 +66,19 @@ public class GetListOfRoomsControllerTest {
         int width2 = 2;
         int height2 = 2;
 
-
+        House house = new House(new LocationFactory(), new RoomFactory());
         house.addRoom(roomName1, floor1, lenght1, width1, height1);
         house.addRoom(roomName2, floor2, lenght2, width2, height2);
 
+        String expected =  house.getRooms().toString();
         _getListOfRoomsController = new GetListOfRoomsController(house);
 
         //Act
-        List<RoomDTO> result = _getListOfRoomsController.getRooms();
+        List<RoomDTO> roomDTOList = _getListOfRoomsController.getRooms();
+        String result = roomDTOList.toString();
 
         //Assert
-        assertEquals(2, result.size());
+        assertTrue(result.contains(expected));
     }
 
     /**
