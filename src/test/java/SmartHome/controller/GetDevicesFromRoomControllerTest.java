@@ -37,7 +37,9 @@ class GetDevicesFromRoomControllerTest {
 
         House house = new House(new LocationFactory(), new RoomFactory());
 
+        house.addRoom(roomName1, roomFloor, roomLength, roomWidth, roomHeight);
         Room room = house.addRoom(roomName2, roomFloor, roomLength, roomWidth, roomHeight);
+        house.addRoom(roomName3, roomFloor, roomLength, roomWidth, roomHeight);
 
         room.addDevice(deviceName1, new DeviceFactory());
         room.addDevice(deviceName2, new DeviceFactory());
@@ -48,7 +50,7 @@ class GetDevicesFromRoomControllerTest {
         String expected = room.getDevices().toString();
 
         List<RoomDTO> roomDTOS = getDevicesFromRoomController.getRooms();
-        RoomDTO roomDTO = roomDTOS.get(0);
+        RoomDTO roomDTO = roomDTOS.get(1);
 
         // Act
         List<DeviceDTO> deviceDTOList = getDevicesFromRoomController.getDevicesFromRoom(roomDTO);
@@ -87,6 +89,7 @@ class GetDevicesFromRoomControllerTest {
         String result = roomDTOList.toString();
 
         //Assert
+        assertEquals(expected, result);
         assertTrue(result.contains(expected));
     }
 
