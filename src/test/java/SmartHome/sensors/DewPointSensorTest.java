@@ -121,7 +121,6 @@ class DewPointSensorTest {
         DewPointValue dewPointValueDouble = mock(DewPointValue.class);
 
         when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        when(dewPointValueDouble.clone()).thenReturn(dewPointValueDouble);
         when(dewPointValueDouble.toString()).thenReturn(Integer.toString(value));
 
         DewPointSensor dewPoint = new DewPointSensor(catalogueSensorDouble);
@@ -151,7 +150,6 @@ class DewPointSensorTest {
         DewPointValue dewPointValueDouble = mock(DewPointValue.class);
 
         when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        when(dewPointValueDouble.clone()).thenReturn(dewPointValueDouble);
         when(dewPointValueDouble.toString()).thenReturn(Integer.toString(value));
 
         DewPointSensor dewPoint = new DewPointSensor(catalogueSensorDouble);

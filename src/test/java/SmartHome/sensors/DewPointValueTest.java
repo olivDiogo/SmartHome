@@ -36,19 +36,6 @@ public class DewPointValueTest {
         assertEquals(expected, result);
     }
 
-    /**
-     * Test if the clone method returns the correct value.
-     */
-    @Test
-    public void testClone (){
-        //Arrange
-        int value = 1;
-        DewPointValue dewPointValue = new DewPointValue(value);
 
-        //Act
-        DewPointValue result = dewPointValue.clone();
-        //Assert
-        assertEquals(dewPointValue.toString(), result.toString());
-    }
 
 }

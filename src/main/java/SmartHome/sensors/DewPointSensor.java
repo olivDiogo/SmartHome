@@ -20,7 +20,6 @@ public class DewPointSensor implements Sensor {
      */
     public DewPointSensor(CatalogueSensor catalogue) throws InstantiationException {
         setSensorType(catalogue);
-
     }
 
 
@@ -61,7 +60,7 @@ public class DewPointSensor implements Sensor {
 
         this._dewPointValue = new DewPointValue(dewPointValue);
 
-        return this._dewPointValue.clone();
+        return this._dewPointValue;
     }
 
 }
