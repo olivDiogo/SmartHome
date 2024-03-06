@@ -10,6 +10,6 @@ As a Power User (or Administrator), I want to add an actuator to an existing dev
 
 - Question 1
   - Q: é possível adicionar um atuador a um device que se encontra desativado? 
-  - A:
+  - A: Não.
 
 
