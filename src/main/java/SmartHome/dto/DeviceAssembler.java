@@ -4,10 +4,7 @@ import SmartHome.domain.Device;
 import SmartHome.domain.Room;
 import SmartHome.domain.SensorType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DeviceAssembler {
 
@@ -25,7 +22,8 @@ public class DeviceAssembler {
         return deviceDTOs;
     }
     static public  Map<DeviceDTO, Device> domain2DTOMapper(List<Device> devices) {
-        Map<DeviceDTO, Device> devicesDTOAndDevices = new HashMap<>();
+        Map<DeviceDTO, Device> devicesDTOAndDevices = new LinkedHashMap<>();
+
         devices.forEach( device -> {
             DeviceDTO deviceDTO = DeviceAssembler.domain2DTO(device);
             devicesDTOAndDevices.put( deviceDTO, device );

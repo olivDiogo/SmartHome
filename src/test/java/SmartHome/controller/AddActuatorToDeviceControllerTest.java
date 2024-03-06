@@ -15,13 +15,16 @@ public class AddActuatorToDeviceControllerTest {
 
     /**
      * See if the constructor works.
-     * @throws InstantiationException
+     *
+     * @throws InstantiationException if the house is null.
      */
     @Test
     void seeIfConstructorWorks() throws InstantiationException {
         // Arrange
         String filePathName = "config.properties";
+
         House house = new House(new LocationFactory(), new RoomFactory());
+
         CatalogueActuator catalogue = new CatalogueActuator(filePathName);
 
         // Act & Assert
@@ -29,75 +32,95 @@ public class AddActuatorToDeviceControllerTest {
     }
 
     /**
-     * See if the constructor throws exception.
-     * @throws InstantiationException
+     * See if the constructor throws exception when house is null.
+     *
+     * @throws InstantiationException if the house is null.
      */
     @Test
-    void seeIfConstructorThrowsException() throws InstantiationException {
+    void testConstructorWithNullHouse() throws InstantiationException {
         // Arrange
         String filePathName = "config.properties";
         House house = null;
-        CatalogueActuator catalogue = null;
+        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
+
+        String expected = "Invalid arguments";
 
         // Act & Assert
-        assertThrows(InstantiationException.class, () -> new AddActuatorToDeviceController(house, catalogue));
+        Exception exception = assertThrows(InstantiationException.class, () -> new AddActuatorToDeviceController(house, catalogue));
+
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expected));
     }
 
     /**
      * See if the constructor throws exception when catalogue is null.
-     * @throws InstantiationException
+     *
+     * @throws InstantiationException if the catalogueActuator is null.
      */
     @Test
-    void seeIfConstructorThrowsExceptionWhenCatalogueNull() throws InstantiationException {
+    void testConstructorWithNullCatalogue() throws InstantiationException {
         // Arrange
-        String filePathName = "config.properties";
         House house = new House(new LocationFactory(), new RoomFactory());
         CatalogueActuator catalogue = null;
 
+        String expected = "Invalid arguments";
+
         // Act & Assert
-        assertThrows(InstantiationException.class, () -> new AddActuatorToDeviceController(house, catalogue));
+        Exception exception = assertThrows(InstantiationException.class, () -> new AddActuatorToDeviceController(house, catalogue));
+
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expected));
     }
 
     /**
-     * See if the constructor throws exception when house is null.
-     * @throws InstantiationException
+     * Test for getRooms method. Verify if the list of roomsDTO is in the same order as the list of rooms.
+     *
+     * @throws InstantiationException if the house is null.
      */
     @Test
-    void seeIfConstructorThrowsExceptionWhenHouseNull() throws InstantiationException {
+    void testForGetRoomsDTO() throws InstantiationException {
         // Arrange
         String filePathName = "config.properties";
-        House house = null;
-        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
-
-        // Act & Assert
-        assertThrows(InstantiationException.class, () -> new AddActuatorToDeviceController(house, catalogue));
-    }
-
-    /**
-     * Test for getRooms method.
-     * @throws InstantiationException
-     */
-    @Test
-    void testForGetRooms() throws InstantiationException {
-        // Arrange
-        String filePathName = "config.properties";
-        House house = new House(new LocationFactory(), new RoomFactory());
-        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
-        AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
 
         String roomName = "Living Room";
         int floor = 1;
         double width = 3.0;
         double length = 4.0;
         double height = 2.5;
+
+        String roomName2 = "Bedroom";
+        int floor2 = 1;
+        double width2 = 13.0;
+        double length2 = 42.0;
+        double height2 = 22.5;
+
+        String roomName3 = "Kitchen";
+        int floor3 = 1;
+        double width3 = 3.0;
+        double length3 = 4.0;
+        double height3 = 2.5;
+
+        House house = new House(new LocationFactory(), new RoomFactory());
+
+        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
+
+        AddActuatorToDeviceController addActuatorToDeviceController = new AddActuatorToDeviceController(house, catalogue);
+
         house.addRoom(roomName, floor, width, length, height);
-        int expected = 1;
+        house.addRoom(roomName2, floor2, width2, length2, height2);
+        house.addRoom(roomName3, floor3, width3, length3, height3);
+
+        String expected = house.getRooms().toString();
 
         // Act
-        List<RoomDTO> rooms = controller.getRooms();
+        List<RoomDTO> roomDTOList = addActuatorToDeviceController.getRooms();
+        String result = roomDTOList.toString();
 
         // Assert
-        assertEquals(expected, rooms.size());
+        assertEquals(expected, result);
+        assertTrue(result.contains(expected));
     }
 
 
@@ -105,105 +128,136 @@ public class AddActuatorToDeviceControllerTest {
      * Test to see if getDevicesFromRoom returns the correct number of devices.
      */
     @Test
-    void getDevicesFromRoomShouldReturnOne() throws InstantiationException {
+    void getDevicesFromRoom() throws InstantiationException {
         // Arrange
         String filePathName = "config.properties";
+
         House house = new House(new LocationFactory(), new RoomFactory());
         CatalogueActuator catalogue = new CatalogueActuator(filePathName);
-        AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
+
+        AddActuatorToDeviceController addActuatorToDeviceController = new AddActuatorToDeviceController(house, catalogue);
 
         String roomName = "Living Room";
         int floor = 1;
         double width = 3.0;
         double length = 4.0;
         double height = 2.5;
-        Room room = house.addRoom(roomName, floor, width, length, height);
+
+        String roomName2 = "kitchen";
+        int floor2 = 1;
+        double width2 = 31.0;
+        double length2 = 41.0;
+        double height2 = 21.5;
 
         String deviceName = "Lamp";
-        room.addDevice(deviceName, new DeviceFactory());
+        String deviceName2 = "Lamp2";
 
-        RoomDTO roomDTO = controller.getRooms().get(0);
+        Room room = house.addRoom(roomName, floor, width, length, height);
+        house.addRoom(roomName2, floor2, width2, length2, height2);
+
+        room.addDevice(deviceName, new DeviceFactory());
+        room.addDevice(deviceName2, new DeviceFactory());
+
+        RoomDTO roomDTO = addActuatorToDeviceController.getRooms().get(0);
+
+        String expected = room.getDevices().toString();
 
         // Act
-        List<DeviceDTO> devices = controller.getDevicesFromRoom(roomDTO);
+        List<DeviceDTO> devices = addActuatorToDeviceController.getDevicesFromRoom(roomDTO);
+
+        String result = devices.toString();
 
         // Assert
-        assertEquals(1, devices.size());
+        assertEquals(expected, result);
+        assertTrue(result.contains(expected));
     }
 
     /**
      * Test to see if getDevicesFromRoom returns empty list.
+     *
      * @throws InstantiationException
      */
     @Test
     void getDevicesFromRoomShouldReturnZero() throws InstantiationException {
         // Arrange
-        String filePathName = "config.properties";
-        House house = new House(new LocationFactory(), new RoomFactory());
-        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
-        AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
-
         String roomName = "Living Room";
         int floor = 1;
         double width = 3.0;
         double length = 4.0;
         double height = 2.5;
+
+        String filePathName = "config.properties";
+        House house = new House(new LocationFactory(), new RoomFactory());
+        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
+
+        AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
+
         house.addRoom(roomName, floor, width, length, height);
 
         RoomDTO roomDTO = controller.getRooms().get(0);
+
+        int expectedDevices = 0;
 
         // Act
         List<DeviceDTO> devices = controller.getDevicesFromRoom(roomDTO);
 
         // Assert
-        assertEquals(0, devices.size());
+        assertEquals(expectedDevices, devices.size());
     }
 
     /**
      * Test to see if getActuatorModels returns the correct number of actuator models.
+     *
      * @throws InstantiationException
      */
     @Test
     void seeIfGetActuatorModelsWorks() throws InstantiationException {
         // Arrange
         String filePathName = "config.properties";
+
         House house = new House(new LocationFactory(), new RoomFactory());
         CatalogueActuator catalogue = new CatalogueActuator(filePathName);
+
         AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
+
+        int expectedModels = 3;
 
         // Act
         List<String> result = controller.getActuatorModels();
 
         // Assert
-        assertEquals(3, result.size());
+        assertEquals(expectedModels, result.size());
     }
 
     /**
-     * Test to see if addActuatorToDevice returns the correct actuator.
+     *  Test to see if addActuatorToDevice returns a valid actuatorDTO.
+     *
      * @throws InstantiationException
      */
     @Test
-    void seeIfAddActuatorToDeviceWorks() throws InstantiationException {
+    void testAddActuatorToDevice() throws InstantiationException {
         // Arrange
-        String filePathName = "config.properties";
-        House house = new House(new LocationFactory(), new RoomFactory());
-        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
-        AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
-
         String roomName = "Living Room";
         int floor = 1;
         double width = 3.0;
         double length = 4.0;
         double height = 2.5;
-        Room room = house.addRoom(roomName, floor, width, length, height);
+
+        String filePathName = "config.properties";
 
         String deviceName = "Lamp";
         String strDescription = "SetInteger";
         String actuatorModel = "SmartHome.actuators.SetIntegerActuator";
+
+        House house = new House(new LocationFactory(), new RoomFactory());
+        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
+
+        Room room = house.addRoom(roomName, floor, width, length, height);
         room.addDevice(deviceName, new DeviceFactory());
 
         catalogue.addActuatorType(strDescription, new ActuatorTypeFactory());
 
+        AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
 
         List<RoomDTO> roomDTOList = controller.getRooms();
         RoomDTO roomDTO = roomDTOList.get(0);
@@ -212,34 +266,40 @@ public class AddActuatorToDeviceControllerTest {
         DeviceDTO deviceDTO = deviceDTOList.get(0);
 
         // Act
-        ActuatorDTO actuatorDTO = controller.addActuatorToDevice(deviceDTO,actuatorModel);
+        ActuatorDTO actuatorDTO = controller.addActuatorToDevice(deviceDTO, actuatorModel);
 
         // Assert
         assertNotNull(actuatorDTO);
     }
 
     /**
-     * Test to see if addActuatorToDevice returns null.
+     * Test to see if addActuatorToDevice returns null when the actuator model is invalid.
+     *
      * @throws InstantiationException
      */
 
     @Test
     void addInvalidActuatorToDevice() throws InstantiationException {
         // Arrange
-        String filePathName = "config.properties";
-        House house = new House(new LocationFactory(), new RoomFactory());
-        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
-        AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
-
         String roomName = "Living Room";
         int floor = 1;
         double width = 3.0;
         double length = 4.0;
         double height = 2.5;
-        Room room = house.addRoom(roomName, floor, width, length, height);
 
         String deviceName = "Lamp";
+        String model = "InvalidActuator";
+
+        String filePathName = "config.properties";
+
+        House house = new House(new LocationFactory(), new RoomFactory());
+        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
+
+        Room room = house.addRoom(roomName, floor, width, length, height);
+
         room.addDevice(deviceName, new DeviceFactory());
+
+        AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
 
         List<RoomDTO> roomDTOList = controller.getRooms();
         RoomDTO roomDTO = roomDTOList.get(0);
@@ -248,7 +308,7 @@ public class AddActuatorToDeviceControllerTest {
         DeviceDTO deviceDTO = deviceDTOList.get(0);
 
         // Act
-        ActuatorDTO actuatorDTO = controller.addActuatorToDevice(deviceDTO, "InvalidActuator");
+        ActuatorDTO actuatorDTO = controller.addActuatorToDevice(deviceDTO, model);
 
         // Assert
         assertNull(actuatorDTO);
