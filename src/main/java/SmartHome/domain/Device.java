@@ -14,7 +14,7 @@ public class Device {
     protected Device(String name) throws IllegalArgumentException {
         setName(name);
         this._sensors = new ArrayList<>();
-        this._status = false;
+        this._status = true;
         this._deviceId = UUID.randomUUID();
         this._actuators = new ArrayList<>();
     }

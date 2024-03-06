@@ -10,7 +10,7 @@ import java.util.UUID;
 public class DeviceDTO {
     private String _name;
     public UUID _deviceID;
-    private boolean _status;
+    public boolean _status;
     private RoomDTO _roomDTO;
     public List<String> _deviceFunctionalities;
     private List<String> _sensors;
