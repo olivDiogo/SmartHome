@@ -52,13 +52,13 @@ public class SwitchActuator implements Actuator {
      *
      * @return the value of the switch actuator.
      */
-    public Value setValue(boolean value) {
+    public Value setValue(Value value) {
 
-        if (value){
-            _value.setValueOn();
+        if (value instanceof SwitchActuatorValue) {
+            this._value = (SwitchActuatorValue) value;
+            return this._value.clone();
         } else {
-            _value.setValueOff();
+            return null;
         }
-        return _value.clone();
     }
 }
