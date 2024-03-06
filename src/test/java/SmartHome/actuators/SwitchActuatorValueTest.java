@@ -1,5 +1,8 @@
 package SmartHome.actuators;
 
+import SmartHome.domain.ActuatorType;
+import SmartHome.domain.CatalogueActuator;
+import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
@@ -12,7 +15,7 @@ public class SwitchActuatorValueTest {
      * Should create instance of SwitchActuatorValue class.
      */
     @Test
-    void shouldCreateInstanceOfSwitchActuator(){
+    void shouldCreateInstanceOfSwitchActuator() {
         // arrange
         boolean value = true;
 
@@ -39,105 +42,74 @@ public class SwitchActuatorValueTest {
     }
 
     /**
-     * Should set value on when boolean is false.
+     * Set Invalid Value when actuator value is false
+     *
+     * @throws InstantiationException
      */
     @Test
-    void shouldSetValueOn_WhenBooleanIsFalse() {
+    void toStringShouldReturnOn_whenValueIsTrue() {
         // arrange
-        boolean value = false;
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(value);
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
 
         // act
-        boolean result = switchActuatorValue.setValueOn();
+        switchActuatorValue.setActuatorValue(true);
 
         // assert
-        assertTrue(result);
+        assertEquals("On", switchActuatorValue.toString());
     }
 
     /**
-     * Should set value off when boolean is true.
+     * Set Invalid Value when actuator value is false
+     *
+     * @throws InstantiationException
      */
 
     @Test
-    void shouldSetValueOn_WhenBooleanIsTrue() {
-        // arrange
-        boolean value = true;
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(value);
+    public void setValueShouldNotReturnOn_whenItsFalse() throws InstantiationException {
+        //arrange
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
 
-        // act
-        boolean result = switchActuatorValue.setValueOn();
+        //act
+        switchActuatorValue.setActuatorValue(false);
 
-        // assert
-        assertTrue(result);
+        //assert
+        assertNotEquals("On", switchActuatorValue.toString());
+    }
 
+
+    /**
+     * Should set the value of the actuator to off.
+     *
+     * @throws InstantiationException
+     */
+    @Test
+    void setValueShouldReturnOff_whenItsFalse() throws InstantiationException {
+        //arrange
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
+
+        //act
+        switchActuatorValue.setActuatorValue(false);
+
+        //assert
+        assertEquals("Off", switchActuatorValue.toString());
     }
 
     /**
-     * Should set value off when boolean is false.
+     * Set Invalid Value when actuator value is true
+     *
+     * @throws InstantiationException
      */
 
     @Test
-    void shouldSetValueOff_WhenBooleanIsFalse() {
+    void setValueShouldNotReturnOff_whenItsTrue() throws InstantiationException {
         // arrange
-        boolean value = false;
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(value);
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
 
         // act
-        boolean result = switchActuatorValue.setValueOff();
+        switchActuatorValue.setActuatorValue(true);
 
         // assert
-        assertFalse(result);
-    }
-
-    /**
-     * Should set value off when boolean is true.
-     */
-
-    @Test
-    void shouldSetValueOff_WhenBooleanIsTrue() {
-        // arrange
-        boolean value = true;
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(value);
-
-        // act
-        boolean result = switchActuatorValue.setValueOff();
-
-        // assert
-        assertFalse(result);
-    }
-
-    /**
-     * Should return string "On".
-     */
-
-    @Test
-    void shouldReturnStringOn() {
-        // arrange
-        boolean value = true;
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(value);
-
-        // act
-        String result = switchActuatorValue.toString();
-
-        // assert
-        assertEquals("On", result);
-    }
-
-    /**
-     * Should return string "Off".
-     */
-
-    @Test
-    void shouldReturnStringOff() {
-        // arrange
-        boolean value = false;
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(value);
-
-        // act
-        String result = switchActuatorValue.toString();
-
-        // assert
-        assertEquals("Off", result);
+        assertNotEquals("Off", switchActuatorValue.toString());
     }
 }
 
