@@ -56,3 +56,4 @@ class SetDecimalValueTest {
             assertEquals("10.5", result);
         }
     }
+
