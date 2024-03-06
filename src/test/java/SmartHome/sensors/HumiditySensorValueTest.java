@@ -60,24 +60,6 @@ class HumiditySensorValueTest {
     }
 
     /**
-     * Tests that the clone method of HumiditySensorValue correctly clones the object,
-     * resulting in a new object with the same value.
-     */
-    @Test
-    void seeIfCloneWorks() {
-        //Arrange
-        double dValue = 15.5;
-        HumiditySensorValue humiditySensorValue = new HumiditySensorValue(dValue);
-
-        //Act
-        HumiditySensorValue clonedValue = humiditySensorValue.clone();
-
-        //Assert
-        assertEquals(humiditySensorValue.toString(), clonedValue.toString());
-        assertNotSame(humiditySensorValue, clonedValue);
-    }
-
-    /**
      * Tests that the toString method of HumiditySensorValue correctly converts the value to a String.
      */
     @Test

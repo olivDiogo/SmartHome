@@ -6,7 +6,7 @@ import SmartHome.domain.Value;
  * Represents a value of humidity measured by a HumiditySensor.
  * This class implements the Value interface and is Cloneable.
  */
-public class HumiditySensorValue implements Value, Cloneable {
+public class HumiditySensorValue implements Value {
     /**
      * The humidity value, expressed as a percentage from 0 to 100.
      */
@@ -33,22 +33,6 @@ public class HumiditySensorValue implements Value, Cloneable {
             throw new IllegalArgumentException("Humidity value must be between 0 and 100");
         } else {
             this._dValue = dValue;
-        }
-    }
-
-    /**
-     * Creates and returns a copy of this HumiditySensorValue object.
-     *
-     * @return A clone of this HumiditySensorValue object.
-     */
-    @Override
-    public HumiditySensorValue clone() {
-        try {
-            // Call the Object clone() method
-            return (HumiditySensorValue) super.clone();
-        } catch (CloneNotSupportedException e) {
-            // This should never happen since we are Cloneable
-            throw new AssertionError();
         }
     }
 

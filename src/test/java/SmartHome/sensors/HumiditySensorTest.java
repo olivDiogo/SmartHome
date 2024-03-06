@@ -90,7 +90,6 @@ class HumiditySensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         try (MockedConstruction<HumiditySensorValue> humiditySensorValue = mockConstruction(HumiditySensorValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
             when(mock.toString()).thenReturn(humidity);
         })) {
             HumiditySensor humiditySensor = new HumiditySensor(catalogueDouble);

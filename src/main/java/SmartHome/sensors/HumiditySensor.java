@@ -53,6 +53,6 @@ public class HumiditySensor implements Sensor {
         int nValue = 100;
         _value = new HumiditySensorValue(nValue);
 
-        return _value.clone();
+        return _value;
     }
 }
