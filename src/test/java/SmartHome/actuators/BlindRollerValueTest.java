@@ -80,7 +80,6 @@ public class BlindRollerValueTest {
         // Assert
         assertEquals(blindRollerValue.toString(), result.toString());
     }
-
     /**
      * Test for high boundary value
      */
@@ -95,6 +94,21 @@ public class BlindRollerValueTest {
         // Assert
         assertEquals(blindRollerValue.toString(), result.toString());
     }
+    /**
+     * Test method toString
+     */
+    @Test
+    void testToString() {
+        // Arrange
+        int nValue = 50;
+        BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);
+        // Act
+        String result = blindRollerValue.toString();
+
+        // Assert
+        assertEquals("50", result);
+    }
+
 }
 
 
