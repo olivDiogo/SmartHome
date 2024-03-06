@@ -50,21 +50,5 @@ class InstantPowerConsumptionValueTest {
         new InstantPowerConsumptionValue(value);
     }
 
-    /**
-     * Should clone InstantPowerConsumptionValue.
-     */
-    @Test
-    public void testInstantPowerConsumptionValueToClone() {
-        // Arrange
-        double value = 1.0;
-        String expected = Double.toString(value);
-        InstantPowerConsumptionValue instantPowerConsumptionValue = new InstantPowerConsumptionValue(value);
-
-        // Act
-        InstantPowerConsumptionValue result = instantPowerConsumptionValue.clone();
-
-        // Assert
-        assertEquals(expected, result.toString());
-    }
 
 }

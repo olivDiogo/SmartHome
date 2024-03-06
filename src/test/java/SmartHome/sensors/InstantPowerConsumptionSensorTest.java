@@ -151,7 +151,6 @@ class InstantPowerConsumptionSensorTest {
         when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         try (MockedConstruction<InstantPowerConsumptionValue> instantPowerConsumptionValueDouble = mockConstruction(InstantPowerConsumptionValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
             when(mock.toString()).thenReturn(Double.toString(value));
         })) {
             InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(catalogueSensorDouble);

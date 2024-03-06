@@ -36,7 +36,6 @@ public class InstantPowerConsumptionSensor implements Sensor {
 
     }
 
-
     /**
      * Gets the sensor type.
      *
@@ -57,6 +56,6 @@ public class InstantPowerConsumptionSensor implements Sensor {
         double instantPowerConsumptionValue = 25.0;
 
         this._instantPowerConsumptionValue = new InstantPowerConsumptionValue(instantPowerConsumptionValue);
-        return this._instantPowerConsumptionValue.clone();
+        return this._instantPowerConsumptionValue;
     }
 }
