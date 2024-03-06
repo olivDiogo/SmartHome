@@ -5,11 +5,11 @@ import SmartHome.domain.CatalogueActuator;
 import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BlindRollerActuatorTest {
 
@@ -17,7 +17,7 @@ public class BlindRollerActuatorTest {
      * Test to see if the constructor works.
      */
     @Test
-    void testForConstructor() throws InstantiationException{
+    void testForConstructor() throws InstantiationException {
         // Arrange
         String description = "BlindRollerActuator";
 
@@ -51,6 +51,7 @@ public class BlindRollerActuatorTest {
 
     /**
      * Test to see if the getActuatorType method works.
+     *
      * @throws InstantiationException
      */
     @Test
@@ -72,6 +73,7 @@ public class BlindRollerActuatorTest {
 
     /**
      * Test to see if the setValue method works.
+     *
      * @throws InstantiationException
      */
     @Test
@@ -80,21 +82,41 @@ public class BlindRollerActuatorTest {
         String description = "BlindRollerActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
-        Value valueMock = mock(Value.class);
-
-        String value = "50";
+        BlindRollerValue blindRollerValueDouble = mock(BlindRollerValue.class);
 
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
-        when(valueMock.toString()).thenReturn(value);
+        when(blindRollerValueDouble.clone()).thenReturn(blindRollerValueDouble);
 
         BlindRollerActuator blindRollerActuator = new BlindRollerActuator(catalogueDouble);
 
         // Act
-        Value result = blindRollerActuator.setValue(valueMock);
+        Value result = blindRollerActuator.setValue(blindRollerValueDouble);
 
         // Assert
-        assertEquals(value, result.toString());
+        assertEquals(blindRollerValueDouble, result);
     }
 
+    /**
+     * Test to see if the setValue method returns null when the value is not of type BlindRollerValue.
+     *
+     * @throws InstantiationException
+     */
+    @Test
+    void testForSetValueWithInvalidValue() throws InstantiationException {
+        // Arrange
+        String description = "BlindRollerActuator";
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(catalogueDouble);
+
+        // Act
+        Value result = blindRollerActuator.setValue(null);
+
+        // Assert
+        assertNull(result);
+    }
 
 }

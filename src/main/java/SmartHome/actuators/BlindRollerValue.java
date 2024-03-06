@@ -15,7 +15,7 @@ public class BlindRollerValue implements Value, Cloneable {
         validateValue(nValue);
     }
 
-    public void validateValue(int nValue) {
+    private void validateValue(int nValue) {
         if (nValue < 0 || nValue > 100) {
             throw new IllegalArgumentException("The value must be between 0 and 100.");
         }

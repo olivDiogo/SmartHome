@@ -58,11 +58,12 @@ public class BlindRollerActuator implements Actuator {
      * @throws NumberFormatException If the string value after sanitization is not a valid integer.
      */
     public Value setValue(Value value) {
-        int rollerValue = Integer.parseInt(value.toString());
-
-        this._value = new BlindRollerValue(rollerValue);
-
-        return _value.clone();
+        if(value instanceof BlindRollerValue){
+            this._value = (BlindRollerValue) value;
+            return _value.clone();
+        }
+        else {
+            return null;
+        }
     }
-
 }
