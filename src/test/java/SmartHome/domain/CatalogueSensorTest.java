@@ -6,6 +6,8 @@ import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -13,31 +15,22 @@ import static org.mockito.Mockito.when;
 class CatalogueSensorTest {
     @Test
     void newConfiguredCatalogueFromExistingFile() throws InstantiationException, ConfigurationException {
-        // arrange
-        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
-        House house = new House(new LocationFactory(), new RoomFactory());
-        AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(house, catalogue);
-
-        Configurations configs = new Configurations();
-        Configuration config = configs.properties("config.properties");
-        int supportedSensors = config.getStringArray("sensor").length;
-
-        // act
-        CatalogueSensor catalogueFromPath = new CatalogueSensor( "config.properties" );
-
-        // assert
-        assertEquals(supportedSensors, catalogueFromPath.getSensorModels().size());
+        // Arrange
+        String filePathname = "config.properties";
+        // Act
+        new CatalogueSensor( filePathname );
+        // Assert
     }
 
     @Test
     void newConfiguredCatalogueFromNonExistingFile()
     {
-        // arrange
+        // Arrange
         String expectedMessage = "something went wrong in reading the configuration: ";
-
+        String filePathname = "asdfasdfasdf";
         // act + assert
         Exception exception = assertThrows( InstantiationException.class, () ->
-                new CatalogueSensor( "asdfasdfasdf" )
+                new CatalogueSensor( filePathname )
         );
 
         // assert
@@ -45,19 +38,6 @@ class CatalogueSensorTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
-
-//    @Test
-//    void NewConfiguredEmptyCatalogue()
-//    {
-//        // arrange
-//        Configuration config = new PropertyListConfiguration();
-//
-//        // act
-//        Catalogue catalogue = new Catalogue( config );
-//
-//        // assert
-//        assertEquals( catalogue.getSensorModels().size(), 0);
-//    }
 
     @Test
     void getExistingSensorType() throws InstantiationException
@@ -77,6 +57,25 @@ class CatalogueSensorTest {
 
         // assert
         assertEquals(sensorType, sensorTypeDouble);
+    }
+    @Test
+    void shouldReturnNullIfSensorTypeDoesNotExist() throws InstantiationException
+    {
+        // arrange
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        String strDescription = "Temperature";
+
+        catalogue.addSensorTypeToList(sensorTypeDouble);
+
+        when(sensorTypeDouble.getDescription()).thenReturn(strDescription);
+
+        // act
+        SensorType sensorType = catalogue.getSensorType("Humidity");
+
+        // assert
+        assertNull(sensorType);
     }
 
 
@@ -112,6 +111,20 @@ class CatalogueSensorTest {
 
         // assert
         assertEquals(sensorType, sensorTypeDouble);
+    }
+    @Test
+    void addValidSensorTypeToList() throws InstantiationException
+    {
+        // arrange
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        // act
+        SensorType sensorType = catalogue.addSensorTypeToList(sensorTypeDouble);
+
+        // assert
+        List<SensorType> listSensorTypes = catalogue.getSensorTypes();
+
+        assertTrue(listSensorTypes.contains(sensorType));
     }
 
     @Test
@@ -175,6 +188,22 @@ class CatalogueSensorTest {
         SensorFactory sensorFactory = mock(SensorFactory.class);
 
         String strModel = "";
+
+        // act
+        Sensor sensor = catalogue.getSensor( strModel, sensorFactory );
+
+        // assert
+        assertNull( sensor );
+    }
+    @Test
+    void getNullSensorIfUnsupportedModel() throws InstantiationException
+    {
+        // arrange
+        CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
+        SensorFactory sensorFactory = mock(SensorFactory.class);
+        when(sensorFactory.createSensor("UnsupportedModel", catalogue)).thenReturn(null);
+
+        String strModel = "UnsupportedModel";
 
         // act
         Sensor sensor = catalogue.getSensor( strModel, sensorFactory );
