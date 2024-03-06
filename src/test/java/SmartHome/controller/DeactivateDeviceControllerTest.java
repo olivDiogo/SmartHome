@@ -76,11 +76,17 @@ class DeactivateDeviceControllerTest {
         List<DeviceDTO> deviceDTOList = deactivateDeviceController.getDeviceList();
         Optional<DeviceDTO> optionalDeviceDTO = deviceDTOList.stream().filter(deviceDTO -> deviceDTO.toString().contains("Luz")).findFirst();
         DeviceDTO deviceDTO = optionalDeviceDTO.get();
-        //Act
-        Optional<DeviceDTO> result = deactivateDeviceController.deactivateDevice(deviceDTO);
+        // Act
+        deactivateDeviceController.deactivateDevice(deviceDTO);
+
+        Optional<DeviceDTO> updatedOptionalDeviceDTO = deactivateDeviceController.getDeviceList().stream()
+                .filter(d -> d._deviceID.equals(deviceDTO._deviceID))
+                .findFirst();
+
         //Assert
-        assertTrue(result.isPresent(), "Device was not deactivated");
-        assertTrue(deviceDTO.toString().contains("status=false"), "Device was deactivated");
+        assertTrue(updatedOptionalDeviceDTO.isPresent(), "Device should be present after deactivation.");
+        DeviceDTO updatedDeviceDTO = updatedOptionalDeviceDTO.get();
+        assertFalse(updatedDeviceDTO._status, "Device status should be false to indicate it was deactivated.");
     }
 
     @Test

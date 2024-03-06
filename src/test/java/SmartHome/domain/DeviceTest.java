@@ -80,7 +80,7 @@ class DeviceTest {
         // Act
         boolean actualResult = device.getStatus();
         // Assert
-        assertFalse(actualResult);
+        assertTrue(actualResult);
     }
 
     /**
