@@ -9,6 +9,11 @@ import static org.mockito.Mockito.when;
 
 public class ActuatorFactoryTest {
 
+    /**
+     * Test for constructor of ActuatorFactory.
+     * @throws InstantiationException
+     */
+
     @Test
     void createActuator() throws InstantiationException {
         // arrange
@@ -19,7 +24,6 @@ public class ActuatorFactoryTest {
         String strModel = "SmartHome.actuators.BlindRollerActuator";
         String strDescription = "BlindRollerActuator";
 
-        when(catalogueDouble.getActuatorType(strDescription)).thenReturn(actuatorTypeDouble);
         when(catalogueDouble.getActuatorType(strDescription)).thenReturn(actuatorTypeDouble);
 
         // act
