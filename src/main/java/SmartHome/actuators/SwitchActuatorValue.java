@@ -37,7 +37,7 @@ public class SwitchActuatorValue implements Value, Cloneable {
      * @return The value of the switch actuator.
      */
 
-    private boolean setValueOn(){
+    public boolean setValueOn(){
         return _value = true;
     }
 
@@ -47,16 +47,8 @@ public class SwitchActuatorValue implements Value, Cloneable {
      *
      * @return The value of the switch actuator.
      */
-    private boolean setValueOff(){
+    public boolean setValueOff(){
         return _value = false;
-    }
-
-    public boolean setActuatorValue(boolean value) {
-        if (value) {
-            return setValueOn();
-        } else {
-            return setValueOff();
-        }
     }
 
 

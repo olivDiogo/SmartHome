@@ -42,74 +42,118 @@ public class SwitchActuatorValueTest {
     }
 
     /**
-     * Set Invalid Value when actuator value is false
-     *
-     * @throws InstantiationException
+     * Clone switch actuator value is not null.
      */
     @Test
-    void toStringShouldReturnOn_whenValueIsTrue() {
+    void CloneSwitchActuatorValueIsNotNull() {
         // arrange
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
+        boolean value = true;
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(value);
 
         // act
-        switchActuatorValue.setActuatorValue(true);
+        SwitchActuatorValue clonedSwitchActuatorValue = switchActuatorValue.clone();
+
+        // assert
+        assertNotNull(clonedSwitchActuatorValue);
+    }
+
+    /**
+     * Should handle null switch actuator value.
+     */
+
+    @Test
+    void shouldHandleNullSwitchActuatorValue() {
+        // arrange
+        SwitchActuatorValue switchActuatorValue = null;
+
+        // act
+        SwitchActuatorValue clonedSwitchActuatorValue = (switchActuatorValue != null) ? switchActuatorValue.clone() : null;        // assert
+
+        assertNull(clonedSwitchActuatorValue);
+    }
+    /**
+     * Should set the value of the actuator to on.
+     */
+    @Test
+    void setValueOnShouldReturnTrue() {
+        // arrange
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(true);
+
+        // act
+        boolean result = switchActuatorValue.setValueOn();
+
+        // assert
+        assertTrue(result);
+    }
+
+    /**
+     * Should set the value of the actuator to on and return "On".
+     */
+    @Test
+    void setValueOnToStringShouldReturnOn() {
+        // arrange
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(true);
+
+        // act
+        switchActuatorValue.setValueOn();
 
         // assert
         assertEquals("On", switchActuatorValue.toString());
     }
 
     /**
-     * Set Invalid Value when actuator value is false
-     *
-     * @throws InstantiationException
-     */
-
-    @Test
-    public void setValueShouldNotReturnOn_whenItsFalse() throws InstantiationException {
-        //arrange
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
-
-        //act
-        switchActuatorValue.setActuatorValue(false);
-
-        //assert
-        assertNotEquals("On", switchActuatorValue.toString());
-    }
-
-
-    /**
      * Should set the value of the actuator to off.
-     *
-     * @throws InstantiationException
      */
     @Test
-    void setValueShouldReturnOff_whenItsFalse() throws InstantiationException {
-        //arrange
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
-
-        //act
-        switchActuatorValue.setActuatorValue(false);
-
-        //assert
-        assertEquals("Off", switchActuatorValue.toString());
-    }
-
-    /**
-     * Set Invalid Value when actuator value is true
-     *
-     * @throws InstantiationException
-     */
-
-    @Test
-    void setValueShouldNotReturnOff_whenItsTrue() throws InstantiationException {
+    void setValueOffShouldReturnFalse() {
         // arrange
         SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
 
         // act
-        switchActuatorValue.setActuatorValue(true);
+        boolean result = switchActuatorValue.setValueOff();
+
+        // assert
+        assertFalse(result);
+    }
+
+    /**
+     * Should set the value of the actuator to off and return "Off".
+     */
+    @Test
+    void setValueOffShouldSetActuatorValueToFalse() {
+        // arrange
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(true);
+
+        // act
+        switchActuatorValue.setValueOff();
+
+        // assert
+        assertEquals("Off", switchActuatorValue.toString());
+    }
+
+    @Test
+    void setValueShouldNotReturnOff_whenItsTrue() {
+        // arrange
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(true);
+
+        // act
+        switchActuatorValue.setValueOn();
 
         // assert
         assertNotEquals("Off", switchActuatorValue.toString());
     }
+
+    @Test
+    void setValueShouldNotReturnOn_whenItsFalse() {
+        // arrange
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
+
+        // act
+        switchActuatorValue.setValueOff();
+
+        // assert
+        assertNotEquals("On", switchActuatorValue.toString());
+    }
+
 }
 
