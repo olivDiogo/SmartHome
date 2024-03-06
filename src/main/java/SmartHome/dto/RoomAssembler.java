@@ -2,9 +2,7 @@ package SmartHome.dto;
 
 import SmartHome.domain.Room;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RoomAssembler
 {
@@ -18,7 +16,7 @@ public class RoomAssembler
     }
 
     static public Map<RoomDTO, Room> domain2DTOMap(List<Room> rooms) {
-        Map<RoomDTO, Room> roomsDTOAndRooms = new HashMap<>();
+        Map<RoomDTO, Room> roomsDTOAndRooms = new LinkedHashMap<>();
 
         rooms.forEach(room -> {
             RoomDTO roomDTO = RoomAssembler.domain2DTO(room);
