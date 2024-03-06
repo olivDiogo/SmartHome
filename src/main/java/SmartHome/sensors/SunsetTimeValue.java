@@ -25,15 +25,6 @@ public class SunsetTimeValue implements Value, Cloneable{
         return String.format("Sunset Time: %02d:%02d:%02d", hours, minutes, seconds);
     }
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this)
-            return true;
-        if (obj == null || obj.getClass() != this.getClass())
-            return false;
-        SunsetTimeValue sunsetTimeValue = (SunsetTimeValue) obj;
-        return sunsetTimeValue._value.equals(this._value);
-    }
-    @Override
     public SunsetTimeValue clone() {
         try {
             return (SunsetTimeValue) super.clone();

@@ -20,15 +20,6 @@ public class ElectricConsumptionWhValue implements Value, Cloneable {
                 '}';
     }
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this)
-            return true;
-        if (obj == null || obj.getClass() != this.getClass())
-            return false;
-        ElectricConsumptionWhValue electricConsumptionWhValue = (ElectricConsumptionWhValue) obj;
-        return electricConsumptionWhValue._value == this._value;
-    }
-    @Override
     public ElectricConsumptionWhValue clone() {
         try {
             return (ElectricConsumptionWhValue) super.clone();
