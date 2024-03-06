@@ -29,7 +29,7 @@ public class SwitchSensor implements Sensor {
      */
     public SwitchSensor(CatalogueSensor catalogue) throws InstantiationException {
         this._sensorType = setSensorType(catalogue);
-        this._value = new SwitchSensorValue(false); // Initializes the sensor as 'off'
+        this._value = (SwitchSensorValue) this.getValue(); //new SwitchSensorValue(false); // Initializes the sensor as 'off'
     }
 
     /**
@@ -66,6 +66,7 @@ public class SwitchSensor implements Sensor {
      */
     @Override
     public Value getValue() {
-        return this._value.clone();
+        _value = new SwitchSensorValue(false);
+        return this._value;
     }
 }

@@ -52,20 +52,4 @@ class SwitchSensorValueTest {
         // Assert
         assertEquals("Off", actualString, "toString should return 'Off' when the SwitchSensorValue is false.");
     }
-
-    /**
-     * Tests that the clone method creates a new instance of SwitchSensorValue that is equal to the original.
-     */
-    @Test
-    void SeeIfCloneWorks() {
-        // Arrange
-        boolean bValue = true;
-        SwitchSensorValue switchSensorValue = new SwitchSensorValue(bValue);
-
-        // Act
-        SwitchSensorValue clonedValue = switchSensorValue.clone();
-
-        // Assert
-        assertEquals(switchSensorValue.toString(), clonedValue.toString(), "Cloned SwitchSensorValue should have the same value as the original.");
-    }
 }

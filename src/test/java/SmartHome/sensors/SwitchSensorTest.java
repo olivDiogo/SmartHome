@@ -89,7 +89,6 @@ class SwitchSensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         try (MockedConstruction<SwitchSensorValue> switchSensorValueDouble = mockConstruction(SwitchSensorValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
             when(mock.toString()).thenReturn(state);
         })) {
             SwitchSensor switchSensor = new SwitchSensor(catalogueDouble);
