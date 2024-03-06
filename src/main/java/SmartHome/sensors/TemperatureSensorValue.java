@@ -7,7 +7,7 @@ import SmartHome.domain.Value;
  * This class encapsulates a temperature reading and supports cloning to ensure
  * that temperature values can be safely copied without altering the original measurement.
  */
-public class TemperatureSensorValue implements Value, Cloneable {
+public class TemperatureSensorValue implements Value {
 
     /**
      * The numeric value of the temperature measurement in degrees Celsius.
@@ -35,26 +35,6 @@ public class TemperatureSensorValue implements Value, Cloneable {
             throw new IllegalArgumentException("Temperature value must be above or equal to -273.15");
         } else {
             this._nValue = nValue;
-        }
-    }
-
-    /**
-     * Creates and returns a copy of this TemperatureSensorValue object.
-     * The clone method supports the cloning of TemperatureSensorValue instances,
-     * allowing for the duplication of temperature values.
-     *
-     * @return A clone of this TemperatureSensorValue instance.
-     * @throws AssertionError if the object cannot be cloned, which should never happen.
-     */
-
-    @Override
-    public TemperatureSensorValue clone() {
-        try {
-            // Call the Object clone() method
-            return (TemperatureSensorValue) super.clone();
-        } catch (CloneNotSupportedException e) {
-            // This should never happen since we are Cloneable
-            throw new AssertionError();
         }
     }
 

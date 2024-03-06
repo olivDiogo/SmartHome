@@ -66,6 +66,6 @@ public class TemperatureSensor implements Sensor {
         double temperatureReading = 70.5;
         this._value = new TemperatureSensorValue(temperatureReading);
 
-        return _value.clone();
+        return _value;
     }
 }

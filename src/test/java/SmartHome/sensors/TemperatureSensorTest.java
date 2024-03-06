@@ -85,7 +85,6 @@ class TemperatureSensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         try(MockedConstruction<TemperatureSensorValue> temperatureSensorValue = mockConstruction(TemperatureSensorValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
             when(mock.toString()).thenReturn(temperature);
         })) {
             TemperatureSensor temperatureSensor = new TemperatureSensor(catalogueDouble);
