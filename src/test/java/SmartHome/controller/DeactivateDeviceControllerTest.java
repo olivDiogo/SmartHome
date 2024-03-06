@@ -7,10 +7,28 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DeactivateDeviceControllerTest {
+
+    @Test
+    void constructorWithValidArgumentsWorks() {
+        //Arrange
+        House house = new House(new LocationFactory(), new RoomFactory());
+        //Act
+        new DeactivateDeviceController(house);
+    }
+
+    @Test
+    void constructorThrowsException() {
+        //Arrange
+        House house = null;
+        String expectedMessage = "Invalid arguments";
+        //Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house));
+        assertEquals(expectedMessage, exception.getMessage());
+        }
 
     @Test
     void successfullyReturnsTheDeviceList() {
