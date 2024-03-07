@@ -1,27 +1,77 @@
 @startuml
-'https://plantuml.com/class-diagram
+!pragma layout smetana
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
+top to bottom direction
+skinparam linetype ortho
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+class House {
+    -_location: Location
+    -roomList: List<Room>
+}
+class HouseLocation{
+    -_address: Address
+    -_gpsLocation: GPS
+}
+class GPS{
+    -_latitude: double
+    -_longitude: double
+}
+class Address{
+    -_street: String
+    -_zipCode: String
+    -_doorNumber : int
+}
+class Room {
+    -_dimension: Dimension
+    -_floor: int
+    -_roomId: UUID
+    -_name: String
+    -_devicesList: List<Device>
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class Dimensions {
+    -_width: double
+    -_length: double
+    -_height: double
 }
+
+class Device {
+    -_deviceId: UUID
+    -_name: String
+    -_status: boolean
+    -_sensors: List<Sensor>
+    -_actuators: List<Actuator>
+}
+
+class Sensor {
+
+}
+
+class SensorType {
+    -_strDescription: String
+    -_units: Unit
+}
+class Actuator {
+
+}
+
+class ActuatorType {
+    -_strDescription: String
+}
+
+House "1" --[#595959,plain] "1" HouseLocation : has >
+HouseLocation "1" --[#595959,plain] "1" GPS : has >
+HouseLocation "1" --[#595959,plain] "1" Address : has >
+House "1 " --[#595959,plain] "1..*" Room : contains >
+Room "1" --[#595959,plain] "0..*" Device : contains >
+Room "*" --[#595959,plain] "1" Dimensions : has >
+Device "1" --[#595959,plain] "0..*" Sensor : contains >
+Device "1" --[#595959,plain] "0..*" Actuator : has >
+Sensor "*" --[#595959,plain] "1" SensorType : has >
+Actuator "*" --[#595959,plain] "1" ActuatorType : has >
 
 @enduml
+
+
+
