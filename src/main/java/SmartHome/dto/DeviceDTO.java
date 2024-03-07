@@ -11,10 +11,10 @@ public class DeviceDTO {
     private String _name;
     public UUID _deviceID;
     public boolean _status;
-    private RoomDTO _roomDTO;
+    public RoomDTO _roomDTO;
     public List<String> _deviceFunctionalities;
-    private List<String> _sensors;
-    private List<String> _actuators;
+    public List<String> _sensors;
+    public List<String> _actuators;
 
 
     public DeviceDTO(Device device) {

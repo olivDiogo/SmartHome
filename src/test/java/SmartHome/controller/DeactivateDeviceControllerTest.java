@@ -61,35 +61,6 @@ class DeactivateDeviceControllerTest {
     }
 
     @Test
-    void successfullyDeactivateDevice() {
-        //Arrange
-        House house = new House(new LocationFactory(), new RoomFactory());
-        String roomName = "Sala";
-        int floor = 2;
-        int width = 2;
-        int length = 2;
-        int height = 2;
-        String deviceName = "Luz";
-        Room room = house.addRoom(roomName, floor, width, length, height);
-        room.addDevice(deviceName, new DeviceFactory());
-        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(house);
-        List<DeviceDTO> deviceDTOList = deactivateDeviceController.getDeviceList();
-        Optional<DeviceDTO> optionalDeviceDTO = deviceDTOList.stream().filter(deviceDTO -> deviceDTO.toString().contains("Luz")).findFirst();
-        DeviceDTO deviceDTO = optionalDeviceDTO.get();
-        // Act
-        deactivateDeviceController.deactivateDevice(deviceDTO);
-
-        Optional<DeviceDTO> updatedOptionalDeviceDTO = deactivateDeviceController.getDeviceList().stream()
-                .filter(d -> d._deviceID.equals(deviceDTO._deviceID))
-                .findFirst();
-
-        //Assert
-        assertTrue(updatedOptionalDeviceDTO.isPresent(), "Device should be present after deactivation.");
-        DeviceDTO updatedDeviceDTO = updatedOptionalDeviceDTO.get();
-        assertFalse(updatedDeviceDTO._status, "Device status should be false to indicate it was deactivated.");
-    }
-
-    @Test
     void deactivateDeviceReturnEmptyOptional() {
         //Arrange
         String name = "Luz";
@@ -106,4 +77,33 @@ class DeactivateDeviceControllerTest {
         //Assert
         assertTrue(optionalDeviceDTO1.isEmpty());
     }
+
+    @Test
+    void deactivateDeviceShouldReturnUpdatedDeviceDTO() {
+        // Arrange
+        House house = new House(new LocationFactory(), new RoomFactory());
+        String roomName = "Sala";
+        int floor = 2;
+        int width = 2;
+        int length = 2;
+        int height = 2;
+        String deviceName = "Luz";
+        Room room = house.addRoom(roomName, floor, width, length, height);
+        room.addDevice(deviceName, new DeviceFactory());
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(house);
+        List<DeviceDTO> deviceDTOList = deactivateDeviceController.getDeviceList();
+        DeviceDTO deviceDTO = deviceDTOList.stream().findFirst().orElseThrow(() -> new AssertionError("Device not found"));
+
+        // Act
+        Optional<DeviceDTO> result = deactivateDeviceController.deactivateDevice(deviceDTO);
+
+        // Assert
+        assertTrue(result.isPresent(), "deactivateDevice should return an optional that contains a DeviceDTO");
+        DeviceDTO updatedDeviceDTO = result.get();
+        assertFalse(updatedDeviceDTO._status, "Device status should be false to indicate it was deactivated.");
+
+        // Also verify that the device matches the expected one to avoid false positives
+        assertEquals(deviceDTO._deviceID, updatedDeviceDTO._deviceID, "The returned DeviceDTO should correspond to the device that was deactivated.");
+    }
+
 }
