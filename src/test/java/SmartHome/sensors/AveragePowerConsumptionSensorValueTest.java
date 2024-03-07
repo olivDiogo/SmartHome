@@ -4,10 +4,6 @@ import SmartHome.domain.Value;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-
 public class AveragePowerConsumptionSensorValueTest {
 
     /**
@@ -86,6 +82,21 @@ public class AveragePowerConsumptionSensorValueTest {
         // Assert
         String actualMessage = exception.getMessage();
         Assertions.assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * See if the setValue method works with zero value.
+     */
+    @Test
+    void seeIfGetValueWorksWithZero() {
+        //Arrange
+        double dValue = 0;
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue);
+        double expected = 0;
+        //Act
+        double actualResult = averagePowerConsumptionSensorValue.getValue();
+        //Assert
+        Assertions.assertEquals(expected, actualResult);
     }
 
 }
