@@ -4,6 +4,7 @@ import SmartHome.domain.*;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.shredzone.commons.suncalc.SunTimes;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -14,7 +15,6 @@ public class SunsetTimeSensor implements Sensor {
     private SensorType _sensorType;
     private double _latitude;
     private double _longitude;
-    private ISunTimesProviders _sunTimesProvider;
     private SunsetTimeValue _sunsetTimeValue;
     public SunsetTimeSensor(CatalogueSensor catalogueSensor) throws InstantiationException {
     setSensorType(catalogueSensor);
@@ -43,13 +43,15 @@ public class SunsetTimeSensor implements Sensor {
             throw new InstantiationException("something went wrong in reading the gps configuration: " + exception.getMessage());
         }
     }
-    public ISunTimesProviders configureSunTimeProvider(ISunTimesProviders sunTimesProvider) {
-        if (sunTimesProvider == null)
-            throw new IllegalArgumentException("SunTimesProvider is required");
-        else {
-            this._sunTimesProvider = sunTimesProvider;
-            return sunTimesProvider;
-        }
+    LocalTime getSunsetTime() throws IllegalArgumentException{
+        SunTimes time = SunTimes.compute().on(LocalDate.now()).at(_latitude, _longitude).execute();
+        LocalTime sunset = Objects.requireNonNull(time.getSet()).toLocalTime();
+        return sunset;
+    }
+    LocalTime getSunsetTime(LocalDate date) throws IllegalArgumentException {
+        SunTimes time = SunTimes.compute().on(date).at(_latitude, _longitude).execute();
+        LocalTime sunset = Objects.requireNonNull(time.getSet()).toLocalTime();
+        return sunset;
     }
 
     public SensorType getSensorType() {
@@ -58,13 +60,13 @@ public class SunsetTimeSensor implements Sensor {
 
     //Default behavior will return sunset for current day
     public Value getValue() {
-        LocalTime sunset = _sunTimesProvider.getSunsetTime(_latitude, _longitude);
+        LocalTime sunset = getSunsetTime();
         this._sunsetTimeValue = new SunsetTimeValue(sunset);
-        return this._sunsetTimeValue.clone();
+        return this._sunsetTimeValue;
     }
     public Value getValue(LocalDate date) {
-        LocalTime sunset = _sunTimesProvider.getSunsetTime(_latitude, _longitude, date);
+        LocalTime sunset = getSunsetTime(date);
         this._sunsetTimeValue = new SunsetTimeValue(sunset);
-        return this._sunsetTimeValue.clone();
+        return this._sunsetTimeValue;
     }
 }
