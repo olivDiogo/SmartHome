@@ -11,13 +11,43 @@ import org.junit.jupiter.api.Test;
 
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AddSensorToDeviceTest {
+
     @Test
-    void NewAddSensorToDeviceController() throws InstantiationException {
+    public void constructor_WithValidArguments_ShouldInstantiate() throws InstantiationException {
+        //Arrange
+        House validHouse = new House(new LocationFactory(), new RoomFactory());
+        CatalogueSensor validCatalogue = new CatalogueSensor("config.properties");
+        //Act & Assert
+        try {
+            AddSensorToDeviceController controller = new AddSensorToDeviceController(validHouse, validCatalogue);
+            assertNotNull(controller);
+        } catch (InstantiationException e){
+            fail();
+        }
+    }
+    @Test
+    public void constructor_WithNullArguments_ShouldThrowInstantiationException() {
+        // Arrange
+        House invalidHouse = null;
+        CatalogueSensor invalidCatalogue = null;
+
+        // Act
+        Exception exception = assertThrows(InstantiationException.class, () -> {
+            new AddSensorToDeviceController(invalidHouse, invalidCatalogue);
+        });
+
+        // Assert
+        String expectedMessage = "Invalid arguments";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage), "Exception message should contain the expected text");
+    }
+    @Test
+    void shouldInstantiateValidConstructor() throws InstantiationException {
         // arrange
 
         CatalogueSensor catalogue = new CatalogueSensor("config.properties");
@@ -236,7 +266,7 @@ public class AddSensorToDeviceTest {
     }
 
     @Test
-    void AddInexistingSensorModelToDevice() throws InstantiationException {
+    void AddNonExistingSensorModelToDevice() throws InstantiationException {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         House house = new House(new LocationFactory(), new RoomFactory());
@@ -267,6 +297,26 @@ public class AddSensorToDeviceTest {
 
         // assert
         assertNull(sensorDTO);
+    }
+
+    private DeviceDTO setUp() throws InstantiationException {
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
+        House house = new House(new LocationFactory(), new RoomFactory());
+        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue);
+        String roomName1 = "Living Room";
+        int floor = 1;
+        double width = 5;
+        double length = 5;
+        double height = 3;
+        String deviceName = "device1";
+        catalogue.addSensorType("Temperature", Unit.Temperature, new SensorTypeFactory());
+        Room defaultRoom = house.addRoom(roomName1, floor, width, length, height);
+        defaultRoom.addDevice(deviceName, new DeviceFactory());
+        List<RoomDTO> roomDTOS = controller.getRooms();
+        RoomDTO roomDTO = roomDTOS.get(0);
+        List<DeviceDTO> devicesDTO = controller.getDevicesFromRoom(roomDTO);
+        DeviceDTO deviceDTO = devicesDTO.get(0);
+        return deviceDTO;
     }
 
     @Test
