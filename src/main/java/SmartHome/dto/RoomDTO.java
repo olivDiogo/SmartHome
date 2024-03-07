@@ -11,16 +11,25 @@ public class RoomDTO {
     public final int _floor;
     public final UUID _roomId;
 
-    public RoomDTO(Room room)
-    {
+    /**
+     * Constructor for the RoomDTO class.
+     *
+     * @param room The Room object from which to create the DTO.
+     */
+    public RoomDTO(Room room) {
         this._name = room.getName();
         this._dimensions = room.getDimensions();
         this._floor = room.getFloor();
         this._roomId = room.getRoomId();
     }
 
+    /**
+     * Returns a string representation of the RoomDTO object.
+     *
+     * @return A string representation of the RoomDTO object.
+     */
     @Override
-    public String toString (){
+    public String toString() {
         return "Room{" +
                 "name='" + _name + '\'' +
                 ", dimensions=" + _dimensions.toString() +
