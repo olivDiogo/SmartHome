@@ -1,0 +1,83 @@
+@startuml
+
+    class CatalogueSensor{
+    'Attributes'
+    - _listSensorTypes: List<SensorType>
+    - _listStringClassesSensors: List<String>
+
+    'Methods'
+    +CatalogueSensor(filePathname: String)
+    -setListSensorTypes(): void
+    -setListStringClassesSensors(): void
+    }
+
+    class SensorType {
+    'Atributes'
+    - _strDescription: String
+    - _unit_Unit
+
+    'Methods'
+    +SensorType(strDescription: String, unit: Unit)
+    -setStringDescription(strDescription: String): String
+    -setUnit(unit: Unit): Unit
+    +getDescription(): String
+    +getUnit(): Unit
+    }
+
+class SunriseTimeValue{
+'Attributes'
+- _value: LocalTime
+
+'Methods'
++SunsetTimeValue(value: LocalTime)
+-setValue(value: LocalTime): void
++toString(): String
+}
+    class SunriseTimeSensor{
+    'Attributes'
+    - _sensorType: SensorType
+    - _gps: Gps
+
+    'Methods'
+    +SunriseTimeSensor(catalogue: CatalogueSensor)
+    -setSensorType(catalogue: CatalogueSensor): SensorType
+    +configureGpsLocation(gps: Gps): Gps
+    +getSensorType(): SensorType
+    +getSunriseTime(): LocalTime
+    +getSunriseTime(date: LocalDate): LocalTime
+    +getValue(): Value
+    +getValue(date: LocalDate): Value
+    }
+
+    interface Sensor{
+    'Methods'
+    getSensorType(): SensorType
+    getValue(): Value
+    }
+
+    interface Value{
+    }
+
+    class SensorFactory {
+    'Methods'
+    +createSensor(model: String, catalogue: Catalogue): Sensor
+    }
+
+    class SensorTypeFactory {
+    'Methods'
+    +createSensorType(strDescription: String, unit: Unit): SensorType
+    }
+
+
+SensorFactory "1" --> "1" SunriseTimeSensor : <<creates>>
+SunriseTimeSensor "1" --> "1" SensorType : <<has>>
+SunriseTimeSensor "1" --> "1" SunriseTimeValue : <<uses>>
+SunriseTimeSensor "1" ..|> "1" Sensor: <<implements>>
+
+
+CatalogueSensor "1" --> "*" SensorType : <<uses>>
+SunriseTimeValue "1" ..|> "1" Value: <<implements>>
+SensorTypeFactory "1" --> "1" SensorType : <<creates>>
+
+
+@enduml
