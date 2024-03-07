@@ -67,8 +67,9 @@ public class SwitchActuatorValueTest {
         SwitchActuatorValue switchActuatorValue = null;
 
         // act
-        SwitchActuatorValue clonedSwitchActuatorValue = (switchActuatorValue != null) ? switchActuatorValue.clone() : null;        // assert
+        SwitchActuatorValue clonedSwitchActuatorValue = (switchActuatorValue != null) ? switchActuatorValue.clone() : null;  //This line is using the ternary operator to clone the switchActuatorValue if it's not null. If switchActuatorValue is null, then clonedSwitchActuatorValue will also be null.
 
+        // assert
         assertNull(clonedSwitchActuatorValue);
     }
     /**
