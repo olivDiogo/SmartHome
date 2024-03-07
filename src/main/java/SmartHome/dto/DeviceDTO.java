@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class DeviceDTO {
-    private String _name;
+    public String _name;
     public UUID _deviceID;
     public boolean _status;
     public RoomDTO _roomDTO;
