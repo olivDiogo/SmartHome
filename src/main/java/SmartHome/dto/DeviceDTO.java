@@ -17,6 +17,11 @@ public class DeviceDTO {
     public List<String> _actuators;
 
 
+    /**
+     * Constructor for the DeviceDTO class.
+     *
+     * @param device The Device object from which to create the DTO.
+     */
     public DeviceDTO(Device device) {
         this._name = device.getName();
         this._status = device.getStatus();
@@ -44,7 +49,7 @@ public class DeviceDTO {
 
     /**
      * Returns a string representation of the DeviceDTO object.
-     *
+     * <p>
      * This method provides a string representation of the DeviceDTO object, which includes the name, status, roomDTO, and device functionalities.
      * The format of the string is "DeviceDTO{name='name', status=status, roomDTO=roomDTO, deviceFunctionalities=deviceFunctionalities}".
      *
