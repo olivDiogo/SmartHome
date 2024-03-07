@@ -90,7 +90,6 @@ class PercentagePositionSensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         try (MockedConstruction<PercentagePositionSensorValue> mocked = mockConstruction(PercentagePositionSensorValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(mock);
             when(mock.toString()).thenReturn(value);
         })) {
             PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(catalogueDouble);

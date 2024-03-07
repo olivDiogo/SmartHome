@@ -31,7 +31,6 @@ class PercentagePositionSensorValueTest {
         // Act
         new PercentagePositionSensorValue(percented);
     }
-
     /**
      * Tests if the constructor throws an exception when the value is under zero.
      */
@@ -54,21 +53,6 @@ class PercentagePositionSensorValueTest {
 
         // Assert
         assertEquals("Percented value must be between 0 and 100", exception.getMessage());
-    }
-
-    /**
-     * Tests if the clone method works correctly.
-     */
-    @Test
-    void seeIfCloneWorks() {
-        // Arrange
-        PercentagePositionSensorValue percentagePositionSensorValue = new PercentagePositionSensorValue(50);
-
-        // Act
-        PercentagePositionSensorValue result = percentagePositionSensorValue.clone();
-
-        // Assert
-        assertEquals(percentagePositionSensorValue.toString(), result.toString());
     }
 
     /**
