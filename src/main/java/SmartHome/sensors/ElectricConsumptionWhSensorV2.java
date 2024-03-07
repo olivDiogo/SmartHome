@@ -2,6 +2,7 @@ package SmartHome.sensors;
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.Sensor;
 import SmartHome.domain.SensorType;
+import SmartHome.domain.Value;
 
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
@@ -10,9 +11,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ElectricConsumptionWhSensorV2 {
+public class ElectricConsumptionWhSensorV2 implements Sensor {
     private SensorType _type;
-    private ElectricConsumptionWhValue _ElectricConsumptionWhValue;
+    private ElectricConsumptionWhValueV2 _ElectricConsumptionWhValue;
     public ElectricConsumptionWhSensorV2(CatalogueSensor catalogue) throws InstantiationException {
         _type = setSensorType(catalogue);
     }
@@ -70,5 +71,19 @@ public class ElectricConsumptionWhSensorV2 {
         int consumptionWh = mapChosenTime.values().stream().mapToInt(Integer::intValue).sum();
         return consumptionWh;
     }
+
+    //Default behaviour of the sensor is to return consumption in Wh for the last 24 hours
+    public Value getValue(){
+        int consumptionWh = calculateConsumptionInWh(LocalDateTime.now().minusHours(24), LocalDateTime.now());
+        _ElectricConsumptionWhValue = new ElectricConsumptionWhValueV2(consumptionWh);
+        return _ElectricConsumptionWhValue;
+    }
+    //Method to get consumption in Wh for a given interval
+    public Value getValue(LocalDateTime startTimestamp, LocalDateTime endTimestamp){
+        int consumptionWh = calculateConsumptionInWh(startTimestamp, endTimestamp);
+        _ElectricConsumptionWhValue = new ElectricConsumptionWhValueV2(consumptionWh);
+        return _ElectricConsumptionWhValue;
+    }
+
 
 }

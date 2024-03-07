@@ -1,6 +1,9 @@
 package SmartHome.sensors;
 
-public class ElectricConsumptionWhValueV2 {
+import SmartHome.domain.Sensor;
+import SmartHome.domain.Value;
+
+public class ElectricConsumptionWhValueV2 implements Value {
     private int _value;
 
     public ElectricConsumptionWhValueV2(int value) {

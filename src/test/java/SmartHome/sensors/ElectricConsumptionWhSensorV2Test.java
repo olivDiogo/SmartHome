@@ -2,6 +2,7 @@ package SmartHome.sensors;
 
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
+import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -185,6 +186,48 @@ class ElectricConsumptionWhSensorV2Test {
         double actualConsumption = electricConsumptionWhSensorV2.calculateConsumptionInWh(startTime, endTime);
         //Assert
         assertEquals(expectedConsumption, actualConsumption);
+    }
+
+    @Test
+    void shouldReturnConsumptionInGivenTimePeriodWithDifferentValues() throws InstantiationException {
+        //Arrange
+        String description = "ElectricConsumptionWh";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        ElectricConsumptionWhSensorV2 electricConsumptionWhSensorV2 = new ElectricConsumptionWhSensorV2(catalogueDouble);
+
+        LocalDateTime startTime = LocalDateTime.now().minusDays(2).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+        int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
+        int consumption = 50 * expectedSize;
+        String expectedConsumption = "ElectricConsumptionWh{" + consumption + '}';
+        //Act
+        Value actualConsumption = electricConsumptionWhSensorV2.getValue(startTime, endTime);
+        //Assert
+        assertEquals(expectedConsumption, actualConsumption.toString());
+    }
+
+    @Test
+    void shouldReturnConsumptionInLast24Hours() throws InstantiationException {
+        //Arrange
+        String description = "ElectricConsumptionWh";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        ElectricConsumptionWhSensorV2 electricConsumptionWhSensorV2 = new ElectricConsumptionWhSensorV2(catalogueDouble);
+
+        LocalDateTime startTime = LocalDateTime.now().minusDays(1).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+        int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
+        int expectedConsumption = 50 * expectedSize;
+        String expectedConsumptionString = "ElectricConsumptionWh{" + expectedConsumption + '}';
+        //Act
+        Value actualConsumption = electricConsumptionWhSensorV2.getValue();
+        //Assert
+        assertEquals(expectedConsumptionString, actualConsumption.toString());
     }
 
 }
