@@ -1,15 +1,14 @@
 package SmartHome.sensors;
-
 import SmartHome.domain.Value;
 
-public class ElectricConsumptionWhValue implements Value, Cloneable {
-    private double _value;
+public class ElectricConsumptionWhValue implements Value {
+    private int _value;
 
-    public ElectricConsumptionWhValue(double value) {
+    public ElectricConsumptionWhValue(int value) {
         setValue(value);
     }
 
-    private void setValue(double value) {
+    private void setValue(int value) {
         if (value < 0)
             throw new IllegalArgumentException("Consumption cannot be negative.");
         else _value = value;
@@ -19,13 +18,4 @@ public class ElectricConsumptionWhValue implements Value, Cloneable {
         return "ElectricConsumptionWh{" + +_value +
                 '}';
     }
-    @Override
-    public ElectricConsumptionWhValue clone() {
-        try {
-            return (ElectricConsumptionWhValue) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError("ElectricConsumptionWhValue instance could not be cloned.");
-        }
-    }
-
 }
