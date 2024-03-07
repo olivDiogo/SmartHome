@@ -40,6 +40,7 @@ public class CatalogueActuator {
 
     /**
      * Validates the parameters of the constructor.
+     *
      * @param strDescription
      * @return
      */
@@ -50,7 +51,7 @@ public class CatalogueActuator {
     /**
      * Instantiates an actuator type to the list of actuator types.
      *
-     * @param strDescription the description of the actuator type
+     * @param strDescription      the description of the actuator type
      * @param actuatorTypeFactory the actuator type factory
      * @return the created actuator type
      * @throws InstantiationException if the actuator type cannot be created
@@ -76,6 +77,7 @@ public class CatalogueActuator {
 
     /**
      * Gets the list of actuator types.
+     *
      * @return a copy of the list of actuator types
      */
     public List<ActuatorType> getActuatorTypes() {
@@ -97,16 +99,17 @@ public class CatalogueActuator {
 
     /**
      * Gets the list of actuator models.
+     *
      * @return a copy of the list of actuator models
      */
-    public List<String> getActuatorModels(){
+    public List<String> getActuatorModels() {
         return List.copyOf(_listStringClassesActuator);
     }
 
     /**
      * Instantiates an actuator if the actuator model required exists.
      *
-     * @param strModel the model of the actuator
+     * @param strModel        the model of the actuator
      * @param actuatorFactory the actuator factory that instantiates the actuator
      * @return the actuator instantiated
      * @throws InstantiationException if the actuator cannot be created
@@ -114,12 +117,10 @@ public class CatalogueActuator {
     public Actuator getActuator(String strModel, ActuatorFactory actuatorFactory) throws InstantiationException {
         Optional<String> optActuatorType = this.getActuatorModels().stream().filter(s -> s.equals(strModel)).findFirst();
 
-        if(optActuatorType.isPresent())
-        {
+        if (optActuatorType.isPresent()) {
             Actuator actuator = actuatorFactory.createActuator(strModel, this);
             return actuator;
-        }
-        else
+        } else
             return null;
     }
 
