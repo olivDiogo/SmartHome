@@ -13,7 +13,7 @@ class HumiditySensorValueTest {
      * Tests that the HumiditySensorValue constructor accepts a value at the upper boundary (100).
      */
     @Test
-    void seeIfConstructorWorksWhenValueIs100(){
+    void constructorWorksWhenValueIs100(){
         //Arrange
         double nValue = 100;
 
@@ -25,7 +25,7 @@ class HumiditySensorValueTest {
      * Tests that the HumiditySensorValue constructor accepts a value at the lower boundary (0).
      */
     @Test
-    void seeIfConstructorWorksWhenValueIsZero(){
+    void constructorWorksWhenValueIsZero(){
         //Arrange
         double nValue = 0;
 
@@ -38,7 +38,7 @@ class HumiditySensorValueTest {
      * when the value is below the lower boundary (0).
      */
     @Test
-    void seeIfConstructorThrowsExceptionWhenValueUnderZero() {
+    void constructorThrowsExceptionWhenValueUnderZero() {
         //Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new HumiditySensorValue(-1));
 
@@ -51,7 +51,7 @@ class HumiditySensorValueTest {
      * when the value is above the upper boundary (100).
      */
     @Test
-    void seeIfConstructorThrowsExceptionWhenValueOver100() {
+    void constructorThrowsExceptionWhenValueOver100() {
         //Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new HumiditySensorValue(101));
 
@@ -63,7 +63,7 @@ class HumiditySensorValueTest {
      * Tests that the toString method of HumiditySensorValue correctly converts the value to a String.
      */
     @Test
-    void seeIfToStringWorks() {
+    void toStringReturnsCorrectValue() {
         //Arrange
         double dValue = 15.5;
         HumiditySensorValue humiditySensorValue = new HumiditySensorValue(dValue);
