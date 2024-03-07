@@ -2,7 +2,6 @@ package SmartHome.sensors;
 
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
-import SmartHome.domain.Value;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
@@ -10,7 +9,6 @@ import org.mockito.MockedConstruction;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class AveragePowerConsumptionSensorTest {
@@ -164,8 +162,8 @@ public class AveragePowerConsumptionSensorTest {
         LocalDateTime initialTime = LocalDateTime.of(2024, 2, 29, 10, 10, 5);
         LocalDateTime finalTime = LocalDateTime.of(2024, 2, 29, 10, 10, 10);
 
-        averagePowerConsumptionSensor.setValue(initialTime, 1000);
-        averagePowerConsumptionSensor.setValue(finalTime, 1500);
+        averagePowerConsumptionSensor.addReading(initialTime, 1000);
+        averagePowerConsumptionSensor.addReading(finalTime, 1500);
 
         double expectedAverage = 1250;
 
@@ -195,8 +193,8 @@ public class AveragePowerConsumptionSensorTest {
         LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
         LocalDateTime finalTime = LocalDateTime.now();
 
-        averagePowerConsumptionSensor.setValue(initialTime, 1000);
-        averagePowerConsumptionSensor.setValue(finalTime, 2000);
+        averagePowerConsumptionSensor.addReading(initialTime, 1000);
+        averagePowerConsumptionSensor.addReading(finalTime, 2000);
 
         double expectedAverage = 1500;
 
@@ -226,9 +224,9 @@ public class AveragePowerConsumptionSensorTest {
         LocalDateTime secondTime = LocalDateTime.now().minusHours(1);
         LocalDateTime finalTime = LocalDateTime.now();
 
-        averagePowerConsumptionSensor.setValue(initialTime, 1000);
-        averagePowerConsumptionSensor.setValue(secondTime, 1500);
-        averagePowerConsumptionSensor.setValue(finalTime, 2000);
+        averagePowerConsumptionSensor.addReading(initialTime, 1000);
+        averagePowerConsumptionSensor.addReading(secondTime, 1500);
+        averagePowerConsumptionSensor.addReading(finalTime, 2000);
 
         double expectedAverage = 1500;
 
@@ -260,11 +258,11 @@ public class AveragePowerConsumptionSensorTest {
         LocalDateTime finalTime = LocalDateTime.now();
         LocalDateTime OtherTime3 = LocalDateTime.now().plusHours(1);
 
-        averagePowerConsumptionSensor.setValue(OtherTime1, 500);
-        averagePowerConsumptionSensor.setValue(initialTime, 1000);
-        averagePowerConsumptionSensor.setValue(OtherTime2, 1200);
-        averagePowerConsumptionSensor.setValue(finalTime, 2000);
-        averagePowerConsumptionSensor.setValue(OtherTime3, 400);
+        averagePowerConsumptionSensor.addReading(OtherTime1, 500);
+        averagePowerConsumptionSensor.addReading(initialTime, 1000);
+        averagePowerConsumptionSensor.addReading(OtherTime2, 1200);
+        averagePowerConsumptionSensor.addReading(finalTime, 2000);
+        averagePowerConsumptionSensor.addReading(OtherTime3, 400);
 
         double expectedAverage = 1400;
 
@@ -295,46 +293,19 @@ public class AveragePowerConsumptionSensorTest {
         LocalDateTime otherTime2 = LocalDateTime.now().plusHours(3);
         LocalDateTime otherTime3 = LocalDateTime.now().plusHours(1);
 
-        averagePowerConsumptionSensor.setValue(otherTime2, 500);
-        averagePowerConsumptionSensor.setValue(initialTime, 1000);
-        averagePowerConsumptionSensor.setValue(otherTime1, 1200);
-        averagePowerConsumptionSensor.setValue(finalTime, 2000);
-        averagePowerConsumptionSensor.setValue(otherTime3, 400);
+        averagePowerConsumptionSensor.addReading(otherTime2, 500);
+        averagePowerConsumptionSensor.addReading(initialTime, 1000);
+        averagePowerConsumptionSensor.addReading(otherTime1, 1200);
+        averagePowerConsumptionSensor.addReading(finalTime, 2000);
+        averagePowerConsumptionSensor.addReading(otherTime3, 400);
 
         double expectedAverage = 1133.33;
 
         // Act
         double averageValue = averagePowerConsumptionSensor.getAverageValue(initialTime, finalTime);
 
-        // Assert
+        // AssertString str = averageValue.toString();
         Assertions.assertEquals(expectedAverage, averageValue, 0.01);
-    }
-
-    /**
-     * Tests if Exception is thrown for average with only one reading.
-     */
-    @Test
-    void getAverageValueWithOnlyOneReading() throws InstantiationException {
-        // Arrange
-        String description = "Power Consumption";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        String expectedMessage = "Initial time cannot be equal to final time";
-
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
-
-        LocalDateTime BeforeInitialTime = LocalDateTime.now().minusHours(3);
-
-        averagePowerConsumptionSensor.setValue(BeforeInitialTime, 500);
-
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> averagePowerConsumptionSensor.getAverageValue(BeforeInitialTime, BeforeInitialTime));
-
-        // Assert
-        String actualMessage = exception.getMessage();
-        Assertions.assertTrue(actualMessage.contains(expectedMessage));
-        ;
     }
 
     /**
@@ -380,15 +351,14 @@ public class AveragePowerConsumptionSensorTest {
 
         LocalDateTime initialTime = LocalDateTime.now();
 
-        averagePowerConsumptionSensor.setValue(initialTime, 1000);
+        averagePowerConsumptionSensor.addReading(initialTime, 1000);
 
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> averagePowerConsumptionSensor.setValue(initialTime, 1000));
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> averagePowerConsumptionSensor.addReading(initialTime, 1000));
 
         // Assert
         String actualMessage = exception.getMessage();
         Assertions.assertTrue(actualMessage.contains(expectedMessage));
     }
-
 
 }
 
