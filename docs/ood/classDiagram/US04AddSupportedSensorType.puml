@@ -4,15 +4,19 @@ top to bottom direction
 skinparam linetype ortho
 
 class AddSensorTypeController {
--Catalogue catalogue
+-CatalogueSensor catalogue
 +AddSensorTypeController(Catalogue catalogue)
 +getAllSupportedUnits(): List<String>
 +addSensorType(String name, String units): SensorTypeDTO
 }
-class Catalogue {
+class CatalogueSensor {
 -List<SensorType> sensorTypes
-+Catalogue()
-+addSensorType(String name, String units): SensorType
++CatalogueSensor()
++addSensorType(String name, Unit units): SensorType
+}
+class SensorTypeFactory {
+
++createSensorType(String dscrp, Unit units): SensorType
 }
 class SensorType {
 -String name
@@ -41,8 +45,10 @@ class SensorTypeDTO {
 +getUnits(): String
 }
 
-AddSensorTypeController "1"-->"1" Catalogue: Uses
-Catalogue "1"--o "0..*  " SensorType: Composed
+AddSensorTypeController "1"-->"1" CatalogueSensor: Uses
+CatalogueSensor "1"--o "0..*  " SensorType: Composed
+CatalogueSensor "1"--> "1" SensorTypeFactory: Uses
+SensorTypeFactory "1"..> "1" SensorType: Creates
 SensorType "*"--o "1" Unit: Has
 AddSensorTypeController "1"-->"1     " SensorTypeAssembler: Uses
 SensorTypeAssembler "1"..>"*" SensorTypeDTO: Creates
