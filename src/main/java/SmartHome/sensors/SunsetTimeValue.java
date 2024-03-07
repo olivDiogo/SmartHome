@@ -4,7 +4,7 @@ import SmartHome.domain.Value;
 
 import java.time.LocalTime;
 
-public class SunsetTimeValue implements Value, Cloneable{
+public class SunsetTimeValue implements Value{
     private LocalTime _value;
 
     public SunsetTimeValue(LocalTime value) {
