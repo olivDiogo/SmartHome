@@ -57,6 +57,6 @@ public class WindSensor implements Sensor {
         int speed = rand.nextInt(408); //wind speed world record
         double direction = rand.nextDouble() * 2 * Math.PI; // direction in radians
         this._value = new WindSensorValue(speed, direction);
-        return this._value.clone();
+        return this._value;
     }
 }

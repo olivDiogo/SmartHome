@@ -4,7 +4,7 @@ import SmartHome.domain.Value;
 
 import java.util.concurrent.ConcurrentNavigableMap;
 
-public class WindSensorValue implements Value, Cloneable {
+public class WindSensorValue implements Value {
 
     public double _speed;
     public double _direction;
@@ -34,18 +34,5 @@ public class WindSensorValue implements Value, Cloneable {
      */
     public double getDirection () {
         return this._direction;
-    }
-
-    /**
-     * Method to clone the object.
-     * @return
-     */
-    @Override
-    public WindSensorValue clone() {
-        try {
-            return (WindSensorValue) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
     }
 }
