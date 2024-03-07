@@ -124,7 +124,6 @@ public class SunriseSensorTest {
 
             //Act
             Value result = sunriseTimeSensor.getValue();
-            System.out.println(result.toString());
             //Assert
             List<SunriseTimeValue> sunriseTimeSensorValues = mocked.constructed();
             assertEquals(result.toString(), sunriseTimeSensorValues.get(0).toString());
@@ -159,7 +158,6 @@ public class SunriseSensorTest {
 
             //Act
             Value result = sunriseTimeSensor.getValue(date);
-            System.out.println(result.toString());
             //Assert
             List<SunriseTimeValue> sunriseTimeSensorValues = mocked.constructed();
             assertEquals(result.toString(), sunriseTimeSensorValues.get(0).toString());
@@ -181,7 +179,6 @@ public class SunriseSensorTest {
 
         //Act
         LocalTime result = sunriseTimeSensor.getSunriseTime();
-        System.out.println(result);
         //Assert
         assertNotNull(result);
         assertEquals(expected, result);
