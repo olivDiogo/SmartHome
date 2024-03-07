@@ -2,6 +2,7 @@ package SmartHome.sensors;
 
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
+import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
@@ -16,7 +17,7 @@ public class SolarIrradianceSensorTest {
      * Test to get a valid SolarIrradianceSensor object
      */
     @Test
-    void getValidSolarIrradianceSensor(){
+    void getValidSolarIrradianceSensor() {
         //Arrange
         String description = "SolarIrradiance";
 
@@ -35,7 +36,7 @@ public class SolarIrradianceSensorTest {
      * Test to get an invalid SolarIrradianceSensor object should throw an IllegalArgumentException
      */
     @Test
-    void invalidSolarIrradianceSensor(){
+    void invalidSolarIrradianceSensor() {
         // Arrange
         String description = "SolarIrradiance";
 
@@ -53,7 +54,7 @@ public class SolarIrradianceSensorTest {
      * Test to get the sensor type
      */
     @Test
-    void getSensorType(){
+    void getSensorType() {
         //Arrange
         String description = "SolarIrradiance";
 
@@ -74,29 +75,22 @@ public class SolarIrradianceSensorTest {
      * Test to get the value of the sensor
      */
     @Test
-    void getValue(){
+    void getValue() {
         //Arrange
         String description = "SolarIrradiance";
-        String value = "10.0";
+        String value = "4500";
 
-        int expectedSize = 1;
+        CatalogueSensor catalogue = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        try(MockedConstruction<SolarIrradianceValue> solarIrradianceValueDouble = mockConstruction(SolarIrradianceValue.class, (mock, context) ->
-                when(mock.toString()).thenReturn(value)))
-        {
-            CatalogueSensor catalogue = mock(CatalogueSensor.class);
-            SensorType sensorTypeDouble = mock(SensorType.class);
-            when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue);
 
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue);
+        //Act
+        Value result = solarIrradianceSensor.getValue();
 
-            //Act
-            solarIrradianceSensor.getValue();
+        //Assert
+        assertEquals(value, result.toString());
 
-            //Assert
-            List<SolarIrradianceValue> solarIrradianceValues = solarIrradianceValueDouble.constructed();
-            assertEquals(expectedSize, solarIrradianceValues.size());
-            assertEquals(value, solarIrradianceValues.get(0).toString());
-        }
     }
 }

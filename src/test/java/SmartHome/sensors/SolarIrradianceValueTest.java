@@ -14,7 +14,7 @@ public class SolarIrradianceValueTest {
     @Test
     void shouldCreateInstanceOfSolarIrradianceValue() {
         // Arrange
-        double value = 450;
+        int value = 450;
 
         // Act
         SolarIrradianceValue solarIrradianceValue = new SolarIrradianceValue(value);
@@ -23,28 +23,11 @@ public class SolarIrradianceValueTest {
         assertNotNull(solarIrradianceValue);
     }
 
-    /**
-     * Should clone setInteger actuator value.
-     */
-    @Test
-    void shouldCloneSolarIrradianceValue() {
-        // arrange
-        double value = 10;
-
-        SolarIrradianceValue solarIrradianceValue = new SolarIrradianceValue(value);
-
-        // act
-        SolarIrradianceValue clonedSolarIrradianceValue = solarIrradianceValue.clone();
-
-        // assert
-        assertNotEquals(solarIrradianceValue, clonedSolarIrradianceValue);
-    }
-
 
     @Test
     void shouldConvertToString(){
         // Arrange
-        double value = 10;
+        int value = 10;
 
         SolarIrradianceValue setIntegerValue = new SolarIrradianceValue(value);
 
@@ -52,6 +35,6 @@ public class SolarIrradianceValueTest {
         String result = setIntegerValue.toString();
 
         // Assert
-        assertEquals("10.0", result);
+        assertEquals("10", result);
     }
 }

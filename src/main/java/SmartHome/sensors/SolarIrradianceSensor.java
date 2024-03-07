@@ -49,13 +49,12 @@ public class SolarIrradianceSensor implements Sensor, Cloneable {
      *
      * @return Value
      */
-    public SolarIrradianceValue getValue() {
-        Random rand = new Random();
-        double solarIrradiance = rand.nextDouble() * 1500;
+    public Value getValue() {
+        int solarIrradiance = 4500;
 
         this._value = new SolarIrradianceValue(solarIrradiance);
 
-        return this._value.clone();
+        return this._value;
     }
 
 

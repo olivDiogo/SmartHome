@@ -3,24 +3,15 @@ package SmartHome.sensors;
 import SmartHome.domain.Value;
 
 public class SolarIrradianceValue implements Value, Cloneable {
-    private double _dValue;
+    private int _iValue;
 
     /**
      * Constructor for SolarIrradianceValue
      *
      * @param nValue is the value of the solar irradiance
      */
-    public SolarIrradianceValue(double nValue) {
-        setValue(nValue);
-    }
-
-    /**
-     * Method to set the value of the solar irradiance
-     *
-     * @param nValue is the value of the solar irradiance
-     */
-    private void setValue(double nValue) {
-        this._dValue = nValue;
+    public SolarIrradianceValue(int nValue) {
+        this._iValue = nValue;
     }
 
 
@@ -30,25 +21,9 @@ public class SolarIrradianceValue implements Value, Cloneable {
      * @return double
      */
     public String toString() {
-        return this._dValue + "";
+        return this._iValue + "";
     }
 
-    /**
-     * Method to clone the SolarIrradianceValue
-     *
-     * @return SolarIrradianceValue
-     */
-    @Override
-    public SolarIrradianceValue clone() {
-        try {
-                SolarIrradianceValue cloned = (SolarIrradianceValue) super.clone();
-                cloned._dValue = this._dValue;
-                return cloned;
-        } catch (CloneNotSupportedException e) {
-                throw new AssertionError();
-        }
-
-    }
 
 }
 
