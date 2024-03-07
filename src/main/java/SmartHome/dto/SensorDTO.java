@@ -6,7 +6,7 @@ import SmartHome.domain.SensorType;
 import java.util.List;
 
 public class SensorDTO {
-    private final SensorType _sensorType;
+    public final SensorType _sensorType;
 
     public SensorDTO(Sensor sensor) {
 
