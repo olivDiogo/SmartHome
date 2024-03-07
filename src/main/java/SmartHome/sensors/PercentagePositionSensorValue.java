@@ -5,7 +5,7 @@ import SmartHome.domain.Value;
  * Represents a value for a percentage position sensor.
  * This class ensures that the percentage value is within the range of 0 to 100.
  */
-public class PercentagePositionSensorValue implements Value, Cloneable {
+public class PercentagePositionSensorValue implements Value{
 
     private double _percented; // The percentage value
 
@@ -28,21 +28,6 @@ public class PercentagePositionSensorValue implements Value, Cloneable {
             throw new IllegalArgumentException("Percented value must be between 0 and 100");
         }
         this._percented = percented;
-    }
-
-    /**
-     * Clones the PercentagePositionSensorValue object.
-     * @return A clone of the PercentagePositionSensorValue object.
-     */
-    @Override
-    public PercentagePositionSensorValue clone() {
-        try {
-            // Call the Object clone() method
-            return (PercentagePositionSensorValue) super.clone();
-        } catch (CloneNotSupportedException e) {
-            // This should never happen since we are Cloneable
-            throw new AssertionError();
-        }
     }
 
     /**

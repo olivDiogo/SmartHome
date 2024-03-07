@@ -51,8 +51,8 @@ public class PercentagePositionSensor implements Sensor {
      * @return A {@link PercentagePositionSensorValue} representing the current value of the sensor.
      */
     public Value getValue() {
-        double percented = 100; // Placeholder value for demonstration purposes
-        this._value = new PercentagePositionSensorValue(percented);
-        return this._value.clone();
+        double percentage = 100; // Placeholder value for demonstration purposes
+        this._value = new PercentagePositionSensorValue(percentage);
+        return this._value;
     }
 }
