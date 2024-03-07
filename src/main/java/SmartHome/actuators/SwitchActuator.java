@@ -28,7 +28,7 @@ public class SwitchActuator implements Actuator {
      * @throws InstantiationException if the actuator type cannot be created
      */
 
-    public void setActuatorType(CatalogueActuator catalogue) throws InstantiationException {
+    private void setActuatorType(CatalogueActuator catalogue) throws InstantiationException {
         ActuatorType actuatorType = catalogue.getActuatorType("SwitchActuator");
         if (actuatorType == null)
             throw new InstantiationException("ActuatorType with description 'SwitchActuator' does not exist.");

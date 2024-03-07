@@ -77,10 +77,12 @@ public class SetIntegerActuator implements Actuator {
         } else if (nValue > setUpperLimit(upperLimit)) {
             throw new IllegalArgumentException("Value cannot be greater than the upper limit.");
 
-        } else {
-            this._value = new SetIntegerValue(nValue);
+        } else if (value instanceof SetIntegerValue) {
+            this._value = (SetIntegerValue) value;
 
             return this._value.clone();
         }
+
+        return null;
     }
 }

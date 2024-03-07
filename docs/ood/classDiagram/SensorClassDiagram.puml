@@ -1,0 +1,179 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class CatalogueSensor{
+'Attributes'
+- _listSensorTypes: List<SensorType>
+- _listStringClassesSensors: List<String>
+
+'Methods'
++CatalogueSensor(filePathname: String)
+-setListSensorTypes(): void
+-setListStringClassesSensors(): void
+}
+
+interface Sensor{
+'Methods'
+getSensorType(): SensorType
+getValue(): Value
+}
+
+class SensorFactory {
+'Methods'
++createSensor(model: String, catalogue: Catalogue): Sensor
+}
+
+class SensorType {
+'Atributes'
+- _strDescription: String
+- _unit_Unit
+
+'Methods'
+#SensorType(strDescription: String, unit: Unit)
+-setStringDescription(strDescription: String): String
+-setUnit(unit: Unit): Unit
++getDescription(): String
++getUnit(): Unit
+}
+
+class SensorTypeFactory {
+'Methods'
++createSensorType(strDescription: String, unit: Unit): SensorType
+}
+
+class AveragePowerConsumptionSensor{
+'Attributes'
+- _sensorType: SensorType
+- _powerConsumptions: HashMap<LocalDateTime, Double>
+- _averageResult: double
+- _Average_powerConsumption: AveragePowerConsumptionSensorValue
+
+'Methods'
++AveragePowerConsumptionSensor(catalogue: CatalogueSensor)
+-setSensorType((catalogue: CatalogueSensor): SensorType
+-setPowerConsumptions(): HashMap<LocalDateTime, Double>
+-setResult(): double
++getSensorType(): SensorType
++setValue(readTime: LocalDateTime, reading: double): Map<LocalDateTime, Double>
++getAverageValue(): double
++filterPowerConsumptionsByTime(initialTime: LocalDateTime, finalTime: LocalDateTime): Map<LocalDateTime, Double>
++getValue(): Value
+}
+
+class AveragePowerConsumptionSensorValue{
+'Attributes'
+- _value: double
+
+'Methods'
++AveragePowerConsumptionSensorValue(dValue: double)
+-setValue(dValue: double): void
++getValue(): double
++toString(): String
+}
+
+class DewPointSensor{
+'Attributes'
+- _sensorType: SensorType
+- _dewPointValue: DewPointValue
+
+'Methods'
++ DewPointSensor(catalogue: CatalogueSensor)
+-setSensorType((catalogue: CatalogueSensor): void
++getSensorType(): SensorType
++getValue(): Value
+}
+
+class DewPointValue{
+'Attributes'
+- _dewPointValue : int
+
+'Methods'
++DewPointValue(dewPointValue: int)
++toString(): String
+}
+
+class EletricConsumptionWhSensor{
+
+}
+
+class EletricConsumptionWhValue{
+
+}
+
+class HumiditySensor{
+'Attributes'
+- _sensorType: SensorType
+- _value: HumiditySensorValue
+
+'Methods'
++HumiditySensor(catalogue: CatalogueSensor)
++getSensorType(): SensorType
++getValue(): Value
+}
+
+class HumiditySensorValue{
+'Attributes'
+- _dValue: double
+
+'Methods'
++HumiditySensorValue(dValue: double)
+-validateValue(dValue: double): void
++toString(): String
+}
+
+class InstantPowerConsumptionSensor{
+'Attributes'
+- _sensorType: SensorType
+- _instantPowerConsumption: InstantPowerConsumptionSensorValue
+
+'Methods'
++InstantPowerConsumptionSensor(catalogueSensor: CatalogueSensor)
+-setSensorType(catalogueSensor: CatalogueSensor): void
++getSensorType(): SensorType
++getValue(): Value
+}
+
+class InstantPowerConsumptionSensorValue{
+'Attributes'
+- _instantPowerConsumptionValue: double
+
+'Methods'
++InstantPowerConsumptionSensorValue(instantPowerConsumptionValue: double)
++toString(): String
+}
+
+interface ISunTimesProviders{
++getSunsetTimes(latitude: double, longitude: double): LocalTime
++getSunriseTimes(latitude: double, longitude: double): LocalTime
++getSunsetTimes(latitude: double, longitude: double, date: LocalDate): LocalTime
++getSunriseTimes(latitude: double, longitude: double, date: LocalDate): LocalTime
+}
+
+class PercentagePositionSensor{
+'Attributes'
+- _sensorType: SensorType
+- _value: PercentagePositionSensorValue
+
+'Methods'
++PercentagePositionSensor(catalogue: CatalogueSensor)
+-setSensorType: SensorType
++getSensorType(): SensorType
++getValue(): Value
+}
+
+class PercentagePositionSensorValue{
+'Attributes'
+- _percented: double
+
+'Methods'
++PercentagePositionSensorValue(percented: double)
+-validatePosition(percented: double): void
++toString(): String
+}
+
+
+
+
+
+
+@enduml
