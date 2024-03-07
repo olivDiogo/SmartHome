@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 public class AveragePowerConsumptionSensor implements Sensor {
     private SensorType _sensorType;
     private HashMap<LocalDateTime, Double> _powerConsumptions;
-    private double _averageResult;
-    private AveragePowerConsumptionSensorValue _Average_powerConsumptionSensorValue;
+    private AveragePowerConsumptionSensorValue _averagePowerConsumptionSensorValue;
 
     /**
      * Creates a new PowerConsumptionSensor with a given catalogue.
@@ -24,7 +23,6 @@ public class AveragePowerConsumptionSensor implements Sensor {
     public AveragePowerConsumptionSensor(CatalogueSensor catalogue) throws InstantiationException {
         setSensorType(catalogue);
         setPowerConsumptions();
-        setResult();
     }
 
     /**
@@ -53,15 +51,6 @@ public class AveragePowerConsumptionSensor implements Sensor {
     }
 
     /**
-     * Sets the average result of the PowerConsumptionSensor.
-     *
-     * @return the average result.
-     */
-    private double setResult() {
-        return _averageResult = 0;
-    }
-
-    /**
      * Gets the SensorType of the PowerConsumptionSensor.
      *
      * @return the SensorType with description 'Power Consumption'.
@@ -78,13 +67,13 @@ public class AveragePowerConsumptionSensor implements Sensor {
      * @return a new HashMap with the power consumptions.
      * @throws IllegalArgumentException if there is already a reading for this time.
      */
-    public Map<LocalDateTime, Double> setValue(LocalDateTime readTime, double reading) {
+    public double addReading(LocalDateTime readTime, double reading) {
         if (_powerConsumptions.containsKey(readTime))
             throw new IllegalArgumentException("There is already a reading for this time");
 
         else {
             _powerConsumptions.put(readTime, reading);
-            return _powerConsumptions;
+            return reading;
         }
     }
 
@@ -97,12 +86,9 @@ public class AveragePowerConsumptionSensor implements Sensor {
      * @throws IllegalArgumentException if the initial time is after the final time.
      * @throws IllegalArgumentException if the initial time is equal to the final time.
      */
-    public double getAverageValue(LocalDateTime initialTime, LocalDateTime finalTime) {
+    protected double getAverageValue(LocalDateTime initialTime, LocalDateTime finalTime) {
         if (initialTime.isAfter(finalTime)) {
             throw new IllegalArgumentException("Initial time must be before final time");
-        }
-        if (initialTime.equals(finalTime)) {
-            throw new IllegalArgumentException("Initial time cannot be equal to final time");
         }
 
         // Calculate the average of the filtered power consumptions
@@ -110,8 +96,6 @@ public class AveragePowerConsumptionSensor implements Sensor {
                 .mapToDouble(Double::doubleValue)
                 .average()
                 .orElse(0);
-
-        this._averageResult = average;
         return average;
     }
 
@@ -122,7 +106,7 @@ public class AveragePowerConsumptionSensor implements Sensor {
      * @param finalTime   the final time of the range.
      * @return a new HashMap with the filtered power consumptions.
      */
-    public Map<LocalDateTime, Double> filterPowerConsumptionsByTime(LocalDateTime initialTime, LocalDateTime finalTime) {
+    private Map<LocalDateTime, Double> filterPowerConsumptionsByTime(LocalDateTime initialTime, LocalDateTime finalTime) {
         // Filter the powerConsumptions map to only include entries within the specified time range
         Map<LocalDateTime, Double> filteredPowerConsumptions = _powerConsumptions.entrySet().stream()
                 .filter(entry -> !entry.getKey().isBefore(initialTime) && !entry.getKey().isAfter(finalTime))
@@ -137,7 +121,12 @@ public class AveragePowerConsumptionSensor implements Sensor {
      * @return the value of the PowerConsumptionSensor.
      */
     public Value getValue() {
-        return this._Average_powerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(_averageResult).clone();
+        return this._averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(getAverageValue(LocalDateTime.now(), LocalDateTime.now()));
+    }
+
+    public Value getValue(LocalDateTime initialTime, LocalDateTime finalTime) {
+        getAverageValue(initialTime, finalTime);
+        return this._averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(getAverageValue(initialTime,finalTime));
     }
 }
 
