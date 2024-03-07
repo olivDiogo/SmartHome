@@ -2,13 +2,12 @@ package SmartHome.sensors;
 
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
+import SmartHome.domain.Value;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
 import static org.mockito.Mockito.*;
 
 public class AveragePowerConsumptionSensorTest {
@@ -37,10 +36,8 @@ public class AveragePowerConsumptionSensorTest {
     void getSensorType() throws InstantiationException {
         // Arrange
         String description = "Power Consumption";
-
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
-
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
         AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
 
@@ -360,6 +357,71 @@ public class AveragePowerConsumptionSensorTest {
         Assertions.assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    @Test
+    void getValueWithNonSequencialReadings() throws InstantiationException {
+        // Arrange
+        String description = "Power Consumption";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
+
+        LocalDateTime initialTime = LocalDateTime.now();
+        LocalDateTime finalTime = LocalDateTime.now().plusHours(2);
+        LocalDateTime otherTime1 = LocalDateTime.now().minusHours(1);
+        LocalDateTime otherTime2 = LocalDateTime.now().plusHours(3);
+        LocalDateTime otherTime3 = LocalDateTime.now().plusHours(1);
+
+        averagePowerConsumptionSensor.addReading(otherTime2, 500);
+        averagePowerConsumptionSensor.addReading(initialTime, 1000);
+        averagePowerConsumptionSensor.addReading(otherTime1, 1200);
+        averagePowerConsumptionSensor.addReading(finalTime, 2000);
+        averagePowerConsumptionSensor.addReading(otherTime3, 400);
+
+        double expectedAverage = 1133.33;
+
+        // Act
+        Value averageValue = averagePowerConsumptionSensor.getValue(initialTime, finalTime);
+
+
+        // AssertString str = averageValue.toString();
+        Assertions.assertEquals(expectedAverage, Double.parseDouble(averageValue.toString()), 0.01);
+    }
+
+    @Test
+    void getValueForThisInstante() throws InstantiationException {
+        // Arrange
+        String description = "Power Consumption";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
+        double expectedAverage = 0;
+
+        // Act
+        Value averageValue = averagePowerConsumptionSensor.getValue();
+        //Assert
+        Assertions.assertEquals(0, Double.parseDouble(averageValue.toString()), 0.01);
+    }
+
+    @Test
+    void testGetReading() throws InstantiationException {
+        // Arrange
+        String description = "Power Consumption";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
+        LocalDateTime initialTime = LocalDateTime.now();
+        //Act
+        double reading = averagePowerConsumptionSensor.addReading(initialTime, 500);
+        //Assert
+        Assertions.assertEquals(500, reading, 0.01);
+    }
 }
 
 

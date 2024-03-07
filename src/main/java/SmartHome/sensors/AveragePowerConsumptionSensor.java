@@ -6,6 +6,7 @@ import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ public class AveragePowerConsumptionSensor implements Sensor {
     private SensorType _sensorType;
     private HashMap<LocalDateTime, Double> _powerConsumptions;
     private AveragePowerConsumptionSensorValue _averagePowerConsumptionSensorValue;
+    private final double _dValue = 0;
 
     /**
      * Creates a new PowerConsumptionSensor with a given catalogue.
@@ -22,7 +24,7 @@ public class AveragePowerConsumptionSensor implements Sensor {
      */
     public AveragePowerConsumptionSensor(CatalogueSensor catalogue) throws InstantiationException {
         setSensorType(catalogue);
-        setPowerConsumptions();
+        _powerConsumptions = new HashMap<>();
     }
 
     /**
@@ -32,12 +34,12 @@ public class AveragePowerConsumptionSensor implements Sensor {
      * @return the SensorType with description 'Power Consumption'.
      * @throws InstantiationException if the SensorType with description 'Power Consumption' does not exist.
      */
-    private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
+    private void setSensorType(CatalogueSensor catalogue) throws InstantiationException {
         SensorType sensorType = catalogue.getSensorType("Power Consumption");
         if (sensorType == null)
             throw new InstantiationException("SensorType with description 'Power Consumption' does not exist.");
         else {
-            return this._sensorType = sensorType;
+            _sensorType = sensorType;
         }
     }
 
@@ -46,9 +48,9 @@ public class AveragePowerConsumptionSensor implements Sensor {
      *
      * @return a new HashMap with the power consumptions.
      */
-    private HashMap<LocalDateTime, Double> setPowerConsumptions() {
-        return this._powerConsumptions = new HashMap<>();
-    }
+//    private HashMap<LocalDateTime, Double> setPowerConsumptions() {
+//        return this._powerConsumptions = new HashMap<>();
+//    }
 
     /**
      * Gets the SensorType of the PowerConsumptionSensor.
@@ -71,7 +73,7 @@ public class AveragePowerConsumptionSensor implements Sensor {
         if (_powerConsumptions.containsKey(readTime))
             throw new IllegalArgumentException("There is already a reading for this time");
 
-        else {
+        {
             _powerConsumptions.put(readTime, reading);
             return reading;
         }
@@ -121,12 +123,12 @@ public class AveragePowerConsumptionSensor implements Sensor {
      * @return the value of the PowerConsumptionSensor.
      */
     public Value getValue() {
-        return this._averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(getAverageValue(LocalDateTime.now(), LocalDateTime.now()));
+        return this._averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(_dValue);
     }
 
     public Value getValue(LocalDateTime initialTime, LocalDateTime finalTime) {
-        getAverageValue(initialTime, finalTime);
-        return this._averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(getAverageValue(initialTime,finalTime));
+
+        return this._averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(getAverageValue(initialTime, finalTime));
     }
 }
 
