@@ -13,7 +13,6 @@ public class AddActuatorToDeviceController {
     private final House _house;
     private final CatalogueActuator _catalogue;
     private Map<RoomDTO, Room> _roomsDTOAndRooms = new LinkedHashMap<>();
-
     private Map<DeviceDTO, Device> _devicesDTOAndDevices = new LinkedHashMap<>();
 
     /**
@@ -87,7 +86,13 @@ public class AddActuatorToDeviceController {
      * @throws InstantiationException if the actuator object is null.
      */
     public ActuatorDTO addActuatorToDevice(DeviceDTO deviceDTO, String strActuatorModel) throws InstantiationException {
+        if (!deviceDTO._status) {
+            return null;
+        }
         Device device = _devicesDTOAndDevices.get(deviceDTO);
+        if (device == null) {
+            return null;
+        }
 
         Actuator actuator = device.addActuator(strActuatorModel, this._catalogue, new ActuatorFactory());
         if (actuator == null) {

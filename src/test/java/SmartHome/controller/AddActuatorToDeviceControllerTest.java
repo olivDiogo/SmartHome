@@ -7,8 +7,10 @@ import SmartHome.dto.RoomDTO;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 public class AddActuatorToDeviceControllerTest {
 
@@ -126,6 +128,7 @@ public class AddActuatorToDeviceControllerTest {
 
     /**
      * Test to see if getDevicesFromRoom returns the correct number of devices.
+     * @throws InstantiationException
      */
     @Test
     void getDevicesFromRoom() throws InstantiationException {
@@ -174,7 +177,6 @@ public class AddActuatorToDeviceControllerTest {
 
     /**
      * Test to see if getDevicesFromRoom returns empty list.
-     *
      * @throws InstantiationException
      */
     @Test
@@ -207,7 +209,6 @@ public class AddActuatorToDeviceControllerTest {
 
     /**
      * Test to see if getActuatorModels returns the correct number of actuator models.
-     *
      * @throws InstantiationException
      */
     @Test
@@ -230,8 +231,7 @@ public class AddActuatorToDeviceControllerTest {
     }
 
     /**
-     *  Test to see if addActuatorToDevice returns a valid actuatorDTO.
-     *
+     * Test to see if addActuatorToDevice returns a valid actuatorDTO.
      * @throws InstantiationException
      */
     @Test
@@ -274,7 +274,6 @@ public class AddActuatorToDeviceControllerTest {
 
     /**
      * Test to see if addActuatorToDevice returns null when the actuator model is invalid.
-     *
      * @throws InstantiationException
      */
 
@@ -309,6 +308,74 @@ public class AddActuatorToDeviceControllerTest {
 
         // Act
         ActuatorDTO actuatorDTO = controller.addActuatorToDevice(deviceDTO, model);
+
+        // Assert
+        assertNull(actuatorDTO);
+    }
+
+    /**
+     * Test to see if addActuatorToDevice returns null when the device is null.
+     * @throws InstantiationException
+     */
+    @Test
+    void testAddActuatorToDevice_GivenInExistentDevice() throws InstantiationException {
+        // Arrange
+        String filePathName = "config.properties";
+
+        String actuatorModel = "SmartHome.actuators.SetIntegerActuator";
+
+        House house = new House(new LocationFactory(), new RoomFactory());
+        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
+
+        AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
+
+        DeviceDTO deviceDTO = mock(DeviceDTO.class);
+
+        // Act
+        ActuatorDTO actuatorDTO = controller.addActuatorToDevice(deviceDTO, actuatorModel);
+
+        // Assert
+        assertNull(actuatorDTO);
+    }
+
+    /**
+     * Test to see if addActuatorToDevice returns null when the device is deactivated.
+     * @throws InstantiationException
+     */
+    @Test
+    void testAddActuatorToDeactivatedDevice() throws InstantiationException {
+        // Arrange
+        String roomName = "Living Room";
+        int floor = 1;
+        double width = 3.0;
+        double length = 4.0;
+        double height = 2.5;
+
+        String filePathName = "config.properties";
+
+        String deviceName = "Lamp";
+        String strDescription = "SetInteger";
+        String actuatorModel = "SmartHome.actuators.SetIntegerActuator";
+
+        House house = new House(new LocationFactory(), new RoomFactory());
+        CatalogueActuator catalogue = new CatalogueActuator(filePathName);
+
+        Room room = house.addRoom(roomName, floor, width, length, height);
+        room.addDevice(deviceName, new DeviceFactory());
+
+        catalogue.addActuatorType(strDescription, new ActuatorTypeFactory());
+
+        AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
+
+        List<RoomDTO> roomDTOList = controller.getRooms();
+        RoomDTO roomDTO = roomDTOList.get(0);
+
+        List<DeviceDTO> deviceDTOList = controller.getDevicesFromRoom(roomDTO);
+        DeviceDTO deviceDTO = deviceDTOList.get(0);
+        deviceDTO._status = false;
+
+        // Act
+        ActuatorDTO actuatorDTO = controller.addActuatorToDevice(deviceDTO, actuatorModel);
 
         // Assert
         assertNull(actuatorDTO);
