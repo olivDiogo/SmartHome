@@ -38,10 +38,13 @@ public class SetIntegerValueTest {
         SetIntegerValue clonedSetIntegerValue = setIntegerValue.clone();
 
         // assert
+        assertNotNull(clonedSetIntegerValue);
         assertNotEquals(setIntegerValue, clonedSetIntegerValue);
     }
 
-
+    /**
+     * Should convert setInteger actuator value to string.
+     */
     @Test
     void shouldConvertToString(){
         // Arrange

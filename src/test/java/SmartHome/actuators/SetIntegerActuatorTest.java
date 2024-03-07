@@ -96,24 +96,25 @@ public class SetIntegerActuatorTest {
     }
 
     /**
-     * Set value in range.
+     * Set value in range at the lower limit boundary.
      * @throws InstantiationException if the value cannot be set
      */
     @Test
-    void setValueInRange() throws InstantiationException {
+    void setValueInRangeLowerLimitBoundary() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
         int lowerLimit = 0;
         int upperLimit = 100;
 
-        String value = "50";
+        String value = "0";
 
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
         when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
-        Value valueDouble = mock(Value.class);
+        SetIntegerValue valueDouble = mock(SetIntegerValue.class);
         when(valueDouble.toString()).thenReturn(value);
+        when(valueDouble.clone()).thenReturn(valueDouble);
 
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
@@ -123,6 +124,68 @@ public class SetIntegerActuatorTest {
 
         // Assert
         assertEquals(value, result.toString());
+    }
+
+    /**
+     * Set value in range at the upper limit boundary.
+     * @throws InstantiationException if the value cannot be set
+     */
+    @Test
+    void setValueInRangeUpperLimitBoundary() throws InstantiationException {
+        // Arrange
+        String description = "SetInteger";
+        int lowerLimit = 0;
+        int upperLimit = 100;
+
+        String value = "100";
+
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SetIntegerValue valueDouble = mock(SetIntegerValue.class);
+        when(valueDouble.toString()).thenReturn(value);
+        when(valueDouble.clone()).thenReturn(valueDouble);
+
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
+
+        // Act
+        Value result = setIntegerActuator.setValueInRange(lowerLimit, upperLimit, valueDouble);
+
+        // Assert
+        assertEquals(value, result.toString());
+    }
+
+    /**
+     * Set wrong value type in range, returns null.
+     * @throws InstantiationException if the value cannot be set
+     */
+    @Test
+    void setWrongValueTypeInRange_shouldReturnNull() throws InstantiationException {
+        // Arrange
+        String description = "SetInteger";
+        int lowerLimit = 0;
+        int upperLimit = 100;
+
+        String value = "50";
+
+        Value expected = null;
+
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        Value valueDouble = mock(Value.class);
+        when(valueDouble.toString()).thenReturn(value);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
+
+        // Act
+        Value result = setIntegerActuator.setValueInRange(lowerLimit, upperLimit, valueDouble); //valueDouble is not an instance of SetIntegerValue, hence returning null
+
+        // Assert
+        assertEquals(expected, result);
     }
 
     /**
