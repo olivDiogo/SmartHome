@@ -4,18 +4,19 @@ import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.temporal.ChronoUnit;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ElectricConsumptionWhSensorTest {
     @Test
-    void shouldCreateElectricConsumptionWhSensorWithValidData() throws InstantiationException {
+    void shouldCreateElectricConsumptionWhSensor() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -39,6 +40,24 @@ class ElectricConsumptionWhSensorTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
     @Test
+    void fillMockConsumptionMapWithIsOfExpectedSize() throws InstantiationException {
+    //Arrange
+        String description = "ElectricConsumptionWh";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
+
+        LocalDateTime startTime = LocalDateTime.now().minusDays(5).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+        int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
+
+    //Act
+        Map<LocalDateTime, Integer> mapAllConsumption = electricConsumptionWhSensor.artificialDatabaseOfReadingsSetTo50W();
+    //Assert
+        assertEquals(expectedSize, mapAllConsumption.size());
+    }
+    @Test
     void shouldReturnSensorType() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
@@ -52,7 +71,7 @@ class ElectricConsumptionWhSensorTest {
         assertEquals(sensorTypeDouble, result);
     }
     @Test
-    void shouldSetTimePeriodOfConsumption () throws InstantiationException {
+    void fillMapWithRandomConsumptionWithValidDataShouldSpamLast5Days() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -60,100 +79,182 @@ class ElectricConsumptionWhSensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
         ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
 
-        int hoursOffset = 1;
-        LocalDateTime startTimestamp = LocalDateTime.now();
-        LocalDateTime endTimestamp = LocalDateTime.now().plusHours(hoursOffset);
+        LocalDateTime startTime = LocalDateTime.now().minusDays(5).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         //Act
-        Long result = electricConsumptionWhSensor.setTimePeriodAndReturnDeltaInHours(startTimestamp, endTimestamp);
+        Map<LocalDateTime, Integer> mapAllConsumption = electricConsumptionWhSensor.artificialDatabaseOfReadingsSetTo50W();
         //Assert
-        assertEquals(hoursOffset, result);
+        assertEquals(startTime, mapAllConsumption.keySet().toArray()[0]);
+        assertEquals(endTime, mapAllConsumption.keySet().toArray()[mapAllConsumption.size()-1]);
     }
     @Test
-    void shouldThrowExeptionIfStartTimestampIsAfterEndTimestamp() throws InstantiationException {
+    void fillMapWithArtificialConsumptionShouldHaveSameValueInAllEntries() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
         ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
-        LocalDateTime startTimestamp = LocalDateTime.now();
-        LocalDateTime endTimestamp = LocalDateTime.now().minusHours(1);
-        String expectedMessage = "Start timestamp must be before end timestamp.";
+
+        int valueSet = 50;
         //Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> electricConsumptionWhSensor.setTimePeriodAndReturnDeltaInHours(startTimestamp, endTimestamp));
+        Map<LocalDateTime, Integer> mapAllConsumption = electricConsumptionWhSensor.artificialDatabaseOfReadingsSetTo50W();
         //Assert
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertTrue(mapAllConsumption.values().stream().allMatch(value -> value == valueSet));
     }
     @Test
-    void shouldThrowExeptionIfStartTimestampIsEqualEndTimestamp() throws InstantiationException {
+    void shouldFilterReadingForSelectedTimeFrame() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
         ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
-        LocalDateTime startTimestamp = LocalDateTime.now();
-        LocalDateTime endTimestamp = LocalDateTime.now();
-        String expectedMessage = "Start timestamp must be before end timestamp.";
+
+        LocalDateTime startTime = LocalDateTime.now().minusDays(2).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+        int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
         //Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> electricConsumptionWhSensor.setTimePeriodAndReturnDeltaInHours(startTimestamp, endTimestamp));
+        Map<LocalDateTime, Integer> mapChosenTime = electricConsumptionWhSensor.getDataFromSelectedTimePeriod(startTime, endTime);
         //Assert
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertEquals(expectedSize, mapChosenTime.size());
     }
     @Test
-    void shouldCalculateConsumptionInWhForGivenInterval() throws InstantiationException {
-        //Arrange
-        String description = "ElectricConsumptionWh";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+    void shouldThrowExceptionIfQueryOutsideRecordRange() throws InstantiationException {
+      //Arrange
+            String description = "ElectricConsumptionWh";
+            CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+            SensorType sensorTypeDouble = mock(SensorType.class);
+            when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+            ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
 
-        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
-        LocalDateTime startTimestamp = LocalDateTime.now();
-        LocalDateTime endTimestamp = LocalDateTime.now().plusHours(2);
-
-        Map<LocalDateTime, Double> mapAllConsumption = new HashMap<>();
-        //Outside Values
-        mapAllConsumption.put(startTimestamp.minusHours(1), 1.0);
-        mapAllConsumption.put(endTimestamp.plusHours(3), 2.0);
-
-        //Inside Values
-        mapAllConsumption.put(startTimestamp, 5.0);
-        mapAllConsumption.put(startTimestamp.plusMinutes(30), 1.0);
-        mapAllConsumption.put(startTimestamp.plusMinutes(25), 0.0);
-        mapAllConsumption.put(endTimestamp, 2.0);
-        int expected = 4;
-        electricConsumptionWhSensor.setTimePeriodAndReturnDeltaInHours(startTimestamp, endTimestamp);
-        //Act
-        double result = electricConsumptionWhSensor.calculateConsumptionInWh(mapAllConsumption);
-        //Assert
-        assertEquals(expected, result);
-    }
-    @Test
-    void shouldReturnConsumptionValue() throws InstantiationException {
-        //Arrange
-        String description = "ElectricConsumptionWh";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
-
-        LocalDateTime startTimestamp = LocalDateTime.now();
-        LocalDateTime endTimestamp = LocalDateTime.now().plusHours(1);
-        electricConsumptionWhSensor.setTimePeriodAndReturnDeltaInHours(startTimestamp, endTimestamp);
-
-        Map<LocalDateTime, Double> mapAllConsumption = new HashMap<>();
-        mapAllConsumption.put(startTimestamp, 1000.0);
-        mapAllConsumption.put(endTimestamp, 200.0);
-        electricConsumptionWhSensor.calculateConsumptionInWh(mapAllConsumption);
-        try (MockedConstruction<ElectricConsumptionWhValue> mocked = mockConstruction(ElectricConsumptionWhValue.class)) {
-            //Act
-            Value result = electricConsumptionWhSensor.getValue();
+            LocalDateTime startTime = LocalDateTime.now().minusDays(8).truncatedTo(ChronoUnit.MINUTES);
+            LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+            String expectedMessage = "Timestamps must be within the range of the records.";
+            //Act and Assert
+            Exception exception = assertThrows(IllegalArgumentException.class, () -> electricConsumptionWhSensor.getDataFromSelectedTimePeriod(startTime, endTime));
             //Assert
-            assertTrue(mocked.constructed().contains(result));
-        }
+            String actualMessage = exception.getMessage();
+            assertEquals(expectedMessage, actualMessage);
+    }
+    @Test
+    void shouldThrowExceptionIfQueryIntoFutureData() throws InstantiationException {
+        //Arrange
+        String description = "ElectricConsumptionWh";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
+
+        LocalDateTime startTime = LocalDateTime.now().minusDays(3).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().plusHours(5).truncatedTo(ChronoUnit.MINUTES);
+        String expectedMessage = "Timestamps must be within the range of the records.";
+        //Act and Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> electricConsumptionWhSensor.getDataFromSelectedTimePeriod(startTime, endTime));
+        //Assert
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }
+    @Test
+    void shouldThrowExceptionIfStartTimestampIsAfterEndTimestamp() throws InstantiationException {
+        //Arrange
+        String description = "ElectricConsumptionWh";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
+
+        LocalDateTime startTime = LocalDateTime.now().plusDays(3).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+        String expectedMessage = "Start timestamp must be before end timestamp.";
+        //Act and Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> electricConsumptionWhSensor.getDataFromSelectedTimePeriod(startTime, endTime));
+        //Assert
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
     }
 
+    @Test
+    void shouldReturnConsumptionInGivenTimePeriod() throws InstantiationException {
+        //Arrange
+        String description = "ElectricConsumptionWh";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
+
+        LocalDateTime startTime = LocalDateTime.now().minusDays(2).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+        int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
+        double expectedConsumption = 50 * expectedSize;
+
+        //Act
+        double actualConsumption = electricConsumptionWhSensor.calculateConsumptionInWh(startTime, endTime);
+        //Assert
+        assertEquals(expectedConsumption, actualConsumption);
+    }
+
+    @Test
+    void shouldReturnConsumptionForSelectedPeriodInValueFormat() throws InstantiationException {
+        //Arrange
+        String description = "ElectricConsumptionWh";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
+
+        LocalDateTime startTime = LocalDateTime.now().minusDays(2).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+        int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
+        int consumption = 50 * expectedSize;
+        String expectedConsumption = "ElectricConsumptionWh{" + consumption + '}';
+        //Act
+        Value actualConsumption = electricConsumptionWhSensor.getValue(startTime, endTime);
+        //Assert
+        assertEquals(expectedConsumption, actualConsumption.toString());
+    }
+    @Test
+    void shouldNotConsideredIncompleteReadings() throws InstantiationException {
+        //Arrange
+        String description = "ElectricConsumptionWh";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
+
+        LocalDateTime startTime = LocalDateTime.now().minusDays(2).minusMinutes(30).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+        int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
+        int consumption = 50 * expectedSize;
+        String expectedConsumption = "ElectricConsumptionWh{" + consumption + '}';
+        //Act
+        Value actualConsumption = electricConsumptionWhSensor.getValue(startTime, endTime);
+        //Assert
+        assertEquals(expectedConsumption, actualConsumption.toString());
+    }
+
+    @Test
+    void shouldReturnConsumptionInLast24HoursIfTimePeriodNotSelected() throws InstantiationException {
+        //Arrange
+        String description = "ElectricConsumptionWh";
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(catalogueDouble);
+
+        LocalDateTime startTime = LocalDateTime.now().minusDays(1).truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime endTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+        int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
+        int expectedConsumption = 50 * expectedSize;
+        String expectedConsumptionString = "ElectricConsumptionWh{" + expectedConsumption + '}';
+        //Act
+        Value actualConsumption = electricConsumptionWhSensor.getValue();
+        //Assert
+        assertEquals(expectedConsumptionString, actualConsumption.toString());
+    }
 }

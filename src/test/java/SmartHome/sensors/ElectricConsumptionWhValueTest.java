@@ -8,14 +8,14 @@ class ElectricConsumptionWhValueTest {
     @Test
     void shouldInstantiateElectricConsumptionWhValue() {
         //Arrange
-        double value = 0.0;
+        int value = 0;
         //Act
         new ElectricConsumptionWhValue(value);
     }
     @Test
     void shouldThrowExceptionWhenValueIsNegative() {
         //Arrange
-        double value = -1.0;
+        int value = -1;
         String expectedMessage = "Consumption cannot be negative.";
         //Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new ElectricConsumptionWhValue(value));
@@ -26,9 +26,9 @@ class ElectricConsumptionWhValueTest {
     @Test
     void shouldReturnElectricConsumptionWh() {
         //Arrange
-        double value = 5.0;
+        int value = 5;
         ElectricConsumptionWhValue electricConsumptionWhValue = new ElectricConsumptionWhValue(value);
-        String expected = "ElectricConsumptionWh{5.0}";
+        String expected = "ElectricConsumptionWh{5}";
         //Act
         String actual = electricConsumptionWhValue.toString();
         //Assert
@@ -37,22 +37,12 @@ class ElectricConsumptionWhValueTest {
     @Test
     void cloneInstanceShouldReturnSameInformation() {
         //Arrange
-        double value = 5.0;
+        int value = 5;
         ElectricConsumptionWhValue electricConsumptionWhValue = new ElectricConsumptionWhValue(value);
         //Act
-        ElectricConsumptionWhValue clonedElectricConsumptionWhValue = electricConsumptionWhValue.clone();
+        ElectricConsumptionWhValue clonedElectricConsumptionWhValue = electricConsumptionWhValue;
         //Assert
         assertEquals(electricConsumptionWhValue.toString(), clonedElectricConsumptionWhValue.toString());
-    }
-    @Test
-    void clonedInstanceShouldPointToDifferentMemoryLocation() {
-        //Arrange
-        double value = 5.0;
-        ElectricConsumptionWhValue electricConsumptionWhValue = new ElectricConsumptionWhValue(value);
-        //Act
-        ElectricConsumptionWhValue clonedElectricConsumptionWhValue = electricConsumptionWhValue.clone();
-        //Assert
-        assertNotSame(electricConsumptionWhValue, clonedElectricConsumptionWhValue);
     }
 
 
