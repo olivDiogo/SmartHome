@@ -22,10 +22,9 @@ public class AddActuatorToDeviceController {
      * @param catalogue is the actuator catalogue.
      * @throws InstantiationException if the House or the catalogue are null.
      */
-    public AddActuatorToDeviceController(House house, CatalogueActuator catalogue) throws InstantiationException {
+    public AddActuatorToDeviceController(House house, CatalogueActuator catalogue) throws IllegalArgumentException {
         if (!isValidConstructorArguments(house, catalogue))
-            throw (new InstantiationException("Invalid arguments"));
-
+            throw (new IllegalArgumentException("Invalid arguments"));
         this._house = house;
         this._catalogue = catalogue;
     }
@@ -86,6 +85,7 @@ public class AddActuatorToDeviceController {
      * @throws InstantiationException if the actuator object is null.
      */
     public ActuatorDTO addActuatorToDevice(DeviceDTO deviceDTO, String strActuatorModel) throws InstantiationException {
+
         if (!deviceDTO._status) {
             return null;
         }
@@ -93,6 +93,7 @@ public class AddActuatorToDeviceController {
         if (device == null) {
             return null;
         }
+
 
         Actuator actuator = device.addActuator(strActuatorModel, this._catalogue, new ActuatorFactory());
         if (actuator == null) {

@@ -12,14 +12,14 @@ import java.util.Optional;
 public class DeactivateDeviceController {
     private House _house;
     private Map<DeviceDTO, Device> _devicesDTOAndDevices;
-    public DeactivateDeviceController(House house) {
-        if (isValidConstructorArguments(house))
+    public DeactivateDeviceController(House house) throws IllegalArgumentException {
+        if (!isValidConstructorArguments(house))
             throw new IllegalArgumentException("Invalid arguments");
         this._house = house;
     }
 
     private boolean isValidConstructorArguments(House house) {
-        return house == null;
+        return house != null;
     }
 
     public List<DeviceDTO> getDeviceList() {

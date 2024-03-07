@@ -6,8 +6,8 @@ import SmartHome.dto.DeviceDTO;
 import SmartHome.dto.RoomDTO;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -39,7 +39,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException if the house is null.
      */
     @Test
-    void whenHouseIsNull_thenThrowsInstantiationException() throws InstantiationException {
+    void whenHouseIsNull_thenThrowsInstantiationException() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String filePathName = "config.properties";
         House house = null;
@@ -48,7 +48,7 @@ public class AddActuatorToDeviceControllerTest {
         String expected = "Invalid arguments";
 
         // Act & Assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new AddActuatorToDeviceController(house, catalogue));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new AddActuatorToDeviceController(house, catalogue));
 
         String actualMessage = exception.getMessage();
 
@@ -61,7 +61,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException if the catalogueActuator is null.
      */
     @Test
-    void whenCatalogueIsNull_thenThrowsInstantiationException() throws InstantiationException {
+    void whenCatalogueIsNull_thenThrowsInstantiationException() throws IllegalArgumentException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
         CatalogueActuator catalogue = null;
@@ -69,7 +69,7 @@ public class AddActuatorToDeviceControllerTest {
         String expected = "Invalid arguments";
 
         // Act & Assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new AddActuatorToDeviceController(house, catalogue));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new AddActuatorToDeviceController(house, catalogue));
 
         String actualMessage = exception.getMessage();
 
@@ -82,7 +82,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException if the house is null.
      */
     @Test
-    void whenGetRooms_thenReturnListOfRoomsDTO() throws InstantiationException {
+    void whenGetRooms_thenReturnListOfRoomsDTO() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String filePathName = "config.properties";
 
@@ -131,7 +131,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenGetDevicesFromRoomWithDevices_thenReturnListOfDevicesDTO() throws InstantiationException {
+    void whenGetDevicesFromRoomWithDevices_thenReturnListOfDevicesDTO() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String filePathName = "config.properties";
 
@@ -180,7 +180,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenGetDevicesFromRoomWithoutDevices_thenReturnEmptyList() throws InstantiationException {
+    void whenGetDevicesFromRoomWithoutDevices_thenReturnEmptyList() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String roomName = "Living Room";
         int floor = 1;
@@ -212,7 +212,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenGetActuatorModels_thenListOfModels() throws InstantiationException {
+    void whenGetActuatorModels_thenListOfModels() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String filePathName = "config.properties";
 
@@ -235,7 +235,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenAddActuatorToDeviceWithValidModel_thenReturnValidActuatorDTO() throws InstantiationException {
+    void whenAddActuatorToDeviceWithValidModel_thenReturnValidActuatorDTO() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String roomName = "Living Room";
         int floor = 1;
@@ -278,7 +278,7 @@ public class AddActuatorToDeviceControllerTest {
      */
 
     @Test
-    void whenAddInvalidActuatorModelToDevice_thenReturnNull() throws InstantiationException {
+    void whenAddInvalidActuatorModelToDevice_thenReturnNull() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String roomName = "Living Room";
         int floor = 1;
@@ -318,18 +318,33 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenAddActuatorToNonExistingDevice_thenReturnNull() throws InstantiationException {
+    void whenAddActuatorToNonExistingDevice_thenReturnNull() throws InstantiationException, NoSuchFieldException, IllegalAccessException {
         // Arrange
+        String roomName = "Living Room";
+        int floor = 1;
+        double width = 3.0;
+        double length = 4.0;
+        double height = 2.5;
+
         String filePathName = "config.properties";
 
+        String deviceName = "Lamp";
+        String strDescription = "SetInteger";
         String actuatorModel = "SmartHome.actuators.SetIntegerActuator";
 
         House house = new House(new LocationFactory(), new RoomFactory());
         CatalogueActuator catalogue = new CatalogueActuator(filePathName);
 
+        Room room = house.addRoom(roomName, floor, width, length, height);
+        room.addDevice(deviceName, new DeviceFactory());
+
+        catalogue.addActuatorType(strDescription, new ActuatorTypeFactory());
+
         AddActuatorToDeviceController controller = new AddActuatorToDeviceController(house, catalogue);
 
         DeviceDTO deviceDTO = mock(DeviceDTO.class);
+        Field statusField = DeviceDTO.class.getDeclaredField("_status");
+        statusField.set(deviceDTO, true);
 
         // Act
         ActuatorDTO actuatorDTO = controller.addActuatorToDevice(deviceDTO, actuatorModel);

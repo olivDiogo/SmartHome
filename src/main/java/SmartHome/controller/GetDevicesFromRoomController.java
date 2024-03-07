@@ -23,9 +23,9 @@ public class GetDevicesFromRoomController {
      * @param house is the house to get the devices from.
      * @throws InstantiationException if the house is null.
      */
-    public GetDevicesFromRoomController(House house) throws InstantiationException {
+    public GetDevicesFromRoomController(House house) throws IllegalArgumentException {
         if (!isValidConstructorArguments(house))
-            throw (new InstantiationException("Invalid arguments"));
+            throw new IllegalArgumentException("Invalid arguments");
         _house = house;
         this._roomsDTOAndRooms = new LinkedHashMap<>();
     }

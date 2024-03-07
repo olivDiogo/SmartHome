@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AddSensorToDeviceTest {
 
     @Test
-    public void constructor_WithValidArguments_ShouldInstantiate() throws InstantiationException {
+    public void constructor_WithValidArguments_ShouldInstantiate() throws IllegalArgumentException, InstantiationException {
         //Arrange
         House validHouse = new House(new LocationFactory(), new RoomFactory());
         CatalogueSensor validCatalogue = new CatalogueSensor("config.properties");
@@ -25,7 +25,7 @@ public class AddSensorToDeviceTest {
         try {
             AddSensorToDeviceController controller = new AddSensorToDeviceController(validHouse, validCatalogue);
             assertNotNull(controller);
-        } catch (InstantiationException e){
+        } catch (IllegalArgumentException e){
             fail();
         }
     }
@@ -36,7 +36,7 @@ public class AddSensorToDeviceTest {
         CatalogueSensor invalidCatalogue = null;
 
         // Act
-        Exception exception = assertThrows(InstantiationException.class, () -> {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new AddSensorToDeviceController(invalidHouse, invalidCatalogue);
         });
 
@@ -85,7 +85,7 @@ public class AddSensorToDeviceTest {
         String expectedMessage = "Invalid arguments";
 
         // act + assert
-        Exception exception = assertThrows(InstantiationException.class, () ->
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
                 new AddSensorToDeviceController(house, null)
         );
 

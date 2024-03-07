@@ -15,9 +15,9 @@ public class AddSensorToDeviceController {
 
     private Map<DeviceDTO, Device> _devicesDTOAndDevices = new HashMap<>();
 
-    public AddSensorToDeviceController(House house, CatalogueSensor catalogue) throws InstantiationException {
+    public AddSensorToDeviceController(House house, CatalogueSensor catalogue) throws IllegalArgumentException {
         if (!isValidConstructorArguments(house, catalogue))
-            throw (new InstantiationException("Invalid arguments"));
+            throw new IllegalArgumentException("Invalid arguments");
 
         _house = house;
         _catalogue = catalogue;

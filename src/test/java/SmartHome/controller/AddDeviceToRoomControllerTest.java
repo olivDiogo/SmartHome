@@ -22,7 +22,7 @@ public class AddDeviceToRoomControllerTest {
     private Room room;
 
     @Test
-    public void testForConstruct() throws InstantiationException {
+    public void testForConstruct() throws IllegalArgumentException {
         // Arrange
         house = new House(new LocationFactory(), new RoomFactory());
         // Act
@@ -32,13 +32,13 @@ public class AddDeviceToRoomControllerTest {
     }
 
     @Test
-    void whenHouseIsNull_thenThrowsInstantiationException() throws InstantiationException {
+    void whenHouseIsNull_thenThrowsInstantiationException() throws IllegalArgumentException {
         // Arrange
         House house = null;
         String expected = "Invalid arguments";
 
         // Act & Assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new AddDeviceToRoomController(house));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(house));
 
         String actualMessage = exception.getMessage();
 
@@ -46,7 +46,7 @@ public class AddDeviceToRoomControllerTest {
     }
 
     @Test
-    public void getRoomListSuccessfully() throws InstantiationException {
+    public void getRoomListSuccessfully() throws IllegalArgumentException {
         // Arrange
         house = new House(new LocationFactory(), new RoomFactory());
         controller = new AddDeviceToRoomController(house);
@@ -56,7 +56,7 @@ public class AddDeviceToRoomControllerTest {
         assertEquals(0, result.size());
     }
     @Test
-    public void addDeviceToRoomSuccessfully() throws InstantiationException {
+    public void addDeviceToRoomSuccessfully() throws IllegalArgumentException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
 
@@ -82,7 +82,7 @@ public class AddDeviceToRoomControllerTest {
     }
 
     @Test
-    public void addDeviceToRoomWithInvalidDeviceNameShouldFail() throws InstantiationException {
+    public void addDeviceToRoomWithInvalidDeviceNameShouldFail() throws IllegalArgumentException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
 

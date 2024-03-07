@@ -18,9 +18,9 @@ public class AddDeviceToRoomController {
     private House _house;
     private Map<RoomDTO, Room> _roomsDTOAndRooms;
 
-    public AddDeviceToRoomController(House house) throws InstantiationException {
+    public AddDeviceToRoomController(House house) throws IllegalArgumentException {
         if (!isValidConstructorArguments(house))
-            throw (new InstantiationException("Invalid arguments"));
+            throw new IllegalArgumentException("Invalid arguments");
         this._house = house;
     }
 

@@ -39,7 +39,7 @@ public class GetListOfRoomsControllerTest {
         House house = null;
 
         //Act + Assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new GetListOfRoomsController(house));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetListOfRoomsController(house));
         String expectedMessage = "Invalid arguments";
         String actualMessage = exception.getMessage();
 

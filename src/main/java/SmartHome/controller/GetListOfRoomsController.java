@@ -16,10 +16,9 @@ public class GetListOfRoomsController {
      * @param house
      * @throws InstantiationException if the house is null
      */
-    public GetListOfRoomsController(House house) throws InstantiationException {
+    public GetListOfRoomsController(House house) throws IllegalArgumentException {
         if( !isValidConstructorArguments(house) )
-            throw( new InstantiationException("Invalid arguments"));
-
+            throw new IllegalArgumentException("Invalid arguments");
         _house = house;
     }
 
