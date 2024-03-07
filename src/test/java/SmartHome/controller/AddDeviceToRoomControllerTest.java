@@ -1,9 +1,6 @@
 package SmartHome.controller;
 
-import SmartHome.domain.House;
-import SmartHome.domain.LocationFactory;
-import SmartHome.domain.Room;
-import SmartHome.domain.RoomFactory;
+import SmartHome.domain.*;
 import SmartHome.dto.DeviceDTO;
 import SmartHome.dto.RoomDTO;
 import org.junit.jupiter.api.Test;
@@ -13,6 +10,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -23,7 +22,7 @@ public class AddDeviceToRoomControllerTest {
     private Room room;
 
     @Test
-    public void testForConstruct() {
+    public void testForConstruct() throws InstantiationException {
         // Arrange
         house = new House(new LocationFactory(), new RoomFactory());
         // Act
@@ -33,7 +32,21 @@ public class AddDeviceToRoomControllerTest {
     }
 
     @Test
-    public void getRoomListSuccessfully() {
+    void whenHouseIsNull_thenThrowsInstantiationException() throws InstantiationException {
+        // Arrange
+        House house = null;
+        String expected = "Invalid arguments";
+
+        // Act & Assert
+        Exception exception = assertThrows(InstantiationException.class, () -> new AddDeviceToRoomController(house));
+
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expected));
+    }
+
+    @Test
+    public void getRoomListSuccessfully() throws InstantiationException {
         // Arrange
         house = new House(new LocationFactory(), new RoomFactory());
         controller = new AddDeviceToRoomController(house);
@@ -43,7 +56,7 @@ public class AddDeviceToRoomControllerTest {
         assertEquals(0, result.size());
     }
     @Test
-    public void addDeviceToRoomSuccessfully() {
+    public void addDeviceToRoomSuccessfully() throws InstantiationException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
 
@@ -69,7 +82,7 @@ public class AddDeviceToRoomControllerTest {
     }
 
     @Test
-    public void addDeviceToRoomWithInvalidDeviceNameShouldFail() {
+    public void addDeviceToRoomWithInvalidDeviceNameShouldFail() throws InstantiationException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
 
