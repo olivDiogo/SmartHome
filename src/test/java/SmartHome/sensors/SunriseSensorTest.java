@@ -4,13 +4,16 @@ import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.Gps;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import org.shredzone.commons.suncalc.SunTimes;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -51,47 +54,25 @@ public class SunriseSensorTest {
     }
 
     /**
-     * See if the configureGpsLocation method works.
+     * See if the configureGpsLocation method throws an exception when the gps.configuration file is not found.
      */
     @Test
-    void shouldConfigureGpsLocation() throws InstantiationException {
+    void shouldThrowExceptionWhenGpsConfigurationFileIsNotFound() {
         //Arrange
-        String description = "SunriseTime";
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
-        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        Gps gpsDouble = mock(Gps.class);
+        when(catalogueSensorDouble.getSensorType("SunsetTime")).thenReturn(sensorTypeDouble);
+        String expectedMessage = "gps.configuration file not found";
 
-        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
-
-        //Act
-        Gps gps = sunriseTimeSensor.configureGpsLocation(gpsDouble);
-
-        //Assert
-        assertEquals(gps, gpsDouble);
-    }
-
-    /**
-     * See if the configureGpsLocation method throws an exception when the GPS location is null.
-     */
-    @Test
-    void shouldThrowExceptionWhenGpsLocationIsNull() throws InstantiationException {
-        //Arrange
-        String description = "SunriseTime";
-        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-        Gps gps = null;
-
-        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
-        String expectedMessage = "GPS location is required";
-
-        //Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> sunriseTimeSensor.configureGpsLocation(gps));
-
-        //Assert
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        try (MockedConstruction<Configurations> mocked = mockConstruction(Configurations.class, (mock, context) -> {
+            when(mock.properties(any(File.class))).thenReturn(null);
+        })) {
+            //Act
+            Exception exception = assertThrows(InstantiationException.class, () -> new SunsetTimeSensor(catalogueSensorDouble));
+            //Assert
+            String actualMessage = exception.getMessage();
+            assertTrue(actualMessage.contains(expectedMessage));
+        }
     }
 
     /**
@@ -135,10 +116,8 @@ public class SunriseSensorTest {
         when(gpsDouble.getLongitude()).thenReturn(8.6291);
 
         SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
-        sunriseTimeSensor.configureGpsLocation(gpsDouble);
 
         try (MockedConstruction<SunriseTimeValue> mocked = mockConstruction(SunriseTimeValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(sunriseTimeValueDouble);
             when(mock.toString()).thenReturn(value);
             when(sunriseTimeValueDouble.toString()).thenReturn(value);
         })) {
@@ -148,7 +127,6 @@ public class SunriseSensorTest {
             System.out.println(result.toString());
             //Assert
             List<SunriseTimeValue> sunriseTimeSensorValues = mocked.constructed();
-            // assertTrue(sunriseTimeSensorValues.contains(result));
             assertEquals(result.toString(), sunriseTimeSensorValues.get(0).toString());
             assertEquals(expectedSize, sunriseTimeSensorValues.size());
         }
@@ -172,15 +150,9 @@ public class SunriseSensorTest {
 
         when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        Gps gpsDouble = mock(Gps.class);
-        when(gpsDouble.getLatitude()).thenReturn(41.1579); // Coordinates to oporto
-        when(gpsDouble.getLongitude()).thenReturn(8.6291);
-
         SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
-        sunriseTimeSensor.configureGpsLocation(gpsDouble);
 
         try (MockedConstruction<SunriseTimeValue> mocked = mockConstruction(SunriseTimeValue.class, (mock, context) -> {
-            when(mock.clone()).thenReturn(sunriseTimeValueDouble);
             when(mock.toString()).thenReturn(value);
             when(sunriseTimeValueDouble.toString()).thenReturn(value);
         })) {
@@ -190,7 +162,6 @@ public class SunriseSensorTest {
             System.out.println(result.toString());
             //Assert
             List<SunriseTimeValue> sunriseTimeSensorValues = mocked.constructed();
-            // assertTrue(sunriseTimeSensorValues.contains(result));
             assertEquals(result.toString(), sunriseTimeSensorValues.get(0).toString());
             assertEquals(expectedSize, sunriseTimeSensorValues.size());
         }
@@ -205,13 +176,8 @@ public class SunriseSensorTest {
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        Gps gpsDouble = mock(Gps.class);
-        when(gpsDouble.getLatitude()).thenReturn(41.1579); // Coordinates to oporto
-        when(gpsDouble.getLongitude()).thenReturn(8.6291);
-
         LocalTime expected = SunTimes.compute().on(LocalDate.now()).at(41.1579, 8.6291).execute().getRise().toLocalTime();
         SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
-        sunriseTimeSensor.configureGpsLocation(gpsDouble);
 
         //Act
         LocalTime result = sunriseTimeSensor.getSunriseTime();
@@ -230,19 +196,16 @@ public class SunriseSensorTest {
         SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-        Gps gpsDouble = mock(Gps.class);
-        when(gpsDouble.getLatitude()).thenReturn(41.1579); // Coordinates to oporto
-        when(gpsDouble.getLongitude()).thenReturn(8.6291);
 
-        LocalTime expected = SunTimes.compute().on(date).at(41.1579, 8.6291).execute().getRise().toLocalTime();
+        SunTimes time = SunTimes.compute().on(date).at(41.1579, 8.6291).execute();
+        LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();
         SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
-        sunriseTimeSensor.configureGpsLocation(gpsDouble);
 
         //Act
         LocalTime result = sunriseTimeSensor.getSunriseTime(date);
 
         //Assert
         assertNotNull(result);
-        assertEquals(expected, result);
+        assertEquals(sunrise, result);
     }
 }

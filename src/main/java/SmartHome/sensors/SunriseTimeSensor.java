@@ -1,9 +1,12 @@
 package SmartHome.sensors;
 
 import SmartHome.domain.*;
-import SmartHome.sensors.SunriseTimeValue;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.shredzone.commons.suncalc.SunTimes;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -12,7 +15,10 @@ import java.util.Objects;
 public class SunriseTimeSensor implements Sensor {
 
     private final SensorType _sensorType;
-    private Gps _gps;
+
+    private double _latitude;
+    private double _longitude;
+    private SunriseTimeValue _sunriseTimeValue;
 
     /**
      * Creates a new SunriseTimeSensor with a given catalogue.
@@ -22,6 +28,7 @@ public class SunriseTimeSensor implements Sensor {
      */
     public SunriseTimeSensor(CatalogueSensor catalogue) throws InstantiationException {
         this._sensorType = setSensorType(catalogue);
+        configureGpsLocation();
     }
 
     /**
@@ -44,16 +51,20 @@ public class SunriseTimeSensor implements Sensor {
     /**
      * Configures the GPS location of the SunriseTimeSensor.
      *
-     * @param gps the GPS location to be set.
-     * @return the GPS location.
-     * @throws IllegalArgumentException if the GPS location is null.
+     * @throws InstantiationException if the gps.configuration file is not found or if something went wrong in reading the gps configuration.
      */
-    public Gps configureGpsLocation(Gps gps) {
-        if (gps == null)
-            throw new IllegalArgumentException("GPS location is required");
-        else {
-            this._gps = gps;
-            return gps;
+    private void configureGpsLocation() throws InstantiationException {
+        try {
+            Configurations configs = new Configurations();
+            Configuration config = configs.properties(new File("gps.configuration"));
+            if (Objects.isNull(config))
+                throw new InstantiationException("gps.configuration file not found");
+            else {
+                _latitude = Double.parseDouble(config.getString("latitude"));
+                _longitude = Double.parseDouble(config.getString("longitude"));
+            }
+        } catch (ConfigurationException exception) {
+            throw new InstantiationException("something went wrong in reading the gps configuration: " + exception.getMessage());
         }
     }
 
@@ -71,8 +82,8 @@ public class SunriseTimeSensor implements Sensor {
      *
      * @return the Sunrise Time of the GPS location.
      */
-    public LocalTime getSunriseTime() {
-        SunTimes time = SunTimes.compute().on(LocalDate.now()).at(this._gps.getLatitude(), this._gps.getLongitude()).execute();
+    LocalTime getSunriseTime() {
+        SunTimes time = SunTimes.compute().on(LocalDate.now()).at(_latitude, _longitude).execute();
         LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();
         return sunrise;
     }
@@ -83,8 +94,8 @@ public class SunriseTimeSensor implements Sensor {
      * @param date the date to be used.
      * @return the Sunrise Time of the GPS location for a given date.
      */
-    public LocalTime getSunriseTime(LocalDate date) {
-        SunTimes time = SunTimes.compute().on(date).at(this._gps.getLatitude(), this._gps.getLongitude()).execute();
+    LocalTime getSunriseTime(LocalDate date) {
+        SunTimes time = SunTimes.compute().on(date).at(_latitude, _longitude).execute();
         LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();
         return sunrise;
     }
@@ -96,7 +107,9 @@ public class SunriseTimeSensor implements Sensor {
      */
     @Override
     public Value getValue() {
-        return new SunriseTimeValue(getSunriseTime()).clone();
+        LocalTime sunrise = getSunriseTime();
+        this._sunriseTimeValue = new SunriseTimeValue(sunrise);
+        return this._sunriseTimeValue;
     }
 
     /**
@@ -106,7 +119,9 @@ public class SunriseTimeSensor implements Sensor {
      * @return the value of the SunriseTimeSensor for a given date.
      */
     public Value getValue(LocalDate date) {
-        return new SunriseTimeValue(getSunriseTime(date)).clone();
+        LocalTime sunset = getSunriseTime(date);
+        this._sunriseTimeValue = new SunriseTimeValue(sunset);
+        return this._sunriseTimeValue;
     }
 
 }
