@@ -18,14 +18,14 @@ public class AddDeviceToRoomController {
     private House _house;
     private Map<RoomDTO, Room> _roomsDTOAndRooms;
 
-    public AddDeviceToRoomController(House house) throws IllegalArgumentException{
-        if (isValidConstructorArguments(house))
-            throw new IllegalArgumentException("Arguments cannot be null!");
+    public AddDeviceToRoomController(House house) throws IllegalArgumentException {
+        if (!isValidConstructorArguments(house))
+            throw new IllegalArgumentException("Invalid arguments");
         this._house = house;
     }
 
     private boolean isValidConstructorArguments(House house) {
-        return house == null;
+        return house != null;
     }
     public List<RoomDTO> getRoomList() {
         List<Room> allRooms = _house.getRooms();

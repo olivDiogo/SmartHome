@@ -11,12 +11,12 @@ public class AddRoomToHouseController {
 
 
     public AddRoomToHouseController(House house) throws IllegalArgumentException{
-        if(isValidConstructorArguments(house))
-            throw new IllegalArgumentException("Arguments cannot be null!");
+        if(!isValidConstructorArguments(house))
+            throw new IllegalArgumentException("Invalid arguments");
         _house = house;
     }
     private boolean isValidConstructorArguments(House house) {
-        return house == null;
+        return house != null;
     }
 
     public RoomDTO  addRoomToHouse(String strName, int nFloor, double dLength, double dWidth, double dHeight) {

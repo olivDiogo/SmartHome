@@ -18,10 +18,9 @@ public class GetAllDevicesGroupedByFunctionalityController {
      * @param house is an instance of House
      * @throws InstantiationException if an error occurs
      */
-    public GetAllDevicesGroupedByFunctionalityController(House house, CatalogueSensor catalogue) throws InstantiationException {
-        if (isValidConstructorArguments(house, catalogue))
-            throw new InstantiationException("Arguments cannot be null!");
-
+    public GetAllDevicesGroupedByFunctionalityController(House house, CatalogueSensor catalogue) throws IllegalArgumentException {
+        if (!isValidConstructorArguments(house, catalogue))
+            throw new IllegalArgumentException("Invalid arguments");
         this._house = house;
         this._catalogue = catalogue;
     }
@@ -34,7 +33,7 @@ public class GetAllDevicesGroupedByFunctionalityController {
      * @return true if the arguments are valid, false otherwise
      */
     private boolean isValidConstructorArguments(House house, CatalogueSensor catalogue) {
-        return house == null || catalogue == null;
+        return house != null && catalogue != null;
     }
 
     /**

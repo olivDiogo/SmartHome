@@ -33,15 +33,15 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
      * @throws InstantiationException if either the house or catalogue are null
      */
     @Test
-    public void whenHouseIsNull_thenThrowsException() throws InstantiationException {
+    public void whenHouseIsNull_thenThrowsException() throws IllegalArgumentException, InstantiationException {
         // Arrange
         House house = null;
         CatalogueSensor catalogue = new CatalogueSensor("config.properties");
 
-        String expectedMessage = "Arguments cannot be null!";
+        String expectedMessage = "Invalid arguments";
 
         // Act + Assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new GetAllDevicesGroupedByFunctionalityController(house, catalogue));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetAllDevicesGroupedByFunctionalityController(house, catalogue));
 
         // Assert
         String actualMessage = exception.getMessage();
@@ -56,15 +56,15 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
      * @throws InstantiationException if either the house or catalogue are null
      */
     @Test
-    public void whenCatalogueIsNull_thenThrowsException() throws InstantiationException {
+    public void whenCatalogueIsNull_thenThrowsException() throws IllegalArgumentException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
         CatalogueSensor catalogue = null;
 
-        String expectedMessage = "Arguments cannot be null!";
+        String expectedMessage = "Invalid arguments";
 
         // Act + Assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new GetAllDevicesGroupedByFunctionalityController(house, catalogue));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetAllDevicesGroupedByFunctionalityController(house, catalogue));
 
         // Assert
         String actualMessage = exception.getMessage();

@@ -169,7 +169,7 @@ class GetDevicesFromRoomControllerTest {
         House house = null;
 
         //Act + Assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new GetDevicesFromRoomController(house));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetDevicesFromRoomController(house));
         String expectedMessage = "Invalid arguments";
         String actualMessage = exception.getMessage();
 

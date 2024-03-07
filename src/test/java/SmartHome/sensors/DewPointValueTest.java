@@ -9,22 +9,33 @@ public class DewPointValueTest {
 
     /**
      * Test if the constructor is properly created.
-      */
+     */
     @Test
-    public void testConstructor (){
+    public void shouldInstantiateDewPointValue() {
         //Arrange
         int value = 1;
         //Act
-        DewPointValue dewPointValue = new DewPointValue(value);
-        //Assert
-        assertNotNull(dewPointValue);
+        new DewPointValue(value);
+
+    }
+
+    /**
+     * Test if the constructor is properly created when the value is negative.
+     */
+    @Test
+    public void shouldInstantiateDewPointValueWhenValueIsNegative() {
+        //Arrange
+        int nValue = -1;
+        //Act
+        new DewPointValue(nValue);
+
     }
 
     /**
      * Test if the toString method returns the correct value.
      */
     @Test
-    public void testToString (){
+    public void shouldReturnDewPointValueInString() {
         //Arrange
         int value = 1;
         DewPointValue dewPointValue = new DewPointValue(value);
@@ -35,7 +46,6 @@ public class DewPointValueTest {
         //Assert
         assertEquals(expected, result);
     }
-
 
 
 }

@@ -10,7 +10,7 @@ class InstantPowerConsumptionValueTest {
      * Test the InstantPowerConsumptionValue constructor
      */
     @Test
-    public void testInstantPowerConsumptionValueConstructor() {
+    public void shouldInstantiateInstantPowerConsumptionVaue() {
         // Arrange
         double value = 1.0;
 
@@ -22,7 +22,7 @@ class InstantPowerConsumptionValueTest {
      * Test the InstantPowerConsumptionValue constructor with a negative value. Should throw an IllegalArgumentException.
      */
     @Test
-    public void testInstantPowerConsumptionValueConstructorNegativeValue() {
+    public void shouldThrowExceptionWhenInstantPowerConsumptionValueIsNegative() {
         // Arrange
         double value = -1.0;
 
@@ -40,14 +40,30 @@ class InstantPowerConsumptionValueTest {
 
     /**
      * Test the InstantPowerConsumptionValue constructor with a value equal to zero.
-      */
+     */
     @Test
-    public void testInstantPowerConsumptionValueConstructorWithZero() {
+    public void shouldInstantiateInstantPowerConsumptionValueWhenValueIsZero() {
         // Arrange
         double value = 0.0;
 
         // Act
         new InstantPowerConsumptionValue(value);
+    }
+
+    /**
+     * Test the toString method of the InstantPowerConsumptionValue class.
+     */
+    @Test
+    void shouldReturnInstantPowerConsumptionValueInString() {
+        // Arrange
+        double value = 1.0;
+        InstantPowerConsumptionValue instantPowerConsumptionValue = new InstantPowerConsumptionValue(value);
+
+        String expected = "1.0";
+        // Act
+        String result = instantPowerConsumptionValue.toString();
+        // Assert
+        assertEquals(expected, result);
     }
 
 

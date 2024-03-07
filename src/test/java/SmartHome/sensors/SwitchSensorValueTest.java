@@ -13,7 +13,7 @@ class SwitchSensorValueTest {
      * Tests that the SwitchSensorValue constructor correctly initializes with a given boolean value.
      */
     @Test
-    void seeIfConstructorWorks(){
+    void constructorReturnsObject(){
         // Arrange
         boolean bValue = true;
 

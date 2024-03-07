@@ -18,7 +18,7 @@ class InstantPowerConsumptionSensorTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    public void testConstructorInstantPowerConsumptionSensor() throws InstantiationException {
+    public void shouldInstantiateInstantPowerConsumptionSensorIfSupported() throws InstantiationException {
         //Arrange
         String description = "InstantPowerConsumption";
 
@@ -34,7 +34,7 @@ class InstantPowerConsumptionSensorTest {
      * Test if the Instant Power Consumption Constructor returns a String Message because it is invalid.
      */
     @Test
-    public void invalidInstantPowerConsumptionConstructor() {
+    public void shouldThrowExceptionWhenSensorTypeIsNotSupported() {
         //Arrange
         String description = "InstantPowerConsumption";
 
@@ -59,7 +59,7 @@ class InstantPowerConsumptionSensorTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    public void testGetSensorType() throws InstantiationException {
+    public void shouldReturnSensorType() throws InstantiationException {
         String description = "InstantPowerConsumption";
 
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
@@ -82,7 +82,7 @@ class InstantPowerConsumptionSensorTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    public void testGetWrongSensorType() throws InstantiationException {
+    public void shouldThrowExceptionWhenSensorTypeIsNotValid() throws InstantiationException {
         String description = "InstantPowerConsumption";
 
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
@@ -106,7 +106,7 @@ class InstantPowerConsumptionSensorTest {
      * @throws InstantiationException If the sensor type "InstantPowerConsumption" does not exist.
      */
     @Test
-    public void testGetValue() throws InstantiationException {
+    public void shouldReturnInstantPowerConsumptionValue() throws InstantiationException {
         //Arrange
         String description = "InstantPowerConsumption";
         double value = 25.0;
@@ -140,7 +140,7 @@ class InstantPowerConsumptionSensorTest {
      * @throws InstantiationException If the sensor type "InstantPowerConsumption" does not exist.
      */
     @Test
-    public void getNegativeValue() throws InstantiationException {
+    public void shouldThrowExceptionWhenInstantPowerConsumptionIsNegative() throws InstantiationException {
         //Arrange
         String description = "InstantPowerConsumption";
         double value = -25.0;
