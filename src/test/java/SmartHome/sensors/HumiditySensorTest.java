@@ -22,7 +22,7 @@ class HumiditySensorTest {
      * @throws InstantiationException if the sensor type does not exist.
      */
     @Test
-    void newValidHumiditySensor() throws InstantiationException {
+    void shouldReturnNewHumiditySensor_WhenSensorTypeIsValid() throws InstantiationException {
         // Arrange
         String description = "Humidity";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -39,7 +39,7 @@ class HumiditySensorTest {
      * expecting an InstantiationException.
      */
     @Test
-    void newInvalidHumiditySensor() {
+    void shouldThrowInstantiationException_WhenSensorTypeIsInvalid() {
         // Arrange
         String description = "Humidity";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -59,7 +59,7 @@ class HumiditySensorTest {
      * @throws InstantiationException if the sensor type does not exist.
      */
     @Test
-    void getSensorTypeReturnsCorrectSensorType() throws InstantiationException {
+    void shouldReturnCorrectSensorType_WhenGetSensorTypeIsCalled() throws InstantiationException {
         // Arrange
         String description = "Humidity";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -82,7 +82,7 @@ class HumiditySensorTest {
      * @throws InstantiationException if the sensor type does not exist.
      */
     @Test
-    void getValueReturnsHardCodedValue() throws InstantiationException {
+    void shouldReturnValue_WhenGetValueIsCalled() throws InstantiationException {
         // Arrange
         String description = "Humidity";
 
