@@ -166,6 +166,10 @@ public class SunriseSensorTest {
 
     }
 
+    /**
+     * See if the getValue method works for the current day.
+     */
+
     @Test
     void seeIfSunriseTimeMethodWorks() throws InstantiationException {
         //Arrange
@@ -183,6 +187,10 @@ public class SunriseSensorTest {
         assertNotNull(result);
         assertEquals(expected, result);
     }
+
+    /**
+     * See if the getValue method works for a specific day.
+     */
 
     @Test
     void seeIfSunriseTimeMethodWorksForSpecificDate() throws InstantiationException {
