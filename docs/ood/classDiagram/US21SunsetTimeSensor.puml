@@ -12,16 +12,11 @@ package SmartHome.sensors {
     + getSensorType() : SensorType
     + getValue() : Value
     + getValue(LocalDate date) : Value
-      getSunsetTime() : LocalTime
-      getSunsetTime(LocalDate date) : LocalTime
-    - setSensorType(CatalogueSensor catalogueSensor)
-    + configureGpsLocation()
   }
 
   class SunsetTimeValue {
     - _value: LocalTime
     + SunsetTimeValue(LocalTime value)
-    - setValue(LocalTime value)
     + toString() : String
   }
 
@@ -38,8 +33,6 @@ package SmartHome.domain {
     - _strDescription : String
     - _unit : Unit
     + SensorType(String strDescription, Unit unit)
-    - setStrDescription(String strDescription) : String
-    - setUnit(Unit unit) : Unit
     + getDescription() : String
     + getUnit() : Unit
   }
@@ -53,10 +46,10 @@ package SmartHome.domain {
 
 }
 
-SmartHome.sensors.SunsetTimeSensor ..|> SmartHome.domain.Sensor: implements
-SmartHome.sensors.SunsetTimeSensor --o SmartHome.domain.SensorType : has
-SmartHome.sensors.SunsetTimeSensor --> SmartHome.sensors.SunsetTimeValue : contains
+SmartHome.sensors.SunsetTimeSensor ..|> SmartHome.domain.Sensor
+SmartHome.sensors.SunsetTimeSensor "1"-->"1  "SmartHome.domain.SensorType : has
+SmartHome.sensors.SunsetTimeSensor "1 "--> "1 " SmartHome.sensors.SunsetTimeValue : contains
 SmartHome.sensors.SunsetTimeSensor --> SmartHome.domain.CatalogueSensor: uses
-SmartHome.sensors.SunsetTimeValue ..|> SmartHome.domain.Value: implements
+SmartHome.sensors.SunsetTimeValue ..|> SmartHome.domain.Value
 
 @enduml

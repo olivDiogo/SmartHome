@@ -51,10 +51,10 @@ package SmartHome.domain {
 
 }
 
-SmartHome.sensors.ElectricConsumptionWhSensor ..|> SmartHome.domain.Sensor: interface
-SmartHome.sensors.ElectricConsumptionWhSensor --o SmartHome.domain.SensorType : has
+SmartHome.sensors.ElectricConsumptionWhSensor ..|> SmartHome.domain.Sensor
+SmartHome.sensors.ElectricConsumptionWhSensor "1"-->"1   " SmartHome.domain.SensorType : has
 SmartHome.sensors.ElectricConsumptionWhSensor --> SmartHome.domain.CatalogueSensor : uses
-SmartHome.sensors.ElectricConsumptionWhSensor --* SmartHome.sensors.ElectricConsumptionWhValue : contains
-SmartHome.sensors.ElectricConsumptionWhValue ..|> SmartHome.domain.Value: interface
+SmartHome.sensors.ElectricConsumptionWhSensor "1"-->"1" SmartHome.sensors.ElectricConsumptionWhValue : contains
+SmartHome.sensors.ElectricConsumptionWhValue ..|> SmartHome.domain.Value
 
 @enduml
