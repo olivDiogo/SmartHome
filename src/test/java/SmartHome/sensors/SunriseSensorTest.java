@@ -103,11 +103,9 @@ public class SunriseSensorTest {
         //Arrange
         String description = "SunriseTime";
         int expectedSize = 1;
-        String value = "Sunrise Time: 06:00:00";
 
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
-        SunriseTimeValue sunriseTimeValueDouble = mock(SunriseTimeValue.class);
 
         when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
@@ -118,8 +116,7 @@ public class SunriseSensorTest {
         SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
 
         try (MockedConstruction<SunriseTimeValue> mocked = mockConstruction(SunriseTimeValue.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(value);
-            when(sunriseTimeValueDouble.toString()).thenReturn(value);
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
 
             //Act
@@ -140,20 +137,18 @@ public class SunriseSensorTest {
         //Arrange
         String description = "SunriseTime";
         int expectedSize = 1;
-        String value = "Sunrise Time: 06:00:00";
         LocalDate date = LocalDate.of(2021, 10, 10);
 
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
-        SunriseTimeValue sunriseTimeValueDouble = mock(SunriseTimeValue.class);
+        //SunriseTimeValue sunriseTimeValueDouble = mock(SunriseTimeValue.class);
 
         when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
 
         try (MockedConstruction<SunriseTimeValue> mocked = mockConstruction(SunriseTimeValue.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(value);
-            when(sunriseTimeValueDouble.toString()).thenReturn(value);
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
 
             //Act
@@ -171,7 +166,7 @@ public class SunriseSensorTest {
      */
 
     @Test
-    void seeIfSunriseTimeMethodWorks() throws InstantiationException {
+    void shouldReturnSunRiseTimeForThePresentDay() throws InstantiationException {
         //Arrange
         String description = "SunriseTime";
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
@@ -193,7 +188,7 @@ public class SunriseSensorTest {
      */
 
     @Test
-    void seeIfSunriseTimeMethodWorksForSpecificDate() throws InstantiationException {
+    void shouldReturnSunriseTimeForSpecificDate() throws InstantiationException {
         //Arrange
         String description = "SunriseTime";
         LocalDate date = LocalDate.of(2024, 10, 10);
