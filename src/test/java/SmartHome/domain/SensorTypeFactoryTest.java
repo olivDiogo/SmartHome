@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 
 class SensorTypeFactoryTest {
     @Test
-    void shouldReturnMockedSensorType_TestWithoutWhen() {
+    void shouldCreateSensorTypeWhenValidDescriptionAndUnitAreProvided() {
         // Arrange
         String description = "Temperature";
         Unit unit = Unit.TEMPERATURE; // Assuming an example unit
@@ -27,7 +27,7 @@ class SensorTypeFactoryTest {
     }
 
     @Test
-    void shouldReturnMockedSensorType_TestWithWhen() throws InstantiationException {
+    void shouldCreateSensorTypeAndReturnCorrectDescriptionAndUnitWhenValidDescriptionAndUnitAreProvided() throws InstantiationException {
         // Arrange
         String description = "Temperature";
         Unit unit = Unit.TEMPERATURE; // Assuming an example unit

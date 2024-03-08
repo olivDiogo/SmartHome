@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
 
 class CatalogueSensorTest {
     @Test
-    void newConfiguredCatalogueFromExistingFile() throws InstantiationException, ConfigurationException {
+    void shouldInstantiateCatalogueSensorWhenFilePathnameIsValid() throws InstantiationException, ConfigurationException {
         // Arrange
         String filePathname = "config.properties";
         // Act
@@ -23,7 +23,7 @@ class CatalogueSensorTest {
     }
 
     @Test
-    void newConfiguredCatalogueFromNonExistingFile()
+    void shouldThrowExceptionWhenFilePathnameIsInvalid()
     {
         // Arrange
         String expectedMessage = "something went wrong in reading the configuration: ";
@@ -40,7 +40,7 @@ class CatalogueSensorTest {
     }
 
     @Test
-    void getExistingSensorType() throws InstantiationException
+    void shouldReturnSensorTypeWhenDescriptionExists() throws InstantiationException
     {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
@@ -59,7 +59,7 @@ class CatalogueSensorTest {
         assertEquals(sensorType, sensorTypeDouble);
     }
     @Test
-    void shouldReturnNullIfSensorTypeDoesNotExist() throws InstantiationException
+    void shouldReturnNullWhenSensorTypeDoesNotExist() throws InstantiationException
     {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
@@ -80,7 +80,7 @@ class CatalogueSensorTest {
 
 
     @Test
-    void whenGetEmptySensorTypeList_thenReturnsNull() throws InstantiationException
+    void shouldReturnNullWhenSensorTypeListIsEmpty() throws InstantiationException
     {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
@@ -94,7 +94,7 @@ class CatalogueSensorTest {
     }
 
     @Test
-    void addValidSensorType() throws InstantiationException
+    void shouldAddSensorTypeWhenDescriptionAndUnitAreValid() throws InstantiationException
     {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
@@ -113,7 +113,7 @@ class CatalogueSensorTest {
         assertEquals(sensorType, sensorTypeDouble);
     }
     @Test
-    void addValidSensorTypeToList() throws InstantiationException
+    void shouldAddSensorTypeToListWhenSensorTypeIsValid() throws InstantiationException
     {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
@@ -128,7 +128,7 @@ class CatalogueSensorTest {
     }
 
     @Test
-    void addEmptyDescriptionSensorType_thenThrowsException() throws InstantiationException {
+    void shouldThrowExceptionWhenAddingSensorTypeWithEmptyDescription() throws InstantiationException {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         SensorTypeFactory sensorTypeFactory = mock(SensorTypeFactory.class);
@@ -144,7 +144,7 @@ class CatalogueSensorTest {
     }
 
     @Test
-    void addNullDescriptionSensorType() throws InstantiationException {
+    void shouldThrowExceptionWhenAddingSensorTypeWithNullDescription() throws InstantiationException {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
         SensorTypeFactory sensorTypeFactory = mock(SensorTypeFactory.class);
@@ -161,7 +161,7 @@ class CatalogueSensorTest {
     }
 
     @Test
-    void getSensorOfUniqueModel()  throws InstantiationException
+    void shouldReturnSensorWhenModelIsValid()  throws InstantiationException
     {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
@@ -181,7 +181,7 @@ class CatalogueSensorTest {
 
 
     @Test
-    void getNullSensorOfEmptyListOfModels() throws InstantiationException
+    void shouldReturnNullWhenSensorModelListIsEmpty() throws InstantiationException
     {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );
@@ -196,7 +196,7 @@ class CatalogueSensorTest {
         assertNull( sensor );
     }
     @Test
-    void getNullSensorIfUnsupportedModel() throws InstantiationException
+    void shouldReturnNullWhenSensorModelDoesNotExist() throws InstantiationException
     {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor( "config.properties" );

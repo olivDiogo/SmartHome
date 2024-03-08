@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 public class DimensionsFactoryTest {
 
     @Test
-    void shouldReturnMockedDimensions_TestWithoutWhen(){
+    void shouldReturnMockedDimensionsWhenCreateDimensionsIsCalledWithValidParameters(){
         //Arrange
         double width = 1.0;
         double length = 1.0;
@@ -29,7 +29,7 @@ public class DimensionsFactoryTest {
     }
 
     @Test
-    void shouldReturnMockedDimensions_TestWithWhen(){
+    void shouldReturnMockedDimensionsWithCorrectWidthWhenCreateDimensionsIsCalledWithValidParameters(){
         //Arrange
         double width = 1.0;
         double length = 1.0;

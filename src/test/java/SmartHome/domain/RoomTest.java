@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 public class RoomTest {
 
     @Test
-    void testConstructWithValidArguments() {
+    void shouldInstantiateRoomWWhenConstructorIsCalledithValidArguments() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -28,7 +28,7 @@ public class RoomTest {
     }
 
     @Test
-    void setNameShouldThrowExceptionWhenNameIsInvalid() {
+    void shouldThrowExceptionWhenSetNameIsCalledWithInvalidName() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -50,7 +50,7 @@ public class RoomTest {
     }
 
     @Test
-    void getNameShouldReturnRoomName() {
+    void shouldReturnRoomNameWhenGetNameIsCalled() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -94,7 +94,7 @@ public class RoomTest {
     }
 
     @Test
-    void getIdShouldReturnRoomID() {
+    void shouldReturnRoomIDWhenGetRoomIdIsCalled() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -117,7 +117,7 @@ public class RoomTest {
     }
 
     @Test
-    void getFloorShouldReturnCorrectFloor() {
+    void shouldReturnCorrectFloorWhenGetFloorIsCalled() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -139,7 +139,7 @@ public class RoomTest {
     }
 
     @Test
-    void shouldInstantiateDeviceSuccessfully() {
+    void shouldInstantiateDeviceSuccessfullyWhenAddDeviceIsCalled() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -166,7 +166,7 @@ public class RoomTest {
     }
 
     @Test
-    void shouldAddDeviceToList() {
+    void shouldAddDeviceToListWhenAddDeviceToListIsCalled() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -191,7 +191,7 @@ public class RoomTest {
     }
 
     @Test
-    void shouldReturnEmptyListOfDevices() {
+    void shouldReturnEmptyListOfDevicesWhenGetDevicesIsCalled() {
         // Arrange
         Dimensions dimensionsDouble = mock(Dimensions.class);
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
@@ -213,7 +213,7 @@ public class RoomTest {
         assertEquals(expected, result);
     }
     @Test
-    void ifDimensionsNullShouldIllegalArgumentExceptionIsThrown() {
+    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithNullDimensions() {
         // Arrange
         DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
         String name = "Room";

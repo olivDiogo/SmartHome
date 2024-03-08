@@ -13,7 +13,7 @@ class SetDecimalValueTest {
      * Tests the creation of an instance of SetDecimalValue.
      */
     @Test
-    void shouldCreateInstanceOfSetDecimalValue() {
+    void shouldCreateInstanceOfSetDecimalValueWhenValueIsProvided() {
         // Arrange
         double value = 4.5;
 
@@ -28,7 +28,7 @@ class SetDecimalValueTest {
      * Tests cloning of a SetDecimalValue object.
      */
     @Test
-    void shouldCloneSetDecimalValue() {
+    void shouldCloneSuccessfullyWhenCloneMethodIsCalled() {
         // Arrange
         double value = 10.5;
         SetDecimalValue setDecimalValue = new SetDecimalValue(value);
@@ -44,7 +44,7 @@ class SetDecimalValueTest {
      * Tests the conversion of SetDecimalValue to string.
      */
     @Test
-    void shouldConvertToString() {
+    void shouldReturnCorrectStringWhenToStringIsCalled() {
         // Arrange
         double value = 10.5;
         SetDecimalValue setDecimalValue = new SetDecimalValue(value);

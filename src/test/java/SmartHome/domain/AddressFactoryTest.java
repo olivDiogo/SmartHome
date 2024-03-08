@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 
 class AddressFactoryTest {
     @Test
-    void shouldReturnMockedAddress_TestWithoutWhen(){
+    void shouldReturnMockedAddressWhenCreateAddressIsCalled(){
         //Arrange
         String street = "Street";
         String zipCode = "12345";
@@ -24,7 +24,7 @@ class AddressFactoryTest {
             );}
     }
     @Test
-    void shouldReturnMockedAddress_TestWithWhen(){
+    void shouldReturnMockedAddressWithCorrectStreetWhenCreateAddressIsCalled(){
         //Arrange
         String street = "Street";
         String zipCode = "12345";

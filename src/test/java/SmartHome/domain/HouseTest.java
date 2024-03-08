@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 class HouseTest {
 
     @Test
-    void shouldInstantiateHouseIfValidParameters() {
+    void shouldInstantiateHouseWhenConstructorIsCalledWithValidParameters() {
         // Arrange
         LocationFactory locationFactoryDouble = mock(LocationFactory.class);
         RoomFactory roomFactoryDouble = mock(RoomFactory.class);
@@ -24,7 +24,7 @@ class HouseTest {
     }
 
     @Test
-    void shouldReturnLocationIfSuccessfullyConfigured() {
+    void shouldReturnLocationWhenConfigureLocationIsCalledWithValidParameters() {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
@@ -49,7 +49,7 @@ class HouseTest {
     }
 
     @Test
-    void shouldReturnRoomIfSuccessfullyCreated() {
+    void shouldReturnRoomIWhenAddRoomIsCalledWithValidParameters() {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
@@ -73,7 +73,7 @@ class HouseTest {
     }
 
     @Test
-    void shouldReturnListOfRoomsContainingAddedRoom() {
+    void shouldReturnListOfRoomsContainingAddedRoomWhenAddRoomToListIsSuccessfullyExecuted() {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
@@ -90,7 +90,7 @@ class HouseTest {
     }
 
     @Test
-    void shouldReturnEmptyListOfRoomsIfNoAddedRoom() {
+    void shouldReturnEmptyListOfRoomsIfNoAddedRoomWhenGetRoomsIsCalled() {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
@@ -105,7 +105,7 @@ class HouseTest {
     }
 
     @Test
-    void shouldReturnListOfDevices() {
+    void shouldReturnListOfAllDevicesWhenGetAllDevicesIsCalled() {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);
@@ -133,7 +133,7 @@ class HouseTest {
     }
 
     @Test
-    void shouldReturnEmptyListOfDevices() {
+    void shouldReturnEmptyListOfDevicesWhenGetAllDevicesIsCalledWithNoDevicesAddedToRooms() {
         // Arrange
         LocationFactory locationFactory = mock(LocationFactory.class);
         RoomFactory roomFactory = mock(RoomFactory.class);

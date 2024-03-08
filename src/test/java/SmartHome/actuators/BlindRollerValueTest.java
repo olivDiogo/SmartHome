@@ -12,7 +12,7 @@ public class BlindRollerValueTest {
      * Test to see if the constructor works.
      */
     @Test
-    void seeIfConstructorWorks() {
+    void shouldInstantiateBlindRollerValueWhenValidValueIsProvided() {
         //Arrange
         int nValue = 50;
 
@@ -24,7 +24,7 @@ public class BlindRollerValueTest {
      * Test to see if the constructor throws an exception when the value is above 100.
      */
     @Test
-    void valueAbove100ShouldThrowException() {
+    void shouldThrowExceptionWhenValueAbove100IsProvided() {
         // Arrange
         int nValue = 101;
 
@@ -39,7 +39,7 @@ public class BlindRollerValueTest {
      * Test to see if the constructor throws an exception when the value is below 0.
      */
     @Test
-    void valueBelow0ShouldThrowException() {
+    void shouldThrowExceptionWhenValueBelow0IsProvided() {
         // Arrange
         int nValue = -1;
 
@@ -54,7 +54,7 @@ public class BlindRollerValueTest {
      * Test to see if clone works
      */
     @Test
-    void seeIfCloneWorks() {
+    void shouldCloneSuccessfullyWhenCloneMethodIsCalled() {
         // Arrange
         int nValue = 50;
         BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);
@@ -70,7 +70,7 @@ public class BlindRollerValueTest {
      * Test for low boundary value
      */
     @Test
-    void testLowBoundaryValue() {
+    void shouldCloneSuccessfullyWhenLowBoundaryValueIsProvided() {
         // Arrange
         int nValue = 0;
         BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);
@@ -84,7 +84,7 @@ public class BlindRollerValueTest {
      * Test for high boundary value
      */
     @Test
-    void testHighBoundaryValue() {
+    void shouldCloneSuccessfullyWhenHighBoundaryValueIsProvided() {
         // Arrange
         int nValue = 100;
         BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);
@@ -98,7 +98,7 @@ public class BlindRollerValueTest {
      * Test method toString
      */
     @Test
-    void testToString() {
+    void shouldReturnCorrectStringWhenToStringIsCalled() {
         // Arrange
         int nValue = 50;
         BlindRollerValue blindRollerValue = new BlindRollerValue(nValue);

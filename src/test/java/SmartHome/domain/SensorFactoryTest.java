@@ -19,7 +19,7 @@ class SensorFactoryTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    public void createSensor() throws InstantiationException {
+    public void shouldCreateSensorWhenValidModelIsProvided() throws InstantiationException {
         //Arrange
         String model = "SmartHome.sensors.TemperatureSensor";
         String description = "Temperature";
@@ -47,7 +47,7 @@ class SensorFactoryTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    public void createSensorShouldFailForInvalidModel() throws InstantiationException {
+    public void shouldReturnNullWhenCreateSensorIsCalledWithInvalidModel() throws InstantiationException {
         // Arrange
         String invalidModel = "InvalidModel";
         String description = "Temperature";

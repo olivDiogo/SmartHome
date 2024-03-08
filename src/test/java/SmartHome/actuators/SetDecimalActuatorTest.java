@@ -21,7 +21,7 @@ class SetDecimalActuatorTest {
      * @throws InstantiationException if the actuator type does not exist in the catalogue.
      */
     @Test
-    void shouldCreateInstanceOfSetDecimalActuator() throws InstantiationException {
+    void shouldCreateInstanceOfSetDecimalActuatorWhenValidActuatorTypeIsProvided() throws InstantiationException {
         // Arrange
         String description = "SetDecimal";
 
@@ -38,7 +38,7 @@ class SetDecimalActuatorTest {
      * Tests creating a SetDecimalActuator with an invalid actuator type.
      */
     @Test
-    void createSetDecimalActuatorWithInvalidActuatorType_thenThrowException() {
+    void shouldThrowExceptionWhenInvalidActuatorTypeIsProvided() {
         // Arrange
         String description = "SetDecimal";
 
@@ -58,7 +58,7 @@ class SetDecimalActuatorTest {
      * @throws InstantiationException if the actuator type does not exist in the catalogue.
      */
     @Test
-    void getActuatorTypeReturnsCorrectActuatorType() throws InstantiationException {
+    void shouldReturnCorrectActuatorTypeWhenGetActuatorTypeIsCalled() throws InstantiationException {
         // Arrange
         String description = "SetDecimal";
 
@@ -82,7 +82,7 @@ class SetDecimalActuatorTest {
      * @throws InstantiationException if the actuator type does not exist in the catalogue.
      */
     @Test
-    void getActuatorTypeReturnsWrongActuatorType() throws InstantiationException {
+    void shouldNotReturnIncorrectActuatorTypeWhenGetActuatorTypeIsCalled() throws InstantiationException {
         // Arrange
         String description = "SetDecimal";
 

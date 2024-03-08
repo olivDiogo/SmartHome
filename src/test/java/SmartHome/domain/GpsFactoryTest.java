@@ -12,7 +12,7 @@ class GpsFactoryTest {
      * Test if the method returns the correct GPS latitude and longitude.
      */
     @Test
-    void shouldReturnMockedGPS_TestWithoutWhen(){
+    void shouldReturnMockedGPSWhenCreateGPSIsCalledWithValidCoordinates(){
         //Arrange
         double latitude = 22.3;
         double longitude = 33.4;
@@ -31,7 +31,7 @@ class GpsFactoryTest {
      * Test if the method returns the correct GPS latitude and longitude.
      */
     @Test
-    void shouldReturnDoubleGPS_TestWithWhen (){
+    void shouldReturnMockedGPSWithCorrectCoordinatesWhenCreateGPSIsCalledWithValidCoordinates (){
         //Arrange
         double latitude = 22.3;
         double longitude = 33.4;

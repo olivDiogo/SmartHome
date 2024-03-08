@@ -12,7 +12,7 @@ class SensorTypeTest {
      * when the description is null.
      */
     @Test
-    void whenDescriptionIsNull_thenThrowsException() {
+    void shouldThrowExceptionWhenDescriptionIsNull() {
         // Arrange
         String strDescription = null;
 
@@ -32,7 +32,7 @@ class SensorTypeTest {
      * when the description is empty.
      */
     @Test
-    void whenDescriptionIsEmpty_thenThrowsException() {
+    void shouldThrowExceptionWhenDescriptionIsEmpty() {
         // Arrange
         String strDescription = "";
 
@@ -53,7 +53,7 @@ class SensorTypeTest {
      * @throws InstantiationException if the description is null
      */
     @Test
-    void getDescription() throws InstantiationException {
+    void shouldReturnDescriptionWhenGetDescriptionIsCalled() throws InstantiationException {
         // Arrange
         String strDescription = "Temperature";
 
@@ -72,7 +72,7 @@ class SensorTypeTest {
      * @throws InstantiationException if the description is null
      */
     @Test
-    void getUnit() throws InstantiationException {
+    void shouldReturnUnitWhenGetUnitIsCalled() throws InstantiationException {
         // Arrange
         String strDescription = "Temperature";
 
@@ -85,7 +85,7 @@ class SensorTypeTest {
         assertEquals(Unit.TEMPERATURE, result);
     }
     @Test
-    void whenUnitIsNull_thenThrowsException() {
+    void shouldThrowExceptionWhenUnitIsNull() {
         // Arrange
         Unit unit = null;
 

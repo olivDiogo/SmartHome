@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 
 class LocationTest {
     @Test
-    void shouldReturnValidLocation() {
+    void shouldReturnValidLocationWhenConstructorIsCalledWithValidParameters() {
         // Arrange
         Address addressDouble = mock(Address.class);
         Gps gpsDouble = mock(Gps.class);
@@ -29,7 +29,7 @@ class LocationTest {
         assertNotNull(location);
     }
     @Test
-    void shouldReturnCorrectedAddress() {
+    void shouldReturnCorrectedAddressWhenGetAddressIsCalled() {
         // Arrange
         Address addressDouble = mock(Address.class);
         AddressFactory addressFactoryDouble = mock(AddressFactory.class);
@@ -49,7 +49,7 @@ class LocationTest {
         assertEquals(addressDouble, address);
     }
     @Test
-    void shouldReturnCorrectedGpsLocation() {
+    void shouldReturnCorrectedGpsLocationWhenGetGpsLocationIsCalled() {
         // Arrange
         Address addressDouble = mock(Address.class);
         Gps gpsDouble = mock(Gps.class);

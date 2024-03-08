@@ -16,7 +16,7 @@ public class RoomFactoryTest {
      * Test to check if the createRoom() method returns a mocked Room
      */
     @Test
-    void shouldReturnMockedRoom(){
+    void shouldReturnMockedRoomWhenCreateRoomIsCalledWithValidParameters(){
         // Arrange
         String name = "Living Room";
         int floor = 1;

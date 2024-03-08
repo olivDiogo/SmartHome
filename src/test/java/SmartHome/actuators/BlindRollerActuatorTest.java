@@ -17,7 +17,7 @@ public class BlindRollerActuatorTest {
      * Test to see if the constructor works.
      */
     @Test
-    void testForConstructor() throws InstantiationException {
+    void shouldInstantiateActuatorWhenValidActuatorTypeIsProvided() throws InstantiationException {
         // Arrange
         String description = "BlindRollerActuator";
 
@@ -35,7 +35,7 @@ public class BlindRollerActuatorTest {
      * Test to see if the constructor throws an exception when the actuator type is invalid.
      */
     @Test
-    void testForInvalidActuatorType() {
+    void shouldThrowExceptionWhenInvalidActuatorTypeIsProvided() {
         // Arrange
         String description = "BlindRollerActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
@@ -55,7 +55,7 @@ public class BlindRollerActuatorTest {
      * @throws InstantiationException
      */
     @Test
-    void testForGetActuatorType() throws InstantiationException {
+    void shouldReturnActuatorTypeWhenGetActuatorTypeIsCalled() throws InstantiationException {
         // Arrange
         String description = "BlindRollerActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
@@ -77,7 +77,7 @@ public class BlindRollerActuatorTest {
      * @throws InstantiationException
      */
     @Test
-    void testForSetValue() throws InstantiationException {
+    void shouldSetValueWhenBlindRollerSetValueIsProvided() throws InstantiationException {
         // Arrange
         String description = "BlindRollerActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
@@ -102,7 +102,7 @@ public class BlindRollerActuatorTest {
      * @throws InstantiationException
      */
     @Test
-    void testForSetValueWithInvalidValue() throws InstantiationException {
+    void shouldReturnNullWhenInvalidValueIsSet() throws InstantiationException {
         // Arrange
         String description = "BlindRollerActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);

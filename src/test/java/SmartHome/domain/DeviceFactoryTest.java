@@ -15,7 +15,7 @@ class DeviceFactoryTest {
      * Test to check if the constructor works.
      */
     @Test
-    void shouldInstantiateDeviceFactory_WhenConstructorIsCalled(){
+    void shouldInstantiateDeviceFactoryWhenConstructorIsCalled(){
         //Act
         new DeviceFactory();
     }
@@ -24,7 +24,7 @@ class DeviceFactoryTest {
      * Test to check if the createDevice method returns a mocked device.
      */
     @Test
-    void shouldReturnMockedDevice_WhenCreateDeviceIsCalledWithValidName(){
+    void shouldReturnMockedDeviceWhenCreateDeviceIsCalledWithValidName(){
         //Arrange
         String name = "Device";
         DeviceFactory deviceFactory = new DeviceFactory();

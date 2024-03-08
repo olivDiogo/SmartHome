@@ -10,7 +10,7 @@ class DimensionsTest {
      * Test of constructor, of class Dimensions, with valid input.
      */
     @Test
-    void testConstructor_validInput() {
+    void shouldCreateDimensionsWhenConstructorIsCalledWithValidInput() {
         // Arrange
         double width = 2;
         double length = 4;
@@ -27,7 +27,7 @@ class DimensionsTest {
     * Test of constructor, of class Dimensions, with invalid input.
     */
     @Test
-    void testConstructor_negativeWidth() {
+    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithNegativeWidth() {
         // Arrange
         double width = -5;
         double length = 5;
@@ -43,7 +43,7 @@ class DimensionsTest {
      * Test of constructor, of class Dimensions, with zero width.
      */
     @Test
-    void testConstructor_zeroWidth() {
+    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithZeroWidth() {
         // Arrange
         double width = 0;
         double length = 5;
@@ -59,7 +59,7 @@ class DimensionsTest {
      * Test of constructor, of class Dimensions, with invalid length.
      */
     @Test
-    void testConstructor_invalidLength() {
+    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithNegativeLength() {
         // Arrange
         double width = 5;
         double length = -5;
@@ -74,7 +74,7 @@ class DimensionsTest {
      * Test of constructor, of class Dimensions, with zero length.
      */
     @Test
-    void testConstructor_invalidZeroLength() {
+    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithZeroLength() {
         // Arrange
         double width = 5;
         double length = 0;
@@ -89,7 +89,7 @@ class DimensionsTest {
      * Test of constructor, of class Dimensions, with invalid height.
      */
     @Test
-    void testConstructor_invalidHeight() {
+    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithNegativeHeight() {
         // Arrange
         double width = 5;
         double length = 5;
@@ -105,7 +105,7 @@ class DimensionsTest {
      * Test of constructor, of class Dimensions, with zero height.
      */
     @Test
-    void testConstructor_validZeroHeight() {
+    void shouldCreateDimensionsWhenConstructorIsCalledWithZeroHeight() {
         // Arrange
         double width = 5;
         double length = 5;
@@ -121,7 +121,7 @@ class DimensionsTest {
      * Test of getWidth method, of class Dimensions.
      */
     @Test
-    void testGetWidth() {
+    void shouldReturnWidthWhenGetWidthIsCalled() {
         // Arrange
         double width = 5;
         double length = 5;
@@ -137,7 +137,7 @@ class DimensionsTest {
      * Test of getLength method, of class Dimensions.
      */
     @Test
-    void testGetLength() {
+    void shouldReturnLengthWhenGetLengthIsCalled() {
         // Arrange
         double width = 5;
         double length = 5;
@@ -152,7 +152,7 @@ class DimensionsTest {
      * Test of getHeight method, of class Dimensions.
      */
     @Test
-    void testGetHeight() {
+    void shouldReturnHeightWhenGetHeightIsCalled() {
         // Arrange
         double width = 5;
         double length = 5;

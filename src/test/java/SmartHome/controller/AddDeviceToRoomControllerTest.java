@@ -24,7 +24,7 @@ public class AddDeviceToRoomControllerTest {
     private Room room;
 
     @Test
-    public void testForConstruct() throws IllegalArgumentException {
+    public void shouldInstantiateControllerWhenHouseIsValid() throws IllegalArgumentException {
         // Arrange
         house = new House(new LocationFactory(), new RoomFactory());
         // Act
@@ -34,7 +34,7 @@ public class AddDeviceToRoomControllerTest {
     }
 
     @Test
-    void whenHouseIsNull_thenThrowsInstantiationException() throws IllegalArgumentException {
+    void shouldThrowExceptionWhenHouseIsNull() throws IllegalArgumentException {
         // Arrange
         House house = null;
         String expected = "Invalid arguments";
@@ -48,7 +48,7 @@ public class AddDeviceToRoomControllerTest {
     }
 
     @Test
-    public void getRoomListSuccessfully() throws IllegalArgumentException {
+    public void shouldReturnEmptyRoomListWhenGetRoomListIsCalledAndNoAddedRoom() throws IllegalArgumentException {
         // Arrange
         house = new House(new LocationFactory(), new RoomFactory());
         controller = new AddDeviceToRoomController(house);
@@ -58,7 +58,7 @@ public class AddDeviceToRoomControllerTest {
         assertEquals(0, result.size());
     }
     @Test
-    public void addDeviceToRoomSuccessfully() throws IllegalArgumentException {
+    public void shouldAddDeviceToRoomSuccessfullyWhenValidRoomAndDeviceNameAreProvided() throws IllegalArgumentException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
 
@@ -84,7 +84,7 @@ public class AddDeviceToRoomControllerTest {
     }
 
     @Test
-    public void addDeviceToRoomWithInvalidDeviceNameShouldFail() throws IllegalArgumentException {
+    public void shouldNotAddDeviceToRoomWhenInvalidDeviceNameIsProvided() throws IllegalArgumentException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
 
@@ -110,7 +110,7 @@ public class AddDeviceToRoomControllerTest {
         assertFalse(result.isPresent());
     }
     @Test
-    public void addDeviceToNonexistentRoomShouldFail() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
+    public void shouldNotAddDeviceToRoomWhenRoomDoesNotExistInHouse() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
 

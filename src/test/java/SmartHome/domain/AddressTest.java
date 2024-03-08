@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AddressTest {
     @Test
-    void seeIfConstructorWorks() {
+    void shouldReturnExpectedAddressWhenGivenValidParameters() {
         // Arrange
         String street = "Main Street";
         String zipCode = "12345";
@@ -19,7 +19,7 @@ class AddressTest {
         assertEquals(expectedResult, address.toString());
     }
     @Test
-    void shouldThrowExceptionIfStreetIsNull() {
+    void shouldThrowExceptionWhenStreetIsNull() {
         // Arrange
         String street = null;
         String zipCode = "12345";
@@ -30,7 +30,7 @@ class AddressTest {
         assertEquals("Please enter a valid street for the house.", exception.getMessage());
     }
     @Test
-    void shouldThrowExceptionIfStreetIsEmpty() {
+    void shouldThrowExceptionWhenStreetIsEmpty() {
         // Arrange
         String street = "";
         String zipCode = "12345";
@@ -41,7 +41,7 @@ class AddressTest {
         assertEquals("Please enter a valid street for the house.", exception.getMessage());
     }
     @Test
-    void shouldThrowExceptionIfZipCodeIsNull() {
+    void shouldThrowExceptionWhenZipCodeIsNull() {
         // Arrange
         String street = "Main Street";
         String zipCode = null;
@@ -52,7 +52,7 @@ class AddressTest {
         assertEquals("Please enter a valid zip code for the house.", exception.getMessage());
     }
     @Test
-    void shouldThrowExceptionIfZipCodeIsEmpty() {
+    void shouldThrowExceptionWhenZipCodeIsEmpty() {
         // Arrange
         String street = "Main Street";
         String zipCode = "";
@@ -63,7 +63,7 @@ class AddressTest {
         assertEquals("Please enter a valid zip code for the house.", exception.getMessage());
     }
     @Test
-    void shouldThrowExceptionIfDoorNumberIsZero() {
+    void shouldThrowExceptionWhenDoorNumberIsZero() {
         // Arrange
         String street = "Main Street";
         String zipCode = "12345";
@@ -74,7 +74,7 @@ class AddressTest {
         assertEquals("Please enter a valid door number for the house.", exception.getMessage());
     }
     @Test
-    void shouldThrowExceptionIfDoorNumberIsNegative() {
+    void shouldThrowExceptionWhenDoorNumberIsNegative() {
         // Arrange
         String street = "Main Street";
         String zipCode = "12345";
@@ -85,7 +85,7 @@ class AddressTest {
         assertEquals("Please enter a valid door number for the house.", exception.getMessage());
     }
     @Test
-    void testForGetStreets() {
+    void shouldReturnExpectedStreetWhenGetStreetIsCalled() {
         // Arrange
         String street = "Main Street";
         String zipCode = "12345";
@@ -98,7 +98,7 @@ class AddressTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    void testForGetZip() {
+    void shouldReturnExpectedZipCodeWhenGetZipCodeIsCalled() {
         // Arrange
         String street = "Main Street";
         String zipCode = "12345";
@@ -111,7 +111,7 @@ class AddressTest {
         assertEquals(expectedResult, actualResult);
     }
     @Test
-    void testForGetDoor() {
+    void shouldReturnExpectedDoorNumberWhenGetDoorNumberIsCalled() {
         // Arrange
         String street = "Main Street";
         String zipCode = "12345";

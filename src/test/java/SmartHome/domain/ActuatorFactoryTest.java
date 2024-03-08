@@ -16,7 +16,7 @@ public class ActuatorFactoryTest {
      * @throws InstantiationException
      */
     @Test
-    void createActuator() throws InstantiationException {
+    void shouldCreateActuatorWhenValidModelAndCatalogueAreProvided() throws InstantiationException {
         // arrange
         ActuatorFactory actuatorFactory = new ActuatorFactory();
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
@@ -35,7 +35,7 @@ public class ActuatorFactoryTest {
     }
 
     @Test
-    void createInvalidActuator() throws InstantiationException {
+    void shouldReturnNullWhenInvalidModelIsProvided() throws InstantiationException {
         // arrange
         ActuatorFactory actuatorFactory = new ActuatorFactory();
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);

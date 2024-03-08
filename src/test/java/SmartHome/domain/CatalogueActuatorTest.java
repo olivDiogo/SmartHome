@@ -19,7 +19,7 @@ class CatalogueActuatorTest {
      */
 
     @Test
-    void shouldReturnObjectWhenValidFilePathname() throws InstantiationException {
+    void shouldInstantiateCatalogueActuatorWhenFilePathnameIsValid() throws InstantiationException {
         //Arrange
         String filePathname = "config.properties";
 
@@ -33,7 +33,7 @@ class CatalogueActuatorTest {
      */
 
     @Test
-    void shouldThrowExceptionWhenInvalidFilePathname() {
+    void shouldThrowExceptionWhenFilePathnameIsNull() {
         //Arrange
         String filePathname = null;
         String expectedMessage = "Invalid parameters";
@@ -52,7 +52,7 @@ class CatalogueActuatorTest {
      */
 
     @Test
-    void shouldThrowExceptionWhenInvalidFilePathnameEmpty() {
+    void shouldThrowExceptionWhenFilePathnameIsEmpty() {
         //Arrange
         String filePathname = " ";
         String expectedMessage = "Invalid parameters";
@@ -91,7 +91,7 @@ class CatalogueActuatorTest {
      */
 
     @Test
-    void shouldReturnActuatorTypesList() throws InstantiationException {
+    void shouldReturnActuatorTypesListWhenGetActuatorTypesIsCalled() throws InstantiationException {
 
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
@@ -123,7 +123,7 @@ class CatalogueActuatorTest {
      */
 
     @Test
-    void shouldReturnEmptyActuatorList() throws InstantiationException {
+    void shouldReturnEmptyListWhenNoActuatorTypesExist() throws InstantiationException {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
 
@@ -141,7 +141,7 @@ class CatalogueActuatorTest {
      * @throws InstantiationException
      */
     @Test
-    void shouldReturnActuatorModelsList() throws InstantiationException {
+    void shouldReturnActuatorModelsListWhenGetActuatorModelsIsCalled() throws InstantiationException {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
 
@@ -171,7 +171,7 @@ class CatalogueActuatorTest {
      * @throws InstantiationException if the actuator type cannot be created
      */
     @Test
-    void addValidActuatorType() throws InstantiationException {
+    void shouldAddValidActuatorTypeWhenDescriptionIsValid() throws InstantiationException {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
@@ -194,7 +194,7 @@ class CatalogueActuatorTest {
      * @throws InstantiationException
      */
     @Test
-    void addActuatorTypeWithEmptyDescription_thenThrowException() throws InstantiationException {
+    void shouldThrowExceptionWhenAddingActuatorTypeWithEmptyDescription() throws InstantiationException {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
         ActuatorTypeFactory actuatorTypeFactory = mock(ActuatorTypeFactory.class);
@@ -212,7 +212,7 @@ class CatalogueActuatorTest {
      * @throws InstantiationException if the actuator type cannot be created
      */
     @Test
-    void addActuatorTypeWithNullDescription_thenThrowException() throws InstantiationException {
+    void shouldThrowExceptionWhenAddingActuatorTypeWithNullDescription() throws InstantiationException {
         //Arrange
         CatalogueActuator catalogueActuator = new CatalogueActuator("config.properties");
         ActuatorTypeFactory actuatorTypeFactory = mock(ActuatorTypeFactory.class);
@@ -230,7 +230,7 @@ class CatalogueActuatorTest {
      * @throws InstantiationException
      */
     @Test
-    void getActuatorOfUniqueModel()  throws InstantiationException
+    void shouldReturnActuatorWhenModelIsUnique()  throws InstantiationException
     {
         // arrange
         CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
@@ -253,7 +253,7 @@ class CatalogueActuatorTest {
      * @throws InstantiationException if the actuator cannot be created
      */
     @Test
-    void getNullSensorOfEmptyListOfModels() throws InstantiationException {
+    void shouldReturnNullWhenActuatorNotOnTheList() throws InstantiationException {
         // Arrange
         CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
         ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
@@ -272,7 +272,7 @@ class CatalogueActuatorTest {
      * @throws InstantiationException if the actuator cannot be created
      */
     @Test
-    void getNullSensorOfNonExistingModel() throws InstantiationException {
+    void shouldReturnNullWhenActuatorModelDoesNotExist() throws InstantiationException {
         // Arrange
         CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
         ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
@@ -291,7 +291,7 @@ class CatalogueActuatorTest {
      * @throws InstantiationException if the actuator type cannot be created
      */
     @Test
-    void getActuatorType() throws InstantiationException {
+    void shouldReturnActuatorTypeWhenTypeMatchingDescriptionExists() throws InstantiationException {
         // Arrange
         CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
@@ -314,7 +314,7 @@ class CatalogueActuatorTest {
      * @throws InstantiationException
      */
     @Test
-    void getNonExistingActuatorType_thenReturnNull() throws InstantiationException {
+    void shouldReturnNullWhenActuatorTypeDoesNotExist() throws InstantiationException {
         // Arrange
         CatalogueActuator catalogue = new CatalogueActuator( "config.properties" );
 
@@ -332,7 +332,7 @@ class CatalogueActuatorTest {
      * @throws InstantiationException
      */
     @Test
-    void addActuatorTypeWithNullDescription_thenReturnNull() throws InstantiationException {
+    void shouldReturnNullWhenAddingActuatorTypeWithNullDescription() throws InstantiationException {
         // Arrange
         CatalogueActuator catalogue = new CatalogueActuator("config.properties");
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
@@ -350,7 +350,7 @@ class CatalogueActuatorTest {
      * Test when adding an actuator type to the list, verify if the list is not empty and contains the actuator type.
      */
     @Test
-    void addActuatorTypeToList() throws InstantiationException {
+    void shouldAddActuatorTypeToListWhenDescriptionIsValid() throws InstantiationException {
         // Arrange
         CatalogueActuator catalogue = new CatalogueActuator("config.properties");
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
@@ -372,7 +372,7 @@ class CatalogueActuatorTest {
      * Test to verify two different actuator types are added to the list.
      */
     @Test
-    void testToAddTwoDifferentActuatorTypes() throws InstantiationException {
+    void shouldAddTwoDifferentActuatorTypesToList() throws InstantiationException {
         // Arrange
         CatalogueActuator catalogue = new CatalogueActuator("config.properties");
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
@@ -399,7 +399,7 @@ class CatalogueActuatorTest {
      *@throws InstantiationException
      */
     @Test
-    void testGetActuatorWithNonExistingModel() throws InstantiationException {
+    void shouldReturnNullWhenGettingActuatorWithNonExistingModel() throws InstantiationException {
         // Arrange
         CatalogueActuator catalogue = new CatalogueActuator("config.properties");
         ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);

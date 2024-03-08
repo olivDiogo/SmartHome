@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LocationFactoryTest {
 
     @Test
-    void shouldReturnMockedLocation() {
+    void shouldReturnMockedAddressWhenCreateLocationIsCalledWithValidParameters() {
         // Arrange
         String street = "Rua do Ouro";
         String zipCode = "1100-063";

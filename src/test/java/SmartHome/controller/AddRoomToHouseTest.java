@@ -2,6 +2,7 @@ package SmartHome.controller;
 
 import SmartHome.domain.House;
 import SmartHome.domain.LocationFactory;
+import SmartHome.domain.Room;
 import SmartHome.domain.RoomFactory;
 import SmartHome.dto.RoomDTO;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class AddRoomToHouseTest {
 
     @Test
-    void whenHouseIsValid_ThenInstantiateController(){
+    void shouldInstantiateControllerWhenHouseIsValid(){
         //Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
 
@@ -25,7 +26,7 @@ public class AddRoomToHouseTest {
         assertNotNull(addRoomToHouseController);
     }
     @Test
-    void whenHouseIsNull_ThenThrowIllegalArgumentException(){
+    void shouldThrowExceptionWhenHouseIsNull(){
         //Arrange
         House house = null;
 
@@ -39,7 +40,7 @@ public class AddRoomToHouseTest {
         assertTrue(actualMessage.contains(expected));
     }
     @Test
-    void successfullyAddRoomToHouse() {
+    void shouldAddRoomToHouseSuccessfullyWhenValidRoomDetailsAreProvided() {
         //Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
 
@@ -55,6 +56,6 @@ public class AddRoomToHouseTest {
         RoomDTO roomDTO = addRoomToHouseController.addRoomToHouse(roomName, floor, length, width, height);
 
         //Assert
-        assertNotNull(roomDTO);
+        assertTrue(roomDTO.toString().contains(roomName));
     }
 }

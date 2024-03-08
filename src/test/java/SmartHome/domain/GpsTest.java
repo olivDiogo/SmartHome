@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GpsTest {
     @Test
-    void seeIfConstructorWorks() {
+    void shouldCreateGPSWhenConstructorIsCalledWithValidCoordinates() {
         //Arrange
         double latitude = 10;
         double longitude = 10;
@@ -19,7 +19,7 @@ class GpsTest {
 
 
     @Test
-    void setLatitudeAboveUpperLimit() {
+    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithLatitudeAboveUpperLimit() {
         //Arrange
         double latitude = 100;
         double longitude = 10;
@@ -29,7 +29,7 @@ class GpsTest {
         assertEquals("Please enter a valid latitude.", thrown.getMessage());
     }
     @Test
-    void setLatitudeBelowLowerLimit() {
+    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithLatitudeBelowLowerLimit() {
         //Arrange
         double latitude = -100;
         double longitude = 10;
@@ -39,7 +39,7 @@ class GpsTest {
         assertEquals("Please enter a valid latitude.", thrown.getMessage());
     }
     @Test
-    void setLatituteToUpperLimit() {
+    void shouldCreateGPSWhenConstructorIsCalledWithLatitudeAtUpperLimit() {
         //Arrange
         double latitude = 90;
         double longitude = 10;
@@ -49,7 +49,7 @@ class GpsTest {
         assertNotNull(gps);
     }
     @Test
-    void setLatituteToLowerLimit() {
+    void shouldCreateGPSWhenConstructorIsCalledWithLatitudeAtLowerLimit() {
         //Arrange
         double latitude = -90;
         double longitude = 10;
@@ -59,7 +59,7 @@ class GpsTest {
         assertNotNull(gps);
     }
     @Test
-    void setLongitudeAboveUpperLimit() {
+    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithLongitudeAboveUpperLimit() {
         //Arrange
         double latitude = 10;
         double longitude = 200;
@@ -69,7 +69,7 @@ class GpsTest {
         assertEquals("Please enter a valid longitude.", thrown.getMessage());
     }
     @Test
-    void setLongitudeBelowLowerLimit() {
+    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithLongitudeBelowLowerLimit() {
         //Arrange
         double latitude = 10;
         double longitude = -200;
@@ -79,7 +79,7 @@ class GpsTest {
         assertEquals("Please enter a valid longitude.", thrown.getMessage());
     }
     @Test
-    void setLongitudeToUpperLimit() {
+    void shouldCreateGPSWhenConstructorIsCalledWithLongitudeAtUpperLimit() {
         //Arrange
         double latitude = 10;
         double longitude = 180;
@@ -89,7 +89,7 @@ class GpsTest {
         assertNotNull(gps);
     }
     @Test
-    void setLongitudeToLowerLimit() {
+    void shouldCreateGPSWhenConstructorIsCalledWithLongitudeAtLowerLimit() {
         //Arrange
         double latitude = 10;
         double longitude = -180;
@@ -99,7 +99,7 @@ class GpsTest {
         assertNotNull(gps);
     }
     @Test
-    void testForGetLatitude() {
+    void shouldReturnLatitudeWhenGetLatitudeIsCalled() {
         //Arrange
         double latitude = 10;
         double longitude = 10;
@@ -110,7 +110,7 @@ class GpsTest {
         assertEquals(10, result);
     }
     @Test
-    void testForgetLongitude() {
+    void shouldReturnLongitudeWhenGetLongitudeIsCalled() {
         //Arrange
         double latitude = 10;
         double longitude = 10;

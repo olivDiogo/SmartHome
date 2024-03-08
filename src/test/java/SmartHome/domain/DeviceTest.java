@@ -15,7 +15,7 @@ class DeviceTest {
      * Test for the constructor of the Device class.
      */
     @Test
-    void seeIfConstructorWorks() {
+    void shouldInstantiateDeviceWhenGivenValidParameter() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -28,7 +28,7 @@ class DeviceTest {
      * This test is used to check if the constructor throws an IllegalArgumentException when the name is empty.
      */
     @Test
-    void constructorThrowsIllegalArgumentException() {
+    void shouldThrowIllegalArgumentExceptionWhenNameIsEmpty() {
         // Arrange
         String expected = "Please enter a valid name for the device type.";
         String name = " ";
@@ -43,7 +43,7 @@ class DeviceTest {
      * This test is used to check if the method returns true when the device is deactivated.
      */
     @Test
-    void deactivateDeviceSuccessfully() {
+    void shouldDeactivateDeviceWhenDeactivateDeviceIsCalled() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -58,7 +58,7 @@ class DeviceTest {
      * This test is used to check if the method returns the name of the device.
      */
     @Test
-    void getNameShouldReturnName() {
+    void shouldReturnNameWhenGetNameIsCalled() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -73,7 +73,7 @@ class DeviceTest {
      * This test is used to check if the method returns the status of the device.
      */
     @Test
-    void getStatusShouldReturnStatus() {
+    void shouldReturnStatusWhenGetStatusIsCalled() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -88,7 +88,7 @@ class DeviceTest {
      * This test is used to check if the method returns the device id.
      */
     @Test
-    void getDeviceIdShouldReturnDeviceId() {
+    void shouldReturnDeviceIdWhenGetDeviceIdIsCalled() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -103,7 +103,7 @@ class DeviceTest {
      * This test is used to check if the method returns a list of functionalities.
      */
     @Test
-    void getDeviceFunctionalitiesShouldReturnList() {
+    void shouldReturnListOfFunctionalitiesWhenGetDeviceFunctionalitiesIsCalled() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -127,7 +127,7 @@ class DeviceTest {
      * This test is used to check if the method returns a sensor when it is added to the device.
      */
     @Test
-    void successfullyAddSensor() throws InstantiationException {
+    void shouldAddSensorToDeviceWhenAddSensorIsCalledWithValidModel() throws InstantiationException {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -151,7 +151,7 @@ class DeviceTest {
      * This test is used to check if the method returns null when the sensor is not added to the device.
      */
     @Test
-    void addSensorReturnsNull() throws InstantiationException {
+    void shouldReturnNullWhenAddSensorIsCalledWithInvalidModel() throws InstantiationException {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -173,7 +173,7 @@ class DeviceTest {
      * This test is used to check if the method returns a sensor when it is added to the device.
      */
     @Test
-    void successfullyAddSensorToDeviceList() {
+    void shouldAddSensorToDeviceWhenAddSensorToDeviceIsCalledWithValidSensor() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -192,7 +192,7 @@ class DeviceTest {
      * This test is used to check if the method returns an empty list when there are no functionalities.
      */
     @Test
-    void addNullSensorToDeviceShouldReturnEmptyList() {
+    void shouldReturnEmptyListWhenAddSensorToDeviceIsCalledWithNullSensor() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -211,7 +211,7 @@ class DeviceTest {
      * This test is used to check if the method returns a list of sensors.
      */
     @Test
-    void testForGetSensorList() {
+    void shouldReturnListOfSensorsWhenGetSensorListIsCalled() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -237,7 +237,7 @@ class DeviceTest {
      * @throws InstantiationException
      */
     @Test
-    void testForAddActuator() throws InstantiationException {
+    void shouldAddActuatorToDeviceWhenAddActuatorIsCalledWithValidModel() throws InstantiationException {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -261,7 +261,7 @@ class DeviceTest {
      * @throws InstantiationException
      */
     @Test
-    void addInvalidActuatorToDevice() throws InstantiationException {
+    void shouldReturnNullWhenAddActuatorIsCalledWithInvalidModel() throws InstantiationException {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -283,7 +283,7 @@ class DeviceTest {
      */
 
     @Test
-    void testToAddOneActuatorToDeviceList() {
+    void shouldReturnListOfActuatorsWhenGetActuatorListIsCalled() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
@@ -305,7 +305,7 @@ class DeviceTest {
     }
 
     @Test
-    void testForEmptyActuatorList() {
+    void shouldReturnEmptyListWhenGetActuatorListIsCalledWithNoActuators() {
         // Arrange
         String deviceName = "Device";
         Device device = new Device(deviceName);
