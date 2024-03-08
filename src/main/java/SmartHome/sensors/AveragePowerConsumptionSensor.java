@@ -6,7 +6,6 @@ import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -44,15 +43,6 @@ public class AveragePowerConsumptionSensor implements Sensor {
     }
 
     /**
-     * Sets the power consumptions of the PowerConsumptionSensor.
-     *
-     * @return a new HashMap with the power consumptions.
-     */
-//    private HashMap<LocalDateTime, Double> setPowerConsumptions() {
-//        return this._powerConsumptions = new HashMap<>();
-//    }
-
-    /**
      * Gets the SensorType of the PowerConsumptionSensor.
      *
      * @return the SensorType with description 'Power Consumption'.
@@ -69,7 +59,7 @@ public class AveragePowerConsumptionSensor implements Sensor {
      * @return a new HashMap with the power consumptions.
      * @throws IllegalArgumentException if there is already a reading for this time.
      */
-    public double addReading(LocalDateTime readTime, double reading) {
+    protected double addReading(LocalDateTime readTime, double reading) {
         if (_powerConsumptions.containsKey(readTime))
             throw new IllegalArgumentException("There is already a reading for this time");
 
@@ -91,6 +81,8 @@ public class AveragePowerConsumptionSensor implements Sensor {
     protected double getAverageValue(LocalDateTime initialTime, LocalDateTime finalTime) {
         if (initialTime.isAfter(finalTime)) {
             throw new IllegalArgumentException("Initial time must be before final time");
+
+
         }
 
         // Calculate the average of the filtered power consumptions
@@ -118,13 +110,21 @@ public class AveragePowerConsumptionSensor implements Sensor {
     }
 
     /**
-     * Gets the value of the PowerConsumptionSensor.
+     * Gets the value of the PowerConsumptionSensor with zero.
      *
      * @return the value of the PowerConsumptionSensor.
      */
     public Value getValue() {
         return this._averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(_dValue);
     }
+
+    /**
+     * Gets the value of the PowerConsumptionSensor for a given period.
+     *
+     * @param initialTime the initial time of the range.
+     * @param finalTime   the final time of the range.
+     * @return the value of the PowerConsumptionSensor.
+     */
 
     public Value getValue(LocalDateTime initialTime, LocalDateTime finalTime) {
 

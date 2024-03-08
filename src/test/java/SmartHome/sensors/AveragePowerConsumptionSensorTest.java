@@ -78,6 +78,34 @@ public class AveragePowerConsumptionSensorTest {
         }
     }
 
+    @Test
+    void newPowerConsumptionSensorWithValidValueWithAGivenPeriod() throws InstantiationException {
+        // Arrange
+        String description = "Power Consumption";
+        Double value = 1500.0;
+
+
+        int expectedSize = 1;
+
+        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+
+        try (MockedConstruction<AveragePowerConsumptionSensorValue> powerConsumptionSensorValueDouble = mockConstruction(AveragePowerConsumptionSensorValue.class, (mock, context) ->
+        {
+            when(mock.getValue()).thenReturn(value);
+        })) {
+            AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
+            averagePowerConsumptionSensor.getValue(LocalDateTime.now().minusHours(1), LocalDateTime.now());
+
+            // Assert
+            List<AveragePowerConsumptionSensorValue> averagePowerConsumptionSensorValues = powerConsumptionSensorValueDouble.constructed();
+            Assertions.assertEquals(expectedSize, averagePowerConsumptionSensorValues.size());
+            Assertions.assertEquals(value, averagePowerConsumptionSensorValues.get(0).getValue());
+
+        }
+    }
+
     /**
      * See if the getValue works isolating to String.
      */
@@ -360,47 +388,11 @@ public class AveragePowerConsumptionSensorTest {
     }
 
     /**
-     * See if the getValue method works but value is not a dummy, for non-sequential readings.
-     */
-    @Test
-    void getValueWithNonSequentialReadings() throws InstantiationException {
-        // Arrange
-        String description = "Power Consumption";
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
-
-        LocalDateTime initialTime = LocalDateTime.now();
-        LocalDateTime finalTime = LocalDateTime.now().plusHours(2);
-        LocalDateTime otherTime1 = LocalDateTime.now().minusHours(1);
-        LocalDateTime otherTime2 = LocalDateTime.now().plusHours(3);
-        LocalDateTime otherTime3 = LocalDateTime.now().plusHours(1);
-
-        averagePowerConsumptionSensor.addReading(otherTime2, 500);
-        averagePowerConsumptionSensor.addReading(initialTime, 1000);
-        averagePowerConsumptionSensor.addReading(otherTime1, 1200);
-        averagePowerConsumptionSensor.addReading(finalTime, 2000);
-        averagePowerConsumptionSensor.addReading(otherTime3, 400);
-
-        double expectedAverage = 1133.33;
-
-        // Act
-        Value averageValue = averagePowerConsumptionSensor.getValue(initialTime, finalTime);
-
-
-        // AssertString str = averageValue.toString();
-        Assertions.assertEquals(expectedAverage, Double.parseDouble(averageValue.toString()), 0.01);
-    }
-
-    /**
      * See if the getValue method works but value is not a dummy, for this instance.
      */
 
     @Test
-    void getValueForThisInstante() throws InstantiationException {
+    void getValueForThisInstant() throws InstantiationException {
         // Arrange
         String description = "Power Consumption";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -413,7 +405,7 @@ public class AveragePowerConsumptionSensorTest {
         // Act
         Value averageValue = averagePowerConsumptionSensor.getValue();
         //Assert
-        Assertions.assertEquals(0, Double.parseDouble(averageValue.toString()), 0.01);
+        Assertions.assertEquals(expectedAverage, Double.parseDouble(averageValue.toString()), 0.01);
     }
 
     /**
