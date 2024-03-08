@@ -186,5 +186,47 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void givenTwoDevicesWithTwoFunctionalities_whenGetAllDevicesGroupedByFunctionality_thenReturnTwoDevicesGroupedByFunctionality() throws InstantiationException {
+        // Arrange
+        House house = new House(new LocationFactory(), new RoomFactory());
+        CatalogueSensor catalogue = new CatalogueSensor("config.properties");
 
+        String roomName = "Living Room";
+        int floor = 1;
+        int length = 5;
+        int width = 5;
+        int height = 3;
+        Room room = house.addRoom(roomName, floor, width, length, height);
+
+        String sensorDescription1 = "Temperature";
+        catalogue.addSensorType(sensorDescription1, Unit.Temperature, new SensorTypeFactory());
+
+        String sensorDescription2 = "Humidity";
+        catalogue.addSensorType(sensorDescription2, Unit.Humidity, new SensorTypeFactory());
+
+        String deviceName1 = "Thermostat & Humidifier";
+        String sensorModel1 = "SmartHome.sensors.GA100K";
+        String sensorModel2 = "SmartHome.sensors.TSY01";
+        Device device1 = room.addDevice(deviceName1, new DeviceFactory());
+        device1.addSensor(sensorModel1, catalogue, new SensorFactory());
+        device1.addSensor(sensorModel2, catalogue, new SensorFactory());
+
+        String deviceName2 = "Thermostat & Humidifier";
+        String sensorModel3 = "SmartHome.sensors.GA100K";
+        String sensorModel4 = "SmartHome.sensors.TSY01";
+        Device device2 = room.addDevice(deviceName2, new DeviceFactory());
+        device2.addSensor(sensorModel3, catalogue, new SensorFactory());
+        device2.addSensor(sensorModel4, catalogue, new SensorFactory());
+
+        GetAllDevicesGroupedByFunctionalityController getAllDevicesGroupedByFunctionalityController = new GetAllDevicesGroupedByFunctionalityController(house, catalogue);
+
+        int expected = 2;
+
+        // Act
+        int result = getAllDevicesGroupedByFunctionalityController.getAllDevicesGroupedByFunctionality().values().size();
+
+        // Assert
+        assertEquals(expected, result);
+    }
 }

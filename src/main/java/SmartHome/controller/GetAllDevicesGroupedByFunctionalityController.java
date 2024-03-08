@@ -51,7 +51,6 @@ public class GetAllDevicesGroupedByFunctionalityController {
                 DeviceAssembler.addDeviceDTOToListByFunctionality(deviceDTO, devicesDTOByFunctionality);
             }
         }
-
         return new HashMap<>(devicesDTOByFunctionality);
     }
 }

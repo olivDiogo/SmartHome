@@ -6,11 +6,38 @@ import SmartHome.domain.RoomFactory;
 import SmartHome.dto.RoomDTO;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class AddRoomToHouseTest {
 
+    @Test
+    void whenHouseIsValid_ThenInstantiateController(){
+        //Arrange
+        House house = new House(new LocationFactory(), new RoomFactory());
+
+        //Act
+        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(house);
+
+        //Assert
+        assertNotNull(addRoomToHouseController);
+    }
+    @Test
+    void whenHouseIsNull_ThenThrowIllegalArgumentException(){
+        //Arrange
+        House house = null;
+
+        String expected = "Invalid arguments";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new AddRoomToHouseController(house));
+
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expected));
+    }
     @Test
     void successfullyAddRoomToHouse() {
         //Arrange
@@ -30,8 +57,4 @@ public class AddRoomToHouseTest {
         //Assert
         assertNotNull(roomDTO);
     }
-
-
-
-
 }
