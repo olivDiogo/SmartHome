@@ -2,6 +2,7 @@ package SmartHome.sensors;
 
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
+import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
@@ -13,12 +14,12 @@ import static org.mockito.Mockito.*;
 class InstantPowerConsumptionSensorTest {
 
     /**
-     * Test if the sensor type is created correctly.
+     * Test to get a valid InstantPowerConsumptionSensor object
      *
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    public void shouldInstantiateInstantPowerConsumptionSensorIfSupported() throws InstantiationException {
+    public void shouldInstantiateInstantPowerConsumptionSensor_WhenArgumentsAreValid() throws InstantiationException {
         //Arrange
         String description = "InstantPowerConsumption";
 
@@ -31,15 +32,14 @@ class InstantPowerConsumptionSensorTest {
     }
 
     /**
-     * Test if the Instant Power Consumption Constructor returns a String Message because it is invalid.
+     * Test to get an invalid InstantPowerConsumptionSensor object should throw an InstantiationException.
      */
     @Test
-    public void shouldThrowExceptionWhenSensorTypeIsNotSupported() {
+    public void shouldThrowException_whenSensorIsNull() {
         //Arrange
         String description = "InstantPowerConsumption";
 
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
-
         when(catalogueSensorDouble.getSensorType(description)).thenReturn(null);
 
         String expectedMessage = "SensorType with description 'Instant Power Consumption' does not exist.";
@@ -82,7 +82,7 @@ class InstantPowerConsumptionSensorTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    public void shouldThrowExceptionWhenSensorTypeIsNotValid() throws InstantiationException {
+    public void shouldThrowException_WhenSensorTypeIsNull() throws InstantiationException {
         String description = "InstantPowerConsumption";
 
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
@@ -109,58 +109,30 @@ class InstantPowerConsumptionSensorTest {
     public void shouldReturnInstantPowerConsumptionValue() throws InstantiationException {
         //Arrange
         String description = "InstantPowerConsumption";
-        double value = 25.0;
 
         int expectedSize = 1;
-
-        try (MockedConstruction<InstantPowerConsumptionValue> instantPowerConsumptionValueDouble = mockConstruction(InstantPowerConsumptionValue.class, (mock, context) ->
-                when(mock.toString()).thenReturn(Double.toString(value)))) {
-
-            CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
-            SensorType sensorTypeDouble = mock(SensorType.class);
-
-            when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-            InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(catalogueSensorDouble);
-
-            //Act
-            instantPowerConsumptionSensor.getValue();
-
-            //Assert
-            List<InstantPowerConsumptionValue> instantPowerConsumptionValue = instantPowerConsumptionValueDouble.constructed();
-            assertEquals(expectedSize, instantPowerConsumptionValue.size());
-            assertEquals(Double.toString(value), instantPowerConsumptionValue.get(0).toString());
-
-        }
-    }
-
-    /**
-     * Test if the getValue method returns a positive instant power consumption value within the expected range.
-     *
-     * @throws InstantiationException If the sensor type "InstantPowerConsumption" does not exist.
-     */
-    @Test
-    public void shouldThrowExceptionWhenInstantPowerConsumptionIsNegative() throws InstantiationException {
-        //Arrange
-        String description = "InstantPowerConsumption";
-        double value = -25.0;
 
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(catalogueSensorDouble);
+
         try (MockedConstruction<InstantPowerConsumptionValue> instantPowerConsumptionValueDouble = mockConstruction(InstantPowerConsumptionValue.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(Double.toString(value));
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
-            InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(catalogueSensorDouble);
 
             //Act
-            double instantPowerConsumptionValue = Double.parseDouble(instantPowerConsumptionSensor.getValue().toString());
+            Value value = instantPowerConsumptionSensor.getValue();
 
             //Assert
-            assertFalse(instantPowerConsumptionValue >= 0, "The instant power consumption value should be positive.");
-        }
+            List<InstantPowerConsumptionValue> instantPowerConsumptionValue = instantPowerConsumptionValueDouble.constructed();
+            assertEquals(expectedSize, instantPowerConsumptionValue.size());
+            assertEquals("25.0", value.toString());
+            assertEquals (instantPowerConsumptionValue.get(0).toString(), value.toString());
 
+        }
     }
+
 }

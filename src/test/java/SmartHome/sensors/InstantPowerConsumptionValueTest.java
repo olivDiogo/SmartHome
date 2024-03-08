@@ -10,7 +10,7 @@ class InstantPowerConsumptionValueTest {
      * Test the InstantPowerConsumptionValue constructor
      */
     @Test
-    public void shouldInstantiateInstantPowerConsumptionVaue() {
+    public void shouldInstantiateInstantPowerConsumptionValue() {
         // Arrange
         double value = 1.0;
 
@@ -22,7 +22,7 @@ class InstantPowerConsumptionValueTest {
      * Test the InstantPowerConsumptionValue constructor with a negative value. Should throw an IllegalArgumentException.
      */
     @Test
-    public void shouldThrowExceptionWhenInstantPowerConsumptionValueIsNegative() {
+    public void shouldThrowException_whenInstantPowerConsumptionValueIsNegative() {
         // Arrange
         double value = -1.0;
 
@@ -42,7 +42,7 @@ class InstantPowerConsumptionValueTest {
      * Test the InstantPowerConsumptionValue constructor with a value equal to zero.
      */
     @Test
-    public void shouldInstantiateInstantPowerConsumptionValueWhenValueIsZero() {
+    public void shouldInstantiateInstantPowerConsumptionValue_whenValueIsZero() {
         // Arrange
         double value = 0.0;
 
