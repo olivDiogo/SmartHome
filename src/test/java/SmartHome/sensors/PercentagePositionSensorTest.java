@@ -16,7 +16,7 @@ class PercentagePositionSensorTest {
      * @throws InstantiationException if an instantiation error occurs.
      */
     @Test
-    void newValidPercentedPosicionSensor() throws InstantiationException {
+    void shouldReturnNewValidPercentedSensor_WhenArgumentsAreValid() throws InstantiationException {
         // Arrange
         String description = "Percented";
 
@@ -38,7 +38,7 @@ class PercentagePositionSensorTest {
      * @throws InstantiationException if an instantiation error occurs.
      */
     @Test
-    void newInvalidPercentedPosicionSensor() throws InstantiationException {
+    void shouldThrowException_WhenDescriptionIsInvalid() throws InstantiationException {
         // Arrange
         String description = "Percented";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -57,7 +57,7 @@ class PercentagePositionSensorTest {
      * @throws InstantiationException if an instantiation error occurs.
      */
     @Test
-    void getSensorTypeReturnsCorrectSensorType() throws InstantiationException {
+    void shouldThrowInstantiationException_WhenSensorTypeIsValid() throws InstantiationException {
         // Arrange
         String description = "Percented";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -79,7 +79,7 @@ class PercentagePositionSensorTest {
      * @throws InstantiationException if an instantiation error occurs.
      */
     @Test
-    void getValueReturnsCorrectValue() throws InstantiationException {
+    void shouldReturnCorrectValue_whenGetValueIsCalled() throws InstantiationException {
         // Arrange
         String description = "Percented";
         String value = "50";
