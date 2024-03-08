@@ -5,6 +5,7 @@ import SmartHome.dto.DeviceDTO;
 import SmartHome.dto.RoomDTO;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import java.util.UUID;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 
 public class AddDeviceToRoomControllerTest {
@@ -107,10 +109,35 @@ public class AddDeviceToRoomControllerTest {
         // Assert
         assertFalse(result.isPresent());
     }
+    @Test
+    public void addDeviceToNonexistentRoomShouldFail() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
+        // Arrange
+        House house = new House(new LocationFactory(), new RoomFactory());
 
+        String roomName = "Room";
+        int floor = 1;
+        double width = 1.0;
+        double length = 1.0;
+        double height = 1.0;
 
+        house.addRoom(roomName, floor, width, length, height);
 
+        String deviceName = "Device";
 
+        AddDeviceToRoomController controller = new AddDeviceToRoomController(house);
+        controller.getRoomList();
+
+        RoomDTO nonExistentRoomDTO = mock(RoomDTO.class);
+        Field statusField = RoomDTO.class.getDeclaredField("_roomId");
+        statusField.setAccessible(true);
+        statusField.set(nonExistentRoomDTO, UUID.randomUUID());
+
+        // Act
+        Optional<DeviceDTO> result = controller.addDeviceToRoom(nonExistentRoomDTO, deviceName);
+
+        // Assert
+        assertFalse(result.isPresent());
+    }
 }
 
 

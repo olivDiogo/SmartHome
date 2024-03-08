@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-class DefineHouseLocationControllerTest {
+class ConfigureHouseLocationControllerTest {
 
     @Test
     void seeIfConstructorWorks() {
@@ -23,6 +23,17 @@ class DefineHouseLocationControllerTest {
         ConfigureHouseLocationController controller = new ConfigureHouseLocationController(house);
         // Assert
         assertNotNull(controller);
+    }
+
+    @Test
+    void whenHouseIsNull_thenThrowsInstantiationException() {
+        // Arrange
+        House house = null;
+        String expected = "Invalid arguments";
+        // Act & Assert
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> new ConfigureHouseLocationController(house));
+        String actualMessage = exception.getMessage();
+        Assertions.assertTrue(actualMessage.contains(expected));
     }
 
     @Test

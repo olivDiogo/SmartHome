@@ -66,6 +66,26 @@ class CatalogueActuatorTest {
     }
 
     /**
+     * Tests the load a configuration from a non-existing file.
+     * This should trigger the ConfigurationException.
+     * @throws InstantiationException if the filePathname is incorrect
+     */
+    @Test
+    void shouldThrowExceptionWhenFileDoesNotExist() {
+        // Arrange
+        String filePathname = "non_existing_config.properties";
+        String expectedMessage = "something went wrong in reading the configuration";
+
+        // Act
+        Exception exception = assertThrows(InstantiationException.class, () -> new CatalogueActuator(filePathname));
+        String actualMessage = exception.getMessage();
+
+        // Assert
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+
+    /**
      * Tests if return Actuator Types List
      * @throws InstantiationException
      */

@@ -80,9 +80,6 @@ public class DeviceAssembler {
      * @param deviceDTOsByFunctionality is a hashMap of String and List of DeviceDTO
      */
     static public void addDeviceDTOToListByFunctionality(DeviceDTO deviceDTO, HashMap<String, List<DeviceDTO>> deviceDTOsByFunctionality) {
-        deviceDTO._deviceFunctionalities.forEach(functionality -> {
-            deviceDTOsByFunctionality.get(functionality).add(deviceDTO);
-        });
-
+        deviceDTO._deviceFunctionalities.forEach(functionality -> deviceDTOsByFunctionality.get(functionality).add(deviceDTO));
     }
 }

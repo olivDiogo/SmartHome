@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 
 class SunsetTimeSensorTest {
     @Test
-    void shouldInstantiateSunsetTimeSensorIfSupported() throws InstantiationException {
+    void shouldInstantiateSunsetTimeSensor_WhenValidSensorTypeProvided() throws InstantiationException {
         //Arrange
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
@@ -29,7 +29,7 @@ class SunsetTimeSensorTest {
         new SunsetTimeSensor(catalogueSensorDouble);
     }
     @Test
-    void shouldThrowExceptionWhenSensorTypeIsNotSupported() {
+    void shouldThrowException_WhenInvalidSensorTypeProvided() {
         //Arrange
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         when(catalogueSensorDouble.getSensorType("SunsetTime")).thenReturn(null);
@@ -44,7 +44,7 @@ class SunsetTimeSensorTest {
     }
 
     @Test
-    void shouldReturnSensorType() throws InstantiationException {
+    void shouldReturnCorrectSensorType() throws InstantiationException {
         //Arrange
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
@@ -57,7 +57,7 @@ class SunsetTimeSensorTest {
         assertTrue(sensorType.equals(sensorTypeDouble));
     }
    @Test
-void shouldThrowExceptionWhenGpsConfigurationFileIsNotFound() {
+void shouldThrowException_WhenGpsConfigurationFileIsMissing() {
     //Arrange
     CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
     SensorType sensorTypeDouble = mock(SensorType.class);
@@ -75,7 +75,7 @@ void shouldThrowExceptionWhenGpsConfigurationFileIsNotFound() {
     }
 }
     @Test
-    void shouldReturnSunsetTimeValueForCurrentDay() throws InstantiationException {
+    void shouldReturnSunsetTimeValueForToday() throws InstantiationException {
         //Arrange
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
 
@@ -93,7 +93,7 @@ void shouldThrowExceptionWhenGpsConfigurationFileIsNotFound() {
         }
     }
     @Test
-    void shouldReturnSunsetTimeValueForSelectedDay() throws InstantiationException {
+    void shouldReturnSunsetTimeValueForSpecificDate() throws InstantiationException {
         //Arrange
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
