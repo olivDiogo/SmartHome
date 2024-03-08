@@ -7,7 +7,6 @@ package SmartHome.sensors {
         - final _sensorType : SensorType
         - _value : SwitchSensorValue
         + SwitchSensor(catalogue : CatalogueSensor)
-        - setSensorType(sensorType : SensorType) : SensorType
         + getSensorType() : SensorType
         + getValue() : Value
     }
@@ -31,8 +30,6 @@ package SmartHome.domain {
         - _description : String
         - _unit : Unit
         # SensorType(description : String, unit : Unit)
-        - setStrDescription(description : String) : String
-        - setUnit(unit : Unit) : Unit
         + getDescription() : String
         + getUnit() : Unit
     }
@@ -45,9 +42,9 @@ package SmartHome.domain {
     }
 }
 
-SmartHome.sensors.SwitchSensor ..|> SmartHome.domain.Sensor : implements
-SmartHome.sensors.SwitchSensor --o SmartHome.domain.SensorType : has
-SmartHome.sensors.SwitchSensor --* SmartHome.sensors.SwitchSensorValue : contains
-SmartHome.sensors.SwitchSensor ..> SmartHome.domain.CatalogueSensor : uses
-SmartHome.sensors.SwitchSensorValue ..|> SmartHome.domain.Value : implements
+SmartHome.sensors.SwitchSensor ..|> SmartHome.domain.Sensor
+SmartHome.sensors.SwitchSensor "1" --> "1" SmartHome.domain.SensorType : has a
+SmartHome.sensors.SwitchSensor "1" --> "1" SmartHome.sensors.SwitchSensorValue : contains
+SmartHome.sensors.SwitchSensor "1" ..> "1" SmartHome.domain.CatalogueSensor : uses
+SmartHome.sensors.SwitchSensorValue ..|> SmartHome.domain.Value
 @enduml
