@@ -17,7 +17,7 @@ public class SolarIrradianceSensorTest {
      * Test to get a valid SolarIrradianceSensor object
      */
     @Test
-    void getValidSolarIrradianceSensor() {
+    void shouldGetValidSolarIrradianceSensor() {
         //Arrange
         String description = "SolarIrradiance";
 
@@ -35,7 +35,7 @@ public class SolarIrradianceSensorTest {
      * Test to get an invalid SolarIrradianceSensor object should throw an IllegalArgumentException
      */
     @Test
-    void invalidSolarIrradianceSensor() {
+    void shouldGetInvalidSolarIrradianceSensor_whenSensorTypeIsNull() {
         // Arrange
         String description = "SolarIrradiance";
 
@@ -53,7 +53,7 @@ public class SolarIrradianceSensorTest {
      * Test to get the sensor type
      */
     @Test
-    void getSensorType() {
+    void shouldGetSensorType() {
         //Arrange
         String description = "SolarIrradiance";
 
@@ -74,7 +74,7 @@ public class SolarIrradianceSensorTest {
      * Test to get the value of the sensor
      */
     @Test
-    void getValue() {
+    void shouldGetValue() {
         //Arrange
         String description = "SolarIrradiance";
         String value = "4500";
