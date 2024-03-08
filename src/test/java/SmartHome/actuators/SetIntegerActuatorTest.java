@@ -34,7 +34,7 @@ public class SetIntegerActuatorTest {
      * Should throw exception when creating instance of SetIntegerActuator class with invalid actuator type.
      */
     @Test
-    void createSetIntegerActuatorWithInvalidActuatorType_thenThrowException() {
+    void shouldThrowException_whenCreatingSetIntegerActuatorWithInvalidActuatorType() {
         // Arrange
         String description = "SetInteger";
 
@@ -53,7 +53,7 @@ public class SetIntegerActuatorTest {
      * @throws InstantiationException if the actuator type cannot be created
      */
     @Test
-    void getActuatorTypeReturnsCorrectActuatorType() throws InstantiationException {
+    void shouldGetCorrectActuatorType() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
 
@@ -72,35 +72,11 @@ public class SetIntegerActuatorTest {
     }
 
     /**
-     * Should get a different actuator type than expected
-     * @throws InstantiationException if the actuator type cannot be created
-     */
-    @Test
-    void getActuatorTypeReturnsWrongActuatorType() throws InstantiationException {
-        // Arrange
-        String description = "SetInteger";
-
-        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
-        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
-        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
-
-        ActuatorType actuatorTypeDouble2 = mock(ActuatorType.class);
-
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(catalogueDouble);
-
-        // Act
-        ActuatorType actuatorType = setIntegerActuator.getActuatorType();
-
-        // Assert
-        assertNotEquals(actuatorTypeDouble2, actuatorType);
-    }
-
-    /**
      * Set value in range at the lower limit boundary.
      * @throws InstantiationException if the value cannot be set
      */
     @Test
-    void setValueInRangeLowerLimitBoundary() throws InstantiationException {
+    void shouldGetValueEqualToZero_whenLowerLimitIsZero() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
         int lowerLimit = 0;
@@ -131,7 +107,7 @@ public class SetIntegerActuatorTest {
      * @throws InstantiationException if the value cannot be set
      */
     @Test
-    void setValueInRangeUpperLimitBoundary() throws InstantiationException {
+    void shouldGetValueEqualTo100_whenUpperLimitIs100() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
         int lowerLimit = 0;
@@ -162,7 +138,7 @@ public class SetIntegerActuatorTest {
      * @throws InstantiationException if the value cannot be set
      */
     @Test
-    void setWrongValueTypeInRange_shouldReturnNull() throws InstantiationException {
+    void shouldReturnNull_whenTheWrongTypeOfValueIsPassedAsArgument() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
         int lowerLimit = 0;
@@ -193,7 +169,7 @@ public class SetIntegerActuatorTest {
      * @throws InstantiationException if the value cannot be set
      */
     @Test
-    void setValueBelowLowerLimit_thenThrowException() throws InstantiationException {
+    void shouldThrowException_whenSettingValueBelowLowerLimit() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
         int lowerLimit = 0;
@@ -224,7 +200,7 @@ public class SetIntegerActuatorTest {
      * @throws InstantiationException if the value cannot be set
      */
     @Test
-    void setValueAboveUpperLimit_thenThrowException() throws InstantiationException {
+    void shouldThrowException_whenSettingValueAboveUpperLimit() throws InstantiationException {
         // Arrange
         String description = "SetInteger";
         int lowerLimit = 0;
