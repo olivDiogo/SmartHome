@@ -78,6 +78,10 @@ public class AveragePowerConsumptionSensorTest {
         }
     }
 
+    /**
+     * See if the getValue works isolating to String.
+     */
+
     @Test
     void newPowerConsumptionSensorWithValidValue2() throws InstantiationException {
         // Arrange
@@ -272,7 +276,7 @@ public class AveragePowerConsumptionSensorTest {
      * See if the getAverageValue method works with non-sequential readings.
      */
     @Test
-    void getAverageValueWithNonSequencialReadings() throws InstantiationException {
+    void getAverageValueWithNonSequentialReadings() throws InstantiationException {
         // Arrange
         String description = "Power Consumption";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -355,8 +359,11 @@ public class AveragePowerConsumptionSensorTest {
         Assertions.assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * See if the getValue method works but value is not a dummy, for non-sequential readings.
+     */
     @Test
-    void getValueWithNonSequencialReadings() throws InstantiationException {
+    void getValueWithNonSequentialReadings() throws InstantiationException {
         // Arrange
         String description = "Power Consumption";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -388,6 +395,10 @@ public class AveragePowerConsumptionSensorTest {
         Assertions.assertEquals(expectedAverage, Double.parseDouble(averageValue.toString()), 0.01);
     }
 
+    /**
+     * See if the getValue method works but value is not a dummy, for this instance.
+     */
+
     @Test
     void getValueForThisInstante() throws InstantiationException {
         // Arrange
@@ -404,6 +415,10 @@ public class AveragePowerConsumptionSensorTest {
         //Assert
         Assertions.assertEquals(0, Double.parseDouble(averageValue.toString()), 0.01);
     }
+
+    /**
+     * See if the addReading method works.
+     */
 
     @Test
     void testGetReading() throws InstantiationException {
