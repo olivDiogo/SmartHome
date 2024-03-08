@@ -4,7 +4,7 @@ import SmartHome.domain.Value;
 
 /**
  * Represents a value of humidity measured by a HumiditySensor.
- * This class implements the Value interface and is Cloneable.
+ * This class is used to encapsulate the numeric value of the humidity measurement.
  */
 public class HumiditySensorValue implements Value {
     /**

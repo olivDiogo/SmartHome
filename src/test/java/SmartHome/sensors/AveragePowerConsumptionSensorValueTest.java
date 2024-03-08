@@ -32,22 +32,6 @@ public class AveragePowerConsumptionSensorValueTest {
         Assertions.assertEquals(expected, actualResult);
     }
 
-    /**
-     * See if the clone method works.
-     */
-
-    @Test
-    void seeIfCloneWorks() {
-        //Arrange
-        double dValue = 12.3;
-        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue);
-
-        //Act
-        Value clonedResult = averagePowerConsumptionSensorValue.clone();
-
-        //Assert
-        Assertions.assertEquals(averagePowerConsumptionSensorValue.toString(), clonedResult.toString());
-    }
 
     /**
      * See if the toString method works.

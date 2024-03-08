@@ -2,7 +2,7 @@ package SmartHome.sensors;
 
 import SmartHome.domain.Value;
 
-public class AveragePowerConsumptionSensorValue implements Value, Cloneable {
+public class AveragePowerConsumptionSensorValue implements Value{
     public double _dValue;
 
     /**
@@ -41,20 +41,4 @@ public class AveragePowerConsumptionSensorValue implements Value, Cloneable {
     public String toString() {
         return this._dValue + "";
     }
-
-    /**
-     * Clones the PowerConsumptionSensorValue.
-     * @return a new PowerConsumptionSensorValue with the same value.
-     */
-
-    @Override
-    public AveragePowerConsumptionSensorValue clone() {
-        try {
-            return (AveragePowerConsumptionSensorValue) super.clone();
-
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
-    }
-
 }

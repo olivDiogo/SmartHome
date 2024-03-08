@@ -1,11 +1,14 @@
 @startuml
 
+!pragma layout smetana
+
 package SmartHome.sensors {
 
     class WindSensor {
         - final _sensorType : SensorType
         - _value : WindSensorValue
         + WindSensor(catalogue : CatalogueSensor)
+        + setSensorType(catalogue : CatalogueSensor) : SensorType)
         + getSensorType() : SensorType
         + getValue() : Value
     }
@@ -38,32 +41,10 @@ package SmartHome.domain {
     }
 }
 
-SmartHome.sensors.WindSensor ..|> SmartHome.domain.Sensor
-SmartHome.sensors.WindSensor --> SmartHome.domain.SensorType : _sensorType
-SmartHome.sensors.WindSensor --> SmartHome.sensors.WindSensorValue : _value
-SmartHome.sensors.WindSensor --> SmartHome.domain.CatalogueSensor
-SmartHome.sensors.WindSensorValue ..|> SmartHome.domain.Value
-
-@enduml
-
-@startuml
-
-class WindSensor {
-    - final _sensorType : SensorType
-    - _value : WindSensorValue
-    + WindSensor(catalogue : CatalogueSensor)
-    + getSensorType() : SensorType
-    + getValue() : Value
-}
-
-class WindSensorValue {
-    - _speed : double
-    - _direction : double
-    + WindSensorValue(speed : double, direction : double)
-    + getSpeed() : double
-    + getDirection() : double
-}
-
-WindSensor --> WindSensorValue : _value
+SmartHome.sensors.WindSensor ..|> SmartHome.domain.Sensor : <<implements>>
+SmartHome.sensors.WindSensor --> SmartHome.domain.SensorType : <<has>>
+SmartHome.sensors.WindSensor --* SmartHome.sensors.WindSensorValue : <<has>>
+SmartHome.sensors.WindSensor ..> SmartHome.domain.CatalogueSensor : <<uses>>
+SmartHome.sensors.WindSensorValue ..|> SmartHome.domain.Value : <<implements>>
 
 @enduml

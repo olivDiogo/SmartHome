@@ -4,8 +4,7 @@ import SmartHome.domain.Value;
 
 /**
  * Represents a value of temperature measured by a {@link TemperatureSensor}.
- * This class encapsulates a temperature reading and supports cloning to ensure
- * that temperature values can be safely copied without altering the original measurement.
+ * This class is used to encapsulate the numeric value of the temperature measurement.
  */
 public class TemperatureSensorValue implements Value {
 

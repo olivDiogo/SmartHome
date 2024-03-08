@@ -1,0 +1,53 @@
+@startuml
+!pragma layout smetana
+
+package SmartHome.sensors {
+
+    class SwitchSensor {
+        - final _sensorType : SensorType
+        - _value : SwitchSensorValue
+        + SwitchSensor(catalogue : CatalogueSensor)
+        - setSensorType(sensorType : SensorType) : SensorType
+        + getSensorType() : SensorType
+        + getValue() : Value
+    }
+
+    class SwitchSensorValue implements SmartHome.domain.Value {
+        - _bValue : boolean
+        + SwitchSensorValue(bValue : boolean)
+        + toString() : String
+    }
+
+}
+
+package SmartHome.domain {
+
+    interface Sensor {
+        + getSensorType() : SensorType
+        + getValue() : Value
+    }
+
+    class SensorType {
+        - _description : String
+        - _unit : Unit
+        # SensorType(description : String, unit : Unit)
+        - setStrDescription(description : String) : String
+        - setUnit(unit : Unit) : Unit
+        + getDescription() : String
+        + getUnit() : Unit
+    }
+
+    interface Value {
+    }
+
+    class CatalogueSensor {
+        + getSensorType(description : String) : SensorType
+    }
+}
+
+SmartHome.sensors.SwitchSensor ..|> SmartHome.domain.Sensor : implements
+SmartHome.sensors.SwitchSensor --o SmartHome.domain.SensorType : has
+SmartHome.sensors.SwitchSensor --* SmartHome.sensors.SwitchSensorValue : contains
+SmartHome.sensors.SwitchSensor ..> SmartHome.domain.CatalogueSensor : uses
+SmartHome.sensors.SwitchSensorValue ..|> SmartHome.domain.Value : implements
+@enduml
