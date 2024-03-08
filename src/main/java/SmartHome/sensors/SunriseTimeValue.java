@@ -4,7 +4,7 @@ import SmartHome.domain.Value;
 
 import java.time.LocalTime;
 
-public class SunriseTimeValue implements Value, Cloneable {
+public class SunriseTimeValue implements Value{
 
     private LocalTime _value;
 
@@ -36,19 +36,5 @@ public class SunriseTimeValue implements Value, Cloneable {
         int minutes = this._value.getMinute();
         int seconds = this._value.getSecond();
         return String.format("Sunrise Time: %02d:%02d:%02d", hours, minutes, seconds);
-    }
-
-    /**
-     * Clones the SunriseTimeValue.
-     * @return a new SunriseTimeValue with the same value.
-     */
-    @Override
-    public SunriseTimeValue clone(){
-        try {
-            return (SunriseTimeValue) super.clone();
-
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
     }
 }
