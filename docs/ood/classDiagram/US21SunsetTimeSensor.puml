@@ -1,0 +1,62 @@
+@startuml
+!pragma layout smetana
+
+package SmartHome.sensors {
+
+  class SunsetTimeSensor {
+    - _sensorType : SensorType
+    - _latitude : double
+    - _longitude : double
+    - _sunsetTimeValue : SunsetTimeValue
+    + SunsetTimeSensor(catalogue : CatalogueSensor)
+    + getSensorType() : SensorType
+    + getValue() : Value
+    + getValue(LocalDate date) : Value
+      getSunsetTime() : LocalTime
+      getSunsetTime(LocalDate date) : LocalTime
+    - setSensorType(CatalogueSensor catalogueSensor)
+    + configureGpsLocation()
+  }
+
+  class SunsetTimeValue {
+    - _value: LocalTime
+    + SunsetTimeValue(LocalTime value)
+    - setValue(LocalTime value)
+    + toString() : String
+  }
+
+}
+
+package SmartHome.domain {
+
+  interface Sensor {
+    + getSensorType() : SensorType
+    + getValue() : Value
+  }
+
+  class SensorType {
+    - _strDescription : String
+    - _unit : Unit
+    + SensorType(String strDescription, Unit unit)
+    - setStrDescription(String strDescription) : String
+    - setUnit(Unit unit) : Unit
+    + getDescription() : String
+    + getUnit() : Unit
+  }
+
+  interface Value {
+  }
+
+  class CatalogueSensor {
+    + getSensorType(description : String) : SensorType
+  }
+
+}
+
+SmartHome.sensors.SunsetTimeSensor ..|> SmartHome.domain.Sensor: implements
+SmartHome.sensors.SunsetTimeSensor --o SmartHome.domain.SensorType : has
+SmartHome.sensors.SunsetTimeSensor --> SmartHome.sensors.SunsetTimeValue : contains
+SmartHome.sensors.SunsetTimeSensor --> SmartHome.domain.CatalogueSensor: uses
+SmartHome.sensors.SunsetTimeValue ..|> SmartHome.domain.Value: implements
+
+@enduml
