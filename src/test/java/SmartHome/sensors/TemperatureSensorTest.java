@@ -19,7 +19,7 @@ class TemperatureSensorTest {
      * @throws InstantiationException If the sensor type "Temperature" does not exist.
      */
     @Test
-    void newValidTemperatureSensor() throws InstantiationException {
+    void shouldReturnNewTemperatureSensor_WhenSensorTypeIsValid() throws InstantiationException {
         // Arrange
         String description = "Temperature";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -36,7 +36,7 @@ class TemperatureSensorTest {
      * with an invalid sensor type.
      */
     @Test
-    void newInvalidTemperatureSensor() {
+    void shouldThrowInstantiationException_WhenSensorTypeIsInvalid() {
         // Arrange
         String description = "Temperature";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -53,7 +53,7 @@ class TemperatureSensorTest {
      * @throws InstantiationException If the sensor type "Temperature" does not exist.
      */
     @Test
-    void getSensorTypeReturnsCorrectSensorType() throws InstantiationException {
+    void shouldReturnCorrectSensorType_WhenGetSensorTypeIsCalled() throws InstantiationException {
         // Arrange
         String description = "Temperature";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -76,7 +76,7 @@ class TemperatureSensorTest {
      * @throws InstantiationException If the sensor type "Temperature" does not exist.
      */
     @Test
-    void getValueReturnsHardCodedValue() throws InstantiationException {
+    void shouldReturnValue_WhenGetValueIsCalled() throws InstantiationException {
         // Arrange
         String description = "Temperature";
 
@@ -95,7 +95,7 @@ class TemperatureSensorTest {
 
             // Assert
             List<TemperatureSensorValue> constructed = temperatureSensorValue.constructed();
-            assertEquals(constructed.get(0).toString(), temperatureSensor.getValue().toString());
+            assertEquals(constructed.get(0).toString(), value.toString());
             assertEquals("70.5", value.toString());
         }
     }

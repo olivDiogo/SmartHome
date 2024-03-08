@@ -13,7 +13,7 @@ class TemperatureSensorValueTest {
      * Tests if the {@link TemperatureSensorValue} constructor correctly assigns the provided temperature value.
      */
     @Test
-    void constructorWorksWhenValueIsPositive() {
+    void shouldReturnNewTemperatureSensorValue_WhenConstructorIsCalledWithPositiveValue() {
         // Arrange
         double nValue = 10;
 
@@ -25,7 +25,7 @@ class TemperatureSensorValueTest {
      * Tests if the {@link TemperatureSensorValue} constructor correctly assigns the provided temperature value when it is at the lower boundary.
      */
     @Test
-    void constructorWorksWhenValueIsZero() {
+    void shouldReturnNewTemperatureSensorValue_WhenConstructorIsCalledWithZero() {
         // Arrange
         double nValue = 0;
 
@@ -37,7 +37,7 @@ class TemperatureSensorValueTest {
      * Tests if the {@link TemperatureSensorValue} constructor throws an {@link IllegalArgumentException} when the temperature value is below the lower boundary.
      */
     @Test
-    void constructorThrowsExceptionWhenValueUnderTheLimit() {
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithValueUnderTheLimit() {
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new TemperatureSensorValue(-273.16));
 
@@ -49,7 +49,7 @@ class TemperatureSensorValueTest {
      * Tests if the {@link TemperatureSensorValue} constructor correctly assigns the provided temperature value when it is at the lower boundary.
      */
     @Test
-    void constructorWorksWhenValueIsAtTheLimit() {
+    void shouldReturnNewTemperatureSensorValue_WhenConstructorIsCalledWithValueAtTheLimit() {
         // Arrange
         double nValue = -273.15;
 
@@ -62,7 +62,7 @@ class TemperatureSensorValueTest {
      * Tests if the {@link TemperatureSensorValue#toString} method correctly converts the temperature value to a string.
      */
     @Test
-    void toStringReturnsCorrectValue() {
+    void shouldReturnStringValueOfTemperature_WhenToStringIsCalled() {
         // Arrange
         double nValue = 10.5;
         TemperatureSensorValue temperatureSensorValue = new TemperatureSensorValue(nValue);
