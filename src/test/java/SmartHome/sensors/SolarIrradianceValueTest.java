@@ -17,10 +17,9 @@ public class SolarIrradianceValueTest {
         int value = 450;
 
         // Act
-        SolarIrradianceValue solarIrradianceValue = new SolarIrradianceValue(value);
+        new SolarIrradianceValue(value);
 
         // Assert
-        assertNotNull(solarIrradianceValue);
     }
 
 
