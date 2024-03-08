@@ -12,7 +12,7 @@ class PercentagePositionSensorValueTest {
      * Tests the constructor of PercentagePositionSensorValue when the value is 100.
      */
     @Test
-    void seeIfConstructorWorksWhenValueIs100() {
+    void shouldReturnNewPercentagePosicionSensorValueCem_WhenConstructorIsCalled() {
         // Arrange
         double percented = 100;
 
@@ -24,7 +24,7 @@ class PercentagePositionSensorValueTest {
      * Tests the constructor of PercentagePositionSensorValue when the value is zero.
      */
     @Test
-    void seeIfConstructorWorksWhenValueIsZero() {
+    void shouldReturnNewPercentagePosicionSensorValueZero_WhenConstructorIsCalled() {
         // Arrange
         double percented = 0;
 
@@ -35,7 +35,7 @@ class PercentagePositionSensorValueTest {
      * Tests if the constructor throws an exception when the value is under zero.
      */
     @Test
-    void seeIfConstructorThrowsExceptionWhenValueUnderZero() {
+    void shouldReturnThrowsException_WhenConstructorIsUnderZero() {
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensorValue(-1));
 
@@ -47,7 +47,7 @@ class PercentagePositionSensorValueTest {
      * Tests if the constructor throws an exception when the value is over 100.
      */
     @Test
-    void seeIfConstructorThrowsExceptionWhenValueOver100() {
+    void shouldReturnThrowsException_WhenConstructorIsOverCem() {
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensorValue(101));
 
@@ -59,7 +59,7 @@ class PercentagePositionSensorValueTest {
      * Tests if the toString method returns the correct string representation.
      */
     @Test
-    void seeIfToStringWorks() {
+    void shouldReturnCorrect_whenToStringWorks() {
         // Arrange
         PercentagePositionSensorValue percentagePositionSensorValue = new PercentagePositionSensorValue(50);
 
