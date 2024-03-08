@@ -78,7 +78,7 @@ public class AveragePowerConsumptionSensor implements Sensor {
      * @throws IllegalArgumentException if the initial time is after the final time.
      * @throws IllegalArgumentException if the initial time is equal to the final time.
      */
-    protected double getAverageValue(LocalDateTime initialTime, LocalDateTime finalTime) {
+    private double getAverageValue(LocalDateTime initialTime, LocalDateTime finalTime) {
         if (initialTime.isAfter(finalTime)) {
             throw new IllegalArgumentException("Initial time must be before final time");
 
