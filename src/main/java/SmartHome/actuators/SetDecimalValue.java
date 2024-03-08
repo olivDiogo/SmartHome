@@ -2,35 +2,40 @@ package SmartHome.actuators;
 
 import SmartHome.domain.Value;
 
-/**
- * This class represents a decimal value used in actuator operations.
- */
+
 public class SetDecimalValue implements Value, Cloneable {
-    private double _value; // The decimal value
+    private double _nValue; // The decimal value
+    private double _lowerLimit; // The lower limit of the value range
+    private double _upperLimit; // The upper limit of the value range
 
-    /**
-     * Constructs a SetDecimalValue object with the specified value.
-     *
-     * @param value The decimal value to set.
-     */
-    public SetDecimalValue(double value) {
-        setValue(value);
+
+    public SetDecimalValue(double nValue) {
+        setValue(nValue);
     }
 
-    /**
-     * Sets the decimal value.
-     *
-     * @param value The decimal value to set.
-     */
-    private void setValue(double value) {
-        this._value = value;
+    public double setLowerLimit(double lowerLimit) {
+        if (_nValue < setLowerLimit(lowerLimit)) {
+            throw new IllegalArgumentException("Value cannot be less than the lower limit.");
+        }
+            this._lowerLimit = lowerLimit;
+            return lowerLimit;
+
     }
 
-    /**
-     * Creates and returns a clone of this SetDecimalValue object.
-     *
-     * @return A cloned instance of this SetDecimalValue object.
-     */
+
+    public double setUpperLimit(double upperLimit) {
+        if (_nValue > setUpperLimit(upperLimit)) {
+            throw new IllegalArgumentException("Value cannot be greater than the upper limit.");
+        }
+        this._upperLimit = upperLimit;
+        return upperLimit;
+    }
+
+    private void setValue(double nValue) {
+            this._nValue = nValue;
+    }
+
+
     @Override
     public SetDecimalValue clone() {
         try {
@@ -40,14 +45,9 @@ public class SetDecimalValue implements Value, Cloneable {
         }
     }
 
-    /**
-     * Returns the string representation of the decimal value.
-     *
-     * @return The string representation of the decimal value.
-     */
     @Override
     public String toString() {
-        return _value + "";
+        return _nValue + "";
     }
 }
 
