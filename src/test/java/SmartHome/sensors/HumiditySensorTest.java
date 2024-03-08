@@ -2,8 +2,11 @@ package SmartHome.sensors;
 
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
+import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -79,26 +82,27 @@ class HumiditySensorTest {
      * @throws InstantiationException if the sensor type does not exist.
      */
     @Test
-    void getValueReturnCorrectValue() throws InstantiationException {
+    void getValueReturnsHardCodedValue() throws InstantiationException {
         // Arrange
         String description = "Humidity";
-        String humidity = "50";
-        double expected = 50;
+
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         try (MockedConstruction<HumiditySensorValue> humiditySensorValue = mockConstruction(HumiditySensorValue.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(humidity);
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
             HumiditySensor humiditySensor = new HumiditySensor(catalogueDouble);
 
             // Act
-            double result = Double.parseDouble(humiditySensor.getValue().toString());
+            Value value = humiditySensor.getValue();
 
             // Assert
-            assertEquals(expected, result);
+            List<HumiditySensorValue> constructed = humiditySensorValue.constructed();
+            assertEquals(constructed.get(0).toString(), value.toString());
+            assertEquals("100.0", value.toString());
         }
     }
 }
