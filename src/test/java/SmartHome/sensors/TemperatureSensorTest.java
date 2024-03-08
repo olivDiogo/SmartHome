@@ -4,6 +4,8 @@ import SmartHome.domain.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -74,26 +76,27 @@ class TemperatureSensorTest {
      * @throws InstantiationException If the sensor type "Temperature" does not exist.
      */
     @Test
-    void getValueReturnsValidValue() throws InstantiationException {
+    void getValueReturnsHardCodedValue() throws InstantiationException {
         // Arrange
         String description = "Temperature";
-        String temperature = "10";
-        double expected = 10;
+
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);
 
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         try(MockedConstruction<TemperatureSensorValue> temperatureSensorValue = mockConstruction(TemperatureSensorValue.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(temperature);
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
             TemperatureSensor temperatureSensor = new TemperatureSensor(catalogueDouble);
 
             // Act
-            double tempValue = Double.parseDouble(temperatureSensor.getValue().toString());
+            Value value = temperatureSensor.getValue();
 
             // Assert
-            assertEquals(expected, tempValue);
+            List<TemperatureSensorValue> constructed = temperatureSensorValue.constructed();
+            assertEquals(constructed.get(0).toString(), temperatureSensor.getValue().toString());
+            assertEquals("70.5", value.toString());
         }
     }
 }
