@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeactivateDeviceControllerTest {
 
     @Test
-    void constructorWithValidArgumentsWorks() {
+    void shouldInstantiateDeactivateDeviceController_WhenConstructorIsCalledWithValidArguments() {
         //Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
         //Act
@@ -21,7 +21,7 @@ class DeactivateDeviceControllerTest {
     }
 
     @Test
-    void constructorThrowsException() {
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullHouse() {
         //Arrange
         House house = null;
         String expectedMessage = "Invalid arguments";
@@ -31,7 +31,7 @@ class DeactivateDeviceControllerTest {
         }
 
     @Test
-    void successfullyReturnsTheDeviceList() {
+    void shouldReturnDeviceListWithOneDevice_WhenGetDeviceListIsCalledAfterAddingDeviceToRoom() {
         //Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
         String roomName = "Sala";
@@ -50,7 +50,7 @@ class DeactivateDeviceControllerTest {
     }
 
     @Test
-    void getDeviceListReturnEmptyList() {
+    void shouldReturnEmptyDeviceList_WhenGetDeviceListIsCalledWithoutAddingAnyDevice() {
         //Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(house);
@@ -61,7 +61,7 @@ class DeactivateDeviceControllerTest {
     }
 
     @Test
-    void deactivateDeviceReturnEmptyOptional() {
+    void shouldReturnEmptyOptional_WhenDeactivateDeviceIsCalledWithDeviceNotInList() {
         //Arrange
         String name = "Luz";
         House house = new House(new LocationFactory(), new RoomFactory());
@@ -79,7 +79,7 @@ class DeactivateDeviceControllerTest {
     }
 
     @Test
-    void deactivateDeviceShouldReturnUpdatedDeviceDTO() {
+    void shouldReturnUpdatedDeviceDTO_WhenDeactivateDeviceIsCalledWithDeviceInList() {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
         String roomName = "Sala";
