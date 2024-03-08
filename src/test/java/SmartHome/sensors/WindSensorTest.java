@@ -19,7 +19,7 @@ class WindSensorTest {
      * @throws InstantiationException
      */
     @Test
-    void shouldInstantiateValidObject_GivenValidDescription() throws  InstantiationException{
+    void shouldInstantiateValidObject_WhenDescriptionIsValid() throws  InstantiationException{
         //Arrange
         String strDescription = "WindSpeedAndDirection";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -35,7 +35,7 @@ class WindSensorTest {
      * @throws InstantiationException
      */
     @Test
-    void shouldThrowError_GivenInvalidDescription() {
+    void shouldThrowError_WhenDescriptionIsInvalid() {
         //Arrange
         CatalogueSensor mockCatalogue = mock(CatalogueSensor.class);
         when(mockCatalogue.getSensorType("WindSpeedAndDirection")).thenReturn(null);
@@ -50,7 +50,7 @@ class WindSensorTest {
      * @throws InstantiationException
      */
     @Test
-    void shouldReturnValidSensorType_GivenValidDescription() throws InstantiationException {
+    void shouldReturnValidSensorType_WhenDescriptionIsValid() throws InstantiationException {
         //Arrange
         String strDescription = "WindSpeedAndDirection";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);

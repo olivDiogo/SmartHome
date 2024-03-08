@@ -9,7 +9,7 @@ class WindSensorValueTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    void shouldInstantiateConstructors_givenValid(){
+    void shouldInstantiateConstructors(){
         //Arrange
         double speed = 10.5;
         double direction = 0.0;
@@ -22,7 +22,7 @@ class WindSensorValueTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    void getSpeed_returnsCorrectSpeed() {
+    void shouldReturnCorrectSpeed() {
         // Arrange
         double expectedSpeed = 10.5;
         WindSensorValue windSensorValue = new WindSensorValue(expectedSpeed, 0.0);
@@ -39,7 +39,7 @@ class WindSensorValueTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    void getDirection_returnsCorrectDirection() {
+    void shouldReturnCorrectDirection() {
         // Arrange
         double expectedDirection = Math.PI / 4; // Example direction in radians
         WindSensorValue windSensorValue = new WindSensorValue(0.0, expectedDirection);

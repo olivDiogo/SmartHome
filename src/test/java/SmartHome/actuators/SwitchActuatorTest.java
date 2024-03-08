@@ -34,7 +34,7 @@ public class SwitchActuatorTest {
      * Should throw exception when creating instance of BinarySwitchActuator class with invalid actuator type.
      */
     @Test
-    void whenNonExistentActuactorTypeForSwitchActuator_thenThrowsException() {
+    void shouldThrowException_WhenActuatorTypeIsInvalid() {
         // arrange
         String description = "SwitchActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
@@ -56,7 +56,7 @@ public class SwitchActuatorTest {
      */
 
     @Test
-    void getActuatorTypeReturnsCorrectActuatorType() throws InstantiationException {
+    void shouldReturnCorrectActuatorType_WhenRequested() throws InstantiationException {
         // arrange
         String description = "SwitchActuator";
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
@@ -81,7 +81,7 @@ public class SwitchActuatorTest {
      */
 
     @Test
-    void getActuatorTypeReturnsWrongActuatorType() throws InstantiationException {
+    void shouldNotEqualWrongActuatorType_WhenCompared() throws InstantiationException {
         // arrange
         String description = "SwitchActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
@@ -106,7 +106,7 @@ public class SwitchActuatorTest {
      */
 
     @Test
-    void setValueTest() throws InstantiationException {
+    void shouldSetValueCorrectly_WhenGivenValidInput() throws InstantiationException {
         // arrange
         String description = "SwitchActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
@@ -132,7 +132,7 @@ public class SwitchActuatorTest {
      * @throws InstantiationException
      */
     @Test
-    void SetValueNull() throws InstantiationException {
+    void shouldReturnNull_WhenValueIsNull() throws InstantiationException {
         // arrange
         String description = "SwitchActuator";
         CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);

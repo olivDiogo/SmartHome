@@ -45,7 +45,7 @@ public class SwitchActuatorValueTest {
      * Clone switch actuator value is not null.
      */
     @Test
-    void CloneSwitchActuatorValueIsNotNull() {
+    void shouldNotBeNull_WhenSwitchActuatorValueIsCloned() {
         // arrange
         boolean value = true;
         SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(value);
@@ -62,7 +62,7 @@ public class SwitchActuatorValueTest {
      */
 
     @Test
-    void shouldHandleNullSwitchActuatorValue() {
+    void shouldReturnNull_WhenCloneCalledOnNullSwitchActuatorValue() {
         // arrange
         SwitchActuatorValue switchActuatorValue = null;
 
@@ -76,7 +76,7 @@ public class SwitchActuatorValueTest {
      * Should set the value of the actuator to on.
      */
     @Test
-    void setValueOnShouldReturnTrue() {
+    void shouldReturnTrue_WhenSetValueOnCalled () {
         // arrange
         SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(true);
 
@@ -85,20 +85,6 @@ public class SwitchActuatorValueTest {
 
         // assert
         assertTrue(result);
-    }
-
-    /**
-     * Should set the value of the actuator to on and return "On".
-     */
-    @Test
-    void setValueOnToStringShouldReturnOn() {
-        // arrange
-        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(true);
-
-        // act
-        switchActuatorValue.setValueOn();
-
-        // assert
         assertEquals("On", switchActuatorValue.toString());
     }
 
@@ -106,7 +92,7 @@ public class SwitchActuatorValueTest {
      * Should set the value of the actuator to off.
      */
     @Test
-    void setValueOffShouldReturnFalse() {
+    void shouldReturnFalse_WhenSetValueOffCalled() {
         // arrange
         SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
 
@@ -121,7 +107,7 @@ public class SwitchActuatorValueTest {
      * Should set the value of the actuator to off and return "Off".
      */
     @Test
-    void setValueOffShouldSetActuatorValueToFalse() {
+    void shouldReturnOffAsString_WhenSetValueOffCalled() {
         // arrange
         SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(true);
 
@@ -133,7 +119,7 @@ public class SwitchActuatorValueTest {
     }
 
     @Test
-    void setValueShouldNotReturnOff_whenItsTrue() {
+    void shouldNotReturnOffAsString_WhenSetValueOnCalled () {
         // arrange
         SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(true);
 
@@ -145,7 +131,7 @@ public class SwitchActuatorValueTest {
     }
 
     @Test
-    void setValueShouldNotReturnOn_whenItsFalse() {
+    void shouldNotReturnOnAsString_WhenSetValueOffCalled () {
         // arrange
         SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(false);
 
