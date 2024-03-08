@@ -125,7 +125,7 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
         Room room = house.addRoom(roomName, floor, width, length, height);
 
         String sensorDescription = "Temperature";
-        catalogue.addSensorType(sensorDescription, Unit.Temperature, new SensorTypeFactory());
+        catalogue.addSensorType(sensorDescription, Unit.TEMPERATURE, new SensorTypeFactory());
 
         String deviceName = "Thermostat";
         String sensorModel = "SmartHome.sensors.GA100K";
@@ -163,10 +163,10 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
         Room room = house.addRoom(roomName, floor, width, length, height);
 
         String sensorDescription1 = "Temperature";
-        catalogue.addSensorType(sensorDescription1, Unit.Temperature, new SensorTypeFactory());
+        catalogue.addSensorType(sensorDescription1, Unit.TEMPERATURE, new SensorTypeFactory());
 
         String sensorDescription2 = "Humidity";
-        catalogue.addSensorType(sensorDescription2, Unit.Humidity, new SensorTypeFactory());
+        catalogue.addSensorType(sensorDescription2, Unit.HUMIDITY, new SensorTypeFactory());
 
         String deviceName = "Thermostat & Humidifier";
         String sensorModel1 = "SmartHome.sensors.GA100K";
@@ -200,10 +200,10 @@ public class GetAllDevicesGroupedByFunctionalityControllerTest {
         Room room = house.addRoom(roomName, floor, width, length, height);
 
         String sensorDescription1 = "Temperature";
-        catalogue.addSensorType(sensorDescription1, Unit.Temperature, new SensorTypeFactory());
+        catalogue.addSensorType(sensorDescription1, Unit.TEMPERATURE, new SensorTypeFactory());
 
         String sensorDescription2 = "Humidity";
-        catalogue.addSensorType(sensorDescription2, Unit.Humidity, new SensorTypeFactory());
+        catalogue.addSensorType(sensorDescription2, Unit.HUMIDITY, new SensorTypeFactory());
 
         String deviceName1 = "Thermostat & Humidifier";
         String sensorModel1 = "SmartHome.sensors.GA100K";
