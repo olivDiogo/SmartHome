@@ -3,6 +3,9 @@ package SmartHome.sensors;
 import SmartHome.domain.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
+
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +20,7 @@ class SwitchSensorTest {
      * @throws InstantiationException if the sensor type "Switch" does not exist in the catalogue.
      */
     @Test
-    void newValidSwitchSensor() throws InstantiationException {
+    void shouldReturnNewValidSwitchSensor_WhenArgumentsAreValid() throws InstantiationException {
         // Arrange
         String description = "Switch";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -34,7 +37,7 @@ class SwitchSensorTest {
      * with an invalid sensor type.
      */
     @Test
-    void newInvalidSwitchSensor() {
+    void shouldThrowException_WhenDescriptionIsInvalid() {
         // Arrange
         String description = "Switch";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -54,7 +57,7 @@ class SwitchSensorTest {
      * @throws InstantiationException if the sensor type "Switch" does not exist in the catalogue.
      */
     @Test
-    void getSensorTypeReturnsCorrectSensorType() throws InstantiationException {
+    void shouldThrowInstantiationException_WhenSensorTypeIsInvalid() throws InstantiationException {
         // Arrange
         String description = "Switch";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -78,7 +81,7 @@ class SwitchSensorTest {
      * @throws InstantiationException if the sensor type "Switch" does not exist in the catalogue.
      */
     @Test
-    void getValueReturnsOff() throws InstantiationException {
+    void shouldReturnOffSwitchSensorValue_WhenGetValueIsCalled() throws InstantiationException {
         // Arrange
         String description = "Switch";
         String state = "Off";
@@ -89,7 +92,7 @@ class SwitchSensorTest {
         when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         try (MockedConstruction<SwitchSensorValue> switchSensorValueDouble = mockConstruction(SwitchSensorValue.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(state);
+            when(mock.toString()).thenReturn((boolean) context.arguments().get(0)? "On" : "Off");
         })) {
             SwitchSensor switchSensor = new SwitchSensor(catalogueDouble);
 
@@ -97,7 +100,10 @@ class SwitchSensorTest {
             Value result = switchSensor.getValue();
 
             // Assert
-            assertEquals("Off", result.toString());
+            List<SwitchSensorValue> constructed = switchSensorValueDouble.constructed();
+            assertEquals(2, constructed.size());
+            assertEquals(result.toString(), constructed.get(1).toString());
+            assertEquals(state, result.toString());
         }
     }
 }

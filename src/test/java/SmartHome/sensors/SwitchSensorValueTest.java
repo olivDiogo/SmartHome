@@ -13,7 +13,7 @@ class SwitchSensorValueTest {
      * Tests that the SwitchSensorValue constructor correctly initializes with a given boolean value.
      */
     @Test
-    void constructorReturnsObject(){
+    void shouldReturnNewSwitchSensorValue_WhenConstructorIsCalledWithTrue(){
         // Arrange
         boolean bValue = true;
 
@@ -25,7 +25,7 @@ class SwitchSensorValueTest {
      * Tests that the toString method returns "On" when the SwitchSensorValue is initialized to true.
      */
     @Test
-    void toStringReturnsON() {
+    void shouldReturnOn_WhenToStringIsCalledAndValueIsTrue() {
         // Arrange
         boolean bValue = true;
         SwitchSensorValue switchSensorValue = new SwitchSensorValue(bValue);
@@ -41,7 +41,7 @@ class SwitchSensorValueTest {
      * Tests that the toString method returns "Off" when the SwitchSensorValue is initialized to false.
      */
     @Test
-    void toStringReturnOff() {
+    void shouldReturnOff_WhenToStringIsCalledAndValueIsFalse() {
         // Arrange
         boolean bValue = false;
         SwitchSensorValue switchSensorValue = new SwitchSensorValue(bValue);
