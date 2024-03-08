@@ -60,7 +60,7 @@ public class DewPointSensor implements Sensor {
 
         this._dewPointValue = new DewPointValue(dewPointValue);
 
-        return this._dewPointValue;
+        return _dewPointValue;
     }
 
 }

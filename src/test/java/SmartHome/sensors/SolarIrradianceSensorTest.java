@@ -26,10 +26,9 @@ public class SolarIrradianceSensorTest {
         when(catalogue.getSensorType(description)).thenReturn(sensorTypeDouble);
 
         //Act
-        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(catalogue);
+        new SolarIrradianceSensor(catalogue);
 
         //Assert
-        assertNotNull(solarIrradianceSensor);
     }
 
     /**

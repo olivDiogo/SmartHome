@@ -2,7 +2,7 @@ package SmartHome.sensors;
 
 import SmartHome.domain.Value;
 
-public class SolarIrradianceValue implements Value, Cloneable {
+public class SolarIrradianceValue implements Value {
     private int _iValue;
 
     /**

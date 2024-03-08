@@ -65,7 +65,6 @@ public class AveragePowerConsumptionSensorTest {
 
         try (MockedConstruction<AveragePowerConsumptionSensorValue> powerConsumptionSensorValueDouble = mockConstruction(AveragePowerConsumptionSensorValue.class, (mock, context) ->
         {
-            when(mock.clone()).thenReturn(mock);
             when(mock.getValue()).thenReturn(value);
         })) {
             AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
@@ -93,7 +92,6 @@ public class AveragePowerConsumptionSensorTest {
 
         try (MockedConstruction<AveragePowerConsumptionSensorValue> powerConsumptionSensorValueDouble = mockConstruction(AveragePowerConsumptionSensorValue.class, (mock, context) ->
         {
-            when(mock.clone()).thenReturn(mock);
             when(mock.toString()).thenReturn(value);
         })) {
             AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
