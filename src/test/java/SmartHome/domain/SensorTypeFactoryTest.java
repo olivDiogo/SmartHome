@@ -13,7 +13,7 @@ class SensorTypeFactoryTest {
     void shouldReturnMockedSensorType_TestWithoutWhen() {
         // Arrange
         String description = "Temperature";
-        Unit unit = Unit.Temperature; // Assuming an example unit
+        Unit unit = Unit.TEMPERATURE; // Assuming an example unit
 
         try (MockedConstruction<SensorType> mocked = Mockito.mockConstruction(SensorType.class)) {
             // Act
@@ -30,7 +30,7 @@ class SensorTypeFactoryTest {
     void shouldReturnMockedSensorType_TestWithWhen() throws InstantiationException {
         // Arrange
         String description = "Temperature";
-        Unit unit = Unit.Temperature; // Assuming an example unit
+        Unit unit = Unit.TEMPERATURE; // Assuming an example unit
 
         try (MockedConstruction<SensorType> mocked = Mockito.mockConstruction(SensorType.class, (mock, context) -> {
             when(mock.getDescription()).thenReturn(description);

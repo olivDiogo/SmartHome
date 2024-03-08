@@ -309,7 +309,7 @@ public class AddSensorToDeviceTest {
         double length = 5;
         double height = 3;
         String deviceName = "device1";
-        catalogue.addSensorType("Temperature", Unit.Temperature, new SensorTypeFactory());
+        catalogue.addSensorType("Temperature", Unit.TEMPERATURE, new SensorTypeFactory());
         Room defaultRoom = house.addRoom(roomName1, floor, width, length, height);
         defaultRoom.addDevice(deviceName, new DeviceFactory());
         List<RoomDTO> roomDTOS = controller.getRooms();
@@ -335,7 +335,7 @@ public class AddSensorToDeviceTest {
         String deviceName = "device1";
         String sensorModel = "SmartHome.sensors.TemperatureSensor";
 
-        catalogue.addSensorType("Temperature", Unit.Temperature, new SensorTypeFactory());
+        catalogue.addSensorType("Temperature", Unit.TEMPERATURE, new SensorTypeFactory());
 
         Room livingRoom = house.addRoom(roomName1, floor, width, length, height);
 

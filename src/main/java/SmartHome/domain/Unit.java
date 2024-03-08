@@ -5,40 +5,27 @@ import java.util.List;
 
 public enum Unit
 {
-    Switch("Switch", "On/Off"),
+    SWITCH( "On/Off"),
+    TEMPERATURE("C"),
+    HUMIDITY("%"),
+    POWERCONSUMPTION("W"),
+    WINDSPEEDANDDIRECTION("km/h & Cardinal Points"),
+    SOLARIRRADIANCE("W/m^2"),
+    PERCENTED("%"),
+    TIME("s"),
+    WATTSHOUR("Wh"),
+    NOUNIT("");
 
-    Temperature("Temperature",  "C"),
-    Humidity("Humidity", "%"),
-    PowerConsumption("Power Consumption", "W"),
-    WindSpeedAndDirection("WindSpeedAndDirection", "km/h & Cardinal Points"),
-    SolarIrradiance("SolarIrradiance", "W/m^2"),
-    Percented("Percented", "%"),
-    Time("Time", "s"),
-    WattsHour("WattsHour", "Wh"),
-    NoUnit("NoUnit", "");
 
-
-    private final String type;
     private final String unit;
 
     /**
      * Constructor for the Unit enum.
      *
-     * @param type The type of the unit.
      * @param unit The unit.
      */
-    Unit(String type, String unit) {
-        this.type = type;
+    Unit(String unit) {
         this.unit = unit;
-    }
-
-    /**
-     * Gets the type of the unit.
-     *
-     * @return The type of the unit.
-     */
-    public String getType() {
-        return type;
     }
 
     /**
@@ -56,7 +43,7 @@ public enum Unit
      * @return A list of all supported units.
      */
     public static List<String> getAllSupportedUnits() {
-        List<String> result = Arrays.stream(Unit.values()).map(Unit::getType).toList();
+        List<String> result = Arrays.stream(Unit.values()).map(Unit::name).toList();
         return result;
     }
 }

@@ -28,7 +28,7 @@ class AddSensorTypeControllerTest {
         CatalogueSensor catalogue = new CatalogueSensor("config.properties");
         AddSensorTypeController controller = new AddSensorTypeController(catalogue);
         // Act
-        Optional<SensorTypeDTO> sensorTypeDTO = controller.addSensorType("Water Temperature", "Temperature");
+        Optional<SensorTypeDTO> sensorTypeDTO = controller.addSensorType("Water Temperature", "TEMPERATURE");
         // Assert
         assertTrue(sensorTypeDTO.isPresent());
     }

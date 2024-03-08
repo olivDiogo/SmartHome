@@ -6,22 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SensorTypeTest {
 
-    /**
-     * Tests the instantiation of the SensorType
-     * when the description is valid.
-     *
-     * @throws InstantiationException if the description is null
-     */
-    @Test
-    void whenDescriptionIsValid_thenInstantiateSensorType() throws InstantiationException {
-        // Arrange
-        String strDescription = "Temperature";
-
-        // Act
-        new SensorType(strDescription, Unit.Temperature);
-
-        // Assert
-    }
 
     /**
      * Tests the instantiation of the SensorType
@@ -35,7 +19,7 @@ class SensorTypeTest {
         String expectedMessage = "Invalid arguments";
 
         // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorType(strDescription, Unit.Temperature));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorType(strDescription, Unit.TEMPERATURE));
 
         // Assert
         String actualMessage = exception.getMessage();
@@ -55,7 +39,7 @@ class SensorTypeTest {
         String expectedMessage = "Invalid arguments";
 
         // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorType(strDescription, Unit.Temperature));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorType(strDescription, Unit.TEMPERATURE));
 
         // Assert
         String actualMessage = exception.getMessage();
@@ -73,7 +57,7 @@ class SensorTypeTest {
         // Arrange
         String strDescription = "Temperature";
 
-        SensorType sensorType = new SensorType(strDescription, Unit.Temperature);
+        SensorType sensorType = new SensorType(strDescription, Unit.TEMPERATURE);
 
         // Act
         String result = sensorType.getDescription();
@@ -92,13 +76,13 @@ class SensorTypeTest {
         // Arrange
         String strDescription = "Temperature";
 
-        SensorType sensorType = new SensorType(strDescription, Unit.Temperature);
+        SensorType sensorType = new SensorType(strDescription, Unit.TEMPERATURE);
 
         // Act
         Unit result = sensorType.getUnit();
 
         // Assert
-        assertEquals(Unit.Temperature, result);
+        assertEquals(Unit.TEMPERATURE, result);
     }
     @Test
     void whenUnitIsNull_thenThrowsException() {
