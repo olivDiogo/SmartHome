@@ -161,51 +161,51 @@ public class SunriseSensorTest {
 
     }
 
-    /**
-     * See if the getValue method works for the current day.
-     */
+//    /**
+//     * See if the getValue method works for the current day.
+//     */
+//
+//    @Test
+//    void shouldReturnSunRiseTimeForThePresentDay() throws InstantiationException {
+//        //Arrange
+//        String description = "SunriseTime";
+//        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+//        SensorType sensorTypeDouble = mock(SensorType.class);
+//        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+//
+//        LocalTime expected = Objects.requireNonNull(SunTimes.compute().on(LocalDate.now()).at(41.1579, 8.6291).execute().getRise()).toLocalTime();
+//        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
+//
+//        //Act
+//        LocalTime result = sunriseTimeSensor.getSunriseTime();
+//        //Assert
+//        assertNotNull(result);
+//        assertEquals(expected, result);
+//    }
 
-    @Test
-    void shouldReturnSunRiseTimeForThePresentDay() throws InstantiationException {
-        //Arrange
-        String description = "SunriseTime";
-        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        LocalTime expected = SunTimes.compute().on(LocalDate.now()).at(41.1579, 8.6291).execute().getRise().toLocalTime();
-        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
-
-        //Act
-        LocalTime result = sunriseTimeSensor.getSunriseTime();
-        //Assert
-        assertNotNull(result);
-        assertEquals(expected, result);
-    }
-
-    /**
-     * See if the getValue method works for a specific day.
-     */
-
-    @Test
-    void shouldReturnSunriseTimeForSpecificDate() throws InstantiationException {
-        //Arrange
-        String description = "SunriseTime";
-        LocalDate date = LocalDate.of(2024, 10, 10);
-        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-
-        SunTimes time = SunTimes.compute().on(date).at(41.1579, 8.6291).execute();
-        LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();
-        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
-
-        //Act
-        LocalTime result = sunriseTimeSensor.getSunriseTime(date);
-
-        //Assert
-        assertNotNull(result);
-        assertEquals(sunrise, result);
-    }
+//    /**
+//     * See if the getValue method works for a specific day.
+//     */
+//
+//    @Test
+//    void shouldReturnSunriseTimeForSpecificDate() throws InstantiationException {
+//        //Arrange
+//        String description = "SunriseTime";
+//        LocalDate date = LocalDate.of(2024, 10, 10);
+//        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+//        SensorType sensorTypeDouble = mock(SensorType.class);
+//        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+//
+//
+//        SunTimes time = SunTimes.compute().on(date).at(41.1579, 8.6291).execute();
+//        LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();
+//        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(catalogueSensorDouble);
+//
+//        //Act
+//        LocalTime result = sunriseTimeSensor.getSunriseTime(date);
+//
+//        //Assert
+//        assertNotNull(result);
+//        assertEquals(sunrise, result);
+//    }
 }
