@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 class ElectricConsumptionWhSensorTest {
     @Test
-    void shouldCreateElectricConsumptionWhSensor() throws InstantiationException {
+    void shouldInstantiateElectricConsumptionWhSensor_WhenValidSensorTypeProvided() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -26,11 +26,10 @@ class ElectricConsumptionWhSensorTest {
         new ElectricConsumptionWhSensor(catalogueDouble);
     }
     @Test
-    void shouldThrowExceptionIfSensorTypeUnsupported() throws InstantiationException {
+    void shouldThrowException_WhenInvalidSensorTypeProvided() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
         when(catalogueDouble.getSensorType(description)).thenReturn(null);
         String expectedMessage = "SensorType with description 'ElectricConsumptionWh' does not exist.";
         //Act
@@ -40,7 +39,7 @@ class ElectricConsumptionWhSensorTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
     @Test
-    void fillMockConsumptionMapWithIsOfExpectedSize() throws InstantiationException {
+    void shouldFillMockConsumptionMapWithExpectedSize() throws InstantiationException {
     //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -58,7 +57,7 @@ class ElectricConsumptionWhSensorTest {
         assertEquals(expectedSize, mapAllConsumption.size());
     }
     @Test
-    void shouldReturnSensorType() throws InstantiationException {
+    void shouldReturnCorrectSensorType() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -71,7 +70,7 @@ class ElectricConsumptionWhSensorTest {
         assertEquals(sensorTypeDouble, result);
     }
     @Test
-    void fillMapWithRandomConsumptionWithValidDataShouldSpamLast5Days() throws InstantiationException {
+    void shouldFillMapWithArtificialConsumptionForLastFiveDays() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -88,7 +87,7 @@ class ElectricConsumptionWhSensorTest {
         assertEquals(endTime, mapAllConsumption.keySet().toArray()[mapAllConsumption.size()-1]);
     }
     @Test
-    void fillMapWithArtificialConsumptionShouldHaveSameValueInAllEntries() throws InstantiationException {
+    void shouldFillMapWithConstantValueForArtificialConsumption() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -103,7 +102,7 @@ class ElectricConsumptionWhSensorTest {
         assertTrue(mapAllConsumption.values().stream().allMatch(value -> value == valueSet));
     }
     @Test
-    void shouldFilterReadingForSelectedTimeFrame() throws InstantiationException {
+    void shouldFilterReadingsWithinSelectedTimeFrame() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -121,7 +120,7 @@ class ElectricConsumptionWhSensorTest {
         assertEquals(expectedSize, mapChosenTime.size());
     }
     @Test
-    void shouldThrowExceptionIfQueryOutsideRecordRange() throws InstantiationException {
+    void shouldThrowException_WhenQueryIsOutsideRecordRange() throws InstantiationException {
       //Arrange
             String description = "ElectricConsumptionWh";
             CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -139,7 +138,7 @@ class ElectricConsumptionWhSensorTest {
             assertEquals(expectedMessage, actualMessage);
     }
     @Test
-    void shouldThrowExceptionIfQueryIntoFutureData() throws InstantiationException {
+    void shouldThrowException_WhenQueryIsInFuture() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -157,7 +156,7 @@ class ElectricConsumptionWhSensorTest {
         assertEquals(expectedMessage, actualMessage);
     }
     @Test
-    void shouldThrowExceptionIfStartTimestampIsAfterEndTimestamp() throws InstantiationException {
+    void shouldThrowException_WhenStartTimestampIsAfterEndTimestamp() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -176,7 +175,7 @@ class ElectricConsumptionWhSensorTest {
     }
 
     @Test
-    void shouldReturnConsumptionInGivenTimePeriod() throws InstantiationException {
+    void shouldCalculateConsumptionForGivenTimePeriod() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -217,7 +216,7 @@ class ElectricConsumptionWhSensorTest {
         assertEquals(expectedConsumption, actualConsumption.toString());
     }
     @Test
-    void shouldNotConsideredIncompleteReadings() throws InstantiationException {
+    void shouldIgnoreIncompleteReadings() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -238,7 +237,7 @@ class ElectricConsumptionWhSensorTest {
     }
 
     @Test
-    void shouldReturnConsumptionInLast24HoursIfTimePeriodNotSelected() throws InstantiationException {
+    void shouldReturnConsumptionForLast24Hours_WhenTimePeriodNotSelected() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);

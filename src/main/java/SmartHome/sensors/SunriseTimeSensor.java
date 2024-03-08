@@ -15,7 +15,6 @@ import java.util.Objects;
 public class SunriseTimeSensor implements Sensor {
 
     private final SensorType _sensorType;
-
     private double _latitude;
     private double _longitude;
     private SunriseTimeValue _sunriseTimeValue;
