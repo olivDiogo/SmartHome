@@ -2,16 +2,15 @@ package SmartHome.sensors;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class DewPointValueTest {
 
     /**
-     * Test if the constructor is properly created.
+     * Should create instance of DewPointValue class.
      */
     @Test
-    public void shouldInstantiateDewPointValue() {
+    public void shouldReturnInstantiateDewPointValue() {
         //Arrange
         int value = 1;
         //Act
@@ -20,7 +19,7 @@ public class DewPointValueTest {
     }
 
     /**
-     * Test if the constructor is properly created when the value is negative.
+     * Should create instance of DewPointValue class when value is negative.
      */
     @Test
     public void shouldInstantiateDewPointValueWhenValueIsNegative() {
@@ -32,7 +31,7 @@ public class DewPointValueTest {
     }
 
     /**
-     * Test if the toString method returns the correct value.
+     * Should return the value of the dew point in string.
      */
     @Test
     public void shouldReturnDewPointValueInString() {
@@ -45,6 +44,29 @@ public class DewPointValueTest {
         String result = dewPointValue.toString();
         //Assert
         assertEquals(expected, result);
+    }
+
+    /**
+     * Should throw exception when dew point value is lower than -100.
+     */
+    @Test
+    void shouldThrowException_whenDewPointValueIsLowerThanNegative100 (){
+        //Arrange
+        int value = -101;
+
+        String expectedMessage = "The value of the dew point cannot be lower than -100.";
+
+        //Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                new DewPointValue(value)
+        );
+
+
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+
     }
 
 

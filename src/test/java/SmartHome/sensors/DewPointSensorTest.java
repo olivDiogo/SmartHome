@@ -18,7 +18,7 @@ class DewPointSensorTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    void shouldInstantiateDewPointSensorIfSupported() throws InstantiationException {
+    void shouldInstantiateDewPointSensor() throws InstantiationException {
         // arrange
         String description = "DewPoint";
 
@@ -35,7 +35,7 @@ class DewPointSensorTest {
      * Test if the sensor type is not created correctly.
      */
     @Test
-    void shouldThrowExceptionWhenSensorTypeIsNotSupported() {
+    void shouldThrowException_whenSensorTypeIsIncorrect() {
         // arrange
         String description = "Temperature";
 
@@ -87,7 +87,7 @@ class DewPointSensorTest {
      * @throws InstantiationException If the sensor type does not exist.
      */
     @Test
-    void shouldThrowExceptionWhenSensorTypeIsWrong() throws InstantiationException {
+    void shouldThrowException_whenSensorTypeIsNull() throws InstantiationException {
         // arrange
         String description = "DewPoint";
 
@@ -119,61 +119,29 @@ class DewPointSensorTest {
     void shouldReturnDewPointValue() throws InstantiationException {
         //Arrange
         String description = "DewPoint";
-        int value = 25;
 
         int expectedSize = 1;
 
-        try (MockedConstruction<DewPointValue> dewPointValueDouble = mockConstruction(DewPointValue.class, (mock, context) ->
-                when(mock.toString()).thenReturn(Integer.toString(value)))) {
+        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
+        SensorType sensorTypeDouble = mock(SensorType.class);
+        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
 
-            CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
-            SensorType sensorTypeDouble = mock(SensorType.class);
-            when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
+        DewPointSensor dewPoint = new DewPointSensor(catalogueSensorDouble);
 
-            DewPointSensor dewPoint = new DewPointSensor(catalogueSensorDouble);
-
+        try (MockedConstruction<DewPointValue> dewPointValueDouble = mockConstruction(DewPointValue.class, (mock, context) -> {
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
+                }))
+                 {
             //Act
-            dewPoint.getValue();
+            Value value = dewPoint.getValue();
 
             //Assert
             List<DewPointValue> dewPointValues = dewPointValueDouble.constructed();
             assertEquals(expectedSize, dewPointValues.size());
-            assertEquals(Integer.toString(value), dewPointValues.get(0).toString());
+            assertEquals("25", value.toString());
+            assertEquals(dewPointValues.get(0).toString(), value.toString());
 
         }
     }
-
-
-    /**
-     * Should throw an exception when the value is lower than -100.
-     *
-     * @throws InstantiationException If the sensor type does not exist.
-     */
-    @Test
-    void shouldThrowExceptionWhenDewPointIsLowerThan100Negative() throws InstantiationException {
-        // arrange
-        String description = "DewPoint";
-        int value = -101;
-
-        CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-
-        when(catalogueSensorDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        String expectedMessage = "The value of the dew point cannot be lower than -100.";
-
-        // act + assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new DewPointValue(value)
-        );
-
-        // assert
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
-
-
-    }
-
 
 }
