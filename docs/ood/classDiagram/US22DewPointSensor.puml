@@ -8,7 +8,6 @@ package SmartHome.sensors {
         - _dewPointValue : DewPointValue
 
         + DewPointSensor (catalogue : CatalogueSensor)
-        - setSensorType (catalogue : CatalogueSensor)
         +getSensorType () : SensorType
         +getValue () : Value
     }
@@ -33,9 +32,7 @@ package SmartHome.domain {
     - final _strDescription : String
     - final _unit : Unit
 
-    + SensorType(strDescription : String, unit : Unit)
-    - setStrDescription(strDescription : String) : String
-    - setUnit(unit : Unit) : Unit
+    # SensorType(strDescription : String, unit : Unit)
     + getStrDescription() : String
     + getUnit() : Unit
     }
@@ -47,7 +44,13 @@ package SmartHome.domain {
     - _listSensorType : List<SensorType>
     - _listStringClassesSensor : List<String>
 
-    + getSensorType(description : String) : SensorType
+    + CatalogueSensor(String filePathname)
+    + addSensorType(String strDescription, Unit unit, SensorTypeFactory sensorTypeFactory) : SensorType
+    + addSensorTypeToList(SensorType sensorType): SensorType
+    + getSensorType(String strDescription): SensorType
+    + getSensorTypes(): List<SensorType>
+    + getSensorModels(): List<String>
+    + getSensor(String strModel, SensorFactory sensorFactory): Sensor
     }
 }
 
@@ -55,6 +58,6 @@ SmartHome.sensors.DewPointSensor "1" ..|> "1" SmartHome.domain.Sensor : <<implem
 SmartHome.sensors.DewPointSensor "1" --> "1" SmartHome.domain.SensorType : <<has>>
 SmartHome.sensors.DewPointSensor "1" --> "1" SmartHome.sensors.DewPointValue : <<has>>
 SmartHome.domain.CatalogueSensor "1" <.. "1" SmartHome.sensors.DewPointSensor : <<uses>>
-SmartHome.sensors.DewPointValue "1" ..|> "1" SmartHome.domain.Value : <<implements>>
+SmartHome.sensors.DewPointValue  ..|>  SmartHome.domain.Value : <<implements>>
 
 @enduml
