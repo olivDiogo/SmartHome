@@ -3,6 +3,8 @@
 
 participant " " as User
 
+box "Pure Fabrication" #grey
+
 participant ":AddSensorToDevice_Controller" as AddSensorToDevice_Controller
 
 participant ":RoomAssembler" as RoomAssembler
@@ -10,6 +12,10 @@ participant ":RoomAssembler" as RoomAssembler
 participant ":DeviceAssembler" as DeviceAssembler
 
 participant "SensorAssembler" as SensorAssembler
+
+end box
+
+box "Domain"
 
 participant ":House" as House
 
@@ -22,6 +28,10 @@ participant "catalogue:CatalogueSensor" as CatalogueSensor
 participant "sensorFactory:SensorFactory" as SensorFactory
 
 participant "sensor:Sensor" as Sensor
+
+end box
+
+box "Data Transfer Object" #grey
 
 participant "roomDTO:RoomDTO" as RoomDTO
 

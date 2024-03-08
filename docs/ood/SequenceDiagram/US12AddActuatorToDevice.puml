@@ -2,6 +2,7 @@
 'https://plantuml.com/sequence-diagram
 
 participant " " as User
+box "Pure Fabrication" #grey
 
 participant ":AddActuatorToDevice_Controller" as AddActuatorToDevice_Controller
 
@@ -10,6 +11,10 @@ participant ":RoomAssembler" as RoomAssembler
 participant ":DeviceAssembler" as DeviceAssembler
 
 participant ":ActuatorAssembler" as ActuatorAssembler
+
+end box
+
+box "Domain"
 
 participant ":House" as House
 
@@ -23,11 +28,17 @@ participant "actuatorFactory:ActuatorFactory" as ActuatorFactory
 
 participant "actuator:Actuator" as Actuator
 
+end box
+
+box "Data Transfer Object" #grey
+
 participant "roomDTO:RoomDTO" as RoomDTO
 
 participant "deviceDTO:DeviceDTO" as DeviceDTO
 
 participant "actuatorDTO:ActuatorDTO" as ActuatorDTO
+
+end box
 
 autonumber
 
