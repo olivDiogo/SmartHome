@@ -51,71 +51,6 @@ public class AveragePowerConsumptionSensorTest {
     }
 
     /**
-     * See if the getValue method works.
-     */
-//    @Test
-//    void shouldReturnNewPowerConsumptionSensorWithValidValue() throws InstantiationException {
-//        // Arrange
-//        String description = "Power Consumption";
-//        Double value = 1500.0;
-//
-//        int expectedSize = 1;
-//
-//        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-//        SensorType sensorTypeDouble = mock(SensorType.class);
-//        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-//
-//        try (MockedConstruction<AveragePowerConsumptionSensorValue> powerConsumptionSensorValueDouble = mockConstruction(AveragePowerConsumptionSensorValue.class, (mock, context) ->
-//        {
-//            when(mock.getValue()).thenReturn(value);
-//        })) {
-//            AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
-//            averagePowerConsumptionSensor.getValue();
-//
-//            // Assert
-//            List<AveragePowerConsumptionSensorValue> averagePowerConsumptionSensorValues = powerConsumptionSensorValueDouble.constructed();
-//            Assertions.assertEquals(expectedSize, averagePowerConsumptionSensorValues.size());
-//            Assertions.assertEquals(value, averagePowerConsumptionSensorValues.get(0).getValue());
-//
-//        }
-//    }
-
-    @Test
-    void shouldReturnNewPowerConsumptionSensorWithValidValueWithAGivenPeriod() throws InstantiationException {
-        // Arrange
-        String description = "Power Consumption";
-        Double value = 1500.0;
-
-        int expectedSize = 1;
-
-        CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
-        when(catalogueDouble.getSensorType(description)).thenReturn(sensorTypeDouble);
-
-        try (MockedConstruction<AveragePowerConsumptionSensorValue> powerConsumptionSensorValueDouble = mockConstruction(AveragePowerConsumptionSensorValue.class, (mock, context) ->
-        {
-            when(mock.getValue()).thenReturn(Double.valueOf(context.arguments().get(0).toString()));
-        })) {
-            AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(catalogueDouble);
-            LocalDateTime initialTime = LocalDateTime.now().minusHours(2);
-            LocalDateTime finalTime = LocalDateTime.now();
-
-            averagePowerConsumptionSensor.addReading(initialTime, 1000);
-            averagePowerConsumptionSensor.addReading(finalTime, 2000);
-
-            averagePowerConsumptionSensor.getValue(initialTime, finalTime);
-
-            // Assert
-            List<AveragePowerConsumptionSensorValue> averagePowerConsumptionSensorValues = powerConsumptionSensorValueDouble.constructed();
-            Assertions.assertEquals(expectedSize, averagePowerConsumptionSensorValues.size());
-            Assertions.assertEquals(value, averagePowerConsumptionSensorValues.get(0).getValue());
-
-        }
-    }
-
-
-
-    /**
      * tests if Exception is thrown for non-existing Sensor type.
      */
     @Test
@@ -374,7 +309,7 @@ public class AveragePowerConsumptionSensorTest {
         LocalDateTime initialTime = LocalDateTime.now().plusHours(3);
         LocalDateTime finalTime = LocalDateTime.now();
 
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> averagePowerConsumptionSensor.getAverageValue(initialTime, finalTime));
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> averagePowerConsumptionSensor.getValue(initialTime, finalTime));
 
         // Assert
         String actualMessage = exception.getMessage();
