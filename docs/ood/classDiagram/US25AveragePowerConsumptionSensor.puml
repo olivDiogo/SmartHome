@@ -1,5 +1,16 @@
 @startuml
 
+package domain{
+
+   class SensorFactory {
+        'Methods'
+        +createSensor(model: String, catalogue: Catalogue): Sensor
+        }
+
+        class SensorTypeFactory {
+        'Methods'
+        +createSensorType(strDescription: String, unit: Unit): SensorType
+        }
 
     class CatalogueSensor{
     'Attributes'
@@ -13,17 +24,20 @@
     }
 
     class SensorType {
-    'Atributes'
-    - _strDescription: String
-    - _unit_Unit
 
-    'Methods'
-    +SensorType(strDescription: String, unit: Unit)
-    -setStringDescription(strDescription: String): String
-    -setUnit(unit: Unit): Unit
-    +getDescription(): String
-    +getUnit(): Unit
     }
+
+     interface Sensor{
+        'Methods'
+        getSensorType(): SensorType
+        getValue(): Value
+        }
+
+        interface Value{
+        }
+}
+
+package sensors{
 
  class AveragePowerConsumptionSensorValue{
  'Attributes'
@@ -48,25 +62,7 @@
         + getValue(): AveragePowerConsumptionSensorValue
         + getValue(initialTime: LocalDateTime, finalTime: LocalDateTime): AveragePowerConsumptionSensorValue
     }
-
-    interface Sensor{
-    'Methods'
-    getSensorType(): SensorType
-    getValue(): Value
-    }
-
-    interface Value{
-    }
-
-    class SensorFactory {
-    'Methods'
-    +createSensor(model: String, catalogue: Catalogue): Sensor
-    }
-
-    class SensorTypeFactory {
-    'Methods'
-    +createSensorType(strDescription: String, unit: Unit): SensorType
-    }
+}
 
 
 SensorFactory "1" --> "1" AveragePowerConsumptionSensor : <<creates>>
@@ -74,7 +70,7 @@ AveragePowerConsumptionSensor "1" --> "1" SensorType : <<has>>
 AveragePowerConsumptionSensor "1" --> "1" AveragePowerConsumptionSensorValue : <<uses>>
 AveragePowerConsumptionSensor "1" ..|> "1" Sensor: <<implements>>
 
-
+CatalogueSensor "1" --> "1" AveragePowerConsumptionSensor : <<has>>
 CatalogueSensor "1" --> "*" SensorType : <<uses>>
 AveragePowerConsumptionSensorValue "1" ..|> "1" Value: <<implements>>
 SensorTypeFactory "1" --> "1" SensorType : <<creates>>
