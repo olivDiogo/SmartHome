@@ -4,7 +4,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class WindSensorValueTest {
-
+    /**
+     * Test if the constructor is properly created.
+     * @throws InstantiationException If the sensor type does not exist.
+     */
     @Test
     void shouldInstantiateConstructors_givenValid(){
         //Arrange
@@ -14,6 +17,10 @@ class WindSensorValueTest {
         new WindSensorValue(speed, direction);
     }
 
+    /**
+     * Test if the getSpeed method returns the correct speed.
+     * @throws InstantiationException If the sensor type does not exist.
+     */
     @Test
     void getSpeed_returnsCorrectSpeed() {
         // Arrange
@@ -27,6 +34,10 @@ class WindSensorValueTest {
         assertEquals(expectedSpeed, actualSpeed, "The speed returned should match the speed set in the constructor.");
     }
 
+    /**
+     * Test if the getDirection method returns the correct direction.
+     * @throws InstantiationException If the sensor type does not exist.
+     */
     @Test
     void getDirection_returnsCorrectDirection() {
         // Arrange
