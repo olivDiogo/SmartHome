@@ -8,14 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SunsetTimeValueTest {
     @Test
-    void shouldInstantiateSunsetTimeValue() {
+    void shouldInstantiateSunsetTimeValue_WhenGivenValidData() {
         //Arrange
         LocalTime time = LocalTime.of(00, 0, 0);
         //Act
         new SunsetTimeValue(time);
     }
     @Test
-    void shouldThrowExceptionWhenTimeIsNull() {
+    void shouldThrowException_WhenTimeIsNull() {
         //Arrange
         LocalTime time = null;
         String expectedMessage = "Time is required";
@@ -26,7 +26,7 @@ class SunsetTimeValueTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
     @Test
-    void shouldReturnSunsetTime() {
+    void shouldReturnSunsetTimeUpToMinutesInString_WhenCalledToString() {
         //Arrange
         LocalTime time = LocalTime.of(18, 5, 20);
         SunsetTimeValue sunsetTimeValue = new SunsetTimeValue(time);
