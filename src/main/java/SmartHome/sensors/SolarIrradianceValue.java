@@ -3,7 +3,7 @@ package SmartHome.sensors;
 import SmartHome.domain.Value;
 
 public class SolarIrradianceValue implements Value {
-    private int _iValue;
+    private int _value;
 
     /**
      * Constructor for SolarIrradianceValue
@@ -11,7 +11,7 @@ public class SolarIrradianceValue implements Value {
      * @param nValue is the value of the solar irradiance
      */
     public SolarIrradianceValue(int nValue) {
-        this._iValue = nValue;
+        this._value = nValue;
     }
 
 
@@ -21,7 +21,7 @@ public class SolarIrradianceValue implements Value {
      * @return double
      */
     public String toString() {
-        return this._iValue + "";
+        return this._value + "";
     }
 
 

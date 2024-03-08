@@ -15,7 +15,7 @@ class DeviceFactoryTest {
      * Test to check if the constructor works.
      */
     @Test
-    void seeIfConstructorWorks(){
+    void createDeviceFactory(){
         //Act
         new DeviceFactory();
     }

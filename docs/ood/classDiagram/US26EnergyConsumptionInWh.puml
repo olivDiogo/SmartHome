@@ -1,0 +1,60 @@
+@startuml
+!pragma layout smetana
+
+package SmartHome.sensors {
+
+  class ElectricConsumptionWhSensor {
+    - _type: SensorType
+    - _ElectricConsumptionWhValue : ElectricConsumptionWhValue
+    + ElectricConsumptionWhSensor(CatalogueSensor catalogue)
+    + getSensorType(): SensorType
+    + getValue(): Value
+    + getValue(LocalDateTime startTimestamp, LocalDateTime endTimestamp): Value
+    + setSensorType(CatalogueSensor catalogue)
+    + artificialDatabaseOfReadingsSetTo50W(): Map<LocalDateTime, Integer>
+    + getDataFromSelectedTimePeriod(LocalDateTime startTimestamp, LocalDateTime endTimestamp): Map<LocalDateTime, Integer>
+    + filterPowerConsumptionsByTime(LocalDateTime startTimestamp, LocalDateTime endTimestamp, Map<LocalDateTime, Integer>): Map<LocalDateTime, Integer>
+    + calculateConsumptionInWh(LocalDateTime startTimestamp, LocalDateTime endTimestamp): Integer
+  }
+
+  class ElectricConsumptionWhValue {
+    - _value : int
+    + ElectricConsumptionWhValue(int value)
+    + setValue(int value)
+    + toString() : String
+  }
+
+}
+
+package SmartHome.domain {
+  interface Sensor {
+    + getSensorType(): SensorType
+    + getValue(): Value
+    + getValue(LocalDateTime startTimestamp, LocalDateTime endTimestamp): Value
+  }
+  interface Value {
+  }
+
+  class SensorType {
+    - _strDescription : String
+    - _unit : Unit
+    + SensorType(String strDescription, Unit unit)
+    + setStrDescription(String strDescription) : String
+    + setUnit(Unit unit) : Unit
+    + getDescription() : String
+    + getUnit() : Unit
+  }
+
+ class CatalogueSensor {
+    + getSensorType(description : String) : SensorType
+  }
+
+}
+
+SmartHome.sensors.ElectricConsumptionWhSensor ..|> SmartHome.domain.Sensor: interface
+SmartHome.sensors.ElectricConsumptionWhSensor --o SmartHome.domain.SensorType : has
+SmartHome.sensors.ElectricConsumptionWhSensor --> SmartHome.domain.CatalogueSensor : uses
+SmartHome.sensors.ElectricConsumptionWhSensor --* SmartHome.sensors.ElectricConsumptionWhValue : contains
+SmartHome.sensors.ElectricConsumptionWhValue ..|> SmartHome.domain.Value: interface
+
+@enduml

@@ -7,20 +7,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UnitTest {
-    @Test
-    void shouldReturnTypeForTemperatureInString() {
-        // Arrange
-        Unit unit = Unit.Temperature;
-        String expected = "Temperature";
-        // Act
-        String result = unit.getType();
-        // Assert
-        assertEquals(expected, result);
-    }
+
     @Test
     void shouldReturnUnitsForTemperatureInString() {
         // Arrange
-        Unit unit = Unit.Temperature;
+        Unit unit = Unit.TEMPERATURE;
         String expected = "C";
         // Act
         String result = unit.getUnit();
@@ -28,19 +19,9 @@ class UnitTest {
         assertEquals(expected, result);
     }
     @Test
-    void shouldReturnTypeForHumidityInString() {
-        // Arrange
-        Unit unit = Unit.Humidity;
-        String expected = "Humidity";
-        // Act
-        String result = unit.getType();
-        // Assert
-        assertEquals(expected, result);
-    }
-    @Test
     void shouldReturnUnitsForUnitsInString() {
         // Arrange
-        Unit unit = Unit.Humidity;
+        Unit unit = Unit.HUMIDITY;
         String expected = "%";
         // Act
         String result = unit.getUnit();

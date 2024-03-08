@@ -103,11 +103,11 @@ class CatalogueSensorTest {
 
         String strDescription = "Humidity";
 
-        when(sensorTypeFactory.createSensorType(strDescription, Unit.Humidity)).thenReturn(sensorTypeDouble);
+        when(sensorTypeFactory.createSensorType(strDescription, Unit.HUMIDITY)).thenReturn(sensorTypeDouble);
         when(sensorTypeDouble.getDescription()).thenReturn(strDescription);
 
         // act
-        SensorType sensorType = catalogue.addSensorType(strDescription, Unit.Humidity, sensorTypeFactory);
+        SensorType sensorType = catalogue.addSensorType(strDescription, Unit.HUMIDITY, sensorTypeFactory);
 
         // assert
         assertEquals(sensorType, sensorTypeDouble);
@@ -135,11 +135,11 @@ class CatalogueSensorTest {
 
         String strDescription = "";
 
-        when(sensorTypeFactory.createSensorType(strDescription, Unit.Humidity)).thenThrow(new InstantiationException());
+        when(sensorTypeFactory.createSensorType(strDescription, Unit.HUMIDITY)).thenThrow(new InstantiationException());
 
         // act + assert
         assertThrows( InstantiationException.class, () ->
-                catalogue.addSensorType(strDescription, Unit.Humidity, sensorTypeFactory)
+                catalogue.addSensorType(strDescription, Unit.HUMIDITY, sensorTypeFactory)
         );
     }
 
@@ -151,12 +151,12 @@ class CatalogueSensorTest {
 
         String strDescription = null;
 
-        when(sensorTypeFactory.createSensorType(strDescription, Unit.Humidity)).thenThrow(new InstantiationException());
+        when(sensorTypeFactory.createSensorType(strDescription, Unit.HUMIDITY)).thenThrow(new InstantiationException());
 
 
         // act + assert
         assertThrows( InstantiationException.class, () ->
-                catalogue.addSensorType(null, Unit.Humidity, sensorTypeFactory)
+                catalogue.addSensorType(null, Unit.HUMIDITY, sensorTypeFactory)
         );
     }
 
