@@ -12,6 +12,8 @@ public class DewPointValue implements Value{
      * @param dewPointValue The value of the dew point.
      */
     public DewPointValue(int dewPointValue) {
+        if (dewPointValue < -100)
+            throw new IllegalArgumentException("The value of the dew point cannot be lower than -100.");
         this._dewPointValue = dewPointValue;
     }
 

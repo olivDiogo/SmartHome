@@ -25,7 +25,7 @@ public class DewPointValueTest {
     @Test
     public void shouldInstantiateDewPointValueWhenValueIsNegative() {
         //Arrange
-        int nValue = -1;
+        int nValue = -100;
         //Act
         new DewPointValue(nValue);
 
