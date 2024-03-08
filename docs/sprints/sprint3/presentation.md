@@ -2,9 +2,10 @@
 
 ### 1. [Task Distribution](readme.md)
 
-### 2. Domain Diagram ![Domain Diagram](../../../docs/ooa/DomainDiagram.svg)
+### 2. Domain Diagram 
+![Domain Diagram](../../../docs/ooa/DomainDiagram.svg)
 
-### 3. [Diagrams](../../../docs/ooa/)
+### 3. [Diagrams](../../../docs/ood/)
 
 ### 2. US012 - To add an actuator to a device
 - [Documentation](us012/readme.md)
