@@ -8,7 +8,6 @@ package SmartHome.sensors {
         - _InstantPowerConsumptionValue : InstantPowerConsumptionValue
 
         + InstantPowerConsumptionSensor (catalogue : CatalogueSensor)
-        - setSensorType (catalogue : CatalogueSensor)
         +getSensorType () : SensorType
         +getValue () : Value
     }
@@ -34,8 +33,6 @@ package SmartHome.domain {
     - final _unit : Unit
 
     + SensorType(strDescription : String, unit : Unit)
-    - setStrDescription(strDescription : String) : String
-    - setUnit(unit : Unit) : Unit
     + getStrDescription() : String
     + getUnit() : Unit
     }
@@ -47,14 +44,20 @@ package SmartHome.domain {
     - _listSensorType : List<SensorType>
     - _listStringClassesSensor : List<String>
 
-    + getSensorType(description : String) : SensorType
-    }
+     + CatalogueSensor(String filePathname)
+     + addSensorType(String strDescription, Unit unit, SensorTypeFactory sensorTypeFactory) : SensorType
+     + addSensorTypeToList(SensorType sensorType): SensorType
+     + getSensorType(String strDescription): SensorType
+     + getSensorTypes(): List<SensorType>
+     + getSensorModels(): List<String>
+     + getSensor(String strModel, SensorFactory sensorFactory): Sensor
+        }
 }
 
 SmartHome.sensors.InstantPowerConsumptionSensor "1" ..|> "1" SmartHome.domain.Sensor : <<implements>>
 SmartHome.sensors.InstantPowerConsumptionSensor "1" --> "1" SmartHome.domain.SensorType : <<has>>
 SmartHome.sensors.InstantPowerConsumptionSensor "1" --> "1" SmartHome.sensors.InstantPowerConsumptionValue : <<has>>
 SmartHome.domain.CatalogueSensor "1" <.. "1" SmartHome.sensors.InstantPowerConsumptionSensor : <<uses>>
-SmartHome.sensors.InstantPowerConsumptionValue "1" ..|> "1" SmartHome.domain.Value : <<implements>>
+SmartHome.sensors.InstantPowerConsumptionValue  ..|>  SmartHome.domain.Value : <<implements>>
 
 @enduml
