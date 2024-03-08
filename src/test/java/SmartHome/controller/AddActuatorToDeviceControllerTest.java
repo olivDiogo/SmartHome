@@ -21,7 +21,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException if the house is null.
      */
     @Test
-    void whenHouseAndCatalogueAreValid_thenInstantiateController() throws InstantiationException {
+    void shouldInstantiateController_WhenHouseAndCatalogueAreValid() throws InstantiationException {
         // Arrange
         String filePathName = "config.properties";
 
@@ -39,7 +39,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException if the house is null.
      */
     @Test
-    void whenHouseIsNull_thenThrowsInstantiationException() throws IllegalArgumentException, InstantiationException {
+    void shouldThrowIllegalArgumentException_WhenHouseIsNull() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String filePathName = "config.properties";
         House house = null;
@@ -61,7 +61,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException if the catalogueActuator is null.
      */
     @Test
-    void whenCatalogueIsNull_thenThrowsInstantiationException() throws IllegalArgumentException {
+    void shouldThrowIllegalArgumentException_WhenCatalogueIsNull() throws IllegalArgumentException {
         // Arrange
         House house = new House(new LocationFactory(), new RoomFactory());
         CatalogueActuator catalogue = null;
@@ -82,7 +82,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException if the house is null.
      */
     @Test
-    void whenGetRooms_thenReturnListOfRoomsDTO() throws IllegalArgumentException, InstantiationException {
+    void shouldReturnListOfRoomsDTO_WhenGetRoomsIsCalled() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String filePathName = "config.properties";
 
@@ -131,7 +131,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenGetDevicesFromRoomWithDevices_thenReturnListOfDevicesDTO() throws IllegalArgumentException, InstantiationException {
+    void shouldReturnListOfDevicesDTO_WhenGetDevicesFromRoomWithDevicesIsCalled() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String filePathName = "config.properties";
 
@@ -180,7 +180,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenGetDevicesFromRoomWithoutDevices_thenReturnEmptyList() throws IllegalArgumentException, InstantiationException {
+    void shouldReturnEmptyList_WhenGetDevicesFromRoomWithoutDevicesIsCalled() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String roomName = "Living Room";
         int floor = 1;
@@ -212,7 +212,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenGetActuatorModels_thenListOfModels() throws IllegalArgumentException, InstantiationException {
+    void shouldReturnListOfModels_WhenGetActuatorModelsIsCalled() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String filePathName = "config.properties";
 
@@ -235,7 +235,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenAddActuatorToDeviceWithValidModel_thenReturnValidActuatorDTO() throws IllegalArgumentException, InstantiationException {
+    void shouldReturnValidActuatorDTO_WhenAddActuatorToDeviceWithValidModelIsCalled() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String roomName = "Living Room";
         int floor = 1;
@@ -278,7 +278,7 @@ public class AddActuatorToDeviceControllerTest {
      */
 
     @Test
-    void whenAddInvalidActuatorModelToDevice_thenReturnNull() throws IllegalArgumentException, InstantiationException {
+    void shouldReturnNull_WhenAddInvalidActuatorModelToDeviceIsCalled() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String roomName = "Living Room";
         int floor = 1;
@@ -318,7 +318,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenAddActuatorToNonExistingDevice_thenReturnNull() throws InstantiationException, NoSuchFieldException, IllegalAccessException {
+    void shouldReturnNull_WhenAddActuatorToNonExistingDeviceIsCalled() throws InstantiationException, NoSuchFieldException, IllegalAccessException {
         // Arrange
         String roomName = "Living Room";
         int floor = 1;
@@ -358,7 +358,7 @@ public class AddActuatorToDeviceControllerTest {
      * @throws InstantiationException
      */
     @Test
-    void whenAddActuatorToDeactivatedDevice_thenReturnNull() throws InstantiationException {
+    void shouldReturnNull_WhenAddActuatorToDeactivatedDeviceIsCalled() throws InstantiationException {
         // Arrange
         String roomName = "Living Room";
         int floor = 1;
