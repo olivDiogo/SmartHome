@@ -51,7 +51,7 @@ public class ElectricConsumptionWhSensor implements Sensor {
      * @return Map of LocalDateTime and Integer representing the artificial data.
      */
     //Method to generate artificial data with readings of 50Wh
-    protected Map<LocalDateTime, Integer> artificialDatabaseOfReadingsSetTo50W() {
+     Map<LocalDateTime, Integer> artificialDatabaseOfReadingsSetTo50W() {
         Map<LocalDateTime, Integer> mapAllConsumption = new LinkedHashMap<>();
         // Set artificial data for the last 5 days
         LocalDateTime startTime = LocalDateTime.now().minusDays(5).truncatedTo(ChronoUnit.MINUTES);
@@ -73,7 +73,7 @@ public class ElectricConsumptionWhSensor implements Sensor {
      * @throws IllegalArgumentException if the start timestamp is after the end timestamp.
      */
     //Method to get data from database within a selected time period
-    protected Map<LocalDateTime, Integer> getDataFromSelectedTimePeriod(LocalDateTime startTimestamp, LocalDateTime endTimestamp) {
+     Map<LocalDateTime, Integer> getDataFromSelectedTimePeriod(LocalDateTime startTimestamp, LocalDateTime endTimestamp) {
         if (startTimestamp.truncatedTo(ChronoUnit.MINUTES).isAfter(endTimestamp.truncatedTo(ChronoUnit.MINUTES)))
             throw new IllegalArgumentException("Start timestamp must be before end timestamp.");
 
@@ -108,7 +108,7 @@ public class ElectricConsumptionWhSensor implements Sensor {
      * @return Integer representing the consumption in Wh.
      */
     //Method to calculate consumption in Wh for a given interval
-    protected Integer calculateConsumptionInWh(LocalDateTime startTimestamp, LocalDateTime endTimestamp) {
+     Integer calculateConsumptionInWh(LocalDateTime startTimestamp, LocalDateTime endTimestamp) {
         Map<LocalDateTime, Integer> mapChosenTime = getDataFromSelectedTimePeriod(startTimestamp, endTimestamp);
         int consumptionWh = mapChosenTime.values().stream().mapToInt(Integer::intValue).sum();
         return consumptionWh;

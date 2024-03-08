@@ -75,7 +75,7 @@ void shouldThrowException_WhenGpsConfigurationFileIsMissing() {
     }
 }
     @Test
-    void shouldReturnSunsetTimeValueForToday() throws InstantiationException {
+    void shouldReturnSunsetTimeValueForToday_WhenNoDateProvided() throws InstantiationException {
         //Arrange
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
 
@@ -93,7 +93,7 @@ void shouldThrowException_WhenGpsConfigurationFileIsMissing() {
         }
     }
     @Test
-    void shouldReturnSunsetTimeValueForSpecificDate() throws InstantiationException {
+    void shouldReturnSunsetTimeValueForSpecificDate_WhenDateProvided() throws InstantiationException {
         //Arrange
         CatalogueSensor catalogueSensorDouble = mock(CatalogueSensor.class);
         SensorType sensorTypeDouble = mock(SensorType.class);

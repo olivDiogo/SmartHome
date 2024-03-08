@@ -4,6 +4,8 @@ import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+import org.mockito.Mockito;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -11,8 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ElectricConsumptionWhSensorTest {
     @Test
@@ -39,7 +40,7 @@ class ElectricConsumptionWhSensorTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
     @Test
-    void shouldFillMockConsumptionMapWithExpectedSize() throws InstantiationException {
+    void shouldFillArtificialConsumptionMapWithExpectedSize() throws InstantiationException {
     //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -102,7 +103,7 @@ class ElectricConsumptionWhSensorTest {
         assertTrue(mapAllConsumption.values().stream().allMatch(value -> value == valueSet));
     }
     @Test
-    void shouldFilterReadingsWithinSelectedTimeFrame() throws InstantiationException {
+    void shouldFilterReadingsWithinSelectedTimeFrame_WhenTimesAreValid() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -175,7 +176,7 @@ class ElectricConsumptionWhSensorTest {
     }
 
     @Test
-    void shouldCalculateConsumptionForGivenTimePeriod() throws InstantiationException {
+    void shouldCalculateConsumptionForGivenTimePeriod_WhenGivenValidPeriod() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -196,7 +197,7 @@ class ElectricConsumptionWhSensorTest {
     }
 
     @Test
-    void shouldReturnConsumptionForSelectedPeriodInValueFormat() throws InstantiationException {
+    void shouldReturnConsumptionForSelectedPeriodInValue_WhenGivenValidDates() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -210,13 +211,17 @@ class ElectricConsumptionWhSensorTest {
         int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
         int consumption = 50 * expectedSize;
         String expectedConsumption = "ElectricConsumptionWh{" + consumption + '}';
-        //Act
-        Value actualConsumption = electricConsumptionWhSensor.getValue(startTime, endTime);
-        //Assert
-        assertEquals(expectedConsumption, actualConsumption.toString());
+        try (MockedConstruction<ElectricConsumptionWhValue> mocked = Mockito.mockConstruction(ElectricConsumptionWhValue.class, (mock, context) ->{
+            when(mock.toString()).thenReturn(("ElectricConsumptionWh{" + context.arguments().get(0) + '}'));
+        })) {
+            //Act
+            Value actualConsumption = electricConsumptionWhSensor.getValue(startTime, endTime);
+            //Assert
+            assertEquals(expectedConsumption, actualConsumption.toString());
+        }
     }
     @Test
-    void shouldIgnoreIncompleteReadings() throws InstantiationException {
+    void shouldIgnoreIncompleteReadings_WhenStartTimeInMiddleOfPeriod() throws InstantiationException {
         //Arrange
         String description = "ElectricConsumptionWh";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
@@ -230,10 +235,14 @@ class ElectricConsumptionWhSensorTest {
         int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
         int consumption = 50 * expectedSize;
         String expectedConsumption = "ElectricConsumptionWh{" + consumption + '}';
-        //Act
-        Value actualConsumption = electricConsumptionWhSensor.getValue(startTime, endTime);
-        //Assert
-        assertEquals(expectedConsumption, actualConsumption.toString());
+        try (MockedConstruction<ElectricConsumptionWhValue> mocked = Mockito.mockConstruction(ElectricConsumptionWhValue.class, (mock, context) -> {
+            when(mock.toString()).thenReturn(("ElectricConsumptionWh{" + context.arguments().get(0) + '}'));
+        })) {
+            //Act
+            Value actualConsumption = electricConsumptionWhSensor.getValue(startTime, endTime);
+            //Assert
+            assertEquals(expectedConsumption, actualConsumption.toString());
+        }
     }
 
     @Test
@@ -251,9 +260,13 @@ class ElectricConsumptionWhSensorTest {
         int expectedSize = (int) Duration.between(startTime, endTime).toMinutes() / 60 + 1;
         int expectedConsumption = 50 * expectedSize;
         String expectedConsumptionString = "ElectricConsumptionWh{" + expectedConsumption + '}';
-        //Act
-        Value actualConsumption = electricConsumptionWhSensor.getValue();
-        //Assert
-        assertEquals(expectedConsumptionString, actualConsumption.toString());
+        try (MockedConstruction<ElectricConsumptionWhValue> mocked = Mockito.mockConstruction(ElectricConsumptionWhValue.class, (mock, context) -> {
+            when(mock.toString()).thenReturn(("ElectricConsumptionWh{" + context.arguments().get(0) + '}'));
+        })) {
+            //Act
+            Value actualConsumption = electricConsumptionWhSensor.getValue();
+            //Assert
+            assertEquals(expectedConsumptionString, actualConsumption.toString());
+        }
     }
 }
