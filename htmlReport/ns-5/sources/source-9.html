@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > InstantPowerConsumptionSensor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SmartHome.sensors</a>
+</div>
+
+<h1>Coverage Summary for Class: InstantPowerConsumptionSensor (SmartHome.sensors)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">InstantPowerConsumptionSensor</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SmartHome.sensors;
+&nbsp;
+&nbsp;import SmartHome.domain.CatalogueSensor;
+&nbsp;import SmartHome.domain.Sensor;
+&nbsp;import SmartHome.domain.SensorType;
+&nbsp;import SmartHome.domain.Value;
+&nbsp;
+&nbsp;public class InstantPowerConsumptionSensor implements Sensor {
+&nbsp;    private SensorType _sensorType;
+&nbsp;    private InstantPowerConsumptionValue _instantPowerConsumptionValue;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor of the class. Creates a new instant power consumption sensor.
+&nbsp;     *
+&nbsp;     * @param catalogueSensor The catalogue of sensors.
+&nbsp;     * @throws InstantiationException If the sensor type does not exist.
+&nbsp;     */
+<b class="fc">&nbsp;    public InstantPowerConsumptionSensor(CatalogueSensor catalogueSensor) throws InstantiationException {</b>
+<b class="fc">&nbsp;        setSensorType(catalogueSensor);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Validates the sensor type. In addition, it sets the sensor type.
+&nbsp;     *
+&nbsp;     * @param catalogueSensor The catalogue of sensors.
+&nbsp;     * @throws InstantiationException If the sensor type does not exist.
+&nbsp;     */
+&nbsp;    private void setSensorType(CatalogueSensor catalogueSensor) throws InstantiationException {
+<b class="fc">&nbsp;        SensorType sensorType = catalogueSensor.getSensorType(&quot;InstantPowerConsumption&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (sensorType == null) {</b>
+<b class="fc">&nbsp;            throw new InstantiationException(&quot;SensorType with description &#39;Instant Power Consumption&#39; does not exist.&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        this._sensorType = sensorType;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the sensor type.
+&nbsp;     *
+&nbsp;     * @return The sensor type.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public SensorType getSensorType() {
+<b class="fc">&nbsp;        return this._sensorType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the value of the sensor. In this case is returning a fixed value, until the service with real data is implemented.
+&nbsp;     *
+&nbsp;     * @return The value measured by the sensor.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public Value getValue() {
+<b class="fc">&nbsp;        double instantPowerConsumptionValue = 25.0;</b>
+&nbsp;
+<b class="fc">&nbsp;        this._instantPowerConsumptionValue = new InstantPowerConsumptionValue(instantPowerConsumptionValue);</b>
+<b class="fc">&nbsp;        return this._instantPowerConsumptionValue;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-10 18:15</div>
+</div>
+</body>
+</html>

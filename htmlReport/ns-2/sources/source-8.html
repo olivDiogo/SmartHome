@@ -1,0 +1,160 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > GetAllDevicesGroupedByFunctionalityController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SmartHome.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: GetAllDevicesGroupedByFunctionalityController (SmartHome.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GetAllDevicesGroupedByFunctionalityController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (15/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SmartHome.controller;
+&nbsp;
+&nbsp;import SmartHome.domain.*;
+&nbsp;import SmartHome.dto.DeviceAssembler;
+&nbsp;import SmartHome.dto.DeviceDTO;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class GetAllDevicesGroupedByFunctionalityController {
+&nbsp;    private CatalogueSensor _catalogue;
+&nbsp;    private House _house;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor
+&nbsp;     *
+&nbsp;     * @param house is an instance of House
+&nbsp;     * @throws InstantiationException if an error occurs
+&nbsp;     */
+<b class="fc">&nbsp;    public GetAllDevicesGroupedByFunctionalityController(House house, CatalogueSensor catalogue) throws IllegalArgumentException {</b>
+<b class="fc">&nbsp;        if (!isValidConstructorArguments(house, catalogue))</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Invalid arguments&quot;);</b>
+<b class="fc">&nbsp;        this._house = house;</b>
+<b class="fc">&nbsp;        this._catalogue = catalogue;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Validates the constructor arguments
+&nbsp;     *
+&nbsp;     * @param house     is an instance of House
+&nbsp;     * @param catalogue is an instance of Catalogue
+&nbsp;     * @return true if the arguments are valid, false otherwise
+&nbsp;     */
+&nbsp;    private boolean isValidConstructorArguments(House house, CatalogueSensor catalogue) {
+<b class="fc">&nbsp;        return house != null &amp;&amp; catalogue != null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets all devices grouped by functionality
+&nbsp;     *
+&nbsp;     * @return a HashMap with the devices grouped by functionality
+&nbsp;     */
+&nbsp;    public HashMap&lt;String, List&lt;DeviceDTO&gt;&gt; getAllDevicesGroupedByFunctionality() {
+<b class="fc">&nbsp;        List&lt;SensorType&gt; copyOfSensorTypes = _catalogue.getSensorTypes();</b>
+<b class="fc">&nbsp;        HashMap&lt;String, List&lt;DeviceDTO&gt;&gt; devicesDTOByFunctionality = DeviceAssembler.listByFunctionality(copyOfSensorTypes);</b>
+&nbsp;
+<b class="fc">&nbsp;        for (Room room : _house.getRooms()) {</b>
+<b class="fc">&nbsp;            for (Device device : room.getDevices()) {</b>
+<b class="fc">&nbsp;                DeviceDTO deviceDTO = DeviceAssembler.domain2DTO(device, room);</b>
+<b class="fc">&nbsp;                DeviceAssembler.addDeviceDTOToListByFunctionality(deviceDTO, devicesDTOByFunctionality);</b>
+<b class="fc">&nbsp;            }</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return new HashMap&lt;&gt;(devicesDTOByFunctionality);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-10 18:15</div>
+</div>
+</body>
+</html>

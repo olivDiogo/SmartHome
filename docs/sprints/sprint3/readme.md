@@ -23,21 +23,22 @@ The team is made up of the following dedicated students:
 _During Sprint 3, task assignments are laid out as below:_
 
 | Task  | Student Assigned |
-|-------|------------------|
-| US 13 | Manuel Cruz      |
-| US 14 | LLoyd Costa      |
-| US 15 | Diogo Oliveira   |
-| US 16 | Luisa Remelhe    |
-| US 17 | Bernardo Amorim  |
-| US 18 | Wagner Paiva     | 
-| US 19 | Luis Ferreira    | 
-| US 20 | Simão Campos     | 
-| US 21 | Ruelo Parente    | 
-| US 22 | João Mouta       | 
-| US 23 | Diogo Oliveira   | 
-| US 24 | Wagner Paiva     | 
-| US 25 | Simão Campos     | 
-| US 26 | Ruelo Parente    | 
+|-------|------------|
+| US 12 | Team | 
+| US 13 | Manuel Cruz |
+| US 14 | LLoyd Costa |
+| US 15 | Diogo Oliveira |
+| US 16 | Luisa Remelhe |
+| US 17 | Bernardo Amorim |
+| US 18 | Wagner Paiva | 
+| US 19 | Luis Ferreira | 
+| US 20 | Simão Campos | 
+| US 21 | Ruelo Parente | 
+| US 22 | João Mouta | 
+| US 23 | Diogo Oliveira | 
+| US 24 | João Mouta |
+| US 25 | Simão Campos | 
+| US 26 | Ruelo Parente | 
 
 
 

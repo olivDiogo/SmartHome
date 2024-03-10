@@ -1,0 +1,182 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Gps</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SmartHome.domain</a>
+</div>
+
+<h1>Coverage Summary for Class: Gps (SmartHome.domain)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Gps</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SmartHome.domain;
+&nbsp;
+&nbsp;public class Gps {
+&nbsp;    private double _latitude;
+&nbsp;    private double _longitude;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for the Gps class.
+&nbsp;     *
+&nbsp;     * @param latitude  The latitude of the GPS coordinates.
+&nbsp;     * @param longitude The longitude of the GPS coordinates.
+&nbsp;     * @throws IllegalArgumentException if the latitude is not between -90 and 90 or if the longitude is not between -180 and 180.
+&nbsp;     */
+<b class="fc">&nbsp;    public Gps(double latitude, double longitude) {</b>
+<b class="fc">&nbsp;        setLatitude(latitude);</b>
+<b class="fc">&nbsp;        setLongitude(longitude);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the latitude of the GPS coordinates.
+&nbsp;     *
+&nbsp;     * @param latitude The latitude to set.
+&nbsp;     * @throws IllegalArgumentException if the latitude is not between -90 and 90.
+&nbsp;     */
+&nbsp;    private void setLatitude(double latitude) throws IllegalArgumentException {
+<b class="fc">&nbsp;        if (latitude &lt; -90 || latitude &gt; 90) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Please enter a valid latitude.&quot;);</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            this._latitude = latitude;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the longitude of the GPS coordinates.
+&nbsp;     *
+&nbsp;     * @param longitude The longitude to set.
+&nbsp;     * @throws IllegalArgumentException if the longitude is not between -180 and 180.
+&nbsp;     */
+&nbsp;    private void setLongitude(double longitude) throws IllegalArgumentException {
+<b class="fc">&nbsp;        if (longitude &lt; -180 || longitude &gt; 180) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Please enter a valid longitude.&quot;);</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            this._longitude = longitude;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the latitude of the GPS coordinates.
+&nbsp;     *
+&nbsp;     * @return The latitude of the GPS coordinates.
+&nbsp;     */
+&nbsp;    public double getLatitude() {
+<b class="fc">&nbsp;        return _latitude;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the longitude of the GPS coordinates.
+&nbsp;     *
+&nbsp;     * @return The longitude of the GPS coordinates.
+&nbsp;     */
+&nbsp;    public double getLongitude() {
+<b class="fc">&nbsp;        return _longitude;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a string representation of the Gps object.
+&nbsp;     * The string includes the latitude and longitude of the GPS coordinates.
+&nbsp;     *
+&nbsp;     * @return A string representation of the Gps object.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="fc">&nbsp;        return &quot;Gps{&quot; +</b>
+&nbsp;                &quot;latitude=&quot; + _latitude +
+&nbsp;                &quot;, longitude=&quot; + _longitude +
+&nbsp;                &#39;}&#39;;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-10 18:15</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > AveragePowerConsumptionSensor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SmartHome.sensors</a>
+</div>
+
+<h1>Coverage Summary for Class: AveragePowerConsumptionSensor (SmartHome.sensors)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AveragePowerConsumptionSensor</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (26/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SmartHome.sensors;
+&nbsp;
+&nbsp;import SmartHome.domain.CatalogueSensor;
+&nbsp;import SmartHome.domain.Sensor;
+&nbsp;import SmartHome.domain.SensorType;
+&nbsp;import SmartHome.domain.Value;
+&nbsp;
+&nbsp;import java.time.LocalDateTime;
+&nbsp;import java.util.*;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;public class AveragePowerConsumptionSensor implements Sensor {
+&nbsp;    private SensorType _sensorType;
+&nbsp;    private HashMap&lt;LocalDateTime, Double&gt; _powerConsumptions;
+&nbsp;    private AveragePowerConsumptionSensorValue _averagePowerConsumptionSensorValue;
+<b class="fc">&nbsp;    private final double _dValue = 0;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new PowerConsumptionSensor with a given catalogue.
+&nbsp;     *
+&nbsp;     * @param catalogue the catalogue to be set.
+&nbsp;     * @throws InstantiationException if the SensorType with description &#39;Power Consumption&#39; does not exist.
+&nbsp;     */
+<b class="fc">&nbsp;    public AveragePowerConsumptionSensor(CatalogueSensor catalogue) throws InstantiationException {</b>
+<b class="fc">&nbsp;        setSensorType(catalogue);</b>
+<b class="fc">&nbsp;        _powerConsumptions = new HashMap&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the SensorType of the PowerConsumptionSensor.
+&nbsp;     *
+&nbsp;     * @param catalogue the catalogue to be set.
+&nbsp;     * @return the SensorType with description &#39;Power Consumption&#39;.
+&nbsp;     * @throws InstantiationException if the SensorType with description &#39;Power Consumption&#39; does not exist.
+&nbsp;     */
+&nbsp;    private void setSensorType(CatalogueSensor catalogue) throws InstantiationException {
+<b class="fc">&nbsp;        SensorType sensorType = catalogue.getSensorType(&quot;Power Consumption&quot;);</b>
+<b class="fc">&nbsp;        if (sensorType == null)</b>
+<b class="fc">&nbsp;            throw new InstantiationException(&quot;SensorType with description &#39;Power Consumption&#39; does not exist.&quot;);</b>
+&nbsp;        else {
+<b class="fc">&nbsp;            _sensorType = sensorType;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the SensorType of the PowerConsumptionSensor.
+&nbsp;     *
+&nbsp;     * @return the SensorType with description &#39;Power Consumption&#39;.
+&nbsp;     */
+&nbsp;    public SensorType getSensorType() {
+<b class="fc">&nbsp;        return this._sensorType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the value of the PowerConsumptionSensor.
+&nbsp;     *
+&nbsp;     * @param readTime the time of the reading.
+&nbsp;     * @param reading  the reading to be set.
+&nbsp;     * @return a new HashMap with the power consumptions.
+&nbsp;     * @throws IllegalArgumentException if there is already a reading for this time.
+&nbsp;     */
+&nbsp;    protected double addReading(LocalDateTime readTime, double reading) {
+<b class="fc">&nbsp;        if (_powerConsumptions.containsKey(readTime))</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;There is already a reading for this time&quot;);</b>
+&nbsp;
+&nbsp;        {
+<b class="fc">&nbsp;            _powerConsumptions.put(readTime, reading);</b>
+<b class="fc">&nbsp;            return reading;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the average value of the PowerConsumptionSensor.
+&nbsp;     *
+&nbsp;     * @param initialTime the initial time of the range.
+&nbsp;     * @param finalTime   the final time of the range.
+&nbsp;     * @return the average value of the PowerConsumptionSensor.
+&nbsp;     * @throws IllegalArgumentException if the initial time is after the final time.
+&nbsp;     * @throws IllegalArgumentException if the initial time is equal to the final time.
+&nbsp;     */
+&nbsp;    private double getAverageValue(LocalDateTime initialTime, LocalDateTime finalTime) {
+<b class="fc">&nbsp;        if (initialTime.isAfter(finalTime)) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Initial time must be before final time&quot;);</b>
+&nbsp;
+&nbsp;
+&nbsp;        }
+&nbsp;
+&nbsp;        // Calculate the average of the filtered power consumptions
+<b class="fc">&nbsp;        double average = filterPowerConsumptionsByTime(initialTime, finalTime).values().stream()</b>
+<b class="fc">&nbsp;                .mapToDouble(Double::doubleValue)</b>
+<b class="fc">&nbsp;                .average()</b>
+<b class="fc">&nbsp;                .orElse(0);</b>
+<b class="fc">&nbsp;        return average;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Filters the power consumptions of the PowerConsumptionSensor by time.
+&nbsp;     *
+&nbsp;     * @param initialTime the initial time of the range.
+&nbsp;     * @param finalTime   the final time of the range.
+&nbsp;     * @return a new HashMap with the filtered power consumptions.
+&nbsp;     */
+&nbsp;    private Map&lt;LocalDateTime, Double&gt; filterPowerConsumptionsByTime(LocalDateTime initialTime, LocalDateTime finalTime) {
+&nbsp;        // Filter the powerConsumptions map to only include entries within the specified time range
+<b class="fc">&nbsp;        Map&lt;LocalDateTime, Double&gt; filteredPowerConsumptions = _powerConsumptions.entrySet().stream()</b>
+<b class="fc">&nbsp;                .filter(entry -&gt; !entry.getKey().isBefore(initialTime) &amp;&amp; !entry.getKey().isAfter(finalTime))</b>
+<b class="fc">&nbsp;                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));</b>
+&nbsp;
+<b class="fc">&nbsp;        return filteredPowerConsumptions;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the value of the PowerConsumptionSensor with zero.
+&nbsp;     *
+&nbsp;     * @return the value of the PowerConsumptionSensor.
+&nbsp;     */
+&nbsp;    public Value getValue() {
+<b class="fc">&nbsp;        return this._averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(_dValue);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the value of the PowerConsumptionSensor for a given period.
+&nbsp;     *
+&nbsp;     * @param initialTime the initial time of the range.
+&nbsp;     * @param finalTime   the final time of the range.
+&nbsp;     * @return the value of the PowerConsumptionSensor.
+&nbsp;     */
+&nbsp;
+&nbsp;    public Value getValue(LocalDateTime initialTime, LocalDateTime finalTime) {
+&nbsp;
+<b class="fc">&nbsp;        return this._averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(getAverageValue(initialTime, finalTime));</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-10 18:15</div>
+</div>
+</body>
+</html>

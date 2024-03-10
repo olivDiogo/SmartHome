@@ -1,0 +1,162 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > AddSensorToDeviceController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SmartHome.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: AddSensorToDeviceController (SmartHome.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AddSensorToDeviceController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (21/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SmartHome.controller;
+&nbsp;
+&nbsp;import SmartHome.domain.*;
+&nbsp;import SmartHome.dto.*;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;
+&nbsp;public class AddSensorToDeviceController {
+&nbsp;    private final House _house;
+&nbsp;    private final CatalogueSensor _catalogue;
+<b class="fc">&nbsp;    private Map&lt;RoomDTO, Room&gt; _roomsDTOAndRooms = new HashMap&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;    private Map&lt;DeviceDTO, Device&gt; _devicesDTOAndDevices = new HashMap&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;    public AddSensorToDeviceController(House house, CatalogueSensor catalogue) throws IllegalArgumentException {</b>
+<b class="fc">&nbsp;        if (!isValidConstructorArguments(house, catalogue))</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Invalid arguments&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        _house = house;</b>
+<b class="fc">&nbsp;        _catalogue = catalogue;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean isValidConstructorArguments(House house, CatalogueSensor catalogue) {
+<b class="fc">&nbsp;        return house != null &amp;&amp; catalogue != null;</b>
+&nbsp;
+&nbsp;        // implement here the rest of validations
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;RoomDTO&gt; getRooms() {
+<b class="fc">&nbsp;        List&lt;Room&gt; rooms = _house.getRooms();</b>
+<b class="fc">&nbsp;        _roomsDTOAndRooms = RoomAssembler.domain2DTOMap(rooms);</b>
+<b class="fc">&nbsp;        return _roomsDTOAndRooms.keySet().stream().toList();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;DeviceDTO&gt; getDevicesFromRoom(RoomDTO roomDTO) {
+<b class="fc">&nbsp;        Room room = _roomsDTOAndRooms.get(roomDTO);</b>
+<b class="fc">&nbsp;        _devicesDTOAndDevices = DeviceAssembler.domain2DTOMapper(room.getDevices());</b>
+<b class="fc">&nbsp;        List&lt;DeviceDTO&gt; devices = _devicesDTOAndDevices.keySet().stream().toList();</b>
+<b class="fc">&nbsp;        return devices;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;String&gt; getSensorsModels() {
+<b class="fc">&nbsp;        return _catalogue.getSensorModels();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public SensorDTO addSensorToDevice(DeviceDTO deviceDTO, String strSensorModel) throws InstantiationException {
+<b class="fc">&nbsp;        Device device = _devicesDTOAndDevices.get(deviceDTO);</b>
+<b class="fc">&nbsp;        Sensor sensor = device.addSensor(strSensorModel, this._catalogue, new SensorFactory());</b>
+<b class="fc">&nbsp;        if (sensor == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return SensorAssembler.domain2DTO(sensor);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-10 18:15</div>
+</div>
+</body>
+</html>

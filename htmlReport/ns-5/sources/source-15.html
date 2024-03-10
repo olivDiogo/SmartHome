@@ -1,0 +1,175 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > TemperatureSensor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SmartHome.sensors</a>
+</div>
+
+<h1>Coverage Summary for Class: TemperatureSensor (SmartHome.sensors)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TemperatureSensor</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SmartHome.sensors;
+&nbsp;
+&nbsp;import SmartHome.domain.CatalogueSensor;
+&nbsp;import SmartHome.domain.Sensor;
+&nbsp;import SmartHome.domain.SensorType;
+&nbsp;import SmartHome.domain.Value;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents a temperature sensor that measures the temperature in degrees Celsius.
+&nbsp; * This sensor is part of a Smart Home system and can provide current temperature readings.
+&nbsp; */
+&nbsp;public class TemperatureSensor implements Sensor {
+&nbsp;    /**
+&nbsp;     * The type of sensor as defined in the sensor catalogue, specifically for temperature measurement.
+&nbsp;     */
+&nbsp;    private final SensorType _sensorType;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The current value of the temperature measured by the sensor.
+&nbsp;     */
+&nbsp;    private TemperatureSensorValue _value;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs a TemperatureSensor with a specific SensorType from the given catalogue.
+&nbsp;     *
+&nbsp;     * @param catalogue The catalogue from which to retrieve the SensorType for &quot;Temperature&quot;.
+&nbsp;     * @throws InstantiationException if the SensorType for &quot;Temperature&quot; does not exist in the catalogue.
+&nbsp;     */
+<b class="fc">&nbsp;    public TemperatureSensor(CatalogueSensor catalogue) throws InstantiationException {</b>
+<b class="fc">&nbsp;        this._sensorType = setSensorType(catalogue);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves and sets the sensor type from the catalogue based on the sensor&#39;s description.
+&nbsp;     *
+&nbsp;     * @param catalogue The catalogue from which to retrieve the sensor type.
+&nbsp;     * @return The sensor type for &quot;Temperature&quot;.
+&nbsp;     * @throws InstantiationException if the sensor type with the specified description does not exist.
+&nbsp;     */
+&nbsp;    private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
+<b class="fc">&nbsp;        SensorType sensorType = catalogue.getSensorType(&quot;Temperature&quot;);</b>
+<b class="fc">&nbsp;        if (sensorType == null) {</b>
+<b class="fc">&nbsp;            throw new InstantiationException(&quot;SensorType with description &#39;Temperature&#39; does not exist.&quot;);</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            return sensorType;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the sensor type of this TemperatureSensor.
+&nbsp;     *
+&nbsp;     * @return The SensorType for temperature measurement.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public SensorType getSensorType() {
+<b class="fc">&nbsp;        return this._sensorType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Generates and returns a new temperature value.
+&nbsp;     *
+&nbsp;     * @return A Value object representing the current temperature.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public Value getValue() {
+<b class="fc">&nbsp;        double temperatureReading = 70.5;</b>
+<b class="fc">&nbsp;        this._value = new TemperatureSensorValue(temperatureReading);</b>
+&nbsp;
+<b class="fc">&nbsp;        return _value;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-10 18:15</div>
+</div>
+</body>
+</html>

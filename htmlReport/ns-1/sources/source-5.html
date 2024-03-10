@@ -1,0 +1,192 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > SetIntegerActuator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SmartHome.actuators</a>
+</div>
+
+<h1>Coverage Summary for Class: SetIntegerActuator (SmartHome.actuators)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SetIntegerActuator</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (20/20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SmartHome.actuators;
+&nbsp;
+&nbsp;import SmartHome.domain.Actuator;
+&nbsp;import SmartHome.domain.ActuatorType;
+&nbsp;import SmartHome.domain.CatalogueActuator;
+&nbsp;import SmartHome.domain.Value;
+&nbsp;
+&nbsp;public class SetIntegerActuator implements Actuator {
+&nbsp;    private ActuatorType _actuatorType;
+&nbsp;    private SetIntegerValue _value;
+&nbsp;    private int _lowerLimit;
+&nbsp;    private int _upperLimit;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new SetIntegerActuator.
+&nbsp;     *
+&nbsp;     * @param catalogue is the catalogue of the actuator
+&nbsp;     */
+<b class="fc">&nbsp;    public SetIntegerActuator(CatalogueActuator catalogue) throws InstantiationException {</b>
+<b class="fc">&nbsp;        setActuatorType(catalogue);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the actuator type.
+&nbsp;     *
+&nbsp;     * @param catalogue the catalogue
+&nbsp;     * @throws InstantiationException if the actuator type cannot be created
+&nbsp;     */
+&nbsp;    private void setActuatorType(CatalogueActuator catalogue) throws InstantiationException {
+&nbsp;
+<b class="fc">&nbsp;        ActuatorType actuatorType = catalogue.getActuatorType(&quot;SetInteger&quot;);</b>
+<b class="fc">&nbsp;        if (actuatorType == null)</b>
+<b class="fc">&nbsp;            throw new InstantiationException(&quot;ActuatorType with description &#39;SetInteger&#39; does not exist.&quot;);</b>
+&nbsp;        else {
+<b class="fc">&nbsp;            this._actuatorType = actuatorType;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the lower limit.
+&nbsp;     * @param lowerLimit the lower limit
+&nbsp;     */
+&nbsp;    private int setLowerLimit(int lowerLimit) {
+<b class="fc">&nbsp;        this._lowerLimit = lowerLimit;</b>
+<b class="fc">&nbsp;        return lowerLimit;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the upper limit.
+&nbsp;     * @param upperLimit the upper limit
+&nbsp;     */
+&nbsp;    private int setUpperLimit(int upperLimit) {
+<b class="fc">&nbsp;        this._upperLimit = upperLimit;</b>
+<b class="fc">&nbsp;        return upperLimit;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the actuator type.
+&nbsp;     *
+&nbsp;     * @return the actuator type
+&nbsp;     */
+&nbsp;    public ActuatorType getActuatorType() {
+<b class="fc">&nbsp;        return this._actuatorType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the value if within range.
+&nbsp;     * @param value the value
+&nbsp;     */
+&nbsp;    public Value setValueInRange(int lowerLimit, int upperLimit, Value value) {
+<b class="fc">&nbsp;        int nValue = Integer.parseInt(value.toString());</b>
+&nbsp;
+<b class="fc">&nbsp;        if (nValue &lt; setLowerLimit(lowerLimit)) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Value cannot be less than the lower limit.&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        } else if (nValue &gt; setUpperLimit(upperLimit)) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Value cannot be greater than the upper limit.&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        } else if (value instanceof SetIntegerValue) {</b>
+<b class="fc">&nbsp;            this._value = (SetIntegerValue) value;</b>
+&nbsp;
+<b class="fc">&nbsp;            return this._value.clone();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-10 18:15</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > RoomAssembler</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SmartHome.dto</a>
+</div>
+
+<h1>Coverage Summary for Class: RoomAssembler (SmartHome.dto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RoomAssembler</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SmartHome.dto;
+&nbsp;
+&nbsp;import SmartHome.domain.Room;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;
+<b class="nc">&nbsp;public class RoomAssembler {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Converts a Room domain object to a RoomDTO.
+&nbsp;     *
+&nbsp;     * @param room The Room domain object to be converted.
+&nbsp;     * @return A RoomDTO object that represents the given Room.
+&nbsp;     */
+&nbsp;    static public RoomDTO domain2DTO(Room room) {
+<b class="fc">&nbsp;        return new RoomDTO(room);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Converts a list of Room domain objects to a list of RoomDTOs.
+&nbsp;     *
+&nbsp;     * @param rooms The list of Room domain objects to be converted.
+&nbsp;     * @return A list of RoomDTO objects that represent the given Rooms.
+&nbsp;     */
+&nbsp;    static public List&lt;RoomDTO&gt; domain2DTO(List&lt;Room&gt; rooms) {
+<b class="fc">&nbsp;        return rooms.stream().map(RoomDTO::new).toList();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Converts a list of Room domain objects to a map of RoomDTOs and Rooms.
+&nbsp;     *
+&nbsp;     * @param rooms The list of Room domain objects to be converted.
+&nbsp;     * @return A map where the keys are RoomDTO objects that represent the given Rooms, and the values are the original Room objects.
+&nbsp;     */
+&nbsp;    static public Map&lt;RoomDTO, Room&gt; domain2DTOMap(List&lt;Room&gt; rooms) {
+<b class="fc">&nbsp;        Map&lt;RoomDTO, Room&gt; roomsDTOAndRooms = new LinkedHashMap&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        rooms.forEach(room -&gt; {</b>
+<b class="fc">&nbsp;            RoomDTO roomDTO = RoomAssembler.domain2DTO(room);</b>
+<b class="fc">&nbsp;            roomsDTOAndRooms.put(roomDTO, room);</b>
+&nbsp;        });
+&nbsp;
+<b class="fc">&nbsp;        return roomsDTOAndRooms;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-10 18:15</div>
+</div>
+</body>
+</html>

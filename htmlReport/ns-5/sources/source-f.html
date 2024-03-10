@@ -1,0 +1,232 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > SunriseTimeSensor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SmartHome.sensors</a>
+</div>
+
+<h1>Coverage Summary for Class: SunriseTimeSensor (SmartHome.sensors)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SunriseTimeSensor</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.7%
+  </span>
+  <span class="absValue">
+    (26/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SmartHome.sensors;
+&nbsp;
+&nbsp;import SmartHome.domain.*;
+&nbsp;import org.apache.commons.configuration2.Configuration;
+&nbsp;import org.apache.commons.configuration2.builder.fluent.Configurations;
+&nbsp;import org.apache.commons.configuration2.ex.ConfigurationException;
+&nbsp;import org.shredzone.commons.suncalc.SunTimes;
+&nbsp;
+&nbsp;import java.io.File;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.time.LocalTime;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;
+&nbsp;public class SunriseTimeSensor implements Sensor {
+&nbsp;
+&nbsp;    private final SensorType _sensorType;
+&nbsp;    private double _latitude;
+&nbsp;    private double _longitude;
+&nbsp;    private SunriseTimeValue _sunriseTimeValue;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new SunriseTimeSensor with a given catalogue.
+&nbsp;     *
+&nbsp;     * @param catalogue the catalogue to be set.
+&nbsp;     * @throws InstantiationException if the SensorType with description &#39;SunriseTime&#39; does not exist.
+&nbsp;     */
+<b class="fc">&nbsp;    public SunriseTimeSensor(CatalogueSensor catalogue) throws InstantiationException {</b>
+<b class="fc">&nbsp;        this._sensorType = setSensorType(catalogue);</b>
+<b class="fc">&nbsp;        configureGpsLocation();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the SensorType of the SunriseTimeSensor.
+&nbsp;     *
+&nbsp;     * @param catalogue the catalogue to be set.
+&nbsp;     * @return the SensorType with description &#39;SunriseTime&#39;.
+&nbsp;     * @throws InstantiationException if the SensorType with description &#39;SunriseTime&#39; does not exist.
+&nbsp;     */
+&nbsp;    private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
+&nbsp;
+<b class="fc">&nbsp;        SensorType sensorType = catalogue.getSensorType(&quot;SunriseTime&quot;);</b>
+<b class="fc">&nbsp;        if (sensorType == null)</b>
+<b class="fc">&nbsp;            throw new InstantiationException(&quot;SensorType with description &#39;SunriseTime&#39; does not exist.&quot;);</b>
+&nbsp;        else {
+<b class="fc">&nbsp;            return sensorType;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Configures the GPS location of the SunriseTimeSensor.
+&nbsp;     *
+&nbsp;     * @throws InstantiationException if the gps.configuration file is not found or if something went wrong in reading the gps configuration.
+&nbsp;     */
+&nbsp;    private void configureGpsLocation() throws InstantiationException {
+&nbsp;        try {
+<b class="fc">&nbsp;            Configurations configs = new Configurations();</b>
+<b class="fc">&nbsp;            Configuration config = configs.properties(new File(&quot;gps.configuration&quot;));</b>
+<b class="fc">&nbsp;            if (Objects.isNull(config))</b>
+<b class="nc">&nbsp;                throw new InstantiationException(&quot;gps.configuration file not found&quot;);</b>
+&nbsp;            else {
+<b class="fc">&nbsp;                _latitude = Double.parseDouble(config.getString(&quot;latitude&quot;));</b>
+<b class="fc">&nbsp;                _longitude = Double.parseDouble(config.getString(&quot;longitude&quot;));</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } catch (ConfigurationException exception) {</b>
+<b class="nc">&nbsp;            throw new InstantiationException(&quot;something went wrong in reading the gps configuration: &quot; + exception.getMessage());</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the SensorType of the SunriseTimeSensor.
+&nbsp;     *
+&nbsp;     * @return the SensorType with description &#39;SunriseTime&#39;.
+&nbsp;     */
+&nbsp;    public SensorType getSensorType() {
+<b class="fc">&nbsp;        return this._sensorType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the Sunrise Time of the GPS location for the current day.
+&nbsp;     *
+&nbsp;     * @return the Sunrise Time of the GPS location.
+&nbsp;     */
+&nbsp;    private LocalTime getSunriseTime() {
+<b class="fc">&nbsp;        SunTimes time = SunTimes.compute().on(LocalDate.now()).at(_latitude, _longitude).execute();</b>
+<b class="fc">&nbsp;        LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();</b>
+<b class="fc">&nbsp;        return sunrise;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the Sunrise Time of the GPS location for a given date.
+&nbsp;     *
+&nbsp;     * @param date the date to be used.
+&nbsp;     * @return the Sunrise Time of the GPS location for a given date.
+&nbsp;     */
+&nbsp;    private LocalTime getSunriseTime(LocalDate date) {
+<b class="fc">&nbsp;        SunTimes time = SunTimes.compute().on(date).at(_latitude, _longitude).execute();</b>
+<b class="fc">&nbsp;        LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();</b>
+<b class="fc">&nbsp;        return sunrise;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the value of the SunriseTimeSensor for the current day.
+&nbsp;     *
+&nbsp;     * @return the value of the SunriseTimeSensor.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public Value getValue() {
+<b class="fc">&nbsp;        LocalTime sunrise = getSunriseTime();</b>
+<b class="fc">&nbsp;        this._sunriseTimeValue = new SunriseTimeValue(sunrise);</b>
+<b class="fc">&nbsp;        return this._sunriseTimeValue;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the value of the SunriseTimeSensor for a given date.
+&nbsp;     *
+&nbsp;     * @param date the date to be used.
+&nbsp;     * @return the value of the SunriseTimeSensor for a given date.
+&nbsp;     */
+&nbsp;    public Value getValue(LocalDate date) {
+<b class="fc">&nbsp;        LocalTime sunset = getSunriseTime(date);</b>
+<b class="fc">&nbsp;        this._sunriseTimeValue = new SunriseTimeValue(sunset);</b>
+<b class="fc">&nbsp;        return this._sunriseTimeValue;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-10 18:15</div>
+</div>
+</body>
+</html>

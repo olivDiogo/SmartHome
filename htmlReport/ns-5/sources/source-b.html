@@ -1,0 +1,162 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PercentagePositionSensor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SmartHome.sensors</a>
+</div>
+
+<h1>Coverage Summary for Class: PercentagePositionSensor (SmartHome.sensors)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PercentagePositionSensor</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SmartHome.sensors;
+&nbsp;
+&nbsp;import SmartHome.domain.CatalogueSensor;
+&nbsp;import SmartHome.domain.Sensor;
+&nbsp;import SmartHome.domain.SensorType;
+&nbsp;import SmartHome.domain.Value;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents a percentage position sensor.
+&nbsp; * This sensor generates a random percentage value and returns it as a {@link PercentagePositionSensorValue}.
+&nbsp; */
+&nbsp;public class PercentagePositionSensor implements Sensor {
+&nbsp;
+&nbsp;    private final SensorType _sensorType; // The type of the sensor
+&nbsp;    private PercentagePositionSensorValue _value; // The current value of the sensor
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs a percentage position sensor with the specified catalogue.
+&nbsp;     * @param catalogue The catalogue sensor used to retrieve sensor types.
+&nbsp;     * @throws InstantiationException if the sensor type &#39;Percented&#39; does not exist in the catalogue.
+&nbsp;     */
+<b class="fc">&nbsp;    public PercentagePositionSensor(CatalogueSensor catalogue) throws InstantiationException {</b>
+<b class="fc">&nbsp;        this._sensorType = setSensorType(catalogue);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the sensor type using the specified catalogue.
+&nbsp;     * @param catalogue The catalogue sensor used to retrieve sensor types.
+&nbsp;     * @return The sensor type &#39;Percented&#39; if found in the catalogue.
+&nbsp;     * @throws InstantiationException if the sensor type &#39;Percented&#39; does not exist in the catalogue.
+&nbsp;     */
+&nbsp;    private SensorType setSensorType(CatalogueSensor catalogue) throws InstantiationException {
+<b class="fc">&nbsp;        SensorType sensorType = catalogue.getSensorType(&quot;Percented&quot;);</b>
+<b class="fc">&nbsp;        if (sensorType == null)</b>
+<b class="fc">&nbsp;            throw new InstantiationException(&quot;SensorType with description &#39;Percented&#39; does not exist.&quot;);</b>
+&nbsp;        else {
+<b class="fc">&nbsp;            return sensorType;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the sensor type.
+&nbsp;     * @return The sensor type.
+&nbsp;     */
+&nbsp;    public SensorType getSensorType() {
+<b class="fc">&nbsp;        return this._sensorType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the value of the sensor.
+&nbsp;     * @return A {@link PercentagePositionSensorValue} representing the current value of the sensor.
+&nbsp;     */
+&nbsp;    public Value getValue() {
+<b class="fc">&nbsp;        double percentage = 100; // Placeholder value for demonstration purposes</b>
+<b class="fc">&nbsp;        this._value = new PercentagePositionSensorValue(percentage);</b>
+<b class="fc">&nbsp;        return this._value;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-10 18:15</div>
+</div>
+</body>
+</html>
