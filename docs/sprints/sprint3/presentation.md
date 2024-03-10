@@ -21,11 +21,11 @@
 - [Class Diagram](../../ood/classDiagram/svg/US13SwitchActuator.svg)
 
 ### 6. US018 - To have a type of sensor that gives value/position as percentage
-- [Percentage Position Sensor](../../../src/test/java/SmartHome/sensors/PercentagePositionSensorTest.java)
+- [Percentage Position Sensor Unit Tests](../../../src/test/java/SmartHome/sensors/PercentagePositionSensorTest.java)
 - [Percentage Position Sensor Value Unit Tests](../../../src/test/java/SmartHome/sensors/PercentagePositionSensorValueTest.java)
 - [Class Diagram](../../ood/classDiagram/svg/US18PercentagePositionSensor.svg)
 
 ### 7. US019 - To have a type of sensor that gives wind speed and direction
-- [Wind Sensor](../../../src/test/java/SmartHome/sensors/WindSensorTest.java)
+- [Wind Sensor Unit Tests](../../../src/test/java/SmartHome/sensors/WindSensorTest.java)
 - [Wind Sensor Value Unit Tests](../../../src/test/java/SmartHome/actuators/SwitchActuatorValueTest.java)
 - [Class Diagram](../../ood/classDiagram/svg/US19WindSensor.svg)
