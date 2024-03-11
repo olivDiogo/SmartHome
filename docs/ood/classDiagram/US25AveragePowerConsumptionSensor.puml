@@ -3,7 +3,7 @@
 package domain{
 
    class SensorFactory {
-        'Methods'
+     'Methods'
         +createSensor(model: String, catalogue: Catalogue): Sensor
         }
 
@@ -19,8 +19,6 @@ package domain{
 
     'Methods'
     +CatalogueSensor(filePathname: String)
-    -setListSensorTypes(): void
-    -setListStringClassesSensors(): void
     }
 
     class SensorType {
@@ -45,22 +43,19 @@ package sensors{
 
  'Methods'
  +AveragePowerConsumptionSensorValue(dValue: double)
- -setValue(dValue: double): void
  +getValue(): double
  +toString(): String
  }
-    class AveragePowerConsumptionSensor {
-        - _sensorType: SensorType
-        - _powerConsumptions: HashMap<LocalDateTime, Double>
-        - _averagePowerConsumptionSensorValue: AveragePowerConsumptionSensorValue
-        - _dValue: Double
-        + AveragePowerConsumptionSensor(catalogue: CatalogueSensor) throws InstantiationException
-        + setSensorType(catalogue: CatalogueSensor) throws InstantiationException
-        + getAverageValue(initialTime: LocalDateTime, finalTime: LocalDateTime): Double
-        + filterPowerConsumptionsByTime(initialTime: LocalDateTime, finalTime: LocalDateTime): HashMap<LocalDateTime, Double>
-        + addReading(readTime: LocalDateTime, reading: Double): Double
-        + getValue(): AveragePowerConsumptionSensorValue
-        + getValue(initialTime: LocalDateTime, finalTime: LocalDateTime): AveragePowerConsumptionSensorValue
+class AveragePowerConsumptionSensor {
+- _sensorType: SensorType
+- _powerConsumptions: HashMap<LocalDateTime, Double>
+- _averagePowerConsumptionSensorValue: AveragePowerConsumptionSensorValue
+- _dValue: Double
++ AveragePowerConsumptionSensor(catalogue: CatalogueSensor) throws InstantiationException
++ setSensorType(catalogue: CatalogueSensor) throws InstantiationException
+# addReading(readTime: LocalDateTime, reading: Double): Double
++ getValue(): AveragePowerConsumptionSensorValue
++ getValue(initialTime: LocalDateTime, finalTime: LocalDateTime): AveragePowerConsumptionSensorValue
     }
 }
 
@@ -68,11 +63,11 @@ package sensors{
 SensorFactory "1" --> "1" AveragePowerConsumptionSensor : <<creates>>
 AveragePowerConsumptionSensor "1" --> "1" SensorType : <<has>>
 AveragePowerConsumptionSensor "1" --> "1" AveragePowerConsumptionSensorValue : <<uses>>
-AveragePowerConsumptionSensor "1" ..|> "1" Sensor: <<implements>>
+AveragePowerConsumptionSensor "1" ..|> "1" Sensor
 
 CatalogueSensor "1" --> "1" AveragePowerConsumptionSensor : <<has>>
 CatalogueSensor "1" --> "*" SensorType : <<uses>>
-AveragePowerConsumptionSensorValue "1" ..|> "1" Value: <<implements>>
+AveragePowerConsumptionSensorValue "1" ..|> "1" Value
 SensorTypeFactory "1" --> "1" SensorType : <<creates>>
 
 
