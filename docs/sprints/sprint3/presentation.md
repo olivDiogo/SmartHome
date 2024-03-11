@@ -2,7 +2,7 @@
 
 ### 1. [Task Distribution](readme.md)
 
-- [Agile Sprint Overview: Progress and Task Management](/resources/issues_project_github.PNG)
+- [Agile Sprint Overview: Progress and Task Management](resources/issues_project_github.png)
 
 ### 2. Domain Diagram 
 [Domain Diagram](../../../docs/ooa/DomainDiagram.svg)
@@ -15,7 +15,7 @@
 - [Documentation](us012/readme.md)
 - [System Sequence Diagram](../../ood/SystemSequenceDiagram/svg/US12.svg)
 - [Sequence Diagram](../../ood/SequenceDiagram/svg/US12AddActuatorToDevice.svg)
-- [Class Diagram](../../ood/svg/classDiagram/svg/US12AddActuatorToDevice.svg)
+- [Class Diagram](../../ood/classDiagram/svg/US12AddActuatorToDevice.svg)
 - [Controller Tests](../../../src/test/java/SmartHome/controller/AddActuatorToDeviceControllerTest.java)
 
 ### 5. US013 - To have a type of actuator switch for load ON/OFF
