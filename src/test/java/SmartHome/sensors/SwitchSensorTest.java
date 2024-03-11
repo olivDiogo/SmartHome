@@ -57,7 +57,7 @@ class SwitchSensorTest {
      * @throws InstantiationException if the sensor type "Switch" does not exist in the catalogue.
      */
     @Test
-    void shouldThrowInstantiationException_WhenSensorTypeIsValid() throws InstantiationException {
+    void shouldReturnCorrectSensorType_WhenGetSensorTypeIsCalled() throws InstantiationException {
         // Arrange
         String description = "Switch";
         CatalogueSensor catalogueDouble = mock(CatalogueSensor.class);
