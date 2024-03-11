@@ -1,5 +1,3 @@
-# US 012 - To add an actuator to a device
+# US 018
 
 [Requirements Engineering](01.requirements-engineering/readme.md)
-
-[Tests](02.tests/readme.md)
