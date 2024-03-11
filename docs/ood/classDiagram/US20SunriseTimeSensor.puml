@@ -1,38 +1,35 @@
 @startuml
 package domain{
-     class CatalogueSensor{
-        'Attributes'
-        - _listSensorTypes: List<SensorType>
-        - _listStringClassesSensors: List<String>
+class CatalogueSensor{
+'Attributes'
+- _listSensorTypes: List<SensorType>
+- _listStringClassesSensors: List<String>
 
-        'Methods'
-        +CatalogueSensor(filePathname: String)
-        -setListSensorTypes(): void
-        -setListStringClassesSensors(): void
-        }
+'Methods'
++CatalogueSensor(filePathname: String)
+}
 
-        class SensorType {
+class SensorType {
+}
 
-        }
+interface Sensor{
+'Methods'
+getSensorType(): SensorType
+getValue(): Value
+}
 
-    interface Sensor{
-        'Methods'
-        getSensorType(): SensorType
-        getValue(): Value
-        }
+interface Value{
+}
 
-        interface Value{
-        }
+class SensorFactory {
+'Methods'
++createSensor(model: String, catalogue: Catalogue): Sensor
+}
 
-        class SensorFactory {
-        'Methods'
-        +createSensor(model: String, catalogue: Catalogue): Sensor
-        }
-
-        class SensorTypeFactory {
-        'Methods'
-        +createSensorType(strDescription: String, unit: Unit): SensorType
-        }
+class SensorTypeFactory {
+'Methods'
++createSensorType(strDescription: String, unit: Unit): SensorType
+}
 }
 
 package sensors{
@@ -43,24 +40,19 @@ class SunriseTimeValue{
 
 'Methods'
 +SunsetTimeValue(value: LocalTime)
--setValue(value: LocalTime): void
 +toString(): String
 }
-    class SunriseTimeSensor{
-    'Attributes'
-    - _sensorType: SensorType
-    - _gps: Gps
+class SunriseTimeSensor{
+'Attributes'
+- _sensorType: SensorType
+- _gps: Gps
 
-    'Methods'
-    +SunriseTimeSensor(catalogue: CatalogueSensor)
-    -setSensorType(catalogue: CatalogueSensor): SensorType
-    +configureGpsLocation(gps: Gps): Gps
-    +getSensorType(): SensorType
-    +getSunriseTime(): LocalTime
-    +getSunriseTime(date: LocalDate): LocalTime
-    +getValue(): Value
-    +getValue(date: LocalDate): Value
-    }
+'Methods'
++SunriseTimeSensor(catalogue: CatalogueSensor)
++getSensorType(): SensorType
++getValue(): Value
++getValue(date: LocalDate): Value
+}
 }
 
 
@@ -68,11 +60,11 @@ class SunriseTimeValue{
 SensorFactory "1" --> "1" SunriseTimeSensor : <<creates>>
 SunriseTimeSensor "1" --> "1" SensorType : <<has>>
 SunriseTimeSensor "1" --> "1" SunriseTimeValue : <<uses>>
-SunriseTimeSensor "1" ..|> "1" Sensor: <<implements>>
+SunriseTimeSensor "1" ..|> "1" Sensor
 
 CatalogueSensor "1" --> "1" SunriseTimeSensor : <<has>>
 CatalogueSensor "1" --> "*" SensorType : <<uses>>
-SunriseTimeValue "1" ..|> "1" Value: <<implements>>
+SunriseTimeValue "1" ..|> "1" Value
 SensorTypeFactory "1" --> "1" SensorType : <<creates>>
 
 
