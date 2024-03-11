@@ -11,21 +11,22 @@
 
 ### 4. US012 - To add an actuator to a device
 - [Documentation](us012/readme.md)
-- [Controller Tests](../../../src/test/java/SmartHome/controller/AddActuatorToDeviceControllerTest.java)
+- [System Sequence Diagram](../../ood/SystemSequenceDiagram/svg/US12.svg)
 - [Sequence Diagram](../../ood/SequenceDiagram/svg/US12AddActuatorToDevice.svg)
 - [Class Diagram](../../ood/svg/classDiagram/svg/US12AddActuatorToDevice.svg)
+- [Controller Tests](../../../src/test/java/SmartHome/controller/AddActuatorToDeviceControllerTest.java)
 
 ### 5. US013 - To have a type of actuator switch for load ON/OFF
+- [Class Diagram](../../ood/classDiagram/svg/US13SwitchActuator.svg)
 - [Switch Actuator Unit Tests](../../../src/test/java/SmartHome/actuators/SwitchActuatorTest.java)
 - [Switch Actuator Value Unit Tests](../../../src/test/java/SmartHome/actuators/SwitchActuatorValueTest.java)
-- [Class Diagram](../../ood/classDiagram/svg/US13SwitchActuator.svg)
 
 ### 6. US018 - To have a type of sensor that gives value/position as percentage
+- [Class Diagram](../../ood/classDiagram/svg/US18PercentagePositionSensor.svg)
 - [Percentage Position Sensor Unit Tests](../../../src/test/java/SmartHome/sensors/PercentagePositionSensorTest.java)
 - [Percentage Position Sensor Value Unit Tests](../../../src/test/java/SmartHome/sensors/PercentagePositionSensorValueTest.java)
-- [Class Diagram](../../ood/classDiagram/svg/US18PercentagePositionSensor.svg)
 
 ### 7. US019 - To have a type of sensor that gives wind speed and direction
+- [Class Diagram](../../ood/classDiagram/svg/US19WindSensor.svg)
 - [Wind Sensor Unit Tests](../../../src/test/java/SmartHome/sensors/WindSensorTest.java)
 - [Wind Sensor Value Unit Tests](../../../src/test/java/SmartHome/actuators/SwitchActuatorValueTest.java)
-- [Class Diagram](../../ood/classDiagram/svg/US19WindSensor.svg)
