@@ -1,0 +1,70 @@
+@startuml
+!pragma layout smetana
+
+package SmartHome.actuators {
+
+    class BlindRollerActuator {
+        'Attributes'
+        - _actuatorType : ActuatorType
+        - _value : BlindRollerValue
+
+        'Methods'
+        +BlindRollerActuator (catalogue : CatalogueActuator)
+        +getActuatorType () : ActuatorType
+        +setValue (value : Value) : Value
+    }
+
+    class BlindRollerValue implements SmartHome.domain.Value {
+        'Attributes'
+        -_value : int
+
+        'Methods'
+        +BlindRollerValue(value : int)
+        +toString() : String
+        +clone() : BlindRollerValue
+    }
+
+}
+
+package SmartHome.domain {
+
+    interface Actuator {
+        'Methods'
+        + getActuatorType() : ActuatorType
+    }
+
+    class ActuatorType {
+    'Attributes'
+    -_strDescription : String
+
+    'Methods'
+    #ActuatorType(strDescription : String, unit : Unit)
+    + getStrDescription() : String
+    }
+
+    interface Value {
+    }
+
+    class CatalogueActuator {
+    'Attributes'
+    - _listActuatorTypes : List<ActuatorType>
+    - _listStringClassesActuator : List<String>
+
+    'Methods'
+    +CatalogueActuator(filePathname : String)
+    +addActuatorType((strDescription : String, actuatorTypeFactory : ActuatorTypeFactory) : ActuatorType
+    #addActuatorTypeToList(actuatorType : ActuatorType) : ActuatorType
+    +getActuatorTypes(): List<ActuatorType>
+    +getActuatorType(strDescription : String) : ActuatorType
+    +getActuatorModels() : List<String>
+    +getActuator(strModel : String, actuatorFactory : ActuatorFactory)
+    }
+}
+
+SmartHome.actuators.BlindRollerActuator "1" ..|> "1" SmartHome.domain.Actuator : <<implements>>
+SmartHome.actuators.BlindRollerActuator "1" --> "1" SmartHome.domain.ActuatorType : <<has>>
+SmartHome.actuators.BlindRollerActuator "1" --> "1" SmartHome.actuators.BlindRollerValue : <<has>>
+SmartHome.domain.CatalogueActuator "1" <.. "1" SmartHome.actuators.BlindRollerActuator : <<uses>>
+SmartHome.actuators.BlindRollerValue "1" ..|> "1" SmartHome.domain.Value : <<implements>>
+
+@enduml
