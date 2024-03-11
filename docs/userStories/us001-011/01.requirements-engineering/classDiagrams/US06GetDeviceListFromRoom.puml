@@ -1,0 +1,93 @@
+@startuml
+!pragma layout smetana
+
+'https://plantuml.com/sequence-diagram
+
+
+class GetDevicesFromRoomController{
+- _house : House
+- _roomsDTOAndRooms : HashMap<RoomDTO, Room>
+
++ GetDevicesFromRoomController(house : House)
+- isValidConstructorArguments(house : House) : boolean
++ getRooms() : List<RoomDTO>
++ getDevicesFromRoom (roomDTO : RoomDTO) : List<DeviceDTO>
+}
+
+class RoomAssembler{
+
++ <<static>> domain2DTOMap (rooms : List<Room>) : Map<RoomDTO, Room>
+}
+
+
+class RoomDTO{
++ _name : String
++ _dimensions : Dimensions
++ _floor : int
+- _roomId : UUID
+
++RoomDTO(room : Room)
+}
+
+class DeviceAssembler{
+
++<<static>> domain2DTO (devices : List<Device>) : List<DeviceDTO>
+}
+
+
+class DeviceDTO{
+- _name : String
+- _deviceID : UUID
+- roomDTO : RoomDTO
+
++DeviceDTO(device : Device)
+}
+
+class House {
+- _rooms : List<Room>
+- _location : Location
+- _locationFactory : LocationFactory
+- _roomFactory : RoomFactory
+
++House (locationFactory : LocationFactory, roomFactory : RoomFactory)
++geRooms() : List<Room>
+}
+
+class Room{
+- _name : String
+- _floor : int
+- _dimensions : Dimensions
+- _roomId : UUID
+_ deviceList : List<Device>
+- _dimensionsFactory : DimensionsFactory
+
++Room(name : String, floor : int, length : double, width : double, height : double, dimensionsFactory : DimensionsFactory)
++getDevices() : List<Device>
+}
+
+
+class Device{
+- _name : String
+
++Device(name : String)
+}
+
+
+
+GetDevicesFromRoomController "1"..>"1" House: uses
+GetDevicesFromRoomController "1"..>"1" Room: uses
+GetDevicesFromRoomController "1"..>"1" RoomAssembler: uses
+GetDevicesFromRoomController "1"..>"1" DeviceAssembler: uses
+
+RoomAssembler "1"..>"*" RoomDTO: creates
+DeviceAssembler "1" ..>"*" DeviceDTO: creates
+
+House "1" ..> "*" Room: uses
+Room "1" ..> "*" Device: uses
+
+House "1" *-- "0.*" Room : has
+Room "1" *-- "0.*" Device : has
+
+
+
+@enduml

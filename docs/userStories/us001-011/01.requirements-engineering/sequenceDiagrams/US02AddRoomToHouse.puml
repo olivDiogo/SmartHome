@@ -1,0 +1,65 @@
+@startuml
+autonumber
+
+participant " " as User
+participant ":AddRoomToHouseController" as Controller
+participant ":RoomAssembler" as Assembler
+participant "roomDTO:RoomDTO" as RoomDTO
+participant ":House" as House
+participant ":RoomFactory" as RoomFactory
+participant "room:Room" as Room
+participant ":DimensionsFactory" as DimensionsFactory
+participant "dimensions:Dimensions" as Dimensions
+
+
+User -> Controller: addRoom
+activate Controller
+Controller -> House: addRoom(StrName,nFloor,dLenght, dWidth, dHeight)
+activate House
+
+create RoomFactory
+House -> RoomFactory: addRoom(StrName,nFloor,dLenght, dWidth, dHeight)
+activate RoomFactory
+
+create Room
+RoomFactory -> Room: createRoom(name, floor, length, width, height)
+activate Room
+Room -> Room: setDimension(width, length, height))
+
+create DimensionsFactory
+Room -> DimensionsFactory: createDimensions(length, width, height)
+activate DimensionsFactory
+
+create Dimensions
+DimensionsFactory -> Dimensions: createDimensions(length, width, height)
+activate Dimensions
+Dimensions -> DimensionsFactory: dimensions
+deactivate Dimensions
+
+DimensionsFactory --> Room: dimensions
+deactivate DimensionsFactory
+Room --> RoomFactory:dimensions
+deactivate Room
+
+RoomFactory --> House: room
+deactivate RoomFactory
+
+House -> House: addRoom(room)
+House --> Controller: room
+deactivate House
+
+Controller -> Assembler: domain2DTO(room)
+activate Assembler
+
+create RoomDTO
+Assembler -> RoomDTO : createRoomDTO(room)
+activate RoomDTO
+RoomDTO --> Assembler: roomDTO
+deactivate RoomDTO
+
+Assembler --> Controller: roomDTO
+deactivate Assembler
+Controller --> User: roomDTO
+deactivate Controller
+
+@enduml

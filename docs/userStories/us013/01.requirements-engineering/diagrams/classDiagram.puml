@@ -1,0 +1,75 @@
+@startuml
+!pragma layout smetana
+
+package SmartHome.actuators {
+
+    class SwitchActuator {
+        'Attributes'
+        - _actuatorType : ActuatorType
+        - _value : SwitchActuatorValue
+
+        'Methods'
+        +SwitchActuator (catalogue : CatalogueActuator)
+        -setActuatorType (catalogue : CatalogueActuator): void
+        +getActuatorType () : ActuatorType
+        +setValue (value : Value) : Value
+    }
+
+    class SwitchActuatorValue implements SmartHome.domain.Value {
+        'Attributes'
+        -_value : boolean
+
+        'Methods'
+        +SwitchActuatorValue(value : boolean)
+        +toString() : String
+        +setValueOn() : boolean
+        +setValueOff(): boolean
+        +toString() : String
+    }
+
+}
+
+package SmartHome.domain {
+
+    interface Actuator {
+        'Methods'
+        + getActuatorType() : ActuatorType
+    }
+
+    class ActuatorType {
+    'Attributes'
+    -_strDescription : String
+
+    'Methods'
+    #ActuatorType(strDescription : String, unit : Unit)
+    -setDescription(strDescription : String) : void
+    + getStrDescription() : String
+    }
+
+    interface Value {
+    }
+
+    class CatalogueActuator {
+    'Attributes'
+    - _listActuatorTypes : List<ActuatorType>
+    - _listStringClassesActuator : List<String>
+
+    'Methods'
+    +CatalogueActuator(filePathname : String)
+    -validateConstructorParameters() : boolean
+    +addActuatorType((strDescription : String, actuatorTypeFactory : ActuatorTypeFactory) : ActuatorType
+    #addActuatorTypeToList(actuatorType : ActuatorType) : ActuatorType
+    +getActuatorTypes(): List<ActuatorType>
+    +getActuatorType(strDescription : String) : ActuatorType
+    +getActuatorModels() : List<String>
+    +getActuator(strModel : String, actuatorFactory : ActuatorFactory)
+    }
+}
+
+SmartHome.actuators.SwitchActuator "1" ..|> "1" SmartHome.domain.Actuator : <<implements>>
+SmartHome.actuators.SwitchActuator "1" --> "1" SmartHome.domain.ActuatorType : <<has>>
+SmartHome.actuators.SwitchActuator "1" --> "1" SmartHome.actuators.SwitchActuatorValue : <<has>>
+SmartHome.domain.CatalogueActuator "1" <.. "1" SmartHome.actuators.SwitchActuator : <<uses>>
+SmartHome.actuators.SwitchActuatorValue "1" ..|> "1" SmartHome.domain.Value : <<implements>>
+
+@enduml

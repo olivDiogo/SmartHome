@@ -1,0 +1,46 @@
+@startuml
+
+participant " "
+participant ":US05" as Us05
+participant ":DeviceAssembler" as DeviceAssembler
+participant "deviceDTO :DeviceDTO" as DeviceDTO
+participant ":House" as House
+participant ":Room" as Room
+participant "device :Device" as Device
+autonumber
+
+
+note left of Us05
+    List of Room's
+    in US03
+end note
+
+" " o-> Us05 : addDeviceToRoom (roomName, deviceName)
+activate Us05
+
+Us05 -> Room : addDevice(roomName, deviceName)
+activate Room
+create Device
+Room -> Device : createDevice(deviceName)
+
+activate Device
+Device --> Room : device
+deactivate Device
+Room --> Room : addDevice(device)
+Room --> Us05 : device
+deactivate Room
+
+Us05 -> DeviceAssembler : domainToDTO(device)
+activate DeviceAssembler
+create DeviceDTO
+DeviceAssembler -> DeviceDTO : create DeviceDTO()
+activate DeviceDTO
+
+deactivate Device
+DeviceDTO --> DeviceAssembler : deviceDTO
+deactivate DeviceDTO
+DeviceAssembler --> Us05 : deviceDTO
+deactivate DeviceAssembler
+Us05 --> " " : deviceDTO
+deactivate Us05
+@enduml

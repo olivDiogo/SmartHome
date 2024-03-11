@@ -1,0 +1,67 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant " " as User
+
+participant ":DeactivateDevice_Controller" as DeactivateDevice_Controller
+
+participant "DeviceAssembler" as DeviceAssembler
+
+participant ":deviceDTO: DeviceDTO" as DeviceDTO
+
+participant ":House" as House
+
+participant ":Device" as Device
+
+autonumber
+
+User o-> DeactivateDevice_Controller: getDeviceList()
+
+activate DeactivateDevice_Controller
+
+DeactivateDevice_Controller -> House: getAllDevices()
+activate House
+House --> DeactivateDevice_Controller: deviceList
+deactivate House
+
+
+    DeactivateDevice_Controller -> DeviceAssembler: domain2DTOMapper(allDevices)
+    create DeviceDTO
+    activate DeviceAssembler
+loop for device in allDevices
+    DeviceAssembler -> DeviceDTO: DeviceDTO(device)
+    activate DeviceDTO
+    DeviceDTO --> DeviceAssembler: deviceDTO
+    deactivate DeviceDTO
+end
+DeviceAssembler --> DeactivateDevice_Controller: listDTOdevices
+    deactivate DeviceAssembler
+DeactivateDevice_Controller --> User: copyListDTOdevices
+
+User o-> DeactivateDevice_Controller: deactivateDevice(DeviceDTO deviceDTO)
+
+DeactivateDevice_Controller -> DeviceAssembler: domain2DTOMapper(allDevices)
+    activate DeviceAssembler
+    DeviceAssembler -> DeactivateDevice_Controller: device
+    deactivate DeviceAssembler
+
+DeactivateDevice_Controller -> Device: deactivateDevice(device)
+    activate Device
+    Device --> DeactivateDevice_Controller: true
+    deactivate Device
+
+DeactivateDevice_Controller -> DeviceAssembler: domain2DTO(device)
+    activate DeviceAssembler
+    DeviceAssembler -> DeviceDTO: DeviceDTO(device)
+    activate DeviceDTO
+    DeviceDTO --> DeviceAssembler: deviceDTO
+    deactivate DeviceDTO
+    DeviceAssembler --> DeactivateDevice_Controller: deviceDTO
+    deactivate DeviceAssembler
+
+DeactivateDevice_Controller --> User: Optional<DeviceDTO>
+
+
+
+
+@enduml

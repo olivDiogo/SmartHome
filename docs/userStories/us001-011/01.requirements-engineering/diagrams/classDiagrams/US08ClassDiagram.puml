@@ -1,0 +1,75 @@
+@startuml
+!pragma layout smetana
+
+
+class DeactivateDevice_Controller {
+    'Attributes'
+    - _house: House
+    - _devicesDTOAndDevices: Map<DeviceDTO, Device>
+
+    'Methods'
+    +DeactivateDeviceController(house: House)
+    -isValidConstructorArguments: boolean
+    +getDeviceList(): List<DeviceDTO>
+    +deactivateDevice(deviceDTO: Optional<DeviceDTO>): (deviceDTO: Optional<DeviceDTO>)
+}
+
+class DeviceAssembler{
+    'Methods'
+    +<<static>> domain2DTOMapper(devices: List<Device>): devicesDTOAndDevices: Map<DeviceDTO, Device>
+}
+
+class DeviceDTO{
+    'Attributes'
+    - deviceID: UUID
+    - name: String
+    - status: boolean
+
+    'Methods'
+    +DeviceDTO(name, id, status)
+    +domain2Dto()
+}
+
+class House {
+    'Attributes'
+    - roomFactory: RoomFactory
+    - locationFactory: LocationFactory
+    - rooms: List<Room>
+
+    'Methods'
+    +House(roomFactory: RoomFactory, locationFactory: LocationFactory)
+    +getRooms(): List<Room>
+    +getAllDevices(): List<Device>
+}
+
+class Room {
+    'Attributes'
+    - id: UUID
+    - name: String
+    - devices: List<Device>
+
+    'Methods'
+    +Room(name: String)
+    +getDevices(): List<Device>
+}
+
+class Device {
+    'Attributes'
+    - id: UUID
+    - name: String
+    - status: String
+
+    'Methods'
+    +Device(name: String)
+    +deactivateDevice(): boolean
+}
+
+DeactivateDevice_Controller "1" ..> "1" House : uses
+DeactivateDevice_Controller "1" ..> "1" DeviceAssembler : uses
+DeviceAssembler ..>  DeviceDTO : creates
+House "1" ..> "*" Room: uses
+Room "1" ..> "*" Device: uses
+
+House "1" *-- "0.*" Room : has
+Room "1" *-- "0.*" Device : has
+@enduml

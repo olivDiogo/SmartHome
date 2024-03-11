@@ -1,0 +1,71 @@
+@startuml
+!pragma layout smetana
+
+'https://plantuml.com/class-diagram
+
+class GetAllDevicesByFunctionalityController{
+    'Attributes'
+    - catalogue: Catalogue
+    - house: House
+
+    'Methods'
+    +GetAllDevicesByFunctionalityController(house: House, catalogue: Catalogue)
+    -isValidConstructorArgument(house: House, catalogue: Catalogue): boolean
+    +getAllDevicesGroupedByFunctionality(): HashMap<String, List<DeviceDTO>>
+}
+
+class DeviceAssembler{
+    'Attributes'
+
+    'Methods'
+    +domainToDTO(device: Device, room: Room): DeviceDTO
+    +listByFunctionality(copyOfSensorTypes: List<SensorType>): HashMap<String, List<DeviceDTO>>
+    +addDeviceToListByFunctionality(deviceDTO: DeviceDTO): void
+}
+
+class Catalogue{
+    'Attributes'
+    - sensorTypes: List<SensorType>
+
+    'Methods'
+    +Catalogue()
+    +getSensorTypes(): List<SensorType>
+}
+
+class DeviceDTO{
+    'Attributes'
+    - deviceID: UUID
+    - name: String
+    - status: boolean
+    - roomDTO: RoomDTO
+    - deviceFunctionalities: List<String>
+
+    'Methods'
+    +DeviceDTO(device: Device, room: Room)
+}
+
+class House {
+    'Attributes'
+    - rooms: List<Room>
+
+    'Methods'
+    +House()
+    +getRooms(): List<Room>
+}
+
+class Room{
+    'Attributes'
+    - devices: List<Device>
+
+    'Methods'
+    +Room()
+    +getDevices()
+}
+
+GetAllDevicesByFunctionalityController "1" ..> "1" DeviceAssembler : uses
+GetAllDevicesByFunctionalityController "1" ..> "1" Catalogue : uses
+DeviceAssembler "1" ..> "*" DeviceDTO : creates
+GetAllDevicesByFunctionalityController "1" ..> "1" House : uses
+GetAllDevicesByFunctionalityController "1" ..> "1" Room : uses
+House "1" *-- "*" Room : has
+@enduml
