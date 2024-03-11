@@ -2,6 +2,8 @@
 
 ### 1. [Task Distribution](readme.md)
 
+- [Agile Sprint Overview: Progress and Task Management](/resources/issues_project_github.PNG)
+
 ### 2. Domain Diagram 
 [Domain Diagram](../../../docs/ooa/DomainDiagram.svg)
 
