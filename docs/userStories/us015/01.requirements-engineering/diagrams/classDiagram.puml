@@ -9,9 +9,6 @@ package SmartHome.actuators {
     - _lowerLimit: int
     - _upperLimit: int
     + SetIntegerActuator(CatalogueActuator catalogue)
-    - setActuatorType(CatalogueActuator catalogue) : void
-    - setLowerLimit(int lowerLimit) : int
-    - setUpperLimit(int upperLimit) : int
     + getActuatorType(): ActuatorType
     + setValueInRange(int lowerLimit, int upperLimit, Value value): Value
 
@@ -20,7 +17,6 @@ package SmartHome.actuators {
   class SetIntegerValue {
     - _value : int
     + SetIntegerValue(int value)
-    - setValue(int value) : void
     + clone() : SetIntegerValue
     + toString() : String
   }
@@ -39,7 +35,6 @@ package SmartHome.domain {
   class ActuatorType {
     - _description: String
     # ActuatorType(String strDescription)
-    - setStrDescription(String strDescription) : void
     + getDescription() : String
   }
 
@@ -47,7 +42,6 @@ package SmartHome.domain {
     - _listActuatorTypes: List<ActuatorType>
     - _listStringClassesActuator : List<String>
     + CatalogueActuator(String filePathname)
-    - validateConstructorParameters(String strDescription): boolean
     + addActuatorType(String strDescription, ActuatorTypeFactory actuatorTypeFactory): ActuatorType
     + addActuatorTypeToList(ActuatorType actuatorType): ActuatorType
     + getActuatorTypes(): List<ActuatorType>
@@ -59,10 +53,10 @@ package SmartHome.domain {
 
 }
 
-SmartHome.actuators.SetIntegerActuator "1" ..|>  "1" SmartHome.domain.Actuator : <<implements>>
-SmartHome.actuators.SetIntegerActuator --> SmartHome.domain.ActuatorType : <<has>>
-SmartHome.actuators.SetIntegerActuator --> SmartHome.actuators.SetIntegerValue : <<has>>
-SmartHome.actuators.SetIntegerValue ..|> SmartHome.domain.Value : <<implements>>
-SmartHome.actuators.SetIntegerActuator ..> SmartHome.domain.CatalogueActuator : <<uses>>
+SmartHome.actuators.SetIntegerActuator ..|>  SmartHome.domain.Actuator
+SmartHome.actuators.SetIntegerActuator "1" --> "1" SmartHome.domain.ActuatorType : <<has>>
+SmartHome.actuators.SetIntegerActuator "1" --> "1" SmartHome.actuators.SetIntegerValue : <<has>>
+SmartHome.actuators.SetIntegerValue "1" ..|> SmartHome.domain.Value
+SmartHome.actuators.SetIntegerActuator ..> "1" SmartHome.domain.CatalogueActuator : <<uses>>
 
 @enduml
