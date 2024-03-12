@@ -54,10 +54,10 @@ package SmartHome.domain {
     }
 }
 
-SmartHome.sensors.DewPointSensor "1" ..|> "1" SmartHome.domain.Sensor : <<implements>>
+SmartHome.sensors.DewPointSensor  ..|>  SmartHome.domain.Sensor
 SmartHome.sensors.DewPointSensor "1" --> "1" SmartHome.domain.SensorType : <<has>>
 SmartHome.sensors.DewPointSensor "1" --> "1" SmartHome.sensors.DewPointValue : <<has>>
 SmartHome.domain.CatalogueSensor "1" <.. "1" SmartHome.sensors.DewPointSensor : <<uses>>
-SmartHome.sensors.DewPointValue  ..|>  SmartHome.domain.Value : <<implements>>
+SmartHome.sensors.DewPointValue  ..|>  SmartHome.domain.Value
 
 @enduml
