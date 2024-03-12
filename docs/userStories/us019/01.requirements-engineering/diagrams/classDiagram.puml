@@ -41,10 +41,11 @@ package SmartHome.domain {
     }
 }
 
-SmartHome.sensors.WindSensor ..|> SmartHome.domain.Sensor : <<implements>>
-SmartHome.sensors.WindSensor --> SmartHome.domain.SensorType : <<has>>
-SmartHome.sensors.WindSensor --* SmartHome.sensors.WindSensorValue : <<has>>
-SmartHome.sensors.WindSensor ..> SmartHome.domain.CatalogueSensor : <<uses>>
-SmartHome.sensors.WindSensorValue ..|> SmartHome.domain.Value : <<implements>>
+
+SmartHome.sensors.WindSensor ..|> SmartHome.domain.Sensor
+SmartHome.sensors.WindSensor "1" --> "1" SmartHome.domain.SensorType : <<has>>
+SmartHome.sensors.WindSensor "1" --> "1" SmartHome.sensors.WindSensorValue : <<contains>>
+SmartHome.sensors.WindSensor --> SmartHome.domain.CatalogueSensor : <<uses>>
+SmartHome.sensors.WindSensorValue ..|>  SmartHome.domain.Value
 
 @enduml
