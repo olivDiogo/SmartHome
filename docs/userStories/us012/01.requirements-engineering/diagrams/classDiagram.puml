@@ -8,7 +8,6 @@ class AddActuatorToDeviceController{
     -devicesDTOAndDevices: Map<DeviceDTO, Device>
 
     +AddActuatorToDeviceController(house: House, catalogue: CatalogueActuator)
-    -isValidConstructorArguments(house: House, catalogue: CatalogueActuator): boolean
     +getRooms(): List<RoomDTO>
     +getDevices(roomDTO: RoomDTO): List<DeviceDTO>
     +addActuatorToDevice(deviceDTO: DeviceDTO, model: String): ActuatorDTO
@@ -57,7 +56,6 @@ class Device{
     -deviceId: UUID
 
     +Device(name: String)
-    -setName(name: String): void
     +addActuator(model: String, catalogue: CatalogueActuator, actuatorFactory: ActuatorFactory): Actuator
     +addActuatorToDevice(actuator: Actuator): Actuator
 }
@@ -66,7 +64,6 @@ class CatalogueActuator{
     -listActuatorTypes: List<ActuatorType>
 
     +CatalogueActuator(filePathname: String)
-    -validateConstructorParameters(strDescription: String): boolean
     +getActuator(model: String, actuatorFactory: ActuatorFactory): Actuator
 }
 
