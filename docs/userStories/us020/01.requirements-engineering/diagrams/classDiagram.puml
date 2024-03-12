@@ -60,11 +60,11 @@ class SunriseTimeSensor{
 SensorFactory "1" --> "1" SunriseTimeSensor : <<creates>>
 SunriseTimeSensor "1" --> "1" SensorType : <<has>>
 SunriseTimeSensor "1" --> "1" SunriseTimeValue : <<uses>>
-SunriseTimeSensor "1" ..|> "1" Sensor
+SunriseTimeSensor ..|> Sensor
 
 CatalogueSensor "1" --> "1" SunriseTimeSensor : <<has>>
 CatalogueSensor "1" --> "*" SensorType : <<uses>>
-SunriseTimeValue "1" ..|> "1" Value
+SunriseTimeValue ..|> Value
 SensorTypeFactory "1" --> "1" SensorType : <<creates>>
 
 
