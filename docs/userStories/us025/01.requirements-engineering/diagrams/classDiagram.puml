@@ -63,11 +63,11 @@ class AveragePowerConsumptionSensor {
 SensorFactory "1" --> "1" AveragePowerConsumptionSensor : <<creates>>
 AveragePowerConsumptionSensor "1" --> "1" SensorType : <<has>>
 AveragePowerConsumptionSensor "1" --> "1" AveragePowerConsumptionSensorValue : <<uses>>
-AveragePowerConsumptionSensor "1" ..|> "1" Sensor
+AveragePowerConsumptionSensor  ..|>  Sensor
 
 CatalogueSensor "1" --> "1" AveragePowerConsumptionSensor : <<has>>
 CatalogueSensor "1" --> "*" SensorType : <<uses>>
-AveragePowerConsumptionSensorValue "1" ..|> "1" Value
+AveragePowerConsumptionSensorValue ..|> Value
 SensorTypeFactory "1" --> "1" SensorType : <<creates>>
 
 
