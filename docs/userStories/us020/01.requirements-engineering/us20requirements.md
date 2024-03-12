@@ -11,7 +11,7 @@ As Product Owner, I want the system to have a type of sensor that gives the sunr
 - SunriseTimeSensor
 - SunriseTimeValue
 
-#### SolarIrradianceSensor
+#### [SolarIrradianceSensor](../../../../src/main/java/SmartHome/sensors/SunriseTimeSensor.java)
 - Attributes:
     - `sensorType`
     - `value`
@@ -21,7 +21,7 @@ As Product Owner, I want the system to have a type of sensor that gives the sunr
     - `getSensorType()` - returns the sensor type
     - `getValue()` - returns the sunrise instant for a given calendar date from the sensor
 
-#### SolarIrradianceValue
+#### [SolarIrradianceValue](../../../../src/main/java/SmartHome/sensors/SunsetTimeSensor.java)
 - Attributes:
     - `value`
 - Methods:
