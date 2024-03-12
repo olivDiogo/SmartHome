@@ -77,17 +77,6 @@ public class SunriseTimeSensor implements Sensor {
     }
 
     /**
-     * Gets the Sunrise Time of the GPS location for the current day.
-     *
-     * @return the Sunrise Time of the GPS location.
-     */
-    private LocalTime getSunriseTime() {
-        SunTimes time = SunTimes.compute().on(LocalDate.now()).at(_latitude, _longitude).execute();
-        LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();
-        return sunrise;
-    }
-
-    /**
      * Gets the Sunrise Time of the GPS location for a given date.
      *
      * @param date the date to be used.
@@ -106,7 +95,7 @@ public class SunriseTimeSensor implements Sensor {
      */
     @Override
     public Value getValue() {
-        LocalTime sunrise = getSunriseTime();
+        LocalTime sunrise = getSunriseTime(LocalDate.now());
         this._sunriseTimeValue = new SunriseTimeValue(sunrise);
         return this._sunriseTimeValue;
     }

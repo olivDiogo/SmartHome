@@ -1,4 +1,4 @@
-#US25 - To have a type of sensor that gives the average power consumption over a period (W).
+# US25 - To have a type of sensor that gives the average power consumption over a period (W).
 
 ## Tests Description
 
