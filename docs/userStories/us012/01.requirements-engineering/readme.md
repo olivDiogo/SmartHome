@@ -12,4 +12,19 @@ As a Power User (or Administrator), I want to add an actuator to an existing dev
   - Q: é possível adicionar um atuador a um device que se encontra desativado? 
   - A: Não.
 
+### 1.3 Found Out Dependencies
+
+* There is a dependency with US003 - To get a list of existing rooms
+* There is a dependency with US006 - To get a list of devices in a room
+
+### 1.4 Diagrams
+
+#### 1.3.1 System Sequence Diagram
+
+![US012-SSD](diagrams/SSD.svg)
+
+#### 1.3.2 Sequence Diagram
+
+![US012-SD](diagrams/SD.svg)
+
 
