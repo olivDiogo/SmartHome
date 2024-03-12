@@ -61,16 +61,6 @@ public class SunsetTimeSensor implements Sensor {
         }
     }
     /**
-     * Method to get the sunset time for the current day.
-     * @return LocalTime object representing the sunset time.
-     * @throws IllegalArgumentException if the sunset time is null.
-     */
-    LocalTime getSunsetTime() throws IllegalArgumentException{
-        SunTimes time = SunTimes.compute().on(LocalDate.now()).at(_latitude, _longitude).execute();
-        LocalTime sunset = Objects.requireNonNull(time.getSet()).toLocalTime();
-        return sunset;
-    }
-    /**
      * Method to get the sunset time for a specific date.
      * @param date LocalDate object representing the date.
      * @return LocalTime object representing the sunset time.
@@ -94,7 +84,7 @@ public class SunsetTimeSensor implements Sensor {
      */
     //Default behavior will return sunset for current day
     public Value getValue() {
-        LocalTime sunset = getSunsetTime();
+        LocalTime sunset = getSunsetTime(LocalDate.now());
         this._sunsetTimeValue = new SunsetTimeValue(sunset);
         return this._sunsetTimeValue;
     }
