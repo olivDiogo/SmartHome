@@ -1,4 +1,4 @@
-# US25 - To have a type of sensor that gives the sunrise instant for a given calendar date.
+# US20 - To have a type of sensor that gives the sunrise instant for a given calendar date.
 
 ## [Tests Description](../../../../src//test/java/SmartHome/sensors/SunriseSensorTest.java)
 
