@@ -7,7 +7,6 @@ package SmartHome.sensors {
     - _sensorType: SensorType
     - _value: SetIrradianceSensor
     + SolarIrradianceSensor(CatalogueSensor catalogue)
-    - setSensorType(CatalogueSensor catalogue) : void
     + getSensorType(): ActuatorType
     + getValue(): Value
 
@@ -35,8 +34,6 @@ package SmartHome.domain {
     - _description: String
     - _unit: Unit
     # SensorType(String strDescription, Unit unit)
-    - setStrDescription(String strDescription) : void
-    - setUnit(Unit unit) : void
     + getDescription() : String
     + getUnit() : Unit
   }
@@ -45,8 +42,6 @@ package SmartHome.domain {
     - _listSensorTypes: List<SensorType>
     - _listStringClassesSensor : List<String>
     + CatalogueSensor(String filePathname)
-    - setListSensorTypes() : void
-    - setListStringClassesSensors() : void
     + addSensorType(String strDescription, Unit unit, SensorTypeFactory sensorTypeFactory) : SensorType
     + addSensorTypeToList(SensorType sensorType): SensorType
     + getSensorType(String strDescription): SensorType
@@ -58,10 +53,10 @@ package SmartHome.domain {
 
 }
 
-SmartHome.sensors.SolarIrradianceSensor "1" ..|>  "1" SmartHome.domain.Sensor : <<implements>>
-SmartHome.sensors.SolarIrradianceSensor --> SmartHome.domain.SensorType : <<has>>
-SmartHome.sensors.SolarIrradianceSensor --> SmartHome.sensors.SolarIrradianceValue : <<has>>
-SmartHome.sensors.SolarIrradianceValue ..|> SmartHome.domain.Value : <<implements>>
-SmartHome.sensors.SolarIrradianceSensor ..> SmartHome.domain.CatalogueSensor : <<uses>>
+SmartHome.sensors.SolarIrradianceSensor ..|> SmartHome.domain.Sensor
+SmartHome.sensors.SolarIrradianceSensor "1" --> "1" SmartHome.domain.SensorType : <<has>>
+SmartHome.sensors.SolarIrradianceSensor "1" --> "1" SmartHome.sensors.SolarIrradianceValue : <<has>>
+SmartHome.sensors.SolarIrradianceValue ..|> SmartHome.domain.Value
+SmartHome.sensors.SolarIrradianceSensor "1" ..> "1" SmartHome.domain.CatalogueSensor : <<uses>>
 
 @enduml
