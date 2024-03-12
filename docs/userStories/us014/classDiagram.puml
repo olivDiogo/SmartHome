@@ -61,10 +61,10 @@ package SmartHome.domain {
     }
 }
 
-SmartHome.actuators.BlindRollerActuator "1" ..|> "1" SmartHome.domain.Actuator : <<implements>>
-SmartHome.actuators.BlindRollerActuator "1" --> "1" SmartHome.domain.ActuatorType : <<has>>
-SmartHome.actuators.BlindRollerActuator "1" --> "1" SmartHome.actuators.BlindRollerValue : <<has>>
-SmartHome.domain.CatalogueActuator "1" <.. "1" SmartHome.actuators.BlindRollerActuator : <<uses>>
-SmartHome.actuators.BlindRollerValue "1" ..|> "1" SmartHome.domain.Value : <<implements>>
+SmartHome.actuators.BlindRollerActuator "  1" ..|> "1    " SmartHome.domain.Actuator
+SmartHome.actuators.BlindRollerActuator "          1" --> "1   " SmartHome.domain.ActuatorType : <<has>>
+SmartHome.actuators.BlindRollerActuator "1 " --> "1  " SmartHome.actuators.BlindRollerValue : <<has>>
+SmartHome.domain.CatalogueActuator "1" <.. "   1" SmartHome.actuators.BlindRollerActuator : <<uses>>
+SmartHome.actuators.BlindRollerValue "1" ..|> "1" SmartHome.domain.Value
 
 @enduml
