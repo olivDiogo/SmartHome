@@ -10,7 +10,6 @@ package SmartHome.actuators {
 
         'Methods'
         +SwitchActuator (catalogue : CatalogueActuator)
-        -setActuatorType (catalogue : CatalogueActuator): void
         +getActuatorType () : ActuatorType
         +setValue (value : Value) : Value
     }
@@ -56,7 +55,6 @@ package SmartHome.domain {
 
     'Methods'
     +CatalogueActuator(filePathname : String)
-    -validateConstructorParameters() : boolean
     +addActuatorType((strDescription : String, actuatorTypeFactory : ActuatorTypeFactory) : ActuatorType
     #addActuatorTypeToList(actuatorType : ActuatorType) : ActuatorType
     +getActuatorTypes(): List<ActuatorType>
@@ -66,10 +64,10 @@ package SmartHome.domain {
     }
 }
 
-SmartHome.actuators.SwitchActuator "1" ..|> "1" SmartHome.domain.Actuator : <<implements>>
+SmartHome.actuators.SwitchActuator ..|> SmartHome.domain.Actuator : <<implements>>
 SmartHome.actuators.SwitchActuator "1" --> "1" SmartHome.domain.ActuatorType : <<has>>
 SmartHome.actuators.SwitchActuator "1" --> "1" SmartHome.actuators.SwitchActuatorValue : <<has>>
 SmartHome.domain.CatalogueActuator "1" <.. "1" SmartHome.actuators.SwitchActuator : <<uses>>
-SmartHome.actuators.SwitchActuatorValue "1" ..|> "1" SmartHome.domain.Value : <<implements>>
+SmartHome.actuators.SwitchActuatorValue ..|> SmartHome.domain.Value : <<implements>>
 
 @enduml
