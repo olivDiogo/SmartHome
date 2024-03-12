@@ -12,7 +12,7 @@
 - [Mutation](resources/sprint3_mutation.png)
 
 ### 4. US012 - To add an actuator to a device
-- [Documentation](../../userStories/us012/readme.md)
+- [Documentation](../../userStories/us012/us12readme.md)
 - [System Sequence Diagram](../../userStories/us012/01.requirements-engineering/diagrams/SSD.svg)
 - [Sequence Diagram](../../userStories/us012/01.requirements-engineering/diagrams/SD.svg)
 - [Class Diagram](../../userStories/us012/01.requirements-engineering/diagrams/classDiagram.svg)
