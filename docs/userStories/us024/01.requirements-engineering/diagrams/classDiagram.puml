@@ -54,10 +54,10 @@ package SmartHome.domain {
         }
 }
 
-SmartHome.sensors.InstantPowerConsumptionSensor "1" ..|> "1" SmartHome.domain.Sensor : <<implements>>
+SmartHome.sensors.InstantPowerConsumptionSensor  ..|>  SmartHome.domain.Sensor
 SmartHome.sensors.InstantPowerConsumptionSensor "1" --> "1" SmartHome.domain.SensorType : <<has>>
 SmartHome.sensors.InstantPowerConsumptionSensor "1" --> "1" SmartHome.sensors.InstantPowerConsumptionValue : <<has>>
 SmartHome.domain.CatalogueSensor "1" <.. "1" SmartHome.sensors.InstantPowerConsumptionSensor : <<uses>>
-SmartHome.sensors.InstantPowerConsumptionValue  ..|>  SmartHome.domain.Value : <<implements>>
+SmartHome.sensors.InstantPowerConsumptionValue  ..|>  SmartHome.domain.Value
 
 @enduml
