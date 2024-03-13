@@ -4,35 +4,15 @@ import SmartHome.domain.Value;
 
 
 public class SetDecimalValue implements Value, Cloneable {
-    private double _nValue; // The decimal value
-    private double _lowerLimit; // The lower limit of the value range
-    private double _upperLimit; // The upper limit of the value range
+    private double _value; // The decimal value
 
 
-    public SetDecimalValue(double nValue) {
-        setValue(nValue);
+    public SetDecimalValue(double value) {
+        setValue(value);
     }
 
-    public double setLowerLimit(double lowerLimit) {
-        if (_nValue < setLowerLimit(lowerLimit)) {
-            throw new IllegalArgumentException("Value cannot be less than the lower limit.");
-        }
-            this._lowerLimit = lowerLimit;
-            return lowerLimit;
-
-    }
-
-
-    public double setUpperLimit(double upperLimit) {
-        if (_nValue > setUpperLimit(upperLimit)) {
-            throw new IllegalArgumentException("Value cannot be greater than the upper limit.");
-        }
-        this._upperLimit = upperLimit;
-        return upperLimit;
-    }
-
-    private void setValue(double nValue) {
-            this._nValue = nValue;
+    private void setValue(double value) {
+            this._value = value;
     }
 
 
@@ -47,7 +27,7 @@ public class SetDecimalValue implements Value, Cloneable {
 
     @Override
     public String toString() {
-        return _nValue + "";
+        return _value + "";
     }
 }
 

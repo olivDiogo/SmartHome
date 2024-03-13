@@ -101,4 +101,135 @@ class SetDecimalActuatorTest {
         org.junit.jupiter.api.Assertions.assertNotEquals(actuatorTypeDouble2, result);
     }
 
+@Test
+    void shouldGetValueEqualToZero_whenLowerLimitIsSetToZero() throws InstantiationException {
+    // Arrange
+    String description = "SetDecimal";
+    double lowerLimit = 0;
+    double upperLimit = 100;
+
+    String value = "0";
+
+    CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+    ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+    when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+    SetDecimalValue valueDouble = mock(SetDecimalValue.class);
+    when(valueDouble.toString()).thenReturn(value);
+    when(valueDouble.clone()).thenReturn(valueDouble);
+
+
+    SetDecimalActuator setDecimalActuator = new SetDecimalActuator(catalogueDouble);
+
+    // Act
+    Value result = setDecimalActuator.setValueInRange(valueDouble, lowerLimit, upperLimit);
+
+    // Assert
+    assertEquals(value, result.toString());
+    }
+
+    @Test
+    void shouldGetValueEqualToUpperLimit_whenUpperLimitIsSetTo100() throws InstantiationException {
+        // Arrange
+        String description = "SetDecimal";
+        double lowerLimit = 0;
+        double upperLimit = 100;
+
+        String value = "100";
+
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SetDecimalValue valueDouble = mock(SetDecimalValue.class);
+        when(valueDouble.toString()).thenReturn(value);
+        when(valueDouble.clone()).thenReturn(valueDouble);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(catalogueDouble);
+
+        // Act
+        Value result = setDecimalActuator.setValueInRange(valueDouble, lowerLimit, upperLimit);
+
+        // Assert
+        assertEquals(value, result.toString());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenValueIsLessThanLowerLimit() throws InstantiationException {
+        // Arrange
+        String description = "SetDecimal";
+        double lowerLimit = 0;
+        double upperLimit = 100;
+
+        String value = "-1";
+
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SetDecimalValue valueDouble = mock(SetDecimalValue.class);
+        when(valueDouble.toString()).thenReturn(value);
+        when(valueDouble.clone()).thenReturn(valueDouble);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(catalogueDouble);
+
+        // Act
+        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setDecimalActuator.setValueInRange(valueDouble, lowerLimit, upperLimit));
+
+        // Assert
+        org.junit.jupiter.api.Assertions.assertEquals("Value cannot be less than the lower limit.", exception.getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenValueIsGreaterThanUpperLimit() throws InstantiationException {
+        // Arrange
+        String description = "SetDecimal";
+        double lowerLimit = 0;
+        double upperLimit = 100;
+
+        String value = "101";
+
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        SetDecimalValue valueDouble = mock(SetDecimalValue.class);
+        when(valueDouble.toString()).thenReturn(value);
+        when(valueDouble.clone()).thenReturn(valueDouble);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(catalogueDouble);
+
+        // Act
+        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> setDecimalActuator.setValueInRange(valueDouble, lowerLimit, upperLimit));
+
+        // Assert
+        org.junit.jupiter.api.Assertions.assertEquals("Value cannot be greater than the upper limit.", exception.getMessage());
+    }
+
+    @Test
+    void shouldReturnNullWhenValueIsNotInstanceOfSetDecimalValue() throws InstantiationException {
+        // Arrange
+        String description = "SetDecimal";
+        double lowerLimit = 0;
+        double upperLimit = 100;
+
+        String value = "50";
+
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+
+        Value valueDouble = mock(Value.class);
+        when(valueDouble.toString()).thenReturn(value);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(catalogueDouble);
+
+        // Act
+        Value result = setDecimalActuator.setValueInRange(valueDouble, lowerLimit, upperLimit);
+
+        // Assert
+        org.junit.jupiter.api.Assertions.assertNull(result);
+    }
+
+
 }
