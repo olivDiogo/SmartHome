@@ -101,33 +101,43 @@ class SetDecimalActuatorTest {
         org.junit.jupiter.api.Assertions.assertNotEquals(actuatorTypeDouble2, result);
     }
 
-@Test
+    /**
+     * Test case to verify that the method returns a value equal to zero when the lower limit is set to zero.
+     *
+     * @throws InstantiationException if an error occurs during instantiation of objects.
+     */
+    @Test
     void shouldGetValueEqualToZero_whenLowerLimitIsSetToZero() throws InstantiationException {
-    // Arrange
-    String description = "SetDecimal";
-    double lowerLimit = 0;
-    double upperLimit = 100;
+        // Arrange
+        String description = "SetDecimal";
+        double lowerLimit = 0;
+        double upperLimit = 100;
 
-    String value = "0";
+        String value = "0";
 
-    CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
-    ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
-    when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
+        CatalogueActuator catalogueDouble = mock(CatalogueActuator.class);
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        when(catalogueDouble.getActuatorType(description)).thenReturn(actuatorTypeDouble);
 
-    SetDecimalValue valueDouble = mock(SetDecimalValue.class);
-    when(valueDouble.toString()).thenReturn(value);
-    when(valueDouble.clone()).thenReturn(valueDouble);
+        SetDecimalValue valueDouble = mock(SetDecimalValue.class);
+        when(valueDouble.toString()).thenReturn(value);
+        when(valueDouble.clone()).thenReturn(valueDouble);
 
 
-    SetDecimalActuator setDecimalActuator = new SetDecimalActuator(catalogueDouble);
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(catalogueDouble);
 
-    // Act
-    Value result = setDecimalActuator.setValueInRange(valueDouble, lowerLimit, upperLimit);
+        // Act
+        Value result = setDecimalActuator.setValueInRange(valueDouble, lowerLimit, upperLimit);
 
-    // Assert
-    assertEquals(value, result.toString());
+        // Assert
+        assertEquals(value, result.toString());
     }
 
+    /**
+     * Test case to verify that the method returns a value equal to the upper limit when the upper limit is set to 100.
+     *
+     * @throws InstantiationException if an error occurs during instantiation of objects.
+     */
     @Test
     void shouldGetValueEqualToUpperLimit_whenUpperLimitIsSetTo100() throws InstantiationException {
         // Arrange
@@ -154,6 +164,11 @@ class SetDecimalActuatorTest {
         assertEquals(value, result.toString());
     }
 
+    /**
+     * Test case to verify that an IllegalArgumentException is thrown when the value is less than the lower limit.
+     *
+     * @throws InstantiationException if an error occurs during instantiation of objects.
+     */
     @Test
     void shouldThrowExceptionWhenValueIsLessThanLowerLimit() throws InstantiationException {
         // Arrange
@@ -180,6 +195,11 @@ class SetDecimalActuatorTest {
         org.junit.jupiter.api.Assertions.assertEquals("Value cannot be less than the lower limit.", exception.getMessage());
     }
 
+    /**
+     * Test case to verify that an IllegalArgumentException is thrown when the value is greater than the upper limit.
+     *
+     * @throws InstantiationException if an error occurs during instantiation of objects.
+     */
     @Test
     void shouldThrowExceptionWhenValueIsGreaterThanUpperLimit() throws InstantiationException {
         // Arrange
@@ -206,6 +226,11 @@ class SetDecimalActuatorTest {
         org.junit.jupiter.api.Assertions.assertEquals("Value cannot be greater than the upper limit.", exception.getMessage());
     }
 
+    /**
+     * Test case to verify that null is returned when the value is not an instance of SetDecimalValue.
+     *
+     * @throws InstantiationException if an error occurs during instantiation of objects.
+     */
     @Test
     void shouldReturnNullWhenValueIsNotInstanceOfSetDecimalValue() throws InstantiationException {
         // Arrange
@@ -230,6 +255,7 @@ class SetDecimalActuatorTest {
         // Assert
         org.junit.jupiter.api.Assertions.assertNull(result);
     }
+
 
 
 }
