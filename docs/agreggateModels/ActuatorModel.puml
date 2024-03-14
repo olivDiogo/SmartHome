@@ -1,0 +1,28 @@
+@startuml
+!pragma layout smetana
+
+package SmartHome.ActuatorModel{
+
+    class ActuatorModel <<Entity>> <<Root>>{
+    - _id : ActuatorModelId
+    - _filePathName : FilePathName
+    }
+}
+
+package SmartHome.ValueObject {
+
+     class ActuatorModelId <<ValueObject>>{
+        - _actuatorModelId : String
+     }
+
+     class FilePathName <<ValueObject>>{
+        - _filePathName : String
+     }
+}
+
+SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ActuatorModelId : has
+SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.FilePathName : has
+
+
+
+@enduml
