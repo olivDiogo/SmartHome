@@ -1,0 +1,22 @@
+@startuml
+!pragma layout smetana
+
+package AgregateDevice {
+class Device<<entity>><<Root>>{
+    - _deviceID: DeviceID
+    - _name: Name}
+}
+}
+
+package "ValueObjects" {
+    class DeviceID<<value object>>{
+        - _id: String
+    }
+    class Name<<value object>>{
+        - _name: String
+    }
+}
+
+Device "*" -- "1" DeviceID : has
+Device "*" -- "1" Name : has
+@enduml
