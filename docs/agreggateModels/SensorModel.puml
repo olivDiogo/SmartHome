@@ -1,11 +1,28 @@
 @startuml
-'https://plantuml.com/sequence-diagram
+!pragma layout smetana
 
-autonumber
+package SmartHome.SensorModel{
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+    class SensorModel <<Entity>> <<Root>>{
+    - _id : SensorModelId
+    - _filePathName : FilePathName
+    }
+}
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+package SmartHome.ValueObject {
+
+     class SensorModelId <<ValueObject>>{
+        - _sensorModelId : String
+     }
+
+     class FilePathName <<ValueObject>>{
+        - _filePathName : String
+     }
+}
+
+SmartHome.SensorModel.SensorModel "1" -- "1" SmartHome.ValueObject.SensorModelId : has
+SmartHome.SensorModel.SensorModel "1" -- "1" SmartHome.ValueObject.FilePathName : has
+
+
+
 @enduml
