@@ -12,7 +12,7 @@ class DeviceDescription<<Value Object>> {
     - _description : String
 }
 class DeviceTypeID<<Value Object>> {
-    - deviceTypeID : String
+    - _deviceTypeID : String
 }
 }
 
