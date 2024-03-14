@@ -2,7 +2,7 @@
 'US12 - As a Power User [or Administrator], I want to add an actuator to an existing
 'device in a room. The actuator must be of a model of an existing type of actuator.
 
-actor User
+actor "Power User or Admin" as User
 participant System
 
 User -> System: I want to add an actuator to an existing device in a room
@@ -16,9 +16,5 @@ System --> User: Ok?
 User -> System: Ok!
 
 System --> User: The actuator is added to the device
-
-
-
-
 
 @enduml
