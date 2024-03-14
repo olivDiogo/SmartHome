@@ -1,0 +1,25 @@
+@startuml
+!pragma layout smetana
+
+class House<<Entity>><<Root>>{}
+class Room<<Entity>><<Root>>{}
+class Device<<Entity>><<Root>>{}
+class DeviceType<<Entity>><<Root>>{}
+class Sensor<<Entity>><<Root>>{}
+class Actuator<<Entity>><<Root>>{}
+class ActuatorType<<Entity>><<Root>>{}
+class ActuatorModel<<Entity>><<Root>>{}
+class SensorType<<Entity>><<Root>>{}
+class SensorModel<<Entity>><<Root>>{}
+
+House "1" <-- "0..*" Room : is in >
+Room "1" <-- "0..*" Device : is in >
+DeviceType "1" <-- "*" Device : has >
+Device "1" <-- "0..*" Sensor : is in >
+Device "1" <-- "0..*" Actuator : is in >
+SensorType "1" <-- "1..*" Sensor : has >
+SensorModel "1" <-- "1" Sensor : is of >
+ActuatorType "1" <-- "1..*" Actuator : has >
+ActuatorModel "1" <-- "1" Actuator : is of >
+
+@enduml
