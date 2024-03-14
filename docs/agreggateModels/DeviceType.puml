@@ -1,0 +1,22 @@
+@startuml
+!pragma layout smetana
+
+package SmartHome.DeviceType {
+class DeviceType<<entity>><<Root>> {
+    - _deviceTypeID : DeviceTypeID
+    - _description : Description
+}
+
+package SmartHome.ValueObjects {
+class DeviceDescription<<Value Object>> {
+    - _description : String
+}
+class DeviceTypeID<<Value Object>> {
+    - deviceTypeID : String
+}
+}
+
+SmartHome.DeviceType.DeviceType "1" -- "1" DeviceDescription : has
+SmartHome.DeviceType.DeviceType "1" -- "1" DeviceTypeID : has
+
+@enduml
