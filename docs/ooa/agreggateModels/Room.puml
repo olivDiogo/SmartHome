@@ -1,5 +1,5 @@
 @startuml
-'https://plantuml.com/class-diagram
+!pragma layout smetana
 
 package SmartHome.Room {
   class Room<<Entity>><<Root>>{
@@ -9,7 +9,7 @@ package SmartHome.Room {
     -_roomName: RoomName
   }
 
-  package ValueObjects {
+  package ValueObject {
     class RoomID<<ValueObject>>{
       -value: UUID
         }
@@ -30,5 +30,5 @@ Room "*" -- "1" RoomDimensions: has
 Room "*" -- "1" RoomFloor: has
 Room "1" -- "1" RoomID: has
 Room "1" -- "1" RoomName: has
-}
+
 @enduml

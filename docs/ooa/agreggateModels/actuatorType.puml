@@ -7,7 +7,7 @@ class ActuatorType<<entity>><<Root>> {
     - _description : Description
 }
 
-package SmartHome.ValueObjects {
+package SmartHome.ValueObject {
 class ActuatorDescription<<Value Object>> {
     - _description : String
 }

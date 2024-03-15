@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/class-diagram
+!pragma layout smetana
+
+package SmartHome.AggregateSensor {
+    class Sensor <<Entity>> <<Root>> {
+        - _deviceID : DeviceID
+        - _sensorTypeID : SensorTypeID
+        - _sensorModelID : SensorModelID
+        - _value : Value
+    }
+}
+
+package SmartHome.ValueObject {
+    class DeviceID <<ValueObject>> <<ID>> {
+        - _id : String
+    }
+
+    class SensorTypeID <<ValueObject>> <<ID>> {
+        - _id : String
+    }
+    class SensorModelID <<ValueObject>> <<ID>> {
+        - _id : String
+    }
+
+    interface Value <<ValueObject>>{
+    }
+}
+
+Sensor "*" -- "1" SensorTypeID : has
+Sensor "*" -- "1" SensorModelID : has
+Sensor "1" -- "1" Value : has
+Sensor "*" -- "1" DeviceID : has
+
+
+@enduml
