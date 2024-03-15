@@ -1,14 +1,14 @@
 @startuml
 !pragma layout smetana
 
-package AgregateDevice {
+package SmartHome.AgregateDevice {
 class Device<<entity>><<Root>>{
     - _deviceID: DeviceID
     - _name: Name}
 }
 }
 
-package "ValueObjects" {
+package SmartHome.ValueObject {
     class DeviceID<<value object>>{
         - _id: String
     }
