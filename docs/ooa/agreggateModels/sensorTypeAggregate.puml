@@ -23,11 +23,9 @@ package SmartHome.ValueObject {
         - _sensorTypeID: String
       }
 }
-SensorType "1" -- "1" SensorUnit
-SensorType "1" -- "1" SensorTypeDescription
-SensorType "1" -- "1" SensorTypeID
-
-
+SmartHome.SensorType.SensorType "1" -- "1" SensorUnit
+SmartHome.SensorType.SensorType "1" -- "1" SensorTypeDescription
+SmartHome.SensorType.SensorType "1" -- "1" SensorTypeID
 
 
 @enduml
