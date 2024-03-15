@@ -1,0 +1,56 @@
+@startuml
+!pragma layout smetana
+
+class SensorType<<entity>> <<root>> {
+  - _id: sensorID
+  - _description: Description
+  - _unit: Unit
+  + SensorType(id: SensorTypeID, description: Description, unit: Unit)
+  + getId(): string
+  + getDescription(): Description
+  + getUnit(): Unit
+  }
+
+class SensorTypeFactory<<Factory>> {
+  + createNewSensorType(description: Description, unit: Unit): SensorType
+  }
+
+class SensorTypeRepository<<Repository>> {
+  - _map<ID, SensorType> sensorTypes
+  + addSensorTypeToRepository(sensorType: SensorType): SensorType
+  }
+class SensorTypeService<<Service>> {
+  + createNewSensorType(name: String, untis: String): SensorType
+  + getSupportedUnits(): string[]
+  }
+class AddSensorTypeController<<Controller>> {
+  - _sensorTypeService: SensorTypeService
+  - _sensorTypeDTO: SensorTypeDTO
+  + AddSensorTypeController(SensorTypeService: sensorTypeService)
+  + getSupportedUnits(): string[]
+  + createNewSensorType(SensorTypeDTO: sensorTypeDTO): SensorTypeDTO
+  + addSensorTypeToRepository(SensorTypeDTO: sensorTypeDTO): SensorTypeDTO
+  }
+class SensorTypeDTO<<DTO>> {
++ id: string
++ description: string
++ unit: string
++ SensorTypeDTO(sensorType: SensorType)
+}
+class SensorTypeAssembler<<Assembler>> {
+  + toDTO(sensorType: SensorType): SensorTypeDTO
+  }
+
+
+SensorTypeRepository -down-> SensorType: has
+SensorTypeService -down-> SensorTypeFactory: has
+SensorTypeService -down-> SensorTypeRepository: has
+SensorTypeFactory .down.> SensorType: creates
+AddSensorTypeController -down-> SensorTypeService: uses
+SensorTypeService -down-> SensorTypeAssembler: uses
+SensorTypeAssembler .up.> SensorTypeDTO: creates
+
+
+
+
+@enduml

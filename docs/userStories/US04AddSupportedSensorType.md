@@ -61,3 +61,22 @@ _SensorTypeDTO_ -> for the sensor type data transfer object
 ## 2. Design
 _The team will design the best way to implement the requirements._
 ### 2.1. Class Diagram
+![ClassDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/classDiagram/US04AddSupportedSensorType.png)
+### 2.2. Sequence Diagram
+_ongoing_
+
+### 2.3. Applied Patterns
+- Factory Method: The senorType is created using the factory pattern, that is responsible for creating all supported sensor types
+- Single Responsibility Principle: Each class has a single responsibility, this promotes a better code organization and maintainability.
+- Data Transfer Object: The sensorTypeDTO is used to transfer the sensorType data between the controller and the service layer.
+- Repository: The sensorTypeRepository is used to store and retrieve sensorType data.
+
+## 3. Tests
+_The team will design the best way to test the requirements._
+### 3.1. Unit Tests
+_ongoing_
+
+### 3.2. Integration Tests
+_ongoing_
+### 3.3. Acceptance Tests
+_ongoing_
