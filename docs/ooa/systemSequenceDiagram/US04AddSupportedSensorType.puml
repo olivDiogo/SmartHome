@@ -1,0 +1,18 @@
+@startuml
+'As an Administrator, I want to have a list of existing rooms, so that I can choose
+'one to edit it.'
+
+actor Admin
+participant System
+
+Admin -> System: I want to add a new sensor type
+System --> Admin: What unit will it use?
+Admin -> System: !unit
+System --> Admin: What is the description of the sensor type?
+Admin -> System: !description
+System --> Admin: Confirm the new sensor type?
+Admin -> System: !confirm
+System --> Admin: Sensor type added successfully
+
+
+@enduml
