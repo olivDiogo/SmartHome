@@ -1,0 +1,67 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+    participant " " as User
+    participant DeactivateDeviceController as Controller
+    participant DeviceService as Service
+    participant DeviceRepository as Repository
+    participant DeviceAssembler as Assembler
+    participant DeviceDTO as DTO
+    participant Device as Device
+
+' Request all devices
+
+    User o-> Controller: requestAllDevices()
+    activate Controller
+    Controller -> Service: getAllDevices()
+    activate Service
+    Service -> Repository: findAll()
+    activate Repository
+    Repository --> Service: deviceList
+    deactivate Repository
+
+    loop for each device in deviceList
+        Service -> Assembler: deviceList2DTO(deviceList)
+        activate Assembler
+        Assembler -> DTO: createDTO(device)
+        activate DTO
+        DTO --> Assembler: deviceDTO
+        deactivate DTO
+        Assembler --> Service: deviceDTO
+        deactivate Assembler
+    end
+    Service --> Controller: deviceDTOList
+    deactivate Service
+    Controller --> User: deviceDTOList
+    deactivate Controller
+
+' Deactivate device
+
+    User o-> Controller: requestDeactivateDevice(deviceId)
+    activate Controller
+    Controller -> Service: deactivateDevice(deviceId)
+    activate Service
+    Service -> Repository: findDeviceById(deviceId)
+    activate Repository
+    Repository --> Service: device
+    deactivate Repository
+    Service -> Device: deactivate()
+    activate Device
+    Device --> Service: String
+    deactivate Device
+    Service -> Assembler: device2DTO(device)
+    activate Assembler
+    Assembler -> DTO: createDTO(device)
+    activate DTO
+    DTO --> Assembler: deviceDTO
+    deactivate DTO
+    Assembler --> Service: deviceDTO
+    deactivate Assembler
+    Service --> Controller: deviceDTO
+    deactivate Service
+    Controller --> User: deviceDTO
+    deactivate Controller
+
+@enduml
