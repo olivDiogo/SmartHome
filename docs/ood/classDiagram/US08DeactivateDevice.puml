@@ -3,6 +3,7 @@
 
 !pragma layout smetana
 !pragma scale 100 width
+!pragma useVerticalIfPossible
 
 class DeactivateDeviceController {
     -deviceService: DeviceService
@@ -17,10 +18,15 @@ class DeviceService {
     +deactivateDevice(deviceID: String): DeviceDTO
 }
 
-class DeviceRepository {
+class DeviceRepository implements IDeviceRepository {
     -Map<deviceID, Device> devices
     +findAll(): DeviceList
     +findDeviceById(deviceID: String): Device
+}
+
+interface IDeviceRepository {
+    +findAll(): List<Device>
+    +findDeviceById(deviceID: DeviceID): Device
 }
 
 class DeviceAssembler {
@@ -28,22 +34,45 @@ class DeviceAssembler {
     +device2DTO(device: Device): DeviceDTO
 }
 
+
 class DeviceDTO {
     +deviceID: String
     +isActive: Boolean
     +DeviceDTO(device: Device)
 }
 
-class Device {
-    -deviceID: String
-    -isActive: Boolean
+class Device<<entity>><<root>> {
+    -deviceID: DeviceID
+    -isActive: DeviceStatus
     +deactivate(): String
 }
 
-DeactivateDeviceController "1" -down-> "1" DeviceService: uses >
-DeviceService "1" -right-> "1" DeviceRepository: uses >
-DeviceService "1" -left-> "1" DeviceAssembler: uses >
-DeviceAssembler "1" -left-> "1..*" DeviceDTO: creates >
-DeviceService "1" -down-> "1" Device: <<deactivate>>
+class DeviceStatus<<ValueObject>> implements ValueObject{
+    -value: Boolean
+    +IsActive(value: Boolean)
+    +toString(): String
+    +equals(other: ValueObject): Boolean
+    +hashCode(): Int
+}
 
+class DeviceID<<ID>><<ValueObject>> implements ValueObject{
+    -id: UUID
+    +DeviceID(id: UUID)
+    +toString(): String
+    +equals(other: ValueObject): Boolean
+    +hashCode(): Int
+}
+
+interface ValueObject {
+    +equals(other: ValueObject): Boolean
+    +hashCode(): Int
+}
+
+DeactivateDeviceController "1" --> "1" DeviceService: uses >
+DeviceService "1" --> "1" DeviceRepository: uses >
+DeviceService "1" --> "1" DeviceAssembler: uses >
+DeviceAssembler "1" --> "1..*" DeviceDTO: creates >
+DeviceService "1" --> "1" Device: <<deactivate>>
+Device "1" --> "1" DeviceID: has >
+Device "1" --> "1" DeviceStatus: has >
 @enduml
