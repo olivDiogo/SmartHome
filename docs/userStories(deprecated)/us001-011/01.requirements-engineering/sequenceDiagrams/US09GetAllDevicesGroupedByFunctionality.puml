@@ -1,0 +1,94 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant " " as User
+
+participant ":GetAllDevicesGroupedByFunctionalityController" as GetAllDevicesGroupedByFunctionalityController
+
+participant "DeviceAssembler" as DeviceAssembler
+
+participant "deviceDTO : DeviceDTO" as DeviceDTO
+
+participant "catalogue : Catalogue" as Catalogue
+
+participant "house : House" as House
+
+participant "room : Room" as Room
+
+
+autonumber
+
+User o-> GetAllDevicesGroupedByFunctionalityController: getAllDevicesGroupedByFunctionality()
+
+activate GetAllDevicesGroupedByFunctionalityController
+
+GetAllDevicesGroupedByFunctionalityController -> Catalogue: getSensorTypes()
+
+
+activate Catalogue
+
+Catalogue --> GetAllDevicesGroupedByFunctionalityController: copyOfSensorTypes
+
+deactivate Catalogue
+
+
+GetAllDevicesGroupedByFunctionalityController -> DeviceAssembler: listByFunctionality(copyOfSensorTypes)
+
+activate DeviceAssembler
+
+DeviceAssembler --> GetAllDevicesGroupedByFunctionalityController: devicesDTOByFunctionality
+
+deactivate DeviceAssembler
+
+
+GetAllDevicesGroupedByFunctionalityController -> House: getRooms()
+
+activate House
+
+House --> GetAllDevicesGroupedByFunctionalityController: rooms
+
+deactivate House
+
+
+loop for each room in rooms
+    GetAllDevicesGroupedByFunctionalityController -> Room: getDevices()
+
+    activate Room
+
+    Room --> GetAllDevicesGroupedByFunctionalityController: devices
+
+deactivate Room
+
+    loop for each device in devices
+        GetAllDevicesGroupedByFunctionalityController -> DeviceAssembler: domain2DTO(device, room)
+
+        activate DeviceAssembler
+
+        create DeviceDTO
+        DeviceAssembler -> DeviceDTO: createDeviceDTO(device, room)
+
+        activate DeviceDTO
+
+        DeviceDTO --> DeviceAssembler: deviceDTO
+
+        deactivate DeviceDTO
+
+        DeviceAssembler --> GetAllDevicesGroupedByFunctionalityController: deviceDTO
+
+        deactivate DeviceAssembler
+
+        GetAllDevicesGroupedByFunctionalityController -> DeviceAssembler: addDeviceToListByFunctionality(deviceDTO, devicesDTOByFunctionality)
+
+        activate DeviceAssembler
+
+        DeviceAssembler --> GetAllDevicesGroupedByFunctionalityController: copyOfDeviceDTOsByFunctionality
+
+        deactivate DeviceAssembler
+    end
+end
+
+GetAllDevicesGroupedByFunctionalityController --> User: copyOfDeviceDTOsByFunctionality
+
+deactivate GetAllDevicesGroupedByFunctionalityController
+
+@enduml
