@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+!pragma layout smetana
+!pragma scale 100 width
+
+class DeactivateDeviceController {
+    -deviceService: DeviceService
+    +requestAllDevices(): DeviceDTOList
+    +requestDeactivateDevice(deviceID: String): DeviceDTO
+}
+
+class DeviceService {
+    -deviceRepository: DeviceRepository
+    -deviceAssembler: DeviceAssembler
+    +getAllDevices(): DeviceDTOList
+    +deactivateDevice(deviceID: String): DeviceDTO
+}
+
+class DeviceRepository {
+    -Map<deviceID, Device> devices
+    +findAll(): DeviceList
+    +findDeviceById(deviceID: String): Device
+}
+
+class DeviceAssembler {
+    +deviceList2DTO(deviceList: DeviceList): DeviceDTOList
+    +device2DTO(device: Device): DeviceDTO
+}
+
+class DeviceDTO {
+    +deviceID: String
+    +isActive: Boolean
+    +DeviceDTO(device: Device)
+}
+
+class Device {
+    -deviceID: String
+    -isActive: Boolean
+    +deactivate(): String
+}
+
+DeactivateDeviceController "1" -down-> "1" DeviceService: uses >
+DeviceService "1" -right-> "1" DeviceRepository: uses >
+DeviceService "1" -left-> "1" DeviceAssembler: uses >
+DeviceAssembler "1" -left-> "1..*" DeviceDTO: creates >
+DeviceService "1" -down-> "1" Device: <<deactivate>>
+
+@enduml
