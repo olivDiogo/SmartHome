@@ -49,15 +49,15 @@ class DeviceAssembler<<Assembler>> {
   }
 
 
-DeviceRepository -down-> Device: has
-DeviceService -down-> DeviceFactory: has
-DeviceService -down-> DeviceRepository: has
-DeviceService -down-> DeviceAssembler: uses
-RoomService -right-> RoomRepository: uses
-DeviceFactory .down.> Device: creates
-AddDeviceToRoomController -down-> DeviceService: uses
-AddDeviceToRoomController -down-> RoomService: uses
-DeviceAssembler .up.> DeviceDTO: creates
+DeviceRepository "1" -down-> "1" Device: has
+DeviceService "1"-down->"1  " DeviceFactory: has
+DeviceService "1"-down->"1" DeviceRepository: has
+DeviceService "1"-down->"1" DeviceAssembler: uses
+RoomService "1"-right->"1" RoomRepository: uses
+DeviceFactory "1".down.>"1  " Device: creates
+AddDeviceToRoomController "1"-down->"1" DeviceService: uses
+AddDeviceToRoomController "1"-down->"1" RoomService: uses
+DeviceAssembler "1".up.> "1  " DeviceDTO: creates
 
 
 
