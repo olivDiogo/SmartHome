@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant " " as User
+
+participant ":GetListOfRooms_Controller" as GetListOfRooms_Controller
+
+participant "ServiceRoom" as Service
+
+participant "roomrep:RoomRep" as RoomRep
+
+participant ":RoomAssembler" as RoomAssembler
+
+participant "roomDTO:RoomDTO" as RoomDTO
+
+autonumber
+
+User o-> GetListOfRooms_Controller: getRooms()
+
+activate GetListOfRooms_Controller
+
+GetListOfRooms_Controller -> Service: getRooms()
+
+activate Service
+
+Service -> RoomRep: findAll()
+
+activate RoomRep
+
+RoomRep --> Service: listOfRooms
+
+deactivate RoomRep
+
+
+loop  for each room in Rooms
+
+Service -> RoomAssembler: domain2DTO(room)
+create RoomDTO
+activate RoomAssembler
+RoomAssembler -> RoomDTO: createRoomDTO(room)
+activate RoomDTO
+RoomDTO --> RoomAssembler: roomDTO
+deactivate RoomDTO
+RoomAssembler --> Service: roomDTO
+deactivate RoomAssembler
+Service -> Service: saveRoomDTO(roomDTO)
+
+end
+
+Service --> GetListOfRooms_Controller: roomsDTOs
+
+deactivate Service
+
+<-- GetListOfRooms_Controller :listOfRoomsDTOs
+
+deactivate GetListOfRooms_Controller
+
+
+@enduml
