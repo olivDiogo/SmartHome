@@ -41,7 +41,6 @@ _Add a new sensor type_
 _At present this US has no dependency on another user story_
 
 ### 1.4. Relevant domain model aggregates
-_SensorType_
 ![SensorType](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ooa/agreggateModels/sensorTypeAggregate.png)
 
 ### 1.5. Required classes
@@ -63,8 +62,7 @@ _The team will design the best way to implement the requirements._
 ### 2.1. Class Diagram
 ![ClassDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/classDiagram/US04AddSupportedSensorType.png)
 ### 2.2. Sequence Diagram
-_ongoing_
-
+![SequenceDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/sequenceDiagram/US04AddSupportedSensorType.png)
 ### 2.3. Applied Patterns
 - Factory Method: The senorType is created using the factory pattern, that is responsible for creating all supported sensor types
 - Single Responsibility Principle: Each class has a single responsibility, this promotes a better code organization and maintainability.
