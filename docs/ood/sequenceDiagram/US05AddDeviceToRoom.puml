@@ -1,0 +1,54 @@
+@startuml
+!pragma layout smetana
+
+participant User as User
+participant ":AddDeviceToRoom" as Controller
+participant ":DeviceService" as Service
+participant ":DeviceRepository" as Repository
+participant ":DeviceFactory" as Factory
+participant "device :Device" as Device
+participant ":DeviceAssembler" as DeviceAssembler
+participant "deviceDTO :DeviceDTO" as DeviceDTO
+autonumber
+
+note left of Controller
+    List of Room's
+    in US03
+end note
+
+User -> Controller : addDeviceToRoom(roomID, deviceID)
+activate Controller
+
+Controller -> Service : addDevice(roomID, deviceID)
+activate Service
+
+Service -> Factory : createDevice(deviceID)
+activate Factory
+
+Factory -> Device : create(deviceID)
+activate Device
+Device --> Factory : device
+deactivate Device
+
+Factory -> Repository : device
+deactivate Factory
+
+activate Repository
+Repository --> Service : device
+deactivate Repository
+
+Service -> DeviceAssembler : device2DTO(device)
+activate DeviceAssembler
+DeviceAssembler -> DeviceDTO : createDeviceDTO(device)
+activate DeviceDTO
+DeviceDTO --> DeviceAssembler : deviceDTO
+deactivate DeviceDTO
+DeviceAssembler --> Service : deviceDTO
+deactivate DeviceAssembler
+
+Service --> Controller : deviceDTO
+deactivate Service
+
+Controller --> User : deviceDTO
+deactivate Controller
+@enduml
