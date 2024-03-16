@@ -4,7 +4,9 @@
 package SmartHome.AgregateDevice {
 class Device<<entity>><<Root>>{
     - _deviceID: DeviceID
-    - _name: Name}
+    - _deviceTypeID: DeviceTypeID
+    - _roomID: RoomID
+    - _name: Name
 }
 }
 
@@ -15,8 +17,18 @@ package SmartHome.ValueObject {
     class Name<<value object>>{
         - _name: String
     }
+
+    class DeviceTypeID<<value object>>{
+        - _id: String
+    }
+
+    class RoomID<<value object>>{
+        - _id: String
+    }
 }
 
 Device "*" -- "1" DeviceID : has
 Device "*" -- "1" Name : has
+Device "*" -- "1" DeviceTypeID : has
+Device "*" -- "1" RoomID : has
 @enduml
