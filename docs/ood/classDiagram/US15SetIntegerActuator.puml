@@ -7,10 +7,10 @@ package domain.actuator {
         + setValue(Value value): Value
     }
     interface FactoryActuator {
-        + createActuator(model: String, repoActuator: RepoActuator): Actuator
+        + createActuator(actuatorModelID: ActuatorModelID, repoActuator: RepoActuator): Actuator
     }
     class ImplFactoryActuator {
-        + createActuator(model: String, repoActuator: RepoActuator): Actuator
+        + createActuator(actuatorModelID: ActuatorModelID, repoActuator: RepoActuator): Actuator
     }
 
     class SetIntegerActuator {
@@ -21,8 +21,9 @@ package domain.actuator {
         - _value: SetIntegerValue
         - _lowerLimit: int
         - _upperLimit: int
-        # SetIntegerActuator(actuatorTypeID: ActuatorTypeID, actuatorModelID: ActuatorModelID, deviceID: DeviceID, value: SetIntegerValue, lowerLimit: int, upperLimit: int)
+        # SetIntegerActuator(actuatorTypeID: ActuatorTypeID, actuatorModelID: ActuatorModelID, deviceID: DeviceID, lowerLimit: int, upperLimit: int)
         + getActuatorTypeString(): String
+        + getActuatorID(): ActuatorID
         + setValueInRange(Value value): Value
     }
 }
