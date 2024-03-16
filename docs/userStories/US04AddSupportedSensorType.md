@@ -71,10 +71,14 @@ _The team will design the best way to implement the requirements._
 
 ## 3. Tests
 _The team will design the best way to test the requirements._
-### 3.1. Unit Tests
-_ongoing_
+### 3.1. Integration Tests
+- Should add sensorType with valid description
+- Should throw exception if sensorType already exists
+- Should throw exception if unit not supported
+- Should ask for confirmation before adding supported type
 
-### 3.2. Integration Tests
-_ongoing_
-### 3.3. Acceptance Tests
-_ongoing_
+### 3.2. Acceptance Tests
+- The sensor type description cannot be null or empty
+- The sensor type description should only use letters and numbers
+- The supported units must be from a given list
+- The sensorType description should be unique

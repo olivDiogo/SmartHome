@@ -47,7 +47,7 @@ SensorTypeService -down-> SensorTypeFactory: has
 SensorTypeService -down-> SensorTypeRepository: has
 SensorTypeFactory .down.> SensorType: creates
 AddSensorTypeController -down-> SensorTypeService: uses
-SensorTypeService -down-> SensorTypeAssembler: uses
+SensorTypeService .down.> SensorTypeAssembler: uses
 SensorTypeAssembler .up.> SensorTypeDTO: creates
 
 
