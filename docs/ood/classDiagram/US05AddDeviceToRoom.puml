@@ -1,0 +1,65 @@
+@startuml
+!pragma layout smetana
+
+class Device<<entity>> <<root>> {
+  - _id: deviceID
+  - _description: Description
+  + Device(id: Device, description: Description)
+  + getId(): string
+  + getDescription(): Description
+  }
+
+class DeviceFactory<<Factory>> {
+  + createNewDevice(description: Description): Device
+  }
+
+class DeviceRepository<<Repository>> {
+  - _map<ID, Device> device
+  + addDeviceToRepository(device: Device): Device
+  }
+class DeviceService<<Service>> {
+  + createNewDevice(name: String): Device
+  }
+
+ class RoomService<<Service>> {
+  + getRoomByID(id: string) : Room
+  }
+
+class RoomRepository<<Repository>> {
+  - _map<ID, Room> room
+  + findRoom(id: string): Room
+  }
+
+class AddDeviceToRoomController<<Controller>> {
+  - _deviceService: DeviceService
+  - _deviceDTO: DeviceDTO
+  - _roomService: RoomService
+  + AddDeviceToRoomController(DeviceService: deviceService)
+  + createNewDevice(DeviceDTO: deviceDTO): DeviceDTO
+  + addDeviceToRepository(DeviceDTO: deviceDTO): DeviceDTO
+  + getRoomByID(id: string): Room
+  }
+class DeviceDTO<<DTO>> {
++ id: string
++ description: string
++ DeviceDTO(device: Device)
+}
+class DeviceAssembler<<Assembler>> {
+  + domain2DTO(device: Device): DeviceDTO
+  }
+
+
+DeviceRepository -down-> Device: has
+DeviceService -down-> DeviceFactory: has
+DeviceService -down-> DeviceRepository: has
+DeviceService -down-> DeviceAssembler: uses
+RoomService -right-> RoomRepository: uses
+DeviceFactory .down.> Device: creates
+AddDeviceToRoomController -down-> DeviceService: uses
+AddDeviceToRoomController -down-> RoomService: uses
+DeviceAssembler .up.> DeviceDTO: creates
+
+
+
+
+@enduml
