@@ -8,7 +8,7 @@ It must include device location._
 _A collection with all the devices in the house will be made, initially. After that, the devices will be grouped by each of their functionality type._
 
 ### 1.1. System Sequence Diagram
-![System Sequence Diagram](../ooa/systemSequenceDiagram/US09GetAllDevicesGroupedbyFunctionality.png)
+![System Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ooa/systemSequenceDiagram/US09GetAllDevicesGroupedByFunctionality.png)
 
 ### 1.2. Use Case description
 _To get list of devices grouped by functionality_
@@ -40,7 +40,7 @@ _This user story dependes on another two user stories:_
     _US06 - To get list of devices in a room._
 
 ### 1.4. Relevant domain aggregate model 
-![Device](../ooa/agreggateModels/Device.png)
+![Device](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/d4d86161ae4fb96ee7daa42a58395cddec6f2ca4/docs/ooa/agreggateModels/Device.png)
 
 ### 1.5. Required classes
 _Controller_ -> for the management of the services and the interface
@@ -65,9 +65,9 @@ _DeviceDTO_ -> for the device data transfer object
 ## 2. Design
 _The team will design the best way to implement the requirements._
 ### 2.1. Class Diagram
-![ClassDiagram](../ood/classDiagram/US09GetAllDevicesGroupedbyFunctionality.png)
+![ClassDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/d4d86161ae4fb96ee7daa42a58395cddec6f2ca4/docs/ood/classDiagram/US09GetAllDevicesGroupedByFunctionality.png)
 ### 2.2. Sequence Diagram
-![SequenceDiagram](../ood/sequenceDiagram/US09GetAllDevicesGroupedbyFunctionality.png)
+![SequenceDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/d4d86161ae4fb96ee7daa42a58395cddec6f2ca4/docs/ood/sequenceDiagram/US09GetAllDevicesGroupedByFunctionality.png)
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization 
 and maintainability.
