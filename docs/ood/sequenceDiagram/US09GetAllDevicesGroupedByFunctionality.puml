@@ -3,16 +3,23 @@
 
 participant " " as User
 
+box "Controller" #LightBlue
 participant ":GetAllDevicesGroupedByFunctionalityController" as GetAllDevicesGroupedByFunctionalityController
+end box
 
+box "Service" #LightGreen
 participant "serDevType:ServiceDeviceType" as ServiceDeviceType
 
 participant "serDev:ServiceDevice" as ServiceDevice
+end box
 
+box "Repository" #LightYellow
 participant "repoDeviceType:RepositoryDeviceType" as RepositoryDeviceType
 
 participant "repoDevice:RepositoryDevice" as RepositoryDevice
+end box
 
+box "Assembler" #LightCyan
 participant "DeviceTypeAssembler" as DeviceTypeAssembler
 
 participant "deviceTypeDTO : DeviceType2StringDTO" as DeviceType2StringDTO
@@ -20,7 +27,7 @@ participant "deviceTypeDTO : DeviceType2StringDTO" as DeviceType2StringDTO
 participant "DeviceAssembler" as DeviceAssembler
 
 participant "deviceDTO : DeviceDTO" as DeviceDTO
-
+end box
 
 autonumber
 
