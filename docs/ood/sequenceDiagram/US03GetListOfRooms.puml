@@ -5,7 +5,7 @@
 participant " " as User
 
 box "Controller" #LightBlue
-participant ":GetListOfRooms_Controller" as GetListOfRooms_Controller
+participant ":GetListOfRooms_Controller" as GetListOfRoomsController
 end box
 
 box "Service" #LightGreen
@@ -25,11 +25,11 @@ participant "roomDTO:RoomDTO" as RoomDTO
 end box
 autonumber
 
-User o-> GetListOfRooms_Controller: getRooms()
+User o-> GetListOfRoomsController: getRooms()
 
-activate GetListOfRooms_Controller
+activate GetListOfRoomsController
 
-GetListOfRooms_Controller -> Service: getRooms()
+GetListOfRoomsController -> Service: getRooms()
 
 activate Service
 
@@ -57,13 +57,13 @@ Service -> Service: saveRoomDTO(roomDTO)
 
 end
 
-Service --> GetListOfRooms_Controller: roomsDTOs
+Service --> GetListOfRoomsController: roomsDTOs
 
 deactivate Service
 
-<-- GetListOfRooms_Controller :listOfRoomsDTOs
+<-- GetListOfRoomsController :listOfRoomsDTOs
 
-deactivate GetListOfRooms_Controller
+deactivate GetListOfRoomsController
 
 
 @enduml
