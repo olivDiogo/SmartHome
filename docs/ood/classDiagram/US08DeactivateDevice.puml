@@ -68,10 +68,10 @@ interface ValueObject {
     +hashCode(): Int
 }
 
-DeactivateDeviceController "1" --> "1" DeviceService: uses >
-DeviceService "1" --> "1" DeviceRepository: uses >
-DeviceService "1" --> "1" DeviceAssembler: uses >
-DeviceAssembler "1" --> "1..*" DeviceDTO: creates >
+DeactivateDeviceController "1" ..> "1" DeviceService: uses >
+DeviceService "1" ..> "1" DeviceRepository: uses >
+DeviceService "1" ..> "1" DeviceAssembler: uses >
+DeviceAssembler "1" ..> "1..*" DeviceDTO: creates >
 DeviceService "1" --> "1" Device: <<deactivate>>
 Device "1" --> "1" DeviceID: has >
 Device "1" --> "1" DeviceStatus: has >
