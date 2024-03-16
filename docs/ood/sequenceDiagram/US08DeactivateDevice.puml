@@ -4,12 +4,12 @@
 autonumber
 
     participant " " as User
-    participant DeactivateDeviceController as Controller
+    participant ":DeactivateDeviceController" as Controller
     participant DeviceService as Service
     participant DeviceRepository as Repository
     participant DeviceAssembler as Assembler
-    participant DeviceDTO as DTO
-    participant Device as Device
+    participant ":DeviceDTO" as DTO
+    participant ":Device" as Device
 
 ' Request all devices
 
@@ -25,6 +25,7 @@ autonumber
     loop for each device in deviceList
         Service -> Assembler: deviceList2DTO(deviceList)
         activate Assembler
+        create DTO
         Assembler -> DTO: DeviceDTO(device)
         activate DTO
         DTO --> Assembler: deviceDTO
