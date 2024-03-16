@@ -9,7 +9,7 @@ participant ":GetListOfRooms_Controller" as GetListOfRooms_Controller
 end box
 
 box "Service" #LightGreen
-participant "ServiceRoom" as Service
+participant "serviceRoom:ServiceRoom" as Service
 end box
 
 box "Repository" #LightYellow
