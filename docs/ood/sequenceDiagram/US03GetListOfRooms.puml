@@ -1,18 +1,28 @@
 @startuml
 'https://plantuml.com/sequence-diagram
+!pragma layout smetana
 
 participant " " as User
 
+box "Controller" #LightBlue
 participant ":GetListOfRooms_Controller" as GetListOfRooms_Controller
+end box
 
+box "Service" #LightGreen
 participant "ServiceRoom" as Service
+end box
 
-participant "roomrep:RoomRep" as RoomRep
+box "Repository" #LightYellow
+participant "RepoRoom:RepositoryRoom" as RepositoryRoom
+end box
+
+box "Assembler" #LightCyan
 
 participant ":RoomAssembler" as RoomAssembler
 
 participant "roomDTO:RoomDTO" as RoomDTO
 
+end box
 autonumber
 
 User o-> GetListOfRooms_Controller: getRooms()
@@ -23,13 +33,13 @@ GetListOfRooms_Controller -> Service: getRooms()
 
 activate Service
 
-Service -> RoomRep: findAll()
+Service -> RepositoryRoom: findAll()
 
-activate RoomRep
+activate RepositoryRoom
 
-RoomRep --> Service: listOfRooms
+RepositoryRoom --> Service: listOfRooms
 
-deactivate RoomRep
+deactivate RepositoryRoom
 
 
 loop  for each room in Rooms
