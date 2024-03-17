@@ -19,7 +19,7 @@ package domain.sensor {
         - _sensorModelID: SensorModelID
         - _deviceID: DeviceID
         - _value: SolarIrradianceValue
-        # SolarIrradianceSensor(actuatorTypeID: ActuatorTypeID, actuatorModelID: ActuatorModelID, deviceID: DeviceID)
+        # SolarIrradianceSensor(sensorTypeID: SensorTypeID, sensorModelID: sensorModelID, deviceID: DeviceID)
         + getSensorTypeString(): String
         + getSensorID(): SensorID
         + getValue(Value value): Value
