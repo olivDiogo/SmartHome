@@ -23,7 +23,7 @@ _To have a sensor that gives the solar irradiance._
 _This user story does not depend on another._
 
 ### 1.4. Relevant domain aggregate model 
-![Sensor]()
+![Sensor](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/51003b33c7fdbc39c6a24ed7f3c2f5083f5f187b/docs/ooa/agreggateModels/Sensor.png)
 
 ### 1.5. Required classes
 _SolarIrradianceSensor_ -> for the sensor class with its functionality
