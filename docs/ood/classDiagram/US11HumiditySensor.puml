@@ -13,7 +13,7 @@ class HumiditySensor implements Sensor {
     - _id : HumiditySensorID
     - _sensorType : SensorType
     - _value : HumiditySensorValue
-    + HumiditySensor(catalogueSensor : CatalogueSensor)
+    # HumiditySensor(catalogueSensor : CatalogueSensor)
     + getId() : HumiditySensorID
     + getSensorType() : SensorType
     + getValue() : Value
@@ -42,7 +42,11 @@ class SensorType {
     + getUnit() : Unit
 }
 
-class SensorTypeFactory {
+class ImpSensorTypeFactory implements SensorTypeFactory{
+    + createSensorType(description : String, unit : Unit) : SensorType
+}
+
+interface SensorTypeFactory{
     + createSensorType(description : String, unit : Unit) : SensorType
 }
 
@@ -65,7 +69,11 @@ class CatalogueSensor {
     + getSensorType(description : String) : SensorType
 }
 
-class SensorFactory {
+class ImpSensorFactory implements SensorFactory {
+    + createSensor() : Sensor
+}
+
+interface SensorFactory {
     + createSensor() : Sensor
 }
 
@@ -76,10 +84,10 @@ class SensorRepository {
 CatalogueSensor --> HumiditySensor : provides type info >
 CatalogueSensor ..> SensorType : retrieves >
 SensorType --> Unit : has
-SensorFactory ..> HumiditySensor : creates >
+ImpSensorFactory ..> HumiditySensor : creates >
 SensorRepository ..> HumiditySensor : manages >
-SensorTypeFactory ..> SensorType : creates >
-SensorTypeFactory ..> Unit : uses >
+ImpSensorTypeFactory ..> SensorType : creates >
+ImpSensorTypeFactory ..> Unit : uses >
 HumiditySensorID .. HumiditySensor : identifies >
 SensorTypeID .. SensorType : identifies >
 
