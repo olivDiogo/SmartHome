@@ -1,0 +1,89 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class GetListOfDevicesFromRoomController{
+'Attributes'
+- _serviceRoom: RoomService
+'Methods'
++GetListOfDevicesFromRoomController (serviceRoom : RoomService, serviceDevice : DeviceService)
++getRooms(): List<RoomDTO>
++getDevices(roomDTO : RoomDTO): List<DeviceDTO>
+}
+
+class RoomService{
+'Attributes'
+- _roomFactory: RoomFactory
+- _roomRepository: RoomRepository
+'Methods'
++RoomService(roomFactory: RoomFactory, roomRepository: RoomRepository)
++getRooms(): List<RoomDTO>
+}
+
+
+class RoomRepository{
+'Attributes'
+- DATA: Map <RoomID, Room>
+'Methods'
++RoomRepository()
++findAll(): List<Room>
+}
+
+class RoomAssembler{
+'Methods'
++domain2DTO(room: Room): RoomDTO
+}
+
+class RoomDTO{
+'Attributes'
++_floor: RoomFloor
++_dimensions: RoomDimensions
++_roomID: RoomID
++_roomName: RoomName
+'Methods'
++RoomDTO(floor: RoomFloor, dimensions: RoomDimensions, roomID: RoomID, roomName: RoomName)
+}
+
+class DeviceService{
+'Attributes'
+- _deviceFactory: DeviceFactory
+- _deviceRepository: DeviceRepository
+'Methods'
++DeviceService(deviceFactory: DeviceFactory, deviceRepository: DeviceRepository)
++getDevices(roomDTO : RoomDTO): List<DeviceDTO>
+}
+
+class DeviceRepository{
+'Attributes'
+- DATA: Map <DeviceId, Device>
+'Methods'
++DeviceRepository()
++getDevicesByRoomId(roomId : RoomID): List<Devices>
+}
+
+class DeviceAssembler {
+'Methods'
++domain2DTO(device: Device): DeviceDTO
+}
+
+class DeviceDTO{
+'Attributes'
++_deviceID: DeviceID
++_deviceName: DeviceName
++_deviceType: DeviceType
++_roomID : RoomID
+'Methods'
++DeviceDTO(deviceID: DeviceID, deviceName: DeviceName, deviceType: DeviceType, roomId : RoomID)
+}
+
+
+
+GetListOfDevicesFromRoomController "1" ..> "1" RoomService: uses
+RoomService "1" ..> "1" RoomRepository: uses
+RoomService "1" ..> "1" RoomAssembler: uses
+RoomAssembler "1" ..> "1" RoomDTO: creates
+
+GetListOfDevicesFromRoomController "1" ..> "1" DeviceService: uses
+DeviceService "1" ..> "1" DeviceRepository: uses
+DeviceService "1" ..> "1" DeviceAssembler: uses
+DeviceAssembler "1" ..> "1" DeviceDTO: creates
+@enduml
