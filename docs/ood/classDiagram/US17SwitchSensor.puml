@@ -13,7 +13,7 @@ class SwitchSensor implements Sensor {
     - _id : SwitchSensorID
     - _sensorType : SensorType
     - _value : SwitchSensorValue
-    + SwitchSensor(catalogueSensor : CatalogueSensor)
+    # SwitchSensor(catalogueSensor : CatalogueSensor)
     + getId() : SwitchSensorID
     + getSensorType() : SensorType
     + getValue() : Value
@@ -42,7 +42,11 @@ class SensorType {
     + getUnit() : Unit
 }
 
-class SensorTypeFactory {
+class ImpSensorTypeFactory implements SensorTypeFactory{
+    + createSensorType(description : String, unit : Unit) : SensorType
+}
+
+interface SensorTypeFactory{
     + createSensorType(description : String, unit : Unit) : SensorType
 }
 
@@ -65,7 +69,11 @@ class CatalogueSensor {
     + getSensorType(description : String) : SensorType
 }
 
-class SensorFactory {
+class ImpSensorFactory implements SensorFactory {
+    + createSensor() : Sensor
+}
+
+interface SensorFactory {
     + createSensor() : Sensor
 }
 
@@ -76,10 +84,10 @@ class SensorRepository {
 CatalogueSensor --> SwitchSensor : provides type info >
 CatalogueSensor ..> SensorType : retrieves >
 SensorType --> Unit : has
-SensorFactory ..> SwitchSensor : creates >
+ImpSensorFactory ..> SwitchSensor : creates >
 SensorRepository ..> SwitchSensor : manages >
-SensorTypeFactory ..> SensorType : creates >
-SensorTypeFactory ..> Unit : uses >
+ImpSensorTypeFactory ..> SensorType : creates >
+ImpSensorTypeFactory ..> Unit : uses >
 SwitchSensorID .. SwitchSensor : identifies >
 SensorTypeID .. SensorType : identifies >
 
