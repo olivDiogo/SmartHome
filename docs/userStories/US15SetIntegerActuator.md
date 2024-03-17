@@ -29,6 +29,8 @@ _This user story does not depend on another._
 ### 1.5. Required classes
 _SetIntegerActuator_ -> for the actuator class with its functionality
 
+_SetIntegerValue_ -> for the value of the integer to be set
+
 _ImplFactoryActuator_ -> for the actuator instantiation
 
 
