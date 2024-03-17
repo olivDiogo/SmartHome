@@ -24,7 +24,7 @@ _To have an actuator that sets an integer value_
 _This user story does not depend on another._
 
 ### 1.4. Relevant domain aggregate model 
-![Actuator](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/d4d86161ae4fb96ee7daa42a58395cddec6f2ca4/docs/ooa/agreggateModels/Actuator.png)
+![Actuator](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/7458a45bc1d914a56584d7eb59a40aafba9b9f8e/docs/ooa/agreggateModels/Actuator.png)
 
 ### 1.5. Required classes
 _SetIntegerActuator_ -> for the actuator class with its functionality
@@ -35,7 +35,7 @@ _ImplFactoryActuator_ -> for the actuator instantiation
 ## 2. Design
 _The team will design the best way to implement the requirements._
 ### 2.1. Class Diagram
-![ClassDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/d4d86161ae4fb96ee7daa42a58395cddec6f2ca4/docs/ood/classDiagram/US15SetIntegerActuator.png)
+![ClassDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/7458a45bc1d914a56584d7eb59a40aafba9b9f8e/docs/ood/classDiagram/US15SetIntegerActuator.png)
 ### 2.2. Sequence Diagram
 Not applicable.
 ### 2.3. Applied Patterns
