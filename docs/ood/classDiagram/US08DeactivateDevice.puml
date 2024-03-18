@@ -43,7 +43,7 @@ class DeviceDTO {
 
 class Device<<entity>><<root>> {
     -deviceID: DeviceID
-    -isActive: DeviceStatus
+    -status: DeviceStatus
     +deactivate(): String
 }
 
