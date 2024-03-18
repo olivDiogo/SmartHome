@@ -33,11 +33,7 @@ _To get list of devices grouped by functionality_
         Non-existing list: If there are no devices in the house, the list is null.
 
 ### 1.3. Dependency of another user story
-_This user story dependes on another two user stories:_
-
-    _US03 - To get list of room._
-
-    _US06 - To get list of devices in a room._
+_This user story has no dependencies on other user stories._
 
 ### 1.4. Relevant domain aggregate model 
 ![Device](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/d4d86161ae4fb96ee7daa42a58395cddec6f2ca4/docs/ooa/agreggateModels/Device.png)
@@ -45,17 +41,9 @@ _This user story dependes on another two user stories:_
 ### 1.5. Required classes
 _Controller_ -> for the management of the services and the interface
 
-_ServiceDeviceType_ -> for the device type management
+_DeviceService_ -> for the device management
 
-_ServiceDevice_ -> for the device management
-
-_RepositoryDeviceType_ -> for the device type storage
-
-_RepositoryDevice_ -> for the device storage
-
-_DeviceTypeAssembler_ -> for the device type data transfer object management
-
-_DeviceTypeDTO_ -> for the device type data transfer object
+_DeviceRepository_ -> for the device storage
 
 _DeviceAssembler_ -> for the device data transfer object management
 
@@ -71,9 +59,9 @@ _The team will design the best way to implement the requirements._
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization 
 and maintainability.
-- Data Transfer Object: The DeviceTypeDTO and DeviceDTO are used to transfer the DeviceType and Device 
+- Data Transfer Object: The DeviceDTO is used to transfer the Device 
 data, respectively, between the service layer and the controller, which guarantees protection for the domain.
-- Repository: The RepositoryDeviceType and RepositoryDevice are used to store and retrieve DeviceType and Device data.
+- Repository: The DeviceRepository is used to store and retrieve the Device data.
 
 ## 3. Tests
 _The team will design the best way to test the requirements._
