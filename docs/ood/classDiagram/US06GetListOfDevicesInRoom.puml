@@ -4,6 +4,7 @@
 class GetListOfDevicesFromRoomController{
 'Attributes'
 - _serviceRoom: RoomService
+- _deviceService : DeviceService
 'Methods'
 +GetListOfDevicesFromRoomController (serviceRoom : RoomService, serviceDevice : DeviceService)
 +getRooms(): List<RoomDTO>
@@ -12,10 +13,11 @@ class GetListOfDevicesFromRoomController{
 
 class RoomService{
 'Attributes'
-- _roomFactory: RoomFactory
 - _roomRepository: RoomRepository
+-_roomFactory : RoomFactory
+- _roomAssembler : RoomAssembler
 'Methods'
-+RoomService(roomFactory: RoomFactory, roomRepository: RoomRepository)
++RoomService(roomFactory: RoomFactory, roomRepository: RoomRepository, roomAssembler : RoomAssembler
 +getRooms(): List<RoomDTO>
 }
 
@@ -30,25 +32,24 @@ class RoomRepository{
 
 class RoomAssembler{
 'Methods'
-+domain2DTO(room: Room): RoomDTO
++domain2DTO(rooms: List<Room>): List<RoomDTO>
 }
 
 class RoomDTO{
 'Attributes'
-+_floor: RoomFloor
-+_dimensions: RoomDimensions
 +_roomID: RoomID
 +_roomName: RoomName
 'Methods'
-+RoomDTO(floor: RoomFloor, dimensions: RoomDimensions, roomID: RoomID, roomName: RoomName)
++RoomDTO(roomID: RoomID, roomName: RoomName)
 }
 
 class DeviceService{
 'Attributes'
-- _deviceFactory: DeviceFactory
 - _deviceRepository: DeviceRepository
+- _deviceFactory : DeviceFactory
+- _deviceAssembler : DeviceAssembler
 'Methods'
-+DeviceService(deviceFactory: DeviceFactory, deviceRepository: DeviceRepository)
++DeviceService(deviceFactory: DeviceFactory, deviceRepository: DeviceRepository, deviceAssembler : DeviceAssembler)
 +getDevices(roomDTO : RoomDTO): List<DeviceDTO>
 }
 
@@ -62,17 +63,15 @@ class DeviceRepository{
 
 class DeviceAssembler {
 'Methods'
-+domain2DTO(device: Device): DeviceDTO
++domain2DTO(devices: List<Device>): List<DeviceDTO>
 }
 
 class DeviceDTO{
 'Attributes'
 +_deviceID: DeviceID
 +_deviceName: DeviceName
-+_deviceType: DeviceType
-+_roomID : RoomID
 'Methods'
-+DeviceDTO(deviceID: DeviceID, deviceName: DeviceName, deviceType: DeviceType, roomId : RoomID)
++DeviceDTO(deviceID: DeviceID, deviceName: DeviceName)
 }
 
 
@@ -80,10 +79,10 @@ class DeviceDTO{
 GetListOfDevicesFromRoomController "1" ..> "1" RoomService: uses
 RoomService "1" ..> "1" RoomRepository: uses
 RoomService "1" ..> "1" RoomAssembler: uses
-RoomAssembler "1" ..> "1" RoomDTO: creates
+RoomAssembler "1" ..> "*" RoomDTO: creates
 
 GetListOfDevicesFromRoomController "1" ..> "1" DeviceService: uses
 DeviceService "1" ..> "1" DeviceRepository: uses
 DeviceService "1" ..> "1" DeviceAssembler: uses
-DeviceAssembler "1" ..> "1" DeviceDTO: creates
+DeviceAssembler "1" ..> "*" DeviceDTO: creates
 @enduml
