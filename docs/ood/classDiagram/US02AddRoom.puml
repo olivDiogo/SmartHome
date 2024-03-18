@@ -1,0 +1,49 @@
+@startuml
+!pragma layout smetana
+
+class AddRoomController<<Controller>> {
+- _roomDTO: RoomDTO
+- _roomService: RoomService
++AddRoomToHouseController()
++CreateRoom(RoomDTO)
+}
+
+class RoomService <<Service>>{
+- _roomID: String
+- _description: Description
++addRoom(name:String,description:Description)
+}
+
+class RoomFactory <<Factory>>{
++createRoom
+}
+
+class DimensionsFactory <<Factory>>{
++createDimensions(width:Double, height:Double, length:Double)
+}
+
+class RoomAssembler <<Assembler>>{
++domain2DTO(room:Room):RoomDTO
+}
+
+class RoomDTO <<DTO>>{
+- _roomID: String
+- _description: Description
++RoomDTO(room:Room))
+}
+
+class Room <<Entity>>{
+- _roomID: String
+- _description: Description
++Room(roomID:String,description:Description)
++getRoomID():String
+}
+
+AddRoomController "1" -down-> "1" RoomService: uses
+RoomFactory "1" -down-> "1" DimensionsFactory: has
+RoomService "1" -down-> "1" RoomFactory: has
+RoomService "1" -left-> "1" RoomAssembler: uses
+RoomAssembler "1" -down-> "1" RoomDTO: creates
+RoomFactory "1" -down-> "1" Room: creates
+
+@enduml
