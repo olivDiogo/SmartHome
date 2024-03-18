@@ -5,11 +5,12 @@ autonumber
 
     participant " " as User
     participant ":DeactivateDeviceController" as Controller
-    participant DeviceService as Service
-    participant DeviceRepository as Repository
-    participant DeviceAssembler as Assembler
-    participant ":DeviceDTO" as DTO
+    participant ":DeviceService" as Service
+    participant ":DeviceRepository" as Repository
+    participant ":DeviceAssembler" as Assembler
+    participant "deviceDTO:DeviceDTO" as DTO
     participant ":Device" as Device
+    participant "status:Status" as Status
 
 ' Request all devices
 
@@ -50,8 +51,13 @@ autonumber
     deactivate Repository
     Service -> Device: deactivate()
     activate Device
-    Device --> Service: String
+    create Status
+    Device -> Status: setInactive()
+    Status --> Device: status
+    Device --> Service: status
     deactivate Device
+    Service --> Repository: saveStatus(device, status)
+
     Service -> Assembler: device2DTO(device)
     activate Assembler
     Assembler -> DTO: DeviceDTO(device)
