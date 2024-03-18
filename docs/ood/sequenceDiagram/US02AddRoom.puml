@@ -11,7 +11,6 @@ participant "room :Room" as Device
 participant "RoomAssembler" as Assembler
 participant "roomDTO :RoomDTO" as DTO
 
-
 User -> Controller: AddRoom(name: String, description: String)
 activate Controller
 Controller -> Service: addRoom(name: String, description: String)
