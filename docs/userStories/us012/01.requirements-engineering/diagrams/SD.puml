@@ -1,14 +1,15 @@
 @startuml
 !pragma layout smetana
-participant "Something" as Client
-participant "Controller" as Controller
-participant "RoomService" as RoomService
-participant "RoomRepository" as RoomRepo
-participant "RoomAssembler" as RoomAssembler
-participant "Device" as Device
-participant "ActuatorFactory" as ActuatorFactory
-participant "ActuatorCatalogue" as ActuatorCatalogue
-participant "DeviceRepository" as DeviceRepo
+participant ":Something" as Client
+participant ":Controller" as Controller
+participant ":RoomService" as RoomService
+participant ":RoomRepository" as RoomRepo
+participant ":RoomAssembler" as RoomAssembler
+participant ":Device" as Device
+participant ":DeviceRepository" as DeviceRepo
+participant ":ActuatorFactory" as ActuatorFactory
+participant ":ActuatorCatalogue" as ActuatorCatalogue
+
 
 Client -> Controller : getRooms()
 activate Controller
@@ -18,16 +19,17 @@ RoomService -> RoomRepo : findAllRooms()
 activate RoomRepo
 RoomRepo --> RoomService : roomsList
 deactivate RoomRepo
-RoomService --> Controller : roomsList
-deactivate RoomService
-Controller -> RoomAssembler : toDTO(roomsList)
+RoomService -> RoomAssembler : toDTO(roomsList)
 activate RoomAssembler
-RoomAssembler --> Controller : roomsDTOList
+RoomAssembler --> RoomService : roomsDTOList
 deactivate RoomAssembler
+RoomService --> Controller : roomDTOList
+deactivate RoomService
 Controller --> Client : roomsDTOList
 deactivate Controller
 
 Client -> Controller : getDevicesInRoom(roomName)
+'isto devia ir ao Device Repo?
 activate Controller
 Controller -> RoomService : getDevicesInRoom(roomName)
 activate RoomService
@@ -35,17 +37,18 @@ RoomService -> DeviceRepo : findDevicesInRoom(roomName)
 activate DeviceRepo
 DeviceRepo --> RoomService : devicesList
 deactivate DeviceRepo
-RoomService --> Controller : devicesList
-deactivate RoomService
-Controller -> RoomAssembler : toDTO(devicesList)
+RoomService -> RoomAssembler : toDTO(devicesList)
+'tenho dúvidas sobre este método toDTO em RoomService
 activate RoomAssembler
-RoomAssembler --> Controller : devicesDTOList
+RoomAssembler --> RoomService : devicesDTOList
 deactivate RoomAssembler
+RoomService --> Controller : devicesDTOList
+deactivate RoomService
 Controller --> Client : devicesDTOList
 deactivate Controller
-
 Client -> Controller : addActuatorToDevice(deviceId, actuatorType)
 activate Controller
+
 Controller -> ActuatorFactory : createActuator(actuatorType)
 activate ActuatorFactory
 ActuatorFactory -> ActuatorCatalogue : validateActuatorType(actuatorType)
@@ -66,3 +69,80 @@ deactivate Device
 Controller --> Client : success
 deactivate Controller
 @enduml
+
+@startuml
+!pragma layout smetana
+participant ":Something" as Client
+participant ":Controller" as Controller
+participant ":ActuatorFactory" as ActuatorFactory
+participant ":ActuatorCatalogue" as ActuatorCatalogue
+participant ":Device" as Device
+participant ":DeviceRepository" as DeviceRepo
+
+Client -> Controller : getAvailableActuatorTypes()
+activate Controller
+Controller -> ActuatorCatalogue : listActuatorTypes()
+activate ActuatorCatalogue
+ActuatorCatalogue --> Controller : typesList
+deactivate ActuatorCatalogue
+Controller --> Client : typesList
+deactivate Controller
+
+Client -> Controller : selectActuatorType(type)
+activate Controller
+Controller -> ActuatorCatalogue : getModelsForType(type)
+activate ActuatorCatalogue
+ActuatorCatalogue --> Controller : modelsList
+deactivate ActuatorCatalogue
+Controller --> Client : modelsList
+deactivate Controller
+
+Client -> Controller : addActuatorToDevice(deviceId, model)
+activate Controller
+Controller -> ActuatorFactory : createActuator(model)
+activate ActuatorFactory
+ActuatorFactory -> ActuatorCatalogue : validateActuatorModel(model)
+activate ActuatorCatalogue
+ActuatorCatalogue --> ActuatorFactory : isValid
+deactivate ActuatorCatalogue
+ActuatorFactory --> Controller : actuator
+deactivate ActuatorFactory
+
+Controller -> Device : addActuator(actuator)
+activate Device
+Device -> DeviceRepo : saveUpdatedDevice()
+activate DeviceRepo
+DeviceRepo --> Device : success
+deactivate DeviceRepo
+Device --> Controller : success
+deactivate Device
+Controller --> Client : success
+deactivate Controller
+@enduml
+
+@startuml
+actor Administrator
+participant "UI/API Endpoint" as UI
+participant "ActuatorTypeController" as Controller
+participant "ActuatorTypeService" as Service
+participant "ActuatorTypeFactory" as Factory
+participant "ActuatorTypeRepository" as Repository
+database "Database" as DB
+
+Administrator -> UI : Request to create actuator type
+UI -> Controller : Forward request
+Controller -> Service : Request new actuator type creation
+Service -> Factory : Create actuator type instance
+Factory -> Service : Return new actuator type
+Service -> Repository : Save actuator type
+Repository -> DB : Persist actuator type
+DB -> Repository : Confirmation
+Repository -> Service : Success message
+Service -> Controller : Actuator type created
+Controller -> UI : Respond with success
+UI -> Administrator : Display success message
+
+@enduml
+
+
+
