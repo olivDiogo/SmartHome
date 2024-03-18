@@ -3,23 +3,36 @@
 participant " "
 box "Controller" #LightBlue
 participant ":ConfigureHouseLocationController" as ConfigureHouseLocationController
-
 end box
 box "Service" #LightGreen
-participant ":LocationFactory" as LocationFactory
+participant ":LocationFactory" as Service
 end box
 box "Repository" #LightYellow
 participant "Repository" as Repository
 end box
 box "Assembler" #LightCyan
 participant ":LocationAssembler" as Assembler
-
 end box
+autonumber
+
 " " o-> ConfigureHouseLocationController : ConfigureLocation()
-activate ConfigureHouseLocationController
-ConfigureHouseLocationController -> ":LocationFactory"
-activate LocationFactory
-LocationFactory --> "ConfigureHouseLocationController" : newLocation()
+
+activate "ConfigureHouseLocationController"
+
+ConfigureHouseLocationController -> "Service" : newLocation()
+activate Service
+
+Service -> "Assembler" : sss()
+activate Assembler
+"Assembler" --> Service : sss()
+deactivate Assembler
+Service --> "ConfigureHouseLocationController" : newLocation()
+
+deactivate Service
+
+
+
+
 
 
 
