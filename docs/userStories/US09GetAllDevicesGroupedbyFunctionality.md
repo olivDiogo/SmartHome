@@ -65,9 +65,9 @@ _DeviceDTO_ -> for the device data transfer object
 ## 2. Design
 _The team will design the best way to implement the requirements._
 ### 2.1. Class Diagram
-![ClassDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/d4d86161ae4fb96ee7daa42a58395cddec6f2ca4/docs/ood/classDiagram/US09GetAllDevicesGroupedByFunctionality.png)
+![ClassDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/94937c55368fe87d019760d5a6cba7ea933479f9/docs/ood/classDiagram/US09GetAllDevicesGroupedByFunctionality.png)
 ### 2.2. Sequence Diagram
-![SequenceDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/d4d86161ae4fb96ee7daa42a58395cddec6f2ca4/docs/ood/sequenceDiagram/US09GetAllDevicesGroupedByFunctionality.png)
+![SequenceDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/94937c55368fe87d019760d5a6cba7ea933479f9/docs/ood/sequenceDiagram/US09GetAllDevicesGroupedByFunctionality.png)
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization 
 and maintainability.
