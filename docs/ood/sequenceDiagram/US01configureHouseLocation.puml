@@ -1,0 +1,34 @@
+@startuml
+
+participant " "
+box "Controller" #LightBlue
+participant ":ConfigureHouseLocationController" as ConfigureHouseLocationController
+
+end box
+box "Service" #LightGreen
+participant ":LocationFactory" as LocationFactory
+end box
+box "Repository" #LightYellow
+participant "Repository" as Repository
+end box
+box "Assembler" #LightCyan
+participant ":LocationAssembler" as Assembler
+
+end box
+" " o-> ConfigureHouseLocationController : ConfigureLocation()
+activate ConfigureHouseLocationController
+ConfigureHouseLocationController -> ":LocationFactory"
+activate LocationFactory
+LocationFactory --> "ConfigureHouseLocationController" : newLocation()
+
+
+
+
+
+
+
+
+
+
+
+@enduml
