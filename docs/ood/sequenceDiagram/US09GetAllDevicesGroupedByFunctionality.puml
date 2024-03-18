@@ -9,22 +9,14 @@ participant ":GetAllDevicesGroupedByFunctionalityController" as GetAllDevicesGro
 end box
 
 box "Service" #LightGreen
-participant "serDevType:ServiceDeviceType" as ServiceDeviceType
-
 participant "serDev:ServiceDevice" as ServiceDevice
 end box
 
 box "Repository" #LightYellow
-participant "repoDeviceType:RepositoryDeviceType" as RepositoryDeviceType
-
 participant "repoDevice:RepositoryDevice" as RepositoryDevice
 end box
 
 box "Assembler" #LightCyan
-participant "DeviceTypeAssembler" as DeviceTypeAssembler
-
-participant "deviceTypeDTO : DeviceType2StringDTO" as DeviceType2StringDTO
-
 participant "DeviceAssembler" as DeviceAssembler
 
 participant "deviceDTO : DeviceDTO" as DeviceDTO
@@ -35,43 +27,6 @@ autonumber
 User o-> GetAllDevicesGroupedByFunctionalityController: getAllDevicesGroupedByFunctionality()
 
 activate GetAllDevicesGroupedByFunctionalityController
-
-GetAllDevicesGroupedByFunctionalityController -> ServiceDeviceType: getDeviceTypes()
-
-activate ServiceDeviceType
-
-ServiceDeviceType -> RepositoryDeviceType: findAll()
-
-activate RepositoryDeviceType
-
-RepositoryDeviceType --> ServiceDeviceType: deviceTypes
-
-deactivate RepositoryDeviceType
-
-ServiceDeviceType -> DeviceTypeAssembler: deviceType2DTO(deviceTypes)
-
-loop for each deviceType in deviceTypes
-    activate DeviceTypeAssembler
-    create DeviceType2StringDTO
-    DeviceTypeAssembler -> DeviceType2StringDTO: deviceTypeAsString(deviceType)
-
-    activate DeviceType2StringDTO
-
-    DeviceType2StringDTO --> DeviceTypeAssembler: deviceTypeDTO
-
-    deactivate DeviceType2StringDTO
-
-    DeviceTypeAssembler -> DeviceTypeAssembler: addDeviceTypeDTOToList(deviceTypeDTO)
-end
-
-DeviceTypeAssembler --> ServiceDeviceType: deviceTypeDTOList
-
-deactivate DeviceTypeAssembler
-
-ServiceDeviceType --> GetAllDevicesGroupedByFunctionalityController : deviceTypeDTOList
-
-deactivate ServiceDeviceType
-
 
 
 GetAllDevicesGroupedByFunctionalityController -> ServiceDevice : getDevices()
@@ -111,7 +66,7 @@ ServiceDevice --> GetAllDevicesGroupedByFunctionalityController: deviceDTOList
 
 deactivate ServiceDevice
 
-GetAllDevicesGroupedByFunctionalityController -> GetAllDevicesGroupedByFunctionalityController: listDevicesByFunctionality(deviceTypeDTOList, deviceDTOList)
+GetAllDevicesGroupedByFunctionalityController -> GetAllDevicesGroupedByFunctionalityController: listDevicesByFunctionality(deviceDTOList)
 
 GetAllDevicesGroupedByFunctionalityController --> User: deviceDTOsByFunctionality
 
