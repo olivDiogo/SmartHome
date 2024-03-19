@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain;
+package SmartHomeDDD.domain.House;
 
 import SmartHomeDDD.ValueObject.GPS;
 import SmartHomeDDD.ValueObject.Address;

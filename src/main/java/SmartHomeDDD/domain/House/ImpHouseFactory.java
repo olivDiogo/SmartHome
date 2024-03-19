@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain;
+package SmartHomeDDD.domain.House;
 
 import SmartHomeDDD.ValueObject.GPS;
 import SmartHomeDDD.ValueObject.Address;
@@ -10,7 +10,7 @@ import SmartHomeDDD.ValueObject.ZipCode;
  * ensuring that all necessary validations and initializations are performed before
  * a {@link House} object is returned to the caller.
  */
-public class ImpHouseFactory implements HouseFactory{
+public class ImpHouseFactory implements HouseFactory {
 
     /**
      * Creates a new {@link House} instance using the provided address, zip code, and GPS location.
