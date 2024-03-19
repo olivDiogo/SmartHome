@@ -7,36 +7,35 @@
 
 class DeactivateDeviceController {
     -deviceService: DeviceService
-    +requestAllDevices(): DeviceDTOList
+    +requestAllDevices(): List<DeviceDTO>
     +requestDeactivateDevice(deviceID: String): DeviceDTO
 }
 
 class DeviceService {
     -deviceRepository: DeviceRepository
     -deviceAssembler: DeviceAssembler
-    +getAllDevices(): DeviceDTOList
+    -deviceFactory: DeviceFactory
+    -roomRepository: RoomRepository
+    +DeviceService(deviceRepository: DeviceRepository, deviceAssembler: DeviceAssembler, deviceFactory: DeviceFactory, roomRepository: RoomRepository)
+    +getAllDevices(): List<DeviceDTO>
     +deactivateDevice(deviceID: String): DeviceDTO
 }
 
-class DeviceRepository implements IDeviceRepository {
-    -Map<deviceID, Device> devices
+class DeviceRepository {
+    -DATA: Map<deviceID, Device>
     +findAll(): List<Device>
     +findDeviceById(deviceID: String): Device
 }
 
-interface IDeviceRepository {
-    +findAll(): List<Device>
-    +findDeviceById(deviceID: DeviceID): Device
-}
-
 class DeviceAssembler {
-    +deviceList2DTO(deviceList: DeviceList): List<DeviceDTO>
-    +device2DTO(device: Device): DeviceDTO
+    +deviceListToDTO(deviceList: DeviceList): List<DeviceDTO>
+    +deviceToDTO(device: Device): DeviceDTO
 }
 
 
 class DeviceDTO {
     +deviceID: String
+    + deviceName: String
     +status: String
     +DeviceDTO(device: Device)
 }
@@ -55,5 +54,5 @@ DeactivateDeviceController "1" ..> "1" DeviceService: uses >
 DeviceService "1" ..> "1" DeviceRepository: uses >
 DeviceService "1" ..> "1" DeviceAssembler: uses >
 DeviceAssembler "1" ..> "1..*" DeviceDTO: creates >
-DeviceService "1" --> "1" Device: <<deactivate>>
+DeviceService "1" ..> "1" Device: uses
 @enduml
