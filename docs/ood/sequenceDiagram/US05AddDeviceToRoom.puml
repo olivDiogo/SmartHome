@@ -2,19 +2,18 @@
 !pragma layout smetana
 
 
-participant User as User
+participant  " " as User
 
 participant ":AddDeviceToRoomController" as Controller
-participant "serviceRoom:ServiceRoom" as ServiceRoom
-participant "serviceDevice:ServiceDevice" as ServiceDevice
-participant ":RoomAssembler" as RoomAssembler
+participant "roomService:RoomService" as RoomService
+participant "roomAssembler:RoomAssembler" as RoomAssembler
 participant "roomDTO:RoomDTO" as RoomDTO
 participant ":RoomRepository" as RoomRepo
-participant ":DeviceAssembler" as DeviceAssembler
+participant "deviceAssembler:DeviceAssembler" as DeviceAssembler
 participant "deviceDTO:DeviceDTO" as DeviceDTO
-participant ":Device" as Device
-participant ":DeviceService" as Service
-participant ":DeviceFactory" as Factory
+participant "device:Device" as Device
+participant "deviceService:DeviceService" as DeviceService
+participant "deviceFactory:DeviceFactory" as Factory
 participant "device :Device" as Device
 participant ":DeviceRepository" as Repository
 participant ":DeviceAssembler" as DeviceAssembler
@@ -25,19 +24,19 @@ User o-> Controller: getRooms()
 
 activate Controller
 
-Controller -> ServiceRoom: getRooms()
+Controller -> RoomService: getRooms()
 
-activate ServiceRoom
+activate RoomService
 
-ServiceRoom -> RoomRepo: findAll()
+RoomService -> RoomRepo: findAll()
 
 activate RoomRepo
 
-RoomRepo --> ServiceRoom: listRooms
+RoomRepo --> RoomService: listRooms
 
 deactivate RoomRepo
 
-ServiceRoom -> RoomAssembler : room2DTO(roomList)
+RoomService -> RoomAssembler : room2DTO(roomList)
 
 activate RoomAssembler
 
@@ -56,24 +55,24 @@ loop for each room
      RoomAssembler -> RoomAssembler: addRoomDTOToList(roomDTO)
 
 end
-RoomAssembler --> ServiceRoom: listRoomDTO
+RoomAssembler --> RoomService: listRoomDTO
 
 deactivate RoomAssembler
 
-ServiceRoom --> Controller: listRoomDTO
+RoomService --> Controller: listRoomDTO
 
-deactivate ServiceRoom
+deactivate RoomService
 Controller --> User : listRoomDTO
 deactivate Controller
 
 
-User o-> Controller : addDeviceToRoom(roomID, deviceName)
+User o-> Controller : addDeviceToRoom(strRoomID, strDeviceName)
 activate Controller
 
-Controller -> Service : addDevice(roomID,deviceName)
-activate Service
+Controller -> DeviceService : addDevice(strRoomID, strDeviceName)
+activate DeviceService
 
-Service -> Factory : createDevice(roomID,deviceName)
+DeviceService -> Factory : createDevice(roomID,deviceName)
 activate Factory
 
 create Device
@@ -83,18 +82,18 @@ activate Device
 Device --> Factory : device
 
 deactivate Device
-Factory --> Service : device
+Factory --> DeviceService : device
 
 deactivate Factory
-Service -> Repository : save(device)
+DeviceService -> Repository : save(device)
 
 activate Repository
 
-Repository --> Service : boolean
+Repository --> DeviceService : boolean
 deactivate Repository
 
 
-Service -> DeviceAssembler : domain2DTO(device)
+DeviceService -> DeviceAssembler : domain2DTO(device)
 create DeviceDTO
 
 activate DeviceAssembler
@@ -104,12 +103,12 @@ activate DeviceDTO
 DeviceDTO --> DeviceAssembler : deviceDTO
 deactivate DeviceDTO
 
-DeviceAssembler --> Service : deviceDTO
+DeviceAssembler --> DeviceService : deviceDTO
 deactivate DeviceAssembler
 
 
-Service --> Controller : deviceDTO
-deactivate Service
+DeviceService --> Controller : deviceDTO
+deactivate DeviceService
 
 Controller --> User : deviceDTO
 deactivate Controller
