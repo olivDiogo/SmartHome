@@ -2,16 +2,17 @@
 
 participant " "
 participant ":ConfigureHouseLocationController" as ConfigureHouseLocationController
-
 participant ":HouseService" as Service
+participant "address:Address" as Address
+participant "zipCode:ZipCode" as ZipCode
+participant "gps:Gps" as Gps
+participant ":HouseFactory" as Factory
+participant "house:House" as House
 participant ":HouseRepository" as Repository
 participant ":HouseAssembler" as Assembler
 participant "houseDTO:HouseDTO" as DTO
-participant ":HouseFactory" as Factory
-participant "house:House" as House
-participant "address:Address" as Address
-participant "gps:Gps" as Gps
-participant "zipCode:ZipCode" as ZipCode
+
+'----------------------------------------------------------
 
 " " -> ConfigureHouseLocationController : requestconfigureHouseLocation(street, doorNumber, zipCode, latitude, longitude)
 activate ConfigureHouseLocationController
@@ -32,8 +33,6 @@ Service -> Gps: createGps(latitude, longitude)
 activate Gps
 Gps --> Service: gps
 deactivate Gps
-
-
 Service -> Factory : createHouseLocation(address, zipCode, gps)
 activate Factory
 create House
@@ -47,9 +46,7 @@ Service -> Repository : saveHouse(house)
 activate Repository
 Repository -> Service : house
 deactivate Repository
-
-
-Service -> Assembler : assembleHouseLocation(house)
+Service -> Assembler : assemblerHouseLocation(house)
 activate Assembler
 create DTO
 Assembler -> DTO : house2DTO(house)
