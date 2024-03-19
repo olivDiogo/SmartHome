@@ -22,7 +22,7 @@ autonumber
     Repository --> Service: deviceList
     deactivate Repository
 
-    Service -> Assembler: deviceList2DTO(deviceList)
+    Service -> Assembler: deviceListToDTO(deviceList)
     activate Assembler
     loop for each device in deviceList
         create DTO
@@ -41,9 +41,9 @@ autonumber
 
 ' Deactivate device
 
-    User -> Controller: requestDeactivateDevice(deviceID)
+    User -> Controller: requestDeactivateDevice(strDeviceID)
     activate Controller
-    Controller -> Service: deactivateDevice(deviceID)
+    Controller -> Service: deactivateDevice(strDeviceID)
     activate Service
     Service -> Repository: findDeviceById(deviceID)
     activate Repository
@@ -56,12 +56,12 @@ autonumber
    ' This is an internal detail, so the creation/modification of the status value object is not explicitly represented.
    deactivate Device
 
-   Service --> Repository: save(device)
+   /'Service --> Repository: save(device)
    ' Updated to save the whole device, reflecting the change in status.
    activate Repository
    Repository --> Service: device
    ' The Repository confirms the save operation, potentially returning a status or acknowledgment.
-   deactivate Repository
+   deactivate Repository'/
 
 
     Service -> Assembler: device2DTO(device)
