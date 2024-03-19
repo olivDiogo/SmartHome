@@ -1,68 +1,66 @@
 @startuml
 
 participant " "
-box "Controller" #LightBlue
 participant ":ConfigureHouseLocationController" as ConfigureHouseLocationController
-end box
-box "Service" #LightGreen
+
 participant ":HouseService" as Service
-end box
-box "Assembler" #LightCyan
-participant ":LocationAssembler" as Assembler
-end box
+participant ":HouseRepository" as Repository
+participant ":HouseAssembler" as Assembler
+participant "houseDTO:HouseDTO" as DTO
+participant ":HouseFactory" as Factory
+participant "house:House" as House
+participant "address:Address" as Address
+participant "gps:Gps" as Gps
+participant "zipCode:ZipCode" as ZipCode
 
-autonumber
-" " o-> ConfigureHouseLocationController : ConfigureHouseLocation()
+" " -> ConfigureHouseLocationController : requestconfigureHouseLocation(street, doorNumber, zipCode, latitude, longitude)
+activate ConfigureHouseLocationController
+ConfigureHouseLocationController -> Service : createHouseLocation(street, doorNumber, zipCode, latitude, longitude)
+activate Service
+create Address
+Service -> Address: createAddress(street, doorNumber)
+activate Address
+Address --> Service: address
+deactivate Address
+create ZipCode
+Service -> ZipCode: createZipCode(zipCode)
+activate ZipCode
+ZipCode --> Service: zipCode
+deactivate ZipCode
+create Gps
+Service -> Gps: createGps(latitude, longitude)
+activate Gps
+Gps --> Service: gps
+deactivate Gps
 
-activate "ConfigureHouseLocationController"
 
-ConfigureHouseLocationController -> "Service" : new location(street,zipCode, doorNumber, latitude, longitude)
-activate "Service"
-Service --> "ConfigureHouseLocationController" : _house
-deactivate "Service"
-create LocationFactory
-"ConfigureHouseLocationController" -> "LocationFactory" : createLocation(street,zipCode, doorNumber, latitude, longitude)
-create Location
-activate "LocationFactory"
-"LocationFactory" -> "Location" : new Location(street, zipCode, doorNumber, latitude, longitude, new AddressFactory(), new GpsFactory())
+Service -> Factory : createHouseLocation(address, zipCode, gps)
+activate Factory
+create House
+Factory -> House: createHouse(address, zipCode, gps)
+activate House
+House --> Factory: house
+deactivate House
+Factory --> Service: house
+deactivate Factory
+Service -> Repository : saveHouse(house)
+activate Repository
+Repository -> Service : house
+deactivate Repository
 
-activate "Location"
-create AddressFactory
-Location -> "AddressFactory" : createAddress
-activate "AddressFactory"
-"AddressFactory" --> "Location" : newAddressFactory
-deactivate "AddressFactory"
-create GpsFactory
-Location -> "GpsFactory" : createGps
-activate "GpsFactory"
-"GpsFactory" --> "Location" : newGpsFactory
-deactivate "GpsFactory"
-Location --> "LocationFactory" : Location
-deactivate "Location"
-"LocationFactory" --> "LocationFactory" : newLocation
-"LocationFactory" --> "Assembler" : locationDTO(newLocation)
-deactivate "LocationFactory"
+
+Service -> Assembler : assembleHouseLocation(house)
 activate Assembler
-
-"Assembler" --> "Service" : locationDTO(newLocation)
+create DTO
+Assembler -> DTO : house2DTO(house)
+activate DTO
+DTO --> Assembler : houseDTO
+deactivate DTO
+Assembler --> Service : houseDTO
 deactivate Assembler
-activate "Service"
-"Service" --> "ConfigureHouseLocationController" : locationDTO()
+Service --> ConfigureHouseLocationController : houseDTO
 deactivate Service
-ConfigureHouseLocationController --> " " : locationDTO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+" " <-- ConfigureHouseLocationController : houseDTO
+deactivate ConfigureHouseLocationController
 
 @enduml
