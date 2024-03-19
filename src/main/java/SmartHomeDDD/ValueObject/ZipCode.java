@@ -47,6 +47,10 @@ public class ZipCode implements ValueObject {
         return _zipCodeSuffix;
     }
 
+    @Override
+    public String toString() {
+        return _zipCodePrefix + "-" + _zipCodeSuffix;
+    }
 
 
 }

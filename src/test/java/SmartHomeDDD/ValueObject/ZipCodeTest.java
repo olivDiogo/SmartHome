@@ -189,4 +189,21 @@ public class ZipCodeTest {
         //Assert
         assertEquals(zipCodeSuffix, actualZipCodeSuffix);
     }
+
+    @Test
+    void toStringShouldReturnTheZipCodeString() {
+        //Arrange
+        int zipCodePrefix = 4450;
+        int zipCodeSuffix = 123;
+
+        ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+        String expected = "4450-123";
+
+        //Act
+        String actualZipCodeString = zipCode.toString();
+
+
+        //Assert
+        assertEquals(expected, actualZipCodeString);
+    }
 }
