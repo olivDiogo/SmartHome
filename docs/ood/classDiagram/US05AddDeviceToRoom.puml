@@ -3,16 +3,16 @@
 
 class Device {
   - _id: deviceID
-  - _description: Description
+  - _name: DeviceName
   - _roomID: RoomID
-  + Device(id: DeviceID, description: Description, houseID: HouseID)
+  + Device(name: DeviceName, houseID: HouseID)
   + getId(): string
   + getDescription(): Description
   + getRoomID(): RoomID
   }
 
 class DeviceFactory {
-  + createNewDevice(id: DeviceID, description: Description, houseID: HouseID): Device
+  + createNewDevice(id: DeviceID, name: DeviceName, roomID: RoomID): Device
   }
 
 class DeviceRepository {
@@ -23,7 +23,8 @@ class DeviceService {
   - _deviceRepository: DeviceRepository
   - _deviceFactory: DeviceFactory
   - _deviceAssembler: DeviceAssembler
-    + DeviceService(deviceRepository: DeviceRepository, deviceFactory: DeviceFactory, deviceAssembler: DeviceAssembler)
+  - _roomRepository: RoomRepository
+    + DeviceService(roomRepository: RoomRepository, deviceRepository: DeviceRepository, deviceFactory: DeviceFactory, deviceAssembler: DeviceAssembler)
   + addDevice(strDeviceName: String, strRoomId: String): DeviceDTO
   }
 
@@ -31,7 +32,8 @@ class DeviceService {
   - _roomRepository: RoomRepository
   - _roomAssembler: RoomAssembler
   - _roomFactory: RoomFactory
-  + RoomService(roomRepository: RoomRepository, roomAssembler: RoomAssembler, roomFactory: RoomFactory)
+  - _houseRepository: HouseRepository
+  + RoomService(houseRepository: HouseRepository, roomRepository: RoomRepository, roomAssembler: RoomAssembler, roomFactory: RoomFactory)
   + getRooms() : List<Room>
   }
 
@@ -42,22 +44,20 @@ class RoomRepository {
 
 class RoomAssembler {
     +RoomAssembler()
-    +room2DTO(rooms: List<Room>): List<RoomDTO>
+    +roomToDTO(rooms: List<Room>): List<RoomDTO>
 }
 
 class RoomDTO {
     + id: string
     + name: string
-    + houseID: string
     + RoomDTO(room: Room)
 }
 
 class AddDeviceToRoomController {
   - _deviceService: DeviceService
   - _roomService: RoomService
-  + AddDeviceToRoomController(deviceService: DeviceService)
-  + createNewDevice(roomID: String, deviceName: String): DeviceDTO
-  + addDeviceToRepository(): boolean
+  + AddDeviceToRoomController(roomService: RoomService, deviceService: DeviceService)
+  + addDeviceToRoom(roomID: String, deviceName: String): DeviceDTO
   + getAllRooms(): List<RoomDTO>
   }
 class DeviceDTO {
