@@ -59,7 +59,7 @@ autonumber
    Service --> Repository: save(device)
    ' Updated to save the whole device, reflecting the change in status.
    activate Repository
-   Repository --> Service: confirmation/status
+   Repository --> Service: device
    ' The Repository confirms the save operation, potentially returning a status or acknowledgment.
    deactivate Repository
 
