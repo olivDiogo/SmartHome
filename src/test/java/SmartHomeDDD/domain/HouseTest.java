@@ -92,6 +92,63 @@ class HouseTest {
     }
 
     /**
+     * Tests that the {@link House#getAddress()} method returns the correct Address of the instantiated House.
+     * This test verifies that the Address is properly set during House construction.
+     */
+    @Test
+    void shouldReturnAddressWhenGetAddressIsCalled(){
+        // Arrange
+        Address address = mock(Address.class);
+        ZipCode zipCode = mock(ZipCode.class);
+        GPS gps = mock(GPS.class);
+        House house = new House(address, zipCode, gps);
+
+        // Act
+        Address result = house.getAddress();
+
+        // Assert
+        assertEquals(address, result);
+    }
+
+    /**
+     * Tests that the {@link House#getZipCode()} method returns the correct ZipCode of the instantiated House.
+     * This test verifies that the ZipCode is properly set during House construction.
+     */
+    @Test
+    void shouldReturnZipCodeWhenGetZipCodeIsCalled(){
+        // Arrange
+        Address address = mock(Address.class);
+        ZipCode zipCode = mock(ZipCode.class);
+        GPS gps = mock(GPS.class);
+        House house = new House(address, zipCode, gps);
+
+        // Act
+        ZipCode result = house.getZipCode();
+
+        // Assert
+        assertEquals(zipCode, result);
+    }
+
+    /**
+     * Tests that the {@link House#getGps()} method returns the correct GPS of the instantiated House.
+     * This test verifies that the GPS is properly set during House construction.
+     */
+    @Test
+    void shouldReturnGpsWhenGetGpsIsCalled(){
+        // Arrange
+        Address address = mock(Address.class);
+        ZipCode zipCode = mock(ZipCode.class);
+        GPS gps = mock(GPS.class);
+        House house = new House(address, zipCode, gps);
+
+        // Act
+        GPS result = house.getGps();
+
+        // Assert
+        assertEquals(gps, result);
+    }
+
+    /**
      * Confirms that two House instances with mocked HouseID values to be the same are considered equal.
      * This test utilizes mocking of the HouseID class to simulate identical IDs.
      */

@@ -91,6 +91,33 @@ public class House implements AggregateRoot<HouseID> {
     }
 
     /**
+     * Returns the address of the house.
+     *
+     * @return The Address of the house.
+     */
+    public Address getAddress() {
+        return _address;
+    }
+
+    /**
+     * Returns the zip code of the house.
+     *
+     * @return The ZipCode of the house.
+     */
+    public ZipCode getZipCode() {
+        return _zipCode;
+    }
+
+    /**
+     * Returns the GPS coordinates of the house.
+     *
+     * @return The GPS coordinates of the house.
+     */
+    public GPS getGps() {
+        return _gps;
+    }
+
+    /**
      * Checks if this House instance is equal to another object.
      * Equality is based solely on the unique identifier of the house (_houseID).
      * This method overrides the {@link Object#equals(Object)} method.
