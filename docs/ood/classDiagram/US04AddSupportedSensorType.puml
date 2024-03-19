@@ -17,19 +17,21 @@ class SensorTypeFactory<<Factory>> {
 
 class SensorTypeRepository<<Repository>> {
   - _map<ID, SensorType> sensorTypes
-  + addSensorTypeToRepository(sensorType: SensorType): SensorType
+  + save(sensorType: SensorType): SensorType
   }
 class SensorTypeService<<Service>> {
-  + createNewSensorType(name: String, untis: String): SensorType
-  + getSupportedUnits(): string[]
+    - _sensorTypeRepository: SensorTypeRepository
+    - _sensorTypeFactory: SensorTypeFactory
+    - _sensorTypeAssembler: SensorTypeAssembler
+  + SensorTypeService(sensorTypeRepository: SensorTypeRepository, sensorTypeFactory: SensorTypeFactory, sensorTypeAssembler: SensorTypeAssembler)
+  + addSensorType(name: String, unit: String, sensorTypeFactory: SensorTypeFactory): SensorType
+  + getAllSupportedUnits(): List<String>
   }
 class AddSensorTypeController<<Controller>> {
   - _sensorTypeService: SensorTypeService
-  - _sensorTypeDTO: SensorTypeDTO
   + AddSensorTypeController(SensorTypeService: sensorTypeService)
-  + getSupportedUnits(): string[]
-  + createNewSensorType(SensorTypeDTO: sensorTypeDTO): SensorTypeDTO
-  + addSensorTypeToRepository(SensorTypeDTO: sensorTypeDTO): SensorTypeDTO
+  + getSupportedUnits(): List<String>
+  + createNewSensorType(name: String, unit: String): SensorTypeDTO
   }
 class SensorTypeDTO<<DTO>> {
 + id: string
@@ -38,17 +40,25 @@ class SensorTypeDTO<<DTO>> {
 + SensorTypeDTO(sensorType: SensorType)
 }
 class SensorTypeAssembler<<Assembler>> {
-  + toDTO(sensorType: SensorType): SensorTypeDTO
+  + domainToDTO(sensorType: SensorType): SensorTypeDTO
   }
 
+enum Unit <<enum>> {
++ TEMPERATURE
++ HUMIDITY
+...
++ getAll(): string[]
+}
 
-SensorTypeRepository -down-> SensorType: has
-SensorTypeService -down-> SensorTypeFactory: has
-SensorTypeService -down-> SensorTypeRepository: has
-SensorTypeFactory .down.> SensorType: creates
-AddSensorTypeController -down-> SensorTypeService: uses
-SensorTypeService .down.> SensorTypeAssembler: uses
-SensorTypeAssembler .up.> SensorTypeDTO: creates
+
+SensorTypeRepository"1" -down-> "*"SensorType: has
+SensorTypeService"1" .down.> "1"SensorTypeFactory: uses
+SensorTypeService"1" .down.> "1"Unit: uses
+SensorTypeService"1" .down.> "1"SensorTypeRepository: uses
+SensorTypeFactory"1" .down.> "1..*"SensorType: creates
+AddSensorTypeController"1" .down.> "1"SensorTypeService: uses
+SensorTypeService"1" .down.> "1"SensorTypeAssembler: uses
+SensorTypeAssembler"1" .up.> "1"SensorTypeDTO: creates
 
 
 

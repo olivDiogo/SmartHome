@@ -1,44 +1,60 @@
 @startuml
-participant "  " as User
+!pragma layout smetana
+autonumber
+
+actor "  " as User
 participant ":AddSensorTypeController" as Controller
-participant "Unit" as Unit
 participant ":SensorTypeService" as Service
-participant ":SensorTypeFactory" as SensorTypeFactory
-participant "sensortype:SensorType" as SensorType
-participant "SensorTypeAssembler" as SensorTypeAssembler
-participant "sensorTypeDTO:SensorTypeDTO" as SensorTypeDTO
+participant ":Unit" as Unit
+participant ":SensorTypeFactory" as Factory
+participant "sensorType:SensorType" as Type
+participant ":SensorTypeRepository" as Repository
+participant ":SensorTypeAssembler" as Assembler
+participant "sensorTypeDTO:SensorTypeDTO" as DTO
 
-User o-> Controller: 1: createSensorType()
+User o-> Controller: createSensorType()
 activate Controller
-Controller -> Unit: 1.1: getAllSupportedUnits()
-activate Unit
-Unit --> Controller: 1.2: units
-deactivate Unit
-Controller --> User: 1.3: units
-User -> Controller: 2: createSensorType(String name, String units)
-Controller -> Service: 2.1: createSensorType(String name, String units)
+Controller -> Service: getAllSupportedUnits()
 activate Service
-activate SensorTypeFactory
-Service -> SensorTypeFactory: 2.1.1: addSensorType(String name, String units)
-create SensorType
-SensorTypeFactory -> SensorType: 2.1.2: createSensorType(String name, String units)
-activate SensorType
-SensorType --> SensorTypeFactory: 2.1.3: sensorType
-deactivate SensorType
-SensorTypeFactory --> Service: 2.1.4: sensorType
-deactivate SensorTypeFactory
-Service -> SensorTypeAssembler: 2.2: domainToDTO(sensorType)
-
-activate SensorTypeAssembler
-create SensorTypeDTO
-SensorTypeAssembler -> SensorTypeDTO: 2.2.1: domainToDTO(sensorType)
-activate SensorTypeDTO
-SensorTypeDTO --> SensorTypeAssembler: 2.2.2: sensorTypeDTO
-deactivate SensorTypeDTO
-SensorTypeAssembler --> Service: 2.2.3: sensorTypeDTO
-Service --> Controller: 2.2.4: sensorTypeDTO
+Service -> Unit: getAll()
+activate Unit
+Unit --> Service: units
+deactivate Unit
+Service --> Controller: units
 deactivate Service
-deactivate SensorTypeAssembler
-Controller --> User: 2.2.5: sensorTypeDTO
+Controller --> User: units
+deactivate Controller
+User o-> Controller: createSensorType(String name, String units)
+
+'------------------------------------------------------------------'
+activate Controller
+Controller -> Service: createSensorType(String name, String units)
+activate Service
+Service -> Factory: addSensorType(String name, Unit unit)
+activate Factory
+create Type
+Factory -> Type: createSensorType(String name, Unit unit)
+activate Type
+Type --> Factory: sensorType
+deactivate Type
+Factory --> Service: sensorType
+deactivate Factory
+Service -> Repository: save(sensorType)
+activate Repository
+Repository -> Service: sensorType
+deactivate Repository
+Service -> Assembler: domainToDTO(sensorType)
+activate Assembler
+create DTO
+Assembler -> DTO: domainToDTO(sensorType)
+activate DTO
+DTO --> Assembler: sensorTypeDTO
+deactivate DTO
+Assembler --> Service: sensorTypeDTO
+deactivate Assembler
+Service --> Controller: sensorTypeDTO
+deactivate Service
+Controller --> User: sensorTypeDTO
+deactivate Controller
 
 @enduml
