@@ -25,6 +25,7 @@ class DeviceRepository {
     -DATA: Map<deviceID, Device>
     +findAll(): List<Device>
     +findDeviceById(deviceID: String): Device
+    +save(device: Device): Device
 }
 
 class DeviceAssembler {

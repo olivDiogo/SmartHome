@@ -6,9 +6,10 @@ participant  " " as User
 
 participant ":AddDeviceToRoomController" as Controller
 participant "roomService:RoomService" as RoomService
+participant ":RoomRepository" as RoomRepo
+
 participant "roomAssembler:RoomAssembler" as RoomAssembler
 participant "roomDTO:RoomDTO" as RoomDTO
-participant ":RoomRepository" as RoomRepo
 participant "deviceAssembler:DeviceAssembler" as DeviceAssembler
 participant "deviceDTO:DeviceDTO" as DeviceDTO
 participant "device:Device" as Device
@@ -36,7 +37,7 @@ RoomRepo --> RoomService: listRooms
 
 deactivate RoomRepo
 
-RoomService -> RoomAssembler : room2DTO(roomList)
+RoomService -> RoomAssembler : roomToDTO(roomList)
 
 activate RoomAssembler
 
@@ -44,7 +45,7 @@ loop for each room
 
     create RoomDTO
 
-    RoomAssembler -> RoomDTO: createRoom2DTO (room)
+    RoomAssembler -> RoomDTO: domainToDTO (room)
 
      activate RoomDTO
 
@@ -89,7 +90,7 @@ DeviceService -> Repository : save(device)
 
 activate Repository
 
-Repository --> DeviceService : boolean
+Repository --> DeviceService : device
 deactivate Repository
 
 
