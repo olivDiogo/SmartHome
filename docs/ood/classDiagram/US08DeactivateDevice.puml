@@ -43,7 +43,11 @@ class DeviceDTO {
 
 class Device<<entity>><<root>> {
     -deviceID: DeviceID
+    -roomID: RoomID
+    -deviceType: DeviceType
+    -deviceName: DeviceName
     -status: DeviceStatus
+    +Device(roomID: RoomID, deviceType: DeviceType, deviceName: DeviceName, status: DeviceStatus)
     +deactivate(): void
 }
 
