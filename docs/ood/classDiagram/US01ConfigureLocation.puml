@@ -4,49 +4,42 @@
 top to bottom direction
 skinparam linetype ortho
 
-class HouseService <<Service>>{
-    -_locationFactory: LocationFactory
-    -_roomFactory: RoomFactory
-    -_location: Location
-    -_rooms: List<Room>
-    +House()
-    +configureLocation():Location
-    +addRoom():Room
-    +addRoomToList():Room
-    +getRooms():List<Room>
-    +getAllDevices():List<Device>
-}
-class Location{
-    -_addressFactory: AddressFactory
-    -_gpsFactory: GPSFactory
-    -_address: Address
-    -_gpsLocation: GPS
-    +Location()
-    +getAddress():Address
-    +getGpsLocation():GPS
-    +toString(): String
-}
-class LocationDTO<<DTO>>{
-    +_address: String
-    +_gps: String
-    +LocationDTO()
-    *toString():String
-}
 class ConfigureHouseLocation<<Controller>>{
-    -_house: House
-    +ConfigureHouseLocation()
-    +configureLocation():LocationDTO
+    -_houseService: HouseService
+    +createHouseLocation(address, zipcode, gps):HouseService
+
 }
-class LocationFactory<<Factory>>{
-    +createLocation():Location
+class HouseFactory<<Factory>>{
+    +createHouse(address, zipcode, gps):House
 }
-class LocationAssembler<<Assembler>>{
-    +domain2DTO():LocationDTO
+class HouseService <<Service>>{
+    -_houseFactory: HouseFactory
+    -_houseAssembler: HouseAssembler
+    -_houseRepository: HouseRepository
+    +createHouseLocation(address, zipcode, gps):Location
+    +createHouse():HouseService
+    +createAddress(street, doorNumber): String
+    +createGps(latitude, longitude): String
+    +createZipCode(): Int
+
+}
+class HouseDTO<<DTO>>{
+    - _houseDTO: HouseDTO
+    +address.tostring(): String
+    +gps.toString: String
+    +zipCode.toString(): String
+}
+class HouseAssembler<<Assembler>>{
+    +domain2DTO():HouseDTO
+}
+class HouseRepository<<Repository>>{
+    +saveHouse():House
+    +getHouse():House
 }
 
 ConfigureHouseLocation "1" -down-> "1" HouseService: uses
-HouseService "1" -left-> "1" LocationFactory : has >
-LocationFactory "1" --[#595959,plain] "1" Location : creates
-LocationAssembler "1" --[#595959,plain] "1" LocationDTO : has >
-Location "1" -right-> "1" LocationAssembler : has >
+HouseService "1" -left-> "1" HouseFactory : has >
+HouseService "1" --[#595959,plain] "1" HouseAssembler : creates
+HouseAssembler "1" --[#595959,plain] "1" HouseDTO : has >
+HouseService "1" -right-> "1" HouseRepository : has >
 @enduml
