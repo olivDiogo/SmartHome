@@ -4,15 +4,16 @@
 class AddRoomController<<Controller>> {
 - _roomService: RoomService
 +AddRoomToHouseController(roomService:RoomService)
-+CreateRoom(houseID: String):RoomDTO
++CreateRoom(houseID: String, name: String, description: String, int floor, double width, double length, double height):RoomDTO
 }
 
 class RoomService <<Service>>{
 - _roomRepository: RoomRepository
 - _roomFactory: RoomFactory
 - _roomAssembler: RoomAssembler
-+RoomService(roomRepository:RoomRepository, roomFactory:RoomFactory, roomAssembler:RoomAssembler)
-+addRoom(houseID:String, roomDescription:Description): RoomDTO
+- _houseRepository: HouseRepository
++RoomService(roomRepository:RoomRepository, roomFactory:RoomFactory, roomAssembler:RoomAssembler, houseRepository:HouseRepository)
++addRoom(houseID: String, name: String, description: String, int floor, double width, double length, double height): RoomDTO
 }
 
 class RoomRepository <<Repository>>{
@@ -21,36 +22,39 @@ class RoomRepository <<Repository>>{
 }
 
 class RoomFactory <<Factory>>{
-+createRoom(roomDescription:Description):Description
++createRoom(houseID: HouseID, name: RoomName, dimensions: Dimensions, floor: Floor):Description
 }
 
 class RoomAssembler <<Assembler>>{
-+domain2DTO(room:Room):RoomDTO
++domainToDTO(room:Room):RoomDTO
 }
 
 class RoomDTO <<DTO>>{
-+ _roomID: String
-+ _description: String
++ _name: String
++ _floor: String
++ _dimensions: String
 +RoomDTO(room:Room))
 }
 
 class Room <<Entity>>{
-- _id: RoomID
-- _description: Description
+- _houseID: HouseID
+- _roomID: RoomID
+- _roomName: RoomName
 - _dimensions: Dimensions
 - _floor: Floor
-+Room(roomID: RoomID, description: Description, dimensions: Dimensions, floor: Floor)
++Room(houseID: HouseID, name: RoomName, dimensions: Dimensions, floor: Floor)
 +getID(): String
-+getDescription(): String
++getRoomName(): String
 +getDimensions(): Dimensions
 +getFloor(): Floor
++getHouseID(): HouseID
 }
 
 
 AddRoomController "1" .down.> "1" RoomService: uses
-RoomService "1" -down-> "1" RoomFactory: has
-RoomService "1" -right-> "1" RoomRepository: has
-RoomRepository "1" -left-> "1" Room: has
+RoomService "1" .down.> "1" RoomFactory: uses
+RoomService "1" .right.> "1" RoomRepository: uses
+RoomRepository "1" -left-> "1..*" Room: has
 RoomService "1" .left.> "1" RoomAssembler: uses
 RoomAssembler "1" .down.> "1" RoomDTO: creates
 RoomFactory "1" .down.> "1" Room: creates
