@@ -3,34 +3,36 @@
 !pragma layout smetana
 autonumber
 
-participant "User" as User
-participant ":AddRoom " as Controller
+participant " " as User
+participant ":AddRoomController" as Controller
 participant "serviceRoom:ServiceRoom" as Service
-participant "RoomFactory" as Factory
-participant "room :Room" as Device
-participant "RoomRepository" as Repository
-participant "RoomAssembler" as Assembler
+participant ":RoomFactory" as Factory
+participant "room :Room" as Room
+participant ":RoomRepository" as Repository
+participant ":RoomAssembler" as Assembler
 participant "roomDTO :RoomDTO" as DTO
 
-User o-> Controller: AddRoom(name: String, description: String)
+User o-> Controller: addRoom(houseID: String, name: String, description: String, int floor, double width, double length, double height)
 activate Controller
-Controller -> Service: addRoom(name: String, description: String)
+Controller -> Service: addRoom(houseID: String, name: String, description: String, int floor, double width, double length, double height)
 activate Service
-Service -> Factory: createRoom(name: String, description: String)
+Service -> Factory: createRoom(houseID: HouseID, name: RoomName, dimensions: Dimensions, floor: Floor)
 activate Factory
-Factory -> Device: Room(roomID: RoomID, description: Description, dimensions: Dimensions, floor: Floor)
-activate Device
-Device --> Factory: room
-deactivate Device
+create Room
+Factory -> Room: createRoom(houseID: HouseID, name: RoomName, dimensions: Dimensions, floor: Floor)
+activate Room
+Room --> Factory: room
+deactivate Room
 Factory --> Service: room
 deactivate Factory
 Service -> Repository: save(room)
 activate Repository
 Repository --> Service : room
 deactivate Repository
-Service -> Assembler: Room2DTO(room)
+Service -> Assembler: roomToDTO(room)
 activate Assembler
-Assembler -> DTO: createRoomDTO(room)
+create DTO
+Assembler -> DTO: domainToDTO(room)
 activate DTO
 DTO --> Assembler: roomDTO
 deactivate DTO
