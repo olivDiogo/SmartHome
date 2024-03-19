@@ -9,53 +9,11 @@ _The sensor type will be used for by the sensor to verify it's of supported typo
 ### 1.1. System Sequence Diagram
 ![System Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ooa/systemSequenceDiagram/US04AddSupportedSensorType.png)
 
-### 1.2. Use Case description
-_Add a new sensor type_
-    
-        Use Case Name: Add a new sensor type
-    
-        Actor: Administrator
-    
-        Goal: The administrator wants to add a new sensor type to the system.
-    
-        Preconditions:
-        The administrator has access to the sensor management interface within the system.
-        The system has a mechanism for storing sensor type definitions.
-
-        Trigger: The administrator selects the option to add a new sensor type.
-    
-        Basic Flow:
-        The administrator selects the option to add a new sensor type.
-        The system prompts the administrator to choose the sensor type measuring unit.
-        The system prompts the administrator to input the sensor type description.
-        The system prompts the administrator to confirm that the sensor type is correctly defined.
-        The system adds the new sensor type to the system.
-    
-        Alternative Flows:
-        Invalid sensor type description: If the administrator enters an invalid sensor type description, the system displays an appropriate error message and prompts the administrator to re-enter the sensor type description.
-        Invalid sensor type measuring unit: If the administrator enters an invalid sensor type measuring unit, the system displays an appropriate error message and prompts the administrator to re-enter the sensor type measuring unit.
-        
-        Postconditions:
-        The new sensor type is added to the system.
 ### 1.3. Dependency of another user story
 _At present this US has no dependency on another user story_
 
 ### 1.4. Relevant domain model aggregates
 ![SensorType](../ooa/agreggateModels/sensorTypeAggregate.png)
-
-### 1.5. Required classes
-_SensorType_ -> for the sensor type definition
-
-_SensorTypeRepository_ -> for the sensor type storage
-
-_SensorTypeService_ -> for the sensor type management
-
-_SensorTypeController_ -> for the sensor type management interface
-
-_SensorTypeAssembler_ -> for the sensor type data transfer object management
-
-_SensorTypeDTO_ -> for the sensor type data transfer object
-
 
 ## 2. Design
 _The team will design the best way to implement the requirements._
@@ -71,13 +29,11 @@ _The team will design the best way to implement the requirements._
 
 ## 3. Tests
 _The team will design the best way to test the requirements._
-### 3.1. Integration Tests
+
 - Should add sensorType with valid description
 - Should throw exception if sensorType already exists
 - Should throw exception if unit not supported
 - Should ask for confirmation before adding supported type
-
-### 3.2. Acceptance Tests
 - The sensor type description cannot be null or empty
 - The sensor type description should only use letters and numbers
 - The supported units must be from a given list
