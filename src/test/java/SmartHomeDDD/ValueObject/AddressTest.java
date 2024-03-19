@@ -2,7 +2,7 @@ package SmartHomeDDD.ValueObject;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddressTest {
@@ -127,4 +127,150 @@ public class AddressTest {
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
         assertEquals("Invalid door number", exception.getMessage());
     }
+
+    @Test
+    void shouldReturnTrueEqualsWithSameObject() {
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        Address address = new Address(street, doorNumber);
+
+        //Act
+        boolean isEquals = address.equals(address);
+
+        //Assert
+        assertTrue(isEquals);
+    }
+
+    @Test
+    void shouldReturnFalseEqualsWithNull() {
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        Address address = new Address(street, doorNumber);
+
+        //Act
+        boolean isEquals = address.equals(null);
+
+        //Assert
+        assertFalse(isEquals);
+    }
+
+    @Test
+    void shouldReturnTrueEqualsWithSameStreet(){
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        Address address1 = new Address(street, doorNumber);
+        Address address2 = new Address(street, doorNumber);
+
+        //Act
+        boolean isEquals = address1.equals(address2);
+
+        //Assert
+        assertTrue(isEquals);
+    }
+
+    @Test
+    void shouldReturnFalseWithDifferentStreet(){
+        //Arrange
+        String street1 = "Isep Street 2";
+        String street2 = "Isep Street 3";
+        String doorNumber = "12 A";
+        Address address1 = new Address(street1, doorNumber);
+        Address address2 = new Address(street2, doorNumber);
+
+        //Act
+        boolean isEquals = address1.equals(address2);
+
+        //Assert
+        assertFalse(isEquals);
+    }
+
+    @Test
+    void shouldReturnTrueEqualsWithSameDoorNumber(){
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        Address address1 = new Address(street, doorNumber);
+        Address address2 = new Address(street, doorNumber);
+
+        //Act
+        boolean isEquals = address1.equals(address2);
+
+        //Assert
+        assertTrue(isEquals);
+    }
+
+    @Test
+    void shouldReturnFalseWithDifferentDoorNumber(){
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber1 = "12 A";
+        String doorNumber2 = "12 B";
+        Address address1 = new Address(street, doorNumber1);
+        Address address2 = new Address(street, doorNumber2);
+
+        //Act
+        boolean isEquals = address1.equals(address2);
+
+        //Assert
+        assertFalse(isEquals);
+    }
+
+    @Test
+    void shouldReturnSameStreet(){
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        Address address = new Address(street, doorNumber);
+
+        //Act
+        String actualStreet = address.getStreet(street);
+
+        //Assert
+        assertEquals(street, actualStreet);
+    }
+
+    @Test
+    void shouldReturnDifferentStreet(){
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        Address address = new Address(street, doorNumber);
+
+        //Act
+        String actualStreet = address.getStreet("Isep Street 3");
+
+        //Assert
+        assertNotEquals(street, actualStreet);
+    }
+    @Test
+    void shouldReturnSameDoorNumber(){
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        Address address = new Address(street, doorNumber);
+
+        //Act
+        String actualDoorNumber = address.getDoorNumber(doorNumber);
+
+        //Assert
+        assertEquals(doorNumber, actualDoorNumber);
+    }
+
+    @Test
+    void shouldReturnDifferentDoorNumber(){
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        Address address = new Address(street, doorNumber);
+
+        //Act
+        String actualDoorNumber = address.getDoorNumber("12 B");
+
+        //Assert
+        assertNotEquals(doorNumber, actualDoorNumber);
+    }
+
 }
