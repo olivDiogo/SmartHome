@@ -6,6 +6,9 @@ import static org.junit.Assert.*;
 
 public class ZipCodeTest {
 
+    /**
+     * Tests the correct instantiation of ZipCode constructor.
+     */
     @Test
     void shouldReturnExpectedZipCodeWhenGivenValidParameters() {
         //Arrange
@@ -17,6 +20,9 @@ public class ZipCodeTest {
 
     }
 
+    /**
+     * Test ZipCode constructor with zip code prefix less than 1000.
+     */
     @Test
     void shouldThrowExceptionWhenZipCodePrefixIsLessThan1000() {
         //Arrange
@@ -28,6 +34,9 @@ public class ZipCodeTest {
         assertEquals("Invalid zip code prefix", exception.getMessage());
     }
 
+    /**
+     * Test ZipCode constructor with zip code prefix greater than 9999.
+     */
     @Test
     void shouldThrowExceptionWhenZipCodePrefixIsGreaterThan9999() {
         //Arrange
@@ -39,6 +48,9 @@ public class ZipCodeTest {
         assertEquals("Invalid zip code prefix", exception.getMessage());
     }
 
+    /**
+     * Test ZipCode constructor with zip code suffix less than 100.
+     */
     @Test
     void shouldThrowExceptionWhenZipCodeSuffixIsLessThan100() {
         //Arrange
@@ -50,6 +62,9 @@ public class ZipCodeTest {
         assertEquals("Invalid zip code suffix", exception.getMessage());
     }
 
+    /**
+     * Test ZipCode constructor with zip code suffix greater than 999.
+     */
     @Test
     void shouldThrowExceptionWhenZipCodeSuffixIsGreaterThan999() {
         //Arrange
@@ -61,6 +76,9 @@ public class ZipCodeTest {
         assertEquals("Invalid zip code suffix", exception.getMessage());
     }
 
+    /**
+     * Test if ZipCode is not equal to null.
+     */
     @Test
     void shouldReturnFalseEqualsWithNull() {
         //Arrange
@@ -76,6 +94,9 @@ public class ZipCodeTest {
         assertFalse(isEquals);
     }
 
+    /**
+     * Test if ZipCode is equal to itself.
+     */
     @Test
     void shouldReturnTrueEqualsWithSameObject() {
         //Arrange
@@ -91,6 +112,9 @@ public class ZipCodeTest {
         assertTrue(isEquals);
     }
 
+    /**
+     * Test if ZipCode is equal to another ZipCode with same zip code prefix.
+     */
     @Test
     void shouldReturnTrueEqualsWithSameZipCodePrefix() {
         //Arrange
@@ -108,6 +132,9 @@ public class ZipCodeTest {
         assertTrue(isEquals);
     }
 
+    /**
+     * Test if ZipCode is not equal to another ZipCode with different zip code prefix.
+     */
     @Test
     void shouldReturnFalseWithDifferentZipCodePrefix() {
         //Arrange
@@ -125,6 +152,9 @@ public class ZipCodeTest {
         assertFalse(isEquals);
     }
 
+    /**
+     * Test if ZipCode is equal to another ZipCode with same zip code suffix.
+     */
     @Test
     void shouldReturnTrueEqualsWithSameZipCodeSuffix() {
         //Arrange
@@ -142,6 +172,9 @@ public class ZipCodeTest {
         assertTrue(isEquals);
     }
 
+    /**
+     * Test if ZipCode is not equal to another ZipCode with different zip code suffix.
+     */
     @Test
     void shouldReturnFalseWithDifferentZipCodeSuffix() {
         //Arrange
@@ -159,7 +192,9 @@ public class ZipCodeTest {
         assertFalse(isEquals);
     }
 
-
+    /**
+     * Test if the zip code prefix is returned correctly.
+     */
     @Test
     void shouldReturnZipCodePrefix() {
         //Arrange
@@ -175,6 +210,9 @@ public class ZipCodeTest {
         assertEquals(zipCodePrefix, actualZipCodePrefix);
     }
 
+    /**
+     * Test if the zip code suffix is returned correctly.
+     */
     @Test
     void shouldReturnZipCodeSuffix() {
         //Arrange
@@ -190,6 +228,9 @@ public class ZipCodeTest {
         assertEquals(zipCodeSuffix, actualZipCodeSuffix);
     }
 
+    /**
+     * Test if the ZipCode string is returned correctly.
+     */
     @Test
     void toStringShouldReturnTheZipCodeString() {
         //Arrange
