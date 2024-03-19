@@ -1,0 +1,43 @@
+@startuml
+!pragma layout smetana
+actor User
+participant System
+
+User -> System : Select device
+System -> User : Display actuator types
+User -> System : Select actuator type
+System -> User : Display models for type
+User -> System : Select model and confirm
+System -> User : Add actuator to device and confirm
+
+@enduml
+
+
+
+@startuml
+!pragma layout smetana
+actor "Power User/Administrator" as User
+participant "UI/API" as UI
+participant "ActuatorTypeController" as TypeController
+participant "ActuatorModelController" as ModelController
+participant "DeviceController" as DeviceController
+database "Database" as DB
+
+User -> UI : Select device (DeviceId)
+UI -> TypeController : Get available actuator types
+TypeController -> DB : Fetch actuator types
+DB -> TypeController : Return actuator types
+TypeController -> UI : Display actuator types
+User -> UI : Select actuator type
+UI -> ModelController : Get models for type
+ModelController -> DB : Fetch models
+DB -> ModelController : Return models
+ModelController -> UI : Display models
+User -> UI : Select model
+UI -> DeviceController : Add actuator to device (DeviceId, Type, Model)
+DeviceController -> DB : Update device with actuator
+DB -> DeviceController : Confirmation
+DeviceController -> UI : Display success message
+UI -> User : Operation completed
+
+@enduml

@@ -41,27 +41,28 @@ RepositoryRoom --> Service: listOfRooms
 
 deactivate RepositoryRoom
 
+Service -> RoomAssembler: domain2DTO(listOfRooms)
 
 loop  for each room in Rooms
-
-Service -> RoomAssembler: domain2DTO(room)
 create RoomDTO
 activate RoomAssembler
 RoomAssembler -> RoomDTO: createRoomDTO(room)
 activate RoomDTO
 RoomDTO --> RoomAssembler: roomDTO
 deactivate RoomDTO
-RoomAssembler --> Service: roomDTO
-deactivate RoomAssembler
-Service -> Service: saveRoomDTO(roomDTO)
-
+RoomAssembler -> RoomAssembler : addRoomDTO2List
 end
 
-Service --> GetListOfRoomsController: roomsDTOs
+RoomAssembler --> Service: roomDTOList
+deactivate RoomAssembler
+
+
+
+Service --> GetListOfRoomsController: roomsDTOList
 
 deactivate Service
 
-<-- GetListOfRoomsController :listOfRoomsDTOs
+<-- GetListOfRoomsController :roomsDTOList
 
 deactivate GetListOfRoomsController
 

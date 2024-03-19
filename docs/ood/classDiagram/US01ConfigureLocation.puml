@@ -1,0 +1,52 @@
+@startuml
+!pragma layout smetana
+
+top to bottom direction
+skinparam linetype ortho
+
+class HouseService <<Service>>{
+    -_locationFactory: LocationFactory
+    -_roomFactory: RoomFactory
+    -_location: Location
+    -_rooms: List<Room>
+    +House()
+    +configureLocation():Location
+    +addRoom():Room
+    +addRoomToList():Room
+    +getRooms():List<Room>
+    +getAllDevices():List<Device>
+}
+class Location{
+    -_addressFactory: AddressFactory
+    -_gpsFactory: GPSFactory
+    -_address: Address
+    -_gpsLocation: GPS
+    +Location()
+    +getAddress():Address
+    +getGpsLocation():GPS
+    +toString(): String
+}
+class LocationDTO<<DTO>>{
+    +_address: String
+    +_gps: String
+    +LocationDTO()
+    *toString():String
+}
+class ConfigureHouseLocation<<Controller>>{
+    -_house: House
+    +ConfigureHouseLocation()
+    +configureLocation():LocationDTO
+}
+class LocationFactory<<Factory>>{
+    +createLocation():Location
+}
+class LocationAssembler<<Assembler>>{
+    +domain2DTO():LocationDTO
+}
+
+ConfigureHouseLocation "1" -down-> "1" HouseService: uses
+HouseService "1" -left-> "1" LocationFactory : has >
+LocationFactory "1" --[#595959,plain] "1" Location : creates
+LocationAssembler "1" --[#595959,plain] "1" LocationDTO : has >
+Location "1" -right-> "1" LocationAssembler : has >
+@enduml

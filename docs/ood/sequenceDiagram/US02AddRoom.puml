@@ -1,0 +1,43 @@
+@startuml
+
+!pragma layout smetana
+autonumber
+
+participant "User" as User
+participant ":AddRoom " as Controller
+participant "serviceRoom:ServiceRoom" as Service
+participant "RoomFactory" as Factory
+participant "room :Room" as Device
+participant "RoomAssembler" as Assembler
+participant "roomDTO :RoomDTO" as DTO
+
+User -> Controller: AddRoom(name: String, description: String)
+activate Controller
+Controller -> Service: addRoom(name: String, description: String)
+activate Service
+Service -> Factory: createRoom(name: String, description: String)
+activate Factory
+Factory -> Device: Room(name: String, description: String)
+activate Device
+Device -> Factory: room
+deactivate Device
+Factory -> Service: room
+deactivate Factory
+Service -> Assembler: Room2DTO(room)
+activate Assembler
+Assembler -> DTO: createRoomDTO(room)
+activate DTO
+DTO -> Assembler: roomDTO
+deactivate DTO
+Assembler -> Service: roomDTO
+deactivate Assembler
+Service -> Controller: roomDTO
+deactivate Service
+Controller -> User: roomDTO
+deactivate Controller
+
+
+
+
+
+@enduml

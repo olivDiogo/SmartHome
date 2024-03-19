@@ -13,23 +13,23 @@ package domain.sensor {
         + createSensor(sensorModelID: sensorModelID, repoSensor: RepoSensor): Sensor
     }
 
-    class SolarIrradianceSensor {
+    class DewPointSensor {
         - _sensorID: SensorID
         - _sensorTypeID: SensorTypeID
         - _sensorModelID: SensorModelID
         - _deviceID: DeviceID
-        - _value: SolarIrradianceValue
-        # SolarIrradianceSensor(sensorTypeID: SensorTypeID, sensorModelID: sensorModelID, deviceID: DeviceID)
+        - _value: DewPointValue
+        # DewPointSensor(sensorTypeID: SensorTypeID, sensorModelID: SensorModelID, deviceID: DeviceID)
         + getSensorTypeString(): String
         + getSensorID(): SensorID
-        + getValue(Value value): Value
+        + getValue(value : Value): Value
     }
 }
 
 package domain.value {
-  class SolarIrradianceValue {
+  class DewPointValue {
     - _value : int
-    + SolarIrradianceValue(int value)
+    + DewPointValue(value : int)
     + toString() : String
   }
 }
@@ -37,25 +37,25 @@ package domain.value {
 package valueObject {
     class SensorTypeID {
         - _description: String
-        + SensorTypeID(String strDescription)
+        + SensorTypeID(strDescription : String)
         + getTypeID() : String
     }
 
     class SensorModelID {
         - _description: String
-        + SensorModelID(String strDescription)
+        + SensorModelID(strDescription : String)
         + getModelID() : String
     }
 
     class SensorID {
         - _id: String
-        + SensorID(String id)
+        + SensorID(id : String)
         + getID() : String
     }
 
     class DeviceID {
         - _id: String
-        + DeviceID(String id)
+        + DeviceID(id : String)
         + getID() : String
     }
 }
@@ -73,14 +73,14 @@ package ddd {
 }
 
 ImplFactorySensor ..|> FactorySensor
-ImplFactorySensor "1" ..> "1" SolarIrradianceSensor : creates
+ImplFactorySensor "1" ..> "1" DewPointSensor : creates
 
-SolarIrradianceSensor ..|> Sensor
-SolarIrradianceSensor "1" --> "1" SolarIrradianceValue : has
-SolarIrradianceSensor "1" -->  "1" SensorTypeID : has
-SolarIrradianceSensor "1" -->  "1" SensorModelID : has
-SolarIrradianceSensor "1" -->  "1" SensorID : has
-SolarIrradianceSensor "1" -->  "1" DeviceID : has
+DewPointSensor ..|> Sensor
+DewPointSensor "1" --> "1" DewPointValue : has
+DewPointSensor "1" -->  "1" SensorTypeID : has
+DewPointSensor "1" -->  "1" SensorModelID : has
+DewPointSensor "1" -->  "1" SensorID : has
+DewPointSensor "1" -->  "1" DeviceID : has
 
 DomainEntity --|> DomainID
 AggregateRoot --|> DomainEntity
