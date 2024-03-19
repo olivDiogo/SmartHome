@@ -219,58 +219,33 @@ public class AddressTest {
     }
 
     @Test
-    void shouldReturnSameStreet(){
+    void shouldGetStreet(){
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
         Address address = new Address(street, doorNumber);
 
         //Act
-        String actualStreet = address.getStreet(street);
+        String actualStreet = address.getStreet();
 
         //Assert
         assertEquals(street, actualStreet);
     }
 
+
     @Test
-    void shouldReturnDifferentStreet(){
+    void shouldGetDoorNumber(){
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
         Address address = new Address(street, doorNumber);
 
         //Act
-        String actualStreet = address.getStreet("Isep Street 3");
-
-        //Assert
-        assertNotEquals(street, actualStreet);
-    }
-    @Test
-    void shouldReturnSameDoorNumber(){
-        //Arrange
-        String street = "Isep Street 2";
-        String doorNumber = "12 A";
-        Address address = new Address(street, doorNumber);
-
-        //Act
-        String actualDoorNumber = address.getDoorNumber(doorNumber);
+        String actualDoorNumber = address.getDoorNumber();
 
         //Assert
         assertEquals(doorNumber, actualDoorNumber);
     }
 
-    @Test
-    void shouldReturnDifferentDoorNumber(){
-        //Arrange
-        String street = "Isep Street 2";
-        String doorNumber = "12 A";
-        Address address = new Address(street, doorNumber);
-
-        //Act
-        String actualDoorNumber = address.getDoorNumber("12 B");
-
-        //Assert
-        assertNotEquals(doorNumber, actualDoorNumber);
-    }
 
 }

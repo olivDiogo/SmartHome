@@ -42,12 +42,12 @@ public class Address implements ValueObject {
         return false;
     }
 
-    public String getStreet(String street){
-        return this._street = street;
+    public String getStreet(){
+        return this._street;
     }
 
-    public String getDoorNumber(String doorNumber){
-        return this._doorNumber = doorNumber;
+    public String getDoorNumber(){
+        return this._doorNumber;
     }
 
 
