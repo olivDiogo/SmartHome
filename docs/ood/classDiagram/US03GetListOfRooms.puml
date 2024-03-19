@@ -12,17 +12,18 @@ class GetListOfRoomsController{
 class RoomService{
 'Attributes'
 - _factoryRoom: RoomFactory
-- _repositoryRoom: RoomRepository
+- _roomRepo: RoomRepository
 - _roomAssembler : RoomAssembler
+- _houseRepo: HouseRepository
 'Methods'
-+RoomService(factoryRoom: RoomFactory, repositoryRoom: RoomRepository, roomAssembler: RoomAssembler)
++RoomService(factoryRoom: RoomFactory, roomRepo: RoomRepository, roomAssembler: RoomAssembler, houseRepo: HouseRepository)
 +getRooms(): List<RoomDTO>
 }
 
 
 class RoomRepository{
 'Attributes'
-- DATA: Map <RoomID, Room>
+- _DATA: Map <RoomID, Room>
 'Methods'
 +RoomRepository()
 +findAll(): List<Room>
@@ -30,7 +31,7 @@ class RoomRepository{
 
 class RoomAssembler{
 'Methods'
-+domain2DTO(rooms: List<Room>): List<RoomDTO>
++domainToDTO(rooms: List<Room>): List<RoomDTO>
 }
 
 class RoomDTO{
@@ -38,7 +39,7 @@ class RoomDTO{
 +_roomID: RoomID
 +_roomName: RoomName
 'Methods'
-+RoomDTO(roomID: RoomID, roomName: RoomName)
++RoomDTO(room: Room)
 }
 
 GetListOfRoomsController "1" ..> "1" RoomService: uses
