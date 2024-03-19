@@ -5,30 +5,51 @@ box "Controller" #LightBlue
 participant ":ConfigureHouseLocationController" as ConfigureHouseLocationController
 end box
 box "Service" #LightGreen
-participant ":LocationFactory" as Service
-end box
-box "Repository" #LightYellow
-participant "Repository" as Repository
+participant ":HouseService" as Service
 end box
 box "Assembler" #LightCyan
 participant ":LocationAssembler" as Assembler
 end box
-autonumber
 
-" " o-> ConfigureHouseLocationController : ConfigureLocation()
+autonumber
+" " o-> ConfigureHouseLocationController : ConfigureHouseLocation()
 
 activate "ConfigureHouseLocationController"
 
-ConfigureHouseLocationController -> "Service" : newLocation()
-activate Service
+ConfigureHouseLocationController -> "Service" : new location(street,zipCode, doorNumber, latitude, longitude)
+activate "Service"
+Service --> "ConfigureHouseLocationController" : _house
+deactivate "Service"
+create LocationFactory
+"ConfigureHouseLocationController" -> "LocationFactory" : createLocation(street,zipCode, doorNumber, latitude, longitude)
+create Location
+activate "LocationFactory"
+"LocationFactory" -> "Location" : new Location(street, zipCode, doorNumber, latitude, longitude, new AddressFactory(), new GpsFactory())
 
-Service -> "Assembler" : sss()
+activate "Location"
+create AddressFactory
+Location -> "AddressFactory" : createAddress
+activate "AddressFactory"
+"AddressFactory" --> "Location" : newAddressFactory
+deactivate "AddressFactory"
+create GpsFactory
+Location -> "GpsFactory" : createGps
+activate "GpsFactory"
+"GpsFactory" --> "Location" : newGpsFactory
+deactivate "GpsFactory"
+Location --> "LocationFactory" : Location
+deactivate "Location"
+"LocationFactory" --> "LocationFactory" : newLocation
+"LocationFactory" --> "Assembler" : locationDTO(newLocation)
+deactivate "LocationFactory"
 activate Assembler
-"Assembler" --> Service : sss()
-deactivate Assembler
-Service --> "ConfigureHouseLocationController" : newLocation()
 
+"Assembler" --> "Service" : locationDTO(newLocation)
+deactivate Assembler
+activate "Service"
+"Service" --> "ConfigureHouseLocationController" : locationDTO()
 deactivate Service
+ConfigureHouseLocationController --> " " : locationDTO
 
 
 
