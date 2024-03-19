@@ -1,3 +1,4 @@
+
 @startuml
 'https://plantuml.com/sequence-diagram
 !pragma layout smetana
@@ -9,11 +10,11 @@ participant ":GetListOfRooms_Controller" as GetListOfRoomsController
 end box
 
 box "Service" #LightGreen
-participant "serviceRoom:ServiceRoom" as Service
+participant ":ServiceRoom" as Service
 end box
 
 box "Repository" #LightYellow
-participant "RepoRoom:RepositoryRoom" as RepositoryRoom
+participant ":RepositoryRoom" as RepositoryRoom
 end box
 
 box "Assembler" #LightCyan
@@ -41,7 +42,7 @@ RepositoryRoom --> Service: listOfRooms
 
 deactivate RepositoryRoom
 
-Service -> RoomAssembler: domain2DTO(listOfRooms)
+Service -> RoomAssembler: domainToDTO(listOfRooms)
 
 loop  for each room in Rooms
 create RoomDTO
@@ -50,7 +51,7 @@ RoomAssembler -> RoomDTO: createRoomDTO(room)
 activate RoomDTO
 RoomDTO --> RoomAssembler: roomDTO
 deactivate RoomDTO
-RoomAssembler -> RoomAssembler : addRoomDTO2List (roomDTO)
+RoomAssembler -> RoomAssembler : addRoomDTOToList (roomDTO)
 end
 
 RoomAssembler --> Service: roomDTOList
