@@ -10,5 +10,5 @@
 - Controller returns DTO to the UI
 
 ### Sequence Diagram
-![Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/generalSequenceDiagrams/CreateEntity.png)
+![Sequence Diagram](generalSequenceDiagrams/CreateEntity.png)
 
