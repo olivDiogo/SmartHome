@@ -41,7 +41,7 @@ _Add a new sensor type_
 _At present this US has no dependency on another user story_
 
 ### 1.4. Relevant domain model aggregates
-![SensorType](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ooa/agreggateModels/sensorTypeAggregate.png)
+![SensorType](../ooa/agreggateModels/sensorTypeAggregate.png)
 
 ### 1.5. Required classes
 _SensorType_ -> for the sensor type definition

@@ -21,10 +21,10 @@ As a Power User (or Administrator), I want to add an actuator to an existing dev
 
 #### 1.3.1 System Sequence Diagram
 
-![US012-SSD](diagrams/SSD.svg)
+![US012-SSD](../artifacts/SSD.svg)
 
 #### 1.3.2 Sequence Diagram
 
-![US012-SD](diagrams/SD.svg)
+![US012-SD](../artifacts/SD.svg)
 
 
