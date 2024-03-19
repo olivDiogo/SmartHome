@@ -62,13 +62,44 @@ public class ZipCodeTest {
     }
 
     @Test
-    void shouldReturnTrueEqualsWithSameZipCodePrefix(){
+    void shouldReturnFalseEqualsWithNull() {
         //Arrange
         int zipCodePrefix = 4000;
         int zipCodeSuffix = 100;
 
         ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
-        ZipCode zipCode2 = new ZipCode(zipCodePrefix, zipCodeSuffix);
+
+        //Act
+        boolean isEquals = zipCode.equals(null);
+
+        //Assert
+        assertFalse(isEquals);
+    }
+
+    @Test
+    void shouldReturnTrueEqualsWithSameObject() {
+        //Arrange
+        int zipCodePrefix = 4000;
+        int zipCodeSuffix = 100;
+
+        ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+
+        //Act
+        boolean isEquals = zipCode.equals(zipCode);
+
+        //Assert
+        assertTrue(isEquals);
+    }
+
+    @Test
+    void shouldReturnTrueEqualsWithSameZipCodePrefix() {
+        //Arrange
+        int zipCodePrefix = 4000;
+        int zipCodePrefix2 = 4000;
+        int zipCodeSuffix = 100;
+
+        ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+        ZipCode zipCode2 = new ZipCode(zipCodePrefix2, zipCodeSuffix);
 
         //Act
         boolean isEquals = zipCode.equals(zipCode2);
@@ -78,7 +109,7 @@ public class ZipCodeTest {
     }
 
     @Test
-    void shouldReturnFalseWithDifferentZipCodePrefix(){
+    void shouldReturnFalseWithDifferentZipCodePrefix() {
         //Arrange
         int zipCodePrefix = 4000;
         int zipCodePrefix2 = 4001;
@@ -95,13 +126,14 @@ public class ZipCodeTest {
     }
 
     @Test
-    void shouldReturnTrueEqualsWithSameZipCodeSuffix(){
+    void shouldReturnTrueEqualsWithSameZipCodeSuffix() {
         //Arrange
         int zipCodePrefix = 4000;
         int zipCodeSuffix = 100;
+        int zipCodeSuffix2 = 100;
 
         ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
-        ZipCode zipCode2 = new ZipCode(zipCodePrefix, zipCodeSuffix);
+        ZipCode zipCode2 = new ZipCode(zipCodePrefix, zipCodeSuffix2);
 
         //Act
         boolean isEquals = zipCode.equals(zipCode2);
@@ -111,7 +143,7 @@ public class ZipCodeTest {
     }
 
     @Test
-    void shouldReturnFalseWithDifferentZipCodeSuffix(){
+    void shouldReturnFalseWithDifferentZipCodeSuffix() {
         //Arrange
         int zipCodePrefix = 4000;
         int zipCodeSuffix = 100;
@@ -125,5 +157,36 @@ public class ZipCodeTest {
 
         //Assert
         assertFalse(isEquals);
+    }
+
+
+    @Test
+    void shouldReturnZipCodePrefix() {
+        //Arrange
+        int zipCodePrefix = 4000;
+        int zipCodeSuffix = 100;
+
+        ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+
+        //Act
+        int actualZipCodePrefix = zipCode.getZipCodePrefix();
+
+        //Assert
+        assertEquals(zipCodePrefix, actualZipCodePrefix);
+    }
+
+    @Test
+    void shouldReturnZipCodeSuffix() {
+        //Arrange
+        int zipCodePrefix = 4000;
+        int zipCodeSuffix = 100;
+
+        ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+
+        //Act
+        int actualZipCodeSuffix = zipCode.getZipCodeSuffix();
+
+        //Assert
+        assertEquals(zipCodeSuffix, actualZipCodeSuffix);
     }
 }

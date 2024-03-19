@@ -39,6 +39,14 @@ public class ZipCode implements ValueObject {
         return false;
     }
 
+    public int getZipCodePrefix() {
+        return _zipCodePrefix;
+    }
+
+    public int getZipCodeSuffix() {
+        return _zipCodeSuffix;
+    }
+
 
 
 }
