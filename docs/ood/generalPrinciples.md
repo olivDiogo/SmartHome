@@ -9,6 +9,17 @@
 - Service return DTO of added object to the controller
 - Controller returns DTO to the UI
 
-### Sequence Diagram
+#### Sequence Diagram
 ![Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/generalSequenceDiagrams/CreateEntity.png)
+
+## Get all entity's from repo
+- Controller receives the request and sends to corresponding service
+- Service requests to the repository all the entities
+- Repository returns all the entities to the service
+- Service passes the entities to the assembler to create corresponding DTOs
+- Service returns DTOs to the controller
+- Controller returns DTOs to the UI
+
+#### Sequence Diagram
+![Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/generalSequenceDiagrams/GetAllEntitys.png)
 

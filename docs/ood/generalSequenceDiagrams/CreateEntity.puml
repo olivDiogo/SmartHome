@@ -2,49 +2,32 @@
 participant "  " as User
 participant ":ControlerX" as Controller
 participant ":ServiceX" as Service
-participant "valueObject:ValueObject" as ValueObject
-participant ":FactoryX" as Factory
-participant "entity:EntityX" as Entity
 participant ":RepositoryX" as Repository
 participant ":AssemblerX" as Assembler
 participant "entityDTO:XDTO" as DTO
 
 
-User -> Controller: 1: createNewEntity(String y, int z, ...)
-Controller -> Service: 1.1: createEntityAndAddToRepo(String y, int z, ...)
+User -> Controller: 1: getAllEntity's()
+Controller -> Service: 1.1: getAllEntity's(): ListEntityDTO
 activate Service
-create ValueObject
-Service -> ValueObject: 1.1.1: toValueObject(Strin x)
-
-ValueObject -> Service: valueObject
-deactivate ValueObject
-Service -> Factory: 1.1.2: CreateEntity(valueObject, ...)
-activate Factory
-
-create Entity
-Factory -> Entity: 1.1.2.1: createEntity(String name, String units)
-activate Entity
-Entity --> Factory: 1.1.2.2: entity
-deactivate Entity
-Factory --> Service: entity
-deactivate Factory
+Service -> Repository: 1.1.1: getAllEntity's()
 activate Repository
-Service --> Repository: 1.1.3: addToRepository(entity)
-Repository -> Repository: 1.1.3.1: add
-Repository --> Service: success
+Repository --> Service: listEntity
 deactivate Repository
-Service -> Assembler: 1.1.4: domainToDTO(entity)
-
+Service -> Assembler: 1.1.2: domainToDTO(listEntity)
 activate Assembler
 create DTO
-Assembler -> DTO: 1.1.4.1: domainToDTO(entity)
+loop
+Assembler -> DTO: 1.1.2.1: domainToDTO(listEntity): ListEntityDTO
 activate DTO
 DTO --> Assembler: entityDTO
+Assembler -> Assembler: addToList(entityDTO)
 deactivate DTO
-Assembler --> Service: entityDTO
-Service --> Controller: entityDTO
-deactivate Service
+end
+Assembler --> Service: listEntityDTO
 deactivate Assembler
-Controller --> User: entityDTO
+Service --> Controller: listEntityDTO
+deactivate Service
+Controller --> User: listEntityDTO
 
 @enduml
