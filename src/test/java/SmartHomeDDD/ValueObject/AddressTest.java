@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddressTest {
 
+    /**
+     * Tests the correct instantiation of an Address
+     */
     @Test
     void shouldReturnExpectedAddressWhenGivenValidParameters() {
         //Arrange
@@ -18,6 +21,9 @@ public class AddressTest {
 
     }
 
+    /**
+     * Tests if the exception is thrown with a null street.
+     */
     @Test
     void shouldThrowExceptionWhenStreetIsNull() {
         //Arrange
@@ -29,6 +35,9 @@ public class AddressTest {
         assertEquals("Invalid street", exception.getMessage());
     }
 
+    /**
+     * Tests if the exception is thrown with an empty street.
+     */
     @Test
     void shouldThrowExceptionWhenStreetIsEmpty() {
         //Arrange
@@ -40,6 +49,9 @@ public class AddressTest {
         assertEquals("Invalid street", exception.getMessage());
     }
 
+    /**
+     * Tests if the exception is thrown with an invalid street.
+     */
     @Test
     void shouldThrowExceptionWhenStreetIsInvalid() {
         //Arrange
@@ -51,6 +63,9 @@ public class AddressTest {
         assertEquals("Invalid street", exception.getMessage());
     }
 
+    /**
+     * Tests if the exception is thrown with a street that contains a new line.
+     */
     @Test
     void shouldThrowExceptionWhenStreetHasNewLine() {
         //Arrange
@@ -62,6 +77,9 @@ public class AddressTest {
         assertEquals("Invalid street", exception.getMessage());
     }
 
+    /**
+     * Tests if the exception is thrown with a street that contains a tab.
+     */
     @Test
     void shouldThrowExceptionWhenStreetHasTab() {
         //Arrange
@@ -73,6 +91,9 @@ public class AddressTest {
         assertEquals("Invalid street", exception.getMessage());
     }
 
+    /**
+     * Tests if the exception is thrown with a null door number.
+     */
     @Test
     void shouldThrowExceptionWhenDoorNumberIsNull() {
         //Arrange
@@ -84,6 +105,9 @@ public class AddressTest {
         assertEquals("Invalid door number", exception.getMessage());
     }
 
+    /**
+     * Tests if the exception is thrown with an empty door number.
+     */
     @Test
     void shouldThrowExceptionWhenDoorNumberIsEmpty() {
         //Arrange
@@ -95,6 +119,9 @@ public class AddressTest {
         assertEquals("Invalid door number", exception.getMessage());
     }
 
+    /**
+     * Tests if the exception is thrown with an invalid door number.
+     */
     @Test
     void shouldThrowExceptionWhenDoorNumberIsInvalid() {
         //Arrange
@@ -106,6 +133,9 @@ public class AddressTest {
         assertEquals("Invalid door number", exception.getMessage());
     }
 
+    /**
+     * Tests if the exception is thrown with a door number that contains a new line.
+     */
     @Test
     void shouldThrowExceptionWhenDoorNumberHasNewLine() {
         //Arrange
@@ -117,6 +147,9 @@ public class AddressTest {
         assertEquals("Invalid door number", exception.getMessage());
     }
 
+    /**
+     * Tests if the exception is thrown with a door number that contains a tab.
+     */
     @Test
     void shouldThrowExceptionWhenDoorNumberHasTab() {
         //Arrange
@@ -128,6 +161,9 @@ public class AddressTest {
         assertEquals("Invalid door number", exception.getMessage());
     }
 
+    /**
+     * Tests if Address is equal to itself.
+     */
     @Test
     void shouldReturnTrueEqualsWithSameObject() {
         //Arrange
@@ -142,6 +178,9 @@ public class AddressTest {
         assertTrue(isEquals);
     }
 
+    /**
+     * Tests if Address is not equal to null.
+     */
     @Test
     void shouldReturnFalseEqualsWithNull() {
         //Arrange
@@ -156,6 +195,9 @@ public class AddressTest {
         assertFalse(isEquals);
     }
 
+    /**
+     * Tests if Address is equal to another Address with same street.
+     */
     @Test
     void shouldReturnTrueEqualsWithSameStreet(){
         //Arrange
@@ -171,6 +213,9 @@ public class AddressTest {
         assertTrue(isEquals);
     }
 
+    /**
+     * Tests if Address is not equal to another Address with different street.
+     */
     @Test
     void shouldReturnFalseWithDifferentStreet(){
         //Arrange
@@ -187,6 +232,9 @@ public class AddressTest {
         assertFalse(isEquals);
     }
 
+    /**
+     * Tests if Address is equal to another Address with same door number.
+     */
     @Test
     void shouldReturnTrueEqualsWithSameDoorNumber(){
         //Arrange
@@ -202,6 +250,9 @@ public class AddressTest {
         assertTrue(isEquals);
     }
 
+    /**
+     * Tests if Address is not equal to another Address with different door number.
+     */
     @Test
     void shouldReturnFalseWithDifferentDoorNumber(){
         //Arrange
@@ -218,6 +269,9 @@ public class AddressTest {
         assertFalse(isEquals);
     }
 
+    /**
+     * Tests if the street is returned correctly.
+     */
     @Test
     void shouldReturnStreet(){
         //Arrange
@@ -232,7 +286,9 @@ public class AddressTest {
         assertEquals(street, actualStreet);
     }
 
-
+    /**
+     * Tests if the door number is returned correctly.
+     */
     @Test
     void shouldReturnDoorNumber(){
         //Arrange
