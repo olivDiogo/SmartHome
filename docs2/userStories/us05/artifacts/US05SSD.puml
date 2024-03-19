@@ -1,0 +1,18 @@
+@startuml
+!pragma layout smetana
+'As a Power User [or Administrator], I want to add a new device to a room, in order to configure it.'
+
+actor Admin
+participant System
+
+Admin -> System: I want to add a new device to a room
+System --> Admin: Which room?
+Admin -> System: !room
+System --> Admin: What is the ID of the device ?
+Admin -> System: !ID
+System --> Admin: Confirm the device?
+Admin -> System: !confirm
+System --> Admin: The device has been added to the room
+
+
+@enduml

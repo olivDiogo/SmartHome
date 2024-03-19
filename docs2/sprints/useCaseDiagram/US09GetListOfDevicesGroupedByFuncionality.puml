@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+'left to right direction
+skinparam actorStyle awesome
+skinparam ActorBackgroundColor black
+
+:Administrator: as Admin
+:Power User: as Power_User
+
+(US09/UC09.1: To get list of devices grouped by functionality) as (Use9.1)
+(US09/UC09.2: To get all devices) as (Use9.2)
+
+Admin -left-> (Use9.1)
+
+Power_User -right-> (Use9.1)
+
+(Use9.1) ..> (Use9.2): <<includes>>
+
+@enduml

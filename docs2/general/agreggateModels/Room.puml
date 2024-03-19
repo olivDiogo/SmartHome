@@ -1,0 +1,34 @@
+@startuml
+!pragma layout smetana
+
+package SmartHome.Room {
+  class Room<<Entity>><<Root>>{
+    -_floor: RoomFloor
+    -_dimensions: RoomDimensions
+    -_roomID: RoomID
+    -_roomName: RoomName
+  }
+
+  package ValueObject {
+    class RoomID<<ValueObject>>{
+      -value: UUID
+        }
+    class RoomFloor<<ValueObject>>{
+      -value: int
+        }
+    class RoomDimensions<<ValueObject>>{
+    -_width: int
+    -_length: int
+    -_height: int
+    }
+    class RoomName<<ValueObject>>{
+      -value: string
+        }
+  }
+
+Room "*" -- "1" RoomDimensions: has
+Room "*" -- "1" RoomFloor: has
+Room "1" -- "1" RoomID: has
+Room "1" -- "1" RoomName: has
+
+@enduml

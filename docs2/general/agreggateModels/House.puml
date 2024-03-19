@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+!pragma layout smetana
+
+package SmartHome.AggregateHouse {
+
+    class House <<entity>> <<Root>> {
+    - _locationFactory : LocationFactory
+    - _roomFactory : RoomFactory
+    - _location : Location
+    }
+}
+
+package SmartHome.ValueObject{
+
+    class GPS <<valueObject>> {
+    - _latitude : double
+    - _longitude : double
+    }
+
+    class Address <<valueObject>> {
+    - _street : String
+    - _doorNumber : int
+    }
+
+    class Location <<valueObject>> {
+    }
+
+    class ZipCode <<valueObject>> {
+    - _first4Digits : int
+    - _last3Digits : int
+    }
+
+    class HouseID <<valueObject>> {
+    - _houseID : String
+    }
+}
+
+House "1" -- "1" Location : has
+House "1" -- "1" HouseID : has
+Location "1" -- "1" GPS : has
+Location "1" -- "1" Address : has
+Location "1" -- "1" ZipCode : has
+
+@enduml

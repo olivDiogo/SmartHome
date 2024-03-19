@@ -1,0 +1,75 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+participant " " as User
+
+box "Controller" #LightBlue
+participant ":GetAllDevicesGroupedByFunctionalityController" as GetAllDevicesGroupedByFunctionalityController
+end box
+
+box "Service" #LightGreen
+participant "serDev:ServiceDevice" as ServiceDevice
+end box
+
+box "Repository" #LightYellow
+participant "repoDevice:RepositoryDevice" as RepositoryDevice
+end box
+
+box "Assembler" #LightCyan
+participant "DeviceAssembler" as DeviceAssembler
+
+participant "deviceDTO : DeviceDTO" as DeviceDTO
+end box
+
+autonumber
+
+User o-> GetAllDevicesGroupedByFunctionalityController: getAllDevicesGroupedByFunctionality()
+
+activate GetAllDevicesGroupedByFunctionalityController
+
+
+GetAllDevicesGroupedByFunctionalityController -> ServiceDevice : getDevices()
+
+activate ServiceDevice
+
+ServiceDevice -> RepositoryDevice: findAll()
+
+activate RepositoryDevice
+
+RepositoryDevice --> ServiceDevice: devices
+
+deactivate RepositoryDevice
+
+ServiceDevice -> DeviceAssembler: device2DTO(devices)
+
+loop for each device in devices
+    activate DeviceAssembler
+    create DeviceDTO
+    DeviceAssembler -> DeviceDTO: createDeviceDTO(device)
+
+    activate DeviceDTO
+
+    DeviceDTO --> DeviceAssembler: deviceDTO
+
+    deactivate DeviceDTO
+
+    DeviceAssembler -> DeviceAssembler: addDeviceDTOToList(deviceDTO)
+end
+
+DeviceAssembler --> ServiceDevice: deviceDTOList
+
+deactivate DeviceAssembler
+
+
+ServiceDevice --> GetAllDevicesGroupedByFunctionalityController: deviceDTOList
+
+deactivate ServiceDevice
+
+GetAllDevicesGroupedByFunctionalityController -> GetAllDevicesGroupedByFunctionalityController: listDevicesByFunctionality(deviceDTOList)
+
+GetAllDevicesGroupedByFunctionalityController --> User: deviceDTOsByFunctionality
+
+deactivate GetAllDevicesGroupedByFunctionalityController
+
+@enduml

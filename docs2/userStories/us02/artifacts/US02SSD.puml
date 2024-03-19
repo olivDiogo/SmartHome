@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Admin
+participant System
+
+Admin -> System: I want to add a room to the house
+System --> Admin: Room
+
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+!pragma layout smetana
+
+package SmartHome.SensorModel{
+
+    class SensorModel <<Entity>> <<Root>>{
+    - _id : SensorModelId
+    - _filePathName : FilePathName
+    }
+}
+
+package SmartHome.ValueObject {
+
+     class SensorModelId <<ValueObject>>{
+        - _sensorModelId : String
+     }
+
+     class FilePathName <<ValueObject>>{
+        - _filePathName : String
+     }
+}
+
+SmartHome.SensorModel.SensorModel "1" -- "1" SmartHome.ValueObject.SensorModelId : has
+SmartHome.SensorModel.SensorModel "1" -- "1" SmartHome.ValueObject.FilePathName : has
+
+
+
+@enduml
