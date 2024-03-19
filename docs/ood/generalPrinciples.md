@@ -34,3 +34,12 @@
 
 #### Sequence Diagram
 ![Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/generalSequenceDiagrams/GetEntityByID.png)
+
+## Class Diagram
+- Don't need to represent the Value Objects, because they are simple classes with only attributes and getters
+- Should represent the DTOs as the attributes will be different from the entity's attributes
+- Should represent the Controller, Service, Factory, Repository and Assembler classes
+- Should only represent the methods of the classes that are relevant to the use cases
+- Should represent all explicit constructors of the classes
+- Should show the cardinality of the relationships between classes
+- At present the shouldn't represent aggregation or composition relationships between classes
