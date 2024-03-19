@@ -13,11 +13,12 @@ class GetListOfDevicesFromRoomController{
 
 class RoomService{
 'Attributes'
-- _roomRepository: RoomRepository
+- _roomRepo: RoomRepository
 -_roomFactory : RoomFactory
 - _roomAssembler : RoomAssembler
+- _houseRepo : HouseRepository
 'Methods'
-+RoomService(roomFactory: RoomFactory, roomRepository: RoomRepository, roomAssembler : RoomAssembler
++RoomService(roomFactory: RoomFactory, roomRepo: RoomRepository, roomAssembler : RoomAssembler, houseRepo : HouseRepository)
 +getRooms(): List<RoomDTO>
 }
 
@@ -32,7 +33,7 @@ class RoomRepository{
 
 class RoomAssembler{
 'Methods'
-+domain2DTO(rooms: List<Room>): List<RoomDTO>
++domainToDTO(rooms: List<Room>): List<RoomDTO>
 }
 
 class RoomDTO{
@@ -40,7 +41,7 @@ class RoomDTO{
 +_roomID: RoomID
 +_roomName: RoomName
 'Methods'
-+RoomDTO(roomID: RoomID, roomName: RoomName)
++RoomDTO(room: Room)
 }
 
 class DeviceService{
@@ -63,7 +64,7 @@ class DeviceRepository{
 
 class DeviceAssembler {
 'Methods'
-+domain2DTO(devices: List<Device>): List<DeviceDTO>
++domainToDTO(devices: List<Device>): List<DeviceDTO>
 }
 
 class DeviceDTO{
@@ -71,7 +72,7 @@ class DeviceDTO{
 +_deviceID: DeviceID
 +_deviceName: DeviceName
 'Methods'
-+DeviceDTO(deviceID: DeviceID, deviceName: DeviceName)
++DeviceDTO(device: Device)
 }
 
 
