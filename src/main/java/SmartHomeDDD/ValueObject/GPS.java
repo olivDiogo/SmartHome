@@ -3,8 +3,8 @@ package SmartHomeDDD.ValueObject;
 import SmartHomeDDD.ddd.ValueObject;
 
 public class GPS implements ValueObject {
-    double _latitude;
-    double _longitude;
+    private double _latitude;
+    private double _longitude;
 
     public GPS(double latitude, double longitude) {
         setLatitude(latitude);
@@ -24,33 +24,44 @@ public class GPS implements ValueObject {
         }
         this._longitude = longitude;
     }
-    
+
     private boolean validLatitudeForFiveDecimalNumber(double latitude) {
         String latitudeStr = Double.toString(latitude);
         int decimalPointIndex = latitudeStr.indexOf('.');
-        // Check if the decimal point exists in the string.
-        // The indexOf method returns -1 if the decimal point is not found,
-        // which can occur if the number is a whole number (no fractional part) or it's rounded to an integer.
-        if (decimalPointIndex != -1) {
-            int digitsAfterDecimal = latitudeStr.length() - decimalPointIndex - 1;
-            return digitsAfterDecimal <= 5;
-        }
-        return true; // True if there's no decimal point
+        // Count the digits after the decimal point
+        int digitsAfterDecimal = latitudeStr.length() - decimalPointIndex - 1;
+        // Check if the number of digits after the decimal is 5 or fewer.
+        return digitsAfterDecimal <= 5;
 
     }
+
     private boolean validLongitudeForFiveDecimalNumber(double longitude) {
         String longitudeStr = Double.toString(longitude);
         int decimalPointIndex = longitudeStr.indexOf('.');
-        // Check if the decimal point exists in the string.
-        // The indexOf method returns -1 if the decimal point is not found,
-        // which can occur if the number is a whole number (no fractional part) or it's rounded to an integer.
-        if (decimalPointIndex != -1) {
-            int digitsAfterDecimal = longitudeStr.length() - decimalPointIndex - 1;
-            return digitsAfterDecimal <= 5;
-        }
-        return true; // True if there's no decimal point
+        // Count the digits after the decimal point
+        int digitsAfterDecimal = longitudeStr.length() - decimalPointIndex - 1;
+        // Check if the number of digits after the decimal is 5 or fewer.
+        return digitsAfterDecimal <= 5;
     }
 
+    public boolean equals(Object object) {
+        if (this == object) return true;
+
+        if (object instanceof GPS) {
+            GPS gps = (GPS) object;
+
+            if (this._latitude == gps._latitude && this._longitude == gps._longitude) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "GPS{" +
+                "latitude=" + _latitude +
+                ", longitude=" + _longitude +
+                '}';
+    }
 
 
 }
