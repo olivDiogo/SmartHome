@@ -7,17 +7,13 @@ skinparam ActorBackgroundColor black
 :Administrator: as Admin
 :Power User: as Power_User
 
-(US03/UC03: To get list of rooms) as (Use3)
-(US06/UC06: To get list of devices in a room) as (Use6)
 (US09/UC09.1: To get list of devices grouped by functionality) as (Use9.1)
-(US09/UC09.2: To get devices functionalities) as (Use9.2)
+(US09/UC09.2: To get all devices) as (Use9.2)
 
 Admin -left-> (Use9.1)
 
 Power_User -right-> (Use9.1)
 
-(Use6) ..> (Use3): <<includes>>
-(Use9.1) ..> (Use6): <<includes>>
 (Use9.1) ..> (Use9.2): <<includes>>
 
 @enduml

@@ -1,4 +1,4 @@
-##Create entity
+## Create entity
 - Controller receives primitive types required to construct the value objects
 - Controller sends the primitives to the associated service
 - Service instantiates value objects
@@ -9,5 +9,6 @@
 - Service return DTO of added object to the controller
 - Controller returns DTO to the UI
 
-###Sequence Diagram
-![Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/generalSequenceDiagram/CreateEntity.png)
+### Sequence Diagram
+![Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/generalSequenceDiagrams/CreateEntity.png)
+

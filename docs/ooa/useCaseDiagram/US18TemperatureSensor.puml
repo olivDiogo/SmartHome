@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+!pragma layout smetana
+skinparam actorStyle awesome
+skinparam ActorBackgroundColor black
+left to right direction
+skinparam packageStyle rectangle
+actor "Product Owner" as Admin
+rectangle "System" {
+    usecase "Get Current Position in Percentage Scale %" as GetPosition
+    Admin -- GetPosition
+}
+@enduml

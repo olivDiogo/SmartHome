@@ -9,8 +9,8 @@ actor Administrator as Admin
 actor "Power User" as Power_User
 
 
-    (Deactivate Device) as UC1
-    (Request All Devices) as UC2
+    (US08/UC01 Deactivate Device) as UC1
+    (US08/UC02 Request All Devices) as UC2
     UC1 --> UC2 : <<includes>>
 
 

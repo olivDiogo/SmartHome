@@ -2,7 +2,7 @@
 !pragma layout smetana
 
 participant User as User
-participant ":AddDeviceToRoom" as Controller
+participant ":AddDeviceToRoomController" as Controller
 participant ":DeviceService" as Service
 participant ":DeviceRepository" as Repository
 participant ":DeviceFactory" as Factory
@@ -16,36 +16,45 @@ note left of Controller
     in US03
 end note
 
-User -> Controller : addDeviceToRoom(roomID, deviceID)
+User o-> Controller : addDeviceToRoom(roomDTO, deviceID)
 activate Controller
 
-Controller -> Service : addDevice(roomID, deviceID)
+Controller -> Service : addDevice(deviceID)
 activate Service
 
 Service -> Factory : createDevice(deviceID)
 activate Factory
 
+create Device
 Factory -> Device : create(deviceID)
+
 activate Device
 Device --> Factory : device
 deactivate Device
 
-Factory -> Repository : device
+Factory --> Repository : device
 deactivate Factory
 
 activate Repository
+Repository -> Repository : save(device)
 Repository --> Service : device
 deactivate Repository
 
+loop
 Service -> DeviceAssembler : device2DTO(device)
+create DeviceDTO
+
 activate DeviceAssembler
 DeviceAssembler -> DeviceDTO : createDeviceDTO(device)
+
 activate DeviceDTO
 DeviceDTO --> DeviceAssembler : deviceDTO
 deactivate DeviceDTO
+
 DeviceAssembler --> Service : deviceDTO
 deactivate DeviceAssembler
 
+end loop
 Service --> Controller : deviceDTO
 deactivate Service
 

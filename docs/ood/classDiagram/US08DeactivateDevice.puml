@@ -20,7 +20,7 @@ class DeviceService {
 
 class DeviceRepository implements IDeviceRepository {
     -Map<deviceID, Device> devices
-    +findAll(): DeviceList
+    +findAll(): List<Device>
     +findDeviceById(deviceID: String): Device
 }
 
@@ -30,26 +30,26 @@ interface IDeviceRepository {
 }
 
 class DeviceAssembler {
-    +deviceList2DTO(deviceList: DeviceList): DeviceDTOList
+    +deviceList2DTO(deviceList: DeviceList): List<DeviceDTO>
     +device2DTO(device: Device): DeviceDTO
 }
 
 
 class DeviceDTO {
     +deviceID: String
-    +isActive: Boolean
+    +status: String
     +DeviceDTO(device: Device)
 }
 
 class Device<<entity>><<root>> {
     -deviceID: DeviceID
-    -isActive: DeviceStatus
-    +deactivate(): String
+    -status: DeviceStatus
+    +deactivate(): void
 }
 
 class DeviceStatus<<ValueObject>> implements ValueObject{
     -value: Boolean
-    +IsActive(value: Boolean)
+    +deactivateDevice(): String
     +toString(): String
     +equals(other: ValueObject): Boolean
     +hashCode(): Int

@@ -13,28 +13,25 @@ package domain.sensor {
         + createSensor(sensorModelID: sensorModelID, repoSensor: RepoSensor): Sensor
     }
 
-    class SolarIrradianceSensor {
+    class WindSensor {
         - _sensorID: SensorID
         - _sensorTypeID: SensorTypeID
         - _sensorModelID: SensorModelID
         - _deviceID: DeviceID
-        - _value: SolarIrradianceValue
-        # SolarIrradianceSensor(sensorTypeID: SensorTypeID, sensorModelID: sensorModelID, deviceID: DeviceID)
+        - _value: WindSensorValue
+        # WindSensor(actuatorTypeID: ActuatorTypeID, actuatorModelID: ActuatorModelID, deviceID: DeviceID)
         + getSensorTypeString(): String
         + getSensorID(): SensorID
         + getValue(Value value): Value
     }
 }
 
-package domain.value {
-  class SolarIrradianceValue {
-    - _value : int
-    + SolarIrradianceValue(int value)
-    + toString() : String
-  }
-}
-
 package valueObject {
+    class WindSensorValue {
+    - _value : int
+    + WindSensorValue(int value)
+    + toString() : String
+    }
     class SensorTypeID {
         - _description: String
         + SensorTypeID(String strDescription)
@@ -73,14 +70,14 @@ package ddd {
 }
 
 ImplFactorySensor ..|> FactorySensor
-ImplFactorySensor "1" ..> "1" SolarIrradianceSensor : creates
+ImplFactorySensor "1" ..> "1" WindSensor : creates
 
-SolarIrradianceSensor ..|> Sensor
-SolarIrradianceSensor "1" --> "1" SolarIrradianceValue : has
-SolarIrradianceSensor "1" -->  "1" SensorTypeID : has
-SolarIrradianceSensor "1" -->  "1" SensorModelID : has
-SolarIrradianceSensor "1" -->  "1" SensorID : has
-SolarIrradianceSensor "1" -->  "1" DeviceID : has
+WindSensor ..|> Sensor
+WindSensor "1" --> "1" WindSensorValue : has
+WindSensor "1" -->  "1" SensorTypeID : has
+WindSensor "1" -->  "1" SensorModelID : has
+WindSensor "1" -->  "1" SensorID : has
+WindSensor "1" -->  "1" DeviceID : has
 
 DomainEntity --|> DomainID
 AggregateRoot --|> DomainEntity
@@ -91,5 +88,6 @@ Sensor ..|> ddd.AggregateRoot
 SensorTypeID ..|> ddd.DomainID
 SensorModelID ..|> ddd.DomainID
 SensorID ..|> ddd.DomainID
+DeviceID ..|> ddd.DomainID
 
 @enduml
