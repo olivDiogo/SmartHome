@@ -50,7 +50,7 @@ RoomAssembler -> RoomDTO: createRoomDTO(room)
 activate RoomDTO
 RoomDTO --> RoomAssembler: roomDTO
 deactivate RoomDTO
-RoomAssembler -> RoomAssembler : addRoomDTO2List
+RoomAssembler -> RoomAssembler : addRoomDTO2List (roomDTO)
 end
 
 RoomAssembler --> Service: roomDTOList

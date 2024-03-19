@@ -8,7 +8,7 @@ class GetListOfDevicesFromRoomController{
 'Methods'
 +GetListOfDevicesFromRoomController (serviceRoom : RoomService, serviceDevice : DeviceService)
 +getRooms(): List<RoomDTO>
-+getDevices(roomDTO : RoomDTO): List<DeviceDTO>
++getDevices(strRoomId : String): List<DeviceDTO>
 }
 
 class RoomService{
@@ -50,7 +50,7 @@ class DeviceService{
 - _deviceAssembler : DeviceAssembler
 'Methods'
 +DeviceService(deviceFactory: DeviceFactory, deviceRepository: DeviceRepository, deviceAssembler : DeviceAssembler)
-+getDevices(roomDTO : RoomDTO): List<DeviceDTO>
++getDevices(strRoomId : String): List<DeviceDTO>
 }
 
 class DeviceRepository{

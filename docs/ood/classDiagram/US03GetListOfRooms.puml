@@ -44,6 +44,6 @@ class RoomDTO{
 GetListOfRoomsController "1" ..> "1" RoomService: uses
 RoomService "1" ..> "1" RoomRepository: uses
 RoomService "1" ..> "1" RoomAssembler: uses
-RoomAssembler "1" ..> "1" RoomDTO: creates
+RoomAssembler "1" ..> "*" RoomDTO: creates
 
 @enduml
