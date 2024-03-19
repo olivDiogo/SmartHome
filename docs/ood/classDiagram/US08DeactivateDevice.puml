@@ -47,32 +47,9 @@ class Device<<entity>><<root>> {
     +deactivate(): void
 }
 
-class DeviceStatus<<ValueObject>> implements ValueObject{
-    -value: Boolean
-    +deactivateDevice(): String
-    +toString(): String
-    +equals(other: ValueObject): Boolean
-    +hashCode(): Int
-}
-
-class DeviceID<<ID>><<ValueObject>> implements ValueObject{
-    -id: UUID
-    +DeviceID(id: UUID)
-    +toString(): String
-    +equals(other: ValueObject): Boolean
-    +hashCode(): Int
-}
-
-interface ValueObject {
-    +equals(other: ValueObject): Boolean
-    +hashCode(): Int
-}
-
 DeactivateDeviceController "1" ..> "1" DeviceService: uses >
 DeviceService "1" ..> "1" DeviceRepository: uses >
 DeviceService "1" ..> "1" DeviceAssembler: uses >
 DeviceAssembler "1" ..> "1..*" DeviceDTO: creates >
 DeviceService "1" --> "1" Device: <<deactivate>>
-Device "1" --> "1" DeviceID: has >
-Device "1" --> "1" DeviceStatus: has >
 @enduml
