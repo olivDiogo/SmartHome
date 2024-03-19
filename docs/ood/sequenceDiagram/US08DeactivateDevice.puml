@@ -56,12 +56,12 @@ autonumber
    ' This is an internal detail, so the creation/modification of the status value object is not explicitly represented.
    deactivate Device
 
-   /'Service --> Repository: save(device)
+   Service --> Repository: save(device)
    ' Updated to save the whole device, reflecting the change in status.
    activate Repository
    Repository --> Service: device
    ' The Repository confirms the save operation, potentially returning a status or acknowledgment.
-   deactivate Repository'/
+   deactivate Repository
 
 
     Service -> Assembler: device2DTO(device)
