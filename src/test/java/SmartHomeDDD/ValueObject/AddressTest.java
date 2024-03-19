@@ -219,7 +219,7 @@ public class AddressTest {
     }
 
     @Test
-    void shouldGetStreet(){
+    void shouldReturnStreet(){
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
@@ -234,7 +234,7 @@ public class AddressTest {
 
 
     @Test
-    void shouldGetDoorNumber(){
+    void shouldReturnDoorNumber(){
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
