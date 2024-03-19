@@ -23,3 +23,14 @@
 #### Sequence Diagram
 ![Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/generalSequenceDiagrams/GetAllEntitys.png)
 
+## Get entity by ID
+- Controller receives the request with required id's (string format) and sends to corresponding service
+- Service creates a identity value object with the given id
+- Service requests to the repository the entity with the corresponding id
+- Repository returns the entity to the service
+- Service passes the entity to the assembler to create corresponding DTO
+- Service returns DTO to the controller
+- Controller returns DTO to the UI
+
+#### Sequence Diagram
+![Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/generalSequenceDiagrams/GetEntityByID.png)
