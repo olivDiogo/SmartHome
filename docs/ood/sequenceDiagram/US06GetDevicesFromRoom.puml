@@ -6,13 +6,13 @@ participant ":GetListOfDevicesFromRoom_Controller" as GetListOfDevicesFromRoom_C
 participant "serviceRoom:ServiceRoom" as ServiceRoom
 participant "serviceDevice:ServiceDevice" as ServiceDevice
 
+participant "roomRepo:RoomRepo" as RoomRepo
 participant ":RoomAssembler" as RoomAssembler
 participant "roomDTO:RoomDTO" as RoomDTO
+
+participant "deviceRepo:DeviceRepo" as DeviceRepo
 participant ":DeviceAssembler" as DeviceAssembler
 participant "deviceDTO:DeviceDTO" as DeviceDTO
-
-participant ":RoomRepo" as RoomRepo
-participant ":DeviceRepo" as DeviceRepo
 
 autonumber
 
@@ -32,7 +32,7 @@ RoomRepo --> ServiceRoom: listOfRooms
 
 deactivate RoomRepo
 
-ServiceRoom -> RoomAssembler : domain2DTO(listOfRooms)
+ServiceRoom -> RoomAssembler : domainToDTO(listOfRooms)
 
 activate RoomAssembler
 
@@ -48,7 +48,7 @@ loop for each room
 
       deactivate RoomDTO
 
-     RoomAssembler -> RoomAssembler: addRoomDTO2List(roomDTO)
+     RoomAssembler -> RoomAssembler: addRoomDTOToList(roomDTO)
 
 end
 RoomAssembler --> ServiceRoom: roomDTOList
@@ -75,14 +75,14 @@ DeviceRepo --> ServiceDevice: listDevices
 
 deactivate DeviceRepo
 
-ServiceDevice  -> DeviceAssembler: device2DTO (deviceList)
+ServiceDevice  -> DeviceAssembler: deviceToDTO (deviceList)
 
 activate DeviceAssembler
 
 loop for each device in list
     create DeviceDTO
 
-    DeviceAssembler -> DeviceDTO: createDevice2DTO (device)
+    DeviceAssembler -> DeviceDTO: createDeviceToDTO (device)
 
     activate DeviceDTO
 
