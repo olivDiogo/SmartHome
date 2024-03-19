@@ -1,47 +1,100 @@
 @startuml
 !pragma layout smetana
 
+
 participant User as User
+
 participant ":AddDeviceToRoomController" as Controller
+participant "serviceRoom:ServiceRoom" as ServiceRoom
+participant "serviceDevice:ServiceDevice" as ServiceDevice
+participant ":RoomAssembler" as RoomAssembler
+participant "roomDTO:RoomDTO" as RoomDTO
+participant ":RoomRepository" as RoomRepo
+participant ":DeviceAssembler" as DeviceAssembler
+participant "deviceDTO:DeviceDTO" as DeviceDTO
+participant ":Device" as Device
 participant ":DeviceService" as Service
-participant ":DeviceRepository" as Repository
 participant ":DeviceFactory" as Factory
 participant "device :Device" as Device
+participant ":DeviceRepository" as Repository
 participant ":DeviceAssembler" as DeviceAssembler
 participant "deviceDTO :DeviceDTO" as DeviceDTO
 autonumber
 
-note left of Controller
-    List of Room's
-    in US03
-end note
+User o-> Controller: getRooms()
 
-User o-> Controller : addDeviceToRoom(roomDTO, deviceID)
 activate Controller
 
-Controller -> Service : addDevice(deviceID)
+Controller -> ServiceRoom: getRooms()
+
+activate ServiceRoom
+
+ServiceRoom -> RoomRepo: findAll()
+
+activate RoomRepo
+
+RoomRepo --> ServiceRoom: listRooms
+
+deactivate RoomRepo
+
+ServiceRoom -> RoomAssembler : room2DTO(roomList)
+
+activate RoomAssembler
+
+loop for each room
+
+    create RoomDTO
+
+    RoomAssembler -> RoomDTO: createRoom2DTO (room)
+
+     activate RoomDTO
+
+     RoomDTO --> RoomAssembler: roomDTO
+
+      deactivate RoomDTO
+
+     RoomAssembler -> RoomAssembler: addRoomDTOToList(roomDTO)
+
+end
+RoomAssembler --> ServiceRoom: listRoomDTO
+
+deactivate RoomAssembler
+
+ServiceRoom --> Controller: listRoomDTO
+
+deactivate ServiceRoom
+Controller --> User : listRoomDTO
+deactivate Controller
+
+
+User o-> Controller : addDeviceToRoom(roomID, deviceName)
+activate Controller
+
+Controller -> Service : addDevice(roomID,deviceName)
 activate Service
 
-Service -> Factory : createDevice(deviceID)
+Service -> Factory : createDevice(roomID,deviceName)
 activate Factory
 
 create Device
-Factory -> Device : create(deviceID)
+Factory -> Device : create(roomID,deviceName)
 
 activate Device
 Device --> Factory : device
-deactivate Device
 
-Factory --> Repository : device
+deactivate Device
+Factory --> Service : device
+
 deactivate Factory
+Service -> Repository : save(device)
 
 activate Repository
-Repository -> Repository : save(device)
-Repository --> Service : device
+
+Repository --> Service : boolean
 deactivate Repository
 
-loop
-Service -> DeviceAssembler : device2DTO(device)
+
+Service -> DeviceAssembler : domain2DTO(device)
 create DeviceDTO
 
 activate DeviceAssembler
@@ -54,7 +107,7 @@ deactivate DeviceDTO
 DeviceAssembler --> Service : deviceDTO
 deactivate DeviceAssembler
 
-end loop
+
 Service --> Controller : deviceDTO
 deactivate Service
 

@@ -9,6 +9,13 @@ class Device<<entity>> <<root>> {
   + getDescription(): Description
   }
 
+class deviceID<<value>> {
+  - _id: string
+  + deviceID(id: string)
+  +equals(object : Object) : boolean
+  +toString() : String
+  }
+
 class DeviceFactory<<Factory>> {
   + createNewDevice(description: Description): Device
   }
@@ -18,26 +25,25 @@ class DeviceRepository<<Repository>> {
   + addDeviceToRepository(device: Device): Device
   }
 class DeviceService<<Service>> {
-  + createNewDevice(name: String): Device
+  + addDeviceToRoom(deviceDescription: String, roomId: String): Device
   }
 
  class RoomService<<Service>> {
-  + getRoomByID(id: string) : Room
+  + getRoomByID(roomID:RoomID) : Room
   }
 
 class RoomRepository<<Repository>> {
-  - _map<ID, Room> room
-  + findRoom(id: string): Room
+  - _map<RoomID, Room> room
+  + findRoom(roomID:RoomID): Room
   }
 
 class AddDeviceToRoomController<<Controller>> {
   - _deviceService: DeviceService
-  - _deviceDTO: DeviceDTO
   - _roomService: RoomService
-  + AddDeviceToRoomController(DeviceService: deviceService)
-  + createNewDevice(DeviceDTO: deviceDTO): DeviceDTO
-  + addDeviceToRepository(DeviceDTO: deviceDTO): DeviceDTO
-  + getRoomByID(id: string): Room
+  + AddDeviceToRoomController(deviceService: DeviceService)
+  + createNewDevice(roomID: String, deviceName: String): DeviceDTO
+  + addDeviceToRepository(): boolean
+  + getAllRooms(): List<RoomDTO>
   }
 class DeviceDTO<<DTO>> {
 + id: string
@@ -52,11 +58,11 @@ class DeviceAssembler<<Assembler>> {
 DeviceRepository "1" -down-> "1" Device: has
 DeviceService "1"-down->"1  " DeviceFactory: has
 DeviceService "1"-down->"1" DeviceRepository: has
-DeviceService "1"-down->"1" DeviceAssembler: uses
-RoomService "1"-right->"1" RoomRepository: uses
+DeviceService "1".down.>"1" DeviceAssembler: uses
+RoomService "1".right.>"1" RoomRepository: uses
 DeviceFactory "1".down.>"1  " Device: creates
-AddDeviceToRoomController "1"-down->"1" DeviceService: uses
-AddDeviceToRoomController "1"-down->"1" RoomService: uses
+AddDeviceToRoomController "1".down.>"1" DeviceService: uses
+AddDeviceToRoomController "1".down.>"1" RoomService: uses
 DeviceAssembler "1".up.> "1  " DeviceDTO: creates
 
 
