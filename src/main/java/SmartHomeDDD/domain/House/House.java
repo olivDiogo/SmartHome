@@ -28,7 +28,7 @@ public class House implements AggregateRoot<HouseID> {
      * @param gps The GPS coordinates of the house. Must not be null.
      * @throws IllegalArgumentException if any of the parameters are null.
      */
-    public House(Address address, ZipCode zipCode, GPS gps) {
+    House(Address address, ZipCode zipCode, GPS gps) {
         _houseID = new HouseID(UUID.randomUUID().toString());
         validateAddress(address);
         validateZipCode(zipCode);
