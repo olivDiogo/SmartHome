@@ -2,8 +2,7 @@ package SmartHomeDDD.ValueObject;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 
 public class ZipCodeTest {
 
@@ -26,7 +25,7 @@ public class ZipCodeTest {
 
         //Act & Assert
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> new ZipCode(zipCodePrefix, zipCodeSuffix));
-        assertEquals("Invalid post code prefix", exception.getMessage());
+        assertEquals("Invalid zip code prefix", exception.getMessage());
     }
 
     @Test
@@ -37,7 +36,7 @@ public class ZipCodeTest {
 
         //Act & Assert
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> new ZipCode(zipCodePrefix, zipCodeSuffix));
-        assertEquals("Invalid post code prefix", exception.getMessage());
+        assertEquals("Invalid zip code prefix", exception.getMessage());
     }
 
     @Test
@@ -48,7 +47,7 @@ public class ZipCodeTest {
 
         //Act & Assert
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> new ZipCode(zipCodePrefix, zipCodeSuffix));
-        assertEquals("Invalid post code suffix", exception.getMessage());
+        assertEquals("Invalid zip code suffix", exception.getMessage());
     }
 
     @Test
@@ -59,6 +58,72 @@ public class ZipCodeTest {
 
         //Act & Assert
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> new ZipCode(zipCodePrefix, zipCodeSuffix));
-        assertEquals("Invalid post code suffix", exception.getMessage());
+        assertEquals("Invalid zip code suffix", exception.getMessage());
+    }
+
+    @Test
+    void shouldReturnTrueEqualsWithSameZipCodePrefix(){
+        //Arrange
+        int zipCodePrefix = 4000;
+        int zipCodeSuffix = 100;
+
+        ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+        ZipCode zipCode2 = new ZipCode(zipCodePrefix, zipCodeSuffix);
+
+        //Act
+        boolean isEquals = zipCode.equals(zipCode2);
+
+        //Assert
+        assertTrue(isEquals);
+    }
+
+    @Test
+    void shouldReturnFalseWithDifferentZipCodePrefix(){
+        //Arrange
+        int zipCodePrefix = 4000;
+        int zipCodePrefix2 = 4001;
+        int zipCodeSuffix = 100;
+
+        ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+        ZipCode zipCode2 = new ZipCode(zipCodePrefix2, zipCodeSuffix);
+
+        //Act
+        boolean isEquals = zipCode.equals(zipCode2);
+
+        //Assert
+        assertFalse(isEquals);
+    }
+
+    @Test
+    void shouldReturnTrueEqualsWithSameZipCodeSuffix(){
+        //Arrange
+        int zipCodePrefix = 4000;
+        int zipCodeSuffix = 100;
+
+        ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+        ZipCode zipCode2 = new ZipCode(zipCodePrefix, zipCodeSuffix);
+
+        //Act
+        boolean isEquals = zipCode.equals(zipCode2);
+
+        //Assert
+        assertTrue(isEquals);
+    }
+
+    @Test
+    void shouldReturnFalseWithDifferentZipCodeSuffix(){
+        //Arrange
+        int zipCodePrefix = 4000;
+        int zipCodeSuffix = 100;
+        int zipCodeSuffix2 = 101;
+
+        ZipCode zipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+        ZipCode zipCode2 = new ZipCode(zipCodePrefix, zipCodeSuffix2);
+
+        //Act
+        boolean isEquals = zipCode.equals(zipCode2);
+
+        //Assert
+        assertFalse(isEquals);
     }
 }

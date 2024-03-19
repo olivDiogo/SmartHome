@@ -15,7 +15,7 @@ public class ZipCode implements ValueObject {
 
     private void zipCodePrefixValidation(int postCodePrefix){
         if (postCodePrefix < 1000 || postCodePrefix > 9999 ) {
-            throw new IllegalArgumentException("Invalid post code prefix");
+            throw new IllegalArgumentException("Invalid zip code prefix");
         } else {
             this._zipCodePrefix = postCodePrefix;
         }
@@ -23,10 +23,20 @@ public class ZipCode implements ValueObject {
 
     private void zipCodeSuffixValidation(int zipCodeSuffix){
         if (zipCodeSuffix < 100 || zipCodeSuffix > 999) {
-            throw new IllegalArgumentException("Invalid post code suffix");
+            throw new IllegalArgumentException("Invalid zip code suffix");
         } else {
             this._zipCodeSuffix = zipCodeSuffix;
         }
+    }
+    public boolean equals(Object object) {
+        if (this == object)
+            return true;
+        if (object instanceof ZipCode) {
+            ZipCode zipCode = (ZipCode) object;
+            if (this._zipCodePrefix == zipCode._zipCodePrefix && this._zipCodeSuffix == zipCode._zipCodeSuffix)
+                return true;
+        }
+        return false;
     }
 
 
