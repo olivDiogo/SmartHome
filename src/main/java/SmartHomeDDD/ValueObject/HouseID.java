@@ -11,9 +11,9 @@ public class HouseID implements DomainID {
      */
     public HouseID(String houseID){
         if (houseID != null && !houseID.isBlank() && !houseID.isEmpty())
-            this._id = houseID;
+            this._id = houseID.trim();
         else
-            throw new IllegalArgumentException("Valor do parâmetro 'houseID' deve ser uma string não vazia.");
+            throw new IllegalArgumentException("The value of 'houseID' should not null, blank, or empty.");
     }
 
     /**

@@ -28,7 +28,7 @@ public class HouseIDTest {
     public void shouldThrowException_whenHouseIdIsNull(){
         // Arrange
         String houseID = null;
-        String expectedMessage = "Valor do parâmetro 'houseID' deve ser uma string não vazia.";
+        String expectedMessage = "The value of 'houseID' should not null, blank, or empty.";
 
         // Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
@@ -48,7 +48,7 @@ public class HouseIDTest {
     public void shouldThrowException_whenHouseIdIsBlank(){
         // Arrange
         String houseID = " ";
-        String expectedMessage = "Valor do parâmetro 'houseID' deve ser uma string não vazia.";
+        String expectedMessage = "The value of 'houseID' should not null, blank, or empty.";
 
         // Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
@@ -68,7 +68,7 @@ public class HouseIDTest {
     public void shouldThrowException_whenHouseIdIsEmpty(){
         // Arrange
         String houseID = "";
-        String expectedMessage = "Valor do parâmetro 'houseID' deve ser uma string não vazia.";
+        String expectedMessage = "The value of 'houseID' should not null, blank, or empty.";
 
         // Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
@@ -100,16 +100,16 @@ public class HouseIDTest {
     }
 
     /**
-     * Tests if a houseID1 is equal to itself
+     * Tests if a houseID is equal to itself
      */
     @Test
     public void shouldReturnTrue_whenHouseIdIsEqualToItself(){
         // Arrange
         String idDescription = "HXPTO";
-        HouseID houseID1 = new HouseID(idDescription);
+        HouseID houseID = new HouseID(idDescription);
 
         // Act
-        boolean result = houseID1.equals(houseID1);
+        boolean result = houseID.equals(houseID);
 
         // Assert
         assertTrue(result);
@@ -152,6 +152,9 @@ public class HouseIDTest {
         assertFalse(result);
     }
 
+    /**
+     * Tests if the houseID is returned as an hashCode
+     */
     @Test
     public void shouldReturnHashCode(){
         // Arrange
