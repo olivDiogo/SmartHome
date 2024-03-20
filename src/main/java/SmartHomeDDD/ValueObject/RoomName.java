@@ -42,4 +42,32 @@ public class RoomName implements ValueObject {
     /*
     /The method getRoomName should be replaced by a generic method in the ValueObject interface
     */
+
+    /**
+     * Compares the current object with another object of the same type.
+     *
+     * @param o The object to compare with.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o instanceof RoomName) {
+            RoomName roomName = (RoomName) o;
+            if (this._name.equals(roomName._name))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the string representation of the object.
+     *
+     * @return The string representation of the object.
+     */
+    @Override
+    public String toString () {
+        return this._name;
+    }
 }
