@@ -9,8 +9,8 @@ public class RoomFloor implements ValueObject {
         validateFloor(floor);
     }
     private void validateFloor(int floor) {
-        if (floor < -5)
-            throw new IllegalArgumentException("Floor must be a positive integer.");
+        if (floor < -35 || floor > 162)
+            throw new IllegalArgumentException("Invalid floor number.");
         this._floor = floor;
     }
 
@@ -29,6 +29,12 @@ public class RoomFloor implements ValueObject {
                 return true;
         }
         return false;
+    }
+    @Override
+    public String toString() {
+        return "RoomFloor{" +
+                "_floor=" + _floor +
+                '}';
     }
 
 }
