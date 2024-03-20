@@ -74,4 +74,15 @@ public class ActuatorNameTest {
         assertTrue(exceptionMessage.contains(expectedMessage));
     }
 
+    @Test
+    void shouldGetActuatorName() {
+
+        String actuatorName = "Switch Actuator";
+        ActuatorName actuatorNameVO = new ActuatorName(actuatorName);
+
+        String result = actuatorNameVO.getActuatorName();
+
+        assertTrue(result.equals(actuatorName));
+    }
+
 }

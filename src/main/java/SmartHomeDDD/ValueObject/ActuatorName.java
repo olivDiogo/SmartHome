@@ -20,4 +20,7 @@ public class ActuatorName {
         }
     }
 
+    public String getActuatorName() {
+        return _actuatorName;
+    }
 }
