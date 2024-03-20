@@ -1,0 +1,221 @@
+@startuml
+
+participant " " as User
+
+box "Controller" #LightBlue
+participant ":AddSensorToDevice_Controller" as AddSensorToDevice_Controller
+end box
+participant "serviceRoom:ServiceRoom" as serviceRoom
+
+participant "repoRoom:RepositoryRoom" as RepositoryRoom
+
+participant ":RoomAssembler" as RoomAssembler
+
+participant "roomDTO:RoomDTO" as RoomDTO
+
+participant "serviceDevice:ServiceDevice" as serviceDevice
+
+participant "repoDevice:RepositoryDevice" as RepositoryDevice
+
+participant ":DeviceAssembler" as DeviceAssembler
+
+participant "serviceSensorModel:ServiceSensorModel" as serviceSensorModel
+
+participant "repoSensorModel:RepositorySensorModel" as RepositorySensorModel
+
+participant "deviceDTO:DeviceDTO" as DeviceDTO
+
+participant "repoSensorModel:RepositorySensorModel" as RepositorySensorModel
+
+participant "serviceSensor:ServiceSensor" as serviceSensor
+
+participant ":SensorFactory" as SensorFactory
+
+participant "sensorFactory:SensorFactory" as SensorFactory
+
+participant "sensor:Sensor" as Sensor
+
+participant "repositorySensor:RepositorySensor" as repositorySensor
+
+participant ":SensorAssembler" as SensorAssembler
+
+participant "sensorDTO:SensorDTO" as SensorDTO
+
+autonumber
+
+'----------------------------------------------------'
+
+User o-> AddSensorToDevice_Controller: getRooms()
+
+activate AddSensorToDevice_Controller
+
+AddSensorToDevice_Controller -> serviceRoom: getRooms()
+
+activate serviceRoom
+
+serviceRoom -> RepositoryRoom: getRooms()
+
+activate RepositoryRoom
+
+RepositoryRoom --> serviceRoom: rooms
+
+deactivate RepositoryRoom
+
+serviceRoom -> RoomAssembler: domain2DTO(Rooms)
+
+activate RoomAssembler
+
+loop for each room in copyOfRooms
+
+create RoomDTO
+    RoomAssembler -> RoomDTO: createRoomDTO(room)
+    activate RoomDTO
+    RoomDTO --> RoomAssembler: roomDTO
+    deactivate RoomDTO
+end
+
+RoomAssembler --> serviceRoom: roomsDTO
+
+deactivate RoomAssembler
+
+serviceRoom --> AddSensorToDevice_Controller: roomsDTO
+
+deactivate serviceRoom
+
+AddSensorToDevice_Controller --> User: roomsDTO
+
+deactivate AddSensorToDevice_Controller
+
+'----------------------------------------------------'
+
+User o-> AddSensorToDevice_Controller: getDevices(roomID)
+
+activate AddSensorToDevice_Controller
+
+AddSensorToDevice_Controller -> serviceDevice: getDevices(roomID)
+activate serviceDevice
+
+serviceDevice -> RepositoryDevice: getDevices(roomID)
+
+activate RepositoryDevice
+
+RepositoryDevice --> serviceDevice: devices
+
+deactivate RepositoryDevice
+
+serviceDevice -> DeviceAssembler: domain2DTO(Devices)
+
+activate DeviceAssembler
+
+loop for each device in copyOfDevices
+
+create DeviceDTO
+    DeviceAssembler -> DeviceDTO: createDeviceDTO(device)
+    activate DeviceDTO
+    DeviceDTO --> DeviceAssembler: deviceID
+    deactivate DeviceDTO
+end
+
+DeviceAssembler --> serviceDevice: devicesDTO
+
+deactivate DeviceAssembler
+
+serviceDevice --> AddSensorToDevice_Controller: devicesDTO
+
+deactivate serviceDevice
+
+AddSensorToDevice_Controller --> User: devicesDTO
+
+deactivate AddSensorToDevice_Controller
+
+'----------------------------------------------------'
+
+User o-> AddSensorToDevice_Controller: getSensorModels()
+
+activate AddSensorToDevice_Controller
+
+AddSensorToDevice_Controller -> serviceSensorModel: getSensorModels()
+
+activate serviceSensorModel
+
+serviceSensorModel -> RepositorySensorModel: getSensorModels()
+
+activate RepositorySensorModel
+
+RepositorySensorModel --> serviceSensorModel: sensorModelsStrings
+
+deactivate RepositorySensorModel
+
+serviceSensorModel --> AddSensorToDevice_Controller: sensorModelsStrings
+
+deactivate serviceSensorModel
+
+AddSensorToDevice_Controller --> User: sensorModelsStrings
+
+deactivate AddSensorToDevice_Controller
+
+'----------------------------------------------------'
+
+User o-> AddSensorToDevice_Controller: addSensorToDevice(deviceID, model)
+
+activate AddSensorToDevice_Controller
+
+AddSensorToDevice_Controller -> serviceSensor: addSensor(deviceID, model)
+
+activate serviceSensor
+
+serviceSensor -> SensorFactory: createSensor(model, repositorySensorModel, sensorFactory)
+
+activate SensorFactory
+
+create Sensor
+SensorFactory --> Sensor: addSensor(Sensor, deviceID)
+activate Sensor
+
+Sensor --> SensorFactory: Sensor
+
+deactivate Sensor
+
+SensorFactory --> serviceSensor: Sensor
+
+deactivate SensorFactory
+
+serviceSensor --> repositorySensor: saveSensor(Sensor)
+
+activate repositorySensor
+
+repositorySensor --> serviceSensor: true (or false)
+
+deactivate repositorySensor
+
+serviceSensor -> SensorAssembler: domain2DTO(sensor)
+
+activate SensorAssembler
+
+loop for each Sensor in copyOfSensors
+
+create SensorDTO
+
+SensorAssembler -> SensorDTO: createSensorDTO(sensor)
+
+activate SensorDTO
+
+SensorDTO --> SensorAssembler: sensorDTO
+
+deactivate SensorDTO
+
+end
+
+SensorAssembler --> serviceSensor: sensorDTO
+
+deactivate SensorAssembler
+
+serviceSensor --> AddSensorToDevice_Controller: sensorDTO
+
+deactivate serviceSensor
+
+AddSensorToDevice_Controller --> User: sensorDTO
+
+deactivate AddSensorToDevice_Controller
+
+@enduml
