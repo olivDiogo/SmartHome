@@ -3,9 +3,9 @@ package SmartHomeDDD.DTO;
 import SmartHomeDDD.ddd.DTO;
 
 public class HousesDTO implements DTO {
-    public String _address;
-    public String _zipCode;
-    public String _gps;
+    public final String _address;
+    public final String _zipCode;
+    public final String _gps;
 
     /**
      * Constructor for the HouseDTO class.
