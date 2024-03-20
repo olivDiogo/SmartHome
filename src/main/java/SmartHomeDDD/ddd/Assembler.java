@@ -2,7 +2,7 @@ package SmartHomeDDD.ddd;
 
 import java.util.List;
 
-public interface Assembler <T> {
-    T domainToDTO(T domainObject);
-    List<T> domainToDTO(List<T> domainObjects);
+public interface Assembler<ID extends AggregateRoot, T extends DTO >{
+    T domainToDTO(ID domainEntity);
+    List<T> domainToDTO(List<ID> domainEntities);
 }

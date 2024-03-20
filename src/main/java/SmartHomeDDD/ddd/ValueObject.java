@@ -1,6 +1,6 @@
 package SmartHomeDDD.ddd;
 
-public interface ValueObject<T> {
+public interface ValueObject {
     //T getObjectValue();
 
 }
