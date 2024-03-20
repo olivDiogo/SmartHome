@@ -4,8 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
-public class MeasurementIDTest {
+class MeasurementIDTest {
 
+    /**
+     * Tests the correct instantiation of a MeasurementID
+     */
     @Test
     void shouldReturnExpectedMeasurement_whenGivenValidParameters(){
         //Arrange
@@ -14,10 +17,10 @@ public class MeasurementIDTest {
         //Act
         MeasurementID unit = new MeasurementID(unitID);
 
-        //Assert
-        assertNotNull(unit);
     }
-
+    /**
+     * Tests if the exception is thrown with a null measurementID
+     */
     @Test
     void shouldThrowException_whenGivenNullMeasurementID(){
         //Arrange
@@ -33,6 +36,9 @@ public class MeasurementIDTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * Tests if the exception is thrown with a blank measurementID
+     */
     @Test
     void shouldThrowException_whenGivenBlankMeasurementID(){
         //Arrange
@@ -49,6 +55,9 @@ public class MeasurementIDTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * Tests if the exception is thrown with an empty measurementID
+     */
     @Test
     void shouldThrowException_whenGivenEmptyMeasurementID(){
         //Arrange
@@ -64,6 +73,9 @@ public class MeasurementIDTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * Tests if the equals method returns true when given the same MeasurementID
+     */
     @Test
     void shouldReturnTrue_whenGivenSameMeasurementID(){
         //Arrange
@@ -78,6 +90,9 @@ public class MeasurementIDTest {
         assertTrue(result);
     }
 
+    /**
+     * Tests if the equals method returns true when given the same MeasurementID instance
+     */
     @Test
     void shouldReturnTrue_whenGivenSameMeasurementIDInstance(){
         //Arrange
@@ -91,6 +106,9 @@ public class MeasurementIDTest {
         assertEquals(unit1, unit2);
     }
 
+    /**
+     * Tests if the equals method returns false when given different MeasurementID
+     */
     @Test
     void shouldReturnFalse_whenGivenDifferentMeasurementID(){
         //Arrange
@@ -106,11 +124,15 @@ public class MeasurementIDTest {
         assertFalse(result);
     }
 
+    /**
+     * Tests if the hashCode method returns the same value for the same MeasurementID
+     */
     @Test
     void shouldReturnExpectedHashCode_whenGivenValidParameters(){
         //Arrange
         String unitID = "Unit1";
         MeasurementID unit = new MeasurementID(unitID);
+
         int expectedHashCode = unitID.hashCode();
 
         //Act
@@ -120,6 +142,9 @@ public class MeasurementIDTest {
         assertEquals(expectedHashCode, result);
     }
 
+    /**
+     * Tests if the toString method returns the expected string
+     */
     @Test
     void shouldReturnExpectedString_whenGivenValidParameters(){
         //Arrange
@@ -136,6 +161,9 @@ public class MeasurementIDTest {
         assertEquals(expectedString, result);
     }
 
+    /**
+     * Tests if the getId method returns the expected ID
+     */
     @Test
     void shouldReturnID_whenGivenValidParameters(){
         //Arrange
