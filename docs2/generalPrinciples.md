@@ -47,11 +47,13 @@
 #### User Story Requirements Engineering and Tests
 - You can follow this standard
 
-- ## USXXX
+## USXXX
 
 ## 0. Requirements
+(e.g. _As an Administrator, I want to define a sensor type._)
 
 ## 1. Analysis
+(e.g. _The sensor type will be used for by the sensor to verify it's of supported typo before being added to the system. The sensor type will have a description, measuring unit and reference ID._)
 
 ### 1.1. System Sequence Diagram
 ![somerthing](something)
@@ -70,3 +72,5 @@
 ### 2.3. Applied Patterns
 
 ## 3. Tests
+
+- 
