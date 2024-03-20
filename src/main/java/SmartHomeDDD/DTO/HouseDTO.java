@@ -2,7 +2,7 @@ package SmartHomeDDD.DTO;
 
 import SmartHomeDDD.ddd.DTO;
 
-public class HousesDTO implements DTO {
+public class HouseDTO implements DTO {
     public final String _address;
     public final String _zipCode;
     public final String _gps;
@@ -14,7 +14,7 @@ public class HousesDTO implements DTO {
      * @param zipCode is the zip-code of the House.
      * @param gps     is the GPS coordinates of the House.
      */
-    public HousesDTO(String address, String zipCode, String gps) {
+    public HouseDTO(String address, String zipCode, String gps) {
         this._address = address;
         this._zipCode = zipCode;
         this._gps = gps;

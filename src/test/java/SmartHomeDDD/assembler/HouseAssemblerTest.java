@@ -1,6 +1,6 @@
 package SmartHomeDDD.assembler;
 
-import SmartHomeDDD.DTO.HousesDTO;
+import SmartHomeDDD.DTO.HouseDTO;
 import SmartHomeDDD.ValueObject.Address;
 import SmartHomeDDD.ValueObject.GPS;
 import SmartHomeDDD.ValueObject.ZipCode;
@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.mockito.MockedConstruction;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -34,14 +33,14 @@ public class HouseAssemblerTest {
 
         HouseAssembler houseAssembler = new HouseAssembler();
 
-        try (MockedConstruction<HousesDTO> mocked = mockConstruction(HousesDTO.class, (mock, context) -> {
+        try (MockedConstruction<HouseDTO> mocked = mockConstruction(HouseDTO.class, (mock, context) -> {
             when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
             // Act
-            HousesDTO result = houseAssembler.domainToDTO(house);
+            HouseDTO result = houseAssembler.domainToDTO(house);
 
             // Assert
-            List<HousesDTO> houseDTOList = mocked.constructed();
+            List<HouseDTO> houseDTOList = mocked.constructed();
             assertEquals(result.toString(), houseDTOList.get(0).toString());
             assertEquals(expected, houseDTOList.size());
         }
@@ -66,14 +65,14 @@ public class HouseAssemblerTest {
 
         HouseAssembler houseAssembler = new HouseAssembler();
 
-        try (MockedConstruction<HousesDTO> mocked = mockConstruction(HousesDTO.class, (mock, context) -> {
+        try (MockedConstruction<HouseDTO> mocked = mockConstruction(HouseDTO.class, (mock, context) -> {
             when(mock.toString()).thenReturn(context.arguments().getClass().toString());
         })) {
             // Act
-            List<HousesDTO> result = houseAssembler.domainToDTO(houses);
+            List<HouseDTO> result = houseAssembler.domainToDTO(houses);
 
             // Assert
-            List<HousesDTO> houseDTOList = mocked.constructed();
+            List<HouseDTO> houseDTOList = mocked.constructed();
             assertEquals(houses.size(), houseDTOList.size());
             assertArrayEquals(result.toArray(), houseDTOList.toArray());
         }

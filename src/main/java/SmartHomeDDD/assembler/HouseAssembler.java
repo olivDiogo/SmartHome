@@ -1,6 +1,6 @@
 package SmartHomeDDD.assembler;
 
-import SmartHomeDDD.DTO.HousesDTO;
+import SmartHomeDDD.DTO.HouseDTO;
 import SmartHomeDDD.ValueObject.Address;
 import SmartHomeDDD.ValueObject.GPS;
 import SmartHomeDDD.ValueObject.ZipCode;
@@ -11,9 +11,7 @@ import SmartHomeDDD.domain.House.House;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HouseAssembler implements Assembler<House, HousesDTO> {
-    ;
-
+public class HouseAssembler implements Assembler<House, HouseDTO> {
     /**
      * Constructor for the HouseAssembler class.
      */
@@ -27,12 +25,12 @@ public class HouseAssembler implements Assembler<House, HousesDTO> {
      * @return the HouseDTO.
      */
     @Override
-    public HousesDTO domainToDTO(House house) {
+    public HouseDTO domainToDTO(final House house) {
         String zipCode = zipCodeToString(house.getZipCode());
         String address = addressToString(house.getAddress());
         String gps = gpsToString(house.getGps());
 
-        HousesDTO houseDTO = new HousesDTO(address, zipCode, gps);
+        HouseDTO houseDTO = new HouseDTO(address, zipCode, gps);
         return houseDTO;
     }
 
@@ -43,13 +41,13 @@ public class HouseAssembler implements Assembler<House, HousesDTO> {
      * @return the list of HouseDTOs.
      */
     @Override
-    public List<HousesDTO> domainToDTO(List<House> houses) {
-        List<HousesDTO> housesDTO = new ArrayList<>();
+    public List<HouseDTO> domainToDTO(final List<House> houses) {
+        List<HouseDTO> housesDTO = new ArrayList<>();
         for (House house : houses) {
             String address = zipCodeToString(house.getZipCode());
             String zipCode = addressToString(house.getAddress());
             String gps = gpsToString(house.getGps());
-            HousesDTO houseDTO = new HousesDTO(address, zipCode, gps);
+            HouseDTO houseDTO = new HouseDTO(address, zipCode, gps);
             housesDTO.add(houseDTO);
         }
         return housesDTO;
@@ -85,10 +83,6 @@ public class HouseAssembler implements Assembler<House, HousesDTO> {
     private String gpsToString(GPS gps) {
         return String.valueOf(gps);
     }
-
-
-
-
 }
 
 
