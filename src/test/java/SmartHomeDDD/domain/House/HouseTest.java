@@ -18,7 +18,7 @@ class HouseTest {
      * This test does not expect any exceptions to be thrown during the instantiation process.
      */
     @Test
-    void shouldInstantiateHouseWhenConstructorIsCalledWithValidParameters(){
+    void shouldInstantiateHouse_WhenConstructorIsCalledWithValidParameters(){
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = mock(ZipCode.class);
@@ -33,7 +33,7 @@ class HouseTest {
      * a House with a null Address parameter, validating input parameter checks.
      */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithNullAddress(){
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullAddress(){
         // Arrange
         Address address = null;
         ZipCode zipCode = mock(ZipCode.class);
@@ -48,7 +48,7 @@ class HouseTest {
      * a House with a null ZipCode parameter, validating input parameter checks.
      */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithNullZipCode(){
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullZipCode(){
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = null;
@@ -63,7 +63,7 @@ class HouseTest {
      * a House with a null GPS parameter, validating input parameter checks.
      */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenConstructorIsCalledWithNullGPS(){
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullGPS(){
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = mock(ZipCode.class);
@@ -78,7 +78,7 @@ class HouseTest {
      * This test verifies that the HouseID is properly set during House construction.
      */
     @Test
-    void shouldReturnHouseIDWhenGetIDIsCalled(){
+    void shouldReturnHouseID_WhenGetIDIsCalled(){
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = mock(ZipCode.class);
@@ -97,7 +97,7 @@ class HouseTest {
      * This test verifies that the Address is properly set during House construction.
      */
     @Test
-    void shouldReturnAddressWhenGetAddressIsCalled(){
+    void shouldReturnAddress_WhenGetAddressIsCalled(){
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = mock(ZipCode.class);
@@ -116,7 +116,7 @@ class HouseTest {
      * This test verifies that the ZipCode is properly set during House construction.
      */
     @Test
-    void shouldReturnZipCodeWhenGetZipCodeIsCalled(){
+    void shouldReturnZipCode_WhenGetZipCodeIsCalled(){
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = mock(ZipCode.class);
@@ -135,7 +135,7 @@ class HouseTest {
      * This test verifies that the GPS is properly set during House construction.
      */
     @Test
-    void shouldReturnGpsWhenGetGpsIsCalled(){
+    void shouldReturnGps_WhenGetGpsIsCalled(){
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = mock(ZipCode.class);
@@ -154,7 +154,7 @@ class HouseTest {
      * This test utilizes mocking of the HouseID class to simulate identical IDs.
      */
     @Test
-    void shouldReturnTrueWhenTwoHousesHaveTheSameID() {
+    void shouldReturnTrue_WhenTwoHousesHaveTheSameID() {
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = mock(ZipCode.class);
@@ -176,7 +176,7 @@ class HouseTest {
      * This test ensures that the equals method correctly evaluates the identity of House instances.
      */
     @Test
-    void shouldReturnFalseWhenThereAreTwoDifferentHouses() {
+    void shouldReturnFalse_WhenThereAreTwoDifferentHouses() {
         // Arrange
         Address address1 = mock(Address.class);
         ZipCode zipCode1 = mock(ZipCode.class);

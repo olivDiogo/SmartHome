@@ -9,7 +9,7 @@ class SensorNameTest {
      * Tests the SensorName constructor with a valid sensor name.
      */
     @Test
-    void shouldGetValidObject_whenUsingValidSensorName(){
+    void shouldGetValidObject_WhenUsingValidSensorName(){
         // Arrange
         String validSensorName = "Temperature Sensor 1";
 
@@ -21,7 +21,7 @@ class SensorNameTest {
      * Tests the SensorName constructor with a null sensor name.
      */
     @Test
-    void shouldThrowIllegalArgumentException_whenSensorNameNull(){
+    void shouldThrowIllegalArgumentException_WhenSensorNameNull(){
         // Arrange
         String nullSensorName = null;
         String expectedMessage = "The sensor name cannot be null, blank, or empty.";
@@ -41,7 +41,7 @@ class SensorNameTest {
      * Tests the SensorName constructor with a blank sensor name.
      */
     @Test
-    void shouldThrowIllegalArgumentException_whenSensorNameBlank(){
+    void shouldThrowIllegalArgumentException_WhenSensorNameBlank(){
         // Arrange
         String blankSensorName = " ";
         String expectedMessage = "The sensor name cannot be null, blank, or empty.";
@@ -61,7 +61,7 @@ class SensorNameTest {
      * Tests the SensorName constructor with an empty sensor name.
      */
     @Test
-    void shouldThrowIllegalArgumentException_whenSensorNameEmpty(){
+    void shouldThrowIllegalArgumentException_WhenSensorNameEmpty(){
         // Arrange
         String emptySensorName = "";
         String expectedMessage = "The sensor name cannot be null, blank, or empty.";
@@ -81,7 +81,7 @@ class SensorNameTest {
      * Tests the SensorName constructor with special characters in the sensor name.
      */
     @Test
-    void shouldThrowIllegalArgumentException_whenSensorNameContainsSpecialCharacters(){
+    void shouldThrowIllegalArgumentException_WhenSensorNameContainsSpecialCharacters(){
         // Arrange
         String invalidSensorName = "Temperature Sensor 1!";
         String expectedMessage = "The sensor name can only contain letters and numbers.";
@@ -101,7 +101,7 @@ class SensorNameTest {
      * Tests the getSensorName method.
      */
     @Test
-    void shouldGetSensorName(){
+    void shouldGetSensorName_WhenGetSensorNameIsCalled(){
         // Arrange
         String sensorName = "Temperature Sensor 1";
         SensorName sensorNameObject = new SensorName(sensorName);

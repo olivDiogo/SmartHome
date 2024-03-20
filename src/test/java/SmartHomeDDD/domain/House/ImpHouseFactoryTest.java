@@ -19,7 +19,7 @@ class ImpHouseFactoryTest {
      * is called with valid parameters. This test verifies that no exceptions are thrown during the creation process.
      */
     @Test
-    void shouldCreateHouseWhenCreateHouseIsCalledWithValidParameters(){
+    void shouldCreateHouse_WhenCreateHouseIsCalledWithValidParameters(){
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = mock(ZipCode.class);
@@ -35,7 +35,7 @@ class ImpHouseFactoryTest {
      * is called with a null Address parameter. This test confirms the robustness of the factory's parameter validation.
      */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenCreateHouseIsCalledWithNullAddress(){
+    void shouldThrowIllegalArgumentException_WhenCreateHouseIsCalledWithNullAddress(){
         // Arrange
         Address address = null;
         ZipCode zipCode = mock(ZipCode.class);
@@ -51,7 +51,7 @@ class ImpHouseFactoryTest {
      * is called with a null ZipCode parameter. This verifies that the factory properly checks for null values in its arguments.
      */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenCreateHouseIsCalledWithNullZipCode(){
+    void shouldThrowIllegalArgumentException_WhenCreateHouseIsCalledWithNullZipCode(){
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = null;
@@ -67,7 +67,7 @@ class ImpHouseFactoryTest {
      * is called with a null GPS parameter. This test checks that all critical parameters are validated before house creation.
      */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenCreateHouseIsCalledWithNullGPS(){
+    void shouldThrowIllegalArgumentException_WhenCreateHouseIsCalledWithNullGPS(){
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = mock(ZipCode.class);
