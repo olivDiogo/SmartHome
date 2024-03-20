@@ -20,8 +20,8 @@ public class Room implements AggregateRoot<RoomID> {
      * @param dimension The dimension of the room. Must not be null.
      * @param roomFloor The floor where the room is located. Must not be null.
      */
-    public Room(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor) {
-        validateHouseID(houseID);
+     Room(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor) {
+         validateHouseID(houseID);
         generateRoomID();
         validateRoomName(roomName);
         validateRoomDimension(dimension);
