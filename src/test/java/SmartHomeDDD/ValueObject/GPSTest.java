@@ -242,6 +242,36 @@ class GPSTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void shouldReturnExpectedLatitudeWhenCallingGetLatitude(){
+        //Arrange
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+
+        GPS gps = new GPS(latitude, longitude);
+
+        //Act
+        double result = gps.getLatitude();
+
+        //Assert
+        assertEquals(latitude, result, 0.00001);
+    }
+
+    @Test
+    void shouldReturnExpectedLongitudeWhenCallingGetLongitude(){
+        //Arrange
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+
+        GPS gps = new GPS(latitude, longitude);
+
+        //Act
+        double result = gps.getLongitude();
+
+        //Assert
+        assertEquals(longitude, result, 0.00001);
+    }
+
 
 
 }
