@@ -16,7 +16,7 @@ _At present this US has no dependency on another user story_
 ![SensorType](../ooa/agreggateModels/sensorTypeAggregate.png)
 
 ## 2. Design
-_The team will design the best way to implement the requirements._
+
 ### 2.1. Class Diagram
 ![ClassDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/ood/classDiagram/US04AddSupportedSensorType.png)
 ### 2.2. Sequence Diagram

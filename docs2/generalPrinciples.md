@@ -43,3 +43,30 @@
 - Should represent all explicit constructors of the classes
 - Should show the cardinality of the relationships between classes
 - At present the shouldn't represent aggregation or composition relationships between classes
+
+#### User Story Requirements Engineering and Tests
+- You can follow this standard
+
+- ## USXXX
+
+## 0. Requirements
+
+## 1. Analysis
+
+### 1.1. System Sequence Diagram
+![somerthing](something)
+
+### 1.3. Dependency of another user story
+
+### 1.4. Relevant domain model aggregates
+![somerthing](something)
+
+## 2. Design
+
+### 2.1. Class Diagram
+![somerthing](something)
+### 2.2. Sequence Diagram
+![something](something)
+### 2.3. Applied Patterns
+
+## 3. Tests
