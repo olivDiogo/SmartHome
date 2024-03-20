@@ -1,12 +1,14 @@
 package SmartHomeDDD.ValueObject;
 
+import SmartHomeDDD.ddd.ValueObject;
+
 /**
  * Represents a unique identifier for a measurement within a smart home system.
  * This class ensures that the identifier is valid and not empty.
  */
-public class MeasurementID {
+public class MeasurementID implements ValueObject {
 
-    private String _measurementID;
+    private final String _measurementID;
 
     /**
      * Constructs a MeasurementID object with a specified unit ID after validating it.
@@ -16,6 +18,7 @@ public class MeasurementID {
      */
     public MeasurementID(String unitID) {
         validateUnitID(unitID);
+        this._measurementID = unitID;
     }
 
     /**
@@ -25,10 +28,9 @@ public class MeasurementID {
      * @throws IllegalArgumentException if the unit ID is null, blank, or empty.
      */
     private void validateUnitID(String unitID) {
-        if (unitID != null && !unitID.isBlank() && !unitID.isEmpty())
-            this._measurementID = unitID;
-        else
+        if (unitID == null || unitID.isBlank() || unitID.isEmpty()) {
             throw new IllegalArgumentException("Invalid unit ID.");
+        }
     }
 
     /**

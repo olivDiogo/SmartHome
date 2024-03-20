@@ -9,9 +9,9 @@ import SmartHomeDDD.ddd.ValueObject;
 
 public class GPS implements ValueObject {
 
-    private double _latitude;
+    private final double _latitude;
 
-    private double _longitude;
+    private final double _longitude;
 
     /**
      * Constructs a GPS object with specified latitude and longitude after validating them.
@@ -23,6 +23,8 @@ public class GPS implements ValueObject {
     public GPS(double latitude, double longitude) {
         validationLatitude(latitude);
         validationLongitude(longitude);
+        this._latitude = latitude;
+        this._longitude = longitude;
     }
 
     /**
@@ -35,7 +37,6 @@ public class GPS implements ValueObject {
         if (!validLatitudeForFiveDecimalNumber(latitude) || latitude < -90 || latitude > 90) {
             throw new IllegalArgumentException("Please enter a valid latitude.");
         }
-        this._latitude = latitude;
     }
 
     /**
@@ -48,7 +49,6 @@ public class GPS implements ValueObject {
         if (!validLongitudeForFiveDecimalNumber(longitude) || longitude < -180 || longitude > 180) {
             throw new IllegalArgumentException("Please enter a valid longitude.");
         }
-        this._longitude = longitude;
     }
 
     /**
@@ -83,6 +83,7 @@ public class GPS implements ValueObject {
      * @param object the object to compare with.
      * @return true if both objects are GPS instances with the same latitude and longitude.
      */
+    @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object instanceof GPS) {
