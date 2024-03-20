@@ -24,7 +24,7 @@ public class DeviceIDTest {
      * Tests if the exception is thrown with a null deviceID
      */
     @Test
-    public void shouldThrowException_whenHouseIdIsNull(){
+    public void shouldThrowException_whenDeviceIdIsNull(){
         // Arrange
         String deviceID = null;
         String expectedMessage = "The value of 'deviceID' should not null, blank, or empty.";
@@ -44,7 +44,7 @@ public class DeviceIDTest {
      * Tests if the exception is thrown with a blank deviceID
      */
     @Test
-    public void shouldThrowException_whenHouseIdIsBlank(){
+    public void shouldThrowException_whenDeviceIdIsBlank(){
         // Arrange
         String deviceID = " ";
         String expectedMessage = "The value of 'deviceID' should not null, blank, or empty.";
@@ -64,7 +64,7 @@ public class DeviceIDTest {
      * Tests if the exception is thrown with an empty deviceID
      */
     @Test
-    public void shouldThrowException_whenHouseIdIsEmpty(){
+    public void shouldThrowException_whenDeviceIdIsEmpty(){
         // Arrange
         String deviceID = "";
         String expectedMessage = "The value of 'deviceID' should not null, blank, or empty.";
@@ -102,7 +102,7 @@ public class DeviceIDTest {
      * Tests if a deviceID is equal to itself
      */
     @Test
-    public void shouldReturnTrue_whenHouseIdIsEqualToItself(){
+    public void shouldReturnTrue_whenDeviceIdIsEqualToItself(){
         // Arrange
         String idDescription = "HXPTO";
         DeviceID deviceID = new DeviceID(idDescription);
@@ -118,7 +118,7 @@ public class DeviceIDTest {
      * Tests if a deviceID1 is equal to a deviceID2 if the ID of both is the same
      */
     @Test
-    public void shouldReturnTrue_whenHouseIdIsEqualToOtherHouseId(){
+    public void shouldReturnTrue_whenDeviceIdIsEqualToOtherDeviceId(){
         // Arrange
         String idDescription = "HXPTO";
         DeviceID deviceID1 = new DeviceID(idDescription);
@@ -135,7 +135,7 @@ public class DeviceIDTest {
      * Tests if a deviceID1 is not equal to a deviceID2
      */
     @Test
-    public void shouldReturnTrue_whenHouseIdIsNotEqualToAnotherHouseId(){
+    public void shouldReturnTrue_whenDeviceIdIsNotEqualToAnotherDeviceId(){
         // Arrange
         String idDescription1 = "HXPTO";
         DeviceID deviceID1 = new DeviceID(idDescription1);

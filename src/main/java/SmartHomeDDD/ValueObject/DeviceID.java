@@ -7,6 +7,7 @@ public class DeviceID implements DomainID {
 
     /**
      * Constructor for DeviceID
+     *
      * @param deviceID
      */
     public DeviceID(String deviceID) {
