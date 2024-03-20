@@ -83,5 +83,9 @@ public class Address implements ValueObject {
         return this._doorNumber;
     }
 
+    public String toString(){
+        return this._street + ", " + this._doorNumber;
+    }
+
 
 }
