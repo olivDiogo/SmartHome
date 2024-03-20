@@ -59,4 +59,19 @@ public class ActuatorNameTest {
         assertTrue(exceptionMessage.contains(expectedMessage));
     }
 
+    @Test
+    void shouldThrowIllegalArgumentException_whenActuatorNameContainsSpecialCharacters() {
+
+        String actuatorName = "Switch Actuator!";
+        String expectedMessage = "The actuator name can only contain letters and numbers.";
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                new ActuatorName(actuatorName)
+        );
+
+        String exceptionMessage = exception.getMessage();
+
+        assertTrue(exceptionMessage.contains(expectedMessage));
+    }
+
 }
