@@ -54,6 +54,13 @@ public class GPS implements ValueObject {
         }
         return false;
     }
+    public double getLatitude() {
+        return _latitude;
+    }
+
+    public double getLongitude() {
+        return _longitude;
+    }
 
     @Override
     public String toString() {
