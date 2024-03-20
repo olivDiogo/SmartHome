@@ -1,67 +1,118 @@
+/**
+ * Represents a geographical location using GPS coordinates.
+ * This class ensures that latitude and longitude values are within valid ranges and
+ * that they are precise up to five decimal places.
+ */
 package SmartHomeDDD.ValueObject;
 
 import SmartHomeDDD.ddd.ValueObject;
 
 public class GPS implements ValueObject {
+
     private double _latitude;
+
     private double _longitude;
 
+    /**
+     * Constructs a GPS object with specified latitude and longitude after validating them.
+     *
+     * @param latitude  the latitude value to set, must be between -90 and 90 degrees.
+     * @param longitude the longitude value to set, must be between -180 and 180 degrees.
+     * @throws IllegalArgumentException if either latitude or longitude is invalid.
+     */
     public GPS(double latitude, double longitude) {
-        setLatitude(latitude);
-        setLongitude(longitude);
+        validationLatitude(latitude);
+        validationLongitude(longitude);
     }
 
-    private void setLatitude(double latitude) {
+    /**
+     * Validates and sets the latitude value after checking its range and precision.
+     *
+     * @param latitude the latitude value to validate and set.
+     * @throws IllegalArgumentException if the latitude is out of range or too precise.
+     */
+    private void validationLatitude(double latitude) {
         if (!validLatitudeForFiveDecimalNumber(latitude) || latitude < -90 || latitude > 90) {
             throw new IllegalArgumentException("Please enter a valid latitude.");
         }
         this._latitude = latitude;
     }
 
-    private void setLongitude(double longitude) {
+    /**
+     * Validates and sets the longitude value after checking its range and precision.
+     *
+     * @param longitude the longitude value to validate and set.
+     * @throws IllegalArgumentException if the longitude is out of range or too precise.
+     */
+    private void validationLongitude(double longitude) {
         if (!validLongitudeForFiveDecimalNumber(longitude) || longitude < -180 || longitude > 180) {
             throw new IllegalArgumentException("Please enter a valid longitude.");
         }
         this._longitude = longitude;
     }
 
+    /**
+     * Checks if the given latitude has five or fewer decimal places.
+     *
+     * @param latitude the latitude value to check.
+     * @return true if the latitude has five or fewer decimal places, false otherwise.
+     */
     private boolean validLatitudeForFiveDecimalNumber(double latitude) {
         String latitudeStr = Double.toString(latitude);
         int decimalPointIndex = latitudeStr.indexOf('.');
-        // Count the digits after the decimal point
         int digitsAfterDecimal = latitudeStr.length() - decimalPointIndex - 1;
-        // Check if the number of digits after the decimal is 5 or fewer.
         return digitsAfterDecimal <= 5;
-
     }
 
+    /**
+     * Checks if the given longitude has five or fewer decimal places.
+     *
+     * @param longitude the longitude value to check.
+     * @return true if the longitude has five or fewer decimal places, false otherwise.
+     */
     private boolean validLongitudeForFiveDecimalNumber(double longitude) {
         String longitudeStr = Double.toString(longitude);
         int decimalPointIndex = longitudeStr.indexOf('.');
-        // Count the digits after the decimal point
         int digitsAfterDecimal = longitudeStr.length() - decimalPointIndex - 1;
-        // Check if the number of digits after the decimal is 5 or fewer.
         return digitsAfterDecimal <= 5;
     }
 
+    /**
+     * Checks if this GPS object is equal to another object.
+     *
+     * @param object the object to compare with.
+     * @return true if both objects are GPS instances with the same latitude and longitude.
+     */
     public boolean equals(Object object) {
         if (this == object) return true;
-
         if (object instanceof GPS) {
             GPS gps = (GPS) object;
-
-            if (this._latitude == gps._latitude && this._longitude == gps._longitude) return true;
+            return this._latitude == gps._latitude && this._longitude == gps._longitude;
         }
         return false;
     }
+
+    /**
+     * Gets the latitude value of this GPS location.
+     *
+     * @return the latitude value.
+     */
     public double getLatitude() {
         return _latitude;
     }
-
+    /**
+     * Gets the longitude value of this GPS location.
+     *
+     * @return the longitude value.
+     */
     public double getLongitude() {
         return _longitude;
     }
-
+    /**
+     * Returns a string representation of the GPS location.
+     *
+     * @return a string in the format "GPS{latitude=VALUE, longitude=VALUE}".
+     */
     @Override
     public String toString() {
         return "GPS{" +
@@ -69,6 +120,4 @@ public class GPS implements ValueObject {
                 ", longitude=" + _longitude +
                 '}';
     }
-
-
 }
