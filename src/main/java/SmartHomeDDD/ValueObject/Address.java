@@ -83,6 +83,10 @@ public class Address implements ValueObject {
         return this._doorNumber;
     }
 
+    /**
+     * Address object to string
+     * @return String
+     */
     public String toString(){
         return this._street + ", " + this._doorNumber;
     }

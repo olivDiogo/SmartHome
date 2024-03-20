@@ -303,5 +303,25 @@ public class AddressTest {
         assertEquals(doorNumber, actualDoorNumber);
     }
 
+    /**
+     * Tests if the address is returned correctly.
+     */
+
+    @Test
+    void shouldReturnAddressToString(){
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        Address address = new Address(street, doorNumber);
+
+        String expected = "Isep Street 2, 12 A";
+
+        //Act
+        String actualAddress = address.toString();
+
+        //Assert
+        assertEquals(street + ", " + doorNumber, actualAddress);
+    }
+
 
 }
