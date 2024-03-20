@@ -1,26 +1,32 @@
 package SmartHomeDDD.DTO;
 
+import SmartHomeDDD.ddd.DTO;
+
 /**
- * A Data Transfer Object (DTO) class representing information about a room.
+ * Data Transfer Object (DTO) representing information about a room.
  */
-public class RoomDTO {
+public class RoomDTO implements DTO {
 
     /**
      * The name of the room.
      */
     public final String _roomName;
+
     /**
      * The dimensions of the room.
      */
     public final String _dimensions;
+
     /**
      * The floor of the room.
      */
     public final String _floor;
+
     /**
      * The unique identifier of the room.
      */
     public final String _roomId;
+
     /**
      * Constructs a new RoomDTO object with the specified room details.
      *
