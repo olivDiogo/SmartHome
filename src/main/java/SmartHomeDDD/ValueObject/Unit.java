@@ -17,4 +17,29 @@ public class Unit implements ValueObject {
         }
     }
 
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object instanceof Unit) {
+            Unit unit = (Unit) object;
+
+            if (this._unit.equals(unit._unit)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getUnit() {
+        return _unit;
+    }
+
+    @Override
+    public String toString() {
+        return "Unit{" +
+                "_unit='" + _unit +
+                '}';
+    }
+
 }
