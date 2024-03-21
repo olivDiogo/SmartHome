@@ -13,11 +13,18 @@ import static org.mockito.Mockito.when;
 
 public class SensorTypeRepositoryTest {
 
+
+    /**
+     * Test of SensorTypeRepository constructor.
+     */
     @Test
     void shouldInstantiateSensorTypeRepository() {
         new SensorTypeRepository();
     }
 
+    /**
+     * Test of save method when given valid SensorType.
+     */
     @Test
     void shouldSaveSensorType_whenGivenValidSensorType() {
         //Arrange
@@ -33,6 +40,9 @@ public class SensorTypeRepositoryTest {
         assertEquals(sensorType, savedSensorType);
     }
 
+    /**
+     * Test of save method when given null SensorType.
+     */
     @Test
     void shouldThrowIllegalArgumentException_whenGivenNullSensorType() {
         //Arrange
@@ -47,6 +57,9 @@ public class SensorTypeRepositoryTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+    /**
+     * Test of save method when SensorType already exists.
+     */
     @Test
     void shouldThrowException_whenSensorTypeAlreadyExists() {
         //Arrange
@@ -66,6 +79,9 @@ public class SensorTypeRepositoryTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+    /**
+     * Test of findAll method when there are SensorTypes saved.
+     */
     @Test
     void shouldRetunrAllSensorTypes_whenFindAllIsCalled() {
         //Arrange
@@ -90,6 +106,9 @@ public class SensorTypeRepositoryTest {
         assertEquals(expectedList, allSensorTypes);
     }
 
+    /**
+     * Test of findAll method when there are no SensorTypes saved.
+     */
     @Test
     void shouldReturnEmptyList_whenNoSensorTypesAreSaved() {
         //Arrange
@@ -117,6 +136,9 @@ public class SensorTypeRepositoryTest {
         assertEquals(sensorType, returnedSensorType);
     }
 
+    /**
+     * Test of ofIdentity method when given invalid TypeDescription.
+     */
     @Test
     void shouldReturnOptinalEmpty_whenGivenInvalidTypeDescription() {
         //Arrange
@@ -137,6 +159,9 @@ public class SensorTypeRepositoryTest {
         assertTrue(returnedSensorType.isEmpty());
     }
 
+    /**
+     * Test of containsOfIdentity method when given valid TypeDescription.
+     */
     @Test
     void shouldReturnTrue_whenGivenValidTypeDescription() {
         //Arrange
@@ -154,6 +179,9 @@ public class SensorTypeRepositoryTest {
         assertTrue(containsSensorType);
     }
 
+    /**
+     * Test of containsOfIdentity method when given invalid TypeDescription.
+     */
     @Test
     void shouldReturnFalse_whenGivenInvalidTypeDescription() {
         //Arrange

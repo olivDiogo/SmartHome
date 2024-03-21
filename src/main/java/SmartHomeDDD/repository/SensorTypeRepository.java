@@ -18,6 +18,12 @@ public class SensorTypeRepository implements Repository<TypeDescription, SensorT
     private final Map<TypeDescription, SensorType> _sensorTypeData = new LinkedHashMap<>();
 
 
+    /**
+     * Save a SensorType. If the SensorType is null, throw an IllegalArgumentException.
+     *
+     * @param sensorType the SensorType to save.
+     * @return the saved SensorType.
+     */
     @Override
     public SensorType save(SensorType sensorType) {
         if (sensorType == null) {
@@ -30,18 +36,35 @@ public class SensorTypeRepository implements Repository<TypeDescription, SensorT
         return sensorType;
     }
 
+    /**
+     * Find all SensorTypes.
+     *
+     * @return a list of all SensorTypes.
+     */
     @Override
     public List<SensorType> findAll() {
-        List <SensorType> allSensorTypes = _sensorTypeData.values().stream().toList();
+        List<SensorType> allSensorTypes = _sensorTypeData.values().stream().toList();
         return allSensorTypes;
     }
 
+    /**
+     * Find a SensorType by its identity.
+     *
+     * @param typeDescription the identity of the SensorType to find.
+     * @return the SensorType if found, otherwise Optional.empty().
+     */
     @Override
     public Optional<SensorType> ofIdentity(TypeDescription typeDescription) {
         Optional<SensorType> sensorType = Optional.ofNullable(_sensorTypeData.get(typeDescription));
         return sensorType;
     }
 
+    /**
+     * Check if a SensorType exists by its identity.
+     *
+     * @param typeDescription the identity of the SensorType to check.
+     * @return true if the SensorType exists, otherwise false.
+     */
     @Override
     public boolean containsOfIdentity(TypeDescription typeDescription) {
         return _sensorTypeData.containsKey(typeDescription);
