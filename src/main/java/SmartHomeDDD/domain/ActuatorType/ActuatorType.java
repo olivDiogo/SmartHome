@@ -1,8 +1,9 @@
 package SmartHomeDDD.domain.ActuatorType;
 
 import SmartHomeDDD.ValueObject.TypeDescription;
+import SmartHomeDDD.ddd.AggregateRoot;
 
-public class ActuatorType {
+public class ActuatorType implements AggregateRoot<TypeDescription> {
 
     /**
      * The actuator type name.
@@ -31,10 +32,10 @@ public class ActuatorType {
 
     /**
      * Gets the actuator type name.
-     *
      * @return the actuator type name
      */
-    public TypeDescription getActuatorTypeName() {
+    @Override
+    public TypeDescription getID() {
         return _actuatorTypeName;
     }
 

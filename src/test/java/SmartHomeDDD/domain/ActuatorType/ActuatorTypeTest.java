@@ -43,16 +43,16 @@ class ActuatorTypeTest {
         }
 
         /**
-         * Test of method getActuatorTypeName of class ActuatorType.
+         * Test of method getID of class ActuatorType.
          */
         @Test
-        void shouldReturnActuatorTypeName_whenGetActuatorTypeNameIsCalled() {
+        void shouldReturnActuatorTypeName_whenGetIDisCalled() {
             // Arrange
             TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
             ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
 
             // Act
-            TypeDescription actualTypeDescription = actuatorType.getActuatorTypeName();
+            TypeDescription actualTypeDescription = actuatorType.getID();
 
             // Assert
             assertEquals(typeDescriptionDouble, actualTypeDescription);
