@@ -1,8 +1,9 @@
 package SmartHomeDDD.ValueObject;
 
+import SmartHomeDDD.ddd.DomainID;
 import SmartHomeDDD.ddd.ValueObject;
 
-public class TypeDescription implements ValueObject {
+public class TypeDescription implements ValueObject, DomainID {
     private String _description;
 
     public TypeDescription(String description) {
