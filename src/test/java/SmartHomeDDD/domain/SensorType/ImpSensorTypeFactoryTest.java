@@ -24,7 +24,7 @@ public class ImpSensorTypeFactoryTest {
 
         try(MockedConstruction<SensorType> sensorTypeDouble = mockConstruction(SensorType.class,(mock, context) -> {
             TypeDescription actualTypeDescription = (TypeDescription) context.arguments().get(0);
-            when(mock.getSensorTypeName()).thenReturn(actualTypeDescription);
+            when(mock.getID()).thenReturn(actualTypeDescription);
 
         })) {
             ImpSensorTypeFactory impSensorTypeFactory = new ImpSensorTypeFactory();
@@ -35,7 +35,7 @@ public class ImpSensorTypeFactoryTest {
             // Assert
             List<SensorType> sensorTypeList = sensorTypeDouble.constructed();
             assertEquals(1, sensorTypeList.size());
-            assertEquals(typeDescriptionDouble, sensorType.getSensorTypeName());
+            assertEquals(typeDescriptionDouble, sensorType.getID());
         }
     }
 }
