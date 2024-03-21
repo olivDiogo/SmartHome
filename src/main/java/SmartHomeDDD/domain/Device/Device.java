@@ -5,7 +5,6 @@ import SmartHomeDDD.ValueObject.DeviceName;
 import SmartHomeDDD.ValueObject.DeviceStatus;
 import SmartHomeDDD.ValueObject.RoomID;
 import SmartHomeDDD.ddd.AggregateRoot;
-
 import java.util.UUID;
 
 public class Device implements AggregateRoot<DeviceID> {
@@ -33,10 +32,18 @@ public class Device implements AggregateRoot<DeviceID> {
         generateDeviceID();
     }
 
+    /**
+     * Generates a new DeviceID object.
+     */
     private void generateDeviceID() {
         _deviceID = new DeviceID(UUID.randomUUID().toString());
     }
 
+    /**
+     * Validates the provided RoomID object.
+     *
+     * @param roomID The RoomID to be validated.
+     */
     private void validateRoomID(RoomID roomID) {
         if (roomID == null) {
             throw new IllegalArgumentException("RoomID is required");
@@ -45,6 +52,11 @@ public class Device implements AggregateRoot<DeviceID> {
         }
     }
 
+    /**
+     * Validates the provided DeviceName object.
+     *
+     * @param deviceName The DeviceName to be validated.
+     */
     private void validateDeviceName(DeviceName deviceName) {
         if (deviceName == null) {
             throw new IllegalArgumentException("DeviceName is required");
@@ -53,6 +65,12 @@ public class Device implements AggregateRoot<DeviceID> {
         }
     }
 
+
+    /**
+     * Validates the provided DeviceStatus object.
+     *
+     * @param deviceState The DeviceStatus to be validated.
+     */
     private void validateDeviceState(DeviceStatus deviceState) {
         if (deviceState == null) {
             throw new IllegalArgumentException("DeviceState is required");
@@ -61,27 +79,59 @@ public class Device implements AggregateRoot<DeviceID> {
         }
     }
 
+    /**
+     * Method to return deviceID
+     *
+     * @return _deviceID
+     */
     public DeviceID getID() {
         return _deviceID;
     }
 
+    /**
+     * Method to return roomID
+     *
+     * @return _roomID
+     */
     public RoomID getRoomID() {
         return _roomID;
     }
 
+
+    /**
+     * Method to return deviceName
+     *
+     * @return _deviceName
+     */
     public DeviceName getDeviceName() {
         return _deviceName;
     }
 
+    /**
+     * Method to return deviceStatus
+     *
+     * @return _deviceStatus
+     */
     public DeviceStatus getDeviceStatus() {
         return _deviceStatus;
     }
 
+    /**
+     * Method to change the device status
+     *
+     * @param deviceStatus The new status of the device
+     */
     public void changeDeviceStatus(DeviceStatus deviceStatus) {
         validateDeviceState(deviceStatus);
         _deviceStatus = deviceStatus;
     }
 
+    /**
+     * Checks if this Device instance is equal to another object.
+     *
+     * @param o The object to compare.
+     * @return true if the objects are equal, false if they are different.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -96,8 +146,13 @@ public class Device implements AggregateRoot<DeviceID> {
         return false;
     }
 
-   @Override
-   public String toString() {
+    /**
+     * Method to return the values of the object in a string.
+     *
+     * @return the values of the object in a string.
+     */
+    @Override
+    public String toString() {
         return "Device{" +
                 "_roomID=" + _roomID +
                 ", _deviceID=" + _deviceID +

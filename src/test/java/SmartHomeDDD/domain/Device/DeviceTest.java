@@ -141,6 +141,10 @@ public class DeviceTest {
         assertTrue(device.toString().contains(result.toString()));
     }
 
+    /**
+     * Tests if the deviceStatus is changed correctly.
+     */
+
     @Test
     public void shouldReturnChangedDeviceStatus(){
         //Arrange
