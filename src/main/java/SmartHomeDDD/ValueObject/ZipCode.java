@@ -4,40 +4,41 @@ import SmartHomeDDD.ddd.ValueObject;
 
 public class ZipCode implements ValueObject {
 
-    private int _zipCodePrefix;
-    private int _zipCodeSuffix;
+    private final int _zipCodePrefix;
+    private final int _zipCodeSuffix;
 
     /**
      * Constructor for ZipCode class
+     *
      * @param zipCodePrefix is the zip code prefix of ZipCode
      * @param zipCodeSuffix is the zip code suffix of ZipCode
      */
     public ZipCode(int zipCodePrefix, int zipCodeSuffix) {
         zipCodePrefixValidation(zipCodePrefix);
         zipCodeSuffixValidation(zipCodeSuffix);
+        this._zipCodePrefix = zipCodePrefix;
+        this._zipCodeSuffix = zipCodeSuffix;
     }
 
     /**
      * Validates the zip code prefix
+     *
      * @param postCodePrefix is the zip code prefix of ZipCode
      */
-    private void zipCodePrefixValidation(int postCodePrefix){
-        if (postCodePrefix < 1000 || postCodePrefix > 9999 ) {
+    private void zipCodePrefixValidation(int postCodePrefix) {
+        if (postCodePrefix < 1000 || postCodePrefix > 9999) {
             throw new IllegalArgumentException("Invalid zip code prefix");
-        } else {
-            this._zipCodePrefix = postCodePrefix;
         }
     }
 
     /**
      * Validates the zip code suffix
+     *
      * @param zipCodeSuffix is the zip code suffix of ZipCode
      */
-    private void zipCodeSuffixValidation(int zipCodeSuffix){
+    private void zipCodeSuffixValidation(int zipCodeSuffix) {
         if (zipCodeSuffix < 100 || zipCodeSuffix > 999) {
             throw new IllegalArgumentException("Invalid zip code suffix");
-        } else {
-            this._zipCodeSuffix = zipCodeSuffix;
         }
     }
 
@@ -60,6 +61,7 @@ public class ZipCode implements ValueObject {
 
     /**
      * Getter for zip code prefix.
+     *
      * @return _zipCodePrefix.
      */
     public int getZipCodePrefix() {
@@ -68,6 +70,7 @@ public class ZipCode implements ValueObject {
 
     /**
      * Getter for zip code suffix.
+     *
      * @return _zipCodeSuffix.
      */
     public int getZipCodeSuffix() {
@@ -76,6 +79,7 @@ public class ZipCode implements ValueObject {
 
     /**
      * Address object to string
+     *
      * @return String
      */
     @Override
