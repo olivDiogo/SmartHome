@@ -31,4 +31,16 @@ public class HouseDTO implements DTO {
     }
 
 
+    public String getAddress() {
+        return _address;
+    }
+
+    public String getPostalCode() {
+        return _zipCode;
+    }
+
+    public String getGPS() {
+        return _gps;
+    }
 }
+

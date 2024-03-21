@@ -26,9 +26,9 @@ public class HouseAssembler implements Assembler<House, HouseDTO> {
      */
     @Override
     public HouseDTO domainToDTO(final House house) {
-        String zipCode = zipCodeToString(house.getZipCode());
-        String address = addressToString(house.getAddress());
-        String gps = gpsToString(house.getGps());
+        String address = house.getAddress().toString();
+        String zipCode = house.getZipCode().toString();
+        String gps = house.getGps().toString();
 
         HouseDTO houseDTO = new HouseDTO(address, zipCode, gps);
         return houseDTO;
@@ -43,10 +43,18 @@ public class HouseAssembler implements Assembler<House, HouseDTO> {
     @Override
     public List<HouseDTO> domainToDTO(final List<House> houses) {
         List<HouseDTO> housesDTO = new ArrayList<>();
+
+//        houses.forEach(house -> {
+//            String address = house.getAddress().toString();
+//            String zipCode = house.getZipCode().toString();
+//            String gps = house.getGps().toString();
+//            HouseDTO houseDTO = new HouseDTO(address, zipCode, gps);
+//            housesDTO.add(houseDTO);
+//        });
         for (House house : houses) {
-            String address = zipCodeToString(house.getZipCode());
-            String zipCode = addressToString(house.getAddress());
-            String gps = gpsToString(house.getGps());
+            String address = house.getAddress().toString();
+            String zipCode = house.getZipCode().toString();
+            String gps = house.getGps().toString();
             HouseDTO houseDTO = new HouseDTO(address, zipCode, gps);
             housesDTO.add(houseDTO);
         }
@@ -54,35 +62,6 @@ public class HouseAssembler implements Assembler<House, HouseDTO> {
     }
 
 
-    /**
-     * Method to obtain the zip-code of the House as a String.
-     *
-     * @param zipCode is the zip-code of the House.
-     * @return the zip-code of the House.
-     */
-    private String zipCodeToString(ZipCode zipCode) {
-        return String.valueOf(zipCode);
-    }
-
-    /**
-     * Method to obtain the address of the House as a String.
-     *
-     * @param address is the address of the House.
-     * @return the address of the House.
-     */
-    private String addressToString(Address address) {
-        return String.valueOf(address);
-    }
-
-    /**
-     * Method to obtain the GPS coordinates of the House as a String.
-     *
-     * @param gps is the GPS coordinates of the House.
-     * @return the GPS coordinates of the House.
-     */
-    private String gpsToString(GPS gps) {
-        return String.valueOf(gps);
-    }
 }
 
 
