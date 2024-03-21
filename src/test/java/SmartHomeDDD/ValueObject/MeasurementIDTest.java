@@ -177,5 +177,22 @@ class MeasurementIDTest {
         assertEquals(unitID, result);
     }
 
+    /**
+     * Tests if the equals method returns false when given a null object
+     */
+    @Test
+    void shouldReturnFalse_whenGivenNullObject() {
+        //Arrange
+        String unitID = "Unit1";
+        MeasurementID unit = new MeasurementID(unitID);
+
+        //Act
+        boolean result = unit.equals(null);
+
+        //Assert
+        assertFalse(result);
+    }
+
+
 
 }
