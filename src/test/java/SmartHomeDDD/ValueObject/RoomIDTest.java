@@ -168,4 +168,18 @@ class RoomIDTest {
         assertEquals(roomIDDescription.hashCode(), result);
     }
 
+    @Test
+    public void shouldReturnRoomIDInString () {
+        // Arrange
+        String roomIDDescription = "Room12";
+        RoomID roomID = new RoomID(roomIDDescription);
+        String expected = "RoomID: Room12";
+
+        // Act
+        String result = roomID.toString();
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
 }
