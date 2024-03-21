@@ -6,6 +6,9 @@ import static org.junit.Assert.*;
 
 class GPSTest {
 
+    /**
+     * Test of constructor, of class GPS.
+     */
     @Test
     void  shouldReturnExpectedGPSWhenGivenValidParameters(){
         //Arrange
@@ -15,6 +18,11 @@ class GPSTest {
         //Act
         GPS gps = new GPS(latitude, longitude);
     }
+
+    /**
+     * Validates that a GPS instance is correctly created in the positive boundary of latitude.
+     */
+
     @Test
     void shouldReturnExpectedLatitudeWhenIsOnPositiveBoundary() {
         //Arrange
@@ -24,6 +32,10 @@ class GPSTest {
         //Act
         GPS gps = new GPS(latitude, longitude);
     }
+
+    /**
+     * Validates that a GPS instance is correctly created in the negative boundary of latitude.
+     */
     @Test
     void shouldReturnExpectedLatitudeWhenIsOnNegativeBoundary() {
         //Arrange
@@ -34,6 +46,9 @@ class GPSTest {
         GPS gps = new GPS(latitude, longitude);
     }
 
+    /**
+     * Validates that a GPS instance is correctly created in the positive boundary of longitude.
+     */
     @Test
     void shouldReturnExpectedLongitudeWhenIsOnPositiveBoundary() {
         //Arrange
@@ -44,6 +59,9 @@ class GPSTest {
         GPS gps = new GPS(latitude, longitude);
     }
 
+    /**
+     * Validates that a GPS instance is correctly created in the negative boundary of longitude.
+     */
     @Test
     void shouldReturnExpectedLongitudeWhenIsOnNegativeBoundary() {
         //Arrange
@@ -55,6 +73,9 @@ class GPSTest {
     }
 
 
+    /**
+     * Validates that a GPS instance is correctly created in the limit of the positive boundary of longitude
+     */
     @Test
     void shouldReturnExpectedLongitudeLimitPositiveBoundary() {
         //Arrange
@@ -65,6 +86,9 @@ class GPSTest {
         GPS gps = new GPS(latitude, longitude);
     }
 
+    /**
+     * Validates that a GPS instance is correctly created in the limit of the negative boundary of longitude
+     */
     @Test
     void shouldReturnExpectedLongitudeLimitNegativeBoundary() {
         //Arrange
@@ -75,6 +99,9 @@ class GPSTest {
         GPS gps = new GPS(latitude, longitude);
     }
 
+    /**
+     * Validates that a GPS instance is correctly created in the limit of the positive boundary of latitude
+     */
     @Test
     void shouldReturnExpectedLatitudeLimitPositiveBoundary() {
         //Arrange
@@ -85,6 +112,9 @@ class GPSTest {
         GPS gps = new GPS(latitude, longitude);
     }
 
+    /**
+     * Validates that a GPS instance is correctly created in the limit of the negative boundary of latitude
+     */
     @Test
     void shouldReturnExpectedLatitudeLimitNegativeBoundary() {
         //Arrange
@@ -95,6 +125,9 @@ class GPSTest {
         GPS gps = new GPS(latitude, longitude);
     }
 
+    /**
+     * Asserts an exception is thrown for latitudes above the positive valid range.
+     */
     @Test
     void shouldThrowExceptionWhenLatitudeItsAboveBoundary(){
         //Arrange
@@ -105,6 +138,10 @@ class GPSTest {
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> new GPS(latitude, longitude));
         assertEquals("Please enter a valid latitude.", exception.getMessage());
     }
+
+    /**
+     * Asserts an exception is thrown for latitudes below the negative valid range.
+     */
     @Test
     void shouldThrowExceptionWhenLatitudeItsBelowBoundary(){
         //Arrange
@@ -116,6 +153,9 @@ class GPSTest {
         assertEquals("Please enter a valid latitude.", exception.getMessage());
     }
 
+    /**
+     * Asserts an exception is thrown for longitudes above the positive valid range.
+     */
     @Test
     void shouldThrowExceptionWhenLongitudeItsAboveBoundary(){
         //Arrange
@@ -127,6 +167,9 @@ class GPSTest {
         assertEquals("Please enter a valid longitude.", exception.getMessage());
     }
 
+    /**
+     * Asserts an exception is thrown for longitudes below the negative valid range.
+     */
     @Test
     void shouldThrowExceptionWhenLongitudeItsBelowBoundary(){
         //Arrange
@@ -138,6 +181,9 @@ class GPSTest {
         assertEquals("Please enter a valid longitude.", exception.getMessage());
     }
 
+    /**
+     * Asserts an exception is thrown for latitudes with more than five decimal numbers.
+     */
     @Test
     void shouldThrowExceptionWhenLatitudeHasMoreThanFiveDecimalNumbers(){
         //Arrange
@@ -149,6 +195,9 @@ class GPSTest {
         assertEquals("Please enter a valid latitude.", exception.getMessage());
     }
 
+    /**
+     * Asserts an exception is thrown for longitudes with more than five decimal numbers.
+     */
     @Test
     void shouldThrowExceptionWhenLongitudeHasMoreThanFiveDecimalNumbers(){
         //Arrange
@@ -160,6 +209,9 @@ class GPSTest {
         assertEquals("Please enter a valid longitude.", exception.getMessage());
     }
 
+    /**
+     * Validates the equality of two identical GPS instances.
+     */
     @Test
     void shouldReturnTrueWhenComparingTwoEqualGPS(){
         //Arrange
@@ -175,6 +227,9 @@ class GPSTest {
         assertTrue(isEquals);
     }
 
+    /**
+     * Validates that two GPS instances with different coordinates are not equal.
+     */
     @Test
     void shouldReturnFalseWhenComparingTwoDifferentGPS(){
         //Arrange
@@ -192,6 +247,9 @@ class GPSTest {
         assertFalse(isEquals);
     }
 
+    /**
+     * Ensures a GPS instance is not equal to null.
+     */
     @Test
     void shouldReturnFalseWhenComparingWithNull(){
         //Arrange
@@ -206,6 +264,9 @@ class GPSTest {
         assertFalse(isEquals);
     }
 
+    /**
+     * Verifies a GPS instance is equal to itself.
+     */
     @Test
     void shouldReturnTrueWhenComparingWithItself(){
         //Arrange
@@ -220,8 +281,9 @@ class GPSTest {
         assertTrue(isEquals);
     }
 
-    //test toString
-
+    /**
+     * Validates the string representation of a GPS instance.
+     */
     @Test
     void shouldReturnExpectedStringWhenCallingToString(){
         //Arrange
@@ -242,6 +304,9 @@ class GPSTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Validates the getter for the latitude value.
+     */
     @Test
     void shouldReturnExpectedLatitudeWhenCallingGetLatitude(){
         //Arrange
@@ -257,6 +322,9 @@ class GPSTest {
         assertEquals(latitude, result, 0.00001);
     }
 
+    /**
+     * Validates the getter for the longitude value.
+     */
     @Test
     void shouldReturnExpectedLongitudeWhenCallingGetLongitude(){
         //Arrange
@@ -271,7 +339,5 @@ class GPSTest {
         //Assert
         assertEquals(longitude, result, 0.00001);
     }
-
-
-
 }
+
