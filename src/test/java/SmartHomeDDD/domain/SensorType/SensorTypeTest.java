@@ -167,6 +167,24 @@ public class SensorTypeTest {
     }
 
     @Test
+    public void shouldReturnID_whenGetIDIsCalled() {
+        // Arrange
+        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+
+        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble);
+
+        // Act
+        TypeDescription result = sensorType.getID();
+
+        // Assert
+        assertEquals(typeDescriptionDouble, result);
+    }
+
+    /**
+     * Test of toString method, of class SensorType.
+     */
+    @Test
     public void shouldGetStringWithAttributes_whenToStringIsCalled() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);

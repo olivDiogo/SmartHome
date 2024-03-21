@@ -2,8 +2,9 @@ package SmartHomeDDD.domain.SensorType;
 
 import SmartHomeDDD.ValueObject.TypeDescription;
 import SmartHomeDDD.ValueObject.UnitDescription;
+import SmartHomeDDD.ddd.AggregateRoot;
 
-public class SensorType {
+public class SensorType implements AggregateRoot<TypeDescription> {
     private TypeDescription _sensorTypeName; //ID of SensorType
     private UnitDescription _unit;
 
@@ -78,6 +79,15 @@ public class SensorType {
                 return true;
         }
         return false;
+    }
+
+    /**
+     * Return the ID of the sensor type.
+     *
+     * @return the ID of the sensor type
+     */
+    public TypeDescription getID(){
+        return _sensorTypeName;
     }
 
     /**
