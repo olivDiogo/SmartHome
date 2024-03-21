@@ -10,11 +10,11 @@ public class DeviceDTO implements DTO {
     /**
      * The unique identifier of the device.
      */
-    public final String _deviceId;
+    public final String deviceId;
     /**
      * The description of the device.
      */
-    public final String _deviceDescription;
+    public final String deviceDescription;
     /**
      * Constructs a new DeviceDTO object with the specified device details.
      *
@@ -22,7 +22,7 @@ public class DeviceDTO implements DTO {
      * @param deviceDescription The description of the device.
      */
     public DeviceDTO(String deviceId, String deviceDescription) {
-        this._deviceId = deviceId;
-        this._deviceDescription = deviceDescription;
+        this.deviceId = deviceId;
+        this.deviceDescription = deviceDescription;
     }
 }
