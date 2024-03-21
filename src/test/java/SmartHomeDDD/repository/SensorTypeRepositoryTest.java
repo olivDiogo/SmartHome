@@ -1,11 +1,11 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.domain.House.House;
 import org.junit.jupiter.api.Test;
 import SmartHomeDDD.ValueObject.TypeDescription;
 import SmartHomeDDD.domain.SensorType.SensorType;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -72,6 +72,7 @@ public class SensorTypeRepositoryTest {
         SensorType firstSensorType = mock(SensorType.class);
         TypeDescription firstTypeDescription = mock(TypeDescription.class);
         when(firstSensorType.getID()).thenReturn(firstTypeDescription);
+
         SensorType secondSensorType = mock(SensorType.class);
         TypeDescription secondTypeDescription = mock(TypeDescription.class);
         when(secondSensorType.getID()).thenReturn(secondTypeDescription);
@@ -100,13 +101,50 @@ public class SensorTypeRepositoryTest {
     }
 
     @Test
+    void shouldReturnSensorType_whenGivenValidTypeDescription() {
+        //Arrange
+        SensorType sensorType = mock(SensorType.class);
+        TypeDescription typeDescription = mock(TypeDescription.class);
+        when(sensorType.getID()).thenReturn(typeDescription);
+
+        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+        sensorTypeRepository.save(sensorType);
+
+        //Act
+        SensorType returnedSensorType = sensorTypeRepository.ofIdentity(typeDescription).get();
+
+        //Assert
+        assertEquals(sensorType, returnedSensorType);
+    }
+
+    @Test
+    void shouldReturnOptinalEmpty_whenGivenInvalidTypeDescription() {
+        //Arrange
+        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+
+        SensorType sensorType = mock(SensorType.class);
+        TypeDescription typeDescription = mock(TypeDescription.class);
+        when(sensorType.getID()).thenReturn(typeDescription);
+
+        sensorTypeRepository.save(sensorType);
+
+        TypeDescription nonExistentTypeDescription = mock(TypeDescription.class);
+
+        //Act
+        Optional<SensorType> returnedSensorType = sensorTypeRepository.ofIdentity(nonExistentTypeDescription);
+
+        //Assert
+        assertTrue(returnedSensorType.isEmpty());
+    }
+
+    @Test
     void shouldReturnTrue_whenGivenValidTypeDescription() {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
         TypeDescription typeDescription = mock(TypeDescription.class);
         when(sensorType.getID()).thenReturn(typeDescription);
-        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
 
+        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         sensorTypeRepository.save(sensorType);
 
         //Act
@@ -119,16 +157,18 @@ public class SensorTypeRepositoryTest {
     @Test
     void shouldReturnFalse_whenGivenInvalidTypeDescription() {
         //Arrange
+        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+
         SensorType sensorType = mock(SensorType.class);
         TypeDescription typeDescription = mock(TypeDescription.class);
-        TypeDescription invalidTypeDescription = mock(TypeDescription.class);
         when(sensorType.getID()).thenReturn(typeDescription);
-        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
 
         sensorTypeRepository.save(sensorType);
 
+        TypeDescription nonExistentTypeDescription = mock(TypeDescription.class);
+
         //Act
-        boolean containsSensorType = sensorTypeRepository.containsOfIdentity(invalidTypeDescription);
+        boolean containsSensorType = sensorTypeRepository.containsOfIdentity(nonExistentTypeDescription);
 
         //Assert
         assertFalse(containsSensorType);
