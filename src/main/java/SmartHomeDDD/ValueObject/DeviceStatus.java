@@ -32,4 +32,8 @@ public class DeviceStatus implements ValueObject {
         }
         return false;
     }
+    @Override
+    public String toString() {
+        return "Device status: " + _status;
+    }
 }
