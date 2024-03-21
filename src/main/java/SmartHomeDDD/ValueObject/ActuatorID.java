@@ -3,22 +3,33 @@ package SmartHomeDDD.ValueObject;
 import SmartHomeDDD.ddd.DomainID;
 
 public class ActuatorID implements DomainID {
-    private String _id;
+    private final String _id;
 
 
     /**
      * Constructor of the class ActuatorID.
+     *
      * @param actuatorID is the ID of the actuator.
      */
     public ActuatorID(String actuatorID) {
-        if (actuatorID != null && !actuatorID.isBlank() && !actuatorID.isEmpty())
-            this._id = actuatorID;
-        else
+        validateId(actuatorID);
+        this._id = actuatorID;
+    }
+
+    /**
+     * Validates the ID of the actuator.
+     *
+     * @param actuatorID is the ID of the actuator.
+     */
+    private void validateId(String actuatorID) {
+        if (actuatorID == null || actuatorID.isBlank() || actuatorID.isEmpty())
             throw new IllegalArgumentException("'actuatorID' must be a non-empty string.");
+
     }
 
     /**
      * Equals method for ActuatorID.
+     *
      * @param object Object.
      * @return boolean.
      */
@@ -38,6 +49,7 @@ public class ActuatorID implements DomainID {
 
     /**
      * Getter for ID.
+     *
      * @return the ID of the actuator.
      */
     @Override
@@ -47,9 +59,19 @@ public class ActuatorID implements DomainID {
 
     /**
      * HashCode method for ActuatorID.
-     * @return
+     *
+     * @return int.
      */
     public int hashCode() {
         return this._id.hashCode();
+    }
+
+    /**
+     * toString method for ActuatorID.
+     * @return String.
+     */
+    @Override
+    public String toString(){
+        return "ActuatorID: " + this._id;
     }
 }
