@@ -77,4 +77,36 @@ class MeasurementTypeMeasurementTypeDescriptionTest {
         //Assert
         assertFalse(result);
     }
+    @Test
+    public void shouldReturnCorrectIDWhenGetIdIsCalled(){
+        //Arrange
+        String description = "This is a valid description";
+        MeasurementTypeDescription unitDescription = new MeasurementTypeDescription(description);
+        //Act
+        String result = unitDescription.getId();
+        //Assert
+        assertEquals(description, result);
+    }
+    @Test
+    public void shouldReturnTrue_WhenComparingObjectWithItself(){
+        //Arrange
+        String description = "This is a valid description";
+        MeasurementTypeDescription unitDescription = new MeasurementTypeDescription(description);
+        //Act
+        boolean result = unitDescription.equals(unitDescription);
+        //Assert
+        assertTrue(result);
+    }
+    @Test
+    public void descriptionWithSameDescriptionShouldHaveSameHashCode(){
+        //Arrange
+        String description = "This is a valid description";
+        MeasurementTypeDescription unitDescription1 = new MeasurementTypeDescription(description);
+        MeasurementTypeDescription unitDescription2 = new MeasurementTypeDescription(description);
+        //Act
+        int hashCode1 = unitDescription1.hashCode();
+        int hashCode2 = unitDescription2.hashCode();
+        //Assert
+        assertEquals(hashCode1, hashCode2);
+    }
 }
