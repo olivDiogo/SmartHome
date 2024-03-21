@@ -2,11 +2,11 @@ package SmartHomeDDD.ValueObject;
 
 import SmartHomeDDD.ddd.ValueObject;
 
-public class Unit implements ValueObject {
+public class MeasurementTypeUnit implements ValueObject {
 
     private final String _unit;
 
-    public Unit(String unit) {
+    public MeasurementTypeUnit(String unit) {
         unitValidation(unit);
         this._unit = unit;
     }
@@ -21,8 +21,8 @@ public class Unit implements ValueObject {
         if (this == object) {
             return true;
         }
-        if (object instanceof Unit) {
-            Unit unit = (Unit) object;
+        if (object instanceof MeasurementTypeUnit) {
+            MeasurementTypeUnit unit = (MeasurementTypeUnit) object;
 
             if (this._unit.equals(unit._unit)) {
                 return true;

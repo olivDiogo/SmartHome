@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.SensorType;
 
 import SmartHomeDDD.ValueObject.TypeDescription;
-import SmartHomeDDD.ValueObject.UnitDescription;
+import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
 
 /**
  * Implementation of the {@link SensorTypeFactory} interface, responsible for creating
@@ -17,7 +17,7 @@ public class ImpSensorTypeFactory implements SensorTypeFactory{
      * @throws IllegalArgumentException if any of the parameters are null, handled by the {@link SensorType} constructor
      */
     @Override
-    public SensorType createSensorType(TypeDescription sensorTypeName, UnitDescription unit) {
+    public SensorType createSensorType(TypeDescription sensorTypeName, MeasurementTypeDescription unit) {
         return new SensorType(sensorTypeName, unit);
     }
 }

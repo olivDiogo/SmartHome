@@ -1,12 +1,12 @@
 package SmartHomeDDD.domain.SensorType;
 
 import SmartHomeDDD.ValueObject.TypeDescription;
-import SmartHomeDDD.ValueObject.UnitDescription;
+import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
 import SmartHomeDDD.ddd.AggregateRoot;
 
 public class SensorType implements AggregateRoot<TypeDescription> {
     private TypeDescription _sensorTypeName; //ID of SensorType
-    private UnitDescription _unit;
+    private MeasurementTypeDescription _unit;
 
     /**
      * Creates a new {@link SensorType} instance using the provided sensor type name and unit.
@@ -14,7 +14,7 @@ public class SensorType implements AggregateRoot<TypeDescription> {
      * @param sensorTypeName the sensor type name, must not be null
      * @param unit the unit of the sensor type, must not be null
      */
-    SensorType(TypeDescription sensorTypeName, UnitDescription unit) {
+    SensorType(TypeDescription sensorTypeName, MeasurementTypeDescription unit) {
         validateSensorTypeName(sensorTypeName);
         this._sensorTypeName = sensorTypeName;
 
@@ -37,7 +37,7 @@ public class SensorType implements AggregateRoot<TypeDescription> {
      *
      * @param unit the unit of the sensor type, must not be null
      */
-    private void validateUnit(UnitDescription unit) {
+    private void validateUnit(MeasurementTypeDescription unit) {
         if (unit == null)
             throw new IllegalArgumentException("Unit must not be null.");
     }
@@ -56,7 +56,7 @@ public class SensorType implements AggregateRoot<TypeDescription> {
      *
      * @return the unit of the sensor type
      */
-    public UnitDescription getUnit() {
+    public MeasurementTypeDescription getUnit() {
         return _unit;
     }
 

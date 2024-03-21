@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import SmartHomeDDD.ValueObject.TypeDescription;
-import SmartHomeDDD.ValueObject.UnitDescription;
+import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class ImpSensorTypeFactoryTest {
     public void shouldCreateSensorType_whenAttributesAreValid() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
 
         try(MockedConstruction<SensorType> sensorTypeDouble = mockConstruction(SensorType.class,(mock, context) -> {
             TypeDescription actualTypeDescription = (TypeDescription) context.arguments().get(0);

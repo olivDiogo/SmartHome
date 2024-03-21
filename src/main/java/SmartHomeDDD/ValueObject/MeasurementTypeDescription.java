@@ -2,11 +2,11 @@ package SmartHomeDDD.ValueObject;
 
 import SmartHomeDDD.ddd.ValueObject;
 
-public class UnitDescription implements ValueObject {
+public class MeasurementTypeDescription implements ValueObject {
 
     public String description;
 
-    public UnitDescription(String description) {
+    public MeasurementTypeDescription(String description) {
         validate(description);
     }
 
@@ -27,8 +27,8 @@ public class UnitDescription implements ValueObject {
     public boolean equals (Object o) {
         if (this == o)
             return true;
-        if (o instanceof UnitDescription) {
-            UnitDescription objectDescription = (UnitDescription) o;
+        if (o instanceof MeasurementTypeDescription) {
+            MeasurementTypeDescription objectDescription = (MeasurementTypeDescription) o;
             if (this.description.equals(objectDescription.description))
                 return true;
         }

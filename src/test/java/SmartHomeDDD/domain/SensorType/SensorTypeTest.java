@@ -5,11 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import SmartHomeDDD.ValueObject.TypeDescription;
-import SmartHomeDDD.ValueObject.UnitDescription;
-
-import java.util.List;
-
-import org.mockito.MockedConstruction;
+import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
 
 public class SensorTypeTest {
 
@@ -20,7 +16,7 @@ public class SensorTypeTest {
     public void shouldCreateSensorType_whenAttributesAreValid() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
 
         // Act
         new SensorType(typeDescriptionDouble, unitDescriptionDouble);
@@ -33,7 +29,7 @@ public class SensorTypeTest {
     public void shouldThrowIllegalArgumentException_whenTypeDescriptionIsNull() {
         // Arrange
         TypeDescription typeDescriptionDouble = null;
-        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
 
         String expectedMessage = "Sensor type name must not be null.";
 
@@ -55,7 +51,7 @@ public class SensorTypeTest {
     public void shouldThrowIllegalArgumentException_whenUnitIsNull() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitDescription unitDescriptionDouble = null;
+        MeasurementTypeDescription unitDescriptionDouble = null;
 
         String expectedMessage = "Unit must not be null.";
 
@@ -77,7 +73,7 @@ public class SensorTypeTest {
     public void shouldReturnSensorTypeName_whenGetSensorTypeNameIsCalled() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
 
         SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble);
 
@@ -95,12 +91,12 @@ public class SensorTypeTest {
     public void shouldReturnUnit_whenGetUnitIsCalled() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
 
         SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble);
 
         // Act
-        UnitDescription result = sensorType.getUnit();
+        MeasurementTypeDescription result = sensorType.getUnit();
 
         // Assert
         assertEquals(unitDescriptionDouble, result);
@@ -113,7 +109,7 @@ public class SensorTypeTest {
     public void shouldGetTrue_whenSensorTypeIsEqualToItself(){
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
 
         SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble);
 
@@ -132,10 +128,10 @@ public class SensorTypeTest {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
 
-        UnitDescription unitDescriptionDouble1 = mock(UnitDescription.class);
+        MeasurementTypeDescription unitDescriptionDouble1 = mock(MeasurementTypeDescription.class);
         SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble1);
 
-        UnitDescription unitDescriptionDouble2 = mock(UnitDescription.class);
+        MeasurementTypeDescription unitDescriptionDouble2 = mock(MeasurementTypeDescription.class);
         SensorType anotherSensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble2);
 
         // Act
@@ -151,7 +147,7 @@ public class SensorTypeTest {
     @Test
     public void shouldGetFalse_whenSensorTypeIsComparedToAnotherSensorTypeWithDifferentID(){
         // Arrange
-        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
 
         TypeDescription typeDescriptionDouble1 = mock(TypeDescription.class);
         SensorType sensorType = new SensorType(typeDescriptionDouble1, unitDescriptionDouble);
@@ -170,9 +166,9 @@ public class SensorTypeTest {
     public void shouldReturnID_whenGetIDIsCalled() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        MeasurementTypeDescription measurementTypeDescription = mock(MeasurementTypeDescription.class);
 
-        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble);
+        SensorType sensorType = new SensorType(typeDescriptionDouble, measurementTypeDescription);
 
         // Act
         TypeDescription result = sensorType.getID();
@@ -190,7 +186,7 @@ public class SensorTypeTest {
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
         when(typeDescriptionDouble.toString()).thenReturn("Temperature");
 
-        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
         when(unitDescriptionDouble.toString()).thenReturn("Celsius");
 
         SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble);

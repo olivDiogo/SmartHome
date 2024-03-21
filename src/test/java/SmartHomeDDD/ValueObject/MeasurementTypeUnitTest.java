@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
-class UnitTest {
+class MeasurementTypeUnitTest {
 
     /**
      * Test the constructor of the class Unit.
@@ -15,7 +15,7 @@ class UnitTest {
         String unit = "ºC";
 
         // Act
-        Unit unitObject = new Unit(unit);
+        MeasurementTypeUnit unitObject = new MeasurementTypeUnit(unit);
     }
 
     /**
@@ -28,7 +28,7 @@ class UnitTest {
         String unit = " ";
 
         // Act+Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unit));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementTypeUnit(unit));
         assertEquals("Invalid unit", exception.getMessage());
     }
 
@@ -41,7 +41,7 @@ class UnitTest {
         String unit = null;
 
         // Act+Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unit));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementTypeUnit(unit));
         assertEquals("Invalid unit", exception.getMessage());
     }
 
@@ -54,7 +54,7 @@ class UnitTest {
         String unit = "km/h  ";
 
         // Act+Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unit));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementTypeUnit(unit));
         assertEquals("Invalid unit", exception.getMessage());
     }
 
@@ -65,8 +65,8 @@ class UnitTest {
     void shouldReturnTrue_whenComparingTwoEqualUnit() {
         // Arrange
         String unit = "ºC";
-        Unit unitObject = new Unit(unit);
-        Unit unitObject2 = new Unit(unit);
+        MeasurementTypeUnit unitObject = new MeasurementTypeUnit(unit);
+        MeasurementTypeUnit unitObject2 = new MeasurementTypeUnit(unit);
 
         // Act
         boolean result = unitObject.equals(unitObject2);
@@ -83,8 +83,8 @@ class UnitTest {
         // Arrange
         String unit = "ºC";
         String unit2 = "ºF";
-        Unit unitObject = new Unit(unit);
-        Unit unitObject2 = new Unit(unit2);
+        MeasurementTypeUnit unitObject = new MeasurementTypeUnit(unit);
+        MeasurementTypeUnit unitObject2 = new MeasurementTypeUnit(unit2);
 
         // Act
         boolean result = unitObject.equals(unitObject2);
@@ -100,7 +100,7 @@ class UnitTest {
     void shouldReturnTrue_whenComparingTheSameUnit() {
         // Arrange
         String unit = "ºC";
-        Unit unitObject = new Unit(unit);
+        MeasurementTypeUnit unitObject = new MeasurementTypeUnit(unit);
 
         // Act
         boolean result = unitObject.equals(unitObject);
@@ -116,7 +116,7 @@ class UnitTest {
     void shouldReturnExpectedUnit_whenGetUnit() {
         // Arrange
         String unit = "ºC";
-        Unit unitObject = new Unit(unit);
+        MeasurementTypeUnit unitObject = new MeasurementTypeUnit(unit);
 
         // Act
         String result = unitObject.getUnit();
@@ -132,7 +132,7 @@ class UnitTest {
     void shouldReturnExpectedString_whenToString() {
         // Arrange
         String unit = "ºC";
-        Unit unitObject = new Unit(unit);
+        MeasurementTypeUnit unitObject = new MeasurementTypeUnit(unit);
 
         String expected = "Unit{_unit='ºC}";
 
