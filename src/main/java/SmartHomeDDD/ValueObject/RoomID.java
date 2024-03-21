@@ -11,9 +11,16 @@ public class RoomID implements DomainID {
      * @param roomID is the ID of the room.
      */
     public RoomID(String roomID) {
-        if (roomID != null && !roomID.isBlank() && !roomID.isEmpty())
-            this._id = roomID;
-        else
+        validateRoomID(roomID);
+        this._id = roomID;
+    }
+
+    /**
+     * Validates the ID of the room.
+     * @param roomID is the ID of the room.
+     */
+    private void validateRoomID (String roomID){
+        if (roomID == null || roomID.isBlank() || roomID.isEmpty())
             throw new IllegalArgumentException("'roomID' must be a non-empty string.");
     }
 
@@ -54,5 +61,14 @@ public class RoomID implements DomainID {
      */
     public int hashCode() {
         return _id.hashCode();
+    }
+
+    /**
+     * toString method for RoomID.
+     *
+     * @return the ID of the room.
+     */
+    public String toString() {
+        return "RoomID: " + _id;
     }
 }
