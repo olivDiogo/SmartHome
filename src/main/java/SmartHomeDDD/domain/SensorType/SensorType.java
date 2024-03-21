@@ -43,15 +43,6 @@ public class SensorType implements AggregateRoot<TypeDescription> {
     }
 
     /**
-     * Gets the sensor type name.
-     *
-     * @return the sensor type name
-     */
-    public TypeDescription getSensorTypeName() {
-        return _sensorTypeName;
-    }
-
-    /**
      * Gets the unit of the sensor type.
      *
      * @return the unit of the sensor type
@@ -86,6 +77,7 @@ public class SensorType implements AggregateRoot<TypeDescription> {
      *
      * @return the ID of the sensor type
      */
+    @Override
     public TypeDescription getID(){
         return _sensorTypeName;
     }

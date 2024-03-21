@@ -78,7 +78,7 @@ public class SensorTypeTest {
         SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble);
 
         // Act
-        TypeDescription result = sensorType.getSensorTypeName();
+        TypeDescription result = sensorType.getID();
 
         // Assert
         assertEquals(typeDescriptionDouble, result);
