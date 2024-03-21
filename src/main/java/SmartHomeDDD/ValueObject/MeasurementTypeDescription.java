@@ -1,8 +1,9 @@
 package SmartHomeDDD.ValueObject;
 
+import SmartHomeDDD.ddd.DomainID;
 import SmartHomeDDD.ddd.ValueObject;
 
-public class MeasurementTypeDescription implements ValueObject {
+public class MeasurementTypeDescription implements DomainID {
 
     public String description;
 
@@ -23,6 +24,12 @@ public class MeasurementTypeDescription implements ValueObject {
         }
         else this.description = description;
     }
+
+    @Override
+    public String getId() {
+        return description;
+    }
+
     @Override
     public boolean equals (Object o) {
         if (this == o)
@@ -37,5 +44,10 @@ public class MeasurementTypeDescription implements ValueObject {
     @Override
     public String toString () {
         return description;
+    }
+
+    @Override
+    public int hashCode() {
+        return description.hashCode();
     }
 }
