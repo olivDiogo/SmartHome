@@ -59,4 +59,24 @@ public class SensorType {
         return _unit;
     }
 
+    /**
+     * Compares the sensor type with another object.
+     *
+     * @param object is the object to compare with
+     * @return true if the sensor type is the same as the object, false otherwise
+     */
+    @Override
+    public boolean equals( Object object ) {
+
+        if( this == object )
+            return true;
+
+        if( object instanceof SensorType ) {
+            SensorType sensorTypeObject = (SensorType) object;
+
+            if( this._sensorTypeName.equals(sensorTypeObject._sensorTypeName) )
+                return true;
+        }
+        return false;
+    }
 }

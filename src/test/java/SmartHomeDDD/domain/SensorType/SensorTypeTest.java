@@ -105,4 +105,64 @@ public class SensorTypeTest {
         // Assert
         assertEquals(unitDescriptionDouble, result);
     }
+
+    /**
+     * Test of equals method, of class SensorType, when comparing sensorType with itself.
+     */
+    @Test
+    public void shouldGetTrue_whenSensorTypeIsEqualToItself(){
+        // Arrange
+        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+
+        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble);
+
+        // Act
+        boolean result = sensorType.equals(sensorType);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Test of equals method, of class SensorType, when comparing sensorType with another object with same ID.
+     */
+    @Test
+    public void shouldGetTrue_whenSensorTypeIsEqualToAnotherSensorTypeWithSameID(){
+        // Arrange
+        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+
+        UnitDescription unitDescriptionDouble1 = mock(UnitDescription.class);
+        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble1);
+
+        UnitDescription unitDescriptionDouble2 = mock(UnitDescription.class);
+        SensorType anotherSensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble2);
+
+        // Act
+        boolean result = sensorType.equals(anotherSensorType);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Test of equals method, of class SensorType, when comparing sensorType with another object with different ID.
+     */
+    @Test
+    public void shouldGetFalse_whenSensorTypeIsComparedToAnotherSensorTypeWithDifferentID(){
+        // Arrange
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+
+        TypeDescription typeDescriptionDouble1 = mock(TypeDescription.class);
+        SensorType sensorType = new SensorType(typeDescriptionDouble1, unitDescriptionDouble);
+
+        TypeDescription typeDescriptionDouble2 = mock(TypeDescription.class);
+        SensorType anotherSensorType = new SensorType(typeDescriptionDouble2, unitDescriptionDouble);
+
+        // Act
+        boolean result = sensorType.equals(anotherSensorType);
+
+        // Assert
+        assertFalse(result);
+    }
 }
