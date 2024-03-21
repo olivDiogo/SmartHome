@@ -2,8 +2,9 @@ package SmartHomeDDD.domain.Measurement;
 
 import SmartHomeDDD.ValueObject.MeasurementTypeUnit;
 import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
+import SmartHomeDDD.ddd.DomainEntity;
 
-public class MeasurementType {
+public class MeasurementType implements DomainEntity<MeasurementTypeDescription> {
     private MeasurementTypeUnit _measurementUnit;
     private MeasurementTypeDescription _unitDescription;
 
@@ -24,5 +25,26 @@ public class MeasurementType {
         }
     }
 
-
+    @Override
+    public MeasurementTypeDescription getID() {
+        return _unitDescription;
+    }
+    @Override
+    public String toString() {
+        return "MeasurementType{" +
+                "_measurementUnit=" + _measurementUnit +
+                ", _unitDescription=" + _unitDescription +
+                '}';
+    }
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object instanceof MeasurementType) {
+            MeasurementType measurementType = (MeasurementType) object;
+            return this._measurementUnit.equals(measurementType._measurementUnit) && this._unitDescription.equals(measurementType._unitDescription);
+        }
+        return false;
+    }
 }
