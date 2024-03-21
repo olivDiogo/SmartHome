@@ -3,11 +3,11 @@ package SmartHomeDDD.domain.Measurement;
 import SmartHomeDDD.ValueObject.MeasurementTypeUnit;
 import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
 
-public class Measurement {
+public class MeasurementType {
     private MeasurementTypeUnit _measurementUnit;
     private MeasurementTypeDescription _unitDescription;
 
-    Measurement( MeasurementTypeDescription unitDescription, MeasurementTypeUnit measurementUnit) {
+    MeasurementType(MeasurementTypeDescription unitDescription, MeasurementTypeUnit measurementUnit) {
         validateMeasurementUnit(measurementUnit);
         validateUnitDescription(unitDescription);
         this._measurementUnit = measurementUnit;

@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-class MeasurementTest {
+class MeasurementTypeTest {
     @Test
     void shouldReturnValidMeasurementWhenGivenValidMeasurementIDAndUnitAndUnitDescription() {
         //Arrange
         MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
         MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
         //Act
-        new Measurement( unitDescriptionDouble, unitDouble );
+        new MeasurementType( unitDescriptionDouble, unitDouble );
     }
 
     @Test
@@ -24,7 +24,7 @@ class MeasurementTest {
         MeasurementTypeUnit unitDouble = null;
         String expectedMessage = "Measurement unit is required";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Measurement(unitDescriptionDouble,unitDouble));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementType(unitDescriptionDouble,unitDouble));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -35,7 +35,7 @@ class MeasurementTest {
         MeasurementTypeDescription unitDescriptionDouble = null;
         String expectedMessage = "Unit description is required";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Measurement(unitDescriptionDouble, unitDouble));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementType(unitDescriptionDouble, unitDouble));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
