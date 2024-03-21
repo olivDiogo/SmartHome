@@ -4,8 +4,8 @@ import SmartHomeDDD.ddd.ValueObject;
 
 public class Address implements ValueObject {
 
-    private String _street;
-    private String _doorNumber;
+    private final String _street;
+    private final String _doorNumber;
 
     /**
      * Constructor of the class Address.
@@ -16,6 +16,8 @@ public class Address implements ValueObject {
     public Address(String street, String doorNumber) {
         streetValidation(street);
         doorNumberValidation(doorNumber);
+        this._street = street;
+        this._doorNumber = doorNumber;
     }
 
     /**
@@ -26,8 +28,6 @@ public class Address implements ValueObject {
     private void streetValidation(String street){
         if (street == null || street.trim().isEmpty() || street.length() > 70 || !street.matches("^[a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException("Invalid street");
-        } else {
-            this._street = street;
         }
     }
 
@@ -40,8 +40,6 @@ public class Address implements ValueObject {
     private void doorNumberValidation(String doorNumber){
         if (doorNumber == null || doorNumber.trim().isEmpty() || doorNumber.length() > 10 || !doorNumber.matches("^[a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException("Invalid door number");
-        } else {
-            this._doorNumber = doorNumber;
         }
     }
 
