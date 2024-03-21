@@ -4,17 +4,26 @@ import SmartHomeDDD.ddd.DomainID;
 
 public class ActuatorTypeID implements DomainID {
 
-    private String _id;
+    private final String _id;
 
     /**
      * Constructor for the ActuatorTypeID class.
      *
      * @param actuatorTypeID is the ID of the actuator type.
      */
-    public ActuatorTypeID(String actuatorTypeID) {
-        if (actuatorTypeID != null && !actuatorTypeID.isBlank() && !actuatorTypeID.isEmpty())
-            this._id = actuatorTypeID;
-        else
+    public ActuatorTypeID(String actuatorTypeID) throws IllegalArgumentException {
+        validationActuatorTypeID(actuatorTypeID);
+        this._id = actuatorTypeID;
+
+    }
+
+    /**
+     * Validates the actuator type ID.
+     *
+     * @param actuatorTypeID is the ID of the actuator type.
+     */
+    private void validationActuatorTypeID(String actuatorTypeID) {
+        if (actuatorTypeID == null || actuatorTypeID.isBlank() || actuatorTypeID.isEmpty())
             throw new IllegalArgumentException("The value of 'actuatorTypeID' should not null, blank, or empty.");
     }
 

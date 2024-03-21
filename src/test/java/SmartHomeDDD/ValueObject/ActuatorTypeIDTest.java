@@ -33,7 +33,7 @@ public class ActuatorTypeIDTest {
         // Assert
         String actualMessage = exception.getMessage();
 
-        assertTrue(actualMessage.contains(expectedMessage));
+        Assertions.assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
