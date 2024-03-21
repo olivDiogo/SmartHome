@@ -157,7 +157,7 @@ class DeviceNameTest {
         // Arrange
         String deviceName = "Living Room";
 
-        String expected = "Living Room";
+        String expected = "Device name: Living Room";
 
         // Act
         DeviceName deviceNameObject = new DeviceName(deviceName);
