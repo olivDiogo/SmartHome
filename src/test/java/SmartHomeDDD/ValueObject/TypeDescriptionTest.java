@@ -81,4 +81,36 @@ class TypeDescriptionTest {
         new TypeDescription(description);
     }
 
+    /**
+     * Test the getId method
+     */
+    @Test
+    public void shouldReturnTheIdAsAsString_whenGetIdIsCalled() {
+        //Arrange
+        String description = "This is a valid description";
+        TypeDescription typeDescription = new TypeDescription(description);
+
+        //Act
+        String result = typeDescription.getId();
+
+        //Assert
+        assertEquals(description, result);
+    }
+
+    /**
+     * Test the hashCode method
+     */
+    @Test
+    public void shouldReturnTheHashCodeOfTheDescription_whenHashCodeIsCalled() {
+        //Arrange
+        String description = "This is a valid description";
+        TypeDescription typeDescription = new TypeDescription(description);
+
+        //Act
+        int result = typeDescription.hashCode();
+
+        //Assert
+        assertEquals(description.hashCode(), result);
+    }
+
 }

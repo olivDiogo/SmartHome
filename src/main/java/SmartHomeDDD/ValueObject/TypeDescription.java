@@ -36,4 +36,24 @@ public class TypeDescription implements ValueObject, DomainID {
     public String toString() {
         return _description;
     }
+
+    /**
+     * Get the id of the object as a String
+     *
+     * @return the id of the object
+     */
+    @Override
+    public String getId() {
+        return _description;
+    }
+
+    /**
+     * Get the hash code of the object
+     *
+     * @return the hash code of the object
+     */
+    @Override
+    public int hashCode() {
+        return _description.hashCode();
+    }
 }
