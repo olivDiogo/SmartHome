@@ -98,4 +98,40 @@ public class SensorTypeRepositoryTest {
         //Assert
         assertTrue(allSensorTypes.isEmpty());
     }
+
+    @Test
+    void shouldReturnTrue_whenGivenValidTypeDescription() {
+        //Arrange
+        SensorType sensorType = mock(SensorType.class);
+        TypeDescription typeDescription = mock(TypeDescription.class);
+        when(sensorType.getID()).thenReturn(typeDescription);
+        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+
+        sensorTypeRepository.save(sensorType);
+
+        //Act
+        boolean containsSensorType = sensorTypeRepository.containsOfIdentity(typeDescription);
+
+        //Assert
+        assertTrue(containsSensorType);
+    }
+
+    @Test
+    void shouldReturnFalse_whenGivenInvalidTypeDescription() {
+        //Arrange
+        SensorType sensorType = mock(SensorType.class);
+        TypeDescription typeDescription = mock(TypeDescription.class);
+        TypeDescription invalidTypeDescription = mock(TypeDescription.class);
+        when(sensorType.getID()).thenReturn(typeDescription);
+        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+
+        sensorTypeRepository.save(sensorType);
+
+        //Act
+        boolean containsSensorType = sensorTypeRepository.containsOfIdentity(invalidTypeDescription);
+
+        //Assert
+        assertFalse(containsSensorType);
+    }
+
 }
