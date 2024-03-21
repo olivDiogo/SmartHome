@@ -1,9 +1,7 @@
 package SmartHomeDDD.domain.Device;
 
 import SmartHomeDDD.ValueObject.*;
-import SmartHomeDDD.domain.Room.Room;
 import org.junit.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
@@ -146,7 +144,7 @@ public class DeviceTest {
      */
 
     @Test
-    public void shouldReturnChangedDeviceStatus(){
+    public void shouldReturnChangedDeviceStatus() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -160,6 +158,6 @@ public class DeviceTest {
 
         //Assert
         assertTrue(device.toString().contains(result.toString()));
-        assertEquals(result,deviceStatus2);
+        assertEquals(result, deviceStatus2);
     }
 }
