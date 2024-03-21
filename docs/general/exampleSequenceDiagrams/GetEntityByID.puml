@@ -9,6 +9,7 @@ participant "entityDTO:XDTO" as DTO
 
 
 User -> Controller: 1: getEntityByID(String id): EntityDTO
+activate Controller
 Controller -> Service: 1.1: getEntity(String id): EntityDTO
 activate Service
 create ValueObject
@@ -35,5 +36,6 @@ deactivate Assembler
 Service --> Controller: entityDTO
 deactivate Service
 Controller --> User: entityDTO
+deactivate Controller
 
 @enduml

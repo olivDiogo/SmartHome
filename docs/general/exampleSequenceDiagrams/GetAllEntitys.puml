@@ -8,13 +8,14 @@ participant "entityDTO:XDTO" as DTO
 
 
 User -> Controller: 1: getAllEntity's()
-Controller -> Service: 1.1: getAllEntity's(): ListEntityDTO
+Controller -> Service: 1.1: getAllEntity's(): ListEntity
 activate Service
 Service -> Repository: 1.1.1: getAllEntity's()
 activate Repository
 Repository --> Service: listEntity
+Service --> Controller: listEntity
 deactivate Repository
-Service -> Assembler: 1.1.2: domainToDTO(listEntity)
+Controller -> Assembler: 1.1.2: domainToDTO(listEntity)
 activate Assembler
 create DTO
 loop
@@ -24,9 +25,8 @@ DTO --> Assembler: entityDTO
 Assembler -> Assembler: addToList(entityDTO)
 deactivate DTO
 end
-Assembler --> Service: listEntityDTO
+Assembler --> Controller: listEntityDTO
 deactivate Assembler
-Service --> Controller: listEntityDTO
 deactivate Service
 Controller --> User: listEntityDTO
 
