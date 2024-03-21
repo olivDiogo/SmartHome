@@ -168,5 +168,23 @@ class ActuatorIDTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Tests if the toString method returns the ActuatorID in a string.
+     */
+    @Test
+    public void shouldReturnActuatorIdInString () {
+        // Arrange
+        String actuatorIDDescription = "Actuator2GKA";
+        ActuatorID actuatorID = new ActuatorID(actuatorIDDescription);
+
+        String expected = "ActuatorID: Actuator2GKA";
+
+        // Act
+        String actuatorIDReturned = actuatorID.toString();
+
+        // Assert
+        assertEquals(expected, actuatorIDReturned);
+    }
+
 
 }
