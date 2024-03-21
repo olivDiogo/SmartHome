@@ -21,7 +21,7 @@ class ImpActuatorTypeFactoryTest {
 
         try(MockedConstruction<ActuatorType> actuatorTypeDouble = mockConstruction(ActuatorType.class,(mock, context) -> {
             TypeDescription actualTypeDescription = (TypeDescription) context.arguments().get(0);
-            when(mock.getActuatorTypeName()).thenReturn(actualTypeDescription);
+            when(mock.getID()).thenReturn(actualTypeDescription);
 
         })) {
             ImpActuatorTypeFactory impActuatorTypeFactory = new ImpActuatorTypeFactory();
@@ -32,7 +32,7 @@ class ImpActuatorTypeFactoryTest {
             // Assert
             List<ActuatorType> actuatorTypeList = actuatorTypeDouble.constructed();
             assertEquals(1, actuatorTypeList.size());
-            assertEquals(typeDescriptionDouble, actuatorType.getActuatorTypeName());
+            assertEquals(typeDescriptionDouble, actuatorType.getID());
         }
     }
 
