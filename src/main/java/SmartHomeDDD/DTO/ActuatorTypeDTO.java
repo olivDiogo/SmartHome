@@ -2,7 +2,7 @@ package SmartHomeDDD.DTO;
 
 import SmartHomeDDD.ddd.DTO;
 
-p/**
+/**
  * Data Transfer Object (DTO) representing an actuator type.
  */
 public class ActuatorTypeDTO implements DTO {
