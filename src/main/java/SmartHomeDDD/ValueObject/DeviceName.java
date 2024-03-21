@@ -3,21 +3,22 @@ package SmartHomeDDD.ValueObject;
 import SmartHomeDDD.ddd.ValueObject;
 
 public class DeviceName implements ValueObject {
-    String _name;
+   private final String _name;
 
     /**
      * Constructor of the DeviceName class.
      * @param name The name of the device. Must not be null, empty, or blank.
      */
     public DeviceName(String name) {
-        setDeviceName(name);
+        validateDeviceName(name);
+        this._name = name.trim();
     }
 
     /**
      * Sets the device name.
      * @param name The name of the device. Must not be null, empty, or blank.
      */
-    private void setDeviceName(String name) {
+    private void validateDeviceName(String name) {
         if (name == null || name.isEmpty() || name.isBlank()){
             throw new IllegalArgumentException("The device name cannot be null, blank, or empty.");
         }
@@ -25,8 +26,6 @@ public class DeviceName implements ValueObject {
         if (!name.matches("[a-zA-Z0-9 ]+")) {
             throw new IllegalArgumentException("The device name can only contain letters and numbers.");
         }
-
-        _name = name.trim();
     }
 
     /**
@@ -60,6 +59,6 @@ public class DeviceName implements ValueObject {
      */
     @Override
     public String toString () {
-        return this._name;
+        return "Device name: " + _name;
     }
 }
