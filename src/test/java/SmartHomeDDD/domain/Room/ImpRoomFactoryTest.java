@@ -5,9 +5,12 @@ import SmartHomeDDD.ValueObject.HouseID;
 import SmartHomeDDD.ValueObject.RoomFloor;
 import SmartHomeDDD.ValueObject.RoomName;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests for the {@link ImpRoomFactory} class, ensuring that rooms are created correctly under various conditions
@@ -20,16 +23,24 @@ class ImpRoomFactoryTest {
      * is called with valid parameters. This test verifies that no exceptions are thrown during the creation process.
      */
     @Test
-    void shouldCreateRoomWhenCreateRoomIsCalledWithValidParameters(){
+    void shouldCreateRoom_WhenCreateRoomIsCalledWithValidParameters(){
         // Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
-        ImpRoomFactory factory = mock(ImpRoomFactory.class);
+        try(MockedConstruction<Room> roomDouble = mockConstruction(Room.class,(mock, context) -> {
+            when(mock.getHouseID()).thenReturn(mock(HouseID.class));
+            when(mock.getRoomName()).thenReturn(mock(RoomName.class));
+            when(mock.getRoomFloor()).thenReturn(mock(RoomFloor.class));
+            when(mock.getDimension()).thenReturn(mock(Dimension.class));
+        })){
+            ImpRoomFactory factory = new ImpRoomFactory();
 
-        // Act & Assert
-        factory.createRoom(houseID, roomName, dimension, roomFloor);
+            // Act
+            Room room = factory.createRoom(mock(HouseID.class), mock(RoomName.class), mock(Dimension.class), mock(RoomFloor.class));
+
+            // Assert
+            List<Room> rooms = roomDouble.constructed();
+            assertEquals(1, rooms.size());
+            assertEquals(rooms.get(0), room);
+        }
     }
 
     /**
@@ -37,7 +48,7 @@ class ImpRoomFactoryTest {
      * is called with a null HouseID parameter. This test confirms the robustness of the factory's parameter validation.
      */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenCreateRoomIsCalledWithNullHouseID(){
+    void shouldThrowIllegalArgumentException_WhenCreateRoomIsCalledWithNullHouseID(){
         // Arrange
         HouseID houseID = null;
         RoomName roomName = mock(RoomName.class);
@@ -54,7 +65,7 @@ class ImpRoomFactoryTest {
      * is called with a null RoomName parameter. This verifies that the factory properly checks for null values in its arguments.
      */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenCreateRoomIsCalledWithNullRoomName(){
+    void shouldThrowIllegalArgumentException_WhenCreateRoomIsCalledWithNullRoomName(){
         // Arrange
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = null;
@@ -71,7 +82,7 @@ class ImpRoomFactoryTest {
      * is called with a null Dimension parameter. This test checks that all critical parameters are validated before room creation.
      */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenCreateRoomIsCalledWithNullDimension(){
+    void shouldThrowIllegalArgumentException_WhenCreateRoomIsCalledWithNullDimension(){
         // Arrange
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
@@ -88,7 +99,7 @@ class ImpRoomFactoryTest {
      * is called with a null RoomFloor parameter. This test confirms that the factory checks for null values in its arguments.
      */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenCreateRoomIsCalledWithNullRoomFloor(){
+    void shouldThrowIllegalArgumentException_WhenCreateRoomIsCalledWithNullRoomFloor(){
         // Arrange
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
