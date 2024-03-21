@@ -29,8 +29,13 @@ class GPSTest {
         double latitude = 90.0;
         double longitude = -8.0;
 
-        //Act
         GPS gps = new GPS(latitude, longitude);
+
+        //Act
+        boolean result = gps.equals(gps);
+
+        //Assert
+        assertTrue(result);
     }
 
     /**
@@ -42,8 +47,13 @@ class GPSTest {
         double latitude = -90.0;
         double longitude = -8.0;
 
-        //Act
         GPS gps = new GPS(latitude, longitude);
+
+        //Act
+        boolean result = gps.equals(gps);
+
+        //
+        assertTrue(result);
     }
 
     /**
@@ -55,8 +65,13 @@ class GPSTest {
         double latitude = 41.14961;
         double longitude = 180.0;
 
-        //Act
         GPS gps = new GPS(latitude, longitude);
+
+        //Act
+        boolean result = gps.equals(gps);
+
+        //Assert
+        assertTrue(result);
     }
 
     /**
@@ -68,8 +83,13 @@ class GPSTest {
         double latitude = 41.14961;
         double longitude = -180.0;
 
-        //Act
         GPS gps = new GPS(latitude, longitude);
+
+        //Act
+        boolean result = gps.equals(gps);
+
+        //Assert
+        assertTrue(result);
     }
 
 
@@ -82,8 +102,14 @@ class GPSTest {
         double latitude = 41.14961;
         double longitude = 179.99999;
 
-        //Act
         GPS gps = new GPS(latitude, longitude);
+
+        //Act
+        boolean result = gps.equals(gps);
+
+        //Assert
+        assertTrue(result);
+
     }
 
     /**
@@ -95,8 +121,13 @@ class GPSTest {
         double latitude = 41.14961;
         double longitude = -179.99999;
 
-        //Act
         GPS gps = new GPS(latitude, longitude);
+
+        //Act
+        boolean result = gps.equals(gps);
+
+        //Assert
+        assertTrue(result);
     }
 
     /**
@@ -108,8 +139,13 @@ class GPSTest {
         double latitude = 89.99999;
         double longitude = -8.61099;
 
-        //Act
         GPS gps = new GPS(latitude, longitude);
+
+        //Act
+        boolean result = gps.equals(gps);
+
+        //Assert
+        assertTrue(result);
     }
 
     /**
@@ -121,8 +157,13 @@ class GPSTest {
         double latitude = -89.99999;
         double longitude = -8.61099;
 
-        //Act
         GPS gps = new GPS(latitude, longitude);
+
+        //Act
+        boolean result = gps.equals(gps);
+
+        //Assert
+        assertTrue(result);
     }
 
     /**
