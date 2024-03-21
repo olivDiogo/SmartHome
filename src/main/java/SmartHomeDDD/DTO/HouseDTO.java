@@ -21,6 +21,11 @@ public class HouseDTO implements DTO {
 
     }
 
+    /**
+     * Returns a string representation of the HouseDTO object.
+     *
+     * @return A string representation of the HouseDTO object.
+     */
     @Override
     public String toString() {
         return "HousesDTO{" +
@@ -30,15 +35,30 @@ public class HouseDTO implements DTO {
                 '}';
     }
 
+    /**
+     * Gets the address of the House.
+     *
+     * @return the address of the House
+     */
 
     public String getAddress() {
         return _address;
     }
 
+    /**
+     * Gets the postal code of the House.
+     *
+     * @return the postal code of the House
+     */
     public String getPostalCode() {
         return _zipCode;
     }
 
+    /**
+     * Gets the GPS coordinates of the House.
+     *
+     * @return the GPS coordinates of the House
+     */
     public String getGPS() {
         return _gps;
     }
