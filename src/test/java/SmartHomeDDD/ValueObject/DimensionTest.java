@@ -44,6 +44,28 @@ public class DimensionTest {
     }
 
     /**
+     * Test to check if the object is created with width equal to zero.
+     */
+    @Test
+    public void shouldThrowIllegalArgumentException_whenUsingWidthEqualToZero() {
+        //Arrange
+        int width =0;
+        int height = 15;
+        int depth = 17;
+
+        String exepectedMessage = "'Width' must be positive.";
+
+        //Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Dimension(width, height, depth);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(exepectedMessage));
+    }
+
+    /**
      * Test to check if the object is created with invalid height
      */
     @Test
@@ -51,6 +73,28 @@ public class DimensionTest {
         //Arrange
         int width = 13;
         int height = -15;
+        int depth = 17;
+
+        String exepectedMessage = "'Height' must be positive.";
+
+        //Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Dimension(width, height, depth);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(exepectedMessage));
+    }
+
+    /**
+     * Test to check if the object is created with height equal to zero.
+     */
+    @Test
+    public void shouldThrowIllegalArgumentException_WhenUsingHeightEqualToZero() {
+        //Arrange
+        int width = 13;
+        int height =0;
         int depth = 17;
 
         String exepectedMessage = "'Height' must be positive.";
@@ -74,6 +118,28 @@ public class DimensionTest {
         int width = 13;
         int height = 15;
         int depth = -17;
+
+        String exepectedMessage = "'Depth' must be positive";
+
+        //Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Dimension(width, height, depth);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(exepectedMessage));
+    }
+
+    /**
+     * Test to check if the object is created with depth equal to zero.
+     */
+    @Test
+    public void shouldThrowIllegalArgumentException_WhenUsingDepthEqualToZero() {
+        //Arrange
+        int width = 13;
+        int height = 15;
+        int depth = 0;
 
         String exepectedMessage = "'Depth' must be positive";
 
