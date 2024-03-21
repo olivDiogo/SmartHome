@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 public class SensorTypeRepositoryTest {
 
     @Test
-    public void shouldInstantiateSensorTypeRepository() {
+    void shouldInstantiateSensorTypeRepository() {
         new SensorTypeRepository();
     }
 }
