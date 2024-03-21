@@ -10,22 +10,22 @@ public class RoomDTO implements DTO {
     /**
      * The name of the room.
      */
-    public final String _roomName;
+    public final String roomName;
 
     /**
      * The dimensions of the room.
      */
-    public final String _dimensions;
+    public final String dimensions;
 
     /**
      * The floor of the room.
      */
-    public final String _floor;
+    public final String floor;
 
     /**
      * The unique identifier of the room.
      */
-    public final String _roomId;
+    public final String roomId;
 
     /**
      * Constructs a new RoomDTO object with the specified room details.
@@ -36,27 +36,27 @@ public class RoomDTO implements DTO {
      * @param roomID        The unique identifier of the room.
      */
     public RoomDTO(String roomName, String roomDimension, String roomFloor, String roomID) {
-        this._roomName = roomName;
-        this._dimensions = roomDimension;
-        this._floor = roomFloor;
-        this._roomId = roomID;
+        this.roomName = roomName;
+        this.dimensions = roomDimension;
+        this.floor = roomFloor;
+        this.roomId = roomID;
     }
 
 
     public String getRoomName() {
-        return _roomName;
+        return roomName;
     }
 
     public String getDimensions() {
-        return _dimensions;
+        return dimensions;
     }
 
     public String getFloor() {
-        return _floor;
+        return floor;
     }
 
     public String getRoomId() {
-        return _roomId;
+        return roomId;
     }
 }
 
