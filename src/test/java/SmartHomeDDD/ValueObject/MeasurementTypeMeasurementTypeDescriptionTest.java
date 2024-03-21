@@ -4,14 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UnitDescriptionTest {
+class MeasurementTypeMeasurementTypeDescriptionTest {
 
     @Test
     public void shouldInstantiateUnitDescriptionWhenGivenValidDescription() {
         //Arrange
         String description = "This is a valid description";
         //Act
-        new UnitDescription(description);
+        new MeasurementTypeDescription(description);
     }
     @Test
     public void shouldThrowIllegalArgumentExceptionWhenGivenNullDescription() {
@@ -19,7 +19,7 @@ class UnitDescriptionTest {
         String description = null;
         String expectedMessage = "The value of 'description' should not null, blank, or empty.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementTypeDescription(description));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -29,7 +29,7 @@ class UnitDescriptionTest {
         String description = " ";
         String expectedMessage = "The value of 'description' should not null, blank, or empty.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementTypeDescription(description));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -39,7 +39,7 @@ class UnitDescriptionTest {
         String description = "";
         String expectedMessage = "The value of 'description' should not null, blank, or empty.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementTypeDescription(description));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -49,7 +49,7 @@ class UnitDescriptionTest {
         String description = "This is a description with more than 50 characters. This is a description with more than 50 characters. This is a description with more than 50 characters.";
         String expectedMessage = "The description cannot have more than 50 characters.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementTypeDescription(description));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -58,8 +58,8 @@ class UnitDescriptionTest {
     public void shouldReturnTrue_WhenTwoObjectsHaveSameDescription(){
         //Arrange
         String description = "This is a valid description";
-        UnitDescription unitDescription1 = new UnitDescription(description);
-        UnitDescription unitDescription2 = new UnitDescription(description);
+        MeasurementTypeDescription unitDescription1 = new MeasurementTypeDescription(description);
+        MeasurementTypeDescription unitDescription2 = new MeasurementTypeDescription(description);
         //Act
         boolean result = unitDescription1.equals(unitDescription2);
         //Assert
@@ -70,8 +70,8 @@ class UnitDescriptionTest {
         //Arrange
         String description1 = "This is a valid description";
         String description2 = "This is another valid description";
-        UnitDescription unitDescription1 = new UnitDescription(description1);
-        UnitDescription unitDescription2 = new UnitDescription(description2);
+        MeasurementTypeDescription unitDescription1 = new MeasurementTypeDescription(description1);
+        MeasurementTypeDescription unitDescription2 = new MeasurementTypeDescription(description2);
         //Act
         boolean result = unitDescription1.equals(unitDescription2);
         //Assert

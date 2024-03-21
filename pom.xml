@@ -155,7 +155,15 @@
                     </dependency>
                 </dependencies>
                 <configuration>
+                    <targetClasses>
+                        <!-- Example: <param>lapr.project.model.*</param> -->
+                        <param>SmartHomeDDD.*</param>
+                    </targetClasses>
 
+                    <targetTests>
+                        <!-- Example: <param>lapr.project.utils.*</param> -->
+                        <param>SmartHomeDDD.*</param>
+                    </targetTests>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>
