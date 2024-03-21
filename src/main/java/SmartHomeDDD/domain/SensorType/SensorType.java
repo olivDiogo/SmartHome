@@ -13,7 +13,7 @@ public class SensorType {
      * @param sensorTypeName the sensor type name, must not be null
      * @param unit the unit of the sensor type, must not be null
      */
-    public SensorType(TypeDescription sensorTypeName, UnitDescription unit) {
+    SensorType(TypeDescription sensorTypeName, UnitDescription unit) {
         validateSensorTypeName(sensorTypeName);
         this._sensorTypeName = sensorTypeName;
 
@@ -78,5 +78,16 @@ public class SensorType {
                 return true;
         }
         return false;
+    }
+
+    /**
+     * Returns the attributes of the sensor type as a string.
+     *
+     * @return the attributes of the sensor type as a string
+     */
+    @Override
+    public String toString() {
+        return  "TypeDescription: " + _sensorTypeName.toString() +
+                "\nUnit: " + _unit.toString();
     }
 }

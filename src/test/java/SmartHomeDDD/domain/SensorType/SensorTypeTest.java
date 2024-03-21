@@ -165,4 +165,24 @@ public class SensorTypeTest {
         // Assert
         assertFalse(result);
     }
+
+    @Test
+    public void shouldGetStringWithAttributes_whenToStringIsCalled() {
+        // Arrange
+        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+        when(typeDescriptionDouble.toString()).thenReturn("Temperature");
+
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        when(unitDescriptionDouble.toString()).thenReturn("Celsius");
+
+        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDescriptionDouble);
+
+        String expectedString = "TypeDescription: Temperature\nUnit: Celsius";
+
+        // Act
+        String result = sensorType.toString();
+
+        // Assert
+        assertEquals(expectedString, result);
+    }
 }
