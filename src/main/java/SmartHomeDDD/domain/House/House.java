@@ -29,10 +29,17 @@ public class House implements AggregateRoot<HouseID> {
      * @throws IllegalArgumentException if any of the parameters are null.
      */
     House(Address address, ZipCode zipCode, GPS gps) {
-        _houseID = new HouseID(UUID.randomUUID().toString());
+        generateID();
         validateAddress(address);
         validateZipCode(zipCode);
         validateGps(gps);
+    }
+
+    /**
+     * Generates a unique identifier for the House instance.
+     */
+    private void generateID() {
+        _houseID = new HouseID(UUID.randomUUID().toString());
     }
 
     /**
