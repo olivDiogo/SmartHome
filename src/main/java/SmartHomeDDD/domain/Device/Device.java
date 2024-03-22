@@ -129,19 +129,17 @@ public class Device implements AggregateRoot<DeviceID> {
     /**
      * Checks if this Device instance is equal to another object.
      *
-     * @param o The object to compare.
+     * @param object The object to compare.
      * @return true if the objects are equal, false if they are different.
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
+    public boolean equals(Object object) {
+        if (this == object)
             return true;
 
-        if (o instanceof Device) {
-            Device objectDevice = (Device) o;
-
-            if (this._deviceID.equals(objectDevice._deviceID))
-                return true;
+        if (object instanceof Device) {
+            Device objectDevice = (Device) object;
+            return _roomID.toString().equals(objectDevice._roomID.toString());
         }
         return false;
     }
