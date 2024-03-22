@@ -2,6 +2,7 @@ package SmartHomeDDD.domain.Room;
 
 import SmartHomeDDD.ValueObject.*;
 import SmartHomeDDD.ddd.AggregateRoot;
+import SmartHomeDDD.domain.House.House;
 
 import java.util.UUID;
 

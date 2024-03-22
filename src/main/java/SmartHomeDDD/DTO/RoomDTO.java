@@ -42,21 +42,5 @@ public class RoomDTO implements DTO {
         this.roomId = roomID;
     }
 
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public String getDimensions() {
-        return dimensions;
-    }
-
-    public String getFloor() {
-        return floor;
-    }
-
-    public String getRoomId() {
-        return roomId;
-    }
 }
 

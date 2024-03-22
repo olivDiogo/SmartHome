@@ -112,4 +112,55 @@ class SensorNameTest {
         // Assert
         assertEquals(sensorName, result);
     }
+
+    /**
+     * Tests the equals method when the instances are equal.
+     */
+    @Test
+    void shouldReturnTrue_WhenInstancesAreEqual(){
+        // Arrange
+        String sensorName = "Temperature Sensor 1";
+        SensorName sensorNameObject = new SensorName(sensorName);
+        SensorName sensorNameObject2 = new SensorName(sensorName);
+
+        // Act
+        boolean result = sensorNameObject.equals(sensorNameObject2);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Tests the equals method when the instances are not equal.
+     */
+    @Test
+    void shouldReturnFalse_WhenInstancesAreNotEqual(){
+        // Arrange
+        String sensorName = "Temperature Sensor 1";
+        String sensorName2 = "Temperature Sensor 2";
+        SensorName sensorNameObject = new SensorName(sensorName);
+        SensorName sensorNameObject2 = new SensorName(sensorName2);
+
+        // Act
+        boolean result = sensorNameObject.equals(sensorNameObject2);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Tests the toString method.
+     */
+    @Test
+    void shouldReturnStringRepresentation_WhenToStringIsCalled(){
+        // Arrange
+        String sensorName = "Temperature Sensor 1";
+        SensorName sensorNameObject = new SensorName(sensorName);
+
+        // Act
+        String result = sensorNameObject.toString();
+
+        // Assert
+        assertTrue(result.contains(sensorName));
+    }
 }

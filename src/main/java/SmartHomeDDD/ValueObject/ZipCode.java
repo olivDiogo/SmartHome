@@ -14,8 +14,8 @@ public class ZipCode implements ValueObject {
      * @param zipCodeSuffix is the zip code suffix of ZipCode
      */
     public ZipCode(int zipCodePrefix, int zipCodeSuffix) {
-        zipCodePrefixValidation(zipCodePrefix);
-        zipCodeSuffixValidation(zipCodeSuffix);
+        validateZipCodePrefix(zipCodePrefix);
+        validateZipCodeSuffix(zipCodeSuffix);
         this._zipCodePrefix = zipCodePrefix;
         this._zipCodeSuffix = zipCodeSuffix;
     }
@@ -25,7 +25,7 @@ public class ZipCode implements ValueObject {
      *
      * @param postCodePrefix is the zip code prefix of ZipCode
      */
-    private void zipCodePrefixValidation(int postCodePrefix) {
+    private void validateZipCodePrefix(int postCodePrefix) {
         if (postCodePrefix < 1000 || postCodePrefix > 9999) {
             throw new IllegalArgumentException("Invalid zip code prefix");
         }
@@ -36,7 +36,7 @@ public class ZipCode implements ValueObject {
      *
      * @param zipCodeSuffix is the zip code suffix of ZipCode
      */
-    private void zipCodeSuffixValidation(int zipCodeSuffix) {
+    private void validateZipCodeSuffix(int zipCodeSuffix) {
         if (zipCodeSuffix < 100 || zipCodeSuffix > 999) {
             throw new IllegalArgumentException("Invalid zip code suffix");
         }

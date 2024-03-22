@@ -192,4 +192,28 @@ class HouseTest {
         // Act & Assert
         assertFalse(house1.equals(house2), "Houses with different IDs should not be equal.");
     }
+
+    /**
+     * Tests that the {@link House#toString()} method returns a string representation of the House instance.
+     * This test verifies that the string includes the class name, along
+     * with the HouseID, Address, ZipCode, and GPS properties.
+     */
+    @Test
+    void shouldReturnStringRepresentation_WhenToStringIsCalled(){
+        // Arrange
+        Address address = mock(Address.class);
+        ZipCode zipCode = mock(ZipCode.class);
+        GPS gps = mock(GPS.class);
+        House house = new House(address, zipCode, gps);
+
+        // Act
+        String result = house.toString();
+
+        // Assert
+        assertTrue(result.contains("House{"));
+        assertTrue(result.contains("_houseID="));
+        assertTrue(result.contains("_address="));
+        assertTrue(result.contains("_zipCode="));
+        assertTrue(result.contains("_gps="));
+    }
 }

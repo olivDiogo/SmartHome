@@ -1,6 +1,5 @@
 package SmartHomeDDD.assembler;
 
-import SmartHomeDDD.DTO.HouseDTO;
 import SmartHomeDDD.DTO.RoomDTO;
 import SmartHomeDDD.ValueObject.Dimension;
 import SmartHomeDDD.ValueObject.RoomFloor;
@@ -8,7 +7,6 @@ import SmartHomeDDD.ValueObject.RoomID;
 import SmartHomeDDD.ValueObject.RoomName;
 import SmartHomeDDD.domain.Room.Room;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +16,17 @@ import static org.mockito.Mockito.*;
 
 public class RoomAssemblerTest {
 
+    /**
+     * Test if the constructor of the RoomAssembler class can be called.
+     */
     @Test
     void shouldInstantiateANewRoomAssembler() {
         new RoomAssembler();
     }
 
+    /**
+     * Test if the domainToDTO method returns a RoomDTO object when the room is valid.
+     */
     @Test
     void shouldReturnARoomDTO_whenGivenARoom() {
         // Arrange
@@ -47,34 +51,42 @@ public class RoomAssemblerTest {
 
         RoomAssembler roomAssembler = new RoomAssembler();
 
-        try (MockedConstruction<RoomDTO> mocked = mockConstruction(RoomDTO.class, (mock, context) -> {
-            String actualRoomName = (String) context.arguments().get(0);
-            String actualDimension = (String) context.arguments().get(1);
-            String actualRoomFloor = (String) context.arguments().get(2);
-            String actualRoomID = (String) context.arguments().get(3);
+        RoomDTO expectedRoom = new RoomDTO(roomName, dimension, roomfloor, roomID);
 
-           when(mock.getRoomName()).thenReturn(actualRoomName);
-           when(mock.getDimensions()).thenReturn(actualDimension);
-           when(mock.getFloor()).thenReturn(actualRoomFloor);
-           when(mock.getRoomId()).thenReturn(actualRoomID);
+        // Act
+        RoomDTO roomDTO = roomAssembler.domainToDTO(room);
 
-        })) {
+        // Assert
+        assertEquals(expectedRoom.roomName, roomDTO.roomName);
+        assertEquals(expectedRoom.dimensions, roomDTO.dimensions);
+        assertEquals(expectedRoom.floor, roomDTO.floor);
+        assertEquals(expectedRoom.roomId, roomDTO.roomId);
 
-            // Act
-            RoomDTO result = roomAssembler.domainToDTO(room);
+    }
 
-            // Assert
-            List<RoomDTO> roomDTOList = mocked.constructed();
-            assertEquals(roomName, roomDTOList.get(0).getRoomName());
-            assertEquals(roomName,result.getRoomName());
-            assertEquals(dimension, result.getDimensions());
-            assertEquals(roomfloor, result.getFloor());
-            assertEquals(roomID, result.getRoomId());
+    /**
+     * Test if the domainToDTO method throws an IllegalArgumentException when the Room is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenRoomIsNull() {
+        // Arrange
+        Room room = null;
+        RoomAssembler roomAssembler = new RoomAssembler();
 
-        }
+        String expected = "The Room cannot be null.";
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> roomAssembler.domainToDTO(room));
+
+        // Assert
+        String result = exception.getMessage();
+        assertEquals(expected, result);
     }
 
 
+    /**
+     * Test if the domainToDTO method throws an IllegalArgumentException when the Room is null.
+     */
     @Test
     void shouldReturnANewRoomDTOList_whenGivenARoomList() {
         // Arrange
@@ -123,29 +135,86 @@ public class RoomAssemblerTest {
 
         RoomAssembler roomAssembler = new RoomAssembler();
 
-        try (MockedConstruction<RoomDTO> mocked = mockConstruction(RoomDTO.class, (mock, context) -> {
+        RoomDTO roomDTO = new RoomDTO(roomName, dimension, roomfloor, roomID);
+        RoomDTO roomDTO2 = new RoomDTO(roomName2, dimension2, roomfloor2, roomID2);
 
-            String actualRoomName = (String) context.arguments().get(0);
-            String actualDimension = (String) context.arguments().get(1);
-            String actualRoomFloor = (String) context.arguments().get(2);
-            String actualRoomID = (String) context.arguments().get(3);
+        List<RoomDTO> expected = new ArrayList<>();
+        expected.add(roomDTO);
+        expected.add(roomDTO2);
 
-            when(mock.getRoomName()).thenReturn(actualRoomName);
-            when(mock.getDimensions()).thenReturn(actualDimension);
-            when(mock.getFloor()).thenReturn(actualRoomFloor);
-            when(mock.getRoomId()).thenReturn(actualRoomID);
+        // Act
+        List<RoomDTO> result = roomAssembler.domainToDTO(rooms);
 
-        })) {
-            // Act
-            List<RoomDTO> result = roomAssembler.domainToDTO(rooms);
+        // Assert
+        assertEquals(expected.get(0).roomName, result.get(0).roomName);
+        assertEquals(expected.get(0).dimensions, result.get(0).dimensions);
+        assertEquals(expected.get(0).floor, result.get(0).floor);
+        assertEquals(expected.get(0).roomId, result.get(0).roomId);
+        assertEquals(expected.get(1).roomName, result.get(1).roomName);
+        assertEquals(expected.get(1).dimensions, result.get(1).dimensions);
+        assertEquals(expected.get(1).floor, result.get(1).floor);
+        assertEquals(expected.get(1).roomId, result.get(1).roomId);
 
-            // Assert
-
-            List<RoomDTO> roomDTOList = mocked.constructed();
-            assertArrayEquals(result.toArray(), roomDTOList.toArray());
-            assertEquals(result.toString(), roomDTOList.toString());
-            assertTrue(result.containsAll(roomDTOList));
-
-        }
     }
+
+    /**
+     * Test if the domainToDTO method throws an IllegalArgumentException when the list of Rooms is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenRoomListIsNull() {
+        // Arrange
+        List<Room> rooms = null;
+        RoomAssembler roomAssembler = new RoomAssembler();
+
+        String expected = "The list of Rooms cannot be null.";
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> roomAssembler.domainToDTO(rooms));
+
+        // Assert
+        String result = exception.getMessage();
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test if the domainToDTO method throws an IllegalArgumentException when the list of Rooms is empty.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenRoomListIsEmpty() {
+        // Arrange
+        List<Room> rooms = new ArrayList<>();
+        RoomAssembler roomAssembler = new RoomAssembler();
+
+        String expected = "The list of Rooms cannot be null.";
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> roomAssembler.domainToDTO(rooms));
+
+        // Assert
+        String result = exception.getMessage();
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test if the domainToDTO method throws an IllegalArgumentException when the list of Rooms contains null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenRoomListContainsNull() {
+        // Arrange
+        Room room = mock(Room.class);
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(room);
+        rooms.add(null);
+        RoomAssembler roomAssembler = new RoomAssembler();
+
+        String expected = "The list of Rooms cannot be null.";
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> roomAssembler.domainToDTO(rooms));
+
+        // Assert
+        String result = exception.getMessage();
+        assertEquals(expected, result);
+    }
+
 }
