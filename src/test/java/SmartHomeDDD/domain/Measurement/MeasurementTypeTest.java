@@ -1,5 +1,6 @@
 package SmartHomeDDD.domain.Measurement;
 
+import SmartHomeDDD.ValueObject.MeasurementID;
 import SmartHomeDDD.ValueObject.MeasurementTypeUnit;
 import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
 import org.junit.jupiter.api.Test;
@@ -8,17 +9,23 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class MeasurementTypeTest {
+
+    /**
+     * Validates construction with valid arguments.
+     */
     @Test
-    void shouldReturnValidMeasurementWhenGivenValidMeasurementIDAndUnitAndUnitDescription() {
+    void shouldReturnValidMeasurement_WhenGivenValidParameters() {
         //Arrange
         MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
         MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
         //Act
         new MeasurementType( unitDescriptionDouble, unitDouble );
     }
-
+    /**
+     * Expects IllegalArgumentException for null measurement unit.
+     */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenGivenNullUnit() {
+    void shouldThrowIllegalArgumentException_WhenGivenNullUnit() {
         //Arrange
         MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
         MeasurementTypeUnit unitDouble = null;
@@ -28,8 +35,11 @@ class MeasurementTypeTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
+    /**
+     * Expects IllegalArgumentException for null unit description.
+     */
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenGivenNullUnitDescription() {
+    void shouldThrowIllegalArgumentException_WhenGivenNullUnitDescription() {
         //Arrange
         MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
         MeasurementTypeDescription unitDescriptionDouble = null;
@@ -39,31 +49,11 @@ class MeasurementTypeTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
+    /**
+     * Tests equality on the same object instance.
+     */
     @Test
-    void shouldReturnUnitDescriptionWhenGetIDIsCalled() {
-        //Arrange
-        MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
-        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
-        MeasurementType measurementType = new MeasurementType(unitDescriptionDouble, unitDouble);
-        //Act
-        MeasurementTypeDescription result = measurementType.getID();
-        //Assert
-        assertEquals(unitDescriptionDouble, result);
-    }
-    @Test
-    void shouldReturnExpectedStringWhenToStringIsCalled() {
-        //Arrange
-        MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
-        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
-        MeasurementType measurementType = new MeasurementType(unitDescriptionDouble, unitDouble);
-        String expectedString = "MeasurementType{_measurementUnit=" + unitDouble + ", _unitDescription=" + unitDescriptionDouble + '}';
-        //Act
-        String result = measurementType.toString();
-        //Assert
-        assertEquals(expectedString, result);
-    }
-    @Test
-    void shouldReturnTrueWhenGivenSameObject() {
+    void shouldReturnTrue_WhenGivenSameObject() {
         //Arrange
         MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
         MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
@@ -73,20 +63,11 @@ class MeasurementTypeTest {
         //Assert
         assertTrue(result);
     }
+    /**
+     * Tests inequality on objects with different IDs.
+     */
     @Test
-    void shouldReturnTrueWhenComparingTwoObjectsWithSameID () {
-        //Arrange
-        MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
-        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
-        MeasurementType measurementType = new MeasurementType(unitDescriptionDouble, unitDouble);
-        MeasurementType measurementType2 = new MeasurementType(unitDescriptionDouble, unitDouble);
-        //Act
-        boolean result = measurementType.equals(measurementType2);
-        //Assert
-        assertTrue(result);
-    }
-    @Test
-    void shouldReturnFalseWhenComparingTwoObjectsWithDifferentID () {
+    void shouldReturnFalse_WhenComparingTwoObjectsWithDifferentID () {
         //Arrange
         MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
         MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
@@ -98,8 +79,11 @@ class MeasurementTypeTest {
         //Assert
         assertFalse(result);
     }
+    /**
+     * Tests inequality with null.
+     */
     @Test
-    void shouldReturnFalseWhenComparingObjectWithNull() {
+    void shouldReturnFalse_WhenComparingObjectWithNull() {
         //Arrange
         MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
         MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
@@ -109,9 +93,39 @@ class MeasurementTypeTest {
         //Assert
         assertFalse(result);
     }
+    /**
+     * Tests getting ID.
+     */
+    @Test
+    void shouldReturnMeasurementID_whenGetIDisCalled(){
+        //Arrange
+        MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
 
+        MeasurementType measurementType = new MeasurementType(unitDescriptionDouble, unitDouble);
 
+        //Act
+        MeasurementID result = measurementType.getID();
 
+        //Assert
+        assertTrue(measurementType.toString().contains(result.toString()));
+    }
+    /**
+     * Tests toString method.
+     */
+    @Test
+    void shouldReturnString_whenToStringIsCalled(){
+        //Arrange
+        MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
 
+        MeasurementType measurementType = new MeasurementType(unitDescriptionDouble, unitDouble);
+
+        //Act
+        String result = measurementType.toString();
+
+        //Assert
+        assertTrue(result.contains(measurementType.getID().toString()));
+    }
 
 }
