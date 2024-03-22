@@ -11,9 +11,17 @@ public class DeviceID implements DomainID {
      * @param deviceID
      */
     public DeviceID(String deviceID) {
-        if (deviceID != null && !deviceID.isBlank() && !deviceID.isEmpty())
-            this._id = deviceID.trim();
-        else
+        validateDeviceID(deviceID);
+        this._id = deviceID.trim();
+    }
+
+    /**
+     * Validates the DeviceID. It should not be null, blank, or empty.
+     *
+     * @param deviceID String
+     */
+    private void validateDeviceID(String deviceID) {
+        if (deviceID == null || deviceID.isBlank() || deviceID.isEmpty())
             throw new IllegalArgumentException("The value of 'deviceID' should not null, blank, or empty.");
     }
 
@@ -32,6 +40,7 @@ public class DeviceID implements DomainID {
      * @param o Object
      * @return boolean
      */
+    @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
@@ -52,5 +61,15 @@ public class DeviceID implements DomainID {
      */
     public int hashCode() {
         return _id.hashCode();
+    }
+
+    /**
+     * toString method for DeviceID
+     *
+     * @return the id as a string
+     */
+    @Override
+    public String toString() {
+        return _id;
     }
 }

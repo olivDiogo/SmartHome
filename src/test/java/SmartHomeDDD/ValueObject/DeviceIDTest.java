@@ -168,4 +168,22 @@ public class DeviceIDTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Tests if the deviceID is returned as a string
+     */
+    @Test
+    public void shouldReturnDeviceIDAsString(){
+        // Arrange
+        String idDescription = "HXPTO";
+        DeviceID deviceID = new DeviceID(idDescription);
+
+        String expected = idDescription;
+
+        // Act
+        String result = deviceID.toString();
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
 }
