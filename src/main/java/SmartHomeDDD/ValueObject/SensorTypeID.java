@@ -12,9 +12,12 @@ public class SensorTypeID implements DomainID {
      * @param sensorTypeID is the ID of the sensor type.
      */
     public SensorTypeID(String sensorTypeID) {
-        if (sensorTypeID != null && !sensorTypeID.isBlank() && !sensorTypeID.isEmpty())
-            this._id = sensorTypeID;
-        else
+        validateId(sensorTypeID);
+        this._id = sensorTypeID;
+    }
+
+    private void validateId(String sensorTypeID) {
+        if (sensorTypeID == null || sensorTypeID.isBlank() || sensorTypeID.isEmpty())
             throw new IllegalArgumentException("'sensorTypeID' must be a non-empty string.");
     }
 
@@ -55,5 +58,17 @@ public class SensorTypeID implements DomainID {
      */
     public int hashCode() {
         return this._id.hashCode();
+    }
+
+    /**
+     * Method to return the string representation of the object.
+     *
+     * @return the string representation of the object.
+     */
+    @Override
+    public String toString() {
+        return "SensorTypeID{" +
+                "_id='" + _id + '\'' +
+                '}';
     }
 }

@@ -172,4 +172,21 @@ class SensorTypeIDTest {
         assertEquals(expected,result);
     }
 
+    /**
+     * Tests if the sensorTypeID object returns correct string representation.
+     */
+    @Test
+    public void shouldReturnSensorTypeIDInString () {
+        // Arrange
+        String sensorTypeIDDescription = "Sensor2GKA";
+
+        String expected = "SensorTypeID{_id='Sensor2GKA'}";
+
+        // Act
+        SensorTypeID sensorTypeIDObject = new SensorTypeID(sensorTypeIDDescription);
+
+        // Assert
+        assertEquals(expected, sensorTypeIDObject.toString());
+    }
+
 }
