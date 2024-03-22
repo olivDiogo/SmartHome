@@ -14,8 +14,8 @@ public class Address implements ValueObject {
      * @param doorNumber is the door number of the address.
      */
     public Address(String street, String doorNumber) {
-        streetValidation(street);
-        doorNumberValidation(doorNumber);
+        validateStreet(street);
+        validateDoorNumber(doorNumber);
         this._street = street;
         this._doorNumber = doorNumber;
     }
@@ -25,7 +25,7 @@ public class Address implements ValueObject {
      *
      * @param street is the street of the address.
      */
-    private void streetValidation(String street){
+    private void validateStreet(String street){
         if (street == null || street.trim().isEmpty() || street.length() > 70 || !street.matches("^[a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException("Invalid street");
         }
@@ -37,7 +37,7 @@ public class Address implements ValueObject {
      * @param doorNumber is the door number of the address.
      */
 
-    private void doorNumberValidation(String doorNumber){
+    private void validateDoorNumber(String doorNumber){
         if (doorNumber == null || doorNumber.trim().isEmpty() || doorNumber.length() > 10 || !doorNumber.matches("^[a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException("Invalid door number");
         }

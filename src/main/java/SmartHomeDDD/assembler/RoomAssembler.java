@@ -50,16 +50,7 @@ public class RoomAssembler implements Assembler<Room, RoomDTO> {
             throw new IllegalArgumentException("The list of Rooms cannot be null.");
         }
 
-        List<RoomDTO> roomsDTO = new ArrayList<>();
-
-        for (Room room : rooms) {
-            String roomName = room.getRoomName().toString();
-            String dimension = room.getDimension().toString();
-            String roomFloor = room.getRoomFloor().toString();
-            String roomID = room.getID().toString();
-            RoomDTO roomDTO = new RoomDTO(roomName, dimension, roomFloor, roomID);
-            roomsDTO.add(roomDTO);
-        }
+        List<RoomDTO> roomsDTO = rooms.stream().map(this::domainToDTO).toList();
         return roomsDTO;
     }
 
