@@ -10,7 +10,7 @@ public class ActuatorTypeDTO implements DTO {
     /**
      * Description of the actuator type.
      */
-    public final String _actuatorTypeDescription;
+    public final String actuatorTypeDescription;
 
     /**
      * Constructs a new ActuatorTypeDTO object.
@@ -19,8 +19,9 @@ public class ActuatorTypeDTO implements DTO {
      * @param actuatorTypeDescription  The description of the actuator type.
      */
     public ActuatorTypeDTO(String actuatorTypeDescription) {
-        this._actuatorTypeDescription = actuatorTypeDescription;
+        this.actuatorTypeDescription = actuatorTypeDescription;
     }
+
 
     /**
      * Returns a string representation of the ActuatorTypeDTO object.
@@ -30,7 +31,7 @@ public class ActuatorTypeDTO implements DTO {
     @Override
     public String toString() {
         return "ActuatorTypeDTO{" +
-                ", _actuatorTypeDescription='" + _actuatorTypeDescription + '\'' +
+                ", _actuatorTypeDescription='" + actuatorTypeDescription + '\'' +
                 '}';
     }
 }
