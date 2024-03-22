@@ -7,7 +7,7 @@ import SmartHomeDDD.domain.Room.Room;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomAssembler implements Assembler <Room, RoomDTO> {
+public class RoomAssembler implements Assembler<Room, RoomDTO> {
 
     /**
      * Constructor for the RoomAssembler class.
@@ -22,7 +22,12 @@ public class RoomAssembler implements Assembler <Room, RoomDTO> {
      * @param room is the Room to be converted.
      * @return the RoomDTO.
      */
+    @Override
     public RoomDTO domainToDTO(Room room) {
+
+        if (room == null) {
+            throw new IllegalArgumentException("The Room cannot be null.");
+        }
 
         String roomName = room.getRoomName().toString();
         String dimension = room.getDimension().toString();
@@ -31,7 +36,6 @@ public class RoomAssembler implements Assembler <Room, RoomDTO> {
         RoomDTO roomDTO = new RoomDTO(roomName, dimension, roomFloor, roomID);
 
         return roomDTO;
-
     }
 
     /**
@@ -40,7 +44,11 @@ public class RoomAssembler implements Assembler <Room, RoomDTO> {
      * @param rooms is the list of Rooms to be converted.
      * @return the list of RoomDTOs.
      */
+    @Override
     public List<RoomDTO> domainToDTO(List<Room> rooms) {
+        if (rooms == null || rooms.isEmpty() || rooms.contains(null)) {
+            throw new IllegalArgumentException("The list of Rooms cannot be null.");
+        }
 
         List<RoomDTO> roomsDTO = new ArrayList<>();
 
