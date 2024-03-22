@@ -9,7 +9,9 @@ public class RoomFloor implements ValueObject {
         validateFloor(floor);
     }
     private void validateFloor(int floor) {
-        if (floor < -35 || floor > 162)
+        if (Math.max(floor, -35) != floor)
+            throw new IllegalArgumentException("Invalid floor number.");
+        if (Math.min(floor, 162) != floor)
             throw new IllegalArgumentException("Invalid floor number.");
         this._floor = floor;
     }

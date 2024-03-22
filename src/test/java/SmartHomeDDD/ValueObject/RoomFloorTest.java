@@ -64,5 +64,37 @@ class RoomFloorTest {
         // Assert
         assertEquals(expected, result);
     }
+    @Test
+    void shouldReturnTrueWhenComparingSameRoomFloor() {
+        // Arrange
+        int floor = 0;
+        RoomFloor roomFloor = new RoomFloor(floor);
+        // Act
+        boolean result = roomFloor.equals(roomFloor);
+        // Assert
+        assertTrue(result);
+    }
+    @Test
+    void shouldReturnCorrectFloorWhenGetFloorIsCalled() {
+        // Arrange
+        int floor = 5;
+        RoomFloor roomFloor = new RoomFloor(floor);
+        // Act
+        int result = roomFloor.getFloor();
+        // Assert
+        assertEquals(floor, result);
+    }
+    @Test
+    void shouldReturnFalseWhenComparingRoomFloorWithDifferentFloor() {
+        // Arrange
+        int floor1 = 5;
+        int floor2 = 6;
+        RoomFloor roomFloor1 = new RoomFloor(floor1);
+        RoomFloor roomFloor2 = new RoomFloor(floor2);
+        // Act
+        boolean result = roomFloor1.equals(roomFloor2);
+        // Assert
+        assertFalse(result);
+    }
 
 }
