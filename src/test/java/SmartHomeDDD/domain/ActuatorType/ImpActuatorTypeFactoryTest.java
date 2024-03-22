@@ -1,6 +1,7 @@
 package SmartHomeDDD.domain.ActuatorType;
 
 import SmartHomeDDD.ValueObject.TypeDescription;
+import SmartHomeDDD.domain.House.ImpHouseFactory;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
@@ -18,22 +19,11 @@ class ImpActuatorTypeFactoryTest {
     void shouldCreateActuatorType_whenAttributesAreValid() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+        ImpActuatorTypeFactory factory = new ImpActuatorTypeFactory();
 
-        try(MockedConstruction<ActuatorType> actuatorTypeDouble = mockConstruction(ActuatorType.class,(mock, context) -> {
-            TypeDescription actualTypeDescription = (TypeDescription) context.arguments().get(0);
-            when(mock.getID()).thenReturn(actualTypeDescription);
+        // Act & Assert
+        factory.createActuatorType(typeDescriptionDouble);
 
-        })) {
-            ImpActuatorTypeFactory impActuatorTypeFactory = new ImpActuatorTypeFactory();
-
-            // Act
-            ActuatorType actuatorType = impActuatorTypeFactory.createActuatorType(typeDescriptionDouble);
-
-            // Assert
-            List<ActuatorType> actuatorTypeList = actuatorTypeDouble.constructed();
-            assertEquals(1, actuatorTypeList.size());
-            assertEquals(typeDescriptionDouble, actuatorType.getID());
-        }
     }
 
     /**

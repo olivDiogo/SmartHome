@@ -160,7 +160,7 @@ class HouseTest {
         ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
 
-        try (MockedConstruction<HouseID> ignored = mockConstruction(HouseID.class, (mock, context) -> {
+        try (MockedConstruction<HouseID> houseIDMockedConstruction = mockConstruction(HouseID.class, (mock, context) -> {
             when(mock.toString()).thenReturn("1");
         })) {
             House house = new House(address, zipCode, gps);

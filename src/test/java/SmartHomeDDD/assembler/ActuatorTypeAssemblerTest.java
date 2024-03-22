@@ -1,6 +1,7 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.ActuatorTypeDTO;
+import SmartHomeDDD.ValueObject.ActuatorTypeID;
 import SmartHomeDDD.ValueObject.TypeDescription;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
 import org.junit.jupiter.api.Test;
@@ -27,22 +28,22 @@ class ActuatorTypeAssemblerTest {
     @Test
     public void shouldReturnActuatorTypeAssemblerDTO_WhenDescriptionTypeIsValid() {
         //Arrange
-        String descriptionID = "Switch Actuator";
+        String actuatorTypeID = "Switch Actuator";
 
         ActuatorType actuatorType = mock(ActuatorType.class);
 
-        when(actuatorType.getID()).thenReturn(mock(TypeDescription.class));
-        when(actuatorType.getID().toString()).thenReturn(descriptionID);
+        when(actuatorType.getID()).thenReturn(mock(ActuatorTypeID.class));
+        when(actuatorType.getID().toString()).thenReturn(actuatorTypeID);
 
         ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
 
-        ActuatorTypeDTO expectedActuatorType = new ActuatorTypeDTO(descriptionID);
+        ActuatorTypeDTO expectedActuatorType = new ActuatorTypeDTO(actuatorTypeID);
 
         //Act
         ActuatorTypeDTO actuatorTypeDTO = actuatorTypeAssembler.domainToDTO(actuatorType);
 
         //assert
-        assertEquals(expectedActuatorType.actuatorTypeDescription, actuatorTypeDTO.actuatorTypeDescription);
+        assertEquals(expectedActuatorType.actuatorTypeID, actuatorTypeDTO.actuatorTypeID);
     }
 
     /**
@@ -70,17 +71,17 @@ class ActuatorTypeAssemblerTest {
     @Test
     public void shouldReturnActuatorTypeAssemblerDTOList_WhenDescriptionTypeIsValid() {
         //Arrange
-        String actuatorTypeDescription1 = "Blind Actuator";
-        String actuatorTypeDescription2 = "Switch Actuator";
+        String actuatorTypeID1 = "BlindActuator";
+        String actuatorTypeID2 = "SwitchActuator";
 
         ActuatorType actuatorType = mock(ActuatorType.class);
         ActuatorType actuatorType2 = mock(ActuatorType.class);
 
-        when(actuatorType.getID()).thenReturn(mock(TypeDescription.class));
-        when(actuatorType.getID().toString()).thenReturn(actuatorTypeDescription1);
+        when(actuatorType.getID()).thenReturn(mock(ActuatorTypeID.class));
+        when(actuatorType.getID().toString()).thenReturn(actuatorTypeID1);
 
-        when(actuatorType2.getID()).thenReturn(mock(TypeDescription.class));
-        when(actuatorType2.getID().toString()).thenReturn(actuatorTypeDescription2);
+        when(actuatorType2.getID()).thenReturn(mock(ActuatorTypeID.class));
+        when(actuatorType2.getID().toString()).thenReturn(actuatorTypeID2);
 
         List<ActuatorType> actuatorTypeList = new ArrayList<>();
         actuatorTypeList.add(actuatorType);
@@ -88,8 +89,8 @@ class ActuatorTypeAssemblerTest {
 
         ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
 
-        ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO(actuatorTypeDescription1);
-        ActuatorTypeDTO actuatorTypeDTO1 = new ActuatorTypeDTO(actuatorTypeDescription2);
+        ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO(actuatorTypeID1);
+        ActuatorTypeDTO actuatorTypeDTO1 = new ActuatorTypeDTO(actuatorTypeID2);
 
         List<ActuatorTypeDTO> expected = new ArrayList<>();
         expected.add(actuatorTypeDTO);
@@ -100,8 +101,8 @@ class ActuatorTypeAssemblerTest {
 
         //Assert
         assertEquals(expected.toString(), result.toString());
-        assertEquals(expected.get(0).actuatorTypeDescription, result.get(0).actuatorTypeDescription);
-        assertEquals(expected.get(1).actuatorTypeDescription, result.get(1).actuatorTypeDescription);
+        assertEquals(expected.get(0).actuatorTypeID, result.get(0).actuatorTypeID);
+        assertEquals(expected.get(1).actuatorTypeID, result.get(1).actuatorTypeID);
     }
 
     /**
@@ -147,9 +148,9 @@ class ActuatorTypeAssemblerTest {
         //Arrange
         ActuatorType actuatorType = mock(ActuatorType.class);
 
-        String actuatorTypeDescription = "Blind Actuator";
-        when(actuatorType.getID()).thenReturn(mock(TypeDescription.class));
-        when(actuatorType.getID().toString()).thenReturn(actuatorTypeDescription);
+        String actuatorTypeID = "Blind Actuator";
+        when(actuatorType.getID()).thenReturn(mock(ActuatorTypeID.class));
+        when(actuatorType.getID().toString()).thenReturn(actuatorTypeID);
 
         List<ActuatorType> actuatorTypeList = new ArrayList<>();
         actuatorTypeList.add(actuatorType);

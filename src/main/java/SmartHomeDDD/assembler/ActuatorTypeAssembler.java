@@ -1,6 +1,7 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.ActuatorTypeDTO;
+import SmartHomeDDD.ValueObject.ActuatorTypeID;
 import SmartHomeDDD.ValueObject.TypeDescription;
 import SmartHomeDDD.ddd.Assembler;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
@@ -30,9 +31,9 @@ public class ActuatorTypeAssembler implements Assembler<ActuatorType, ActuatorTy
             throw new IllegalArgumentException("The ActuatorType cannot be null.");
         }
 
-        String actuatorTypeDescription = actuatorTypeDescriptionToString(actuatorType.getID());
+        String actuatorTypeID = actuatorTypeIDToString(actuatorType.getID());
 
-        ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO(actuatorTypeDescription);
+        ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO(actuatorTypeID);
         return actuatorTypeDTO;
     }
 
@@ -55,12 +56,10 @@ public class ActuatorTypeAssembler implements Assembler<ActuatorType, ActuatorTy
     /**
      * Converts an ActuatorTypeDTO data transfer object to an ActuatorType domain entity.
      *
-     * @param typeDescription is the data transfer object to be converted.
+     * @param actuatorTypeID is the data transfer object to be converted.
      * @return The ActuatorType domain entity.
      */
-    public String actuatorTypeDescriptionToString(TypeDescription typeDescription) {
-        return typeDescription.toString();
+    public String actuatorTypeIDToString(ActuatorTypeID actuatorTypeID) {
+        return actuatorTypeID.toString();
     }
-
-
 }

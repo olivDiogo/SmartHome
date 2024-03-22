@@ -1,10 +1,12 @@
 package SmartHomeDDD.domain.ActuatorType;
 
+import SmartHomeDDD.ValueObject.ActuatorTypeID;
 import SmartHomeDDD.ValueObject.TypeDescription;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 class ActuatorTypeTest {
 
@@ -46,16 +48,16 @@ class ActuatorTypeTest {
          * Test of method getID of class ActuatorType.
          */
         @Test
-        void shouldReturnActuatorTypeName_whenGetIDisCalled() {
+        void shouldReturnActuatorTypeID_whenGetIDisCalled() {
             // Arrange
             TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
             ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
 
             // Act
-            TypeDescription actualTypeDescription = actuatorType.getID();
+            ActuatorTypeID result = actuatorType.getID();
 
             // Assert
-            assertEquals(typeDescriptionDouble, actualTypeDescription);
+            assertTrue(actuatorType.toString().contains(result.toString()));
         }
 
         /**
@@ -65,14 +67,19 @@ class ActuatorTypeTest {
         void shouldReturnTrue_whenInstancesAreEqual() {
             // Arrange
             TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-            ActuatorType actuatorType1 = new ActuatorType(typeDescriptionDouble);
-            ActuatorType actuatorType2 = new ActuatorType(typeDescriptionDouble);
 
-            // Act
-            boolean result = actuatorType1.equals(actuatorType2);
 
-            // Assert
-            assertTrue(result);
+            try (MockedConstruction<ActuatorTypeID> mocked = mockConstruction(ActuatorTypeID.class, (mock, context) -> {
+                when(mock.toString()).thenReturn("1");
+            })) {
+                ActuatorType actuatorType1 = new ActuatorType(typeDescriptionDouble);
+                ActuatorType actuatorType2 = new ActuatorType(typeDescriptionDouble);
+                // Act
+                boolean result = actuatorType1.equals(actuatorType2);
+
+                // Assert
+                assertTrue(result);
+            }
         }
 
         /**
@@ -91,5 +98,21 @@ class ActuatorTypeTest {
 
             // Assert
             assertFalse(result);
+        }
+
+        /**
+         * Test of method toString of class ActuatorType.
+         */
+        @Test
+        void shouldReturnString_whenToStringIsCalled() {
+            // Arrange
+            TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+            ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
+
+            // Act
+            String result = actuatorType.toString();
+
+            // Assert
+            assertTrue(result.contains(actuatorType.getID().toString()));
         }
 }

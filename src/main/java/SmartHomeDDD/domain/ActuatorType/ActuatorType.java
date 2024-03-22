@@ -1,10 +1,17 @@
 package SmartHomeDDD.domain.ActuatorType;
 
+import SmartHomeDDD.ValueObject.ActuatorTypeID;
 import SmartHomeDDD.ValueObject.TypeDescription;
 import SmartHomeDDD.ddd.AggregateRoot;
 
-public class ActuatorType implements AggregateRoot<TypeDescription> {
+import java.util.UUID;
 
+public class ActuatorType implements AggregateRoot<ActuatorTypeID> {
+
+    /**
+     * The actuator type ID.
+     */
+    private ActuatorTypeID _actuatorTypeID;
     /**
      * The actuator type name.
      */
@@ -16,8 +23,12 @@ public class ActuatorType implements AggregateRoot<TypeDescription> {
      * @param actuatorTypeName the actuator type name, must not be null
      */
     public ActuatorType(TypeDescription actuatorTypeName) {
+        generateID();
         validateActuatorTypeName(actuatorTypeName);
-        this._actuatorTypeName = actuatorTypeName;
+    }
+
+    private void generateID() {
+        _actuatorTypeID = new ActuatorTypeID(UUID.randomUUID().toString());
     }
 
     /**
@@ -26,8 +37,10 @@ public class ActuatorType implements AggregateRoot<TypeDescription> {
      * @param actuatorTypeName the actuator type name, must not be null
      */
     private void validateActuatorTypeName(TypeDescription actuatorTypeName) {
-        if (actuatorTypeName == null)
+        if (actuatorTypeName == null) {
             throw new IllegalArgumentException("Actuator type name must not be null.");
+        }
+        this._actuatorTypeName = actuatorTypeName;
     }
 
     /**
@@ -35,8 +48,8 @@ public class ActuatorType implements AggregateRoot<TypeDescription> {
      * @return the actuator type name
      */
     @Override
-    public TypeDescription getID() {
-        return _actuatorTypeName;
+    public ActuatorTypeID getID() {
+        return _actuatorTypeID;
     }
 
     /**
@@ -50,7 +63,15 @@ public class ActuatorType implements AggregateRoot<TypeDescription> {
         if (this == o) return true;
         if (!(o instanceof ActuatorType)) return false;
         ActuatorType that = (ActuatorType) o;
-        return _actuatorTypeName.equals(that._actuatorTypeName);
+        return _actuatorTypeID.toString().equals(that._actuatorTypeID.toString());
+    }
+
+    @Override
+    public String toString() {
+        return "ActuatorType{" +
+                "_actuatorTypeID=" + _actuatorTypeID +
+                ", _actuatorTypeName=" + _actuatorTypeName +
+                '}';
     }
 
 }
