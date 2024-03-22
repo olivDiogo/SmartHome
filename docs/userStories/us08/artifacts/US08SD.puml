@@ -9,6 +9,7 @@ autonumber
     participant ":DeviceRepository" as Repository
     participant ":DeviceAssembler" as Assembler
     participant "deviceDTO:DeviceDTO" as DTO
+    participant "deviceID:DeviceID" as DeviceID
     participant ":Device" as Device
 
 ' Request all devices
@@ -41,9 +42,20 @@ autonumber
 
 ' Deactivate device
 
-    User -> Controller: requestDeactivateDevice(strDeviceID)
+    User -> Controller: requestDeactivateDevice(DeviceDTO)
     activate Controller
-    Controller -> Service: deactivateDevice(strDeviceID)
+    Controller -> Assembler: dtoToDomain(DeviceDTO)
+    activate Assembler
+    create DeviceID
+    Assembler -> DeviceID: DeviceID(deviceID: String)
+    activate DeviceID
+    DeviceID --> Assembler: deviceID
+    deactivate DeviceID
+    Assembler --> Controller: deviceID
+    deactivate Assembler
+
+
+    Controller -> Service: deactivateDevice(deviceID)
     activate Service
     Service -> Repository: findDeviceById(deviceID)
     activate Repository

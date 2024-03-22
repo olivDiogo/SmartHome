@@ -8,7 +8,7 @@
 class DeactivateDeviceController {
     -deviceService: DeviceService
     +requestAllDevices(): List<DeviceDTO>
-    +requestDeactivateDevice(deviceID: String): DeviceDTO
+    +requestDeactivateDevice(deviceDTO: DeviceDTO): DeviceDTO
 }
 
 class DeviceService {
@@ -29,8 +29,9 @@ class DeviceRepository {
 }
 
 class DeviceAssembler {
-    +deviceListToDTO(deviceList: DeviceList): List<DeviceDTO>
-    +deviceToDTO(device: Device): DeviceDTO
+    +domainToDTO(deviceList: DeviceList): List<DeviceDTO>
+    +domainToDTO(device: Device): DeviceDTO
+    +dtoToDomain(deviceDTO: DeviceDTO): Device
 }
 
 
