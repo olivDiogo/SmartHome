@@ -1,12 +1,14 @@
 package SmartHomeDDD.ValueObject;
 
+import SmartHomeDDD.ddd.DomainID;
+
 /**
  * Represents the unique identifier for a sensor model.
  */
-public class SensorModelID {
+public class SensorModelID implements DomainID {
 
     /** The ID of the sensor model. */
-    private String _id;
+    private String _sensorModelID;
 
     /**
      * Constructs a new SensorModelID object.
@@ -15,10 +17,18 @@ public class SensorModelID {
      * @throws IllegalArgumentException if the provided sensorModelID is null, empty, or blank.
      */
     public SensorModelID(String sensorModelID) {
-        if (sensorModelID != null && !sensorModelID.isBlank() && !sensorModelID.isEmpty())
-            this._id = sensorModelID;
-        else
-            throw new IllegalArgumentException("'sensorModelID' must be a non-empty string.");
+        validationSensorModelID(sensorModelID);
+        this._sensorModelID = sensorModelID;
+    }
+
+    /**
+     * Validates the sensor model ID.
+     *
+     * @param sensorModelID The ID of the sensor model.
+     */
+    private void validationSensorModelID(String sensorModelID) {
+        if (sensorModelID == null || sensorModelID.isBlank() || sensorModelID.isEmpty())
+            throw new IllegalArgumentException("The value of 'sensorModelID' should not null, blank, or empty.");
     }
 
     /**
@@ -34,7 +44,7 @@ public class SensorModelID {
         if (object instanceof SensorModelID) {
             SensorModelID sensorModelID = (SensorModelID) object;
 
-            if (this._id.equals(sensorModelID._id))
+            if (this._sensorModelID.equals(sensorModelID._sensorModelID))
                 return true;
         }
         return false;
@@ -46,7 +56,7 @@ public class SensorModelID {
      * @return The ID of the sensor model.
      */
     public String getId() {
-        return this._id;
+        return this._sensorModelID;
     }
 
     /**
@@ -55,7 +65,17 @@ public class SensorModelID {
      * @return A hash code value for this object.
      */
     public int hashCode() {
-        return this._id.hashCode();
+        return this._sensorModelID.hashCode();
     }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return A string representation of the object.
+     */
+    public String toString() {
+        return this._sensorModelID;
+    }
+
 }
 
