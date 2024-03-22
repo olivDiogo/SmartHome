@@ -174,7 +174,7 @@ public class DeviceTest {
 
         //Act & Assert
         assertThrows(IllegalArgumentException.class, () -> device.changeDeviceStatus(deviceStatus2));
-
+    }
 
     @Test
     public void shouldReturnTrueWhenGivenSameObject() {
