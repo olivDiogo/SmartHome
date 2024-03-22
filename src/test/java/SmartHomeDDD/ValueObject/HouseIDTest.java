@@ -169,4 +169,22 @@ public class HouseIDTest {
         // Assert
         assertEquals(expected, result);
     }
+
+    /**
+     * Tests if the houseID is returned as a string
+     */
+    @Test
+    public void shouldReturnHouseIDAsString(){
+        // Arrange
+        String idDescription = "HXPTO";
+        HouseID houseID = new HouseID(idDescription);
+
+        String expected = idDescription;
+
+        // Act
+        String result = houseID.toString();
+
+        // Assert
+        assertEquals(expected, result);
+    }
 }
