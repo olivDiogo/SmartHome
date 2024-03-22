@@ -8,12 +8,21 @@ public class SensorID implements DomainID {
     /**
      * Constructor for SensorID
      *
-     * @param sensorID
+     * @param sensorID String
      */
     public SensorID(String sensorID) {
-        if (sensorID != null && !sensorID.isBlank() && !sensorID.isEmpty())
-            this._id = sensorID.trim();
-        else
+        validateSensorID(sensorID);
+        this._id = sensorID.trim();
+    }
+
+    /**
+     * Validate the SensorID
+     * The value of 'sensorID' should not null, blank, or empty.
+     *
+     * @param sensorID String
+     */
+    private void validateSensorID(String sensorID) {
+        if (sensorID == null || sensorID.isBlank() || sensorID.isEmpty())
             throw new IllegalArgumentException("The value of 'sensorID' should not null, blank, or empty.");
     }
 
@@ -52,5 +61,14 @@ public class SensorID implements DomainID {
      */
     public int hashCode() {
         return _id.hashCode();
+    }
+
+    /**
+     * toString method for SensorID
+     *
+     * @return the id as a string
+     */
+    public String toString() {
+        return _id;
     }
 }

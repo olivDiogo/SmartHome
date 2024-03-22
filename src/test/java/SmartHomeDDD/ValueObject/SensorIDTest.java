@@ -167,4 +167,22 @@ public class SensorIDTest {
         // Assert
         assertEquals(expected, result);
     }
+
+    /**
+     * Tests if the sensorID is returned as a string
+     */
+    @Test
+    public void shouldReturnSensorID(){
+        // Arrange
+        String idDescription = "HXPTO";
+        SensorID sensorID = new SensorID(idDescription);
+
+        String expected = idDescription;
+
+        // Act
+        String result = sensorID.toString();
+
+        // Assert
+        assertEquals(expected, result);
+    }
 }

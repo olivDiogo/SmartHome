@@ -11,7 +11,8 @@ public class RoomName implements ValueObject {
      * @param name The room name to set.
      */
     public RoomName(String name) {
-        setRoomName(name);
+        validateRoomName(name);
+        _name = name.trim();
     }
 
     /**
@@ -19,7 +20,7 @@ public class RoomName implements ValueObject {
      *
      * @param name The room name to set.
      */
-    private void setRoomName(String name) {
+    private void validateRoomName(String name) {
         if (name == null || name.isEmpty() || name.isBlank()){
             throw new IllegalArgumentException("The room name cannot be null, blank, or empty.");
         }
@@ -27,8 +28,6 @@ public class RoomName implements ValueObject {
         if (!name.matches("[a-zA-Z0-9 ]+")) {
             throw new IllegalArgumentException("The room name can only contain letters and numbers.");
         }
-
-        _name = name.trim();
     }
 
     /**
