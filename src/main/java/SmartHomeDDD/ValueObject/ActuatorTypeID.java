@@ -13,7 +13,7 @@ public class ActuatorTypeID implements DomainID {
      */
     public ActuatorTypeID(String actuatorTypeID) throws IllegalArgumentException {
         validationActuatorTypeID(actuatorTypeID);
-        this._id = actuatorTypeID;
+        this._id = actuatorTypeID.trim();
 
     }
 
