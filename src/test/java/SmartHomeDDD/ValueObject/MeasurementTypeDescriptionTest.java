@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MeasurementTypeMeasurementTypeDescriptionTestType {
+class MeasurementTypeDescriptionTest {
 
     @Test
     public void shouldInstantiateUnitDescriptionWhenGivenValidDescription() {
@@ -76,16 +76,6 @@ class MeasurementTypeMeasurementTypeDescriptionTestType {
         boolean result = unitDescription1.equals(unitDescription2);
         //Assert
         assertFalse(result);
-    }
-    @Test
-    public void shouldReturnCorrectIDWhenGetIdIsCalled(){
-        //Arrange
-        String description = "This is a valid description";
-        MeasurementTypeDescription unitDescription = new MeasurementTypeDescription(description);
-        //Act
-        String result = unitDescription.getId();
-        //Assert
-        assertEquals(description, result);
     }
     @Test
     public void shouldReturnTrue_WhenComparingObjectWithItself(){

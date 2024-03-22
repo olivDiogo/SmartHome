@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
-class MeasurementTypeTypeUnitTest {
+class MeasurementTypeUnitTest {
 
     /**
      * Test the constructor of the class Unit.
