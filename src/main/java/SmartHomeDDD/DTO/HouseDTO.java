@@ -20,33 +20,5 @@ public class HouseDTO implements DTO {
         this.gps = gps;
 
     }
-
-    /**
-     * Gets the address of the House.
-     *
-     * @return the address of the House
-     */
-
-    public String getAddress() {
-        return address;
-    }
-
-    /**
-     * Gets the postal code of the House.
-     *
-     * @return the postal code of the House
-     */
-    public String getPostalCode() {
-        return zipCode;
-    }
-
-    /**
-     * Gets the GPS coordinates of the House.
-     *
-     * @return the GPS coordinates of the House
-     */
-    public String getGPS() {
-        return gps;
-    }
 }
 
