@@ -7,9 +7,10 @@ import SmartHomeDDD.ValueObject.Dimension;
 import SmartHomeDDD.ValueObject.RoomFloor;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 class RoomTest {
 
@@ -168,4 +169,110 @@ class RoomTest {
         assertTrue(room.toString().contains(result.toString()));
     }
 
+    /**
+     * Tests if the equals method returns false when comparing a room to a null object.
+     */
+    @Test
+    public void shouldReturnFalse_WhenRoomIsComparedToNull() {
+        //Arrange
+        HouseID houseID = mock(HouseID.class);
+        RoomName roomName = mock(RoomName.class);
+        Dimension dimension = mock(Dimension.class);
+        RoomFloor roomFloor = mock(RoomFloor.class);
+
+        Room room = new Room(houseID, roomName, dimension, roomFloor);
+
+        //Act
+        boolean result = room.equals(null);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Tests if the equals method returns true when comparing the same room.
+     */
+    @Test
+    public void shouldReturnTrue_WhenTwoRoomsHaveTheSameID() {
+        //Arrange
+        HouseID houseID = mock(HouseID.class);
+        RoomName roomName = mock(RoomName.class);
+        Dimension dimension = mock(Dimension.class);
+        RoomFloor roomFloor = mock(RoomFloor.class);
+
+        try (MockedConstruction<RoomID> mockedRoom = mockConstruction(RoomID.class, (mock, context) -> {
+            when(mock.toString()).thenReturn("RoomID");
+        })) {
+            Room room1 = new Room(houseID, roomName, dimension, roomFloor);
+            Room room2 = new Room(houseID, roomName, dimension, roomFloor);
+
+            //Act
+            boolean result = room1.equals(room2);
+
+            //Assert
+            assertTrue(result);
+        }
+    }
+
+    /**
+     * Tests if the equals method returns false when comparing two different rooms.
+     */
+    @Test
+    public void shouldReturnFalse_WhenThereAreTwoDifferentHouses() {
+        //Arrange
+        HouseID houseID1 = mock(HouseID.class);
+        HouseID houseID2 = mock(HouseID.class);
+        RoomName roomName = mock(RoomName.class);
+        Dimension dimension = mock(Dimension.class);
+        RoomFloor roomFloor = mock(RoomFloor.class);
+
+        Room room1 = new Room(houseID1, roomName, dimension, roomFloor);
+        Room room2 = new Room(houseID2, roomName, dimension, roomFloor);
+
+        //Act
+        boolean result = room1.equals(room2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+
+    /**
+     * Tests if the getID method returns the correct room ID.
+     */
+    @Test
+    public void shouldReturnRoomID() {
+        //Arrange
+        HouseID houseID = mock(HouseID.class);
+        RoomName roomName = mock(RoomName.class);
+        Dimension dimension = mock(Dimension.class);
+        RoomFloor roomFloor = mock(RoomFloor.class);
+
+        Room room = new Room(houseID, roomName, dimension, roomFloor);
+        //Act
+        RoomID result = room.getID();
+
+        //Assert
+        assertNotNull(result);
+    }
+
+    /**
+     * Tests if the equals method returns true when comparing the same room.
+     */
+    @Test
+    public void shouldReturnTrue_WhenObjectIsComparedToItself() {
+        //Arrange
+        HouseID houseID = mock(HouseID.class);
+        RoomName roomName = mock(RoomName.class);
+        Dimension dimension = mock(Dimension.class);
+        RoomFloor roomFloor = mock(RoomFloor.class);
+
+        Room room = new Room(houseID, roomName, dimension, roomFloor);
+
+        //Act
+        boolean result = room.equals(room);
+
+        //Assert
+        assertTrue(result);
+    }
 }
