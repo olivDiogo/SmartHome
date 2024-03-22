@@ -3,9 +3,10 @@ package SmartHomeDDD.domain.Device;
 import SmartHomeDDD.ValueObject.*;
 import SmartHomeDDD.domain.Measurement.MeasurementType;
 import org.junit.Test;
+import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class DeviceTest {
 
@@ -163,6 +164,9 @@ public class DeviceTest {
         assertEquals(result, deviceStatus2);
     }
 
+    /**
+     * Test that the Device class throws an IllegalArgumentException when the changeDeviceStatus is called with a null DeviceStatus.
+     */
     @Test
     public void shouldThrowIllegalArgumentException_WhenChangeDeviceStatusIsCalledWithNullDeviceStatus() {
         //Arrange
@@ -176,6 +180,9 @@ public class DeviceTest {
         assertThrows(IllegalArgumentException.class, () -> device.changeDeviceStatus(deviceStatus2));
     }
 
+    /**
+     * Test that the Equals method returns true when the Device is compared to itself.
+     */
     @Test
     public void shouldReturnTrueWhenGivenSameObject() {
         //Arrange
@@ -189,21 +196,31 @@ public class DeviceTest {
         assertTrue(result);
     }
 
+    /**
+     * Test that the Equals method returns false when the Device is compared to a different object.
+     */
+
     @Test
     public void shouldReturnTrueWhenComparingTwoObjectsWithSameID() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        Device device = new Device(roomID, deviceName, deviceStatus);
-        Device device2 = new Device(roomID, deviceName, deviceStatus);
+        try (MockedConstruction<DeviceID> mocked = mockConstruction(DeviceID.class, (mock, context) ->
+                when(mock.toString()).thenReturn("1"))) {
 
-        //Act
-        boolean result = device.equals(device2);
-        //Assert
-        assertTrue(result);
+            Device device = new Device(roomID, deviceName, deviceStatus);
+            Device device2 = new Device(roomID, deviceName, deviceStatus);
+            //Act
+            boolean result = device.equals(device2);
+            //Assert
+            assertTrue(result);
+        }
     }
 
+    /**
+     * Test that the Equals method returns false when the Device is compared to a different objects.
+     */
     @Test
     public void shouldReturnFalseWhenComparingTwoObjectsWithDifferentID() {
         //Arrange
@@ -220,6 +237,10 @@ public class DeviceTest {
         assertFalse(result);
     }
 
+    /**
+     * Test that the Equals method returns false when the Device is compared to a null object.
+     */
+
     @Test
     public void shouldReturnFalseWhenComparingObjectWithNull() {
         //Arrange
@@ -232,6 +253,10 @@ public class DeviceTest {
         //Assert
         assertFalse(result);
     }
+
+    /**
+     * Test that the toString method returns the expected string.
+     */
 
     @Test
     public void shouldReturnExpectedStringWhenToStringIsCalled() {

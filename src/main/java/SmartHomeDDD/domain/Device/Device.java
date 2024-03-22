@@ -5,6 +5,7 @@ import SmartHomeDDD.ValueObject.DeviceName;
 import SmartHomeDDD.ValueObject.DeviceStatus;
 import SmartHomeDDD.ValueObject.RoomID;
 import SmartHomeDDD.ddd.AggregateRoot;
+
 import java.util.UUID;
 
 public class Device implements AggregateRoot<DeviceID> {
@@ -27,8 +28,11 @@ public class Device implements AggregateRoot<DeviceID> {
      */
     public Device(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus) {
         validateRoomID(roomID);
+        this._roomID = roomID;
         validateDeviceName(deviceName);
+        this._deviceName = deviceName;
         validateDeviceState(deviceStatus);
+        this._deviceStatus = deviceStatus;
         generateDeviceID();
     }
 
@@ -47,8 +51,6 @@ public class Device implements AggregateRoot<DeviceID> {
     private void validateRoomID(RoomID roomID) {
         if (roomID == null) {
             throw new IllegalArgumentException("RoomID is required");
-        } else {
-            _roomID = roomID;
         }
     }
 
@@ -60,8 +62,6 @@ public class Device implements AggregateRoot<DeviceID> {
     private void validateDeviceName(DeviceName deviceName) {
         if (deviceName == null) {
             throw new IllegalArgumentException("DeviceName is required");
-        } else {
-            _deviceName = deviceName;
         }
     }
 
@@ -74,8 +74,6 @@ public class Device implements AggregateRoot<DeviceID> {
     private void validateDeviceState(DeviceStatus deviceState) {
         if (deviceState == null) {
             throw new IllegalArgumentException("DeviceState is required");
-        } else {
-            _deviceStatus = deviceState;
         }
     }
 
@@ -139,7 +137,7 @@ public class Device implements AggregateRoot<DeviceID> {
 
         if (object instanceof Device) {
             Device objectDevice = (Device) object;
-            return _roomID.toString().equals(objectDevice._roomID.toString());
+            return _deviceID.toString().equals(objectDevice._deviceID.toString());
         }
         return false;
     }
