@@ -37,7 +37,10 @@ RoomRepo --> RoomService: listRooms
 
 deactivate RoomRepo
 
-RoomService -> RoomAssembler : roomToDTO(roomList)
+RoomService --> Controller: listRooms
+deactivate RoomService
+
+Controller -> RoomAssembler : roomToDTO(roomList)
 
 activate RoomAssembler
 
@@ -45,7 +48,7 @@ loop for each room
 
     create RoomDTO
 
-    RoomAssembler -> RoomDTO: domainToDTO (room)
+    RoomAssembler -> RoomDTO: createRoomDTO (room)
 
      activate RoomDTO
 
@@ -56,13 +59,10 @@ loop for each room
      RoomAssembler -> RoomAssembler: addRoomDTOToList(roomDTO)
 
 end
-RoomAssembler --> RoomService: listRoomDTO
+RoomAssembler --> Controller: listRoomDTO
 
 deactivate RoomAssembler
 
-RoomService --> Controller: listRoomDTO
-
-deactivate RoomService
 Controller --> User : listRoomDTO
 deactivate Controller
 
@@ -87,14 +87,15 @@ Factory --> DeviceService : device
 
 deactivate Factory
 DeviceService -> Repository : save(device)
+deactivate DeviceService
 
 activate Repository
 
-Repository --> DeviceService : device
+Repository --> Controller: device
 deactivate Repository
 
 
-DeviceService -> DeviceAssembler : domain2DTO(device)
+Controller -> DeviceAssembler : domain2DTO(device)
 create DeviceDTO
 
 activate DeviceAssembler
@@ -104,12 +105,8 @@ activate DeviceDTO
 DeviceDTO --> DeviceAssembler : deviceDTO
 deactivate DeviceDTO
 
-DeviceAssembler --> DeviceService : deviceDTO
+DeviceAssembler --> Controller : deviceDTO
 deactivate DeviceAssembler
-
-
-DeviceService --> Controller : deviceDTO
-deactivate DeviceService
 
 Controller --> User : deviceDTO
 deactivate Controller
