@@ -30,8 +30,6 @@ public class SensorTypeRepositoryTest {
     void shouldSaveSensorType_whenGivenValidSensorType() {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorType.getID()).thenReturn(sensorTypeID);
 
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
 
@@ -66,8 +64,6 @@ public class SensorTypeRepositoryTest {
     void shouldThrowException_whenSensorTypeAlreadyExists() {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorType.getID()).thenReturn(sensorTypeID);
 
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
 
@@ -147,7 +143,7 @@ public class SensorTypeRepositoryTest {
      * Test of ofIdentity method when given invalid ID.
      */
     @Test
-    void shouldReturnOptinalEmpty_whenGivenInvalidTypeDescription() {
+    void shouldReturnOptinalEmpty_whenGivenInvalidID() {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
 
@@ -170,7 +166,7 @@ public class SensorTypeRepositoryTest {
      * Test of containsOfIdentity method when given valid ID.
      */
     @Test
-    void shouldReturnTrue_whenGivenValidTypeDescription() {
+    void shouldReturnTrue_whenGivenValidID() {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
@@ -190,14 +186,11 @@ public class SensorTypeRepositoryTest {
      * Test of containsOfIdentity method when given invalid ID.
      */
     @Test
-    void shouldReturnFalse_whenGivenInvalidTypeDescription() {
+    void shouldReturnFalse_whenGivenInvalidID() {
         //Arrange
-        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-
         SensorType sensorType = mock(SensorType.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorType.getID()).thenReturn(sensorTypeID);
 
+        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         sensorTypeRepository.save(sensorType);
 
         SensorTypeID nonExistentID = mock(SensorTypeID.class);
