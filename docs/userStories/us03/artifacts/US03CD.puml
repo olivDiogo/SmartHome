@@ -25,7 +25,6 @@ class RoomRepository{
 'Attributes'
 - _DATA: Map <RoomID, Room>
 'Methods'
-+RoomRepository()
 +findAll(): List<Room>
 }
 
