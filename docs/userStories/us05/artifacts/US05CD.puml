@@ -72,14 +72,14 @@ class DeviceAssembler{
 
 DeviceRepository "1" -down-> "1" Device: has
 DeviceService "1".down.>"1  " DeviceFactory: uses
-DeviceService "1".down.>"1" DeviceAssembler: uses
+AddDeviceToRoomController "1".left.>"1" DeviceAssembler: uses
 DeviceService "1".down.>"1" DeviceRepository: uses
 RoomService "1".right.>"1" RoomRepository: uses
 DeviceFactory "1".down.>"1  " Device: creates
 AddDeviceToRoomController "1".down.>"1" DeviceService: uses
-AddDeviceToRoomController "1".down.>"1" RoomService: uses
+AddDeviceToRoomController "1".right.>"1" RoomService: uses
 DeviceAssembler "1".up.> "*" DeviceDTO: creates
-RoomService "1".down.>"1" RoomAssembler: uses
+AddDeviceToRoomController "1".down.>"1" RoomAssembler: uses
 RoomAssembler "1".down.>"*" RoomDTO: creates
 
 
