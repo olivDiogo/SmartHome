@@ -1,9 +1,9 @@
-package SmartHomeDDD.domain.Measurement;
+package SmartHomeDDD.domain.MeasurementType;
 
 import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
 import SmartHomeDDD.ValueObject.MeasurementTypeUnit;
 
-public interface MeasurementFactory {
+public interface MeasurementTypeFactory {
 
     /**
      * Creates and returns a new {@link MeasurementType} instance.

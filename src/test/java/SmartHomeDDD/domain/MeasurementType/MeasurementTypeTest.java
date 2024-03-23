@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Measurement;
+package SmartHomeDDD.domain.MeasurementType;
 
 import SmartHomeDDD.ValueObject.MeasurementID;
 import SmartHomeDDD.ValueObject.MeasurementTypeUnit;

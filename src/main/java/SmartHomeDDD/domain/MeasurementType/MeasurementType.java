@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Measurement;
+package SmartHomeDDD.domain.MeasurementType;
 
 import SmartHomeDDD.ValueObject.MeasurementID;
 import SmartHomeDDD.ValueObject.MeasurementTypeUnit;
@@ -69,6 +69,15 @@ public class MeasurementType implements AggregateRoot<MeasurementID> {
     @Override
     public MeasurementID getID() {
         return _measurementID;
+    }
+
+    /**
+     * Returns the description associated with this measurement type.
+     *
+     * @return The unit of measurement.
+     */
+    public MeasurementTypeDescription getUnitDescription() {
+        return _unitDescription;
     }
 
     /**

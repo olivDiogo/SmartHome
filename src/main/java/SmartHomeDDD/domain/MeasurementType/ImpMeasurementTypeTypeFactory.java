@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Measurement;
+package SmartHomeDDD.domain.MeasurementType;
 
 import SmartHomeDDD.ValueObject.MeasurementTypeUnit;
 import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
@@ -6,7 +6,7 @@ import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
 /**
  * Factory implementation for creating {@link MeasurementType} instances.
  */
-public class ImpMeasurementFactory implements MeasurementFactory {
+public class ImpMeasurementTypeTypeFactory implements MeasurementTypeFactory {
     /**
      * Creates and returns a new {@link MeasurementType} instance with the provided measurement value, measurement type, and measurement time.
      */

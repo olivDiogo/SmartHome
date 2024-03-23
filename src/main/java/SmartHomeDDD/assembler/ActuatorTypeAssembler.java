@@ -2,12 +2,9 @@ package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.ActuatorTypeDTO;
 import SmartHomeDDD.ValueObject.ActuatorTypeID;
-import SmartHomeDDD.ValueObject.TypeDescription;
 import SmartHomeDDD.ddd.Assembler;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
-import jdk.jfr.Description;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ActuatorTypeAssembler implements Assembler<ActuatorType, ActuatorTypeDTO> {
