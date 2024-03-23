@@ -26,6 +26,8 @@ public class HouseAssembler implements Assembler<House, HouseDTO> {
      */
     @Override
     public HouseDTO domainToDTO(final House house) {
+        if(house == null)
+            throw new IllegalArgumentException("The House cannot be null.");
         String address = house.getAddress().toString();
         String zipCode = house.getZipCode().toString();
         String gps = house.getGps().toString();
@@ -42,25 +44,12 @@ public class HouseAssembler implements Assembler<House, HouseDTO> {
      */
     @Override
     public List<HouseDTO> domainToDTO(final List<House> houses) {
-        List<HouseDTO> housesDTO = new ArrayList<>();
+        if(houses == null || houses.isEmpty() || houses.contains(null))
+            throw new IllegalArgumentException("The list of Houses cannot be null or empty.");
 
-//        houses.forEach(house -> {
-//            String address = house.getAddress().toString();
-//            String zipCode = house.getZipCode().toString();
-//            String gps = house.getGps().toString();
-//            HouseDTO houseDTO = new HouseDTO(address, zipCode, gps);
-//            housesDTO.add(houseDTO);
-//        });
-        for (House house : houses) {
-            String address = house.getAddress().toString();
-            String zipCode = house.getZipCode().toString();
-            String gps = house.getGps().toString();
-            HouseDTO houseDTO = new HouseDTO(address, zipCode, gps);
-            housesDTO.add(houseDTO);
-        }
+        List<HouseDTO> housesDTO = houses.stream().map(this::domainToDTO).toList();
         return housesDTO;
     }
-
 
 }
 
