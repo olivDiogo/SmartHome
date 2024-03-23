@@ -1,5 +1,6 @@
 package SmartHomeDDD.repository;
 
+import SmartHomeDDD.ValueObject.SensorTypeID;
 import org.junit.jupiter.api.Test;
 import SmartHomeDDD.ValueObject.TypeDescription;
 import SmartHomeDDD.domain.SensorType.SensorType;
@@ -29,8 +30,9 @@ public class SensorTypeRepositoryTest {
     void shouldSaveSensorType_whenGivenValidSensorType() {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
-        TypeDescription typeDescription = mock(TypeDescription.class);
-        when(sensorType.getID()).thenReturn(typeDescription);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorType.getID()).thenReturn(sensorTypeID);
+
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
 
         //Act
@@ -64,8 +66,8 @@ public class SensorTypeRepositoryTest {
     void shouldThrowException_whenSensorTypeAlreadyExists() {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
-        TypeDescription TypeDescription = mock(TypeDescription.class);
-        when(sensorType.getID()).thenReturn(TypeDescription);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorType.getID()).thenReturn(sensorTypeID);
 
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
 
@@ -85,19 +87,19 @@ public class SensorTypeRepositoryTest {
     @Test
     void shouldRetunrAllSensorTypes_whenFindAllIsCalled() {
         //Arrange
-        SensorType firstSensorType = mock(SensorType.class);
-        TypeDescription firstTypeDescription = mock(TypeDescription.class);
-        when(firstSensorType.getID()).thenReturn(firstTypeDescription);
+        SensorType sensorType1 = mock(SensorType.class);
+        SensorTypeID sensorTypeID1 = mock(SensorTypeID.class);
+        when(sensorType1.getID()).thenReturn(sensorTypeID1);
 
-        SensorType secondSensorType = mock(SensorType.class);
-        TypeDescription secondTypeDescription = mock(TypeDescription.class);
-        when(secondSensorType.getID()).thenReturn(secondTypeDescription);
+        SensorType sensorType2 = mock(SensorType.class);
+        SensorTypeID sensorTypeID2 = mock(SensorTypeID.class);
+        when(sensorType2.getID()).thenReturn(sensorTypeID2);
 
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
 
-        sensorTypeRepository.save(firstSensorType);
-        sensorTypeRepository.save(secondSensorType);
-        List<SensorType> expectedList = List.of(firstSensorType, secondSensorType);
+        sensorTypeRepository.save(sensorType1);
+        sensorTypeRepository.save(sensorType2);
+        List<SensorType> expectedList = List.of(sensorType1, sensorType2);
 
         //Act
         List<SensorType> allSensorTypes = sensorTypeRepository.findAll();
@@ -113,31 +115,36 @@ public class SensorTypeRepositoryTest {
     void shouldReturnEmptyList_whenNoSensorTypesAreSaved() {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+
         //Act
         List<SensorType> allSensorTypes = sensorTypeRepository.findAll();
+
         //Assert
         assertTrue(allSensorTypes.isEmpty());
     }
 
+    /**
+     * Test of ofIdentity method when given valid ID.
+     */
     @Test
-    void shouldReturnSensorType_whenGivenValidTypeDescription() {
+    void shouldReturnSensorType_whenGivenValidID() {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
-        TypeDescription typeDescription = mock(TypeDescription.class);
-        when(sensorType.getID()).thenReturn(typeDescription);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorType.getID()).thenReturn(sensorTypeID);
 
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         sensorTypeRepository.save(sensorType);
 
         //Act
-        SensorType returnedSensorType = sensorTypeRepository.ofIdentity(typeDescription).get();
+        SensorType returnedSensorType = sensorTypeRepository.ofIdentity(sensorTypeID).get();
 
         //Assert
         assertEquals(sensorType, returnedSensorType);
     }
 
     /**
-     * Test of ofIdentity method when given invalid TypeDescription.
+     * Test of ofIdentity method when given invalid ID.
      */
     @Test
     void shouldReturnOptinalEmpty_whenGivenInvalidTypeDescription() {
@@ -145,42 +152,42 @@ public class SensorTypeRepositoryTest {
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
 
         SensorType sensorType = mock(SensorType.class);
-        TypeDescription typeDescription = mock(TypeDescription.class);
-        when(sensorType.getID()).thenReturn(typeDescription);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorType.getID()).thenReturn(sensorTypeID);
 
         sensorTypeRepository.save(sensorType);
 
-        TypeDescription nonExistentTypeDescription = mock(TypeDescription.class);
+        SensorTypeID nonExistentID = mock(SensorTypeID.class);
 
         //Act
-        Optional<SensorType> returnedSensorType = sensorTypeRepository.ofIdentity(nonExistentTypeDescription);
+        Optional<SensorType> returnedSensorType = sensorTypeRepository.ofIdentity(nonExistentID);
 
         //Assert
         assertTrue(returnedSensorType.isEmpty());
     }
 
     /**
-     * Test of containsOfIdentity method when given valid TypeDescription.
+     * Test of containsOfIdentity method when given valid ID.
      */
     @Test
     void shouldReturnTrue_whenGivenValidTypeDescription() {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
-        TypeDescription typeDescription = mock(TypeDescription.class);
-        when(sensorType.getID()).thenReturn(typeDescription);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorType.getID()).thenReturn(sensorTypeID);
 
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         sensorTypeRepository.save(sensorType);
 
         //Act
-        boolean containsSensorType = sensorTypeRepository.containsOfIdentity(typeDescription);
+        boolean containsSensorType = sensorTypeRepository.containsOfIdentity(sensorTypeID);
 
         //Assert
         assertTrue(containsSensorType);
     }
 
     /**
-     * Test of containsOfIdentity method when given invalid TypeDescription.
+     * Test of containsOfIdentity method when given invalid ID.
      */
     @Test
     void shouldReturnFalse_whenGivenInvalidTypeDescription() {
@@ -188,15 +195,15 @@ public class SensorTypeRepositoryTest {
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
 
         SensorType sensorType = mock(SensorType.class);
-        TypeDescription typeDescription = mock(TypeDescription.class);
-        when(sensorType.getID()).thenReturn(typeDescription);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorType.getID()).thenReturn(sensorTypeID);
 
         sensorTypeRepository.save(sensorType);
 
-        TypeDescription nonExistentTypeDescription = mock(TypeDescription.class);
+        SensorTypeID nonExistentID = mock(SensorTypeID.class);
 
         //Act
-        boolean containsSensorType = sensorTypeRepository.containsOfIdentity(nonExistentTypeDescription);
+        boolean containsSensorType = sensorTypeRepository.containsOfIdentity(nonExistentID);
 
         //Assert
         assertFalse(containsSensorType);

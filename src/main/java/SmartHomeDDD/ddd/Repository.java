@@ -1,5 +1,8 @@
 package SmartHomeDDD.ddd;
 
+import SmartHomeDDD.ValueObject.TypeDescription;
+import SmartHomeDDD.domain.SensorType.SensorType;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -34,4 +37,5 @@ public interface Repository<ID extends DomainID, T extends AggregateRoot<ID> > {
    * @return true if the domain entity exists, false otherwise.
    */
   boolean containsOfIdentity(ID objectID);
+
 }

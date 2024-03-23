@@ -67,8 +67,6 @@ public class SensorTypeID implements DomainID {
      */
     @Override
     public String toString() {
-        return "SensorTypeID{" +
-                "_id='" + _id + '\'' +
-                '}';
+        return this._id;
     }
 }

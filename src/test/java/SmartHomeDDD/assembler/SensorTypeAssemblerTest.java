@@ -1,6 +1,7 @@
 package SmartHomeDDD.assembler;
 
-import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
+import SmartHomeDDD.ValueObject.MeasurementID;
+import SmartHomeDDD.ValueObject.SensorTypeID;
 import SmartHomeDDD.domain.SensorType.SensorType;
 import SmartHomeDDD.DTO.SensorTypeDTO;
 import SmartHomeDDD.ValueObject.TypeDescription;
@@ -23,22 +24,22 @@ public class SensorTypeAssemblerTest {
     @Test
     public void shouldConvertSensorTypeToSensorTypeDTO_whenSensorTypeIsValid() {
         // Arrange
+        String sensorTypeID = "1";
         String sensorTypeDescription = "Temperature";
         String unit = "Celsius";
 
-        String expected = "SensorTypeDTO{" +
-                ", _sensorTypeDescription='" + sensorTypeDescription + '\'' +
-                ", _unit='" + unit + '\'' +
-                '}';
+        SensorTypeID sensorTypeIdDouble = mock(SensorTypeID.class);
+        when(sensorTypeIdDouble.toString()).thenReturn(sensorTypeID);
 
         TypeDescription sensorTypeDescriptionDouble = mock(TypeDescription.class);
         when(sensorTypeDescriptionDouble.toString()).thenReturn(sensorTypeDescription);
 
-        MeasurementTypeDescription unitDouble = mock(MeasurementTypeDescription.class);
+        MeasurementID unitDouble = mock(MeasurementID.class);
         when(unitDouble.toString()).thenReturn(unit);
 
         SensorType sensorTypeDouble = mock(SensorType.class);
-        when(sensorTypeDouble.getID()).thenReturn(sensorTypeDescriptionDouble);
+        when(sensorTypeDouble.getID()).thenReturn(sensorTypeIdDouble);
+        when(sensorTypeDouble.getName()).thenReturn(sensorTypeDescriptionDouble);
         when(sensorTypeDouble.getUnit()).thenReturn(unitDouble);
 
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -47,9 +48,7 @@ public class SensorTypeAssemblerTest {
         SensorTypeDTO sensorTypeDTO = sensorTypeAssembler.domainToDTO(sensorTypeDouble);
 
         // Assert
-        assertEquals(expected, sensorTypeDTO.toString());
-        assertEquals(sensorTypeDescription, sensorTypeDTO.sensorTypeDescription);
-        assertEquals(unit, sensorTypeDTO.unit);
+        assertEquals(sensorTypeID, sensorTypeDTO.sensorTypeID);
     }
 
     /**
@@ -80,41 +79,44 @@ public class SensorTypeAssemblerTest {
     @Test
     public void shouldConvertListOfSensorTypesToListOfSensorTypeDTOs_whenSensorTypesAreValid() {
         // Arrange
+        String sensorTypeID1 = "1";
         String sensorTypeDescription1 = "Temperature";
         String unit1 = "Celsius";
 
+        String sensorTypeID2 = "2";
         String sensorTypeDescription2 = "Humidity";
         String unit2 = "Percentage";
 
-        String expected1 = "SensorTypeDTO{" +
-                ", _sensorTypeDescription='" + sensorTypeDescription1 + '\'' +
-                ", _unit='" + unit1 + '\'' +
-                '}';
-
-        String expected2 = "SensorTypeDTO{" +
-                ", _sensorTypeDescription='" + sensorTypeDescription2 + '\'' +
-                ", _unit='" + unit2 + '\'' +
-                '}';
+        /* SensorType 1 */
+        SensorTypeID sensorTypeIdDouble1 = mock(SensorTypeID.class);
+        when(sensorTypeIdDouble1.toString()).thenReturn(sensorTypeID1);
 
         TypeDescription sensorTypeDescriptionDouble1 = mock(TypeDescription.class);
         when(sensorTypeDescriptionDouble1.toString()).thenReturn(sensorTypeDescription1);
 
-        MeasurementTypeDescription unitDouble1 = mock(MeasurementTypeDescription.class);
+        MeasurementID unitDouble1 = mock(MeasurementID.class);
         when(unitDouble1.toString()).thenReturn(unit1);
 
         SensorType sensorTypeDouble1 = mock(SensorType.class);
-        when(sensorTypeDouble1.getID()).thenReturn(sensorTypeDescriptionDouble1);
+        when(sensorTypeDouble1.getID()).thenReturn(sensorTypeIdDouble1);
+        when(sensorTypeDouble1.getName()).thenReturn(sensorTypeDescriptionDouble1);
         when(sensorTypeDouble1.getUnit()).thenReturn(unitDouble1);
+
+        /* SensorType 2 */
+        SensorTypeID sensorTypeIdDouble2 = mock(SensorTypeID.class);
+        when(sensorTypeIdDouble2.toString()).thenReturn(sensorTypeID2);
 
         TypeDescription sensorTypeDescriptionDouble2 = mock(TypeDescription.class);
         when(sensorTypeDescriptionDouble2.toString()).thenReturn(sensorTypeDescription2);
 
-        MeasurementTypeDescription unitDouble2 = mock(MeasurementTypeDescription.class);
+        MeasurementID unitDouble2 = mock(MeasurementID.class);
         when(unitDouble2.toString()).thenReturn(unit2);
 
         SensorType sensorTypeDouble2 = mock(SensorType.class);
-        when(sensorTypeDouble2.getID()).thenReturn(sensorTypeDescriptionDouble2);
+        when(sensorTypeDouble2.getID()).thenReturn(sensorTypeIdDouble2);
+        when(sensorTypeDouble2.getName()).thenReturn(sensorTypeDescriptionDouble2);
         when(sensorTypeDouble2.getUnit()).thenReturn(unitDouble2);
+
 
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
 
@@ -124,13 +126,8 @@ public class SensorTypeAssemblerTest {
         List<SensorTypeDTO> sensorTypesDTO = sensorTypeAssembler.domainToDTO(sensorTypes);
 
         // Assert
-        assertEquals(expected1, sensorTypesDTO.get(0).toString());
-//        assertEquals(sensorTypeDescription1, sensorTypesDTO.get(0).sensorTypeDescription);
-//        assertEquals(unit1, sensorTypesDTO.get(0).unit);
-
-        assertEquals(expected2, sensorTypesDTO.get(1).toString());
-//        assertEquals(sensorTypeDescription2, sensorTypesDTO.get(1).sensorTypeDescription);
-//        assertEquals(unit2, sensorTypesDTO.get(1).unit);
+        assertEquals(sensorTypeID1, sensorTypesDTO.get(0).sensorTypeID);
+        assertEquals(sensorTypeID2, sensorTypesDTO.get(1).sensorTypeID);
     }
 
     /**
@@ -183,17 +180,22 @@ public class SensorTypeAssemblerTest {
     @Test
     public void shouldThrowException_whenListOfSensorTypesContainsNullSensorType() {
         // Arrange
+        String sensorTypeID1 = "1";
         String sensorTypeDescription1 = "Temperature";
         String unit1 = "Celsius";
+
+        SensorTypeID sensorTypeIdDouble1 = mock(SensorTypeID.class);
+        when(sensorTypeIdDouble1.toString()).thenReturn(sensorTypeID1);
 
         TypeDescription sensorTypeDescriptionDouble1 = mock(TypeDescription.class);
         when(sensorTypeDescriptionDouble1.toString()).thenReturn(sensorTypeDescription1);
 
-        MeasurementTypeDescription unitDouble1 = mock(MeasurementTypeDescription.class);
+        MeasurementID unitDouble1 = mock(MeasurementID.class);
         when(unitDouble1.toString()).thenReturn(unit1);
 
         SensorType sensorTypeDouble1 = mock(SensorType.class);
-        when(sensorTypeDouble1.getID()).thenReturn(sensorTypeDescriptionDouble1);
+        when(sensorTypeDouble1.getID()).thenReturn(sensorTypeIdDouble1);
+        when(sensorTypeDouble1.getName()).thenReturn(sensorTypeDescriptionDouble1);
         when(sensorTypeDouble1.getUnit()).thenReturn(unitDouble1);
 
         SensorType sensorTypeDouble2 = null;

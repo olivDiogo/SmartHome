@@ -1,11 +1,12 @@
 package SmartHomeDDD.domain.SensorType;
 
+import SmartHomeDDD.ValueObject.SensorTypeID;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import SmartHomeDDD.ValueObject.TypeDescription;
-import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
+import SmartHomeDDD.ValueObject.MeasurementID;
 
 import java.util.List;
 
@@ -19,23 +20,27 @@ public class ImpSensorTypeFactoryTest {
     @Test
     public void shouldCreateSensorType_whenAttributesAreValid() {
         // Arrange
+        SensorTypeID sensorTypeIdDouble = mock(SensorTypeID.class);
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
+        MeasurementID unitDouble = mock(MeasurementID.class);
 
         try(MockedConstruction<SensorType> sensorTypeDouble = mockConstruction(SensorType.class,(mock, context) -> {
             TypeDescription actualTypeDescription = (TypeDescription) context.arguments().get(0);
-            when(mock.getID()).thenReturn(actualTypeDescription);
+            MeasurementID actualUnitDouble = (MeasurementID) context.arguments().get(1);
+            when(mock.getName()).thenReturn(actualTypeDescription);
+            when(mock.getID()).thenReturn(sensorTypeIdDouble);
+            when(mock.getUnit()).thenReturn(actualUnitDouble);
 
         })) {
             ImpSensorTypeFactory impSensorTypeFactory = new ImpSensorTypeFactory();
 
             // Act
-            SensorType sensorType = impSensorTypeFactory.createSensorType(typeDescriptionDouble, unitDescriptionDouble);
+            SensorType sensorType = impSensorTypeFactory.createSensorType(typeDescriptionDouble, unitDouble);
 
             // Assert
             List<SensorType> sensorTypeList = sensorTypeDouble.constructed();
             assertEquals(1, sensorTypeList.size());
-            assertEquals(typeDescriptionDouble, sensorType.getID());
+            assertEquals(sensorTypeIdDouble, sensorType.getID());
         }
     }
 }

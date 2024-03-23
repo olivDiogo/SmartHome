@@ -1,6 +1,7 @@
 package SmartHomeDDD.repository;
 
 
+import SmartHomeDDD.ValueObject.SensorTypeID;
 import SmartHomeDDD.ValueObject.TypeDescription;
 import SmartHomeDDD.ddd.Repository;
 
@@ -13,9 +14,9 @@ import java.util.Map;
 import java.util.Optional;
 
 
-public class SensorTypeRepository implements Repository<TypeDescription, SensorType> {
+public class SensorTypeRepository implements Repository<SensorTypeID, SensorType> {
 
-    private final Map<TypeDescription, SensorType> _sensorTypeData = new LinkedHashMap<>();
+    private final Map<SensorTypeID, SensorType> _sensorTypeData = new LinkedHashMap<>();
 
 
     /**
@@ -50,24 +51,24 @@ public class SensorTypeRepository implements Repository<TypeDescription, SensorT
     /**
      * Find a SensorType by its identity.
      *
-     * @param typeDescription the identity of the SensorType to find.
+     * @param sensorTypeID the identity of the SensorType to find.
      * @return the SensorType if found, otherwise Optional.empty().
      */
     @Override
-    public Optional<SensorType> ofIdentity(TypeDescription typeDescription) {
-        Optional<SensorType> sensorType = Optional.ofNullable(_sensorTypeData.get(typeDescription));
+    public Optional<SensorType> ofIdentity(SensorTypeID sensorTypeID) {
+        Optional<SensorType> sensorType = Optional.ofNullable(_sensorTypeData.get(sensorTypeID));
         return sensorType;
     }
 
     /**
      * Check if a SensorType exists by its identity.
      *
-     * @param typeDescription the identity of the SensorType to check.
+     * @param sensorTypeID the identity of the SensorType to check.
      * @return true if the SensorType exists, otherwise false.
      */
     @Override
-    public boolean containsOfIdentity(TypeDescription typeDescription) {
-        return _sensorTypeData.containsKey(typeDescription);
+    public boolean containsOfIdentity(SensorTypeID sensorTypeID) {
+        return _sensorTypeData.containsKey(sensorTypeID);
     }
 
 }

@@ -180,7 +180,7 @@ class SensorTypeIDTest {
         // Arrange
         String sensorTypeIDDescription = "Sensor2GKA";
 
-        String expected = "SensorTypeID{_id='Sensor2GKA'}";
+        String expected = "Sensor2GKA";
 
         // Act
         SensorTypeID sensorTypeIDObject = new SensorTypeID(sensorTypeIDDescription);

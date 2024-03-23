@@ -1,34 +1,47 @@
 package SmartHomeDDD.domain.SensorType;
 
+import SmartHomeDDD.ValueObject.SensorTypeID;
 import SmartHomeDDD.ValueObject.TypeDescription;
-import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
+import SmartHomeDDD.ValueObject.MeasurementID;
 import SmartHomeDDD.ddd.AggregateRoot;
 
-public class SensorType implements AggregateRoot<TypeDescription> {
-    private TypeDescription _sensorTypeName; //ID of SensorType
-    private MeasurementTypeDescription _unit;
+import java.util.UUID;
+
+public class SensorType implements AggregateRoot<SensorTypeID> {
+    private SensorTypeID _id;
+    private TypeDescription _name;
+    private MeasurementID _unit;
 
     /**
      * Creates a new {@link SensorType} instance using the provided sensor type name and unit.
      *
-     * @param sensorTypeName the sensor type name, must not be null
+     * @param name the sensor type name, must not be null
      * @param unit the unit of the sensor type, must not be null
      */
-    SensorType(TypeDescription sensorTypeName, MeasurementTypeDescription unit) {
-        validateSensorTypeName(sensorTypeName);
-        this._sensorTypeName = sensorTypeName;
+    SensorType(TypeDescription name, MeasurementID unit) {
+        validateSensorTypeName(name);
+        this._name = name;
 
         validateUnit(unit);
         this._unit = unit;
+
+        generateID();
+    }
+
+    /**
+     * Creates a new {@link SensorTypeID} instance.
+     */
+    private void generateID(){
+        _id = new SensorTypeID(UUID.randomUUID().toString());
     }
 
     /**
      * Validates the sensor type name and sets it.
      *
-     * @param sensorTypeName the sensor type name, must not be null
+     * @param name the sensor type name, must not be null
      */
-    private void validateSensorTypeName(TypeDescription sensorTypeName) {
-        if (sensorTypeName == null)
+    private void validateSensorTypeName(TypeDescription name) {
+        if (name == null)
             throw new IllegalArgumentException("Sensor type name must not be null.");
     }
 
@@ -37,9 +50,28 @@ public class SensorType implements AggregateRoot<TypeDescription> {
      *
      * @param unit the unit of the sensor type, must not be null
      */
-    private void validateUnit(MeasurementTypeDescription unit) {
+    private void validateUnit(MeasurementID unit) {
         if (unit == null)
             throw new IllegalArgumentException("Unit must not be null.");
+    }
+
+    /**
+     * Return the ID of the sensor type.
+     *
+     * @return the ID of the sensor type
+     */
+    @Override
+    public SensorTypeID getID(){
+        return _id;
+    }
+
+    /**
+     * Gets the name of the sensor type.
+     *
+     * @return the name of the sensor type
+     */
+    public TypeDescription getName() {
+        return _name;
     }
 
     /**
@@ -47,7 +79,7 @@ public class SensorType implements AggregateRoot<TypeDescription> {
      *
      * @return the unit of the sensor type
      */
-    public MeasurementTypeDescription getUnit() {
+    public MeasurementID getUnit() {
         return _unit;
     }
 
@@ -66,20 +98,10 @@ public class SensorType implements AggregateRoot<TypeDescription> {
         if( object instanceof SensorType ) {
             SensorType sensorTypeObject = (SensorType) object;
 
-            if( this._sensorTypeName.equals(sensorTypeObject._sensorTypeName) )
+            if( this._id.toString().equals(sensorTypeObject._id.toString()) )
                 return true;
         }
         return false;
-    }
-
-    /**
-     * Return the ID of the sensor type.
-     *
-     * @return the ID of the sensor type
-     */
-    @Override
-    public TypeDescription getID(){
-        return _sensorTypeName;
     }
 
     /**
@@ -89,7 +111,8 @@ public class SensorType implements AggregateRoot<TypeDescription> {
      */
     @Override
     public String toString() {
-        return  "TypeDescription: " + _sensorTypeName.toString() +
+        return  "ID: " + _id.toString() +
+                "\nTypeDescription: " + _name.toString() +
                 "\nUnit: " + _unit.toString();
     }
 }
