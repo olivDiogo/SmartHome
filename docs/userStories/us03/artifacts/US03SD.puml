@@ -51,7 +51,7 @@ GetListOfRoomsController -> RoomAssembler: domainToDTO(listOfRooms)
 loop  for each room in Rooms
 create RoomDTO
 activate RoomAssembler
-RoomAssembler -> RoomDTO: createRoomDTO(room)
+RoomAssembler -> RoomDTO: RoomDTO(room)
 activate RoomDTO
 RoomDTO --> RoomAssembler: roomDTO
 deactivate RoomDTO
