@@ -4,8 +4,9 @@
 class GetListOfRoomsController{
 'Attributes'
 - _serviceRoom: RoomService
+- _roomAssembler: RoomAssembler
 'Methods'
-+GetListOfRooms_Controller(serviceRoom: ServiceRoom)
++GetListOfRooms_Controller(serviceRoom: ServiceRoom, roomAssembler : RoomAssembler)
 +getListOfRooms(): List<RoomDTO>
 }
 
@@ -13,10 +14,9 @@ class RoomService{
 'Attributes'
 - _factoryRoom: RoomFactory
 - _roomRepo: RoomRepository
-- _roomAssembler : RoomAssembler
 - _houseRepo: HouseRepository
 'Methods'
-+RoomService(factoryRoom: RoomFactory, roomRepo: RoomRepository, roomAssembler: RoomAssembler, houseRepo: HouseRepository)
++RoomService(factoryRoom: RoomFactory, roomRepo: RoomRepository, houseRepo: HouseRepository)
 +getRooms(): List<RoomDTO>
 }
 
@@ -35,15 +35,15 @@ class RoomAssembler{
 
 class RoomDTO{
 'Attributes'
-+_roomID: RoomID
-+_roomName: RoomName
++roomID: RoomID
++roomName: RoomName
 'Methods'
 +RoomDTO(room: Room)
 }
 
 GetListOfRoomsController "1" ..> "1" RoomService: uses
 RoomService "1" ..> "1" RoomRepository: uses
-RoomService "1" ..> "1" RoomAssembler: uses
+GetListOfRoomsController "1" ..> "1" RoomAssembler: uses
 RoomAssembler "1" ..> "1..*" RoomDTO: creates
 
 @enduml
