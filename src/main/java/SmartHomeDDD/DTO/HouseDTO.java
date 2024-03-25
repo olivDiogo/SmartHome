@@ -20,5 +20,13 @@ public class HouseDTO implements DTO {
         this.gps = gps;
 
     }
+
+    public String toString() {
+        return "HouseDTO{" +
+                "address='" + address + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", gps='" + gps + '\'' +
+                '}';
+    }
 }
 
