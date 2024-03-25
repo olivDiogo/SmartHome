@@ -58,7 +58,7 @@ AddSensorToDevice_Controller -> roomService: getRooms()
 
 activate roomService
 
-roomService -> RoomRepository: getRooms()
+roomService -> RoomRepository: findAll()
 
 activate RoomRepository
 
@@ -113,7 +113,7 @@ deactivate DeviceAssembler
 AddSensorToDevice_Controller -> DeviceService: getDevices(roomID)
 activate DeviceService
 
-DeviceService -> DeviceRepository: getDevices(roomID)
+DeviceService -> DeviceRepository: findAllByRoomID(roomID)
 
 activate DeviceRepository
 
