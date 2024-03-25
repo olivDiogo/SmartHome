@@ -11,10 +11,11 @@ autonumber
     participant "deviceDTO:DeviceDTO" as DTO
     participant "deviceID:DeviceID" as DeviceID
     participant ":Device" as Device
+    participant "status:DeviceStatus" as Status
 
 ' Request all devices
 
-    User -> Controller: requestAllDevices()
+    User o-> Controller: requestAllDevices()
     activate Controller
     Controller -> Service: getAllDevices()
     activate Service
@@ -22,8 +23,10 @@ autonumber
     activate Repository
     Repository --> Service: deviceList
     deactivate Repository
+    Service --> Controller: deviceList
+    deactivate Service
 
-    Service -> Assembler: deviceListToDTO(deviceList)
+    Controller -> Assembler: domainToDTO(deviceList)
     activate Assembler
     loop for each device in deviceList
         create DTO
@@ -32,61 +35,49 @@ autonumber
         DTO --> Assembler: deviceDTO
         deactivate DTO
     end
-    Assembler --> Service: deviceDTOList
+    Assembler --> Controller: deviceDTOList
     deactivate Assembler
-
-    Service --> Controller: deviceDTOList
-    deactivate Service
     Controller --> User: deviceDTOList
     deactivate Controller
 
 ' Deactivate device
 
-    User -> Controller: requestDeactivateDevice(DeviceDTO)
+    User o-> Controller: requestDeactivateDevice(DeviceDTO)
     activate Controller
-    Controller -> Assembler: dtoToDomain(DeviceDTO)
-    activate Assembler
     create DeviceID
-    Assembler -> DeviceID: DeviceID(deviceID: String)
+    Controller -> DeviceID: DeviceID(deviceID: String)
     activate DeviceID
-    DeviceID --> Assembler: deviceID
+    DeviceID --> Controller: deviceID
     deactivate DeviceID
-    Assembler --> Controller: deviceID
-    deactivate Assembler
-
-
-    Controller -> Service: deactivateDevice(deviceID)
+    Controller -> Service: deactivateDeviceByID(deviceID)
     activate Service
-    Service -> Repository: findDeviceById(deviceID)
+    Service -> Repository: ofIdentity(deviceID)
     activate Repository
     Repository --> Service: device
     deactivate Repository
-
-   Service -> Device: deactivate()
-   activate Device
-   ' The deactivate() method internally updates the Device's status to inactive.
-   ' This is an internal detail, so the creation/modification of the status value object is not explicitly represented.
-   deactivate Device
-
-   Service --> Repository: save(device)
-   ' Updated to save the whole device, reflecting the change in status.
-   activate Repository
-   Repository --> Service: device
-   ' The Repository confirms the save operation, potentially returning a status or acknowledgment.
-   deactivate Repository
-
-
-    Service -> Assembler: device2DTO(device)
+    Service -> Device: deactivateDevice(): Status
+    activate Device
+    create Status
+    Device -> Status: DeviceStatus(boolean)
+    activate Status
+    Status --> Device: status
+    deactivate Status
+    Device --> Service: status
+    deactivate Device
+    Service --> Repository: save(device)
+    activate Repository
+    Repository --> Service: device
+    deactivate Repository
+    Service --> Controller: device
+    deactivate Service
+    Controller-> Assembler: domainToDTO(device)
     activate Assembler
     Assembler -> DTO: DeviceDTO(device)
     activate DTO
     DTO --> Assembler: deviceDTO
     deactivate DTO
-    Assembler --> Service: deviceDTO
+    Assembler --> Controller: deviceDTO
     deactivate Assembler
-
-    Service --> Controller: deviceDTO
-    deactivate Service
     Controller --> User: deviceDTO
     deactivate Controller
 
