@@ -8,7 +8,10 @@ participant "serviceDevice:ServiceDevice" as ServiceDevice
 
 participant "roomRepo:RoomRepo" as RoomRepo
 participant ":RoomAssembler" as RoomAssembler
+
 participant "roomDTO:RoomDTO" as RoomDTO
+
+participant "roomID : RoomID" as RoomID
 
 participant "deviceRepo:DeviceRepo" as DeviceRepo
 participant ":DeviceAssembler" as DeviceAssembler
@@ -32,7 +35,11 @@ RoomRepo --> ServiceRoom: listOfRooms
 
 deactivate RoomRepo
 
-ServiceRoom -> RoomAssembler : domainToDTO(listOfRooms)
+ServiceRoom --> GetListOfDevicesFromRoom_Controller: listOfRooms
+
+deactivate ServiceRoom
+
+GetListOfDevicesFromRoom_Controller -> RoomAssembler : domainToDTO(listOfRooms)
 
 activate RoomAssembler
 
@@ -51,19 +58,37 @@ loop for each room
      RoomAssembler -> RoomAssembler: addRoomDTOToList(roomDTO)
 
 end
-RoomAssembler --> ServiceRoom: roomDTOList
+RoomAssembler --> GetListOfDevicesFromRoom_Controller: roomDTOList
 
 deactivate RoomAssembler
 
-ServiceRoom --> GetListOfDevicesFromRoom_Controller: roomDTOList
-
-deactivate ServiceRoom
-
 GetListOfDevicesFromRoom_Controller --> User : roomDTOList
 
-User o-> GetListOfDevicesFromRoom_Controller: getDevices(strRoomId)
+deactivate GetListOfDevicesFromRoom_Controller
 
-GetListOfDevicesFromRoom_Controller -> ServiceDevice: getDevices(strRoomId)
+User o-> GetListOfDevicesFromRoom_Controller: getDevices(roomDTO)
+
+activate GetListOfDevicesFromRoom_Controller
+
+GetListOfDevicesFromRoom_Controller -> RoomAssembler : dtoToDomain(roomDTO)
+
+activate RoomAssembler
+
+create RoomID
+
+RoomAssembler -> RoomID: createRoomID(strRoomIdDTO)
+
+activate RoomID
+
+RoomID --> RoomAssembler: roomId
+
+deactivate RoomID
+
+RoomAssembler --> GetListOfDevicesFromRoom_Controller: roomId
+
+deactivate RoomAssembler
+
+GetListOfDevicesFromRoom_Controller -> ServiceDevice: getDevices(roomId)
 
 activate ServiceDevice
 
@@ -75,7 +100,11 @@ DeviceRepo --> ServiceDevice: listDevices
 
 deactivate DeviceRepo
 
-ServiceDevice  -> DeviceAssembler: deviceToDTO (deviceList)
+ServiceDevice --> GetListOfDevicesFromRoom_Controller: listDevices
+
+deactivate ServiceDevice
+
+GetListOfDevicesFromRoom_Controller  -> DeviceAssembler: deviceToDTO (deviceList)
 
 activate DeviceAssembler
 
@@ -93,11 +122,9 @@ loop for each device in list
     DeviceAssembler -> DeviceAssembler: addDeviceDTOToList(deviceDTO)
 
 end
-DeviceAssembler --> ServiceDevice: listDeviceDTO
+DeviceAssembler --> GetListOfDevicesFromRoom_Controller: listDeviceDTO
 
 deactivate DeviceAssembler
-
-ServiceDevice --> GetListOfDevicesFromRoom_Controller: listDeviceDTO
 
 deactivate ServiceDevice
 
