@@ -3,7 +3,8 @@
 !pragma layout smetana
 
 class GetAllDevicesGroupedByFunctionalityController {
-    -deviceService: DeviceService
+    -_deviceService: DeviceService
+    -_deviceAssembler: DeviceAssembler
 
     +GetAllDevicesGroupedByFunctionalityController(deviceService: DeviceService)
     +getAllDevicesGroupedByFunctionality(): Map<String, List<DeviceDTO>>
@@ -11,15 +12,14 @@ class GetAllDevicesGroupedByFunctionalityController {
 }
 
 class DeviceService {
-    -deviceFactory: DeviceFactory
-    -deviceRepo: DeviceRepository
-    -deviceAssembler: DeviceAssembler
+    -_deviceFactory: DeviceFactory
+    -_deviceRepo: DeviceRepository
     +DeviceService(factoryDevice: FactoryDevice, deviceRepo: DeviceRepository)
     +getDevices(): List<DeviceDTO>
 }
 
 class DeviceRepository {
-    -data: HashMap<DeviceID, Device>
+    -_data: HashMap<DeviceID, Device>
     +DeviceRepository()
     +findAll(): List<Device>
 }
@@ -39,6 +39,6 @@ class DeviceDTO {
 
 GetAllDevicesGroupedByFunctionalityController "1" ..> "1" DeviceService: uses
 DeviceService "1" ..> "1" DeviceRepository: uses
-DeviceService "1" ..> "1" DeviceAssembler: uses
+GetAllDevicesGroupedByFunctionalityController "1" ..> "1" DeviceAssembler: uses
 DeviceAssembler "1" ..> "*" DeviceDTO: creates
 @enduml

@@ -45,7 +45,7 @@ ServiceDevice --> GetAllDevicesGroupedByFunctionalityController: devices
 
 deactivate ServiceDevice
 
-GetAllDevicesGroupedByFunctionalityController -> DeviceAssembler: device2DTO(devices)
+GetAllDevicesGroupedByFunctionalityController -> DeviceAssembler: domain2DTO(devices)
 
 loop for each device in devices
     activate DeviceAssembler
