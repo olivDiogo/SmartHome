@@ -6,6 +6,8 @@ participant " " as User
 box "Controller" #LightBlue
 participant ":AddSensorToDevice_Controller" as AddSensorToDevice_Controller
 end box
+
+box "Room" #LightGreen
 participant ":RoomService" as roomService
 
 participant ":RoomRepository" as RoomRepository
@@ -13,19 +15,21 @@ participant ":RoomRepository" as RoomRepository
 participant ":RoomAssembler" as RoomAssembler
 
 participant "roomDTO:RoomDTO" as RoomDTO
+end box
 
+box "Device" #LightYellow
 participant ":DeviceService" as DeviceService
-
-participant "roomDTO:RoomDTO" as RoomDTO
 
 participant ":DeviceRepository" as DeviceRepository
 
 participant ":DeviceAssembler" as DeviceAssembler
 
-participant ":RoomID" as RoomID
+participant "roomID:RoomID" as RoomID
 
 participant "deviceDTO:DeviceDTO" as DeviceDTO
+end box
 
+box "SensorModel" #LightCyan
 participant ":SensorModelService" as SensorModelService
 
 participant "SensorModelRepository" as SensorModelRepository
@@ -33,6 +37,14 @@ participant "SensorModelRepository" as SensorModelRepository
 participant ":SensorModelAssembler" as SensorModelAssembler
 
 participant "sensorModelDTO:SensorModelDTO" as SensorModelDTO
+end box
+
+box "Sensor" #LightPink
+participant ":SensorAssembler" as SensorAssembler
+
+participant "sensorDTO:SensorDTO" as SensorDTO
+
+participant "deviceID:DeviceID & sensorModelID:SensorModelID" as DeviceID
 
 participant ":SensorService" as sensorService
 
@@ -41,10 +53,7 @@ participant ":SensorFactory" as SensorFactory
 participant "sensor:Sensor" as Sensor
 
 participant ":SensorRepository" as SensorRepository
-
-participant ":SensorAssembler" as SensorAssembler
-
-participant "sensorDTO:SensorDTO" as SensorDTO
+end box
 
 autonumber
 
@@ -62,28 +71,25 @@ roomService -> RoomRepository: findAll()
 
 activate RoomRepository
 
-RoomRepository --> roomService: rooms
+RoomRepository --> roomService: lisOfRooms
 
 deactivate RoomRepository
 
-roomService --> AddSensorToDevice_Controller: rooms
+roomService --> AddSensorToDevice_Controller: lisOfRooms
 
 deactivate roomService
 
-
-
-AddSensorToDevice_Controller -> RoomAssembler: domain2DTO(Rooms)
+AddSensorToDevice_Controller -> RoomAssembler: domainToDTO(Rooms)
 
 activate RoomAssembler
 
-loop for each room in copyOfRooms
-
-create RoomDTO
-    RoomAssembler -> RoomDTO: createRoomDTO(room)
+loop for each room
+    create RoomDTO
+    RoomAssembler -> RoomDTO: createRoomDTO (room)
     activate RoomDTO
     RoomDTO --> RoomAssembler: roomDTO
     deactivate RoomDTO
-    RoomAssembler -> RoomAssembler: addToList(roomDTO)
+    RoomAssembler -> RoomAssembler: addRoomDTOToList(roomDTO)
 end
 
 RoomAssembler --> AddSensorToDevice_Controller: listRoomsDTO
@@ -101,19 +107,29 @@ User o-> AddSensorToDevice_Controller: getDevices(roomDTO)
 activate AddSensorToDevice_Controller
 
 
-AddSensorToDevice_Controller -> DeviceAssembler: getRoom(String ID) roomDTO)
+AddSensorToDevice_Controller -> DeviceAssembler : dtoToDomain(roomDTO)
+
 activate DeviceAssembler
-DeviceAssembler -> RoomID: createValueObject(id)
+
+create RoomID
+
+DeviceAssembler -> RoomID: createRoomID(strRoomIdDTO)
+
 activate RoomID
-RoomID --> DeviceAssembler: RoomID
+
+RoomID --> DeviceAssembler: roomId
+
 deactivate RoomID
-DeviceAssembler --> AddSensorToDevice_Controller: roomID
+
+DeviceAssembler --> AddSensorToDevice_Controller: roomId
+
 deactivate DeviceAssembler
 
-AddSensorToDevice_Controller -> DeviceService: getDevices(roomID)
+AddSensorToDevice_Controller -> DeviceService: getDevices(roomId)
+
 activate DeviceService
 
-DeviceService -> DeviceRepository: findAllByRoomID(roomID)
+DeviceService -> DeviceRepository: getDevicesByRoomId (roomId)
 
 activate DeviceRepository
 
@@ -121,28 +137,29 @@ DeviceRepository --> DeviceService: listDevices
 
 deactivate DeviceRepository
 
-DeviceService -> DeviceAssembler: domain2DTO(ListDevices)
-
-activate DeviceAssembler
-
-loop for each device in copyOfDevices
-
-create DeviceDTO
-    DeviceAssembler -> DeviceDTO: createDeviceDTO(device)
-    activate DeviceDTO
-    DeviceDTO --> DeviceAssembler: deviceDTO
-    deactivate DeviceDTO
-end
-
-DeviceAssembler --> DeviceService: listDevicesDTO
-
-deactivate DeviceAssembler
-
-DeviceService --> AddSensorToDevice_Controller: listDevicesDTO
+DeviceService --> AddSensorToDevice_Controller: listDevices
 
 deactivate DeviceService
 
-AddSensorToDevice_Controller --> User: listDevicesDTO
+AddSensorToDevice_Controller  -> DeviceAssembler: deviceToDTO (deviceList)
+
+activate DeviceAssembler
+
+loop for each device in list
+    create DeviceDTO
+    DeviceAssembler -> DeviceDTO: createDeviceToDTO (device)
+    activate DeviceDTO
+    DeviceDTO --> DeviceAssembler: deviceDTO
+    deactivate DeviceDTO
+    DeviceAssembler -> DeviceAssembler: addDeviceDTOToList(deviceDTO)
+end
+DeviceAssembler --> AddSensorToDevice_Controller: listDeviceDTO
+
+deactivate DeviceAssembler
+
+deactivate DeviceService
+
+AddSensorToDevice_Controller --> User : listDeviceDTO
 
 deactivate AddSensorToDevice_Controller
 
@@ -156,7 +173,7 @@ AddSensorToDevice_Controller -> SensorModelService: getSensorModels()
 
 activate SensorModelService
 
-SensorModelService -> SensorModelRepository: getSensorModels()
+SensorModelService -> SensorModelRepository: findAll()
 
 activate SensorModelRepository
 
@@ -168,32 +185,22 @@ SensorModelService --> AddSensorToDevice_Controller: listSensorModels
 
 deactivate SensorModelService
 
-AddSensorToDevice_Controller -> SensorModelAssembler: domain2DTO(sensorModelsStrings)
+AddSensorToDevice_Controller -> SensorModelAssembler: domainToDTO(listOfSensorModels)
 
 activate SensorModelAssembler
 
 loop for each sensorModel in copyOfSensorModels
-
 create SensorModelDTO
-
 SensorModelAssembler -> SensorModelDTO: createSensorModelDTO(sensorModel)
-
 activate SensorModelDTO
-
 SensorModelDTO --> SensorModelAssembler: sensorModelDTO
-
 deactivate SensorModelDTO
-
 SensorModelAssembler -> SensorModelAssembler: addToList(sensorModelDTO)
-
 end
 
 SensorModelAssembler --> AddSensorToDevice_Controller: listSensorModelsDTO
 
 deactivate SensorModelAssembler
-
-
-
 
 AddSensorToDevice_Controller -> User: listSensorModelsDTO
 
@@ -201,67 +208,76 @@ deactivate AddSensorToDevice_Controller
 
 '----------------------------------------------------'
 
-User o-> AddSensorToDevice_Controller: addSensorToDevice(deviceDTO, sensorModelDTO)
+User o-> AddSensorToDevice_Controller: addSensorToDevice(DataDTO)
 
 activate AddSensorToDevice_Controller
 
-AddSensorToDevice_Controller -> sensorService: addSensor(deviceID, sensorModelID)
+AddSensorToDevice_Controller -> SensorAssembler: dtoToDomain(DataDTO)
+
+activate SensorAssembler
+
+create DeviceID
+
+SensorAssembler -> DeviceID: createDeviceID(DataDTO)
+
+activate DeviceID
+
+DeviceID --> SensorAssembler: deviceID, sensorModelID
+
+deactivate DeviceID
+
+SensorAssembler --> AddSensorToDevice_Controller: deviceID, sensorModelID
+
+deactivate SensorAssembler
+
+AddSensorToDevice_Controller -> sensorService: createSensor(sensorModelID, deviceID)
 
 activate sensorService
 
-sensorService -> SensorFactory: createSensor(model, repositorySensorModel, sensorFactory)
+sensorService -> SensorFactory: createSensor(sensorModelID, deviceID)
 
 activate SensorFactory
+
 
 create Sensor
 SensorFactory --> Sensor: addSensor(Sensor, deviceID)
 activate Sensor
 
-Sensor --> SensorFactory: Sensor
+Sensor --> SensorFactory: sensor
 
 deactivate Sensor
 
-SensorFactory --> sensorService: Sensor
+SensorFactory --> sensorService: sensor
 
 deactivate SensorFactory
 
-sensorService --> SensorRepository: saveSensor(Sensor)
+sensorService --> SensorRepository: saveSensor(sensor)
 
 activate SensorRepository
 
-SensorRepository --> sensorService: true (or false)
+SensorRepository --> sensorService: sensor
 
 deactivate SensorRepository
 
-sensorService --> AddSensorToDevice_Controller: true (or false)
+sensorService --> AddSensorToDevice_Controller: sensor
 
 deactivate sensorService
 
-
-AddSensorToDevice_Controller -> SensorAssembler: domain2DTO(sensor)
+AddSensorToDevice_Controller -> SensorAssembler: domainToDTO(sensor)
 
 activate SensorAssembler
 
-loop for each Sensor in copyOfSensors
-
+loop for each Sensor
 create SensorDTO
-
 SensorAssembler -> SensorDTO: createSensorDTO(sensor)
-
 activate SensorDTO
-
 SensorDTO --> SensorAssembler: sensorDTO
-
 deactivate SensorDTO
-
 end
 
 SensorAssembler --> AddSensorToDevice_Controller : sensorDTO
 
 deactivate SensorAssembler
-
-
-
 
 AddSensorToDevice_Controller --> User: sensorDTO
 
