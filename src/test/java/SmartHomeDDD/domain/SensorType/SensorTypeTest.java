@@ -217,6 +217,10 @@ public class SensorTypeTest {
         SensorTypeID sensorTypeID1 = mock(SensorTypeID.class);
         SensorTypeID sensorTypeID2 = mock(SensorTypeID.class);
 
+        try(MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
+            when(mock.toString()).thenReturn("1");
+        })) {
+
         SensorType sensorType1 = new SensorType(typeDescriptionDouble1, unitDouble1);
         SensorType sensorType2 = new SensorType(typeDescriptionDouble2, unitDouble2);
 
@@ -230,6 +234,7 @@ public class SensorTypeTest {
 
         // Assert
         assertFalse(result);
+        }
     }
 
     @Test
