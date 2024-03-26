@@ -11,6 +11,7 @@ participant System
 Admin -> System: I want to add a new sensor type
 System -> Admin: Sure babe, these are the available units
 Admin -> System: Great, this unit, and this description
-System -> Admin: Done, the new sensor type has been added
+
+System -> Admin: Done, saved
 
 @enduml
