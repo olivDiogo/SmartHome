@@ -6,7 +6,7 @@ skinparam linetype ortho
 
 class ConfigureHouseLocation<<Controller>>{
     -_houseService: HouseService
-    +createHouseLocation(address, zipcode, gps):HouseService
+    +createHouseLocation(address, zipcode, gps):HouseDTO
 
 }
 class HouseFactory<<Factory>>{
@@ -25,9 +25,13 @@ class HouseService <<Service>>{
 }
 class HouseDTO<<DTO>>{
     - _houseDTO: HouseDTO
+    - address: String
+    - gps: String
+    - zipCode: String
     +address.tostring(): String
-    +gps.toString: String
+    +gps.toString(): String
     +zipCode.toString(): String
+
 }
 class HouseAssembler<<Assembler>>{
     +domain2DTO():HouseDTO
@@ -37,9 +41,9 @@ class HouseRepository<<Repository>>{
     +getHouse():House
 }
 
-ConfigureHouseLocation "1" -down-> "1" HouseService: uses
-HouseService "1" -left-> "1" HouseFactory : has >
-HouseService "1" --[#595959,plain] "1" HouseAssembler : creates
-HouseAssembler "1" --[#595959,plain] "1" HouseDTO : has >
-HouseService "1" -right-> "1" HouseRepository : has >
+ConfigureHouseLocation "1" -down..> "1" HouseService: uses
+HouseService "1" ..> "1" HouseFactory : has >
+ConfigureHouseLocation "1" -[#595959,plain]..> "1" HouseAssembler : creates
+HouseAssembler "1" .[#595959,plain].> "1" HouseDTO : has >
+HouseService "1" ..> "1" HouseRepository : has >
 @enduml
