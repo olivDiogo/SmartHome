@@ -69,6 +69,6 @@ public class RoomID implements DomainID {
      * @return the ID of the room.
      */
     public String toString() {
-        return "RoomID: " + _id;
+        return  _id;
     }
 }

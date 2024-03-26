@@ -173,7 +173,7 @@ class RoomIDTest {
         // Arrange
         String roomIDDescription = "Room12";
         RoomID roomID = new RoomID(roomIDDescription);
-        String expected = "RoomID: Room12";
+        String expected = "Room12";
 
         // Act
         String result = roomID.toString();
