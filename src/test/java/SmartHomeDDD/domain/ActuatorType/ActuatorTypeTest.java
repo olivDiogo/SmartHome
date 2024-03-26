@@ -115,4 +115,25 @@ class ActuatorTypeTest {
             // Assert
             assertTrue(result.contains(actuatorType.getID().toString()));
         }
+
+        /**
+         * Test of method getActuatorTypeName of class ActuatorType.
+         */
+        @Test
+        void shouldReturnActuatorTypeName_whenGetActuatorTypeNameIsCalled() {
+            // Arrange
+            TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+
+            try (MockedConstruction<ActuatorTypeID> actuatorTypeIdDouble = mockConstruction(ActuatorTypeID.class, (mock, context) -> {
+                when(mock.toString()).thenReturn("1");
+            })) {
+                ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
+
+                // Act
+                TypeDescription result = actuatorType.getActuatorTypeName();
+
+                // Assert
+                assertEquals(typeDescriptionDouble, result);
+            }
+        }
 }

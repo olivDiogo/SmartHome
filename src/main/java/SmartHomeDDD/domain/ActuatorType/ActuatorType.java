@@ -53,6 +53,15 @@ public class ActuatorType implements AggregateRoot<ActuatorTypeID> {
     }
 
     /**
+     * Gets the actuator type name.
+     *
+     * @return the actuator type name
+     */
+    public TypeDescription getActuatorTypeName() {
+        return _actuatorTypeName;
+    }
+
+    /**
      * Compares this instance with another instance.
      *
      * @param o the other instance to compare with
