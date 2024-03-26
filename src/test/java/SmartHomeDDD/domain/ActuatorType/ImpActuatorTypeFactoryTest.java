@@ -1,11 +1,7 @@
 package SmartHomeDDD.domain.ActuatorType;
 
-import SmartHomeDDD.ValueObject.TypeDescription;
-import SmartHomeDDD.domain.House.ImpHouseFactory;
+import SmartHomeDDD.valueObject.TypeDescription;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

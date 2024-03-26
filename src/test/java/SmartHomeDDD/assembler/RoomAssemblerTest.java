@@ -1,10 +1,10 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.RoomDTO;
-import SmartHomeDDD.ValueObject.Dimension;
-import SmartHomeDDD.ValueObject.RoomFloor;
-import SmartHomeDDD.ValueObject.RoomID;
-import SmartHomeDDD.ValueObject.RoomName;
+import SmartHomeDDD.valueObject.Dimension;
+import SmartHomeDDD.valueObject.RoomFloor;
+import SmartHomeDDD.valueObject.RoomID;
+import SmartHomeDDD.valueObject.RoomName;
 import SmartHomeDDD.domain.Room.Room;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package SmartHomeDDD.domain.Device;
 
-import SmartHomeDDD.ValueObject.*;
+import SmartHomeDDD.valueObject.*;
 import org.junit.Test;
 import org.mockito.MockedConstruction;
 

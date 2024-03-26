@@ -1,8 +1,5 @@
 package SmartHomeDDD.ddd;
 
-import SmartHomeDDD.ValueObject.TypeDescription;
-import SmartHomeDDD.domain.SensorType.SensorType;
-
 import java.util.List;
 import java.util.Optional;
 

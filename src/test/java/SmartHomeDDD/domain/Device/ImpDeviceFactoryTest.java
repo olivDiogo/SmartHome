@@ -1,9 +1,8 @@
 package SmartHomeDDD.domain.Device;
 
-import SmartHome.domain.Room;
-import SmartHomeDDD.ValueObject.DeviceName;
-import SmartHomeDDD.ValueObject.DeviceStatus;
-import SmartHomeDDD.ValueObject.RoomID;
+import SmartHomeDDD.valueObject.DeviceName;
+import SmartHomeDDD.valueObject.DeviceStatus;
+import SmartHomeDDD.valueObject.RoomID;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

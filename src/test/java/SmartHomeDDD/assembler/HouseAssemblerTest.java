@@ -1,9 +1,9 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.HouseDTO;
-import SmartHomeDDD.ValueObject.Address;
-import SmartHomeDDD.ValueObject.GPS;
-import SmartHomeDDD.ValueObject.ZipCode;
+import SmartHomeDDD.valueObject.Address;
+import SmartHomeDDD.valueObject.GPS;
+import SmartHomeDDD.valueObject.ZipCode;
 
 import SmartHomeDDD.domain.House.House;
 import org.junit.Test;

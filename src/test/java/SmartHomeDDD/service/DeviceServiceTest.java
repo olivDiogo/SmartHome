@@ -1,9 +1,9 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.ValueObject.DeviceID;
-import SmartHomeDDD.ValueObject.DeviceName;
-import SmartHomeDDD.ValueObject.DeviceStatus;
-import SmartHomeDDD.ValueObject.RoomID;
+import SmartHomeDDD.valueObject.DeviceID;
+import SmartHomeDDD.valueObject.DeviceName;
+import SmartHomeDDD.valueObject.DeviceStatus;
+import SmartHomeDDD.valueObject.RoomID;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.domain.Device.DeviceFactory;
 import SmartHomeDDD.domain.Room.Room;

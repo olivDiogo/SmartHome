@@ -1,9 +1,9 @@
 package SmartHomeDDD.domain.Room;
 
-import SmartHomeDDD.ValueObject.Dimension;
-import SmartHomeDDD.ValueObject.HouseID;
-import SmartHomeDDD.ValueObject.RoomFloor;
-import SmartHomeDDD.ValueObject.RoomName;
+import SmartHomeDDD.valueObject.Dimension;
+import SmartHomeDDD.valueObject.HouseID;
+import SmartHomeDDD.valueObject.RoomFloor;
+import SmartHomeDDD.valueObject.RoomName;
 
 /**
  * Implementation of the {@link RoomFactory} interface, responsible for creating

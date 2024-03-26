@@ -1,8 +1,8 @@
 package SmartHomeDDD.domain.MeasurementType;
 
-import SmartHomeDDD.ValueObject.MeasurementID;
-import SmartHomeDDD.ValueObject.MeasurementTypeUnit;
-import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
+import SmartHomeDDD.valueObject.MeasurementID;
+import SmartHomeDDD.valueObject.MeasurementTypeUnit;
+import SmartHomeDDD.valueObject.MeasurementTypeDescription;
 import SmartHomeDDD.ddd.AggregateRoot;
 
 import java.util.UUID;

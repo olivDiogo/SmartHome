@@ -9,11 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import org.mockito.MockedConstruction;
 
-import SmartHomeDDD.ValueObject.SensorTypeID;
-import SmartHomeDDD.ValueObject.TypeDescription;
-import SmartHomeDDD.ValueObject.MeasurementID;
-
-import java.util.List;
+import SmartHomeDDD.valueObject.SensorTypeID;
+import SmartHomeDDD.valueObject.TypeDescription;
+import SmartHomeDDD.valueObject.MeasurementID;
 
 public class SensorTypeTest {
 

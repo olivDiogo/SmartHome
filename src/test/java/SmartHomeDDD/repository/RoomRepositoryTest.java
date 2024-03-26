@@ -1,6 +1,6 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.ValueObject.RoomID;
+import SmartHomeDDD.valueObject.RoomID;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.mock;

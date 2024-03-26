@@ -1,14 +1,10 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.HouseDTO;
-import SmartHomeDDD.ValueObject.Address;
-import SmartHomeDDD.ValueObject.GPS;
-import SmartHomeDDD.ValueObject.ZipCode;
 import SmartHomeDDD.ddd.Assembler;
 import SmartHomeDDD.domain.House.House;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HouseAssembler implements Assembler<House, HouseDTO> {

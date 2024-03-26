@@ -1,6 +1,6 @@
 package SmartHomeDDD.domain.ActuatorType;
 
-import SmartHomeDDD.ValueObject.TypeDescription;
+import SmartHomeDDD.valueObject.TypeDescription;
 
 /**
  * Interface defining a factory for creating {@link SmartHome.domain.ActuatorType} instances.

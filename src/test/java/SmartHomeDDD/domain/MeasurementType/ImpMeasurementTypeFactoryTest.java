@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.MeasurementType;
 
-import SmartHomeDDD.ValueObject.MeasurementTypeUnit;
-import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
+import SmartHomeDDD.valueObject.MeasurementTypeUnit;
+import SmartHomeDDD.valueObject.MeasurementTypeDescription;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;

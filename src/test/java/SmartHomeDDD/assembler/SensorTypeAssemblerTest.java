@@ -1,10 +1,10 @@
 package SmartHomeDDD.assembler;
 
-import SmartHomeDDD.ValueObject.MeasurementID;
-import SmartHomeDDD.ValueObject.SensorTypeID;
+import SmartHomeDDD.valueObject.MeasurementID;
+import SmartHomeDDD.valueObject.SensorTypeID;
 import SmartHomeDDD.domain.SensorType.SensorType;
 import SmartHomeDDD.DTO.SensorTypeDTO;
-import SmartHomeDDD.ValueObject.TypeDescription;
+import SmartHomeDDD.valueObject.TypeDescription;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

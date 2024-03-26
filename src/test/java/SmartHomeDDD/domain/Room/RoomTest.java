@@ -1,10 +1,10 @@
 package SmartHomeDDD.domain.Room;
 
-import SmartHomeDDD.ValueObject.HouseID;
-import SmartHomeDDD.ValueObject.RoomID;
-import SmartHomeDDD.ValueObject.RoomName;
-import SmartHomeDDD.ValueObject.Dimension;
-import SmartHomeDDD.ValueObject.RoomFloor;
+import SmartHomeDDD.valueObject.HouseID;
+import SmartHomeDDD.valueObject.RoomID;
+import SmartHomeDDD.valueObject.RoomName;
+import SmartHomeDDD.valueObject.Dimension;
+import SmartHomeDDD.valueObject.RoomFloor;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;

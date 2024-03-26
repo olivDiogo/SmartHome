@@ -1,6 +1,6 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.ValueObject.HouseID;
+import SmartHomeDDD.valueObject.HouseID;
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.House.House;
 
