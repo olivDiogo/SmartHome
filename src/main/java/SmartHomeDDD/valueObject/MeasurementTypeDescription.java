@@ -4,10 +4,11 @@ import SmartHomeDDD.ddd.ValueObject;
 
 public class MeasurementTypeDescription implements ValueObject {
 
-    public String description;
+    private final String description;
 
     public MeasurementTypeDescription(String description) {
         validate(description);
+        this.description = description;
     }
 
     /**
@@ -21,8 +22,16 @@ public class MeasurementTypeDescription implements ValueObject {
         else if (description.length() > 50) {
             throw new IllegalArgumentException("The description cannot have more than 50 characters.");
         }
-        else this.description = description;
     }
+
+    /**
+     * Gets the description
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public boolean equals (Object o) {
         if (this == o)
