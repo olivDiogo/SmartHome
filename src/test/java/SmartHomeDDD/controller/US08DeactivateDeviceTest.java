@@ -37,7 +37,7 @@ class US08DeactivateDeviceTest {
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         // Act & Assert
-        us08DeactivateDevice = new US08DeactivateDevice(deviceService, deviceAssembler);
+        new US08DeactivateDevice(deviceService, deviceAssembler);
     }
 
     /**
@@ -76,13 +76,13 @@ class US08DeactivateDeviceTest {
         // Add a device
         DeviceName deviceName = new DeviceName("Lightbulb");
         DeviceStatus deviceStatus = new DeviceStatus(false);
-        deviceService.addDevice(room.getID(), deviceName, deviceStatus);
+        Device device = deviceService.addDevice(room.getID(), deviceName, deviceStatus);
 
         // Act
         List<DeviceDTO> devices = us08DeactivateDevice.requestAllDevices();
 
         // Assert
-        assertEquals(1, devices.size());
+        assertEquals(devices.get(0).deviceID, device.getID().toString());
     }
 
     /**
@@ -114,7 +114,7 @@ class US08DeactivateDeviceTest {
         List<DeviceDTO> devices = us08DeactivateDevice.requestAllDevices();
 
         // Assert
-        assertEquals(0, devices.size());
+        assertTrue(devices.isEmpty());
     }
 
     /**
@@ -146,7 +146,7 @@ class US08DeactivateDeviceTest {
         List<DeviceDTO> devices = us08DeactivateDevice.requestAllDevices();
 
         // Assert
-        assertEquals(0, devices.size());
+        assertTrue(devices.isEmpty());
     }
 
     /**
