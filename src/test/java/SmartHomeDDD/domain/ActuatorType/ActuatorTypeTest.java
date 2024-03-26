@@ -5,6 +5,9 @@ import SmartHomeDDD.valueObject.TypeDescription;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -31,17 +34,15 @@ class ActuatorTypeTest {
             // Arrange
             TypeDescription typeDescriptionDouble = null;
 
-            String expectedMessage = "Actuator type name must not be null.";
+            try (MockedConstruction<ActuatorTypeID> actuatorTypeIdDouble = mockConstruction(ActuatorTypeID.class, (mock, context) -> {
+                when(mock.toString()).thenReturn("1");
+            })) {
+                // Act
+                IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorType(typeDescriptionDouble));
 
-            // Act
-            Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                new ActuatorType(typeDescriptionDouble);
-            });
-
-            // Assert
-            String actualMessage = exception.getMessage();
-
-            assertEquals(expectedMessage, actualMessage);
+                // Assert
+                assertEquals("Actuator type name must not be null.", exception.getMessage());
+            }
         }
 
         /**
@@ -51,13 +52,18 @@ class ActuatorTypeTest {
         void shouldReturnActuatorTypeID_whenGetIDisCalled() {
             // Arrange
             TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-            ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
 
-            // Act
-            ActuatorTypeID result = actuatorType.getID();
+            try (MockedConstruction<ActuatorTypeID> actuatorTypeIdDouble = mockConstruction(ActuatorTypeID.class, (mock, context) -> {
+                when(mock.toString()).thenReturn("1");
+            })) {
+                ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
 
-            // Assert
-            assertTrue(actuatorType.toString().contains(result.toString()));
+                // Act
+                ActuatorTypeID result = actuatorType.getID();
+
+                // Assert
+                assertEquals("1", result.toString());
+            }
         }
 
         /**
@@ -86,17 +92,25 @@ class ActuatorTypeTest {
          * Test of method equals of class ActuatorType, when the instances are not equal.
          */
         @Test
-        void shouldReturnFalse_whenInstancesAreNotEqual() {
+        void shouldReturnFalse_whenInstancesAreNotEqual() throws NoSuchFieldException, IllegalAccessException {
             // Arrange
             TypeDescription typeDescriptionDouble1 = mock(TypeDescription.class);
             TypeDescription typeDescriptionDouble2 = mock(TypeDescription.class);
+            ActuatorTypeID actuatorTypeIDDouble1 = mock(ActuatorTypeID.class);
+            ActuatorTypeID actuatorTypeIDDouble2 = mock(ActuatorTypeID.class);
+
             ActuatorType actuatorType1 = new ActuatorType(typeDescriptionDouble1);
             ActuatorType actuatorType2 = new ActuatorType(typeDescriptionDouble2);
 
-            // Act
+            Field actuatorTypeIDField = ActuatorType.class.getDeclaredField("_actuatorTypeID");
+            actuatorTypeIDField.setAccessible(true);
+            actuatorTypeIDField.set(actuatorType1, actuatorTypeIDDouble1);
+            actuatorTypeIDField.set(actuatorType2, actuatorTypeIDDouble2);
+
+            //Act
             boolean result = actuatorType1.equals(actuatorType2);
 
-            // Assert
+            //Assert
             assertFalse(result);
         }
 
@@ -107,13 +121,20 @@ class ActuatorTypeTest {
         void shouldReturnString_whenToStringIsCalled() {
             // Arrange
             TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-            ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
 
-            // Act
-            String result = actuatorType.toString();
+            String expected = "ActuatorType{_actuatorTypeID=1, _actuatorTypeName=" + typeDescriptionDouble + "}";
 
-            // Assert
-            assertTrue(result.contains(actuatorType.getID().toString()));
+            try (MockedConstruction<ActuatorTypeID> actuatorTypeIdDouble = mockConstruction(ActuatorTypeID.class, (mock, context) -> {
+                when(mock.toString()).thenReturn("1");
+            })) {
+                ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
+
+                // Act
+                String result = actuatorType.toString();
+
+                // Assert
+                assertEquals(expected, result);
+            }
         }
 
         /**
