@@ -3,6 +3,7 @@ package SmartHomeDDD.repository;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
+import SmartHomeDDD.valueObject.TypeDescription;
 
 import java.util.*;
 
@@ -51,6 +52,16 @@ public class ActuatorTypeRepository implements Repository<ActuatorTypeID, Actuat
         Optional<ActuatorType> actuatorType = Optional.ofNullable(_actuatorTypeData.get(actuatorTypeID));
 
         return actuatorType;
+    }
+
+    /**
+     * Checks if an ActuatorType exists by its name.
+     *
+     * @param actuatorTypeName is the name of the ActuatorType.
+     * @return true if the ActuatorType exists, otherwise false.
+     */
+    public boolean existsOfName(TypeDescription actuatorTypeName) {
+        return _actuatorTypeData.values().stream().anyMatch(actuatorType -> actuatorType.getActuatorTypeName().equals(actuatorTypeName));
     }
 
     /**
