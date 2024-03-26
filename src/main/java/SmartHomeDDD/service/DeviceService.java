@@ -49,10 +49,27 @@ public class DeviceService {
     }
 
     /**
+     * Deactivates the device with the provided device ID.
+     * @param deviceID is the unique identifier of the device.
+     * @return the updated device.
+     */
+    public Device deactivateDeviceByID(DeviceID deviceID) {
+        Optional<Device> deviceOptional = getDeviceByID(deviceID);
+        if (deviceOptional.isPresent()){
+            Device device = deviceOptional.get();
+            device.deactivateDevice();
+            //_deviceRepository.save(device);
+            return device;
+        } else {
+            throw new IllegalArgumentException("Device with ID " + deviceID + " not found.");
+        }
+    }
+
+    /**
      * Returns all the devices in the repository.
      * @return a list of devices.
      */
-    public List<Device> getDevices() {
+    public List<Device> getAllDevices() {
         return _deviceRepository.findAll();
     }
 
@@ -61,7 +78,7 @@ public class DeviceService {
      * @param deviceId is the unique identifier of the device.
      * @return an optional containing the device if found, empty otherwise.
      */
-    public Optional<Device> getDeviceById(DeviceID deviceId) {
+    public Optional<Device> getDeviceByID(DeviceID deviceId) {
         return _deviceRepository.ofIdentity(deviceId);
     }
 

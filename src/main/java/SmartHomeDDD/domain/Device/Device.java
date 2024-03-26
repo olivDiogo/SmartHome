@@ -156,4 +156,9 @@ public class Device implements AggregateRoot<DeviceID> {
                 ", _deviceStatus=" + _deviceStatus +
                 '}';
     }
+
+    public DeviceStatus deactivateDevice() {
+        _deviceStatus = new DeviceStatus(false);
+        return _deviceStatus;
+    }
 }

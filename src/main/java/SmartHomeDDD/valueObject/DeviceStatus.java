@@ -34,6 +34,6 @@ public class DeviceStatus implements ValueObject {
     }
     @Override
     public String toString() {
-        return "Device status: " + _status;
+        return _status ? "ON" : "OFF";
     }
 }

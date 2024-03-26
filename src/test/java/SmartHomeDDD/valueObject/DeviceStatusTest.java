@@ -58,4 +58,32 @@ class DeviceStatusTest {
         // Assert
         assertFalse(result);
     }
+
+    /**
+     * Tests toString method when status is true
+     */
+    @Test
+    public void shouldReturnON_whenStatusIsTrue(){
+        // Arrange
+        boolean status = true;
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        // Act
+        String result = deviceStatus.toString();
+        // Assert
+        assertEquals("ON", result);
+    }
+
+    /**
+     * Tests toString method when status is false
+     */
+    @Test
+    public void shouldReturnOFF_whenStatusIsFalse(){
+        // Arrange
+        boolean status = false;
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        // Act
+        String result = deviceStatus.toString();
+        // Assert
+        assertEquals("OFF", result);
+    }
 }

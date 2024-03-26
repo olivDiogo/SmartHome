@@ -121,7 +121,7 @@ class DeviceServiceTest {
         int expectedSize = 2;
 
         // Act
-        List<Device> deviceList = deviceService.getDevices();
+        List<Device> deviceList = deviceService.getAllDevices();
         int result = deviceList.size();
 
         // Assert
@@ -146,7 +146,7 @@ class DeviceServiceTest {
         int expectedSize = 0;
 
         // Act
-        List<Device> deviceList = deviceService.getDevices();
+        List<Device> deviceList = deviceService.getAllDevices();
         int result = deviceList.size();
 
         // Assert
@@ -171,7 +171,7 @@ class DeviceServiceTest {
         when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
 
         // Act
-        Optional<Device> device = deviceService.getDeviceById(deviceID);
+        Optional<Device> device = deviceService.getDeviceByID(deviceID);
 
         // Assert
         assertNotNull(device);
@@ -196,7 +196,7 @@ class DeviceServiceTest {
         when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
 
         // Act
-        Optional<Device> device = deviceService.getDeviceById(deviceID);
+        Optional<Device> device = deviceService.getDeviceByID(deviceID);
 
         // Assert
         assertNotNull(device);
@@ -231,8 +231,57 @@ class DeviceServiceTest {
         assertEquals(2, deviceList.size());
     }
 
+    /**
+     * Tests deactivateDeviceByID method of the DeviceService class with a valid deviceID.
+     */
+    @Test
+    public void shouldDeactivateDevice_WhenGivenValidDeviceID() {
+        // Arrange
+        DeviceRepository deviceRepository = mock(DeviceRepository.class);
+        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        RoomRepository roomRepository = mock(RoomRepository.class);
 
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
 
+        DeviceID deviceIdDouble = mock(DeviceID.class);
+        Device deviceDouble = mock(Device.class);
 
+        when(deviceRepository.ofIdentity(deviceIdDouble)).thenReturn(Optional.of(deviceDouble));
 
+        // Act
+        Device device = deviceService.deactivateDeviceByID(deviceIdDouble);
+
+        // Assert
+        assertEquals(deviceDouble, device);
+    }
+
+    /**
+     * Tests deactivateDeviceByID method of the DeviceService class with an invalid deviceID.
+     */
+    @Test
+    public void shouldThrowException_WhenGivenInvalidDeviceID() {
+        // Arrange
+        DeviceRepository deviceRepository = mock(DeviceRepository.class);
+        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        RoomRepository roomRepository = mock(RoomRepository.class);
+
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+
+        DeviceID deviceIdDouble = mock(DeviceID.class);
+
+        when(deviceRepository.ofIdentity(deviceIdDouble)).thenReturn(Optional.empty());
+
+        String expectedMessage = "Device with ID " + deviceIdDouble + " not found.";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+
+            deviceService.deactivateDeviceByID(deviceIdDouble);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        // Assert
+        assertEquals(expectedMessage, actualMessage);
+    }
 }
