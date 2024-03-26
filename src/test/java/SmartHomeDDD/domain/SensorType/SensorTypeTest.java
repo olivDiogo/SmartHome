@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
 import org.mockito.MockedConstruction;
 
 import SmartHomeDDD.valueObject.SensorTypeID;
@@ -25,7 +26,7 @@ public class SensorTypeTest {
         MeasurementID unitDouble = mock(MeasurementID.class);
         String sensorTypeID = "1";
 
-        try(MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class,(mock, context) -> {
+        try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
             when(mock.toString()).thenReturn(sensorTypeID);
         })) {
             // Act
@@ -89,7 +90,7 @@ public class SensorTypeTest {
         MeasurementID unitDouble = mock(MeasurementID.class);
         String sensorTypeID = "1";
 
-        try(MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class,(mock, context) -> {
+        try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
             when(mock.toString()).thenReturn(sensorTypeID);
         })) {
             SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
@@ -112,7 +113,7 @@ public class SensorTypeTest {
         MeasurementID unitDouble = mock(MeasurementID.class);
         String sensorTypeID = "1";
 
-        try(MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class,(mock, context) -> {
+        try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
             when(mock.toString()).thenReturn(sensorTypeID);
         })) {
             SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
@@ -153,7 +154,7 @@ public class SensorTypeTest {
      * Test of equals method, of class SensorType, when comparing sensorType with itself.
      */
     @Test
-    public void shouldGetTrue_whenSensorTypeIsEqualToItself(){
+    public void shouldGetTrue_whenSensorTypeIsEqualToItself() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
         MeasurementID unitDouble = mock(MeasurementID.class);
@@ -177,7 +178,7 @@ public class SensorTypeTest {
      * Test of equals method, of class SensorType, when comparing sensorType with another object with same ID.
      */
     @Test
-    public void shouldGetTrue_whenSensorTypeIsEqualToAnotherSensorTypeWithSameID(){
+    public void shouldGetTrue_whenSensorTypeIsEqualToAnotherSensorTypeWithSameID() {
         // Arrange
         TypeDescription typeDescriptionDouble1 = mock(TypeDescription.class);
         MeasurementID unitDouble1 = mock(MeasurementID.class);
@@ -205,7 +206,7 @@ public class SensorTypeTest {
      * Test of equals method, of class SensorType, when comparing sensorType with another object with different ID.
      */
     @Test
-    public void shouldGetFalse_whenSensorTypeIsComparedToAnotherSensorTypeWithDifferentID() throws NoSuchFieldException {
+    public void shouldGetFalse_whenSensorTypeIsComparedToAnotherSensorTypeWithDifferentID() throws NoSuchFieldException, IllegalAccessException {
         // Arrange
         TypeDescription typeDescriptionDouble1 = mock(TypeDescription.class);
         MeasurementID unitDouble1 = mock(MeasurementID.class);
@@ -213,27 +214,22 @@ public class SensorTypeTest {
         TypeDescription typeDescriptionDouble2 = mock(TypeDescription.class);
         MeasurementID unitDouble2 = mock(MeasurementID.class);
 
-        SensorTypeID sensorTypeID1 = new SensorTypeID("1");
-        SensorTypeID sensorTypeID2 = new SensorTypeID("2");
+        SensorTypeID sensorTypeID1 = mock(SensorTypeID.class);
+        SensorTypeID sensorTypeID2 = mock(SensorTypeID.class);
 
-        try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
-        })) {
-            SensorType sensorType1 = new SensorType(typeDescriptionDouble1, unitDouble1);
-            SensorType sensorType2 = new SensorType(typeDescriptionDouble2, unitDouble2);
+        SensorType sensorType1 = new SensorType(typeDescriptionDouble1, unitDouble1);
+        SensorType sensorType2 = new SensorType(typeDescriptionDouble2, unitDouble2);
 
-            Field sensorTypeIDField = SensorType.class.getDeclaredField("_id");
-            sensorTypeIDField.setAccessible(true);
-            sensorTypeIDField.set(sensorType1, sensorTypeID1);
-            sensorTypeIDField.set(sensorType2, sensorTypeID2);
+        Field sensorTypeIDField = SensorType.class.getDeclaredField("_id");
+        sensorTypeIDField.setAccessible(true);
+        sensorTypeIDField.set(sensorType1, sensorTypeID1);
+        sensorTypeIDField.set(sensorType2, sensorTypeID2);
 
-            // Act
-            boolean result = sensorType1.equals(sensorType2);
+        // Act
+        boolean result = sensorType1.equals(sensorType2);
 
-            // Assert
-            assertFalse(result);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        // Assert
+        assertFalse(result);
     }
 
     @Test
