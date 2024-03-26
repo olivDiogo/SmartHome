@@ -16,7 +16,7 @@ public class SensorModel implements AggregateRoot<SensorModelID> {
     public SensorModel(SensorModelName sensorModelName, ModelPath modelPath) {
         validateSensorModelName(sensorModelName);
         validateModelPath(modelPath);
-        _sensorModelID = new SensorModelID(UUID.randomUUID().toString());
+        _sensorModelID = new SensorModelID(""+_modelPath.toString().hashCode());
     }
     private void validateSensorModelName(SensorModelName sensorModelName) {
         if (sensorModelName == null) {

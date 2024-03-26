@@ -51,7 +51,7 @@ class SensorModelTest {
         assertTrue(result);
     }
     @Test
-    void shouldReturnFalse_WhenGivenDifferentObject() {
+    void shouldReturnTrue_WhenGivenDifferentObjectWithSamePath() {
         //Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -60,7 +60,7 @@ class SensorModelTest {
         //Act
         boolean result = sensorModel.equals(sensorModel2);
         //Assert
-        assertFalse(result);
+        assertTrue(result);
     }
     @Test
     void shouldReturnFalse_WhenGivenNull() {
