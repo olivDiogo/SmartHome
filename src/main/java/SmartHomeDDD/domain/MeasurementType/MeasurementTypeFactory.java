@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.MeasurementType;
 
-import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
-import SmartHomeDDD.ValueObject.MeasurementTypeUnit;
+import SmartHomeDDD.valueObject.MeasurementTypeDescription;
+import SmartHomeDDD.valueObject.MeasurementTypeUnit;
 
 public interface MeasurementTypeFactory {
 

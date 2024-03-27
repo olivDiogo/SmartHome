@@ -33,6 +33,7 @@ autonumber
         Assembler -> DTO: DeviceDTO(device)
         activate DTO
         DTO --> Assembler: deviceDTO
+        Assembler -> Assembler: addToList(deviceDTO)
         deactivate DTO
     end
     Assembler --> Controller: deviceDTOList

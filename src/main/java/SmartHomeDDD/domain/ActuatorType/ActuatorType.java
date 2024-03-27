@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.ActuatorType;
 
-import SmartHomeDDD.ValueObject.ActuatorTypeID;
-import SmartHomeDDD.ValueObject.TypeDescription;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
+import SmartHomeDDD.valueObject.TypeDescription;
 import SmartHomeDDD.ddd.AggregateRoot;
 
 import java.util.UUID;
@@ -50,6 +50,15 @@ public class ActuatorType implements AggregateRoot<ActuatorTypeID> {
     @Override
     public ActuatorTypeID getID() {
         return _actuatorTypeID;
+    }
+
+    /**
+     * Gets the actuator type name.
+     *
+     * @return the actuator type name
+     */
+    public TypeDescription getActuatorTypeName() {
+        return _actuatorTypeName;
     }
 
     /**

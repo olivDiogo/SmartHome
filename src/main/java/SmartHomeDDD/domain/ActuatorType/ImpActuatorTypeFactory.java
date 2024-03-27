@@ -1,6 +1,6 @@
 package SmartHomeDDD.domain.ActuatorType;
 
-import SmartHomeDDD.ValueObject.TypeDescription;
+import SmartHomeDDD.valueObject.TypeDescription;
 
 public class ImpActuatorTypeFactory implements ActuatorTypeFactory{
 

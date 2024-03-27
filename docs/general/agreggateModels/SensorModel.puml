@@ -6,6 +6,7 @@ package SmartHome.SensorModel{
     class SensorModel <<Entity>> <<Root>>{
     - _id : SensorModelId
     - _filePathName : FilePathName
+    - _sensorModelName : SensorModelName
     }
 }
 
@@ -18,11 +19,14 @@ package SmartHome.ValueObject {
      class FilePathName <<ValueObject>>{
         - _filePathName : String
      }
+     class SensorModelName <<ValueObject>>{
+        - _sensorModelName : String
+     }
 }
 
 SmartHome.SensorModel.SensorModel "1" -- "1" SmartHome.ValueObject.SensorModelId : has
 SmartHome.SensorModel.SensorModel "1" -- "1" SmartHome.ValueObject.FilePathName : has
-
+SmartHome.SensorModel.SensorModel "1" -- "1" SmartHome.ValueObject.SensorModelName : has
 
 
 @enduml

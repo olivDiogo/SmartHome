@@ -1,13 +1,12 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.MeasurementTypeDTO;
-import SmartHomeDDD.ValueObject.MeasurementID;
-import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
+import SmartHomeDDD.valueObject.MeasurementID;
+import SmartHomeDDD.valueObject.MeasurementTypeDescription;
 import SmartHomeDDD.domain.MeasurementType.MeasurementType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;

@@ -6,6 +6,7 @@ package SmartHome.ActuatorModel{
     class ActuatorModel <<Entity>> <<Root>>{
     - _id : ActuatorModelId
     - _filePathName : FilePathName
+    - _actuatorModel : ActuatorModel
     }
 }
 
@@ -18,11 +19,14 @@ package SmartHome.ValueObject {
      class FilePathName <<ValueObject>>{
         - _filePathName : String
      }
+     class ActuatorModel <<ValueObject>>{
+        - _actuatorModel : String
+     }
 }
 
 SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ActuatorModelId : has
 SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.FilePathName : has
-
+SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ActuatorModel : has
 
 
 @enduml

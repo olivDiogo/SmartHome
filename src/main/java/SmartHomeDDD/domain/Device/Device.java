@@ -1,9 +1,9 @@
 package SmartHomeDDD.domain.Device;
 
-import SmartHomeDDD.ValueObject.DeviceID;
-import SmartHomeDDD.ValueObject.DeviceName;
-import SmartHomeDDD.ValueObject.DeviceStatus;
-import SmartHomeDDD.ValueObject.RoomID;
+import SmartHomeDDD.valueObject.DeviceID;
+import SmartHomeDDD.valueObject.DeviceName;
+import SmartHomeDDD.valueObject.DeviceStatus;
+import SmartHomeDDD.valueObject.RoomID;
 import SmartHomeDDD.ddd.AggregateRoot;
 
 import java.util.UUID;
@@ -155,5 +155,10 @@ public class Device implements AggregateRoot<DeviceID> {
                 ", _deviceName=" + _deviceName +
                 ", _deviceStatus=" + _deviceStatus +
                 '}';
+    }
+
+    public DeviceStatus deactivateDevice() {
+        _deviceStatus = new DeviceStatus(false);
+        return _deviceStatus;
     }
 }

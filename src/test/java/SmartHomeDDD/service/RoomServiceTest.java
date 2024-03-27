@@ -1,6 +1,6 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.ValueObject.*;
+import SmartHomeDDD.valueObject.*;
 import SmartHomeDDD.assembler.RoomAssembler;
 import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.domain.Room.Room;

@@ -1,10 +1,9 @@
 package SmartHomeDDD.domain.House;
 
-import SmartHomeDDD.ValueObject.Address;
-import SmartHomeDDD.ValueObject.GPS;
-import SmartHomeDDD.ValueObject.HouseID;
-import SmartHomeDDD.ValueObject.ZipCode;
-import SmartHomeDDD.domain.House.House;
+import SmartHomeDDD.valueObject.Address;
+import SmartHomeDDD.valueObject.GPS;
+import SmartHomeDDD.valueObject.HouseID;
+import SmartHomeDDD.valueObject.ZipCode;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 

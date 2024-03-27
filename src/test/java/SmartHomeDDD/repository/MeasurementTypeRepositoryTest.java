@@ -1,10 +1,7 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.ValueObject.MeasurementTypeDescription;
-import SmartHomeDDD.ValueObject.SensorTypeID;
 import SmartHomeDDD.domain.MeasurementType.MeasurementType;
-import SmartHomeDDD.ValueObject.MeasurementID;
-import SmartHomeDDD.domain.SensorType.SensorType;
+import SmartHomeDDD.valueObject.MeasurementID;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

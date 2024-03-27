@@ -1,7 +1,7 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.ActuatorTypeDTO;
-import SmartHomeDDD.ValueObject.ActuatorTypeID;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.ddd.Assembler;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
 

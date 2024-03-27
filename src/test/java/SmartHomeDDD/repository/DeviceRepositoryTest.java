@@ -1,6 +1,7 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.ValueObject.DeviceID;
+import SmartHomeDDD.valueObject.DeviceID;
+import SmartHomeDDD.valueObject.RoomID;
 import SmartHomeDDD.domain.Device.Device;
 import org.junit.jupiter.api.Test;
 
@@ -181,6 +182,44 @@ class DeviceRepositoryTest {
         boolean containsDevice = DeviceRepository.containsOfIdentity(nonExistentDeviceID);
         //Assert
         assertFalse(containsDevice);
+    }
+
+    /**
+     * Test the findByRoomId method of the DeviceRepository class with a valid RoomID.
+     */
+    @Test
+    void shouldReturnDeviceList_WhenGivenValidRoomID () {
+        //Arrange
+        DeviceRepository deviceRepository = new DeviceRepository();
+
+        Device device = mock(Device.class);
+        DeviceID deviceID = mock(DeviceID.class);
+        when(device.getID()).thenReturn(deviceID);
+
+        Device device2 = mock(Device.class);
+        DeviceID deviceID2 = mock(DeviceID.class);
+        when(device2.getID()).thenReturn(deviceID2);
+
+        Device device3 = mock(Device.class);
+        DeviceID deviceID3 = mock(DeviceID.class);
+        when(device3.getID()).thenReturn(deviceID3);
+
+        RoomID roomID = mock(RoomID.class);
+        when(device.getRoomID()).thenReturn(roomID);
+        when(device2.getRoomID()).thenReturn(roomID);
+        when(device3.getRoomID()).thenReturn(roomID);
+
+        deviceRepository.save(device);
+        deviceRepository.save(device2);
+        deviceRepository.save(device3);
+
+        List<Device> expectedDeviceList = List.of(device, device2, device3);
+
+        //Act
+        List<Device> returnedDeviceList = deviceRepository.findByRoomId(roomID);
+
+        //Assert
+        assertEquals(expectedDeviceList, returnedDeviceList);
     }
 
 

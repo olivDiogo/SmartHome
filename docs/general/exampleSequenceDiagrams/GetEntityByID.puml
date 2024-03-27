@@ -1,40 +1,43 @@
 @startuml
 participant "  " as User
 participant ":ControlerX" as Controller
-participant ":ServiceX" as Service
 participant "entityID:ValueObjectID" as ValueObject
+
+participant ":ServiceX" as Service
 participant ":RepositoryX" as Repository
 participant ":AssemblerX" as Assembler
 participant "entityDTO:XDTO" as DTO
 
 
-User -> Controller: 1: getEntityByID(String id): EntityDTO
+User -> Controller: 1: getEntityByID(DTO data): EntityDTO
 activate Controller
-Controller -> Service: 1.1: getEntity(String id): EntityDTO
-activate Service
+
 create ValueObject
 
-Service -> ValueObject: 1.1.1: createValueObject(id)
+Controller -> ValueObject: 1.1: createValueObject(id)
 activate ValueObject
-ValueObject --> Service: entityID
+ValueObject --> Controller: entityID
 deactivate ValueObject
-Service -> Repository: 1.1.2: getEntity(entityID)
+Controller -> Service: 1.2: getEntity(String id): EntityDTO
+activate Service
+Service -> Repository: 1.2.1: getEntity(entityID)
 activate Repository
 Repository --> Service: entity
 deactivate Repository
-Service -> Assembler: 1.1.3: domainToDTO(entity)
+Service --> Controller: entity
+deactivate Service
+
+Controller -> Assembler: 1.3: domainToDTO(entity)
 activate Assembler
 create DTO
 
-Assembler -> DTO: 1.1.3.1: domainToDTO(entity): entityDTO
+Assembler -> DTO: 1.3.1: domainToDTO(entity): entityDTO
 activate DTO
 DTO --> Assembler: entityDTO
 deactivate DTO
 
-Assembler --> Service: entityDTO
+Assembler --> Controller: entityDTO
 deactivate Assembler
-Service --> Controller: entityDTO
-deactivate Service
 Controller --> User: entityDTO
 deactivate Controller
 

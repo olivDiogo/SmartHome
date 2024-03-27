@@ -1,7 +1,7 @@
 package SmartHomeDDD.repository;
 
 import SmartHomeDDD.ddd.Repository;
-import SmartHomeDDD.ValueObject.RoomID;
+import SmartHomeDDD.valueObject.RoomID;
 import SmartHomeDDD.domain.Room.Room;
 
 import java.util.Map;

@@ -1,6 +1,7 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.ValueObject.DeviceID;
+import SmartHomeDDD.valueObject.DeviceID;
+import SmartHomeDDD.valueObject.RoomID;
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.Device.Device;
 
@@ -62,5 +63,15 @@ public class DeviceRepository implements Repository<DeviceID, Device> {
     @Override
     public boolean containsOfIdentity(DeviceID deviceID) {
         return _deviceData.containsKey(deviceID);
+    }
+
+    /**
+     * Method to find all devices in a room.
+     * @param roomId is the unique identifier of the room.
+     * @return a list of devices in the room.
+     */
+    public List<Device> findByRoomId(RoomID roomId) {
+        List<Device> devices = _deviceData.values().stream().filter(device -> device.getRoomID().equals(roomId)).toList();
+        return devices;
     }
 }

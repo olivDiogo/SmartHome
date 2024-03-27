@@ -1,8 +1,8 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.ValueObject.ActuatorTypeID;
-import SmartHomeDDD.ValueObject.TypeDescription;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
+import SmartHomeDDD.valueObject.TypeDescription;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -197,6 +197,48 @@ class ActuatorTypeRepositoryTest {
 
         //Assert
         assertFalse(containsActuatorType);
+    }
+
+    /**
+     * Test the existsOfName method with a valid ActuatorTypeName.
+     */
+    @Test
+    public void shouldReturnTrue_whenGivenValidActuatorTypeName() {
+        //Arrange
+        ActuatorType actuatorType = mock(ActuatorType.class);
+
+        TypeDescription actuatorTypeNameMock = mock(TypeDescription.class);
+        when(actuatorType.getActuatorTypeName()).thenReturn(actuatorTypeNameMock);
+
+        ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
+        actuatorTypeRepository.save(actuatorType);
+
+        //Act
+        boolean actuatorTypeExists = actuatorTypeRepository.existsOfName(actuatorTypeNameMock);
+
+        //Assert
+        assertTrue(actuatorTypeExists);
+    }
+
+    /**
+     * Test the existsOfName method with a null ActuatorTypeName.
+     */
+    @Test
+    public void shouldReturnFalse_whenGivenNullActuatorTypeName() {
+        //Arrange
+        ActuatorType actuatorType = mock(ActuatorType.class);
+
+        TypeDescription actuatorTypeNameMock = mock(TypeDescription.class);
+        when(actuatorType.getActuatorTypeName()).thenReturn(actuatorTypeNameMock);
+
+        ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
+        actuatorTypeRepository.save(actuatorType);
+
+        //Act
+        boolean actuatorTypeExists = actuatorTypeRepository.existsOfName(null);
+
+        //Assert
+        assertFalse(actuatorTypeExists);
     }
 
 

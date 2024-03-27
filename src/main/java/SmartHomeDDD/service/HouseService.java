@@ -1,14 +1,11 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.ValueObject.Address;
-import SmartHomeDDD.ValueObject.GPS;
-import SmartHomeDDD.ValueObject.ZipCode;
+import SmartHomeDDD.valueObject.Address;
+import SmartHomeDDD.valueObject.GPS;
+import SmartHomeDDD.valueObject.ZipCode;
 import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.domain.House.HouseFactory;
 import SmartHomeDDD.repository.HouseRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HouseService {
 

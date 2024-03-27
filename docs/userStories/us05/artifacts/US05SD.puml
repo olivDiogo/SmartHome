@@ -10,6 +10,9 @@ participant ":RoomRepository" as RoomRepo
 
 participant "roomAssembler:RoomAssembler" as RoomAssembler
 participant "roomDTO:RoomDTO" as RoomDTO
+participant "roomID:RoomID" as RoomID
+participant "deviceName:DeviceName" as DeviceName
+participant "deviceStatus:DeviceStatus" as DeviceStatus
 participant "deviceAssembler:DeviceAssembler" as DeviceAssembler
 participant "deviceDTO:DeviceDTO" as DeviceDTO
 participant "device:Device" as Device
@@ -33,14 +36,14 @@ RoomService -> RoomRepo: findAll()
 
 activate RoomRepo
 
-RoomRepo --> RoomService: listRooms
+RoomRepo --> RoomService: listOfRooms
 
 deactivate RoomRepo
 
-RoomService --> Controller: listRooms
+RoomService --> Controller: listOfRooms
 deactivate RoomService
 
-Controller -> RoomAssembler : roomToDTO(roomList)
+Controller -> RoomAssembler : domainToDTO(listOfRooms)
 
 activate RoomAssembler
 
@@ -48,7 +51,7 @@ loop for each room
 
     create RoomDTO
 
-    RoomAssembler -> RoomDTO: createRoomDTO (room)
+    RoomAssembler -> RoomDTO: roomDTO (room)
 
      activate RoomDTO
 
@@ -59,25 +62,48 @@ loop for each room
      RoomAssembler -> RoomAssembler: addRoomDTOToList(roomDTO)
 
 end
-RoomAssembler --> Controller: listRoomDTO
+RoomAssembler --> Controller: roomDTOList
 
 deactivate RoomAssembler
 
-Controller --> User : listRoomDTO
+Controller --> User : roomDTOList
 deactivate Controller
 
 
-User o-> Controller : addDeviceToRoom(strRoomID, strDeviceName)
+User o-> Controller : addDeviceToRoom(deviceDataDTO)
 activate Controller
 
-Controller -> DeviceService : addDevice(strRoomID, strDeviceName)
+
+
+create RoomID
+Controller -> RoomID : RoomID(strRoomID)
+activate RoomID
+
+RoomID --> Controller : roomID
+deactivate RoomID
+
+create DeviceName
+Controller -> DeviceName : DeviceName(strDeviceName)
+activate DeviceName
+
+DeviceName --> Controller : deviceName
+deactivate DeviceName
+
+create DeviceStatus
+Controller -> DeviceStatus : DeviceStatus(boolean)
+activate DeviceStatus
+
+DeviceStatus --> Controller : deviceStatus
+deactivate DeviceStatus
+
+Controller -> DeviceService : addDevice(roomID,deviceName,deviceStatus)
 activate DeviceService
 
-DeviceService -> Factory : createDevice(roomID,deviceName)
+DeviceService -> Factory : createDevice(roomID,deviceName,deviceStatus)
 activate Factory
 
 create Device
-Factory -> Device : create(roomID,deviceName)
+Factory -> Device : device(roomID,deviceName,deviceStatus)
 
 activate Device
 Device --> Factory : device
@@ -87,19 +113,20 @@ Factory --> DeviceService : device
 
 deactivate Factory
 DeviceService -> Repository : save(device)
-deactivate DeviceService
 
 activate Repository
 
-Repository --> Controller: device
+Repository --> DeviceService: device
 deactivate Repository
 
+DeviceService --> Controller : device
+deactivate DeviceService
 
 Controller -> DeviceAssembler : domain2DTO(device)
 create DeviceDTO
 
 activate DeviceAssembler
-DeviceAssembler -> DeviceDTO : createDeviceDTO(device)
+DeviceAssembler -> DeviceDTO : deviceDTO(device)
 
 activate DeviceDTO
 DeviceDTO --> DeviceAssembler : deviceDTO

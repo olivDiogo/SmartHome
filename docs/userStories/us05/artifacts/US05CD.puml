@@ -2,38 +2,39 @@
 !pragma layout smetana
 
 class Device {
-  - _id: deviceID
-  - _name: DeviceName
+  - _deviceId: DeviceID
+  - _deviceName: DeviceName
   - _roomID: RoomID
-  + Device(name: DeviceName, houseID: HouseID)
-  + getId(): string
-  + getDescription(): Description
+  - _deviceStatus: DeviceStatus
+  + Device(deviceId: DeviceID, deviceName: DeviceName, roomID: RoomID)
+  + getId(): String
+  + getDeviceName(): String
   + getRoomID(): RoomID
+  + getDeviceStatus(): DeviceStatus
+
   }
 
 class DeviceFactory {
-  + createNewDevice(id: DeviceID, name: DeviceName, roomID: RoomID): Device
+  + createDevice( roomID: RoomID, deviceName: DeviceName, deviceStatus DeviceStatus): Device
   }
 
 class DeviceRepository {
-  - _map<ID, Device> device
-  + addDeviceToRepository(device: Device): Device
+  - _map<DeviceID, Device> device
+  + save(device: Device): Device
   }
 class DeviceService {
   - _deviceRepository: DeviceRepository
   - _deviceFactory: DeviceFactory
-  - _deviceAssembler: DeviceAssembler
   - _roomRepository: RoomRepository
-    + DeviceService(roomRepository: RoomRepository, deviceRepository: DeviceRepository, deviceFactory: DeviceFactory, deviceAssembler: DeviceAssembler)
-  + addDevice(strDeviceName: String, strRoomId: String): DeviceDTO
+    + DeviceService(roomRepository: RoomRepository, deviceRepository: DeviceRepository, deviceFactory: DeviceFactory)
+  + addDevice(roomID: RoomID, deviceName: DeviceName, deviceStatus: DeviceStatus): Device
   }
 
  class RoomService{
   - _roomRepository: RoomRepository
-  - _roomAssembler: RoomAssembler
   - _roomFactory: RoomFactory
   - _houseRepository: HouseRepository
-  + RoomService(houseRepository: HouseRepository, roomRepository: RoomRepository, roomAssembler: RoomAssembler, roomFactory: RoomFactory)
+  + RoomService(houseRepository: HouseRepository, roomRepository: RoomRepository, roomFactory: RoomFactory)
   + getRooms() : List<Room>
   }
 
@@ -44,29 +45,57 @@ class RoomRepository {
 
 class RoomAssembler {
     +RoomAssembler()
-    +roomToDTO(rooms: List<Room>): List<RoomDTO>
-}
+    +domainToDTO(rooms: List<Room>): List<RoomDTO>
+
+
+class RoomID {
+  - _id: String
+  + RoomID(roomID: String)
+  }
+
+class DeviceName {
+  - _name: String
+  + DeviceName(deviceName: String)
+  }
+
+class DeviceStatus {
+  - _status: boolean
+  + DeviceStatus(deviceStatus: boolean)
+  }
+
+class RoomID {
+  - _id: String
+  + RoomID(roomID: String)
+  }
 
 class RoomDTO {
-    + id: string
-    + name: string
-    + RoomDTO(room: Room)
+    + roomId: String
+    + roomName: String
+    + floor: String
+    + dimension: String
+    + RoomDTO(roomId: String, roomName: String, floor: String, dimension: String)
 }
 
 class AddDeviceToRoomController {
   - _deviceService: DeviceService
+  - _roomAssembler: RoomAssembler
   - _roomService: RoomService
-  + AddDeviceToRoomController(roomService: RoomService, deviceService: DeviceService)
-  + addDeviceToRoom(roomID: String, deviceName: String): DeviceDTO
+  - _deviceAssembler: DeviceAssembler
+  + AddDeviceToRoomController(roomService: RoomService, deviceService: DeviceService,
+   roomAssembler: RoomAssembler, deviceAssembler: DeviceAssembler)
+
+  + addDeviceToRoom(deviceID: String, deviceName: String, roomID: String, deviceStatus: String): DeviceDTO
   + getAllRooms(): List<RoomDTO>
   }
 class DeviceDTO {
-+ id: string
-+ description: string
-+ DeviceDTO(device: Device)
++ deviceID: String
++ deviceName: String
++ roomID: String
++ deviceStatus : String
++ DeviceDTO(deviceID: String, deviceName: String, roomID: String, deviceStatus: String)
 }
 class DeviceAssembler{
-  + domain2DTO(device: Device): DeviceDTO
+  + domainToDTO(domainEntity: Device): DeviceDTO
   }
 
 
@@ -81,6 +110,10 @@ AddDeviceToRoomController "1".right.>"1" RoomService: uses
 DeviceAssembler "1".up.> "*" DeviceDTO: creates
 AddDeviceToRoomController "1".down.>"1" RoomAssembler: uses
 RoomAssembler "1".down.>"*" RoomDTO: creates
+AddDeviceToRoomController "1".up.>"1" RoomID: creates
+AddDeviceToRoomController "1".up.>"1" DeviceName: creates
+AddDeviceToRoomController "1".up.>"1" DeviceStatus: creates
+
 
 
 @enduml

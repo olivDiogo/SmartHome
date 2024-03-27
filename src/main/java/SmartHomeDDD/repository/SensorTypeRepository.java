@@ -1,8 +1,7 @@
 package SmartHomeDDD.repository;
 
 
-import SmartHomeDDD.ValueObject.SensorTypeID;
-import SmartHomeDDD.ValueObject.TypeDescription;
+import SmartHomeDDD.valueObject.SensorTypeID;
 import SmartHomeDDD.ddd.Repository;
 
 import SmartHomeDDD.domain.SensorType.SensorType;

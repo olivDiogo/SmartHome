@@ -1,8 +1,10 @@
 package SmartHomeDDD.domain.Device;
 
-import SmartHomeDDD.ValueObject.*;
+import SmartHomeDDD.valueObject.*;
 import org.junit.Test;
 import org.mockito.MockedConstruction;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -271,5 +273,25 @@ public class DeviceTest {
         assertEquals(expectedString, result);
     }
 
+    /**
+     * Test that the deactivateDevice method returns the expected DeviceStatus.
+     */
+    @Test
+    public void shouldReturnDeactivatedDeviceStatus_WhenDeactivateDeviceIsCalled() {
+        //Arrange
+        RoomID roomID = mock(RoomID.class);
+        DeviceName deviceName = mock(DeviceName.class);
+        DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        Device device = new Device(roomID, deviceName, deviceStatus);
 
+        try (MockedConstruction<DeviceStatus> mocked = mockConstruction(DeviceStatus.class, (mock, context) ->
+                when(mock.toString()).thenReturn("OFF"))) {
+            //Act
+            DeviceStatus result = device.deactivateDevice();
+            //Assert
+            List<DeviceStatus> results = mocked.constructed();
+            assertTrue(results.size() == 1);
+            assertTrue(results.contains(result));
+        }
+    }
 }

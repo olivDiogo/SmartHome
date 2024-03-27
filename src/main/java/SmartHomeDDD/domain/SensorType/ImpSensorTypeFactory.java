@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.SensorType;
 
-import SmartHomeDDD.ValueObject.TypeDescription;
-import SmartHomeDDD.ValueObject.MeasurementID;
+import SmartHomeDDD.valueObject.TypeDescription;
+import SmartHomeDDD.valueObject.MeasurementID;
 
 /**
  * Implementation of the {@link SensorTypeFactory} interface, responsible for creating

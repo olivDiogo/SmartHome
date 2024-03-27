@@ -1,59 +1,97 @@
 @startuml
 !pragma layout smetana
-autonumber
 
 actor "  " as User
 participant ":AddSensorTypeController" as Controller
 participant ":SensorTypeService" as Service
-participant ":Unit" as Unit
+participant ":MeasurementTypeRepo" as Unit
+participant ":MeasurementTypeAssembler" as MeasurementTypeAssembler
+
+participant ":MeasurementTypeDTO" as MeasurementTypeDTO
+participant ":SensorTypeAssembler" as SensorTypeAssembler
+participant ":MeasurementTypeID" as MeasurementTypeID
+participant ":Description" as Description
 participant ":SensorTypeFactory" as Factory
 participant "sensorType:SensorType" as Type
 participant ":SensorTypeRepository" as Repository
-participant ":SensorTypeAssembler" as Assembler
-participant "sensorTypeDTO:SensorTypeDTO" as DTO
+participant ":SensorTypeDTO" as SensorTypeDTO
 
-User o-> Controller: createSensorType()
+User o-> Controller: 1: getSupportedMeasurementTypes()
 activate Controller
-Controller -> Service: getAllSupportedUnits()
+Controller -> Service: 1.1: getAllSupportedUnits()
 activate Service
-Service -> Unit: getAll()
+Service -> Unit: 1.1.1: getAllMeasurementTypes()
 activate Unit
-Unit --> Service: units
+Unit --> Service: listMeasurementTypes
 deactivate Unit
-Service --> Controller: units
+Service --> Controller: listMeasurementTypes
 deactivate Service
-Controller --> User: units
+Controller -> MeasurementTypeAssembler: 1.2: domainToDTO(listMeasurementTypes)
+activate MeasurementTypeAssembler
+loop
+create MeasurementTypeDTO
+  MeasurementTypeAssembler -> MeasurementTypeDTO: 1.2.1: createMeasurementTypeDTO(measurementType)
+  activate MeasurementTypeDTO
+  MeasurementTypeDTO --> MeasurementTypeAssembler: measurementTypeDTO
+  MeasurementTypeAssembler -> MeasurementTypeAssembler: 1.2.2: addMeasurementTypeDTO(measurementTypeDTO)
+  deactivate MeasurementTypeDTO
+end loop
+MeasurementTypeAssembler --> Controller: listMeasurementTypesDTO
+  deactivate MeasurementTypeAssembler
+
+
+Controller --> User: listMeasurementTypesDTO
 deactivate Controller
-User o-> Controller: createSensorType(String name, String units)
+
+User o-> Controller: 2: createSensorType(dataSensorTypeDTO data)
+
 
 '------------------------------------------------------------------'
 activate Controller
-Controller -> Service: createSensorType(String name, String units)
+Controller -> SensorTypeAssembler: 2.1: dtoToDomain(strMeasurementTypeID)
+activate SensorTypeAssembler
+create MeasurementTypeID
+SensorTypeAssembler -> MeasurementTypeID: 2.1.1. createMeasurementTypeID(strMeasurementTypeID)
+activate MeasurementTypeID
+MeasurementTypeID --> SensorTypeAssembler: measurementTypeID
+deactivate MeasurementTypeID
+SensorTypeAssembler --> Controller: measurementTypeID
+Controller -> SensorTypeAssembler: 2.2: dtoToDomain(strDescription)
+create Description
+SensorTypeAssembler -> Description: 2.2.1: createDescription(strDescription)
+activate Description
+Description --> SensorTypeAssembler: description
+deactivate Description
+SensorTypeAssembler --> Controller: description
+deactivate SensorTypeAssembler
+
+Controller -> Service: 2.3: createSensorType(description, measurementTypeID)
 activate Service
-Service -> Factory: addSensorType(String name, Unit unit)
+Service -> Factory: 2.3.1: addSensorType(description, measurementTypeID)
 activate Factory
 create Type
-Factory -> Type: createSensorType(String name, Unit unit)
+Factory -> Type: 2.3.1.1: createSensorType(description, measurementTypeID)
 activate Type
 Type --> Factory: sensorType
 deactivate Type
 Factory --> Service: sensorType
 deactivate Factory
-Service -> Repository: save(sensorType)
+Service -> Repository: 2.3.2: save(sensorType)
 activate Repository
-Repository -> Service: sensorType
+Repository --> Service: sensorType
 deactivate Repository
-Service -> Assembler: domainToDTO(sensorType)
-activate Assembler
-create DTO
-Assembler -> DTO: domainToDTO(sensorType)
-activate DTO
-DTO --> Assembler: sensorTypeDTO
-deactivate DTO
-Assembler --> Service: sensorTypeDTO
-deactivate Assembler
-Service --> Controller: sensorTypeDTO
+Service --> Controller: sensorType
 deactivate Service
+
+Controller --> SensorTypeAssembler: 2.4: domainToDTO(sensorType)
+activate SensorTypeAssembler
+create SensorTypeDTO
+SensorTypeAssembler -> SensorTypeDTO: 2.4.1: createSensorTypeDTO(sensorType)
+activate SensorTypeDTO
+SensorTypeDTO --> SensorTypeAssembler: sensorTypeDTO
+deactivate SensorTypeDTO
+SensorTypeAssembler --> Controller: sensorTypeDTO
+deactivate SensorTypeAssembler
 Controller --> User: sensorTypeDTO
 deactivate Controller
 

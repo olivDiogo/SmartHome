@@ -1,6 +1,6 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.ValueObject.MeasurementID;
+import SmartHomeDDD.valueObject.MeasurementID;
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.MeasurementType.MeasurementType;
 
