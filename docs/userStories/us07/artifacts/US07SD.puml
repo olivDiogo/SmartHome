@@ -26,6 +26,9 @@ participant ":DeviceAssembler" as DeviceAssembler
 
 participant "roomID:RoomID" as RoomID
 
+
+participant "deviceID:DeviceID" as DeviceID
+
 participant "deviceDTO:DeviceDTO" as DeviceDTO
 end box
 
@@ -36,6 +39,8 @@ participant "SensorModelRepository" as SensorModelRepository
 
 participant ":SensorModelAssembler" as SensorModelAssembler
 
+participant "sensorModelID:SensorModelID" as sensorModelID
+
 participant "sensorModelDTO:SensorModelDTO" as SensorModelDTO
 end box
 
@@ -44,7 +49,8 @@ participant ":SensorAssembler" as SensorAssembler
 
 participant "sensorDTO:SensorDTO" as SensorDTO
 
-participant "deviceID:DeviceID & sensorModelID:SensorModelID" as DeviceID
+
+
 
 participant ":SensorService" as sensorService
 
@@ -208,27 +214,29 @@ deactivate AddSensorToDevice_Controller
 
 '----------------------------------------------------'
 
-User o-> AddSensorToDevice_Controller: addSensorToDevice(DataDTO)
+User o-> AddSensorToDevice_Controller: addSensorToDevice(SensorDataDTO)
 
 activate AddSensorToDevice_Controller
 
-AddSensorToDevice_Controller -> SensorAssembler: dtoToDomain(DataDTO)
-
-activate SensorAssembler
-
 create DeviceID
 
-SensorAssembler -> DeviceID: createDeviceID(DataDTO)
+AddSensorToDevice_Controller -> DeviceID: createDeviceID(DataDTO)
 
 activate DeviceID
 
-DeviceID --> SensorAssembler: deviceID, sensorModelID
+DeviceID --> AddSensorToDevice_Controller: deviceID
 
 deactivate DeviceID
 
-SensorAssembler --> AddSensorToDevice_Controller: deviceID, sensorModelID
+create sensorModelID
 
-deactivate SensorAssembler
+AddSensorToDevice_Controller -> sensorModelID: createDeviceID(DataDTO)
+
+activate sensorModelID
+
+sensorModelID --> AddSensorToDevice_Controller: sensorModelID
+
+deactivate sensorModelID
 
 AddSensorToDevice_Controller -> sensorService: createSensor(sensorModelID, deviceID)
 
