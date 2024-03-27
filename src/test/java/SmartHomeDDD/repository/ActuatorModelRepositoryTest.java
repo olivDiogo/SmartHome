@@ -1,0 +1,142 @@
+package SmartHomeDDD.repository;
+
+import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
+import SmartHomeDDD.valueObject.ActuatorModelID;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+public class ActuatorModelRepositoryTest {
+
+    @Test
+    public void shouldAddActuatorModelToRepositoryWhenGivenValidActuatorModel() {
+        //Arrange
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        ActuatorModel actuatorModel = mock(ActuatorModel.class);
+        //Act
+        ActuatorModel actualActuatorModel = actuatorModelRepository.save(actuatorModel);
+        //Assert
+        assertEquals(actuatorModel, actualActuatorModel);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenGivenNullActuatorModel() {
+        //Arrange
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        ActuatorModel actuatorModel = null;
+        String expectedMessage = "ActuatorModel cannot be null.";
+        //Act
+        IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> actuatorModelRepository.save(actuatorModel));
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenActuatorModelAlreadyExists() {
+        //Arrange
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        ActuatorModel actuatorModel = mock(ActuatorModel.class);
+        actuatorModelRepository.save(actuatorModel);
+        String expectedMessage = "ActuatorModel already exists.";
+        //Act
+        IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> actuatorModelRepository.save(actuatorModel));
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    public void shouldReturnListActuatorModels_WhenGetAllActuatorModelsIsCalled() {
+        //Arrange
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        ActuatorModel actuatorModel = mock(ActuatorModel.class);
+        ActuatorModel secondActuatorModel = mock(ActuatorModel.class);
+
+        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
+        when(actuatorModel.getID()).thenReturn(actuatorModelID);
+
+        actuatorModelRepository.save(actuatorModel);
+        actuatorModelRepository.save(secondActuatorModel);
+
+        List<ActuatorModel> expectedActuatorModels = List.of(actuatorModel, secondActuatorModel);
+        //Act
+        List<ActuatorModel> actuatorModels = actuatorModelRepository.findAll();
+        //Assert
+        Assertions.assertEquals(expectedActuatorModels, actuatorModels);
+    }
+
+    @Test
+    public void shouldReturnEmptyListWhenNoActuatorModelsAreAdded() {
+        //Arrange
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        //Act
+        List<ActuatorModel> actuatorModels = actuatorModelRepository.findAll();
+        //Assert
+        assertTrue(actuatorModels.isEmpty());
+    }
+
+    @Test
+   public void shouldReturnActuatorModelWhenGivenValidActuatorModelID() {
+        //Arrange
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        ActuatorModel actuatorModel = mock(ActuatorModel.class);
+        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
+        when(actuatorModel.getID()).thenReturn(actuatorModelID);
+
+        actuatorModelRepository.save(actuatorModel);
+        //Act
+        ActuatorModel actualActuatorModel = actuatorModelRepository.ofIdentity(actuatorModelID).get();
+        //Assert
+        Assertions.assertEquals(actuatorModel, actualActuatorModel);
+    }
+
+    @Test
+   public void shouldReturnOptionalEmptyWhenGivenInvalidSensorModelID() {
+        //Arrange
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        ActuatorModel actuatorModel = mock(ActuatorModel.class);
+        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
+        ActuatorModelID invalidActuatorModelID = mock(ActuatorModelID.class);
+        when(actuatorModel.getID()).thenReturn(actuatorModelID);
+
+        actuatorModelRepository.save(actuatorModel);
+        //Act
+        boolean result = actuatorModelRepository.ofIdentity(invalidActuatorModelID).isEmpty();
+        //Assert
+        assertTrue(result);
+    }
+    @Test
+    public void shouldReturnTrueWhenGivenValidSensorModelID() {
+        //Arrange
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        ActuatorModel actuatorModel = mock(ActuatorModel.class);
+        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
+        when(actuatorModel.getID()).thenReturn(actuatorModelID);
+
+        actuatorModelRepository.save(actuatorModel);
+        //Act
+        boolean result = actuatorModelRepository.containsOfIdentity(actuatorModelID);
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    public void shouldReturnFalseWhenGivenInvalidSensorModelID() {
+        //Arrange
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        ActuatorModel actuatorModel = mock(ActuatorModel.class);
+        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
+        ActuatorModelID invalidActuatorModelID = mock(ActuatorModelID.class);
+        when(actuatorModel.getID()).thenReturn(actuatorModelID);
+
+        actuatorModelRepository.save(actuatorModel);
+        //Act
+        boolean result = actuatorModelRepository.containsOfIdentity(invalidActuatorModelID);
+        //Assert
+        assertFalse(result);
+    }
+}
