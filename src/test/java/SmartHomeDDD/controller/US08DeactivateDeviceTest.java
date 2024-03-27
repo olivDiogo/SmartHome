@@ -76,7 +76,8 @@ class US08DeactivateDeviceTest {
         // Add a device
         DeviceName deviceName = new DeviceName("Lightbulb");
         DeviceStatus deviceStatus = new DeviceStatus(false);
-        Device device = deviceService.addDevice(room.getID(), deviceName, deviceStatus);
+        DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+        Device device = deviceService.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
 
         // Act
         List<DeviceDTO> devices = us08DeactivateDevice.requestAllDevices();
@@ -184,7 +185,8 @@ class US08DeactivateDeviceTest {
         // Add a device
         DeviceName deviceName = new DeviceName("Lightbulb");
         DeviceStatus deviceStatus = new DeviceStatus(false);
-        Device device = deviceService.addDevice(room.getID(), deviceName, deviceStatus);
+        DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+        Device device = deviceService.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
 
         DeviceDTO deviceDTO = new DeviceDTO(device.getID().toString(), room.getID().toString(), deviceName.toString(), deviceStatus.toString());
         // Act
