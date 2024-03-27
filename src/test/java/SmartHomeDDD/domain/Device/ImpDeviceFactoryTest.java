@@ -2,6 +2,7 @@ package SmartHomeDDD.domain.Device;
 
 import SmartHomeDDD.valueObject.DeviceName;
 import SmartHomeDDD.valueObject.DeviceStatus;
+import SmartHomeDDD.valueObject.DeviceTypeID;
 import SmartHomeDDD.valueObject.RoomID;
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +20,12 @@ class ImpDeviceFactoryTest {
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
         ImpDeviceFactory factory = new ImpDeviceFactory();
 
         //Act & Assert
-        factory.createDevice(roomID, deviceName, deviceStatus);
+        factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID);
     }
 
     /**
@@ -35,11 +37,12 @@ class ImpDeviceFactoryTest {
         RoomID roomID = null;
         DeviceName deviceName = mock(DeviceName.class);
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
         ImpDeviceFactory factory = new ImpDeviceFactory();
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus), "Factory should throw IllegalArgumentException for null RoomID.");
+        assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID), "Factory should throw IllegalArgumentException for null RoomID.");
     }
 
     /**
@@ -51,11 +54,12 @@ class ImpDeviceFactoryTest {
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = null;
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
         ImpDeviceFactory factory = new ImpDeviceFactory();
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus), "Factory should throw IllegalArgumentException for null DeviceName.");
+        assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus,deviceTypeID), "Factory should throw IllegalArgumentException for null DeviceName.");
     }
 
     /**
@@ -67,11 +71,29 @@ class ImpDeviceFactoryTest {
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
         DeviceStatus deviceStatus = null;
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
         ImpDeviceFactory factory = new ImpDeviceFactory();
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus), "Factory should throw IllegalArgumentException for null DeviceStatus.");
+        assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID), "Factory should throw IllegalArgumentException for null DeviceStatus.");
+    }
+
+    /**
+     * Test to ensure that an IllegalArgumentException is thrown when DeviceTypeID is null.
+     */
+    @Test
+    public void shouldThrowIllegalArgumentException_WhenCreateDeviceIsCalledWithNullDeviceTypeID () {
+        //Arrange
+        RoomID roomID = mock(RoomID.class);
+        DeviceName deviceName = mock(DeviceName.class);
+        DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = null;
+
+        ImpDeviceFactory factory = new ImpDeviceFactory();
+
+        //Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID), "Factory should throw IllegalArgumentException for null DeviceTypeID.");
     }
 
 }

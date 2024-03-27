@@ -3,6 +3,7 @@ package SmartHomeDDD.domain.Device;
 import SmartHomeDDD.valueObject.DeviceName;
 import SmartHomeDDD.valueObject.DeviceStatus;
 import SmartHomeDDD.valueObject.RoomID;
+import SmartHomeDDD.valueObject.DeviceTypeID;
 
 public interface DeviceFactory {
 
@@ -14,5 +15,5 @@ public interface DeviceFactory {
      * @param deviceState The state of the device.
      * @return a newly created Device instance
      */
-    public Device createDevice(RoomID roomID, DeviceName deviceName, DeviceStatus deviceState);
+    public Device createDevice(RoomID roomID, DeviceName deviceName, DeviceStatus deviceState, DeviceTypeID deviceTypeID);
 }
