@@ -75,6 +75,23 @@ public class ActuatorModel implements AggregateRoot<ActuatorModelID> {
     }
 
     /**
+     * Get actuator model name
+     *
+     * @return ActuatorModelName
+     */
+    public ActuatorModelName getActuatorModelName() {
+        return _actuatorModelName;
+    }
+
+    /**
+     * Get model path
+     * @ return ModelPath
+     */
+    public ModelPath getModelPath() {
+        return _modelPath;
+    }
+
+    /**
      * To string method for actuator model
      * @return String
      */

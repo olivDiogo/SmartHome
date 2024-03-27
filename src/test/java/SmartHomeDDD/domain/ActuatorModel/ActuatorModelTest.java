@@ -4,9 +4,11 @@ import SmartHomeDDD.valueObject.ActuatorModelID;
 import SmartHomeDDD.valueObject.ActuatorModelName;
 import SmartHomeDDD.valueObject.ModelPath;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class ActuatorModelTest {
 
@@ -140,6 +142,52 @@ public class ActuatorModelTest {
         //Assert
         assertTrue(result.contains(actuatorModelName.toString()));
         assertTrue(result.contains(modelPath.toString()));
+    }
+
+    /**
+     * Test of class ActuatorModel getActuatorModelName method
+     */
+    @Test
+    void shouldReturnActuatorModelName_WhenGetActuatorModelNameIsCalled() {
+        //Arrange
+        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
+        ModelPath modelPath = mock(ModelPath.class);
+
+        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
+
+        })) {
+
+            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+
+            //Act
+            ActuatorModelName result = actuatorModel.getActuatorModelName();
+
+            //Assert
+            assertEquals(actuatorModelName,result);
+        }
+    }
+
+    /**
+     * Test of class ActuatorModel getModelPath method
+     */
+    @Test
+    void shouldReturnModelPath_WhenGetModelPathIsCalled() {
+        //Arrange
+        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
+        ModelPath modelPath = mock(ModelPath.class);
+
+        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
+
+        })) {
+
+            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+
+            //Act
+            ModelPath result = actuatorModel.getModelPath();
+
+            //Assert
+            assertEquals(modelPath,result);
+        }
     }
 
 }
