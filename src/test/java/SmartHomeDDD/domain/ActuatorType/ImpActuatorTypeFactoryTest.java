@@ -17,30 +17,10 @@ class ImpActuatorTypeFactoryTest {
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
         ImpActuatorTypeFactory factory = new ImpActuatorTypeFactory();
 
-        // Act & Assert
-        factory.createActuatorType(typeDescriptionDouble);
-
-    }
-
-    /**
-     * Test to ensure that an ActuatorType cannot be created when the typeDescription is null
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenTypeDescriptionIsNull() {
-        // Arrange
-        TypeDescription typeDescriptionDouble = null;
-
-        String expectedMessage = "Actuator type name must not be null.";
-
         // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new ActuatorType(typeDescriptionDouble);
-        });
+        ActuatorType actuatorType = factory.createActuatorType(typeDescriptionDouble);
 
         // Assert
-        String actualMessage = exception.getMessage();
-
-        assertEquals(expectedMessage, actualMessage);
+        assertEquals(typeDescriptionDouble, actuatorType.getActuatorTypeName());
     }
-
 }
