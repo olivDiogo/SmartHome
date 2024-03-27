@@ -1,9 +1,6 @@
 package SmartHomeDDD.domain.Device;
 
-import SmartHomeDDD.valueObject.DeviceID;
-import SmartHomeDDD.valueObject.DeviceName;
-import SmartHomeDDD.valueObject.DeviceStatus;
-import SmartHomeDDD.valueObject.RoomID;
+import SmartHomeDDD.valueObject.*;
 import SmartHomeDDD.ddd.AggregateRoot;
 
 import java.util.UUID;
@@ -18,6 +15,8 @@ public class Device implements AggregateRoot<DeviceID> {
 
     private DeviceStatus _deviceStatus;
 
+    private DeviceTypeID _deviceTypeID;
+
 
     /**
      * Constructs a new Device instance with the specified room ID, device name, and device state.
@@ -26,13 +25,15 @@ public class Device implements AggregateRoot<DeviceID> {
      * @param deviceName   The name of the device. Must not be null.
      * @param deviceStatus The state of the device. Must not be null.
      */
-    public Device(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus) {
+    public Device(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus, DeviceTypeID deviceTypeID) {
         validateRoomID(roomID);
         this._roomID = roomID;
         validateDeviceName(deviceName);
         this._deviceName = deviceName;
         validateDeviceState(deviceStatus);
         this._deviceStatus = deviceStatus;
+        validateDeviceTypeID(deviceTypeID);
+        this._deviceTypeID = deviceTypeID;
         generateDeviceID();
     }
 
@@ -78,6 +79,17 @@ public class Device implements AggregateRoot<DeviceID> {
     }
 
     /**
+     * Validates the provided DeviceTypeID object.
+     *
+     * @param deviceTypeID The DeviceTypeID to be validated.
+     */
+    private void validateDeviceTypeID(DeviceTypeID deviceTypeID) {
+        if (deviceTypeID == null) {
+            throw new IllegalArgumentException("DeviceTypeID is required");
+        }
+    }
+
+    /**
      * Method to return deviceID
      *
      * @return _deviceID
@@ -112,6 +124,15 @@ public class Device implements AggregateRoot<DeviceID> {
      */
     public DeviceStatus getDeviceStatus() {
         return _deviceStatus;
+    }
+
+    /**
+     * Method to return deviceTypeID
+     *
+     * @return _deviceTypeID
+     */
+    public DeviceTypeID getDeviceTypeID() {
+        return _deviceTypeID;
     }
 
     /**
