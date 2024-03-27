@@ -40,7 +40,15 @@ public class AddDeviceToRoomController {
         _deviceAssembler = deviceAssembler;
     }
 
-
+    /**
+     * Retrieves all rooms as a list of RoomDTOs.
+     *
+     * @return a list of RoomDTOs.
+     */
+    public List<RoomDTO> getAllRooms() {
+        List<Room> rooms = _roomService.getRooms();
+        return _roomAssembler.domainToDTO(rooms);
+    }
 
 
 }
