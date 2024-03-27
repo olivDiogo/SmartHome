@@ -18,4 +18,12 @@ public class MeasurementTypeDTO implements DTO {
         this.measurementID = measurementID;
         this.description = measurementTypeDescription;
     }
+
+    @Override
+    public String toString() {
+        return "MeasurementTypeDTO{" +
+                "measurementID='" + measurementID + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
