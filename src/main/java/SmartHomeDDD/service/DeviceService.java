@@ -1,10 +1,7 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.valueObject.DeviceID;
+import SmartHomeDDD.valueObject.*;
 import SmartHomeDDD.domain.Device.DeviceFactory;
-import SmartHomeDDD.valueObject.DeviceName;
-import SmartHomeDDD.valueObject.DeviceStatus;
-import SmartHomeDDD.valueObject.RoomID;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.repository.DeviceRepository;
@@ -37,13 +34,13 @@ public class DeviceService {
      * @param deviceStatus is the state of the device.
      * @return the newly created device.
      */
-    public Device addDevice(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus) {
+    public Device addDevice(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus, DeviceTypeID deviceTypeID) {
         Optional<Room> roomOptional = _roomRepository.ofIdentity(roomID);
         if (roomOptional.isEmpty()) {
             throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
         }
 
-        Device device = _deviceFactory.createDevice(roomID, deviceName, deviceStatus);
+        Device device = _deviceFactory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID);
         _deviceRepository.save(device);
         return device;
     }

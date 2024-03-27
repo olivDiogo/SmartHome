@@ -1,9 +1,6 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.valueObject.DeviceID;
-import SmartHomeDDD.valueObject.DeviceName;
-import SmartHomeDDD.valueObject.DeviceStatus;
-import SmartHomeDDD.valueObject.RoomID;
+import SmartHomeDDD.valueObject.*;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.domain.Device.DeviceFactory;
 import SmartHomeDDD.domain.Room.Room;
@@ -45,6 +42,7 @@ class DeviceServiceTest {
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
 
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
@@ -57,10 +55,10 @@ class DeviceServiceTest {
         Device mockDevice = mock(Device.class);
 
         when(roomRepository.ofIdentity(roomID)).thenReturn(Optional.of(mockRoom));
-        when(deviceFactory.createDevice(any(RoomID.class), any(DeviceName.class), any(DeviceStatus.class))).thenReturn(mockDevice);
+        when(deviceFactory.createDevice(any(RoomID.class), any(DeviceName.class), any(DeviceStatus.class), any(DeviceTypeID.class))).thenReturn(mockDevice);
 
         //Act
-        Device device = deviceService.addDevice(roomID, deviceName, deviceStatus);
+        Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
 
         //Assert
         assertNotNull(device);
@@ -75,6 +73,7 @@ class DeviceServiceTest {
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
         DeviceFactory deviceFactory = mock(DeviceFactory.class);
@@ -88,7 +87,7 @@ class DeviceServiceTest {
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             //Act
-            deviceService.addDevice(roomID, deviceName, deviceStatus);
+            deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
         });
 
         String actualMessage = exception.getMessage();
