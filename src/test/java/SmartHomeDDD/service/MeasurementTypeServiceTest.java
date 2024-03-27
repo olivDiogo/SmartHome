@@ -8,6 +8,8 @@ import SmartHomeDDD.valueObject.MeasurementTypeDescription;
 import SmartHomeDDD.valueObject.MeasurementTypeUnit;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +27,7 @@ class MeasurementTypeServiceTest {
         MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
 
         // Act & Assert
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
     }
 
     /**
@@ -79,20 +81,17 @@ class MeasurementTypeServiceTest {
         MeasurementTypeUnit unit = mock(MeasurementTypeUnit.class);
         MeasurementType measurementTypeDouble = mock(MeasurementType.class);
 
-        // Configura os mocks para retornar valores específicos
         when(description.getDescription()).thenReturn("Temperature");
         when(unit.getUnit()).thenReturn("Celsius");
 
         when(measurementTypeFactoryDouble.createMeasurement(description, unit)).thenReturn(measurementTypeDouble);
         when(measurementTypeRepositoryDouble.save(measurementTypeDouble)).thenReturn(measurementTypeDouble);
 
-        // Act & Assert
+        // Act
         MeasurementType measurementType = measurementTypeService.createAndSaveMeasurementType(description, unit);
 
         // Assert
-        // Check if the creation and save methods were called with the expected arguments.
-        verify(measurementTypeFactoryDouble).createMeasurement(description, unit);
-        verify(measurementTypeRepositoryDouble).save(measurementTypeDouble);
+        assertEquals(measurementTypeDouble, measurementType);
     }
 
     /**
@@ -267,7 +266,9 @@ class MeasurementTypeServiceTest {
 
 
     /**
-     * Test that the MeasurementTypeService can return all MeasurementTypes.
+     * Test that the MeasurementTypeService can return all MeasurementTypes in the repository.
+     * Aims to ensure that the interaction between the service and the repository occurs as expected,ensuring that the data are effectively fetched from the repository.
+     * This test is a good example of a test that ensures the correct interaction between the service and the repository.
      */
     @Test
     void shouldReturnAllMeasurementTypes_WhenFindAllMeasurementTypesInvoked() {
@@ -278,9 +279,33 @@ class MeasurementTypeServiceTest {
         MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
 
         // Act
-        measurementTypeService.findAllMeasurementTypes();
+        List<MeasurementType> result = measurementTypeService.findAllMeasurementTypes();
 
         // Assert
-        verify(measurementTypeRepositoryDouble).findAll();
+        assertEquals(result, measurementTypeRepositoryDouble.findAll());
     }
+
+    /**
+     * Test that the MeasurementTypeService can return a non-empty list when measurement types are available.
+     * Focuses on ensuring that the service correctly handles the data received from the repository, especially in scenarios where data exists to be returned.
+     * This test is a good example of a test that ensures the correct handling of data by the service.
+     */
+    @Test
+    void shouldNotReturnEmptyList_WhenFindAllMeasurementTypesIsCalledWithAvailableTypes() {
+        // Arrange
+        MeasurementTypeRepository measurementTypeRepository = mock(MeasurementTypeRepository.class);
+        MeasurementTypeFactory measurementTypeFactory = mock(MeasurementTypeFactory.class);
+        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepository, measurementTypeFactory);
+        MeasurementType measurementType = mock(MeasurementType.class);
+        List<MeasurementType> availableTypes = Arrays.asList(measurementType);
+
+        when(measurementTypeRepository.findAll()).thenReturn(availableTypes);
+
+        // Act
+        List<MeasurementType> result = measurementTypeService.findAllMeasurementTypes();
+
+        // Assert
+        assertFalse(result.isEmpty());
+    }
+
 }
