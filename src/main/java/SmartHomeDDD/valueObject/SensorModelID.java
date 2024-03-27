@@ -74,7 +74,7 @@ public class SensorModelID implements DomainID {
      * @return A string representation of the object.
      */
     public String toString() {
-        return this._sensorModelID;
+        return "SensorModelID:" + _sensorModelID;
     }
 
 }
