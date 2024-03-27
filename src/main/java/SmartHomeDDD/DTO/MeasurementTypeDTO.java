@@ -11,17 +11,11 @@ public class MeasurementTypeDTO implements DTO {
      * Constructor for the MeasurementDTO class.
      *
      * @param measurementID is the ID of the Measurement.
+     * @param measurementTypeDescription is the description of the Measurement.
      */
     public MeasurementTypeDTO(String measurementID, String measurementTypeDescription) {
 
         this.measurementID = measurementID;
         this.description = measurementTypeDescription;
-    }
-    @Override
-    public String toString() {
-        return "MeasurementType{" +
-                "measurementID='" + measurementID + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 }
