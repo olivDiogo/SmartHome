@@ -15,7 +15,7 @@ public class DeviceType implements AggregateRoot<DeviceTypeID> {
      *
      * @param deviceTypeDescription
      */
-    public DeviceType(TypeDescription deviceTypeDescription) {
+    DeviceType(TypeDescription deviceTypeDescription) {
         generateDeviceTypeID();
         validateDeviceTypeDescription(deviceTypeDescription);
         this._deviceTypeDescription = deviceTypeDescription;
