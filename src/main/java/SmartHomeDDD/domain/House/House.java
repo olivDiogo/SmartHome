@@ -136,7 +136,7 @@ public class House implements AggregateRoot<HouseID> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         House house = (House) o;
-        return _houseID.toString().equals(house._houseID.toString());
+        return _houseID.equals(house._houseID);
     }
 
     /**

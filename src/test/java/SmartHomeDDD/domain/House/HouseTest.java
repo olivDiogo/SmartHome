@@ -7,6 +7,8 @@ import SmartHomeDDD.valueObject.ZipCode;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
+import java.lang.reflect.Field;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -149,25 +151,22 @@ class HouseTest {
     }
 
     /**
-     * Confirms that two House instances with mocked HouseID values to be the same are considered equal.
-     * This test utilizes mocking of the HouseID class to simulate identical IDs.
+     * Tests method equals of class House when the instance is compared to itself.
      */
     @Test
-    void shouldReturnTrue_WhenTwoHousesHaveTheSameID() {
+    void shouldReturnTrue_WhenComparedToItself() {
         // Arrange
         Address address = mock(Address.class);
         ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
 
-        try (MockedConstruction<HouseID> houseIDMockedConstruction = mockConstruction(HouseID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn("1");
-        })) {
-            House house = new House(address, zipCode, gps);
-            House house2 = new House(address, zipCode, gps);
+        House house = new House(address, zipCode, gps);
 
-            // Act & Assert
-            assertTrue(house.equals(house2), "A house should be equal to itself.");
-        }
+        // Act
+        boolean result = house.equals(house);
+
+        // Assert
+        assertTrue(result);
     }
 
     /**
@@ -175,7 +174,7 @@ class HouseTest {
      * This test ensures that the equals method correctly evaluates the identity of House instances.
      */
     @Test
-    void shouldReturnFalse_WhenThereAreTwoDifferentHouses() {
+    void shouldReturnFalse_WhenThereAreTwoDifferentHouses() throws NoSuchFieldException, IllegalAccessException {
         // Arrange
         Address address1 = mock(Address.class);
         ZipCode zipCode1 = mock(ZipCode.class);
@@ -188,9 +187,85 @@ class HouseTest {
         House house1 = new House(address1, zipCode1, gps1);
         House house2 = new House(address2, zipCode2, gps2);
 
-        // Act & Assert
-        assertFalse(house1.equals(house2), "Houses with different IDs should not be equal.");
+        Field houseIDField = House.class.getDeclaredField("_houseID");
+        houseIDField.setAccessible(true);
+        houseIDField.set(house1, mock(HouseID.class));
+        houseIDField.set(house2, mock(HouseID.class));
+
+        // Act
+        boolean result = house1.equals(house2);
+
+        // Assert
+        assertFalse(result);
     }
+
+    /**
+     * Tests that two House instances with the same HouseID are considered equal.
+     * This test ensures that the equals method correctly evaluates the identity of House instances.
+     */
+    @Test
+    void shouldReturnTrue_WhenThereAreTwoEqualHouses() throws NoSuchFieldException, IllegalAccessException {
+        // Arrange
+        Address address = mock(Address.class);
+        ZipCode zipCode = mock(ZipCode.class);
+        GPS gps = mock(GPS.class);
+
+        House house1 = new House(address, zipCode, gps);
+        House house2 = new House(address, zipCode, gps);
+
+        HouseID houseID = mock(HouseID.class);
+
+        Field houseIDField = House.class.getDeclaredField("_houseID");
+        houseIDField.setAccessible(true);
+        houseIDField.set(house1, houseID);
+        houseIDField.set(house2, houseID);
+
+        // Act
+        boolean result = house1.equals(house2);
+
+        // Assert
+        assertTrue(result);
+    }
+
+
+    /**
+     * Tests the equals method of class House when the instance is compared to a null object.
+     */
+    @Test
+    void shouldReturnFalse_WhenComparedWithNull() {
+        // Arrange
+        Address address = mock(Address.class);
+        ZipCode zipCode = mock(ZipCode.class);
+        GPS gps = mock(GPS.class);
+
+        House house = new House(address, zipCode, gps);
+
+        // Act
+        boolean isEqual = house.equals(null);
+
+        // Assert
+        assertFalse(isEqual);
+    }
+
+    /**
+     * Tests the equals method of class House when the instance is compared to an object of a different class.
+     */
+    @Test
+    void shouldReturnFalse_WhenComparedWithDifferentClass() {
+        // Arrange
+        Address address = mock(Address.class);
+        ZipCode zipCode = mock(ZipCode.class);
+        GPS gps = mock(GPS.class);
+
+        House house = new House(address, zipCode, gps);
+
+        // Act
+        boolean isEqual = house.equals(new Object());
+
+        // Assert
+        assertFalse(isEqual, "House should not be equal to an object of a different class");
+    }
+
 
     /**
      * Tests that the {@link House#toString()} method returns a string representation of the House instance.
