@@ -13,6 +13,10 @@ import static org.mockito.Mockito.when;
 
 public class ActuatorModelRepositoryTest {
 
+    /**
+     * Test of save method, of class ActuatorModelRepository, should add ActuatorModel to repository when given valid ActuatorModel.
+     */
+
     @Test
     public void shouldAddActuatorModelToRepositoryWhenGivenValidActuatorModel() {
         //Arrange
@@ -23,6 +27,10 @@ public class ActuatorModelRepositoryTest {
         //Assert
         assertEquals(actuatorModel, actualActuatorModel);
     }
+
+    /**
+     * Test of save method, of class ActuatorModelRepository, should throw an exception when given null ActuatorModel.
+     */
 
     @Test
     public void shouldThrowExceptionWhenGivenNullActuatorModel() {
@@ -36,6 +44,10 @@ public class ActuatorModelRepositoryTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+    /**
+     * Test of save method, of class ActuatorModelRepository, should throw an exception when ActuatorModel already exists.
+     */
+
     @Test
     public void shouldThrowExceptionWhenActuatorModelAlreadyExists() {
         //Arrange
@@ -48,6 +60,10 @@ public class ActuatorModelRepositoryTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
+
+    /**
+     * Test of findAll method, of class ActuatorModelRepository, should return list of ActuatorModels when getAllActuatorModels is called.
+     */
 
     @Test
     public void shouldReturnListActuatorModels_WhenGetAllActuatorModelsIsCalled() {
@@ -69,6 +85,10 @@ public class ActuatorModelRepositoryTest {
         Assertions.assertEquals(expectedActuatorModels, actuatorModels);
     }
 
+    /**
+     * Test of findAll method, of class ActuatorModelRepository, should return empty list when no ActuatorModels are added.
+     */
+
     @Test
     public void shouldReturnEmptyListWhenNoActuatorModelsAreAdded() {
         //Arrange
@@ -78,6 +98,10 @@ public class ActuatorModelRepositoryTest {
         //Assert
         assertTrue(actuatorModels.isEmpty());
     }
+
+    /**
+     * Test of ofIdentity method, of class ActuatorModelRepository, should return ActuatorModel when given valid ActuatorModelID.
+     */
 
     @Test
    public void shouldReturnActuatorModelWhenGivenValidActuatorModelID() {
@@ -94,6 +118,10 @@ public class ActuatorModelRepositoryTest {
         Assertions.assertEquals(actuatorModel, actualActuatorModel);
     }
 
+    /**
+     * Test of ofIdentity method, of class ActuatorModelRepository, should return Optional.empty() when given invalid ActuatorModelID.
+     */
+
     @Test
    public void shouldReturnOptionalEmptyWhenGivenInvalidSensorModelID() {
         //Arrange
@@ -109,6 +137,10 @@ public class ActuatorModelRepositoryTest {
         //Assert
         assertTrue(result);
     }
+
+    /**
+     * Test of containsOfIdentity method, of class ActuatorModelRepository, should return true when given valid ActuatorModelID.
+     */
     @Test
     public void shouldReturnTrueWhenGivenValidSensorModelID() {
         //Arrange
@@ -123,6 +155,10 @@ public class ActuatorModelRepositoryTest {
         //Assert
         assertTrue(result);
     }
+
+    /**
+     * Test of containsOfIdentity method, of class ActuatorModelRepository, should return false when given invalid ActuatorModelID.
+     */
 
     @Test
     public void shouldReturnFalseWhenGivenInvalidSensorModelID() {
