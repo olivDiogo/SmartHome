@@ -67,26 +67,48 @@ class ActuatorTypeTest {
         }
 
         /**
-         * Test of method equals of class ActuatorType, when the instances are equal.
+         * Test method equals of class ActuatorType when the instance is compared to itself.
          */
         @Test
-        void shouldReturnTrue_whenInstancesAreEqual() {
+        void shouldReturnTrue_whenInstanceIsComparedToItself() {
             // Arrange
             TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
 
+            ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
 
-            try (MockedConstruction<ActuatorTypeID> mocked = mockConstruction(ActuatorTypeID.class, (mock, context) -> {
-                when(mock.toString()).thenReturn("1");
-            })) {
-                ActuatorType actuatorType1 = new ActuatorType(typeDescriptionDouble);
-                ActuatorType actuatorType2 = new ActuatorType(typeDescriptionDouble);
-                // Act
-                boolean result = actuatorType1.equals(actuatorType2);
+            // Act
+            boolean result = actuatorType.equals(actuatorType);
 
-                // Assert
-                assertTrue(result);
-            }
+            // Assert
+            assertTrue(result);
         }
+
+        /**
+         * Tests that two instances of ActuatorType with the same id are equal.
+         * This test ensures that the equals method correctly evaluates the identity of ActuatorType instances.
+         */
+        @Test
+        void shouldReturnTrue_WhenTwoActuatorTypeInstancesHaveSameID() throws NoSuchFieldException, IllegalAccessException {
+            // Arrange
+            TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+
+            ActuatorType actuatorType1 = new ActuatorType(typeDescriptionDouble);
+            ActuatorType actuatorType2 = new ActuatorType(typeDescriptionDouble);
+
+            ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+
+            Field actuatorTypeIDField = ActuatorType.class.getDeclaredField("_actuatorTypeID");
+            actuatorTypeIDField.setAccessible(true);
+            actuatorTypeIDField.set(actuatorType1, actuatorTypeID);
+            actuatorTypeIDField.set(actuatorType2, actuatorTypeID);
+
+            // Act
+            boolean result = actuatorType1.equals(actuatorType2);
+
+            // Assert
+            assertTrue(result);
+        }
+
 
         /**
          * Test of method equals of class ActuatorType, when the instances are not equal.
@@ -112,6 +134,40 @@ class ActuatorTypeTest {
 
             //Assert
             assertFalse(result);
+        }
+
+        /**
+         * Test of method equals of class ActuatorType, when the instance is compared to a null object.
+         */
+        @Test
+        void shouldReturnFalse_whenComparedWithNull() {
+            // Arrange
+            TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+
+            ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
+
+            // Act
+            boolean isEqual = actuatorType.equals(null);
+
+            // Assert
+            assertFalse(isEqual);
+        }
+
+        /**
+         * Test of method equals of class ActuatorType, when the instance is compared to an object of a different class.
+         */
+        @Test
+        void shouldReturnFalse_whenComparedWithDifferentClass() {
+            // Arrange
+            TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+
+            ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble);
+
+            // Act
+            boolean isEqual = actuatorType.equals(new Object());
+
+            // Assert
+            assertFalse(isEqual, "ActuatorType should not be equal to an object of a different class");
         }
 
         /**

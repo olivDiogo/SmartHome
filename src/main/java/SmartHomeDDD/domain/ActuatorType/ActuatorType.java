@@ -72,7 +72,7 @@ public class ActuatorType implements AggregateRoot<ActuatorTypeID> {
         if (this == o) return true;
         if (!(o instanceof ActuatorType)) return false;
         ActuatorType that = (ActuatorType) o;
-        return _actuatorTypeID.toString().equals(that._actuatorTypeID.toString());
+        return _actuatorTypeID.equals(that._actuatorTypeID);
     }
 
     @Override

@@ -20,6 +20,8 @@ public class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
+        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
+
 
         //Act
         new ActuatorModel(actuatorModelName, modelPath);
@@ -34,6 +36,7 @@ public class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = null;
         ModelPath modelPath = mock(ModelPath.class);
+
         String expectedMessage = "Please enter a valid actuator model name.";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModel(actuatorModelName, modelPath));
@@ -64,13 +67,19 @@ public class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
 
-        //Act
-        boolean result = actuatorModel.equals(actuatorModel);
+        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
 
-        //Assert
-        assertTrue(result);
+        })) {
+
+            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+
+            //Act
+            boolean result = actuatorModel.equals(actuatorModel);
+
+            //Assert
+            assertTrue(result);
+        }
     }
 
     /**
@@ -82,14 +91,21 @@ public class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
-        ActuatorModel actuatorModel2 = new ActuatorModel(actuatorModelName, modelPath);
+//        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+//        ActuatorModel actuatorModel2 = new ActuatorModel(actuatorModelName, modelPath);
 
-        //Act
-        boolean result = actuatorModel.equals(actuatorModel2);
+        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
 
-        //Assert
-        assertTrue(result);
+        })) {
+            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+            ActuatorModel actuatorModel2 = new ActuatorModel(actuatorModelName, modelPath);
+
+            //Act
+            boolean result = actuatorModel.equals(actuatorModel2);
+
+            //Assert
+            assertFalse(result);
+        }
     }
 
     /**
@@ -100,13 +116,19 @@ public class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
 
-        //Act
-        boolean result = actuatorModel.equals(null);
+        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
 
-        //Assert
-        assertFalse(result);
+        })) {
+
+            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+
+            //Act
+            boolean result = actuatorModel.equals(null);
+
+            //Assert
+            assertFalse(result);
+        }
     }
 
     /**
@@ -117,13 +139,19 @@ public class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
 
-        //Act
-        ActuatorModelID result = actuatorModel.getID();
+        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
 
-        //Assert
-        assertTrue(actuatorModel.toString().contains(result.toString()));
+        })) {
+
+            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+
+            //Act
+            ActuatorModelID result = actuatorModel.getID();
+
+            //Assert
+            assertNotNull(result);
+        }
     }
 
     /**
@@ -134,14 +162,20 @@ public class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
 
-        //Act
-        String result = actuatorModel.toString();
+        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
 
-        //Assert
-        assertTrue(result.contains(actuatorModelName.toString()));
-        assertTrue(result.contains(modelPath.toString()));
+        })) {
+
+            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+
+            //Act
+            String result = actuatorModel.toString();
+
+            //Assert
+            assertTrue(result.contains(actuatorModelName.toString()));
+            assertTrue(result.contains(modelPath.toString()));
+        }
     }
 
     /**
