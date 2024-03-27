@@ -114,6 +114,23 @@ class SensorNameTest {
     }
 
     /**
+     * Tests the equals method when the same instance is compared.
+     */
+    @Test
+    void shouldReturnTrue_WhenSameInstanceIsCompared(){
+        // Arrange
+        String sensorName = "Temperature Sensor 1";
+        SensorName sensorNameObject = new SensorName(sensorName);
+
+        // Act
+        boolean result = sensorNameObject.equals(sensorNameObject);
+
+        // Assert
+        assertTrue(result, "A SensorName object compared to itself should return true.");
+    }
+
+
+    /**
      * Tests the equals method when the instances are equal.
      */
     @Test
@@ -147,6 +164,23 @@ class SensorNameTest {
         // Assert
         assertFalse(result);
     }
+
+    /**
+     * Tests the equals method to compare a null object with a SensorName object.
+     */
+    @Test
+    void shouldReturnFalse_WhenComparedAnObjectWithNull(){
+        // Arrange
+        String sensorName = "Temperature Sensor";
+        SensorName sensorNameObject = new SensorName(sensorName);
+
+        // Act
+        boolean result = sensorNameObject.equals(null);
+
+        // Assert
+        assertFalse(result, "Comparing a SensorName object with null should return false.");
+    }
+
 
     /**
      * Tests the toString method.
