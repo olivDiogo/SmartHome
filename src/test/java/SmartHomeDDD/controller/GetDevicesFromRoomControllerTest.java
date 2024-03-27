@@ -224,9 +224,10 @@ class GetDevicesFromRoomControllerTest {
         DeviceName deviceName = new DeviceName(name1);
         DeviceName deviceName2 = new DeviceName(nameDevice);
         DeviceStatus deviceStatus = new DeviceStatus(true);
+        DeviceTypeID deviceTypeID = new DeviceTypeID("1");
 
-        deviceService.addDevice(roomID, deviceName, deviceStatus);
-        deviceService.addDevice(roomID, deviceName2, deviceStatus);
+        deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+        deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
 
         List<RoomDTO> roomsDTOList = getDevicesFromRoomController.getRooms();
         RoomDTO roomDTO = roomsDTOList.get(0);
