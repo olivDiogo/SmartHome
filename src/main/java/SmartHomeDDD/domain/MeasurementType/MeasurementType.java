@@ -89,12 +89,9 @@ public class MeasurementType implements AggregateRoot<MeasurementID> {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
         if (object instanceof MeasurementType) {
             MeasurementType measurementType = (MeasurementType) object;
-            return this._measurementUnit.equals(measurementType._measurementUnit) && this._unitDescription.equals(measurementType._unitDescription) && this._measurementID.equals(measurementType._measurementID);
+            return this._measurementID.equals(measurementType._measurementID);
         }
         return false;
     }

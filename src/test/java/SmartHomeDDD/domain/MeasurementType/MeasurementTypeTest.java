@@ -63,6 +63,7 @@ class MeasurementTypeTest {
         //Assert
         assertTrue(result);
     }
+
     /**
      * Tests inequality on objects with different IDs.
      */
@@ -92,6 +93,23 @@ class MeasurementTypeTest {
         boolean result = measurementType.equals(null);
         //Assert
         assertFalse(result);
+    }
+    /**
+     * Tests getting MeasurementDescription.
+     */
+    @Test
+    void shouldReturnMeasurementDescription_whenGetUnitDescriptionIsCalled(){
+        //Arrange
+        MeasurementTypeUnit unitDouble = mock(MeasurementTypeUnit.class);
+        MeasurementTypeDescription unitDescriptionDouble = mock(MeasurementTypeDescription.class);
+
+        MeasurementType measurementType = new MeasurementType(unitDescriptionDouble, unitDouble);
+
+        //Act
+        MeasurementTypeDescription result = measurementType.getUnitDescription();
+
+        //Assert
+        assertEquals(unitDescriptionDouble, result);
     }
     /**
      * Tests getting ID.
