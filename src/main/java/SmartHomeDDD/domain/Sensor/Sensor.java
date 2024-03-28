@@ -48,5 +48,11 @@ public interface Sensor extends AggregateRoot<SensorID> {
      */
     public ValueObject getValue ();
 
+    /**
+     * Gets the device ID.
+     * @return The device ID.
+     */
+    public DeviceID getDeviceID();
+
 
 }
