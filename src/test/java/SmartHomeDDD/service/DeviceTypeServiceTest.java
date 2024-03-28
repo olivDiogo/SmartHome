@@ -3,20 +3,24 @@ package SmartHomeDDD.service;
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.DeviceType.DeviceType;
 import SmartHomeDDD.domain.DeviceType.DeviceTypeFactory;
-import SmartHomeDDD.domain.DeviceType.ImpDeviceTypeFactory;
 import SmartHomeDDD.repository.DeviceTypeRepository;
 import SmartHomeDDD.valueObject.DeviceTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class DeviceTypeServiceTest {
 
+    /**
+     * Test for the DeviceTypeService constructor.
+     */
     @Test
     void shouldInstantiateDeviceTypeService_whenGivenValidParameters() {
         //Arrange
@@ -27,6 +31,10 @@ public class DeviceTypeServiceTest {
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
     }
 
+    /**
+     * Test for the DeviceTypeService constructor when the DeviceTypeRepository is null.
+     */
+
     @Test
     void shouldThrowException_whenDeviceTypeRepositoryIsNull() {
         //Arrange
@@ -35,7 +43,7 @@ public class DeviceTypeServiceTest {
         String expectedMessage = "Please enter a valid device type repository.";
 
         //Act
-        IllegalArgumentException thrown = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
             new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
         });
 
@@ -43,6 +51,9 @@ public class DeviceTypeServiceTest {
         assertEquals(thrown.getMessage(), expectedMessage);
     }
 
+    /**
+     * Test for the DeviceTypeService constructor when the DeviceTypeFactory is null.
+     */
     @Test
     void shouldThrowException_whenDeviceTypeFactoryIsNull() {
         //Arrange
@@ -51,7 +62,7 @@ public class DeviceTypeServiceTest {
         String expectedMessage = "Please enter a valid device type factory.";
 
         //Act
-        IllegalArgumentException thrown = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
             new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
         });
 
@@ -59,8 +70,11 @@ public class DeviceTypeServiceTest {
         assertEquals(thrown.getMessage(), expectedMessage);
     }
 
+    /**
+     * Test for the addDeviceType method when the device type is created and saved to the repository.
+     */
     @Test
-    void shouldCreateDeviceType_whenGivenValidParameters() {
+    void shouldReturnTheDeviceType_whenDeviceTypeIsCreatedAndSavedToRepository(){
         //Arrange
         TypeDescription typeDescription = mock(TypeDescription.class);
         DeviceType deviceType = mock(DeviceType.class);
@@ -69,70 +83,20 @@ public class DeviceTypeServiceTest {
         when(deviceTypeFactory.createDeviceType(typeDescription)).thenReturn(deviceType);
 
         DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
-
-        //Act
-        DeviceType resultDeviceType = deviceTypeService.createDeviceType(typeDescription);
-
-        //Assert
-        assertEquals(deviceType, resultDeviceType);
-    }
-
-    @Test
-    void shouldThrowException_whenDeviceTypeIsNull() {
-        //Arrange
-        DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
-        DeviceTypeFactory deviceTypeFactory = mock(DeviceTypeFactory.class);
-
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
-        DeviceType deviceType = null;
-        String expectedMessage = "Please enter a valid device type.";
-
-        //Act
-        IllegalArgumentException thrown = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            deviceTypeService.saveDeviceType(deviceType);
-        });
-
-        //Assert
-        assertEquals(thrown.getMessage(), expectedMessage);
-    }
-
-    @Test
-    void shouldSaveDeviceType_whenGivenValidParameters() {
-        //Arrange
-        DeviceType deviceType = mock(DeviceType.class);
-        DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
         when(deviceTypeRepository.save(deviceType)).thenReturn(deviceType);
-        DeviceTypeFactory deviceTypeFactory = mock(DeviceTypeFactory.class);
 
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
         //Act
-        DeviceType resultDeviceType = deviceTypeService.saveDeviceType(deviceType);
+        DeviceType resultDeviceType = deviceTypeService.addDeviceType(typeDescription);
 
         //Assert
         assertEquals(deviceType, resultDeviceType);
-
     }
 
-    @Test
-    void shouldThrowException_whenSavingNullDeviceType() {
-        //Arrange
-        DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
-        DeviceTypeFactory deviceTypeFactory = mock(DeviceTypeFactory.class);
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
-        DeviceType deviceType = null;
-        String expectedMessage = "Please enter a valid device type.";
-
-        //Act
-        IllegalArgumentException thrown = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            deviceTypeService.saveDeviceType(deviceType);
-        });
-
-        //Assert
-        assertEquals(thrown.getMessage(), expectedMessage);
-    }
-
+    /**
+     * Test for the getDeviceTypeByID method when a device typeID exists in the repository.
+     */
     @Test
     void shouldFindDeviceTypeByID_whenDeviceTypeExistInRepository(){
         //Arrange
@@ -152,6 +116,9 @@ public class DeviceTypeServiceTest {
         assertEquals(deviceType, resultDeviceType);
     }
 
+    /**
+     * Test for the getDeviceTypeByID method when a device type ID does not exist in the repository.
+     */
     @Test
     void shouldThrowException_WhenFindingDeviceTypeByNullID(){
         //Arrange
@@ -162,7 +129,7 @@ public class DeviceTypeServiceTest {
         String expectedMessage = "Please enter a valid device type ID.";
 
         //Act
-        IllegalArgumentException thrown = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
             deviceTypeService.getDeviceTypeByID(deviceTypeID);
         });
 
@@ -170,6 +137,9 @@ public class DeviceTypeServiceTest {
         assertEquals(thrown.getMessage(), expectedMessage);
     }
 
+    /**
+     * Test for the findAll method when there are device types in the repository.
+     */
     @Test
     void shouldReturnAllDeviceTypes_whenFindingAllDeviceTypes() {
         //Arrange
@@ -177,13 +147,19 @@ public class DeviceTypeServiceTest {
         DeviceTypeFactory deviceTypeFactory = mock(DeviceTypeFactory.class);
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
+        List <DeviceType> deviceTypes = deviceTypeRepository.findAll();
+
         //Act
-        deviceTypeService.findAllDeviceTypes();
+        List<DeviceType> resultList =  deviceTypeService.findAllDeviceTypes();
 
         //Assert
-        assertEquals(deviceTypeRepository.findAll(), deviceTypeService.findAllDeviceTypes());
+        assertEquals(deviceTypes, resultList);
     }
 
+
+    /**
+     * Test for the findAll method when there are no device types in the repository.
+     */
     @Test
     void shouldReturnEmptyList_WhenNoDeviceTypesExist() {
         //Arrange
@@ -191,11 +167,14 @@ public class DeviceTypeServiceTest {
         DeviceTypeFactory deviceTypeFactory = mock(DeviceTypeFactory.class);
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
+        List <DeviceType> deviceTypes = deviceTypeRepository.findAll();
+
+
         //Act
-        deviceTypeService.findAllDeviceTypes();
+        List<DeviceType> resultList = deviceTypeService.findAllDeviceTypes();
 
         //Assert
-        assertEquals(deviceTypeRepository.findAll(), deviceTypeService.findAllDeviceTypes());
+        assertEquals(deviceTypes, resultList);
     }
 
 }

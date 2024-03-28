@@ -14,11 +14,44 @@ public class GetListOfRoomsController {
     private RoomAssembler _roomAssembler;
 
 
+    /**
+     * Constructor for the GetListOfRoomsController class.
+     * @param roomService The room service.
+     * @param roomAssembler The room assembler.
+     */
     public GetListOfRoomsController(RoomService roomService, RoomAssembler roomAssembler) {
-        this._roomService = roomService;
-        this._roomAssembler = roomAssembler;
+        validateRoomService(roomService);
+        validateRoomAssembler(roomAssembler);
     }
 
+    /**
+     * Validates the room service.
+     * @param roomService The room service.
+     */
+    private void validateRoomService(RoomService roomService) {
+        if (roomService == null) {
+            throw new IllegalArgumentException("Please enter a valid room service.");
+        } else {
+            this._roomService = roomService;
+        }
+    }
+
+    /**
+     * Validates the room assembler.
+     * @param roomAssembler The room assembler.
+     */
+    private void validateRoomAssembler(RoomAssembler roomAssembler) {
+        if (roomAssembler == null) {
+            throw new IllegalArgumentException("Please enter a valid room assembler.");
+        } else {
+            this._roomAssembler = roomAssembler;
+        }
+    }
+
+    /**
+     * Gets the list of rooms.
+     * @return The list of rooms.
+     */
     public List<RoomDTO> getRooms(){
 
         List<Room> listOfRooms = _roomService.getRooms();
