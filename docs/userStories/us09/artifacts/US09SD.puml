@@ -9,11 +9,13 @@ participant ":GetAllDevicesGroupedByFunctionalityController" as GetAllDevicesGro
 end box
 
 box "Service" #LightGreen
-participant "serDev:ServiceDevice" as ServiceDevice
+participant "deviceService:DeviceService" as DeviceService
+participant "deviceTypeService:DeviceTypeService" as DeviceTypeService
 end box
 
 box "Repository" #LightYellow
-participant "repoDevice:RepositoryDevice" as RepositoryDevice
+participant "deviceRepository:DeviceRepository" as DeviceRepository
+participant "deviceTypeRepository:DeviceTypeRepository" as DeviceTypeRepository
 end box
 
 box "Assembler" #LightCyan
@@ -29,25 +31,42 @@ User o-> GetAllDevicesGroupedByFunctionalityController: getAllDevicesGroupedByFu
 activate GetAllDevicesGroupedByFunctionalityController
 
 
-GetAllDevicesGroupedByFunctionalityController -> ServiceDevice : getDevices()
+GetAllDevicesGroupedByFunctionalityController -> DeviceService : getAllDevices()
 
-activate ServiceDevice
+activate DeviceService
 
-ServiceDevice -> RepositoryDevice: findAll()
+DeviceService -> DeviceRepository: findAll()
 
-activate RepositoryDevice
+activate DeviceRepository
 
-RepositoryDevice --> ServiceDevice: devices
+DeviceRepository --> DeviceService: devices
 
-deactivate RepositoryDevice
+deactivate DeviceRepository
 
-ServiceDevice --> GetAllDevicesGroupedByFunctionalityController: devices
+DeviceService --> GetAllDevicesGroupedByFunctionalityController: devices
 
-deactivate ServiceDevice
-
-GetAllDevicesGroupedByFunctionalityController -> DeviceAssembler: domain2DTO(devices)
+deactivate DeviceService
 
 loop for each device in devices
+
+    GetAllDevicesGroupedByFunctionalityController -> DeviceTypeService: getDeviceTypeByID(deviceTypeID)
+
+    activate DeviceTypeService
+
+    DeviceTypeService -> DeviceTypeRepository: ofIdentity(deviceTypeID)
+
+    activate DeviceTypeRepository
+
+    DeviceTypeRepository --> DeviceTypeService: deviceType
+
+    deactivate DeviceTypeRepository
+
+    DeviceTypeService --> GetAllDevicesGroupedByFunctionalityController: deviceType
+
+    deactivate DeviceTypeService
+
+    GetAllDevicesGroupedByFunctionalityController -> DeviceAssembler: domainToDTO(device)
+
     activate DeviceAssembler
     create DeviceDTO
     DeviceAssembler -> DeviceDTO: createDeviceDTO(device)
@@ -58,14 +77,12 @@ loop for each device in devices
 
     deactivate DeviceDTO
 
-    DeviceAssembler -> DeviceAssembler: addDeviceDTOToList(deviceDTO)
+    DeviceAssembler --> GetAllDevicesGroupedByFunctionalityController: deviceDTO
+
+    deactivate DeviceAssembler
+
+    GetAllDevicesGroupedByFunctionalityController -> GetAllDevicesGroupedByFunctionalityController: addDeviceByFunctionality(deviceDTO)
 end
-
-DeviceAssembler --> GetAllDevicesGroupedByFunctionalityController: deviceDTOList
-
-deactivate DeviceAssembler
-
-GetAllDevicesGroupedByFunctionalityController -> GetAllDevicesGroupedByFunctionalityController: listDevicesByFunctionality(deviceDTOList)
 
 GetAllDevicesGroupedByFunctionalityController --> User: deviceDTOsByFunctionality
 
