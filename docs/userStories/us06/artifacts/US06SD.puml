@@ -70,23 +70,15 @@ User o-> GetListOfDevicesFromRoom_Controller: getDevices(roomDTO)
 
 activate GetListOfDevicesFromRoom_Controller
 
-GetListOfDevicesFromRoom_Controller -> RoomAssembler : dtoToDomain(roomDTO)
-
-activate RoomAssembler
-
 create RoomID
+GetListOfDevicesFromRoom_Controller -> RoomID : dtoToDomain(roomDTO)
 
-RoomAssembler -> RoomID: createRoomID(strRoomIdDTO)
 
 activate RoomID
 
-RoomID --> RoomAssembler: roomId
+RoomID --> GetListOfDevicesFromRoom_Controller: roomId
 
 deactivate RoomID
-
-RoomAssembler --> GetListOfDevicesFromRoom_Controller: roomId
-
-deactivate RoomAssembler
 
 GetListOfDevicesFromRoom_Controller -> ServiceDevice: getDevices(roomId)
 
