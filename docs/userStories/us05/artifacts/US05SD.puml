@@ -13,6 +13,7 @@ participant "roomDTO:RoomDTO" as RoomDTO
 participant "roomID:RoomID" as RoomID
 participant "deviceName:DeviceName" as DeviceName
 participant "deviceStatus:DeviceStatus" as DeviceStatus
+participant "deviceTypeID:DeviceTypeID" as DeviceTypeID
 participant "deviceAssembler:DeviceAssembler" as DeviceAssembler
 participant "deviceDTO:DeviceDTO" as DeviceDTO
 participant "device:Device" as Device
@@ -96,14 +97,21 @@ activate DeviceStatus
 DeviceStatus --> Controller : deviceStatus
 deactivate DeviceStatus
 
-Controller -> DeviceService : addDevice(roomID,deviceName,deviceStatus)
+create DeviceTypeID
+Controller -> DeviceTypeID : DeviceTypeID(strDeviceTypeID)
+activate DeviceTypeID
+
+DeviceTypeID --> Controller : deviceTypeID
+deactivate DeviceTypeID
+
+Controller -> DeviceService : addDevice(roomID,deviceName,deviceStatus,deviceTypeID)
 activate DeviceService
 
-DeviceService -> Factory : createDevice(roomID,deviceName,deviceStatus)
+DeviceService -> Factory : createDevice(roomID,deviceName,deviceStatus,deviceTypeID)
 activate Factory
 
 create Device
-Factory -> Device : device(roomID,deviceName,deviceStatus)
+Factory -> Device : device(roomID,deviceName,deviceStatus,deviceTypeID)
 
 activate Device
 Device --> Factory : device

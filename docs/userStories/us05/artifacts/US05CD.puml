@@ -6,16 +6,19 @@ class Device {
   - _deviceName: DeviceName
   - _roomID: RoomID
   - _deviceStatus: DeviceStatus
-  + Device(deviceId: DeviceID, deviceName: DeviceName, roomID: RoomID)
+  - _deviceTypeID: DeviceTypeID
+
+  + Device(roomID: RoomID,deviceName: DeviceName, deviceStatus: DeviceStatus, deviceTypeID: DeviceTypeID)
+  - generateDeviceID(): void
   + getId(): String
   + getDeviceName(): String
   + getRoomID(): RoomID
   + getDeviceStatus(): DeviceStatus
-
+  + getDeviceTypeID(): DeviceTypeID
   }
 
 class DeviceFactory {
-  + createDevice( roomID: RoomID, deviceName: DeviceName, deviceStatus DeviceStatus): Device
+  + createDevice( roomID: RoomID, deviceName: DeviceName, deviceStatus DeviceStatus, deviceTypeID: DeviceTypeID): Device
   }
 
 class DeviceRepository {
@@ -27,7 +30,7 @@ class DeviceService {
   - _deviceFactory: DeviceFactory
   - _roomRepository: RoomRepository
     + DeviceService(roomRepository: RoomRepository, deviceRepository: DeviceRepository, deviceFactory: DeviceFactory)
-  + addDevice(roomID: RoomID, deviceName: DeviceName, deviceStatus: DeviceStatus): Device
+  + addDevice(roomID: RoomID, deviceName: DeviceName, deviceStatus: DeviceStatus, deviceTypeID: DeviceTypeID): Device
   }
 
  class RoomService{
@@ -46,6 +49,7 @@ class RoomRepository {
 class RoomAssembler {
     +RoomAssembler()
     +domainToDTO(rooms: List<Room>): List<RoomDTO>
+    }
 
 
 class RoomID {
@@ -62,10 +66,9 @@ class DeviceStatus {
   - _status: boolean
   + DeviceStatus(deviceStatus: boolean)
   }
-
-class RoomID {
+class DeviceTypeID {
   - _id: String
-  + RoomID(roomID: String)
+  + DeviceTypeID(deviceTypeID: String)
   }
 
 class RoomDTO {
@@ -84,7 +87,7 @@ class AddDeviceToRoomController {
   + AddDeviceToRoomController(roomService: RoomService, deviceService: DeviceService,
    roomAssembler: RoomAssembler, deviceAssembler: DeviceAssembler)
 
-  + addDeviceToRoom(deviceID: String, deviceName: String, roomID: String, deviceStatus: String): DeviceDTO
+  + addDeviceToRoom(deviceTypeID: String, deviceName: String, roomID: String, deviceStatus: String): DeviceDTO
   + getAllRooms(): List<RoomDTO>
   }
 class DeviceDTO {
@@ -92,7 +95,8 @@ class DeviceDTO {
 + deviceName: String
 + roomID: String
 + deviceStatus : String
-+ DeviceDTO(deviceID: String, deviceName: String, roomID: String, deviceStatus: String)
++ deviceTypeID: String
++ DeviceDTO(deviceID: String, deviceTypeID: String, deviceName: String, roomID: String, deviceStatus: String)
 }
 class DeviceAssembler{
   + domainToDTO(domainEntity: Device): DeviceDTO
@@ -113,6 +117,7 @@ RoomAssembler "1".down.>"*" RoomDTO: creates
 AddDeviceToRoomController "1".up.>"1" RoomID: creates
 AddDeviceToRoomController "1".up.>"1" DeviceName: creates
 AddDeviceToRoomController "1".up.>"1" DeviceStatus: creates
+AddDeviceToRoomController "1".up.>"1" DeviceTypeID: creates
 
 
 
