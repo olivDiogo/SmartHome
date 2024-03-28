@@ -10,6 +10,7 @@ import SmartHomeDDD.service.DeviceService;
 import SmartHomeDDD.service.RoomService;
 import SmartHomeDDD.valueObject.DeviceName;
 import SmartHomeDDD.valueObject.DeviceStatus;
+import SmartHomeDDD.valueObject.DeviceTypeID;
 import SmartHomeDDD.valueObject.RoomID;
 
 import java.util.List;
@@ -50,5 +51,29 @@ public class AddDeviceToRoomController {
         return _roomAssembler.domainToDTO(rooms);
     }
 
+    /**
+     * Adds a device to a room identified by its ID, creating a new device entity in the process.
+     *
+     * @param roomID        The ID of the room to add the device to.
+     * @param deviceName    The name of the new device.
+     * @param deviceStatus  The initial status of the new device.
+     * @return A DeviceDTO representing the added device.
+     * @throws IllegalArgumentException if the specified room does not exist.
+     */
+    public DeviceDTO addDeviceToRoom(String roomID, String deviceName, boolean deviceStatus, String deviceTypeID)  {
+        RoomID roomIdVO = new RoomID(roomID);
+        DeviceName deviceNameVO = new DeviceName(deviceName);
+        DeviceStatus deviceStatusVO = new DeviceStatus(deviceStatus);
+        DeviceTypeID deviceTypeIDVO = new DeviceTypeID(deviceTypeID);
+
+        Optional<Room> roomOptional = _roomService.getRoomById(roomIdVO);
+        if (roomOptional.isEmpty()) {
+            throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
+        }
+
+        Device device = _deviceService.addDevice(roomIdVO, deviceNameVO, deviceStatusVO, deviceTypeIDVO);
+
+        return _deviceAssembler.domainToDTO(device);
+    }
 
 }
