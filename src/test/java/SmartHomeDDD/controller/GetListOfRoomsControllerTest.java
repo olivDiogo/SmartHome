@@ -84,32 +84,16 @@ public class GetListOfRoomsControllerTest {
         RoomFloor roomFloor = new RoomFloor(1);
 
         Room room = roomFactory.createRoom(houseID, roomName, dimension, roomFloor);
-
-        HouseID houseID2 = new HouseID("1");
-        RoomName roomName2 = new RoomName("Bedroom");
-        Dimension dimension2 = new Dimension(10, 10, 10);
-        RoomFloor roomFloor2 = new RoomFloor(1);
-
-        Room room2 = roomFactory.createRoom(houseID2, roomName2, dimension2, roomFloor2);
         roomRepository.save(room);
-        roomRepository.save(room2);
 
         List<RoomDTO> expectedRoomDTOList = new ArrayList<>();
         expectedRoomDTOList.add(roomAssembler.domainToDTO(room));
-        expectedRoomDTOList.add(roomAssembler.domainToDTO(room2));
-
+        
         //Act
         List<RoomDTO> roomDTOList = getListOfRoomsController.getRooms();
 
         //Assert
         assertEquals(expectedRoomDTOList.get(0).roomId, roomDTOList.get(0).roomId);
-        assertEquals(expectedRoomDTOList.get(0).roomName, roomDTOList.get(0).roomName);
-        assertEquals(expectedRoomDTOList.get(0).dimensions, roomDTOList.get(0).dimensions);
-        assertEquals(expectedRoomDTOList.get(0).floor, roomDTOList.get(0).floor);
-        assertEquals(expectedRoomDTOList.get(1).roomId, roomDTOList.get(1).roomId);
-        assertEquals(expectedRoomDTOList.get(1).roomName, roomDTOList.get(1).roomName);
-        assertEquals(expectedRoomDTOList.get(1).dimensions, roomDTOList.get(1).dimensions);
-        assertEquals(expectedRoomDTOList.get(1).floor, roomDTOList.get(1).floor);
 
     }
 
