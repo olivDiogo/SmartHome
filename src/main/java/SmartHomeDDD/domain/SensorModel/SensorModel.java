@@ -32,6 +32,12 @@ public class SensorModel implements AggregateRoot<SensorModelID> {
             this._modelPath = modelPath;
         }
     }
+    public SensorModelName getSensorModelName() {
+        return _sensorModelName;
+    }
+    public ModelPath getModelPath() {
+        return _modelPath;
+    }
     @Override
     public SensorModelID getID() {
         return _sensorModelID;

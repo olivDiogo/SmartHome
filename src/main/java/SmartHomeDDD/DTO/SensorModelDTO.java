@@ -9,12 +9,12 @@ public final class SensorModelDTO implements DTO {
     /**
      * The unique identifier of the sensor model.
      */
-    public final String _id;
+    public final String sensorModelID;
 
     /**
      * The name of the sensor model.
      */
-    public final String _name;
+    public final String sensorModelName;
 
     /**
      * The file path to the sensor model's data.
@@ -29,8 +29,8 @@ public final class SensorModelDTO implements DTO {
      * @param modelPath the file path to the sensor model's data; should not be {@code null}.
      */
     public SensorModelDTO(String sensorModelID, String sensorModelName, String modelPath) {
-        this._id = sensorModelID;
-        this._name = sensorModelName;
+        this.sensorModelID = sensorModelID;
+        this.sensorModelName = sensorModelName;
         this._modelPath = modelPath;
     }
 }
