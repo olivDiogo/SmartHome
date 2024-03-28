@@ -14,7 +14,7 @@ public class ActuatorDTO implements DTO {
     /**
      * The type of the actuator.
      */
-    public final String actuatorType;
+    public final String actuatorTypeID;
     /**
      * The name of the actuator.
      */
@@ -22,19 +22,23 @@ public class ActuatorDTO implements DTO {
     /**
      * The description of the actuator.
      */
-    public final String actuatorDescription;
+    public final String modelPath;
+
+    public final String deviceID;
+
     /**
      * Constructs a new ActuatorDTO object with the specified actuator details.
      *
      * @param actuatorID          The unique identifier of the actuator.
-     * @param actuatorType        The type of the actuator.
+     * @param actuatorTypeID        The type of the actuator.
      * @param actuatorName        The name of the actuator.
-     * @param actuatorDescription The description of the actuator.
+     * @param modelPath The description of the actuator.
      */
-    public ActuatorDTO(String actuatorID, String actuatorType, String actuatorName, String actuatorDescription) {
+    public ActuatorDTO(String actuatorID, String actuatorTypeID, String actuatorName, String modelPath, String deviceID) {
         this.id = actuatorID;
-        this.actuatorType = actuatorType;
+        this.actuatorTypeID = actuatorTypeID;
         this.actuatorName = actuatorName;
-        this.actuatorDescription = actuatorDescription;
+        this.modelPath = modelPath;
+        this.deviceID = deviceID;
     }
 }

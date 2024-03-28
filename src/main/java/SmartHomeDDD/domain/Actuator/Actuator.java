@@ -2,10 +2,7 @@ package SmartHomeDDD.domain.Actuator;
 
 import SmartHomeDDD.ddd.AggregateRoot;
 import SmartHomeDDD.ddd.ValueObject;
-import SmartHomeDDD.valueObject.ActuatorID;
-import SmartHomeDDD.valueObject.ActuatorName;
-import SmartHomeDDD.valueObject.ActuatorTypeID;
-import SmartHomeDDD.valueObject.ModelPath;
+import SmartHomeDDD.valueObject.*;
 
 public interface Actuator extends AggregateRoot<ActuatorID> {
 
@@ -36,6 +33,11 @@ public interface Actuator extends AggregateRoot<ActuatorID> {
      * @return The actuator type ID.
      */
     public ActuatorTypeID getActuatorTypeID();
+
+    /**
+     * Gets the device ID.
+     */
+    public DeviceID getDeviceID();
 
     /**     * Returns the actuator attributes in a string format.
      *
