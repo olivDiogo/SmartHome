@@ -2,12 +2,12 @@
 'https://plantuml.com/class-diagram
 !pragma layout smetana
 
-class GetAllDevicesGroupedByFunctionalityController {
+class GetListOfAllDevicesGroupedByFunctionalityController {
     -_deviceService: DeviceService
     -_deviceAssembler: DeviceAssembler
 
-    +GetAllDevicesGroupedByFunctionalityController(deviceService: DeviceService)
-    +getAllDevicesGroupedByFunctionality(): Map<String, List<DeviceDTO>>
+    +GetListOfAllDevicesGroupedByFunctionalityController(deviceService: DeviceService)
+    +getAllDevicesGroupedByFunctionality(): Map<DeviceType, List<DeviceDTO>>
 
 }
 
@@ -18,27 +18,42 @@ class DeviceService {
     +getDevices(): List<DeviceDTO>
 }
 
+class DeviceTypeService {
+    -_deviceTypeFactory: DeviceTypeFactory
+    -_deviceTypeRepo: DeviceTypeRepository
+    +DeviceTypeService(factoryDeviceType: FactoryDeviceType, deviceTypeRepo: DeviceTypeRepository)
+    +getDeviceTypeByID(): DeviceType
+}
+
 class DeviceRepository {
     -_data: HashMap<DeviceID, Device>
     +DeviceRepository()
     +findAll(): List<Device>
 }
 
+class DeviceTypeRepository {
+    -_data: HashMap<DeviceTypeID, DeviceType>
+    +DeviceTypeRepository()
+    +ofIdentity(deviceTypeID): DeviceType
+}
+
 class DeviceAssembler {
     +DeviceAssembler()
-    +device2DTO(devices: List<Device>): List<DeviceDTO>
+    +domainToDTO(device: Device): DeviceDTO
 }
 
 class DeviceDTO {
     +id: String
     +roomID: String
     +name: String
-    +deviceType: String
-    +DeviceDTO(id: DeviceID, roomID: RoomID, name: DeviceName, deviceType: DeviceType)
+    +deviceTypeID: String
+    +DeviceDTO(id: DeviceID, roomID: RoomID, name: DeviceName, deviceTypeID: DeviceType)
 }
 
-GetAllDevicesGroupedByFunctionalityController "1" ..> "1" DeviceService: uses
+GetListOfAllDevicesGroupedByFunctionalityController "1" ..> "1" DeviceService: uses
+GetListOfAllDevicesGroupedByFunctionalityController "1" ..> "1" DeviceTypeService: uses
 DeviceService "1" ..> "1" DeviceRepository: uses
-GetAllDevicesGroupedByFunctionalityController "1" ..> "1" DeviceAssembler: uses
+DeviceTypeService "1" ..> "1" DeviceTypeRepository: uses
+GetListOfAllDevicesGroupedByFunctionalityController "1" ..> "1" DeviceAssembler: uses
 DeviceAssembler "1" ..> "*" DeviceDTO: creates
 @enduml
