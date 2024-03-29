@@ -32,6 +32,25 @@ public class DeviceStatus implements ValueObject {
         }
         return false;
     }
+
+/**
+     * Getter for status.
+     *
+     * @return _status.
+     */
+    public boolean getStatus() {
+        return _status;
+    }
+
+    /**
+     * HashCode method for DeviceStatus.
+     *
+     * @return the hashcode as an int.
+     */
+    public int hashCode() {
+        return Boolean.hashCode(_status);
+    }
+
     @Override
     public String toString() {
         return _status ? "ON" : "OFF";

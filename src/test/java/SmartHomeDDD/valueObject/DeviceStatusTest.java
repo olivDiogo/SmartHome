@@ -86,4 +86,47 @@ class DeviceStatusTest {
         // Assert
         assertEquals("OFF", result);
     }
+
+    /**
+     * Tests the hashCode method
+     */
+    @Test
+    public void shouldReturnHashCode_whenUsingHashCodeMethod(){
+        // Arrange
+        boolean status = true;
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        // Act
+        int result = deviceStatus.hashCode();
+        // Assert
+        assertEquals(Boolean.hashCode(status), result);
+    }
+
+    /**
+     * Tests the getter method when status is true
+     */
+    @Test
+    public void shouldReturnTrue_whenUsingGetterMethod(){
+        // Arrange
+        boolean status = true;
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        // Act
+        boolean result = deviceStatus.getStatus();
+        // Assert
+        assertEquals(status, result);
+    }
+
+    /**
+     * Tests the getter method when status is false
+     */
+    @Test
+    public void shouldReturnFalse_whenUsingGetterMethod(){
+        // Arrange
+        boolean status = false;
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        // Act
+        boolean result = deviceStatus.getStatus();
+        // Assert
+        assertEquals(status, result);
+    }
+
 }
