@@ -5,13 +5,11 @@ import SmartHomeDDD.DTO.DeviceDTO;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.service.DeviceService;
 import SmartHomeDDD.valueObject.DeviceID;
-import SmartHomeDDD.valueObject.DeviceStatus;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
-public class US08DeactivateDevice {
+public class DeactivateDeviceController {
 
     private DeviceService _deviceService;
     private DeviceAssembler _deviceAssembler;
@@ -21,7 +19,7 @@ public class US08DeactivateDevice {
      * @param deviceService is the service for the device.
      * @param deviceAssembler is the assembler for the device.
      */
-    public US08DeactivateDevice(DeviceService deviceService, DeviceAssembler deviceAssembler) {
+    public DeactivateDeviceController(DeviceService deviceService, DeviceAssembler deviceAssembler) {
         _deviceService = deviceService;
         _deviceAssembler = deviceAssembler;
     }

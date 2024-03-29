@@ -5,56 +5,68 @@
 !pragma scale 100 width
 !pragma useVerticalIfPossible
 
-class DeactivateDeviceController {
+class DeactivateDeviceController <<Controller>> {
+    'Attributes
     -deviceService: DeviceService
+    -deviceAssembler: DeviceAssembler
+    'Methods
+    +DeactivateDeviceController(deviceService: DeviceService, deviceAssembler: DeviceAssembler)
     +requestAllDevices(): List<DeviceDTO>
-    +requestDeactivateDevice(deviceDTO: DeviceDTO): DeviceDTO
+    +requestDeactivateDevice((deviceDTO: DeviceDTO): DeviceDTO
 }
 
-class DeviceService {
+class DeviceService <<Service>> {
+    'Attributes
     -deviceRepository: DeviceRepository
-    -deviceAssembler: DeviceAssembler
     -deviceFactory: DeviceFactory
     -roomRepository: RoomRepository
-    +DeviceService(deviceRepository: DeviceRepository, deviceAssembler: DeviceAssembler, deviceFactory: DeviceFactory, roomRepository: RoomRepository)
-    +getAllDevices(): List<DeviceDTO>
-    +deactivateDevice(deviceID: String): DeviceDTO
+    'Methods
+    +DeviceService(deviceRepository: DeviceRepository, deviceFactory: DeviceFactory, roomRepository: RoomRepository)
+    +deactivateDeviceById(deviceID: String): Device
+    +getAllDevices(): List<Device>
+    +getDeviceById(deviceID: DeviceID): Optional<Device>
 }
 
-class DeviceRepository {
+class DeviceRepository <<Repository>>{
+    'Attributes
     -DATA: Map<deviceID, Device>
+    'Methods
     +findAll(): List<Device>
-    +findDeviceById(deviceID: String): Device
-    +save(device: Device): Device
+    +ofIdentity(deviceID: DeviceID): Optional<Device>
 }
 
-class DeviceAssembler {
-    +domainToDTO(deviceList: DeviceList): List<DeviceDTO>
+class DeviceAssembler <<Assembler>>{
+    'Methods
     +domainToDTO(device: Device): DeviceDTO
-    +dtoToDomain(deviceDTO: DeviceDTO): Device
+    +domainToDTO(deviceList: List<Device>): List<DeviceDTO>
 }
 
 
-class DeviceDTO {
+class DeviceDTO <<DTO>>{
+    'Attributes
     +deviceID: String
-    + deviceName: String
-    +status: String
-    +DeviceDTO(device: Device)
+    +roomID: String
+    +deviceName: String
+    +deviceStatus: String
+    'Methods
+    +DeviceDTO(deviceID: String, roomID: String, deviceName: String, deviceStatus: String)
 }
 
 class Device<<entity>><<root>> {
-    -deviceID: DeviceID
+    'Attributes
     -roomID: RoomID
-    -deviceType: DeviceType
+    -deviceID: DeviceID
     -deviceName: DeviceName
     -status: DeviceStatus
-    +Device(roomID: RoomID, deviceType: DeviceType, deviceName: DeviceName, status: DeviceStatus)
-    +deactivate(): void
+    -deviceTypeID: DeviceTypeID
+    'Methods
+    #Device(roomID: RoomID, deviceID: DeviceID, deviceName: DeviceName, status: DeviceStatus, deviceTypeID: DeviceTypeID)
+    +deactivateDevice(): DeviceStatus
 }
 
-DeactivateDeviceController "1" ..> "1" DeviceService: uses >
-DeviceService "1" ..> "1" DeviceRepository: uses >
-DeviceService "1" ..> "1" DeviceAssembler: uses >
-DeviceAssembler "1" ..> "1..*" DeviceDTO: creates >
-DeviceService "1" ..> "1" Device: uses
+DeactivateDeviceController "1" ..> "1" DeviceService: uses
+DeactivateDeviceController "1" ..> "1" DeviceAssembler: uses
+DeviceService "1" ..> "1" DeviceRepository: uses
+DeviceAssembler "1" ..> "*" DeviceDTO: creates
+DeviceService "1" ..> "1" Device: deactivates
 @enduml

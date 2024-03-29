@@ -21,7 +21,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class US08DeactivateDeviceTest {
+class DeactivateDeviceControllerTest {
 
     /**
      * Test to verify that the US08DeactivateDevice constructor returns a non-null object.
@@ -29,7 +29,7 @@ class US08DeactivateDeviceTest {
     @Test
     void shouldReturnNotNull_WhenUS08DeactivateDeviceIsConstructed() {
         // Arrange
-        US08DeactivateDevice us08DeactivateDevice;
+        DeactivateDeviceController deactivateDeviceController;
         DeviceRepository deviceRepository = new DeviceRepository();
         ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
         RoomRepository roomRepository = new RoomRepository();
@@ -37,7 +37,7 @@ class US08DeactivateDeviceTest {
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         // Act & Assert
-        new US08DeactivateDevice(deviceService, deviceAssembler);
+        new DeactivateDeviceController(deviceService, deviceAssembler);
     }
 
     /**
@@ -56,7 +56,7 @@ class US08DeactivateDeviceTest {
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         ImpHouseFactory houseFactory = new ImpHouseFactory();
-        US08DeactivateDevice us08DeactivateDevice = new US08DeactivateDevice(deviceService, deviceAssembler);
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
         // Add a house
         Address address = new Address("street","1");
@@ -80,7 +80,7 @@ class US08DeactivateDeviceTest {
         Device device = deviceService.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
 
         // Act
-        List<DeviceDTO> devices = us08DeactivateDevice.requestAllDevices();
+        List<DeviceDTO> devices = deactivateDeviceController.requestAllDevices();
 
         // Assert
         assertEquals(devices.get(0).deviceID, device.getID().toString());
@@ -102,7 +102,7 @@ class US08DeactivateDeviceTest {
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         ImpHouseFactory houseFactory = new ImpHouseFactory();
-        US08DeactivateDevice us08DeactivateDevice = new US08DeactivateDevice(deviceService, deviceAssembler);
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
         // Add a house
         Address address = new Address("street","1");
@@ -112,7 +112,7 @@ class US08DeactivateDeviceTest {
         houseRepository.save(house);
 
         // Act
-        List<DeviceDTO> devices = us08DeactivateDevice.requestAllDevices();
+        List<DeviceDTO> devices = deactivateDeviceController.requestAllDevices();
 
         // Assert
         assertTrue(devices.isEmpty());
@@ -134,7 +134,7 @@ class US08DeactivateDeviceTest {
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         ImpHouseFactory houseFactory = new ImpHouseFactory();
-        US08DeactivateDevice us08DeactivateDevice = new US08DeactivateDevice(deviceService, deviceAssembler);
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
         // Add a house
         Address address = new Address("street","1");
@@ -144,7 +144,7 @@ class US08DeactivateDeviceTest {
         houseRepository.save(house);
 
         // Act
-        List<DeviceDTO> devices = us08DeactivateDevice.requestAllDevices();
+        List<DeviceDTO> devices = deactivateDeviceController.requestAllDevices();
 
         // Assert
         assertTrue(devices.isEmpty());
@@ -166,7 +166,7 @@ class US08DeactivateDeviceTest {
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         ImpHouseFactory houseFactory = new ImpHouseFactory();
-        US08DeactivateDevice us08DeactivateDevice = new US08DeactivateDevice(deviceService, deviceAssembler);
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
         // Add a house
         Address address = new Address("street","1");
@@ -190,7 +190,7 @@ class US08DeactivateDeviceTest {
 
         DeviceDTO deviceDTO = new DeviceDTO(device.getID().toString(), room.getID().toString(), deviceName.toString(), deviceStatus.toString());
         // Act
-        DeviceDTO deactivatedDevice = us08DeactivateDevice.requestDeactivateDevice(deviceDTO);
+        DeviceDTO deactivatedDevice = deactivateDeviceController.requestDeactivateDevice(deviceDTO);
 
         // Assert
         assertEquals(deactivatedDevice.deviceStatus.toString(), "OFF");
@@ -212,7 +212,7 @@ class US08DeactivateDeviceTest {
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         ImpHouseFactory houseFactory = new ImpHouseFactory();
-        US08DeactivateDevice us08DeactivateDevice = new US08DeactivateDevice(deviceService, deviceAssembler);
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
         // Add a house
         Address address = new Address("street","1");
@@ -231,7 +231,7 @@ class US08DeactivateDeviceTest {
 
         DeviceDTO deviceDTO = new DeviceDTO("does_not_exist", room.getID().toString(), "Lightbulb", "OFF");
         // Act
-        DeviceDTO deactivatedDevice = us08DeactivateDevice.requestDeactivateDevice(deviceDTO);
+        DeviceDTO deactivatedDevice = deactivateDeviceController.requestDeactivateDevice(deviceDTO);
 
         // Assert
         assertEquals(deactivatedDevice.deviceID, "Device not found.");

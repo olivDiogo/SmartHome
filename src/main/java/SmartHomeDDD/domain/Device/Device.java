@@ -25,7 +25,7 @@ public class Device implements AggregateRoot<DeviceID> {
      * @param deviceName   The name of the device. Must not be null.
      * @param deviceStatus The state of the device. Must not be null.
      */
-    public Device(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus, DeviceTypeID deviceTypeID) {
+    Device(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus, DeviceTypeID deviceTypeID) {
         validateRoomID(roomID);
         this._roomID = roomID;
         validateDeviceName(deviceName);
@@ -178,6 +178,11 @@ public class Device implements AggregateRoot<DeviceID> {
                 '}';
     }
 
+/**
+     * Method to deactivate the device
+     *
+     * @return the status of the device
+     */
     public DeviceStatus deactivateDevice() {
         _deviceStatus = new DeviceStatus(false);
         return _deviceStatus;

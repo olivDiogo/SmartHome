@@ -20,7 +20,7 @@ public class DeviceRepository implements Repository<DeviceID, Device> {
     /**
      * Method to save a domain entity.
      * @param device is the domain entity to be saved.
-     * @return
+     * @return the saved domain entity.
      */
     @Override
     public Device save(Device device) {
