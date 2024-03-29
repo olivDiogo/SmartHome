@@ -366,7 +366,7 @@ public class DeviceTest {
     /**
      * Test that the deactivateDevice method returns the expected DeviceStatus.
      */
-    /*@Test
+    @Test
     public void shouldReturnDeactivatedDeviceStatus_WhenDeactivateDeviceIsCalled() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
@@ -374,21 +374,23 @@ public class DeviceTest {
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
         DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
-        Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+        {
+            try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
+                Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
 
-        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
-            MockedConstruction<DeviceStatus> mocked = mockConstruction(DeviceStatus.class, (mock, context) ->
-                    when(mock.toString()).thenReturn("OFF"));
-            {
-                //Act
-                DeviceStatus result = device.deactivateDevice();
-                //Assert
-                List<DeviceStatus> results = mocked.constructed();
-                assertEquals(1, results.size());
-                assertTrue(results.contains(result));
+                try (MockedConstruction<DeviceStatus> mocked = mockConstruction(DeviceStatus.class, (mock, context) ->
+                        when(mock.toString()).thenReturn("OFF"));) {
+                    //Act
+                    DeviceStatus result = device.deactivateDevice();
+                    //Assert
+                    List<DeviceStatus> results = mocked.constructed();
+                    assertEquals(1, results.size());
+                    assertTrue(results.contains(result));
+                }
+
             }
         }
-    }*/
+    }
 
     /**
      * Test that the getDeviceTypeID method returns the expected DeviceTypeID.
