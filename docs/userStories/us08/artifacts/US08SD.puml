@@ -65,10 +65,6 @@ autonumber
     deactivate Status
     Device --> Service: status
     deactivate Device
-    Service --> Repository: save(device)
-    activate Repository
-    Repository --> Service: device
-    deactivate Repository
     Service --> Controller: device
     deactivate Service
     Controller-> Assembler: domainToDTO(device)
