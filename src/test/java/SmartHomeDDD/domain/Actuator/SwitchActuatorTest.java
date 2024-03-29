@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Actuator.SwitchActuator;
+package SmartHomeDDD.domain.Actuator;
 
 
 import SmartHomeDDD.ddd.ValueObject;
@@ -250,6 +250,35 @@ public class SwitchActuatorTest {
         } catch (IllegalArgumentException e) {
             // Assert
             assert e.getMessage().equals("The value of 'value' should not be null.");
+        }
+    }
+
+    /**
+     * Should return null when value is not instance of SwitchActuatorValue.
+     */
+    @Test
+    void shouldThrowIlegalArgumentException_WhenValueIsNotInstanceOfSwitchActuatorValue() {
+        // Arrange
+        String value = "On";
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+
+        ValueObject valueDouble = mock(ValueObject.class);
+        when(valueDouble.toString()).thenReturn(value);
+
+        // Act & Assert
+        try (MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class, (mock, context) -> {
+        })) {
+
+            SwitchActuator switchActuator = new SwitchActuator(deviceIDDouble, actuatorNameDouble, modelPathDouble, actuatorTypeIDDouble);
+
+            //Act
+            ValueObject result = switchActuator.setValue(valueDouble);
+
+            // Assert
+            assert result == null;
         }
     }
 
