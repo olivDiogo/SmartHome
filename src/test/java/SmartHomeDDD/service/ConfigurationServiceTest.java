@@ -1,8 +1,11 @@
 package SmartHomeDDD.service;
 
+import SmartHomeDDD.domain.MeasurementType.MeasurementType;
 import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
 import SmartHomeDDD.repository.SensorModelRepository;
+import SmartHomeDDD.valueObject.MeasurementTypeDescription;
+import SmartHomeDDD.valueObject.MeasurementTypeUnit;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelName;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -83,6 +86,27 @@ class ConfigurationServiceTest {
             // Act
             ConfigurationService configurationService = new ConfigurationService(sensorModelService, measurementTypeService, sensorTypeService);
             verify(sensorModelService, times(defaultSensorModels)).createSensorModel(any(), any());
+        }
+    }
+    @Test
+    void shouldLoadDefaultMeasurementTypes_WhenConfigurationServiceInstantiated() throws ConfigurationException {
+        //Arrange
+        SensorModelService sensorModelService = mock(SensorModelService.class);
+        SensorTypeService sensorTypeService = mock(SensorTypeService.class);
+        MeasurementTypeService measurementTypeService = mock(MeasurementTypeService.class);
+        when(measurementTypeService.createAndSaveMeasurementType(any(), any())).thenReturn(mock(MeasurementType.class));
+
+        Configurations configs = new Configurations();
+        int defaultSensorModels = configs.properties(new File("config.properties")).getStringArray("measurement").length;
+
+        try (MockedConstruction<MeasurementTypeDescription> measurementDescriptionConstruction = mockConstruction(MeasurementTypeDescription.class, (mock, context) -> {
+        });
+             MockedConstruction<MeasurementTypeUnit> measurementTUnitConstruction = mockConstruction(MeasurementTypeUnit.class, (mock, context) -> {
+             })) {
+
+            // Act
+            ConfigurationService configurationService = new ConfigurationService(sensorModelService, measurementTypeService, sensorTypeService);
+            verify(measurementTypeService, times(defaultSensorModels)).createAndSaveMeasurementType(any(), any());
         }
     }
 }

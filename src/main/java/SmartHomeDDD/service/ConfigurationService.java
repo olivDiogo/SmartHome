@@ -1,6 +1,8 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.SensorModel.SensorModel;
+import SmartHomeDDD.valueObject.MeasurementTypeDescription;
+import SmartHomeDDD.valueObject.MeasurementTypeUnit;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelName;
 import org.apache.commons.configuration2.Configuration;
@@ -20,6 +22,7 @@ public class ConfigurationService {
         validateSensorTypeService(sensorTypeService);
         try {
             loadDefaultSensorModels();
+            loadDefaultMeasurementTypes();
         } catch (InstantiationException e) {
             e.printStackTrace();
         }
@@ -70,4 +73,29 @@ public class ConfigurationService {
             throw new InstantiationException("something went wrong in reading the configuration: " + exception.getMessage());
         }
     }
+    private void loadDefaultMeasurementTypes() throws InstantiationException {
+        Configurations configs = new Configurations();
+        try {
+            Configuration config = configs.properties(new File("config.properties")); // e.g. filePathname = "config.properties"
+
+            // access configuration properties
+            String[] arrayStringMeasurementTypes = config.getStringArray("measurement");
+            for (String measurement : arrayStringMeasurementTypes) {
+                String[] measurementTypes = measurement.split(";");
+
+                String measurementTypeDescription = measurementTypes[0].split(":")[1];
+                MeasurementTypeDescription measurementDescription = new MeasurementTypeDescription(measurementTypeDescription);
+
+                String measurementTypeUnit = measurementTypes[1].split(":")[1];
+                MeasurementTypeUnit measurementTUnit = new MeasurementTypeUnit(measurementTypeUnit);
+
+                _measurementTypeService.createAndSaveMeasurementType(measurementDescription, measurementTUnit);
+
+            }
+        } catch (ConfigurationException exception) {
+            // Something went wrong
+            throw new InstantiationException("something went wrong in reading the configuration: " + exception.getMessage());
+        }
+    }
+
 }
