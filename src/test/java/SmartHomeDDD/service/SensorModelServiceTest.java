@@ -119,4 +119,35 @@ class SensorModelServiceTest {
             assertEquals(sensorModel, actualSensor.get());
         }
     }
+    @Test
+    void shouldCreateSensorModel_WhenGivenValidParameters() {
+        //Arrange
+        SensorModelName sensorModelName = mock(SensorModelName.class);
+        ModelPath sensorPath = mock(ModelPath.class);
+        SensorModel sensorModel = mock(SensorModel.class);
+        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        when(sensorModelFactory.createSensorModel(sensorModelName, sensorPath)).thenReturn(sensorModel);
+        SensorModelService sensorModelService = new SensorModelService(mock(SensorModelRepository.class), sensorModelFactory);
+        //Act
+        SensorModel actualSensorModel = sensorModelService.createSensorModel(sensorModelName, sensorPath);
+        //Assert
+        assertEquals(sensorModel, actualSensorModel);
+    }
+    @Test
+    void shouldActivateSensorModelRepository_WhenCreateSensorModelCalled() {
+        //Arrange
+        SensorModelName sensorModelName = mock(SensorModelName.class);
+        ModelPath sensorPath = mock(ModelPath.class);
+        SensorModel sensorModel = mock(SensorModel.class);
+        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
+        when(sensorModelFactory.createSensorModel(sensorModelName, sensorPath)).thenReturn(sensorModel);
+
+        SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
+        //Act
+        sensorModelService.createSensorModel(sensorModelName, sensorPath);
+        //Assert
+        verify(sensorModelRepository, times(1)).save(sensorModel);
+    }
+
 }

@@ -41,6 +41,11 @@ public class SensorModelService {
             this._factorySensorModel = factorySensorModel;
         }
     }
+    protected SensorModel createSensorModel(SensorModelName sensorModelName, ModelPath sensorPath) {
+        SensorModel sensorModel = _factorySensorModel.createSensorModel(sensorModelName, sensorPath);
+        _sensorModelRepository.save(sensorModel);
+        return sensorModel;
+    }
     private void loadDefaultSensorModels() throws InstantiationException {
         Configurations configs = new Configurations();
         try {
