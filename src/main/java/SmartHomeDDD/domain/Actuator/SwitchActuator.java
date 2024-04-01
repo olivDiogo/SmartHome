@@ -1,8 +1,6 @@
 package SmartHomeDDD.domain.Actuator;
 
 import SmartHomeDDD.ddd.ValueObject;
-import SmartHomeDDD.domain.Actuator.Actuator;
-import SmartHomeDDD.domain.ActuatorType.ActuatorType;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.UUID;
@@ -20,12 +18,12 @@ public class SwitchActuator implements Actuator {
      * Instantiates a new Switch actuator.
      *
      * @param deviceID       the device id
-     * @param actuatorName   the actuator name
      * @param modelPath      the model path
      * @param actuatorTypeID the actuator type id
+     * @param actuatorName   the actuator name
      */
 
-    public SwitchActuator(DeviceID deviceID, ActuatorName actuatorName, ModelPath modelPath, ActuatorTypeID actuatorTypeID) {
+    public SwitchActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
         validateDeviceID(deviceID);
         validateActuatorName(actuatorName);
         validateModelPath(modelPath);

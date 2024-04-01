@@ -24,7 +24,7 @@ public class SolarIrradianceSensorTest {
         try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
         })) {
             // Act
-            new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
         }
     }
 
@@ -43,7 +43,7 @@ public class SolarIrradianceSensorTest {
         })) {
             // Act
             try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
             } catch (IllegalArgumentException e) {
                 // Assert
                 assert e.getMessage().equals("DeviceID cannot be null");
@@ -66,7 +66,7 @@ public class SolarIrradianceSensorTest {
         })) {
             // Act
             try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
             } catch (IllegalArgumentException e) {
                 // Assert
                 assert e.getMessage().equals("ModelPath cannot be null");
@@ -89,7 +89,7 @@ public class SolarIrradianceSensorTest {
         })) {
             // Act
             try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
             } catch (IllegalArgumentException e) {
                 // Assert
                 assert e.getMessage().equals("SensorName cannot be null");
@@ -112,7 +112,7 @@ public class SolarIrradianceSensorTest {
         })) {
             // Act
             try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
             } catch (IllegalArgumentException e) {
                 // Assert
                 assert e.getMessage().equals("SensorTypeID cannot be null");
@@ -134,7 +134,7 @@ public class SolarIrradianceSensorTest {
         try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
             when(mock.toString()).thenReturn("sensorID");
         })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
             SensorID result = solarIrradianceSensor.getID();
@@ -157,7 +157,7 @@ public class SolarIrradianceSensorTest {
 
         try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
         })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
             DeviceID result = solarIrradianceSensor.getDeviceID();
@@ -180,7 +180,7 @@ public class SolarIrradianceSensorTest {
 
         try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
         })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
             ModelPath result = solarIrradianceSensor.getModelPath();
@@ -203,7 +203,7 @@ public class SolarIrradianceSensorTest {
 
         try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
         })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
             SensorName result = solarIrradianceSensor.getName();
@@ -226,7 +226,7 @@ public class SolarIrradianceSensorTest {
 
         try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
         })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
             SensorTypeID result = solarIrradianceSensor.getSensorTypeID();
@@ -251,7 +251,7 @@ public class SolarIrradianceSensorTest {
 
         try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
         })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorName, sensorTypeID);
+            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             try (MockedConstruction<SolarIrradianceValueTest> sensorValueConstruction = mockConstruction(SolarIrradianceValueTest.class, (mock, context) -> {
                 when(mock.toString()).thenReturn("4500");
