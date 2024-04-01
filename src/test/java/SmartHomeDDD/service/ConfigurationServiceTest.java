@@ -1,9 +1,21 @@
 package SmartHomeDDD.service;
 
+import SmartHomeDDD.domain.SensorModel.SensorModel;
+import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
+import SmartHomeDDD.repository.SensorModelRepository;
+import SmartHomeDDD.valueObject.ModelPath;
+import SmartHomeDDD.valueObject.SensorModelName;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+
+import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 class ConfigurationServiceTest {
     @Test
@@ -50,5 +62,27 @@ class ConfigurationServiceTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ConfigurationService(sensorModelService, measurementTypeService, sensorTypeService));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
+    }
+    @Test
+    void shouldLoadDefaultSensorModels_WhenConfigurationServiceInstantiated() throws ConfigurationException {
+        //Arrange
+        SensorModelService sensorModelService = mock(SensorModelService.class);
+        when(sensorModelService.createSensorModel(any(), any())).thenReturn(mock(SensorModel.class));
+
+        SensorTypeService sensorTypeService = mock(SensorTypeService.class);
+        MeasurementTypeService measurementTypeService = mock(MeasurementTypeService.class);
+
+        Configurations configs = new Configurations();
+        int defaultSensorModels = configs.properties(new File("config.properties")).getStringArray("sensor").length;
+
+        try (MockedConstruction<ModelPath> modelPathMockedConstruction = mockConstruction(ModelPath.class, (mock, context) -> {
+        });
+             MockedConstruction<SensorModelName> sensorModelMockedConstruction = mockConstruction(SensorModelName.class, (mock, context) -> {
+             })) {
+
+            // Act
+            ConfigurationService configurationService = new ConfigurationService(sensorModelService, measurementTypeService, sensorTypeService);
+            verify(sensorModelService, times(defaultSensorModels)).createSensorModel(any(), any());
+        }
     }
 }

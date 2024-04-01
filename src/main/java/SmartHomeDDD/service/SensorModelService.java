@@ -21,11 +21,7 @@ public class SensorModelService {
     public SensorModelService(Repository<SensorModelID, SensorModel> sensorModelRepository, SensorModelFactory factorySensorModel) {
         validateSensorModelRepository(sensorModelRepository);
         validateFactorySensorModel(factorySensorModel);
-        try {
-            loadDefaultSensorModels();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
+
     }
     private void validateSensorModelRepository(Repository<SensorModelID, SensorModel> sensorModelRepository) {
         if (sensorModelRepository == null) {
@@ -46,27 +42,7 @@ public class SensorModelService {
         _sensorModelRepository.save(sensorModel);
         return sensorModel;
     }
-    private void loadDefaultSensorModels() throws InstantiationException {
-        Configurations configs = new Configurations();
-        try {
-            Configuration config = configs.properties(new File("config.properties")); // e.g. filePathname = "config.properties"
 
-            // access configuration properties
-            String[] arrayStringClassesSensors = config.getStringArray("sensor");
-            for (String sensor : arrayStringClassesSensors) {
-                ModelPath sensorPath = new ModelPath(sensor);
-
-                String sensorModelName = sensor.substring(sensor.lastIndexOf('.') + 1);
-                SensorModelName sensorName = new SensorModelName(sensorModelName);
-
-                SensorModel sensorModel = _factorySensorModel.createSensorModel(sensorName, sensorPath);
-                _sensorModelRepository.save(sensorModel);
-            }
-        } catch (ConfigurationException exception) {
-            // Something went wrong
-            throw new InstantiationException("something went wrong in reading the configuration: " + exception.getMessage());
-        }
-    }
 
     public List<SensorModel> getAllSensorModels() {
         return _sensorModelRepository.findAll();

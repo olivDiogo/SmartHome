@@ -71,29 +71,6 @@ class SensorModelServiceTest {
             assertEquals(sensorModels, List.of(sensorModel));
         }
     }
-    @Test
-    void shouldLoadDefaultSensorModels_WhenSensorModelServiceInstantiated() throws ConfigurationException {
-        //Arrange
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
-        SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
-        when(sensorModelRepository.save(any())).thenReturn(mock(SensorModel.class));
-        when(sensorModelFactory.createSensorModel(any(), any())).thenReturn(mock(SensorModel.class));
-        when(sensorModelRepository.save(any())).thenReturn(mock(SensorModel.class));
-
-        Configurations configs = new Configurations();
-        int defaultSensorModels = configs.properties(new File("config.properties")).getStringArray("sensor").length;
-
-        try (MockedConstruction<ModelPath> modelPathMockedConstruction = mockConstruction(ModelPath.class, (mock, context) -> {
-        });
-             MockedConstruction<SensorModelName> sensorModelMockedConstruction = mockConstruction(SensorModelName.class, (mock, context) -> {
-             })) {
-
-            // Act
-            SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
-
-            verify(sensorModelRepository, times(defaultSensorModels)).save(any());
-        }
-    }
 
     @Test
     void shouldGetSensorModel_WhenGetSensorModelCalled() {

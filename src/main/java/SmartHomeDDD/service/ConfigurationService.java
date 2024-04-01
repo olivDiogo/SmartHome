@@ -1,5 +1,14 @@
 package SmartHomeDDD.service;
 
+import SmartHomeDDD.domain.SensorModel.SensorModel;
+import SmartHomeDDD.valueObject.ModelPath;
+import SmartHomeDDD.valueObject.SensorModelName;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+
+import java.io.File;
+
 public class ConfigurationService {
     private SensorModelService _sensorModelService;
     private MeasurementTypeService _measurementTypeService;
@@ -9,6 +18,12 @@ public class ConfigurationService {
         validateSensorModelService(sensorModelService);
         validateMeasurementTypeService(measurementTypeService);
         validateSensorTypeService(sensorTypeService);
+        try {
+            loadDefaultSensorModels();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void validateSensorModelService(SensorModelService sensorModelService) {
@@ -32,6 +47,27 @@ public class ConfigurationService {
             throw new IllegalArgumentException("Please enter a valid sensor type service.");
         } else {
             this._sensorTypeService = sensorTypeService;
+        }
+    }
+    private void loadDefaultSensorModels() throws InstantiationException {
+        Configurations configs = new Configurations();
+        try {
+            Configuration config = configs.properties(new File("config.properties")); // e.g. filePathname = "config.properties"
+
+            // access configuration properties
+            String[] arrayStringClassesSensors = config.getStringArray("sensor");
+            for (String sensor : arrayStringClassesSensors) {
+                ModelPath sensorPath = new ModelPath(sensor);
+
+                String sensorModelName = sensor.substring(sensor.lastIndexOf('.') + 1);
+                SensorModelName sensorName = new SensorModelName(sensorModelName);
+
+                _sensorModelService.createSensorModel(sensorName, sensorPath);
+
+            }
+        } catch (ConfigurationException exception) {
+            // Something went wrong
+            throw new InstantiationException("something went wrong in reading the configuration: " + exception.getMessage());
         }
     }
 }
