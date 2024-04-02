@@ -10,7 +10,7 @@ public class SwitchSensor implements Sensor{
     private SensorName _sensorName;
     private SensorID _sensorID;
     private SensorTypeID _sensorTypeID;
-    private SwitchSensorValue _humidityValue;
+    private SwitchSensorValue switchSensorValue;
     private DeviceID _deviceID;
 
     /**
@@ -26,7 +26,7 @@ public class SwitchSensor implements Sensor{
         validateSensorTypeID(sensorTypeID);
         validateDeviceID(deviceID);
         generateHumidityID();
-        _humidityValue = new SwitchSensorValue(false);
+        switchSensorValue = new SwitchSensorValue(false);
     }
 
     /**
@@ -135,8 +135,8 @@ public class SwitchSensor implements Sensor{
      */
     @Override
     public ValueObject getValue() {
-        _humidityValue = new SwitchSensorValue(false);
-        return this._humidityValue;
+        switchSensorValue = new SwitchSensorValue(false);
+        return this.switchSensorValue;
     }
 
     /**
