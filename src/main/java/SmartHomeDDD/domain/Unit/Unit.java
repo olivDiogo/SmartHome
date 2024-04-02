@@ -5,8 +5,6 @@ import SmartHomeDDD.valueObject.UnitSymbol;
 import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.ddd.AggregateRoot;
 
-import java.util.UUID;
-
 /**
  * Represents a type of measurement in the SmartHomeDDD domain. This class includes information about
  * the measurement's unit and its description. It acts as an aggregate root in the domain-driven design (DDD) context.
@@ -26,11 +24,12 @@ public class Unit implements AggregateRoot<UnitID> {
      * @throws IllegalArgumentException if either the unit description or measurement unit is null.
      */
     Unit(UnitDescription unitDescription, UnitSymbol unitSymbol) {
-        generateID();
         validateUnitSymbol(unitSymbol);
         validateUnitDescription(unitDescription);
         this._unitSymbol = unitSymbol;
         this._unitDescription = unitDescription;
+        generateID(unitDescription);
+
     }
     /**
      * Validates that the measurement unit is not null.
@@ -57,8 +56,8 @@ public class Unit implements AggregateRoot<UnitID> {
     /**
      * Generates a unique identifier for the measurement type.
      */
-    private void generateID() {
-        _unitID = new UnitID(UUID.randomUUID().toString());
+    private void generateID(UnitDescription unitDescription) {
+        _unitID = new UnitID(unitDescription.toString());
     }
 
     /**
@@ -102,10 +101,10 @@ public class Unit implements AggregateRoot<UnitID> {
      */
     @Override
     public String toString() {
-        return "MeasurementType{" +
-                "_measurementUnit=" + _unitSymbol +
+        return "Unit{" +
+                "_unitSymbol=" + _unitSymbol +
                 ", _unitDescription=" + _unitDescription +
-                ", _measurementID=" + _unitID +
+                ", _unitID=" + _unitID +
                 '}';
     }
 
