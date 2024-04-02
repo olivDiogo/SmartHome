@@ -39,4 +39,20 @@ class PostalCodeFactoryTest {
         assertThrows(RuntimeException.class, () -> factory.createPostalCode(postalCode, "InvalidCountryCode"));
     }
 
+    /**
+     * Test to ensure that RuntimeException is thrown for an invalid postal code.
+     */
+    @Test
+    public void shouldThrowIllegalArgumentException_WhenPostalCodeIsInvalid() {
+        // Arrange
+        String postalCode = "1234-65";
+        String countryCode = "PT";
+        PostalCodeFactory factory = new PostalCodeFactory();
+        PostalCode postalCodeMock = mock(PostalCode.class);
+        when(postalCodeMock.validate(postalCode)).thenReturn(false);
+
+        // Act & Assert
+        assertThrows(RuntimeException.class, () -> factory.createPostalCode(postalCode, countryCode));
+    }
+
 }
