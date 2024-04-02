@@ -315,7 +315,7 @@ public class AddressTest {
         String postalCodeValue = "4000-123";
         String countryCode = "PT";
         PostalCodeFactory factory = mock(PostalCodeFactory.class);
-        PostalCode postalCode = mock(PostalCode.class);
+        IPostalCode postalCode = mock(IPostalCode.class);
         when(factory.createPostalCode(anyString(), anyString())).thenReturn(postalCode); //TODO: this is the correct use
         Address address1 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
         Address address2 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
@@ -360,7 +360,7 @@ public class AddressTest {
         String postalCodeValue = "4000-123";
         String countryCode = "PT";
         PostalCodeFactory factory = mock(PostalCodeFactory.class);
-        PostalCode postalCode = mock(PostalCode.class);
+        IPostalCode postalCode = mock(IPostalCode.class);
         when(factory.createPostalCode(anyString(), anyString())).thenReturn(postalCode);
         Address address1 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
         Address address2 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);

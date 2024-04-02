@@ -2,7 +2,7 @@ package SmartHomeDDD.valueObject;
 
 import java.util.regex.Pattern;
 
-public class PostalCodeESImpl implements PostalCode {
+public class PostalCodeESImpl implements IPostalCode {
 
     private final String postalCode;
 

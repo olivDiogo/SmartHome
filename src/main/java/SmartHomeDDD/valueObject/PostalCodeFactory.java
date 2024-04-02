@@ -18,12 +18,12 @@ public class PostalCodeFactory {
      * @throws RuntimeException If an error occurs during the instantiation of the postal code implementation.
      */
 
-    public PostalCode createPostalCode(String postalCode, String countryCode) {
+    public IPostalCode createPostalCode(String postalCode, String countryCode) {
         try{
             String className = "SmartHomeDDD.valueObject.PostalCode" + countryCode + "Impl";
             Class<?> clazz = Class.forName(className);
             Constructor<?> constructor = clazz.getConstructor(String.class);
-            return (PostalCode) constructor.newInstance(postalCode);
+            return (IPostalCode) constructor.newInstance(postalCode);
         } catch (ClassNotFoundException e) {
             throw new IllegalArgumentException("Postal code implementation not found for country code: " + countryCode);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
