@@ -3,9 +3,7 @@ package SmartHomeDDD.domain.House;
 import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
 import SmartHomeDDD.valueObject.HouseID;
-import SmartHomeDDD.valueObject.ZipCode;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
 import java.lang.reflect.Field;
 
@@ -22,11 +20,10 @@ class HouseTest {
     void shouldInstantiateHouse_WhenConstructorIsCalledWithValidParameters(){
         // Arrange
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
 
         // Act & Assert
-        new House(address, zipCode, gps);
+        new House(address, gps);
     }
 
     /**
@@ -37,26 +34,10 @@ class HouseTest {
     void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullAddress(){
         // Arrange
         Address address = null;
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new House(address, zipCode, gps));
-    }
-
-    /**
-     * Ensures that an IllegalArgumentException is thrown when attempting to instantiate
-     * a House with a null ZipCode parameter, validating input parameter checks.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullZipCode(){
-        // Arrange
-        Address address = mock(Address.class);
-        ZipCode zipCode = null;
-        GPS gps = mock(GPS.class);
-
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new House(address, zipCode, gps));
+        assertThrows(IllegalArgumentException.class, () -> new House(address, gps));
     }
 
     /**
@@ -67,11 +48,10 @@ class HouseTest {
     void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullGPS(){
         // Arrange
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = null;
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new House(address, zipCode, gps));
+        assertThrows(IllegalArgumentException.class, () -> new House(address, gps));
     }
 
     /**
@@ -82,9 +62,8 @@ class HouseTest {
     void shouldReturnHouseID_WhenGetIDIsCalled(){
         // Arrange
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
-        House house = new House(address, zipCode, gps);
+        House house = new House(address, gps);
 
         // Act
         HouseID result = house.getID();
@@ -101,34 +80,14 @@ class HouseTest {
     void shouldReturnAddress_WhenGetAddressIsCalled(){
         // Arrange
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
-        House house = new House(address, zipCode, gps);
+        House house = new House(address, gps);
 
         // Act
         Address result = house.getAddress();
 
         // Assert
         assertEquals(address, result);
-    }
-
-    /**
-     * Tests that the {@link House#getZipCode()} method returns the correct ZipCode of the instantiated House.
-     * This test verifies that the ZipCode is properly set during House construction.
-     */
-    @Test
-    void shouldReturnZipCode_WhenGetZipCodeIsCalled(){
-        // Arrange
-        Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
-        GPS gps = mock(GPS.class);
-        House house = new House(address, zipCode, gps);
-
-        // Act
-        ZipCode result = house.getZipCode();
-
-        // Assert
-        assertEquals(zipCode, result);
     }
 
     /**
@@ -139,9 +98,8 @@ class HouseTest {
     void shouldReturnGps_WhenGetGpsIsCalled(){
         // Arrange
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
-        House house = new House(address, zipCode, gps);
+        House house = new House(address, gps);
 
         // Act
         GPS result = house.getGps();
@@ -157,10 +115,9 @@ class HouseTest {
     void shouldReturnTrue_WhenComparedToItself() {
         // Arrange
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
 
-        House house = new House(address, zipCode, gps);
+        House house = new House(address, gps);
 
         // Act
         boolean result = house.equals(house);
@@ -177,15 +134,13 @@ class HouseTest {
     void shouldReturnFalse_WhenThereAreTwoDifferentHouses() throws NoSuchFieldException, IllegalAccessException {
         // Arrange
         Address address1 = mock(Address.class);
-        ZipCode zipCode1 = mock(ZipCode.class);
         GPS gps1 = mock(GPS.class);
 
         Address address2 = mock(Address.class);
-        ZipCode zipCode2 = mock(ZipCode.class);
         GPS gps2 = mock(GPS.class);
 
-        House house1 = new House(address1, zipCode1, gps1);
-        House house2 = new House(address2, zipCode2, gps2);
+        House house1 = new House(address1, gps1);
+        House house2 = new House(address2, gps2);
 
         Field houseIDField = House.class.getDeclaredField("_houseID");
         houseIDField.setAccessible(true);
@@ -207,11 +162,10 @@ class HouseTest {
     void shouldReturnTrue_WhenThereAreTwoEqualHouses() throws NoSuchFieldException, IllegalAccessException {
         // Arrange
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
 
-        House house1 = new House(address, zipCode, gps);
-        House house2 = new House(address, zipCode, gps);
+        House house1 = new House(address, gps);
+        House house2 = new House(address, gps);
 
         HouseID houseID = mock(HouseID.class);
 
@@ -235,10 +189,9 @@ class HouseTest {
     void shouldReturnFalse_WhenComparedWithNull() {
         // Arrange
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
 
-        House house = new House(address, zipCode, gps);
+        House house = new House(address, gps);
 
         // Act
         boolean isEqual = house.equals(null);
@@ -254,10 +207,9 @@ class HouseTest {
     void shouldReturnFalse_WhenComparedWithDifferentClass() {
         // Arrange
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
 
-        House house = new House(address, zipCode, gps);
+        House house = new House(address, gps);
 
         // Act
         boolean isEqual = house.equals(new Object());
@@ -276,9 +228,8 @@ class HouseTest {
     void shouldReturnStringRepresentation_WhenToStringIsCalled(){
         // Arrange
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
-        House house = new House(address, zipCode, gps);
+        House house = new House(address, gps);
 
         // Act
         String result = house.toString();
@@ -287,7 +238,6 @@ class HouseTest {
         assertTrue(result.contains("House{"));
         assertTrue(result.contains("_houseID="));
         assertTrue(result.contains("_address="));
-        assertTrue(result.contains("_zipCode="));
         assertTrue(result.contains("_gps="));
     }
 }

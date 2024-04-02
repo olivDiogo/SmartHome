@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class AddressTest {
 
@@ -15,9 +18,12 @@ public class AddressTest {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
 
         //Act
-        Address address = new Address(street, doorNumber);
+        Address address = new Address(street, doorNumber, postalCode, countryCode, factory);
 
     }
 
@@ -29,9 +35,11 @@ public class AddressTest {
         //Arrange
         String street = null;
         String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
 
         //Act & Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
         assertEquals("Invalid street", exception.getMessage());
     }
 
@@ -43,9 +51,11 @@ public class AddressTest {
         //Arrange
         String street = "";
         String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
 
         //Act & Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
         assertEquals("Invalid street", exception.getMessage());
     }
 
@@ -57,9 +67,11 @@ public class AddressTest {
         //Arrange
         String street = "Isep Street__2";
         String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
 
         //Act & Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
         assertEquals("Invalid street", exception.getMessage());
     }
 
@@ -71,9 +83,11 @@ public class AddressTest {
         //Arrange
         String street = "\n";
         String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
 
         //Act & Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
         assertEquals("Invalid street", exception.getMessage());
     }
 
@@ -85,9 +99,11 @@ public class AddressTest {
         //Arrange
         String street = "\t";
         String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
 
         //Act & Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
         assertEquals("Invalid street", exception.getMessage());
     }
 
@@ -99,9 +115,11 @@ public class AddressTest {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = null;
+        String postalCode = "4000-123";
+        String countryCode = "PT";
 
         //Act & Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
         assertEquals("Invalid door number", exception.getMessage());
     }
 
@@ -113,9 +131,11 @@ public class AddressTest {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
 
         //Act & Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
         assertEquals("Invalid door number", exception.getMessage());
     }
 
@@ -127,9 +147,11 @@ public class AddressTest {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A__";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
 
         //Act & Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
         assertEquals("Invalid door number", exception.getMessage());
     }
 
@@ -141,9 +163,11 @@ public class AddressTest {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "\n";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
 
         //Act & Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
         assertEquals("Invalid door number", exception.getMessage());
     }
 
@@ -155,9 +179,11 @@ public class AddressTest {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "\t";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
 
         //Act & Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
         assertEquals("Invalid door number", exception.getMessage());
     }
 
@@ -169,7 +195,11 @@ public class AddressTest {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
-        Address address = new Address(street, doorNumber);
+        String postalCode = "4000-123";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+
+        Address address = new Address(street, doorNumber, postalCode, countryCode, factory);
 
         //Act
         boolean isEquals = address.equals(address);
@@ -186,7 +216,10 @@ public class AddressTest {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
-        Address address = new Address(street, doorNumber);
+        String postalCode = "4000-123";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+        Address address = new Address(street, doorNumber, postalCode, countryCode, factory);
 
         //Act
         boolean isEquals = address.equals(null);
@@ -199,12 +232,17 @@ public class AddressTest {
      * Tests if Address is equal to another Address with same street.
      */
     @Test
-    void shouldReturnTrueEqualsWithSameStreet(){
+    void shouldReturnTrueEqualsWithSameStreet() {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
-        Address address1 = new Address(street, doorNumber);
-        Address address2 = new Address(street, doorNumber);
+        String postalCodeValue  = "4000-123";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+        PostalCode postalCode = mock(PostalCode.class);
+        when(factory.createPostalCode(anyString(), anyString())).thenReturn(postalCode); //TODO: this is the correct use
+        Address address1 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
+        Address address2 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
 
         //Act
         boolean isEquals = address1.equals(address2);
@@ -217,13 +255,16 @@ public class AddressTest {
      * Tests if Address is not equal to another Address with different street.
      */
     @Test
-    void shouldReturnFalseWithDifferentStreet(){
+    void shouldReturnFalseWithDifferentStreet() {
         //Arrange
         String street1 = "Isep Street 2";
         String street2 = "Isep Street 3";
         String doorNumber = "12 A";
-        Address address1 = new Address(street1, doorNumber);
-        Address address2 = new Address(street2, doorNumber);
+        String postalCode = "4000-123";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+        Address address1 = new Address(street1, doorNumber, postalCode, countryCode, factory);
+        Address address2 = new Address(street2, doorNumber, postalCode, countryCode, factory);
 
         //Act
         boolean isEquals = address1.equals(address2);
@@ -236,12 +277,17 @@ public class AddressTest {
      * Tests if Address is equal to another Address with same door number.
      */
     @Test
-    void shouldReturnTrueEqualsWithSameDoorNumber(){
+    void shouldReturnTrueEqualsWithSameDoorNumber() {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
-        Address address1 = new Address(street, doorNumber);
-        Address address2 = new Address(street, doorNumber);
+        String postalCodeValue = "4000-123";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+        PostalCode postalCode = mock(PostalCode.class);
+        when(factory.createPostalCode(anyString(), anyString())).thenReturn(postalCode);
+        Address address1 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
+        Address address2 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
 
         //Act
         boolean isEquals = address1.equals(address2);
@@ -254,13 +300,16 @@ public class AddressTest {
      * Tests if Address is not equal to another Address with different door number.
      */
     @Test
-    void shouldReturnFalseWithDifferentDoorNumber(){
+    void shouldReturnFalseWithDifferentDoorNumber() {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber1 = "12 A";
         String doorNumber2 = "12 B";
-        Address address1 = new Address(street, doorNumber1);
-        Address address2 = new Address(street, doorNumber2);
+        String postalCode = "4000-123";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+        Address address1 = new Address(street, doorNumber1, postalCode, countryCode, factory);
+        Address address2 = new Address(street, doorNumber2, postalCode, countryCode, factory);
 
         //Act
         boolean isEquals = address1.equals(address2);
@@ -273,11 +322,14 @@ public class AddressTest {
      * Tests if the street is returned correctly.
      */
     @Test
-    void shouldReturnStreet(){
+    void shouldReturnStreet() {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
-        Address address = new Address(street, doorNumber);
+        String postalCode = "4000-123";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+        Address address = new Address(street, doorNumber, postalCode, countryCode, factory);
 
         //Act
         String actualStreet = address.getStreet();
@@ -290,11 +342,14 @@ public class AddressTest {
      * Tests if the door number is returned correctly.
      */
     @Test
-    void shouldReturnDoorNumber(){
+    void shouldReturnDoorNumber() {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
-        Address address = new Address(street, doorNumber);
+        String postalCode = "4000-123";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+        Address address = new Address(street, doorNumber, postalCode, countryCode, factory);
 
         //Act
         String actualDoorNumber = address.getDoorNumber();
@@ -308,11 +363,14 @@ public class AddressTest {
      */
 
     @Test
-    void shouldReturnAddressToString(){
+    void shouldReturnAddressToString() {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
-        Address address = new Address(street, doorNumber);
+        String postalCode = "4000-123";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+        Address address = new Address(street, doorNumber, postalCode, countryCode, factory);
 
         String expected = "Isep Street 2, 12 A";
 

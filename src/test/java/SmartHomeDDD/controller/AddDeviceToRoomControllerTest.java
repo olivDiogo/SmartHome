@@ -72,21 +72,21 @@ class AddDeviceToRoomControllerTest {
         AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler);
 
         ImpHouseFactory houseFactory = new ImpHouseFactory();
+        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 
         String street = "Rua Do Isep";
         String doorNumber = "122A";
-        Address newAddress = new Address(street, doorNumber);
+        String countryCode = "PT";
+        String postalCode = "4000-007";
 
-        int zipCodePrefix = 4000;
-        int zipCodeSuffix = 129;
-        ZipCode newZipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+        Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
 
         double latitude = 41.178;
         double longitude = -8.608;
         GPS newGPS = new GPS(latitude, longitude);
 
-        House house = houseService.addHouse(newAddress, newZipCode, newGPS);
+        House house = houseService.addHouse(newAddress, newGPS);
 
         HouseID houseID = house.getID();
 
@@ -163,22 +163,22 @@ class AddDeviceToRoomControllerTest {
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         ImpHouseFactory houseFactory = new ImpHouseFactory();
+        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 
-                               //Room
+        //Room
         String street = "Rua Do Isep";
         String doorNumber = "122A";
-        Address newAddress = new Address(street, doorNumber);
+        String countryCode = "PT";
+        String postalCode = "4000-007";
 
-        int zipCodePrefix = 4000;
-        int zipCodeSuffix = 129;
-        ZipCode newZipCode = new ZipCode(zipCodePrefix, zipCodeSuffix);
+        Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
 
         double latitude = 41.178;
         double longitude = -8.608;
         GPS newGPS = new GPS(latitude, longitude);
 
-        House house = houseService.addHouse(newAddress, newZipCode, newGPS);
+        House house = houseService.addHouse(newAddress, newGPS);
 
         HouseID houseID = house.getID();
 

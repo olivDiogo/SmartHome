@@ -4,10 +4,8 @@ import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
 import SmartHomeDDD.valueObject.HouseID;
-import SmartHomeDDD.valueObject.ZipCode;
 import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.domain.House.HouseFactory;
-import SmartHomeDDD.repository.HouseRepository;
 
 public class HouseService {
 
@@ -50,8 +48,8 @@ public class HouseService {
         }
     }
 
-    public House addHouse(Address address, ZipCode zipCode, GPS gps) {
-        House house = houseFactory.createHouse(address, zipCode, gps);
+    public House addHouse(Address address, GPS gps) {
+        House house = houseFactory.createHouse(address, gps);
         houseRepository.save(house);
         return house;
     }

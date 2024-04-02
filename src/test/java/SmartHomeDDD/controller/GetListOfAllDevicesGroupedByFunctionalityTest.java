@@ -140,19 +140,25 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
         ImpDeviceTypeFactory impDeviceTypeFactory = new ImpDeviceTypeFactory();
-
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
-
-        /* Create a house */
-        Address address = new Address("Rua do Ouro", "22");
-        ZipCode zipCode = new ZipCode(4444, 222);
-        GPS gps = new GPS(22.2, 33.3);
-
         ImpHouseFactory houseFactory = new ImpHouseFactory();
         HouseRepository houseRepository = new HouseRepository();
         HouseService houseService = new HouseService (houseFactory, houseRepository);
+        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
 
-        House house = houseService.addHouse(address, zipCode, gps);
+        /* Create a house */
+        String street = "Rua Do Isep";
+        String doorNumber = "122A";
+        String countryCode = "PT";
+        String postalCode = "4000-007";
+
+        Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+        double latitude = 41.178;
+        double longitude = -8.608;
+        GPS newGPS = new GPS(latitude, longitude);
+
+        House house = houseService.addHouse(newAddress, newGPS);
 
         /* Create a room */
         ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -208,24 +214,29 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
-
         DeviceTypeFactory deviceTypeFactory = new ImpDeviceTypeFactory();
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
         ImpDeviceTypeFactory impDeviceTypeFactory = new ImpDeviceTypeFactory();
-
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
-
-        /* Create a house */
-        Address address = new Address("Rua do Ouro", "22");
-        ZipCode zipCode = new ZipCode(4444, 222);
-        GPS gps = new GPS(22.2, 33.3);
-
         ImpHouseFactory houseFactory = new ImpHouseFactory();
         HouseRepository houseRepository = new HouseRepository();
         HouseService houseService = new HouseService (houseFactory, houseRepository);
+        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
 
-        House house = houseService.addHouse(address, zipCode, gps);
+        /* Create a house */
+        String street = "Rua Do Isep";
+        String doorNumber = "122A";
+        String countryCode = "PT";
+        String postalCode = "4000-007";
+
+        Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+        double latitude = 41.178;
+        double longitude = -8.608;
+        GPS newGPS = new GPS(latitude, longitude);
+
+        House house = houseService.addHouse(newAddress, newGPS);
 
         /* Create a room */
         ImpRoomFactory roomFactory = new ImpRoomFactory();
