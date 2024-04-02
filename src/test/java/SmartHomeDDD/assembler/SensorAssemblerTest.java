@@ -14,6 +14,9 @@ import static org.mockito.Mockito.when;
 
 class SensorAssemblerTest {
 
+    /**
+     * Test that the method domainToDTO converts a Sensor to a SensorDTO.
+     */
     @Test
     public void shouldConvertSensorToSensorDTO_WhenSensorIsValid () {
         //Arrange
@@ -55,6 +58,9 @@ class SensorAssemblerTest {
 
     }
 
+    /**
+     * Test that the method domainToDTO throws an exception when the Sensor is null.
+     */
     @Test
     public void shouldThrowException_WhenSensorIsNull() {
         //Arrange
@@ -75,6 +81,9 @@ class SensorAssemblerTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test that the method domainToDTO throws an exception when the list of Sensors is null.
+     */
     @Test
     public void shouldConvertSensorListToListOfSensorsDTOList () {
         //Arrange
@@ -148,6 +157,9 @@ class SensorAssemblerTest {
         assertEquals(sensorID2, sensorsDTO.get(1).sensorID);
     }
 
+    /**
+     * Test that the method domainToDTO throws an exception when the list of Sensors is null.
+     */
     @Test
     public void shouldThrowException_WhenListOfSensorsIsNull() {
         //Arrange
@@ -168,6 +180,9 @@ class SensorAssemblerTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test that the method domainToDTO throws an exception when the list of Sensors is empty.
+     */
     @Test
     public void shouldThrowException_WhenListOfSensorsIsEmpty() {
         //Arrange
@@ -188,6 +203,9 @@ class SensorAssemblerTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test that the method domainToDTO throws an exception when the list of Sensors contains null Sensors.
+      */
     @Test
     public void shouldThrowException_WhenListOfSensorContainsNullSensors () {
         //Arrange
