@@ -12,8 +12,7 @@ public class SetIntegerActuator implements Actuator{
     private ActuatorTypeID _actuatorTypeID;
     private DeviceID _deviceID;
     private SetIntegerValue _value;
-    private int _lowerLimit;
-    private int _upperLimit;
+    private SetIntegerActuatorLimits _limits;
 
     /**
      * Constructor for SetIntegerActuator
@@ -23,7 +22,7 @@ public class SetIntegerActuator implements Actuator{
      * @param actuatorName
      * @param actuatorTypeID
      */
-    public SetIntegerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorName actuatorName, ActuatorTypeID actuatorTypeID, int lowerLimit, int upperLimit) {
+    protected SetIntegerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorName actuatorName, ActuatorTypeID actuatorTypeID, SetIntegerActuatorLimits limits) {
         validateDeviceID(deviceID);
         this._deviceID = deviceID;
 
@@ -36,8 +35,8 @@ public class SetIntegerActuator implements Actuator{
         validateActuatorTypeID(actuatorTypeID);
         this._actuatorTypeID = actuatorTypeID;
 
-        this._lowerLimit = lowerLimit;
-        this._upperLimit = upperLimit;
+        validateLimits(limits);
+        this._limits = limits;
 
         generateActuatorID();
     }
@@ -91,6 +90,16 @@ public class SetIntegerActuator implements Actuator{
     }
 
     /**
+     * Validates the limits
+     * @param limits
+     */
+    private void validateLimits(SetIntegerActuatorLimits limits) {
+        if (limits == null) {
+            throw new IllegalArgumentException("SetIntegerActuatorLimits cannot be null");
+        }
+    }
+
+    /**
      * Getter for actuatorID
      * @return
      */
@@ -136,6 +145,14 @@ public class SetIntegerActuator implements Actuator{
     }
 
     /**
+     * Getter for limits
+     * @return
+     */
+    public SetIntegerActuatorLimits getLimits() {
+        return this._limits;
+    }
+
+    /**
      * Sets the value within the range
      * @return
      */
@@ -147,9 +164,9 @@ public class SetIntegerActuator implements Actuator{
 
         int nValue = Integer.parseInt(value.toString());
 
-        if(nValue < _lowerLimit) {
+        if(nValue < _limits.getLowerLimit()) {
             throw new IllegalArgumentException("Value cannot be less than the lower limit.");
-        } else if (nValue > _upperLimit) {
+        } else if (nValue > _limits.getUpperLimit()) {
             throw new IllegalArgumentException("Value cannot be greater than the upper limit.");
         } else if (value instanceof SetIntegerValue) {
             this._value = (SetIntegerValue) value;
