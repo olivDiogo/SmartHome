@@ -39,6 +39,49 @@ public class GetListOfRoomsControllerTest {
 
     }
 
+
+    /**
+     * Test to check if the GetListOfRoomsController is returning null when the RoomService is null.
+     */
+    @Test
+    void shouldReturnNull_whenRoomServiceIsNull() {
+        //Arrange
+        RoomRepository roomRepository = new RoomRepository();
+        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomAssembler roomAssembler = new RoomAssembler();
+        HouseRepository houseRepository = new HouseRepository();
+
+        RoomService roomService = null;
+
+        //Act
+        try {
+            GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService, roomAssembler);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid room service.", e.getMessage());
+        }
+    }
+
+    /**
+     * Test to check if the GetListOfRoomsController is returning null when the RoomAssembler is null.
+     */
+    @Test
+    void shouldReturnNull_whenRoomAssemblerIsNull() {
+        //Arrange
+        RoomRepository roomRepository = new RoomRepository();
+        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomAssembler roomAssembler = null;
+        HouseRepository houseRepository = new HouseRepository();
+
+        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+
+        //Act
+        try {
+            GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService, roomAssembler);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid room assembler.", e.getMessage());
+        }
+    }
+
     /**
      * Test to check if the GetListOfRoomsController is returning an empty list when there are no rooms.
      */
