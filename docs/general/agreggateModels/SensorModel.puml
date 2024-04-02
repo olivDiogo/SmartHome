@@ -4,9 +4,9 @@
 package SmartHome.SensorModel{
 
     class SensorModel <<Entity>> <<Root>>{
-    - _id : SensorModelId
-    - _filePathName : FilePathName
+    - _sensorModelID : SensorModelID
     - _sensorModelName : SensorModelName
+    - _modelPath : ModelPath
     }
 }
 
@@ -17,7 +17,7 @@ package SmartHome.ValueObject {
      }
 
      class FilePathName <<ValueObject>>{
-        - _filePathName : String
+        - _path : String
      }
      class SensorModelName <<ValueObject>>{
         - _sensorModelName : String
