@@ -15,7 +15,7 @@ class GetListOfDevicesFromRoomController{
 
 class RoomService{
 'Attributes'
-- _roomRepository: RoomRepository
+- _roomRepository: Repository<RoomID, Room>
 -_roomFactory : RoomFactory
 - _roomAssembler : RoomAssembler
 - _houseRepository : HouseRepository
@@ -30,7 +30,6 @@ class RoomRepository{
 'Attributes'
 - DATA: Map <RoomID, Room>
 'Methods'
-+RoomRepository()
 +findAll(): List<Room>
 +ofIdentity (id : RoomID): Option<Room>
 }
@@ -60,21 +59,20 @@ class RoomID{
 
 class DeviceService{
 'Attributes'
-- _deviceRepository: DeviceRepository
+- _deviceRepository: DeviceRepo
 - _deviceFactory : DeviceFactory
-- _roomRepository : RoomRepository
+- _roomRepository : Repository<RoomID, Room>
 
 'Methods'
-+DeviceService(deviceRepository: DeviceRepository, deviceFactory: DeviceFactory, roomRepository : RoomRepository)
++DeviceService (deviceRepository : DeviceRepo, deviceFactory : DeviceFactory, roomRepository : Repository<RoomID, Room>)
 +getDevicesByRoomId(roomID : RoomID): List<Device>
 }
 
-class DeviceRepository{
+class DeviceRepo{
 'Attributes'
 - -deviceData: Map <DeviceId, Device>
 'Methods'
-+DeviceRepository()
-+findByRoomId(roomId : RoomID): List<Devices>
++getDevicesByRoomId(roomId : RoomID): List<Devices>
 }
 
 class DeviceAssembler {
@@ -84,9 +82,9 @@ class DeviceAssembler {
 
 class DeviceDTO{
 'Attributes'
-+deviceID: String
-+deviceName: String
++deviceID : String
 +roomID : String
++deviceName: String
 +deviceStatus : String
 'Methods'
 +DeviceDTO(deviceID : String, deviceName : String, roomID : String, deviceStatus : String)
@@ -100,7 +98,7 @@ GetListOfDevicesFromRoomController "1" ..> "1" RoomAssembler: uses
 RoomAssembler "1" ..> "*" RoomDTO: creates
 
 GetListOfDevicesFromRoomController "1" ..> "1" DeviceService: uses
-DeviceService "1" ..> "1" DeviceRepository: uses
+DeviceService "1" ..> "1" DeviceRepo: uses
 GetListOfDevicesFromRoomController "1" ..> "1" DeviceAssembler: uses
 DeviceAssembler "1" ..> "*" DeviceDTO: creates
 

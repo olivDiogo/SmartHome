@@ -66,13 +66,12 @@ GetListOfDevicesFromRoom_Controller --> User : roomDTOList
 
 deactivate GetListOfDevicesFromRoom_Controller
 
-User o-> GetListOfDevicesFromRoom_Controller: getDevices(roomDTO)
+User o-> GetListOfDevicesFromRoom_Controller: getDevicesFromRoom(roomDTO)
 
 activate GetListOfDevicesFromRoom_Controller
 
 create RoomID
 GetListOfDevicesFromRoom_Controller -> RoomID : dtoToDomain(roomDTO)
-
 
 activate RoomID
 
@@ -80,11 +79,11 @@ RoomID --> GetListOfDevicesFromRoom_Controller: roomId
 
 deactivate RoomID
 
-GetListOfDevicesFromRoom_Controller -> ServiceDevice: getDevices(roomId)
+GetListOfDevicesFromRoom_Controller -> ServiceDevice: getDevicesByRoomID(roomID)
 
 activate ServiceDevice
 
-ServiceDevice -> DeviceRepo: getDevicesByRoomId (roomId)
+ServiceDevice -> DeviceRepo: getDevicesByRoomID (roomId)
 
 activate DeviceRepo
 
