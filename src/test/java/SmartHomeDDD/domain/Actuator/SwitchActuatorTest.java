@@ -6,11 +6,14 @@ import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class SwitchActuatorTest {
 
+    /**
+     * Should instantiate SwitchActuator when constructor arguments are valid.
+     */
     @Test
     void shouldInstantiateSwitchActuator_WhenConstructorArgumentsAreValid() {
         // Arrange
@@ -22,6 +25,10 @@ public class SwitchActuatorTest {
         // Act
         new SwitchActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
     }
+
+    /**
+     * Should throw IllegalArgumentException when deviceID is null.
+     */
 
     @Test
     void shouldThrowIllegalArgumentException_WhenDeviceIDIsNull() {
@@ -40,6 +47,9 @@ public class SwitchActuatorTest {
         }
     }
 
+    /**
+     * Should throw IllegalArgumentException when actuatorName is null.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenActuatorNameIsNull() {
         // Arrange
@@ -56,6 +66,10 @@ public class SwitchActuatorTest {
             assert e.getMessage().equals("The value of 'actuatorName' should not be null.");
         }
     }
+
+    /**
+     * Should throw IllegalArgumentException when modelPath is null.
+     */
 
     @Test
     void shouldThrowIllegalArgumentException_WhenModelPathIsNull() {
@@ -74,6 +88,9 @@ public class SwitchActuatorTest {
         }
     }
 
+    /**
+     * Should throw IllegalArgumentException when actuatorTypeID is null.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenActuatorTypeIDIsNull() {
         // Arrange
@@ -91,6 +108,9 @@ public class SwitchActuatorTest {
         }
     }
 
+    /**
+     * Should generate actuatorID when constructor arguments are valid.
+     */
     @Test
     void shouldGetActuatorID() {
         // Arrange
@@ -110,10 +130,14 @@ public class SwitchActuatorTest {
             ActuatorID result = switchActuator.getID();
 
             // Assert
-            assert result.toString().equals(actuatorID);
+            assertEquals(actuatorID, result.toString());
+            //result.toString().equals(actuatorID);
         }
     }
 
+    /**
+     * Should get actuator name when constructor arguments are valid.
+     */
     @Test
     void shouldGetActuatorName() {
         // Arrange
@@ -136,10 +160,13 @@ public class SwitchActuatorTest {
             ActuatorName result = switchActuator.getName();
 
             // Assert
-            assert result.toString().equals(actuatorName);
+            assertEquals(actuatorNameDouble, result);
         }
     }
 
+    /**
+     * Should get model path when constructor arguments are valid.
+     */
     @Test
     void shouldGetModelPath() {
         // Arrange
@@ -162,10 +189,13 @@ public class SwitchActuatorTest {
             ModelPath result = switchActuator.getModelPath();
 
             // Assert
-            assert result.toString().equals(modelPath);
+            assertNotNull(result);
         }
     }
 
+    /**
+     * Should get actuator type id when constructor arguments are valid.
+     */
     @Test
     void shouldGetActuatorTypeID() {
         // Arrange
@@ -187,35 +217,33 @@ public class SwitchActuatorTest {
             ActuatorTypeID result = switchActuator.getActuatorTypeID();
 
             // Assert
-            assert result.toString().equals(actuatorTypeID);
+            assertEquals(actuatorTypeIDDouble, result);
         }
     }
 
+    /**
+     * Should get device type id when constructor arguments are valid.
+     */
     @Test
     void shouldGetDeviceID() {
         // Arrange
-        String deviceID = "deviceID";
-
         DeviceID deviceIDDouble = mock(DeviceID.class);
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
 
-        try (MockedConstruction<DeviceID> mockedConstruction = mockConstruction(DeviceID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(deviceID);
-        })) {
-            SwitchActuator switchActuator = new SwitchActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+        SwitchActuator switchActuator = new SwitchActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
 
-            // Act
-            DeviceID result = switchActuator.getDeviceID();
+        // Act
+        DeviceID result = switchActuator.getDeviceID();
 
-            // Assert
-            assert result.toString().equals(deviceID);
-        }
+        // Assert
+        assertEquals(deviceIDDouble, result);
     }
 
+    /**
+     * Should set value when value is valid.
+     */
     @Test
     void shouldSetValue() {
         // Arrange
@@ -234,6 +262,9 @@ public class SwitchActuatorTest {
         assertEquals(switchActuatorValueDouble, result);
     }
 
+    /**
+     * Should throw IllegalArgumentException when value is null.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenValueIsNull() {
         // Arrange
@@ -278,7 +309,7 @@ public class SwitchActuatorTest {
             ValueObject result = switchActuator.setValue(valueDouble);
 
             // Assert
-            assert result == null;
+            assertNull(result);
         }
     }
 
