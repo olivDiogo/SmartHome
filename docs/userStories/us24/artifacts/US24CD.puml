@@ -1,0 +1,114 @@
+@startuml
+!pragma layout smetana
+
+package domain.sensor {
+    interface Sensor {
+        + getID(): SensorID
+        + getName(): SensorName
+        + getModelPath(): ModelPath
+        + getSensorTypeID(): SensorTypeID
+        + getDeviceID(): DeviceID
+        + getValue(): ValueObject
+        + toString(): String
+    }
+    interface FactorySensor {
+        + createSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName): Sensor
+    }
+    class ImplFactorySensor {
+        + createSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName): Sensor
+    }
+
+    class InstantPowerConsumptionSensor {
+        - _modelPath : ModelPath
+        - _sensorName : SensorName
+        - _sensorID : SensorID
+        - _sensorTypeID : SensorTypeID
+        - _dewPointValue : ValueObject
+        - _deviceID : DeviceID
+
+        # InstantPowerConsumptionSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName)
+        + getID () : SensorID
+        + getName () : SensorName
+        + getModelPath () : ModelPath
+        + getSensorTypeID () : SensorTypeID
+        + getValue () : ValueObject
+        + getDeviceID () : DeviceID
+    }
+}
+
+package domain.value {
+  class InstantPowerConsumptionValue {
+    - _DewPointValue : int
+    + InstantPowerConsumptionValue(dewPointValue : int)
+    + toString() : String
+  }
+}
+
+package valueObject {
+    class SensorTypeID {
+        - _id : String
+        + SensorTypeID(sensorTypeID : String)
+        + getID() : String
+    }
+
+       class SensorID {
+            - _id: String
+            + SensorID(sensorID : String)
+            + getID() : String
+       }
+
+    class ModelPath {
+        - _path: String
+        + ModelPath(path : String)
+        + getPath() : String
+    }
+
+    class SensorName {
+        - _name: String
+        + SensorName(name : String)
+        + getName() : String
+    }
+
+    class DeviceID {
+        - _id: String
+        + DeviceID(id : String)
+        + getID() : String
+    }
+}
+
+package ddd {
+
+  interface DomainEntity {
+  }
+
+  interface DomainID {
+  }
+
+  interface AggregateRoot {
+  }
+}
+
+ImplFactorySensor ..|> FactorySensor
+ImplFactorySensor "1" ..> "1" InstantPowerConsumptionSensor : creates
+
+InstantPowerConsumptionSensor ..|> Sensor
+InstantPowerConsumptionSensor "1" --> "1" InstantPowerConsumptionValue : has
+InstantPowerConsumptionSensor "1" -->  "1" SensorTypeID : has
+InstantPowerConsumptionSensor "1" -->  "1" SensorID : has
+InstantPowerConsumptionSensor "1" -->  "1" DeviceID : has
+InstantPowerConsumptionSensor "1" -->  "1" ModelPath : has
+InstantPowerConsumptionSensor "1" -->  "1" SensorName : has
+
+DomainEntity --|> DomainID
+AggregateRoot --|> DomainEntity
+AggregateRoot --|> DomainID
+
+Sensor ..|> ddd.AggregateRoot
+
+SensorTypeID ..|> ddd.DomainID
+SensorID ..|> ddd.DomainID
+SensorID ..|> ddd.DomainID
+ModelPath ..|> ddd.DomainID
+DeviceID ..|> ddd.DomainID
+
+@enduml
