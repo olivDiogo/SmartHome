@@ -5,35 +5,33 @@ import SmartHomeDDD.valueObject.*;
 
 import java.util.UUID;
 
-public class TemperatureSensor implements Sensor{
-
+public class HumiditySensor implements Sensor{
     private ModelPath _modelPath;
     private SensorName _sensorName;
     private SensorID _sensorID;
     private SensorTypeID _sensorTypeID;
-    private TemperatureSensorValue _temperatureValue;
+    private HumiditySensorValue _humidityValue;
     private DeviceID _deviceID;
 
     /**
-     * Constructor of the class.
      *
-     * @param deviceID     The device ID.
-     * @param modelPath    The model path.
-     * @param sensorName   The sensor name.
-     * @param sensorTypeID The sensor type ID.
+     * @param deviceID
+     * @param modelPath
+     * @param sensorTypeID
+     * @param sensorName
      */
-    TemperatureSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    HumiditySensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
         validateDeviceID(deviceID);
-        generateTemperatureID();
+        generateHumidityID();
     }
 
     /**
-     * Generates a new TemperatureID.
+     * generates a new HumidityID
      */
-    private void generateTemperatureID() {
+     private void generateHumidityID() {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
@@ -130,16 +128,16 @@ public class TemperatureSensor implements Sensor{
     }
 
     /**
-     * Returns the value of the sensor.
+     * Returns the humidity value.
      *
-     * @return The value of the sensor.
+     * @return The humidity value.
      */
     @Override
     public ValueObject getValue() {
-        double temperatureReading = 70.5;
-        this._temperatureValue = new TemperatureSensorValue(temperatureReading);
+        int nValue = 100;
+        _humidityValue = new HumiditySensorValue(nValue);
 
-        return (ValueObject) _temperatureValue;
+        return (ValueObject) _humidityValue;
     }
 
     /**
