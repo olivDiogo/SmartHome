@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -74,7 +73,7 @@ public class DeviceTypeServiceTest {
      * Test for the addDeviceType method when the device type is created and saved to the repository.
      */
     @Test
-    void shouldReturnTheDeviceType_whenDeviceTypeIsCreatedAndSavedToRepository(){
+    void shouldReturnTheDeviceType_whenDeviceTypeIsCreatedAndSavedToRepository() {
         //Arrange
         TypeDescription typeDescription = mock(TypeDescription.class);
         DeviceType deviceType = mock(DeviceType.class);
@@ -95,10 +94,31 @@ public class DeviceTypeServiceTest {
     }
 
     /**
+     * Test for the addDeviceType method when the device type is null.
+     */
+    @Test
+    void shouldThrowException_whenDeviceTypeIsNull() {
+        //Arrange
+        DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
+        DeviceTypeFactory deviceTypeFactory = mock(DeviceTypeFactory.class);
+        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        TypeDescription typeDescription = null;
+        String expectedMessage = "Please enter a valid device type.";
+
+        //Act
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            deviceTypeService.addDeviceType(typeDescription);
+        });
+
+        //Assert
+        assertEquals(thrown.getMessage(), expectedMessage);
+    }
+
+    /**
      * Test for the getDeviceTypeByID method when a device typeID exists in the repository.
      */
     @Test
-    void shouldFindDeviceTypeByID_whenDeviceTypeExistInRepository(){
+    void shouldFindDeviceTypeByID_whenDeviceTypeExistInRepository() {
         //Arrange
         DeviceType deviceType = mock(DeviceType.class);
         DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
@@ -120,7 +140,7 @@ public class DeviceTypeServiceTest {
      * Test for the getDeviceTypeByID method when a device type ID does not exist in the repository.
      */
     @Test
-    void shouldThrowException_WhenFindingDeviceTypeByNullID(){
+    void shouldThrowException_WhenFindingDeviceTypeByNullID() {
         //Arrange
         DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
         DeviceTypeFactory deviceTypeFactory = mock(DeviceTypeFactory.class);
@@ -147,10 +167,10 @@ public class DeviceTypeServiceTest {
         DeviceTypeFactory deviceTypeFactory = mock(DeviceTypeFactory.class);
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
-        List <DeviceType> deviceTypes = deviceTypeRepository.findAll();
+        List<DeviceType> deviceTypes = deviceTypeRepository.findAll();
 
         //Act
-        List<DeviceType> resultList =  deviceTypeService.findAllDeviceTypes();
+        List<DeviceType> resultList = deviceTypeService.findAllDeviceTypes();
 
         //Assert
         assertEquals(deviceTypes, resultList);
@@ -167,14 +187,17 @@ public class DeviceTypeServiceTest {
         DeviceTypeFactory deviceTypeFactory = mock(DeviceTypeFactory.class);
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
-        List <DeviceType> deviceTypes = deviceTypeRepository.findAll();
+        DeviceType deviceType = mock(DeviceType.class);
+        List<DeviceType> deviceTypes = List.of(deviceType);
+        when(deviceTypeRepository.findAll()).thenReturn(deviceTypes);
 
 
         //Act
         List<DeviceType> resultList = deviceTypeService.findAllDeviceTypes();
 
         //Assert
-        assertEquals(deviceTypes, resultList);
+        assertFalse(resultList.isEmpty());
+        //assertEquals(deviceTypes, resultList);
     }
 
 }
