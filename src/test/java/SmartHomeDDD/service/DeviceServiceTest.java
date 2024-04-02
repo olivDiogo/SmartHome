@@ -220,7 +220,7 @@ class DeviceServiceTest {
         Device mockDevice = mock(Device.class);
         Device mockDevice2 = mock(Device.class);
 
-        when(deviceRepository.findByRoomId(roomID)).thenReturn(List.of(mockDevice, mockDevice2));
+        when(deviceRepository.getDevicesByRoomId(roomID)).thenReturn(List.of(mockDevice, mockDevice2));
 
         // Act
         List<Device> deviceList = deviceService.getDevicesByRoomId(roomID);

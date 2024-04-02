@@ -1,5 +1,6 @@
 package SmartHomeDDD.repository;
 
+import SmartHomeDDD.domain.Device.DeviceRepo;
 import SmartHomeDDD.valueObject.DeviceID;
 import SmartHomeDDD.valueObject.RoomID;
 import SmartHomeDDD.ddd.Repository;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class DeviceRepository implements Repository<DeviceID, Device> {
+public class DeviceRepository implements DeviceRepo {
 
     /**
      * Map to store the device data.
@@ -70,7 +71,9 @@ public class DeviceRepository implements Repository<DeviceID, Device> {
      * @param roomId is the unique identifier of the room.
      * @return a list of devices in the room.
      */
-    public List<Device> findByRoomId(RoomID roomId) {
+
+    @Override
+    public List<Device> getDevicesByRoomId(RoomID roomId) {
         List<Device> devices = _deviceData.values().stream().filter(device -> device.getRoomID().equals(roomId)).toList();
         return devices;
     }
