@@ -173,4 +173,22 @@ public class DeviceTypeTest {
             assertNotNull(hashCode);
         }
     }
+
+    /**
+     * Test case to verify the behavior of getDescription() method in DeviceType class.
+     */
+    @Test
+    public void shouldReturnDeviceTypeDescription_whenGetDescriptionIsCalled() {
+        // Arrange
+        DeviceType deviceType = mock(DeviceType.class);
+        TypeDescription deviceTypeDescription = mock(TypeDescription.class);
+
+        when(deviceType.getDescription()).thenReturn(deviceTypeDescription);
+
+        // Act
+        TypeDescription actualDescription = deviceType.getDescription();
+
+        // Assert
+        assertEquals(deviceTypeDescription, actualDescription);
+    }
 }

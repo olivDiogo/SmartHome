@@ -63,4 +63,8 @@ public class DeviceType implements AggregateRoot<DeviceTypeID> {
         return _deviceTypeID.toString().equals(deviceType._deviceTypeID.toString());
     }
 
+    public TypeDescription getDescription() {
+        return getDescription();
+
+    }
 }
