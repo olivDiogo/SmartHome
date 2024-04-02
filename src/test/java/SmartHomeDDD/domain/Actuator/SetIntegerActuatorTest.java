@@ -298,7 +298,7 @@ public class SetIntegerActuatorTest {
      * Test to set the value when it is valid and within range.
      */
     @Test
-    public void shouldSetValue() {
+    public void shouldSetValue_whenValueIsWithinRange() {
         //Arrange
         int value = 50;
 

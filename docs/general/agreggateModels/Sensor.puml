@@ -6,7 +6,8 @@ package SmartHome.AggregateSensor {
     class Sensor <<Entity>> <<Root>> {
         - _deviceID : DeviceID
         - _sensorTypeID : SensorTypeID
-        - _sensorModelID : SensorModelID
+        - _modelPath : ModelPath
+        - _sensorName : SensorName
         - _value : Value
     }
 }
@@ -19,8 +20,12 @@ package SmartHome.ValueObject {
     class SensorTypeID <<ValueObject>> <<ID>> {
         - _id : String
     }
-    class SensorModelID <<ValueObject>> <<ID>> {
+    class ModelPath <<ValueObject>> <<ID>> {
         - _id : String
+    }
+
+    class SensorName <<ValueObject>> {
+        - _name : String
     }
 
     interface Value <<ValueObject>>{
@@ -28,9 +33,9 @@ package SmartHome.ValueObject {
 }
 
 Sensor "*" -- "1" SensorTypeID : has
-Sensor "*" -- "1" SensorModelID : has
+Sensor "*" -- "1" ModelPath : has
 Sensor "1" -- "1" Value : has
 Sensor "*" -- "1" DeviceID : has
-
+Sensor "*" -- "1" SensorName : has
 
 @enduml

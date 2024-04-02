@@ -7,6 +7,7 @@ class Device<<entity>><<Root>>{
     - _deviceTypeID: DeviceTypeID
     - _roomID: RoomID
     - _name: Name
+    - _deviceStatus: DeviceStatus
 }
 }
 
@@ -25,10 +26,15 @@ package SmartHome.ValueObject {
     class RoomID<<value object>>{
         - _id: String
     }
+
+    class DeviceStatus<<value object>>{
+        - _status: String
+    }
 }
 
 Device "*" -- "1" DeviceID : has
 Device "*" -- "1" Name : has
 Device "*" -- "1" DeviceTypeID : has
 Device "*" -- "1" RoomID : has
+Device "*" -- "1" DeviceStatus : has
 @enduml

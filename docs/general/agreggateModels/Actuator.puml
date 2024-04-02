@@ -8,6 +8,8 @@ package SmartHome.AggregateActuator {
         - _actuatorTypeID : ActuatorTypeID
         - _actuatorModelID : ActuatorModelID
         - _value : Value
+        - _name : ActuatorName
+        - _modelPath : ModelPath
     }
 }
 
@@ -19,8 +21,17 @@ package SmartHome.ValueObject {
     class ActuatorTypeID <<ValueObject>> <<ID>> {
         - _id : String
     }
+
     class ActuatorModelID <<ValueObject>> <<ID>> {
         - _id : String
+    }
+
+    class ActuatorName <<ValueObject>> {
+        - _name : String
+    }
+
+    class ModelPath <<ValueObject>> {
+        - _path : String
     }
 
     interface Value <<ValueObject>>{
@@ -31,6 +42,6 @@ Actuator "*" -- "1" ActuatorTypeID : has
 Actuator "*" -- "1" ActuatorModelID : has
 Actuator "1" -- "1" Value : has
 Actuator "*" -- "1" DeviceID : has
-
-
+Actuator "*" -- "1" ActuatorName : has
+Actuator "*" -- "1" ModelPath : has
 @enduml
