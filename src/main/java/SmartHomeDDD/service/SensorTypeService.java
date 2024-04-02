@@ -1,7 +1,7 @@
 package SmartHomeDDD.service;
 import SmartHomeDDD.repository.MeasurementTypeRepository;
 import SmartHomeDDD.repository.SensorTypeRepository;
-import SmartHomeDDD.valueObject.MeasurementID;
+import SmartHomeDDD.valueObject.UnitID;
 import SmartHomeDDD.valueObject.SensorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
 import SmartHomeDDD.domain.SensorType.SensorType;
@@ -42,7 +42,7 @@ public class SensorTypeService {
         }
     }
 
-    public SensorType createSensorType(TypeDescription name, MeasurementID unitID) {
+    public SensorType createSensorType(TypeDescription name, UnitID unitID) {
         if (!_measurementTypeRepository.containsOfIdentity(unitID)) {
             throw new IllegalArgumentException("Please enter a valid measurement type.");
         }

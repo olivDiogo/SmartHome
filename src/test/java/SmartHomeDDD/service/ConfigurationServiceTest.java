@@ -1,11 +1,9 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.domain.MeasurementType.MeasurementType;
+import SmartHomeDDD.domain.Unit.Unit;
 import SmartHomeDDD.domain.SensorModel.SensorModel;
-import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
-import SmartHomeDDD.repository.SensorModelRepository;
-import SmartHomeDDD.valueObject.MeasurementTypeDescription;
-import SmartHomeDDD.valueObject.MeasurementTypeUnit;
+import SmartHomeDDD.valueObject.UnitDescription;
+import SmartHomeDDD.valueObject.UnitSymbol;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelName;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -25,20 +23,18 @@ class ConfigurationServiceTest {
     void shouldCreateConfigurationService_WhenGivenValidParameters() {
         // Arrange
         SensorModelService sensorModelService = mock(SensorModelService.class);
-        MeasurementTypeService measurementTypeService = mock(MeasurementTypeService.class);
-        SensorTypeService sensorTypeService = mock(SensorTypeService.class);
+        UnitService unitService = mock(UnitService.class);
         //Act
-        new ConfigurationService(sensorModelService, measurementTypeService, sensorTypeService);
+        new ConfigurationService(sensorModelService, unitService);
     }
     @Test
     void shouldThrowIllegalArgumentException_WhenSensorModelServiceIsNull() {
         // Arrange
         SensorModelService sensorModelService = null;
-        MeasurementTypeService measurementTypeService = mock(MeasurementTypeService.class);
-        SensorTypeService sensorTypeService = mock(SensorTypeService.class);
+        UnitService unitService = mock(UnitService.class);
         String expectedMessage = "Please enter a valid sensor model service.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ConfigurationService(sensorModelService, measurementTypeService, sensorTypeService));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ConfigurationService(sensorModelService, unitService));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
 }
@@ -46,34 +42,21 @@ class ConfigurationServiceTest {
     void shouldThrowIllegalArgumentException_WhenMeasurementTypeServiceIsNull() {
         // Arrange
         SensorModelService sensorModelService = mock(SensorModelService.class);
-        MeasurementTypeService measurementTypeService = null;
-        SensorTypeService sensorTypeService = mock(SensorTypeService.class);
+        UnitService unitService = null;
         String expectedMessage = "Please enter a valid measurement type service.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ConfigurationService(sensorModelService, measurementTypeService, sensorTypeService));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ConfigurationService(sensorModelService, unitService));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
-    @Test
-    void shouldThrowIllegalArgumentException_WhenSensorTypeServiceIsNull() {
-        // Arrange
-        SensorModelService sensorModelService = mock(SensorModelService.class);
-        MeasurementTypeService measurementTypeService = mock(MeasurementTypeService.class);
-        SensorTypeService sensorTypeService = null;
-        String expectedMessage = "Please enter a valid sensor type service.";
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ConfigurationService(sensorModelService, measurementTypeService, sensorTypeService));
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
+
     @Test
     void shouldLoadDefaultSensorModels_WhenConfigurationServiceInstantiated() throws ConfigurationException {
         //Arrange
         SensorModelService sensorModelService = mock(SensorModelService.class);
         when(sensorModelService.createSensorModel(any(), any())).thenReturn(mock(SensorModel.class));
 
-        SensorTypeService sensorTypeService = mock(SensorTypeService.class);
-        MeasurementTypeService measurementTypeService = mock(MeasurementTypeService.class);
+        UnitService unitService = mock(UnitService.class);
 
         Configurations configs = new Configurations();
         int defaultSensorModels = configs.properties(new File("config.properties")).getStringArray("sensor").length;
@@ -84,7 +67,7 @@ class ConfigurationServiceTest {
              })) {
 
             // Act
-            ConfigurationService configurationService = new ConfigurationService(sensorModelService, measurementTypeService, sensorTypeService);
+            ConfigurationService configurationService = new ConfigurationService(sensorModelService, unitService);
             verify(sensorModelService, times(defaultSensorModels)).createSensorModel(any(), any());
         }
     }
@@ -92,21 +75,20 @@ class ConfigurationServiceTest {
     void shouldLoadDefaultMeasurementTypes_WhenConfigurationServiceInstantiated() throws ConfigurationException {
         //Arrange
         SensorModelService sensorModelService = mock(SensorModelService.class);
-        SensorTypeService sensorTypeService = mock(SensorTypeService.class);
-        MeasurementTypeService measurementTypeService = mock(MeasurementTypeService.class);
-        when(measurementTypeService.createAndSaveMeasurementType(any(), any())).thenReturn(mock(MeasurementType.class));
+        UnitService unitService = mock(UnitService.class);
+        when(unitService.createAndSaveMeasurementType(any(), any())).thenReturn(mock(Unit.class));
 
         Configurations configs = new Configurations();
         int defaultSensorModels = configs.properties(new File("config.properties")).getStringArray("measurement").length;
 
-        try (MockedConstruction<MeasurementTypeDescription> measurementDescriptionConstruction = mockConstruction(MeasurementTypeDescription.class, (mock, context) -> {
+        try (MockedConstruction<UnitDescription> measurementDescriptionConstruction = mockConstruction(UnitDescription.class, (mock, context) -> {
         });
-             MockedConstruction<MeasurementTypeUnit> measurementTUnitConstruction = mockConstruction(MeasurementTypeUnit.class, (mock, context) -> {
+             MockedConstruction<UnitSymbol> measurementTUnitConstruction = mockConstruction(UnitSymbol.class, (mock, context) -> {
              })) {
 
             // Act
-            ConfigurationService configurationService = new ConfigurationService(sensorModelService, measurementTypeService, sensorTypeService);
-            verify(measurementTypeService, times(defaultSensorModels)).createAndSaveMeasurementType(any(), any());
+            ConfigurationService configurationService = new ConfigurationService(sensorModelService, unitService);
+            verify(unitService, times(defaultSensorModels)).createAndSaveMeasurementType(any(), any());
         }
     }
 }

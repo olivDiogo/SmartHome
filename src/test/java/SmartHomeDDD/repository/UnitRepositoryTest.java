@@ -1,7 +1,7 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.domain.MeasurementType.MeasurementType;
-import SmartHomeDDD.valueObject.MeasurementID;
+import SmartHomeDDD.domain.Unit.Unit;
+import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class MeasurementTypeRepositoryTest {
+public class UnitRepositoryTest {
 
     /**
      * Test of MeasurementTypeRepository constructor.
@@ -27,15 +27,15 @@ public class MeasurementTypeRepositoryTest {
     @Test
     void shouldSaveSensorType_whenGivenValidMeasurementType() {
         //Arrange
-        MeasurementType MeasurementType = mock(MeasurementType.class);
+        Unit Unit = mock(Unit.class);
 
         MeasurementTypeRepository measurementTypeRepository = new MeasurementTypeRepository();
 
         //Act
-        MeasurementType savedMeasurementType = measurementTypeRepository.save(MeasurementType);
+        Unit savedUnit = measurementTypeRepository.save(Unit);
 
         //Assert
-        assertEquals(MeasurementType, savedMeasurementType);
+        assertEquals(Unit, savedUnit);
     }
 
     /**
@@ -44,12 +44,12 @@ public class MeasurementTypeRepositoryTest {
     @Test
     void shouldThrowIllegalArgumentException_whenGivenNullMeasurementType() {
         //Arrange
-        MeasurementType measurementType = null;
+        Unit unit = null;
         MeasurementTypeRepository measurementTypeRepository = new MeasurementTypeRepository();
         String expectedMessage = "MeasurementType cannot be null.";
 
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeRepository.save(measurementType));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeRepository.save(unit));
 
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -61,15 +61,15 @@ public class MeasurementTypeRepositoryTest {
     @Test
     void shouldThrowException_whenMeasurementTypeAlreadyExists() {
         //Arrange
-        MeasurementType measurementType = mock(MeasurementType.class);
+        Unit unit = mock(Unit.class);
 
         MeasurementTypeRepository measurementTypeRepository = new MeasurementTypeRepository();
 
-        measurementTypeRepository.save(measurementType);
+        measurementTypeRepository.save(unit);
         String expectedMessage = "MeasurementType already exists.";
 
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeRepository.save(measurementType));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeRepository.save(unit));
 
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -81,25 +81,25 @@ public class MeasurementTypeRepositoryTest {
     @Test
     void shouldReturnAllMeasurementTypes_whenFindAllIsCalled() {
         //Arrange
-        MeasurementType measurementType1 = mock(MeasurementType.class);
-        MeasurementID measurementID1 = mock(MeasurementID.class);
-        when(measurementType1.getID()).thenReturn(measurementID1);
+        Unit unit1 = mock(Unit.class);
+        UnitID unitID1 = mock(UnitID.class);
+        when(unit1.getID()).thenReturn(unitID1);
 
-        MeasurementType measurementType2 = mock(MeasurementType.class);
-        MeasurementID measurementID2 = mock(MeasurementID.class);
-        when(measurementType2.getID()).thenReturn(measurementID2);
+        Unit unit2 = mock(Unit.class);
+        UnitID unitID2 = mock(UnitID.class);
+        when(unit2.getID()).thenReturn(unitID2);
 
         MeasurementTypeRepository measurementTypeRepository = new MeasurementTypeRepository();
 
-        measurementTypeRepository.save(measurementType1);
-        measurementTypeRepository.save(measurementType2);
-        List<MeasurementType> expectedList = List.of(measurementType1, measurementType2);
+        measurementTypeRepository.save(unit1);
+        measurementTypeRepository.save(unit2);
+        List<Unit> expectedList = List.of(unit1, unit2);
 
         //Act
-        List<MeasurementType> allMeasurementTypes = measurementTypeRepository.findAll();
+        List<Unit> allUnits = measurementTypeRepository.findAll();
 
         //Assert
-        assertEquals(expectedList, allMeasurementTypes);
+        assertEquals(expectedList, allUnits);
     }
 
     /**
@@ -111,10 +111,10 @@ public class MeasurementTypeRepositoryTest {
         MeasurementTypeRepository measurementTypeRepository = new MeasurementTypeRepository();
 
         //Act
-        List<MeasurementType> allMeasurementTypes = measurementTypeRepository.findAll();
+        List<Unit> allUnits = measurementTypeRepository.findAll();
 
         //Assert
-        assertTrue(allMeasurementTypes.isEmpty());
+        assertTrue(allUnits.isEmpty());
     }
 
     /**
@@ -123,18 +123,18 @@ public class MeasurementTypeRepositoryTest {
     @Test
     void shouldReturnMeasurementType_whenGivenValidID() {
         //Arrange
-        MeasurementType measurementType = mock(MeasurementType.class);
-        MeasurementID measurementTypeID = mock(MeasurementID.class);
-        when(measurementType.getID()).thenReturn(measurementTypeID);
+        Unit unit = mock(Unit.class);
+        UnitID measurementTypeID = mock(UnitID.class);
+        when(unit.getID()).thenReturn(measurementTypeID);
 
         MeasurementTypeRepository measurementTypeRepository = new MeasurementTypeRepository();
-        measurementTypeRepository.save(measurementType);
+        measurementTypeRepository.save(unit);
 
         //Act
-        MeasurementType returnedMeasurementType = measurementTypeRepository.ofIdentity(measurementTypeID).get();
+        Unit returnedUnit = measurementTypeRepository.ofIdentity(measurementTypeID).get();
 
         //Assert
-        assertEquals(measurementType, returnedMeasurementType);
+        assertEquals(unit, returnedUnit);
     }
 
     /**
@@ -145,16 +145,16 @@ public class MeasurementTypeRepositoryTest {
         //Arrange
         MeasurementTypeRepository measurementTypeRepository = new MeasurementTypeRepository();
 
-        MeasurementType measurementType = mock(MeasurementType.class);
-        MeasurementID measurementTypeID = mock(MeasurementID.class);
-        when(measurementType.getID()).thenReturn(measurementTypeID);
+        Unit unit = mock(Unit.class);
+        UnitID measurementTypeID = mock(UnitID.class);
+        when(unit.getID()).thenReturn(measurementTypeID);
 
-        measurementTypeRepository.save(measurementType);
+        measurementTypeRepository.save(unit);
 
-        MeasurementID nonExistentID = mock(MeasurementID.class);
+        UnitID nonExistentID = mock(UnitID.class);
 
         //Act
-        Optional<MeasurementType> returnedMeasurementType = measurementTypeRepository.ofIdentity(nonExistentID);
+        Optional<Unit> returnedMeasurementType = measurementTypeRepository.ofIdentity(nonExistentID);
 
         //Assert
         assertTrue(returnedMeasurementType.isEmpty());
@@ -166,12 +166,12 @@ public class MeasurementTypeRepositoryTest {
     @Test
     void shouldReturnTrue_whenGivenValidID() {
         //Arrange
-        MeasurementType measurementType = mock(MeasurementType.class);
-        MeasurementID measurementTypeID = mock(MeasurementID.class);
-        when(measurementType.getID()).thenReturn(measurementTypeID);
+        Unit unit = mock(Unit.class);
+        UnitID measurementTypeID = mock(UnitID.class);
+        when(unit.getID()).thenReturn(measurementTypeID);
 
         MeasurementTypeRepository measurementTypeRepository = new MeasurementTypeRepository();
-        measurementTypeRepository.save(measurementType);
+        measurementTypeRepository.save(unit);
 
         //Act
         boolean containsMeasurementType = measurementTypeRepository.containsOfIdentity(measurementTypeID);
@@ -188,13 +188,13 @@ public class MeasurementTypeRepositoryTest {
         //Arrange
         MeasurementTypeRepository measurementTypeRepository = new MeasurementTypeRepository();
 
-        MeasurementType measurementType = mock(MeasurementType.class);
-        MeasurementID measurementTypeID = mock(MeasurementID.class);
-        when(measurementType.getID()).thenReturn(measurementTypeID);
+        Unit unit = mock(Unit.class);
+        UnitID measurementTypeID = mock(UnitID.class);
+        when(unit.getID()).thenReturn(measurementTypeID);
 
-        measurementTypeRepository.save(measurementType);
+        measurementTypeRepository.save(unit);
 
-        MeasurementID nonExistentID = mock(MeasurementID.class);
+        UnitID nonExistentID = mock(UnitID.class);
 
         //Act
         boolean containsMeasurementType = measurementTypeRepository.containsOfIdentity(nonExistentID);

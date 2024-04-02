@@ -6,7 +6,7 @@ public class Address implements ValueObject {
 
     private final String _street;
     private final String _doorNumber;
-    private PostalCode _postalCode;
+    private IPostalCode _postalCode;
     private final String _countryCode; // ISO 3166-1 alpha-2 country code
     private final int COUNTRY_CODE_LENGTH = 2;
 

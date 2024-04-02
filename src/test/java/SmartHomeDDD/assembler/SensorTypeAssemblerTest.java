@@ -1,6 +1,6 @@
 package SmartHomeDDD.assembler;
 
-import SmartHomeDDD.valueObject.MeasurementID;
+import SmartHomeDDD.valueObject.UnitID;
 import SmartHomeDDD.valueObject.SensorTypeID;
 import SmartHomeDDD.domain.SensorType.SensorType;
 import SmartHomeDDD.DTO.SensorTypeDTO;
@@ -34,7 +34,7 @@ public class SensorTypeAssemblerTest {
         TypeDescription sensorTypeDescriptionDouble = mock(TypeDescription.class);
         when(sensorTypeDescriptionDouble.toString()).thenReturn(sensorTypeDescription);
 
-        MeasurementID unitDouble = mock(MeasurementID.class);
+        UnitID unitDouble = mock(UnitID.class);
         when(unitDouble.toString()).thenReturn(unit);
 
         SensorType sensorTypeDouble = mock(SensorType.class);
@@ -94,7 +94,7 @@ public class SensorTypeAssemblerTest {
         TypeDescription sensorTypeDescriptionDouble1 = mock(TypeDescription.class);
         when(sensorTypeDescriptionDouble1.toString()).thenReturn(sensorTypeDescription1);
 
-        MeasurementID unitDouble1 = mock(MeasurementID.class);
+        UnitID unitDouble1 = mock(UnitID.class);
         when(unitDouble1.toString()).thenReturn(unit1);
 
         SensorType sensorTypeDouble1 = mock(SensorType.class);
@@ -109,7 +109,7 @@ public class SensorTypeAssemblerTest {
         TypeDescription sensorTypeDescriptionDouble2 = mock(TypeDescription.class);
         when(sensorTypeDescriptionDouble2.toString()).thenReturn(sensorTypeDescription2);
 
-        MeasurementID unitDouble2 = mock(MeasurementID.class);
+        UnitID unitDouble2 = mock(UnitID.class);
         when(unitDouble2.toString()).thenReturn(unit2);
 
         SensorType sensorTypeDouble2 = mock(SensorType.class);
@@ -190,7 +190,7 @@ public class SensorTypeAssemblerTest {
         TypeDescription sensorTypeDescriptionDouble1 = mock(TypeDescription.class);
         when(sensorTypeDescriptionDouble1.toString()).thenReturn(sensorTypeDescription1);
 
-        MeasurementID unitDouble1 = mock(MeasurementID.class);
+        UnitID unitDouble1 = mock(UnitID.class);
         when(unitDouble1.toString()).thenReturn(unit1);
 
         SensorType sensorTypeDouble1 = mock(SensorType.class);

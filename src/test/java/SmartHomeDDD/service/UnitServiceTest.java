@@ -1,11 +1,11 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.domain.MeasurementType.MeasurementType;
-import SmartHomeDDD.domain.MeasurementType.MeasurementTypeFactory;
+import SmartHomeDDD.domain.Unit.Unit;
+import SmartHomeDDD.domain.Unit.UnitFactory;
 import SmartHomeDDD.repository.MeasurementTypeRepository;
-import SmartHomeDDD.valueObject.MeasurementID;
-import SmartHomeDDD.valueObject.MeasurementTypeDescription;
-import SmartHomeDDD.valueObject.MeasurementTypeUnit;
+import SmartHomeDDD.valueObject.UnitID;
+import SmartHomeDDD.valueObject.UnitDescription;
+import SmartHomeDDD.valueObject.UnitSymbol;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class MeasurementTypeServiceTest {
+class UnitServiceTest {
 
     /**
      * Test that the constructor of MeasurementTypeService is instantiated correctly.
@@ -24,10 +24,10 @@ class MeasurementTypeServiceTest {
     void shouldInstantiateMeasurementTypeService_WhenConstructorInvoked() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
         // Act & Assert
-        new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
     }
 
     /**
@@ -37,12 +37,12 @@ class MeasurementTypeServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeRepositoryIsNull() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = null;
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
         String expectedMessage = "Please enter a valid measurement type repository.";
 
         // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble));
 
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -55,12 +55,12 @@ class MeasurementTypeServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeFactoryIsNull() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = null;
+        UnitFactory unitFactoryDouble = null;
 
         String expectedMessage = "Please enter a valid measurement type factory.";
 
         // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble));
 
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -73,25 +73,25 @@ class MeasurementTypeServiceTest {
     void shouldCreateAndSaveMeasurementType_WhenParameterAreValid() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
 
-        MeasurementTypeDescription description = mock(MeasurementTypeDescription.class);
-        MeasurementTypeUnit unit = mock(MeasurementTypeUnit.class);
-        MeasurementType measurementTypeDouble = mock(MeasurementType.class);
+        UnitDescription description = mock(UnitDescription.class);
+        UnitSymbol unit = mock(UnitSymbol.class);
+        Unit unitDouble = mock(Unit.class);
 
         when(description.getDescription()).thenReturn("Temperature");
         when(unit.getUnit()).thenReturn("Celsius");
 
-        when(measurementTypeFactoryDouble.createMeasurement(description, unit)).thenReturn(measurementTypeDouble);
-        when(measurementTypeRepositoryDouble.save(measurementTypeDouble)).thenReturn(measurementTypeDouble);
+        when(unitFactoryDouble.createMeasurement(description, unit)).thenReturn(unitDouble);
+        when(measurementTypeRepositoryDouble.save(unitDouble)).thenReturn(unitDouble);
 
         // Act
-        MeasurementType measurementType = measurementTypeService.createAndSaveMeasurementType(description, unit);
+        Unit measurementUnit = unitService.createAndSaveMeasurementType(description, unit);
 
         // Assert
-        assertEquals(measurementTypeDouble, measurementType);
+        assertEquals(unitDouble, measurementUnit);
     }
 
     /**
@@ -101,17 +101,17 @@ class MeasurementTypeServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsNull() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
 
-        MeasurementTypeDescription description = null;
-        MeasurementTypeUnit unit = mock(MeasurementTypeUnit.class);
+        UnitDescription description = null;
+        UnitSymbol unit = mock(UnitSymbol.class);
 
         String expectedMessage = "Measurement type description cannot be null or empty.";
 
         // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeService.createAndSaveMeasurementType(description, unit));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> unitService.createAndSaveMeasurementType(description, unit));
 
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -124,19 +124,19 @@ class MeasurementTypeServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsEmpty() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
 
-        MeasurementTypeDescription description = mock(MeasurementTypeDescription.class);
-        MeasurementTypeUnit unit = mock(MeasurementTypeUnit.class);
+        UnitDescription description = mock(UnitDescription.class);
+        UnitSymbol unit = mock(UnitSymbol.class);
 
         when(description.getDescription()).thenReturn("");
 
         String expectedMessage = "Measurement type description cannot be null or empty.";
 
         // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeService.createAndSaveMeasurementType(description, unit));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> unitService.createAndSaveMeasurementType(description, unit));
 
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -149,19 +149,19 @@ class MeasurementTypeServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsBlank() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
 
-        MeasurementTypeDescription description = mock(MeasurementTypeDescription.class);
-        MeasurementTypeUnit unit = mock(MeasurementTypeUnit.class);
+        UnitDescription description = mock(UnitDescription.class);
+        UnitSymbol unit = mock(UnitSymbol.class);
 
         when(description.getDescription()).thenReturn(" ");
 
         String expectedMessage = "Measurement type description cannot be null or empty.";
 
         // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeService.createAndSaveMeasurementType(description, unit));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> unitService.createAndSaveMeasurementType(description, unit));
 
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -174,18 +174,18 @@ class MeasurementTypeServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeUnitIsNull() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
 
-        MeasurementTypeDescription description = mock(MeasurementTypeDescription.class);
+        UnitDescription description = mock(UnitDescription.class);
         when(description.getDescription()).thenReturn("Temperature");
-        MeasurementTypeUnit unit = null;
+        UnitSymbol unit = null;
 
         String expectedMessage = "Measurement type unit cannot be null or empty.";
 
         // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeService.createAndSaveMeasurementType(description, unit));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> unitService.createAndSaveMeasurementType(description, unit));
 
         // Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -198,20 +198,20 @@ class MeasurementTypeServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeUnitIsEmpty() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
 
-        MeasurementTypeDescription description = mock(MeasurementTypeDescription.class);
+        UnitDescription description = mock(UnitDescription.class);
         when(description.getDescription()).thenReturn("Temperature");
-        MeasurementTypeUnit unit = mock(MeasurementTypeUnit.class);
+        UnitSymbol unit = mock(UnitSymbol.class);
 
         when(unit.getUnit()).thenReturn("");
 
         String expectedMessage = "Measurement type unit cannot be null or empty.";
 
         // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeService.createAndSaveMeasurementType(description, unit));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> unitService.createAndSaveMeasurementType(description, unit));
 
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -224,23 +224,23 @@ class MeasurementTypeServiceTest {
     void shouldReturnMeasurementType_WhenFindByIdInvoked() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
 
-        MeasurementID measurementID = mock(MeasurementID.class);
-        when(measurementID.toString()).thenReturn("1");
-        MeasurementType measurementTypeDouble = mock(MeasurementType.class);
+        UnitID unitID = mock(UnitID.class);
+        when(unitID.toString()).thenReturn("1");
+        Unit unitDouble = mock(Unit.class);
 
         // Wrap the measurementTypeDouble in an Optional
-        when(measurementTypeRepositoryDouble.ofIdentity(measurementID)).thenReturn(Optional.of(measurementTypeDouble));
+        when(measurementTypeRepositoryDouble.ofIdentity(unitID)).thenReturn(Optional.of(unitDouble));
 
         // Act
-        Optional<MeasurementType> result = measurementTypeService.findMeasurementTypeById(measurementID);
+        Optional<Unit> result = unitService.findMeasurementTypeById(unitID);
 
         // Assert
         assertTrue(result.isPresent()); // Ensure the result is present
-        assertEquals(measurementTypeDouble, result.get()); // Compare the actual MeasurementType object
+        assertEquals(unitDouble, result.get()); // Compare the actual MeasurementType object
     }
 
     /**
@@ -250,15 +250,15 @@ class MeasurementTypeServiceTest {
     void shouldThrowIllegalArgumentException_WhenFindByIdWithNullIDInvoked() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
 
         String expectedMessage = "Please enter a valid sensor type ID.";
-        MeasurementID measurementID = null;
+        UnitID unitID = null;
 
         // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeService.findMeasurementTypeById(measurementID));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> unitService.findMeasurementTypeById(unitID));
 
         // Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -274,12 +274,12 @@ class MeasurementTypeServiceTest {
     void shouldReturnAllMeasurementTypes_WhenFindAllMeasurementTypesInvoked() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactoryDouble = mock(MeasurementTypeFactory.class);
+        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepositoryDouble, measurementTypeFactoryDouble);
+        UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
 
         // Act
-        List<MeasurementType> result = measurementTypeService.findAllMeasurementTypes();
+        List<Unit> result = unitService.findAllMeasurementTypes();
 
         // Assert
         assertEquals(result, measurementTypeRepositoryDouble.findAll());
@@ -294,15 +294,15 @@ class MeasurementTypeServiceTest {
     void shouldNotReturnEmptyList_WhenFindAllMeasurementTypesIsCalledWithAvailableTypes() {
         // Arrange
         MeasurementTypeRepository measurementTypeRepository = mock(MeasurementTypeRepository.class);
-        MeasurementTypeFactory measurementTypeFactory = mock(MeasurementTypeFactory.class);
-        MeasurementTypeService measurementTypeService = new MeasurementTypeService(measurementTypeRepository, measurementTypeFactory);
-        MeasurementType measurementType = mock(MeasurementType.class);
-        List<MeasurementType> availableTypes = Arrays.asList(measurementType);
+        UnitFactory unitFactory = mock(UnitFactory.class);
+        UnitService unitService = new UnitService(measurementTypeRepository, unitFactory);
+        Unit unit = mock(Unit.class);
+        List<Unit> availableTypes = Arrays.asList(unit);
 
         when(measurementTypeRepository.findAll()).thenReturn(availableTypes);
 
         // Act
-        List<MeasurementType> result = measurementTypeService.findAllMeasurementTypes();
+        List<Unit> result = unitService.findAllMeasurementTypes();
 
         // Assert
         assertFalse(result.isEmpty());

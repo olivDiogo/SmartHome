@@ -188,6 +188,81 @@ public class AddressTest {
     }
 
     /**
+     * Tests if the exception is thrown with a null country code.
+     */
+    @Test
+    void shouldThrowExceptionWhenCountryCodeIsNull() {
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = null;
+
+        //Act & Assert
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
+    }
+
+    /**
+     * Tests if the exception is thrown with an empty country code.
+     */
+    @Test
+    void shouldThrowExceptionWhenCountryCodeIsEmpty() {
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "";
+
+        //Act & Assert
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
+    }
+
+    /**
+     * Tests if the exception is thrown with a country code with more than 2 characters.
+     */
+    @Test
+    void shouldThrowExceptionWhenCountryCodeHasMoreThanTwoCharacters() {
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "PTT";
+
+        //Act & Assert
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
+    }
+
+    /**
+     * Tests if the exception is thrown with a country code with less than 2 characters.
+     */
+    @Test
+    void shouldThrowExceptionWhenCountryCodeHasLessThanTwoCharacters() {
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "P";
+
+        //Act & Assert
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
+    }
+
+    /**
+     * Tests if the exception is thrown with a country code that contains a number.
+     */
+    @Test
+    void shouldThrowExceptionWhenCountryCodeContainsNumber() {
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "P1";
+
+        //Act & Assert
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Address(street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
+    }
+
+    /**
      * Tests if Address is equal to itself.
      */
     @Test
@@ -207,6 +282,7 @@ public class AddressTest {
         //Assert
         assertTrue(isEquals);
     }
+
 
     /**
      * Tests if Address is not equal to null.
@@ -236,10 +312,10 @@ public class AddressTest {
         //Arrange
         String street = "Isep Street 2";
         String doorNumber = "12 A";
-        String postalCodeValue  = "4000-123";
+        String postalCodeValue = "4000-123";
         String countryCode = "PT";
         PostalCodeFactory factory = mock(PostalCodeFactory.class);
-        PostalCode postalCode = mock(PostalCode.class);
+        IPostalCode postalCode = mock(IPostalCode.class);
         when(factory.createPostalCode(anyString(), anyString())).thenReturn(postalCode); //TODO: this is the correct use
         Address address1 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
         Address address2 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
@@ -284,7 +360,7 @@ public class AddressTest {
         String postalCodeValue = "4000-123";
         String countryCode = "PT";
         PostalCodeFactory factory = mock(PostalCodeFactory.class);
-        PostalCode postalCode = mock(PostalCode.class);
+        IPostalCode postalCode = mock(IPostalCode.class);
         when(factory.createPostalCode(anyString(), anyString())).thenReturn(postalCode);
         Address address1 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
         Address address2 = new Address(street, doorNumber, postalCodeValue, countryCode, factory);
@@ -380,6 +456,5 @@ public class AddressTest {
         //Assert
         assertEquals(street + ", " + doorNumber, actualAddress);
     }
-
 
 }

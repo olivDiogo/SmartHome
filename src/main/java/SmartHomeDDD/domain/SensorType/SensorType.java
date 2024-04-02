@@ -1,16 +1,13 @@
 package SmartHomeDDD.domain.SensorType;
-
 import SmartHomeDDD.valueObject.SensorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
-import SmartHomeDDD.valueObject.MeasurementID;
+import SmartHomeDDD.valueObject.UnitID;
 import SmartHomeDDD.ddd.AggregateRoot;
-
-import java.util.UUID;
 
 public class SensorType implements AggregateRoot<SensorTypeID> {
     private SensorTypeID _id;
     private TypeDescription _name;
-    private MeasurementID _unit;
+    private UnitID _unit;
 
     /**
      * Creates a new {@link SensorType} instance using the provided sensor type name and unit.
@@ -18,21 +15,21 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
      * @param name the sensor type name, must not be null
      * @param unit the unit of the sensor type, must not be null
      */
-    SensorType(TypeDescription name, MeasurementID unit) {
+    SensorType(TypeDescription name, UnitID unit) {
         validateSensorTypeName(name);
         this._name = name;
 
         validateUnit(unit);
         this._unit = unit;
 
-        generateID();
+        generateID(name);
     }
 
     /**
      * Creates a new {@link SensorTypeID} instance.
      */
-    private void generateID(){
-        _id = new SensorTypeID(UUID.randomUUID().toString());
+    private void generateID(TypeDescription name){
+        _id = new SensorTypeID(name.toString());
     }
 
     /**
@@ -50,7 +47,7 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
      *
      * @param unit the unit of the sensor type, must not be null
      */
-    private void validateUnit(MeasurementID unit) {
+    private void validateUnit(UnitID unit) {
         if (unit == null)
             throw new IllegalArgumentException("Unit must not be null.");
     }
@@ -79,7 +76,7 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
      *
      * @return the unit of the sensor type
      */
-    public MeasurementID getUnit() {
+    public UnitID getUnit() {
         return _unit;
     }
 
@@ -91,15 +88,8 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
      */
     @Override
     public boolean equals( Object object ) {
-
-        if( this == object )
-            return true;
-
-        if( object instanceof SensorType ) {
-            SensorType sensorTypeObject = (SensorType) object;
-
-            if( this._id.toString().equals(sensorTypeObject._id.toString()) )
-                return true;
+        if( object instanceof SensorType  sensorTypeObject) {
+            return ( this._id.toString().equals(sensorTypeObject._id.toString()) );
         }
         return false;
     }

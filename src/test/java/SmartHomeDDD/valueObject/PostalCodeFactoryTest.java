@@ -17,7 +17,7 @@ class PostalCodeFactoryTest {
         PostalCodeFactory factory = new PostalCodeFactory();
 
         // Act
-        PostalCode result = factory.createPostalCode(postalCode, countryCode);
+        IPostalCode result = factory.createPostalCode(postalCode, countryCode);
 
         // Assert
         assertNotNull(result);
@@ -48,7 +48,7 @@ class PostalCodeFactoryTest {
         String postalCode = "1234-65";
         String countryCode = "PT";
         PostalCodeFactory factory = new PostalCodeFactory();
-        PostalCode postalCodeMock = mock(PostalCode.class);
+        IPostalCode postalCodeMock = mock(IPostalCode.class);
         when(postalCodeMock.validate(postalCode)).thenReturn(false);
 
         // Act & Assert
