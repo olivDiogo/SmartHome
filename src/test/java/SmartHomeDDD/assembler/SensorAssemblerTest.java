@@ -1,0 +1,244 @@
+package SmartHomeDDD.assembler;
+
+import SmartHomeDDD.DTO.SensorDTO;
+import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.valueObject.*;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+class SensorAssemblerTest {
+
+    @Test
+    public void shouldConvertSensorToSensorDTO_WhenSensorIsValid () {
+        //Arrange
+        String deviceID = "123";
+        String modelPath = "SmartHome.sensors.DewPointSensor";
+        String sensorTypeID = "321";
+        String sensorID = "432";
+        String sensorName = "dewPoint";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.toString()).thenReturn(deviceID);
+
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.toString()).thenReturn(modelPath);
+
+        SensorTypeID sensorTypeDouble = mock(SensorTypeID.class);
+        when(sensorTypeDouble.toString()).thenReturn(sensorTypeID);
+
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.toString()).thenReturn(sensorID);
+
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.toString()).thenReturn(sensorName);
+
+        Sensor sensorDouble = mock(Sensor.class);
+        when(sensorDouble.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorDouble.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorDouble.getSensorTypeID()).thenReturn(sensorTypeDouble);
+        when(sensorDouble.getID()).thenReturn(sensorIDDouble);
+        when(sensorDouble.getName()).thenReturn(sensorNameDouble);
+
+        SensorAssembler sensorAssembler = new SensorAssembler();
+
+        //Act
+        SensorDTO sensorDTO = sensorAssembler.domainToDTO(sensorDouble);
+
+        //Assert
+        assertEquals(sensorID, sensorDTO.sensorID);
+
+    }
+
+    @Test
+    public void shouldThrowException_WhenSensorIsNull() {
+        //Arrange
+        Sensor sensor = null;
+
+        SensorAssembler sensorAssembler = new SensorAssembler();
+
+        String expected = "Sensor cannot be null.";
+
+        //Act and Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            sensorAssembler.domainToDTO(sensor);
+        });
+
+        String result = exception.getMessage();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void shouldConvertSensorListToListOfSensorsDTOList () {
+        //Arrange
+        String deviceID = "123";
+        String modelPath = "SmartHome.sensors.DewPointSensor";
+        String sensorTypeID = "321";
+        String sensorID = "432";
+        String sensorName = "dewPoint";
+
+        String deviceID2 = "12";
+        String modelPath2 = "SmartHome.sensors.DewPointSensor";
+        String sensorTypeID2 = "321";
+        String sensorID2 = "43212";
+        String sensorName2 = "dewPoint2";
+
+        //sensor1
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.toString()).thenReturn(deviceID);
+
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.toString()).thenReturn(modelPath);
+
+        SensorTypeID sensorTypeDouble = mock(SensorTypeID.class);
+        when(sensorTypeDouble.toString()).thenReturn(sensorTypeID);
+
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.toString()).thenReturn(sensorID);
+
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.toString()).thenReturn(sensorName);
+
+        Sensor sensorDouble = mock(Sensor.class);
+        when(sensorDouble.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorDouble.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorDouble.getSensorTypeID()).thenReturn(sensorTypeDouble);
+        when(sensorDouble.getID()).thenReturn(sensorIDDouble);
+        when(sensorDouble.getName()).thenReturn(sensorNameDouble);
+
+        //sensor2
+        DeviceID deviceIDDouble2 = mock(DeviceID.class);
+        when(deviceIDDouble2.toString()).thenReturn(deviceID2);
+
+        ModelPath modelPathDouble2 = mock(ModelPath.class);
+        when(modelPathDouble2.toString()).thenReturn(modelPath2);
+
+        SensorTypeID sensorTypeDouble2 = mock(SensorTypeID.class);
+        when(sensorTypeDouble2.toString()).thenReturn(sensorTypeID2);
+
+        SensorID sensorIDDouble2 = mock(SensorID.class);
+        when(sensorIDDouble2.toString()).thenReturn(sensorID2);
+
+        SensorName sensorNameDouble2 = mock(SensorName.class);
+        when(sensorNameDouble2.toString()).thenReturn(sensorName2);
+
+        Sensor sensorDouble2 = mock(Sensor.class);
+        when(sensorDouble2.getDeviceID()).thenReturn(deviceIDDouble2);
+        when(sensorDouble2.getModelPath()).thenReturn(modelPathDouble2);
+        when(sensorDouble2.getSensorTypeID()).thenReturn(sensorTypeDouble2);
+        when(sensorDouble2.getID()).thenReturn(sensorIDDouble2);
+        when(sensorDouble2.getName()).thenReturn(sensorNameDouble2);
+
+        SensorAssembler sensorAssembler = new SensorAssembler();
+
+        List<Sensor> sensors = List.of(sensorDouble, sensorDouble2);
+
+        //Act
+        List<SensorDTO> sensorsDTO = sensorAssembler.domainToDTO(sensors);
+
+        //Assert
+        assertEquals(sensorID, sensorsDTO.get(0).sensorID);
+        assertEquals(sensorID2, sensorsDTO.get(1).sensorID);
+    }
+
+    @Test
+    public void shouldThrowException_WhenListOfSensorsIsNull() {
+        //Arrange
+        List<Sensor> sensors = null;
+
+        SensorAssembler sensorAssembler = new SensorAssembler();
+
+        //Act and Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            sensorAssembler.domainToDTO(sensors);
+        });
+
+        String expected = "The list of sensors cannot be null or empty";
+
+        String result = exception.getMessage();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void shouldThrowException_WhenListOfSensorsIsEmpty() {
+        //Arrange
+        List<Sensor> sensors = List.of();
+
+        SensorAssembler sensorAssembler = new SensorAssembler();
+
+        //Act and Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            sensorAssembler.domainToDTO(sensors);
+        });
+
+        String expected = "The list of sensors cannot be null or empty";
+
+        String result = exception.getMessage();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void shouldThrowException_WhenListOfSensorContainsNullSensors () {
+        //Arrange
+        String deviceID = "123";
+        String modelPath = "SmartHome.sensors.DewPointSensor";
+        String sensorTypeID = "321";
+        String sensorID = "432";
+        String sensorName = "dewPoint";
+
+        //sensor1
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.toString()).thenReturn(deviceID);
+
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.toString()).thenReturn(modelPath);
+
+        SensorTypeID sensorTypeDouble = mock(SensorTypeID.class);
+        when(sensorTypeDouble.toString()).thenReturn(sensorTypeID);
+
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.toString()).thenReturn(sensorID);
+
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.toString()).thenReturn(sensorName);
+
+        Sensor sensorDouble = mock(Sensor.class);
+        when(sensorDouble.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorDouble.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorDouble.getSensorTypeID()).thenReturn(sensorTypeDouble);
+        when(sensorDouble.getID()).thenReturn(sensorIDDouble);
+        when(sensorDouble.getName()).thenReturn(sensorNameDouble);
+
+        Sensor sensorDouble2 = null;
+
+        SensorAssembler sensorAssembler = new SensorAssembler();
+
+        List<Sensor> sensors = new ArrayList<>();
+        sensors.add(sensorDouble);
+        sensors.add(sensorDouble2);
+
+        String expected = "Sensor cannot be null.";
+
+        //Act and Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            sensorAssembler.domainToDTO(sensors);
+        });
+
+        String result = exception.getMessage();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+}
