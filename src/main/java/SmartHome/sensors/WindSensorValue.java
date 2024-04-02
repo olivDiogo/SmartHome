@@ -2,8 +2,6 @@ package SmartHome.sensors;
 
 import SmartHome.domain.Value;
 
-import java.util.concurrent.ConcurrentNavigableMap;
-
 public class WindSensorValue implements Value {
 
     public double _speed;

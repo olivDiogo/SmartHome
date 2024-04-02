@@ -1,9 +1,9 @@
 package SmartHomeDDD.domain.Unit;
 
+import SmartHomeDDD.ddd.AggregateRoot;
+import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.valueObject.UnitID;
 import SmartHomeDDD.valueObject.UnitSymbol;
-import SmartHomeDDD.valueObject.UnitDescription;
-import SmartHomeDDD.ddd.AggregateRoot;
 
 /**
  * Represents a type of measurement in the SmartHomeDDD domain. This class includes information about

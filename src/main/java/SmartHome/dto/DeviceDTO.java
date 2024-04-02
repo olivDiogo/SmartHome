@@ -1,6 +1,5 @@
 package SmartHome.dto;
 
-import SmartHome.domain.Actuator;
 import SmartHome.domain.Device;
 import SmartHome.domain.Room;
 

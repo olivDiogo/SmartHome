@@ -3,7 +3,6 @@ package SmartHomeDDD.domain.Sensor;
 
 import SmartHomeDDD.ddd.ValueObject;
 import SmartHomeDDD.valueObject.*;
-
 import org.shredzone.commons.suncalc.SunTimes;
 
 import java.time.LocalDate;

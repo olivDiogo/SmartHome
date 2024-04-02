@@ -1,7 +1,5 @@
 package SmartHome.domain;
 
-import java.util.List;
-
 public interface Sensor {
     /**
      * Gets the type of the sensor.

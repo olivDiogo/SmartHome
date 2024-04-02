@@ -5,8 +5,6 @@ import SmartHome.domain.Sensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 
-import java.util.Random;
-
 public class DewPointSensor implements Sensor {
     private SensorType _sensorType;
     private DewPointValue _dewPointValue;

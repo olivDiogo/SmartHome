@@ -1,15 +1,15 @@
 package SmartHomeDDD.controller;
 
-import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.DTO.DeviceDTO;
 import SmartHomeDDD.assembler.DeviceAssembler;
+import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.domain.DeviceType.DeviceType;
 import SmartHomeDDD.service.DeviceService;
 import SmartHomeDDD.service.DeviceTypeService;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class GetListOfAllDevicesGroupedByFunctionality {

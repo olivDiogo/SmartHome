@@ -1,10 +1,10 @@
 package SmartHomeDDD.assembler;
 
-import java.util.List;
-
-import SmartHomeDDD.ddd.Assembler;
 import SmartHomeDDD.DTO.SensorTypeDTO;
+import SmartHomeDDD.ddd.Assembler;
 import SmartHomeDDD.domain.SensorType.SensorType;
+
+import java.util.List;
 
 public class SensorTypeAssembler implements Assembler<SensorType, SensorTypeDTO>{
 

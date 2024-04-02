@@ -6,7 +6,8 @@ import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AveragePowerConsumptionSensor implements Sensor {

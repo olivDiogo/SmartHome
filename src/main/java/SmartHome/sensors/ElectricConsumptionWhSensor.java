@@ -1,8 +1,10 @@
 package SmartHome.sensors;
+
 import SmartHome.domain.CatalogueSensor;
 import SmartHome.domain.Sensor;
 import SmartHome.domain.SensorType;
 import SmartHome.domain.Value;
+
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.temporal.ChronoUnit;

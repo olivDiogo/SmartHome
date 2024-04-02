@@ -1,6 +1,5 @@
 package SmartHomeDDD.assembler;
 
-
 import SmartHomeDDD.DTO.ActuatorDTO;
 import SmartHomeDDD.ddd.Assembler;
 import SmartHomeDDD.domain.Actuator.Actuator;

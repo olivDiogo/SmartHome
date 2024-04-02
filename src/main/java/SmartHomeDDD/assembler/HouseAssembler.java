@@ -4,7 +4,6 @@ import SmartHomeDDD.DTO.HouseDTO;
 import SmartHomeDDD.ddd.Assembler;
 import SmartHomeDDD.domain.House.House;
 
-
 import java.util.List;
 
 public class HouseAssembler implements Assembler<House, HouseDTO> {

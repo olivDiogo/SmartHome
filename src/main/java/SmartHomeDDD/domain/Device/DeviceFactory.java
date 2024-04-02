@@ -2,8 +2,8 @@ package SmartHomeDDD.domain.Device;
 
 import SmartHomeDDD.valueObject.DeviceName;
 import SmartHomeDDD.valueObject.DeviceStatus;
-import SmartHomeDDD.valueObject.RoomID;
 import SmartHomeDDD.valueObject.DeviceTypeID;
+import SmartHomeDDD.valueObject.RoomID;
 
 public interface DeviceFactory {
 

@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.Unit;
 
-import SmartHomeDDD.valueObject.UnitSymbol;
 import SmartHomeDDD.valueObject.UnitDescription;
+import SmartHomeDDD.valueObject.UnitSymbol;
 
 /**
  * Factory implementation for creating {@link Unit} instances.

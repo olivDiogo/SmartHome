@@ -5,8 +5,6 @@ import SmartHomeDDD.valueObject.ActuatorModelID;
 import SmartHomeDDD.valueObject.ActuatorModelName;
 import SmartHomeDDD.valueObject.ModelPath;
 
-import java.util.UUID;
-
 public class ActuatorModel implements AggregateRoot<ActuatorModelID> {
 
     private ActuatorModelID _actuatorModelID;

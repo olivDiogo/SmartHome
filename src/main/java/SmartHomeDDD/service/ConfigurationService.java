@@ -1,9 +1,9 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.valueObject.UnitDescription;
-import SmartHomeDDD.valueObject.UnitSymbol;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelName;
+import SmartHomeDDD.valueObject.UnitDescription;
+import SmartHomeDDD.valueObject.UnitSymbol;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;

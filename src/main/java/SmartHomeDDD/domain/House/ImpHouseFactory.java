@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.House;
 
-import SmartHomeDDD.valueObject.GPS;
 import SmartHomeDDD.valueObject.Address;
+import SmartHomeDDD.valueObject.GPS;
 
 /**
  * Implementation of the {@link HouseFactory} interface, responsible for creating

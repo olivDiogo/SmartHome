@@ -1,9 +1,9 @@
 package SmartHomeDDD.domain.House;
 
-import SmartHomeDDD.valueObject.GPS;
-import SmartHomeDDD.valueObject.Address;
-import SmartHomeDDD.valueObject.HouseID;
 import SmartHomeDDD.ddd.AggregateRoot;
+import SmartHomeDDD.valueObject.Address;
+import SmartHomeDDD.valueObject.GPS;
+import SmartHomeDDD.valueObject.HouseID;
 
 import java.util.UUID;
 

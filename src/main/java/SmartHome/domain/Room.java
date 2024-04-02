@@ -1,7 +1,5 @@
 package SmartHome.domain;
 
-import SmartHome.dto.RoomDTO;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
