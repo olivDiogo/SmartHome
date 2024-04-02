@@ -1,6 +1,6 @@
 package SmartHomeDDD.assembler;
 
-import SmartHomeDDD.DTO.MeasurementTypeDTO;
+import SmartHomeDDD.DTO.UnitDTO;
 import SmartHomeDDD.valueObject.UnitID;
 import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.domain.Unit.Unit;
@@ -18,7 +18,7 @@ class UnitAssemblerTest {
     @Test
     void shouldReturnMeasurementTypeDTO_WhenDomainToDTOIsCalledWithMeasurementType() {
         // Arrange
-        MeasurementTypeAssembler measurementTypeAssembler = new MeasurementTypeAssembler();
+        UnitAssembler unitAssembler = new UnitAssembler();
 
         UnitID unitID = mock(UnitID.class);
         UnitDescription unitDescription = mock(UnitDescription.class);
@@ -28,19 +28,19 @@ class UnitAssemblerTest {
         when(unit.getUnitDescription()).thenReturn(unitDescription);
         when(unitDescription.toString()).thenReturn("Water Temperature in Celcius");
         // Act
-        MeasurementTypeDTO measurementTypeDTO = measurementTypeAssembler.domainToDTO(unit);
+        UnitDTO unitDTO = unitAssembler.domainToDTO(unit);
 
         // Assert
-        assertEquals("Water Temperature in Celcius", measurementTypeDTO.description);
+        assertEquals("Water Temperature in Celcius", unitDTO.description);
     }
     @Test
     void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithNullMeasurementType() {
         // Arrange
-        MeasurementTypeAssembler measurementTypeAssembler = new MeasurementTypeAssembler();
+        UnitAssembler unitAssembler = new UnitAssembler();
         String expectedMessage = "The MeasurementType cannot be null.";
         Unit unit = null;
         // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeAssembler.domainToDTO(unit));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> unitAssembler.domainToDTO(unit));
         // Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -48,7 +48,7 @@ class UnitAssemblerTest {
     @Test
     void shouldReturnMeasurementTypeDTOList_WhenDomainToDTOIsCalledWithListOfMeasurementType() {
         // Arrange
-        MeasurementTypeAssembler measurementTypeAssembler = new MeasurementTypeAssembler();
+        UnitAssembler unitAssembler = new UnitAssembler();
 
         UnitID unitID = mock(UnitID.class);
         UnitDescription unitDescription = mock(UnitDescription.class);
@@ -78,13 +78,13 @@ class UnitAssemblerTest {
         List <Unit> unitList = List.of(unit, unit2);
 
         //Expected list
-        MeasurementTypeDTO measurementTypeDTO = new MeasurementTypeDTO(measurementIDData, measurementTypeDescriptionData);
-        MeasurementTypeDTO measurementTypeDTO2 = new MeasurementTypeDTO(measurementIDData2, measurementTypeDescriptionData2);
-        List <MeasurementTypeDTO> expectedList = List.of(measurementTypeDTO, measurementTypeDTO2);
+        UnitDTO unitDTO = new UnitDTO(measurementIDData, measurementTypeDescriptionData);
+        UnitDTO unitDTO2 = new UnitDTO(measurementIDData2, measurementTypeDescriptionData2);
+        List <UnitDTO> expectedList = List.of(unitDTO, unitDTO2);
 
 
         // Act
-        List<MeasurementTypeDTO> actualList = measurementTypeAssembler.domainToDTO(unitList);
+        List<UnitDTO> actualList = unitAssembler.domainToDTO(unitList);
 
         // Assert
         assertEquals(expectedList.toString(), actualList.toString());
@@ -94,11 +94,11 @@ class UnitAssemblerTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithNullListOfMeasurementType() {
         // Arrange
-        MeasurementTypeAssembler measurementTypeAssembler = new MeasurementTypeAssembler();
+        UnitAssembler unitAssembler = new UnitAssembler();
         String expectedMessage = "The list of MeasurementTypes cannot be null.";
         List<Unit> unitList = null;
         // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> measurementTypeAssembler.domainToDTO(unitList));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> unitAssembler.domainToDTO(unitList));
         // Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
