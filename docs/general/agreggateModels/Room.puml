@@ -3,30 +3,34 @@
 
 package SmartHome.Room {
   class Room<<Entity>><<Root>>{
-    -_floor: RoomFloor
-    -_dimensions: RoomDimensions
+    -_houseID: HouseID
     -_roomID: RoomID
     -_roomName: RoomName
+    -_dimensions: Dimension
+    -_floor: RoomFloor
   }
 
   package ValueObject {
     class RoomID<<ValueObject>>{
-      -value: UUID
+      -_id: String
         }
     class RoomFloor<<ValueObject>>{
-      -value: int
+      -_floor: int
         }
-    class RoomDimensions<<ValueObject>>{
+    class Dimension<<ValueObject>>{
     -_width: int
     -_length: int
     -_height: int
     }
     class RoomName<<ValueObject>>{
-      -value: string
+      -_name: String
+        }
+    class HouseID<<ValueObject>>{
+      -_id: String
         }
   }
 
-Room "*" -- "1" RoomDimensions: has
+Room "*" -- "1" Dimension: has
 Room "*" -- "1" RoomFloor: has
 Room "1" -- "1" RoomID: has
 Room "1" -- "1" RoomName: has
