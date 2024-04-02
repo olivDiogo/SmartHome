@@ -1,0 +1,88 @@
+@startuml
+!pragma layout smetana
+
+    interface Actuator {
+        + getActuatorTypeID(): ActuatorTypeID
+                + getID(): ActuatorID
+                + getName() : ActuatorName
+                + getModelPath() : ModelPath
+                + getDeviceID() : DeviceID
+                + setValue(ValueObject value): ValueObject
+    }
+    interface FactoryActuator {
+        + createActuator(actuatorModelID: ActuatorModelID, repoActuator: RepoActuator): Actuator
+    }
+    class ImplFactoryActuator {
+        + createActuator(actuatorModelID: ActuatorModelID, repoActuator: RepoActuator): Actuator
+    }
+
+    class SetIntegerActuator {
+        - _actuatorID: ActuatorID
+        - _actuatorName: ActuatorName
+        - _actuatorTypeID: ActuatorTypeID
+        - _modelPath: ModelPath
+        - _deviceID: DeviceID
+        - _value: BlindRollerValue
+        # SetIntegerActuator(ActuatorName: actuatorName, actuatorTypeID: ActuatorTypeID, modelPath: ModelPath, deviceID: DeviceID, lowerLimit: int, upperLimit: int)
+        + getActuatorTypeID(): ActuatorTypeID
+        + getID(): ActuatorID
+        + getName() : ActuatorName
+        + getModelPath() : ModelPath
+        + getDeviceID() : DeviceID
+        + setValue(ValueObject value): ValueObject
+    }
+
+  class BlindRollerValue {
+    - _value : int
+    + BlindRollerValue(int value)
+    + toString() : String
+  }
+
+    class ActuatorTypeID {
+        - _description: String
+        + ActuatorTypeID(String strDescription)
+        + getType() : String
+    }
+
+    class ModelPath {
+        - _path: String
+        + ModelPath(String path)
+        + getPath() : String
+    }
+
+    class ActuatorName {
+        - _name: String
+        + ActuatorName(String name)
+        + getName() : String
+    }
+
+
+    class ActuatorID {
+        - _id: String
+        + ActuatorID(String id)
+        + getID() : String
+    }
+
+    class DeviceID {
+        - _id: String
+        + DeviceID(String id)
+        + getID() : String
+    }
+
+
+ImplFactoryActuator ..|> FactoryActuator
+ImplFactoryActuator "1" ..> "1" SetIntegerActuator : creates
+
+SetIntegerActuator ..|> Actuator
+SetIntegerActuator "1" --> "1" BlindRollerValue : has
+SetIntegerActuator "1" -->  "1" ActuatorTypeID : has
+SetIntegerActuator "1" -->  "1" ModelPath : has
+SetIntegerActuator "1" -->  "1" ActuatorName : has
+SetIntegerActuator "1" -->  "1" ActuatorID : has
+SetIntegerActuator "1" -->  "1" DeviceID : has
+
+
+
+
+
+@enduml
