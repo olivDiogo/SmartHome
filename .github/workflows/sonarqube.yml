@@ -61,10 +61,10 @@ jobs:
           verify 
 #          org.sonarsource.scanner.maven:sonar-maven-plugin:${SONAR_MAVEN_PLUGIN_VERSION}:sonar 
 #          -Dthreads=2 
-#          -DhistoryInputFile=target/.pitest-cache/fasterPitMutationTesting-history.txt 
-#          -DhistoryOutputFile=target/.pitest-cache/fasterPitMutationTesting-history.txt 
-#          -DtimestampedReports=false 
-#          -Dsonar.pitest.mode=reuseReport 
+          -DhistoryInputFile=target/.pitest-cache/fasterPitMutationTesting-history.txt 
+          -DhistoryOutputFile=target/.pitest-cache/fasterPitMutationTesting-history.txt 
+          -DtimestampedReports=false 
+          -Dsonar.pitest.mode=reuseReport 
 #          -Dsonar.sourceEncoding=UTF-8 
 #          -Dsonar.sources=src/main/ 
 #          -Dsonar.cpd.exclusions=**/test/** 
