@@ -169,6 +169,9 @@
                         <outputFormat>HTML</outputFormat>
                     </outputFormats>
                     <!--<verbose>true</verbose>-->
+                    <features>
+                           <feature>+auto_threads</feature>
+                    </features>
                 </configuration>
 
             </plugin>
