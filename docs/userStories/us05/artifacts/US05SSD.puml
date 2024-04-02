@@ -10,8 +10,6 @@ System --> Admin: Which room?
 Admin -> System: !room
 System --> Admin: What is the ID of the device ?
 Admin -> System: !ID
-System --> Admin: Confirm the device?
-Admin -> System: !confirm
 System --> Admin: The device has been added to the room
 
 
