@@ -1,0 +1,114 @@
+@startuml
+!pragma layout smetana
+
+package domain.sensor {
+    interface Sensor {
+        + getID(): SensorID
+        + getName(): SensorName
+        + getModelPath(): ModelPath
+        + getSensorTypeID(): SensorTypeID
+        + getDeviceID(): DeviceID
+        + getValue(): ValueObject
+        + toString(): String
+    }
+    interface FactorySensor {
+        + createSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName): Sensor
+    }
+    class ImplFactorySensor {
+        + createSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName): Sensor
+    }
+
+    class DewPointSensor {
+        - _modelPath : ModelPath
+        - _sensorName : SensorName
+        - _sensorID : SensorID
+        - _sensorTypeID : SensorTypeID
+        - _dewPointValue : ValueObject
+        - _deviceID : DeviceID
+
+        # DewPointSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName)
+        + getID () : SensorID
+        + getName () : SensorName
+        + getModelPath () : ModelPath
+        + getSensorTypeID () : SensorTypeID
+        + getValue () : ValueObject
+        + getDeviceID () : DeviceID
+    }
+}
+
+package domain.value {
+  class DewPointValue {
+    - _DewPointValue : int
+    + DewPointValue(dewPointValue : int)
+    + toString() : String
+  }
+}
+
+package valueObject {
+    class SensorTypeID {
+        - _id : String
+        + SensorTypeID(sensorTypeID : String)
+        + getID() : String
+    }
+
+       class SensorID {
+            - _id: String
+            + SensorID(sensorID : String)
+            + getID() : String
+       }
+
+    class ModelPath {
+        - _path: String
+        + ModelPath(path : String)
+        + getPath() : String
+    }
+
+    class SensorName {
+        - _name: String
+        + SensorName(name : String)
+        + getName() : String
+    }
+
+    class DeviceID {
+        - _id: String
+        + DeviceID(id : String)
+        + getID() : String
+    }
+}
+
+package ddd {
+
+  interface DomainEntity {
+  }
+
+  interface DomainID {
+  }
+
+  interface AggregateRoot {
+  }
+}
+
+ImplFactorySensor ..|> FactorySensor
+ImplFactorySensor "1" ..> "1" DewPointSensor : creates
+
+DewPointSensor ..|> Sensor
+DewPointSensor "1" --> "1" DewPointValue : has
+DewPointSensor "1" -->  "1" SensorTypeID : has
+DewPointSensor "1" -->  "1" SensorID : has
+DewPointSensor "1" -->  "1" DeviceID : has
+DewPointSensor "1" -->  "1" ModelPath : has
+DewPointSensor "1" -->  "1" SensorName : has
+
+DomainEntity --|> DomainID
+AggregateRoot --|> DomainEntity
+AggregateRoot --|> DomainID
+
+Sensor ..|> ddd.AggregateRoot
+
+SensorTypeID ..|> ddd.DomainID
+SensorID ..|> ddd.DomainID
+SensorID ..|> ddd.DomainID
+ModelPath ..|> ddd.DomainID
+DeviceID ..|> ddd.DomainID
+
+@enduml
