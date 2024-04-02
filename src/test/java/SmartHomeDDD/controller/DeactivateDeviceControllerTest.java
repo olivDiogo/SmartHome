@@ -119,38 +119,6 @@ class DeactivateDeviceControllerTest {
     }
 
     /**
-     * Test to verify that the requestAllDevices method returns when device list is null.
-     */
-    @Test
-    void shouldReturnEmptyList_WhenRequestAllDevicesIsCalledAndDeviceListIsNull() {
-        // Arrange
-        DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
-        RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
-        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
-
-        // Add a house
-        Address address = new Address("street","1");
-        ZipCode zipCode = new ZipCode(1234,567);
-        GPS gps = new GPS(41.5514, -8.4221);
-        House house = houseFactory.createHouse(address, zipCode, gps);
-        houseRepository.save(house);
-
-        // Act
-        List<DeviceDTO> devices = deactivateDeviceController.requestAllDevices();
-
-        // Assert
-        assertTrue(devices.isEmpty());
-    }
-
-    /**
      * Test to verify that the requestDeactivateDevice method returns the deactivated device.
      */
     @Test
@@ -236,10 +204,4 @@ class DeactivateDeviceControllerTest {
         // Assert
         assertEquals(deactivatedDevice.deviceID, "Device not found.");
     }
-
-
-
-
-
-
 }

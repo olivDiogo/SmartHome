@@ -195,52 +195,6 @@ public class DeviceTest {
     }
 
     /**
-     * Tests if the deviceStatus is changed correctly.
-     */
-
-    @Test
-    public void shouldReturnChangedDeviceStatus() {
-        //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceStatus deviceStatus2 = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
-
-        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
-            Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
-
-            //Act
-            device.changeDeviceStatus(deviceStatus2);
-            DeviceStatus result = device.getDeviceStatus();
-
-            //Assert
-            assertTrue(device.toString().contains(result.toString()));
-            assertEquals(result, deviceStatus2);
-        }
-    }
-
-    /**
-     * Test that the Device class throws an IllegalArgumentException when the changeDeviceStatus is called with a null DeviceStatus.
-     */
-    @Test
-    public void shouldThrowIllegalArgumentException_WhenChangeDeviceStatusIsCalledWithNullDeviceStatus() {
-        //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceStatus deviceStatus2 = null;
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
-
-        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
-            Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
-
-            //Act & Assert
-            assertThrows(IllegalArgumentException.class, () -> device.changeDeviceStatus(deviceStatus2));
-        }
-    }
-
-    /**
      * Test that the Equals method returns true when the Device is compared to itself.
      */
     @Test

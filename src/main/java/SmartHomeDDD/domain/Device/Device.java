@@ -136,16 +136,6 @@ public class Device implements AggregateRoot<DeviceID> {
     }
 
     /**
-     * Method to change the device status
-     *
-     * @param deviceStatus The new status of the device
-     */
-    public void changeDeviceStatus(DeviceStatus deviceStatus) {
-        validateDeviceState(deviceStatus);
-        _deviceStatus = deviceStatus;
-    }
-
-    /**
      * Checks if this Device instance is equal to another object.
      *
      * @param object The object to compare.

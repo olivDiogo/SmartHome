@@ -30,7 +30,7 @@ public class DeactivateDeviceController {
      */
     public List<DeviceDTO> requestAllDevices() {
         List<Device> deviceList = _deviceService.getAllDevices();
-        if (deviceList == null || deviceList.isEmpty()) {
+        if (deviceList.isEmpty()) {
             return Collections.emptyList(); // Return an empty list if there are no devices.
         }
         return List.copyOf(_deviceAssembler.domainToDTO(deviceList));
