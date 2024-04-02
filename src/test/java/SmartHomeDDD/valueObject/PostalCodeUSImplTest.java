@@ -87,14 +87,11 @@ class PostalCodeUSImplTest {
      * Test validate method with invalid postal code.
      */
     @Test
-    void shouldReturnFalse_WhenPostalCodeIsInvalid() {
+    void shouldThrowException_WhenPostalCodeIsInvalid() {
         // Arrange
         String postalCode = "1234";
-        PostalCodeUSImpl postalCodeUS = new PostalCodeUSImpl(postalCode);
-        // Act
-        boolean result = postalCodeUS.validate(postalCode);
-        // Assert
-        assertFalse(result);
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new PostalCodeUSImpl(postalCode));
     }
 
     /**
@@ -104,10 +101,7 @@ class PostalCodeUSImplTest {
     void shouldThrowException_WhenPostalCodeFormatIsInvalid() {
         // Arrange
         String postalCode = "abcd-1234";
-        PostalCodeUSImpl postalCodeUS = new PostalCodeUSImpl(postalCode);
-        // Act
-        boolean result = postalCodeUS.validate(postalCode);
-        // Assert
-        assertFalse(result);
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new PostalCodeUSImpl(postalCode));
     }
 }

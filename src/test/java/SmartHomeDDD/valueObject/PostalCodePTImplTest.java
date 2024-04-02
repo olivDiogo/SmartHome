@@ -60,16 +60,13 @@ class PostalCodePTImplTest {
     }
 
     /**
-     * Test validate method with invalid postal code.
+     * Test validate method with invalid postal code should throw exception
      */
     @Test
-    void shouldReturnFalse_WhenPostalCodeIsInvalid() {
+    void shouldThrowException_WhenPostalCodeIsInvalid() {
         // Arrange
-        String postalCode = "1234-59";
-        PostalCodePTImpl postalCodePT = new PostalCodePTImpl(postalCode);
-        // Act
-        boolean result = postalCodePT.validate(postalCode);
-        // Assert
-        assertFalse(result);
+        String postalCode = "1234-65";
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new PostalCodePTImpl(postalCode));
     }
 }
