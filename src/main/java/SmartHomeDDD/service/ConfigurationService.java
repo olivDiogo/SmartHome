@@ -1,8 +1,7 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.domain.SensorModel.SensorModel;
-import SmartHomeDDD.valueObject.MeasurementTypeDescription;
-import SmartHomeDDD.valueObject.MeasurementTypeUnit;
+import SmartHomeDDD.valueObject.UnitDescription;
+import SmartHomeDDD.valueObject.UnitSymbol;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelName;
 import org.apache.commons.configuration2.Configuration;
@@ -13,13 +12,11 @@ import java.io.File;
 
 public class ConfigurationService {
     private SensorModelService _sensorModelService;
-    private MeasurementTypeService _measurementTypeService;
-    private SensorTypeService _sensorTypeService;
+    private UnitService _unitService;
 
-    public ConfigurationService(SensorModelService sensorModelService, MeasurementTypeService measurementTypeService, SensorTypeService sensorTypeService) {
+    public ConfigurationService(SensorModelService sensorModelService, UnitService unitService) {
         validateSensorModelService(sensorModelService);
-        validateMeasurementTypeService(measurementTypeService);
-        validateSensorTypeService(sensorTypeService);
+        validateMeasurementTypeService(unitService);
         try {
             loadDefaultSensorModels();
             loadDefaultMeasurementTypes();
@@ -37,21 +34,14 @@ public class ConfigurationService {
         }
     }
 
-    private void validateMeasurementTypeService(MeasurementTypeService measurementTypeService) {
-        if (measurementTypeService == null) {
+    private void validateMeasurementTypeService(UnitService unitService) {
+        if (unitService == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type service.");
         } else {
-            this._measurementTypeService = measurementTypeService;
+            this._unitService = unitService;
         }
     }
 
-    private void validateSensorTypeService(SensorTypeService sensorTypeService) {
-        if (sensorTypeService == null) {
-            throw new IllegalArgumentException("Please enter a valid sensor type service.");
-        } else {
-            this._sensorTypeService = sensorTypeService;
-        }
-    }
     private void loadDefaultSensorModels() throws InstantiationException {
         Configurations configs = new Configurations();
         try {
@@ -84,12 +74,12 @@ public class ConfigurationService {
                 String[] measurementTypes = measurement.split(";");
 
                 String measurementTypeDescription = measurementTypes[0].split(":")[1];
-                MeasurementTypeDescription measurementDescription = new MeasurementTypeDescription(measurementTypeDescription);
+                UnitDescription measurementDescription = new UnitDescription(measurementTypeDescription);
 
                 String measurementTypeUnit = measurementTypes[1].split(":")[1];
-                MeasurementTypeUnit measurementTUnit = new MeasurementTypeUnit(measurementTypeUnit);
+                UnitSymbol measurementTUnit = new UnitSymbol(measurementTypeUnit);
 
-                _measurementTypeService.createAndSaveMeasurementType(measurementDescription, measurementTUnit);
+                _unitService.createAndSaveMeasurementType(measurementDescription, measurementTUnit);
 
             }
         } catch (ConfigurationException exception) {
