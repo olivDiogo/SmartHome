@@ -4,9 +4,7 @@ import SmartHomeDDD.ddd.AggregateRoot;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
-import SmartHomeDDD.valueObject.SensorTypeID;
 
-import java.util.UUID;
 
 public class SensorModel implements AggregateRoot<SensorModelID> {
     private SensorModelID _sensorModelID;
@@ -16,7 +14,10 @@ public class SensorModel implements AggregateRoot<SensorModelID> {
     public SensorModel(SensorModelName sensorModelName, ModelPath modelPath) {
         validateSensorModelName(sensorModelName);
         validateModelPath(modelPath);
-        _sensorModelID = new SensorModelID(""+_modelPath.toString().hashCode());
+        generateID(modelPath);
+    }
+    private void generateID(ModelPath modelPath){
+        _sensorModelID = new SensorModelID(modelPath.toString());
     }
     private void validateSensorModelName(SensorModelName sensorModelName) {
         if (sensorModelName == null) {
@@ -44,10 +45,10 @@ public class SensorModel implements AggregateRoot<SensorModelID> {
     }
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SensorModel sensorModel = (SensorModel) o;
-        return _sensorModelID.equals(sensorModel._sensorModelID);
+        if ( o instanceof SensorModel castedSensorModel) {
+            return _sensorModelID.equals(castedSensorModel._sensorModelID);
+        }
+        return false;
     }
     @Override
     public String toString() {
