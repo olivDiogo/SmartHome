@@ -19,12 +19,10 @@ public class SetIntegerActuatorTest {
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-
-        int lowerLimit = 0;
-        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
 
         //Act
-        new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
     }
 
     /**
@@ -36,13 +34,11 @@ public class SetIntegerActuatorTest {
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-
-        int lowerLimit = 0;
-        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
 
         //Act & Assert
         try {
-            new SetIntegerActuator(null, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+            new SetIntegerActuator(null, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("DeviceID cannot be null");
         }
@@ -57,13 +53,11 @@ public class SetIntegerActuatorTest {
         DeviceID deviceIdDouble = mock(DeviceID.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-
-        int lowerLimit = 0;
-        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
 
         //Act & Assert
         try {
-            new SetIntegerActuator(deviceIdDouble, null, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+            new SetIntegerActuator(deviceIdDouble, null, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("ModelPath cannot be null");
         }
@@ -78,13 +72,11 @@ public class SetIntegerActuatorTest {
         DeviceID deviceIdDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-
-        int lowerLimit = 0;
-        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
 
         //Act & Assert
         try {
-            new SetIntegerActuator(deviceIdDouble, modelPathDouble, null, actuatorTypeIDDouble, lowerLimit, upperLimit);
+            new SetIntegerActuator(deviceIdDouble, modelPathDouble, null, actuatorTypeIDDouble, limitsDouble);
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("ActuatorName cannot be null");
         }
@@ -99,15 +91,32 @@ public class SetIntegerActuatorTest {
         DeviceID deviceIdDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-
-        int lowerLimit = 0;
-        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
 
         //Act & Assert
         try {
-            new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, null, lowerLimit, upperLimit);
+            new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, null, limitsDouble);
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("ActuatorTypeID cannot be null");
+        }
+    }
+
+    /**
+     * Test to verify that the SetIntegerActuator class throws an IllegalArgumentException when the limits is null.
+     */
+    @Test
+    public void shouldThrowIllegalArgumentException_whenLimitsIsNull() {
+        //Arrange
+        DeviceID deviceIdDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+
+        //Act & Assert
+        try {
+            new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, null);
+        } catch (IllegalArgumentException e) {
+            assert e.getMessage().equals("SetIntegerActuatorLimits cannot be null");
         }
     }
 
@@ -123,13 +132,12 @@ public class SetIntegerActuatorTest {
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-        int lowerLimit = 0;
-        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
 
         try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
             when(mock.toString()).thenReturn(actuatorID);
         })){
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
 
         //Act
         ActuatorID result = setIntegerActuator.getID();
@@ -154,13 +162,11 @@ public class SetIntegerActuatorTest {
         when(actuatorNameDouble.toString()).thenReturn(actuatorName);
 
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-
-        int lowerLimit = 0;
-        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
 
         try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
         })){
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
 
         //Act
         ActuatorName result = setIntegerActuator.getName();
@@ -185,12 +191,11 @@ public class SetIntegerActuatorTest {
 
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-        int lowerLimit = 0;
-        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
 
         try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
         })){
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
 
         //Act
         ModelPath result = setIntegerActuator.getModelPath();
@@ -215,12 +220,11 @@ public class SetIntegerActuatorTest {
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
         when(actuatorTypeIDDouble.toString()).thenReturn(actuatorTypeID);
 
-        int lowerLimit = 0;
-        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
 
         try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
         })){
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
 
         //Act
         ActuatorTypeID result = setIntegerActuator.getActuatorTypeID();
@@ -245,18 +249,48 @@ public class SetIntegerActuatorTest {
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
 
-        int lowerLimit = 0;
-        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
 
         try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
         })){
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
 
         //Act
         DeviceID result = setIntegerActuator.getDeviceID();
 
         //Assert
         assert result.toString().equals(deviceID);
+        }
+    }
+
+    /**
+     * Test to get the limits.
+     */
+    @Test
+    public void shouldGetLimits() {
+        //Arrange
+        int lowerLimit = 0;
+        int upperLimit = 100;
+
+        DeviceID deviceIdDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
+        when(limitsDouble.getLowerLimit()).thenReturn(lowerLimit);
+        when(limitsDouble.getUpperLimit()).thenReturn(upperLimit);
+
+        try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
+        })){
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
+
+        //Act
+        SetIntegerActuatorLimits result = setIntegerActuator.getLimits();
+
+        //Assert
+        assert result.getLowerLimit() == lowerLimit;
+        assert result.getUpperLimit() == upperLimit;
         }
     }
 
@@ -268,6 +302,12 @@ public class SetIntegerActuatorTest {
         //Arrange
         int value = 50;
 
+        int lowerLimit = 0;
+        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
+        when(limitsDouble.getLowerLimit()).thenReturn(lowerLimit);
+        when(limitsDouble.getUpperLimit()).thenReturn(upperLimit);
+
         DeviceID deviceIdDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
@@ -276,12 +316,9 @@ public class SetIntegerActuatorTest {
         SetIntegerValue valueDouble = mock(SetIntegerValue.class);
         when(valueDouble.toString()).thenReturn(value + "");
 
-        int lowerLimit = 0;
-        int upperLimit = 100;
-
         try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
         })){
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
 
         //Act
         ValueObject result = setIntegerActuator.setValue(valueDouble);
@@ -299,6 +336,12 @@ public class SetIntegerActuatorTest {
         //Arrange
         int value = -1;
 
+        int lowerLimit = 0;
+        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
+        when(limitsDouble.getLowerLimit()).thenReturn(lowerLimit);
+        when(limitsDouble.getUpperLimit()).thenReturn(upperLimit);
+
         DeviceID deviceIdDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
@@ -307,12 +350,9 @@ public class SetIntegerActuatorTest {
         SetIntegerValue valueDouble = mock(SetIntegerValue.class);
         when(valueDouble.toString()).thenReturn(value + "");
 
-        int lowerLimit = 0;
-        int upperLimit = 100;
-
         try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
         })){
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
 
         //Act & Assert
         try {
@@ -331,6 +371,12 @@ public class SetIntegerActuatorTest {
         //Arrange
         int value = 101;
 
+        int lowerLimit = 0;
+        int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
+        when(limitsDouble.getLowerLimit()).thenReturn(lowerLimit);
+        when(limitsDouble.getUpperLimit()).thenReturn(upperLimit);
+
         DeviceID deviceIdDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
@@ -339,12 +385,9 @@ public class SetIntegerActuatorTest {
         SetIntegerValue valueDouble = mock(SetIntegerValue.class);
         when(valueDouble.toString()).thenReturn(value + "");
 
-        int lowerLimit = 0;
-        int upperLimit = 100;
-
         try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
         })){
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
 
         //Act & Assert
         try {
@@ -363,6 +406,9 @@ public class SetIntegerActuatorTest {
         //Arrange
         int lowerLimit = 0;
         int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
+        when(limitsDouble.getLowerLimit()).thenReturn(lowerLimit);
+        when(limitsDouble.getUpperLimit()).thenReturn(upperLimit);
 
         DeviceID deviceIdDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
@@ -373,7 +419,7 @@ public class SetIntegerActuatorTest {
 
         try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
         })){
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
 
         //Act & Assert
         try {
@@ -393,6 +439,9 @@ public class SetIntegerActuatorTest {
         String value = "1";
         int lowerLimit = 0;
         int upperLimit = 100;
+        SetIntegerActuatorLimits limitsDouble = mock(SetIntegerActuatorLimits.class);
+        when(limitsDouble.getLowerLimit()).thenReturn(lowerLimit);
+        when(limitsDouble.getUpperLimit()).thenReturn(upperLimit);
 
         DeviceID deviceIdDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
@@ -404,7 +453,7 @@ public class SetIntegerActuatorTest {
 
         try(MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class,(mock, context) -> {
         })){
-        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, lowerLimit, upperLimit);
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceIdDouble, modelPathDouble, actuatorNameDouble, actuatorTypeIDDouble, limitsDouble);
 
         //Act
         ValueObject result = setIntegerActuator.setValue(valueDouble);
