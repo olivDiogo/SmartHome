@@ -1,0 +1,19 @@
+@startuml
+!pragma layout smetana
+
+package SmartHome.Unit {
+    class Unit <<Entity>><<Root>> {
+        - _id: MeasurementUnit
+        - _symbol: Symbol
+    }
+    class MeasurementUnit <<ValueObject>><<ID>> {
+        - _unit: string
+        }
+    class Symbol<<ValueObject>> {
+        - _symbol: string
+        }
+
+Unit "1  " --> "1" MeasurementUnit
+Unit "1" --> "1  " Symbol
+}
+@enduml

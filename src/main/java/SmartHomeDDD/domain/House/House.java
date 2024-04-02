@@ -3,7 +3,6 @@ package SmartHomeDDD.domain.House;
 import SmartHomeDDD.valueObject.GPS;
 import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.HouseID;
-import SmartHomeDDD.valueObject.ZipCode;
 import SmartHomeDDD.ddd.AggregateRoot;
 
 import java.util.UUID;
@@ -16,7 +15,6 @@ import java.util.UUID;
 public class House implements AggregateRoot<HouseID> {
     private HouseID _houseID;
     private Address _address;
-    private ZipCode _zipCode;
     private GPS _gps;
 
     /**
@@ -24,14 +22,12 @@ public class House implements AggregateRoot<HouseID> {
      * Validates the provided address, zip code, and GPS coordinates to ensure they are not null.
      *
      * @param address The physical address of the house. Must not be null.
-     * @param zipCode The postal zip code of the house's location. Must not be null.
      * @param gps The GPS coordinates of the house. Must not be null.
      * @throws IllegalArgumentException if any of the parameters are null.
      */
-    House(Address address, ZipCode zipCode, GPS gps) {
+    House(Address address, GPS gps) {
         generateID();
         validateAddress(address);
-        validateZipCode(zipCode);
         validateGps(gps);
     }
 
@@ -54,21 +50,6 @@ public class House implements AggregateRoot<HouseID> {
             throw new IllegalArgumentException("Address is required");
         } else {
             _address = address;
-        }
-    }
-
-    /**
-     * Validates the provided ZipCode object.
-     * Sets the house's zip code if valid or throws an exception if the zip code is null.
-     *
-     * @param zipCode The ZipCode to be validated.
-     * @throws IllegalArgumentException if zipCode is null.
-     */
-    private void validateZipCode(ZipCode zipCode) {
-        if (zipCode == null) {
-            throw new IllegalArgumentException("ZipCode is required");
-        } else {
-            _zipCode = zipCode;
         }
     }
 
@@ -107,15 +88,6 @@ public class House implements AggregateRoot<HouseID> {
     }
 
     /**
-     * Returns the zip code of the house.
-     *
-     * @return The ZipCode of the house.
-     */
-    public ZipCode getZipCode() {
-        return _zipCode;
-    }
-
-    /**
      * Returns the GPS coordinates of the house.
      *
      * @return The GPS coordinates of the house.
@@ -150,7 +122,6 @@ public class House implements AggregateRoot<HouseID> {
         return "House{" +
                 "_houseID=" + _houseID +
                 ", _address=" + _address +
-                ", _zipCode=" + _zipCode +
                 ", _gps=" + _gps +
                 '}';
     }

@@ -2,7 +2,6 @@ package SmartHomeDDD.domain.House;
 
 import SmartHomeDDD.valueObject.GPS;
 import SmartHomeDDD.valueObject.Address;
-import SmartHomeDDD.valueObject.ZipCode;
 
 /**
  * Interface defining a factory for creating {@link House} instances.
@@ -14,10 +13,9 @@ public interface HouseFactory {
      * Creates and returns a new {@link House} instance with the provided address, zip code, and GPS location.
      *
      * @param address the address of the new house
-     * @param zipCode the zip code of the new house's location
      * @param gps the GPS coordinates of the new house
      * @return a newly created House instance
      */
-    public House createHouse(Address address, ZipCode zipCode, GPS gps);
+    public House createHouse(Address address, GPS gps);
 }
 

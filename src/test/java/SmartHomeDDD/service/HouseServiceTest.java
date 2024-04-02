@@ -2,7 +2,6 @@ package SmartHomeDDD.service;
 
 import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
-import SmartHomeDDD.valueObject.ZipCode;
 import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.domain.House.HouseFactory;
 import SmartHomeDDD.repository.HouseRepository;
@@ -68,12 +67,11 @@ public class HouseServiceTest {
         HouseRepository houseRepository = mock(HouseRepository.class);
         House house = mock(House.class);
         Address address = mock(Address.class);
-        ZipCode zipCode = mock(ZipCode.class);
         GPS gps = mock(GPS.class);
-        when(houseFactory.createHouse(address, zipCode, gps)).thenReturn(house);
+        when(houseFactory.createHouse(address, gps)).thenReturn(house);
         HouseService houseService = new HouseService(houseFactory, houseRepository);
         // Act
-        House result = houseService.addHouse(address, zipCode, gps);
+        House result = houseService.addHouse(address, gps);
         // Assert
         assertEquals(house, result);
     }

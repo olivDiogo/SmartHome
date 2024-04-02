@@ -430,20 +430,20 @@ public class AveragePowerConsumptionSensorTest {
     @Test
     void shouldGenerateSensorID_WhenAveragePowerConsumptionSensorIsInstantiated() throws InstantiationException {
         // Arrange
-        String sensorID = "sensorID";
-
         DeviceID deviceIDDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         SensorName sensorNameDouble = mock(SensorName.class);
         SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
 
         try (MockedConstruction<SensorID> mocked = mockConstruction(SensorID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorID);
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
             AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble);
             SensorID result = averagePowerConsumptionSensor.getID();
 
-            Assertions.assertEquals(sensorID, result.toString());
+            List<SensorID> constructed = mocked.constructed();
+
+            Assertions.assertEquals(result, constructed.get(0));
         }
     }
 
@@ -463,7 +463,7 @@ public class AveragePowerConsumptionSensorTest {
         when(sensorNameDouble.toString()).thenReturn(sensorName);
 
         try (MockedConstruction<SensorID> mocked = mockConstruction(SensorID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorName);
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
             AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble);
             SensorName result = averagePowerConsumptionSensor.getName();
@@ -489,7 +489,7 @@ public class AveragePowerConsumptionSensorTest {
         when(modelPathDouble.toString()).thenReturn(modelPath);
 
         try (MockedConstruction<SensorID> mocked = mockConstruction(SensorID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(modelPath);
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
             AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble);
             ModelPath result = averagePowerConsumptionSensor.getModelPath();
@@ -515,7 +515,7 @@ public class AveragePowerConsumptionSensorTest {
         when(deviceIDDouble.toString()).thenReturn(deviceID);
 
         try (MockedConstruction<SensorID> mocked = mockConstruction(SensorID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(deviceID);
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
             AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble);
             DeviceID result = averagePowerConsumptionSensor.getDeviceID();
@@ -541,7 +541,7 @@ public class AveragePowerConsumptionSensorTest {
         when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
 
         try (MockedConstruction<SensorID> mocked = mockConstruction(SensorID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorTypeID);
+            when(mock.toString()).thenReturn(context.arguments().get(0).toString());
         })) {
             AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble);
             SensorTypeID result = averagePowerConsumptionSensor.getSensorTypeID();

@@ -56,13 +56,17 @@ class DeactivateDeviceControllerTest {
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         ImpHouseFactory houseFactory = new ImpHouseFactory();
+        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
         // Add a house
-        Address address = new Address("street","1");
-        ZipCode zipCode = new ZipCode(1234,567);
+        String street = "Rua Do Isep";
+        String doorNumber = "122A";
+        String countryCode = "PT";
+        String postalCode = "4000-007";
+        Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
         GPS gps = new GPS(41.5514, -8.4221);
-        House house = houseFactory.createHouse(address, zipCode, gps);
+        House house = houseFactory.createHouse(address, gps);
         houseRepository.save(house);
 
 
@@ -74,7 +78,7 @@ class DeactivateDeviceControllerTest {
         Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
 
         // Add a device
-        DeviceName deviceName = new DeviceName("Lightbulb");
+        DeviceName deviceName = new DeviceName("Light bulb");
         DeviceStatus deviceStatus = new DeviceStatus(false);
         DeviceTypeID deviceTypeID = new DeviceTypeID("1");
         Device device = deviceService.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
@@ -102,13 +106,17 @@ class DeactivateDeviceControllerTest {
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         ImpHouseFactory houseFactory = new ImpHouseFactory();
+        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
         // Add a house
-        Address address = new Address("street","1");
-        ZipCode zipCode = new ZipCode(1234,567);
+        String street = "Rua Do Isep";
+        String doorNumber = "122A";
+        String countryCode = "PT";
+        String postalCode = "4000-007";
+        Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
         GPS gps = new GPS(41.5514, -8.4221);
-        House house = houseFactory.createHouse(address, zipCode, gps);
+        House house = houseFactory.createHouse(address, gps);
         houseRepository.save(house);
 
         // Act
@@ -134,13 +142,17 @@ class DeactivateDeviceControllerTest {
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         ImpHouseFactory houseFactory = new ImpHouseFactory();
+        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
         // Add a house
-        Address address = new Address("street","1");
-        ZipCode zipCode = new ZipCode(1234,567);
+        String street = "Rua Do Isep";
+        String doorNumber = "122A";
+        String countryCode = "PT";
+        String postalCode = "4000-007";
+        Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
         GPS gps = new GPS(41.5514, -8.4221);
-        House house = houseFactory.createHouse(address, zipCode, gps);
+        House house = houseFactory.createHouse(address, gps);
         houseRepository.save(house);
 
         // Add a room
@@ -180,13 +192,17 @@ class DeactivateDeviceControllerTest {
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         ImpHouseFactory houseFactory = new ImpHouseFactory();
+        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
         // Add a house
-        Address address = new Address("street","1");
-        ZipCode zipCode = new ZipCode(1234,567);
+        String street = "Rua Do Isep";
+        String doorNumber = "122A";
+        String countryCode = "PT";
+        String postalCode = "4000-007";
+        Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
         GPS gps = new GPS(41.5514, -8.4221);
-        House house = houseFactory.createHouse(address, zipCode, gps);
+        House house = houseFactory.createHouse(address, gps);
         houseRepository.save(house);
 
         // Add a room

@@ -25,10 +25,9 @@ public class HouseAssembler implements Assembler<House, HouseDTO> {
         if(house == null)
             throw new IllegalArgumentException("The House cannot be null.");
         String address = house.getAddress().toString();
-        String zipCode = house.getZipCode().toString();
         String gps = house.getGps().toString();
 
-        HouseDTO houseDTO = new HouseDTO(address, zipCode, gps);
+        HouseDTO houseDTO = new HouseDTO(address, gps);
         return houseDTO;
     }
 

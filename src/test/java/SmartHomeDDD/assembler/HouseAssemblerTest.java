@@ -3,7 +3,6 @@ package SmartHomeDDD.assembler;
 import SmartHomeDDD.DTO.HouseDTO;
 import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
-import SmartHomeDDD.valueObject.ZipCode;
 
 import SmartHomeDDD.domain.House.House;
 import org.junit.Test;
@@ -32,8 +31,6 @@ public class HouseAssemblerTest {
         String gps = "GPS{latitude=90.0, longitude=180.0}";
 
         House house = mock(House.class);
-        when(house.getZipCode()).thenReturn(mock(ZipCode.class));
-        when(house.getZipCode().toString()).thenReturn(zipCode);
         when(house.getAddress()).thenReturn(mock(Address.class));
         when(house.getAddress().toString()).thenReturn(address);
         when(house.getGps()).thenReturn(mock(GPS.class));
@@ -46,7 +43,6 @@ public class HouseAssemblerTest {
 
         // Assert
         assertEquals(result.address, address);
-        assertEquals(result.zipCode, zipCode);
         assertEquals(result.gps, gps);
     }
 
@@ -81,25 +77,19 @@ public class HouseAssemblerTest {
         House house = mock(House.class);
 
         Address addressMock = mock(Address.class);
-        ZipCode zipCodeMock = mock(ZipCode.class);
         GPS gpsMock = mock(GPS.class);
 
         when(house.getAddress()).thenReturn(addressMock);
         when(addressMock.toString()).thenReturn(address);
-        when(house.getZipCode()).thenReturn(zipCodeMock);
-        when(zipCodeMock.toString()).thenReturn(zipCode);
         when(house.getGps()).thenReturn(gpsMock);
         when(gpsMock.toString()).thenReturn(gps);
 
         House house2 = mock(House.class);
         Address addressMock2 = mock(Address.class);
-        ZipCode zipCodeMock2 = mock(ZipCode.class);
         GPS gpsMock2 = mock(GPS.class);
 
         when(house2.getAddress()).thenReturn(addressMock2);
         when(addressMock2.toString()).thenReturn(address2);
-        when(house2.getZipCode()).thenReturn(zipCodeMock2);
-        when(zipCodeMock2.toString()).thenReturn(zipCode2);
         when(house2.getGps()).thenReturn(gpsMock2);
         when(gpsMock2.toString()).thenReturn(gps2);
 
@@ -107,8 +97,8 @@ public class HouseAssemblerTest {
         houses.add(house);
         houses.add(house2);
 
-        HouseDTO houseDTO = new HouseDTO(address, zipCode, gps);
-        HouseDTO houseDTO2 = new HouseDTO(address2, zipCode2, gps2);
+        HouseDTO houseDTO = new HouseDTO(address, gps);
+        HouseDTO houseDTO2 = new HouseDTO(address2, gps2);
         List<HouseDTO> expected = new ArrayList<>();
         expected.add(houseDTO);
         expected.add(houseDTO2);
