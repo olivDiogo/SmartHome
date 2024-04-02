@@ -21,7 +21,7 @@ public class InstantPowerConsumptionSensor implements Sensor {
      * @param sensorName   The sensor name.
      * @param sensorTypeID The sensor type ID.
      */
-    public InstantPowerConsumptionSensor(DeviceID deviceID, ModelPath modelPath,  SensorTypeID sensorTypeID, SensorName sensorName) {
+    protected InstantPowerConsumptionSensor(DeviceID deviceID, ModelPath modelPath,  SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);

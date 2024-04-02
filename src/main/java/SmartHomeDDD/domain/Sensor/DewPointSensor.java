@@ -21,7 +21,7 @@ public class DewPointSensor implements Sensor {
      * @param sensorName   The sensor name.
      * @param sensorTypeID The sensor type ID.
      */
-    public DewPointSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    protected DewPointSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
