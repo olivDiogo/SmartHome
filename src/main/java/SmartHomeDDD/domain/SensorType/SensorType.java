@@ -1,11 +1,8 @@
 package SmartHomeDDD.domain.SensorType;
-
 import SmartHomeDDD.valueObject.SensorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
 import SmartHomeDDD.valueObject.MeasurementID;
 import SmartHomeDDD.ddd.AggregateRoot;
-
-import java.util.UUID;
 
 public class SensorType implements AggregateRoot<SensorTypeID> {
     private SensorTypeID _id;
@@ -25,14 +22,14 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
         validateUnit(unit);
         this._unit = unit;
 
-        generateID();
+        generateID(name);
     }
 
     /**
      * Creates a new {@link SensorTypeID} instance.
      */
-    private void generateID(){
-        _id = new SensorTypeID(UUID.randomUUID().toString());
+    private void generateID(TypeDescription name){
+        _id = new SensorTypeID(name.toString());
     }
 
     /**
@@ -91,15 +88,8 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
      */
     @Override
     public boolean equals( Object object ) {
-
-        if( this == object )
-            return true;
-
-        if( object instanceof SensorType ) {
-            SensorType sensorTypeObject = (SensorType) object;
-
-            if( this._id.toString().equals(sensorTypeObject._id.toString()) )
-                return true;
+        if( object instanceof SensorType  sensorTypeObject) {
+            return ( this._id.toString().equals(sensorTypeObject._id.toString()) );
         }
         return false;
     }
