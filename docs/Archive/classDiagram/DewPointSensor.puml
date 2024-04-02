@@ -30,6 +30,7 @@ package domain.value {
   class DewPointValue {
     - _value : int
     + DewPointValue(value : int)
+    - _DewPointValue : int
     + toString() : String
   }
 }

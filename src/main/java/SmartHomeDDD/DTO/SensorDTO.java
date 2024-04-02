@@ -7,46 +7,28 @@ import SmartHomeDDD.ddd.DTO;
  */
 public class SensorDTO implements DTO {
 
-    /**
-     * Unique identifier for the sensor.
-     */
-    public final String _id;
+    public final String deviceID;
+    public final String modelPath;
+    public final String sensorTypeID;
+    public final String sensorID;
+    public final String sensorName;
+
 
     /**
-     * Name of the sensor.
+     * Constructor of SensorDTO.
+     * @param deviceID
+     * @param modelPath
+     * @param sensorTypeID
+     * @param sensorID
+     * @param sensorName
      */
-    public final String _name;
-
-    /**
-     * Type of the sensor.
-     */
-    public final String _sensorType;
-
-    /**
-     * Constructs a new SensorDTO object.
-     *
-     * @param sensorID      The unique identifier for the sensor.
-     * @param sensorName    The name of the sensor.
-     * @param sensorType    The type of the sensor.
-     */
-    public SensorDTO(String sensorID, String sensorName, String sensorType) {
-        this._id = sensorID;
-        this._name = sensorName;
-        this._sensorType = sensorType;
+    public SensorDTO(String deviceID, String modelPath, String sensorTypeID, String sensorID, String sensorName) {
+        this.deviceID = deviceID;
+        this.modelPath = modelPath;
+        this.sensorTypeID = sensorTypeID;
+        this.sensorID = sensorID;
+        this.sensorName = sensorName;
     }
 
-    /**
-     * Returns a string representation of the SensorDTO object.
-     *
-     * @return A string representation of the SensorDTO object.
-     */
-    @Override
-    public String toString() {
-        return "SensorDTO{" +
-                "_id='" + _id + '\'' +
-                ", _name='" + _name + '\'' +
-                ", _sensorType='" + _sensorType + '\'' +
-                '}';
-    }
 }
 
