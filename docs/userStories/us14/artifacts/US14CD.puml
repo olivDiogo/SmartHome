@@ -7,7 +7,7 @@
                 + getName() : ActuatorName
                 + getModelPath() : ModelPath
                 + getDeviceID() : DeviceID
-                + setValue(ValueObject value): ValueObject
+                + Value(Value value): Value
     }
     interface FactoryActuator {
         + createActuator(actuatorModelID: ActuatorModelID, repoActuator: RepoActuator): Actuator
@@ -23,13 +23,13 @@
         - _modelPath: ModelPath
         - _deviceID: DeviceID
         - _value: BlindRollerValue
-        # BlindRollerActuator(ActuatorName: actuatorName, actuatorTypeID: ActuatorTypeID, modelPath: ModelPath, deviceID: DeviceID, lowerLimit: int, upperLimit: int)
+        # BlindRollerActuator(ActuatorName: actuatorName, actuatorTypeID: ActuatorTypeID, modelPath: ModelPath, deviceID: DeviceID)
         + getActuatorTypeID(): ActuatorTypeID
         + getID(): ActuatorID
         + getName() : ActuatorName
         + getModelPath() : ModelPath
         + getDeviceID() : DeviceID
-        + setValue(ValueObject value): ValueObject
+        + setValue(Value value): Value
     }
 
   class BlindRollerValue {
