@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.SensorType;
 
 import SmartHomeDDD.valueObject.TypeDescription;
-import SmartHomeDDD.valueObject.MeasurementID;
+import SmartHomeDDD.valueObject.UnitID;
 
 /**
  * Interface defining a factory for creating {@link SmartHome.domain.SensorType} instances.
@@ -15,5 +15,5 @@ public interface SensorTypeFactory {
      * @param unit the unit of the sensorType
      * @return a newly created SensorType instance
      */
-    SensorType createSensorType(TypeDescription name, MeasurementID unit);
+    SensorType createSensorType(TypeDescription name, UnitID unit);
 }

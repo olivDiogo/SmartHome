@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-class MeasurementIDTest {
+class UnitIDTest {
 
     /**
      * test construct
@@ -15,7 +15,7 @@ class MeasurementIDTest {
         // Arrange
         String measurementID = "measurement1";
         // Act
-        new MeasurementID(measurementID);
+        new UnitID(measurementID);
     }
 
     /**
@@ -27,7 +27,7 @@ class MeasurementIDTest {
         String measurementID = null;
         // Act + Assert
         assertThrows(IllegalArgumentException.class, () ->
-                new MeasurementID(measurementID)
+                new UnitID(measurementID)
         );
     }
 
@@ -40,7 +40,7 @@ class MeasurementIDTest {
         String measurementID = " ";
         // Act + Assert
         assertThrows(IllegalArgumentException.class, () ->
-                new MeasurementID(measurementID)
+                new UnitID(measurementID)
         );
     }
 
@@ -53,7 +53,7 @@ class MeasurementIDTest {
         String measurementID = "";
         // Act + Assert
         assertThrows(IllegalArgumentException.class, () ->
-                new MeasurementID(measurementID)
+                new UnitID(measurementID)
         );
     }
 
@@ -64,10 +64,10 @@ class MeasurementIDTest {
     void shouldReturnTrue_whenComparingTwoEqualMeasurementIDs() {
         // Arrange
         String measurementID = "measurement1";
-        MeasurementID measurementID1 = new MeasurementID(measurementID);
-        MeasurementID measurementID2 = new MeasurementID(measurementID);
+        UnitID unitID1 = new UnitID(measurementID);
+        UnitID unitID2 = new UnitID(measurementID);
         // Act
-        boolean result = measurementID1.equals(measurementID2);
+        boolean result = unitID1.equals(unitID2);
         // Assert
         assertTrue(result);
     }
@@ -79,9 +79,9 @@ class MeasurementIDTest {
     void shouldReturnTrue_whenComparingMeasurementIDToItself() {
         // Arrange
         String measurementID = "measurement1";
-        MeasurementID measurementID1 = new MeasurementID(measurementID);
+        UnitID unitID1 = new UnitID(measurementID);
         // Act
-        boolean result = measurementID1.equals(measurementID1);
+        boolean result = unitID1.equals(unitID1);
         // Assert
         assertTrue(result);
     }
@@ -93,9 +93,9 @@ class MeasurementIDTest {
     void shouldReturnFalse_whenComparingMeasurementIDToDifferentObject() {
         // Arrange
         String measurementID = "measurement1";
-        MeasurementID measurementID1 = new MeasurementID(measurementID);
+        UnitID unitID1 = new UnitID(measurementID);
         // Act
-        boolean result = measurementID1.equals(new Object());
+        boolean result = unitID1.equals(new Object());
         // Assert
         assertTrue(!result);
     }
@@ -107,9 +107,9 @@ class MeasurementIDTest {
     void shouldReturnMeasurementID_whenGetIdIsCalled() {
         // Arrange
         String measurementID = "measurement1";
-        MeasurementID measurementID1 = new MeasurementID(measurementID);
+        UnitID unitID1 = new UnitID(measurementID);
         // Act
-        String result = measurementID1.getId();
+        String result = unitID1.getId();
         // Assert
         assertTrue(result.equals(measurementID));
     }
@@ -121,9 +121,9 @@ class MeasurementIDTest {
     void shouldReturnHashCode_whenHashCodeIsCalled() {
         // Arrange
         String measurementID = "measurement1";
-        MeasurementID measurementID1 = new MeasurementID(measurementID);
+        UnitID unitID1 = new UnitID(measurementID);
         // Act
-        int result = measurementID1.hashCode();
+        int result = unitID1.hashCode();
         // Assert
         assertTrue(result == measurementID.hashCode());
     }

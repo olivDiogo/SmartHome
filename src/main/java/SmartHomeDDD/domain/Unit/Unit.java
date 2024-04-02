@@ -1,8 +1,8 @@
-package SmartHomeDDD.domain.MeasurementType;
+package SmartHomeDDD.domain.Unit;
 
-import SmartHomeDDD.valueObject.MeasurementID;
-import SmartHomeDDD.valueObject.MeasurementTypeUnit;
-import SmartHomeDDD.valueObject.MeasurementTypeDescription;
+import SmartHomeDDD.valueObject.UnitID;
+import SmartHomeDDD.valueObject.UnitSymbol;
+import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.ddd.AggregateRoot;
 
 import java.util.UUID;
@@ -11,35 +11,35 @@ import java.util.UUID;
  * Represents a type of measurement in the SmartHomeDDD domain. This class includes information about
  * the measurement's unit and its description. It acts as an aggregate root in the domain-driven design (DDD) context.
  */
-public class MeasurementType implements AggregateRoot<MeasurementID> {
+public class Unit implements AggregateRoot<UnitID> {
 
-    private MeasurementID _measurementID;
-    private MeasurementTypeUnit _measurementUnit;
-    private MeasurementTypeDescription _unitDescription;
+    private UnitID _unitID;
+    private UnitSymbol _unitSymbol;
+    private UnitDescription _unitDescription;
 
     /**
      * Constructs a new instance of MeasurementType with the specified unit description and measurement unit.
      * This constructor ensures the measurement type is fully initialized and valid.
      *
      * @param unitDescription The description of the measurement unit, not null.
-     * @param measurementUnit The unit of measurement, not null.
+     * @param unitSymbol The unit of measurement, not null.
      * @throws IllegalArgumentException if either the unit description or measurement unit is null.
      */
-    MeasurementType(MeasurementTypeDescription unitDescription, MeasurementTypeUnit measurementUnit) {
+    Unit(UnitDescription unitDescription, UnitSymbol unitSymbol) {
         generateID();
-        validateMeasurementUnit(measurementUnit);
+        validateUnitSymbol(unitSymbol);
         validateUnitDescription(unitDescription);
-        this._measurementUnit = measurementUnit;
+        this._unitSymbol = unitSymbol;
         this._unitDescription = unitDescription;
     }
     /**
      * Validates that the measurement unit is not null.
      *
-     * @param measurementUnit The unit of measurement to validate.
-     * @throws IllegalArgumentException if the measurement unit is null.
+     * @param unitSymbol The symbol of unit to validate.
+     * @throws IllegalArgumentException if the symbol is null.
      */
-    private void validateMeasurementUnit(MeasurementTypeUnit measurementUnit) {
-        if (measurementUnit == null) {
+    private void validateUnitSymbol(UnitSymbol unitSymbol) {
+        if (unitSymbol == null) {
             throw new IllegalArgumentException("Measurement unit is required");
         }
     }
@@ -49,7 +49,7 @@ public class MeasurementType implements AggregateRoot<MeasurementID> {
      * @param unitDescription The description to validate.
      * @throws IllegalArgumentException if the unit description is null.
      */
-    private void validateUnitDescription(MeasurementTypeDescription unitDescription) {
+    private void validateUnitDescription(UnitDescription unitDescription) {
         if (unitDescription == null) {
             throw new IllegalArgumentException("Unit description is required");
         }
@@ -58,7 +58,7 @@ public class MeasurementType implements AggregateRoot<MeasurementID> {
      * Generates a unique identifier for the measurement type.
      */
     private void generateID() {
-        _measurementID = new MeasurementID(UUID.randomUUID().toString());
+        _unitID = new UnitID(UUID.randomUUID().toString());
     }
 
     /**
@@ -67,8 +67,8 @@ public class MeasurementType implements AggregateRoot<MeasurementID> {
      * @return The measurement type's ID.
      */
     @Override
-    public MeasurementID getID() {
-        return _measurementID;
+    public UnitID getID() {
+        return _unitID;
     }
 
     /**
@@ -76,7 +76,7 @@ public class MeasurementType implements AggregateRoot<MeasurementID> {
      *
      * @return The unit of measurement.
      */
-    public MeasurementTypeDescription getUnitDescription() {
+    public UnitDescription getUnitDescription() {
         return _unitDescription;
     }
 
@@ -89,9 +89,8 @@ public class MeasurementType implements AggregateRoot<MeasurementID> {
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof MeasurementType) {
-            MeasurementType measurementType = (MeasurementType) object;
-            return this._measurementID.equals(measurementType._measurementID);
+        if (object instanceof Unit unit) {
+            return this._unitID.equals(unit._unitID);
         }
         return false;
     }
@@ -104,9 +103,9 @@ public class MeasurementType implements AggregateRoot<MeasurementID> {
     @Override
     public String toString() {
         return "MeasurementType{" +
-                "_measurementUnit=" + _measurementUnit +
+                "_measurementUnit=" + _unitSymbol +
                 ", _unitDescription=" + _unitDescription +
-                ", _measurementID=" + _measurementID +
+                ", _measurementID=" + _unitID +
                 '}';
     }
 

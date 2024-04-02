@@ -5,7 +5,7 @@ import SmartHomeDDD.ddd.DomainID;
 /**
  * This class ensures that the measurement ID adheres to specific validation rules before it is assigned.
  */
-public class MeasurementID implements DomainID {
+public class UnitID implements DomainID {
 
     private final String _id;
 
@@ -16,7 +16,7 @@ public class MeasurementID implements DomainID {
      *                      It must not be null, empty, or blank.
      * @throws IllegalArgumentException if the measurementID is null, empty, or blank.
      */
-    public MeasurementID(String measurementID){
+    public UnitID(String measurementID){
         validateID(measurementID);
         this._id = measurementID.trim();
     }
@@ -52,9 +52,9 @@ public class MeasurementID implements DomainID {
         if (this == o)
             return true;
 
-        if (o instanceof MeasurementID) {
-            MeasurementID objectMeasurementId = (MeasurementID) o;
-            return this._id.equals(objectMeasurementId._id);
+        if (o instanceof UnitID) {
+            UnitID objectUnitId = (UnitID) o;
+            return this._id.equals(objectUnitId._id);
         }
         return false;
     }

@@ -1,28 +1,28 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.domain.MeasurementType.MeasurementType;
-import SmartHomeDDD.domain.MeasurementType.MeasurementTypeFactory;
+import SmartHomeDDD.domain.Unit.Unit;
+import SmartHomeDDD.domain.Unit.UnitFactory;
 import SmartHomeDDD.repository.MeasurementTypeRepository;
-import SmartHomeDDD.valueObject.MeasurementID;
-import SmartHomeDDD.valueObject.MeasurementTypeDescription;
-import SmartHomeDDD.valueObject.MeasurementTypeUnit;
+import SmartHomeDDD.valueObject.UnitID;
+import SmartHomeDDD.valueObject.UnitDescription;
+import SmartHomeDDD.valueObject.UnitSymbol;
 
 import java.util.List;
 import java.util.Optional;
 
-public class MeasurementTypeService {
+public class UnitService {
 
     private MeasurementTypeRepository _measurementTypeRepository;
-    private MeasurementTypeFactory _measurementTypeFactory;
+    private UnitFactory _UnitFactory;
 
     /**
      * Constructor for MeasurementTypeService.
      * @param measurementTypeRepository
-     * @param measurementTypeFactory
+     * @param unitFactory
      */
-    public MeasurementTypeService(MeasurementTypeRepository measurementTypeRepository, MeasurementTypeFactory measurementTypeFactory) {
+    public UnitService(MeasurementTypeRepository measurementTypeRepository, UnitFactory unitFactory) {
         validateMeasurementTypeRepository(measurementTypeRepository);
-        validateMeasurementTypeFactory(measurementTypeFactory);
+        validateMeasurementTypeFactory(unitFactory);
     }
 
     private void validateMeasurementTypeRepository(MeasurementTypeRepository measurementTypeRepository) {
@@ -33,11 +33,11 @@ public class MeasurementTypeService {
         }
     }
 
-    private void validateMeasurementTypeFactory(MeasurementTypeFactory measurementTypeFactory) {
-        if (measurementTypeFactory == null) {
+    private void validateMeasurementTypeFactory(UnitFactory unitFactory) {
+        if (unitFactory == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type factory.");
         } else {
-            this._measurementTypeFactory = measurementTypeFactory;
+            this._UnitFactory = unitFactory;
         }
     }
 
@@ -48,12 +48,12 @@ public class MeasurementTypeService {
      * @param unit The unit of the measurement type.
      * @return The created and saved MeasurementType object.
      */
-    public MeasurementType createAndSaveMeasurementType(MeasurementTypeDescription description, MeasurementTypeUnit unit) {
+    public Unit createAndSaveMeasurementType(UnitDescription description, UnitSymbol unit) {
         validateDescription(description);
         validateUnit(unit);
 
-        MeasurementType measurementType = _measurementTypeFactory.createMeasurement(description, unit);
-        return _measurementTypeRepository.save(measurementType);
+        Unit measurementUnit = _UnitFactory.createMeasurement(description, unit);
+        return _measurementTypeRepository.save(measurementUnit);
     }
 
     /**
@@ -62,7 +62,7 @@ public class MeasurementTypeService {
      * @param description The description to validate.
      * @throws IllegalArgumentException if the description is null or empty.
      */
-    private void validateDescription(MeasurementTypeDescription description) {
+    private void validateDescription(UnitDescription description) {
         if (description == null || description.getDescription().trim().isEmpty()) {
             throw new IllegalArgumentException("Measurement type description cannot be null or empty.");
         }
@@ -74,7 +74,7 @@ public class MeasurementTypeService {
      * @param unit The unit to validate.
      * @throws IllegalArgumentException if the unit is null or empty.
      */
-    private void validateUnit(MeasurementTypeUnit unit) {
+    private void validateUnit(UnitSymbol unit) {
         if (unit == null || unit.getUnit().trim().isEmpty()) {
             throw new IllegalArgumentException("Measurement type unit cannot be null or empty.");
         }
@@ -83,14 +83,14 @@ public class MeasurementTypeService {
     /**
      * Finds a MeasurementType by its ID.
      *
-     * @param measurementID The unique identifier of the MeasurementType.
+     * @param unitID The unique identifier of the MeasurementType.
      * @return An Optional containing the found MeasurementType, or an empty Optional if not found.
      */
-    public Optional<MeasurementType> findMeasurementTypeById(MeasurementID measurementID) {
-        if (measurementID == null) {
+    public Optional<Unit> findMeasurementTypeById(UnitID unitID) {
+        if (unitID == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type ID.");
         }
-        return _measurementTypeRepository.ofIdentity(measurementID);
+        return _measurementTypeRepository.ofIdentity(unitID);
     }
 
     /**
@@ -98,7 +98,7 @@ public class MeasurementTypeService {
      *
      * @return A List containing all MeasurementTypes.
      */
-    public List<MeasurementType> findAllMeasurementTypes() {
+    public List<Unit> findAllMeasurementTypes() {
         return _measurementTypeRepository.findAll();
     }
 
