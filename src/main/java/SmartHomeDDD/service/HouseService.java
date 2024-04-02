@@ -1,11 +1,11 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.ddd.Repository;
+import SmartHomeDDD.domain.House.House;
+import SmartHomeDDD.domain.House.HouseFactory;
 import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
 import SmartHomeDDD.valueObject.HouseID;
-import SmartHomeDDD.domain.House.House;
-import SmartHomeDDD.domain.House.HouseFactory;
 
 public class HouseService {
 

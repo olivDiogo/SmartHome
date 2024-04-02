@@ -6,11 +6,7 @@ import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.configuration2.ex.ConfigurationException;
 
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 

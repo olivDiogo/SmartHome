@@ -1,8 +1,8 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.ActuatorModelDTO;
-import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.ddd.Assembler;
+import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package SmartHome.actuators;
 
+import SmartHome.domain.Actuator;
 import SmartHome.domain.ActuatorType;
 import SmartHome.domain.CatalogueActuator;
-import SmartHome.domain.Actuator;
 import SmartHome.domain.Value;
 
 public class SwitchActuator implements Actuator {

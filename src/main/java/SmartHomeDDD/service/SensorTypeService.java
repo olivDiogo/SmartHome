@@ -1,11 +1,12 @@
 package SmartHomeDDD.service;
-import SmartHomeDDD.repository.MeasurementTypeRepository;
-import SmartHomeDDD.repository.SensorTypeRepository;
-import SmartHomeDDD.valueObject.UnitID;
-import SmartHomeDDD.valueObject.SensorTypeID;
-import SmartHomeDDD.valueObject.TypeDescription;
+
 import SmartHomeDDD.domain.SensorType.SensorType;
 import SmartHomeDDD.domain.SensorType.SensorTypeFactory;
+import SmartHomeDDD.repository.MeasurementTypeRepository;
+import SmartHomeDDD.repository.SensorTypeRepository;
+import SmartHomeDDD.valueObject.SensorTypeID;
+import SmartHomeDDD.valueObject.TypeDescription;
+import SmartHomeDDD.valueObject.UnitID;
 
 import java.util.List;
 import java.util.Optional;

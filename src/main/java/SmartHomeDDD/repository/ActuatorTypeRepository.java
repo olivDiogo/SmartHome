@@ -1,11 +1,14 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class ActuatorTypeRepository implements Repository<ActuatorTypeID, ActuatorType> {
 

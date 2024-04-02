@@ -1,8 +1,8 @@
 package SmartHomeDDD.domain.ActuatorType;
 
+import SmartHomeDDD.ddd.AggregateRoot;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
-import SmartHomeDDD.ddd.AggregateRoot;
 
 import java.util.UUID;
 

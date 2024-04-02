@@ -2,7 +2,6 @@ package SmartHomeDDD.repository;
 
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.SensorModel.SensorModel;
-import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelID;
 
 import java.util.LinkedHashMap;

@@ -4,7 +4,6 @@ import SmartHomeDDD.DTO.RoomDTO;
 import SmartHomeDDD.ddd.Assembler;
 import SmartHomeDDD.domain.Room.Room;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RoomAssembler implements Assembler<Room, RoomDTO> {

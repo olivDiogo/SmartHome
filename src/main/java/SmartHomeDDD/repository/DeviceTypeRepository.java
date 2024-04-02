@@ -4,11 +4,6 @@ import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.DeviceType.DeviceType;
 import SmartHomeDDD.valueObject.DeviceTypeID;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import java.util.*;
 
 /**

@@ -1,6 +1,9 @@
 package SmartHome.sensors;
 
-import SmartHome.domain.*;
+import SmartHome.domain.CatalogueSensor;
+import SmartHome.domain.Sensor;
+import SmartHome.domain.SensorType;
+import SmartHome.domain.Value;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
