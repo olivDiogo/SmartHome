@@ -9,7 +9,6 @@ class Device {
   - _deviceTypeID: DeviceTypeID
 
   + Device(roomID: RoomID,deviceName: DeviceName, deviceStatus: DeviceStatus, deviceTypeID: DeviceTypeID)
-  - generateDeviceID(): void
   + getId(): String
   + getDeviceName(): String
   + getRoomID(): RoomID
