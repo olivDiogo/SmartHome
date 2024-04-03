@@ -24,10 +24,11 @@ public class UnitAssembler implements Assembler<Unit, UnitDTO> {
         if (unit == null) {
             throw new IllegalArgumentException("The MeasurementType cannot be null.");
         }
-        String measurementID = unit.getID().toString();
-        String measurementTypeDescription = unit.getUnitDescription().toString();
+        String unitID = unit.getID().toString();
+        String unitSymbol = unit.getUnitSymbol().toString();
+        String unitDescription = unit.getUnitDescription().toString();
 
-        return new UnitDTO(measurementID, measurementTypeDescription);
+        return new UnitDTO(unitID, unitDescription, unitSymbol);
     }
 
     /**

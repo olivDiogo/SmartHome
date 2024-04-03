@@ -78,7 +78,14 @@ public class Unit implements AggregateRoot<UnitID> {
     public UnitDescription getUnitDescription() {
         return _unitDescription;
     }
-
+    /**
+     * Returns the symbol associated with this measurement type.
+     *
+     * @return The unit of measurement.
+     */
+    public UnitSymbol getUnitSymbol() {
+        return _unitSymbol;
+    }
     /**
      * Indicates whether some other object is "equal to" this one.
      *
