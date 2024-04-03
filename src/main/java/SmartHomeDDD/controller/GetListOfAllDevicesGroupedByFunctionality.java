@@ -7,10 +7,7 @@ import SmartHomeDDD.domain.DeviceType.DeviceType;
 import SmartHomeDDD.service.DeviceService;
 import SmartHomeDDD.service.DeviceTypeService;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GetListOfAllDevicesGroupedByFunctionality {
     private DeviceService _deviceService;
@@ -26,41 +23,44 @@ public class GetListOfAllDevicesGroupedByFunctionality {
      */
     public GetListOfAllDevicesGroupedByFunctionality(DeviceService deviceService, DeviceAssembler deviceAssembler, DeviceTypeService deviceTypeService) {
         validateDeviceService(deviceService);
-        _deviceService = deviceService;
         validateDeviceAssembler(deviceAssembler);
-        _deviceAssembler = deviceAssembler;
         validateDeviceTypeService(deviceTypeService);
-        _deviceTypeService = deviceTypeService;
     }
 
     /**
      * Validate the DeviceService.
+     *
      * @param deviceService The DeviceService to validate.
      */
     private void validateDeviceService(DeviceService deviceService) {
         if (deviceService == null) {
             throw new IllegalArgumentException("DeviceService cannot be null.");
         }
+        _deviceService = deviceService;
     }
 
     /**
      * Validate the DeviceAssembler.
+     *
      * @param deviceAssembler The DeviceAssembler to validate.
      */
     private void validateDeviceAssembler(DeviceAssembler deviceAssembler) {
         if (deviceAssembler == null) {
             throw new IllegalArgumentException("DeviceAssembler cannot be null.");
         }
+        _deviceAssembler = deviceAssembler;
     }
 
     /**
      * Validate the DeviceTypeRepository.
+     *
      * @param deviceTypeService The DeviceTypeRepository to validate.
      */
     private void validateDeviceTypeService(DeviceTypeService deviceTypeService) {
         if (deviceTypeService == null) {
             throw new IllegalArgumentException("DeviceTypeService cannot be null.");
         }
+        _deviceTypeService = deviceTypeService;
     }
 
 
@@ -74,14 +74,21 @@ public class GetListOfAllDevicesGroupedByFunctionality {
         Map<DeviceType, List<DeviceDTO>> devicesGroupedByFunctionality = new LinkedHashMap<>();
 
         for (Device device : devices) {
-            DeviceType deviceType = _deviceTypeService.getDeviceTypeByID(device.getDeviceTypeID()).get();
 
-            if (devicesGroupedByFunctionality.containsKey(deviceType)) {
-                devicesGroupedByFunctionality.get(deviceType).add(_deviceAssembler.domainToDTO(device));
+            Optional<DeviceType> deviceType = _deviceTypeService.getDeviceTypeByID(device.getDeviceTypeID());
+
+            if (deviceType.isPresent()) {
+                DeviceType deviceTypeObj = deviceType.get();
+                
+                if (devicesGroupedByFunctionality.containsKey(deviceTypeObj)) {
+                    devicesGroupedByFunctionality.get(deviceTypeObj).add(_deviceAssembler.domainToDTO(device));
+                } else {
+                    List<DeviceDTO> newDeviceList = new ArrayList<>();
+                    newDeviceList.add(_deviceAssembler.domainToDTO(device));
+                    devicesGroupedByFunctionality.put(deviceTypeObj, newDeviceList);
+                }
             } else {
-                List<DeviceDTO> newDeviceList = new ArrayList<>();
-                newDeviceList.add(_deviceAssembler.domainToDTO(device));
-                devicesGroupedByFunctionality.put(deviceType, newDeviceList);
+                throw new IllegalArgumentException("DeviceType not found.");
             }
         }
         return devicesGroupedByFunctionality;
