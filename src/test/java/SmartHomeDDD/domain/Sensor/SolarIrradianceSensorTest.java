@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import org.mockito.MockedConstruction;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class SolarIrradianceSensorTest {
@@ -140,7 +141,7 @@ public class SolarIrradianceSensorTest {
             SensorID result = solarIrradianceSensor.getID();
 
             // Assert
-            assert result.toString().equals("sensorID");
+            assertEquals(result.toString(),"sensorID");
         }
     }
 
@@ -163,7 +164,7 @@ public class SolarIrradianceSensorTest {
             DeviceID result = solarIrradianceSensor.getDeviceID();
 
             // Assert
-            assert result.equals(deviceID);
+            assertEquals(result,deviceID);
         }
     }
 
@@ -186,7 +187,7 @@ public class SolarIrradianceSensorTest {
             ModelPath result = solarIrradianceSensor.getModelPath();
 
             // Assert
-            assert result.equals(modelPath);
+            assertEquals(result,modelPath);
         }
     }
 
@@ -209,7 +210,7 @@ public class SolarIrradianceSensorTest {
             SensorName result = solarIrradianceSensor.getName();
 
             // Assert
-            assert result.equals(sensorName);
+            assertEquals(result,sensorName);
         }
     }
 
@@ -232,7 +233,7 @@ public class SolarIrradianceSensorTest {
             SensorTypeID result = solarIrradianceSensor.getSensorTypeID();
 
             // Assert
-            assert result.equals(sensorTypeID);
+            assertEquals(result,sensorTypeID);
         }
     }
 
@@ -260,7 +261,7 @@ public class SolarIrradianceSensorTest {
                 ValueObject result = solarIrradianceSensor.getValue();
 
                 // Assert
-                assert result.toString().equals(sensorValue);
+                assertEquals(result.toString(),sensorValue);
             }
 
         }

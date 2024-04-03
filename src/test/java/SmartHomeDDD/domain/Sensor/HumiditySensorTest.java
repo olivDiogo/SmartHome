@@ -242,7 +242,7 @@ class HumiditySensorTest {
             }
             try(MockedConstruction<HumiditySensorValue> sensorValueConstruction = mockConstruction(HumiditySensorValue.class, (mock, context) -> {})) {
                 // Act
-                HumiditySensorValue result = (HumiditySensorValue) humiditySensor.getValue();
+                HumiditySensorValue result = humiditySensor.getValue();
                 // Assert
                 List<HumiditySensorValue> constructed = sensorValueConstruction.constructed();
                 assertEquals(constructed.get(0), result);

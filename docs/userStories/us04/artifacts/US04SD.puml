@@ -4,12 +4,12 @@
 actor "  " as User
 participant ":AddSensorTypeController" as Controller
 participant ":SensorTypeService" as Service
-participant ":MeasurementTypeRepo" as Unit
-participant ":MeasurementTypeAssembler" as MeasurementTypeAssembler
+participant ":UnitRepo" as Unit
+participant ":UnitAssembler" as UnitAssembler
 
 participant ":MeasurementTypeDTO" as MeasurementTypeDTO
 participant ":SensorTypeAssembler" as SensorTypeAssembler
-participant ":MeasurementTypeID" as MeasurementTypeID
+participant ":UnitID" as UnitID
 participant ":Description" as Description
 participant ":SensorTypeFactory" as Factory
 participant "sensorType:SensorType" as Type
@@ -20,27 +20,27 @@ User o-> Controller: 1: getSupportedMeasurementTypes()
 activate Controller
 Controller -> Service: 1.1: getAllSupportedUnits()
 activate Service
-Service -> Unit: 1.1.1: getAllMeasurementTypes()
+Service -> Unit: 1.1.1: getAllSupportedUnits()
 activate Unit
-Unit --> Service: listMeasurementTypes
+Unit --> Service: listUnits
 deactivate Unit
-Service --> Controller: listMeasurementTypes
+Service --> Controller: listUnits
 deactivate Service
-Controller -> MeasurementTypeAssembler: 1.2: domainToDTO(listMeasurementTypes)
-activate MeasurementTypeAssembler
+Controller -> UnitAssembler: 1.2: domainToDTO(listUnits)
+activate UnitAssembler
 loop
 create MeasurementTypeDTO
-  MeasurementTypeAssembler -> MeasurementTypeDTO: 1.2.1: createMeasurementTypeDTO(measurementType)
+  UnitAssembler -> MeasurementTypeDTO: 1.2.1: createMeasurementTypeDTO(measurementType)
   activate MeasurementTypeDTO
-  MeasurementTypeDTO --> MeasurementTypeAssembler: measurementTypeDTO
-  MeasurementTypeAssembler -> MeasurementTypeAssembler: 1.2.2: addMeasurementTypeDTO(measurementTypeDTO)
+  MeasurementTypeDTO --> UnitAssembler: measurementTypeDTO
+  UnitAssembler -> UnitAssembler: 1.2.2: addMeasurementTypeDTO(measurementTypeDTO)
   deactivate MeasurementTypeDTO
 end loop
-MeasurementTypeAssembler --> Controller: listMeasurementTypesDTO
-  deactivate MeasurementTypeAssembler
+UnitAssembler --> Controller: listUnitsDTO
+  deactivate UnitAssembler
 
 
-Controller --> User: listMeasurementTypesDTO
+Controller --> User: listUnitsDTO
 deactivate Controller
 
 User o-> Controller: 2: createSensorType(dataSensorTypeDTO data)
@@ -48,14 +48,14 @@ User o-> Controller: 2: createSensorType(dataSensorTypeDTO data)
 
 '------------------------------------------------------------------'
 activate Controller
-Controller -> SensorTypeAssembler: 2.1: dtoToDomain(strMeasurementTypeID)
+Controller -> SensorTypeAssembler: 2.1: dtoToDomain(srtUnitID)
 activate SensorTypeAssembler
-create MeasurementTypeID
-SensorTypeAssembler -> MeasurementTypeID: 2.1.1. createMeasurementTypeID(strMeasurementTypeID)
-activate MeasurementTypeID
-MeasurementTypeID --> SensorTypeAssembler: measurementTypeID
-deactivate MeasurementTypeID
-SensorTypeAssembler --> Controller: measurementTypeID
+create UnitID
+SensorTypeAssembler -> UnitID: 2.1.1. createMeasurementTypeID(srtUnitID)
+activate UnitID
+UnitID --> SensorTypeAssembler: unitID
+deactivate UnitID
+SensorTypeAssembler --> Controller: unitID
 Controller -> SensorTypeAssembler: 2.2: dtoToDomain(strDescription)
 create Description
 SensorTypeAssembler -> Description: 2.2.1: createDescription(strDescription)
@@ -65,12 +65,12 @@ deactivate Description
 SensorTypeAssembler --> Controller: description
 deactivate SensorTypeAssembler
 
-Controller -> Service: 2.3: createSensorType(description, measurementTypeID)
+Controller -> Service: 2.3: createSensorType(description, unitID)
 activate Service
-Service -> Factory: 2.3.1: addSensorType(description, measurementTypeID)
+Service -> Factory: 2.3.1: addSensorType(description, unitID)
 activate Factory
 create Type
-Factory -> Type: 2.3.1.1: createSensorType(description, measurementTypeID)
+Factory -> Type: 2.3.1.1: createSensorType(description, unitID)
 activate Type
 Type --> Factory: sensorType
 deactivate Type

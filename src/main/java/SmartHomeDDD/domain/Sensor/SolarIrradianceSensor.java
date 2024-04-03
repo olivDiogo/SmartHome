@@ -21,19 +21,11 @@ public class SolarIrradianceSensor implements Sensor{
      * @param sensorTypeID
      * @param sensorName
      */
-    protected SolarIrradianceSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    public SolarIrradianceSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateDeviceID(deviceID);
-        this._deviceID = deviceID;
-
         validateModelPath(modelPath);
-        this._modelPath = modelPath;
-
         validateSensorName(sensorName);
-        this._sensorName = sensorName;
-
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
-
         generateSensorID();
     }
 
@@ -52,6 +44,7 @@ public class SolarIrradianceSensor implements Sensor{
         if (sensorName == null) {
             throw new IllegalArgumentException("SensorName cannot be null");
         }
+        this._sensorName = sensorName;
     }
 
     /**
@@ -62,6 +55,7 @@ public class SolarIrradianceSensor implements Sensor{
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID cannot be null");
         }
+        this._sensorTypeID = sensorTypeID;
     }
 
     /**
@@ -72,6 +66,7 @@ public class SolarIrradianceSensor implements Sensor{
         if (modelPath == null) {
             throw new IllegalArgumentException("ModelPath cannot be null");
         }
+        this._modelPath = modelPath;
     }
 
     /**
@@ -82,6 +77,7 @@ public class SolarIrradianceSensor implements Sensor{
         if (deviceID == null) {
             throw new IllegalArgumentException("DeviceID cannot be null");
         }
+        this._deviceID = deviceID;
     }
 
     /**

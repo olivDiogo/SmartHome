@@ -4,22 +4,25 @@
 package SmartHome.SensorType {
 
   class SensorType<<Entity>><<Root>> {
-    - _sensorTypeDescription : SensorTypeDescription
-    - _measurementUnit : MeasurementUnit
+    - _sensorTypeDescription : TypeDescription
+    - _measurementUnit : UnitID
   }
 
 }
 package SmartHome.SensorType {
-  class SensorTypeDescription<<Value Object>><<ID>> {
+  class SensorTypeDescription<<Value Object>> {
     - _description: String
   }
-  class MeasurementUnit<<Value Object>><<ID>> {
+  class UnitID<<Value Object>> {
       - _unit: String
+    }
+   class SensorTypeID<<Value Object>><<ID>> {
+      - _sensorTypeID: String
     }
 
 }
-SmartHome.SensorType.SensorType "1" -- "1" MeasurementUnit
+SmartHome.SensorType.SensorType "1" -- "1" UnitID
 SmartHome.SensorType.SensorType "1" -- "1" SensorTypeDescription
-
+SmartHome.SensorType.SensorType "1" -- "1" SensorTypeID
 
 @enduml

@@ -1,5 +1,6 @@
 package SmartHomeDDD.service;
 
+import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.DeviceType.DeviceType;
 import SmartHomeDDD.domain.DeviceType.DeviceTypeFactory;
 import SmartHomeDDD.repository.DeviceTypeRepository;
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 public class DeviceTypeService {
 
-    private DeviceTypeRepository _deviceTypeRepository;
+    private Repository<DeviceTypeID,DeviceType> _deviceTypeRepository;
     private DeviceTypeFactory _deviceTypeFactory;
 
     /**

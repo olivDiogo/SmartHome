@@ -134,7 +134,7 @@ public class SwitchSensor implements Sensor{
      * @return The sensor value.
      */
     @Override
-    public ValueObject getValue() {
+    public SwitchSensorValue getValue() {
         switchSensorValue = new SwitchSensorValue(false);
         return this.switchSensorValue;
     }

@@ -19,25 +19,15 @@ public class SetIntegerActuator implements Actuator{
      *
      * @param deviceID
      * @param modelPath
-     * @param actuatorName
      * @param actuatorTypeID
+     * @param actuatorName
      */
-    protected SetIntegerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorName actuatorName, ActuatorTypeID actuatorTypeID, SetIntegerActuatorLimits limits) {
+    public SetIntegerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetIntegerActuatorLimits limits) {
         validateDeviceID(deviceID);
-        this._deviceID = deviceID;
-
         validateModelPath(modelPath);
-        this._modelPath = modelPath;
-
         validateActuatorName(actuatorName);
-        this._actuatorName = actuatorName;
-
         validateActuatorTypeID(actuatorTypeID);
-        this._actuatorTypeID = actuatorTypeID;
-
         validateLimits(limits);
-        this._limits = limits;
-
         generateActuatorID();
     }
 
@@ -57,6 +47,7 @@ public class SetIntegerActuator implements Actuator{
         if (actuatorName == null) {
             throw new IllegalArgumentException("ActuatorName cannot be null");
         }
+        this._actuatorName = actuatorName;
     }
 
     /**
@@ -67,6 +58,7 @@ public class SetIntegerActuator implements Actuator{
         if (modelPath == null) {
             throw new IllegalArgumentException("ModelPath cannot be null");
         }
+        this._modelPath = modelPath;
     }
 
     /**
@@ -77,6 +69,7 @@ public class SetIntegerActuator implements Actuator{
         if (actuatorTypeID == null) {
             throw new IllegalArgumentException("ActuatorTypeID cannot be null");
         }
+        this._actuatorTypeID = actuatorTypeID;
     }
 
     /**
@@ -87,6 +80,7 @@ public class SetIntegerActuator implements Actuator{
         if (deviceID == null) {
             throw new IllegalArgumentException("DeviceID cannot be null");
         }
+        this._deviceID = deviceID;
     }
 
     /**
@@ -97,6 +91,7 @@ public class SetIntegerActuator implements Actuator{
         if (limits == null) {
             throw new IllegalArgumentException("SetIntegerActuatorLimits cannot be null");
         }
+        this._limits = limits;
     }
 
     /**
