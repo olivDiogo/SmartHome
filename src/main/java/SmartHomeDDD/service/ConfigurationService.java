@@ -4,7 +4,7 @@ import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
 import SmartHomeDDD.domain.Unit.Unit;
 import SmartHomeDDD.domain.Unit.UnitFactory;
-import SmartHomeDDD.repository.MeasurementTypeRepository;
+import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.repository.SensorModelRepository;
 import SmartHomeDDD.valueObject.*;
 import org.apache.commons.configuration2.Configuration;
@@ -16,13 +16,13 @@ import java.io.File;
 public class ConfigurationService {
 
     private SensorModelRepository _sensorModelRepository;
-    private MeasurementTypeRepository _measurementTypeRepository;
+    private UnitRepository _unitRepository;
     private SensorModelFactory _sensorModelFactory;
     private UnitFactory _unitFactory;
 
-    public ConfigurationService(SensorModelRepository sensorModelRepository, MeasurementTypeRepository measurementTypeRepository, SensorModelFactory sensorModelFactory, UnitFactory unitFactory) throws InstantiationException{
+    public ConfigurationService(SensorModelRepository sensorModelRepository, UnitRepository unitRepository, SensorModelFactory sensorModelFactory, UnitFactory unitFactory) throws InstantiationException{
         validateSensorModelRepository(sensorModelRepository);
-        validateMeasurementTypeRepository(measurementTypeRepository);
+        validateMeasurementTypeRepository(unitRepository);
         validateSensorModelFactory(sensorModelFactory);
         validateUnitFactory(unitFactory);
         loadDefaultSensorModels();
@@ -38,11 +38,11 @@ public class ConfigurationService {
             this._sensorModelRepository = sensorModelRepository;
         }
     }
-    private void validateMeasurementTypeRepository(MeasurementTypeRepository measurementTypeRepository) {
-        if (measurementTypeRepository == null) {
+    private void validateMeasurementTypeRepository(UnitRepository unitRepository) {
+        if (unitRepository == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type repository.");
         } else {
-            this._measurementTypeRepository = measurementTypeRepository;
+            this._unitRepository = unitRepository;
         }
     }
     private void validateSensorModelFactory(SensorModelFactory sensorModelFactory) {
@@ -102,7 +102,7 @@ public class ConfigurationService {
                 UnitSymbol measurementTUnit = new UnitSymbol(measurementTypeUnit);
 
                 Unit measurementType = _unitFactory.createMeasurement(measurementDescription, measurementTUnit);
-                _measurementTypeRepository.save(measurementType);
+                _unitRepository.save(measurementType);
             }
         } catch (ConfigurationException exception) {
             // Something went wrong

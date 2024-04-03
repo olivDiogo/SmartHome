@@ -2,7 +2,7 @@ package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.Unit.Unit;
 import SmartHomeDDD.domain.Unit.UnitFactory;
-import SmartHomeDDD.repository.MeasurementTypeRepository;
+import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.valueObject.UnitID;
 import SmartHomeDDD.valueObject.UnitSymbol;
@@ -12,24 +12,24 @@ import java.util.Optional;
 
 public class UnitService {
 
-    private MeasurementTypeRepository _measurementTypeRepository;
+    private UnitRepository _unitRepository;
     private UnitFactory _UnitFactory;
 
     /**
      * Constructor for MeasurementTypeService.
-     * @param measurementTypeRepository
+     * @param unitRepository
      * @param unitFactory
      */
-    public UnitService(MeasurementTypeRepository measurementTypeRepository, UnitFactory unitFactory) {
-        validateMeasurementTypeRepository(measurementTypeRepository);
+    public UnitService(UnitRepository unitRepository, UnitFactory unitFactory) {
+        validateMeasurementTypeRepository(unitRepository);
         validateMeasurementTypeFactory(unitFactory);
     }
 
-    private void validateMeasurementTypeRepository(MeasurementTypeRepository measurementTypeRepository) {
-        if (measurementTypeRepository == null) {
+    private void validateMeasurementTypeRepository(UnitRepository unitRepository) {
+        if (unitRepository == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type repository.");
         } else {
-            this._measurementTypeRepository = measurementTypeRepository;
+            this._unitRepository = unitRepository;
         }
     }
 
@@ -53,7 +53,7 @@ public class UnitService {
         validateUnit(unit);
 
         Unit measurementUnit = _UnitFactory.createMeasurement(description, unit);
-        return _measurementTypeRepository.save(measurementUnit);
+        return _unitRepository.save(measurementUnit);
     }
 
     /**
@@ -90,7 +90,7 @@ public class UnitService {
         if (unitID == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type ID.");
         }
-        return _measurementTypeRepository.ofIdentity(unitID);
+        return _unitRepository.ofIdentity(unitID);
     }
 
     /**
@@ -99,7 +99,7 @@ public class UnitService {
      * @return A List containing all MeasurementTypes.
      */
     public List<Unit> getAllMeasurementTypes() {
-        return _measurementTypeRepository.findAll();
+        return _unitRepository.findAll();
     }
 
 }
