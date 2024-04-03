@@ -244,7 +244,7 @@ class TemperatureSensorTest {
             try (MockedConstruction<TemperatureSensorValue> sensorValueConstruction = mockConstruction(TemperatureSensorValue.class, (mock, context) -> {
             })) {
                 // Act
-                TemperatureSensorValue result = (TemperatureSensorValue) sensor.getValue();
+                TemperatureSensorValue result = sensor.getValue();
                 // Assert
                 List<TemperatureSensorValue> constructed = sensorValueConstruction.constructed();
                 assertEquals(constructed.get(0), result);

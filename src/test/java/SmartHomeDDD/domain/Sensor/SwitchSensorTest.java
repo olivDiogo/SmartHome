@@ -233,17 +233,21 @@ class SwitchSensorTest {
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
 
-        SwitchSensor switchSensor;
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-        }
-        try(MockedConstruction<SwitchSensorValue> sensorValueConstruction = mockConstruction(SwitchSensorValue.class, (mock, context) -> {})) {
-            // Act
-            SwitchSensorValue result = (SwitchSensorValue) switchSensor.getValue();
+        {
+            SwitchSensor switchSensor;
+            try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            })) {
+                switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+            }
+            try (MockedConstruction<SwitchSensorValue> sensorValueConstruction = mockConstruction(SwitchSensorValue.class, (mock, context) -> {
+            })) {
+                // Act
+                SwitchSensorValue result = switchSensor.getValue();
 
-            // Assert
-            List<SwitchSensorValue> constructed = sensorValueConstruction.constructed();
-            assertEquals(constructed.get(0), result);
+                // Assert
+                List<SwitchSensorValue> constructed = sensorValueConstruction.constructed();
+                assertEquals(constructed.get(0), result);
+            }
         }
     }
 }

@@ -133,11 +133,11 @@ public class HumiditySensor implements Sensor{
      * @return The humidity value.
      */
     @Override
-    public ValueObject getValue() {
+    public HumiditySensorValue getValue() {
         int nValue = 100;
         _humidityValue = new HumiditySensorValue(nValue);
 
-        return (ValueObject) _humidityValue;
+        return _humidityValue;
     }
 
     /**

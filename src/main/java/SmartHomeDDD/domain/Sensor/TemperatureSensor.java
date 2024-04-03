@@ -135,11 +135,11 @@ public class TemperatureSensor implements Sensor{
      * @return The value of the sensor.
      */
     @Override
-    public ValueObject getValue() {
+    public TemperatureSensorValue getValue() {
         double temperatureReading = 70.5;
         this._temperatureValue = new TemperatureSensorValue(temperatureReading);
 
-        return (ValueObject) _temperatureValue;
+        return _temperatureValue;
     }
 
     /**
