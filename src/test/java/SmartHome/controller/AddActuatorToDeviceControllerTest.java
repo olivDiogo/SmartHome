@@ -211,7 +211,7 @@ public class AddActuatorToDeviceControllerTest {
      * Test to see if getActuatorModels returns the correct number of actuator models.
      * @throws InstantiationException
      */
-/*    @Test
+    @Test
     void shouldReturnListOfModels_WhenGetActuatorModelsIsCalled() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String filePathName = "config.properties";
@@ -228,13 +228,13 @@ public class AddActuatorToDeviceControllerTest {
 
         // Assert
         assertEquals(expectedModels, result.size());
-    }*/
+    }
 
     /**
      * Test to see if addActuatorToDevice returns a valid actuatorDTO.
      * @throws InstantiationException
      */
-/*    @Test
+   @Test
     void shouldReturnValidActuatorDTO_WhenAddActuatorToDeviceWithValidModelIsCalled() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String roomName = "Living Room";
@@ -270,7 +270,7 @@ public class AddActuatorToDeviceControllerTest {
 
         // Assert
         assertNotNull(actuatorDTO);
-    }*/
+    }
 
     /**
      * Test to see if addActuatorToDevice returns null when the actuator model is invalid.

@@ -63,7 +63,7 @@ public class ConfigurationService {
     private void loadDefaultSensorModels() throws InstantiationException {
         Configurations configs = new Configurations();
         try {
-            Configuration config = configs.properties(new File("config.properties")); // e.g. filePathname = "config.properties"
+            Configuration config = configs.properties(new File("configDDD.properties")); // e.g. filePathname = "config.properties"
 
             // access configuration properties
             String[] arrayStringClassesSensors = config.getStringArray("sensor");
@@ -88,7 +88,7 @@ public class ConfigurationService {
     private void loadDefaultMeasurementTypes() throws InstantiationException {
         Configurations configs = new Configurations();
         try {
-            Configuration config = configs.properties(new File("config.properties")); // e.g. filePathname = "config.properties"
+            Configuration config = configs.properties(new File("configDDD.properties")); // e.g. filePathname = "config.properties"
 
             // access configuration properties
             String[] arrayStringMeasurementTypes = config.getStringArray("measurement");
