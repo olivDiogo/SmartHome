@@ -3,6 +3,8 @@ package SmartHomeDDD.domain.Sensor;
 import SmartHomeDDD.ddd.ValueObject;
 import SmartHomeDDD.valueObject.*;
 
+import java.util.Objects;
+import java.util.Random;
 import java.util.UUID;
 
 public class HumiditySensor implements Sensor{
@@ -69,6 +71,8 @@ public class HumiditySensor implements Sensor{
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
+        } else if (!Objects.equals(sensorTypeID.getId(), "Humidity")) {
+            throw new IllegalArgumentException("SensorTypeID must be of type 'Humidity'");
         } else {
             this._sensorTypeID = sensorTypeID;
         }
@@ -134,8 +138,12 @@ public class HumiditySensor implements Sensor{
      */
     @Override
     public HumiditySensorValue getValue() {
-        int nValue = 100;
-        _humidityValue = new HumiditySensorValue(nValue);
+        // Generate a random humidity as a simulation of hardware behavior
+        Random random = new Random();
+        // Generate a random integer within a range. Example: 0 (min) to 100 (max)
+        int humidityReadingReading = random.nextInt(101);
+
+        _humidityValue = new HumiditySensorValue(humidityReadingReading);
 
         return _humidityValue;
     }
