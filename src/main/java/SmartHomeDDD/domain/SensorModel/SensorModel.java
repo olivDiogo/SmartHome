@@ -4,20 +4,30 @@ import SmartHomeDDD.ddd.AggregateRoot;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
+import SmartHomeDDD.valueObject.SensorTypeID;
 
 
 public class SensorModel implements AggregateRoot<SensorModelID> {
     private SensorModelID _sensorModelID;
     private SensorModelName _sensorModelName;
     private ModelPath _modelPath;
+    private SensorTypeID _sensorTypeID;
 
-    public SensorModel(SensorModelName sensorModelName, ModelPath modelPath) {
+    public SensorModel(SensorModelName sensorModelName, ModelPath modelPath, SensorTypeID sensorTypeID) {
         validateSensorModelName(sensorModelName);
         validateModelPath(modelPath);
+        validateSensorTypeID(sensorTypeID);
         generateID(modelPath);
     }
     private void generateID(ModelPath modelPath){
         _sensorModelID = new SensorModelID(modelPath.toString());
+    }
+    private void validateSensorTypeID(SensorTypeID sensorTypeID) {
+        if (sensorTypeID == null) {
+            throw new IllegalArgumentException("Please enter a valid sensor type ID.");
+        } else {
+            this._sensorTypeID = sensorTypeID;
+        }
     }
     private void validateSensorModelName(SensorModelName sensorModelName) {
         if (sensorModelName == null) {
@@ -32,6 +42,9 @@ public class SensorModel implements AggregateRoot<SensorModelID> {
         } else {
             this._modelPath = modelPath;
         }
+    }
+    public SensorTypeID getSensorTypeID() {
+        return _sensorTypeID;
     }
     public SensorModelName getSensorModelName() {
         return _sensorModelName;

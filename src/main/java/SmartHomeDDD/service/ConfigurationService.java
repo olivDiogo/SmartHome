@@ -1,9 +1,6 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.valueObject.ModelPath;
-import SmartHomeDDD.valueObject.SensorModelName;
-import SmartHomeDDD.valueObject.UnitDescription;
-import SmartHomeDDD.valueObject.UnitSymbol;
+import SmartHomeDDD.valueObject.*;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -50,12 +47,15 @@ public class ConfigurationService {
             // access configuration properties
             String[] arrayStringClassesSensors = config.getStringArray("sensor");
             for (String sensor : arrayStringClassesSensors) {
-                ModelPath sensorPath = new ModelPath(sensor);
+                String sensorPathStr = sensor.split(";") [0]; // String containing the path of the sensor
+                String sensorModelName = sensorPathStr.substring(sensorPathStr.lastIndexOf('.') + 1); // String containing the sensor model name
+                String sensorTypeIDstr = sensor.split(";") [1]; // String containing the sensor type ID
 
-                String sensorModelName = sensor.substring(sensor.lastIndexOf('.') + 1);
+                ModelPath sensorPath = new ModelPath(sensorPathStr);
                 SensorModelName sensorName = new SensorModelName(sensorModelName);
+                SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDstr);
 
-                _sensorModelService.createSensorModel(sensorName, sensorPath);
+                _sensorModelService.createSensorModel(sensorName, sensorPath, sensorTypeID);
 
             }
         } catch (ConfigurationException exception) {

@@ -19,9 +19,12 @@ class SensorModelTest {
         //Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         try(MockedConstruction sensorModelID = mockConstruction(SensorModelID.class)) {
             //Act
-            new SensorModel(sensorModelName, modelPath);
+            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
+            //Assert
+            assertNotNull(sensorModel);
         }
     }
     @Test
@@ -29,9 +32,10 @@ class SensorModelTest {
         //Arrange
         SensorModelName sensorModelName = null;
         ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         String expectedMessage = "Please enter a valid sensor model name.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModel(sensorModelName, modelPath));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModel(sensorModelName, modelPath, sensorTypeID));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -40,9 +44,10 @@ class SensorModelTest {
         //Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = null;
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         String expectedMessage = "Please enter a valid model path.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModel(sensorModelName, modelPath));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModel(sensorModelName, modelPath, sensorTypeID));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -51,9 +56,10 @@ class SensorModelTest {
         //Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         try(MockedConstruction sensorModelID = mockConstruction(SensorModelID.class)) {
 
-            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath);
+            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
             //Act
             boolean result = sensorModel.equals(sensorModel);
             //Assert
@@ -66,9 +72,10 @@ class SensorModelTest {
         //Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         try(MockedConstruction sensorModelID = mockConstruction(SensorModelID.class)) {
 
-            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath);
+            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
             //Act
             boolean result = sensorModel.equals(null);
             //Assert
@@ -80,8 +87,9 @@ class SensorModelTest {
         //Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         try(MockedConstruction mockedSensorModelID = mockConstruction(SensorModelID.class)) {
-            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath);
+            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
             //Act
             SensorModelID sensorModelID = sensorModel.getID();
             //Assert
@@ -93,8 +101,9 @@ class SensorModelTest {
         //Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         try(MockedConstruction<SensorModelID> mockedSensorModelID = mockConstruction(SensorModelID.class)) {
-            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath);
+            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
             SensorModelID sensorModelID = mockedSensorModelID.constructed().get(0);
             String expected = "SensorModel{" +
                     "_sensorModelID=" + sensorModelID +
@@ -113,9 +122,10 @@ class SensorModelTest {
         //Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         try(MockedConstruction<SensorModelID> mockedSensorModelID = mockConstruction(SensorModelID.class)) {
 
-            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath);
+            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
             //Act
             SensorModelName result = sensorModel.getSensorModelName();
             //Assert
@@ -127,9 +137,10 @@ class SensorModelTest {
         //Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         try(MockedConstruction<SensorModelID> mockedSensorModelID = mockConstruction(SensorModelID.class)) {
 
-            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath);
+            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
             //Act
             ModelPath result = sensorModel.getModelPath();
             //Assert
@@ -141,16 +152,44 @@ class SensorModelTest {
         //Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         try(MockedConstruction<SensorModelID> mockedSensorModelID = mockConstruction(SensorModelID.class, (mock, context) -> {
             String modelPathString = (String) context.arguments().get(0);
             when(mock.toString()).thenReturn(modelPathString);})) {
 
-                SensorModel sensorModel = new SensorModel(sensorModelName, modelPath);
+                SensorModel sensorModel = new SensorModel(sensorModelName, modelPath,sensorTypeID);
                 //Act
                 SensorModelID sensorModelID = sensorModel.getID();
                 //Assert
                 assertTrue(sensorModelID.toString().contains(modelPath.toString()));
             }
         }
+        @Test
+    void shouldThrownIllegalArgumentException_WhenGivenNullSensorTypeID() {
+        //Arrange
+        SensorModelName sensorModelName = mock(SensorModelName.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = null;
+        String expectedMessage = "Please enter a valid sensor type ID.";
+        //Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModel(sensorModelName, modelPath, sensorTypeID));
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+    @Test
+    void shouldReturnSensorTypeID_WhenGetSensorTypeIDIsCalled() {
+        //Arrange
+        SensorModelName sensorModelName = mock(SensorModelName.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        try(MockedConstruction<SensorModelID> mockedSensorModelID = mockConstruction(SensorModelID.class)) {
+
+            SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
+            //Act
+            SensorTypeID result = sensorModel.getSensorTypeID();
+            //Assert
+            assertEquals(sensorTypeID, result);
+        }
+    }
 
 }

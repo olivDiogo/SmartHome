@@ -5,6 +5,7 @@ import SmartHomeDDD.repository.SensorModelRepository;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
+import SmartHomeDDD.valueObject.SensorTypeID;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 class SensorModelServiceTest {
@@ -25,7 +25,9 @@ class SensorModelServiceTest {
         SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         //Act
-        new SensorModelService(sensorModelRepository, sensorModelFactory);
+        SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
+        //Assert
+        assertNotNull(sensorModelService);
     }
     @Test
     void shouldThrowExceptionWhenSensorModelFactoryIsNull() {
@@ -102,11 +104,12 @@ class SensorModelServiceTest {
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath sensorPath = mock(ModelPath.class);
         SensorModel sensorModel = mock(SensorModel.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
-        when(sensorModelFactory.createSensorModel(sensorModelName, sensorPath)).thenReturn(sensorModel);
+        when(sensorModelFactory.createSensorModel(sensorModelName, sensorPath, sensorTypeID)).thenReturn(sensorModel);
         SensorModelService sensorModelService = new SensorModelService(mock(SensorModelRepository.class), sensorModelFactory);
         //Act
-        SensorModel actualSensorModel = sensorModelService.createSensorModel(sensorModelName, sensorPath);
+        SensorModel actualSensorModel = sensorModelService.createSensorModel(sensorModelName, sensorPath, sensorTypeID);
         //Assert
         assertEquals(sensorModel, actualSensorModel);
     }
@@ -116,13 +119,14 @@ class SensorModelServiceTest {
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath sensorPath = mock(ModelPath.class);
         SensorModel sensorModel = mock(SensorModel.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
-        when(sensorModelFactory.createSensorModel(sensorModelName, sensorPath)).thenReturn(sensorModel);
+        when(sensorModelFactory.createSensorModel(sensorModelName, sensorPath, sensorTypeID)).thenReturn(sensorModel);
 
         SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
         //Act
-        sensorModelService.createSensorModel(sensorModelName, sensorPath);
+        sensorModelService.createSensorModel(sensorModelName, sensorPath, sensorTypeID);
         //Assert
         verify(sensorModelRepository, times(1)).save(sensorModel);
     }

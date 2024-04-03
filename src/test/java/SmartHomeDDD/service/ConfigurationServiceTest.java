@@ -25,7 +25,9 @@ class ConfigurationServiceTest {
         SensorModelService sensorModelService = mock(SensorModelService.class);
         UnitService unitService = mock(UnitService.class);
         //Act
-        new ConfigurationService(sensorModelService, unitService);
+        ConfigurationService configurationService = new ConfigurationService(sensorModelService, unitService);
+        //Assert
+        assertNotNull(configurationService);
     }
     @Test
     void shouldThrowIllegalArgumentException_WhenSensorModelServiceIsNull() {
@@ -54,7 +56,7 @@ class ConfigurationServiceTest {
     void shouldLoadDefaultSensorModels_WhenConfigurationServiceInstantiated() throws ConfigurationException {
         //Arrange
         SensorModelService sensorModelService = mock(SensorModelService.class);
-        when(sensorModelService.createSensorModel(any(), any())).thenReturn(mock(SensorModel.class));
+        when(sensorModelService.createSensorModel(any(), any(), any())).thenReturn(mock(SensorModel.class));
 
         UnitService unitService = mock(UnitService.class);
 
@@ -68,7 +70,7 @@ class ConfigurationServiceTest {
 
             // Act
             ConfigurationService configurationService = new ConfigurationService(sensorModelService, unitService);
-            verify(sensorModelService, times(defaultSensorModels)).createSensorModel(any(), any());
+            verify(sensorModelService, times(defaultSensorModels)).createSensorModel(any(), any(), any());
         }
     }
     @Test
