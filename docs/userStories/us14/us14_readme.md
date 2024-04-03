@@ -44,7 +44,7 @@ _Implemented in US12.
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization
 
 ### 3 Acceptance Tests
-- The BlindRollerActuator should be able to set the position of a blind roller in the range defined by [0%, 100%]
+- The BlindRollerActuator should be able to set the position of a blind roller in the range defined by [0%, 100%] - [Test Link](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/src/test/java/SmartHomeDDD/domain/Actuator/BlindRollerActuatorTest.java)
 
 
 
