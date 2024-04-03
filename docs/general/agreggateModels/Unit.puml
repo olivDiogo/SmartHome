@@ -6,14 +6,18 @@ package SmartHome.Unit {
         - _id: MeasurementUnit
         - _symbol: Symbol
     }
-    class MeasurementUnit <<ValueObject>><<ID>> {
+    class MeasurementUnit <<ValueObject>> {
         - _unit: string
         }
     class Symbol<<ValueObject>> {
         - _symbol: string
         }
+     class UnitID <<ValueObject>><<ID>> {
+        - _id: string
+        }
 
 Unit "1  " --> "1" MeasurementUnit
 Unit "1" --> "1  " Symbol
+Unit "1" --> "1  " UnitID
 }
 @enduml

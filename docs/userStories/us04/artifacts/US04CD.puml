@@ -4,15 +4,15 @@
 class SensorType<<entity>> <<root>> {
   - _id: sensorID
   - _description: Description
-  - _measurementTypeID: MeasurementTypeID
-  + SensorType(id, description, measurementTypeID)
+  - _unitID: UnitID
+  + SensorType(id, description, unitID)
   + getId(): string
   + getDescription(): Description
   + getUnit(): Unit
   }
 
 class SensorTypeFactory<<Factory>> {
-  + createNewSensorType(description: Description, measurementTypeID: MeasurementTypeID): SensorType
+  + createNewSensorType(description: Description, unitID: UnitID): SensorType
   }
 
 class SensorTypeRepository<<Repository>> {
@@ -22,28 +22,28 @@ class SensorTypeRepository<<Repository>> {
 class SensorTypeService<<Service>> {
     - _sensorTypeRepository: SensorTypeRepository
     - _sensorTypeFactory: SensorTypeFactory
-    - _measurementTypeRepository: MeasurementTypeRepository
-  + SensorTypeService(sensorTypeRepository, sensorTypeFactory, measurementTypeRepository)
+    - _unitRepository: UnitRepository
+  + SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository)
   + addSensorType(name: String, unit: String, sensorTypeFactory: SensorTypeFactory): SensorType
-  + getAllSupportedUnits(): List<MeasurementType>
+  + getAllSupportedUnits(): List<Unit>
   + saveSensorType(sensorType: SensorType): SensorType
   }
-  class MeasurementTypeRepository<<Repository>> {
+  class UnitRepository<<Repository>> {
 
-    + getAll: MeasurementType
+    + getAll: Unit
     }
-class MeasurementType<<entity>> {
-  - _id: MeasurementTypeID
+class Unit<<entity>> {
+  - _id: UnitID
   - _description: Description
   - _unit: Unit
-  + MeasurementType(id, description, unit)
+  + Unit(id, description, unit)
   }
 class AddSensorTypeController<<Controller>> {
   - _sensorTypeService: SensorTypeService
   - _sensorTypeAssembler: SensorTypeAssembler
-  - _measurementTypeAssembler: MeasurementTypeAssembler
-  + AddSensorTypeController(sensorTypeService, sensorTypeAssembler, measurementTypeAssembler)
-  + getSupportedUnits(): List<MeasurementTypeDTO>
+  - _unitAssembler: UnitAssembler
+  + AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitAssembler)
+  + getSupportedUnits(): List<UnitDTO>
   + createNewSensorType(SensorTypeDTO data): SensorTypeDTO
   }
 class SensorTypeDTO<<DTO>> {
@@ -54,14 +54,14 @@ class SensorTypeDTO<<DTO>> {
 class SensorTypeAssembler<<Assembler>> {
   + domainToDTO(sensorType: SensorType): SensorTypeDTO
   }
-class MeasurmentTypeAssembler<<Assembler>> {
-  + domainToDTO(measurementType: MeasurementType): MeasurementTypeDTO
+class UnitAssembler<<Assembler>> {
+  + domainToDTO(unit: Unit): UnitDTO
   }
-class MeasurmentTypeDTO<<DTO>> {
+class UnitDTO<<DTO>> {
   + id: string
   + description: string
   + unit: string
-  + MeasurmentTypeDTO(String id, String description, String unit)
+  + UnitDTO(String id, String description, String unit)
   }
 
 
@@ -70,14 +70,14 @@ class MeasurmentTypeDTO<<DTO>> {
 SensorTypeRepository"1" -down-> "*"SensorType: has
 SensorTypeService"1" .down.> "1"SensorTypeFactory: uses
 SensorTypeService"1" .down.> "1"SensorTypeRepository: uses
-SensorTypeService"1" .down.> "1"MeasurementTypeRepository: uses
-MeasurementTypeRepository"1" .down.> "1"MeasurementType: has
+SensorTypeService"1" .down.> "1"UnitRepository: uses
+UnitRepository"1" .down.> "1"Unit: has
 SensorTypeFactory"1" .down.> "1..*"SensorType: creates
 AddSensorTypeController"1" .down.> "1"SensorTypeService: uses
 AddSensorTypeController"1" .down.> "1"SensorTypeAssembler: uses
 SensorTypeAssembler"1" .up.> "1"SensorTypeDTO: creates
-AddSensorTypeController"1" .down.> "1"MeasurmentTypeAssembler: uses
-MeasurmentTypeAssembler"1" .up.> "1"MeasurmentTypeDTO: creates
+AddSensorTypeController"1" .down.> "1"UnitAssembler: uses
+UnitAssembler"1" .up.> "1"UnitDTO: creates
 
 
 
