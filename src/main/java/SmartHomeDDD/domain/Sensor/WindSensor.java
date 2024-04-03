@@ -1,39 +1,30 @@
 package SmartHomeDDD.domain.Sensor;
 
-import SmartHomeDDD.ddd.ValueObject;
 import SmartHomeDDD.valueObject.*;
 
-import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public class HumiditySensor implements Sensor{
+public class WindSensor implements Sensor {
     private ModelPath _modelPath;
     private SensorName _sensorName;
     private SensorID _sensorID;
     private SensorTypeID _sensorTypeID;
-    private HumiditySensorValue _humidityValue;
+    private WindSensorValue _WindSensorValue;
     private DeviceID _deviceID;
 
-    /**
-     *
-     * @param deviceID
-     * @param modelPath
-     * @param sensorTypeID
-     * @param sensorName
-     */
-    HumiditySensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    protected WindSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
         validateDeviceID(deviceID);
-        generateHumidityID();
+        generateWindID();
     }
 
     /**
-     * generates a new HumidityID
+     * Generates a new sensor id.
      */
-     private void generateHumidityID() {
+    private void generateWindID() {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
@@ -71,8 +62,6 @@ public class HumiditySensor implements Sensor{
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
-        } else if (!Objects.equals(sensorTypeID.getId(), "Humidity")) {
-            throw new IllegalArgumentException("SensorTypeID must be of type 'Humidity'");
         } else {
             this._sensorTypeID = sensorTypeID;
         }
@@ -92,69 +81,64 @@ public class HumiditySensor implements Sensor{
     }
 
     /**
-     * Returns the sensor ID.
+     * Gets the sensor ID.
      *
      * @return The sensor ID.
      */
     @Override
     public SensorID getID() {
-        return _sensorID;
+        return this._sensorID;
     }
 
     /**
-     * Returns the sensor name.
+     * Gets the sensor name.
      *
      * @return The sensor name.
      */
     @Override
     public SensorName getName() {
-        return _sensorName;
+        return this._sensorName;
     }
 
     /**
-     * Returns the model path.
+     * Gets the model path.
      *
      * @return The model path.
      */
     @Override
     public ModelPath getModelPath() {
-        return _modelPath;
+        return this._modelPath;
     }
 
     /**
-     * Returns the sensor type ID.
+     * Gets the sensor type ID.
      *
      * @return The sensor type ID.
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return _sensorTypeID;
+        return this._sensorTypeID;
     }
 
     /**
-     * Returns the humidity value.
-     *
-     * @return The humidity value.
-     */
-    @Override
-    public HumiditySensorValue getValue() {
-        // Generate a random humidity as a simulation of hardware behavior
-        Random random = new Random();
-        // Generate a random integer within a range. Example: 0 (min) to 100 (max)
-        int humidityReadingReading = random.nextInt(101);
-
-        _humidityValue = new HumiditySensorValue(humidityReadingReading);
-
-        return _humidityValue;
-    }
-
-    /**
-     * Returns the device ID.
-     *
+     * Gets the device ID.
      * @return The device ID.
      */
     @Override
     public DeviceID getDeviceID() {
         return _deviceID;
+    }
+
+    /**
+     * Method to get the value object of the sensor.
+     * @return the value.
+     */
+    @Override
+    public WindSensorValue getValue() {
+        Random rand = new Random();
+        int speed = rand.nextInt(408); //wind speed world record
+        double direction = rand.nextDouble() * 2 * Math.PI; // direction in radians
+        this._WindSensorValue = new WindSensorValue(speed, direction);
+        return _WindSensorValue;
     }
 }

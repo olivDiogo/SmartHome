@@ -6,6 +6,7 @@ import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
+import SmartHomeDDD.valueObject.SensorTypeID;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,8 +34,8 @@ public class SensorModelService {
             this._factorySensorModel = factorySensorModel;
         }
     }
-    protected SensorModel createSensorModel(SensorModelName sensorModelName, ModelPath sensorPath) {
-        SensorModel sensorModel = _factorySensorModel.createSensorModel(sensorModelName, sensorPath);
+    protected SensorModel createSensorModel(SensorModelName sensorModelName, ModelPath sensorPath, SensorTypeID sensorTypeID) {
+        SensorModel sensorModel = _factorySensorModel.createSensorModel(sensorModelName, sensorPath, sensorTypeID);
         _sensorModelRepository.save(sensorModel);
         return sensorModel;
     }

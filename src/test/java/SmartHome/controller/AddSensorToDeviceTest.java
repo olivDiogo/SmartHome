@@ -319,7 +319,7 @@ public class AddSensorToDeviceTest {
         return deviceDTO;
     }
 
-    @Test
+   @Test
     void AddExistingSensorModelToDevice() throws InstantiationException {
         // arrange
         CatalogueSensor catalogue = new CatalogueSensor("config.properties");

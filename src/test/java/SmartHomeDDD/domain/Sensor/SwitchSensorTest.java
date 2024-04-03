@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -17,15 +18,21 @@ class SwitchSensorTest {
     @Test
     void shouldInstantiateSwitchSensor_whenConstructorArgumentsAreValid() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            // Act
-            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-        }
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        // Act
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Assert
+        assertNotNull(switchSensor);
     }
 
     /**
@@ -34,20 +41,22 @@ class SwitchSensorTest {
     @Test
     void shouldThrowIllegalArgumentException_whenDeviceIDIsNull() {
         // Arrange
-        DeviceID deviceID = null;
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            // Act
-            try {
-                new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assertEquals("DeviceID is required", e.getMessage());
-            }
-        }
+        DeviceID deviceID = null;
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        // Assert
+        assertEquals("DeviceID is required", exception.getMessage());
     }
 
     /**
@@ -56,20 +65,22 @@ class SwitchSensorTest {
     @Test
     void shouldThrowIllegalArgumentException_whenModelPathIsNull() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = null;
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        String deviceIDValue = "deviceID";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            // Act
-            try {
-                new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assertEquals("ModelPath is required", e.getMessage());
-            }
-        }
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = null;
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        // Assert
+        assertEquals("ModelPath is required", exception.getMessage());
     }
 
     /**
@@ -78,20 +89,22 @@ class SwitchSensorTest {
     @Test
     void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNull() {
         // Arrange
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        DeviceID deviceID = mock(DeviceID.class);
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = null;
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            // Act
-            try {
-                new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assertEquals("SensorTypeID is required", e.getMessage());
-            }
-        }
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        // Assert
+        assertEquals("SensorTypeID is required", exception.getMessage());
     }
 
     /**
@@ -100,20 +113,22 @@ class SwitchSensorTest {
     @Test
     void shouldThrowIllegalArgumentException_whenSensorNameIsNull() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = null;
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorTypeIDValue = "Switch";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            // Act
-            try {
-                new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assertEquals("SensorName is required", e.getMessage());
-            }
-        }
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = null;
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        // Assert
+        assertEquals("SensorName is required", exception.getMessage());
     }
 
     /**
@@ -122,20 +137,23 @@ class SwitchSensorTest {
     @Test
     void shouldReturnSensorID_whenGetIDIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            // Act
-            SensorID result = switchSensor.getID();
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-            // Assert
-            List<SensorID> constructed = sensorIDConstruction.constructed();
-            assertEquals(constructed.get(0), result);
-        }
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Act
+        SensorID result = switchSensor.getID();
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**
@@ -144,19 +162,23 @@ class SwitchSensorTest {
     @Test
     void shouldReturnSensorName_whenGetSensorNameIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            // Act
-            SensorName result = switchSensor.getName();
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-            // Assert
-            assertEquals(sensorName, result);
-        }
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Act
+        SensorName result = switchSensor.getName();
+
+        // Assert
+        assertEquals(sensorName, result);
     }
 
     /**
@@ -165,19 +187,23 @@ class SwitchSensorTest {
     @Test
     void shouldReturnModelPath_whenGetModelPathIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            // Act
-            ModelPath result = switchSensor.getModelPath();
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-            // Assert
-            assertEquals(modelPath, result);
-        }
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Act
+        ModelPath result = switchSensor.getModelPath();
+
+        // Assert
+        assertEquals(modelPath, result);
     }
 
     /**
@@ -186,19 +212,48 @@ class SwitchSensorTest {
     @Test
     void shouldReturnSensorTypeID_whenGetSensorTypeIDIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            // Act
-            SensorTypeID result = switchSensor.getSensorTypeID();
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-            // Assert
-            assertEquals(sensorTypeID, result);
-        }
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Act
+        SensorTypeID result = switchSensor.getSensorTypeID();
+
+        // Assert
+        assertEquals(sensorTypeID, result);
+    }
+
+    /**
+     * Tests the getter for the sensor type ID when the sensor type ID is not of type 'Switch'.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNotOfSwitchType() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Humidity";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        // Assert
+        assertEquals("SensorTypeID must be of type 'Switch'", exception.getMessage());
     }
 
     /**
@@ -207,19 +262,23 @@ class SwitchSensorTest {
     @Test
     void shouldReturnDeviceID_whenGetDeviceIDIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
-            SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            // Act
-            DeviceID result = switchSensor.getDeviceID();
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-            // Assert
-            assertEquals(deviceID, result);
-        }
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Act
+        DeviceID result = switchSensor.getDeviceID();
+
+        // Assert
+        assertEquals(deviceID, result);
     }
 
     /**
@@ -228,26 +287,23 @@ class SwitchSensorTest {
     @Test
     void shouldReturnSensorValue_whenGetValueIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
 
-        {
-            SwitchSensor switchSensor;
-            try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-            })) {
-                switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            }
-            try (MockedConstruction<SwitchSensorValue> sensorValueConstruction = mockConstruction(SwitchSensorValue.class, (mock, context) -> {
-            })) {
-                // Act
-                SwitchSensorValue result = switchSensor.getValue();
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-                // Assert
-                List<SwitchSensorValue> constructed = sensorValueConstruction.constructed();
-                assertEquals(constructed.get(0), result);
-            }
-        }
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Act
+        SwitchSensorValue result = switchSensor.getValue();
+
+        // Assert
+        String state = result.toString();
+        assertTrue("On".equals(state) || "Off".equals(state), "State should be 'On' or 'Off'.");
     }
 }

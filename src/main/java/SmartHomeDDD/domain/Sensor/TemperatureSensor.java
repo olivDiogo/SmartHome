@@ -3,6 +3,8 @@ package SmartHomeDDD.domain.Sensor;
 import SmartHomeDDD.ddd.ValueObject;
 import SmartHomeDDD.valueObject.*;
 
+import java.util.Objects;
+import java.util.Random;
 import java.util.UUID;
 
 public class TemperatureSensor implements Sensor{
@@ -71,10 +73,13 @@ public class TemperatureSensor implements Sensor{
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
+        } else if (!Objects.equals(sensorTypeID.getId(), "Temperature")) {
+            throw new IllegalArgumentException("SensorTypeID must be of type 'Temperature'");
         } else {
             this._sensorTypeID = sensorTypeID;
         }
     }
+
 
     /**
      * Validates the device ID.
@@ -136,7 +141,11 @@ public class TemperatureSensor implements Sensor{
      */
     @Override
     public TemperatureSensorValue getValue() {
-        double temperatureReading = 70.5;
+        // Generate a random temperature as a simulation of hardware behavior
+        Random random = new Random();
+        // Generate a random double within a range. Example: -50.0 (min) to 50.0 (max)
+        double temperatureReading = -50.0 + (100.0 * random.nextDouble());
+
         this._temperatureValue = new TemperatureSensorValue(temperatureReading);
 
         return _temperatureValue;

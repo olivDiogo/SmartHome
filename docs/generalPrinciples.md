@@ -47,30 +47,37 @@
 #### User Story Requirements Engineering and Tests
 - You can follow this standard
 
+```markdown
 ## USXXX
 
-## 0. Requirements
-(e.g. _As an Administrator, I want to define a sensor type._)
+## 1. Requirements Engineering
 
-## 1. Analysis
-(e.g. _The sensor type will be used for by the sensor to verify it's of supported typo before being added to the system. The sensor type will have a description, measuring unit and reference ID._)
+### 1.1 System Sequence Diagram
 
-### 1.1. System Sequence Diagram
-![somerthing](something)
+### 1.2 Dependency of other user stories
 
-### 1.3. Dependency of another user story
+### 1.3 Customer Specifications and Clarifications
 
-### 1.4. Relevant domain model aggregates
-![somerthing](something)
+## 2. Analysis
 
-## 2. Design
+### 2.1 Domain Model Excerpt
 
-### 2.1. Class Diagram
-![somerthing](something)
-### 2.2. Sequence Diagram
-![something](something)
-### 2.3. Applied Patterns
+## 3. Design
 
-## 3. Tests
+### 3.1 Functionality Development (System Sequence Diagram)
 
-- 
+### 3.2 Class Diagram
+
+### 3.3 Applied Patterns
+
+### 3.4 Tests
+
+### 3.5 Frontend Design
+
+## 4. Implementation
+
+## 5. Integration/Demonstration
+
+## 6. Comments
+
+```

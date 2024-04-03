@@ -1,7 +1,9 @@
 package SmartHomeDDD.domain.SensorModel;
 
 import SmartHomeDDD.valueObject.ModelPath;
+import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
+import SmartHomeDDD.valueObject.SensorTypeID;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
@@ -14,17 +16,19 @@ class ImpSensorModelFactoryTest {
         // Arrange
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         SensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+        int expectedSize = 1;
         // Act
         try(MockedConstruction<SensorModel> sensorModelMockedConstruction = mockConstruction(SensorModel.class, (mock, context) -> {
             SensorModelName actualSensorModelName = (SensorModelName) context.arguments().get(0);
             ModelPath actualModelPath = (ModelPath) context.arguments().get(1);
 
         })) {
-            SensorModel sensorModel = sensorModelFactory.createSensorModel(sensorModelName, modelPath);
+            SensorModel sensorModel = sensorModelFactory.createSensorModel(sensorModelName, modelPath, sensorTypeID);
             // Assert
-            assertTrue(sensorModelMockedConstruction.constructed().size() == 1);
-            assertTrue(sensorModelMockedConstruction.constructed().get(0) == sensorModel);
+            assertEquals(sensorModelMockedConstruction.constructed().size(), expectedSize);
+            assertSame(sensorModelMockedConstruction.constructed().get(0) , sensorModel);
         }
     }
 

@@ -234,7 +234,7 @@ public class AddActuatorToDeviceControllerTest {
      * Test to see if addActuatorToDevice returns a valid actuatorDTO.
      * @throws InstantiationException
      */
-    @Test
+   @Test
     void shouldReturnValidActuatorDTO_WhenAddActuatorToDeviceWithValidModelIsCalled() throws IllegalArgumentException, InstantiationException {
         // Arrange
         String roomName = "Living Room";

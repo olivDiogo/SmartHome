@@ -25,8 +25,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GetListOfAllDevicesGroupedByFunctionalityTest {
     /**
@@ -275,6 +279,82 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
         //Assert
         assert result.get(deviceType).get(0).deviceID.toString().equals(device1.getID().getId());
         assert result.get(deviceType).get(1).deviceID.toString().equals(device2.getID().getId());
+    }
+
+    /**
+     * Test to verify if an exception is thrown if the device type is not found.
+     */
+    @Test
+    public void shouldThrowIllegalArgumentException_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithInvalidDeviceType() {
+        //Arrange
+        DeviceRepository deviceRepository = new DeviceRepository();
+        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        RoomRepository roomRepository = new RoomRepository();
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceAssembler deviceAssembler = new DeviceAssembler();
+
+        DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
+        DeviceTypeFactory deviceTypeFactory = new ImpDeviceTypeFactory();
+        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+
+        ImpDeviceTypeFactory impDeviceTypeFactory = new ImpDeviceTypeFactory();
+        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseRepository houseRepository = new HouseRepository();
+        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
+
+        /* Create a house */
+        String street = "Rua Do Isep";
+        String doorNumber = "122A";
+        String countryCode = "PT";
+        String postalCode = "4000-007";
+
+        Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+        double latitude = 41.178;
+        double longitude = -8.608;
+        GPS newGPS = new GPS(latitude, longitude);
+
+        House house = houseService.addHouse(newAddress, newGPS);
+
+        /* Create a room */
+        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomAssembler roomAssembler = new RoomAssembler();
+        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+
+        String strRoomName = "Bedroom";
+        RoomName roomName = new RoomName(strRoomName);
+        Dimension dimension = new Dimension(2, 2, 2);
+        RoomFloor roomFloor = new RoomFloor(1);
+        HouseID houseID = house.getID();
+
+        Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+
+        /* Create and save devices */
+        RoomID roomID = room.getID();
+
+        String name = "Light";
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(true);
+
+        String strDeviceTypeID = "Wrong Type Description";
+        TypeDescription deviceTypeDescription = new TypeDescription(strDeviceTypeID);
+
+        DeviceType deviceType = mock(DeviceType.class);
+        when(deviceType.getID()).thenReturn(new DeviceTypeID("Wrong Type ID"));
+        when(deviceType.getDescription()).thenReturn(deviceTypeDescription);
+
+        Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceType.getID());
+
+        String expectedMessage = "DeviceType not found.";
+
+        // Act & Assert
+        Exception e = assertThrows(IllegalArgumentException.class, () -> getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality());
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertEquals(expectedMessage, actualMessage);
     }
 
 }
