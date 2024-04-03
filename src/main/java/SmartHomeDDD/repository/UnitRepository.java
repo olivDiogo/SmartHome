@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class MeasurementTypeRepository implements Repository<UnitID, Unit> {
+public class UnitRepository implements Repository<UnitID, Unit> {
     private final Map<UnitID, Unit> _measurementTypeData = new LinkedHashMap<>();
 
     /**

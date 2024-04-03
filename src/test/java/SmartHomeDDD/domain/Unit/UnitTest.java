@@ -172,5 +172,18 @@ class UnitTest {
             assertTrue(result.contains(expected));
         }
     }
+    @Test
+    void shouldReturnUnitSymbol_whenGetUnitSymbolIsCalled(){
+        //Arrange
+        UnitSymbol unitSymbolDouble = mock(UnitSymbol.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        try(MockedConstruction<UnitID> mockedUnitID = mockConstruction(UnitID.class)) {
+            Unit unit = new Unit(unitDescriptionDouble, unitSymbolDouble);
+            //Act
+            UnitSymbol result = unit.getUnitSymbol();
+            //Assert
+            assertEquals(unitSymbolDouble, result);
+        }
+    }
 
 }

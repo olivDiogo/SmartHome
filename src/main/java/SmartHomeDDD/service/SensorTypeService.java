@@ -2,7 +2,7 @@ package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.SensorType.SensorType;
 import SmartHomeDDD.domain.SensorType.SensorTypeFactory;
-import SmartHomeDDD.repository.MeasurementTypeRepository;
+import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.repository.SensorTypeRepository;
 import SmartHomeDDD.valueObject.SensorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
@@ -14,12 +14,12 @@ import java.util.Optional;
 public class SensorTypeService {
     private SensorTypeRepository _sensorTypeRepository;
     private SensorTypeFactory _sensorTypeFactory;
-    private MeasurementTypeRepository _measurementTypeRepository;
+    private UnitRepository _unitRepository;
 
-    public SensorTypeService(SensorTypeRepository sensorTypeRepository, SensorTypeFactory sensorTypeFactory, MeasurementTypeRepository measurementTypeRepository) {
+    public SensorTypeService(SensorTypeRepository sensorTypeRepository, SensorTypeFactory sensorTypeFactory, UnitRepository unitRepository) {
         validateSensorTypeRepository(sensorTypeRepository);
         validateSensorTypeFactory(sensorTypeFactory);
-        validateMeasurementTypeRepository(measurementTypeRepository);
+        validateMeasurementTypeRepository(unitRepository);
     }
     private void validateSensorTypeRepository(SensorTypeRepository sensorTypeRepository) {
         if (sensorTypeRepository == null) {
@@ -35,16 +35,16 @@ public class SensorTypeService {
             this._sensorTypeFactory = sensorTypeFactory;
         }
     }
-    private void validateMeasurementTypeRepository(MeasurementTypeRepository measurementTypeRepository) {
-        if (measurementTypeRepository == null) {
+    private void validateMeasurementTypeRepository(UnitRepository unitRepository) {
+        if (unitRepository == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type repository.");
         } else {
-            this._measurementTypeRepository = measurementTypeRepository;
+            this._unitRepository = unitRepository;
         }
     }
 
     public SensorType createSensorType(TypeDescription name, UnitID unitID) {
-        if (!_measurementTypeRepository.containsOfIdentity(unitID)) {
+        if (!_unitRepository.containsOfIdentity(unitID)) {
             throw new IllegalArgumentException("Please enter a valid measurement type.");
         }
         SensorType sensorType = _sensorTypeFactory.createSensorType(name, unitID);

@@ -4,6 +4,7 @@ import SmartHomeDDD.DTO.UnitDTO;
 import SmartHomeDDD.valueObject.UnitID;
 import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.domain.Unit.Unit;
+import SmartHomeDDD.valueObject.UnitSymbol;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -23,15 +24,20 @@ class UnitAssemblerTest {
         UnitID unitID = mock(UnitID.class);
         UnitDescription unitDescription = mock(UnitDescription.class);
         Unit unit = mock(Unit.class);
+        UnitSymbol unitSymbol = mock(UnitSymbol.class);
+
+
         when(unit.getID()).thenReturn(unitID);
         when(unitID.toString()).thenReturn("f47b3b2d-0b7d-4e7b-8b8f-5f3b6d6b1f1d");
         when(unit.getUnitDescription()).thenReturn(unitDescription);
-        when(unitDescription.toString()).thenReturn("Water Temperature in Celcius");
+        when(unitDescription.toString()).thenReturn("Celcius");
+        when(unit.getUnitSymbol()).thenReturn(unitSymbol);
+        when(unitSymbol.toString()).thenReturn("C");
         // Act
         UnitDTO unitDTO = unitAssembler.domainToDTO(unit);
 
         // Assert
-        assertEquals("Water Temperature in Celcius", unitDTO.description);
+        assertEquals("Celcius", unitDTO.description);
     }
     @Test
     void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithNullMeasurementType() {
@@ -52,34 +58,40 @@ class UnitAssemblerTest {
 
         UnitID unitID = mock(UnitID.class);
         UnitDescription unitDescription = mock(UnitDescription.class);
+        UnitSymbol unitSymbol = mock(UnitSymbol.class);
 
         String measurementIDData = "f47b3b2d-0b7d-4e7b-8b8f-5f3b6d6b1f1d";
-        String measurementTypeDescriptionData = "Water Temperature in Celcius";
-
+        String measurementTypeDescriptionData = "Celcius";
+        String measurementTypeSymbolData = "C";
 
         Unit unit = mock(Unit.class);
         when(unit.getID()).thenReturn(unitID);
         when(unitID.toString()).thenReturn(measurementIDData);
         when(unit.getUnitDescription()).thenReturn(unitDescription);
         when(unitDescription.toString()).thenReturn(measurementTypeDescriptionData);
+        when(unit.getUnitSymbol()).thenReturn(unitSymbol);
+        when(unitSymbol.toString()).thenReturn(measurementTypeSymbolData);
 
         Unit unit2 = mock(Unit.class);
         UnitID unitID2 = mock(UnitID.class);
-
+        UnitSymbol unitSymbol2 = mock(UnitSymbol.class);
         String measurementIDData2 = "f47b3b2d-0b7d-4e7b-8b8f-5f3b6d6b1f1e";
-        String measurementTypeDescriptionData2 = "Air Temperature in Celcius";
+        String measurementTypeDescriptionData2 = "Percentage";
+        String measurementTypeSymbolData2 = "%";
 
         UnitDescription unitDescription2 = mock(UnitDescription.class);
         when(unit2.getID()).thenReturn(unitID2);
         when(unitID2.toString()).thenReturn(measurementIDData2);
         when(unit2.getUnitDescription()).thenReturn(unitDescription2);
         when(unitDescription2.toString()).thenReturn(measurementTypeDescriptionData2);
+        when(unit2.getUnitSymbol()).thenReturn(unitSymbol2);
+        when(unitSymbol2.toString()).thenReturn(measurementTypeSymbolData2);
 
         List <Unit> unitList = List.of(unit, unit2);
 
         //Expected list
-        UnitDTO unitDTO = new UnitDTO(measurementIDData, measurementTypeDescriptionData);
-        UnitDTO unitDTO2 = new UnitDTO(measurementIDData2, measurementTypeDescriptionData2);
+        UnitDTO unitDTO = new UnitDTO(measurementIDData, measurementTypeDescriptionData, measurementTypeSymbolData);
+        UnitDTO unitDTO2 = new UnitDTO(measurementIDData2, measurementTypeDescriptionData2, measurementTypeSymbolData2);
         List <UnitDTO> expectedList = List.of(unitDTO, unitDTO2);
 
 

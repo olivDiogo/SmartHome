@@ -55,9 +55,10 @@ deactivate GPS
 Location --> LocationFactory: location
 deactivate Location
 LocationFactory --> House: location
+activate House
 deactivate LocationFactory
 House --> Controller: location
-
+deactivate House
 create Assembler
 Controller -> Assembler: createLocationDTO(location)
 activate Assembler
