@@ -3,6 +3,8 @@ package SmartHomeDDD.domain.Sensor;
 import SmartHomeDDD.ddd.ValueObject;
 import SmartHomeDDD.valueObject.*;
 
+import java.util.Objects;
+import java.util.Random;
 import java.util.UUID;
 
 public class SwitchSensor implements Sensor{
@@ -70,6 +72,8 @@ public class SwitchSensor implements Sensor{
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
+        } else if (!Objects.equals(sensorTypeID.getId(), "Switch")) {
+            throw new IllegalArgumentException("SensorTypeID must be of type 'Switch'");
         } else {
             this._sensorTypeID = sensorTypeID;
         }
@@ -135,7 +139,12 @@ public class SwitchSensor implements Sensor{
      */
     @Override
     public SwitchSensorValue getValue() {
-        switchSensorValue = new SwitchSensorValue(false);
+        Random random = new Random();
+        // Randomly choose true or false
+        boolean randomBoolean = random.nextBoolean();
+
+        this.switchSensorValue = new SwitchSensorValue(randomBoolean);
+
         return this.switchSensorValue;
     }
 
