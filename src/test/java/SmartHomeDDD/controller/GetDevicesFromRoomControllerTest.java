@@ -30,7 +30,7 @@ class GetDevicesFromRoomControllerTest {
      * Test to check if the GetDevicesFromRoomController constructor instantiates the controller correctly.
      */
     @Test
-    public void shouldInstantiateGetDevicesFromRoomController_WhenParametersAreValid() {
+    void shouldInstantiateGetDevicesFromRoomController_WhenParametersAreValid() {
         //Arrange
         RoomRepository roomRepository = new RoomRepository();
         ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -52,10 +52,119 @@ class GetDevicesFromRoomControllerTest {
     }
 
     /**
+     * Test to check if the GetDevicesFromRoomController constructor throws an exception when the room service is null.
+     */
+    @Test
+    void shouldThrowException_WhenRoomServiceIsNull() {
+        //Arrange
+        RoomRepository roomRepository = new RoomRepository();
+        RoomAssembler roomAssembler = new RoomAssembler();
+        RoomService roomService = null;
+
+        DeviceRepository deviceRepository = new DeviceRepository();
+        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+
+        DeviceAssembler deviceAssembler = new DeviceAssembler();
+
+        String expectedMessage = "RoomService is required";
+
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetDevicesFromRoomController(roomService, deviceService, roomAssembler, deviceAssembler));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to check if the GetDevicesFromRoomController constructor throws an exception when the device service is null.
+     */
+    @Test
+    void shouldThrowException_WhenDeviceServiceIsNull() {
+        //Arrange
+        RoomRepository roomRepository = new RoomRepository();
+        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomAssembler roomAssembler = new RoomAssembler();
+        HouseRepository houseRepository = new HouseRepository();
+
+        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+
+        DeviceService deviceService = null;
+
+        DeviceAssembler deviceAssembler = new DeviceAssembler();
+
+        String expectedMessage = "DeviceService is required";
+
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetDevicesFromRoomController(roomService, deviceService, roomAssembler, deviceAssembler));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to check if the GetDevicesFromRoomController constructor throws an exception when the device assembler is null.
+     */
+    @Test
+    void shouldThrowException_WhenRoomAssemblerIsNull() {
+        //Arrange
+        RoomRepository roomRepository = new RoomRepository();
+        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomAssembler roomAssembler = null;
+        HouseRepository houseRepository = new HouseRepository();
+
+        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+
+        DeviceRepository deviceRepository = new DeviceRepository();
+        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+
+        DeviceAssembler deviceAssembler = new DeviceAssembler();
+
+        String expectedMessage = "RoomAssembler is required";
+
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetDevicesFromRoomController(roomService, deviceService, roomAssembler, deviceAssembler));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to check if the GetDevicesFromRoomController constructor throws an exception when the device assembler is null.
+     */
+    @Test
+    void shouldThrowException_WhenDeviceAssemblerIsNull() {
+        //Arrange
+        RoomRepository roomRepository = new RoomRepository();
+        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomAssembler roomAssembler = new RoomAssembler();
+        HouseRepository houseRepository = new HouseRepository();
+
+        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+
+        DeviceRepository deviceRepository = new DeviceRepository();
+        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+
+        DeviceAssembler deviceAssembler = null;
+
+        String expectedMessage = "DeviceAssembler is required";
+
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetDevicesFromRoomController(roomService, deviceService, roomAssembler, deviceAssembler));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+
+    /**
      * Test to get rooms from a house.
      */
     @Test
-    public void shouldGetRoomsFromHouse_WhenGivenValidHouseID() {
+    void shouldGetRoomsFromHouse_WhenGivenValidHouseID() {
         //Arrange
         RoomRepository roomRepository = new RoomRepository();
         ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -134,7 +243,7 @@ class GetDevicesFromRoomControllerTest {
      * Test to throw an exception when the room ID does not exist in the repository.
      */
     @Test
-    public void shouldThrowException_WhenRoomIDDoesNotExistInRepository() {
+    void shouldThrowException_WhenRoomIDDoesNotExistInRepository() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
         ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -173,7 +282,7 @@ class GetDevicesFromRoomControllerTest {
      * Test to get devices from a room.
      */
     @Test
-    public void shouldGetDevicesFromRoom_WhenParametersAreValid() {
+    void shouldGetDevicesFromRoom_WhenParametersAreValid() {
         //Arrange
         RoomRepository roomRepository = new RoomRepository();
         ImpRoomFactory roomFactory = new ImpRoomFactory();
