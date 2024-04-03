@@ -98,7 +98,7 @@ public class UnitService {
      *
      * @return A List containing all MeasurementTypes.
      */
-    public List<Unit> findAllMeasurementTypes() {
+    public List<Unit> getAllMeasurementTypes() {
         return _measurementTypeRepository.findAll();
     }
 

@@ -26,8 +26,11 @@ class UnitServiceTest {
         MeasurementTypeRepository measurementTypeRepositoryDouble = mock(MeasurementTypeRepository.class);
         UnitFactory unitFactoryDouble = mock(UnitFactory.class);
 
-        // Act & Assert
-        new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
+        // Act
+        UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
+
+        // Assert
+        assertNotNull(unitService);
     }
 
     /**
@@ -279,7 +282,7 @@ class UnitServiceTest {
         UnitService unitService = new UnitService(measurementTypeRepositoryDouble, unitFactoryDouble);
 
         // Act
-        List<Unit> result = unitService.findAllMeasurementTypes();
+        List<Unit> result = unitService.getAllMeasurementTypes();
 
         // Assert
         assertEquals(result, measurementTypeRepositoryDouble.findAll());
@@ -302,7 +305,7 @@ class UnitServiceTest {
         when(measurementTypeRepository.findAll()).thenReturn(availableTypes);
 
         // Act
-        List<Unit> result = unitService.findAllMeasurementTypes();
+        List<Unit> result = unitService.getAllMeasurementTypes();
 
         // Assert
         assertFalse(result.isEmpty());
