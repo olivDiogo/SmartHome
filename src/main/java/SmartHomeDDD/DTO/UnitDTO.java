@@ -4,26 +4,29 @@ import SmartHomeDDD.ddd.DTO;
 
 public class UnitDTO implements DTO {
 
-    public final String measurementID;
+    public final String unitID;
     public final String description;
+    public final String unitSymbol;
 
     /**
      * Constructor for the MeasurementDTO class.
      *
-     * @param measurementID is the ID of the Measurement.
-     * @param measurementTypeDescription is the description of the Measurement.
+     * @param unitID is the ID of the Measurement.
+     * @param description is the description of the Measurement.
      */
-    public UnitDTO(String measurementID, String measurementTypeDescription) {
+    public UnitDTO(String unitID, String description, String unitSymbol) {
 
-        this.measurementID = measurementID;
-        this.description = measurementTypeDescription;
+        this.unitID = unitID;
+        this.description = description;
+        this.unitSymbol = unitSymbol;
     }
 
     @Override
     public String toString() {
-        return "MeasurementTypeDTO{" +
-                "measurementID='" + measurementID + '\'' +
+        return "UnitDTO{" +
+                "unitID='" + unitID + '\'' +
                 ", description='" + description + '\'' +
+                ", unitSymbol='" + unitSymbol +
                 '}';
     }
 }
