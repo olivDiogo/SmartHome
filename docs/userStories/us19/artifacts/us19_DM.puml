@@ -1,0 +1,25 @@
+@startuml
+!pragma layout smetana
+
+class WindSensor {
+    -sensorId
+    -name
+}
+
+class Device {
+    -deviceId
+}
+
+class SensorType {
+    -sensorTypeId
+}
+
+class SensorModel {
+    -modelPath
+}
+
+WindSensor --> "1" Device : deviceID
+WindSensor --> "1" SensorType : sensorTypeID
+WindSensor --> "1" SensorModel : modelPath
+''rever com professor se é claro que o WindSensor tem um DeviceId, SensorTypeId e ModelPath
+@enduml
