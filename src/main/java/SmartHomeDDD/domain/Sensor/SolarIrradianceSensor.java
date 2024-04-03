@@ -21,7 +21,7 @@ public class SolarIrradianceSensor implements Sensor{
      * @param sensorTypeID
      * @param sensorName
      */
-    protected SolarIrradianceSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    public SolarIrradianceSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateDeviceID(deviceID);
         this._deviceID = deviceID;
 
