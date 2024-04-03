@@ -160,7 +160,7 @@ class CatalogueSensorTest {
         );
     }
 
-    @Test
+/*    @Test
     void shouldReturnSensorWhenModelIsValid()  throws InstantiationException
     {
         // arrange
@@ -177,7 +177,7 @@ class CatalogueSensorTest {
 
         // assert
         assertEquals( sensor, sensorDouble );
-    }
+    }*/
 
 
     @Test

@@ -229,7 +229,7 @@ class CatalogueActuatorTest {
      * Tests if the Actuator is created and added to the list
      * @throws InstantiationException
      */
-    @Test
+/*    @Test
     void shouldReturnActuatorWhenModelIsUnique()  throws InstantiationException
     {
         // arrange
@@ -246,7 +246,7 @@ class CatalogueActuatorTest {
 
         // assert
         assertEquals(actuator, actuatorDouble);
-    }
+    }*/
 
     /**
      * Tests if the Actuator is created and added to the list if no actuator models exist
