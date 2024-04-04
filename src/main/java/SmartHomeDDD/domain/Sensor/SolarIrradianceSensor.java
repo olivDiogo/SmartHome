@@ -55,6 +55,9 @@ public class SolarIrradianceSensor implements Sensor{
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID cannot be null");
         }
+        if (sensorTypeID.getId() != "SolarIrradiance") {
+            throw new IllegalArgumentException("SensorTypeID must be SolarIrradiance");
+        }
         this._sensorTypeID = sensorTypeID;
     }
 
@@ -121,7 +124,7 @@ public class SolarIrradianceSensor implements Sensor{
      * @return
      */
     @Override
-    public ValueObject getValue() {
+    public SolarIrradianceValue getValue() {
         this._value = new SolarIrradianceValue(4500);
 
         return this._value;
