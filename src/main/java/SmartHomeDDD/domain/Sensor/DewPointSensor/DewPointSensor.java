@@ -1,8 +1,13 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.DewPointSensor;
 
+import SmartHomeDDD.ddd.AggregateRoot;
 import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Sensor.DewPointSensor.DewPointValue;
+import SmartHomeDDD.domain.Sensor.Sensor;
 import SmartHomeDDD.valueObject.*;
 
+import java.util.Objects;
+import java.util.Random;
 import java.util.UUID;
 
 public class DewPointSensor implements Sensor {
@@ -10,7 +15,7 @@ public class DewPointSensor implements Sensor {
     private SensorName _sensorName;
     private SensorID _sensorID;
     private SensorTypeID _sensorTypeID;
-    private ValueObject _dewPointValue;
+    private DewPointValue _dewPointValue;
     private DeviceID _deviceID;
 
     /**
@@ -21,7 +26,7 @@ public class DewPointSensor implements Sensor {
      * @param sensorName   The sensor name.
      * @param sensorTypeID The sensor type ID.
      */
-    protected DewPointSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    public DewPointSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
@@ -70,6 +75,10 @@ public class DewPointSensor implements Sensor {
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
+
+        } else if (!Objects.equals(sensorTypeID.getId(), "Celsius")) {
+            throw new IllegalArgumentException("SensorTypeID must be Celsius");
+
         } else {
             this._sensorTypeID = sensorTypeID;
         }
@@ -135,13 +144,13 @@ public class DewPointSensor implements Sensor {
      * @return the value.
      */
     @Override
-    public ValueObject getValue() {
-        int dewPointValue = 25;
+    public DewPointValue getValue() {
+        Random rand = new Random();
+        int dewPointValue = rand.nextInt(141) - 70;
 
         this._dewPointValue = new DewPointValue(dewPointValue);
 
         return _dewPointValue;
-
     }
 
     /**

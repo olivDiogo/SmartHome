@@ -1,12 +1,10 @@
 package SmartHomeDDD.domain.Sensor;
 
-import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Sensor.DewPointSensor.DewPointSensor;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class DewPointSensorTest {
 
@@ -15,23 +13,21 @@ class DewPointSensorTest {
      */
     @Test
     public void shouldInstantiateDewPointSensor_WhenParametersAreValid() {
-        String deviceID = "123A";
-        String modelPath = "SmartHome.sensors.DewPointSensor";
-        String sensorName = "DewPoint";
-        String sensorTypeID = "123B";
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "Celsius";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
         // act
-        new DewPointSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble,  sensorNameDouble);
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        //assert
+        assertNotNull(dewPointSensor);
 
     }
 
@@ -41,26 +37,20 @@ class DewPointSensorTest {
     @Test
     public void shouldThrowException_WhenDeviceIDIsNull() {
         //Arrange
-        String modelPath = "SmartHome.sensors.DewPointSensor";
-        String sensorName = "DewPoint";
-        String sensorTypeID = "123B";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "Celsius";
 
-        DeviceID deviceIDDouble = null;
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-
-
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        DeviceID deviceID = null;
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
         String expectedMessage = "DeviceID is required";
 
-
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new DewPointSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble)
+                new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName)
         );
 
         String actualMessage = exception.getMessage();
@@ -76,24 +66,20 @@ class DewPointSensorTest {
     @Test
     public void shouldThrowException_WhenModelPathIsNull() {
         //Arrange
-        String deviceID = "123A";
-        String sensorName = "DewPoint";
-        String sensorTypeID = "123B";
+        String deviceIDName = "123A";
+        String name = "DewPointSensor";
+        String typeID = "Celsius";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = null;
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = null;
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
         String expectedMessage = "ModelPath is required";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new DewPointSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble)
+                new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName)
         );
 
         String actualMessage = exception.getMessage();
@@ -108,24 +94,20 @@ class DewPointSensorTest {
     @Test
     public void shouldThrowException_WhenSensorNameIsNull() {
         //Arrange
-        String deviceID = "123A";
-        String modelPath = "SmartHome.sensors.DewPointSensor";
-        String sensorTypeID = "123B";
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String typeID = "Celsius";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = null;
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = null;
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
         String expectedMessage = "SensorName is required";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new DewPointSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble)
+                new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName)
         );
 
         String actualMessage = exception.getMessage();
@@ -140,24 +122,21 @@ class DewPointSensorTest {
     @Test
     public void shouldThrowException_WhenSensorTypeIDIsNull() {
         //Arrange
-        String deviceID = "123A";
-        String modelPath = "SmartHome.sensors.DewPointSensor";
-        String sensorName = "DewPoint";
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "Celsius";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = null;
-
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = null;
 
         String expectedMessage = "SensorTypeID is required";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new DewPointSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble)
+                new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName)
         );
 
         String actualMessage = exception.getMessage();
@@ -167,193 +146,181 @@ class DewPointSensorTest {
     }
 
     @Test
-    public void shouldGetDewPointID() {
+    void shouldThrowException_WhenSensorTypeIDIsInvalid () {
         //Arrange
-        String sensorID = "123C";
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "Fahrenheit";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        try (MockedConstruction<SensorID> sensorIDDouble = mockConstruction(SensorID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorID);
-        })) {
+        String expectedMessage = "SensorTypeID must be Celsius";
 
-            DewPointSensor dewPointSensor = new DewPointSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+        //Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName)
+        );
 
-            //Act
-            SensorID result = dewPointSensor.getID();
+        String actualMessage = exception.getMessage();
 
-            //Assert
-            assertEquals(sensorID, result.toString());
-        }
+        //Assert
+        assertEquals(expectedMessage, actualMessage);
+
     }
 
+    /**
+     * Should return Sensor ID.
+     */
+    @Test
+    public void shouldGetDewPointID() {
+        //Arrange
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "Celsius";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        //Act
+        SensorID result = dewPointSensor.getID();
+
+        //Assert
+        assertNotNull(result);
+    }
+
+    /**
+     * Should get sensor name.
+     */
     @Test
     public void shouldGetDewPointName() {
         //Arrange
-        String deviceID = "123A";
-        String modelPath = "SmartHome.sensors.DewPointSensor";
-        String sensorName = "DewPoint";
-        String sensorTypeID = "123B";
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "Celsius";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
+        //Act
+        SensorName result = dewPointSensor.getName();
 
-        try (MockedConstruction<SensorName> mockedConstruction = mockConstruction(SensorName.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorName);
-        })) {
+        //Assert
+        assertEquals(sensorName.toString(), result.toString());
 
-            DewPointSensor dewPointSensor = new DewPointSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
-
-            //Act
-            SensorName result = dewPointSensor.getName();
-
-            //Assert
-            assertEquals(sensorName, result.toString());
-        }
     }
 
+    /**
+     * Should get model Path.
+     */
     @Test
     public void shouldGetDewPointModelPath() {
         //Arrange
-        String deviceID = "123A";
-        String modelPath = "SmartHome.sensors.DewPointSensor";
-        String sensorName = "DewPoint";
-        String sensorTypeID = "123B";
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "Celsius";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-        try (MockedConstruction<ModelPath> mockedConstruction = mockConstruction(ModelPath.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(modelPath);
-        })) {
+        //Act
+        ModelPath result = dewPointSensor.getModelPath();
 
-            DewPointSensor dewPointSensor = new DewPointSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
-
-            //Act
-            ModelPath result = dewPointSensor.getModelPath();
-
-            //Assert
-            assertEquals(modelPath, result.toString());
-        }
+        //Assert
+        assertEquals(modelPath.toString(), result.toString());
     }
 
+    /**
+     * Should get sensorType ID.
+     */
     @Test
     public void shouldGetDewPointSensorTypeID() {
         //Arrange
-        String deviceID = "123A";
-        String modelPath = "SmartHome.sensors.DewPointSensor";
-        String sensorName = "DewPoint";
-        String sensorTypeID = "123B";
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "Celsius";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-        try (MockedConstruction<SensorTypeID> mockedConstruction = mockConstruction(SensorTypeID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorTypeID);
-        })) {
+        //Act
+        SensorTypeID result = dewPointSensor.getSensorTypeID();
 
-            DewPointSensor dewPointSensor = new DewPointSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
-
-            //Act
-            SensorTypeID result = dewPointSensor.getSensorTypeID();
-
-            //Assert
-            assertEquals(sensorTypeID, result.toString());
-        }
+        //Assert
+        assertEquals(sensorTypeID.toString(), result.toString());
     }
 
+    /**
+     * Should return device ID.
+     */
     @Test
     public void shouldGetDeviceID() {
         //Arrange
-        String deviceID = "123A";
-        String modelPath = "SmartHome.sensors.DewPointSensor";
-        String sensorName = "DewPoint";
-        String sensorTypeID = "123B";
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "Celsius";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-        try (MockedConstruction<DeviceID> mockedConstruction = mockConstruction(DeviceID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(deviceID);
-        })) {
+        //Act
+        DeviceID result = dewPointSensor.getDeviceID();
 
-            DewPointSensor dewPointSensor = new DewPointSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
-
-            //Act
-            DeviceID result = dewPointSensor.getDeviceID();
-
-            //Assert
-            assertEquals(deviceID, result.toString());
-        }
+        //Assert
+        assertEquals(deviceID.toString(), result.toString());
     }
 
+    /**
+     * Should return dew point value.
+     */
     @Test
     public void shouldGetDewPointValue() {
         //Arrange
-        String deviceID = "123A";
-        String modelPath = "SmartHome.sensors.DewPointSensor";
-        String sensorName = "DewPoint";
-        String sensorTypeID = "123B";
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "Celsius";
 
-        String expectedValue = "25";
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        //Act
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
-
-        try (MockedConstruction<DewPointValue> mockedConstruction = mockConstruction(DewPointValue.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(expectedValue);
-        })) {
-
-            DewPointSensor dewPointSensor = new DewPointSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
-
-            //Act
-            ValueObject result = dewPointSensor.getValue();
-
-            //Assert
-            assertEquals(expectedValue, result.toString());
-        }
+        //Assert
+        int value = Integer.parseInt(dewPointSensor.getValue().toString());
+        assertTrue(value >= -70 && value <= 70);
     }
-
-
 
 
 }
