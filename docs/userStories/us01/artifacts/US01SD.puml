@@ -2,28 +2,49 @@
 
 participant " "
 participant ":ConfigureHouseLocationController" as ConfigureHouseLocationController
-participant ":HouseService" as Service
+
 participant "address:Address" as Address
-participant "zipCode:ZipCode" as ZipCode
 participant "gps:Gps" as Gps
+
+participant ":HouseService" as Service
+participant ":HouseAssembler" as Assembler
+
 participant ":HouseFactory" as Factory
 participant "house:House" as House
 participant ":HouseRepository" as Repository
-participant ":HouseAssembler" as Assembler
+
 participant "houseDTO:HouseDTO" as DTO
 
 '----------------------------------------------------------
 autonumber
-" " o-> ConfigureHouseLocationController : requestconfigureHouseLocation(houseDTO)
+" " o-> ConfigureHouseLocationController : requestconfigureHouseLocation(houseDataDTO)
 activate ConfigureHouseLocationController
-ConfigureHouseLocationController -> ConfigureHouseLocationController : createLocationDTO(street, doorNumber, zipCode, latitude, longitude)
-ConfigureHouseLocationController -> Service : createHouseLocation(street, doorNumber, zipCode, latitude, longitude)
+
+create Address
+ConfigureHouseLocationController -> Address : createAddress(street, doorNumber, postalCode, countryCode, postalCodeFactory)
+
+activate Address
+
+Address --> ConfigureHouseLocationController : address
+deactivate Address
+
+create Gps
+ConfigureHouseLocationController -> Gps : createGPS(latitude, longitude)
+
+activate Gps
+
+Gps --> ConfigureHouseLocationController : gps
+deactivate Gps
+
+
+ConfigureHouseLocationController -> Service : addHouse(address, gps)
+
 activate Service
 
-Service -> Factory : createHouseLocation(address, zipCode, gps)
+Service -> Factory : createHouseLocation(address, gps)
 activate Factory
 create House
-Factory -> House: createHouse(address, zipCode, gps)
+Factory -> House: createHouse(address, gps)
 activate House
 House --> Factory: house
 deactivate House
@@ -31,13 +52,16 @@ Factory --> Service: house
 deactivate Factory
 Service -> Repository : saveHouse(house)
 activate Repository
-deactivate Service
-Repository --> ConfigureHouseLocationController : house
+
+Repository --> Service : house
 deactivate Repository
-ConfigureHouseLocationController -> Assembler : assemblerHouseLocation(house)
+Service --> ConfigureHouseLocationController : house
+deactivate Service
+
+ConfigureHouseLocationController -> Assembler : domainToDTO(house)
 activate Assembler
 create DTO
-Assembler -> DTO : house2DTO(house)
+Assembler -> DTO : create(house)
 activate DTO
 DTO --> Assembler : houseDTO
 deactivate DTO
