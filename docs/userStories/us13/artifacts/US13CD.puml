@@ -126,5 +126,6 @@ ActuatorTypeID ..|> domain.ddd.DomainID
 ActuatorID ..|> domain.ddd.DomainID
 ModelPath ..|> domain.ddd.DomainID
 ActuatorName ..|> domain.ddd.DomainID
+DeviceID ..|> domain.ddd.DomainID
 
 @enduml

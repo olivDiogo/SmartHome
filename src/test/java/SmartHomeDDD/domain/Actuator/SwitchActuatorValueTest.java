@@ -3,8 +3,7 @@ package SmartHomeDDD.domain.Actuator;
 import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuatorValue;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SwitchActuatorValueTest {
 
@@ -13,11 +12,14 @@ public class SwitchActuatorValueTest {
      */
     @Test
     void shouldCreateInstanceOfSwitchActuator() {
-        // arrange
+        // Arrange
         boolean value = true;
 
-        // act
-        new SwitchActuatorValue(value);
+        // Act
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(value);
+
+        // Assert
+        assertNotNull(switchActuatorValue);
     }
 
     /**

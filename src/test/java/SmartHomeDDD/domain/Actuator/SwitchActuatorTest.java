@@ -7,9 +7,6 @@ import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator;
 import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuatorValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
-
-import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -117,6 +114,23 @@ public class SwitchActuatorTest {
         }
     }
 
+    @Test
+    void shouldThrowIllegalArgumentException_whenActuatorTypeIDIsNotSwitch() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("actuatorName");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("NotSwitch");
+
+        // Act & Assert
+        try {
+            new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
+        } catch (IllegalArgumentException e) {
+            // Assert
+            assert e.getMessage().equals("The value of 'actuatorTypeID' should be 'Switch'.");
+        }
+    }
+
     /**
      * Should generate actuatorID when constructor arguments are valid.
      */
@@ -215,7 +229,7 @@ public class SwitchActuatorTest {
             new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
         } catch (IllegalArgumentException e) {
             // Assert
-            assert e.getMessage().equals("The value of 'actuatorTypeID' should be 'SwitchActuator'.");
+            assert e.getMessage().equals("The value of 'actuatorTypeID' should be 'Switch'.");
         }
 
     }
