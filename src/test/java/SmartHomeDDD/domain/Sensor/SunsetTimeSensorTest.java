@@ -1,10 +1,7 @@
 package SmartHomeDDD.domain.Sensor;
 
 import SmartHome.domain.Gps;
-import SmartHomeDDD.valueObject.DeviceID;
-import SmartHomeDDD.valueObject.ModelPath;
-import SmartHomeDDD.valueObject.SensorName;
-import SmartHomeDDD.valueObject.SensorTypeID;
+import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 import org.shredzone.commons.suncalc.SunTimes;
 
@@ -134,6 +131,76 @@ class SunsetTimeSensorTest {
         SunriseSunsetTimeValue sunsetTime = (SunriseSunsetTimeValue) sunsetTimeSensor.getValue(date);
         //Assert
         assertEquals(expected.toString(), sunsetTime.toString());
+    }
+    @Test
+    void shouldReturnDeviceIDWhenGetDeviceIDIsCalled() throws InstantiationException {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        Gps gps = new Gps(0, 0);
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+        //Act
+        DeviceID actualDeviceID = sunsetTimeSensor.getDeviceID();
+        //Assert
+        assertEquals(deviceID, actualDeviceID);
+    }
+    @Test
+    void shouldReturnSensorTypeIDWhenGetSensorTypeIDIsCalled() throws InstantiationException {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        Gps gps = new Gps(0, 0);
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+        //Act
+        SensorTypeID actualSensorTypeID = sunsetTimeSensor.getSensorTypeID();
+        //Assert
+        assertEquals(sensorTypeID, actualSensorTypeID);
+    }
+    @Test
+    void shouldReturnSensorNameWhenGetSensorNameIsCalled() throws InstantiationException {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        Gps gps = new Gps(0, 0);
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+        //Act
+        SensorName actualSensorName = sunsetTimeSensor.getName();
+        //Assert
+        assertEquals(sensorName, actualSensorName);
+    }
+    @Test
+    void shouldReturnModelPathWhenGetModelPathIsCalled() throws InstantiationException {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        Gps gps = new Gps(0, 0);
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+        //Act
+        ModelPath actualModelPath = sunsetTimeSensor.getModelPath();
+        //Assert
+        assertEquals(modelPath, actualModelPath);
+    }
+    @Test
+    void shouldReturnSensorIDWhenGetSensorIDIsCalled() throws InstantiationException {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        Gps gps = new Gps(0, 0);
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+        //Act
+        SensorID actualSensorID = sunsetTimeSensor.getID();
+        //Assert
+        assertTrue(sunsetTimeSensor.toString().contains(actualSensorID.toString()));
     }
 
 

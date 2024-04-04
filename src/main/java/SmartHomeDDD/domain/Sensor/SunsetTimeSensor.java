@@ -112,6 +112,18 @@ public class SunsetTimeSensor implements Sensor{
         this._sunriseTimeValue = new SunriseSunsetTimeValue(sunrise);
         return this._sunriseTimeValue;
     }
+    @Override
+    public String toString() {
+        return "SunsetTimeSensor{" +
+                "_sunriseTimeValue=" + _sunriseTimeValue +
+                ", _sensorTypeID=" + _sensorTypeID +
+                ", _sensorID=" + _sensorID +
+                ", _sensorName=" + _sensorName +
+                ", _deviceID=" + _deviceID +
+                ", _modelPath=" + _modelPath +
+                ", _gps=" + _gps +
+                '}';
+    }
 
 
 }
