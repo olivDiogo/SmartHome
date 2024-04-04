@@ -13,8 +13,6 @@ public class SetIntegerActuatorLimits implements ValueObject {
      */
     public SetIntegerActuatorLimits(int lowerLimit, int upperLimit) {
         validateLimits(lowerLimit, upperLimit);
-        this._lowerLimit = lowerLimit;
-        this._upperLimit = upperLimit;
     }
 
     /**
@@ -26,6 +24,8 @@ public class SetIntegerActuatorLimits implements ValueObject {
         if (lowerLimit > upperLimit) {
             throw new IllegalArgumentException("Lower limit cannot be greater than upper limit");
         }
+        this._lowerLimit = lowerLimit;
+        this._upperLimit = upperLimit;
     }
 
     /**

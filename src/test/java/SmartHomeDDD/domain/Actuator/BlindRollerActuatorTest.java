@@ -18,13 +18,16 @@ class BlindRollerActuatorTest {
     @Test
     void shouldCreateBlindRollerActuator_WhenConstructorArgumentsAreValid() {
         //Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
 
         //Act
-        new BlindRollerActuator(deviceIDDouble, actuatorTypeIDDouble, actuatorNameDouble, modelPathDouble);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
+
+        //Assert
+        assertNotNull(blindRollerActuator);
     }
 
     /**
@@ -33,15 +36,16 @@ class BlindRollerActuatorTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenDeviceIDIsNull() {
         //Arrange
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+        DeviceID deviceID = null;
 
         String expectedMessage = "DeviceID cannot be null";
 
-        //Act+Assert
+       //Act+Assert
         try {
-            new BlindRollerActuator(null, actuatorTypeIDDouble, actuatorNameDouble, modelPathDouble);
+            new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
         } catch (IllegalArgumentException e) {
             assertEquals(expectedMessage, e.getMessage());
         }
@@ -53,15 +57,16 @@ class BlindRollerActuatorTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenActuatorTypeIDIsNull() {
         //Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = null;
 
         String expectedMessage = "ActuatorTypeID cannot be null";
 
         //Act+Assert
         try {
-            new BlindRollerActuator(deviceIDDouble, null, actuatorNameDouble, modelPathDouble);
+            new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
         } catch (IllegalArgumentException e) {
             assertEquals(expectedMessage, e.getMessage());
         }
@@ -73,15 +78,16 @@ class BlindRollerActuatorTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenActuatorNameIsNull() {
         //Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        ActuatorName actuatorName = null;
 
         String expectedMessage = "ActuatorName cannot be null";
 
         //Act+Assert
         try {
-            new BlindRollerActuator(deviceIDDouble, actuatorTypeIDDouble, null, modelPathDouble);
+            new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
         } catch (IllegalArgumentException e) {
             assertEquals(expectedMessage, e.getMessage());
         }
@@ -93,18 +99,20 @@ class BlindRollerActuatorTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenModelPathIsNull() {
         //Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        DeviceID deviceID = new DeviceID("1");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+        ModelPath modelPath = null;
 
         String expectedMessage = "ModelPath cannot be null";
 
         //Act+Assert
-        try {
-            new BlindRollerActuator(deviceIDDouble, actuatorTypeIDDouble, actuatorNameDouble, null);
+       try {
+            new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
         } catch (IllegalArgumentException e) {
             assertEquals(expectedMessage, e.getMessage());
         }
+
     }
 
     /**
@@ -113,12 +121,12 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnActuatorID_WhenGetIDIsCalled() {
         // Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDDouble, actuatorTypeIDDouble, actuatorNameDouble, modelPathDouble);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
 
         // Act
         ActuatorID result = blindRollerActuator.getID();
@@ -135,12 +143,12 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnActuatorName_WhenGetNameIsCalled() {
         //Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDDouble, actuatorTypeIDDouble, actuatorNameDouble, modelPathDouble);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
 
         //Act
         ActuatorName result = blindRollerActuator.getName();
@@ -155,12 +163,12 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnModelPath_WhenGetModelPathIsCalled() {
         //Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDDouble, actuatorTypeIDDouble, actuatorNameDouble, modelPathDouble);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
 
         //Act
         ModelPath result = blindRollerActuator.getModelPath();
@@ -176,12 +184,12 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnActuatorTypeID_WhenGetActuatorTypeIDIsCalled() {
         //Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDDouble, actuatorTypeIDDouble, actuatorNameDouble, modelPathDouble);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
 
         //Act
         ActuatorTypeID result = blindRollerActuator.getActuatorTypeID();
@@ -195,12 +203,12 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnDeviceID_WhenGetDeviceIDIsCalled() {
         //Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDDouble, actuatorTypeIDDouble, actuatorNameDouble, modelPathDouble);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
 
         //Act
         DeviceID result = blindRollerActuator.getDeviceID();
@@ -215,13 +223,13 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnActuatorValue_WhenSetValueIsCalled() {
         //Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-        BlindRollerValue blindRollerValue = mock(BlindRollerValue.class);
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+        BlindRollerValue blindRollerValue = new BlindRollerValue(1);
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDDouble, actuatorTypeIDDouble, actuatorNameDouble, modelPathDouble);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
 
         //Act
         BlindRollerValue result = blindRollerActuator.setValue(blindRollerValue);
@@ -236,12 +244,12 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnNull_WhenSetValueIsNull() {
         //Arrange
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDDouble, actuatorTypeIDDouble, actuatorNameDouble, modelPathDouble);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
 
         //Act
         BlindRollerValue result = blindRollerActuator.setValue(null);

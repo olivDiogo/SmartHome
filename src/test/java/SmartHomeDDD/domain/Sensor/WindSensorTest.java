@@ -1,5 +1,7 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.WindSensor.WindSensor;
+import SmartHomeDDD.domain.Sensor.WindSensor.WindSensorValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;

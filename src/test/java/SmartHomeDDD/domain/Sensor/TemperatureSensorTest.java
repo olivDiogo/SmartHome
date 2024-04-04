@@ -1,11 +1,10 @@
 package SmartHomeDDD.domain.Sensor;
 
 
+import SmartHomeDDD.domain.Sensor.TemperatureSensor.TemperatureSensor;
+import SmartHomeDDD.domain.Sensor.TemperatureSensor.TemperatureSensorValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
