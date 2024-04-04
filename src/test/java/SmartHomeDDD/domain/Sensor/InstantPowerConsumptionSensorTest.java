@@ -13,7 +13,7 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor is instantiated when all parameters are valid.
      */
     @Test
-    public void shouldInstantiateInstantPowerConsumptionSensor_WhenAllParametersAreValid() {
+     void shouldInstantiateInstantPowerConsumptionSensor_WhenAllParametersAreValid() {
         // Arrange
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
@@ -37,7 +37,7 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor throws an exception when the model path is null.
      */
     @Test
-    public void shouldThrowException_WhenDeviceIDIsNull() {
+     void shouldThrowException_WhenDeviceIDIsNull() {
         // Arrange
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
         String name = "InstantPowerConsumptionSensor";
@@ -65,7 +65,7 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor throws an exception when the model path is null.
      */
     @Test
-    public void shouldThrowException_WhenModelPathIsNull() {
+     void shouldThrowException_WhenModelPathIsNull() {
         // Arrange
         String deviceIDName = "123B";
         String name = "InstantPowerConsumptionSensor";
@@ -93,7 +93,7 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor throws an exception when the sensor name is null.
      */
     @Test
-    public void shouldThrowException_WhenSensorNameIsNull() {
+     void shouldThrowException_WhenSensorNameIsNull() {
         // Arrange
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
@@ -121,7 +121,7 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor throws an exception when the sensor type ID is null.
      */
     @Test
-    public void shouldThrowException_WhenSensorTypeIDIsNull() {
+     void shouldThrowException_WhenSensorTypeIDIsNull() {
         // Arrange
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
@@ -175,7 +175,7 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor generates an ID when the sensor is instantiated.
      */
     @Test
-    public void shouldGenerateInstantPowerConsumptionID_WhenInstantPowerConsumptionSensorIsInstantiated() {
+     void shouldGenerateInstantPowerConsumptionID_WhenInstantPowerConsumptionSensorIsInstantiated() {
         // Arrange
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
@@ -200,7 +200,7 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor returns the sensor name.
      */
     @Test
-    public void shouldReturnSensorName_WhenGetSensorNameIsCalled() {
+     void shouldReturnSensorName_WhenGetSensorNameIsCalled() {
         // Arrange
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
@@ -229,7 +229,7 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor returns the model path.
      */
     @Test
-    public void shouldGetInstantPowerConsumptionModelPath() {
+     void shouldGetInstantPowerConsumptionModelPath() {
         //Arrange
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
@@ -256,7 +256,7 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor returns the sensor type ID.
      */
     @Test
-    public void shouldGetInstantPowerConsumptionSensorTypeID() {
+     void shouldGetInstantPowerConsumptionSensorTypeID() {
         //Arrange
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
@@ -280,7 +280,7 @@ class InstantPowerConsumptionSensorTest {
     }
 
     @Test
-    public void shouldGetDeviceID() {
+     void shouldGetDeviceID() {
         //Arrange
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
@@ -304,7 +304,7 @@ class InstantPowerConsumptionSensorTest {
     }
 
     @Test
-    public void shouldGetInstantPowerConsumptionValue() {
+     void shouldGetInstantPowerConsumptionValue() {
         //Arrange
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
@@ -323,7 +323,7 @@ class InstantPowerConsumptionSensorTest {
 
         //Assert
         double value = Double.parseDouble(result.toString());
-        assertTrue(value >= 0 && value <= 100);
+        assertTrue(value >0 && value <= 100);
         assertTrue(value >1);
 
     }
