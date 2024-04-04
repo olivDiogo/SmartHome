@@ -28,6 +28,9 @@ public class DeviceTypeServiceTest {
 
         //Act
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+
+        //Assert
+        assertNotNull(deviceTypeService);
     }
 
     /**
