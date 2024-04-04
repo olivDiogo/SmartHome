@@ -2,8 +2,7 @@ package SmartHomeDDD.domain.Actuator;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 
 public class BlindRollerValueTest {
 
@@ -12,8 +11,14 @@ public class BlindRollerValueTest {
      */
     @Test
     public void shouldCreateBlindRollerValue() {
+        // Arrange
+        int value = 1;
+
         // Act
-        new BlindRollerValue(1);
+        BlindRollerValue blindRollerValue =  new BlindRollerValue(value);
+
+        // Assert
+        assertNotNull(blindRollerValue);
     }
 
     /**
