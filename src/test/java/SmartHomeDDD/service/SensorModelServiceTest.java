@@ -1,4 +1,5 @@
 package SmartHomeDDD.service;
+
 import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
 import SmartHomeDDD.repository.SensorModelRepository;
@@ -8,6 +9,7 @@ import SmartHomeDDD.valueObject.SensorTypeID;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +17,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 class SensorModelServiceTest {
+    /**
+     * Test case for the constructor of the SensorModelService class.
+     */
     @Test
     void shouldInstantiateSensorModelServiceWhenGivenValidParameters() {
         //Arrange
@@ -25,6 +30,10 @@ class SensorModelServiceTest {
         //Assert
         assertNotNull(sensorModelService);
     }
+
+    /**
+     * Should throw an exception when the sensor model factory is null.
+     */
     @Test
     void shouldThrowExceptionWhenSensorModelFactoryIsNull() {
         //Arrange
@@ -37,6 +46,10 @@ class SensorModelServiceTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
+
+    /**
+     * Should throw an exception when the sensor model repository is null.
+     */
     @Test
     void shouldThrowExceptionWhenSensorModelRepositoryIsNull() {
         //Arrange
@@ -49,13 +62,17 @@ class SensorModelServiceTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
+
+    /**
+     * Test case for the getAllSensorModels method.
+     */
     @Test
     void shouldGetListOfSensorModel_WhenGetSensorModelsCalled() {
         //Arrange
         SensorModel sensorModel = mock(SensorModel.class);
         SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
-        when (sensorModelRepository.findAll()).thenReturn(List.of(sensorModel));
+        when(sensorModelRepository.findAll()).thenReturn(List.of(sensorModel));
         try (MockedConstruction<ModelPath> modelPathMockedConstruction = mockConstruction(ModelPath.class, (mock, context) -> {
         });
              MockedConstruction<SensorModelName> sensorModelMockedConstruction = mockConstruction(SensorModelName.class, (mock, context) -> {
@@ -70,6 +87,9 @@ class SensorModelServiceTest {
         }
     }
 
+    /**
+     * Test case for the getSensorModel method.
+     */
     @Test
     void shouldGetSensorModel_WhenGetSensorModelCalled() {
         //Arrange
@@ -94,6 +114,10 @@ class SensorModelServiceTest {
             assertEquals(sensorModel, actualSensor.get());
         }
     }
+
+    /**
+     * Test case for the createSensorModel method.
+     */
     @Test
     void shouldCreateSensorModel_WhenGivenValidParameters() {
         //Arrange
@@ -109,6 +133,10 @@ class SensorModelServiceTest {
         //Assert
         assertEquals(sensorModel, actualSensorModel);
     }
+
+    /**
+     * Should activate the sensor model repository when the createSensorModel method is called.
+      */
     @Test
     void shouldActivateSensorModelRepository_WhenCreateSensorModelCalled() {
         //Arrange
@@ -127,4 +155,32 @@ class SensorModelServiceTest {
         verify(sensorModelRepository, times(1)).save(sensorModel);
     }
 
+
+    /**
+     * Test case for the getSensorModelsBySensorTypeId method.
+     */
+    @Test
+    void shouldReturnSensorModelsBySensorTypeId() {
+        // Arrange
+        SensorModel sensorModel1 = mock(SensorModel.class);
+        SensorModel sensorModel2 = mock(SensorModel.class);
+        List<SensorModel> expectedSensorModels = Arrays.asList(sensorModel1, sensorModel2);
+
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+
+        SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
+        when(sensorModelRepository.findBySensorTypeId(sensorTypeID)).thenReturn(expectedSensorModels);
+
+        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
+
+        // Act
+        List<SensorModel> actualSensorModels = sensorModelService.getSensorModelsBySensorTypeId(sensorTypeID);
+
+        // Assert
+        assertEquals(expectedSensorModels, actualSensorModels);
+    }
+
+
 }
+

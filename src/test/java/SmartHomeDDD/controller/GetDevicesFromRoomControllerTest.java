@@ -47,7 +47,10 @@ class GetDevicesFromRoomControllerTest {
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         //Act
-        new GetDevicesFromRoomController(roomService, deviceService, roomAssembler, deviceAssembler);
+        GetDevicesFromRoomController getDevicesFromRoomController = new GetDevicesFromRoomController(roomService, deviceService, roomAssembler, deviceAssembler);
+
+        //Assert
+        assertNotNull(getDevicesFromRoomController);
 
     }
 

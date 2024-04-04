@@ -48,6 +48,12 @@ public class HouseService {
         }
     }
 
+    /**
+     * Adds a new House to the repository.
+     * @param address the address of the house
+     * @param gps the GPS coordinates of the house
+     * @return the newly created House
+     */
     public House addHouse(Address address, GPS gps) {
         House house = houseFactory.createHouse(address, gps);
         houseRepository.save(house);
