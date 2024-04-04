@@ -20,6 +20,7 @@ public class ImpSensorFactoryTest {
         when(modelPathMock.toString()).thenReturn("SmartHomeDDD.domain.Sensor.SolarIrradianceSensor");
 
         SensorTypeID sensorTypeIdMock = mock(SensorTypeID.class);
+        when(sensorTypeIdMock.getId()).thenReturn("SolarIrradiance");
         SensorName sensorNameMock = mock(SensorName.class);
 
         ImpSensorFactory impSensorFactory = new ImpSensorFactory();
