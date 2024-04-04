@@ -97,34 +97,6 @@ class ActuatorModelServiceTest {
     }
 
     /**
-     * Verifies default actuator models are loaded during service instantiation.
-     */
-    @Test
-    void shouldLoadDefaultActuatorModels_WhenActuatorModelServiceInstantiated() throws ConfigurationException {
-        //Arrange
-        ActuatorModelFactory actuatorModelFactory = mock(ActuatorModelFactory.class);
-        ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
-
-        when(actuatorModelRepository.save(any())).thenReturn(mock(ActuatorModel.class));
-        when(actuatorModelFactory.createActuatorModel(any(), any())).thenReturn(mock(ActuatorModel.class));
-
-        Configurations configs = new Configurations();
-        int defaultActuatorModels = configs.properties(new File("config.properties")).getStringArray("actuator").length;
-
-        try (MockedConstruction<ModelPath> modelPathMockedConstruction = mockConstruction(ModelPath.class, (mock, context) -> {
-        });
-             MockedConstruction<ActuatorModelName> actuatorModelMockedConstruction = mockConstruction(ActuatorModelName.class, (mock, context) -> {
-             })) {
-
-            // Act
-            ActuatorModelService actuatorModelService = new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
-
-            // Assert
-            verify(actuatorModelRepository, times(defaultActuatorModels)).save(any());
-        }
-    }
-
-    /**
      * Tests retrieval of a specific actuator model by its ID.
      */
     @Test

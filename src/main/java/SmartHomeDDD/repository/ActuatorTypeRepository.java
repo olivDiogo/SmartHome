@@ -40,7 +40,6 @@ public class ActuatorTypeRepository implements Repository<ActuatorTypeID, Actuat
     @Override
     public List<ActuatorType> findAll() {
         List<ActuatorType> allActuatorTypes = _actuatorTypeData.values().stream().toList();
-
         return allActuatorTypes;
     }
 

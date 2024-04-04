@@ -3,6 +3,7 @@ package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.Actuator.Actuator;
 import SmartHomeDDD.domain.Actuator.ActuatorFactory;
+import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.repository.ActuatorRepository;
 import SmartHomeDDD.repository.DeviceRepository;
@@ -38,7 +39,6 @@ import java.util.Optional;
     /**
      * Adds an actuator to the system.
      *
-     * @param actuatorID The ID of the actuator to add.
      * @param actuatorTypeID The type ID of the actuator.
      * @param actuatorName The name of the actuator.
      * @param modelPath The path of the model associated with the actuator.
@@ -46,7 +46,7 @@ import java.util.Optional;
      * @return The added actuator.
      * @throws IllegalArgumentException If the device with the specified ID does not exist.
      */
-    public Actuator addActuator(ActuatorID actuatorID, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, ModelPath modelPath, DeviceID deviceID) {
+    public Actuator addActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
         Optional<Device> deviceOptional = _deviceRepository.ofIdentity(deviceID);
         if (deviceOptional.isEmpty()) {
             throw new IllegalArgumentException("Device with ID " + deviceID + " not found.");

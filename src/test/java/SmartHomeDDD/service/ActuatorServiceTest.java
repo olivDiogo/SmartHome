@@ -59,7 +59,7 @@ class ActuatorServiceTest {
         when(actuatorFactory.createActuator(deviceID, modelPath, actuatorTypeID, actuatorName)).thenReturn(mockActuator);
 
         //Act
-        Actuator actuator = actuatorService.addActuator(actuatorID, actuatorTypeID, actuatorName, modelPath, deviceID);
+        Actuator actuator = actuatorService.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
 
         //Assert
         assertNotNull(actuator);
@@ -86,7 +86,7 @@ class ActuatorServiceTest {
         when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> actuatorService.addActuator(actuatorID, actuatorTypeID, actuatorName, modelPath, deviceID));
+        assertThrows(IllegalArgumentException.class, () -> actuatorService.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName));
     }
 
     /**

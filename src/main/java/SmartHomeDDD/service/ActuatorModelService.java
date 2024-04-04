@@ -1,11 +1,9 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModelFactory;
-import SmartHomeDDD.valueObject.ActuatorModelID;
-import SmartHomeDDD.valueObject.ActuatorModelName;
-import SmartHomeDDD.valueObject.ModelPath;
+import SmartHomeDDD.domain.ActuatorModel.ActuatorModelRepo;
+import SmartHomeDDD.valueObject.*;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -18,8 +16,8 @@ import java.util.Optional;
  * Service class for managing actuator models within the smart home domain.
  * This includes loading default actuator models from a configuration file, as well as providing access to these models.
  */
-public class ActuatorModelService {
-    private Repository<ActuatorModelID, ActuatorModel> _actuatorModelRepository;
+public class ActuatorModelService  {
+    private ActuatorModelRepo _actuatorModelRepository;
     private ActuatorModelFactory _factoryActuatorModel;
 
     /**
@@ -29,14 +27,9 @@ public class ActuatorModelService {
      * @param actuatorModelRepository Repository for storing and retrieving actuator models.
      * @param factoryActuatorModel Factory for creating new actuator model instances.
      */
-public ActuatorModelService(Repository<ActuatorModelID, ActuatorModel> actuatorModelRepository, ActuatorModelFactory factoryActuatorModel) {
+public ActuatorModelService(ActuatorModelRepo actuatorModelRepository, ActuatorModelFactory factoryActuatorModel) {
         validateActuatorModelRepository(actuatorModelRepository);
         validateFactoryActuatorModel(factoryActuatorModel);
-        try {
-            loadDefaultActuatorModels();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -45,7 +38,7 @@ public ActuatorModelService(Repository<ActuatorModelID, ActuatorModel> actuatorM
      *
      * @param actuatorModelRepository The repository to be validated.
      */
-    private void validateActuatorModelRepository(Repository<ActuatorModelID, ActuatorModel> actuatorModelRepository) {
+    private void validateActuatorModelRepository(ActuatorModelRepo actuatorModelRepository) {
         if (actuatorModelRepository == null) {
             throw new IllegalArgumentException("Please enter a valid actuator model repository.");
         } else {
@@ -68,31 +61,6 @@ public ActuatorModelService(Repository<ActuatorModelID, ActuatorModel> actuatorM
     }
 
     /**
-     * Loads default actuator models from a configuration file and adds them to the repository.
-     * Throws InstantiationException if there's an issue loading the configurations.
-     */
-    private void loadDefaultActuatorModels() throws InstantiationException {
-        Configurations configs = new Configurations();
-        try {
-            Configuration config = configs.properties(new File("config.properties")); // e.g. filePathname = "config.properties"
-
-            // access configuration properties
-            String[] arrayStringClassesActuators = config.getStringArray("actuator");
-            for (String actuator : arrayStringClassesActuators) {
-                ModelPath actuatorPath = new ModelPath(actuator);
-
-                String actuatorModelName = actuator.substring(actuator.lastIndexOf('.') + 1);
-                ActuatorModelName actuatorName = new ActuatorModelName(actuatorModelName);
-
-                ActuatorModel actuatorModel = _factoryActuatorModel.createActuatorModel(actuatorName, actuatorPath);
-                _actuatorModelRepository.save(actuatorModel);
-            }
-        } catch (ConfigurationException exception) {
-            throw new InstantiationException("Error instantiating actuator model");
-        }
-    }
-
-    /**
      * Retrieves all actuator models from the repository.
      *
      * @return A list of all actuator models.
@@ -111,6 +79,13 @@ public ActuatorModelService(Repository<ActuatorModelID, ActuatorModel> actuatorM
         return _actuatorModelRepository.ofIdentity(actuatorModelID);
     }
 
-
+    /**
+     * Retrieves all actuator models of a specific actuator type.
+     * @param actuatorTypeID
+     * @return
+     */
+    public List<ActuatorModel> getActuatorModelsByActuatorTypeId(ActuatorTypeID actuatorTypeID) {
+        return _actuatorModelRepository.findByActuatorTypeId(actuatorTypeID);
+    }
 
 }
