@@ -49,6 +49,8 @@ public class SunriseTimeSensor implements Sensor {
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID cannot be null.");
+        } else if (!sensorTypeID.equals(new SensorTypeID("SunriseTime"))) {
+            throw new IllegalArgumentException("SensorTypeID must be 'SunriseTime'.");
         } else {
             _sensorTypeID = sensorTypeID;
         }
