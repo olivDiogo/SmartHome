@@ -6,16 +6,18 @@ import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SunriseTimeSensorValueTest {
+public class SunriseSunsetTimeValueTest {
     /**
      * See if the constructor works.
      */
     @Test
-    void shouldInstantiateSunriseTimeValue() throws InstantiationException {
+    void shouldInstantiateSunriseTimeValue() {
         //Arrange
         LocalTime time = LocalTime.of(0, 0, 0);
         //Act
-        new SunriseTimeSensorValue(time);
+        SunriseSunsetTimeValue sunriseSunsetTimeValue = new SunriseSunsetTimeValue(time);
+        //Assert
+        assertNotNull(sunriseSunsetTimeValue);
     }
 
     /**
@@ -27,7 +29,7 @@ public class SunriseTimeSensorValueTest {
         LocalTime time = null;
         String expectedMessage = "Time is required";
         //Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensorValue(time));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseSunsetTimeValue(time));
         //Assert
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
@@ -40,7 +42,7 @@ public class SunriseTimeSensorValueTest {
     void shouldReturnSunsetTime() {
         //Arrange
         LocalTime time = LocalTime.of(5, 5, 20);
-        SunriseTimeSensorValue sunriseTimeValue = new SunriseTimeSensorValue(time);
+        SunriseSunsetTimeValue sunriseTimeValue = new SunriseSunsetTimeValue(time);
         String expected = "Sunrise Time: 05:05:20";
         //Act
         String actual = sunriseTimeValue.toString();
