@@ -1,11 +1,9 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
 import SmartHomeDDD.domain.SensorModel.SensorModelRepo;
 import SmartHomeDDD.valueObject.ModelPath;
-import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
 import SmartHomeDDD.valueObject.SensorTypeID;
 
@@ -45,8 +43,8 @@ public class SensorModelService {
     public List<SensorModel> getAllSensorModels() {
         return _sensorModelRepository.findAll();
     }
-    public Optional<SensorModel> getSensorModel(SensorModelID sensorModelID) {
-        return _sensorModelRepository.ofIdentity(sensorModelID);
+    public Optional<SensorModel> getSensorModel(ModelPath modelPath) {
+        return _sensorModelRepository.ofIdentity(modelPath);
     }
 
     public List<SensorModel> getSensorModelsBySensorTypeId(SensorTypeID sensorTypeID) {

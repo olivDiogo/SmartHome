@@ -21,16 +21,16 @@ package domain.Sensor {
     }
  }
 
-package domain.Sensor.SolarIrradianceSensor {
+package domain.Sensor.TemperatureSensor {
 
-    class domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor <<entity>><<Root>>{
+    class domain.Sensor.TemperatureSensor.TemperatureSensor <<entity>><<Root>>{
         - _sensorID: SensorID
         - _senorName: SensorName
         - _sensorTypeID: SensorTypeID
         - _modelPath: ModelPath
         - _deviceID: DeviceID
-        - _value: SolarIrradianceValue
-        + SolarIrradianceSensor(sensorTypeID: SensorTypeID, modelPath: ModelPath, deviceID: DeviceID, sensorName: SensorName)
+        - _value: TemperatureSensorValue
+        + TemperatureSensor(sensorTypeID: SensorTypeID, modelPath: ModelPath, deviceID: DeviceID, sensorName: SensorName)
         + getSensorTypeString(): String
         + getID(): SensorID
         + getName(): SensorName
@@ -52,9 +52,9 @@ package domain.Sensor.SolarIrradianceSensor {
             + getID() : String
     }
 
-    class SolarIrradianceValue <<ValueObject>>{
-            - _value : int
-            + SolarIrradianceValue(int value)
+    class TemperatureSensorValue <<ValueObject>>{
+            - _value : double
+            + TemperatureSensorValue(double value)
             + toString() : String
     }
 
@@ -83,7 +83,7 @@ package domain.ddd {
   interface DomainEntity {
   }
 
-  interface DomainID extends ValueObject{
+  interface DomainID {
   }
 
   interface AggregateRoot {
@@ -94,21 +94,22 @@ package domain.ddd {
 }
 
 ImplFactorySensor ..|> FactorySensor
-ImplFactorySensor "1" ..> "1" domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor : creates
+ImplFactorySensor "1" ..> "1" domain.Sensor.TemperatureSensor.TemperatureSensor : creates
 
-domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor ..|> domain.Sensor.Sensor
-domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor "1" --> "1" domain.Sensor.SolarIrradianceSensor.SolarIrradianceValue : has
-domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor "1" -->  "1" SensorTypeID : has
-domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor "1" -->  "1" ModelPath : has
-domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor "1" -->  "1" SensorName : has
-domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor "1" -->  "1" SensorID : has
-domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor "1" -->  "1" DeviceID : has
+domain.Sensor.TemperatureSensor.TemperatureSensor ..|> domain.Sensor.Sensor
+domain.Sensor.TemperatureSensor.TemperatureSensor "1" --> "1" domain.Sensor.TemperatureSensor.TemperatureSensorValue : has
+domain.Sensor.TemperatureSensor.TemperatureSensor "1" -->  "1" SensorTypeID : has
+domain.Sensor.TemperatureSensor.TemperatureSensor "1" -->  "1" ModelPath : has
+domain.Sensor.TemperatureSensor.TemperatureSensor "1" -->  "1" SensorName : has
+domain.Sensor.TemperatureSensor.TemperatureSensor "1" -->  "1" SensorID : has
+domain.Sensor.TemperatureSensor.TemperatureSensor "1" -->  "1" DeviceID : has
 
-domain.Sensor.SolarIrradianceSensor.SolarIrradianceValue ..|> domain.ddd.ValueObject
-domain.Sensor.SolarIrradianceSensor.SensorName ..|> domain.ddd.ValueObject
+domain.Sensor.TemperatureSensor.TemperatureSensorValue ..|> domain.ddd.ValueObject
+domain.Sensor.TemperatureSensor.SensorName ..|> domain.ddd.ValueObject
 
 DomainEntity --|> DomainID
 AggregateRoot --|> DomainEntity
+DomainID --|> ValueObject
 
 domain.Sensor.Sensor --|> domain.ddd.AggregateRoot
 

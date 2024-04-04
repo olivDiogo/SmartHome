@@ -2,13 +2,11 @@ package SmartHomeDDD.domain.SensorModel;
 
 import SmartHomeDDD.ddd.AggregateRoot;
 import SmartHomeDDD.valueObject.ModelPath;
-import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
 import SmartHomeDDD.valueObject.SensorTypeID;
 
 
-public class SensorModel implements AggregateRoot<SensorModelID> {
-    private SensorModelID _sensorModelID;
+public class SensorModel implements AggregateRoot<ModelPath> {
     private SensorModelName _sensorModelName;
     private ModelPath _modelPath;
     private SensorTypeID _sensorTypeID;
@@ -17,11 +15,8 @@ public class SensorModel implements AggregateRoot<SensorModelID> {
         validateSensorModelName(sensorModelName);
         validateModelPath(modelPath);
         validateSensorTypeID(sensorTypeID);
-        generateID(modelPath);
     }
-    private void generateID(ModelPath modelPath){
-        _sensorModelID = new SensorModelID(modelPath.toString());
-    }
+
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type ID.");
@@ -53,20 +48,19 @@ public class SensorModel implements AggregateRoot<SensorModelID> {
         return _modelPath;
     }
     @Override
-    public SensorModelID getID() {
-        return _sensorModelID;
+    public ModelPath getID() {
+        return _modelPath;
     }
     @Override
     public boolean equals(Object o) {
         if ( o instanceof SensorModel castedSensorModel) {
-            return _sensorModelID.equals(castedSensorModel._sensorModelID);
+            return _modelPath.equals(castedSensorModel._modelPath);
         }
         return false;
     }
     @Override
     public String toString() {
         return "SensorModel{" +
-                "_sensorModelID=" + _sensorModelID +
                 ", _sensorModelName=" + _sensorModelName +
                 ", _modelPath=" + _modelPath +
                 '}';

@@ -1,7 +1,8 @@
 package SmartHomeDDD.repository;
 
 import SmartHomeDDD.domain.SensorModel.SensorModel;
-import SmartHomeDDD.valueObject.SensorModelID;
+import SmartHomeDDD.valueObject.ModelPath;
+import SmartHomeDDD.valueObject.SensorTypeID;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -51,8 +52,9 @@ class SensorModelRepositoryTest {
         SensorModel sensorModel = mock(SensorModel.class);
         SensorModel secondSensorModel = mock(SensorModel.class);
 
-        SensorModelID sensorModelID = mock(SensorModelID.class);
-        when(sensorModel.getID()).thenReturn(sensorModelID);
+
+        ModelPath modelPath = mock(ModelPath.class);
+        when(sensorModel.getModelPath()).thenReturn(modelPath);
 
         sensorModelRepository.save(sensorModel);
         sensorModelRepository.save(secondSensorModel);
@@ -77,12 +79,12 @@ class SensorModelRepositoryTest {
         //Arrange
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
         SensorModel sensorModel = mock(SensorModel.class);
-        SensorModelID sensorModelID = mock(SensorModelID.class);
-        when(sensorModel.getID()).thenReturn(sensorModelID);
+        ModelPath modelPath = mock(ModelPath.class);
+        when(sensorModel.getModelPath()).thenReturn(modelPath);
 
         sensorModelRepository.save(sensorModel);
         //Act
-        SensorModel actualSensorModel = sensorModelRepository.ofIdentity(sensorModelID).get();
+        SensorModel actualSensorModel = sensorModelRepository.ofIdentity(modelPath).get();
         //Assert
         assertEquals(sensorModel, actualSensorModel);
     }
@@ -91,8 +93,8 @@ class SensorModelRepositoryTest {
         //Arrange
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
         SensorModel sensorModel = mock(SensorModel.class);
-        SensorModelID sensorModelID = mock(SensorModelID.class);
-        SensorModelID invalidSensorModelID = mock(SensorModelID.class);
+        ModelPath sensorModelID = mock(ModelPath.class);
+        ModelPath invalidSensorModelID = mock(ModelPath.class);
         when(sensorModel.getID()).thenReturn(sensorModelID);
 
         sensorModelRepository.save(sensorModel);
@@ -101,27 +103,14 @@ class SensorModelRepositoryTest {
         //Assert
         assertTrue(result);
     }
-    @Test
-    void shouldReturnTrueWhenGivenValidSensorModelID() {
-        //Arrange
-        SensorModelRepository sensorModelRepository = new SensorModelRepository();
-        SensorModel sensorModel = mock(SensorModel.class);
-        SensorModelID sensorModelID = mock(SensorModelID.class);
-        when(sensorModel.getID()).thenReturn(sensorModelID);
 
-        sensorModelRepository.save(sensorModel);
-        //Act
-        boolean result = sensorModelRepository.containsOfIdentity(sensorModelID);
-        //Assert
-        assertTrue(result);
-    }
     @Test
     void shouldReturnFalseWhenGivenInvalidSensorModelID() {
         //Arrange
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
         SensorModel sensorModel = mock(SensorModel.class);
-        SensorModelID sensorModelID = mock(SensorModelID.class);
-        SensorModelID invalidSensorModelID = mock(SensorModelID.class);
+        ModelPath sensorModelID = mock(ModelPath.class);
+        ModelPath invalidSensorModelID = mock(ModelPath.class);
         when(sensorModel.getID()).thenReturn(sensorModelID);
 
         sensorModelRepository.save(sensorModel);
@@ -129,5 +118,22 @@ class SensorModelRepositoryTest {
         boolean result = sensorModelRepository.containsOfIdentity(invalidSensorModelID);
         //Assert
         assertFalse(result);
+    }
+
+    @Test
+    void shouldReturnSensorTypeID_WhenGivenValidSensorTypeID() {
+        //Arrange
+        SensorModelRepository sensorModelRepository = new SensorModelRepository();
+
+        SensorModel sensorModel = mock(SensorModel.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        when(sensorModel.getModelPath()).thenReturn(modelPath);
+        when(sensorModel.getSensorTypeID()).thenReturn(mock(SensorTypeID.class));
+
+        sensorModelRepository.save(sensorModel);
+        //Act
+        SensorModel actualSensorModel = sensorModelRepository.findBySensorTypeId(sensorModel.getSensorTypeID()).get(0);
+        //Assert
+        assertEquals(sensorModel, actualSensorModel);
     }
 }

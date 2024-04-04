@@ -3,7 +3,6 @@ package SmartHomeDDD.assembler;
 import SmartHomeDDD.DTO.SensorModelDTO;
 import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.valueObject.ModelPath;
-import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +19,7 @@ class SensorModelAssemblerTest {
 
         //Arrange
         String sensorModelID = "1";
-        SensorModelID sensorModelIDDouble = mock(SensorModelID.class);
+        ModelPath sensorModelIDDouble = mock(ModelPath.class);
         when(sensorModelIDDouble.toString()).thenReturn(sensorModelID);
 
         String sensorModelName = "Temperature";
@@ -63,7 +62,7 @@ class SensorModelAssemblerTest {
 
         /* Sensor Model 1 */
         String sensorModelID = "1";
-        SensorModelID sensorModelIDDouble = mock(SensorModelID.class);
+        ModelPath sensorModelIDDouble = mock(ModelPath.class);
         when(sensorModelIDDouble.toString()).thenReturn(sensorModelID);
 
         String sensorModelName = "Temperature";
@@ -81,7 +80,7 @@ class SensorModelAssemblerTest {
 
         /* Sensor Model 2 */
         String sensorModelID2 = "2";
-        SensorModelID sensorModelIDDouble2 = mock(SensorModelID.class);
+        ModelPath sensorModelIDDouble2 = mock(ModelPath.class);
         when(sensorModelIDDouble2.toString()).thenReturn(sensorModelID2);
 
         String sensorModelName2 = "Temperature";

@@ -3,15 +3,11 @@ import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
 import SmartHomeDDD.repository.SensorModelRepository;
 import SmartHomeDDD.valueObject.ModelPath;
-import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
 import SmartHomeDDD.valueObject.SensorTypeID;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,7 +74,7 @@ class SensorModelServiceTest {
     void shouldGetSensorModel_WhenGetSensorModelCalled() {
         //Arrange
         SensorModel sensorModel = mock(SensorModel.class);
-        SensorModelID sensorModelId = mock(SensorModelID.class);
+        ModelPath sensorModelId = mock(ModelPath.class);
         when(sensorModel.getID()).thenReturn(sensorModelId);
 
         SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
