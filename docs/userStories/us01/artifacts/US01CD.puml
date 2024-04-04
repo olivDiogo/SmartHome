@@ -6,41 +6,30 @@ skinparam linetype ortho
 
 class ConfigureHouseLocation<<Controller>>{
     -_houseService: HouseService
-    +createHouseLocation(address, zipcode, gps):HouseDTO
-
-}
-class HouseFactory<<Factory>>{
-    +createHouse(address, zipcode, gps):House
+    -_houseAssembler: HouseAssembler
+    +configureHouseLocation(HouseDataDTO):HouseDTO
 }
 class HouseService <<Service>>{
     -_houseFactory: HouseFactory
-    -_houseAssembler: HouseAssembler
     -_houseRepository: HouseRepository
-    +createHouseLocation(address, zipcode, gps):Location
-    +createHouse():HouseService
-    +createAddress(street, doorNumber): String
-    +createGps(latitude, longitude): String
-    +createZipCode(): Int
-
+    +addHouse(address, gps):House
 }
-class HouseDTO<<DTO>>{
-    - _houseDTO: HouseDTO
-    - address: String
-    - gps: String
-    - zipCode: String
-    +address.tostring(): String
-    +gps.toString(): String
-    +zipCode.toString(): String
-
-}
-class HouseAssembler<<Assembler>>{
-    +domain2DTO():HouseDTO
+class HouseFactory<<Factory>>{
+    +createHouse(address, gps):House
 }
 class HouseRepository<<Repository>>{
     +saveHouse():House
-    +getHouse():House
+    +findAll():List <House>
 }
-
+class HouseAssembler<<Assembler>>{
+    +domain2DTO():HouseDTO
+    +dto2Domain():List <HouseDTO>
+}
+class HouseDTO<<DTO>>{
+    - address: String
+    - gps: String
+    +tostring(): String
+}
 ConfigureHouseLocation "1" -down..> "1" HouseService: uses
 HouseService "1" ..> "1" HouseFactory : has >
 ConfigureHouseLocation "1" -[#595959,plain]..> "1" HouseAssembler : creates
