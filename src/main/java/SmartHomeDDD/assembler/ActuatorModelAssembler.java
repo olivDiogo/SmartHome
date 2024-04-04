@@ -22,7 +22,7 @@ public class ActuatorModelAssembler implements Assembler<ActuatorModel, Actuator
 
         String actuatorModelID = domainEntity.getID().toString();
         String actuatorModelName = domainEntity.getActuatorModelName().toString();
-        String actuatorModelPath = domainEntity.getModelPath().toString();
+        String actuatorModelPath = domainEntity.getID().toString();
 
         ActuatorModelDTO actuatorModelDTO = new ActuatorModelDTO(actuatorModelID, actuatorModelName, actuatorModelPath);
         return actuatorModelDTO;
