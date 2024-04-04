@@ -37,7 +37,7 @@ _ImplFactorySensor_ -> for the sensor instantiation
 _The team will design the best way to implement the requirements._
 
 ### 3.1. Class Diagram
-![ClassDiagram](artifacts/US24CD.png)
+![ClassDiagram](artifacts/US24CD.svg)
 ### 3.2. Sequence Diagram
 Not applicable.
 ### 3.3. Applied Patterns
