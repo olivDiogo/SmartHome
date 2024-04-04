@@ -1,6 +1,7 @@
 package SmartHomeDDD.controller;
 
 import SmartHomeDDD.DTO.DeviceDTO;
+import SmartHomeDDD.DTO.DeviceDataDTO;
 import SmartHomeDDD.DTO.RoomDTO;
 import SmartHomeDDD.assembler.DeviceAssembler;
 import SmartHomeDDD.assembler.RoomAssembler;
@@ -324,8 +325,10 @@ class AddDeviceToRoomControllerTest {
 
         DeviceDTO expectedDeviceDTO = deviceAssembler.domainToDTO(device);
 
+        DeviceDataDTO deviceDataDTO = new DeviceDataDTO(deviceTypeID, deviceName, deviceStatus, roomID);
+
         // Act
-        DeviceDTO deviceDTO = addDeviceToRoomController.addDeviceToRoom(roomID, deviceName, deviceStatus, deviceTypeID);
+        DeviceDTO deviceDTO = addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
 
         // Assert
         assertEquals(expectedDeviceDTO.deviceName, deviceDTO.deviceName);
@@ -352,8 +355,10 @@ class AddDeviceToRoomControllerTest {
 
         AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler);
 
+        DeviceDataDTO deviceDataDTO = new DeviceDataDTO("1", "Lamp", true, "1");
+
         // Act + Assert
-        assertThrows(IllegalArgumentException.class, () -> {addDeviceToRoomController.addDeviceToRoom("1", "Lamp", true, "1");
+        assertThrows(IllegalArgumentException.class, () -> {addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
         });
     }
 
