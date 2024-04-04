@@ -1,6 +1,7 @@
 package SmartHomeDDD.domain.Sensor;
 
 
+import SmartHomeDDD.domain.Sensor.AveragePowerConsumptionSensor.AveragePowerConsumptionSensorValue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,6 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.SunriseTimeSensor.SunriseSunsetTimeValue;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;

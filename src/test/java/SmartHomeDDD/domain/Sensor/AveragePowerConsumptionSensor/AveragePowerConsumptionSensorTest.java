@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.AveragePowerConsumptionSensor;
 
 import SmartHomeDDD.ddd.ValueObject;
 import SmartHomeDDD.valueObject.*;

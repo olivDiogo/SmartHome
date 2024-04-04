@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.HumiditySensor;
 
 import SmartHomeDDD.ddd.ValueObject;
 

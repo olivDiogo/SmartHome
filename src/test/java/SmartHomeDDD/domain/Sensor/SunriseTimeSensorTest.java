@@ -1,6 +1,7 @@
 package SmartHomeDDD.domain.Sensor;
 
 import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Sensor.SunriseTimeSensor.SunriseTimeSensor;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 

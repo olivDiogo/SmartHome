@@ -1,5 +1,7 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.SunsetTimeSensor.SunsetTimeSensor;
+import SmartHomeDDD.domain.Sensor.SunsetTimeSensor.SunsetTimeSensorValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 import org.shredzone.commons.suncalc.SunTimes;

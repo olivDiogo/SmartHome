@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.SwitchSensor;
 
 import SmartHomeDDD.ddd.ValueObject;
 

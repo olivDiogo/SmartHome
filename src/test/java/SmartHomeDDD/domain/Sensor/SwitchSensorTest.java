@@ -1,5 +1,7 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.SwitchSensor.SwitchSensor;
+import SmartHomeDDD.domain.Sensor.SwitchSensor.SwitchSensorValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 

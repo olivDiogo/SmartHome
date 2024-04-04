@@ -1,5 +1,6 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.SwitchSensor;
 
+import SmartHomeDDD.domain.Sensor.Sensor;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.Objects;

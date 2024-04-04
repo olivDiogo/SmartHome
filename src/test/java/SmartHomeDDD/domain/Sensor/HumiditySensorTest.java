@@ -1,5 +1,7 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.HumiditySensor.HumiditySensor;
+import SmartHomeDDD.domain.Sensor.HumiditySensor.HumiditySensorValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 

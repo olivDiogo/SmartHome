@@ -1,6 +1,7 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.SunsetTimeSensor;
 
 import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Sensor.Sensor;
 import SmartHomeDDD.valueObject.*;
 import org.shredzone.commons.suncalc.SunTimes;
 

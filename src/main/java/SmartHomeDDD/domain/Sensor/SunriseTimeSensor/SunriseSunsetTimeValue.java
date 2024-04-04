@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.SunriseTimeSensor;
 
 
 import SmartHomeDDD.ddd.ValueObject;

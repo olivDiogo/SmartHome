@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.ElectricConsumptionWhSensor;
 
 import SmartHomeDDD.ddd.ValueObject;
 
