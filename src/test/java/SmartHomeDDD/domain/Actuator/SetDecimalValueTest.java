@@ -5,8 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test cases for the SetDecimalValue class.
+ */
 class SetDecimalValueTest {
 
+    /**
+     * Verifies that SetDecimalValue is correctly instantiated.
+     */
     @Test
     void shouldInstantiateSetDecimalValue() {
         // Act
@@ -16,12 +22,14 @@ class SetDecimalValueTest {
         assertNotNull(setDecimalValue);
     }
 
+    /**
+     * Verifies that the toString method returns the expected string representation of the decimal value.
+     */
     @Test
     void shouldReturnStringValue() {
         // Arrange
         double value = 1.5;
         SetDecimalValue setDecimalValue = new SetDecimalValue(value);
-
         String expected = "1.5";
 
         // Act

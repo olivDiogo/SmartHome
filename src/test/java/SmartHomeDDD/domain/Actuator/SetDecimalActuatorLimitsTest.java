@@ -5,8 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test cases for the SetDecimalActuatorLimits class.
+ */
 class SetDecimalActuatorLimitsTest {
 
+    /**
+     * Verifies that SetDecimalActuatorLimits is correctly instantiated when limits are valid.
+     */
     @Test
     void shouldInstantiateSetDecimalActuatorLimits_whenLimitsAreValid() {
         // Arrange
@@ -20,6 +26,9 @@ class SetDecimalActuatorLimitsTest {
         assertNotNull(setDecimalActuatorLimits);
     }
 
+    /**
+     * Verifies that an IllegalArgumentException is thrown when the lower limit is greater than the upper limit.
+     */
     @Test
     void shouldThrowIllegalArgumentException_whenLowerLimitIsGreaterThanUpperLimit() {
         // Arrange
@@ -37,6 +46,9 @@ class SetDecimalActuatorLimitsTest {
         }
     }
 
+    /**
+     * Verifies that an IllegalArgumentException is thrown when the upper limit is less than the lower limit.
+     */
     @Test
     void shouldThrowIllegalArgumentException_whenUpperLimitIsLessThanLowerLimit() {
         // Arrange
@@ -54,6 +66,9 @@ class SetDecimalActuatorLimitsTest {
         }
     }
 
+    /**
+     * Verifies that an IllegalArgumentException is thrown when the lower limit is negative.
+     */
     @Test
     void shouldReturnLowerLimit_whenGetLowerLimitIsCalled() {
         // Arrange
@@ -68,6 +83,9 @@ class SetDecimalActuatorLimitsTest {
         assertEquals(lowerLimit, result);
     }
 
+    /**
+     * Verifies that an IllegalArgumentException is thrown when the upper limit is negative.
+     */
     @Test
     void shouldReturnUpperLimit_whenGetUpperLimitIsCalled() {
         // Arrange
@@ -82,6 +100,9 @@ class SetDecimalActuatorLimitsTest {
         assertEquals(upperLimit, result);
     }
 
+    /**
+     * Verifies that the equals method returns true when called with the same object.
+     */
     @Test
     void shouldReturnTrue_whenEqualsIsCalledWithSameObject() {
         // Arrange
@@ -96,6 +117,9 @@ class SetDecimalActuatorLimitsTest {
         assertTrue(result);
     }
 
+    /**
+     * Verifies that the equals method returns false when called with a different object.
+     */
     @Test
     void shouldReturnFalse_whenEqualsIsCalledWithDifferentObject() {
         // Arrange
@@ -110,6 +134,9 @@ class SetDecimalActuatorLimitsTest {
         assertFalse(result);
     }
 
+    /**
+     * Verifies that the equals method returns false when called with a different set of limits.
+     */
     @Test
     void shouldReturnFalse_whenEqualsIsCalledWithDifferentLimits() {
         // Arrange
@@ -125,6 +152,9 @@ class SetDecimalActuatorLimitsTest {
         assertFalse(result);
     }
 
+    /**
+     * Verifies that the equals method returns true when called with a different object having the same limits.
+     */
     @Test
     void shouldReturnTrue_whenEqualsIsCalledWithDifferentObjectButSameLimits() {
         // Arrange
@@ -140,6 +170,9 @@ class SetDecimalActuatorLimitsTest {
         assertTrue(result);
     }
 
+    /**
+     * Verifies that the equals method returns false when called with a different object having a different lower limit.
+     */
     @Test
     void shouldReturnFalse_whenEqualsIsCalledWithDifferentObjectAndDifferentLowerLimit() {
         // Arrange
@@ -155,6 +188,9 @@ class SetDecimalActuatorLimitsTest {
         assertFalse(result);
     }
 
+    /**
+     * Verifies that the equals method returns false when called with a different object having a different upper limit.
+     */
     @Test
     void shouldReturnFalse_whenEqualsIsCalledWithDifferentObjectAndDifferentUpperLimit() {
         // Arrange
