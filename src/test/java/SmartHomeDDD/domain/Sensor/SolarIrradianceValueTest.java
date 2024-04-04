@@ -1,5 +1,6 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.SolarIrradianceSensor.SolarIrradianceValue;
 import org.junit.jupiter.api.Test;
 
 public class SolarIrradianceValueTest {
