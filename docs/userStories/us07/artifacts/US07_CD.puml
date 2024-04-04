@@ -6,6 +6,8 @@
 !pragma useVerticalIfPossible
 
 class AddSensorToDeviceController {
+  - RoomService _roomService
+  - RoomAssembler _roomAssembler
   - DeviceService _deviceService
   - DeviceAssembler _deviceAssembler
   - SensorModelService _sensorModelService
