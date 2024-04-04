@@ -26,7 +26,6 @@ participant ":DeviceAssembler" as DeviceAssembler
 
 participant "roomID:RoomID" as RoomID
 
-
 participant "deviceID:DeviceID" as DeviceID
 
 participant "deviceDTO:DeviceDTO" as DeviceDTO
@@ -39,9 +38,28 @@ participant "SensorModelRepository" as SensorModelRepository
 
 participant ":SensorModelAssembler" as SensorModelAssembler
 
-participant "sensorModelID:SensorModelID" as sensorModelID
+participant "modelPath:ModelPath" as modelPath
 
 participant "sensorModelDTO:SensorModelDTO" as SensorModelDTO
+end box
+
+
+box "SensorType" #LightGray
+
+participant "SensorType" as SensorType
+
+participant ":SensorTypeService" as SensorTypeService
+
+participant ":SensorTypeRepository" as SensorTypeRepository
+
+participant ":SensorTypeAssembler" as SensorTypeAssembler
+
+participant "sensorTypeDTO:SensorTypeDTO" as SensorTypeDTO
+
+participant "sensorTypeID:SensorTypeID" as SensorTypeID
+
+participant "sensorName:SensorName" as SensorName
+
 end box
 
 box "Sensor" #LightPink
@@ -49,10 +67,7 @@ participant ":SensorAssembler" as SensorAssembler
 
 participant "sensorDTO:SensorDTO" as SensorDTO
 
-
-
-
-participant ":SensorService" as sensorService
+participant ":SensorService" as SensorService
 
 participant ":SensorFactory" as SensorFactory
 
@@ -204,13 +219,57 @@ deactivate SensorModelDTO
 SensorModelAssembler -> SensorModelAssembler: addToList(sensorModelDTO)
 end
 
-SensorModelAssembler --> AddSensorToDevice_Controller: listSensorModelsDTO
+SensorModelAssembler --> AddSensorToDevice_Controller: listSensorTypesDTO
 
 deactivate SensorModelAssembler
+
+AddSensorToDevice_Controller -> User: listSensorTypesDTO
+
+deactivate AddSensorToDevice_Controller
+
+'----------------------------------------------------'
+
+User o-> AddSensorToDevice_Controller: getSensorTypes()
+
+activate AddSensorToDevice_Controller
+
+AddSensorToDevice_Controller -> SensorTypeService: getSensorTypes()
+
+activate SensorTypeService
+
+SensorTypeService -> SensorTypeRepository: findAll()
+
+activate SensorTypeRepository
+
+SensorTypeRepository --> SensorTypeService: listSensorTypes
+
+deactivate SensorTypeRepository
+
+SensorTypeService --> AddSensorToDevice_Controller: listSensorTypes
+
+deactivate SensorTypeService
+
+AddSensorToDevice_Controller -> SensorTypeAssembler: domainToDTO(listOfSensorModels)
+
+activate SensorTypeAssembler
+
+loop for each sensorModel in copyOfSensorModels
+create SensorTypeDTO
+SensorTypeAssembler -> SensorTypeDTO: createSensorTypeDTO(sensorModel)
+activate SensorTypeDTO
+SensorTypeDTO --> SensorTypeAssembler: sensorTypeDTO
+deactivate SensorTypeDTO
+SensorTypeAssembler -> SensorTypeAssembler: addToList(sensorModelDTO)
+end
+
+SensorTypeAssembler --> AddSensorToDevice_Controller: listSensorModelsDTO
+
+deactivate SensorTypeAssembler
 
 AddSensorToDevice_Controller -> User: listSensorModelsDTO
 
 deactivate AddSensorToDevice_Controller
+
 
 '----------------------------------------------------'
 
@@ -228,48 +287,67 @@ DeviceID --> AddSensorToDevice_Controller: deviceID
 
 deactivate DeviceID
 
-create sensorModelID
+create modelPath
 
-AddSensorToDevice_Controller -> sensorModelID: createDeviceID(DataDTO)
+AddSensorToDevice_Controller -> modelPath: createModelPath(DataDTO)
 
-activate sensorModelID
+activate modelPath
 
-sensorModelID --> AddSensorToDevice_Controller: sensorModelID
+modelPath --> AddSensorToDevice_Controller: modelPath
 
-deactivate sensorModelID
+deactivate modelPath
 
-AddSensorToDevice_Controller -> sensorService: createSensor(sensorModelID, deviceID)
+create SensorTypeID
 
-activate sensorService
+AddSensorToDevice_Controller -> SensorTypeID: createSensorTypeID(DataDTO)
 
-sensorService -> SensorFactory: createSensor(sensorModelID, deviceID)
+activate SensorTypeID
+
+SensorTypeID --> AddSensorToDevice_Controller: sensorTypeID
+
+deactivate SensorTypeID
+
+create SensorName
+
+AddSensorToDevice_Controller -> SensorName: createSensorName(DataDTO)
+
+activate SensorName
+
+SensorName --> AddSensorToDevice_Controller: sensorName
+
+deactivate SensorName
+
+AddSensorToDevice_Controller -> SensorService: addSensorToDevice(sensorModelID, deviceID, sensorTypeID, sensorName)
+
+activate SensorService
+
+SensorService -> SensorFactory: addSensor(sensorModelID, deviceID, sensorTypeID, sensorName)
 
 activate SensorFactory
 
-
 create Sensor
-SensorFactory --> Sensor: addSensor(Sensor, deviceID)
+SensorFactory --> Sensor: create(sensorModelID, deviceID, sensorTypeID, sensorName)
 activate Sensor
 
 Sensor --> SensorFactory: sensor
 
 deactivate Sensor
 
-SensorFactory --> sensorService: sensor
+SensorFactory --> SensorService: sensor
 
 deactivate SensorFactory
 
-sensorService --> SensorRepository: saveSensor(sensor)
+SensorService --> SensorRepository: saveSensor(sensor)
 
 activate SensorRepository
 
-SensorRepository --> sensorService: sensor
+SensorRepository --> SensorService: sensor
 
 deactivate SensorRepository
 
-sensorService --> AddSensorToDevice_Controller: sensor
+SensorService --> AddSensorToDevice_Controller: sensor
 
-deactivate sensorService
+deactivate SensorService
 
 AddSensorToDevice_Controller -> SensorAssembler: domainToDTO(sensor)
 
