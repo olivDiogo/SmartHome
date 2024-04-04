@@ -55,7 +55,7 @@ AddRoomController "1" .down.> "1" RoomService: uses
 RoomService "1" .down.> "1" RoomFactory: uses
 RoomService "1" .right.> "1" RoomRepository: uses
 RoomRepository "1" -left-> "1..*" Room: has
-RoomService "1" .left.> "1" RoomAssembler: uses
+AddRoomController "1" .left.> "1" RoomAssembler: uses
 RoomAssembler "1" .down.> "1" RoomDTO: creates
 RoomFactory "1" .down.> "1" Room: creates
 
