@@ -1,5 +1,6 @@
 package SmartHomeDDD.domain.Actuator;
 
+import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuatorValue;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertFalse;

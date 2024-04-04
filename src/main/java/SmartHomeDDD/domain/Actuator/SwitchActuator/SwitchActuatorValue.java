@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Actuator;
+package SmartHomeDDD.domain.Actuator.SwitchActuator;
 
 import SmartHomeDDD.ddd.ValueObject;
 
