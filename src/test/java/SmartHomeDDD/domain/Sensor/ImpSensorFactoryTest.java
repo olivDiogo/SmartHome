@@ -43,6 +43,7 @@ public class ImpSensorFactoryTest {
         when(modelPathMock.toString()).thenReturn("SmartHomeDDD.domain.Sensor.SunriseTimeSensor");
 
         SensorTypeID sensorTypeIdMock = mock(SensorTypeID.class);
+        when(sensorTypeIdMock.getId()).thenReturn("SunriseTime");
         SensorName sensorNameMock = mock(SensorName.class);
         GPS gpsMock = mock(GPS.class);
 
