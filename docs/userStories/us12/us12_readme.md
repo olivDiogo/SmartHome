@@ -6,12 +6,12 @@ As a Power User (or Administrator), I want to add an actuator to an existing dev
 
 ### 1.1 System Sequence Diagram
 
-![US012-SSD](../../../../docs2/userStories/us12/artifacts/us12_SSD.svg)
+![US012-SSD](artifacts/us12_SSD.svg)
 
 ### 1.2 Dependency of other user stories
 
-* There is a dependency with US003 - To get a list of existing rooms
-* There is a dependency with US006 - To get a list of devices in a room
+* There is a dependency with US03 - To get a list of existing rooms
+* There is a dependency with US06 - To get a list of devices in a room
 
 ### 1.3 Customer Specifications and Clarifications
 
@@ -24,15 +24,15 @@ As a Power User (or Administrator), I want to add an actuator to an existing dev
 ### 2.1 Domain Model Excerpt
 
 The relevant domain concepts for this user story:
-![US012-SSD](artifacts/us12_DM.svg)
+![US012-DM](artifacts/us12_DM.svg)
 
 ## 3. Design
 
 ### 3.1 Functionality Development (System Sequence Diagram)
-![US012-SSD](artifacts/us12_SD.svg)
+![US012-SD](artifacts/us12_SD.svg)
 
 ### 3.2 Class Diagram
-![US012-SSD](artifacts/us12_CD.svg)
+![US012-CD](artifacts/us12_CD.svg)
 
 ### 3.3 Applied Patterns
 

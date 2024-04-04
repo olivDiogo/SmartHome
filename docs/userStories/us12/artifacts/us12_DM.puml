@@ -1,5 +1,30 @@
 @startuml
+!pragma layout smetana
 
+class Room {
+-roomId
+}
 
+class Device {
+-deviceId
+}
+
+class ActuatorType {
+-actuatorTypeId
+}
+
+class ActuatorModel {
+-modelPath
+}
+
+class Actuator {
+-id
+-name
+}
+
+Room <-- "1" Device : roomId
+Actuator --> "1" Device : deviceID
+Actuator --> "1" ActuatorType : actuatorTypeID
+Actuator --> "1" ActuatorModel : modelPath
 
 @enduml
