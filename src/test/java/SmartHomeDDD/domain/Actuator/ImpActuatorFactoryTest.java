@@ -1,11 +1,8 @@
 package SmartHomeDDD.domain.Actuator;
 
-import SmartHomeDDD.domain.Sensor.ImpSensorFactory;
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuatorLimits;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -52,9 +49,11 @@ class ImpActuatorFactoryTest {
         DeviceID deviceIDMock = mock(DeviceID.class);
 
         ModelPath modelPathMock = mock(ModelPath.class);
-        when(modelPathMock.toString()).thenReturn("SmartHomeDDD.domain.Actuator.SetIntegerActuator");
+        when(modelPathMock.toString()).thenReturn("SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuator");
 
         ActuatorTypeID actuatorTypeIDMock = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDMock.getId()).thenReturn("SetInteger");
+
         ActuatorName actuatorNameMock = mock(ActuatorName.class);
 
         SetIntegerActuatorLimits limitsMock = mock(SetIntegerActuatorLimits.class);

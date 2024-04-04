@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Actuator;
+package SmartHomeDDD.domain.Actuator.SetIntegerActuator;
 
 import SmartHomeDDD.ddd.ValueObject;
 

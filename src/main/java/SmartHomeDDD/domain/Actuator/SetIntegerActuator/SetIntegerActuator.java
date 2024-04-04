@@ -1,11 +1,12 @@
-package SmartHomeDDD.domain.Actuator;
+package SmartHomeDDD.domain.Actuator.SetIntegerActuator;
 
 import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Actuator.Actuator;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.UUID;
 
-public class SetIntegerActuator implements Actuator{
+public class SetIntegerActuator implements Actuator {
     private ActuatorID _actuatorID;
     private ActuatorName _actuatorName;
     private ModelPath _modelPath;
@@ -68,6 +69,9 @@ public class SetIntegerActuator implements Actuator{
     private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
         if (actuatorTypeID == null) {
             throw new IllegalArgumentException("ActuatorTypeID cannot be null");
+        }
+        if (!actuatorTypeID.getId().equals("SetInteger")){
+            throw new IllegalArgumentException("ActuatorTypeID must be SetInteger");
         }
         this._actuatorTypeID = actuatorTypeID;
     }
@@ -152,7 +156,7 @@ public class SetIntegerActuator implements Actuator{
      * @return
      */
     @Override
-    public ValueObject setValue(ValueObject value) {
+    public SetIntegerValue setValue(ValueObject value) {
         if (value == null) {
             throw new IllegalArgumentException("Value cannot be null");
         }
@@ -165,7 +169,7 @@ public class SetIntegerActuator implements Actuator{
             throw new IllegalArgumentException("Value cannot be greater than the upper limit.");
         } else if (value instanceof SetIntegerValue) {
             this._value = (SetIntegerValue) value;
-            return value;
+            return (SetIntegerValue) value;
         }
 
         return null;

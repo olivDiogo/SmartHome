@@ -1,5 +1,6 @@
 package SmartHomeDDD.domain.Actuator;
 
+import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerValue;
 import org.junit.jupiter.api.Test;
 
 public class SetIntegerValueTest {

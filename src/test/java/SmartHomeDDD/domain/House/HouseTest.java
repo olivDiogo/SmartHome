@@ -3,9 +3,11 @@ package SmartHomeDDD.domain.House;
 import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
 import SmartHomeDDD.valueObject.HouseID;
+import SmartHomeDDD.valueObject.PostalCodeFactory;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -19,11 +21,21 @@ class HouseTest {
     @Test
     void shouldInstantiateHouse_WhenConstructorIsCalledWithValidParameters(){
         // Arrange
-        Address address = mock(Address.class);
-        GPS gps = mock(GPS.class);
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
 
-        // Act & Assert
-        new House(address, gps);
+        // Act
+        House house = new House(address, gps);
+
+        // Assert
+        assertNotNull(house);
     }
 
     /**
@@ -34,10 +46,15 @@ class HouseTest {
     void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullAddress(){
         // Arrange
         Address address = null;
-        GPS gps = mock(GPS.class);
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        GPS gps = new GPS(latitude, longitude);
 
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new House(address, gps));
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new House(address, gps));
+
+        // Assert
+        assertEquals("Address is required", exception.getMessage());
     }
 
     /**
@@ -47,11 +64,19 @@ class HouseTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullGPS(){
         // Arrange
-        Address address = mock(Address.class);
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
         GPS gps = null;
 
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new House(address, gps));
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new House(address, gps));
+
+        // Assert
+        assertEquals("Gps is required", exception.getMessage());
     }
 
     /**
@@ -61,8 +86,15 @@ class HouseTest {
     @Test
     void shouldReturnHouseID_WhenGetIDIsCalled(){
         // Arrange
-        Address address = mock(Address.class);
-        GPS gps = mock(GPS.class);
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
         House house = new House(address, gps);
 
         // Act
@@ -79,8 +111,15 @@ class HouseTest {
     @Test
     void shouldReturnAddress_WhenGetAddressIsCalled(){
         // Arrange
-        Address address = mock(Address.class);
-        GPS gps = mock(GPS.class);
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
         House house = new House(address, gps);
 
         // Act
@@ -97,8 +136,15 @@ class HouseTest {
     @Test
     void shouldReturnGps_WhenGetGpsIsCalled(){
         // Arrange
-        Address address = mock(Address.class);
-        GPS gps = mock(GPS.class);
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
         House house = new House(address, gps);
 
         // Act
@@ -114,9 +160,15 @@ class HouseTest {
     @Test
     void shouldReturnTrue_WhenComparedToItself() {
         // Arrange
-        Address address = mock(Address.class);
-        GPS gps = mock(GPS.class);
-
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
         House house = new House(address, gps);
 
         // Act
@@ -133,19 +185,18 @@ class HouseTest {
     @Test
     void shouldReturnFalse_WhenThereAreTwoDifferentHouses() throws NoSuchFieldException, IllegalAccessException {
         // Arrange
-        Address address1 = mock(Address.class);
-        GPS gps1 = mock(GPS.class);
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
 
-        Address address2 = mock(Address.class);
-        GPS gps2 = mock(GPS.class);
-
-        House house1 = new House(address1, gps1);
-        House house2 = new House(address2, gps2);
-
-        Field houseIDField = House.class.getDeclaredField("_houseID");
-        houseIDField.setAccessible(true);
-        houseIDField.set(house1, mock(HouseID.class));
-        houseIDField.set(house2, mock(HouseID.class));
+        House house1 = new House(address, gps);
+        House house2 = new House(address, gps);
 
         // Act
         boolean result = house1.equals(house2);
@@ -161,43 +212,57 @@ class HouseTest {
     @Test
     void shouldReturnTrue_WhenThereAreTwoEqualHouses() throws NoSuchFieldException, IllegalAccessException {
         // Arrange
-        Address address = mock(Address.class);
-        GPS gps = mock(GPS.class);
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
+
 
         House house1 = new House(address, gps);
         House house2 = new House(address, gps);
 
-        HouseID houseID = mock(HouseID.class);
-
+        // Use reflection to set _houseID to the same value for both instances
         Field houseIDField = House.class.getDeclaredField("_houseID");
         houseIDField.setAccessible(true);
-        houseIDField.set(house1, houseID);
-        houseIDField.set(house2, houseID);
+        HouseID sharedHouseID = new HouseID(UUID.randomUUID().toString());
+        houseIDField.set(house1, sharedHouseID);
+        houseIDField.set(house2, sharedHouseID);
 
-        // Act
-        boolean result = house1.equals(house2);
+            // Act
+            boolean result = house1.equals(house2);
 
-        // Assert
-        assertTrue(result);
-    }
+            // Assert
+            assertTrue(result);
+        }
 
 
     /**
      * Tests the equals method of class House when the instance is compared to a null object.
      */
     @Test
-    void shouldReturnFalse_WhenComparedWithNull() {
+    void shouldReturnFalse_WhenComparedWithNullObject() {
         // Arrange
-        Address address = mock(Address.class);
-        GPS gps = mock(GPS.class);
-
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
         House house = new House(address, gps);
 
         // Act
         boolean isEqual = house.equals(null);
 
         // Assert
-        assertFalse(isEqual);
+        assertFalse(isEqual, "House should not be equal to null");
     }
 
     /**
@@ -206,8 +271,15 @@ class HouseTest {
     @Test
     void shouldReturnFalse_WhenComparedWithDifferentClass() {
         // Arrange
-        Address address = mock(Address.class);
-        GPS gps = mock(GPS.class);
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
 
         House house = new House(address, gps);
 
@@ -227,8 +299,16 @@ class HouseTest {
     @Test
     void shouldReturnStringRepresentation_WhenToStringIsCalled(){
         // Arrange
-        Address address = mock(Address.class);
-        GPS gps = mock(GPS.class);
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
+
         House house = new House(address, gps);
 
         // Act
