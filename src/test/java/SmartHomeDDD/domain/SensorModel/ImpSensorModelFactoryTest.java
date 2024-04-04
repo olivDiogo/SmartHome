@@ -1,7 +1,6 @@
 package SmartHomeDDD.domain.SensorModel;
 
 import SmartHomeDDD.valueObject.ModelPath;
-import SmartHomeDDD.valueObject.SensorModelID;
 import SmartHomeDDD.valueObject.SensorModelName;
 import SmartHomeDDD.valueObject.SensorTypeID;
 import org.junit.jupiter.api.Test;

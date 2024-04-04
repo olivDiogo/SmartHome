@@ -1,9 +1,8 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.domain.SensorModel.SensorModelRepo;
-import SmartHomeDDD.valueObject.SensorModelID;
+import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorTypeID;
 
 import java.util.LinkedHashMap;
@@ -12,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class SensorModelRepository implements SensorModelRepo {
-    final private Map<SensorModelID, SensorModel> DATA = new LinkedHashMap<>();
+    final private Map<ModelPath, SensorModel> DATA = new LinkedHashMap<>();
 
     @Override
     public SensorModel save(SensorModel entity) {
@@ -22,7 +21,7 @@ public class SensorModelRepository implements SensorModelRepo {
             throw new IllegalArgumentException("SensorModel already exists.");
         else
 
-            DATA.put(entity.getID(), entity);
+            DATA.put(entity.getModelPath(), entity);
         return entity;
     }
 
@@ -32,12 +31,12 @@ public class SensorModelRepository implements SensorModelRepo {
     }
 
     @Override
-    public Optional<SensorModel> ofIdentity(SensorModelID objectID) {
+    public Optional<SensorModel> ofIdentity(ModelPath objectID) {
         return Optional.ofNullable(DATA.get(objectID));
     }
 
     @Override
-    public boolean containsOfIdentity(SensorModelID objectID) {
+    public boolean containsOfIdentity(ModelPath objectID) {
         return DATA.containsKey(objectID);
     }
 
