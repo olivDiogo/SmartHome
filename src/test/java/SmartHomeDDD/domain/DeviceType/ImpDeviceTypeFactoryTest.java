@@ -2,6 +2,9 @@ package SmartHomeDDD.domain.DeviceType;
 
 import SmartHomeDDD.valueObject.TypeDescription;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
@@ -20,11 +23,14 @@ class ImpDeviceTypeFactoryTest {
     @Test
     void shouldCreateDeviceType_WhenCreateDeviceTypeIsCalledWithValidParameters() {
         // Arrange
-        TypeDescription deviceTypeDescription = mock(TypeDescription.class);
-        ImpDeviceTypeFactory factory = mock(ImpDeviceTypeFactory.class);
+        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+        ImpDeviceTypeFactory factory = new ImpDeviceTypeFactory();
 
-        // Act & Assert
-        factory.createDeviceType(deviceTypeDescription);
+        // Act
+        DeviceType deviceType = factory.createDeviceType(typeDescriptionDouble);
+
+        // Assert
+        assertEquals(typeDescriptionDouble, deviceType.getDescription());
     }
 
     /**

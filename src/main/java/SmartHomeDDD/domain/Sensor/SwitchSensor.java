@@ -22,7 +22,7 @@ public class SwitchSensor implements Sensor{
      * @param sensorTypeID
      * @param sensorName
      */
-    SwitchSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    public SwitchSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);

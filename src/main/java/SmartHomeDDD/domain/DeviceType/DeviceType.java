@@ -64,7 +64,7 @@ public class DeviceType implements AggregateRoot<DeviceTypeID> {
     }
 
     public TypeDescription getDescription() {
-        return getDescription();
+        return _deviceTypeDescription;
 
     }
 }

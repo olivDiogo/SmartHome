@@ -178,17 +178,21 @@ public class DeviceTypeTest {
      * Test case to verify the behavior of getDescription() method in DeviceType class.
      */
     @Test
-    public void shouldReturnDeviceTypeDescription_whenGetDescriptionIsCalled() {
+    void shouldReturnDeviceTypeDescription_whenGetDescriptionIsCalled() {
         // Arrange
-        DeviceType deviceType = mock(DeviceType.class);
         TypeDescription deviceTypeDescription = mock(TypeDescription.class);
 
-        when(deviceType.getDescription()).thenReturn(deviceTypeDescription);
+        try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
+            when(mock.getId()).thenReturn("123");
+        })) {
+            DeviceType deviceType = new DeviceType(deviceTypeDescription);
 
-        // Act
-        TypeDescription actualDescription = deviceType.getDescription();
+            // Act
+            TypeDescription result = deviceType.getDescription();
 
-        // Assert
-        assertEquals(deviceTypeDescription, actualDescription);
+            // Assert
+            assertEquals(deviceTypeDescription, result);
+        }
     }
+
 }

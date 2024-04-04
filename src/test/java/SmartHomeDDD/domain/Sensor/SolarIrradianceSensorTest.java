@@ -1,12 +1,12 @@
 package SmartHomeDDD.domain.Sensor;
 
-import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Sensor.SolarIrradianceValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.MockedConstruction;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class SolarIrradianceSensorTest {
@@ -17,16 +17,17 @@ public class SolarIrradianceSensorTest {
     @Test
     public void shouldInstantiateSolarIrradianceSensor_whenConstructorArgumentsAreValid() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-        })) {
-            // Act
-            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
-        }
+        // Act
+        SolarIrradianceSensor sensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Assert
+        assertNotNull(sensor);
+
     }
 
     /**
@@ -36,20 +37,20 @@ public class SolarIrradianceSensorTest {
     public void shouldThrowIllegalArgumentException_whenDeviceIDIsNull() {
         // Arrange
         DeviceID deviceID = null;
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-        })) {
-            // Act
-            try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assert e.getMessage().equals("DeviceID cannot be null");
-            }
-        }
+        String expectedMessage = "DeviceID cannot be null";
+
+        // Act
+        Exception e = assertThrows(IllegalArgumentException.class, () -> {
+            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
@@ -58,21 +59,21 @@ public class SolarIrradianceSensorTest {
     @Test
     public void shouldThrowIllegalArgumentException_whenModelPathIsNull() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
+        DeviceID deviceID = new DeviceID("deviceID");
         ModelPath modelPath = null;
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-        })) {
-            // Act
-            try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assert e.getMessage().equals("ModelPath cannot be null");
-            }
-        }
+        String expectedMessage = "ModelPath cannot be null";
+
+        // Act
+        Exception e = assertThrows(IllegalArgumentException.class, () -> {
+            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
@@ -81,21 +82,21 @@ public class SolarIrradianceSensorTest {
     @Test
     public void shouldThrowIllegalArgumentException_whenSensorNameIsNull() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
         SensorName sensorName = null;
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-        })) {
-            // Act
-            try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assert e.getMessage().equals("SensorName cannot be null");
-            }
-        }
+        String expectedMessage = "SensorName cannot be null";
+
+        // Act
+        Exception e = assertThrows(IllegalArgumentException.class, () -> {
+            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
@@ -104,21 +105,44 @@ public class SolarIrradianceSensorTest {
     @Test
     public void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNull() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
         SensorTypeID sensorTypeID = null;
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-        })) {
-            // Act
-            try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assert e.getMessage().equals("SensorTypeID cannot be null");
-            }
-        }
+        String expectedMessage = "SensorTypeID cannot be null";
+
+        // Act
+        Exception e = assertThrows(IllegalArgumentException.class, () -> {
+            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * Tests the instantiation of SolarIrradianceSensor when the sensorTypeID is not SolarIrradiance.
+     */
+    @Test
+    public void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNotSolarIrradiance() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("NotSolarIrradiance");
+
+        String expectedMessage = "SensorTypeID must be SolarIrradiance";
+
+        // Act
+        Exception e = assertThrows(IllegalArgumentException.class, () -> {
+            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
@@ -127,22 +151,19 @@ public class SolarIrradianceSensorTest {
     @Test
     public void shouldReturnSensorID_whenGetSensorIDIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn("sensorID");
-        })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-            // Act
-            SensorID result = solarIrradianceSensor.getID();
+        // Act
+        SensorID sensorID = solarIrradianceSensor.getID();
 
-            // Assert
-            assertEquals(result.toString(),"sensorID");
-        }
+        // Assert
+        assertNotNull(sensorID);
+
     }
 
     /**
@@ -151,21 +172,18 @@ public class SolarIrradianceSensorTest {
     @Test
     public void shouldReturnDeviceID_whenGetDeviceIDIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-        })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-            // Act
-            DeviceID result = solarIrradianceSensor.getDeviceID();
+        // Act
+        DeviceID result = solarIrradianceSensor.getDeviceID();
 
-            // Assert
-            assertEquals(result,deviceID);
-        }
+        // Assert
+        assertEquals(result,deviceID);
     }
 
     /**
@@ -174,21 +192,18 @@ public class SolarIrradianceSensorTest {
     @Test
     public void shouldReturnModelPath_whenGetModelPathIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-        })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-            // Act
-            ModelPath result = solarIrradianceSensor.getModelPath();
+        // Act
+        ModelPath result = solarIrradianceSensor.getModelPath();
 
-            // Assert
-            assertEquals(result,modelPath);
-        }
+        // Assert
+        assertEquals(result,modelPath);
     }
 
     /**
@@ -197,21 +212,18 @@ public class SolarIrradianceSensorTest {
     @Test
     public void shouldReturnSensorName_whenGetSensorNameIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-        })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-            // Act
-            SensorName result = solarIrradianceSensor.getName();
+        // Act
+        SensorName result = solarIrradianceSensor.getName();
 
-            // Assert
-            assertEquals(result,sensorName);
-        }
+        // Assert
+        assertEquals(result,sensorName);
     }
 
     /**
@@ -220,21 +232,18 @@ public class SolarIrradianceSensorTest {
     @Test
     public void shouldReturnSensorTypeID_whenGetSensorTypeIDIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-        })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-            // Act
-            SensorTypeID result = solarIrradianceSensor.getSensorTypeID();
+        // Act
+        SensorTypeID result = solarIrradianceSensor.getSensorTypeID();
 
-            // Assert
-            assertEquals(result,sensorTypeID);
-        }
+        // Assert
+        assertEquals(result,sensorTypeID);
     }
 
     /**
@@ -243,28 +252,20 @@ public class SolarIrradianceSensorTest {
     @Test
     public void shouldReturnSensorValue_whenGetSensorValueIsCalled() {
         // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        String sensorValue = "4500";
+        SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-        })) {
-            SolarIrradianceSensor solarIrradianceSensor = new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        String expectedValue = "4500";
 
-            try (MockedConstruction<SolarIrradianceValueTest> sensorValueConstruction = mockConstruction(SolarIrradianceValueTest.class, (mock, context) -> {
-                when(mock.toString()).thenReturn("4500");
-            })) {
-                // Act
-                ValueObject result = solarIrradianceSensor.getValue();
+        // Act
+        SolarIrradianceValue result = solarIrradianceSensor.getValue();
 
-                // Assert
-                assertEquals(result.toString(),sensorValue);
-            }
-
-        }
+        // Assert
+        assertEquals(result.toString(),expectedValue);
     }
 
 }
