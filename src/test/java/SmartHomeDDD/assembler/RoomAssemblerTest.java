@@ -21,7 +21,11 @@ public class RoomAssemblerTest {
      */
     @Test
     void shouldInstantiateANewRoomAssembler() {
-        new RoomAssembler();
+        // Arrange
+        RoomAssembler roomAssembler = new RoomAssembler();
+
+        // Act + Assert
+        assertNotNull(roomAssembler);
     }
 
     /**
@@ -79,7 +83,6 @@ public class RoomAssemblerTest {
         String result = exception.getMessage();
         assertEquals(expected, result);
     }
-
 
 
 //    @Test
