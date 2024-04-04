@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Actuator;
+package SmartHomeDDD.domain.Actuator.BlindRollerActuator;
 
 import SmartHomeDDD.ddd.ValueObject;
 
@@ -10,7 +10,7 @@ public class BlindRollerValue implements ValueObject {
      * @param value
      * It must be between 0 and 100.
      */
-    protected BlindRollerValue (int value){
+    public BlindRollerValue (int value){
         validateValue(value);
         this._value = value;
     }
