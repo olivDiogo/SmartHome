@@ -1,8 +1,9 @@
 package SmartHomeDDD.valueObject;
 
+import SmartHomeDDD.ddd.DomainID;
 import SmartHomeDDD.ddd.ValueObject;
 
-public class ModelPath implements ValueObject {
+public class ModelPath implements ValueObject, DomainID {
     private String path;
 
     public ModelPath(String path) {
@@ -19,6 +20,12 @@ public class ModelPath implements ValueObject {
     public String toString() {
         return path;
     }
+
+    @Override
+    public String getId() {
+        return this.path;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

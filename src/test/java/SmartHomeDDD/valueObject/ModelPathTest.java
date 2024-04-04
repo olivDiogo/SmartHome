@@ -97,4 +97,15 @@ class ModelPathTest {
         assertEquals(path, result);
     }
 
+    @Test
+    void shouldReturnPathWhenGetIdIsCalled() {
+        //Arrange
+        String path = "/SmartHomeDDD/valueObject/ModelPath.java";
+        ModelPath modelPath = new ModelPath(path);
+        //Act
+        String result = modelPath.getId();
+        //Assert
+        assertEquals(path, result);
+    }
+
 }
