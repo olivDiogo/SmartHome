@@ -15,7 +15,10 @@ class DeviceNameTest {
         String validDeviceName = "Living Room 2";
 
         // Act
-        new DeviceName(validDeviceName);
+        DeviceName deviceName = new DeviceName(validDeviceName);
+
+        // Assert
+        assertNotNull(deviceName);
 
     }
 

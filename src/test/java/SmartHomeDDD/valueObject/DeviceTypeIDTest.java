@@ -14,7 +14,9 @@ public class DeviceTypeIDTest {
         // Arrange
         String deviceTypeIDDescription = "Fridge";
         // Act
-        new DeviceTypeID(deviceTypeIDDescription);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(deviceTypeIDDescription);
+        // Assert
+        assertNotNull(deviceTypeID);
     }
 
     /**

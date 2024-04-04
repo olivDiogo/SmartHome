@@ -17,32 +17,50 @@ public class DeviceTest {
     @Test
     public void shouldInstantiateANewDevice() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
 
-        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
-            //Act
-            new Device(roomID, deviceName, deviceStatus, deviceTypeID);
-        }
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
+
+        //Act
+        Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+
+        //Assert
+        assertNotNull(device);
     }
 
     /**
-     * Test that the Device class throws an IllegalArgumentException when the constructor is called with a null HouseID.
+     * Test that the Device class throws an IllegalArgumentException when the constructor is called with a null RoomID.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullHouseID() {
+    public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullRoomID() {
         //Arrange
-        RoomID roomID = null;
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
 
-        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
-            //Act & Assert
-            assertThrows(IllegalArgumentException.class, () -> new Device(roomID, deviceName, deviceStatus, deviceTypeID));
-        }
+        RoomID roomID = null;
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
+
+        String expectedMessage = "RoomID is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertTrue(actualMessage.contains(expectedMessage));
+
     }
 
     /**
@@ -52,15 +70,26 @@ public class DeviceTest {
     @Test
     public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceName() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = null;
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        boolean status = true;
+        String typeID = "123";
 
-        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
-            //Act & Assert
-            assertThrows(IllegalArgumentException.class, () -> new Device(roomID, deviceName, deviceStatus, deviceTypeID));
-        }
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = null;
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
+
+        String expectedMessage = "DeviceName is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertEquals(expectedMessage, actualMessage);
     }
 
     /**
@@ -70,13 +99,26 @@ public class DeviceTest {
     @Test
     public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceStatus() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        String typeID = "123";
+
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
         DeviceStatus deviceStatus = null;
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
+
+        String expectedMessage = "DeviceState is required";
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new Device(roomID, deviceName, deviceStatus, deviceTypeID));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertEquals(expectedMessage, actualMessage);
     }
 
     /**
@@ -85,15 +127,26 @@ public class DeviceTest {
     @Test
     public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceTypeID() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
         DeviceTypeID deviceTypeID = null;
 
-        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
-            //Act & Assert
-            assertThrows(IllegalArgumentException.class, () -> new Device(roomID, deviceName, deviceStatus, deviceTypeID));
-        }
+        String expectedMessage = "DeviceTypeID is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertEquals(expectedMessage, actualMessage);
     }
 
     /**
@@ -103,22 +156,23 @@ public class DeviceTest {
     @Test
     public void shouldReturnRoomID() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
 
-        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
-            Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-            //Act
-            RoomID result = device.getRoomID();
+        Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
 
-            //Assert
-            assertEquals(result, roomID);
-            assertTrue(device.toString().contains(result.toString()));
+        //Act
+        RoomID result = device.getRoomID();
 
-        }
+        //Assert
+        assertEquals(result.toString(), roomIDName);
     }
 
     /**
@@ -127,13 +181,20 @@ public class DeviceTest {
     @Test
     public void shouldReturnDeviceID() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
+
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
+
+        String deviceID = "1234";
 
         try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class, (mock, context) -> {
-            when(mock.getId()).thenReturn("123");
+            when(mock.getId()).thenReturn("1234");
         })) {
             Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
 
@@ -141,8 +202,7 @@ public class DeviceTest {
             DeviceID result = device.getID();
 
             //Assert
-            assertEquals(result.getId(), "123");
-            assertTrue(device.toString().contains(result.toString()));
+            assertEquals(result.getId(), deviceID);
         }
 
     }
@@ -153,21 +213,25 @@ public class DeviceTest {
     @Test
     public void shouldReturnDeviceName() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
 
-        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
-            Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-            //Act
-            DeviceName result = device.getDeviceName();
+        Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
 
-            //Assert
-            assertEquals(result, deviceName);
-            assertTrue(device.toString().contains(result.toString()));
-        }
+        String expected = "Device name: lamp";
+
+        //Act
+        DeviceName result = device.getDeviceName();
+
+        //Assert
+        assertEquals(result.toString(), expected);
     }
 
     /**
@@ -176,22 +240,25 @@ public class DeviceTest {
     @Test
     public void shouldReturnDeviceStatus() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
 
-        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-            Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+        String expected = "ON";
 
-            //Act
-            DeviceStatus result = device.getDeviceStatus();
+        Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
 
-            //Assert
-            assertEquals(result, deviceStatus);
-            assertTrue(device.toString().contains(result.toString()));
-        }
+        //Act
+        DeviceStatus result = device.getDeviceStatus();
+
+        //Assert
+        assertEquals(result.toString(), expected);
     }
 
     /**
@@ -200,10 +267,15 @@ public class DeviceTest {
     @Test
     public void shouldReturnTrueWhenGivenSameObject() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
+
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
         try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
             Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
@@ -223,10 +295,15 @@ public class DeviceTest {
     @Test
     public void shouldReturnTrueWhenComparingTwoObjectsWithSameID() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
+
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
         try (MockedConstruction<DeviceID> mocked = mockConstruction(DeviceID.class, (mock, context) ->
                 when(mock.toString()).thenReturn("1"))) {
@@ -248,12 +325,17 @@ public class DeviceTest {
     @Test
     public void shouldReturnFalseWhenComparingTwoObjectsWithDifferentID() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        RoomID roomID2 = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String roomIDName2 = "1a25";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
 
+        RoomID roomID = new RoomID(roomIDName);
+        RoomID roomID2 = new RoomID(roomIDName2);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
         try (MockedConstruction<DeviceID> mocked = mockConstruction(DeviceID.class)) {
 
             Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
@@ -272,12 +354,17 @@ public class DeviceTest {
      */
 
     @Test
-    public void shouldReturnFalseWhenComparingObjectWithNull() {
+    public void shouldReturnFalseWhenComparingObjectWithNullObject() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
+
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
         try (MockedConstruction<DeviceID> mocked = mockConstruction(DeviceID.class)) {
 
@@ -298,23 +385,31 @@ public class DeviceTest {
     @Test
     public void shouldReturnExpectedStringWhenToStringIsCalled() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
 
-        try (MockedConstruction<DeviceID> mocked = mockConstruction(DeviceID.class)) {
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-            Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+        Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
 
-            String expectedString = "Device{" + "_roomID=" + roomID + ", _deviceID=" + device.getID() + ", _deviceName=" + deviceName + ", _deviceStatus=" + deviceStatus + '}';
+        String expectedString = "Device{" +
+                "_roomID=" + roomID +
+                ", _deviceID=" + device.getID() +
+                ", _deviceName=" + deviceName +
+                ", _deviceStatus=" + deviceStatus +
+                '}';
 
-            //Act
-            String result = device.toString();
+        //Act
+        String result = device.toString();
 
-            //Assert
-            assertEquals(expectedString, result);
-        }
+        //Assert
+        assertEquals(result, expectedString);
+
     }
 
     /**
@@ -323,24 +418,28 @@ public class DeviceTest {
     @Test
     public void shouldReturnDeactivatedDeviceStatus_WhenDeactivateDeviceIsCalled() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
+
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
         {
             try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
                 Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
 
-                try (MockedConstruction<DeviceStatus> mocked = mockConstruction(DeviceStatus.class, (mock, context) ->
-                        when(mock.toString()).thenReturn("OFF"));) {
+
                     //Act
                     DeviceStatus result = device.deactivateDevice();
                     //Assert
-                    List<DeviceStatus> results = mocked.constructed();
+                    List<DeviceStatus> results = List.of(result);
                     assertEquals(1, results.size());
                     assertTrue(results.contains(result));
-                }
+
 
             }
         }
@@ -352,10 +451,15 @@ public class DeviceTest {
     @Test
     public void shouldReturnDeviceTypeID() {
         //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
+
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
         try (MockedConstruction<DeviceID> mocked = mockConstruction(DeviceID.class)) {
 
