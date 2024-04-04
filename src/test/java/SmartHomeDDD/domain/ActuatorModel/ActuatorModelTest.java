@@ -4,13 +4,10 @@ import SmartHomeDDD.valueObject.ActuatorModelID;
 import SmartHomeDDD.valueObject.ActuatorModelName;
 import SmartHomeDDD.valueObject.ModelPath;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
-
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
-public class ActuatorModelTest {
+class ActuatorModelTest {
 
     /**
      * Test of class ActuatorModel constructor with valid parameters
@@ -18,24 +15,24 @@ public class ActuatorModelTest {
     @Test
     void shouldReturnValidActuatorModel_WhenGivenValidParameters() {
         //Arrange
-        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
-
+        ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
 
         //Act
-        new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+
+        //Assert
+        assertNotNull(actuatorModel);
     }
 
     /**
      * Test of class ActuatorModel constructor with null ActuatorModelName
      */
-
     @Test
     void shouldThrowIllegalArgumentException_WhenGivenNullActuatorModelName() {
         //Arrange
         ActuatorModelName actuatorModelName = null;
-        ModelPath modelPath = mock(ModelPath.class);
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
 
         String expectedMessage = "Please enter a valid actuator model name.";
         //Act
@@ -50,7 +47,7 @@ public class ActuatorModelTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenGivenNullModelPath() {
         //Arrange
-        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
+        ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = null;
         String expectedMessage = "Please enter a valid model path.";
         //Act
@@ -65,71 +62,59 @@ public class ActuatorModelTest {
     @Test
     void shouldReturnTrue_WhenGivenSameObject() {
         //Arrange
-        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
-        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
 
-        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
 
-        })) {
+        //Act
+        boolean result = actuatorModel.equals(actuatorModel);
 
-            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
-
-            //Act
-            boolean result = actuatorModel.equals(actuatorModel);
-
-            //Assert
-            assertTrue(result);
-        }
+        //Assert
+        assertTrue(result);
     }
+
 
     /**
      * Test of class ActuatorModel equals method with different object
      */
-
     @Test
-    void shouldReturnFalse_WhenGivenDifferentObjectWithSamePath() {
+    void shouldReturnFalse_WhenGivenDifferentObject() {
         //Arrange
-        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
-        ModelPath modelPath = mock(ModelPath.class);
-//        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
-//        ActuatorModel actuatorModel2 = new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
 
-        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        ActuatorModelName actuatorModelName2 = new ActuatorModelName("SwitchActuator");
+        ModelPath modelPath2 = new ModelPath("SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator;SwitchActuator");
 
-        })) {
-            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
-            ActuatorModel actuatorModel2 = new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorModel actuatorModel2 = new ActuatorModel(actuatorModelName2, modelPath2);
 
-            //Act
-            boolean result = actuatorModel.equals(actuatorModel2);
+        //Act
+        boolean result = actuatorModel.equals(actuatorModel2);
 
-            //Assert
-            assertFalse(result);
-        }
+        //Assert
+        assertFalse(result);
     }
+
 
     /**
      * Test of class ActuatorModel equals method with null object
      */
     @Test
-    void shouldReturnFalse_WhenGivenNull() {
-        //Arrange
-        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
-        ModelPath modelPath = mock(ModelPath.class);
+    void shouldReturnFalse_WhenComparedWithNull() {
+        // Arrange
+        ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
 
-        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        // Act
+        boolean result = actuatorModel.equals(null);
 
-        })) {
-
-            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
-
-            //Act
-            boolean result = actuatorModel.equals(null);
-
-            //Assert
-            assertFalse(result);
-        }
+        // Assert
+        assertFalse(result);
     }
+
 
     /**
      * Test of class ActuatorModel getID method
@@ -137,22 +122,18 @@ public class ActuatorModelTest {
     @Test
     void shouldReturnActuatorModelID_WhenGetIDIsCalled() {
         //Arrange
-        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
-        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
 
-        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
 
-        })) {
+        //Act
+        ActuatorModelID result = actuatorModel.getID();
 
-            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
-
-            //Act
-            ActuatorModelID result = actuatorModel.getID();
-
-            //Assert
-            assertNotNull(result);
-        }
+        //Assert
+        assertNotNull(result);
     }
+
 
     /**
      * Test of class ActuatorModel toString method
@@ -160,23 +141,20 @@ public class ActuatorModelTest {
     @Test
     void shouldReturnObjectInStringFormat_WhenToStringIsCalled() {
         //Arrange
-        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
-        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
 
-        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
 
-        })) {
+        //Act
+        String result = actuatorModel.toString();
 
-            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
-
-            //Act
-            String result = actuatorModel.toString();
-
-            //Assert
-            assertTrue(result.contains(actuatorModelName.toString()));
-            assertTrue(result.contains(modelPath.toString()));
-        }
+        //Assert
+        assertTrue(result.contains(actuatorModel.getID().toString()));
+        assertTrue(result.contains(actuatorModelName.toString()));
+        assertTrue(result.contains(modelPath.toString()));
     }
+
 
     /**
      * Test of class ActuatorModel getActuatorModelName method
@@ -184,22 +162,18 @@ public class ActuatorModelTest {
     @Test
     void shouldReturnActuatorModelName_WhenGetActuatorModelNameIsCalled() {
         //Arrange
-        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
-        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
 
-        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
 
-        })) {
+        //Act
+        ActuatorModelName result = actuatorModel.getActuatorModelName();
 
-            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
-
-            //Act
-            ActuatorModelName result = actuatorModel.getActuatorModelName();
-
-            //Assert
-            assertEquals(actuatorModelName,result);
-        }
+        //Assert
+        assertEquals(actuatorModelName, result);
     }
+
 
     /**
      * Test of class ActuatorModel getModelPath method
@@ -207,21 +181,17 @@ public class ActuatorModelTest {
     @Test
     void shouldReturnModelPath_WhenGetModelPathIsCalled() {
         //Arrange
-        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
-        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
 
-        try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked = mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
 
-        })) {
+        //Act
+        ModelPath result = actuatorModel.getModelPath();
 
-            ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
-
-            //Act
-            ModelPath result = actuatorModel.getModelPath();
-
-            //Assert
-            assertEquals(modelPath,result);
-        }
+        //Assert
+        assertEquals(modelPath, result);
     }
-
 }
+
+
