@@ -82,7 +82,7 @@ public class AddSensorToDeviceControllerTest {
    * null.
    */
   @Test
-  void shouldReturnNull_whenRoomServiceIsNull() throws InstantiationException {
+  void shouldThrowException_whenRoomServiceIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -139,7 +139,7 @@ public class AddSensorToDeviceControllerTest {
    * null.
    */
   @Test
-  void shouldReturnNull_whenRoomAssemblerIsNull() throws InstantiationException {
+  void shouldThrowException_whenRoomAssemblerIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -197,7 +197,7 @@ public class AddSensorToDeviceControllerTest {
    * null.
    */
   @Test
-  void shouldReturnNull_whenDeviceServiceIsNull() throws InstantiationException {
+  void shouldThrowException_whenDeviceServiceIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -254,7 +254,7 @@ public class AddSensorToDeviceControllerTest {
    * null.
    */
   @Test
-  void shouldReturnNull_whenDeviceAssemblerIsNull() throws InstantiationException {
+  void shouldThrowException_whenDeviceAssemblerIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -312,7 +312,7 @@ public class AddSensorToDeviceControllerTest {
    * is null.
    */
   @Test
-  void shouldReturnNull_whenSensorModelServiceIsNull() throws InstantiationException {
+  void shouldThrowException_whenSensorModelServiceIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -373,7 +373,7 @@ public class AddSensorToDeviceControllerTest {
    * SensorModelAssembler is null.
    */
   @Test
-  void shouldReturnNull_whenSensorModelAssemblerIsNull() throws InstantiationException {
+  void shouldThrowException_whenSensorModelAssemblerIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -431,7 +431,7 @@ public class AddSensorToDeviceControllerTest {
    * ConfigurationService is null.
    */
   @Test
-  void shouldReturnNull_whenConfigurationServiceIsNull() {
+  void shouldThrowException_whenConfigurationServiceIsNull() {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -487,7 +487,7 @@ public class AddSensorToDeviceControllerTest {
    * is null.
    */
   @Test
-  void shouldReturnNull_whenSensorTypeServiceIsNull() throws InstantiationException {
+  void shouldThrowException_whenSensorTypeServiceIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -542,7 +542,7 @@ public class AddSensorToDeviceControllerTest {
    * is null.
    */
   @Test
-  void shouldReturnNull_whenSensorTypeAssemblerIsNull() throws InstantiationException {
+  void shouldThrowException_whenSensorTypeAssemblerIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -600,7 +600,7 @@ public class AddSensorToDeviceControllerTest {
    * null.
    */
   @Test
-  void shouldReturnNull_whenSensorAssemblerIsNull() throws InstantiationException {
+  void shouldThrowException_whenSensorAssemblerIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -658,7 +658,7 @@ public class AddSensorToDeviceControllerTest {
    * null.
    */
   @Test
-  void shouldReturnNull_whenSensorServiceIsNull() throws InstantiationException {
+  void shouldThrowException_whenSensorServiceIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
