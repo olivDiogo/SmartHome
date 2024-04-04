@@ -1,9 +1,9 @@
 package SmartHomeDDD.domain.Actuator;
 
-import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;
+import SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

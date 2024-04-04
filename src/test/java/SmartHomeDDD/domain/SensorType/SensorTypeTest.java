@@ -22,18 +22,17 @@ public class SensorTypeTest {
     @Test
     public void shouldCreateSensorType_whenAttributesAreValid() {
         // Arrange
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitDouble = mock(UnitID.class);
-        String sensorTypeID = "1";
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
 
-        try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorTypeID);
-        })) {
-            // Act
-            new SensorType(typeDescriptionDouble, unitDouble);
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
 
-            // Assert
-        }
+        // Act
+        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
+
+        // Assert
+        assertNotNull(sensorType);
     }
 
     /**
@@ -42,8 +41,11 @@ public class SensorTypeTest {
     @Test
     public void shouldThrowIllegalArgumentException_whenTypeDescriptionIsNull() {
         // Arrange
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
+
         TypeDescription typeDescriptionDouble = null;
-        UnitID unitDouble = mock(UnitID.class);
+        UnitID unitDouble = new UnitID(unitID);
 
         String expectedMessage = "Sensor type name must not be null.";
 
@@ -64,7 +66,10 @@ public class SensorTypeTest {
     @Test
     public void shouldThrowIllegalArgumentException_whenUnitIsNull() {
         // Arrange
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
+
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
         UnitID unitDouble = null;
 
         String expectedMessage = "Unit must not be null.";
@@ -86,8 +91,12 @@ public class SensorTypeTest {
     @Test
     public void shouldReturnSensorTypeID_whenGetSensorTypeIDIsCalled() {
         // Arrange
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitDouble = mock(UnitID.class);
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
+
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
+
         String sensorTypeID = "1";
 
         try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
@@ -109,21 +118,21 @@ public class SensorTypeTest {
     @Test
     public void shouldReturnSensorTypeName_whenGetSensorTypeNameIsCalled() {
         // Arrange
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitDouble = mock(UnitID.class);
-        String sensorTypeID = "1";
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
 
-        try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorTypeID);
-        })) {
-            SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
 
-            // Act
-            TypeDescription sensorTypeName = sensorType.getName();
 
-            // Assert
-            assertEquals(sensorTypeName, typeDescriptionDouble);
-        }
+        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
+
+        // Act
+        TypeDescription sensorTypeName = sensorType.getName();
+
+        // Assert
+        assertEquals(sensorTypeName, typeDescriptionDouble);
+
     }
 
     /**
@@ -132,23 +141,22 @@ public class SensorTypeTest {
     @Test
     public void shouldReturnUnit_whenGetUnitIsCalled() {
         // Arrange
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitDouble = mock(UnitID.class);
-        String sensorTypeID = "1";
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
 
-        try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorTypeID);
-        })) {
-            SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
 
-            // Act
-            UnitID unit = sensorType.getUnit();
+        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
 
-            // Assert
-            assertEquals(unit, unitDouble);
+        // Act
+        UnitID unit = sensorType.getUnit();
 
-        }
+        // Assert
+        assertEquals(unit, unitDouble);
+
     }
+
 
     /**
      * Test of equals method, of class SensorType, when comparing sensorType with itself.
@@ -156,8 +164,12 @@ public class SensorTypeTest {
     @Test
     public void shouldGetTrue_whenSensorTypeIsEqualToItself() {
         // Arrange
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitDouble = mock(UnitID.class);
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
+
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
+
         String sensorTypeID = "1";
 
         try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
@@ -180,18 +192,21 @@ public class SensorTypeTest {
     @Test
     public void shouldGetTrue_whenSensorTypeIsEqualToAnotherSensorTypeWithSameID() {
         // Arrange
-        TypeDescription typeDescriptionDouble1 = mock(TypeDescription.class);
-        UnitID unitDouble1 = mock(UnitID.class);
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
 
-        TypeDescription typeDescriptionDouble2 = mock(TypeDescription.class);
-        UnitID unitDouble2 = mock(UnitID.class);
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
+
+        TypeDescription typeDescriptionDouble2 = new TypeDescription(typeDescription);
+        UnitID unitDouble2 = new UnitID(unitID);
 
         String sensorTypeID = "1";
 
         try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
             when(mock.toString()).thenReturn(sensorTypeID);
         })) {
-            SensorType sensorType1 = new SensorType(typeDescriptionDouble1, unitDouble1);
+            SensorType sensorType1 = new SensorType(typeDescriptionDouble, unitDouble);
             SensorType sensorType2 = new SensorType(typeDescriptionDouble2, unitDouble2);
 
             // Act
@@ -208,54 +223,71 @@ public class SensorTypeTest {
     @Test
     public void shouldGetFalse_whenSensorTypeIsComparedToAnotherSensorTypeWithDifferentID() throws NoSuchFieldException, IllegalAccessException {
         // Arrange
-        TypeDescription typeDescriptionDouble1 = mock(TypeDescription.class);
-        UnitID unitDouble1 = mock(UnitID.class);
+        String typeDescription = "DewPointSensor";
+        String typeDescription2 = "TemperatureSensor";
+        String unitID = "Celsius";
 
-        TypeDescription typeDescriptionDouble2 = mock(TypeDescription.class);
-        UnitID unitDouble2 = mock(UnitID.class);
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
 
-        SensorTypeID sensorTypeID1 = mock(SensorTypeID.class);
-        SensorTypeID sensorTypeID2 = mock(SensorTypeID.class);
+        TypeDescription typeDescriptionDouble2 = new TypeDescription(typeDescription2);
+        UnitID unitDouble2 = new UnitID(unitID);
 
-        try(MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn("1");
-        })) {
-
-        SensorType sensorType1 = new SensorType(typeDescriptionDouble1, unitDouble1);
+        SensorType sensorType1 = new SensorType(typeDescriptionDouble, unitDouble);
         SensorType sensorType2 = new SensorType(typeDescriptionDouble2, unitDouble2);
-
-        Field sensorTypeIDField = SensorType.class.getDeclaredField("_id");
-        sensorTypeIDField.setAccessible(true);
-        sensorTypeIDField.set(sensorType1, sensorTypeID1);
-        sensorTypeIDField.set(sensorType2, sensorTypeID2);
 
         // Act
         boolean result = sensorType1.equals(sensorType2);
 
         // Assert
         assertFalse(result);
-        }
+
     }
 
+    /**
+     * Test of equals method, of class SensorType, when comparing sensorType with null object.
+     */
+    @Test
+    void shouldReturnFalse_WhenComparingWithNullObject () {
+        //Arrange
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
+
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
+
+        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
+
+        //Act
+        boolean result = sensorType.equals(null);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Should return the ID of the sensor type.
+     */
     @Test
     public void shouldReturnID_whenGetIDIsCalled() {
         // Arrange
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitDouble = mock(UnitID.class);
-        String sensorTypeID = "1";
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
 
-        try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorTypeID);
-        })) {
-            SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
 
-            // Act
-            SensorTypeID result = sensorType.getID();
+        String sensorTypeIDExpected = "DewPointSensor";
 
-            // Assert
-            assertEquals(sensorTypeID, result.toString());
+        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
 
-        }
+        // Act
+        SensorTypeID result = sensorType.getID();
+
+        // Assert
+        assertEquals(sensorTypeIDExpected, result.toString());
+
+
     }
 
     /**
@@ -264,25 +296,28 @@ public class SensorTypeTest {
     @Test
     public void shouldGetStringWithAttributes_whenToStringIsCalled() {
         // Arrange
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitDouble = mock(UnitID.class);
-        String sensorTypeID = "1";
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
 
-        String expected = "ID: 1" +
-                "\nTypeDescription: " + typeDescriptionDouble.toString() +
-                "\nUnit: " + unitDouble.toString();
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
+
+        String sensorTypeID = "1";
 
         try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class, (mock, context) -> {
             when(mock.toString()).thenReturn(sensorTypeID);
         })) {
             SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
 
+            String expected = "ID: 1" +
+                    "\nTypeDescription: " + typeDescriptionDouble +
+                    "\nUnit: " + unitDouble;
+
             // Act
             String result = sensorType.toString();
 
             // Assert
             assertEquals(expected, result);
-
         }
     }
 }

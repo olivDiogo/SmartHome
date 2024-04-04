@@ -2,10 +2,7 @@ package SmartHomeDDD.valueObject;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 class SensorTypeIDTest {
 
@@ -17,7 +14,9 @@ class SensorTypeIDTest {
         // Arrange
         String sensorTypeIDDescription = "Sensor2GKA";
         // Act
-        new SensorTypeID(sensorTypeIDDescription);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDDescription);
+        // Assert
+        assertNotNull(sensorTypeID);
     }
 
     /**

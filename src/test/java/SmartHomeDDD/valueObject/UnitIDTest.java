@@ -2,8 +2,7 @@ package SmartHomeDDD.valueObject;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 class UnitIDTest {
 
@@ -15,7 +14,9 @@ class UnitIDTest {
         // Arrange
         String measurementID = "measurement1";
         // Act
-        new UnitID(measurementID);
+        UnitID unitID = new UnitID(measurementID);
+        // Assert
+        assertNotNull(unitID);
     }
 
     /**
@@ -25,10 +26,17 @@ class UnitIDTest {
     void shouldThrowException_whenMeasurementIDIsNull() {
         // Arrange
         String measurementID = null;
+
+        String expectedMessage = "The value of 'measurementID' should not null, blank, or empty.";
+
         // Act + Assert
-        assertThrows(IllegalArgumentException.class, () ->
-                new UnitID(measurementID)
-        );
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new UnitID(measurementID));
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertEquals(expectedMessage, actualMessage);
+
     }
 
     /**
@@ -38,10 +46,17 @@ class UnitIDTest {
     void shouldThrowException_whenMeasurementIDIsBlank() {
         // Arrange
         String measurementID = " ";
+
+        String expectedMessage = "The value of 'measurementID' should not null, blank, or empty.";
+
         // Act + Assert
-        assertThrows(IllegalArgumentException.class, () ->
-                new UnitID(measurementID)
-        );
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new UnitID(measurementID));
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertEquals(expectedMessage, actualMessage);
+
     }
 
     /**
@@ -51,10 +66,17 @@ class UnitIDTest {
     void shouldThrowException_whenMeasurementIDIsEmpty() {
         // Arrange
         String measurementID = "";
+
+        String expectedMessage = "The value of 'measurementID' should not null, blank, or empty.";
+
         // Act + Assert
-        assertThrows(IllegalArgumentException.class, () ->
-                new UnitID(measurementID)
-        );
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new UnitID(measurementID));
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertEquals(expectedMessage, actualMessage);
+
     }
 
     /**
@@ -66,6 +88,7 @@ class UnitIDTest {
         String measurementID = "measurement1";
         UnitID unitID1 = new UnitID(measurementID);
         UnitID unitID2 = new UnitID(measurementID);
+
         // Act
         boolean result = unitID1.equals(unitID2);
         // Assert
@@ -93,11 +116,26 @@ class UnitIDTest {
     void shouldReturnFalse_whenComparingMeasurementIDToDifferentObject() {
         // Arrange
         String measurementID = "measurement1";
+        String measurementID2 = "measurement2";
+
+        UnitID unitID1 = new UnitID(measurementID);
+        UnitID unitID2 = new UnitID(measurementID2);
+
+        // Act
+        boolean result = unitID1.equals(unitID2);
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void shouldReturnFalse_whenComparingMeasurementIDToNull() {
+        // Arrange
+        String measurementID = "measurement1";
         UnitID unitID1 = new UnitID(measurementID);
         // Act
-        boolean result = unitID1.equals(new Object());
+        boolean result = unitID1.equals(null);
         // Assert
-        assertTrue(!result);
+        assertFalse(result);
     }
 
     /**
@@ -108,10 +146,11 @@ class UnitIDTest {
         // Arrange
         String measurementID = "measurement1";
         UnitID unitID1 = new UnitID(measurementID);
+
         // Act
         String result = unitID1.getId();
         // Assert
-        assertTrue(result.equals(measurementID));
+        assertEquals(measurementID, result);
     }
 
     /**

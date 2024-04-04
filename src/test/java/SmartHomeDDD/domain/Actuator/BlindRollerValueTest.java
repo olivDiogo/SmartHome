@@ -1,5 +1,6 @@
 package SmartHomeDDD.domain.Actuator;
 
+import SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerValue;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
