@@ -25,7 +25,7 @@ package domain.Sensor.TemperatureSensor {
 
     class domain.Sensor.TemperatureSensor.TemperatureSensor <<entity>><<Root>>{
         - _sensorID: SensorID
-        - _senorName: SensorName
+        - _sensorName: SensorName
         - _sensorTypeID: SensorTypeID
         - _modelPath: ModelPath
         - _deviceID: DeviceID
