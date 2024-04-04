@@ -108,7 +108,7 @@ SensorName ..|> domain.ddd.ValueObject
 DomainEntity --|> DomainID
 AggregateRoot --|> DomainEntity
 
-domain.Sensor.Sensor ..|> domain.ddd.AggregateRoot
+domain.Sensor.Sensor --|> domain.ddd.AggregateRoot
 
 SensorTypeID ..|> domain.ddd.DomainID
 SensorID ..|> domain.ddd.DomainID

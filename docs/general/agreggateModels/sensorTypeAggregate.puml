@@ -4,8 +4,9 @@
 package SmartHome.SensorType {
 
   class SensorType<<Entity>><<Root>> {
+    - _sensorTypeID : SensorTypeID
     - _sensorTypeDescription : TypeDescription
-    - _measurementUnit : UnitID
+    - _unitDescription : UnitID
   }
 
 }
