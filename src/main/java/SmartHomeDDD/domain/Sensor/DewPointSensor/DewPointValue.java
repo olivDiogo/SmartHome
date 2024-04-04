@@ -1,4 +1,4 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.DewPointSensor;
 
 import SmartHomeDDD.ddd.ValueObject;
 
@@ -11,8 +11,8 @@ public class DewPointValue implements ValueObject {
      * @param dewPointValue The value of the dew point.
      */
     public DewPointValue(int dewPointValue) {
-        if (dewPointValue < -100)
-            throw new IllegalArgumentException("The value of the dew point cannot be lower than -100.");
+        if (dewPointValue < -70)
+            throw new IllegalArgumentException("The value of the dew point cannot be lower than -70.");
         this._DewPointValue = dewPointValue;
     }
 

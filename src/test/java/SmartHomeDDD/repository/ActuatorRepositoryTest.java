@@ -16,7 +16,11 @@ class ActuatorRepositoryTest {
      */
     @Test
     void shouldInstantiateActuatorRepository() {
-        new ActuatorRepository();
+        //Act
+        ActuatorRepository actuatorRepository = new ActuatorRepository();
+
+        //Assert
+        assertNotNull(actuatorRepository);
     }
 
     /**
