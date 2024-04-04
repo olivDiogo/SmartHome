@@ -7,11 +7,6 @@ import SmartHomeDDD.domain.House.House;
 import java.util.List;
 
 public class HouseAssembler implements Assembler<House, HouseDTO> {
-    /**
-     * Constructor for the HouseAssembler class.
-     */
-    public HouseAssembler() {
-    }
 
     /**
      * Method to convert a House into a HouseDTO.

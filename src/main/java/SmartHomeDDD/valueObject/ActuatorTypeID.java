@@ -64,5 +64,14 @@ public class ActuatorTypeID implements DomainID {
         return this._id.hashCode();
     }
 
+    /**
+     * toString method for ActuatorTypeID.
+     *
+     * @return String.
+     */
+    @Override
+    public String toString() {
+        return _id ;
+    }
 
 }
