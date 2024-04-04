@@ -18,8 +18,7 @@ _To have an actuator that sets the position of a blind roller_
         Goal: To have an actuator that sets the position of a blind roller
 
 ### 1.3. Dependency of another user story
-_This user story depends on US12 (add an actuator to an existing
-device in a room.)
+_This user story does not depend on another._
 
 ### 1.4. Relevant domain aggregate model
 ![Actuator](../../general/agreggateModels/Actuator.png)
