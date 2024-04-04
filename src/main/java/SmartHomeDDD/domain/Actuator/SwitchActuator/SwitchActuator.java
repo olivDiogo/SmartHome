@@ -77,8 +77,8 @@ public class SwitchActuator implements Actuator {
     private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
         if (actuatorTypeID == null)
             throw new IllegalArgumentException("The value of 'actuatorTypeID' should not be null.");
-        if (!actuatorTypeID.getId().equals("SwitchActuator")){
-            throw new IllegalArgumentException("The value of 'actuatorTypeID' should be 'SwitchActuator'.");
+        if (!actuatorTypeID.getId().equals("Switch")){
+            throw new IllegalArgumentException("The value of 'actuatorTypeID' should be 'Switch'.");
         } else {
             this._actuatorTypeID = actuatorTypeID;
         }
