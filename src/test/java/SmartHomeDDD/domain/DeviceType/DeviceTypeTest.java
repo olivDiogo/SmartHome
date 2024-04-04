@@ -1,6 +1,8 @@
 package SmartHomeDDD.domain.DeviceType;
 
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
+import SmartHomeDDD.domain.Unit.Unit;
+import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -117,10 +119,12 @@ public class DeviceTypeTest {
     public void shouldReturnFalse_whenObjectIsNotInstanceOfDeviceType() {
         // Arrange
         String description = "Device Type Description";
+        String id = "unitID";
         TypeDescription deviceTypeDescription = new TypeDescription(description);
 
         DeviceType deviceType = new DeviceType(deviceTypeDescription);
-        ActuatorType actuatorType = new ActuatorType(deviceTypeDescription);
+        UnitID unitID = new UnitID(id);
+        ActuatorType actuatorType = new ActuatorType(deviceTypeDescription, unitID);
 
         // Act
         boolean result = deviceType.equals(actuatorType);
