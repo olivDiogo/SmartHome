@@ -1,6 +1,7 @@
 package SmartHomeDDD.domain.Actuator;
 
 import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerValue;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuator;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuatorLimits;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerValue;
