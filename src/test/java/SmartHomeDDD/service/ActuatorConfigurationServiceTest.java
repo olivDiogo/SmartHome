@@ -110,10 +110,9 @@ class ActuatorConfigurationServiceTest {
     ActuatorModelRepository ActuatorModelRepository = mock(ActuatorModelRepository.class);
     UnitRepository unitRepository = mock(UnitRepository.class);
     UnitFactory unitFactory = mock(UnitFactory.class);
-
     Configurations configs = new Configurations();
     int defaultActuatorModels =
-        configs.properties(new File("config.properties")).getStringArray("Actuator").length;
+        configs.properties(new File("config.properties")).getStringArray("actuator").length;
 
     try (MockedConstruction<ModelPath> modelPathMockedConstruction =
             mockConstruction(ModelPath.class, (mock, context) -> {});

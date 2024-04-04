@@ -1492,7 +1492,7 @@ public class AddSensorToDeviceControllerTest {
     sensorTypeService.saveSensorType(sensorType);
 
 
-    String modelPath = "SmartHomeDDD.domain.Sensor.TemperatureSensor";
+    String modelPath = "SmartHomeDDD.domain.Sensor.TemperatureSensor.TemperatureSensor";
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);

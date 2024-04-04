@@ -184,48 +184,7 @@ AddSensorToDevice_Controller --> User : listDeviceDTO
 
 deactivate AddSensorToDevice_Controller
 
-'----------------------------------------------------'
 
-User o-> AddSensorToDevice_Controller: getSensorModels()
-
-activate AddSensorToDevice_Controller
-
-AddSensorToDevice_Controller -> SensorModelService: getSensorModels()
-
-activate SensorModelService
-
-SensorModelService -> SensorModelRepository: findAll()
-
-activate SensorModelRepository
-
-SensorModelRepository --> SensorModelService: listSensorModels
-
-deactivate SensorModelRepository
-
-SensorModelService --> AddSensorToDevice_Controller: listSensorModels
-
-deactivate SensorModelService
-
-AddSensorToDevice_Controller -> SensorModelAssembler: domainToDTO(listOfSensorModels)
-
-activate SensorModelAssembler
-
-loop for each sensorModel in copyOfSensorModels
-create SensorModelDTO
-SensorModelAssembler -> SensorModelDTO: createSensorModelDTO(sensorModel)
-activate SensorModelDTO
-SensorModelDTO --> SensorModelAssembler: sensorModelDTO
-deactivate SensorModelDTO
-SensorModelAssembler -> SensorModelAssembler: addToList(sensorModelDTO)
-end
-
-SensorModelAssembler --> AddSensorToDevice_Controller: listSensorTypesDTO
-
-deactivate SensorModelAssembler
-
-AddSensorToDevice_Controller -> User: listSensorTypesDTO
-
-deactivate AddSensorToDevice_Controller
 
 '----------------------------------------------------'
 
@@ -270,6 +229,67 @@ AddSensorToDevice_Controller -> User: listSensorModelsDTO
 
 deactivate AddSensorToDevice_Controller
 
+'----------------------------------------------------'
+
+User o-> AddSensorToDevice_Controller: getSensorModels(sensorTypeDTO)
+
+activate AddSensorToDevice_Controller
+
+AddSensorToDevice_Controller -> SensorTypeAssembler : dtoToDomain(sensorTypeDTO)
+
+activate SensorTypeAssembler
+
+create SensorTypeID
+
+SensorTypeAssembler -> SensorTypeID: createSensorTypeID(strSensorTypeDTO)
+
+activate SensorTypeID
+
+SensorTypeID --> SensorTypeAssembler: SensorTypeID
+
+deactivate SensorTypeID
+
+SensorTypeAssembler --> AddSensorToDevice_Controller: SensorTypeID
+
+deactivate SensorTypeAssembler
+
+
+AddSensorToDevice_Controller -> SensorModelService: getSensorModelsBySensorTypeId(SensorTypeID)
+
+activate SensorModelService
+
+SensorModelService -> SensorModelRepository: findBySensorTypeId()
+
+activate SensorModelRepository
+
+SensorModelRepository --> SensorModelService: listSensorModels
+
+deactivate SensorModelRepository
+
+SensorModelService --> AddSensorToDevice_Controller: listSensorModels
+
+deactivate SensorModelService
+
+AddSensorToDevice_Controller -> SensorModelAssembler: domainToDTO(listOfSensorModels)
+
+activate SensorModelAssembler
+
+loop for each sensorModel in copyOfSensorModels
+create SensorModelDTO
+SensorModelAssembler -> SensorModelDTO: createSensorModelDTO(sensorModel)
+activate SensorModelDTO
+SensorModelDTO --> SensorModelAssembler: sensorModelDTO
+deactivate SensorModelDTO
+SensorModelAssembler -> SensorModelAssembler: addToList(sensorModelDTO)
+end
+
+SensorModelAssembler --> AddSensorToDevice_Controller: listSensorTypesDTO
+
+deactivate SensorModelAssembler
+
+AddSensorToDevice_Controller -> User: listSensorTypesDTO
+
+deactivate AddSensorToDevice_Controller
 
 '----------------------------------------------------'
 

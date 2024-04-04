@@ -23,4 +23,13 @@ public class ActuatorDataDTO {
         this.actuatorName = actuatorName;
         this.actuatorTypeID = actuatorTypeID;
     }
+
+    public String toString() {
+        return "ActuatorDataDTO{" +
+                "deviceID='" + deviceID + '\'' +
+                ", actuatorModelPath='" + actuatorModelPath + '\'' +
+                ", actuatorName='" + actuatorName + '\'' +
+                ", actuatorTypeID='" + actuatorTypeID + '\'' +
+                '}';
+    }
 }

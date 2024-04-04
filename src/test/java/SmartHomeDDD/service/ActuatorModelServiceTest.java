@@ -115,7 +115,7 @@ class ActuatorModelServiceTest {
 
             // Act
             ActuatorModelService actuatorModelService = new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
-            Optional<ActuatorModel> actuatorModelOptional = actuatorModelService.getActuatorModel(mock(ActuatorModelID.class));
+            Optional<ActuatorModel> actuatorModelOptional = actuatorModelService.getActuatorModel(mock(ModelPath.class));
 
             // Assert
             assertEquals(actuatorModelOptional.get(), actuatorModel);

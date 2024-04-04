@@ -5,10 +5,15 @@ import SmartHomeDDD.domain.ActuatorType.ImpActuatorTypeFactory;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
 import SmartHomeDDD.repository.ActuatorTypeRepository;
 import SmartHomeDDD.repository.UnitRepository;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,9 +28,10 @@ public class ActuatorTypeServiceTest {
     // Arrange
     ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
     TypeDescription actuatorTypeName = mock(TypeDescription.class);
+    UnitID unitID = mock(UnitID.class);
 
     ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
-    when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName))
+    when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
         .thenReturn(actuatorTypeDouble);
 
     ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
@@ -34,9 +40,10 @@ public class ActuatorTypeServiceTest {
     ActuatorTypeService actuatorTypeService =
         new ActuatorTypeService(
             actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
+    when(unitRepositoryDouble.containsOfIdentity(unitID)).thenReturn(true);
 
     // Act
-    ActuatorType actuatorType = actuatorTypeService.addActuatorType(actuatorTypeName);
+    ActuatorType actuatorType = actuatorTypeService.createActuatorType(actuatorTypeName, unitID);
 
     // Assert
     assertEquals(actuatorType, actuatorTypeDouble);
@@ -50,10 +57,11 @@ public class ActuatorTypeServiceTest {
   public void shouldThrowIllegalArgumentException_whenActuatorTypeNameIsNull() {
     // Arrange
     TypeDescription actuatorTypeName = null;
+    UnitID unitID = mock(UnitID.class);
 
     ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
     ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
-      UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
 
     ActuatorTypeService actuatorTypeService =
         new ActuatorTypeService(
@@ -62,7 +70,7 @@ public class ActuatorTypeServiceTest {
     // Act + Assert
     assertThrows(
         IllegalArgumentException.class,
-        () -> actuatorTypeService.addActuatorType(actuatorTypeName));
+        () -> actuatorTypeService.createActuatorType(actuatorTypeName, unitID));
   }
 
   /**
@@ -74,9 +82,10 @@ public class ActuatorTypeServiceTest {
     // Arrange
     ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
     TypeDescription actuatorTypeName = mock(TypeDescription.class);
+    UnitID unitID = mock(UnitID.class);
 
     ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
-    when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName))
+    when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
         .thenReturn(actuatorTypeDouble);
 
     ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
@@ -91,6 +100,64 @@ public class ActuatorTypeServiceTest {
     // Act + Assert
     assertThrows(
         IllegalArgumentException.class,
-        () -> actuatorTypeService.addActuatorType(actuatorTypeName));
+        () -> actuatorTypeService.createActuatorType(actuatorTypeName, unitID));
   }
+
+  /**
+   * Test save method
+   */
+    @Test
+    public void shouldReturnTheActuatorType_whenActuatorTypeIsSavedToRepository() {
+        // Arrange
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        TypeDescription actuatorTypeName = mock(TypeDescription.class);
+        UnitID unitID = mock(UnitID.class);
+
+        ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
+        when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
+                .thenReturn(actuatorTypeDouble);
+
+        ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
+        UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+
+        ActuatorTypeService actuatorTypeService =
+                new ActuatorTypeService(
+                        actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
+        when(actuatorTypeRepositoryDouble.save(actuatorTypeDouble)).thenReturn(actuatorTypeDouble);
+
+        // Act
+        ActuatorType actuatorType = actuatorTypeService.saveActuatorType(actuatorTypeDouble);
+
+        // Assert
+        assertEquals(actuatorTypeDouble, actuatorType);
+    }
+
+  /**
+   * Test find all actuator types
+   */
+    @Test
+    public void shouldReturnAllActuatorTypes_whenFindAllActuatorTypes() {
+        // Arrange
+        ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
+        TypeDescription actuatorTypeName = mock(TypeDescription.class);
+        UnitID unitID = mock(UnitID.class);
+
+        ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
+        when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
+                .thenReturn(actuatorTypeDouble);
+
+        ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
+        UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+
+        ActuatorTypeService actuatorTypeService =
+                new ActuatorTypeService(
+                        actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
+        when(actuatorTypeRepositoryDouble.findAll()).thenReturn(List.of(actuatorTypeDouble));
+
+        // Act
+        List<ActuatorType> actuatorTypes = actuatorTypeService.findAllActuatorTypes();
+
+        // Assert
+        assertEquals(List.of(actuatorTypeDouble), actuatorTypes);
+    }
 }

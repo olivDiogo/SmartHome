@@ -73,7 +73,7 @@ public class ActuatorConfigurationService {
               new File("configDDD.properties")); // e.g. filePathname = "config.properties"
 
       // access configuration properties
-      String[] arrayStringClassesActuators = config.getStringArray("Actuator");
+      String[] arrayStringClassesActuators = config.getStringArray("actuator");
       for (String Actuator : arrayStringClassesActuators) {
         String ActuatorPathStr =
             Actuator.split(";")[0]; // String containing the path of the Actuator

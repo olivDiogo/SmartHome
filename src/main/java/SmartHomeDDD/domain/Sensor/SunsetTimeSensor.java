@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class SunsetTimeSensor implements Sensor{
-    private SunriseSunsetTimeValue _sunriseTimeValue;
+    private SunsetTimeSensorValue _sunsetTimeValue;
     private SensorTypeID _sensorTypeID;
     private SensorID _sensorID;
 
@@ -74,7 +74,7 @@ public class SunsetTimeSensor implements Sensor{
     }
     private LocalTime getSunsetTime(LocalDate date) {
         SunTimes time = SunTimes.compute().on(date).at(_gps.getLatitude(), _gps.getLongitude()).execute();
-        LocalTime sunrise = Objects.requireNonNull(time.getSet()).toLocalTime().truncatedTo(ChronoUnit.MINUTES);
+        LocalTime sunrise = Objects.requireNonNull(time.getSet()).toLocalTime().truncatedTo(ChronoUnit.SECONDS);
         return sunrise;
     }
 
@@ -105,18 +105,18 @@ public class SunsetTimeSensor implements Sensor{
     @Override
     public ValueObject getValue() {
         LocalTime sunrise = getSunsetTime(LocalDate.now());
-        this._sunriseTimeValue = new SunriseSunsetTimeValue(sunrise);
-        return this._sunriseTimeValue;
+        this._sunsetTimeValue = new SunsetTimeSensorValue(sunrise);
+        return this._sunsetTimeValue;
     }
     public ValueObject getValue(LocalDate date) {
         LocalTime sunrise = getSunsetTime(date);
-        this._sunriseTimeValue = new SunriseSunsetTimeValue(sunrise);
-        return this._sunriseTimeValue;
+        this._sunsetTimeValue = new SunsetTimeSensorValue(sunrise);
+        return this._sunsetTimeValue;
     }
     @Override
     public String toString() {
         return "SunsetTimeSensor{" +
-                "_sunriseTimeValue=" + _sunriseTimeValue +
+                "_sunriseTimeValue=" + _sunsetTimeValue +
                 ", _sensorTypeID=" + _sensorTypeID +
                 ", _sensorID=" + _sensorID +
                 ", _sensorName=" + _sensorName +

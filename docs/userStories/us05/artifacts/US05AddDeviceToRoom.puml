@@ -10,7 +10,7 @@ actor "Power User" as Power_User
 
 
     (Add device to Room) as UC1
-    (Get List of Room's) as UC2
+    (Get List of Rooms) as UC2
     UC1 ..> UC2 : <<includes>>
 
 

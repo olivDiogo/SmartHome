@@ -60,7 +60,7 @@ public class SensorModelService {
      * @param sensorTypeID    The type of the sensor model.
      * @return
      */
-    protected SensorModel createSensorModel(SensorModelName sensorModelName, ModelPath sensorPath, SensorTypeID sensorTypeID) {
+    public SensorModel createSensorModel(SensorModelName sensorModelName, ModelPath sensorPath, SensorTypeID sensorTypeID) {
         SensorModel sensorModel = _factorySensorModel.createSensorModel(sensorModelName, sensorPath, sensorTypeID);
         _sensorModelRepository.save(sensorModel);
         return sensorModel;

@@ -9,8 +9,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test cases for the SetDecimalActuator class.
+ */
 class SetDecimalActuatorTest {
 
+    /**
+     * Verifies that SetDecimalActuator is correctly instantiated when elements are valid.
+     */
     @Test
     void shouldInstantiateSetDecimalActuator_WhenConstructorElementsAreValid() {
         // Arrange
@@ -27,6 +33,9 @@ class SetDecimalActuatorTest {
         assertNotNull(sensor);
     }
 
+    /**
+     * Verifies that an IllegalArgumentException is thrown when the DeviceID is null.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenDeviceIDIsNull() {
         // Arrange
@@ -48,6 +57,9 @@ class SetDecimalActuatorTest {
 
     }
 
+    /**
+     * Verifies that an IllegalArgumentException is thrown when the ModelPath is null.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenModelPathIsNull() {
         // Arrange
@@ -68,6 +80,9 @@ class SetDecimalActuatorTest {
         }
     }
 
+    /**
+     * Verifies that an IllegalArgumentException is thrown when the ActuatorTypeID is null.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenActuatorTypeIDIsNull() {
         // Arrange
@@ -88,6 +103,9 @@ class SetDecimalActuatorTest {
         }
     }
 
+    /**
+     * Verifies that an IllegalArgumentException is thrown when the ActuatorName is null.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenActuatorNameIsNull() {
         // Arrange
@@ -108,6 +126,9 @@ class SetDecimalActuatorTest {
         }
     }
 
+    /**
+     * Verifies that an IllegalArgumentException is thrown when the limits are null.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenLimitsIsNull() {
         // Arrange
@@ -129,6 +150,9 @@ class SetDecimalActuatorTest {
     }
 
 
+    /**
+     * Generates an ActuatorID for the SetDecimalActuator.
+     */
     @Test
     void shouldGenerateActuatorID() {
         // Arrange
@@ -147,6 +171,10 @@ class SetDecimalActuatorTest {
         assertNotNull(result);
     }
 
+
+    /**
+     * Test to verify if the correct actuator name is returned.
+     */
     @Test
     void shouldReturnActuatorName() {
         // Arrange
@@ -161,14 +189,15 @@ class SetDecimalActuatorTest {
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
-
         ActuatorName result = setDecimalActuator.getActuatorName();
 
         // Assert
         assertEquals(result, actuatorName);
-
     }
 
+    /**
+     * Test to verify if the correct model path is returned.
+     */
     @Test
     void shouldReturnModelPath() {
         // Arrange
@@ -189,6 +218,9 @@ class SetDecimalActuatorTest {
         assertEquals(result.toString(), path);
     }
 
+    /**
+     * Test to verify if the correct actuator type ID is returned.
+     */
     @Test
     void shouldReturnActuatorTypeID() {
         // Arrange
@@ -209,6 +241,9 @@ class SetDecimalActuatorTest {
         assertEquals(result.getId(), id);
     }
 
+    /**
+     * Test to verify if the correct device ID is returned.
+     */
     @Test
     void shouldGetDeviceID() {
         // Arrange
@@ -229,6 +264,9 @@ class SetDecimalActuatorTest {
         assertEquals(result.toString(), id);
     }
 
+    /**
+     * Test to verify if the correct limits are returned.
+     */
     @Test
     void shouldGetLimits() {
         // Arrange
@@ -251,6 +289,9 @@ class SetDecimalActuatorTest {
         assertEquals(result.getUpperLimit(), upperLimit);
     }
 
+    /**
+     * Test to verify if the correct value is returned within the limits.
+     */
     @Test
     void shouldSetValue_WhenValueIsWithinLimits() {
         // Arrange
@@ -277,6 +318,9 @@ class SetDecimalActuatorTest {
 
     }
 
+    /**
+     * Test to verify if an IllegalArgumentException is thrown when the value is less than the lower limit.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenValueIsLessThanLowerLimit() {
         // Arrange
@@ -304,6 +348,9 @@ class SetDecimalActuatorTest {
         }
     }
 
+    /**
+     * Test to verify if an IllegalArgumentException is thrown when the value is greater than the upper limit.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenValueIsGreaterThanUpperLimit() {
         // Arrange
@@ -331,6 +378,9 @@ class SetDecimalActuatorTest {
         }
     }
 
+    /**
+     * Test to verify if an IllegalArgumentException is thrown when the value is null.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenValueIsNull() {
         // Arrange

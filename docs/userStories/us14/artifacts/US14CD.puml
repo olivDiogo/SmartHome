@@ -2,105 +2,129 @@
 !pragma layout smetana
 
 package domain.actuator {
+
     interface Actuator {
-        + getActuatorTypeID(): ActuatorTypeID
-                + getID(): ActuatorID
-                + getName() : ActuatorName
-                + getModelPath() : ModelPath
-                + getDeviceID() : DeviceID
-                + setValue(ValueObject value): ValueObject
-    }
-    interface FactoryActuator {
-        + createActuator(actuatorModelID: ActuatorModelID, repoActuator: RepoActuator): Actuator
-    }
-    class ImplFactoryActuator {
-        + createActuator(actuatorModelID: ActuatorModelID, repoActuator: RepoActuator): Actuator
+            'Methods'
+            + getID() : ActuatorID
+            + getName() : ActuatorName
+            + getModelPath() : ModelPath
+            + getActuatorTypeID() : ActuatorTypeID
+            + getDeviceID() : DeviceID
+            + toString() : String
+            + setValue(value : ValueObject) : ValueObject
     }
 
-    class BlindRollerActuator {
-        - _actuatorID: ActuatorID
-        - _actuatorName: ActuatorName
-        - _actuatorTypeID: ActuatorTypeID
-        - _modelPath: ModelPath
-        - _deviceID: DeviceID
-        - _value: BlindRollerValue
-        + BlindRollerActuator(ActuatorName: actuatorName, actuatorTypeID: ActuatorTypeID, modelPath: ModelPath, deviceID: DeviceID)
-        + getActuatorTypeID(): ActuatorTypeID
-        + getID(): ActuatorID
-        + getName() : ActuatorName
-        + getModelPath() : ModelPath
-        + getDeviceID() : DeviceID
-        + setValue(ValueObject value): BlindRollerValue
-    }
-}
-package domain.value {
-  class BlindRollerValue {
-    - _value : int
-    + BlindRollerValue(int value)
-    + toString() : String
-  }
-}
-package valueObject {
-    class ActuatorTypeID {
-        - _description: String
-        + ActuatorTypeID(String strDescription)
-        + getType() : String
+    interface ActuatorFactory {
+        + createActuator(Object... parameters) : Actuator
     }
 
-    class ModelPath {
+    class ImplActuatorFactory{
+        + createActuator(Object... parameters): Actuator
+    }
+}
+
+package domain.actuator.BlindRollerActuator {
+
+        class domain.actuator.BlindRollerActuator.BlindRollerActuator <<entity>> <<Root>> {
+        'Attributes'
+        - _deviceID : DeviceID
+        - _actuatorName :ActuatorName
+        - _modelPath : ModelPath
+        - _actuatorTypeID : ActuatorTypeID
+        - _actuatorID : ActuatorID
+        - _value : BlindRollerValue
+
+        'Methods'
+        +BlindRollerActuator (deviceID : DeviceID, modelPath : ModelPath, actuatorTypeID : ActuatorTypeID, actuatorName : ActuatorName)
+        +getID () : ActuatorID
+        +getModelPath () : ModelPath
+        +getName () : ActuatorName
+        +getActuatorTypeID () : ActuatorTypeID
+        +getDeviceID () : DeviceID
+        +setValue (value : ValueObject) : ValueObject
+    }
+
+
+    class BlindRollerValue <<ValueObject>> {
+        'Attributes'
+        -_value : int
+
+        'Methods'
+        +BlindRollerValue(value : int)
+        +toString() : String
+    }
+
+    class ActuatorTypeID <<DomainID>> {
+        - _id: String
+        + ActuatorTypeID(String id)
+        + getID() : String
+    }
+
+
+    class ModelPath <<DomainID>> {
         - _path: String
         + ModelPath(String path)
         + getPath() : String
     }
 
-    class ActuatorName {
+    class ActuatorName <<ValueObject>> {
         - _name: String
         + ActuatorName(String name)
         + getName() : String
     }
 
 
-    class ActuatorID {
+    class ActuatorID <<DomainID>> {
         - _id: String
         + ActuatorID(String id)
         + getID() : String
     }
 
-    class DeviceID {
+    class DeviceID <<DomainID>> {
         - _id: String
         + DeviceID(String id)
         + getID() : String
     }
- }
-package ddd {
+}
+
+package domain.ddd {
 
   interface DomainEntity {
   }
 
-  interface DomainID {
+  interface DomainID extends ValueObject{
   }
 
   interface AggregateRoot {
   }
+
+  interface ValueObject {
+  }
 }
 
-ImplFactoryActuator ..|> FactoryActuator
-ImplFactoryActuator "1" ..> "1" BlindRollerActuator : creates
+ImplActuatorFactory ..|> ActuatorFactory
+ImplActuatorFactory "1" ..> "1" domain.actuator.BlindRollerActuator.BlindRollerActuator : creates
 
-BlindRollerActuator ..|> Actuator
-BlindRollerActuator "1" --> "1" BlindRollerValue : has
-BlindRollerActuator "1" -->  "1" ActuatorTypeID : has
-BlindRollerActuator "1" -->  "1" ModelPath : has
-BlindRollerActuator "1" -->  "1" ActuatorName : has
-BlindRollerActuator "1" -->  "1" ActuatorID : has
-BlindRollerActuator "1" -->  "1" DeviceID : has
+domain.actuator.BlindRollerActuator.BlindRollerActuator ..|> domain.actuator.Actuator
+domain.actuator.BlindRollerActuator.BlindRollerActuator "1" --> "1" domain.actuator.BlindRollerActuator.BlindRollerValue : has
+domain.actuator.BlindRollerActuator.BlindRollerActuator "1" -->  "1" ActuatorTypeID : has
+domain.actuator.BlindRollerActuator.BlindRollerActuator "1" -->  "1" ModelPath : has
+domain.actuator.BlindRollerActuator.BlindRollerActuator "1" -->  "1" ActuatorName : has
+domain.actuator.BlindRollerActuator.BlindRollerActuator "1" -->  "1" ActuatorID : has
+domain.actuator.BlindRollerActuator.BlindRollerActuator "1" -->  "1" DeviceID : has
+
+domain.actuator.BlindRollerActuator.BlindRollerValue ..|> domain.ddd.ValueObject
+domain.actuator.BlindRollerActuator.ActuatorName ..|> domain.ddd.ValueObject
 
 DomainEntity --|> DomainID
 AggregateRoot --|> DomainEntity
-AggregateRoot --|> DomainID
 
-Actuator ..|> ddd.AggregateRoot
-ActuatorTypeID ..|> ddd.DomainID
-ActuatorID ..|> ddd.DomainID
+domain.actuator.Actuator ..|> domain.ddd.AggregateRoot
+
+ActuatorTypeID ..|> domain.ddd.DomainID
+ActuatorID ..|> domain.ddd.DomainID
+ModelPath ..|> domain.ddd.DomainID
+ActuatorName ..|> domain.ddd.DomainID
+DeviceID ..|> domain.ddd.DomainID
 
 @enduml
