@@ -3,11 +3,11 @@
 
 class GetListOfRoomsController{
 'Attributes'
-- _serviceRoom: RoomService
+- _roomService: RoomService
 - _roomAssembler: RoomAssembler
 'Methods'
-+GetListOfRooms_Controller(serviceRoom: ServiceRoom, roomAssembler : RoomAssembler)
-+getListOfRooms(): List<RoomDTO>
++GetListOfRoomsController(serviceRoom: ServiceRoom, roomAssembler : RoomAssembler)
++getRooms(): List<RoomDTO>
 }
 
 class RoomService{

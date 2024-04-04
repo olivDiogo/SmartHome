@@ -2,6 +2,8 @@ package SmartHomeDDD.domain.Actuator;
 
 
 import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator;
+import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuatorValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;

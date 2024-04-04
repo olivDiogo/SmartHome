@@ -3,10 +3,7 @@ package SmartHomeDDD.valueObject;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 class RoomIDTest {
 
@@ -18,7 +15,9 @@ class RoomIDTest {
         // Arrange
         String roomID = "Room12";
         // Act
-        new RoomID(roomID);
+        RoomID roomID1 = new RoomID(roomID);
+        // Assert
+        assertNotNull(roomID1);
 
     }
 

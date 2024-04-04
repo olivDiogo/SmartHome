@@ -2,8 +2,7 @@ package SmartHomeDDD.valueObject;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DimensionTest {
 
@@ -18,7 +17,10 @@ public class DimensionTest {
         int depth = 17;
 
         //Act
-        new Dimension(width, height, depth);
+        Dimension dimension = new Dimension(width, height, depth);
+
+        //Assert
+        assertNotNull(dimension);
     }
 
     /**

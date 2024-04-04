@@ -1,6 +1,7 @@
-package SmartHomeDDD.domain.Actuator;
+package SmartHomeDDD.domain.Actuator.SwitchActuator;
 
 import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Actuator.Actuator;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.UUID;

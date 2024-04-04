@@ -1,13 +1,14 @@
 @startuml
 !pragma layout smetana
 
+package domain.actuator {
     interface Actuator {
         + getActuatorTypeID(): ActuatorTypeID
                 + getID(): ActuatorID
                 + getName() : ActuatorName
                 + getModelPath() : ModelPath
                 + getDeviceID() : DeviceID
-                + Value(Value value): Value
+                + setValue(ValueObject value): ValueObject
     }
     interface FactoryActuator {
         + createActuator(actuatorModelID: ActuatorModelID, repoActuator: RepoActuator): Actuator
@@ -23,21 +24,23 @@
         - _modelPath: ModelPath
         - _deviceID: DeviceID
         - _value: BlindRollerValue
-        # BlindRollerActuator(ActuatorName: actuatorName, actuatorTypeID: ActuatorTypeID, modelPath: ModelPath, deviceID: DeviceID)
+        + BlindRollerActuator(ActuatorName: actuatorName, actuatorTypeID: ActuatorTypeID, modelPath: ModelPath, deviceID: DeviceID)
         + getActuatorTypeID(): ActuatorTypeID
         + getID(): ActuatorID
         + getName() : ActuatorName
         + getModelPath() : ModelPath
         + getDeviceID() : DeviceID
-        + setValue(Value value): Value
+        + setValue(ValueObject value): BlindRollerValue
     }
-
+}
+package domain.value {
   class BlindRollerValue {
     - _value : int
     + BlindRollerValue(int value)
     + toString() : String
   }
-
+}
+package valueObject {
     class ActuatorTypeID {
         - _description: String
         + ActuatorTypeID(String strDescription)
@@ -68,7 +71,18 @@
         + DeviceID(String id)
         + getID() : String
     }
+ }
+package ddd {
 
+  interface DomainEntity {
+  }
+
+  interface DomainID {
+  }
+
+  interface AggregateRoot {
+  }
+}
 
 ImplFactoryActuator ..|> FactoryActuator
 ImplFactoryActuator "1" ..> "1" BlindRollerActuator : creates
@@ -81,8 +95,12 @@ BlindRollerActuator "1" -->  "1" ActuatorName : has
 BlindRollerActuator "1" -->  "1" ActuatorID : has
 BlindRollerActuator "1" -->  "1" DeviceID : has
 
+DomainEntity --|> DomainID
+AggregateRoot --|> DomainEntity
+AggregateRoot --|> DomainID
 
-
-
+Actuator ..|> ddd.AggregateRoot
+ActuatorTypeID ..|> ddd.DomainID
+ActuatorID ..|> ddd.DomainID
 
 @enduml

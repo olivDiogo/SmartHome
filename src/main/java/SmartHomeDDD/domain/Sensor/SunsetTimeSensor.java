@@ -7,6 +7,7 @@ import org.shredzone.commons.suncalc.SunTimes;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -73,7 +74,7 @@ public class SunsetTimeSensor implements Sensor{
     }
     private LocalTime getSunsetTime(LocalDate date) {
         SunTimes time = SunTimes.compute().on(date).at(_gps.getLatitude(), _gps.getLongitude()).execute();
-        LocalTime sunrise = Objects.requireNonNull(time.getSet()).toLocalTime();
+        LocalTime sunrise = Objects.requireNonNull(time.getSet()).toLocalTime().truncatedTo(ChronoUnit.MINUTES);
         return sunrise;
     }
 

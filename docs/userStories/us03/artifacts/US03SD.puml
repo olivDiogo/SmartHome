@@ -6,15 +6,15 @@
 participant " " as User
 
 box "Controller" #LightBlue
-participant ":GetListOfRooms_Controller" as GetListOfRoomsController
+participant ":GetListOfRoomsController" as GetListOfRoomsController
 end box
 
 box "Service" #LightGreen
-participant ":ServiceRoom" as Service
+participant ":RoomService" as Service
 end box
 
 box "Repository" #LightYellow
-participant ":RepositoryRoom" as RepositoryRoom
+participant ":RoomRepository" as RepositoryRoom
 end box
 
 box "Assembler" #LightCyan
@@ -58,11 +58,11 @@ deactivate RoomDTO
 RoomAssembler -> RoomAssembler : addRoomDTOToList (roomDTO)
 end
 
-RoomAssembler --> GetListOfRoomsController: roomDTOList
+RoomAssembler --> GetListOfRoomsController: copyOf(listOfRoomsDTO)
 
 deactivate RoomAssembler
 
-<-- GetListOfRoomsController :roomsDTOList
+<-- GetListOfRoomsController : copyOf(listOfRoomsDTO)
 
 deactivate GetListOfRoomsController
 

@@ -8,6 +8,7 @@ import org.shredzone.commons.suncalc.SunTimes;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -106,7 +107,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = new SensorName("sensorName");
         Gps gps = new Gps(0, 0);
         SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
-        LocalTime expectedSunsetTime = SunTimes.compute().on(LocalDateTime.now()).at(gps.getLatitude(), gps.getLongitude()).execute().getSet().toLocalTime();
+        LocalTime expectedSunsetTime = SunTimes.compute().on(LocalDateTime.now()).at(gps.getLatitude(), gps.getLongitude()).execute().getSet().toLocalTime().truncatedTo(ChronoUnit.MINUTES);
         SunriseSunsetTimeValue expected = new SunriseSunsetTimeValue(expectedSunsetTime);
 
         //Act
@@ -124,7 +125,7 @@ class SunsetTimeSensorTest {
         Gps gps = new Gps(0, 0);
         SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
         LocalDate date = LocalDate.now().plusDays(5);
-        LocalTime expectedSunsetTime = SunTimes.compute().on(date).at(gps.getLatitude(), gps.getLongitude()).execute().getSet().toLocalTime();
+        LocalTime expectedSunsetTime = SunTimes.compute().on(date).at(gps.getLatitude(), gps.getLongitude()).execute().getSet().toLocalTime().truncatedTo(ChronoUnit.MINUTES);
         SunriseSunsetTimeValue expected = new SunriseSunsetTimeValue(expectedSunsetTime);
 
         //Act

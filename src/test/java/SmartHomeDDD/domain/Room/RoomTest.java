@@ -20,13 +20,23 @@ class RoomTest {
     @Test
     public void shouldInstantiateRoom_WhenConstructorIsCalledWithValidParameters() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
 
-        //Act & Assert
-        new Room(houseID, roomName, dimension, roomFloor);
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
+
+        //Act
+        Room room = new Room(houseID, roomName, dimension, roomFloor);
+
+        //Assert
+        assertNotNull(room);
     }
 
     /**
@@ -35,13 +45,26 @@ class RoomTest {
     @Test
     public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullHouseID() {
         //Arrange
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
         HouseID houseID = null;
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
+
+        String expectedMessage = "HouseID is required";
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
@@ -50,13 +73,26 @@ class RoomTest {
     @Test
     public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullRoomName() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
+        String houseIDName = "HouseID";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
         RoomName roomName = null;
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
+
+        String expectedMessage = "RoomName is required";
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
@@ -65,13 +101,25 @@ class RoomTest {
     @Test
     public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDimension() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
         Dimension dimension = null;
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        RoomFloor roomFloor = new RoomFloor(floor);
+
+        String expectedMessage = "Dimension is required";
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertTrue(actualMessage.contains(expectedMessage));
+
     }
 
     /**
@@ -80,13 +128,26 @@ class RoomTest {
     @Test
     public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullRoomFloor() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
         RoomFloor roomFloor = null;
 
+        String expectedMessage = "RoomFloor is required";
+
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
@@ -95,10 +156,17 @@ class RoomTest {
     @Test
     public void shouldReturnHouseID() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
 
         Room room = new Room(houseID, roomName, dimension, roomFloor);
 
@@ -115,10 +183,17 @@ class RoomTest {
     @Test
     public void shouldReturnRoomName() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
 
         Room room = new Room(houseID, roomName, dimension, roomFloor);
 
@@ -126,7 +201,7 @@ class RoomTest {
         RoomName result = room.getRoomName();
 
         //Assert
-        assertTrue(room.toString().contains(result.toString()));
+        assertEquals(name, result.toString());
     }
 
     /**
@@ -135,10 +210,17 @@ class RoomTest {
     @Test
     public void shouldReturnDimension() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
 
         Room room = new Room(houseID, roomName, dimension, roomFloor);
 
@@ -146,7 +228,7 @@ class RoomTest {
         Dimension result = room.getDimension();
 
         //Assert
-        assertTrue(room.toString().contains(result.toString()));
+        assertEquals(dimension, result);
     }
 
     /**
@@ -155,10 +237,17 @@ class RoomTest {
     @Test
     public void shouldReturnRoomFloor() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
 
         Room room = new Room(houseID, roomName, dimension, roomFloor);
 
@@ -166,7 +255,7 @@ class RoomTest {
         RoomFloor result = room.getRoomFloor();
 
         //Assert
-        assertTrue(room.toString().contains(result.toString()));
+        assertEquals(roomFloor, result);
     }
 
     /**
@@ -175,10 +264,17 @@ class RoomTest {
     @Test
     public void shouldReturnFalse_WhenRoomIsComparedToNull() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
 
         Room room = new Room(houseID, roomName, dimension, roomFloor);
 
@@ -195,10 +291,17 @@ class RoomTest {
     @Test
     public void shouldReturnTrue_WhenTwoRoomsHaveTheSameID() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
 
         try (MockedConstruction<RoomID> mockedRoom = mockConstruction(RoomID.class, (mock, context) -> {
             when(mock.toString()).thenReturn("RoomID");
@@ -220,13 +323,21 @@ class RoomTest {
     @Test
     public void shouldReturnFalse_WhenThereAreTwoDifferentHouses() {
         //Arrange
-        HouseID houseID1 = mock(HouseID.class);
-        HouseID houseID2 = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        String houseIDName1 = "HouseID";
+        String houseIDName2 = "HouseID2";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
 
-        Room room1 = new Room(houseID1, roomName, dimension, roomFloor);
+        HouseID houseID = new HouseID(houseIDName1);
+        HouseID houseID2 = new HouseID(houseIDName2);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
+
+        Room room1 = new Room(houseID, roomName, dimension, roomFloor);
         Room room2 = new Room(houseID2, roomName, dimension, roomFloor);
 
         //Act
@@ -243,10 +354,17 @@ class RoomTest {
     @Test
     public void shouldReturnRoomID() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
 
         Room room = new Room(houseID, roomName, dimension, roomFloor);
         //Act
@@ -262,10 +380,17 @@ class RoomTest {
     @Test
     public void shouldReturnTrue_WhenObjectIsComparedToItself() {
         //Arrange
-        HouseID houseID = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
 
         Room room = new Room(houseID, roomName, dimension, roomFloor);
 
