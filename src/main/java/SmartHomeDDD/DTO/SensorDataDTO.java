@@ -12,10 +12,10 @@ public class SensorDataDTO {
     /**
      * Constructs a new SensorDataDTO object with the specified sensor details.
      *
-     * @param deviceID          The unique identifier of the device.
-     * @param sensorModelPath   The file path to the sensor model's data.
-     * @param sensorName        The name of the sensor.
-     * @param sensorTypeID      The unique identifier of the sensor type.
+     * @param deviceID        The unique identifier of the device.
+     * @param sensorModelPath The file path to the sensor model's data.
+     * @param sensorName      The name of the sensor.
+     * @param sensorTypeID    The unique identifier of the sensor type.
      */
     public SensorDataDTO(String deviceID, String sensorModelPath, String sensorName, String sensorTypeID) {
         this.deviceID = deviceID;

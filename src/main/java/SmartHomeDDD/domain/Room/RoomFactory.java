@@ -14,8 +14,8 @@ public interface RoomFactory {
     /**
      * Creates and returns a new {@link Room} instance with the provided house ID, room name, dimension, and room floor.
      *
-     * @param houseID the house ID where the room is located
-     * @param roomName the name of the room
+     * @param houseID   the house ID where the room is located
+     * @param roomName  the name of the room
      * @param dimension the dimension of the room
      * @param roomFloor the floor where the room is located
      * @return a newly created Room instance

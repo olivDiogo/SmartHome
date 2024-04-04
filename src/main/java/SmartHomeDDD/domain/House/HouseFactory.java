@@ -13,9 +13,9 @@ public interface HouseFactory {
      * Creates and returns a new {@link House} instance with the provided address, zip code, and GPS location.
      *
      * @param address the address of the new house
-     * @param gps the GPS coordinates of the new house
+     * @param gps     the GPS coordinates of the new house
      * @return a newly created House instance
      */
-    public House createHouse(Address address, GPS gps);
+    House createHouse(Address address, GPS gps);
 }
 

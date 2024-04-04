@@ -3,7 +3,8 @@ package SmartHomeDDD.domain.Sensor;
 import SmartHomeDDD.domain.Sensor.DewPointSensor.DewPointValue;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DewPointValueTest {
     /**

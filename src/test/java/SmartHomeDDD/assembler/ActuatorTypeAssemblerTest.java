@@ -1,8 +1,8 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.ActuatorTypeDTO;
-import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
 import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ActuatorTypeAssemblerTest {
 

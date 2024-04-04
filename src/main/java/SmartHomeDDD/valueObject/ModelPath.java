@@ -9,6 +9,7 @@ public class ModelPath implements ValueObject, DomainID {
     public ModelPath(String path) {
         validatePath(path);
     }
+
     private void validatePath(String path) throws IllegalArgumentException {
         if (path == null || path.trim().isEmpty()) {
             throw new IllegalArgumentException("Please enter a valid path.");
@@ -16,6 +17,7 @@ public class ModelPath implements ValueObject, DomainID {
             this.path = path;
         }
     }
+
     @Override
     public String toString() {
         return path;

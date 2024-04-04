@@ -11,7 +11,7 @@ public interface Sensor extends AggregateRoot<SensorID> {
      *
      * @return The sensor ID.
      */
-    public SensorID getID();
+    SensorID getID();
 
 
     /**
@@ -19,40 +19,42 @@ public interface Sensor extends AggregateRoot<SensorID> {
      *
      * @return The sensor name.
      */
-    public SensorName getName();
+    SensorName getName();
 
     /**
      * Gets the model path.
      *
      * @return The model path.
      */
-    public ModelPath getModelPath();
+    ModelPath getModelPath();
 
     /**
      * Gets the sensor type ID.
      *
      * @return The sensor type ID.
      */
-    public SensorTypeID getSensorTypeID();
+    SensorTypeID getSensorTypeID();
 
     /**
      * Returns the sensor attributes in a string format.
      *
      * @return The sensor attributes in a string format.
      */
-    public String toString();
+    String toString();
 
     /**
      * Method to get the value object of the sensor.
+     *
      * @return the value.
      */
-    public ValueObject getValue ();
+    ValueObject getValue();
 
     /**
      * Gets the device ID.
+     *
      * @return The device ID.
      */
-    public DeviceID getDeviceID();
+    DeviceID getDeviceID();
 
 
 }

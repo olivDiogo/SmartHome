@@ -1,6 +1,5 @@
 package SmartHomeDDD.domain.Sensor;
 
-import SmartHome.domain.Gps;
 import SmartHomeDDD.ddd.ValueObject;
 import SmartHomeDDD.valueObject.*;
 import org.shredzone.commons.suncalc.SunTimes;
@@ -11,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.UUID;
 
-public class SunsetTimeSensor implements Sensor{
+public class SunsetTimeSensor implements Sensor {
     private SunsetTimeSensorValue _sunsetTimeValue;
     private SensorTypeID _sensorTypeID;
     private SensorID _sensorID;
@@ -21,9 +20,9 @@ public class SunsetTimeSensor implements Sensor{
     private DeviceID _deviceID;
 
     private ModelPath _modelPath;
-    private Gps _gps;
+    private GPS _gps;
 
-    public SunsetTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, Gps gps) throws InstantiationException {
+    public SunsetTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps) throws InstantiationException {
         validateDeviceID(deviceID);
         validateSensorTypeID(sensorTypeID);
         validateModelPath(modelPath);
@@ -31,6 +30,7 @@ public class SunsetTimeSensor implements Sensor{
         generateSensorID();
         configureGpsLocation(gps);
     }
+
     private void validateDeviceID(DeviceID deviceID) {
         if (deviceID == null) {
             throw new IllegalArgumentException("DeviceID cannot be null.");
@@ -38,16 +38,17 @@ public class SunsetTimeSensor implements Sensor{
             _deviceID = deviceID;
         }
     }
+
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID cannot be null.");
-        }
-        else if (!sensorTypeID.getId().equals("SunsetTime")) {
-            throw new IllegalArgumentException("SensorTypeID must be 'SunsetTime'.");}
-        else {
+        } else if (!sensorTypeID.getId().equals("SunsetTime")) {
+            throw new IllegalArgumentException("SensorTypeID must be 'SunsetTime'.");
+        } else {
             _sensorTypeID = sensorTypeID;
         }
     }
+
     private void validateModelPath(ModelPath modelPath) {
         if (modelPath == null) {
             throw new IllegalArgumentException("ModelPath cannot be null.");
@@ -55,6 +56,7 @@ public class SunsetTimeSensor implements Sensor{
             _modelPath = modelPath;
         }
     }
+
     private void validateSensorName(SensorName sensorName) {
         if (sensorName == null) {
             throw new IllegalArgumentException("SensorName cannot be null");
@@ -62,16 +64,19 @@ public class SunsetTimeSensor implements Sensor{
             _sensorName = sensorName;
         }
     }
+
     private void generateSensorID() {
         _sensorID = new SensorID(UUID.randomUUID().toString());
     }
-    private void configureGpsLocation(Gps gps) {
+
+    private void configureGpsLocation(GPS gps) {
         if (gps == null) {
             throw new IllegalArgumentException("GPS cannot be null.");
         } else {
             _gps = gps;
         }
     }
+
     private LocalTime getSunsetTime(LocalDate date) {
         SunTimes time = SunTimes.compute().on(date).at(_gps.getLatitude(), _gps.getLongitude()).execute();
         LocalTime sunrise = Objects.requireNonNull(time.getSet()).toLocalTime().truncatedTo(ChronoUnit.SECONDS);
@@ -97,6 +102,7 @@ public class SunsetTimeSensor implements Sensor{
     public DeviceID getDeviceID() {
         return _deviceID;
     }
+
     @Override
     public SensorTypeID getSensorTypeID() {
         return _sensorTypeID;
@@ -108,11 +114,13 @@ public class SunsetTimeSensor implements Sensor{
         this._sunsetTimeValue = new SunsetTimeSensorValue(sunrise);
         return this._sunsetTimeValue;
     }
+
     public ValueObject getValue(LocalDate date) {
         LocalTime sunrise = getSunsetTime(date);
         this._sunsetTimeValue = new SunsetTimeSensorValue(sunrise);
         return this._sunsetTimeValue;
     }
+
     @Override
     public String toString() {
         return "SunsetTimeSensor{" +

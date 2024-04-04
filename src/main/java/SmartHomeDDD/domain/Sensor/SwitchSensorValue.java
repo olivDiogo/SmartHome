@@ -3,7 +3,7 @@ package SmartHomeDDD.domain.Sensor;
 import SmartHomeDDD.ddd.ValueObject;
 
 public class SwitchSensorValue implements ValueObject {
-    private boolean _bValue;
+    private final boolean _bValue;
 
     /**
      * Constructs a SwitchSensorValue with a specified state.

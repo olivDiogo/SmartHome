@@ -4,14 +4,10 @@ import SmartHomeDDD.ddd.ValueObject;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
 
 public class AveragePowerConsumptionSensorTest {
 

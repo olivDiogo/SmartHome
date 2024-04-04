@@ -10,7 +10,8 @@ public class DeviceAssembler implements Assembler<Device, DeviceDTO> {
     /**
      * Constructs a new DeviceAssembler object.
      */
-    public DeviceAssembler() {}
+    public DeviceAssembler() {
+    }
 
     /**
      * Converts a Device object to a DeviceDTO object.

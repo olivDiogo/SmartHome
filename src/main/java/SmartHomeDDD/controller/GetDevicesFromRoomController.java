@@ -35,6 +35,7 @@ public class GetDevicesFromRoomController {
 
     /**
      * Validates the room service.
+     *
      * @param roomService is the room service.
      */
     private void validateRoomService(RoomService roomService) {
@@ -47,6 +48,7 @@ public class GetDevicesFromRoomController {
 
     /**
      * Validates the device service.
+     *
      * @param deviceService is the device service.
      */
     private void validateDeviceService(DeviceService deviceService) {
@@ -59,6 +61,7 @@ public class GetDevicesFromRoomController {
 
     /**
      * Validates the room assembler.
+     *
      * @param roomAssembler is the room assembler.
      */
     private void validateRoomAssembler(RoomAssembler roomAssembler) {
@@ -71,6 +74,7 @@ public class GetDevicesFromRoomController {
 
     /**
      * Validates the device assembler.
+     *
      * @param deviceAssembler is the device assembler.
      */
     private void validateDeviceAssembler(DeviceAssembler deviceAssembler) {

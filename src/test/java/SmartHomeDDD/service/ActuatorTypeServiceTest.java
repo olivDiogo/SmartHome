@@ -1,20 +1,17 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.assembler.ActuatorTypeAssembler;
-import SmartHomeDDD.domain.ActuatorType.ImpActuatorTypeFactory;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
+import SmartHomeDDD.domain.ActuatorType.ImpActuatorTypeFactory;
 import SmartHomeDDD.repository.ActuatorTypeRepository;
 import SmartHomeDDD.repository.UnitRepository;
-import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

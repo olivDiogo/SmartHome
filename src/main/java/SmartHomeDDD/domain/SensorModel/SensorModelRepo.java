@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface SensorModelRepo extends Repository<ModelPath, SensorModel> {
 
-    public List<SensorModel> findBySensorTypeId(SensorTypeID sensorTypeID);
+    List<SensorModel> findBySensorTypeId(SensorTypeID sensorTypeID);
 }

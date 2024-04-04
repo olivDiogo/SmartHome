@@ -6,9 +6,9 @@ public class Address implements ValueObject {
 
     private final String _street;
     private final String _doorNumber;
-    private IPostalCode _postalCode;
     private final String _countryCode; // ISO 3166-1 alpha-2 country code
     private final int COUNTRY_CODE_LENGTH = 2;
+    private final IPostalCode _postalCode;
 
     public Address(String street, String doorNumber, String postalCode, String countryCode, PostalCodeFactory factory) {
         validateStreet(street);
@@ -69,14 +69,12 @@ public class Address implements ValueObject {
         if (this == object)
             return true;
 
-        if (object instanceof Address) {
-            Address address = (Address) object;
+        if (object instanceof Address address) {
 
-            if (this._street.equals(address._street) &&
+            return this._street.equals(address._street) &&
                     this._doorNumber.equals(address._doorNumber) &&
                     this._countryCode.equals(address._countryCode) &&
-                    this._postalCode.equals(address._postalCode))
-                return true;
+                    this._postalCode.equals(address._postalCode);
         }
         return false;
     }

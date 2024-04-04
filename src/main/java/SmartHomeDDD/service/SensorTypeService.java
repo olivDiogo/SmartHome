@@ -2,8 +2,8 @@ package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.SensorType.SensorType;
 import SmartHomeDDD.domain.SensorType.SensorTypeFactory;
-import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.repository.SensorTypeRepository;
+import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.SensorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
 import SmartHomeDDD.valueObject.UnitID;

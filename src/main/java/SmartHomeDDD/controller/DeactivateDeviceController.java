@@ -11,12 +11,13 @@ import java.util.List;
 
 public class DeactivateDeviceController {
 
-    private DeviceService _deviceService;
-    private DeviceAssembler _deviceAssembler;
+    private final DeviceService _deviceService;
+    private final DeviceAssembler _deviceAssembler;
 
     /**
      * Constructor for US08DeactivateDevice.
-     * @param deviceService is the service for the device.
+     *
+     * @param deviceService   is the service for the device.
      * @param deviceAssembler is the assembler for the device.
      */
     public DeactivateDeviceController(DeviceService deviceService, DeviceAssembler deviceAssembler) {
@@ -26,6 +27,7 @@ public class DeactivateDeviceController {
 
     /**
      * Requests all devices.
+     *
      * @return a list of devices.
      */
     public List<DeviceDTO> requestAllDevices() {
@@ -37,7 +39,7 @@ public class DeactivateDeviceController {
     }
 
 
-    public DeviceDTO requestDeactivateDevice(DeviceDTO deviceDTO){
+    public DeviceDTO requestDeactivateDevice(DeviceDTO deviceDTO) {
         try {
             DeviceID deviceID = new DeviceID(deviceDTO.deviceID);
             Device device = _deviceService.deactivateDeviceByID(deviceID);

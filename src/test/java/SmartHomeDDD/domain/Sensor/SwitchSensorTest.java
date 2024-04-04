@@ -2,14 +2,8 @@ package SmartHomeDDD.domain.Sensor;
 
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
-
-import java.util.List;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockConstruction;
 
 class SwitchSensorTest {
     /**

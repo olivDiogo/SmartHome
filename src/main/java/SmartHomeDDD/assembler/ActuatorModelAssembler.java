@@ -6,7 +6,7 @@ import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 
 import java.util.List;
 
-public class ActuatorModelAssembler implements Assembler<ActuatorModel, ActuatorModelDTO>{
+public class ActuatorModelAssembler implements Assembler<ActuatorModel, ActuatorModelDTO> {
 
     /**
      * Converts an ActuatorModel domain entity to an ActuatorModelDTO data transfer object.

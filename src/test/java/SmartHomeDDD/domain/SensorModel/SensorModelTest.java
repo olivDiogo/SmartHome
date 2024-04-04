@@ -4,10 +4,8 @@ import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelName;
 import SmartHomeDDD.valueObject.SensorTypeID;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class SensorModelTest {
 

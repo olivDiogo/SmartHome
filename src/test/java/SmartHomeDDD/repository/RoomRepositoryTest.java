@@ -1,20 +1,15 @@
 package SmartHomeDDD.repository;
 
+import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.valueObject.RoomID;
 import org.junit.jupiter.api.Test;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import SmartHomeDDD.domain.Room.Room;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 public class RoomRepositoryTest {

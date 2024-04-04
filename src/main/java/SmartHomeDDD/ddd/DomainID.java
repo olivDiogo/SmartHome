@@ -24,5 +24,5 @@ public interface DomainID extends ValueObject {
      */
     int hashCode();
 
-	
+
 }

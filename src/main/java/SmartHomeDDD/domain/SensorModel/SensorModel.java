@@ -24,6 +24,7 @@ public class SensorModel implements AggregateRoot<ModelPath> {
             this._sensorTypeID = sensorTypeID;
         }
     }
+
     private void validateSensorModelName(SensorModelName sensorModelName) {
         if (sensorModelName == null) {
             throw new IllegalArgumentException("Please enter a valid sensor model name.");
@@ -31,6 +32,7 @@ public class SensorModel implements AggregateRoot<ModelPath> {
             this._sensorModelName = sensorModelName;
         }
     }
+
     private void validateModelPath(ModelPath modelPath) {
         if (modelPath == null) {
             throw new IllegalArgumentException("Please enter a valid model path.");
@@ -38,26 +40,32 @@ public class SensorModel implements AggregateRoot<ModelPath> {
             this._modelPath = modelPath;
         }
     }
+
     public SensorTypeID getSensorTypeID() {
         return _sensorTypeID;
     }
+
     public SensorModelName getSensorModelName() {
         return _sensorModelName;
     }
+
     public ModelPath getModelPath() {
         return _modelPath;
     }
+
     @Override
     public ModelPath getID() {
         return _modelPath;
     }
+
     @Override
     public boolean equals(Object o) {
-        if ( o instanceof SensorModel castedSensorModel) {
+        if (o instanceof SensorModel castedSensorModel) {
             return _modelPath.equals(castedSensorModel._modelPath);
         }
         return false;
     }
+
     @Override
     public String toString() {
         return "SensorModel{" +

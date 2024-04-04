@@ -1,13 +1,12 @@
 package SmartHomeDDD.domain.Sensor;
 
-import SmartHomeDDD.ddd.ValueObject;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public class HumiditySensor implements Sensor{
+public class HumiditySensor implements Sensor {
     private ModelPath _modelPath;
     private SensorName _sensorName;
     private SensorID _sensorID;
@@ -16,7 +15,6 @@ public class HumiditySensor implements Sensor{
     private DeviceID _deviceID;
 
     /**
-     *
      * @param deviceID
      * @param modelPath
      * @param sensorTypeID
@@ -33,7 +31,7 @@ public class HumiditySensor implements Sensor{
     /**
      * generates a new HumidityID
      */
-     private void generateHumidityID() {
+    private void generateHumidityID() {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
     }
 

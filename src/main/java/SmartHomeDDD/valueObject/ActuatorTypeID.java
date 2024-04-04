@@ -38,11 +38,9 @@ public class ActuatorTypeID implements DomainID {
         if (this == object)
             return true;
 
-        if (object instanceof ActuatorTypeID) {
-            ActuatorTypeID actuatorTypeID = (ActuatorTypeID) object;
+        if (object instanceof ActuatorTypeID actuatorTypeID) {
 
-            if (this._id.equals(actuatorTypeID._id))
-                return true;
+            return this._id.equals(actuatorTypeID._id);
         }
         return false;
     }

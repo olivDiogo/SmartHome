@@ -42,6 +42,7 @@ public class SwitchActuator implements Actuator {
 
     /**
      * Validate device id.
+     *
      * @param deviceID
      */
     private void validateDeviceID(DeviceID deviceID) {
@@ -52,6 +53,7 @@ public class SwitchActuator implements Actuator {
 
     /**
      * Validate actuator name.
+     *
      * @param actuatorName
      */
     private void validateActuatorName(ActuatorName actuatorName) {
@@ -62,6 +64,7 @@ public class SwitchActuator implements Actuator {
 
     /**
      * Validate model path.
+     *
      * @param modelPath
      */
     private void validateModelPath(ModelPath modelPath) {
@@ -72,12 +75,13 @@ public class SwitchActuator implements Actuator {
 
     /**
      * Validate actuator type id.
+     *
      * @param actuatorTypeID
      */
     private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
         if (actuatorTypeID == null)
             throw new IllegalArgumentException("The value of 'actuatorTypeID' should not be null.");
-        if (!actuatorTypeID.getId().equals("Switch")){
+        if (!actuatorTypeID.getId().equals("Switch")) {
             throw new IllegalArgumentException("The value of 'actuatorTypeID' should be 'Switch'.");
         } else {
             this._actuatorTypeID = actuatorTypeID;
@@ -118,6 +122,7 @@ public class SwitchActuator implements Actuator {
 
     /**
      * Gets the actuator type id.
+     *
      * @return the actuator type id
      */
     @Override
@@ -127,6 +132,7 @@ public class SwitchActuator implements Actuator {
 
     /**
      * Gets the device id.
+     *
      * @return the device id
      */
     @Override
@@ -136,6 +142,7 @@ public class SwitchActuator implements Actuator {
 
     /**
      * Sets the value of the actuator.
+     *
      * @param value
      * @return the value object of this Actuator
      */

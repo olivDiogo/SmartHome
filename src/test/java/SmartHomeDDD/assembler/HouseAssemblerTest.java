@@ -1,17 +1,18 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.HouseDTO;
+import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
-
-import SmartHomeDDD.domain.House.House;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class HouseAssemblerTest {
     @Test

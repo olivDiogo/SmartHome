@@ -2,10 +2,11 @@ package SmartHomeDDD.valueObject;
 
 public class ActuatorModelName {
 
-    private String _name;
+    private final String _name;
 
     /**
      * Class constructor.
+     *
      * @param name The sensor model name to set.
      */
     public ActuatorModelName(String name) {
@@ -15,6 +16,7 @@ public class ActuatorModelName {
 
     /**
      * Validates the sensor model name.
+     *
      * @param name
      */
     private void validateActuatorModelName(String name) {
@@ -29,6 +31,7 @@ public class ActuatorModelName {
 
     /**
      * Gets the sensor model name.
+     *
      * @return
      */
     public String getActuatorModelName() {
@@ -37,6 +40,7 @@ public class ActuatorModelName {
 
     /**
      * Compares this instance with another instance.
+     *
      * @param o
      * @return
      */

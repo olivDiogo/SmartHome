@@ -6,7 +6,7 @@ import SmartHomeDDD.domain.SensorType.SensorType;
 
 import java.util.List;
 
-public class SensorTypeAssembler implements Assembler<SensorType, SensorTypeDTO>{
+public class SensorTypeAssembler implements Assembler<SensorType, SensorTypeDTO> {
 
     /**
      * Converts a {@link SensorType} domain entity to a {@link SensorTypeDTO} data transfer object.
@@ -14,7 +14,7 @@ public class SensorTypeAssembler implements Assembler<SensorType, SensorTypeDTO>
      * @param sensorType is the domain entity to be converted.
      * @return a {@link SensorTypeDTO} data transfer object.
      */
-    public SensorTypeDTO domainToDTO(SensorType sensorType){
+    public SensorTypeDTO domainToDTO(SensorType sensorType) {
         if (sensorType == null)
             throw new IllegalArgumentException("Sensor type cannot be null.");
 
@@ -33,7 +33,7 @@ public class SensorTypeAssembler implements Assembler<SensorType, SensorTypeDTO>
      * @param sensorTypes is the list of domain entities to be converted.
      * @return a list of {@link SensorTypeDTO} data transfer objects.
      */
-    public List<SensorTypeDTO> domainToDTO(List<SensorType> sensorTypes){
+    public List<SensorTypeDTO> domainToDTO(List<SensorType> sensorTypes) {
         if (sensorTypes == null || sensorTypes.isEmpty())
             throw new IllegalArgumentException("The list of sensor types cannot be null or empty.");
 

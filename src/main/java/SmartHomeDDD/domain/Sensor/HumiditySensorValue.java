@@ -34,8 +34,7 @@ public class HumiditySensorValue implements ValueObject {
      *
      * @return The humidity value as a string.
      */
-    public String toString()
-    {
+    public String toString() {
         return this._iValue + "";
     }
 }

@@ -15,6 +15,7 @@ public class PostalCodeCAImpl implements IPostalCode {
 
     /**
      * Validate Canadian postal code format
+     *
      * @param postalCode
      * @return
      */

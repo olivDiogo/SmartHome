@@ -12,13 +12,14 @@ import java.util.Optional;
 
 public class DeviceTypeService {
 
-    private Repository<DeviceTypeID,DeviceType> _deviceTypeRepository;
+    private Repository<DeviceTypeID, DeviceType> _deviceTypeRepository;
     private DeviceTypeFactory _deviceTypeFactory;
 
     /**
      * Constructor for the DeviceTypeService class.
+     *
      * @param deviceTypeRepository The repository for the device type.
-     * @param deviceTypeFactory The factory for the device type.
+     * @param deviceTypeFactory    The factory for the device type.
      */
     public DeviceTypeService(DeviceTypeRepository deviceTypeRepository, DeviceTypeFactory deviceTypeFactory) {
         validateDeviceTypeRepository(deviceTypeRepository);
@@ -27,6 +28,7 @@ public class DeviceTypeService {
 
     /**
      * Validates the device type repository.
+     *
      * @param deviceTypeRepository The repository for the device type.
      */
     private void validateDeviceTypeRepository(DeviceTypeRepository deviceTypeRepository) {
@@ -40,6 +42,7 @@ public class DeviceTypeService {
 
     /**
      * Validates the device type factory.
+     *
      * @param deviceTypeFactory The factory for the device type.
      */
     private void validateDeviceTypeFactory(DeviceTypeFactory deviceTypeFactory) {
@@ -53,6 +56,7 @@ public class DeviceTypeService {
 
     /**
      * Adds a device type.
+     *
      * @param deviceTypeName The name of the device type.
      * @return The device type.
      */
@@ -69,6 +73,7 @@ public class DeviceTypeService {
 
     /**
      * Finds all device types.
+     *
      * @return A list of all device types.
      */
     public List<DeviceType> findAllDeviceTypes() {
@@ -77,6 +82,7 @@ public class DeviceTypeService {
 
     /**
      * Finds a device type by its ID.
+     *
      * @param deviceTypeID The ID of the device type.
      * @return The device type.
      */

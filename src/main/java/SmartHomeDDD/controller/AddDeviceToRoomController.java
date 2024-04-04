@@ -30,9 +30,9 @@ public class AddDeviceToRoomController {
      * Constructs a new AddDeviceToRoomController with necessary service and assembler dependencies.
      * validates the room service, room assembler, device service, and device assembler.
      *
-     * @param roomService    Service for managing room-related operations.
-     * @param roomAssembler  Assembler for converting room entities to DTOs.
-     * @param deviceService  Service for managing device-related operations.
+     * @param roomService     Service for managing room-related operations.
+     * @param roomAssembler   Assembler for converting room entities to DTOs.
+     * @param deviceService   Service for managing device-related operations.
      * @param deviceAssembler Assembler for converting device entities to DTOs.
      */
     public AddDeviceToRoomController(RoomService roomService, RoomAssembler roomAssembler, DeviceService deviceService, DeviceAssembler deviceAssembler) {
@@ -41,6 +41,7 @@ public class AddDeviceToRoomController {
         validateDeviceService(deviceService);
         validateDeviceAssembler(deviceAssembler);
     }
+
     private void validateRoomService(RoomService roomService) {
         if (roomService == null) {
             throw new IllegalArgumentException("Please enter a valid room service.");
@@ -86,13 +87,13 @@ public class AddDeviceToRoomController {
     /**
      * Adds a device to a room identified by its ID, creating a new device entity in the process.
      *
-     * @param roomID        The ID of the room to add the device to.
-     * @param deviceName    The name of the new device.
-     * @param deviceStatus  The initial status of the new device.
+     * @param roomID       The ID of the room to add the device to.
+     * @param deviceName   The name of the new device.
+     * @param deviceStatus The initial status of the new device.
      * @return A DeviceDTO representing the added device.
      * @throws IllegalArgumentException if the specified room does not exist.
      */
-    public DeviceDTO addDeviceToRoom(String roomID, String deviceName, boolean deviceStatus, String deviceTypeID)  {
+    public DeviceDTO addDeviceToRoom(String roomID, String deviceName, boolean deviceStatus, String deviceTypeID) {
         RoomID roomIdVO = new RoomID(roomID);
         DeviceName deviceNameVO = new DeviceName(deviceName);
         DeviceStatus deviceStatusVO = new DeviceStatus(deviceStatus);

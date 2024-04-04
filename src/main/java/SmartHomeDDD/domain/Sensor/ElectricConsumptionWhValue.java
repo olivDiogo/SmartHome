@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.Sensor;
 
-import SmartHome.domain.Value;
 import SmartHomeDDD.ddd.ValueObject;
+
 /**
  * Represents the value of electric consumption in watt-hours.
  */
@@ -12,6 +12,7 @@ public class ElectricConsumptionWhValue implements ValueObject {
      * @param value the value of electric consumption in watt-hours
      */
     private int _value;
+
     /**
      * Constructs a new ElectricConsumptionWhValue with the given parameters.
      *
@@ -21,6 +22,7 @@ public class ElectricConsumptionWhValue implements ValueObject {
     public ElectricConsumptionWhValue(int value) {
         setValue(value);
     }
+
     /**
      * Returns the value of electric consumption in watt-hours.
      *
@@ -32,6 +34,7 @@ public class ElectricConsumptionWhValue implements ValueObject {
             throw new IllegalArgumentException("Consumption cannot be negative.");
         else _value = value;
     }
+
     /**
      * Returns the value of electric consumption in watt-hours.
      *
@@ -42,6 +45,7 @@ public class ElectricConsumptionWhValue implements ValueObject {
         return "ElectricConsumptionWh{" + +_value +
                 '}';
     }
+
     /**
      * Returns the value of electric consumption in watt-hours.
      *
@@ -54,6 +58,7 @@ public class ElectricConsumptionWhValue implements ValueObject {
         }
         return false;
     }
+
     /**
      * Returns the value of electric consumption in watt-hours.
      *

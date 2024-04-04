@@ -38,11 +38,9 @@ public class ActuatorID implements DomainID {
         if (this == object)
             return true;
 
-        if (object instanceof ActuatorID) {
-            ActuatorID actuatorID = (ActuatorID) object;
+        if (object instanceof ActuatorID actuatorID) {
 
-            if (this._id.equals(actuatorID._id))
-                return true;
+            return this._id.equals(actuatorID._id);
         }
         return false;
     }
@@ -68,10 +66,11 @@ public class ActuatorID implements DomainID {
 
     /**
      * toString method for ActuatorID.
+     *
      * @return String.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "ActuatorID: " + this._id;
     }
 }

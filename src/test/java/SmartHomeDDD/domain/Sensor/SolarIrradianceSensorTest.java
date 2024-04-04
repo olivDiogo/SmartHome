@@ -4,6 +4,7 @@ import SmartHomeDDD.domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor;
 import SmartHomeDDD.domain.Sensor.SolarIrradianceSensor.SolarIrradianceValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.Assert.*;
 
 public class SolarIrradianceSensorTest {

@@ -4,10 +4,11 @@ import SmartHomeDDD.ddd.ValueObject;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.UUID;
+
 /**
  * Represents a sensor that measures electric consumption in watt-hours.
  */
-public class ElectricConsumptionWhSensor implements Sensor{
+public class ElectricConsumptionWhSensor implements Sensor {
     /**
      * Constructs a new ElectricConsumptionWhSensor with the given parameters.
      *
@@ -24,14 +25,15 @@ public class ElectricConsumptionWhSensor implements Sensor{
     private SensorName _sensorName;
     private SensorID _sensorID;
     private DatePeriod _datePeriod;
+
     /**
      * Constructs a new ElectricConsumptionWhSensor with the given parameters.
      *
-     * @param deviceID the ID of the device
-     * @param modelPath the model path of the sensor
+     * @param deviceID     the ID of the device
+     * @param modelPath    the model path of the sensor
      * @param sensorTypeID the type ID of the sensor
-     * @param sensorName the name of the sensor
-     * @param datePeriod the period during which the sensor measures consumption
+     * @param sensorName   the name of the sensor
+     * @param datePeriod   the period during which the sensor measures consumption
      */
 
     public ElectricConsumptionWhSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, DatePeriod datePeriod) {
@@ -42,6 +44,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
         validateDatePeriod(datePeriod);
         generateElectricConsumptionWhID();
     }
+
     /**
      * Generates a new ElectricConsumptionWhSensor ID.
      */
@@ -49,6 +52,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
     private void generateElectricConsumptionWhID() {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
     }
+
     /**
      * Validates the given parameters.
      *
@@ -61,6 +65,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
             this._datePeriod = datePeriod;
         }
     }
+
     /**
      * Validates the given parameters.
      *
@@ -73,6 +78,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
             this._modelPath = modelPath;
         }
     }
+
     /**
      * Validates the given parameters.
      *
@@ -85,6 +91,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
             this._sensorName = sensorName;
         }
     }
+
     /**
      * Validates the given parameters.
      *
@@ -93,14 +100,13 @@ public class ElectricConsumptionWhSensor implements Sensor{
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
-        }
-        else if (!sensorTypeID.getId().equals("ElectricConsumptionWh")) {
+        } else if (!sensorTypeID.getId().equals("ElectricConsumptionWh")) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'ElectricConsumptionWh'");
-        }
-        else {
+        } else {
             this._sensorTypeID = sensorTypeID;
         }
     }
+
     /**
      * Validates the given parameters.
      *
@@ -113,6 +119,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
             this._deviceID = deviceID;
         }
     }
+
     /**
      * Returns the ID of the sensor.
      *
@@ -122,6 +129,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
     public SensorID getID() {
         return _sensorID;
     }
+
     /**
      * Returns the name of the sensor.
      *
@@ -131,6 +139,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
     public SensorName getName() {
         return _sensorName;
     }
+
     /**
      * Returns the model path of the sensor.
      *
@@ -140,6 +149,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
     public ModelPath getModelPath() {
         return _modelPath;
     }
+
     /**
      * Returns the type ID of the sensor.
      *
@@ -159,6 +169,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
     public DeviceID getDeviceID() {
         return _deviceID;
     }
+
     /**
      * Returns the period during which the sensor measures consumption.
      *
@@ -170,6 +181,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
         _electricConsumptionWhValue = new ElectricConsumptionWhValue(consumptionInWh);
         return _electricConsumptionWhValue;
     }
+
     /**
      * Returns the consumption in watt-hours for the given period.
      *
@@ -178,6 +190,7 @@ public class ElectricConsumptionWhSensor implements Sensor{
     private int getConsumptionInWhForGivenPeriod() {
         return _datePeriod.getDurationInMinutes() * 5;
     }
+
     /**
      * Returns the period during which the sensor measures consumption.
      *

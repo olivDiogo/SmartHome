@@ -24,13 +24,13 @@ public class DeviceDTO implements DTO {
      */
     public final String deviceStatus;
 
-/**
+    /**
      * Constructs a new DeviceDTO object with the specified device details.
      *
-     * @param deviceID          The unique identifier of the device.
-     * @param roomID            The unique identifier of the room.
-     * @param deviceName        The name of the device.
-     * @param deviceStatus      The status of the device.
+     * @param deviceID     The unique identifier of the device.
+     * @param roomID       The unique identifier of the room.
+     * @param deviceName   The name of the device.
+     * @param deviceStatus The status of the device.
      */
     public DeviceDTO(String deviceID, String roomID, String deviceName, String deviceStatus) {
         this.deviceID = deviceID;

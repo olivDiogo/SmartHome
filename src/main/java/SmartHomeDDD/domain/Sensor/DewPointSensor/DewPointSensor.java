@@ -1,8 +1,5 @@
 package SmartHomeDDD.domain.Sensor.DewPointSensor;
 
-import SmartHomeDDD.ddd.AggregateRoot;
-import SmartHomeDDD.ddd.ValueObject;
-import SmartHomeDDD.domain.Sensor.DewPointSensor.DewPointValue;
 import SmartHomeDDD.domain.Sensor.Sensor;
 import SmartHomeDDD.valueObject.*;
 

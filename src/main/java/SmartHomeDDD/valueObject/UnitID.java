@@ -16,7 +16,7 @@ public class UnitID implements DomainID {
      *                      It must not be null, empty, or blank.
      * @throws IllegalArgumentException if the measurementID is null, empty, or blank.
      */
-    public UnitID(String measurementID){
+    public UnitID(String measurementID) {
         validateID(measurementID);
         this._id = measurementID.trim();
     }
@@ -27,7 +27,7 @@ public class UnitID implements DomainID {
      * @param measurementID The measurement ID to validate.
      * @throws IllegalArgumentException if the measurementID is null, empty, or blank.
      */
-    private void validateID(String measurementID){
+    private void validateID(String measurementID) {
         if (measurementID == null || measurementID.isBlank())
             throw new IllegalArgumentException("The value of 'measurementID' should not null, blank, or empty.");
     }
@@ -48,12 +48,11 @@ public class UnitID implements DomainID {
      * @param o The object to compare this instance against.
      * @return true if the given object is an instance of MeasurementID and has an equal ID; false otherwise.
      */
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o)
             return true;
 
-        if (o instanceof UnitID) {
-            UnitID objectUnitId = (UnitID) o;
+        if (o instanceof UnitID objectUnitId) {
             return this._id.equals(objectUnitId._id);
         }
         return false;
@@ -64,7 +63,7 @@ public class UnitID implements DomainID {
      *
      * @return The hash code of the measurement ID.
      */
-    public int hashCode(){
+    public int hashCode() {
         return _id.hashCode();
     }
 }

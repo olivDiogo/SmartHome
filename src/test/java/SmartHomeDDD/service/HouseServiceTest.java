@@ -1,13 +1,14 @@
 package SmartHomeDDD.service;
 
-import SmartHomeDDD.valueObject.Address;
-import SmartHomeDDD.valueObject.GPS;
 import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.domain.House.HouseFactory;
 import SmartHomeDDD.repository.HouseRepository;
+import SmartHomeDDD.valueObject.Address;
+import SmartHomeDDD.valueObject.GPS;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

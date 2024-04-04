@@ -3,11 +3,12 @@ package SmartHomeDDD.domain.Sensor;
 
 import SmartHomeDDD.ddd.ValueObject;
 
-public class AveragePowerConsumptionSensorValue implements ValueObject{
+public class AveragePowerConsumptionSensorValue implements ValueObject {
     public double _dValue;
 
     /**
      * Creates a new PowerConsumptionSensorValue with a given value.
+     *
      * @param dValue the value to be set.
      */
 
@@ -17,6 +18,16 @@ public class AveragePowerConsumptionSensorValue implements ValueObject{
 
     /**
      * Gets the value of the PowerConsumptionSensorValue.
+     *
+     * @return the value of the PowerConsumptionSensorValue.
+     */
+    public double getValue() {
+        return this._dValue;
+    }
+
+    /**
+     * Gets the value of the PowerConsumptionSensorValue.
+     *
      * @return the value of the PowerConsumptionSensorValue.
      */
 
@@ -27,15 +38,8 @@ public class AveragePowerConsumptionSensorValue implements ValueObject{
     }
 
     /**
-     * Gets the value of the PowerConsumptionSensorValue.
-     * @return the value of the PowerConsumptionSensorValue.
-     */
-    public double getValue() {
-        return this._dValue;
-    }
-
-    /**
      * Clones the PowerConsumptionSensorValue.
+     *
      * @return a new PowerConsumptionSensorValue with the same value.
      */
 

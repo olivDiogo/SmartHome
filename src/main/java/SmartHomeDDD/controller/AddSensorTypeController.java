@@ -1,4 +1,5 @@
 package SmartHomeDDD.controller;
+
 import SmartHomeDDD.DTO.SensorTypeDTO;
 import SmartHomeDDD.DTO.SensorTypeDataDTO;
 import SmartHomeDDD.DTO.UnitDTO;
@@ -18,6 +19,7 @@ public class AddSensorTypeController {
     private UnitService _unitService;
     private SensorTypeAssembler _sensorTypeAssembler;
     private UnitAssembler _unitAssembler;
+
     public AddSensorTypeController(SensorTypeService sensorTypeService, SensorTypeAssembler sensorTypeAssembler,
                                    UnitService unitService, UnitAssembler unitAssembler) {
         validateSensorTypeService(sensorTypeService);
@@ -25,24 +27,28 @@ public class AddSensorTypeController {
         validateSensorTypeAssembler(sensorTypeAssembler);
         validateUnitAssembler(unitAssembler);
     }
+
     private void validateSensorTypeService(SensorTypeService sensorTypeService) {
         if (sensorTypeService == null) {
             throw new IllegalArgumentException("Valid SensorTypeService is required");
         }
         _sensorTypeService = sensorTypeService;
     }
+
     private void validateUnitService(UnitService unitService) {
         if (unitService == null) {
             throw new IllegalArgumentException("Valid UnitService is required");
         }
         _unitService = unitService;
     }
+
     private void validateSensorTypeAssembler(SensorTypeAssembler sensorTypeAssembler) {
         if (sensorTypeAssembler == null) {
             throw new IllegalArgumentException("Valid SensorTypeAssembler is required");
         }
         _sensorTypeAssembler = sensorTypeAssembler;
     }
+
     private void validateUnitAssembler(UnitAssembler unitAssembler) {
         if (unitAssembler == null) {
             throw new IllegalArgumentException("Valid UnitAssembler is required");
@@ -62,8 +68,7 @@ public class AddSensorTypeController {
             SensorType sensorType = _sensorTypeService.createSensorType(typeDescription, unitID);
             SensorType savedSensorType = _sensorTypeService.saveSensorType(sensorType);
             return _sensorTypeAssembler.domainToDTO(savedSensorType);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid sensor type data.");
         }
     }

@@ -1,7 +1,7 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
 import org.junit.jupiter.api.Test;
 

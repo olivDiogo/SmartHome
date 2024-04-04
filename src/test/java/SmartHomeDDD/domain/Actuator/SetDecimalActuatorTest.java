@@ -7,7 +7,8 @@ import SmartHomeDDD.domain.Actuator.SetDecimalActuator.SetDecimalValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Test cases for the SetDecimalActuator class.

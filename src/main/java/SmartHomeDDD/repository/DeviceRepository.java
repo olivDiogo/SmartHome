@@ -19,6 +19,7 @@ public class DeviceRepository implements DeviceRepo {
 
     /**
      * Method to save a domain entity.
+     *
      * @param device is the domain entity to be saved.
      * @return the saved domain entity.
      */
@@ -36,6 +37,7 @@ public class DeviceRepository implements DeviceRepo {
 
     /**
      * Method to find all domain entities.
+     *
      * @return
      */
     @Override
@@ -46,6 +48,7 @@ public class DeviceRepository implements DeviceRepo {
 
     /**
      * Method to find a domain entity by its unique identifier.
+     *
      * @param deviceID is the unique identifier of the domain entity.
      * @return
      */
@@ -57,6 +60,7 @@ public class DeviceRepository implements DeviceRepo {
 
     /**
      * Method to check if a domain entity exists by its unique identifier.
+     *
      * @param deviceID is the unique identifier of the domain entity.
      * @return
      */
@@ -67,6 +71,7 @@ public class DeviceRepository implements DeviceRepo {
 
     /**
      * Method to find all devices in a room.
+     *
      * @param roomId is the unique identifier of the room.
      * @return a list of devices in the room.
      */

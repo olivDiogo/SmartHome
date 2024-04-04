@@ -10,7 +10,6 @@ import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.domain.House.ImpHouseFactory;
 import SmartHomeDDD.domain.Room.ImpRoomFactory;
 import SmartHomeDDD.domain.Room.Room;
-import SmartHomeDDD.domain.Room.RoomFactory;
 import SmartHomeDDD.repository.DeviceRepository;
 import SmartHomeDDD.repository.HouseRepository;
 import SmartHomeDDD.repository.RoomRepository;

@@ -7,16 +7,17 @@ public class BlindRollerValue implements ValueObject {
 
     /**
      * Constructor for BlindRollerValue
-     * @param value
-     * It must be between 0 and 100.
+     *
+     * @param value It must be between 0 and 100.
      */
-    public BlindRollerValue (int value){
+    public BlindRollerValue(int value) {
         validateValue(value);
         this._value = value;
     }
 
     /**
      * Validates the value of the blind roller.
+     *
      * @param value
      */
     private void validateValue(int value) {
@@ -27,6 +28,7 @@ public class BlindRollerValue implements ValueObject {
 
     /**
      * Gets the value of the blind roller.
+     *
      * @return
      */
     public String toString() {

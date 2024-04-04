@@ -3,7 +3,7 @@ package SmartHomeDDD.domain.Sensor.InstantPowerConsumptionSensor;
 import SmartHomeDDD.ddd.ValueObject;
 
 public class InstantPowerConsumptionValue implements ValueObject {
-    private double _instantPowerConsumptionValue;
+    private final double _instantPowerConsumptionValue;
 
     /**
      * Constructor of the class.

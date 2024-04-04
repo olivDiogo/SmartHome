@@ -42,6 +42,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Validates the actuatorName
+     *
      * @param actuatorName
      */
     private void validateActuatorName(ActuatorName actuatorName) {
@@ -53,6 +54,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Validates the modelPath
+     *
      * @param modelPath
      */
     private void validateModelPath(ModelPath modelPath) {
@@ -64,13 +66,14 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Validates the actuatorTypeID
+     *
      * @param actuatorTypeID
      */
     private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
         if (actuatorTypeID == null) {
             throw new IllegalArgumentException("ActuatorTypeID cannot be null");
         }
-        if (!actuatorTypeID.getId().equals("SetInteger")){
+        if (!actuatorTypeID.getId().equals("SetInteger")) {
             throw new IllegalArgumentException("ActuatorTypeID must be SetInteger");
         }
         this._actuatorTypeID = actuatorTypeID;
@@ -78,6 +81,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Validates the deviceID
+     *
      * @param deviceID
      */
     private void validateDeviceID(DeviceID deviceID) {
@@ -89,6 +93,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Validates the limits
+     *
      * @param limits
      */
     private void validateLimits(SetIntegerActuatorLimits limits) {
@@ -100,6 +105,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Getter for actuatorID
+     *
      * @return
      */
     @Override
@@ -109,6 +115,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Getter for actuatorName
+     *
      * @return
      */
     @Override
@@ -118,6 +125,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Getter for modelPath
+     *
      * @return
      */
     @Override
@@ -127,6 +135,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Getter for actuatorTypeID
+     *
      * @return
      */
     @Override
@@ -136,6 +145,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Getter for deviceID
+     *
      * @return
      */
     @Override
@@ -145,6 +155,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Getter for limits
+     *
      * @return
      */
     public SetIntegerActuatorLimits getLimits() {
@@ -153,6 +164,7 @@ public class SetIntegerActuator implements Actuator {
 
     /**
      * Sets the value within the range
+     *
      * @return
      */
     @Override
@@ -163,7 +175,7 @@ public class SetIntegerActuator implements Actuator {
 
         int nValue = Integer.parseInt(value.toString());
 
-        if(nValue < _limits.getLowerLimit()) {
+        if (nValue < _limits.getLowerLimit()) {
             throw new IllegalArgumentException("Value cannot be less than the lower limit.");
         } else if (nValue > _limits.getUpperLimit()) {
             throw new IllegalArgumentException("Value cannot be greater than the upper limit.");

@@ -29,10 +29,10 @@ public class ActuatorDTO implements DTO {
     /**
      * Constructs a new ActuatorDTO object with the specified actuator details.
      *
-     * @param actuatorID          The unique identifier of the actuator.
-     * @param actuatorTypeID        The type of the actuator.
-     * @param actuatorName        The name of the actuator.
-     * @param modelPath The description of the actuator.
+     * @param actuatorID     The unique identifier of the actuator.
+     * @param actuatorTypeID The type of the actuator.
+     * @param actuatorName   The name of the actuator.
+     * @param modelPath      The description of the actuator.
      */
     public ActuatorDTO(String actuatorID, String actuatorTypeID, String actuatorName, String modelPath, String deviceID) {
         this.id = actuatorID;

@@ -6,8 +6,8 @@ import SmartHomeDDD.domain.Unit.Unit;
 import SmartHomeDDD.domain.Unit.UnitFactory;
 import SmartHomeDDD.repository.ActuatorModelRepository;
 import SmartHomeDDD.repository.UnitRepository;
-import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.ActuatorModelName;
+import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.valueObject.UnitSymbol;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -17,10 +17,10 @@ import org.mockito.MockedConstruction;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 class ActuatorConfigurationServiceTest {
 
@@ -112,7 +112,7 @@ class ActuatorConfigurationServiceTest {
     UnitFactory unitFactory = mock(UnitFactory.class);
     Configurations configs = new Configurations();
     int defaultActuatorModels =
-        configs.properties(new File("config.properties")).getStringArray("actuator").length;
+        configs.properties(new File("configDDD.properties")).getStringArray("actuator").length;
 
     try (MockedConstruction<ModelPath> modelPathMockedConstruction =
             mockConstruction(ModelPath.class, (mock, context) -> {});
@@ -141,7 +141,7 @@ class ActuatorConfigurationServiceTest {
     when(unitFactory.createMeasurement(any(), any())).thenReturn(mock(Unit.class));
     Configurations configs = new Configurations();
     int defaultActuatorModels =
-        configs.properties(new File("config.properties")).getStringArray("measurement").length;
+        configs.properties(new File("configDDD.properties")).getStringArray("measurement").length;
 
     try (MockedConstruction<UnitDescription> measurementDescriptionConstruction =
             mockConstruction(UnitDescription.class, (mock, context) -> {});

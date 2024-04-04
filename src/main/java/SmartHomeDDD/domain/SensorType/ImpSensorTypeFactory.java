@@ -7,7 +7,7 @@ import SmartHomeDDD.valueObject.UnitID;
  * Implementation of the {@link SensorTypeFactory} interface, responsible for creating
  * {@link SensorType} instances.
  */
-public class ImpSensorTypeFactory implements SensorTypeFactory{
+public class ImpSensorTypeFactory implements SensorTypeFactory {
     /**
      * Creates a new {@link SensorType} instance using the provided sensor type name and unit.
      *

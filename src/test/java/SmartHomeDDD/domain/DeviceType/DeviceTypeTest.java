@@ -1,22 +1,15 @@
 package SmartHomeDDD.domain.DeviceType;
 
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
-import SmartHomeDDD.domain.Unit.Unit;
+import SmartHomeDDD.valueObject.DeviceTypeID;
+import SmartHomeDDD.valueObject.TypeDescription;
 import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-
-import SmartHomeDDD.valueObject.TypeDescription;
-import org.mockito.MockedConstruction;
-import SmartHomeDDD.valueObject.DeviceTypeID;
-
-
 import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.when;
-
-import java.lang.reflect.Field;
 
 public class DeviceTypeTest {
 
