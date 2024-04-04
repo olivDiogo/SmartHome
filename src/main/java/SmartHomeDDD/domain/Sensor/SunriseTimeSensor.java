@@ -12,8 +12,6 @@ import java.util.Objects;
 
 public class SunriseTimeSensor implements Sensor {
 
-    private double _latitude;
-    private double _longitude;
     private SunriseTimeSensorValue _sunriseTimeValue;
     private SensorTypeID _sensorTypeID;
     private SensorID _sensorID;
@@ -23,6 +21,8 @@ public class SunriseTimeSensor implements Sensor {
     private DeviceID _deviceID;
 
     private ModelPath _modelPath;
+
+    private GPS gps;
 
     /**
      * Creates a new SunriseTimeSensor with a given catalogue.
@@ -35,7 +35,7 @@ public class SunriseTimeSensor implements Sensor {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         generateSensorID();
-        configureGpsLocation(gps);
+        validateGPS(gps);
     }
 
     private void validateDeviceID(DeviceID deviceID) {
@@ -81,12 +81,11 @@ public class SunriseTimeSensor implements Sensor {
      * @param gps the GPS location to be used.
      * @throws IllegalArgumentException if the GPS location is null.
      */
-    private void configureGpsLocation(GPS gps) {
+    private void validateGPS(GPS gps) {
         if (gps == null) {
             throw new IllegalArgumentException("GPS cannot be null.");
         }
-        _latitude = gps.getLatitude();
-        _longitude = gps.getLongitude();
+        this.gps = gps;
     }
 
     /**
@@ -96,7 +95,7 @@ public class SunriseTimeSensor implements Sensor {
      * @return the Sunrise Time of the GPS location for a given date.
      */
     private LocalTime getSunriseTime(LocalDate date) {
-        SunTimes time = SunTimes.compute().on(date).at(_latitude, _longitude).execute();
+        SunTimes time = SunTimes.compute().on(date).at(gps.getLatitude(), gps.getLongitude()).execute();
         LocalTime sunrise = Objects.requireNonNull(time.getRise()).toLocalTime();
         return sunrise;
     }

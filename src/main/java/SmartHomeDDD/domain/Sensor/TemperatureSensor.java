@@ -24,7 +24,7 @@ public class TemperatureSensor implements Sensor{
      * @param sensorName   The sensor name.
      * @param sensorTypeID The sensor type ID.
      */
-    TemperatureSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    public TemperatureSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
