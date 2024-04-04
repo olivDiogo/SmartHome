@@ -15,6 +15,13 @@ public class SensorService {
     private SensorFactory _sensorFactory;
     private DeviceRepo _deviceRepository;
 
+    /**
+     * Constructor for SensorService.
+     *
+     * @param sensorRepository is the repository for sensors.
+     * @param sensorFactory    is the factory for sensors.
+     * @param deviceRepository is the repository for devices.
+     */
     public SensorService(Repository<SensorID, Sensor> sensorRepository, SensorFactory sensorFactory, DeviceRepo deviceRepository) {
         validateSensorRepository(sensorRepository);
         validateSensorFactory(sensorFactory);
@@ -22,7 +29,12 @@ public class SensorService {
 
     }
 
-    /* validate the sensor repository */
+
+    /**
+     * Validates the SensorRepository.
+     *
+     * @param sensorRepository The SensorRepository to validate.
+     */
     private void validateSensorRepository(Repository<SensorID, Sensor> sensorRepository) {
         if (sensorRepository == null) {
             throw new IllegalArgumentException("Please enter a valid sensor repository.");
@@ -31,7 +43,12 @@ public class SensorService {
         }
     }
 
-    /* validate the sensor factory */
+
+    /**
+     * Validates the SensorFactory.
+     *
+     * @param sensorFactory The SensorFactory to validate.
+     */
     private void validateSensorFactory(SensorFactory sensorFactory) {
         if (sensorFactory == null) {
             throw new IllegalArgumentException("Please enter a valid sensor factory.");
@@ -40,6 +57,11 @@ public class SensorService {
         }
     }
 
+    /**
+     * Validates the DeviceRepository.
+     *
+     * @param deviceRepository The DeviceRepository to validate.
+     */
     private void validateDeviceRepository(DeviceRepo deviceRepository) {
         if (deviceRepository == null) {
             throw new IllegalArgumentException("Please enter a valid device repository.");
@@ -48,6 +70,15 @@ public class SensorService {
         }
     }
 
+    /**
+     * Adds a sensor to the repository and saves it.
+     *
+     * @param deviceID     The ID of the device to which the sensor belongs.
+     * @param modelPath    The model path of the sensor.
+     * @param sensorTypeID The type of the sensor.
+     * @param sensorName   The name of the sensor.
+     * @return The created and saved Sensor object.
+     */
     public Sensor addSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         Optional<Device> deviceOptional = _deviceRepository.ofIdentity(deviceID);
         if (deviceOptional.isEmpty()) {

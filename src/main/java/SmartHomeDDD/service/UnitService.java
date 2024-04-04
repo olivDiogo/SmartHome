@@ -17,6 +17,7 @@ public class UnitService {
 
     /**
      * Constructor for MeasurementTypeService.
+     *
      * @param unitRepository
      * @param unitFactory
      */
@@ -25,6 +26,11 @@ public class UnitService {
         validateMeasurementTypeFactory(unitFactory);
     }
 
+    /**
+     * Validates the MeasurementTypeRepository.
+     *
+     * @param unitRepository The MeasurementTypeRepository to validate.
+     */
     private void validateMeasurementTypeRepository(UnitRepository unitRepository) {
         if (unitRepository == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type repository.");
@@ -33,6 +39,11 @@ public class UnitService {
         }
     }
 
+    /**
+     * Validates the MeasurementTypeFactory.
+     *
+     * @param unitFactory The MeasurementTypeFactory to validate.
+     */
     private void validateMeasurementTypeFactory(UnitFactory unitFactory) {
         if (unitFactory == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type factory.");
@@ -45,7 +56,7 @@ public class UnitService {
      * Creates a new MeasurementType and saves it in the repository.
      *
      * @param description The description of the measurement type.
-     * @param unit The unit of the measurement type.
+     * @param unit        The unit of the measurement type.
      * @return The created and saved MeasurementType object.
      */
     public Unit createAndSaveMeasurementType(UnitDescription description, UnitSymbol unit) {

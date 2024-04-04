@@ -20,6 +20,14 @@ public class ConfigurationService {
     private SensorModelFactory _sensorModelFactory;
     private UnitFactory _unitFactory;
 
+    /**
+     * Constructor for ConfigurationService.
+     * @param sensorModelRepository is the repository for sensor models.
+     * @param unitRepository is the repository for units.
+     * @param sensorModelFactory is the factory for sensor models.
+     * @param unitFactory is the factory for units.
+     * @throws InstantiationException if something went wrong in reading the configuration.
+     */
     public ConfigurationService(SensorModelRepository sensorModelRepository, UnitRepository unitRepository, SensorModelFactory sensorModelFactory, UnitFactory unitFactory) throws InstantiationException{
         validateSensorModelRepository(sensorModelRepository);
         validateMeasurementTypeRepository(unitRepository);
@@ -31,6 +39,10 @@ public class ConfigurationService {
     }
 
 
+    /**
+     * Validates the SensorModelRepository.
+     * @param sensorModelRepository The SensorModelRepository to validate.
+     */
     private void validateSensorModelRepository(SensorModelRepository sensorModelRepository) {
         if (sensorModelRepository == null) {
             throw new IllegalArgumentException("Please enter a valid sensor model repository.");
@@ -38,6 +50,11 @@ public class ConfigurationService {
             this._sensorModelRepository = sensorModelRepository;
         }
     }
+
+    /**
+     * Validates the MeasurementTypeRepository.
+     * @param unitRepository The MeasurementTypeRepository to validate.
+     */
     private void validateMeasurementTypeRepository(UnitRepository unitRepository) {
         if (unitRepository == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type repository.");
@@ -45,6 +62,11 @@ public class ConfigurationService {
             this._unitRepository = unitRepository;
         }
     }
+
+    /**
+     * Validates the SensorModelFactory.
+     * @param sensorModelFactory The SensorModelFactory to validate.
+     */
     private void validateSensorModelFactory(SensorModelFactory sensorModelFactory) {
         if (sensorModelFactory == null) {
             throw new IllegalArgumentException("Please enter a valid sensor model factory.");
@@ -52,6 +74,11 @@ public class ConfigurationService {
             this._sensorModelFactory = sensorModelFactory;
         }
     }
+
+    /**
+     * Validates the MeasurementTypeFactory.
+     * @param unitFactory The MeasurementTypeFactory to validate.
+     */
     private void validateUnitFactory(UnitFactory unitFactory) {
         if (unitFactory == null) {
             throw new IllegalArgumentException("Please enter a valid unit factory.");
@@ -60,6 +87,10 @@ public class ConfigurationService {
         }
     }
 
+    /**
+     * Load the default sensor models from the configuration file.
+     * @throws InstantiationException if something went wrong in reading the configuration.
+     */
     private void loadDefaultSensorModels() throws InstantiationException {
         Configurations configs = new Configurations();
         try {
@@ -85,6 +116,11 @@ public class ConfigurationService {
             throw new InstantiationException("something went wrong in reading the configuration: " + exception.getMessage());
         }
     }
+
+    /**
+     * Load the default measurement types from the configuration file.
+     * @throws InstantiationException if something went wrong in reading the configuration.
+     */
     private void loadDefaultMeasurementTypes() throws InstantiationException {
         Configurations configs = new Configurations();
         try {
