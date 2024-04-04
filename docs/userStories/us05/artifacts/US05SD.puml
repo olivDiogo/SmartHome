@@ -77,28 +77,28 @@ activate Controller
 
 
 create RoomID
-Controller -> RoomID : RoomID(strRoomID)
+Controller -> RoomID : roomID(strRoomID)
 activate RoomID
 
 RoomID --> Controller : roomID
 deactivate RoomID
 
 create DeviceName
-Controller -> DeviceName : DeviceName(strDeviceName)
+Controller -> DeviceName : deviceName(strDeviceName)
 activate DeviceName
 
 DeviceName --> Controller : deviceName
 deactivate DeviceName
 
 create DeviceStatus
-Controller -> DeviceStatus : DeviceStatus(boolean)
+Controller -> DeviceStatus : deviceStatus(boolean)
 activate DeviceStatus
 
 DeviceStatus --> Controller : deviceStatus
 deactivate DeviceStatus
 
 create DeviceTypeID
-Controller -> DeviceTypeID : DeviceTypeID(strDeviceTypeID)
+Controller -> DeviceTypeID : deviceTypeID(strDeviceTypeID)
 activate DeviceTypeID
 
 DeviceTypeID --> Controller : deviceTypeID
