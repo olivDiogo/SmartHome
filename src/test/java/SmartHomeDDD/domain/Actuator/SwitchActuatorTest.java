@@ -2,6 +2,7 @@ package SmartHomeDDD.domain.Actuator;
 
 
 import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerValue;
 import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator;
 import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuatorValue;
 import SmartHomeDDD.valueObject.*;
