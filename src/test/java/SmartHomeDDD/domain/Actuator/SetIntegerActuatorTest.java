@@ -5,13 +5,10 @@ import SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerValue;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuator;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuatorLimits;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerValue;
-import SmartHomeDDD.domain.Sensor.WindSensorValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class SetIntegerActuatorTest {
     /**

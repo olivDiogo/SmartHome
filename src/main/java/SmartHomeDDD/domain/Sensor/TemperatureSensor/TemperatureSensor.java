@@ -1,30 +1,41 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.TemperatureSensor;
 
+import SmartHomeDDD.domain.Sensor.Sensor;
 import SmartHomeDDD.valueObject.*;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public class WindSensor implements Sensor {
+public class TemperatureSensor implements Sensor {
+
     private ModelPath _modelPath;
     private SensorName _sensorName;
     private SensorID _sensorID;
     private SensorTypeID _sensorTypeID;
-    private WindSensorValue _WindSensorValue;
+    private TemperatureSensorValue _temperatureValue;
     private DeviceID _deviceID;
 
-    protected WindSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    /**
+     * Constructor of the class.
+     *
+     * @param deviceID     The device ID.
+     * @param modelPath    The model path.
+     * @param sensorName   The sensor name.
+     * @param sensorTypeID The sensor type ID.
+     */
+    public TemperatureSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
         validateDeviceID(deviceID);
-        generateWindID();
+        generateTemperatureID();
     }
 
     /**
-     * Generates a new sensor id.
+     * Generates a new TemperatureID.
      */
-    private void generateWindID() {
+    private void generateTemperatureID() {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
@@ -62,10 +73,13 @@ public class WindSensor implements Sensor {
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
+        } else if (!Objects.equals(sensorTypeID.getId(), "Temperature")) {
+            throw new IllegalArgumentException("SensorTypeID must be of type 'Temperature'");
         } else {
             this._sensorTypeID = sensorTypeID;
         }
     }
+
 
     /**
      * Validates the device ID.
@@ -81,64 +95,69 @@ public class WindSensor implements Sensor {
     }
 
     /**
-     * Gets the sensor ID.
+     * Returns the sensor ID.
      *
      * @return The sensor ID.
      */
     @Override
     public SensorID getID() {
-        return this._sensorID;
+        return _sensorID;
     }
 
     /**
-     * Gets the sensor name.
+     * Returns the sensor name.
      *
      * @return The sensor name.
      */
     @Override
     public SensorName getName() {
-        return this._sensorName;
+        return _sensorName;
     }
 
     /**
-     * Gets the model path.
+     * Returns the model path.
      *
      * @return The model path.
      */
     @Override
     public ModelPath getModelPath() {
-        return this._modelPath;
+        return _modelPath;
     }
 
     /**
-     * Gets the sensor type ID.
+     * Returns the sensor type ID.
      *
      * @return The sensor type ID.
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return this._sensorTypeID;
+        return _sensorTypeID;
     }
 
     /**
-     * Gets the device ID.
+     * Returns the value of the sensor.
+     *
+     * @return The value of the sensor.
+     */
+    @Override
+    public TemperatureSensorValue getValue() {
+        // Generate a random temperature as a simulation of hardware behavior
+        Random random = new Random();
+        // Generate a random double within a range. Example: -50.0 (min) to 50.0 (max)
+        double temperatureReading = -50.0 + (100.0 * random.nextDouble());
+
+        this._temperatureValue = new TemperatureSensorValue(temperatureReading);
+
+        return _temperatureValue;
+    }
+
+    /**
+     * Returns the device ID.
+     *
      * @return The device ID.
      */
     @Override
     public DeviceID getDeviceID() {
         return _deviceID;
-    }
-
-    /**
-     * Method to get the value object of the sensor.
-     * @return the value.
-     */
-    @Override
-    public WindSensorValue getValue() {
-        Random rand = new Random();
-        int speed = rand.nextInt(408); //wind speed world record
-        double direction = rand.nextDouble() * 2 * Math.PI; // direction in radians
-        this._WindSensorValue = new WindSensorValue(speed, direction);
-        return _WindSensorValue;
     }
 }
