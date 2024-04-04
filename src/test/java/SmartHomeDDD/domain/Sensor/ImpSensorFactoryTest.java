@@ -1,5 +1,6 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,7 @@ public class ImpSensorFactoryTest {
         // Arrange
         DeviceID deviceIdMock = mock(DeviceID.class);
         ModelPath modelPathMock = mock(ModelPath.class);
-        when(modelPathMock.toString()).thenReturn("SmartHomeDDD.domain.Sensor.SolarIrradianceSensor");
+        when(modelPathMock.toString()).thenReturn("SmartHomeDDD.domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor");
 
         SensorTypeID sensorTypeIdMock = mock(SensorTypeID.class);
         when(sensorTypeIdMock.getId()).thenReturn("SolarIrradiance");
