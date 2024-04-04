@@ -21,16 +21,16 @@ package domain.Sensor {
     }
  }
 
-package domain.Sensor.HumiditySensor {
+package domain.Sensor.SwitchSensor {
 
-    class domain.Sensor.HumiditySensor.HumiditySensor <<entity>><<Root>>{
+    class domain.Sensor.SwitchSensor.SwitchSensor <<entity>><<Root>>{
         - _sensorID: SensorID
         - _sensorName: SensorName
         - _sensorTypeID: SensorTypeID
         - _modelPath: ModelPath
         - _deviceID: DeviceID
-        - _value: HumiditySensorValue
-        + HumiditySensor(sensorTypeID: SensorTypeID, modelPath: ModelPath, deviceID: DeviceID, sensorName: SensorName)
+        - _value: SwitchSensorValue
+        + SwitchSensor(sensorTypeID: SensorTypeID, modelPath: ModelPath, deviceID: DeviceID, sensorName: SensorName)
         + getSensorTypeString(): String
         + getID(): SensorID
         + getName(): SensorName
@@ -52,9 +52,9 @@ package domain.Sensor.HumiditySensor {
             + getID() : String
     }
 
-    class HumiditySensorValue <<ValueObject>>{
+    class SwitchSensorValue <<ValueObject>>{
             - _value : int
-            + HumiditySensorValue(double value)
+            + SwitchSensorValue(boolean value)
             + toString() : String
     }
 
@@ -94,18 +94,18 @@ package domain.ddd {
 }
 
 ImplFactorySensor ..|> FactorySensor
-ImplFactorySensor "1" ..> "1" domain.Sensor.HumiditySensor.HumiditySensor : creates
+ImplFactorySensor "1" ..> "1" domain.Sensor.SwitchSensor.SwitchSensor : creates
 
-domain.Sensor.HumiditySensor.HumiditySensor ..|> domain.Sensor.Sensor
-domain.Sensor.HumiditySensor.HumiditySensor "1" --> "1" domain.Sensor.HumiditySensor.HumiditySensorValue : has
-domain.Sensor.HumiditySensor.HumiditySensor "1" -->  "1" SensorTypeID : has
-domain.Sensor.HumiditySensor.HumiditySensor "1" -->  "1" ModelPath : has
-domain.Sensor.HumiditySensor.HumiditySensor "1" -->  "1" SensorName : has
-domain.Sensor.HumiditySensor.HumiditySensor "1" -->  "1" SensorID : has
-domain.Sensor.HumiditySensor.HumiditySensor "1" -->  "1" DeviceID : has
+domain.Sensor.SwitchSensor.SwitchSensor ..|> domain.Sensor.Sensor
+domain.Sensor.SwitchSensor.SwitchSensor "1" --> "1" domain.Sensor.SwitchSensor.SwitchSensorValue : has
+domain.Sensor.SwitchSensor.SwitchSensor "1" -->  "1" SensorTypeID : has
+domain.Sensor.SwitchSensor.SwitchSensor "1" -->  "1" ModelPath : has
+domain.Sensor.SwitchSensor.SwitchSensor "1" -->  "1" SensorName : has
+domain.Sensor.SwitchSensor.SwitchSensor "1" -->  "1" SensorID : has
+domain.Sensor.SwitchSensor.SwitchSensor "1" -->  "1" DeviceID : has
 
-domain.Sensor.HumiditySensor.HumiditySensorValue ..|> domain.ddd.ValueObject
-domain.Sensor.HumiditySensor.SensorName ..|> domain.ddd.ValueObject
+domain.Sensor.SwitchSensor.SwitchSensorValue ..|> domain.ddd.ValueObject
+domain.Sensor.SwitchSensor.SensorName ..|> domain.ddd.ValueObject
 
 DomainEntity --|> DomainID
 AggregateRoot --|> DomainEntity
