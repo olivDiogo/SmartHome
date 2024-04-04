@@ -17,7 +17,7 @@ package domain.Actuator {
         + createActuator(Object... parameters): Actuator
     }
 }
-package domain.Actuator.SetIntegerActuator {
+package domain.Actuator.SetDecimalActuator {
     class SetDecimalActuator {
         - _actuatorID: ActuatorID
         - _actuatorName: ActuatorName

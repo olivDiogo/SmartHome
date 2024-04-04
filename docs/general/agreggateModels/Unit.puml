@@ -3,10 +3,12 @@
 
 package SmartHome.Unit {
     class Unit <<Entity>><<Root>> {
-        - _id: MeasurementUnit
+        - _id: UnitID
         - _symbol: Symbol
+        - _description: UnitDescription
+
     }
-    class MeasurementUnit <<ValueObject>> {
+    class UnitDescription <<ValueObject>> {
         - _unit: string
         }
     class Symbol<<ValueObject>> {
@@ -16,7 +18,7 @@ package SmartHome.Unit {
         - _id: string
         }
 
-Unit "1  " --> "1" MeasurementUnit
+Unit "1  " --> "1" UnitDescription
 Unit "1" --> "1  " Symbol
 Unit "1" --> "1  " UnitID
 }
