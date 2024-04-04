@@ -1,17 +1,18 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
+import SmartHomeDDD.domain.ActuatorModel.ActuatorModelRepo;
 import SmartHomeDDD.valueObject.ActuatorModelID;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ActuatorModelRepository implements Repository<ActuatorModelID, ActuatorModel> {
+public class ActuatorModelRepository implements ActuatorModelRepo {
 
-    private final Map<ActuatorModelID, ActuatorModel> _actuatorModelData = new LinkedHashMap<>();
+    final private Map<ActuatorModelID, ActuatorModel> DATA = new LinkedHashMap<>();
 
     /**
      * Save an ActuatorModel. If the ActuatorModel is null, throw an IllegalArgumentException.
@@ -26,7 +27,7 @@ public class ActuatorModelRepository implements Repository<ActuatorModelID, Actu
         } else if (containsOfIdentity(actuatorModel.getID())) {
             throw new IllegalArgumentException("ActuatorModel already exists.");
         } else {
-            _actuatorModelData.put(actuatorModel.getID(), actuatorModel);
+            DATA.put(actuatorModel.getID(), actuatorModel);
         }
         return actuatorModel;
     }
@@ -39,7 +40,7 @@ public class ActuatorModelRepository implements Repository<ActuatorModelID, Actu
     @Override
     public List<ActuatorModel> findAll() {
 
-        return List.copyOf(_actuatorModelData.values().stream().toList());
+        return List.copyOf(DATA.values().stream().toList());
     }
 
     /**
@@ -51,7 +52,7 @@ public class ActuatorModelRepository implements Repository<ActuatorModelID, Actu
     @Override
     public Optional<ActuatorModel> ofIdentity(ActuatorModelID actuatorModelID) {
 
-        return Optional.ofNullable(_actuatorModelData.get(actuatorModelID));
+        return Optional.ofNullable(DATA.get(actuatorModelID));
     }
 
 
@@ -62,7 +63,14 @@ public class ActuatorModelRepository implements Repository<ActuatorModelID, Actu
      * @return true if the ActuatorModel exists, otherwise false.
      */
     public boolean containsOfIdentity(ActuatorModelID actuatorModelID) {
-        return _actuatorModelData.containsKey(actuatorModelID);
+        return DATA.containsKey(actuatorModelID);
+    }
 
+    /**
+     * Find all ActuatorModels by their ActuatorTypeID.
+     */
+    @Override
+    public List<ActuatorModel> findByActuatorTypeId(ActuatorTypeID actuatorTypeID) {
+        return DATA.values().stream().filter(actuatorModel -> actuatorModel.getID().equals(actuatorTypeID)).toList();
     }
 }
