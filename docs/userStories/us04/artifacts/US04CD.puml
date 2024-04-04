@@ -24,7 +24,7 @@ class SensorTypeService<<Service>> {
     - _sensorTypeFactory: SensorTypeFactory
     - _unitRepository: UnitRepository
   + SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository)
-  + createSensorType(name: String, unit: String, sensorTypeFactory: SensorTypeFactory): SensorType
+  + createSensorType(description: Description, unitID: UnitID): SensorType
   + getAllSupportedUnits(): List<Unit>
   + saveSensorType(sensorType: SensorType): SensorType
   }
