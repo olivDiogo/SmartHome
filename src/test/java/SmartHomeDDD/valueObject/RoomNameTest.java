@@ -1,8 +1,8 @@
 package SmartHomeDDD.valueObject;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 
 public class RoomNameTest {
     /**
@@ -14,9 +14,10 @@ public class RoomNameTest {
         String validRoomName = "Living Room 2";
 
         // Act
-        new RoomName(validRoomName);
+        RoomName roomName = new RoomName(validRoomName);
 
         // Assert
+        assertNotNull(roomName);
     }
 
     /**
