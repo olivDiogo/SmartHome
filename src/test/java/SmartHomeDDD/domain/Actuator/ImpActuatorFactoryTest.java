@@ -28,6 +28,8 @@ class ImpActuatorFactoryTest {
         when(modelPathMock.toString()).thenReturn("SmartHomeDDD.domain.Actuator.SwitchActuator");
 
         ActuatorTypeID actuatorTypeIDMock = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDMock.getId()).thenReturn("SwitchActuator");
+
         ActuatorName actuatorNameMock = mock(ActuatorName.class);
 
         ImpActuatorFactory impActuatorFactory = new ImpActuatorFactory();
