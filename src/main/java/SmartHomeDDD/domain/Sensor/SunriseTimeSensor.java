@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class SunriseTimeSensor implements Sensor {
 
-  private SunriseTimeSensorValue _sunriseTimeValue;
+  private SunriseSunsetTimeValue _sunriseTimeValue;
   private SensorTypeID _sensorTypeID;
   private SensorID _sensorID;
   private SensorName _sensorName;
@@ -134,7 +134,7 @@ public class SunriseTimeSensor implements Sensor {
   @Override
   public ValueObject getValue() {
     LocalTime sunrise = getSunriseTime(LocalDate.now());
-    this._sunriseTimeValue = new SunriseTimeSensorValue(sunrise);
+    this._sunriseTimeValue = new SunriseSunsetTimeValue(sunrise);
     return this._sunriseTimeValue;
   }
 
@@ -146,7 +146,7 @@ public class SunriseTimeSensor implements Sensor {
    */
   public ValueObject getValue(LocalDate date) {
     LocalTime sunrise = getSunriseTime(date);
-    this._sunriseTimeValue = new SunriseTimeSensorValue(sunrise);
+    this._sunriseTimeValue = new SunriseSunsetTimeValue(sunrise);
     return this._sunriseTimeValue;
   }
 }

@@ -5,7 +5,7 @@ import SmartHomeDDD.ddd.ValueObject;
 
 import java.time.LocalTime;
 
-public class SunriseTimeSensorValue implements ValueObject {
+public class SunriseSunsetTimeValue implements ValueObject {
 
     private LocalTime _value;
 
@@ -15,7 +15,7 @@ public class SunriseTimeSensorValue implements ValueObject {
      * @param value the value to be set.
      */
 
-    public SunriseTimeSensorValue(LocalTime value) {
+    public SunriseSunsetTimeValue(LocalTime value) {
         setValue(value);
     }
 

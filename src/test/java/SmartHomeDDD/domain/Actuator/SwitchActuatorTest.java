@@ -21,9 +21,13 @@ public class SwitchActuatorTest {
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn("SwitchActuator");
 
         // Act
-        new SwitchActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+        SwitchActuator switchActuator = new SwitchActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+
+        // Assert
+        assertNotNull(switchActuator);
     }
 
     /**
@@ -37,6 +41,7 @@ public class SwitchActuatorTest {
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+
 
         // Act & Assert
         try {
@@ -119,7 +124,9 @@ public class SwitchActuatorTest {
         DeviceID deviceIDDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn("SwitchActuator");
 
         try (MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class, (mock, context) -> {
             when(mock.toString()).thenReturn(actuatorID);
@@ -150,6 +157,7 @@ public class SwitchActuatorTest {
         when(actuatorNameDouble.toString()).thenReturn(actuatorName);
 
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn("SwitchActuator");
 
         try (MockedConstruction<ActuatorName> mockedConstruction = mockConstruction(ActuatorName.class, (mock, context) -> {
             when(mock.toString()).thenReturn(actuatorName);
@@ -179,6 +187,7 @@ public class SwitchActuatorTest {
 
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn("SwitchActuator");
 
         try (MockedConstruction<ModelPath> mockedConstruction = mockConstruction(ModelPath.class, (mock, context) -> {
             when(mock.toString()).thenReturn(modelPath);
@@ -199,14 +208,14 @@ public class SwitchActuatorTest {
     @Test
     void shouldGetActuatorTypeID() {
         // Arrange
-        String actuatorTypeID = "actuatorTypeID";
+        String actuatorTypeID = "SwitchActuator";
 
         DeviceID deviceIDDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
 
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-        when(actuatorTypeIDDouble.toString()).thenReturn(actuatorTypeID);
+        when(actuatorTypeIDDouble.getId()).thenReturn(actuatorTypeID);
 
         try (MockedConstruction<ActuatorTypeID> mockedConstruction = mockConstruction(ActuatorTypeID.class, (mock, context) -> {
             when(mock.toString()).thenReturn(actuatorTypeID);
@@ -221,6 +230,39 @@ public class SwitchActuatorTest {
         }
     }
 
+    @Test
+    void shouldThrowException_whenGetActuatorTypeID() {
+        // Arrange
+        String actuatorTypeID = "BlindRollerActuator";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn(actuatorTypeID);
+
+        try {
+            new SwitchActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+        } catch (IllegalArgumentException e) {
+            // Assert
+            assert e.getMessage().equals("The value of 'actuatorTypeID' should be 'SwitchActuator'.");
+        }
+
+
+//        try (MockedConstruction<ActuatorTypeID> mockedConstruction = mockConstruction(ActuatorTypeID.class, (mock, context) -> {
+//            when(mock.toString()).thenReturn(actuatorTypeID);
+//        })) {
+//            SwitchActuator switchActuator = new SwitchActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+//
+//            // Act
+//            ActuatorTypeID result = switchActuator.getActuatorTypeID();
+//
+//            // Assert
+//            assertNotEquals(actuatorTypeIDDouble, result);
+//        }
+    }
+
     /**
      * Should get device type id when constructor arguments are valid.
      */
@@ -230,7 +272,9 @@ public class SwitchActuatorTest {
         DeviceID deviceIDDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn("SwitchActuator");
 
         SwitchActuator switchActuator = new SwitchActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
 
@@ -250,7 +294,10 @@ public class SwitchActuatorTest {
         DeviceID deviceIDDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn("SwitchActuator");
+
         SwitchActuatorValue switchActuatorValueDouble = mock(SwitchActuatorValue.class);
 
         SwitchActuator switchActuator = new SwitchActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
@@ -263,6 +310,66 @@ public class SwitchActuatorTest {
     }
 
     /**
+     * Should set value when string is "ON".
+     */
+    @Test
+    public void shouldSetValue_whenValueIsOn() {
+        //Arrange
+        String value = "ON";
+
+        DeviceID deviceIdDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn("SwitchActuator");
+
+        SwitchActuatorValue valueDouble = mock(SwitchActuatorValue.class);
+        when(valueDouble.toString()).thenReturn(value);
+
+        try (MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class, (mock, context) -> {
+        })) {
+            SwitchActuator switchActuator = new SwitchActuator(deviceIdDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+
+            //Act
+            ValueObject result = switchActuator.setValue(valueDouble);
+
+            //Assert
+            assertEquals(result.toString(), value);
+        }
+    }
+
+    /**
+     * Should set value when string is "OFF".
+     */
+    @Test
+    public void shouldSetValue_whenValueIsOff() {
+        //Arrange
+        String value = "OFF";
+
+        DeviceID deviceIdDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn("SwitchActuator");
+
+        SwitchActuatorValue valueDouble = mock(SwitchActuatorValue.class);
+        when(valueDouble.toString()).thenReturn(value);
+
+        try (MockedConstruction<ActuatorID> mockedConstruction = mockConstruction(ActuatorID.class, (mock, context) -> {
+        })) {
+            SwitchActuator switchActuator = new SwitchActuator(deviceIdDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+
+            //Act
+            ValueObject result = switchActuator.setValue(valueDouble);
+
+            //Assert
+            assertEquals(result.toString(), value);
+        }
+    }
+
+    /**
      * Should throw IllegalArgumentException when value is null.
      */
     @Test
@@ -271,7 +378,9 @@ public class SwitchActuatorTest {
         DeviceID deviceIDDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn("SwitchActuator");
 
         SwitchActuator switchActuator = new SwitchActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
 
@@ -294,7 +403,9 @@ public class SwitchActuatorTest {
         DeviceID deviceIDDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getId()).thenReturn("SwitchActuator");
 
         ValueObject valueDouble = mock(ValueObject.class);
         when(valueDouble.toString()).thenReturn(value);
