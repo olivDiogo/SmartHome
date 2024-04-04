@@ -1,11 +1,11 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.SolarIrradianceSensor;
 
-import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Sensor.Sensor;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.UUID;
 
-public class SolarIrradianceSensor implements Sensor{
+public class SolarIrradianceSensor implements Sensor {
     private SensorID _sensorID;
     private SensorName _sensorName;
     private ModelPath _modelPath;

@@ -47,6 +47,9 @@ class AddDeviceToRoomControllerTest {
 
         // Act
         AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler);
+
+        // Assert
+        assertNotNull(addDeviceToRoomController);
     }
 
     /**

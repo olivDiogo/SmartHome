@@ -15,9 +15,10 @@ public class DeviceIDTest {
         String deviceID = "DeviceXPTO";
 
         // Act
-        new DeviceID(deviceID);
+        DeviceID deviceID1 = new DeviceID(deviceID);
 
         // Assert
+        assertNotNull(deviceID1);
     }
 
     /**

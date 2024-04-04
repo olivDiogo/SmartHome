@@ -1,5 +1,6 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.DewPointSensor.DewPointValue;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,20 +12,20 @@ class DewPointValueTest {
     @Test
     public void shouldInstantiateDewPointValue() {
        //Arrange
-        int value = -100;
+        int value = -70;
         // Act
         new DewPointValue(value);
     }
 
     /**
-     * Test if the class DewPointValue throws an exception when the value is higher than 100.
+     * Test if the class DewPointValue throws an exception when the value is higher than 70.
      */
     @Test
-    public void shouldThrowException_WhenValueIsLowerThanMinus100() {
+    public void shouldThrowException_WhenValueIsLowerThanMinus70() {
         // Arrange
-        int value = -101;
+        int value = -71;
 
-        String expectedMessage = "The value of the dew point cannot be lower than -100.";
+        String expectedMessage = "The value of the dew point cannot be lower than -70.";
 
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new DewPointValue(value));

@@ -1,11 +1,11 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor;
+import SmartHomeDDD.domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class InstantPowerConsumptionSensorTest {
 
@@ -15,23 +15,21 @@ class InstantPowerConsumptionSensorTest {
     @Test
     public void shouldInstantiateInstantPowerConsumptionSensor_WhenAllParametersAreValid() {
         // Arrange
-        String deviceID = "deviceID";
-        String modelPath = "modelPath";
-        String sensorName = "sensorName";
-        String sensorTypeID = "sensorTypeID";
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "Watt";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
         //act
-        new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        //assert
+        assertNotNull(instantPowerConsumptionSensor);
 
     }
 
@@ -39,26 +37,22 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor throws an exception when the model path is null.
      */
     @Test
-    public void shouldThrowException_WhenDeviceIDIsNull () {
+    public void shouldThrowException_WhenDeviceIDIsNull() {
         // Arrange
-        String modelPath = "modelPath";
-        String sensorName = "sensorName";
-        String sensorTypeID = "sensorTypeID";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "Watt";
 
-        DeviceID deviceIDDouble = null;
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        DeviceID deviceID = null;
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
         String expectedMessage = "DeviceID is required";
 
-       //Act + Assert
+        //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
         });
 
         String actualMessage = exception.getMessage();
@@ -71,26 +65,22 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor throws an exception when the model path is null.
      */
     @Test
-    public void shouldThrowException_WhenModelPathIsNull () {
+    public void shouldThrowException_WhenModelPathIsNull() {
         // Arrange
-        String deviceID = "deviceID";
-        String sensorName = "sensorName";
-        String sensorTypeID = "sensorTypeID";
+        String deviceIDName = "123B";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "Watt";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = null;
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = null;
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
         String expectedMessage = "ModelPath is required";
 
-       //Act + Assert
+        //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
         });
 
         String actualMessage = exception.getMessage();
@@ -103,26 +93,22 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor throws an exception when the sensor name is null.
      */
     @Test
-    public void shouldThrowException_WhenSensorNameIsNull () {
+    public void shouldThrowException_WhenSensorNameIsNull() {
         // Arrange
-        String deviceID = "deviceID";
-        String modelPath = "modelPath";
-        String sensorTypeID = "sensorTypeID";
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String typeID = "Watt";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = null;
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = null;
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
         String expectedMessage = "SensorName is required";
 
-       //Act + Assert
+        //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
         });
 
         String actualMessage = exception.getMessage();
@@ -135,26 +121,48 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor throws an exception when the sensor type ID is null.
      */
     @Test
-    public void shouldThrowException_WhenSensorTypeIDIsNull () {
+    public void shouldThrowException_WhenSensorTypeIDIsNull() {
         // Arrange
-        String deviceID = "deviceID";
-        String modelPath = "modelPath";
-        String sensorName = "sensorName";
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = null;
-
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = null;
 
         String expectedMessage = "SensorTypeID is required";
 
-       //Act + Assert
+        //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void shouldThrowException_WhenSensorTypeIsNotCorrect () {
+        // Arrange
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "Temperature";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        String expectedMessage = "SensorTypeID must be of type 'Watt'";
+
+        //Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
         });
 
         String actualMessage = exception.getMessage();
@@ -169,23 +177,23 @@ class InstantPowerConsumptionSensorTest {
     @Test
     public void shouldGenerateInstantPowerConsumptionID_WhenInstantPowerConsumptionSensorIsInstantiated() {
         // Arrange
-      String sensorID = "sensorID";
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "Watt";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        try (MockedConstruction<SensorID> mocked = mockConstruction(SensorID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorID);
-        })) {
-            InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
-            //act
-            SensorID result = instantPowerConsumptionSensor.getID();
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-            //assert
-            assertEquals(sensorID, result.toString());
-        }
+        //Act
+        SensorID result = instantPowerConsumptionSensor.getID();
+
+        //Assert
+        assertNotNull(result);
     }
 
     /**
@@ -194,33 +202,26 @@ class InstantPowerConsumptionSensorTest {
     @Test
     public void shouldReturnSensorName_WhenGetSensorNameIsCalled() {
         // Arrange
-        String deviceID = "deviceID";
-        String modelPath = "modelPath";
-        String sensorName = "sensorName";
-        String sensorTypeID = "sensorTypeID";
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "Watt";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-        try (MockedConstruction<SensorName> mocked = mockConstruction(SensorName.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorName);
-        })) {
+        String expectedName = sensorName.toString();
 
-            InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+        //Act
+        SensorName result = instantPowerConsumptionSensor.getName();
 
-            //act
-            SensorName result = instantPowerConsumptionSensor.getName();
+        //Assert
+        assertEquals(expectedName, result.toString());
 
-            //assert
-            assertEquals(sensorName, result.toString());
-        }
 
     }
 
@@ -228,134 +229,104 @@ class InstantPowerConsumptionSensorTest {
      * Test to verify that the InstantPowerConsumptionSensor returns the model path.
      */
     @Test
-    public void shouldGetInstantPowerConsumptionModelPath () {
+    public void shouldGetInstantPowerConsumptionModelPath() {
         //Arrange
-        String deviceID = "deviceID";
-        String modelPath =  "SmartHome.sensors.InstantPowerConsumptionSensor";
-        String sensorName = "sensorName";
-        String sensorTypeID = "sensorTypeID";
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "Watt";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        String expectedModelPath = modelPath.toString();
 
-        try(MockedConstruction<ModelPath> mocked = mockConstruction(ModelPath.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(modelPath);
-        })) {
-            InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-            //act
-            ModelPath result = instantPowerConsumptionSensor.getModelPath();
+        //Act
+        ModelPath result = instantPowerConsumptionSensor.getModelPath();
 
-            //assert
-            assertEquals(modelPath, result.toString());
-        }
+        //Assert
+        assertEquals(expectedModelPath, result.toString());
     }
 
     /**
      * Test to verify that the InstantPowerConsumptionSensor returns the sensor type ID.
      */
     @Test
-    public void shouldGetInstantPowerConsumptionSensorTypeID () {
+    public void shouldGetInstantPowerConsumptionSensorTypeID() {
         //Arrange
-        String deviceID = "deviceID";
-        String modelPath =  "SmartHome.sensors.InstantPowerConsumptionSensor";
-        String sensorName = "sensorName";
-        String sensorTypeID = "sensorTypeID";
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "Watt";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        String expectedSensorTypeID = sensorTypeID.toString();
 
-        try(MockedConstruction<SensorTypeID> mocked = mockConstruction(SensorTypeID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(sensorTypeID);
-        })) {
-            InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-            //act
-            SensorTypeID result = instantPowerConsumptionSensor.getSensorTypeID();
+        //Act
+        SensorTypeID result = instantPowerConsumptionSensor.getSensorTypeID();
 
-            //assert
-            assertEquals(sensorTypeID, result.toString());
-        }
+        //Assert
+        assertEquals(expectedSensorTypeID, result.toString());
     }
 
     @Test
-    public void shouldGetDeviceID () {
+    public void shouldGetDeviceID() {
         //Arrange
-        String deviceID = "deviceID";
-        String modelPath =  "SmartHome.sensors.InstantPowerConsumptionSensor";
-        String sensorName = "sensorName";
-        String sensorTypeID = "sensorTypeID";
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "Watt";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        String expectedDeviceID = deviceID.toString();
 
-        try(MockedConstruction<DeviceID> mocked = mockConstruction(DeviceID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(deviceID);
-        })) {
-            InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-            //act
-            DeviceID result = instantPowerConsumptionSensor.getDeviceID();
+        //Act
+        DeviceID result = instantPowerConsumptionSensor.getDeviceID();
 
-            //assert
-            assertEquals(deviceID, result.toString());
-        }
+        //Assert
+        assertEquals(expectedDeviceID, result.toString());
     }
 
     @Test
-    public void shouldGetInstantPowerConsumptionValue (){
+    public void shouldGetInstantPowerConsumptionValue() {
         //Arrange
-        String deviceID = "deviceID";
-        String modelPath =  "SmartHome.sensors.InstantPowerConsumptionSensor";
-        String sensorName = "sensorName";
-        String sensorTypeID = "sensorTypeID";
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "Watt";
 
-        String expectedValue = "100";
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        ModelPath modelPathDouble = mock(ModelPath.class);
-        SensorName sensorNameDouble = mock(SensorName.class);
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-        when(deviceIDDouble.toString()).thenReturn(deviceID);
-        when(modelPathDouble.toString()).thenReturn(modelPath);
-        when(sensorNameDouble.toString()).thenReturn(sensorName);
-        when(sensorTypeIDDouble.toString()).thenReturn(sensorTypeID);
+        //Act
+        InstantPowerConsumptionValue result = instantPowerConsumptionSensor.getValue();
 
-        try(MockedConstruction<InstantPowerConsumptionValue> mocked = mockConstruction(InstantPowerConsumptionValue.class, (mock, context) -> {
-            when(mock.toString()).thenReturn(expectedValue);
-        })) {
-            InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceIDDouble, modelPathDouble,  sensorTypeIDDouble, sensorNameDouble);
+        //Assert
+        double value = Double.parseDouble(result.toString());
+        assertTrue(value >= 0 && value <= 100);
+        assertTrue(value >1);
 
-            //act
-            InstantPowerConsumptionValue result = (InstantPowerConsumptionValue) instantPowerConsumptionSensor.getValue();
-
-            //assert
-            assertEquals(expectedValue, result.toString());
-        }
     }
-
 
 
 }

@@ -1,8 +1,10 @@
-package SmartHomeDDD.domain.Sensor;
+package SmartHomeDDD.domain.Sensor.InstantPowerConsumptionSensor;
 
-import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.Sensor.Sensor;
 import SmartHomeDDD.valueObject.*;
 
+import java.util.Objects;
+import java.util.Random;
 import java.util.UUID;
 
 public class InstantPowerConsumptionSensor implements Sensor {
@@ -10,7 +12,7 @@ public class InstantPowerConsumptionSensor implements Sensor {
     private SensorName _sensorName;
     private SensorID _sensorID;
     private SensorTypeID _sensorTypeID;
-    private ValueObject _instantPowerConsumptionValue;
+    private InstantPowerConsumptionValue _instantPowerConsumptionValue;
     private DeviceID _deviceID;
 
     /**
@@ -21,7 +23,7 @@ public class InstantPowerConsumptionSensor implements Sensor {
      * @param sensorName   The sensor name.
      * @param sensorTypeID The sensor type ID.
      */
-    protected InstantPowerConsumptionSensor(DeviceID deviceID, ModelPath modelPath,  SensorTypeID sensorTypeID, SensorName sensorName) {
+    public InstantPowerConsumptionSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
@@ -44,7 +46,7 @@ public class InstantPowerConsumptionSensor implements Sensor {
     private void validateModelPath(ModelPath modelPath) {
         if (modelPath == null) {
             throw new IllegalArgumentException("ModelPath is required");
-        } else {
+        } else if (!Objects.equals(modelPath.toString(), "InstantPowerConsumption")) {
             this._modelPath = modelPath;
         }
     }
@@ -70,6 +72,9 @@ public class InstantPowerConsumptionSensor implements Sensor {
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
+
+        } else if (!Objects.equals(sensorTypeID.getId(), "Watt")) {
+            throw new IllegalArgumentException("SensorTypeID must be of type 'Watt'");
         } else {
             this._sensorTypeID = sensorTypeID;
         }
@@ -133,8 +138,9 @@ public class InstantPowerConsumptionSensor implements Sensor {
      * Returns the value of the sensor.
      */
     @Override
-    public ValueObject getValue() {
-        double instantPowerConsumptionValue = 25.0;
+    public InstantPowerConsumptionValue getValue() {
+        Random rand = new Random();
+        double instantPowerConsumptionValue = rand.nextDouble() * 100;
 
         this._instantPowerConsumptionValue = new InstantPowerConsumptionValue(instantPowerConsumptionValue);
 
