@@ -1,5 +1,6 @@
 package SmartHomeDDD.domain.Actuator;
 
+import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuatorLimits;
 import org.junit.jupiter.api.Test;
 
 public class SetIntegerActuatorLimitsTest {
