@@ -3,6 +3,8 @@ package SmartHomeDDD.domain.Actuator;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuatorLimits;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.*;
+
 public class SetIntegerActuatorLimitsTest {
     /**
      * Tests if the object is instantiated when the limits are valid
@@ -10,11 +12,14 @@ public class SetIntegerActuatorLimitsTest {
     @Test
     public void shouldInstantiateSetIntegerActuatorLimits_whenLimitsAreValid() {
         // Arrange
-        int lowerLimit = 0;
+        int lowerLimit = 1;
         int upperLimit = 100;
 
         // Act
-        new SetIntegerActuatorLimits(lowerLimit, upperLimit);
+        SetIntegerActuatorLimits result = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**
@@ -41,7 +46,7 @@ public class SetIntegerActuatorLimitsTest {
     @Test
     public void shouldReturnLowerLimit_whenGetLowerLimitIsCalled() {
         // Arrange
-        int lowerLimit = 0;
+        int lowerLimit = 1;
         int upperLimit = 100;
         SetIntegerActuatorLimits setIntegerActuatorLimits = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
 
@@ -49,7 +54,7 @@ public class SetIntegerActuatorLimitsTest {
         int result = setIntegerActuatorLimits.getLowerLimit();
 
         // Assert
-        assert result == lowerLimit;
+        assertEquals(result, lowerLimit);
     }
 
     /**
@@ -58,7 +63,7 @@ public class SetIntegerActuatorLimitsTest {
     @Test
     public void shouldReturnUpperLimit_whenGetUpperLimitIsCalled() {
         // Arrange
-        int lowerLimit = 0;
+        int lowerLimit = 1;
         int upperLimit = 100;
         SetIntegerActuatorLimits setIntegerActuatorLimits = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
 
@@ -66,7 +71,7 @@ public class SetIntegerActuatorLimitsTest {
         int result = setIntegerActuatorLimits.getUpperLimit();
 
         // Assert
-        assert result == upperLimit;
+        assertEquals(result, upperLimit);
     }
 
     /**
@@ -75,7 +80,7 @@ public class SetIntegerActuatorLimitsTest {
     @Test
     public void shouldReturnTrue_whenEqualsIsCalledWithSameObject() {
         // Arrange
-        int lowerLimit = 0;
+        int lowerLimit = 1;
         int upperLimit = 100;
         SetIntegerActuatorLimits setIntegerActuatorLimits = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
 
@@ -83,7 +88,7 @@ public class SetIntegerActuatorLimitsTest {
         boolean result = setIntegerActuatorLimits.equals(setIntegerActuatorLimits);
 
         // Assert
-        assert result;
+        assertTrue(result);
     }
 
     /**
@@ -100,7 +105,7 @@ public class SetIntegerActuatorLimitsTest {
         boolean result = setIntegerActuatorLimits.equals(new Object());
 
         // Assert
-        assert !result;
+        assertFalse(result);
     }
 
     /**
@@ -118,7 +123,7 @@ public class SetIntegerActuatorLimitsTest {
         boolean result = setIntegerActuatorLimits.equals(setIntegerActuatorLimits2);
 
         // Assert
-        assert result;
+        assertTrue(result);
     }
 
     /**
@@ -137,7 +142,7 @@ public class SetIntegerActuatorLimitsTest {
         boolean result = setIntegerActuatorLimits.equals(setIntegerActuatorLimits2);
 
         // Assert
-        assert !result;
+        assertFalse(result);
     }
 
     /**
@@ -156,6 +161,6 @@ public class SetIntegerActuatorLimitsTest {
         boolean result = setIntegerActuatorLimits.equals(setIntegerActuatorLimits2);
 
         // Assert
-        assert !result;
+        assertFalse(result);
     }
 }
