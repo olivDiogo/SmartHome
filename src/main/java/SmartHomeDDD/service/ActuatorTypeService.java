@@ -6,6 +6,7 @@ import SmartHomeDDD.repository.ActuatorTypeRepository;
 import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
+import SmartHomeDDD.valueObject.UnitID;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,29 +28,33 @@ public class ActuatorTypeService {
       ImpActuatorTypeFactory actuatorTypeFactory,
       UnitRepository unitRepository) {
 
-    _actuatorTypeRepository = actuatorTypeRepository;
-    _actuatorTypeFactory = actuatorTypeFactory;
+    this._actuatorTypeRepository = actuatorTypeRepository;
+    this._actuatorTypeFactory = actuatorTypeFactory;
     this._unitRepository = unitRepository;
   }
 
   /**
    * Add an ActuatorType. If the ActuatorType already exists, throw an IllegalArgumentException.
    *
-   * @param actuatorTypeName is the name of the ActuatorType.
+   * @param name is the name of the ActuatorType.
    * @return the ActuatorType.
    */
-  public ActuatorType addActuatorType(TypeDescription actuatorTypeName) {
-    if (actuatorTypeName == null) {
-      throw new IllegalArgumentException("ActuatorType name cannot be null.");
-    } else if (_actuatorTypeRepository.existsOfName(actuatorTypeName)) {
-      throw new IllegalArgumentException("Actuator type already exists.");
-    } else {
-      ActuatorType actuatorType = _actuatorTypeFactory.createActuatorType(actuatorTypeName);
-
-      _actuatorTypeRepository.save(actuatorType);
-
-      return actuatorType;
+  public ActuatorType createActuatorType(TypeDescription name, UnitID unitID) {
+    if (!_unitRepository.containsOfIdentity(unitID)) {
+      throw new IllegalArgumentException("Please enter a valid measurement type.");
     }
+    ActuatorType actuatorType = _actuatorTypeFactory.createActuatorType(name, unitID);
+    return actuatorType;
+  }
+
+  /**
+   * Save an ActuatorType. If the ActuatorType is null, throw an IllegalArgumentException.
+   */
+  public ActuatorType saveActuatorType(ActuatorType type) {
+    if (type == null) {
+      throw new IllegalArgumentException("Please enter a valid sensor type.");
+    }
+    return _actuatorTypeRepository.save(type);
   }
 
   /** Find all actuator types in the repository. */
