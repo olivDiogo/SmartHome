@@ -19,7 +19,11 @@ public class SensorTypeRepositoryTest {
      */
     @Test
     void shouldInstantiateSensorTypeRepository() {
-        new SensorTypeRepository();
+        //Arrange
+        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+
+        //Act + Assert
+        assertNotNull(sensorTypeRepository);
     }
 
     /**
