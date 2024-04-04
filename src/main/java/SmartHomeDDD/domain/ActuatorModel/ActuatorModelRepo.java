@@ -1,12 +1,12 @@
 package SmartHomeDDD.domain.ActuatorModel;
 
 import SmartHomeDDD.ddd.Repository;
-import SmartHomeDDD.valueObject.ActuatorModelID;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
+import SmartHomeDDD.valueObject.ModelPath;
 
 import java.util.List;
 
-public interface ActuatorModelRepo extends Repository<ActuatorModelID, ActuatorModel> {
+public interface ActuatorModelRepo extends Repository<ModelPath, ActuatorModel> {
 
     public List<ActuatorModel> findByActuatorTypeId(ActuatorTypeID actuatorModelID);
 }

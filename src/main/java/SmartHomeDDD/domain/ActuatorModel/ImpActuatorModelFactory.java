@@ -8,7 +8,7 @@ public class ImpActuatorModelFactory implements ActuatorModelFactory{
 
 @Override
     public ActuatorModel createActuatorModel(ActuatorModelName actuatorModelName, ModelPath modelPath, ActuatorTypeID typeID) {
-        return new ActuatorModel(actuatorModelName, modelPath);
+        return new ActuatorModel(actuatorModelName, modelPath, typeID);
     }
 
 }
