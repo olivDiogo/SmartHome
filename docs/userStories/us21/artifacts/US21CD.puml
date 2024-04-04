@@ -4,11 +4,11 @@
 package domain.Sensor {
 
       interface SensorFactory {
-            + createSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName): Sensor
+            + createSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName, gps: GPS): Sensor
         }
 
       class SensorFactoryImpl {
-            + createSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName): Sensor
+            + createSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName, gps: GPS): Sensor
         }
 
     interface Sensor {
@@ -21,17 +21,18 @@ package domain.Sensor {
         + toString(): String
     }
 
-package domain.Sensor.InstantPowerConsumptionSensor {
+package domain.Sensor.SunsetTimeSensor {
 
-    class domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor <<entity>> <<Root>> {
+    class domain.Sensor.SunsetTimeSensor.SunsetTimeSensor <<entity>> <<Root>> {
         - _modelPath : ModelPath
         - _sensorName : SensorName
         - _sensorID : SensorID
         - _sensorTypeID : SensorTypeID
-        - _dewPointValue : InstantPowerConsumptionValue
+        - _sunsetTimeValue : SunsetTimeSensorValue
         - _deviceID : DeviceID
+        - _gps : GPS
 
-        + InstantPowerConsumptionSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName)
+        + SunsetTimeSensor(deviceID : DeviceID, modelPath : ModelPath, sensorTypeID : SensorTypeID, sensorName : SensorName, gps: GPS)
         + getID () : SensorID
         + getName () : SensorName
         + getModelPath () : ModelPath
@@ -39,7 +40,13 @@ package domain.Sensor.InstantPowerConsumptionSensor {
         + getValue () : ValueObject
         + getDeviceID () : DeviceID
     }
-
+    class GPS <<ValueObject>> {
+        - _latitude: double
+        - _longitude: double
+        + GPS(latitude : double, longitude : double)
+        + getLatitude() : double
+        + getLongitude() : double
+}
      class SensorName <<ValueObject>> {
             - _name: String
             + SensorName(name : String)
@@ -58,9 +65,9 @@ package domain.Sensor.InstantPowerConsumptionSensor {
         + getID() : String
     }
 
-  class InstantPowerConsumptionValue <<ValueObject>> {
-    - _DewPointValue : int
-    + InstantPowerConsumptionValue(dewPointValue : int)
+  class SunsetTimeSensorValue <<ValueObject>> {
+    - _sunsetTimeSensorValue : LocalTime
+    + SunsetTimeSensorValue(sunsetTimeSensorValue : LocalTime)
     + toString() : String
   }
     class ModelPath <<DomainID>> {
@@ -92,23 +99,24 @@ package domain.ddd {
 }
 
 SensorFactoryImpl ..|> SensorFactory
-SensorFactoryImpl "1" ..> "1" domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor : creates
+SensorFactoryImpl "1" ..> "1" domain.Sensor.SunsetTimeSensor.SunsetTimeSensor : creates
 
-domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor ..|> domain.Sensor.Sensor
-domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor "1" --> "1" domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionValue : has
-domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor "1" -->  "1" SensorTypeID : has
-domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor "1" -->  "1" SensorID : has
-domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor "1" -->  "1" DeviceID : has
-domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor "1" -->  "1" ModelPath : has
-domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor "1" -->  "1" SensorName : has
+domain.Sensor.SunsetTimeSensor.SunsetTimeSensor ..|> domain.Sensor.Sensor
+domain.Sensor.SunsetTimeSensor.SunsetTimeSensor "1" --> "1" domain.Sensor.SunsetTimeSensor.SunsetTimeSensorValue : has
+domain.Sensor.SunsetTimeSensor.SunsetTimeSensor "1" -->  "1" SensorTypeID : has
+domain.Sensor.SunsetTimeSensor.SunsetTimeSensor "1" -->  "1" SensorID : has
+domain.Sensor.SunsetTimeSensor.SunsetTimeSensor "1" -->  "1" DeviceID : has
+domain.Sensor.SunsetTimeSensor.SunsetTimeSensor "1" -->  "1" ModelPath : has
+domain.Sensor.SunsetTimeSensor.SunsetTimeSensor "1" -->  "1" SensorName : has
+domain.Sensor.SunsetTimeSensor.SunsetTimeSensor "1" -->  "1" GPS : has
 
-domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionValue ..|> domain.ddd.ValueObject
+domain.Sensor.SunsetTimeSensor.SunsetTimeSensorValue ..|> domain.ddd.ValueObject
 SensorName ..|> domain.ddd.ValueObject
 
 DomainEntity --|> DomainID
 AggregateRoot --|> DomainEntity
 
-domain.Sensor.Sensor --|> domain.ddd.AggregateRoot
+domain.Sensor.Sensor ..|> domain.ddd.AggregateRoot
 
 SensorTypeID ..|> domain.ddd.DomainID
 SensorID ..|> domain.ddd.DomainID
