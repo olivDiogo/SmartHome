@@ -11,15 +11,16 @@ import java.util.List;
 import java.util.Optional;
 
 public class DeviceService {
-    private DeviceRepo _deviceRepository;
-    private DeviceFactory _deviceFactory;
-    private Repository<RoomID, Room> _roomRepository;
+    private final DeviceRepo _deviceRepository;
+    private final DeviceFactory _deviceFactory;
+    private final Repository<RoomID, Room> _roomRepository;
 
     /**
      * Constructor for DeviceService.
+     *
      * @param deviceRepository is the repository for the device.
-     * @param deviceFactory is the factory for the device.
-     * @param roomRepository is the repository for the room.
+     * @param deviceFactory    is the factory for the device.
+     * @param roomRepository   is the repository for the room.
      */
     public DeviceService(DeviceRepo deviceRepository, DeviceFactory deviceFactory, Repository<RoomID, Room> roomRepository) {
         _deviceRepository = deviceRepository;
@@ -29,8 +30,9 @@ public class DeviceService {
 
     /**
      * Adds a new device to the room with the provided room ID.
-     * @param roomID is the room ID where the device is located.
-     * @param deviceName is the name of the device.
+     *
+     * @param roomID       is the room ID where the device is located.
+     * @param deviceName   is the name of the device.
      * @param deviceStatus is the state of the device.
      * @return the newly created device.
      */
@@ -47,12 +49,13 @@ public class DeviceService {
 
     /**
      * Deactivates the device with the provided device ID.
+     *
      * @param deviceID is the unique identifier of the device.
      * @return the updated device.
      */
     public Device deactivateDeviceByID(DeviceID deviceID) {
         Optional<Device> deviceOptional = getDeviceByID(deviceID);
-        if (deviceOptional.isPresent()){
+        if (deviceOptional.isPresent()) {
             Device device = deviceOptional.get();
             device.deactivateDevice();
             //_deviceRepository.save(device);
@@ -64,6 +67,7 @@ public class DeviceService {
 
     /**
      * Returns all the devices in the repository.
+     *
      * @return a list of devices.
      */
     public List<Device> getAllDevices() {
@@ -72,6 +76,7 @@ public class DeviceService {
 
     /**
      * Returns the device with the provided device ID.
+     *
      * @param deviceId is the unique identifier of the device.
      * @return an optional containing the device if found, empty otherwise.
      */
@@ -81,7 +86,8 @@ public class DeviceService {
 
     /**
      * Returns the devices in the room with the provided room ID.
-      * @param roomId is the unique identifier of the room.
+     *
+     * @param roomId is the unique identifier of the room.
      * @return a list of devices in the room.
      */
     public List<Device> getDevicesByRoomId(RoomID roomId) {

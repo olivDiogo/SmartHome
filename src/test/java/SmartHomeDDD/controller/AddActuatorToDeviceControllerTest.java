@@ -2,16 +2,16 @@ package SmartHomeDDD.controller;
 
 import SmartHomeDDD.DTO.*;
 import SmartHomeDDD.assembler.*;
+import SmartHomeDDD.domain.Actuator.ImpActuatorFactory;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
+import SmartHomeDDD.domain.ActuatorModel.ImpActuatorModelFactory;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
+import SmartHomeDDD.domain.ActuatorType.ImpActuatorTypeFactory;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.domain.Device.ImpDeviceFactory;
 import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.domain.House.ImpHouseFactory;
 import SmartHomeDDD.domain.Room.ImpRoomFactory;
-import SmartHomeDDD.domain.Actuator.ImpActuatorFactory;
-import SmartHomeDDD.domain.ActuatorModel.ImpActuatorModelFactory;
-import SmartHomeDDD.domain.ActuatorType.ImpActuatorTypeFactory;
 import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.domain.Unit.ImpUnitFactory;
 import SmartHomeDDD.repository.*;
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddActuatorToDeviceControllerTest {
   RoomRepository roomRepository = new RoomRepository();
@@ -564,7 +564,6 @@ class AddActuatorToDeviceControllerTest {
     ActuatorDataDTO actuatorDataDTO =
             new ActuatorDataDTO(
                     device.getID().getId(), modelPath, actuatorName, actuatorType.getID().getId());
-    System.out.println(actuatorDataDTO);
     AddActuatorToDeviceController controller =
             new AddActuatorToDeviceController(
                     roomService,

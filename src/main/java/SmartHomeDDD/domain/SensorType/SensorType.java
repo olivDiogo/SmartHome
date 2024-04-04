@@ -7,8 +7,8 @@ import SmartHomeDDD.valueObject.UnitID;
 
 public class SensorType implements AggregateRoot<SensorTypeID> {
     private SensorTypeID _id;
-    private TypeDescription _name;
-    private UnitID _unit;
+    private final TypeDescription _name;
+    private final UnitID _unit;
 
     /**
      * Creates a new {@link SensorType} instance using the provided sensor type name and unit.
@@ -29,7 +29,7 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
     /**
      * Creates a new {@link SensorTypeID} instance.
      */
-    private void generateID(TypeDescription name){
+    private void generateID(TypeDescription name) {
         _id = new SensorTypeID(name.toString());
     }
 
@@ -59,7 +59,7 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
      * @return the ID of the sensor type
      */
     @Override
-    public SensorTypeID getID(){
+    public SensorTypeID getID() {
         return _id;
     }
 
@@ -88,9 +88,9 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
      * @return true if the sensor type is the same as the object, false otherwise
      */
     @Override
-    public boolean equals( Object object ) {
-        if( object instanceof SensorType  sensorTypeObject) {
-            return ( this._id.toString().equals(sensorTypeObject._id.toString()) );
+    public boolean equals(Object object) {
+        if (object instanceof SensorType sensorTypeObject) {
+            return (this._id.toString().equals(sensorTypeObject._id.toString()));
         }
         return false;
     }
@@ -102,7 +102,7 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
      */
     @Override
     public String toString() {
-        return  "ID: " + _id.toString() +
+        return "ID: " + _id.toString() +
                 "\nTypeDescription: " + _name.toString() +
                 "\nUnit: " + _unit.toString();
     }

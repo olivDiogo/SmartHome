@@ -7,7 +7,7 @@ import SmartHomeDDD.ddd.ValueObject;
  */
 public class SetDecimalValue implements ValueObject {
 
-    private double _value;
+    private final double _value;
 
     /**
      * Constructs a SetDecimalValue object with the specified decimal value.

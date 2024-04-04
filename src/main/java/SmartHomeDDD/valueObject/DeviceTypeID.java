@@ -32,8 +32,7 @@ public class DeviceTypeID implements DomainID {
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (!(object instanceof DeviceTypeID)) return false;
-        DeviceTypeID that = (DeviceTypeID) object;
+        if (!(object instanceof DeviceTypeID that)) return false;
         return id.equals(that.id);
     }
 

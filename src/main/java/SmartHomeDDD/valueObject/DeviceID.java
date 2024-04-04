@@ -3,7 +3,7 @@ package SmartHomeDDD.valueObject;
 import SmartHomeDDD.ddd.DomainID;
 
 public class DeviceID implements DomainID {
-    private String _id;
+    private final String _id;
 
     /**
      * Constructor for DeviceID
@@ -45,11 +45,9 @@ public class DeviceID implements DomainID {
         if (this == o)
             return true;
 
-        if (o instanceof DeviceID) {
-            DeviceID objectDeviceID = (DeviceID) o;
+        if (o instanceof DeviceID objectDeviceID) {
 
-            if (this._id.equals(objectDeviceID._id))
-                return true;
+            return this._id.equals(objectDeviceID._id);
         }
         return false;
     }

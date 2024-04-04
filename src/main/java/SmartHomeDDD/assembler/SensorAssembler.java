@@ -11,6 +11,7 @@ public class SensorAssembler implements Assembler<Sensor, SensorDTO> {
 
     /**
      * Converts a domain entity to a DTO.
+     *
      * @param sensor is the domain entity to be converted.
      * @return the DTO that was created.
      */
@@ -32,6 +33,7 @@ public class SensorAssembler implements Assembler<Sensor, SensorDTO> {
 
     /**
      * Converts a list of domain entities to a list of DTOs.
+     *
      * @param sensors is the list of domain entities to be converted.
      * @return the list of DTOs that was created.
      */

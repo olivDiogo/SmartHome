@@ -2,7 +2,7 @@ package SmartHomeDDD.ddd;
 
 import java.util.List;
 
-public interface Assembler<ID extends AggregateRoot, T extends DTO >{
+public interface Assembler<ID extends AggregateRoot, T extends DTO> {
 
     /**
      * Method to convert a domain entity into a DTO.

@@ -11,7 +11,7 @@ public class HouseService {
 
     final HouseFactory houseFactory;
 
-    final Repository<HouseID,House> houseRepository;
+    final Repository<HouseID, House> houseRepository;
 
     /**
      * Constructor for the HouseService class.
@@ -19,7 +19,7 @@ public class HouseService {
      * @param houseFactory    the factory for creating House instances
      * @param houseRepository the repository for storing House instances
      */
-    public HouseService(HouseFactory houseFactory, Repository<HouseID,House> houseRepository) {
+    public HouseService(HouseFactory houseFactory, Repository<HouseID, House> houseRepository) {
         validateHouseFactory(houseFactory);
         validateHouseRepository(houseRepository);
         this.houseFactory = houseFactory;
@@ -42,7 +42,7 @@ public class HouseService {
      *
      * @param houseRepository the HouseRepository to validate
      */
-    private void validateHouseRepository(Repository<HouseID,House> houseRepository) {
+    private void validateHouseRepository(Repository<HouseID, House> houseRepository) {
         if (houseRepository == null) {
             throw new IllegalArgumentException("HouseRepository cannot be null.");
         }
@@ -50,8 +50,9 @@ public class HouseService {
 
     /**
      * Adds a new House to the repository.
+     *
      * @param address the address of the house
-     * @param gps the GPS coordinates of the house
+     * @param gps     the GPS coordinates of the house
      * @return the newly created House
      */
     public House addHouse(Address address, GPS gps) {

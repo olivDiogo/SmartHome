@@ -22,12 +22,12 @@ public class BlindRollerActuator implements Actuator {
     /**
      * Constructs a new BlindRollerActuator with the specified parameters.
      *
-     * @param deviceID The ID of the device associated with this actuator.
+     * @param deviceID       The ID of the device associated with this actuator.
      * @param actuatorTypeID The type ID of the actuator.
-     * @param actuatorName The name of the actuator.
-     * @param modelPath The model path of the actuator.
+     * @param actuatorName   The name of the actuator.
+     * @param modelPath      The model path of the actuator.
      */
-    public BlindRollerActuator(DeviceID deviceID, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, ModelPath modelPath){
+    public BlindRollerActuator(DeviceID deviceID, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, ModelPath modelPath) {
         validateDeviceID(deviceID);
         validateActuatorTypeID(actuatorTypeID);
         validateActuatorName(actuatorName);
@@ -153,11 +153,10 @@ public class BlindRollerActuator implements Actuator {
      */
     @Override
     public BlindRollerValue setValue(ValueObject value) {
-        if(value instanceof BlindRollerValue){
+        if (value instanceof BlindRollerValue) {
             this._value = (BlindRollerValue) value;
             return _value;
-        }
-        else {
+        } else {
             return null;
         }
     }

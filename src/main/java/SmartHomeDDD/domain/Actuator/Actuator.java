@@ -11,45 +11,47 @@ public interface Actuator extends AggregateRoot<ActuatorID> {
      *
      * @return The actuator ID.
      */
-    public ActuatorID getID();
+    ActuatorID getID();
 
     /**
      * Gets the actuator name.
      *
      * @return The actuator name.
      */
-    public ActuatorName getName();
+    ActuatorName getName();
 
     /**
      * Gets the model path.
      *
      * @return The model path.
      */
-    public ModelPath getModelPath();
+    ModelPath getModelPath();
 
     /**
      * Gets the actuator type ID.
      *
      * @return The actuator type ID.
      */
-    public ActuatorTypeID getActuatorTypeID();
+    ActuatorTypeID getActuatorTypeID();
 
     /**
      * Gets the device ID.
      */
-    public DeviceID getDeviceID();
+    DeviceID getDeviceID();
 
-    /**     * Returns the actuator attributes in a string format.
+    /**
+     * Returns the actuator attributes in a string format.
      *
      * @return The actuator attributes in a string format.
      */
-    public String toString();
+    String toString();
 
     /**
      * Method to get the value object of the actuator.
+     *
      * @return the value.
      */
-    public ValueObject setValue (ValueObject value);
+    ValueObject setValue(ValueObject value);
 
 
 }

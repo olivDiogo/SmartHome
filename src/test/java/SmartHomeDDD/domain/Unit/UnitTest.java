@@ -1,13 +1,13 @@
 package SmartHomeDDD.domain.Unit;
 
+import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.valueObject.UnitID;
 import SmartHomeDDD.valueObject.UnitSymbol;
-import SmartHomeDDD.valueObject.UnitDescription;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mockConstruction;
 
 class UnitTest {
 

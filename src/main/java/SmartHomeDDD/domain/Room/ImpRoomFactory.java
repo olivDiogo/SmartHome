@@ -17,8 +17,8 @@ public class ImpRoomFactory implements RoomFactory {
      * This method ensures that a {@link Room} object is instantiated with valid and non-null
      * parameters, leveraging the Room constructor for validation and initialization.
      *
-     * @param houseID the house ID where the room is located, must not be null
-     * @param roomName the name of the room, must not be null
+     * @param houseID   the house ID where the room is located, must not be null
+     * @param roomName  the name of the room, must not be null
      * @param dimension the dimension of the room, must not be null
      * @param roomFloor the floor where the room is located, must not be null
      * @return a fully initialized {@link Room} instance

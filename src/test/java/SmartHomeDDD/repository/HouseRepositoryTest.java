@@ -1,7 +1,7 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.valueObject.HouseID;
 import SmartHomeDDD.domain.House.House;
+import SmartHomeDDD.valueObject.HouseID;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

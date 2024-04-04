@@ -1,16 +1,15 @@
 package SmartHomeDDD.domain.SensorType;
 
 import SmartHomeDDD.valueObject.SensorTypeID;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import SmartHomeDDD.valueObject.TypeDescription;
 import SmartHomeDDD.valueObject.UnitID;
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 
 import java.util.List;
 
-import org.mockito.MockedConstruction;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class ImpSensorTypeFactoryTest {
 

@@ -3,15 +3,11 @@ package SmartHomeDDD.service;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModelFactory;
 import SmartHomeDDD.repository.ActuatorModelRepository;
-import SmartHomeDDD.valueObject.ActuatorModelID;
 import SmartHomeDDD.valueObject.ActuatorModelName;
 import SmartHomeDDD.valueObject.ModelPath;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.configuration2.ex.ConfigurationException;
 
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 

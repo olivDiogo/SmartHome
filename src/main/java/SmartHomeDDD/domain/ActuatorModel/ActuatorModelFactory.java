@@ -6,5 +6,5 @@ import SmartHomeDDD.valueObject.ModelPath;
 
 public interface ActuatorModelFactory {
 
-    public ActuatorModel createActuatorModel(ActuatorModelName actuatorModelName, ModelPath modelPath, ActuatorTypeID typeID);
+    ActuatorModel createActuatorModel(ActuatorModelName actuatorModelName, ModelPath modelPath, ActuatorTypeID typeID);
 }

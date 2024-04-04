@@ -38,6 +38,7 @@ public class SolarIrradianceSensor implements Sensor {
 
     /**
      * Validates the sensorName
+     *
      * @param sensorName
      */
     private void validateSensorName(SensorName sensorName) {
@@ -49,6 +50,7 @@ public class SolarIrradianceSensor implements Sensor {
 
     /**
      * Validates the sensorTypeID
+     *
      * @param sensorTypeID
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
@@ -63,6 +65,7 @@ public class SolarIrradianceSensor implements Sensor {
 
     /**
      * Validates the modelPath
+     *
      * @param modelPath
      */
     private void validateModelPath(ModelPath modelPath) {
@@ -74,6 +77,7 @@ public class SolarIrradianceSensor implements Sensor {
 
     /**
      * Validates the deviceID
+     *
      * @param deviceID
      */
     private void validateDeviceID(DeviceID deviceID) {
@@ -85,6 +89,7 @@ public class SolarIrradianceSensor implements Sensor {
 
     /**
      * Getter for sensorID
+     *
      * @return
      */
     @Override
@@ -94,6 +99,7 @@ public class SolarIrradianceSensor implements Sensor {
 
     /**
      * Getter for sensorName
+     *
      * @return
      */
     @Override
@@ -103,6 +109,7 @@ public class SolarIrradianceSensor implements Sensor {
 
     /**
      * Getter for modelPath
+     *
      * @return
      */
     @Override
@@ -112,6 +119,7 @@ public class SolarIrradianceSensor implements Sensor {
 
     /**
      * Getter for sensorTypeID
+     *
      * @return
      */
     @Override
@@ -121,6 +129,7 @@ public class SolarIrradianceSensor implements Sensor {
 
     /**
      * Getter for sensor value
+     *
      * @return
      */
     @Override
@@ -132,6 +141,7 @@ public class SolarIrradianceSensor implements Sensor {
 
     /**
      * Getter for deviceID
+     *
      * @return
      */
     @Override

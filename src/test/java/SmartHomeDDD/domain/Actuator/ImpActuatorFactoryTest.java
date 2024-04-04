@@ -3,16 +3,14 @@ package SmartHomeDDD.domain.Actuator;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuator;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuatorLimits;
 import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator;
-import SmartHomeDDD.domain.Sensor.ImpSensorFactory;
-import SmartHomeDDD.domain.Sensor.Sensor;
-import SmartHomeDDD.domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor;
-import SmartHomeDDD.domain.Sensor.SunriseTimeSensor;
-import SmartHomeDDD.valueObject.*;
+import SmartHomeDDD.valueObject.ActuatorName;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
+import SmartHomeDDD.valueObject.DeviceID;
+import SmartHomeDDD.valueObject.ModelPath;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

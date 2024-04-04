@@ -3,7 +3,7 @@ package SmartHomeDDD.valueObject;
 import SmartHomeDDD.ddd.ValueObject;
 
 public class RoomName implements ValueObject {
-    private String _name;
+    private final String _name;
 
     /**
      * Class constructor.
@@ -21,7 +21,7 @@ public class RoomName implements ValueObject {
      * @param name The room name to set.
      */
     private void validateRoomName(String name) {
-        if (name == null || name.isEmpty() || name.isBlank()){
+        if (name == null || name.isEmpty() || name.isBlank()) {
             throw new IllegalArgumentException("The room name cannot be null, blank, or empty.");
         }
 
@@ -52,10 +52,8 @@ public class RoomName implements ValueObject {
     public boolean equals(Object o) {
         if (this == o) return true;
 
-        if (o instanceof RoomName) {
-            RoomName roomName = (RoomName) o;
-            if (this._name.equals(roomName._name))
-                return true;
+        if (o instanceof RoomName roomName) {
+            return this._name.equals(roomName._name);
         }
         return false;
     }
@@ -66,7 +64,7 @@ public class RoomName implements ValueObject {
      * @return The string representation of the object.
      */
     @Override
-    public String toString () {
+    public String toString() {
         return this._name;
     }
 }

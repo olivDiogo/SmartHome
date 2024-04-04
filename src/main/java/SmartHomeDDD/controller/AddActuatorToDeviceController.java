@@ -2,15 +2,14 @@ package SmartHomeDDD.controller;
 
 import SmartHomeDDD.DTO.*;
 import SmartHomeDDD.assembler.*;
-import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.domain.Actuator.Actuator;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
+import SmartHomeDDD.domain.Device.Device;
+import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.service.*;
 import SmartHomeDDD.valueObject.*;
 
-import java.sql.SQLOutput;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,15 +34,15 @@ public class AddActuatorToDeviceController {
      * @param roomAssembler The room assembler.
      */
     public AddActuatorToDeviceController(RoomService roomService,
-                                       RoomAssembler roomAssembler,
-                                       DeviceService deviceService,
-                                       DeviceAssembler deviceAssembler,
-                                       ActuatorModelService actuatorModelService,
-                                       ActuatorModelAssembler actuatorModelAssembler,
-                                       ActuatorTypeService actuatorTypeService,
-                                       ActuatorTypeAssembler actuatorTypeAssembler,
-                                       ActuatorAssembler actuatorAssembler,
-                                       ActuatorService actuatorService) {
+                                         RoomAssembler roomAssembler,
+                                         DeviceService deviceService,
+                                         DeviceAssembler deviceAssembler,
+                                         ActuatorModelService actuatorModelService,
+                                         ActuatorModelAssembler actuatorModelAssembler,
+                                         ActuatorTypeService actuatorTypeService,
+                                         ActuatorTypeAssembler actuatorTypeAssembler,
+                                         ActuatorAssembler actuatorAssembler,
+                                         ActuatorService actuatorService) {
         validateRoomService(roomService);
         validateRoomAssembler(roomAssembler);
         validateDeviceService(deviceService);
@@ -235,7 +234,7 @@ public class AddActuatorToDeviceController {
 
     public List<ActuatorModelDTO> getActuatorModels(ActuatorTypeDTO actuatorTypeDTO) {
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeDTO.actuatorTypeID);
-        if(!_actuatorTypeService.findActuatorTypeByID(actuatorTypeID).isPresent()){
+        if (!_actuatorTypeService.findActuatorTypeByID(actuatorTypeID).isPresent()) {
             throw new IllegalArgumentException("Actuator type with ID " + actuatorTypeID + " not found.");
         }
 
@@ -247,7 +246,6 @@ public class AddActuatorToDeviceController {
 
         return List.copyOf(actuatorModelDTOList);
     }
-
 
 
     public ActuatorDTO addActuatorToDevice(ActuatorDataDTO actuatorDataDTO) {

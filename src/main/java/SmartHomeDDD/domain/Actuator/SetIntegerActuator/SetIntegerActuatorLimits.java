@@ -8,6 +8,7 @@ public class SetIntegerActuatorLimits implements ValueObject {
 
     /**
      * Constructor for SetIntegerActuatorLimits
+     *
      * @param lowerLimit
      * @param upperLimit
      */
@@ -17,6 +18,7 @@ public class SetIntegerActuatorLimits implements ValueObject {
 
     /**
      * Validates the limits
+     *
      * @param lowerLimit
      * @param upperLimit
      */
@@ -30,6 +32,7 @@ public class SetIntegerActuatorLimits implements ValueObject {
 
     /**
      * Gets the lower limit
+     *
      * @return
      */
     public int getLowerLimit() {
@@ -38,6 +41,7 @@ public class SetIntegerActuatorLimits implements ValueObject {
 
     /**
      * Gets the upper limit
+     *
      * @return
      */
     public int getUpperLimit() {
@@ -46,15 +50,14 @@ public class SetIntegerActuatorLimits implements ValueObject {
 
     /**
      * Checks if the object is equal to this
+     *
      * @param o
      * @return
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SetIntegerActuatorLimits)) return false;
-
-        SetIntegerActuatorLimits that = (SetIntegerActuatorLimits) o;
+        if (!(o instanceof SetIntegerActuatorLimits that)) return false;
 
         if (_lowerLimit != that._lowerLimit) return false;
         return _upperLimit == that._upperLimit;

@@ -1,6 +1,5 @@
 package SmartHomeDDD.controller;
 
-import SmartHome.domain.RoomFactory;
 import SmartHomeDDD.DTO.RoomDTO;
 import SmartHomeDDD.assembler.RoomAssembler;
 import SmartHomeDDD.domain.House.House;
@@ -14,7 +13,8 @@ import SmartHomeDDD.service.RoomService;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class for the AddRoomToHouseController class.

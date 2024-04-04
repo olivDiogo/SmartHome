@@ -3,7 +3,8 @@ package SmartHomeDDD.service;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModelFactory;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModelRepo;
-import SmartHomeDDD.valueObject.*;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
+import SmartHomeDDD.valueObject.ModelPath;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ import java.util.Optional;
  * Service class for managing actuator models within the smart home domain.
  * This includes loading default actuator models from a configuration file, as well as providing access to these models.
  */
-public class ActuatorModelService  {
+public class ActuatorModelService {
     private ActuatorModelRepo _actuatorModelRepository;
     private ActuatorModelFactory _factoryActuatorModel;
 
@@ -21,9 +22,9 @@ public class ActuatorModelService  {
      * Also attempts to load default actuator models from the configuration file upon instantiation.
      *
      * @param actuatorModelRepository Repository for storing and retrieving actuator models.
-     * @param factoryActuatorModel Factory for creating new actuator model instances.
+     * @param factoryActuatorModel    Factory for creating new actuator model instances.
      */
-public ActuatorModelService(ActuatorModelRepo actuatorModelRepository, ActuatorModelFactory factoryActuatorModel) {
+    public ActuatorModelService(ActuatorModelRepo actuatorModelRepository, ActuatorModelFactory factoryActuatorModel) {
         validateActuatorModelRepository(actuatorModelRepository);
         validateFactoryActuatorModel(factoryActuatorModel);
     }
@@ -77,6 +78,7 @@ public ActuatorModelService(ActuatorModelRepo actuatorModelRepository, ActuatorM
 
     /**
      * Retrieves all actuator models of a specific actuator type.
+     *
      * @param actuatorTypeID
      * @return
      */

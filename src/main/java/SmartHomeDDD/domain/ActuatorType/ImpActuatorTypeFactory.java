@@ -3,7 +3,7 @@ package SmartHomeDDD.domain.ActuatorType;
 import SmartHomeDDD.valueObject.TypeDescription;
 import SmartHomeDDD.valueObject.UnitID;
 
-public class ImpActuatorTypeFactory implements ActuatorTypeFactory{
+public class ImpActuatorTypeFactory implements ActuatorTypeFactory {
 
     /**
      * Creates and returns a new {@link SmartHome.domain.ActuatorType} instance with the provided description.

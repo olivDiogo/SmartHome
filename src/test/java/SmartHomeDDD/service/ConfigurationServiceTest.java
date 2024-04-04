@@ -1,15 +1,15 @@
 package SmartHomeDDD.service;
 
+import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
 import SmartHomeDDD.domain.Unit.Unit;
-import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.domain.Unit.UnitFactory;
-import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.repository.SensorModelRepository;
-import SmartHomeDDD.valueObject.UnitDescription;
-import SmartHomeDDD.valueObject.UnitSymbol;
+import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelName;
+import SmartHomeDDD.valueObject.UnitDescription;
+import SmartHomeDDD.valueObject.UnitSymbol;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.jupiter.api.Test;
@@ -17,10 +17,10 @@ import org.mockito.MockedConstruction;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 class ConfigurationServiceTest {
     @Test
@@ -87,7 +87,7 @@ class ConfigurationServiceTest {
         UnitFactory unitFactory = mock(UnitFactory.class);
 
         Configurations configs = new Configurations();
-        int defaultSensorModels = configs.properties(new File("config.properties")).getStringArray("sensor").length;
+        int defaultSensorModels = configs.properties(new File("configDDD.properties")).getStringArray("sensor").length;
 
         try (MockedConstruction<ModelPath> modelPathMockedConstruction = mockConstruction(ModelPath.class, (mock, context) -> {
         });
@@ -110,7 +110,7 @@ class ConfigurationServiceTest {
         UnitFactory unitFactory = mock(UnitFactory.class);
         when(unitFactory.createMeasurement(any(), any())).thenReturn(mock(Unit.class));
         Configurations configs = new Configurations();
-        int defaultSensorModels = configs.properties(new File("config.properties")).getStringArray("measurement").length;
+        int defaultSensorModels = configs.properties(new File("configDDD.properties")).getStringArray("measurement").length;
 
         try (MockedConstruction<UnitDescription> measurementDescriptionConstruction = mockConstruction(UnitDescription.class, (mock, context) -> {
         });

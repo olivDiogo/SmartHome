@@ -3,7 +3,7 @@ package SmartHomeDDD.domain.Sensor.DewPointSensor;
 import SmartHomeDDD.ddd.ValueObject;
 
 public class DewPointValue implements ValueObject {
-    private int _DewPointValue;
+    private final int _DewPointValue;
 
     /**
      * Constructor of the class.

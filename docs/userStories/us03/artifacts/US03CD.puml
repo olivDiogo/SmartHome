@@ -35,10 +35,13 @@ class RoomAssembler{
 
 class RoomDTO{
 'Attributes'
-+roomID: RoomID
-+roomName: RoomName
++roomID: String
++roomName: String
++dimensions: String
++floor: String
+
 'Methods'
-+RoomDTO(room: Room)
++RoomDTO(roomName: String, roomDimension : String, roomFloor: String, roomID: String)
 }
 
 GetListOfRoomsController "1" ..> "1" RoomService: uses

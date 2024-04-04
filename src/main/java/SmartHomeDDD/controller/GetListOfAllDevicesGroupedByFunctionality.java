@@ -79,7 +79,7 @@ public class GetListOfAllDevicesGroupedByFunctionality {
 
             if (deviceType.isPresent()) {
                 DeviceType deviceTypeObj = deviceType.get();
-                
+
                 if (devicesGroupedByFunctionality.containsKey(deviceTypeObj)) {
                     devicesGroupedByFunctionality.get(deviceTypeObj).add(_deviceAssembler.domainToDTO(device));
                 } else {

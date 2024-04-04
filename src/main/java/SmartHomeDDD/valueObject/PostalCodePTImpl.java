@@ -15,6 +15,7 @@ public class PostalCodePTImpl implements IPostalCode {
 
     /**
      * Validates the postal code format.
+     *
      * @param postalCode
      * @return
      */

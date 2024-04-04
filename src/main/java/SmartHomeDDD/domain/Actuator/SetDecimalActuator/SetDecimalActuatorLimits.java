@@ -7,9 +7,9 @@ import SmartHomeDDD.ddd.ValueObject;
  */
 public class SetDecimalActuatorLimits implements ValueObject {
 
-    private double _lowerLimit;
+    private final double _lowerLimit;
 
-    private double _upperLimit;
+    private final double _upperLimit;
 
     /**
      * Constructs a SetDecimalActuatorLimits object with the specified lower and upper limits.
@@ -63,9 +63,7 @@ public class SetDecimalActuatorLimits implements ValueObject {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SetDecimalActuatorLimits)) return false;
-
-        SetDecimalActuatorLimits that = (SetDecimalActuatorLimits) o;
+        if (!(o instanceof SetDecimalActuatorLimits that)) return false;
 
         if (_lowerLimit != that._lowerLimit) return false;
         return _upperLimit == that._upperLimit;

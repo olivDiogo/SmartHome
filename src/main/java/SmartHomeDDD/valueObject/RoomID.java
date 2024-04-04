@@ -3,7 +3,7 @@ package SmartHomeDDD.valueObject;
 import SmartHomeDDD.ddd.DomainID;
 
 public class RoomID implements DomainID {
-    private String _id;
+    private final String _id;
 
     /**
      * Constructor of the class RoomID.
@@ -17,9 +17,10 @@ public class RoomID implements DomainID {
 
     /**
      * Validates the ID of the room.
+     *
      * @param roomID is the ID of the room.
      */
-    private void validateRoomID (String roomID){
+    private void validateRoomID(String roomID) {
         if (roomID == null || roomID.isBlank() || roomID.isEmpty())
             throw new IllegalArgumentException("'roomID' must be a non-empty string.");
     }
@@ -35,11 +36,9 @@ public class RoomID implements DomainID {
         if (this == object)
             return true;
 
-        if (object instanceof RoomID) {
-            RoomID roomID = (RoomID) object;
+        if (object instanceof RoomID roomID) {
 
-            if (this._id.equals(roomID._id))
-                return true;
+            return this._id.equals(roomID._id);
         }
         return false;
     }
@@ -69,6 +68,6 @@ public class RoomID implements DomainID {
      * @return the ID of the room.
      */
     public String toString() {
-        return  _id;
+        return _id;
     }
 }

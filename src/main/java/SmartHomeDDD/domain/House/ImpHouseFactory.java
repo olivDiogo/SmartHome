@@ -17,7 +17,7 @@ public class ImpHouseFactory implements HouseFactory {
      * parameters, leveraging the House constructor for validation and initialization.
      *
      * @param address the address of the new house, must not be null
-     * @param gps the GPS coordinates of the new house, must not be null
+     * @param gps     the GPS coordinates of the new house, must not be null
      * @return a fully initialized {@link House} instance
      * @throws IllegalArgumentException if any of the parameters are null, handled by the {@link House} constructor
      */

@@ -7,9 +7,10 @@ public class HouseID implements DomainID {
 
     /**
      * Constructor for HouseID
+     *
      * @param houseID
      */
-    public HouseID(String houseID){
+    public HouseID(String houseID) {
         validateHouseID(houseID);
         this._id = houseID.trim();
     }
@@ -20,13 +21,14 @@ public class HouseID implements DomainID {
      *
      * @param houseID
      */
-    private void validateHouseID(String houseID){
+    private void validateHouseID(String houseID) {
         if (houseID == null || houseID.isBlank() || houseID.isEmpty())
             throw new IllegalArgumentException("The value of 'houseID' should not null, blank, or empty.");
     }
 
     /**
      * Getter for ID
+     *
      * @return _id
      */
     public String getId() {
@@ -40,7 +42,7 @@ public class HouseID implements DomainID {
      * @return boolean
      */
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o)
             return true;
 
@@ -59,7 +61,7 @@ public class HouseID implements DomainID {
      *
      * @return the hashcode as an int
      */
-    public int hashCode(){
+    public int hashCode() {
         return _id.hashCode();
     }
 

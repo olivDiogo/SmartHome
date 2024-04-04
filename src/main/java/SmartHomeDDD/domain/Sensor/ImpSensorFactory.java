@@ -1,6 +1,7 @@
 package SmartHomeDDD.domain.Sensor;
 
 import SmartHomeDDD.valueObject.ModelPath;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -43,7 +44,7 @@ public class ImpSensorFactory implements SensorFactory {
      * Find a constructor that matches the given parameters
      *
      * @param sensorClass is the specific class of the sensor to be instantiated
-     * @param parameters are the parameters required to create a sensor object
+     * @param parameters  are the parameters required to create a sensor object
      * @return Constructor
      */
     private Constructor<?> findMatchingConstructor(Class<?> sensorClass, Object... parameters) {

@@ -86,8 +86,7 @@ public class GPS implements ValueObject {
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (object instanceof GPS) {
-            GPS gps = (GPS) object;
+        if (object instanceof GPS gps) {
             return this._latitude == gps._latitude && this._longitude == gps._longitude;
         }
         return false;
@@ -101,6 +100,7 @@ public class GPS implements ValueObject {
     public double getLatitude() {
         return _latitude;
     }
+
     /**
      * Gets the longitude value of this GPS location.
      *
@@ -109,6 +109,7 @@ public class GPS implements ValueObject {
     public double getLongitude() {
         return _longitude;
     }
+
     /**
      * Returns a string representation of the GPS location.
      *

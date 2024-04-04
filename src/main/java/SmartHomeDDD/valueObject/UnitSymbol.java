@@ -11,7 +11,7 @@ public class UnitSymbol implements ValueObject {
         this._unit = unit;
     }
 
-    private void unitValidation(String unit){
+    private void unitValidation(String unit) {
         if (unit == null || unit.trim().isEmpty() || unit.length() > 5) {
             throw new IllegalArgumentException("Invalid unit");
         }
@@ -21,12 +21,9 @@ public class UnitSymbol implements ValueObject {
         if (this == object) {
             return true;
         }
-        if (object instanceof UnitSymbol) {
-            UnitSymbol unit = (UnitSymbol) object;
+        if (object instanceof UnitSymbol unit) {
 
-            if (this._unit.equals(unit._unit)) {
-                return true;
-            }
+            return this._unit.equals(unit._unit);
         }
         return false;
     }

@@ -8,6 +8,7 @@ public class RoomFloor implements ValueObject {
     public RoomFloor(int floor) {
         validateFloor(floor);
     }
+
     private void validateFloor(int floor) {
         if (Math.max(floor, -35) != floor)
             throw new IllegalArgumentException("Invalid floor number.");
@@ -19,19 +20,19 @@ public class RoomFloor implements ValueObject {
     public int getFloor() {
         return _floor;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
 
-        if (o instanceof RoomFloor) {
-            RoomFloor objectRoomFloor = (RoomFloor) o;
+        if (o instanceof RoomFloor objectRoomFloor) {
 
-            if (this._floor == objectRoomFloor._floor)
-                return true;
+            return this._floor == objectRoomFloor._floor;
         }
         return false;
     }
+
     @Override
     public String toString() {
         return "RoomFloor{" +

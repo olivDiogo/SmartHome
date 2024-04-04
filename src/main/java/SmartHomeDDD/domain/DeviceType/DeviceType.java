@@ -7,7 +7,7 @@ import SmartHomeDDD.valueObject.TypeDescription;
 import java.util.UUID;
 
 public class DeviceType implements AggregateRoot<DeviceTypeID> {
-    private TypeDescription _deviceTypeDescription;
+    private final TypeDescription _deviceTypeDescription;
     private DeviceTypeID _deviceTypeID;
 
     /**
@@ -27,7 +27,7 @@ public class DeviceType implements AggregateRoot<DeviceTypeID> {
      *
      * @param deviceTypeDescription
      */
-    private void validateDeviceTypeDescription(TypeDescription deviceTypeDescription){
+    private void validateDeviceTypeDescription(TypeDescription deviceTypeDescription) {
         if (deviceTypeDescription == null)
             throw new IllegalArgumentException("Device type description cannot be null.");
     }
@@ -35,7 +35,7 @@ public class DeviceType implements AggregateRoot<DeviceTypeID> {
     /**
      * Generates a new device type ID.
      */
-    private void generateDeviceTypeID(){
+    private void generateDeviceTypeID() {
         this._deviceTypeID = new DeviceTypeID(UUID.randomUUID().toString());
     }
 
@@ -58,8 +58,7 @@ public class DeviceType implements AggregateRoot<DeviceTypeID> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof DeviceType)) return false;
-        DeviceType deviceType = (DeviceType) o;
+        if (!(o instanceof DeviceType deviceType)) return false;
         return _deviceTypeID.toString().equals(deviceType._deviceTypeID.toString());
     }
 

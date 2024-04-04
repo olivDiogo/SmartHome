@@ -1,17 +1,18 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.DeviceDTO;
+import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.valueObject.DeviceID;
 import SmartHomeDDD.valueObject.DeviceName;
 import SmartHomeDDD.valueObject.DeviceStatus;
 import SmartHomeDDD.valueObject.RoomID;
-import SmartHomeDDD.domain.Device.Device;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

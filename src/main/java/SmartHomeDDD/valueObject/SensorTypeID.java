@@ -4,7 +4,7 @@ import SmartHomeDDD.ddd.DomainID;
 
 public class SensorTypeID implements DomainID {
 
-    private String _id;
+    private final String _id;
 
     /**
      * Constructor of the class SensorTypeID.
@@ -32,11 +32,9 @@ public class SensorTypeID implements DomainID {
         if (this == object)
             return true;
 
-        if (object instanceof SensorTypeID) {
-            SensorTypeID sensorTypeID = (SensorTypeID) object;
+        if (object instanceof SensorTypeID sensorTypeID) {
 
-            if (this._id.equals(sensorTypeID._id))
-                return true;
+            return this._id.equals(sensorTypeID._id);
         }
         return false;
     }

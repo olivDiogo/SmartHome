@@ -1,16 +1,16 @@
 package SmartHomeDDD.controller;
 
-import SmartHomeDDD.domain.DeviceType.DeviceTypeFactory;
-import SmartHomeDDD.domain.House.House;
-import SmartHomeDDD.domain.House.ImpHouseFactory;
-import SmartHomeDDD.domain.Room.ImpRoomFactory;
 import SmartHomeDDD.DTO.DeviceDTO;
 import SmartHomeDDD.assembler.DeviceAssembler;
 import SmartHomeDDD.assembler.RoomAssembler;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.domain.Device.ImpDeviceFactory;
 import SmartHomeDDD.domain.DeviceType.DeviceType;
+import SmartHomeDDD.domain.DeviceType.DeviceTypeFactory;
 import SmartHomeDDD.domain.DeviceType.ImpDeviceTypeFactory;
+import SmartHomeDDD.domain.House.House;
+import SmartHomeDDD.domain.House.ImpHouseFactory;
+import SmartHomeDDD.domain.Room.ImpRoomFactory;
 import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.repository.DeviceRepository;
 import SmartHomeDDD.repository.DeviceTypeRepository;
@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

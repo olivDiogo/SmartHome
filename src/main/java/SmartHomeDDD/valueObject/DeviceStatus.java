@@ -26,14 +26,13 @@ public class DeviceStatus implements ValueObject {
         if (this == object)
             return true;
 
-        if (object instanceof DeviceStatus) {
-            DeviceStatus deviceStatus = (DeviceStatus) object;
+        if (object instanceof DeviceStatus deviceStatus) {
             return this._status == deviceStatus._status;
         }
         return false;
     }
 
-/**
+    /**
      * Getter for status.
      *
      * @return _status.

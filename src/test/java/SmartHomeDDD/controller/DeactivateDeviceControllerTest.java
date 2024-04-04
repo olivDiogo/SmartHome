@@ -1,10 +1,10 @@
 package SmartHomeDDD.controller;
 
 import SmartHomeDDD.DTO.DeviceDTO;
+import SmartHomeDDD.assembler.DeviceAssembler;
 import SmartHomeDDD.assembler.RoomAssembler;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.domain.Device.ImpDeviceFactory;
-import SmartHomeDDD.assembler.DeviceAssembler;
 import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.domain.House.ImpHouseFactory;
 import SmartHomeDDD.domain.Room.ImpRoomFactory;
@@ -19,7 +19,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DeactivateDeviceControllerTest {
 

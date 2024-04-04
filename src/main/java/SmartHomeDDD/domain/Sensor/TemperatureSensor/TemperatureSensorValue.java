@@ -41,8 +41,7 @@ public class TemperatureSensorValue implements ValueObject {
      * @return A string representation of the temperature value, in degrees Celsius.
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this._dValue + "";
     }
 }

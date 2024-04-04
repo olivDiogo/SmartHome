@@ -1,6 +1,6 @@
 package SmartHomeDDD.domain.Actuator;
 
-import SmartHomeDDD.valueObject.*;
+import SmartHomeDDD.valueObject.ModelPath;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -24,10 +24,10 @@ public class ImpActuatorFactory implements ActuatorFactory {
             ModelPath modelPath = (ModelPath) parameters[1];
 
             Class<?> actuatorClass = Class.forName(modelPath.toString());
-            Constructor<?> constructor = findMatchingConstructor(actuatorClass,parameters);
+            Constructor<?> constructor = findMatchingConstructor(actuatorClass, parameters);
 
             if (constructor != null) {
-              return (Actuator) constructor.newInstance(parameters);
+                return (Actuator) constructor.newInstance(parameters);
             } else {
                 throw new InstantiationException("No matching constructor found for class: " + modelPath);
             }
@@ -42,8 +42,9 @@ public class ImpActuatorFactory implements ActuatorFactory {
 
     /**
      * Find a constructor that matches the provided parameters
+     *
      * @param actuatorClass Actuator class
-     * @param parameters Additional parameters required by the actuator
+     * @param parameters    Additional parameters required by the actuator
      * @return Constructor instance
      */
 
