@@ -4,11 +4,7 @@ import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModelFactory;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModelRepo;
 import SmartHomeDDD.valueObject.*;
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.configuration2.ex.ConfigurationException;
 
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,11 +68,11 @@ public ActuatorModelService(ActuatorModelRepo actuatorModelRepository, ActuatorM
     /**
      * Retrieves an actuator model by its unique ID.
      *
-     * @param actuatorModelID The unique ID of the actuator model.
+     * @param modelPath The unique ID of the actuator model.
      * @return An Optional containing the actuator model if found, or an empty Optional otherwise.
      */
-    public Optional<ActuatorModel> getActuatorModel(ActuatorModelID actuatorModelID) {
-        return _actuatorModelRepository.ofIdentity(actuatorModelID);
+    public Optional<ActuatorModel> getActuatorModel(ModelPath modelPath) {
+        return _actuatorModelRepository.ofIdentity(modelPath);
     }
 
     /**
