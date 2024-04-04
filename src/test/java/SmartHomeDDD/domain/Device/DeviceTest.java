@@ -7,7 +7,8 @@ import org.mockito.MockedConstruction;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.when;
 
 public class DeviceTest {
 

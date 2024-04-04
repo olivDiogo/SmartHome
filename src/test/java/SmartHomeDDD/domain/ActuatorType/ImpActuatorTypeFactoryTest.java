@@ -1,10 +1,11 @@
 package SmartHomeDDD.domain.ActuatorType;
 
 import SmartHomeDDD.valueObject.TypeDescription;
+import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 class ImpActuatorTypeFactoryTest {
 
@@ -16,9 +17,10 @@ class ImpActuatorTypeFactoryTest {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
         ImpActuatorTypeFactory factory = new ImpActuatorTypeFactory();
+        UnitID unitID = mock(UnitID.class);
 
         // Act
-        ActuatorType actuatorType = factory.createActuatorType(typeDescriptionDouble);
+        ActuatorType actuatorType = factory.createActuatorType(typeDescriptionDouble, unitID);
 
         // Assert
         assertEquals(typeDescriptionDouble, actuatorType.getActuatorTypeName());

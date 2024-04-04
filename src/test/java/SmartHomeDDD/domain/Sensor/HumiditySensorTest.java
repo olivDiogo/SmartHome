@@ -1,14 +1,11 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.HumiditySensor.HumiditySensor;
+import SmartHomeDDD.domain.Sensor.HumiditySensor.HumiditySensorValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockConstruction;
 
 class HumiditySensorTest {
 

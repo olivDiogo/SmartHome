@@ -3,7 +3,6 @@ package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.Actuator.Actuator;
 import SmartHomeDDD.domain.Actuator.ActuatorFactory;
-import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.repository.ActuatorRepository;
 import SmartHomeDDD.repository.DeviceRepository;
@@ -13,22 +12,21 @@ import java.util.List;
 import java.util.Optional;
 
 
-
 /**
  * This class represents a service for managing actuators.
  */
- public class ActuatorService {
+public class ActuatorService {
 
-    private ActuatorRepository _actuatorRepository;
-    private ActuatorFactory _actuatorFactory;
-    private DeviceRepository _deviceRepository;
+    private final ActuatorRepository _actuatorRepository;
+    private final ActuatorFactory _actuatorFactory;
+    private final DeviceRepository _deviceRepository;
 
     /**
      * Constructs an ActuatorService with the specified repositories and factory.
      *
      * @param actuatorRepository The repository for storing actuators.
-     * @param actuatorFactory The factory for creating actuators.
-     * @param deviceRepository The repository for accessing devices.
+     * @param actuatorFactory    The factory for creating actuators.
+     * @param deviceRepository   The repository for accessing devices.
      */
     public ActuatorService(ActuatorRepository actuatorRepository, ActuatorFactory actuatorFactory, DeviceRepository deviceRepository) {
         _actuatorRepository = actuatorRepository;
@@ -40,9 +38,9 @@ import java.util.Optional;
      * Adds an actuator to the system.
      *
      * @param actuatorTypeID The type ID of the actuator.
-     * @param actuatorName The name of the actuator.
-     * @param modelPath The path of the model associated with the actuator.
-     * @param deviceID The ID of the device the actuator belongs to.
+     * @param actuatorName   The name of the actuator.
+     * @param modelPath      The path of the model associated with the actuator.
+     * @param deviceID       The ID of the device the actuator belongs to.
      * @return The added actuator.
      * @throws IllegalArgumentException If the device with the specified ID does not exist.
      */

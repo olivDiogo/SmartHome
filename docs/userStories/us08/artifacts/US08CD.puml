@@ -22,7 +22,7 @@ class DeviceService <<Service>> {
     -roomRepository: RoomRepository
     'Methods
     +DeviceService(deviceRepository: DeviceRepository, deviceFactory: DeviceFactory, roomRepository: RoomRepository)
-    +deactivateDeviceById(deviceID: String): Device
+    +deactivateDeviceById(deviceID, DeviceID): Device
     +getAllDevices(): List<Device>
     +getDeviceById(deviceID: DeviceID): Optional<Device>
 }

@@ -1,4 +1,5 @@
 package SmartHomeDDD.controller;
+
 import SmartHomeDDD.DTO.SensorTypeDTO;
 import SmartHomeDDD.DTO.SensorTypeDataDTO;
 import SmartHomeDDD.DTO.UnitDTO;
@@ -7,13 +8,11 @@ import SmartHomeDDD.assembler.UnitAssembler;
 import SmartHomeDDD.domain.SensorModel.ImpSensorModelFactory;
 import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
 import SmartHomeDDD.domain.SensorType.ImpSensorTypeFactory;
-import SmartHomeDDD.domain.SensorType.SensorType;
 import SmartHomeDDD.domain.Unit.ImpUnitFactory;
-import SmartHomeDDD.domain.Unit.Unit;
 import SmartHomeDDD.domain.Unit.UnitFactory;
 import SmartHomeDDD.repository.SensorModelRepository;
-import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.repository.SensorTypeRepository;
+import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.service.ConfigurationService;
 import SmartHomeDDD.service.SensorTypeService;
 import SmartHomeDDD.service.UnitService;
@@ -21,7 +20,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AddSensorTypeControllerTest {
     @Test

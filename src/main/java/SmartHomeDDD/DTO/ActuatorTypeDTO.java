@@ -11,17 +11,19 @@ public class ActuatorTypeDTO implements DTO {
      * Description of the actuator type.
      */
     public final String actuatorTypeID;
+    public final String actuatorTypeDescription;
+    public final String unit;
 
     /**
      * Constructs a new ActuatorTypeDTO object.
      *
-     *
-     * @param actuatorTypeID  The description of the actuator type.
+     * @param actuatorTypeID The description of the actuator type.
      */
-    public ActuatorTypeDTO(String actuatorTypeID) {
+    public ActuatorTypeDTO(String actuatorTypeID, String actuatorTypeDescription, String unit) {
         this.actuatorTypeID = actuatorTypeID;
+        this.actuatorTypeDescription = actuatorTypeDescription;
+        this.unit = unit;
     }
-
 
     /**
      * Returns a string representation of the ActuatorTypeDTO object.
@@ -31,7 +33,9 @@ public class ActuatorTypeDTO implements DTO {
     @Override
     public String toString() {
         return "ActuatorTypeDTO{" +
+                "actuatorTypeID='" + actuatorTypeID + '\'' +
                 ", _actuatorTypeDescription='" + actuatorTypeID + '\'' +
+                ", _unit='" + unit +
                 '}';
     }
 }

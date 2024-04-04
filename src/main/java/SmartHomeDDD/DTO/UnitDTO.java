@@ -11,7 +11,7 @@ public class UnitDTO implements DTO {
     /**
      * Constructor for the MeasurementDTO class.
      *
-     * @param unitID is the ID of the Measurement.
+     * @param unitID      is the ID of the Measurement.
      * @param description is the description of the Measurement.
      */
     public UnitDTO(String unitID, String description, String unitSymbol) {

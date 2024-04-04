@@ -1,18 +1,19 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.RoomDTO;
+import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.valueObject.Dimension;
 import SmartHomeDDD.valueObject.RoomFloor;
 import SmartHomeDDD.valueObject.RoomID;
 import SmartHomeDDD.valueObject.RoomName;
-import SmartHomeDDD.domain.Room.Room;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class RoomAssemblerTest {
 

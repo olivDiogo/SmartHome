@@ -3,8 +3,8 @@ package SmartHomeDDD.service;
 import SmartHomeDDD.domain.Unit.Unit;
 import SmartHomeDDD.domain.Unit.UnitFactory;
 import SmartHomeDDD.repository.UnitRepository;
-import SmartHomeDDD.valueObject.UnitID;
 import SmartHomeDDD.valueObject.UnitDescription;
+import SmartHomeDDD.valueObject.UnitID;
 import SmartHomeDDD.valueObject.UnitSymbol;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class UnitServiceTest {
 

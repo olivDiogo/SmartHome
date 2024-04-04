@@ -38,7 +38,7 @@ public class UnitRepository implements Repository<UnitID, Unit> {
      */
     @Override
     public List<Unit> findAll() {
-        List<Unit> allUnits =  _measurementTypeData.values().stream().toList();
+        List<Unit> allUnits = _measurementTypeData.values().stream().toList();
         return allUnits;
     }
 

@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.ActuatorModel;
 
-import SmartHomeDDD.valueObject.ActuatorModelID;
 import SmartHomeDDD.valueObject.ActuatorModelName;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.ModelPath;
 import org.junit.jupiter.api.Test;
 
@@ -17,9 +17,10 @@ class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
 
         //Act
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
         //Assert
         assertNotNull(actuatorModel);
@@ -33,10 +34,11 @@ class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = null;
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
 
         String expectedMessage = "Please enter a valid actuator model name.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModel(actuatorModelName, modelPath));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -49,9 +51,10 @@ class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = null;
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
         String expectedMessage = "Please enter a valid model path.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModel(actuatorModelName, modelPath));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -64,8 +67,9 @@ class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
 
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
         //Act
         boolean result = actuatorModel.equals(actuatorModel);
@@ -83,12 +87,14 @@ class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
+        ActuatorTypeID actuatorTypeID1 = new ActuatorTypeID("BlindRoller");
 
         ActuatorModelName actuatorModelName2 = new ActuatorModelName("SwitchActuator");
         ModelPath modelPath2 = new ModelPath("SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator;SwitchActuator");
+        ActuatorTypeID actuatorTypeID2 = new ActuatorTypeID("BlindRoller");
 
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
-        ActuatorModel actuatorModel2 = new ActuatorModel(actuatorModelName2, modelPath2);
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID1);
+        ActuatorModel actuatorModel2 = new ActuatorModel(actuatorModelName2, modelPath2, actuatorTypeID2);
 
         //Act
         boolean result = actuatorModel.equals(actuatorModel2);
@@ -106,7 +112,8 @@ class ActuatorModelTest {
         // Arrange
         ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
         // Act
         boolean result = actuatorModel.equals(null);
@@ -124,11 +131,12 @@ class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
 
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
         //Act
-        ActuatorModelID result = actuatorModel.getID();
+        ModelPath result = actuatorModel.getID();
 
         //Assert
         assertNotNull(result);
@@ -143,8 +151,8 @@ class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
-
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
         //Act
         String result = actuatorModel.toString();
@@ -164,8 +172,8 @@ class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
-
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
         //Act
         ActuatorModelName result = actuatorModel.getActuatorModelName();
@@ -183,11 +191,11 @@ class ActuatorModelTest {
         //Arrange
         ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
-
-        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath);
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
         //Act
-        ModelPath result = actuatorModel.getModelPath();
+        ModelPath result = actuatorModel.getID();
 
         //Assert
         assertEquals(modelPath, result);

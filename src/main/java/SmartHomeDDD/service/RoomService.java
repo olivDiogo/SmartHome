@@ -12,13 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class RoomService {
-    private RoomRepository _roomRepository;
-    private RoomFactory _roomFactory;
-    private RoomAssembler _roomAssembler;
-    private HouseRepository _houseRepository;
+    private final RoomRepository _roomRepository;
+    private final RoomFactory _roomFactory;
+    private final RoomAssembler _roomAssembler;
+    private final HouseRepository _houseRepository;
 
     /**
      * Constructor for RoomService.
+     *
      * @param roomRepository
      * @param roomFactory
      * @param roomAssembler
@@ -33,6 +34,7 @@ public class RoomService {
 
     /**
      * Adds a new room to the house with the provided house ID.
+     *
      * @param houseID
      * @param roomName
      * @param dimension
@@ -52,6 +54,7 @@ public class RoomService {
 
     /**
      * Returns all the rooms in the repository.
+     *
      * @return
      */
     public List<Room> getRooms() {
@@ -60,6 +63,7 @@ public class RoomService {
 
     /**
      * Returns the room with the given id.
+     *
      * @param roomID
      * @return
      */

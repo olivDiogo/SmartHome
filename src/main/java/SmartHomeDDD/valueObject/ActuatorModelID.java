@@ -9,10 +9,12 @@ public class ActuatorModelID implements DomainID {
         validationActuatorModelID(actuatorModelId);
         this._actuatorModelId = actuatorModelId;
     }
+
     private void validationActuatorModelID(String actuatorModelID) {
-            if (actuatorModelID == null || actuatorModelID.isBlank() || actuatorModelID.isEmpty())
-                throw new IllegalArgumentException("The value of 'actuatorModelID' should not null, blank, or empty.");
+        if (actuatorModelID == null || actuatorModelID.isBlank() || actuatorModelID.isEmpty())
+            throw new IllegalArgumentException("The value of 'actuatorModelID' should not null, blank, or empty.");
     }
+
     @Override
     public String getId() {
         return _actuatorModelId;

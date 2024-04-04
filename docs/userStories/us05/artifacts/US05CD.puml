@@ -36,7 +36,8 @@ class DeviceService {
   - _roomRepository: RoomRepository
   - _roomFactory: RoomFactory
   - _houseRepository: HouseRepository
-  + RoomService(houseRepository: HouseRepository, roomRepository: RoomRepository, roomFactory: RoomFactory)
+  - _roomAssembler: RoomAssembler
+  + RoomService(houseRepository: HouseRepository, roomRepository: RoomRepository, roomFactory: RoomFactory, roomAssembler: RoomAssembler)
   + getRooms() : List<Room>
   }
 
@@ -94,7 +95,6 @@ class DeviceDTO {
 + deviceName: String
 + roomID: String
 + deviceStatus : String
-+ deviceTypeID: String
 + DeviceDTO(deviceID: String, deviceTypeID: String, deviceName: String, roomID: String, deviceStatus: String)
 }
 class DeviceAssembler{

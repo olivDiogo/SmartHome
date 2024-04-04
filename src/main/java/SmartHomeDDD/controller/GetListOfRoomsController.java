@@ -16,7 +16,8 @@ public class GetListOfRoomsController {
 
     /**
      * Constructor for the GetListOfRoomsController class.
-     * @param roomService The room service.
+     *
+     * @param roomService   The room service.
      * @param roomAssembler The room assembler.
      */
     public GetListOfRoomsController(RoomService roomService, RoomAssembler roomAssembler) {
@@ -26,6 +27,7 @@ public class GetListOfRoomsController {
 
     /**
      * Validates the room service.
+     *
      * @param roomService The room service.
      */
     private void validateRoomService(RoomService roomService) {
@@ -38,6 +40,7 @@ public class GetListOfRoomsController {
 
     /**
      * Validates the room assembler.
+     *
      * @param roomAssembler The room assembler.
      */
     private void validateRoomAssembler(RoomAssembler roomAssembler) {
@@ -50,9 +53,10 @@ public class GetListOfRoomsController {
 
     /**
      * Gets the list of rooms.
+     *
      * @return The list of rooms.
      */
-    public List<RoomDTO> getRooms(){
+    public List<RoomDTO> getRooms() {
 
         List<Room> listOfRooms = _roomService.getRooms();
         if (listOfRooms == null || listOfRooms.isEmpty()) {

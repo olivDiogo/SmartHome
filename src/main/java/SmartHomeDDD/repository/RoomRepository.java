@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class RoomRepository implements Repository<RoomID, Room>{
+public class RoomRepository implements Repository<RoomID, Room> {
     private final Map<RoomID, Room> DATA = new LinkedHashMap<RoomID, Room>();
 
     /**
@@ -24,7 +24,7 @@ public class RoomRepository implements Repository<RoomID, Room>{
         else if (containsOfIdentity(entity.getID()))
             throw new IllegalArgumentException("Room already exists");
         else
-            DATA.put( entity.getID(), entity );
+            DATA.put(entity.getID(), entity);
         return entity;
     }
 

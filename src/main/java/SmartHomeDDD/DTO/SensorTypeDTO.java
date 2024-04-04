@@ -13,8 +13,8 @@ public class SensorTypeDTO implements DTO {
     /**
      * Constructs a new SensorTypeDTO object.
      *
-     * @param sensorTypeDescription  The description of the sensor type.
-     * @param unit                   The unit of measurement for the sensor type.
+     * @param sensorTypeDescription The description of the sensor type.
+     * @param unit                  The unit of measurement for the sensor type.
      */
     public SensorTypeDTO(String sensorTypeID, String sensorTypeDescription, String unit) {
         this.sensorTypeID = sensorTypeID;

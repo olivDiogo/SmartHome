@@ -1,17 +1,17 @@
 package SmartHomeDDD.assembler;
 
-import SmartHomeDDD.valueObject.UnitID;
-import SmartHomeDDD.valueObject.SensorTypeID;
-import SmartHomeDDD.domain.SensorType.SensorType;
 import SmartHomeDDD.DTO.SensorTypeDTO;
+import SmartHomeDDD.domain.SensorType.SensorType;
+import SmartHomeDDD.valueObject.SensorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
-
+import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

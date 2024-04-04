@@ -24,9 +24,9 @@ public final class SensorModelDTO implements DTO {
     /**
      * Constructs a new {@code SensorModelDTO} with the specified ID, name, and model path.
      *
-     * @param sensorModelID the unique identifier of the sensor model; should not be {@code null}.
+     * @param sensorModelID   the unique identifier of the sensor model; should not be {@code null}.
      * @param sensorModelName the name of the sensor model; should not be {@code null}.
-     * @param modelPath the file path to the sensor model's data; should not be {@code null}.
+     * @param modelPath       the file path to the sensor model's data; should not be {@code null}.
      */
     public SensorModelDTO(String sensorModelID, String sensorModelName, String modelPath) {
         this.sensorModelID = sensorModelID;

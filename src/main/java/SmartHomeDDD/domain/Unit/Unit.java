@@ -12,15 +12,15 @@ import SmartHomeDDD.valueObject.UnitSymbol;
 public class Unit implements AggregateRoot<UnitID> {
 
     private UnitID _unitID;
-    private UnitSymbol _unitSymbol;
-    private UnitDescription _unitDescription;
+    private final UnitSymbol _unitSymbol;
+    private final UnitDescription _unitDescription;
 
     /**
      * Constructs a new instance of MeasurementType with the specified unit description and measurement unit.
      * This constructor ensures the measurement type is fully initialized and valid.
      *
      * @param unitDescription The description of the measurement unit, not null.
-     * @param unitSymbol The unit of measurement, not null.
+     * @param unitSymbol      The unit of measurement, not null.
      * @throws IllegalArgumentException if either the unit description or measurement unit is null.
      */
     Unit(UnitDescription unitDescription, UnitSymbol unitSymbol) {
@@ -31,6 +31,7 @@ public class Unit implements AggregateRoot<UnitID> {
         generateID(unitDescription);
 
     }
+
     /**
      * Validates that the measurement unit is not null.
      *
@@ -42,6 +43,7 @@ public class Unit implements AggregateRoot<UnitID> {
             throw new IllegalArgumentException("Measurement unit is required");
         }
     }
+
     /**
      * Validates that the unit description is not null.
      *
@@ -53,6 +55,7 @@ public class Unit implements AggregateRoot<UnitID> {
             throw new IllegalArgumentException("Unit description is required");
         }
     }
+
     /**
      * Generates a unique identifier for the measurement type.
      */
@@ -78,6 +81,7 @@ public class Unit implements AggregateRoot<UnitID> {
     public UnitDescription getUnitDescription() {
         return _unitDescription;
     }
+
     /**
      * Returns the symbol associated with this measurement type.
      *
@@ -86,6 +90,7 @@ public class Unit implements AggregateRoot<UnitID> {
     public UnitSymbol getUnitSymbol() {
         return _unitSymbol;
     }
+
     /**
      * Indicates whether some other object is "equal to" this one.
      *

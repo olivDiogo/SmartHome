@@ -1,9 +1,10 @@
 package SmartHomeDDD.domain.Unit;
 
-import SmartHomeDDD.valueObject.UnitSymbol;
 import SmartHomeDDD.valueObject.UnitDescription;
+import SmartHomeDDD.valueObject.UnitSymbol;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 /**

@@ -1,6 +1,7 @@
 package SmartHomeDDD.controller;
 
 import SmartHomeDDD.DTO.DeviceDTO;
+import SmartHomeDDD.DTO.DeviceDataDTO;
 import SmartHomeDDD.DTO.RoomDTO;
 import SmartHomeDDD.assembler.DeviceAssembler;
 import SmartHomeDDD.assembler.RoomAssembler;
@@ -50,6 +51,104 @@ class AddDeviceToRoomControllerTest {
 
         // Assert
         assertNotNull(addDeviceToRoomController);
+    }
+    /**
+     * Test to verify if an exception is thrown when the RoomService is null.
+     */
+    @Test
+    void shouldThrowException_WhenRoomServiceIsNull() {
+        // Arrange
+        RoomRepository roomRepository = new RoomRepository();
+        RoomAssembler roomAssembler = new RoomAssembler();
+        RoomService roomService = null;
+
+        DeviceRepository deviceRepository = new DeviceRepository();
+        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+
+        DeviceAssembler deviceAssembler = new DeviceAssembler();
+
+        String expectedMessage = "Please enter a valid room service.";
+
+        // Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler));
+
+        // Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to verify if an exception is thrown when the RoomAssembler is null.
+     */
+    @Test
+    void shouldThrowException_WhenRoomAssemblerIsNull() {
+        // Arrange
+        RoomRepository roomRepository = new RoomRepository();
+        RoomService roomService = new RoomService(roomRepository, new ImpRoomFactory(), new RoomAssembler(), new HouseRepository());
+        RoomAssembler roomAssembler = null;
+
+        DeviceRepository deviceRepository = new DeviceRepository();
+        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+
+        DeviceAssembler deviceAssembler = new DeviceAssembler();
+
+        String expectedMessage = "Please enter a valid room assembler.";
+
+        // Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler));
+
+        // Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to verify if an exception is thrown when the DeviceService is null.
+     */
+    @Test
+    void shouldThrowException_WhenDeviceServiceIsNull() {
+        // Arrange
+        RoomRepository roomRepository = new RoomRepository();
+        RoomService roomService = new RoomService(roomRepository, new ImpRoomFactory(), new RoomAssembler(), new HouseRepository());
+        RoomAssembler roomAssembler = new RoomAssembler();
+        DeviceService deviceService = null;
+
+        DeviceAssembler deviceAssembler = new DeviceAssembler();
+
+        String expectedMessage = "Please enter a valid device service.";
+
+        // Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler));
+
+        // Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to verify if an exception is thrown when the DeviceAssembler is null.
+     */
+    @Test
+    void shouldThrowException_WhenDeviceAssemblerIsNull() {
+        // Arrange
+        RoomRepository roomRepository = new RoomRepository();
+        RoomService roomService = new RoomService(roomRepository, new ImpRoomFactory(), new RoomAssembler(), new HouseRepository());
+        RoomAssembler roomAssembler = new RoomAssembler();
+
+        DeviceRepository deviceRepository = new DeviceRepository();
+        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceAssembler deviceAssembler = null;
+
+        String expectedMessage = "Please enter a valid device assembler.";
+
+        // Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler));
+
+        // Assert
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -226,8 +325,10 @@ class AddDeviceToRoomControllerTest {
 
         DeviceDTO expectedDeviceDTO = deviceAssembler.domainToDTO(device);
 
+        DeviceDataDTO deviceDataDTO = new DeviceDataDTO(deviceTypeID, deviceName, deviceStatus, roomID);
+
         // Act
-        DeviceDTO deviceDTO = addDeviceToRoomController.addDeviceToRoom(roomID, deviceName, deviceStatus, deviceTypeID);
+        DeviceDTO deviceDTO = addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
 
         // Assert
         assertEquals(expectedDeviceDTO.deviceName, deviceDTO.deviceName);
@@ -254,8 +355,10 @@ class AddDeviceToRoomControllerTest {
 
         AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler);
 
+        DeviceDataDTO deviceDataDTO = new DeviceDataDTO("1", "Lamp", true, "1");
+
         // Act + Assert
-        assertThrows(IllegalArgumentException.class, () -> {addDeviceToRoomController.addDeviceToRoom("1", "Lamp", true, "1");
+        assertThrows(IllegalArgumentException.class, () -> {addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
         });
     }
 

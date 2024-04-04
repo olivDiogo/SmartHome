@@ -4,8 +4,8 @@ import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
 import SmartHomeDDD.domain.Unit.Unit;
 import SmartHomeDDD.domain.Unit.UnitFactory;
-import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.repository.SensorModelRepository;
+import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.*;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -22,13 +22,14 @@ public class ConfigurationService {
 
     /**
      * Constructor for ConfigurationService.
+     *
      * @param sensorModelRepository is the repository for sensor models.
-     * @param unitRepository is the repository for units.
-     * @param sensorModelFactory is the factory for sensor models.
-     * @param unitFactory is the factory for units.
+     * @param unitRepository        is the repository for units.
+     * @param sensorModelFactory    is the factory for sensor models.
+     * @param unitFactory           is the factory for units.
      * @throws InstantiationException if something went wrong in reading the configuration.
      */
-    public ConfigurationService(SensorModelRepository sensorModelRepository, UnitRepository unitRepository, SensorModelFactory sensorModelFactory, UnitFactory unitFactory) throws InstantiationException{
+    public ConfigurationService(SensorModelRepository sensorModelRepository, UnitRepository unitRepository, SensorModelFactory sensorModelFactory, UnitFactory unitFactory) throws InstantiationException {
         validateSensorModelRepository(sensorModelRepository);
         validateMeasurementTypeRepository(unitRepository);
         validateSensorModelFactory(sensorModelFactory);
@@ -41,6 +42,7 @@ public class ConfigurationService {
 
     /**
      * Validates the SensorModelRepository.
+     *
      * @param sensorModelRepository The SensorModelRepository to validate.
      */
     private void validateSensorModelRepository(SensorModelRepository sensorModelRepository) {
@@ -53,6 +55,7 @@ public class ConfigurationService {
 
     /**
      * Validates the MeasurementTypeRepository.
+     *
      * @param unitRepository The MeasurementTypeRepository to validate.
      */
     private void validateMeasurementTypeRepository(UnitRepository unitRepository) {
@@ -65,6 +68,7 @@ public class ConfigurationService {
 
     /**
      * Validates the SensorModelFactory.
+     *
      * @param sensorModelFactory The SensorModelFactory to validate.
      */
     private void validateSensorModelFactory(SensorModelFactory sensorModelFactory) {
@@ -77,6 +81,7 @@ public class ConfigurationService {
 
     /**
      * Validates the MeasurementTypeFactory.
+     *
      * @param unitFactory The MeasurementTypeFactory to validate.
      */
     private void validateUnitFactory(UnitFactory unitFactory) {
@@ -89,6 +94,7 @@ public class ConfigurationService {
 
     /**
      * Load the default sensor models from the configuration file.
+     *
      * @throws InstantiationException if something went wrong in reading the configuration.
      */
     private void loadDefaultSensorModels() throws InstantiationException {
@@ -99,9 +105,9 @@ public class ConfigurationService {
             // access configuration properties
             String[] arrayStringClassesSensors = config.getStringArray("sensor");
             for (String sensor : arrayStringClassesSensors) {
-                String sensorPathStr = sensor.split(";") [0]; // String containing the path of the sensor
+                String sensorPathStr = sensor.split(";")[0]; // String containing the path of the sensor
                 String sensorModelName = sensorPathStr.substring(sensorPathStr.lastIndexOf('.') + 1); // String containing the sensor model name
-                String sensorTypeIDstr = sensor.split(";") [1]; // String containing the sensor type ID
+                String sensorTypeIDstr = sensor.split(";")[1]; // String containing the sensor type ID
 
                 ModelPath sensorPath = new ModelPath(sensorPathStr);
                 SensorModelName sensorName = new SensorModelName(sensorModelName);
@@ -119,6 +125,7 @@ public class ConfigurationService {
 
     /**
      * Load the default measurement types from the configuration file.
+     *
      * @throws InstantiationException if something went wrong in reading the configuration.
      */
     private void loadDefaultMeasurementTypes() throws InstantiationException {

@@ -16,6 +16,7 @@ public class SensorDTO implements DTO {
 
     /**
      * Constructor of SensorDTO.
+     *
      * @param deviceID
      * @param modelPath
      * @param sensorTypeID

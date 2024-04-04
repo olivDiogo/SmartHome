@@ -2,14 +2,12 @@ package SmartHomeDDD.domain.ActuatorType;
 
 import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
+import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
 import java.lang.reflect.Field;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class ActuatorTypeTest {
 
@@ -20,11 +18,13 @@ class ActuatorTypeTest {
         void shouldCreateActuatorType_whenAttributesAreValid() {
             // Arrange
             String typeDescription = "typeDescription";
+            String id = "unitID";
 
             TypeDescription actuatorName = new TypeDescription(typeDescription);
+            UnitID unitID = new UnitID(id);
 
             // Act
-            ActuatorType actuatorType = new ActuatorType(actuatorName);
+            ActuatorType actuatorType = new ActuatorType(actuatorName, unitID);
 
             // Assert
             assertNotNull(actuatorType);
@@ -38,9 +38,11 @@ class ActuatorTypeTest {
         void shouldThrowIllegalArgumentException_whenTypeDescriptionIsNull() {
             // Arrange
             TypeDescription actuatorName = null;
+            String id = "unitID";
+            UnitID unitID = new UnitID(id);
 
             // Act
-            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorType(actuatorName));
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorType(actuatorName, unitID));
 
             // Assert
             assertEquals("Actuator type name must not be null.", exception.getMessage());
@@ -53,10 +55,12 @@ class ActuatorTypeTest {
         void shouldReturnActuatorTypeID_whenGetIDisCalled() {
             // Arrange
             String typeDescription = "typeDescription";
+            String id = "unitID";
 
             TypeDescription actuatorName = new TypeDescription(typeDescription);
+            UnitID unitID = new UnitID(id);
 
-            ActuatorType actuatorType = new ActuatorType(actuatorName);
+            ActuatorType actuatorType = new ActuatorType(actuatorName, unitID);
 
             // Act
             ActuatorTypeID result = actuatorType.getID();
@@ -72,10 +76,12 @@ class ActuatorTypeTest {
         void shouldReturnTrue_whenInstanceIsComparedToItself() {
             // Arrange
             String typeDescription = "typeDescription";
+            String id = "unitID";
 
             TypeDescription actuatorName = new TypeDescription(typeDescription);
+            UnitID unitID = new UnitID(id);
 
-            ActuatorType actuatorType = new ActuatorType(actuatorName);
+            ActuatorType actuatorType = new ActuatorType(actuatorName, unitID);
 
             // Act
             boolean result = actuatorType.equals(actuatorType);
@@ -92,15 +98,17 @@ class ActuatorTypeTest {
         void shouldReturnTrue_WhenTwoActuatorTypeInstancesHaveSameID() throws NoSuchFieldException, IllegalAccessException {
             // Arrange
             String typeDescription = "typeDescription";
+            String id = "unitID";
 
             TypeDescription actuatorName = new TypeDescription(typeDescription);
+            UnitID unitID = new UnitID(id);
 
 
-                ActuatorType actuatorType1 = new ActuatorType(actuatorName);
-                ActuatorType actuatorType2 = new ActuatorType(actuatorName);
+                ActuatorType actuatorType1 = new ActuatorType(actuatorName, unitID);
+                ActuatorType actuatorType2 = new ActuatorType(actuatorName, unitID);
 
             // Use reflection to set _actuatorTypeID to the same value for both instances
-            Field actuatorTypeIDField = ActuatorType.class.getDeclaredField("_actuatorTypeID");
+            Field actuatorTypeIDField = ActuatorType.class.getDeclaredField("_id");
             actuatorTypeIDField.setAccessible(true);
             actuatorTypeIDField.set(actuatorType1, actuatorType2.getID());
             actuatorTypeIDField.set(actuatorType2, actuatorType1.getID());
@@ -119,11 +127,17 @@ class ActuatorTypeTest {
         void shouldReturnFalse_whenInstancesAreNotEqual() {
             // Arrange
             String typeDescription = "typeDescription";
+            String id = "unitID";
+            String typeDescription2 = "typeDescription2";
+            String id2 = "unitID2";
 
             TypeDescription actuatorName = new TypeDescription(typeDescription);
+            UnitID unitID = new UnitID(id);
+            TypeDescription actuatorName2 = new TypeDescription(typeDescription2);
+            UnitID unitID2 = new UnitID(id2);
 
-            ActuatorType actuatorType1 = new ActuatorType(actuatorName);
-            ActuatorType actuatorType2 = new ActuatorType(actuatorName);
+            ActuatorType actuatorType1 = new ActuatorType(actuatorName, unitID);
+            ActuatorType actuatorType2 = new ActuatorType(actuatorName2, unitID2);
 
             // Act
             boolean result = actuatorType1.equals(actuatorType2);
@@ -139,10 +153,12 @@ class ActuatorTypeTest {
         void shouldReturnFalse_whenComparedWithNull() {
             // Arrange
             String typeDescription = "typeDescription";
+            String id = "unitID";
 
             TypeDescription actuatorName = new TypeDescription(typeDescription);
+            UnitID unitID = new UnitID(id);
 
-            ActuatorType actuatorType = new ActuatorType(actuatorName);
+            ActuatorType actuatorType = new ActuatorType(actuatorName, unitID);
 
             // Act
             boolean isEqual = actuatorType.equals(null);
@@ -158,10 +174,12 @@ class ActuatorTypeTest {
         void shouldReturnFalse_whenComparedWithDifferentClass() {
             // Arrange
             String typeDescription = "typeDescription";
+            String id = "unitID";
 
             TypeDescription actuatorName = new TypeDescription(typeDescription);
+            UnitID unitID = new UnitID(id);
 
-            ActuatorType actuatorType = new ActuatorType(actuatorName);
+            ActuatorType actuatorType = new ActuatorType(actuatorName, unitID);
 
             // Act
             boolean isEqual = actuatorType.equals(new Object());
@@ -177,10 +195,12 @@ class ActuatorTypeTest {
         void shouldReturnString_whenToStringIsCalled() {
             // Arrange
             String typeDescription = "typeDescription";
+            String id = "unitID";
 
             TypeDescription actuatorName = new TypeDescription(typeDescription);
+            UnitID unitID = new UnitID(id);
 
-            ActuatorType actuatorType = new ActuatorType(actuatorName);
+            ActuatorType actuatorType = new ActuatorType(actuatorName, unitID);
 
             // Act
             String result = actuatorType.toString();
@@ -196,10 +216,12 @@ class ActuatorTypeTest {
         void shouldReturnActuatorTypeName_whenGetActuatorTypeNameIsCalled() {
             // Arrange
             String typeDescription = "typeDescription";
+            String id = "unitID";
 
             TypeDescription actuatorName = new TypeDescription(typeDescription);
+            UnitID unitID = new UnitID(id);
 
-            ActuatorType actuatorType = new ActuatorType(actuatorName);
+            ActuatorType actuatorType = new ActuatorType(actuatorName, unitID);
 
             // Act
             TypeDescription result = actuatorType.getActuatorTypeName();

@@ -2,14 +2,14 @@ package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.ActuatorModelDTO;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
-import SmartHomeDDD.valueObject.ActuatorModelID;
 import SmartHomeDDD.valueObject.ActuatorModelName;
 import SmartHomeDDD.valueObject.ModelPath;
-
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -21,8 +21,8 @@ public class ActuatorModelAssemblerTest {
     @Test
     public void shouldConvertActuatorModelToActuatorModelDTO_whenActuatorModelIsValid() {
         // Arrange
-        String actuatorModelID = "1";
-        ActuatorModelID actuatorModelIDDouble = mock(ActuatorModelID.class);
+        String actuatorModelID = "path";
+        ModelPath actuatorModelIDDouble = mock(ModelPath.class);
         when(actuatorModelIDDouble.toString()).thenReturn(actuatorModelID);
 
         String actuatorModelName = "Light";
@@ -36,7 +36,7 @@ public class ActuatorModelAssemblerTest {
         ActuatorModel actuatorModelDouble = mock(ActuatorModel.class);
         when(actuatorModelDouble.getID()).thenReturn(actuatorModelIDDouble);
         when(actuatorModelDouble.getActuatorModelName()).thenReturn(actuatorModelNameDouble);
-        when(actuatorModelDouble.getModelPath()).thenReturn(actuatorModelPathDouble);
+        when(actuatorModelDouble.getID()).thenReturn(actuatorModelPathDouble);
 
         ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
 
@@ -67,8 +67,8 @@ public class ActuatorModelAssemblerTest {
     public void shouldConvertListOfActuatorModelsToListOfActuatorModelDTO_whenActuatorModelListIsValid(){
         // Arrange
         /* ActuatorModel 1 */
-        String actuatorModelID1 = "1";
-        ActuatorModelID actuatorModelIDDouble1 = mock(ActuatorModelID.class);
+        String actuatorModelID1 = "path1";
+        ModelPath actuatorModelIDDouble1 = mock(ModelPath.class);
         when(actuatorModelIDDouble1.toString()).thenReturn(actuatorModelID1);
 
         String actuatorModelName1 = "Light";
@@ -82,11 +82,11 @@ public class ActuatorModelAssemblerTest {
         ActuatorModel actuatorModelDouble1 = mock(ActuatorModel.class);
         when(actuatorModelDouble1.getID()).thenReturn(actuatorModelIDDouble1);
         when(actuatorModelDouble1.getActuatorModelName()).thenReturn(actuatorModelNameDouble1);
-        when(actuatorModelDouble1.getModelPath()).thenReturn(actuatorModelPathDouble1);
+        when(actuatorModelDouble1.getID()).thenReturn(actuatorModelPathDouble1);
 
         /* ActuatorModel 2 */
-        String actuatorModelID2 = "2";
-        ActuatorModelID actuatorModelIDDouble2 = mock(ActuatorModelID.class);
+        String actuatorModelID2 = "path2";
+        ModelPath actuatorModelIDDouble2 = mock(ModelPath.class);
         when(actuatorModelIDDouble2.toString()).thenReturn(actuatorModelID2);
 
         String actuatorModelName2 = "Fan";
@@ -100,7 +100,7 @@ public class ActuatorModelAssemblerTest {
         ActuatorModel actuatorModelDouble2 = mock(ActuatorModel.class);
         when(actuatorModelDouble2.getID()).thenReturn(actuatorModelIDDouble2);
         when(actuatorModelDouble2.getActuatorModelName()).thenReturn(actuatorModelNameDouble2);
-        when(actuatorModelDouble2.getModelPath()).thenReturn(actuatorModelPathDouble2);
+        when(actuatorModelDouble2.getID()).thenReturn(actuatorModelPathDouble2);
 
 
         List<ActuatorModel> actuatorModels = List.of(actuatorModelDouble1, actuatorModelDouble2);

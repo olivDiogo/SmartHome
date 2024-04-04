@@ -28,9 +28,11 @@ public class ActuatorTypeAssembler implements Assembler<ActuatorType, ActuatorTy
             throw new IllegalArgumentException("The ActuatorType cannot be null.");
         }
 
-        String actuatorTypeID = actuatorTypeIDToString(actuatorType.getID());
+        String actuatorTypeID = actuatorType.getID().getId();
+        String actuatorTypeDescription = actuatorType.getActuatorTypeName().toString();
+        String unit = actuatorType.getUnit().toString();
 
-        ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO(actuatorTypeID);
+        ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO(actuatorTypeID, actuatorTypeDescription, unit);
         return actuatorTypeDTO;
     }
 

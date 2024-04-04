@@ -7,15 +7,15 @@ import java.util.UUID;
 
 public class Device implements AggregateRoot<DeviceID> {
 
-    private RoomID _roomID;
+    private final RoomID _roomID;
 
     private DeviceID _deviceID;
 
-    private DeviceName _deviceName;
+    private final DeviceName _deviceName;
 
     private DeviceStatus _deviceStatus;
 
-    private DeviceTypeID _deviceTypeID;
+    private final DeviceTypeID _deviceTypeID;
 
 
     /**
@@ -146,8 +146,7 @@ public class Device implements AggregateRoot<DeviceID> {
         if (this == object)
             return true;
 
-        if (object instanceof Device) {
-            Device objectDevice = (Device) object;
+        if (object instanceof Device objectDevice) {
             return _deviceID.toString().equals(objectDevice._deviceID.toString());
         }
         return false;
@@ -168,7 +167,7 @@ public class Device implements AggregateRoot<DeviceID> {
                 '}';
     }
 
-/**
+    /**
      * Method to deactivate the device
      *
      * @return the status of the device

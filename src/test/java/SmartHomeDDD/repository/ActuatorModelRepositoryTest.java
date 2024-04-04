@@ -1,10 +1,12 @@
 package SmartHomeDDD.repository;
 
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
-import SmartHomeDDD.valueObject.ActuatorModelID;
+import SmartHomeDDD.valueObject.ModelPath;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -72,8 +74,8 @@ public class ActuatorModelRepositoryTest {
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
         ActuatorModel secondActuatorModel = mock(ActuatorModel.class);
 
-        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
-        when(actuatorModel.getID()).thenReturn(actuatorModelID);
+        ModelPath path = mock(ModelPath.class);
+        when(actuatorModel.getID()).thenReturn(path);
 
         actuatorModelRepository.save(actuatorModel);
         actuatorModelRepository.save(secondActuatorModel);
@@ -108,7 +110,7 @@ public class ActuatorModelRepositoryTest {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
-        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
+        ModelPath actuatorModelID = mock(ModelPath.class);
         when(actuatorModel.getID()).thenReturn(actuatorModelID);
 
         actuatorModelRepository.save(actuatorModel);
@@ -127,8 +129,8 @@ public class ActuatorModelRepositoryTest {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
-        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
-        ActuatorModelID invalidActuatorModelID = mock(ActuatorModelID.class);
+        ModelPath actuatorModelID = mock(ModelPath.class);
+        ModelPath invalidActuatorModelID = mock(ModelPath.class);
         when(actuatorModel.getID()).thenReturn(actuatorModelID);
 
         actuatorModelRepository.save(actuatorModel);
@@ -146,7 +148,7 @@ public class ActuatorModelRepositoryTest {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
-        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
+        ModelPath actuatorModelID = mock(ModelPath.class);
         when(actuatorModel.getID()).thenReturn(actuatorModelID);
 
         actuatorModelRepository.save(actuatorModel);
@@ -165,8 +167,8 @@ public class ActuatorModelRepositoryTest {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
-        ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
-        ActuatorModelID invalidActuatorModelID = mock(ActuatorModelID.class);
+        ModelPath actuatorModelID = mock(ModelPath.class);
+        ModelPath invalidActuatorModelID = mock(ModelPath.class);
         when(actuatorModel.getID()).thenReturn(actuatorModelID);
 
         actuatorModelRepository.save(actuatorModel);

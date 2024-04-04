@@ -19,6 +19,7 @@ public class ActuatorRepository implements Repository<ActuatorID, Actuator> {
 
     /**
      * Method to save a domain actuator.
+     *
      * @param actuator is the domain actuator to be saved.
      * @return the saved actuator.
      */
@@ -36,6 +37,7 @@ public class ActuatorRepository implements Repository<ActuatorID, Actuator> {
 
     /**
      * Method to find all domain actuators.
+     *
      * @return the list of actuators.
      */
     @Override
@@ -46,6 +48,7 @@ public class ActuatorRepository implements Repository<ActuatorID, Actuator> {
 
     /**
      * Method to find a domain actuator by its unique identifier.
+     *
      * @param actuatorID is the unique identifier of the domain entity.
      * @return the actuator by its ID or null.
      */
@@ -57,6 +60,7 @@ public class ActuatorRepository implements Repository<ActuatorID, Actuator> {
 
     /**
      * Method to check if a domain actuator exists by its unique identifier.
+     *
      * @param actuatorID is the unique identifier of the domain entity.
      * @return the ID of the actuator or null.
      */
@@ -67,6 +71,7 @@ public class ActuatorRepository implements Repository<ActuatorID, Actuator> {
 
     /**
      * Method to find all domain actuators by deviceID.
+     *
      * @param deviceID is the unique identifier of the device.
      * @return the list of actuators in the device.
      */

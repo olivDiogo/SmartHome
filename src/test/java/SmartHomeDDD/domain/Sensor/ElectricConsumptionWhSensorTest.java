@@ -1,5 +1,7 @@
 package SmartHomeDDD.domain.Sensor;
 
+import SmartHomeDDD.domain.Sensor.ElectricConsumptionWhSensor.ElectricConsumptionWhSensor;
+import SmartHomeDDD.domain.Sensor.ElectricConsumptionWhSensor.ElectricConsumptionWhValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 

@@ -22,7 +22,7 @@ public class House implements AggregateRoot<HouseID> {
      * Validates the provided address, zip code, and GPS coordinates to ensure they are not null.
      *
      * @param address The physical address of the house. Must not be null.
-     * @param gps The GPS coordinates of the house. Must not be null.
+     * @param gps     The GPS coordinates of the house. Must not be null.
      * @throws IllegalArgumentException if any of the parameters are null.
      */
     House(Address address, GPS gps) {

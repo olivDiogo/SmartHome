@@ -14,7 +14,8 @@ public class DatePeriod implements ValueObject {
         this._startDate = startDate.truncatedTo(ChronoUnit.MINUTES);
         this._endDate = endDate.truncatedTo(ChronoUnit.MINUTES);
     }
-    private void validateTimePeriod(LocalDateTime startDate, LocalDateTime endDate){
+
+    private void validateTimePeriod(LocalDateTime startDate, LocalDateTime endDate) {
         if (startDate == null) {
             throw new IllegalArgumentException("Start date cannot be null.");
         }
@@ -25,9 +26,11 @@ public class DatePeriod implements ValueObject {
             throw new IllegalArgumentException("Start date cannot be after end date.");
         }
     }
+
     public LocalDateTime getStartDate() {
         return _startDate;
     }
+
     public LocalDateTime getEndDate() {
         return _endDate;
     }
@@ -43,6 +46,7 @@ public class DatePeriod implements ValueObject {
         }
         return false;
     }
+
     @Override
     public String toString() {
         return "DatePeriod{" +
@@ -50,6 +54,7 @@ public class DatePeriod implements ValueObject {
                 ", endDate=" + _endDate +
                 '}';
     }
+
     @Override
     public int hashCode() {
         return _startDate.hashCode() + _endDate.hashCode();

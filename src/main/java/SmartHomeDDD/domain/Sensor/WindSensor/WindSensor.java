@@ -123,6 +123,7 @@ public class WindSensor implements Sensor {
 
     /**
      * Gets the device ID.
+     *
      * @return The device ID.
      */
     @Override
@@ -132,6 +133,7 @@ public class WindSensor implements Sensor {
 
     /**
      * Method to get the value object of the sensor.
+     *
      * @return the value.
      */
     @Override

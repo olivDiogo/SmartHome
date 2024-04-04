@@ -21,7 +21,7 @@ public class HouseAssembler implements Assembler<House, HouseDTO> {
      */
     @Override
     public HouseDTO domainToDTO(final House house) {
-        if(house == null)
+        if (house == null)
             throw new IllegalArgumentException("The House cannot be null.");
         String address = house.getAddress().toString();
         String gps = house.getGps().toString();
@@ -38,7 +38,7 @@ public class HouseAssembler implements Assembler<House, HouseDTO> {
      */
     @Override
     public List<HouseDTO> domainToDTO(final List<House> houses) {
-        if(houses == null || houses.isEmpty() || houses.contains(null))
+        if (houses == null || houses.isEmpty() || houses.contains(null))
             throw new IllegalArgumentException("The list of Houses cannot be null or empty.");
 
         List<HouseDTO> housesDTO = houses.stream().map(this::domainToDTO).toList();

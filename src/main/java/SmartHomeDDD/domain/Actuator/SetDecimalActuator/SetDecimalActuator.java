@@ -5,8 +5,6 @@ import SmartHomeDDD.valueObject.*;
 
 import java.util.UUID;
 
-import java.util.UUID;
-
 /**
  * Represents a decimal actuator used to set decimal values within specified limits.
  */
@@ -192,7 +190,7 @@ public class SetDecimalActuator {
             throw new IllegalArgumentException("Value cannot be less than the lower limit.");
         } else if (nValue > _limits.getUpperLimit()) {
             throw new IllegalArgumentException("Value cannot be greater than the upper limit.");
-        } else if(value instanceof SetDecimalValue) {
+        } else if (value instanceof SetDecimalValue) {
             this._value = (SetDecimalValue) value;
             return this._value;
         }

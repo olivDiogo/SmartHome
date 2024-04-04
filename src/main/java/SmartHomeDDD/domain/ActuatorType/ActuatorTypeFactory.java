@@ -1,6 +1,7 @@
 package SmartHomeDDD.domain.ActuatorType;
 
 import SmartHomeDDD.valueObject.TypeDescription;
+import SmartHomeDDD.valueObject.UnitID;
 
 /**
  * Interface defining a factory for creating {@link SmartHome.domain.ActuatorType} instances.
@@ -10,8 +11,8 @@ public interface ActuatorTypeFactory {
     /**
      * Creates and returns a new {@link SmartHome.domain.ActuatorType} instance with the provided description.
      *
-     * @param actuatorTypeName the description of the actuatorType
+     * @param name the description of the actuatorType
      * @return a newly created ActuatorType instance
      */
-    ActuatorType createActuatorType(TypeDescription actuatorTypeName);
+    ActuatorType createActuatorType(TypeDescription name, UnitID unitID);
 }

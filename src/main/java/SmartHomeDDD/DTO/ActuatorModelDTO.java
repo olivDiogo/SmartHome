@@ -21,6 +21,7 @@ public class ActuatorModelDTO implements DTO {
 
     /**
      * Constructor of class ActuatorModelDTO.
+     *
      * @param actuatorModelID
      * @param actuatorModelName
      * @param actuatorModelPath

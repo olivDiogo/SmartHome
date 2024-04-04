@@ -68,11 +68,9 @@ public class Dimension implements ValueObject {
         if (this == object)
             return true;
 
-        if (object instanceof Dimension) {
-            Dimension dimension = (Dimension) object;
+        if (object instanceof Dimension dimension) {
 
-            if (this._width == dimension._width && this._height == dimension._height && this._depth == dimension._depth)
-                return true;
+            return this._width == dimension._width && this._height == dimension._height && this._depth == dimension._depth;
         }
         return false;
     }

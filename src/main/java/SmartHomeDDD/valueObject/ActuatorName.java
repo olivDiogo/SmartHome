@@ -1,4 +1,5 @@
 package SmartHomeDDD.valueObject;
+
 import SmartHomeDDD.ddd.ValueObject;
 
 public class ActuatorName implements ValueObject {

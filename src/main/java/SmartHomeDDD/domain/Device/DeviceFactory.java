@@ -15,5 +15,5 @@ public interface DeviceFactory {
      * @param deviceState The state of the device.
      * @return a newly created Device instance
      */
-    public Device createDevice(RoomID roomID, DeviceName deviceName, DeviceStatus deviceState, DeviceTypeID deviceTypeID);
+    Device createDevice(RoomID roomID, DeviceName deviceName, DeviceStatus deviceState, DeviceTypeID deviceTypeID);
 }

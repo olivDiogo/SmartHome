@@ -2,8 +2,8 @@ package SmartHomeDDD.repository;
 
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModelRepo;
-import SmartHomeDDD.valueObject.ActuatorModelID;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
+import SmartHomeDDD.valueObject.ModelPath;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class ActuatorModelRepository implements ActuatorModelRepo {
 
-    final private Map<ActuatorModelID, ActuatorModel> DATA = new LinkedHashMap<>();
+    final private Map<ModelPath, ActuatorModel> DATA = new LinkedHashMap<>();
 
     /**
      * Save an ActuatorModel. If the ActuatorModel is null, throw an IllegalArgumentException.
@@ -50,7 +50,7 @@ public class ActuatorModelRepository implements ActuatorModelRepo {
      * @return the ActuatorModel if found, otherwise Optional.empty().
      */
     @Override
-    public Optional<ActuatorModel> ofIdentity(ActuatorModelID actuatorModelID) {
+    public Optional<ActuatorModel> ofIdentity(ModelPath actuatorModelID) {
 
         return Optional.ofNullable(DATA.get(actuatorModelID));
     }
@@ -62,7 +62,7 @@ public class ActuatorModelRepository implements ActuatorModelRepo {
      * @param actuatorModelID is the unique identifier of the domain entity.
      * @return true if the ActuatorModel exists, otherwise false.
      */
-    public boolean containsOfIdentity(ActuatorModelID actuatorModelID) {
+    public boolean containsOfIdentity(ModelPath actuatorModelID) {
         return DATA.containsKey(actuatorModelID);
     }
 
@@ -71,6 +71,6 @@ public class ActuatorModelRepository implements ActuatorModelRepo {
      */
     @Override
     public List<ActuatorModel> findByActuatorTypeId(ActuatorTypeID actuatorTypeID) {
-        return DATA.values().stream().filter(actuatorModel -> actuatorModel.getID().equals(actuatorTypeID)).toList();
+        return DATA.values().stream().filter(actuatorModel -> actuatorModel.getActuatorTypeID().equals(actuatorTypeID)).toList();
     }
 }

@@ -1,20 +1,15 @@
 package SmartHomeDDD.domain.DeviceType;
 
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
+import SmartHomeDDD.valueObject.DeviceTypeID;
+import SmartHomeDDD.valueObject.TypeDescription;
+import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-
-import SmartHomeDDD.valueObject.TypeDescription;
-import org.mockito.MockedConstruction;
-import SmartHomeDDD.valueObject.DeviceTypeID;
-
-
 import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.when;
-
-import java.lang.reflect.Field;
 
 public class DeviceTypeTest {
 
@@ -117,10 +112,12 @@ public class DeviceTypeTest {
     public void shouldReturnFalse_whenObjectIsNotInstanceOfDeviceType() {
         // Arrange
         String description = "Device Type Description";
+        String id = "unitID";
         TypeDescription deviceTypeDescription = new TypeDescription(description);
 
         DeviceType deviceType = new DeviceType(deviceTypeDescription);
-        ActuatorType actuatorType = new ActuatorType(deviceTypeDescription);
+        UnitID unitID = new UnitID(id);
+        ActuatorType actuatorType = new ActuatorType(deviceTypeDescription, unitID);
 
         // Act
         boolean result = deviceType.equals(actuatorType);
