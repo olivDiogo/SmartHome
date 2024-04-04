@@ -30,7 +30,7 @@ package domain.Sensor.SolarIrradianceSensor {
         - _modelPath: ModelPath
         - _deviceID: DeviceID
         - _value: SolarIrradianceValue
-        # domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor(sensorTypeID: SensorTypeID, modelPath: ModelPath, deviceID: DeviceID, sensorName: SensorName)
+        + SolarIrradianceSensor(sensorTypeID: SensorTypeID, modelPath: ModelPath, deviceID: DeviceID, sensorName: SensorName)
         + getSensorTypeString(): String
         + getID(): SensorID
         + getName(): SensorName
@@ -83,7 +83,7 @@ package domain.ddd {
   interface DomainEntity {
   }
 
-  interface DomainID {
+  interface DomainID extends ValueObject{
   }
 
   interface AggregateRoot {

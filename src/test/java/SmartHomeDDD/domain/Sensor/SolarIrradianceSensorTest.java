@@ -1,13 +1,8 @@
 package SmartHomeDDD.domain.Sensor;
 
-import SmartHomeDDD.domain.Sensor.SolarIrradianceValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
-
-import org.mockito.MockedConstruction;
-
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class SolarIrradianceSensorTest {
 
