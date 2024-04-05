@@ -24,12 +24,18 @@ As a Power User (or Administrator), I want to add an actuator to an existing dev
 ### 2.1 Domain Model Excerpt
 
 The relevant domain concepts for this user story:
+
 ![US012-DM](artifacts/us12_DM.svg)
 
 ## 3. Design
 
 ### 3.1 Functionality Development (System Sequence Diagram)
 ![US012-SD](artifacts/us12_SD.svg)
+![US012-SD-ref1](artifacts/us12_SD_ref1.svg)
+![US012-SD-ref2](artifacts/us12_SD_ref2.svg)
+![US012-SD-ref3](artifacts/us12_SD_ref3.svg)
+![US012-SD-ref4](artifacts/us12_SD_ref4.svg)
+![US012-SD-ref5](artifacts/us12_SD_ref5.svg)
 
 ### 3.2 Class Diagram
 ![US012-CD](artifacts/us12_CD.svg)
