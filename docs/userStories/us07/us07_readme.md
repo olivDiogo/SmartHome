@@ -76,7 +76,7 @@ _To tackle the current US we will be using the Sensor Service. Since Sensor only
 ## 3. Tests
 _The team will design the best way to test the requirements._
 
-- The SensorController should be able to add a sensor to a device - [Test Link](../../../src/test/java/SmartHomeDDD/controller/AddSensorToDeviceControllerTest.java)
+- The SensorController should be able to add a sensor to a device - [Test](../../../src/test/java/SmartHomeDDD/controller/AddSensorToDeviceControllerTest.java#L1420)
 
 
 

@@ -30,7 +30,7 @@ N/A
 
 ### 4. Tests
 
-#### Test 1: Get a valid sunrise time on a given location [Test](../../../src/test/java/SmartHomeDDD/domain/Sensor/SunriseTimeSensorTest.java#L358)
+#### Test 1: Get a valid sunrise time on a given location [Test](../../../src/test/java/SmartHomeDDD/domain/Sensor/SunriseTimeSensorTest.java#L361)
 
 
 

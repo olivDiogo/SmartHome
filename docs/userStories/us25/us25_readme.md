@@ -31,6 +31,6 @@ N/A
 
 ## 4 Tests
 
-#### Test 1: Get a valid average power consumption over a period [Test](../../../src/test/java/SmartHomeDDD/domain/Sensor/AveragePowerConsumptionSensor)
+#### Test 1: Get a valid average power consumption over a period [Test](../../../src/test/java/SmartHomeDDD/domain/Sensor/AveragePowerConsumptionSensor/AveragePowerConsumptionSensorTest.java#L143)
 
 
