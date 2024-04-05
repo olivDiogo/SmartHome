@@ -776,7 +776,7 @@ public class AddSensorToDeviceControllerTest {
 
   /** Test to get rooms from a house. */
   @Test
-  public void shouldGetRoomsFromHouse_WhenGivenValidHouseID() throws InstantiationException {
+  void shouldGetRoomsFromHouse_WhenGivenValidHouseID() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -886,7 +886,7 @@ public class AddSensorToDeviceControllerTest {
 
   /** Throws exception when the room ID does not exist in the repository. */
   @Test
-  public void shouldThrowException_WhenRoomIDDoesNotExistInRepository()
+  void shouldThrowException_WhenRoomIDDoesNotExistInRepository()
       throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
@@ -957,7 +957,7 @@ public class AddSensorToDeviceControllerTest {
 
   /** Test to get devices from a room. */
   @Test
-  public void shouldGetDevicesFromRoom_WhenParametersAreValid() throws InstantiationException {
+  void shouldGetDevicesFromRoom_WhenParametersAreValid() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
