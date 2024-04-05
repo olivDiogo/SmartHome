@@ -18,8 +18,6 @@ import static org.mockito.Mockito.when;
  * Test class for DeviceTypeAssembler.
  */
 class DeviceTypeAssemblerTest {
-
-
     @Test
     public void shouldInstantiateDeviceTypeAssembler() {
         new DeviceTypeAssembler();

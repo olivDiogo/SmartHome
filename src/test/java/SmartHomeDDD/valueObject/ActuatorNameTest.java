@@ -2,16 +2,20 @@ package SmartHomeDDD.valueObject;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ActuatorNameTest {
 
     @Test
     void shouldInstantiateANewActuatorName() {
-
+        //Arrange
         String actuatorName = "Switch Actuator";
-        new ActuatorName(actuatorName);
+
+        //Act
+        ActuatorName result = new ActuatorName(actuatorName);
+
+        //Assert
+        assertNotNull(result);
     }
 
     @Test

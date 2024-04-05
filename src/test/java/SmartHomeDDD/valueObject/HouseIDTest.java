@@ -13,9 +13,12 @@ public class HouseIDTest {
     public void shouldGetValidObject_whenUsingValidStringInConstructor() {
         // Arrange
         String houseID = "HouseXPTO";
+
         // Act
-        new HouseID(houseID);
+        HouseID result = new HouseID(houseID);
+
         // Assert
+        assertNotNull(result);
     }
 
     /**

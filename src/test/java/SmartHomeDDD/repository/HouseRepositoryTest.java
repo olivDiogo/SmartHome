@@ -12,10 +12,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class HouseRepositoryTest {
-    @Test
-    void shouldInstantiateHouseRepository() {
-        new HouseRepository();
-    }
 
     @Test
     void shouldSaveHouseWhenGivenValidHouse() {

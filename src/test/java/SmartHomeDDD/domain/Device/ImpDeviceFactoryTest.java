@@ -6,6 +6,7 @@ import SmartHomeDDD.valueObject.DeviceTypeID;
 import SmartHomeDDD.valueObject.RoomID;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
@@ -24,8 +25,11 @@ class ImpDeviceFactoryTest {
 
         ImpDeviceFactory factory = new ImpDeviceFactory();
 
-        //Act & Assert
-        factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+        //Act
+        Device result = factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+
+        //Assert
+        assertNotNull(result);
     }
 
     /**

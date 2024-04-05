@@ -14,15 +14,6 @@ import static org.mockito.Mockito.when;
 
 class DeviceRepositoryTest {
 
-
-    /**
-     * Test the constructor of the DeviceRepository class.
-     */
-    @Test
-    void shouldInstantiateDeviceRepository() {
-        new DeviceRepository();
-    }
-
     /**
      * Test the save method of the DeviceRepository class with a valid Device.
      */

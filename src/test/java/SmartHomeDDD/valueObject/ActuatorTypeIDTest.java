@@ -3,8 +3,7 @@ package SmartHomeDDD.valueObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ActuatorTypeIDTest {
 
@@ -16,8 +15,12 @@ public class ActuatorTypeIDTest {
     public void shouldGetValidObject_whenUsingValidStringInConstructor() {
         // Arrange
         String actuatorTypeIDDescription = "switch";
+
         // Act
-        new ActuatorTypeID(actuatorTypeIDDescription);
+        ActuatorTypeID result = new ActuatorTypeID(actuatorTypeIDDescription);
+
+        // Assert
+        assertNotNull(result);
     }
 
     @Test

@@ -8,12 +8,7 @@ import java.util.List;
 
 public class RoomAssembler implements Assembler<Room, RoomDTO> {
 
-    /**
-     * Constructor for the RoomAssembler class.
-     */
 
-    public RoomAssembler() {
-    }
 
     /**
      * Method to convert a Room into a RoomDTO.

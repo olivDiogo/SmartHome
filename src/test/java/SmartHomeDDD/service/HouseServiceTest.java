@@ -7,8 +7,7 @@ import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -19,12 +18,15 @@ public class HouseServiceTest {
      */
     @Test
     public void shouldInstantiateValidHouse() {
-
         // Arrange
         HouseFactory houseFactoryDouble = mock(HouseFactory.class);
         HouseRepository houseRepositoryDouble = mock(HouseRepository.class);
+
         // Act
-        new HouseService(houseFactoryDouble, houseRepositoryDouble);
+        HouseService result = new HouseService(houseFactoryDouble, houseRepositoryDouble);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**

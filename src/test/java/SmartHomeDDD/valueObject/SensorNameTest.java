@@ -13,8 +13,11 @@ class SensorNameTest {
         // Arrange
         String validSensorName = "Temperature Sensor 1";
 
-        // Act & Assert
-        new SensorName(validSensorName);
+        // Act
+        SensorName result = new SensorName(validSensorName);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**

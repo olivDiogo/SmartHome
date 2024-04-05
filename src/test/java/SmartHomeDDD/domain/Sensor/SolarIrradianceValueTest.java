@@ -3,6 +3,9 @@ package SmartHomeDDD.domain.Sensor;
 import SmartHomeDDD.domain.Sensor.SolarIrradianceSensor.SolarIrradianceValue;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 public class SolarIrradianceValueTest {
 
     /**
@@ -14,7 +17,10 @@ public class SolarIrradianceValueTest {
         int value = 1;
 
         // Act
-        new SolarIrradianceValue(value);
+        SolarIrradianceValue result = new SolarIrradianceValue(value);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**
@@ -30,6 +36,6 @@ public class SolarIrradianceValueTest {
         String result = solarIrradianceValue.toString();
 
         // Assert
-        assert result.equals("1");
+        assertEquals(result,"1");
     }
 }

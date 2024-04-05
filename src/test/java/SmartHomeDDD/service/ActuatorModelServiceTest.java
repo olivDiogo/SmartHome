@@ -11,8 +11,7 @@ import org.mockito.MockedConstruction;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 class ActuatorModelServiceTest {
@@ -27,7 +26,10 @@ class ActuatorModelServiceTest {
         ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
 
         //Act
-        new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
+        ActuatorModelService result = new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
+
+        //Assert
+        assertNotNull(result);
     }
 
     /**

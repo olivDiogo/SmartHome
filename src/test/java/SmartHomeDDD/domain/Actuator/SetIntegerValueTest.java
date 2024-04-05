@@ -3,14 +3,23 @@ package SmartHomeDDD.domain.Actuator;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerValue;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 public class SetIntegerValueTest {
     /**
      * Test for SetIntegerValue instantiation
      */
     @Test
     public void shouldInstantiateSetIntegerValue() {
+        // Arrange
+        int value = 1;
+
         // Act
-        new SetIntegerValue(1);
+        SetIntegerValue result = new SetIntegerValue(value);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**
@@ -28,6 +37,6 @@ public class SetIntegerValueTest {
         String result = setIntegerValue.toString();
 
         // Assert
-        assert(result.equals(expected));
+        assertEquals(result,expected);
     }
 }

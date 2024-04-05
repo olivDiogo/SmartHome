@@ -7,11 +7,6 @@ import SmartHomeDDD.domain.Device.Device;
 import java.util.List;
 
 public class DeviceAssembler implements Assembler<Device, DeviceDTO> {
-    /**
-     * Constructs a new DeviceAssembler object.
-     */
-    public DeviceAssembler() {
-    }
 
     /**
      * Converts a Device object to a DeviceDTO object.

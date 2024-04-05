@@ -5,16 +5,22 @@ import SmartHomeDDD.domain.Sensor.AveragePowerConsumptionSensor.AveragePowerCons
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertNotNull;
+
 public class AveragePowerConsumptionSensorValueTest {
     /**
      * See if the constructor works.
      */
     @Test
-    void seeIfConstructorWorks() {
+    void shouldInstantiateAveragePowerConsumptionSensorValue_whenValueIsValid() {
         //Arrange
         double dValue = 12.3;
+
         //Act
-        new AveragePowerConsumptionSensorValue(dValue);
+        AveragePowerConsumptionSensorValue result = new AveragePowerConsumptionSensorValue(dValue);
+
+        //Assert
+        assertNotNull(result);
     }
 
     /**

@@ -23,8 +23,12 @@ class SensorTypeServiceTest {
         SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
         ImpSensorTypeFactory sensorTypeFactory = mock(ImpSensorTypeFactory.class);
+
         //Act
-        new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeService result = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+
+        //Assert
+        assertNotNull(result);
     }
     @Test
     void shouldThrowExceptionWhenSensorTypeRepositoryIsNull() {

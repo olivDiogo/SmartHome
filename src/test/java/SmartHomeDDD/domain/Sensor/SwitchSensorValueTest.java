@@ -4,6 +4,7 @@ import SmartHomeDDD.domain.Sensor.SwitchSensor.SwitchSensorValue;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class SwitchSensorValueTest {
     /**
@@ -16,7 +17,10 @@ class SwitchSensorValueTest {
         boolean value = true;
 
         // Act
-        new SwitchSensorValue(value);
+        SwitchSensorValue result = new SwitchSensorValue(value);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**
@@ -29,7 +33,10 @@ class SwitchSensorValueTest {
         boolean value = false;
 
         // Act
-        new SwitchSensorValue(value);
+        SwitchSensorValue result = new SwitchSensorValue(value);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**

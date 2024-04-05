@@ -13,16 +13,6 @@ import static org.mockito.Mockito.when;
 
 
 public class RoomRepositoryTest {
-    /**
-     * Test for the RoomRepository constructor
-     */
-    @Test
-    public void shouldGetValidObject() {
-        // Arrange
-        // Act
-        new RoomRepository();
-        // Assert
-    }
 
     /**
      * Test for the save room method when room is valid

@@ -15,11 +15,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class HouseAssemblerTest {
-    @Test
-    public void shouldInstantiateANewHouseAssembler() {
-        new HouseAssembler();
-    }
-
 
     /**
      * Test that the HouseAssembler class can convert a House object to a HouseDTO object.

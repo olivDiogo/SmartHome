@@ -9,12 +9,6 @@ import java.util.List;
 
 public class ActuatorTypeAssembler implements Assembler<ActuatorType, ActuatorTypeDTO> {
 
-    /**
-     * Constructor of the ActuatorTypeAssembler class.
-     */
-    public ActuatorTypeAssembler() {
-
-    }
 
     /**
      * Converts an ActuatorType domain entity to an ActuatorTypeDTO data transfer object.

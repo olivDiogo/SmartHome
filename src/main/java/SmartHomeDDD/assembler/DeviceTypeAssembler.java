@@ -14,11 +14,7 @@ import java.util.List;
  */
 public class DeviceTypeAssembler implements Assembler<DeviceType, DeviceTypeDTO> {
 
-    /**
-     * Constructor of the DeviceTypeAssembler class.
-     */
-    public DeviceTypeAssembler() {
-    }
+
 
     /**
      * Converts a DeviceType domain entity to a DeviceTypeDTO data transfer object.

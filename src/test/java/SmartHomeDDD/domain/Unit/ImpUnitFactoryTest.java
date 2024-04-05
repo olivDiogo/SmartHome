@@ -4,6 +4,7 @@ import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.valueObject.UnitSymbol;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
@@ -23,10 +24,13 @@ class ImpUnitFactoryTest {
         // Arrange
         UnitDescription unitDescription = mock(UnitDescription.class);
         UnitSymbol unitSymbol = mock(UnitSymbol.class);
-        ImpUnitFactory factory = mock(ImpUnitFactory.class);
+        ImpUnitFactory factory = new ImpUnitFactory();
 
-        // Act & Assert
-        factory.createMeasurement(unitDescription, unitSymbol);
+        // Act
+        Unit result = factory.createMeasurement(unitDescription, unitSymbol);
+
+        // Assert
+        assertNotNull(result);
 
     }
 

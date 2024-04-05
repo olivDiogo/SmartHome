@@ -13,8 +13,12 @@ class ActuatorIDTest {
     public void shouldGetValidObject_whenUsingValidStringInConstructor() {
         // Arrange
         String actuatorIDDescription = "Actuator2GKA";
+
         // Act
-        new ActuatorID(actuatorIDDescription);
+        ActuatorID result = new ActuatorID(actuatorIDDescription);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**

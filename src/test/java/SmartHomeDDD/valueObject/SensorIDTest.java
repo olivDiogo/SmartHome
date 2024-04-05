@@ -14,9 +14,10 @@ public class SensorIDTest {
         String sensorID = "SensorXPTO";
 
         // Act
-        new DeviceID(sensorID);
+        DeviceID result = new DeviceID(sensorID);
 
         // Assert
+        assertNotNull(result);
     }
 
     /**

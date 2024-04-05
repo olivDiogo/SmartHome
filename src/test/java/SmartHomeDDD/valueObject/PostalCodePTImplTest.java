@@ -13,8 +13,12 @@ class PostalCodePTImplTest {
     void shouldCreatePostalCode_WhenPostalCodeIsValid() {
         // Arrange
         String postalCode = "1234-599";
+
         // Act
-        new PostalCodePTImpl(postalCode);
+        PostalCodePTImpl result = new PostalCodePTImpl(postalCode);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**

@@ -3,8 +3,7 @@ package SmartHomeDDD.domain.Sensor;
 import SmartHomeDDD.domain.Sensor.DewPointSensor.DewPointValue;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DewPointValueTest {
     /**
@@ -14,8 +13,12 @@ class DewPointValueTest {
     public void shouldInstantiateDewPointValue() {
        //Arrange
         int value = -70;
+
         // Act
-        new DewPointValue(value);
+        DewPointValue result = new DewPointValue(value);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**
