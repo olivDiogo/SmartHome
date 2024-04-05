@@ -21,8 +21,8 @@ class RoomService{
 - _houseRepository : HouseRepository
 'Methods'
 +RoomService(roomRepository: RoomRepository, roomFactory: RoomFactory, roomAssembler : RoomAssembler, houseRepo : HouseRepository)
-+getRooms(): List<RoomDTO>
-+getRoomById (roomID : RoomID): Option<Room>
++getRooms(): List<Room>
++getRoomById (roomID : RoomID): Optional<Room>
 }
 
 
@@ -31,7 +31,7 @@ class RoomRepository{
 - DATA: Map <RoomID, Room>
 'Methods'
 +findAll(): List<Room>
-+ofIdentity (id : RoomID): Option<Room>
++ofIdentity (id : RoomID): Optional <Room>
 }
 
 class RoomAssembler{
