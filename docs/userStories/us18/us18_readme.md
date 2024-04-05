@@ -36,7 +36,7 @@ _ImplFactorySensor_ -> for the sensor instantiation
 ## 2. Design
 _The team will design the best way to implement the requirements._
 ### 2.1. Class Diagram
-![ClassDiagram](/Users/WagnerPaiva/Documents/GitHub/2023-2024-switch-dev-project-assignment-grupo-1/docs/userStories/us18/US18CD.png)
+![ClassDiagram](artifacts/US18CD.png)
 ### 2.2. Sequence Diagram
 Not applicable.
 ### 2.3. Applied Patterns
