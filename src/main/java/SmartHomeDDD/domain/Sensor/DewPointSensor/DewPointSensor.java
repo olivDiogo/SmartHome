@@ -73,8 +73,8 @@ public class DewPointSensor implements Sensor {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
 
-        } else if (!Objects.equals(sensorTypeID.getId(), "Celsius")) {
-            throw new IllegalArgumentException("SensorTypeID must be Celsius");
+        } else if (!Objects.equals(sensorTypeID.getId(), "DewPoint")) {
+            throw new IllegalArgumentException("SensorTypeID must be 'DewPoint'");
 
         } else {
             this._sensorTypeID = sensorTypeID;

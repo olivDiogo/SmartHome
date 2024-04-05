@@ -73,8 +73,8 @@ public class InstantPowerConsumptionSensor implements Sensor {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
 
-        } else if (!Objects.equals(sensorTypeID.getId(), "Watt")) {
-            throw new IllegalArgumentException("SensorTypeID must be of type 'Watt'");
+        } else if (!Objects.equals(sensorTypeID.getId(), "InstantPowerConsumption")) {
+            throw new IllegalArgumentException("SensorTypeID must be of type 'InstantPowerConsumption'");
         } else {
             this._sensorTypeID = sensorTypeID;
         }
