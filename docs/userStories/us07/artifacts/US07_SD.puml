@@ -127,24 +127,14 @@ User o-> AddSensorToDevice_Controller: getDevices(roomDTO)
 
 activate AddSensorToDevice_Controller
 
-
-AddSensorToDevice_Controller -> DeviceAssembler : dtoToDomain(roomDTO)
-
-activate DeviceAssembler
-
 create RoomID
-
-DeviceAssembler -> RoomID: createRoomID(strRoomIdDTO)
+AddSensorToDevice_Controller -> RoomID : dtoToDomain(roomDTO)
 
 activate RoomID
 
-RoomID --> DeviceAssembler: roomId
+RoomID --> AddSensorToDevice_Controller: roomId
 
 deactivate RoomID
-
-DeviceAssembler --> AddSensorToDevice_Controller: roomId
-
-deactivate DeviceAssembler
 
 AddSensorToDevice_Controller -> DeviceService: getDevices(roomId)
 
@@ -235,24 +225,16 @@ User o-> AddSensorToDevice_Controller: getSensorModels(sensorTypeDTO)
 
 activate AddSensorToDevice_Controller
 
-AddSensorToDevice_Controller -> SensorTypeAssembler : dtoToDomain(sensorTypeDTO)
-
-activate SensorTypeAssembler
-
 create SensorTypeID
 
-SensorTypeAssembler -> SensorTypeID: createSensorTypeID(strSensorTypeDTO)
+AddSensorToDevice_Controller -> SensorTypeID: dtoToDomain(sensorTypeDTO)
+
 
 activate SensorTypeID
 
-SensorTypeID --> SensorTypeAssembler: SensorTypeID
+SensorTypeID --> AddSensorToDevice_Controller: SensorTypeID
 
 deactivate SensorTypeID
-
-SensorTypeAssembler --> AddSensorToDevice_Controller: SensorTypeID
-
-deactivate SensorTypeAssembler
-
 
 AddSensorToDevice_Controller -> SensorModelService: getSensorModelsBySensorTypeId(SensorTypeID)
 
