@@ -1,6 +1,5 @@
 package SmartHomeDDD.domain.Sensor;
 
-import SmartHomeDDD.domain.Sensor.PercentagePositionSensor;
 import SmartHomeDDD.valueObject.DeviceID;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorName;
@@ -95,47 +94,6 @@ class PercentagePositionSensorTest {
         //Act & Assert
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
         assertEquals("DeviceID is required", thrown.getMessage());
-    }
-
-    /**
-     * Test to verify that the PercentagePositionSensorValue is properly set when setPercentagePositionSensorValue is called.
-     */
-    @Test
-    void shouldSetPercentagePositionSensorValue_whenSetPercentagePositionSensorValueIsCalled() {
-        //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        SensorTypeID sensorTypeID = new SensorTypeID("1");
-        SensorName sensorName = new SensorName("sensorName");
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
-        PercentagePositionSensorValue percentagePositionSensorValue = new PercentagePositionSensorValue(0);
-
-        //Act
-        percentagePositionSensor.set_percentagePositionSensorValue(percentagePositionSensorValue);
-
-        //Assert
-        assertEquals(percentagePositionSensorValue, percentagePositionSensor.get_percentagePositionSensorValue());
-    }
-
-    /**
-     * Test to verify that the correct PercentagePositionSensorValue is returned when getPercentagePositionSensorValue is called.
-     */
-    @Test
-    void shouldReturnPercentagePositionSensorValue_whenGetPercentagePositionSensorValueIsCalled() {
-        //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        SensorTypeID sensorTypeID = new SensorTypeID("1");
-        SensorName sensorName = new SensorName("sensorName");
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
-        PercentagePositionSensorValue percentagePositionSensorValue = new PercentagePositionSensorValue(0);
-        percentagePositionSensor.set_percentagePositionSensorValue(percentagePositionSensorValue);
-
-        //Act
-        PercentagePositionSensorValue result = percentagePositionSensor.get_percentagePositionSensorValue();
-
-        //Assert
-        assertEquals(percentagePositionSensorValue, result);
     }
 
     /**

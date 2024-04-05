@@ -30,7 +30,6 @@ public class PercentagePositionSensor implements Sensor {
         validateSensorTypeID(sensorTypeID);
         validateDeviceID(deviceID);
         generateHumidityID();
-        _percentagePositionSensorValue = new PercentagePositionSensorValue(0);
     }
 
     /**
@@ -90,22 +89,6 @@ public class PercentagePositionSensor implements Sensor {
         } else {
             this._deviceID = deviceID;
         }
-    }
-
-    /**
-     * Sets the value of the percentage position sensor.
-     * @param _percentagePositionSensorValue The value to set.
-     */
-    public void set_percentagePositionSensorValue(PercentagePositionSensorValue _percentagePositionSensorValue) {
-        this._percentagePositionSensorValue = _percentagePositionSensorValue;
-    }
-
-    /**
-     * Gets the value of the percentage position sensor.
-     * @return The value of the sensor.
-     */
-    public PercentagePositionSensorValue get_percentagePositionSensorValue() {
-        return _percentagePositionSensorValue;
     }
 
     /**
