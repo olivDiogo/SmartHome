@@ -16,7 +16,7 @@ class DewPointSensorTest {
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
-        String typeID = "Celsius";
+        String typeID = "DewPoint";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -39,7 +39,7 @@ class DewPointSensorTest {
         //Arrange
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
-        String typeID = "Celsius";
+        String typeID = "DewPoint";
 
         DeviceID deviceID = null;
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -68,7 +68,7 @@ class DewPointSensorTest {
         //Arrange
         String deviceIDName = "123A";
         String name = "DewPointSensor";
-        String typeID = "Celsius";
+        String typeID = "DewPoint";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = null;
@@ -96,7 +96,7 @@ class DewPointSensorTest {
         //Arrange
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
-        String typeID = "Celsius";
+        String typeID = "DewPoint";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -125,7 +125,6 @@ class DewPointSensorTest {
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
-        String typeID = "Celsius";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -158,7 +157,7 @@ class DewPointSensorTest {
         SensorName sensorName = new SensorName(name);
         SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        String expectedMessage = "SensorTypeID must be Celsius";
+        String expectedMessage = "SensorTypeID must be 'DewPoint'";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
@@ -181,7 +180,7 @@ class DewPointSensorTest {
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
-        String typeID = "Celsius";
+        String typeID = "DewPoint";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -206,7 +205,7 @@ class DewPointSensorTest {
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
-        String typeID = "Celsius";
+        String typeID = "DewPoint";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -232,7 +231,7 @@ class DewPointSensorTest {
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
-        String typeID = "Celsius";
+        String typeID = "DewPoint";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -257,7 +256,7 @@ class DewPointSensorTest {
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
-        String typeID = "Celsius";
+        String typeID = "DewPoint";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -282,7 +281,7 @@ class DewPointSensorTest {
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
-        String typeID = "Celsius";
+        String typeID = "DewPoint";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -307,7 +306,7 @@ class DewPointSensorTest {
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
-        String typeID = "Celsius";
+        String typeID = "DewPoint";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);

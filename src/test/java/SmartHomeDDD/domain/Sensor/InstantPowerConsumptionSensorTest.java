@@ -18,7 +18,7 @@ class InstantPowerConsumptionSensorTest {
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
         String name = "InstantPowerConsumptionSensor";
-        String typeID = "Watt";
+        String typeID = "InstantPowerConsumption";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -41,7 +41,7 @@ class InstantPowerConsumptionSensorTest {
         // Arrange
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
         String name = "InstantPowerConsumptionSensor";
-        String typeID = "Watt";
+        String typeID = "InstantPowerConsumption";
 
         DeviceID deviceID = null;
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -69,7 +69,7 @@ class InstantPowerConsumptionSensorTest {
         // Arrange
         String deviceIDName = "123B";
         String name = "InstantPowerConsumptionSensor";
-        String typeID = "Watt";
+        String typeID = "InstantPowerConsumption";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = null;
@@ -97,7 +97,7 @@ class InstantPowerConsumptionSensorTest {
         // Arrange
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
-        String typeID = "Watt";
+        String typeID = "InstantPowerConsumption";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -158,7 +158,7 @@ class InstantPowerConsumptionSensorTest {
         SensorName sensorName = new SensorName(name);
         SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        String expectedMessage = "SensorTypeID must be of type 'Watt'";
+        String expectedMessage = "SensorTypeID must be of type 'InstantPowerConsumption'";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -180,7 +180,7 @@ class InstantPowerConsumptionSensorTest {
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
         String name = "InstantPowerConsumptionSensor";
-        String typeID = "Watt";
+        String typeID = "InstantPowerConsumption";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -205,7 +205,7 @@ class InstantPowerConsumptionSensorTest {
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
         String name = "InstantPowerConsumptionSensor";
-        String typeID = "Watt";
+        String typeID = "InstantPowerConsumption";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -234,7 +234,7 @@ class InstantPowerConsumptionSensorTest {
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
         String name = "InstantPowerConsumptionSensor";
-        String typeID = "Watt";
+        String typeID = "InstantPowerConsumption";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -261,7 +261,7 @@ class InstantPowerConsumptionSensorTest {
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
         String name = "InstantPowerConsumptionSensor";
-        String typeID = "Watt";
+        String typeID = "InstantPowerConsumption";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -285,7 +285,7 @@ class InstantPowerConsumptionSensorTest {
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
         String name = "InstantPowerConsumptionSensor";
-        String typeID = "Watt";
+        String typeID = "InstantPowerConsumption";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
@@ -309,7 +309,7 @@ class InstantPowerConsumptionSensorTest {
         String deviceIDName = "123B";
         String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
         String name = "InstantPowerConsumptionSensor";
-        String typeID = "Watt";
+        String typeID = "InstantPowerConsumption";
 
         DeviceID deviceID = new DeviceID(deviceIDName);
         ModelPath modelPath = new ModelPath(modelPathName);
