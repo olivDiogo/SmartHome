@@ -4,6 +4,7 @@ import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
@@ -22,10 +23,13 @@ class ImpHouseFactoryTest {
         // Arrange
         Address address = mock(Address.class);
         GPS gps = mock(GPS.class);
-        ImpHouseFactory factory = mock(ImpHouseFactory.class);
+        ImpHouseFactory factory = new ImpHouseFactory();
 
-        // Act & Assert
-        factory.createHouse(address, gps);
+        // Act
+        House result= factory.createHouse(address, gps);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**

@@ -29,7 +29,10 @@ public class SunriseTimeSensorTest {
     GPS gps = new GPS(GPSLatitude, GPSLongitude);
 
     // Act
-    new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+    SunriseTimeSensor result = new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+
+    // Assert
+    assertNotNull(result);
   }
 
   /** See if the constructor throws an exception when the SensorTypeID parameter is null. */

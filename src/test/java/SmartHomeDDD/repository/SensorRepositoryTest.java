@@ -15,14 +15,6 @@ import static org.mockito.Mockito.when;
 class SensorRepositoryTest {
 
     /**
-     * Test the constructor of the SensorRepository class.
-     */
-    @Test
-    void shouldInstantiateSensorRepository() {
-        new SensorRepository();
-    }
-
-    /**
      * Test the save method of the SensorRepository class with a valid Sensor.
      */
     @Test

@@ -9,8 +9,12 @@ class ModelPathTest {
     void shouldReturnModelPathWhenGivenValidPath() {
         //Arrange
         String path = "/SmartHomeDDD/valueObject/ModelPath.java";
+
         //Act
-        new ModelPath(path);
+        ModelPath result = new ModelPath(path);
+
+        //Assert
+        assertNotNull(result);
 
     }
     @Test

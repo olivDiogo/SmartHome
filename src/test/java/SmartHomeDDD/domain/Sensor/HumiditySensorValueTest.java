@@ -3,8 +3,7 @@ package SmartHomeDDD.domain.Sensor;
 import SmartHomeDDD.domain.Sensor.HumiditySensor.HumiditySensorValue;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class HumiditySensorValueTest {
     /**
@@ -17,7 +16,10 @@ class HumiditySensorValueTest {
         int value = 100;
 
         // Act
-        new HumiditySensorValue(value);
+        HumiditySensorValue result = new HumiditySensorValue(value);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**
@@ -64,7 +66,10 @@ class HumiditySensorValueTest {
         int value = 0;
 
         // Act
-        new HumiditySensorValue(value);
+        HumiditySensorValue result = new HumiditySensorValue(value);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**

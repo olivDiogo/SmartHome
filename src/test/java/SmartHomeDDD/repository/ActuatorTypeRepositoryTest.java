@@ -15,14 +15,6 @@ import static org.mockito.Mockito.when;
 class ActuatorTypeRepositoryTest {
 
     /**
-     * Test of ActuatorTypeRepository constructor.
-     */
-    @Test
-    public void shouldInstantiateActuatorTypeRepository() {
-        new ActuatorTypeRepository();
-    }
-
-    /**
      * Test the save method with valid ActuatorType.
      */
     @Test

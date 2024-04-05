@@ -19,15 +19,6 @@ import static org.mockito.Mockito.when;
 class DeviceAssemblerTest {
 
     /**
-     * Test if the constructor of the DeviceAssembler class can be called.
-     */
-    @Test
-    void shouldInstantiateANewDeviceAssembler_WhenCalled(){
-        //Act & Assert
-        new DeviceAssembler();
-    }
-
-    /**
      * Test if the domainToDTO method returns a DeviceDTO object when the device is valid.
      */
     @Test

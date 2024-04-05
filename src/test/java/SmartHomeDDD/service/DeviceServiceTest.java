@@ -30,7 +30,10 @@ class DeviceServiceTest {
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         // Act
-        new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceService result = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**

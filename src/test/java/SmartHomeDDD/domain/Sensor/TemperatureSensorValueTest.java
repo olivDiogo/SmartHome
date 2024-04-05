@@ -3,8 +3,7 @@ package SmartHomeDDD.domain.Sensor;
 import SmartHomeDDD.domain.Sensor.TemperatureSensor.TemperatureSensorValue;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class TemperatureSensorValueTest {
 
@@ -17,7 +16,10 @@ class TemperatureSensorValueTest {
         double value = -273.15;
 
         // Act
-        new TemperatureSensorValue(value);
+        TemperatureSensorValue result = new TemperatureSensorValue(value);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**

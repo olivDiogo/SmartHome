@@ -18,14 +18,6 @@ import static org.mockito.Mockito.when;
 public class DeviceTypeRepositoryTest {
 
     /**
-     * Tests the instantiation of DeviceTypeRepository.
-     */
-    @Test
-    void shouldInstantiateDeviceTypeRepository() {
-        new DeviceTypeRepository();
-    }
-
-    /**
      * Tests saving a device type when given a valid device type.
      */
     @Test

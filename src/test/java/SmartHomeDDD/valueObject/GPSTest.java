@@ -17,6 +17,9 @@ class GPSTest {
 
         //Act
         GPS gps = new GPS(latitude, longitude);
+
+        //Assert
+        assertNotNull(gps);
     }
 
     /**

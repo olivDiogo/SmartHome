@@ -44,12 +44,14 @@ public class SwitchActuatorTest {
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("Switch");
 
 
-        // Act & Assert
+        // Act
         try {
             new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
         } catch (IllegalArgumentException e) {
+
             // Assert
-            assert e.getMessage().equals("deviceID should not be null.");
+            String message = e.getMessage();
+            assertEquals(message,"deviceID should not be null.");
         }
     }
 
@@ -64,12 +66,13 @@ public class SwitchActuatorTest {
         ActuatorName actuatorName = null;
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("Switch");
 
-        // Act & Assert
+        // Act
         try {
             new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
         } catch (IllegalArgumentException e) {
             // Assert
-            assert e.getMessage().equals("The value of 'actuatorName' should not be null.");
+            String message = e.getMessage();
+            assertEquals(message,"The value of 'actuatorName' should not be null.");
         }
     }
 
@@ -85,12 +88,13 @@ public class SwitchActuatorTest {
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("Switch");
 
-        // Act & Assert
+        // Act
         try {
             new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
         } catch (IllegalArgumentException e) {
             // Assert
-            assert e.getMessage().equals("The value of 'modelPath' should not be null.");
+            String message = e.getMessage();
+            assertEquals(message, "The value of 'modelPath' should not be null.");
         }
     }
 
@@ -105,12 +109,13 @@ public class SwitchActuatorTest {
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = null;
 
-        // Act & Assert
+        // Act
         try {
             new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
         } catch (IllegalArgumentException e) {
             // Assert
-            assert e.getMessage().equals("The value of 'actuatorTypeID' should not be null.");
+            String message = e.getMessage();
+            assertEquals(message,"The value of 'actuatorTypeID' should not be null.");
         }
     }
 
@@ -122,12 +127,13 @@ public class SwitchActuatorTest {
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("NotSwitch");
 
-        // Act & Assert
+        // Act
         try {
             new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
         } catch (IllegalArgumentException e) {
             // Assert
-            assertEquals( e.getMessage(), "The value of 'actuatorTypeID' should be 'Switch'.");
+            String message = e.getMessage();
+            assertEquals(message, "The value of 'actuatorTypeID' should be 'Switch'.");
         }
     }
 
@@ -340,7 +346,8 @@ public class SwitchActuatorTest {
             switchActuator.setValue(valueDouble);
         } catch (IllegalArgumentException e) {
             // Assert
-            assert e.getMessage().equals("The value of 'value' should not be null.");
+            String message = e.getMessage();
+            assertEquals(message,"The value of 'value' should not be null.");
         }
     }
 

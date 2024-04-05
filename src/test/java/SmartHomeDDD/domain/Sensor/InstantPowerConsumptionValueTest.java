@@ -16,7 +16,10 @@ class InstantPowerConsumptionValueTest {
         double instantPowerConsumptionValue =0.0;
 
         //act
-        new InstantPowerConsumptionValue(instantPowerConsumptionValue);
+        InstantPowerConsumptionValue result = new InstantPowerConsumptionValue(instantPowerConsumptionValue);
+
+        //assert
+        assertNotNull(result);
     }
 
     /**

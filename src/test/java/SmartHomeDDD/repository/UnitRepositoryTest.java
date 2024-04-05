@@ -14,14 +14,6 @@ import static org.mockito.Mockito.when;
 public class UnitRepositoryTest {
 
     /**
-     * Test of MeasurementTypeRepository constructor.
-     */
-    @Test
-    void shouldInstantiateMeasurementTypeRepository() {
-        new UnitRepository();
-    }
-
-    /**
      * Test of save method when given valid MeasurementType.
      */
     @Test

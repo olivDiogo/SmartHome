@@ -30,7 +30,10 @@ class DeviceStatusTest {
         boolean validDeviceStatus = false;
 
         // Act
-        new DeviceStatus(validDeviceStatus);
+        DeviceStatus result = new DeviceStatus(validDeviceStatus);
+
+        // Assert
+        assertNotNull(result);
     }
 
     /**

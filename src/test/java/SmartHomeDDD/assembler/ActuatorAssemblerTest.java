@@ -12,14 +12,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class ActuatorAssemblerTest {
-    /**
-     * Should instantiate ActuatorAssembler.
-     */
-    @Test
-    public void shouldInstantiateActuatorAssembler() {
-        //Act
-        new ActuatorAssembler();
-    }
 
     /**
      * Should convert Actuator to ActuatorDTO when Actuator is valid.

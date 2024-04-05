@@ -18,12 +18,6 @@ import static org.mockito.Mockito.when;
 
 class ActuatorTypeAssemblerTest {
 
-  /** Test if the constructor of the ActuatorTypeAssembler class can be called. */
-  @Test
-  public void shouldInstantiateActuatorTypeAssembler() {
-    new ActuatorTypeAssembler();
-  }
-
   /**
    * Test if the domainToDTO method returns an ActuatorTypeDTO object when the description type is
    * valid.
