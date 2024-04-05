@@ -17,7 +17,7 @@ class RoomService{
 - _houseRepo: HouseRepository
 'Methods'
 +RoomService(factoryRoom: RoomFactory, roomRepo: RoomRepository, houseRepo: HouseRepository)
-+getRooms(): List<RoomDTO>
++getRooms(): List<Room>
 }
 
 
