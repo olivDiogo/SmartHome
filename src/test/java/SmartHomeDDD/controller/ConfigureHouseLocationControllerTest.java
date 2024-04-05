@@ -92,4 +92,87 @@ class ConfigureHouseLocationControllerTest {
         assertNotNull(result);
         }
 
+    /**
+     * Verify that House is correctly configured when postal code is Spanish
+     */
+    @Test
+    void shouldReturnHouseDTO_whenHouseIsConfiguredWithSpanishPostalCode() {
+        // Arrange
+        HouseRepository houseRepository = new HouseRepository();
+        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseAssembler houseAssembler = new HouseAssembler();
+        HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseService, houseAssembler);
+
+        String street = "Calle de la Paz";
+        String doorNumber = "123";
+        String postalCode = "28012";
+        String countryCode = "ES";
+        double latitude = 40.41536;
+        double longitude = -3.70739;
+        HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode, latitude, longitude);
+
+        // Act
+        HouseDTO result = configureHouseLocationController.configureHouseLocation(houseDataDTO);
+
+        // Assert
+        assertNotNull(result);
+    }
+
+    /**
+     * Verify that House is correctly configured when postal code is Canadian
+     */
+    @Test
+    void shouldReturnHouseDTO_whenHouseIsConfiguredWithCanadianPostalCode() {
+        // Arrange
+        HouseRepository houseRepository = new HouseRepository();
+        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseAssembler houseAssembler = new HouseAssembler();
+        HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseService, houseAssembler);
+
+        String street = "123 Main St";
+        String doorNumber = "123";
+        String postalCode = "K1A 0B1";
+        String countryCode = "CA";
+        double latitude = 45.42153;
+        double longitude = -75.69719;
+        HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode, latitude, longitude);
+
+        // Act
+        HouseDTO result = configureHouseLocationController.configureHouseLocation(houseDataDTO);
+
+        // Assert
+        assertNotNull(result);
+    }
+
+    /**
+     * Verify that House is correctly configured when postal code is American
+     */
+    @Test
+    void shouldReturnHouseDTO_whenHouseIsConfiguredWithAmericanPostalCode() {
+        // Arrange
+        HouseRepository houseRepository = new HouseRepository();
+        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseAssembler houseAssembler = new HouseAssembler();
+        HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseService, houseAssembler);
+
+        String street = "1600 Amphitheatre Parkway";
+        String doorNumber = "123";
+        String postalCode = "94043";
+        String countryCode = "US";
+        double latitude = 37.4220;
+        double longitude = -122.0841;
+        HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode, latitude, longitude);
+
+        // Act
+        HouseDTO result = configureHouseLocationController.configureHouseLocation(houseDataDTO);
+
+        // Assert
+        assertNotNull(result);
+    }
 }
