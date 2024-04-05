@@ -3,7 +3,11 @@ package SmartHomeDDD.controller;
 import SmartHomeDDD.DTO.*;
 import SmartHomeDDD.assembler.*;
 import SmartHomeDDD.domain.Actuator.Actuator;
+import SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;
 import SmartHomeDDD.domain.Actuator.ImpActuatorFactory;
+import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuator;
+import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuatorLimits;
+import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.ActuatorModel.ImpActuatorModelFactory;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
@@ -24,727 +28,888 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AddActuatorToDeviceControllerTest {
-  RoomRepository roomRepository = new RoomRepository();
-  ImpRoomFactory roomFactory = new ImpRoomFactory();
-  RoomAssembler roomAssembler = new RoomAssembler();
-  HouseRepository houseRepository = new HouseRepository();
-  UnitRepository unitRepository = new UnitRepository();
-  ImpUnitFactory unitFactory = new ImpUnitFactory();
-  ActuatorRepository actuatorRepository = new ActuatorRepository();
-  ImpActuatorFactory actuatorFactory = new ImpActuatorFactory();
-  ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
-  ImpActuatorTypeFactory actuatorTypeFactory = new ImpActuatorTypeFactory();
-  ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-  ImpActuatorModelFactory actuatorModelFactory = new ImpActuatorModelFactory();
-  DeviceRepository deviceRepository = new DeviceRepository();
-  ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
-  ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
-  RoomService roomService =
-      new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-  ActuatorModelService actuatorModelService =
-      new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
-  ActuatorTypeService actuatorTypeService =
-      new ActuatorTypeService(actuatorTypeRepository, actuatorTypeFactory, unitRepository);
-  ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
-  ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
-  ActuatorService actuatorService =
-      new ActuatorService(actuatorRepository, actuatorFactory, deviceRepository);
-  DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
-  DeviceAssembler deviceAssembler = new DeviceAssembler();
-  PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-  ImpHouseFactory houseFactory = new ImpHouseFactory();
-  HouseService houseService = new HouseService(houseFactory, houseRepository);
+    RoomRepository roomRepository = new RoomRepository();
+    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomAssembler roomAssembler = new RoomAssembler();
+    HouseRepository houseRepository = new HouseRepository();
+    UnitRepository unitRepository = new UnitRepository();
+    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
+    ImpActuatorFactory actuatorFactory = new ImpActuatorFactory();
+    ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
+    ImpActuatorTypeFactory actuatorTypeFactory = new ImpActuatorTypeFactory();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ImpActuatorModelFactory actuatorModelFactory = new ImpActuatorModelFactory();
+    DeviceRepository deviceRepository = new DeviceRepository();
+    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
+    RoomService roomService =
+            new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+    ActuatorModelService actuatorModelService =
+            new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
+    ActuatorTypeService actuatorTypeService =
+            new ActuatorTypeService(actuatorTypeRepository, actuatorTypeFactory, unitRepository);
+    ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
+    ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
+    ActuatorService actuatorService =
+            new ActuatorService(actuatorRepository, actuatorFactory, deviceRepository);
+    DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseService houseService = new HouseService(houseFactory, houseRepository);
 
-  private void loadHouseAndRoom() {
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-    double latitude = 41.178;
-    double longitude = -8.608;
-    String name = "Quarto da Maria";
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    int floor = 2;
-    RoomName roomName1 = new RoomName(name);
-    GPS newGPS = new GPS(latitude, longitude);
-    Address newAddress =
-        new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-    House house = houseService.addHouse(newAddress, newGPS);
-    HouseID houseID = house.getID();
-    Dimension dimension = new Dimension(width, length, height);
-    RoomFloor roomFloor = new RoomFloor(floor);
-    roomService.addRoom(houseID, roomName1, dimension, roomFloor);
-  }
-
-  private Device loadDevice(RoomID roomID) {
-    String name1 = "Lampada";
-    String nameDevice = "Ar Condicionado";
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceName deviceName2 = new DeviceName(nameDevice);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-    deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
-    deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
-    List<Device> devices = deviceService.getDevicesByRoomId(roomID);
-    return devices.get(0);
-  }
-
-  /** Test to check if the AddActuatorToDeviceController is being created correctly. */
-  @Test
-  void shouldCreateAddActuatorToDeviceController() throws InstantiationException {
-    // Assert
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
-
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          null,
-          roomAssembler,
-          deviceService,
-          deviceAssembler,
-          actuatorModelService,
-          actuatorModelAssembler,
-          actuatorTypeService,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid room service.", e.getMessage());
+    private void loadHouseAndRoom() {
+        String street = "Rua Do Isep";
+        String doorNumber = "122A";
+        String countryCode = "PT";
+        String postalCode = "4000-007";
+        double latitude = 41.178;
+        double longitude = -8.608;
+        String name = "Quarto da Maria";
+        int width = 10;
+        int length = 10;
+        int height = 10;
+        int floor = 2;
+        RoomName roomName1 = new RoomName(name);
+        GPS newGPS = new GPS(latitude, longitude);
+        Address newAddress =
+                new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+        House house = houseService.addHouse(newAddress, newGPS);
+        HouseID houseID = house.getID();
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
+        roomService.addRoom(houseID, roomName1, dimension, roomFloor);
     }
-  }
 
-  @Test
-  void shouldThrowException_whenRoomAssemblerIsNull() throws InstantiationException {
-    // Assert
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomService,
-          null,
-          deviceService,
-          deviceAssembler,
-          actuatorModelService,
-          actuatorModelAssembler,
-          actuatorTypeService,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid room assembler.", e.getMessage());
+    private Device loadDevice(RoomID roomID) {
+        String name1 = "Lampada";
+        String nameDevice = "Ar Condicionado";
+        DeviceName deviceName = new DeviceName(name1);
+        DeviceName deviceName2 = new DeviceName(nameDevice);
+        DeviceStatus deviceStatus = new DeviceStatus(true);
+        DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+        deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+        deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
+        List<Device> devices = deviceService.getDevicesByRoomId(roomID);
+        return devices.get(0);
     }
-  }
 
-  @Test
-  void shouldThrowException_whenDeviceServiceIsNull() throws InstantiationException {
-    // Assert
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomService,
-          roomAssembler,
-          null,
-          deviceAssembler,
-          actuatorModelService,
-          actuatorModelAssembler,
-          actuatorTypeService,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid device service.", e.getMessage());
+    /**
+     * Test to check if the AddActuatorToDeviceController is being created correctly.
+     */
+    @Test
+    void shouldCreateAddActuatorToDeviceController() throws InstantiationException {
+        // Assert
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    null,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    actuatorModelService,
+                    actuatorModelAssembler,
+                    actuatorTypeService,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid room service.", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  void shouldThrowException_whenDeviceAssemblerIsNull() throws InstantiationException {
-    // Assert
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomService,
-          roomAssembler,
-          deviceService,
-          null,
-          actuatorModelService,
-          actuatorModelAssembler,
-          actuatorTypeService,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid device assembler.", e.getMessage());
+    /**
+     * Should throw exception when room assembler is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_whenRoomAssemblerIsNull() throws InstantiationException {
+        // Assert
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    roomService,
+                    null,
+                    deviceService,
+                    deviceAssembler,
+                    actuatorModelService,
+                    actuatorModelAssembler,
+                    actuatorTypeService,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid room assembler.", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  void shouldThrowException_whenActuatorModelServiceIsNull() throws InstantiationException {
-    // Assert
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomService,
-          roomAssembler,
-          deviceService,
-          deviceAssembler,
-          null,
-          actuatorModelAssembler,
-          actuatorTypeService,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator model service.", e.getMessage());
+    /**
+     * Should throw exception when device service is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_whenDeviceServiceIsNull() throws InstantiationException {
+        // Assert
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    null,
+                    deviceAssembler,
+                    actuatorModelService,
+                    actuatorModelAssembler,
+                    actuatorTypeService,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid device service.", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  void shouldThrowException_whenActuatorModelAssemblerIsNull() throws InstantiationException {
-    // Assert
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomService,
-          roomAssembler,
-          deviceService,
-          deviceAssembler,
-          actuatorModelService,
-          null,
-          actuatorTypeService,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator model assembler.", e.getMessage());
+    /**
+     * Should throw exception when device assembler is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_whenDeviceAssemblerIsNull() throws InstantiationException {
+        // Assert
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    null,
+                    actuatorModelService,
+                    actuatorModelAssembler,
+                    actuatorTypeService,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid device assembler.", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  void shouldThrowException_whenConfigurationServiceIsNull() {
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomService,
-          roomAssembler,
-          deviceService,
-          deviceAssembler,
-          actuatorModelService,
-          actuatorModelAssembler,
-          actuatorTypeService,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator type service.", e.getMessage());
+    /**
+     * Should throw exception when actuator model service is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_whenActuatorModelServiceIsNull() throws InstantiationException {
+        // Assert
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    null,
+                    actuatorModelAssembler,
+                    actuatorTypeService,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid actuator model service.", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  void shouldThrowException_whenActuatorTypeServiceIsNull() throws InstantiationException {
-    // Assert
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomService,
-          roomAssembler,
-          deviceService,
-          deviceAssembler,
-          actuatorModelService,
-          actuatorModelAssembler,
-          null,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator type service.", e.getMessage());
+    /**
+     * Should throw exception when actuator model assembler is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_whenActuatorModelAssemblerIsNull() throws InstantiationException {
+        // Assert
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    actuatorModelService,
+                    null,
+                    actuatorTypeService,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid actuator model assembler.", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  void shouldThrowException_whenActuatorTypeAssemblerIsNull() throws InstantiationException {
-    // Assert
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomService,
-          roomAssembler,
-          deviceService,
-          deviceAssembler,
-          actuatorModelService,
-          actuatorModelAssembler,
-          actuatorTypeService,
-          null,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator type assembler.", e.getMessage());
+    /**
+     * Should throw exception when actuator configuration service is null.
+     */
+    @Test
+    void shouldThrowException_whenConfigurationServiceIsNull() {
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    actuatorModelService,
+                    actuatorModelAssembler,
+                    actuatorTypeService,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid actuator type service.", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  void shouldThrowException_whenActuatorAssemblerIsNull() throws InstantiationException {
-    // Assert
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomService,
-          roomAssembler,
-          deviceService,
-          deviceAssembler,
-          actuatorModelService,
-          actuatorModelAssembler,
-          actuatorTypeService,
-          actuatorTypeAssembler,
-          null,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator assembler.", e.getMessage());
+    /**
+     * Should throw exception when actuator type service is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_whenActuatorTypeServiceIsNull() throws InstantiationException {
+        // Assert
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    actuatorModelService,
+                    actuatorModelAssembler,
+                    null,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid actuator type service.", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  void shouldThrowException_whenActuatorServiceIsNull() throws InstantiationException {
-    // Assert
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomService,
-          roomAssembler,
-          deviceService,
-          deviceAssembler,
-          actuatorModelService,
-          actuatorModelAssembler,
-          actuatorTypeService,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          null);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator service.", e.getMessage());
+    /**
+     * Should throw exception when actuator type assembler is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_whenActuatorTypeAssemblerIsNull() throws InstantiationException {
+        // Assert
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    actuatorModelService,
+                    actuatorModelAssembler,
+                    actuatorTypeService,
+                    null,
+                    actuatorAssembler,
+                    actuatorService);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid actuator type assembler.", e.getMessage());
+        }
     }
-  }
 
-  @Test
-  void shouldReturnEmptyList_whenThereAreNoRooms() throws InstantiationException {
-    // Arrange
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
+    /**
+     * Should throw exception when actuator assembler is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_whenActuatorAssemblerIsNull() throws InstantiationException {
+        // Assert
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    actuatorModelService,
+                    actuatorModelAssembler,
+                    actuatorTypeService,
+                    actuatorTypeAssembler,
+                    null,
+                    actuatorService);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid actuator assembler.", e.getMessage());
+        }
+    }
 
-    // Act
-    List<RoomDTO> result = controller.getRooms();
+    /**
+     * Should throw exception when actuator service is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_whenActuatorServiceIsNull() throws InstantiationException {
+        // Assert
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        // Act
+        try {
+            new AddActuatorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    actuatorModelService,
+                    actuatorModelAssembler,
+                    actuatorTypeService,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    null);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Please enter a valid actuator service.", e.getMessage());
+        }
+    }
 
-    // Assert
-    assertTrue(result.isEmpty());
-  }
+    /**
+     * Should throw exception when room service is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldReturnEmptyList_whenThereAreNoRooms() throws InstantiationException {
+        // Arrange
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
 
-  @Test
-  void shouldGetRoomsFromHouse_WhenGivenValidHouseID() throws InstantiationException {
-    // Arrange
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
-    loadHouseAndRoom();
-    List<Room> rooms = roomRepository.findAll();
-    List<RoomDTO> expectedRoomsDTOList = roomAssembler.domainToDTO(rooms);
-    String expectedRoomDTOName = expectedRoomsDTOList.get(0).roomName;
-    String expectedRoomDTOID = expectedRoomsDTOList.get(0).roomId;
-    List<String> expectedList = List.of(expectedRoomDTOName, expectedRoomDTOID);
+        // Act
+        List<RoomDTO> result = controller.getRooms();
 
-    // Act
-    List<RoomDTO> roomsDTOList = controller.getRooms();
-    String actualRoomDTOName = roomsDTOList.get(0).roomName;
-    String actualRoomDTOID = roomsDTOList.get(0).roomId;
-    List<String> actualList = List.of(actualRoomDTOName, actualRoomDTOID);
+        // Assert
+        assertTrue(result.isEmpty());
+    }
 
-    // Assert
-    assertEquals(expectedList, actualList);
-  }
+    /**
+     * Should get rooms from house when given valid house ID.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldGetRoomsFromHouse_WhenGivenValidHouseID() throws InstantiationException {
+        // Arrange
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
+        loadHouseAndRoom();
+        List<Room> rooms = roomRepository.findAll();
+        List<RoomDTO> expectedRoomsDTOList = roomAssembler.domainToDTO(rooms);
+        String expectedRoomDTOName = expectedRoomsDTOList.get(0).roomName;
+        String expectedRoomDTOID = expectedRoomsDTOList.get(0).roomId;
+        List<String> expectedList = List.of(expectedRoomDTOName, expectedRoomDTOID);
 
-  @Test
-  void shouldThrowException_WhenRoomIDDoesNotExistInRepository() throws InstantiationException {
-    // Arrange
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        // Act
+        List<RoomDTO> roomsDTOList = controller.getRooms();
+        String actualRoomDTOName = roomsDTOList.get(0).roomName;
+        String actualRoomDTOID = roomsDTOList.get(0).roomId;
+        List<String> actualList = List.of(actualRoomDTOName, actualRoomDTOID);
 
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
+        // Assert
+        assertEquals(expectedList, actualList);
+    }
 
-    String roomID = "123";
-    RoomID nonExistentRoomID = new RoomID(roomID);
+    /**
+     * Should throw exception when room ID does not exist in repository.
+     *
+     * @throws InstantiationException
+     */
+    @Test
+    void shouldThrowException_WhenRoomIDDoesNotExistInRepository() throws InstantiationException {
+        // Arrange
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
 
-    String roomName = "Quarto da Maria";
-    String dimension = "10x10x10";
-    String floor = "2";
-    RoomDTO roomDTO = new RoomDTO(roomName, dimension, floor, nonExistentRoomID.toString());
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
 
-    String expectedMessage = "Room with ID " + nonExistentRoomID + " not found.";
+        String roomID = "123";
+        RoomID nonExistentRoomID = new RoomID(roomID);
 
-    // Act & Assert
-    Exception exception =
-        assertThrows(IllegalArgumentException.class, () -> controller.getDevicesFromRoom(roomDTO));
+        String roomName = "Quarto da Maria";
+        String dimension = "10x10x10";
+        String floor = "2";
+        RoomDTO roomDTO = new RoomDTO(roomName, dimension, floor, nonExistentRoomID.toString());
 
-    assertEquals(expectedMessage, exception.getMessage());
-  }
+        String expectedMessage = "Room with ID " + nonExistentRoomID + " not found.";
 
-  @Test
-  void shouldGetDevicesFromRoom_WhenParametersAreValid() throws InstantiationException {
-    // Arrange
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
-    loadHouseAndRoom();
-    List<Room> rooms = roomRepository.findAll();
-    RoomID roomID = rooms.get(0).getID();
-    loadDevice(roomID);
-    List<Device> devices = deviceService.getDevicesByRoomId(roomID);
-    List<DeviceDTO> deviceDTOListExpected = deviceAssembler.domainToDTO(devices);
-    List<RoomDTO> roomsDTOList = controller.getRooms();
-    RoomDTO roomDTO = roomsDTOList.get(0);
-    String expectedDeviceDTOID = deviceDTOListExpected.get(0).deviceID;
-    String expectedDeviceDTOName = deviceDTOListExpected.get(0).deviceName;
-    List<String> expectedDeviceDTOList = List.of(expectedDeviceDTOID, expectedDeviceDTOName);
-    // Act
-    List<DeviceDTO> devicesDTOList = controller.getDevicesFromRoom(roomDTO);
+        // Act & Assert
+        Exception exception =
+                assertThrows(IllegalArgumentException.class, () -> controller.getDevicesFromRoom(roomDTO));
 
-    String actualDeviceDTOID = devicesDTOList.get(0).deviceID;
-    String actualDeviceDTOName = devicesDTOList.get(0).deviceName;
-    List<String> actualDeviceDTOList = List.of(actualDeviceDTOID, actualDeviceDTOName);
-    // Assert
-    assertEquals(expectedDeviceDTOList, actualDeviceDTOList);
-  }
+        assertEquals(expectedMessage, exception.getMessage());
+    }
 
-  @Test
-  void shouldGetAvailableActuatorTypesList() throws InstantiationException {
-    // Arrange
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+    /**
+     * Should get devices from room when given valid room ID.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldGetDevicesFromRoom_WhenParametersAreValid() throws InstantiationException {
+        // Arrange
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
+        loadHouseAndRoom();
+        List<Room> rooms = roomRepository.findAll();
+        RoomID roomID = rooms.get(0).getID();
+        loadDevice(roomID);
+        List<Device> devices = deviceService.getDevicesByRoomId(roomID);
+        List<DeviceDTO> deviceDTOListExpected = deviceAssembler.domainToDTO(devices);
+        List<RoomDTO> roomsDTOList = controller.getRooms();
+        RoomDTO roomDTO = roomsDTOList.get(0);
+        String expectedDeviceDTOID = deviceDTOListExpected.get(0).deviceID;
+        String expectedDeviceDTOName = deviceDTOListExpected.get(0).deviceName;
+        List<String> expectedDeviceDTOList = List.of(expectedDeviceDTOID, expectedDeviceDTOName);
+        // Act
+        List<DeviceDTO> devicesDTOList = controller.getDevicesFromRoom(roomDTO);
 
-    TypeDescription typeDescription = new TypeDescription("BlindRoller");
-    UnitID unit = new UnitID("Percent");
-    ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-    actuatorTypeService.saveActuatorType(actuatorType);
+        String actualDeviceDTOID = devicesDTOList.get(0).deviceID;
+        String actualDeviceDTOName = devicesDTOList.get(0).deviceName;
+        List<String> actualDeviceDTOList = List.of(actualDeviceDTOID, actualDeviceDTOName);
+        // Assert
+        assertEquals(expectedDeviceDTOList, actualDeviceDTOList);
+    }
 
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
+    /**
+     * Should get available actuator types list.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldGetAvailableActuatorTypesList() throws InstantiationException {
+        // Arrange
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
 
-    List<ActuatorTypeDTO> ActuatorTypeDTOList = controller.getActuatorTypes();
+        TypeDescription typeDescription = new TypeDescription("BlindRoller");
+        UnitID unit = new UnitID("Percent");
+        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
+        actuatorTypeService.saveActuatorType(actuatorType);
 
-    List<ActuatorType> actuatorTypes = actuatorTypeRepository.findAll();
-    List<ActuatorTypeDTO> expectedActuatorTypeDTOList =
-        actuatorTypeAssembler.domainToDTO(actuatorTypes);
-    // Assert
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
 
-    assertEquals(
-        expectedActuatorTypeDTOList.get(0).actuatorTypeID,
-        ActuatorTypeDTOList.get(0).actuatorTypeID);
-  }
+        List<ActuatorTypeDTO> ActuatorTypeDTOList = controller.getActuatorTypes();
 
-  @Test
-  void shouldGetAvailableActuatorModelsList() throws InstantiationException {
-    // Arrange
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        List<ActuatorType> actuatorTypes = actuatorTypeRepository.findAll();
+        List<ActuatorTypeDTO> expectedActuatorTypeDTOList =
+                actuatorTypeAssembler.domainToDTO(actuatorTypes);
+        // Assert
 
-    TypeDescription typeDescription = new TypeDescription("BlindRoller");
-    UnitID unit = new UnitID("Percent");
-    ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-    actuatorTypeService.saveActuatorType(actuatorType);
+        assertEquals(
+                expectedActuatorTypeDTOList.get(0).actuatorTypeID,
+                ActuatorTypeDTOList.get(0).actuatorTypeID);
+    }
 
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
+    /**
+     * Should get available actuator models list.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldGetAvailableActuatorModelsList() throws InstantiationException {
+        // Arrange
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
 
-    ActuatorTypeDTO dto = actuatorTypeAssembler.domainToDTO(actuatorType);
-    List<ActuatorModelDTO> ActuatorModelDTOList = controller.getActuatorModels(dto);
+        TypeDescription typeDescription = new TypeDescription("BlindRoller");
+        UnitID unit = new UnitID("Percent");
+        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
+        actuatorTypeService.saveActuatorType(actuatorType);
 
-    List<ActuatorModel> actuatorModels = actuatorModelRepository.findAll();
-    List<ActuatorModelDTO> expectedActuatorModelDTOList =
-        actuatorModelAssembler.domainToDTO(actuatorModels);
-    // Assert
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
 
-    assertEquals(
-        expectedActuatorModelDTOList.get(0).actuatorModelID,
-        ActuatorModelDTOList.get(0).actuatorModelID);
-  }
+        ActuatorTypeDTO dto = actuatorTypeAssembler.domainToDTO(actuatorType);
+        List<ActuatorModelDTO> ActuatorModelDTOList = controller.getActuatorModels(dto);
 
-  @Test
-  void shouldThrowException_WhenActuatorModelRepositoryIsEmpty() throws InstantiationException {
-    // Arrange
-    TypeDescription typeDescription = new TypeDescription("BlindRoller");
-    UnitDescription unitDescription = new UnitDescription("Celsius");
-    UnitID unitID = new UnitID("Celsius");
-    UnitSymbol unitSymbol = new UnitSymbol("C");
-    UnitService unitService = new UnitService(unitRepository, unitFactory);
-    unitService.createAndSaveMeasurementType(unitDescription, unitSymbol);
-    ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unitID);
-    actuatorTypeService.saveActuatorType(actuatorType);
+        List<ActuatorModel> actuatorModels = actuatorModelRepository.findAll();
+        List<ActuatorModelDTO> expectedActuatorModelDTOList =
+                actuatorModelAssembler.domainToDTO(actuatorModels);
+        // Assert
 
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
+        assertEquals(
+                expectedActuatorModelDTOList.get(0).actuatorModelID,
+                ActuatorModelDTOList.get(0).actuatorModelID);
+    }
 
-    ActuatorTypeDTO dto = actuatorTypeAssembler.domainToDTO(actuatorType);
+    /**
+     * Should throw exception when actuator model repository is empty.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_WhenActuatorModelRepositoryIsEmpty() throws InstantiationException {
+        // Arrange
+        TypeDescription typeDescription = new TypeDescription("BlindRoller");
+        UnitDescription unitDescription = new UnitDescription("Celsius");
+        UnitID unitID = new UnitID("Celsius");
+        UnitSymbol unitSymbol = new UnitSymbol("C");
+        UnitService unitService = new UnitService(unitRepository, unitFactory);
+        unitService.createAndSaveMeasurementType(unitDescription, unitSymbol);
+        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unitID);
+        actuatorTypeService.saveActuatorType(actuatorType);
 
-    IllegalArgumentException exception =
-        assertThrows(IllegalArgumentException.class, () -> controller.getActuatorModels(dto));
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
 
-    // Assert
-    assertEquals("No actuator models found.", exception.getMessage());
-  }
+        ActuatorTypeDTO dto = actuatorTypeAssembler.domainToDTO(actuatorType);
 
-  @Test
-  void shouldThrowException_WhenActuatorTypeRepositoryIsEmpty() throws InstantiationException {
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> controller.getActuatorModels(dto));
 
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
+        // Assert
+        assertEquals("No actuator models found.", exception.getMessage());
+    }
 
-    IllegalArgumentException exception =
-        assertThrows(IllegalArgumentException.class, () -> controller.getActuatorTypes());
+    /**
+     * Should throw exception when actuator type repository is empty.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowException_WhenActuatorTypeRepositoryIsEmpty() throws InstantiationException {
 
-    // Assert
-    assertEquals("No actuator types found.", exception.getMessage());
-  }
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
 
-  @Test
-  void shouldReturnEmptyList_whenThereAreNoActuatorTypes() throws InstantiationException {
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> controller.getActuatorTypes());
 
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
+        // Assert
+        assertEquals("No actuator types found.", exception.getMessage());
+    }
 
-    TypeDescription typeDescription = new TypeDescription("Temperature");
-    UnitID unit = new UnitID("Celsius");
-    ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-    actuatorTypeService.saveActuatorType(actuatorType);
+    /**
+     * Should return empty list when there are no actuator types.
+     *
+     * @throws InstantiationException
+     */
+    @Test
+    void shouldReturnEmptyList_whenThereAreNoActuatorTypes() throws InstantiationException {
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
 
-    TypeDescription nonExistintTypeDescription = new TypeDescription("Humidity");
-    UnitID unitID = new UnitID("Percent");
-    ActuatorType nonExistintActuatorType =
-        actuatorTypeService.createActuatorType(nonExistintTypeDescription, unitID);
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
 
-    ActuatorTypeDTO actuatorTypeDTO = actuatorTypeAssembler.domainToDTO(nonExistintActuatorType);
+        TypeDescription typeDescription = new TypeDescription("Temperature");
+        UnitID unit = new UnitID("Celsius");
+        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
+        actuatorTypeService.saveActuatorType(actuatorType);
 
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class, () -> controller.getActuatorModels(actuatorTypeDTO));
+        TypeDescription nonExistintTypeDescription = new TypeDescription("Humidity");
+        UnitID unitID = new UnitID("Percent");
+        ActuatorType nonExistintActuatorType =
+                actuatorTypeService.createActuatorType(nonExistintTypeDescription, unitID);
 
-    // Assert
-    assertEquals(
-        "Actuator type with ID " + nonExistintTypeDescription + " not found.",
-        exception.getMessage());
-  }
+        ActuatorTypeDTO actuatorTypeDTO = actuatorTypeAssembler.domainToDTO(nonExistintActuatorType);
 
-  @Test
-  void shouldAddActuatorToDevice_whenParametersAreValid() throws InstantiationException {
-    // Arrange
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        IllegalArgumentException exception =
+                assertThrows(
+                        IllegalArgumentException.class, () -> controller.getActuatorModels(actuatorTypeDTO));
 
-    loadHouseAndRoom();
-    List<Room> rooms = roomRepository.findAll();
-    RoomID roomID = rooms.get(0).getID();
-    Device device = loadDevice(roomID);
+        // Assert
+        assertEquals(
+                "Actuator type with ID " + nonExistintTypeDescription + " not found.",
+                exception.getMessage());
+    }
 
-    TypeDescription typeDescription = new TypeDescription("Switch");
-    UnitID unit = new UnitID("Percent");
-    ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-    actuatorTypeService.saveActuatorType(actuatorType);
+    /**
+     * should add blind roller actuator to device when parameters are valid.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldAddActuatorToDevice_whenParametersAreValidBlindRoller() throws InstantiationException {
+        // Arrange
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
 
-    String modelPath = "SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator";
-    String actuatorName = "Actuator";
+        loadHouseAndRoom();
+        List<Room> rooms = roomRepository.findAll();
+        RoomID roomID = rooms.get(0).getID();
+        Device device = loadDevice(roomID);
 
-    actuatorTypeAssembler.domainToDTO(actuatorType);
+        TypeDescription typeDescription = new TypeDescription("BlindRoller");
+        UnitID unit = new UnitID("Percent");
+        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
+        actuatorTypeService.saveActuatorType(actuatorType);
 
-    ActuatorDataDTO actuatorDataDTO =
-        new ActuatorDataDTO(
-            device.getID().getId(), modelPath, actuatorName, actuatorType.getID().getId());
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
-    // Act
-    ActuatorDTO actuatorDTO = controller.addActuatorToDevice(actuatorDataDTO);
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "Actuator";
 
-    // Assert
-    assertEquals(actuatorDTO.deviceID, actuatorDTO.deviceID);
-  }
+        int expected = 1;
 
-  @Test
-  void shouldThrowIllegalArgumentException_WhenActuatorDataDTOIsNull()
-      throws InstantiationException {
-    // Arrange
-    ActuatorConfigurationService configurationService =
-        new ActuatorConfigurationService(
-            actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        actuatorTypeAssembler.domainToDTO(actuatorType);
 
-    loadHouseAndRoom();
-    List<Room> rooms = roomRepository.findAll();
-    RoomID roomID = rooms.get(0).getID();
-    Device device = loadDevice(roomID);
+        ActuatorDataDTO actuatorDataDTO =
+                new ActuatorDataDTO(device.getID().toString(), modelPath, actuatorName, actuatorType.getID().getId());
 
-    TypeDescription typeDescription = new TypeDescription("Switch");
-    UnitID unit = new UnitID("Percent");
-    ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-    actuatorTypeService.saveActuatorType(actuatorType);
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
+        // Act
+        ActuatorDTO actuatorDTO = controller.addActuatorToDevice(actuatorDataDTO);
+        int result = actuatorRepository.findAll().size();
 
-    String modelPath = "SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator";
-    String actuatorName = "Actuator";
+        // Assert
+        assertNotNull(actuatorDTO);
+        assertEquals(expected, result);
+    }
 
-    actuatorTypeAssembler.domainToDTO(actuatorType);
 
-    ActuatorDataDTO actuatorDataDTO = null;
-    AddActuatorToDeviceController controller =
-        new AddActuatorToDeviceController(
-            roomService,
-            roomAssembler,
-            deviceService,
-            deviceAssembler,
-            actuatorModelService,
-            actuatorModelAssembler,
-            actuatorTypeService,
-            actuatorTypeAssembler,
-            actuatorAssembler,
-            actuatorService);
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class, () -> controller.addActuatorToDevice(actuatorDataDTO));
+    /**
+     * Should add set integer actuator to device when parameters are valid.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldAddActuatorToDevice_whenParametersAreValidSwitchActuator() throws InstantiationException {
+        // Arrange
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
 
-    // Assert
-    assertEquals("Please enter a valid actuator data DTO.", exception.getMessage());
-  }
+        loadHouseAndRoom();
+        List<Room> rooms = roomRepository.findAll();
+        RoomID roomID = rooms.get(0).getID();
+        Device device = loadDevice(roomID);
+
+        TypeDescription typeDescription = new TypeDescription("Switch");
+        UnitID unit = new UnitID("Percent");
+        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
+        actuatorTypeService.saveActuatorType(actuatorType);
+
+        String modelPath = "SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator";
+        String actuatorName = "Actuator";
+
+        int expected = 1;
+
+        actuatorTypeAssembler.domainToDTO(actuatorType);
+
+        ActuatorDataDTO actuatorDataDTO =
+                new ActuatorDataDTO(
+                        device.getID().toString(), modelPath, actuatorName, actuatorType.getID().getId());
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
+        // Act
+        ActuatorDTO actuatorDTO = controller.addActuatorToDevice(actuatorDataDTO);
+        int result = actuatorRepository.findAll().size();
+
+        // Assert
+        assertNotNull(actuatorDTO);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Should throw exception when actuator data DTO is null.
+     *
+     * @throws InstantiationException exception
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorDataDTOIsNull()
+            throws InstantiationException {
+        // Arrange
+        ActuatorConfigurationService configurationService =
+                new ActuatorConfigurationService(
+                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+
+        loadHouseAndRoom();
+        List<Room> rooms = roomRepository.findAll();
+        RoomID roomID = rooms.get(0).getID();
+        Device device = loadDevice(roomID);
+
+        TypeDescription typeDescription = new TypeDescription("Switch");
+        UnitID unit = new UnitID("Percent");
+        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
+        actuatorTypeService.saveActuatorType(actuatorType);
+
+        actuatorTypeAssembler.domainToDTO(actuatorType);
+
+        ActuatorDataDTO actuatorDataDTO = null;
+        AddActuatorToDeviceController controller =
+                new AddActuatorToDeviceController(
+                        roomService,
+                        roomAssembler,
+                        deviceService,
+                        deviceAssembler,
+                        actuatorModelService,
+                        actuatorModelAssembler,
+                        actuatorTypeService,
+                        actuatorTypeAssembler,
+                        actuatorAssembler,
+                        actuatorService);
+        // Act
+        IllegalArgumentException exception =
+                assertThrows(
+                        IllegalArgumentException.class, () -> controller.addActuatorToDevice(actuatorDataDTO));
+
+        // Assert
+        assertEquals("Please enter a valid actuator data DTO.", exception.getMessage());
+    }
 }

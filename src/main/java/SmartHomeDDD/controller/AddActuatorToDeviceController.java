@@ -217,6 +217,11 @@ public class AddActuatorToDeviceController {
     }
 
 
+    /**
+     * Gets all actuator types.
+     *
+     * @return a list of actuator types.
+     */
     public List<ActuatorTypeDTO> getActuatorTypes() {
         List<ActuatorType> actuatorTypeList = _actuatorTypeService.findAllActuatorTypes();
         if (actuatorTypeList.isEmpty()) {
@@ -248,6 +253,12 @@ public class AddActuatorToDeviceController {
     }
 
 
+    /**
+     * Adds an actuator to a device.
+     *
+     * @param actuatorDataDTO is the actuator data DTO.
+     * @return the actuator DTO.
+     */
     public ActuatorDTO addActuatorToDevice(ActuatorDataDTO actuatorDataDTO) {
         validateActuatorDataDTO(actuatorDataDTO);
 
@@ -261,6 +272,12 @@ public class AddActuatorToDeviceController {
         return _actuatorAssembler.domainToDTO(actuator);
     }
 
+
+    /**
+     * Validates the actuator data DTO.
+     *
+     * @param actuatorDataDTO is the actuator data DTO.
+     */
     private void validateActuatorDataDTO(ActuatorDataDTO actuatorDataDTO) {
         if (actuatorDataDTO == null) {
             throw new IllegalArgumentException("Please enter a valid actuator data DTO.");
