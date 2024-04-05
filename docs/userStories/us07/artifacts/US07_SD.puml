@@ -12,6 +12,8 @@ participant ":RoomService" as roomService
 
 participant ":RoomRepository" as RoomRepository
 
+participant "roomID:RoomID" as RoomID
+
 participant ":RoomAssembler" as RoomAssembler
 
 participant "roomDTO:RoomDTO" as RoomDTO
@@ -24,7 +26,6 @@ participant ":DeviceRepository" as DeviceRepository
 
 participant ":DeviceAssembler" as DeviceAssembler
 
-participant "roomID:RoomID" as RoomID
 
 participant "deviceID:DeviceID" as DeviceID
 
@@ -46,7 +47,7 @@ end box
 
 box "SensorType" #LightGray
 
-participant "SensorType" as SensorType
+participant "sensorTypeID:SensorTypeID" as SensorTypeID
 
 participant ":SensorTypeService" as SensorTypeService
 
@@ -55,8 +56,6 @@ participant ":SensorTypeRepository" as SensorTypeRepository
 participant ":SensorTypeAssembler" as SensorTypeAssembler
 
 participant "sensorTypeDTO:SensorTypeDTO" as SensorTypeDTO
-
-participant "sensorTypeID:SensorTypeID" as SensorTypeID
 
 participant "sensorName:SensorName" as SensorName
 
