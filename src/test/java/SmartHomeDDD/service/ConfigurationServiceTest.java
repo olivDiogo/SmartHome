@@ -1,9 +1,9 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.SensorModel.SensorModel;
-import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
+import SmartHomeDDD.domain.SensorModel.ISensorModelFactory;
 import SmartHomeDDD.domain.Unit.Unit;
-import SmartHomeDDD.domain.Unit.UnitFactory;
+import SmartHomeDDD.domain.Unit.IUnitFactory;
 import SmartHomeDDD.repository.SensorModelRepository;
 import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.ModelPath;
@@ -28,8 +28,8 @@ class ConfigurationServiceTest {
         //Arrange
         SensorModelRepository sensorModelRepository = null;
         UnitRepository unitRepository = mock(UnitRepository.class);
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
-        UnitFactory unitFactory = mock(UnitFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
+        IUnitFactory unitFactory = mock(IUnitFactory.class);
         String expectedMessage = "Please enter a valid sensor model repository.";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ConfigurationService(sensorModelRepository, unitRepository, sensorModelFactory, unitFactory));
@@ -41,8 +41,8 @@ class ConfigurationServiceTest {
         //Arrange
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         UnitRepository unitRepository = null;
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
-        UnitFactory unitFactory = mock(UnitFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
+        IUnitFactory unitFactory = mock(IUnitFactory.class);
         String expectedMessage = "Please enter a valid measurement type repository.";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ConfigurationService(sensorModelRepository, unitRepository, sensorModelFactory, unitFactory));
@@ -54,8 +54,8 @@ class ConfigurationServiceTest {
         //Arrange
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
-        SensorModelFactory sensorModelFactory = null;
-        UnitFactory unitFactory = mock(UnitFactory.class);
+        ISensorModelFactory sensorModelFactory = null;
+        IUnitFactory unitFactory = mock(IUnitFactory.class);
         String expectedMessage = "Please enter a valid sensor model factory.";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ConfigurationService(sensorModelRepository, unitRepository, sensorModelFactory, unitFactory));
@@ -67,8 +67,8 @@ class ConfigurationServiceTest {
         //Arrange
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
-        UnitFactory unitFactory = null;
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
+        IUnitFactory unitFactory = null;
         String expectedMessage = "Please enter a valid unit factory.";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ConfigurationService(sensorModelRepository, unitRepository, sensorModelFactory, unitFactory));
@@ -80,11 +80,11 @@ class ConfigurationServiceTest {
     @Test
     void shouldLoadDefaultSensorModels_WhenConfigurationServiceInstantiated() throws ConfigurationException {
         //Arrange
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         when(sensorModelFactory.createSensorModel(any(), any(), any())).thenReturn(mock(SensorModel.class));
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
-        UnitFactory unitFactory = mock(UnitFactory.class);
+        IUnitFactory unitFactory = mock(IUnitFactory.class);
 
         Configurations configs = new Configurations();
         int defaultSensorModels = configs.properties(new File("configDDD.properties")).getStringArray("sensor").length;
@@ -104,10 +104,10 @@ class ConfigurationServiceTest {
     @Test
     void shouldLoadDefaultMeasurementTypes_WhenConfigurationServiceInstantiated() throws ConfigurationException {
         //Arrange
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
-        UnitFactory unitFactory = mock(UnitFactory.class);
+        IUnitFactory unitFactory = mock(IUnitFactory.class);
         when(unitFactory.createMeasurement(any(), any())).thenReturn(mock(Unit.class));
         Configurations configs = new Configurations();
         int defaultSensorModels = configs.properties(new File("configDDD.properties")).getStringArray("measurement").length;

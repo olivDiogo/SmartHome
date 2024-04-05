@@ -18,7 +18,7 @@ class ImpSensorModelFactoryTest {
         SensorModelName sensorModelName = mock(SensorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        SensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+        ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
         int expectedSize = 1;
         // Act
         try(MockedConstruction<SensorModel> sensorModelMockedConstruction = mockConstruction(SensorModel.class, (mock, context) -> {

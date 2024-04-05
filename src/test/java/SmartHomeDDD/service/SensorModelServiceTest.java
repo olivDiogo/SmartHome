@@ -1,7 +1,7 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.SensorModel.SensorModel;
-import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
+import SmartHomeDDD.domain.SensorModel.ISensorModelFactory;
 import SmartHomeDDD.repository.SensorModelRepository;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelName;
@@ -23,7 +23,7 @@ class SensorModelServiceTest {
     @Test
     void shouldInstantiateSensorModelServiceWhenGivenValidParameters() {
         //Arrange
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         //Act
         SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
@@ -37,7 +37,7 @@ class SensorModelServiceTest {
     @Test
     void shouldThrowExceptionWhenSensorModelFactoryIsNull() {
         //Arrange
-        SensorModelFactory sensorModelFactory = null;
+        ISensorModelFactory sensorModelFactory = null;
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
 
         String expectedMessage = "Please enter a valid sensor model factory.";
@@ -53,7 +53,7 @@ class SensorModelServiceTest {
     @Test
     void shouldThrowExceptionWhenSensorModelRepositoryIsNull() {
         //Arrange
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         SensorModelRepository sensorModelRepository = null;
 
         String expectedMessage = "Please enter a valid sensor model repository.";
@@ -70,7 +70,7 @@ class SensorModelServiceTest {
     void shouldGetListOfSensorModel_WhenGetSensorModelsCalled() {
         //Arrange
         SensorModel sensorModel = mock(SensorModel.class);
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         when(sensorModelRepository.findAll()).thenReturn(List.of(sensorModel));
         try (MockedConstruction<ModelPath> modelPathMockedConstruction = mockConstruction(ModelPath.class, (mock, context) -> {
@@ -97,7 +97,7 @@ class SensorModelServiceTest {
         ModelPath sensorModelId = mock(ModelPath.class);
         when(sensorModel.getID()).thenReturn(sensorModelId);
 
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         when(sensorModelRepository.ofIdentity(sensorModelId)).thenReturn(Optional.of(sensorModel));
         try (MockedConstruction<ModelPath> modelPathMockedConstruction = mockConstruction(ModelPath.class, (mock, context) -> {
@@ -125,7 +125,7 @@ class SensorModelServiceTest {
         ModelPath sensorPath = mock(ModelPath.class);
         SensorModel sensorModel = mock(SensorModel.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         when(sensorModelFactory.createSensorModel(sensorModelName, sensorPath, sensorTypeID)).thenReturn(sensorModel);
         SensorModelService sensorModelService = new SensorModelService(mock(SensorModelRepository.class), sensorModelFactory);
         //Act
@@ -144,7 +144,7 @@ class SensorModelServiceTest {
         ModelPath sensorPath = mock(ModelPath.class);
         SensorModel sensorModel = mock(SensorModel.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         when(sensorModelFactory.createSensorModel(sensorModelName, sensorPath, sensorTypeID)).thenReturn(sensorModel);
 
@@ -171,7 +171,7 @@ class SensorModelServiceTest {
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         when(sensorModelRepository.findBySensorTypeId(sensorTypeID)).thenReturn(expectedSensorModels);
 
-        SensorModelFactory sensorModelFactory = mock(SensorModelFactory.class);
+        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
 
         // Act

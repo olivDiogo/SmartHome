@@ -1,8 +1,8 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
-import SmartHomeDDD.domain.ActuatorModel.ActuatorModelFactory;
-import SmartHomeDDD.domain.ActuatorModel.ActuatorModelRepo;
+import SmartHomeDDD.domain.ActuatorModel.IActuatorModelFactory;
+import SmartHomeDDD.domain.ActuatorModel.IActuatorModelRepo;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.ModelPath;
 
@@ -14,8 +14,8 @@ import java.util.Optional;
  * This includes loading default actuator models from a configuration file, as well as providing access to these models.
  */
 public class ActuatorModelService {
-    private ActuatorModelRepo _actuatorModelRepository;
-    private ActuatorModelFactory _factoryActuatorModel;
+    private IActuatorModelRepo _actuatorModelRepository;
+    private IActuatorModelFactory _factoryActuatorModel;
 
     /**
      * Constructs an ActuatorModelService with a specified repository and factory.
@@ -24,7 +24,7 @@ public class ActuatorModelService {
      * @param actuatorModelRepository Repository for storing and retrieving actuator models.
      * @param factoryActuatorModel    Factory for creating new actuator model instances.
      */
-    public ActuatorModelService(ActuatorModelRepo actuatorModelRepository, ActuatorModelFactory factoryActuatorModel) {
+    public ActuatorModelService(IActuatorModelRepo actuatorModelRepository, IActuatorModelFactory factoryActuatorModel) {
         validateActuatorModelRepository(actuatorModelRepository);
         validateFactoryActuatorModel(factoryActuatorModel);
     }
@@ -35,7 +35,7 @@ public class ActuatorModelService {
      *
      * @param actuatorModelRepository The repository to be validated.
      */
-    private void validateActuatorModelRepository(ActuatorModelRepo actuatorModelRepository) {
+    private void validateActuatorModelRepository(IActuatorModelRepo actuatorModelRepository) {
         if (actuatorModelRepository == null) {
             throw new IllegalArgumentException("Please enter a valid actuator model repository.");
         } else {
@@ -49,7 +49,7 @@ public class ActuatorModelService {
      *
      * @param factoryActuatorModel The factory to be validated.
      */
-    private void validateFactoryActuatorModel(ActuatorModelFactory factoryActuatorModel) {
+    private void validateFactoryActuatorModel(IActuatorModelFactory factoryActuatorModel) {
         if (factoryActuatorModel == null) {
             throw new IllegalArgumentException("Please enter a valid actuator model factory.");
         } else {

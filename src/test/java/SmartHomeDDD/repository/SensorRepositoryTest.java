@@ -1,6 +1,6 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Sensor.ISensor;
 import SmartHomeDDD.valueObject.DeviceID;
 import SmartHomeDDD.valueObject.SensorID;
 import org.junit.jupiter.api.Test;
@@ -20,12 +20,12 @@ class SensorRepositoryTest {
     @Test
     void shouldSaveSensor_WhenGivenValidSensor() {
         //Arrange
-        Sensor Sensor = mock(Sensor.class);
+        ISensor Sensor = mock(ISensor.class);
         SensorID SensorID = mock(SensorID.class);
         when(Sensor.getID()).thenReturn(SensorID);
         SensorRepository SensorRepository = new SensorRepository();
         //Act
-        Sensor savedSensor = SensorRepository.save(Sensor);
+        ISensor savedSensor = SensorRepository.save(Sensor);
         //Assert
         assertEquals(Sensor, savedSensor);
     }
@@ -36,7 +36,7 @@ class SensorRepositoryTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenGivenNullSensor() {
         //Arrange
-        Sensor Sensor = null;
+        ISensor Sensor = null;
         SensorRepository SensorRepository = new SensorRepository();
         String expectedMessage = "Sensor cannot be null.";
         //Act
@@ -51,7 +51,7 @@ class SensorRepositoryTest {
     @Test
     void shouldThrowException_WhenSensorAlreadyExists() {
         //Arrange
-        Sensor Sensor = mock(Sensor.class);
+        ISensor Sensor = mock(ISensor.class);
         SensorID SensorID = mock(SensorID.class);
         when(Sensor.getID()).thenReturn(SensorID);
         SensorRepository SensorRepository = new SensorRepository();
@@ -70,10 +70,10 @@ class SensorRepositoryTest {
     @Test
     void shouldReturnAllSensors_WhenFindAllIsCalled() {
         //Arrange
-        Sensor firstSensor = mock(Sensor.class);
+        ISensor firstSensor = mock(ISensor.class);
         SensorID firstSensorID = mock(SensorID.class);
         when(firstSensor.getID()).thenReturn(firstSensorID);
-        Sensor secondSensor = mock(Sensor.class);
+        ISensor secondSensor = mock(ISensor.class);
         SensorID secondSensorID = mock(SensorID.class);
         when(secondSensor.getID()).thenReturn(secondSensorID);
 
@@ -81,9 +81,9 @@ class SensorRepositoryTest {
 
         SensorRepository.save(firstSensor);
         SensorRepository.save(secondSensor);
-        List<Sensor> expectedList = List.of(firstSensor, secondSensor);
+        List<ISensor> expectedList = List.of(firstSensor, secondSensor);
         //Act
-        List<Sensor> allSensors = SensorRepository.findAll();
+        List<ISensor> allSensors = SensorRepository.findAll();
         //Assert
         assertEquals(expectedList, allSensors);
     }
@@ -96,7 +96,7 @@ class SensorRepositoryTest {
         //Arrange
         SensorRepository SensorRepository = new SensorRepository();
         //Act
-        List<Sensor> allSensors = SensorRepository.findAll();
+        List<ISensor> allSensors = SensorRepository.findAll();
         //Assert
         assertTrue(allSensors.isEmpty());
     }
@@ -107,13 +107,13 @@ class SensorRepositoryTest {
     @Test
     void shoudReturnSensor_WhenGivenValidSensorID() {
         //Arrange
-        Sensor Sensor = mock(Sensor.class);
+        ISensor Sensor = mock(ISensor.class);
         SensorID SensorID = mock(SensorID.class);
         when(Sensor.getID()).thenReturn(SensorID);
         SensorRepository SensorRepository = new SensorRepository();
         SensorRepository.save(Sensor);
         //Act
-        Sensor returnedSensor = SensorRepository.ofIdentity(SensorID).get();
+        ISensor returnedSensor = SensorRepository.ofIdentity(SensorID).get();
         //Assert
         assertEquals(Sensor, returnedSensor);
     }
@@ -126,14 +126,14 @@ class SensorRepositoryTest {
         //Arrange
         SensorRepository SensorRepository = new SensorRepository();
 
-        Sensor Sensor = mock(Sensor.class);
+        ISensor Sensor = mock(ISensor.class);
         SensorID SensorID = mock(SensorID.class);
         when(Sensor.getID()).thenReturn(SensorID);
         SensorRepository.save(Sensor);
 
         SensorID nonExistentSensorID = mock(SensorID.class);
         //Act
-        Optional<Sensor> returnedSensor = SensorRepository.ofIdentity(nonExistentSensorID);
+        Optional<ISensor> returnedSensor = SensorRepository.ofIdentity(nonExistentSensorID);
         //Assert
         assertTrue(returnedSensor.isEmpty());
     }
@@ -144,7 +144,7 @@ class SensorRepositoryTest {
     @Test
     void shouldReturnTrue_WhenGivenValidSensorID() {
         //Arrange
-        Sensor Sensor = mock(Sensor.class);
+        ISensor Sensor = mock(ISensor.class);
         SensorID SensorID = mock(SensorID.class);
         when(Sensor.getID()).thenReturn(SensorID);
         SensorRepository SensorRepository = new SensorRepository();
@@ -163,7 +163,7 @@ class SensorRepositoryTest {
         //Arrange
         SensorRepository SensorRepository = new SensorRepository();
 
-        Sensor Sensor = mock(Sensor.class);
+        ISensor Sensor = mock(ISensor.class);
         SensorID SensorID = mock(SensorID.class);
         when(Sensor.getID()).thenReturn(SensorID);
         SensorRepository.save(Sensor);
@@ -183,15 +183,15 @@ class SensorRepositoryTest {
         //Arrange
         SensorRepository SensorRepository = new SensorRepository();
 
-        Sensor Sensor = mock(Sensor.class);
+        ISensor Sensor = mock(ISensor.class);
         SensorID SensorID = mock(SensorID.class);
         when(Sensor.getID()).thenReturn(SensorID);
 
-        Sensor Sensor2 = mock(Sensor.class);
+        ISensor Sensor2 = mock(ISensor.class);
         SensorID SensorID2 = mock(SensorID.class);
         when(Sensor2.getID()).thenReturn(SensorID2);
 
-        Sensor Sensor3 = mock(Sensor.class);
+        ISensor Sensor3 = mock(ISensor.class);
         SensorID SensorID3 = mock(SensorID.class);
         when(Sensor3.getID()).thenReturn(SensorID3);
 
@@ -204,10 +204,10 @@ class SensorRepositoryTest {
         SensorRepository.save(Sensor2);
         SensorRepository.save(Sensor3);
 
-        List<Sensor> expectedSensorList = List.of(Sensor, Sensor2, Sensor3);
+        List<ISensor> expectedSensorList = List.of(Sensor, Sensor2, Sensor3);
 
         //Act
-        List<Sensor> returnedSensorList = SensorRepository.findByDeviceId(DeviceID);
+        List<ISensor> returnedSensorList = SensorRepository.findByDeviceId(DeviceID);
 
         //Assert
         assertEquals(expectedSensorList, returnedSensorList);

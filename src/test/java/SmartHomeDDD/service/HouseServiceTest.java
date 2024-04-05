@@ -1,7 +1,7 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.House.House;
-import SmartHomeDDD.domain.House.HouseFactory;
+import SmartHomeDDD.domain.House.IHouseFactory;
 import SmartHomeDDD.repository.HouseRepository;
 import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
@@ -19,7 +19,7 @@ public class HouseServiceTest {
     @Test
     public void shouldInstantiateValidHouse() {
         // Arrange
-        HouseFactory houseFactoryDouble = mock(HouseFactory.class);
+        IHouseFactory houseFactoryDouble = mock(IHouseFactory.class);
         HouseRepository houseRepositoryDouble = mock(HouseRepository.class);
 
         // Act
@@ -35,7 +35,7 @@ public class HouseServiceTest {
     @Test
     public void shouldThrowIllegalArgumentExceptionWhenHouseFactoryIsNull() {
         // Arrange
-        HouseFactory houseFactory = null;
+        IHouseFactory houseFactory = null;
         HouseRepository houseRepository = mock(HouseRepository.class);
         String expectedMessage = "HouseFactory cannot be null.";
         // Act
@@ -50,7 +50,7 @@ public class HouseServiceTest {
     @Test
     public void shouldThrowIllegalArgumentExceptionWhenHouseRepositoryIsNull() {
         // Arrange
-        HouseFactory houseFactory = mock(HouseFactory.class);
+        IHouseFactory houseFactory = mock(IHouseFactory.class);
         HouseRepository houseRepository = null;
         String expectedMessage = "HouseRepository cannot be null.";
         // Act
@@ -66,7 +66,7 @@ public class HouseServiceTest {
     @Test
     public void shouldReturnHouseInstanceWhenHouseFactoryAndHouseRepositoryAreValid() {
         // Arrange
-        HouseFactory houseFactory = mock(HouseFactory.class);
+        IHouseFactory houseFactory = mock(IHouseFactory.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
         House house = mock(House.class);
         Address address = mock(Address.class);

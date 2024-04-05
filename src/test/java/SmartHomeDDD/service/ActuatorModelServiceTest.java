@@ -1,7 +1,7 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
-import SmartHomeDDD.domain.ActuatorModel.ActuatorModelFactory;
+import SmartHomeDDD.domain.ActuatorModel.IActuatorModelFactory;
 import SmartHomeDDD.repository.ActuatorModelRepository;
 import SmartHomeDDD.valueObject.ActuatorModelName;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
@@ -23,7 +23,7 @@ class ActuatorModelServiceTest {
     @Test
     void shouldInstantiateActuatorModelService_WhenGivenValidParameters() {
         //Arrange
-        ActuatorModelFactory actuatorModelFactory = mock(ActuatorModelFactory.class);
+        IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
         ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
 
         //Act
@@ -39,7 +39,7 @@ class ActuatorModelServiceTest {
     @Test
     void shouldThrowException_WhenActuatorModelFactoryIsNull() {
         //Arrange
-        ActuatorModelFactory actuatorModelFactory = null;
+        IActuatorModelFactory actuatorModelFactory = null;
         ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
 
         String expectedMessage = "Please enter a valid actuator model factory.";
@@ -57,7 +57,7 @@ class ActuatorModelServiceTest {
     @Test
     void shouldThrowException_WhenActuatorModelRepositoryIsNull() {
         //Arrange
-        ActuatorModelFactory actuatorModelFactory = mock(ActuatorModelFactory.class);
+        IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
         ActuatorModelRepository actuatorModelRepository = null;
 
         String expectedMessage = "Please enter a valid actuator model repository.";
@@ -76,7 +76,7 @@ class ActuatorModelServiceTest {
     void shouldGetListOfActuatorModel_WhenGetActuatorModelsCalled() {
         //Arrange
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
-        ActuatorModelFactory actuatorModelFactory = mock(ActuatorModelFactory.class);
+        IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
         ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
 
         when (actuatorModelRepository.findAll()).thenReturn(List.of(actuatorModel));
@@ -102,7 +102,7 @@ class ActuatorModelServiceTest {
     void shouldGetActuatorModel_WhenGetActuatorModelCalled() {
         //Arrange
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
-        ActuatorModelFactory actuatorModelFactory = mock(ActuatorModelFactory.class);
+        IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
         ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
 
         when (actuatorModelRepository.ofIdentity(any())).thenReturn(Optional.of(actuatorModel));
@@ -128,7 +128,7 @@ class ActuatorModelServiceTest {
     void shouldReturnActuatorModelsByTypeID_WhenParametersAreValid () {
         //Arrange
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
-        ActuatorModelFactory actuatorModelFactory = mock(ActuatorModelFactory.class);
+        IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
         ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
 
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);

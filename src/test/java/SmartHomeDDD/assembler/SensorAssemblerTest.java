@@ -1,7 +1,7 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.SensorDTO;
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Sensor.ISensor;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +42,7 @@ class SensorAssemblerTest {
         SensorName sensorNameDouble = mock(SensorName.class);
         when(sensorNameDouble.toString()).thenReturn(sensorName);
 
-        Sensor sensorDouble = mock(Sensor.class);
+        ISensor sensorDouble = mock(ISensor.class);
         when(sensorDouble.getDeviceID()).thenReturn(deviceIDDouble);
         when(sensorDouble.getModelPath()).thenReturn(modelPathDouble);
         when(sensorDouble.getSensorTypeID()).thenReturn(sensorTypeDouble);
@@ -65,7 +65,7 @@ class SensorAssemblerTest {
     @Test
     public void shouldThrowException_WhenSensorIsNull() {
         //Arrange
-        Sensor sensor = null;
+        ISensor sensor = null;
 
         SensorAssembler sensorAssembler = new SensorAssembler();
 
@@ -116,7 +116,7 @@ class SensorAssemblerTest {
         SensorName sensorNameDouble = mock(SensorName.class);
         when(sensorNameDouble.toString()).thenReturn(sensorName);
 
-        Sensor sensorDouble = mock(Sensor.class);
+        ISensor sensorDouble = mock(ISensor.class);
         when(sensorDouble.getDeviceID()).thenReturn(deviceIDDouble);
         when(sensorDouble.getModelPath()).thenReturn(modelPathDouble);
         when(sensorDouble.getSensorTypeID()).thenReturn(sensorTypeDouble);
@@ -139,7 +139,7 @@ class SensorAssemblerTest {
         SensorName sensorNameDouble2 = mock(SensorName.class);
         when(sensorNameDouble2.toString()).thenReturn(sensorName2);
 
-        Sensor sensorDouble2 = mock(Sensor.class);
+        ISensor sensorDouble2 = mock(ISensor.class);
         when(sensorDouble2.getDeviceID()).thenReturn(deviceIDDouble2);
         when(sensorDouble2.getModelPath()).thenReturn(modelPathDouble2);
         when(sensorDouble2.getSensorTypeID()).thenReturn(sensorTypeDouble2);
@@ -148,7 +148,7 @@ class SensorAssemblerTest {
 
         SensorAssembler sensorAssembler = new SensorAssembler();
 
-        List<Sensor> sensors = List.of(sensorDouble, sensorDouble2);
+        List<ISensor> sensors = List.of(sensorDouble, sensorDouble2);
 
         //Act
         List<SensorDTO> sensorsDTO = sensorAssembler.domainToDTO(sensors);
@@ -164,7 +164,7 @@ class SensorAssemblerTest {
     @Test
     public void shouldThrowException_WhenListOfSensorsIsNull() {
         //Arrange
-        List<Sensor> sensors = null;
+        List<ISensor> sensors = null;
 
         SensorAssembler sensorAssembler = new SensorAssembler();
 
@@ -187,7 +187,7 @@ class SensorAssemblerTest {
     @Test
     public void shouldThrowException_WhenListOfSensorsIsEmpty() {
         //Arrange
-        List<Sensor> sensors = List.of();
+        List<ISensor> sensors = List.of();
 
         SensorAssembler sensorAssembler = new SensorAssembler();
 
@@ -232,18 +232,18 @@ class SensorAssemblerTest {
         SensorName sensorNameDouble = mock(SensorName.class);
         when(sensorNameDouble.toString()).thenReturn(sensorName);
 
-        Sensor sensorDouble = mock(Sensor.class);
+        ISensor sensorDouble = mock(ISensor.class);
         when(sensorDouble.getDeviceID()).thenReturn(deviceIDDouble);
         when(sensorDouble.getModelPath()).thenReturn(modelPathDouble);
         when(sensorDouble.getSensorTypeID()).thenReturn(sensorTypeDouble);
         when(sensorDouble.getID()).thenReturn(sensorIDDouble);
         when(sensorDouble.getName()).thenReturn(sensorNameDouble);
 
-        Sensor sensorDouble2 = null;
+        ISensor sensorDouble2 = null;
 
         SensorAssembler sensorAssembler = new SensorAssembler();
 
-        List<Sensor> sensors = new ArrayList<>();
+        List<ISensor> sensors = new ArrayList<>();
         sensors.add(sensorDouble);
         sensors.add(sensorDouble2);
 

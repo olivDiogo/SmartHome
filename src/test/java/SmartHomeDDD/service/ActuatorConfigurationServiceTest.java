@@ -1,9 +1,9 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
-import SmartHomeDDD.domain.ActuatorModel.ActuatorModelFactory;
+import SmartHomeDDD.domain.ActuatorModel.IActuatorModelFactory;
 import SmartHomeDDD.domain.Unit.Unit;
-import SmartHomeDDD.domain.Unit.UnitFactory;
+import SmartHomeDDD.domain.Unit.IUnitFactory;
 import SmartHomeDDD.repository.ActuatorModelRepository;
 import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.ActuatorModelName;
@@ -29,8 +29,8 @@ class ActuatorConfigurationServiceTest {
     // Arrange
     ActuatorModelRepository ActuatorModelRepository = null;
     UnitRepository unitRepository = mock(UnitRepository.class);
-    ActuatorModelFactory ActuatorModelFactory = mock(ActuatorModelFactory.class);
-    UnitFactory unitFactory = mock(UnitFactory.class);
+    IActuatorModelFactory ActuatorModelFactory = mock(IActuatorModelFactory.class);
+    IUnitFactory unitFactory = mock(IUnitFactory.class);
     String expectedMessage = "Please enter a valid Actuator model repository.";
     // Act
     IllegalArgumentException exception =
@@ -48,8 +48,8 @@ class ActuatorConfigurationServiceTest {
     // Arrange
     ActuatorModelRepository ActuatorModelRepository = mock(ActuatorModelRepository.class);
     UnitRepository unitRepository = null;
-    ActuatorModelFactory ActuatorModelFactory = mock(ActuatorModelFactory.class);
-    UnitFactory unitFactory = mock(UnitFactory.class);
+    IActuatorModelFactory ActuatorModelFactory = mock(IActuatorModelFactory.class);
+    IUnitFactory unitFactory = mock(IUnitFactory.class);
     String expectedMessage = "Please enter a valid measurement type repository.";
     // Act
     IllegalArgumentException exception =
@@ -67,8 +67,8 @@ class ActuatorConfigurationServiceTest {
     // Arrange
     ActuatorModelRepository ActuatorModelRepository = mock(ActuatorModelRepository.class);
     UnitRepository unitRepository = mock(UnitRepository.class);
-    ActuatorModelFactory ActuatorModelFactory = null;
-    UnitFactory unitFactory = mock(UnitFactory.class);
+    IActuatorModelFactory ActuatorModelFactory = null;
+    IUnitFactory unitFactory = mock(IUnitFactory.class);
     String expectedMessage = "Please enter a valid Actuator model factory.";
     // Act
     IllegalArgumentException exception =
@@ -86,8 +86,8 @@ class ActuatorConfigurationServiceTest {
     // Arrange
     ActuatorModelRepository ActuatorModelRepository = mock(ActuatorModelRepository.class);
     UnitRepository unitRepository = mock(UnitRepository.class);
-    ActuatorModelFactory ActuatorModelFactory = mock(ActuatorModelFactory.class);
-    UnitFactory unitFactory = null;
+    IActuatorModelFactory ActuatorModelFactory = mock(IActuatorModelFactory.class);
+    IUnitFactory unitFactory = null;
     String expectedMessage = "Please enter a valid unit factory.";
     // Act
     IllegalArgumentException exception =
@@ -104,12 +104,12 @@ class ActuatorConfigurationServiceTest {
   void shouldLoadDefaultActuatorModels_WhenConfigurationServiceInstantiated()
       throws ConfigurationException {
     // Arrange
-    ActuatorModelFactory ActuatorModelFactory = mock(ActuatorModelFactory.class);
+    IActuatorModelFactory ActuatorModelFactory = mock(IActuatorModelFactory.class);
     when(ActuatorModelFactory.createActuatorModel(any(), any(), any()))
         .thenReturn(mock(ActuatorModel.class));
     ActuatorModelRepository ActuatorModelRepository = mock(ActuatorModelRepository.class);
     UnitRepository unitRepository = mock(UnitRepository.class);
-    UnitFactory unitFactory = mock(UnitFactory.class);
+    IUnitFactory unitFactory = mock(IUnitFactory.class);
     Configurations configs = new Configurations();
     int defaultActuatorModels =
         configs.properties(new File("configDDD.properties")).getStringArray("actuator").length;
@@ -134,10 +134,10 @@ class ActuatorConfigurationServiceTest {
   void shouldLoadDefaultMeasurementTypes_WhenConfigurationServiceInstantiated()
       throws ConfigurationException {
     // Arrange
-    ActuatorModelFactory ActuatorModelFactory = mock(ActuatorModelFactory.class);
+    IActuatorModelFactory ActuatorModelFactory = mock(IActuatorModelFactory.class);
     ActuatorModelRepository ActuatorModelRepository = mock(ActuatorModelRepository.class);
     UnitRepository unitRepository = mock(UnitRepository.class);
-    UnitFactory unitFactory = mock(UnitFactory.class);
+    IUnitFactory unitFactory = mock(IUnitFactory.class);
     when(unitFactory.createMeasurement(any(), any())).thenReturn(mock(Unit.class));
     Configurations configs = new Configurations();
     int defaultActuatorModels =

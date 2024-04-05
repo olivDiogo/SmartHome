@@ -3,17 +3,17 @@ package SmartHomeDDD.controller;
 import SmartHomeDDD.DTO.*;
 import SmartHomeDDD.assembler.*;
 import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Device.ImpDeviceFactory;
+import SmartHomeDDD.domain.Device.DeviceFactoryImpl;
 import SmartHomeDDD.domain.House.House;
-import SmartHomeDDD.domain.House.ImpHouseFactory;
-import SmartHomeDDD.domain.Room.ImpRoomFactory;
+import SmartHomeDDD.domain.House.HouseFactoryImpl;
+import SmartHomeDDD.domain.Room.RoomFactoryImpl;
 import SmartHomeDDD.domain.Room.Room;
-import SmartHomeDDD.domain.Sensor.ImpSensorFactory;
-import SmartHomeDDD.domain.SensorModel.ImpSensorModelFactory;
+import SmartHomeDDD.domain.Sensor.SensorFactoryImpl;
+import SmartHomeDDD.domain.SensorModel.SensorModelFactoryImpl;
 import SmartHomeDDD.domain.SensorModel.SensorModel;
-import SmartHomeDDD.domain.SensorType.ImpSensorTypeFactory;
+import SmartHomeDDD.domain.SensorType.SensorTypeFactoryImpl;
 import SmartHomeDDD.domain.SensorType.SensorType;
-import SmartHomeDDD.domain.Unit.ImpUnitFactory;
+import SmartHomeDDD.domain.Unit.UnitFactoryImpl;
 import SmartHomeDDD.repository.*;
 import SmartHomeDDD.service.*;
 import SmartHomeDDD.valueObject.*;
@@ -34,19 +34,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldCreateAddSensorToDeviceController() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -91,19 +91,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenRoomServiceIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService = null;
@@ -148,19 +148,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenRoomAssemblerIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = null;
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -206,19 +206,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenDeviceServiceIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -263,19 +263,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenDeviceAssemblerIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -321,19 +321,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenSensorModelServiceIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -382,19 +382,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenSensorModelAssemblerIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = null;
     RoomService roomService =
@@ -440,19 +440,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenConfigurationServiceIsNull() {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -496,17 +496,17 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenSensorTypeServiceIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -551,19 +551,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenSensorTypeAssemblerIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -609,19 +609,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenSensorAssemblerIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -667,17 +667,17 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenSensorServiceIsNull() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -722,19 +722,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldReturnEmptyList_whenThereAreNoRooms() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -779,21 +779,21 @@ public class AddSensorToDeviceControllerTest {
   void shouldGetRoomsFromHouse_WhenGivenValidHouseID() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
 
     HouseService houseService = new HouseService(houseFactory, houseRepository);
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
@@ -890,20 +890,20 @@ public class AddSensorToDeviceControllerTest {
       throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -960,21 +960,21 @@ public class AddSensorToDeviceControllerTest {
   void shouldGetDevicesFromRoom_WhenParametersAreValid() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
 
     HouseService houseService = new HouseService(houseFactory, houseRepository);
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
@@ -1082,21 +1082,21 @@ public class AddSensorToDeviceControllerTest {
   void shouldGetAvailableSensorModelsList() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
 
     HouseService houseService = new HouseService(houseFactory, houseRepository);
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
@@ -1154,21 +1154,21 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowExceptionWhenSensorModelRepositoryIsEmpty() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
 
     HouseService houseService = new HouseService(houseFactory, houseRepository);
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
@@ -1228,19 +1228,19 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowExceptionWhenSensorTypeRepositoryIsEmpty() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomService roomService =
@@ -1288,25 +1288,25 @@ public class AddSensorToDeviceControllerTest {
       throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
         new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
         new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
         new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -1350,24 +1350,24 @@ public class AddSensorToDeviceControllerTest {
   void shouldReturnEmptyList_whenThereAreNoSensorTypes() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
         new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
         new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
         new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -1377,7 +1377,7 @@ public class AddSensorToDeviceControllerTest {
         new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     ConfigurationService configurationService =
         new ConfigurationService(
-            sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+            sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
@@ -1422,27 +1422,27 @@ public class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForTemperatureSensor() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
         new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
         new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
         new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -1452,7 +1452,7 @@ public class AddSensorToDeviceControllerTest {
         new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     ConfigurationService configurationService =
         new ConfigurationService(
-            sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+            sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -1532,27 +1532,27 @@ public class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForHumiditySensor() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
             new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
             new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
             new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -1562,7 +1562,7 @@ public class AddSensorToDeviceControllerTest {
             new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     ConfigurationService configurationService =
             new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -1642,27 +1642,27 @@ public class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForAveragePowerConsumptionSensor() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
             new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
             new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
             new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -1672,7 +1672,7 @@ public class AddSensorToDeviceControllerTest {
             new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     ConfigurationService configurationService =
             new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -1752,27 +1752,27 @@ public class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForSwitchSensor() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
             new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
             new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
             new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -1782,7 +1782,7 @@ public class AddSensorToDeviceControllerTest {
             new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     ConfigurationService configurationService =
             new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -1862,27 +1862,27 @@ public class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForDewPointSensor() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
             new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
             new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
             new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -1892,7 +1892,7 @@ public class AddSensorToDeviceControllerTest {
             new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     ConfigurationService configurationService =
             new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -1972,27 +1972,27 @@ public class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForSolarIrradianceSensor() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
             new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
             new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
             new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -2002,7 +2002,7 @@ public class AddSensorToDeviceControllerTest {
             new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     ConfigurationService configurationService =
             new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -2082,27 +2082,27 @@ public class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForPercentagePositionSensor() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
             new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
             new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
             new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -2112,7 +2112,7 @@ public class AddSensorToDeviceControllerTest {
             new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     ConfigurationService configurationService =
             new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -2192,27 +2192,27 @@ public class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForInstantPowerConsumptionSensor() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
             new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
             new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
             new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -2222,7 +2222,7 @@ public class AddSensorToDeviceControllerTest {
             new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     ConfigurationService configurationService =
             new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -2302,27 +2302,27 @@ public class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForInstantElectricConsumptionSensor () throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
             new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
             new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
             new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -2332,7 +2332,7 @@ public class AddSensorToDeviceControllerTest {
             new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     ConfigurationService configurationService =
             new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -2411,27 +2411,27 @@ public class AddSensorToDeviceControllerTest {
   void shouldThrowException_whenParametersAreInvalid() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
-    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
     SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeService sensorTypeService =
         new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     SensorModelService sensorModelService =
         new SensorModelService(sensorModelRepository, sensorModelFactory);
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     DeviceService deviceService =
         new DeviceService(deviceRepository, deviceFactory, roomRepository);
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -2440,7 +2440,7 @@ public class AddSensorToDeviceControllerTest {
     RoomService roomService =
         new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
     new ConfigurationService(
-        sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+        sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 

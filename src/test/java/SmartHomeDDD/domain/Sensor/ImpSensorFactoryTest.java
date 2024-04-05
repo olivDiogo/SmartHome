@@ -25,7 +25,7 @@ public class ImpSensorFactoryTest {
         when(sensorTypeIdMock.getId()).thenReturn("SolarIrradiance");
         SensorName sensorNameMock = mock(SensorName.class);
 
-        ImpSensorFactory impSensorFactory = new ImpSensorFactory();
+        SensorFactoryImpl impSensorFactory = new SensorFactoryImpl();
 
         // Act
         SolarIrradianceSensor sensor = (SolarIrradianceSensor) impSensorFactory.create(deviceIdMock, modelPathMock, sensorTypeIdMock, sensorNameMock);
@@ -49,7 +49,7 @@ public class ImpSensorFactoryTest {
         SensorName sensorNameMock = mock(SensorName.class);
         GPS gpsMock = mock(GPS.class);
 
-        ImpSensorFactory impSensorFactory = new ImpSensorFactory();
+        SensorFactoryImpl impSensorFactory = new SensorFactoryImpl();
 
         // Act
         SunriseTimeSensor sensor = (SunriseTimeSensor) impSensorFactory.create(deviceIdMock, modelPathMock, sensorTypeIdMock, sensorNameMock, gpsMock);
@@ -71,10 +71,10 @@ public class ImpSensorFactoryTest {
         SensorTypeID sensorTypeIdMock = mock(SensorTypeID.class);
         SensorName sensorNameMock = mock(SensorName.class);
 
-        ImpSensorFactory impSensorFactory = new ImpSensorFactory();
+        SensorFactoryImpl impSensorFactory = new SensorFactoryImpl();
 
         // Act + Assert
-        Sensor result = impSensorFactory.create(deviceIdMock, modelPathMock, sensorTypeIdMock, sensorNameMock);
+        ISensor result = impSensorFactory.create(deviceIdMock, modelPathMock, sensorTypeIdMock, sensorNameMock);
 
         // Assert
         assertNull(result);
@@ -94,10 +94,10 @@ public class ImpSensorFactoryTest {
         SensorName sensorNameMock = mock(SensorName.class);
         String wrongObject = "wrong object";
 
-        ImpSensorFactory impSensorFactory = new ImpSensorFactory();
+        SensorFactoryImpl impSensorFactory = new SensorFactoryImpl();
 
         // Act + Assert
-        Sensor result = impSensorFactory.create(deviceIdMock, modelPathMock, sensorTypeIdMock, sensorNameMock, wrongObject);
+        ISensor result = impSensorFactory.create(deviceIdMock, modelPathMock, sensorTypeIdMock, sensorNameMock, wrongObject);
 
         // Assert
         assertNull(result);
@@ -115,7 +115,7 @@ public class ImpSensorFactoryTest {
 
         SensorName sensorNameMock = mock(SensorName.class);
 
-        ImpSensorFactory impSensorFactory = new ImpSensorFactory();
+        SensorFactoryImpl impSensorFactory = new SensorFactoryImpl();
 
         String expectedMessage = "At least 4 parameters are required.";
 

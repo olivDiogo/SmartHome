@@ -1,7 +1,7 @@
 package SmartHomeDDD.repository;
 
 import SmartHomeDDD.domain.SensorModel.SensorModel;
-import SmartHomeDDD.domain.SensorModel.SensorModelRepo;
+import SmartHomeDDD.domain.SensorModel.ISensorModelRepo;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorTypeID;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class SensorModelRepository implements SensorModelRepo {
+public class SensorModelRepository implements ISensorModelRepo {
     final private Map<ModelPath, SensorModel> DATA = new LinkedHashMap<>();
 
     @Override

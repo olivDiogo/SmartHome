@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.Actuator.BlindRollerActuator;
 
 import SmartHomeDDD.ddd.ValueObject;
-import SmartHomeDDD.domain.Actuator.Actuator;
+import SmartHomeDDD.domain.Actuator.IActuator;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.UUID;
@@ -10,7 +10,7 @@ import java.util.UUID;
  * Represents a Blind Roller Actuator in the Smart Home Domain.
  * This actuator is responsible for controlling blind roller devices.
  */
-public class BlindRollerActuator implements Actuator {
+public class BlindRollerActuator implements IActuator {
 
     private ActuatorID _actuatorID;
     private DeviceID _deviceID;

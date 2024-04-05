@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.Sensor.ElectricConsumptionWhSensor;
 
 import SmartHomeDDD.ddd.ValueObject;
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Sensor.ISensor;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.UUID;
@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * Represents a sensor that measures electric consumption in watt-hours.
  */
-public class ElectricConsumptionWhSensor implements Sensor {
+public class ElectricConsumptionWhSensor implements ISensor {
     /**
      * Constructs a new ElectricConsumptionWhSensor with the given parameters.
      *

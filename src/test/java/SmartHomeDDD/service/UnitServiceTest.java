@@ -1,7 +1,7 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.Unit.Unit;
-import SmartHomeDDD.domain.Unit.UnitFactory;
+import SmartHomeDDD.domain.Unit.IUnitFactory;
 import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.valueObject.UnitID;
@@ -25,7 +25,7 @@ class UnitServiceTest {
     void shouldInstantiateMeasurementTypeService_WhenConstructorInvoked() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         // Act
         UnitService unitService = new UnitService(unitRepositoryDouble, unitFactoryDouble);
@@ -41,7 +41,7 @@ class UnitServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeRepositoryIsNull() {
         // Arrange
         UnitRepository unitRepositoryDouble = null;
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         String expectedMessage = "Please enter a valid measurement type repository.";
 
@@ -59,7 +59,7 @@ class UnitServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeFactoryIsNull() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = null;
+        IUnitFactory unitFactoryDouble = null;
 
         String expectedMessage = "Please enter a valid measurement type factory.";
 
@@ -77,7 +77,7 @@ class UnitServiceTest {
     void shouldCreateAndSaveMeasurementType_WhenParameterAreValid() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         UnitService unitService = new UnitService(unitRepositoryDouble, unitFactoryDouble);
 
@@ -105,7 +105,7 @@ class UnitServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsNull() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         UnitService unitService = new UnitService(unitRepositoryDouble, unitFactoryDouble);
 
@@ -128,7 +128,7 @@ class UnitServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsEmpty() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         UnitService unitService = new UnitService(unitRepositoryDouble, unitFactoryDouble);
 
@@ -153,7 +153,7 @@ class UnitServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsBlank() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         UnitService unitService = new UnitService(unitRepositoryDouble, unitFactoryDouble);
 
@@ -178,7 +178,7 @@ class UnitServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeUnitIsNull() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         UnitService unitService = new UnitService(unitRepositoryDouble, unitFactoryDouble);
 
@@ -202,7 +202,7 @@ class UnitServiceTest {
     void shouldThrowIllegalArgumentException_whenMeasurementTypeUnitIsEmpty() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         UnitService unitService = new UnitService(unitRepositoryDouble, unitFactoryDouble);
 
@@ -228,7 +228,7 @@ class UnitServiceTest {
     void shouldReturnMeasurementType_WhenFindByIdInvoked() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         UnitService unitService = new UnitService(unitRepositoryDouble, unitFactoryDouble);
 
@@ -254,7 +254,7 @@ class UnitServiceTest {
     void shouldThrowIllegalArgumentException_WhenFindByIdWithNullIDInvoked() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         UnitService unitService = new UnitService(unitRepositoryDouble, unitFactoryDouble);
 
@@ -278,7 +278,7 @@ class UnitServiceTest {
     void shouldReturnAllMeasurementTypes_WhenFindAllMeasurementTypesInvoked() {
         // Arrange
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
-        UnitFactory unitFactoryDouble = mock(UnitFactory.class);
+        IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
         UnitService unitService = new UnitService(unitRepositoryDouble, unitFactoryDouble);
 
@@ -298,7 +298,7 @@ class UnitServiceTest {
     void shouldNotReturnEmptyList_WhenFindAllMeasurementTypesIsCalledWithAvailableTypes() {
         // Arrange
         UnitRepository unitRepository = mock(UnitRepository.class);
-        UnitFactory unitFactory = mock(UnitFactory.class);
+        IUnitFactory unitFactory = mock(IUnitFactory.class);
         UnitService unitService = new UnitService(unitRepository, unitFactory);
         Unit unit = mock(Unit.class);
         List<Unit> availableTypes = Arrays.asList(unit);

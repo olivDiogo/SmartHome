@@ -6,10 +6,10 @@ import SmartHomeDDD.DTO.RoomDTO;
 import SmartHomeDDD.assembler.DeviceAssembler;
 import SmartHomeDDD.assembler.RoomAssembler;
 import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Device.ImpDeviceFactory;
+import SmartHomeDDD.domain.Device.DeviceFactoryImpl;
 import SmartHomeDDD.domain.House.House;
-import SmartHomeDDD.domain.House.ImpHouseFactory;
-import SmartHomeDDD.domain.Room.ImpRoomFactory;
+import SmartHomeDDD.domain.House.HouseFactoryImpl;
+import SmartHomeDDD.domain.Room.RoomFactoryImpl;
 import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.repository.DeviceRepository;
 import SmartHomeDDD.repository.HouseRepository;
@@ -33,14 +33,14 @@ class AddDeviceToRoomControllerTest {
     void shouldInstantiateAddDeviceToRoomController_WhenParametersAreValid() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
 
@@ -63,7 +63,7 @@ class AddDeviceToRoomControllerTest {
         RoomService roomService = null;
 
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
 
@@ -85,11 +85,11 @@ class AddDeviceToRoomControllerTest {
     void shouldThrowException_WhenRoomAssemblerIsNull() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        RoomService roomService = new RoomService(roomRepository, new ImpRoomFactory(), new RoomAssembler(), new HouseRepository());
+        RoomService roomService = new RoomService(roomRepository, new RoomFactoryImpl(), new RoomAssembler(), new HouseRepository());
         RoomAssembler roomAssembler = null;
 
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
 
@@ -111,7 +111,7 @@ class AddDeviceToRoomControllerTest {
     void shouldThrowException_WhenDeviceServiceIsNull() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        RoomService roomService = new RoomService(roomRepository, new ImpRoomFactory(), new RoomAssembler(), new HouseRepository());
+        RoomService roomService = new RoomService(roomRepository, new RoomFactoryImpl(), new RoomAssembler(), new HouseRepository());
         RoomAssembler roomAssembler = new RoomAssembler();
         DeviceService deviceService = null;
 
@@ -133,11 +133,11 @@ class AddDeviceToRoomControllerTest {
     void shouldThrowException_WhenDeviceAssemblerIsNull() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        RoomService roomService = new RoomService(roomRepository, new ImpRoomFactory(), new RoomAssembler(), new HouseRepository());
+        RoomService roomService = new RoomService(roomRepository, new RoomFactoryImpl(), new RoomAssembler(), new HouseRepository());
         RoomAssembler roomAssembler = new RoomAssembler();
 
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = null;
@@ -158,14 +158,14 @@ class AddDeviceToRoomControllerTest {
     void shouldReturnListOfRoomDTOs_WhenGetAllRoomsIsCalled() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
 
@@ -173,7 +173,7 @@ class AddDeviceToRoomControllerTest {
 
         AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler);
 
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -231,14 +231,14 @@ class AddDeviceToRoomControllerTest {
     void shouldThrowException_WhenListOfRoomsIsEmpty(){
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
 
@@ -258,13 +258,13 @@ class AddDeviceToRoomControllerTest {
     void shouldReturnDeviceDTO_WhenAddDeviceToRoomIsCalled() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
 
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -314,7 +314,7 @@ class AddDeviceToRoomControllerTest {
 
                                //Device
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
 
         Device device = deviceService.addDevice(roomIdVO, deviceNameVO, deviceStatusVO, deviceTypeIDVO);
@@ -340,14 +340,14 @@ class AddDeviceToRoomControllerTest {
     void shouldThrowException_WhenRoomDoesNotExist(){
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
 

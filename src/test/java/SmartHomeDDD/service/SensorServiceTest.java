@@ -1,8 +1,8 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Sensor.Sensor;
-import SmartHomeDDD.domain.Sensor.SensorFactory;
+import SmartHomeDDD.domain.Sensor.ISensor;
+import SmartHomeDDD.domain.Sensor.ISensorFactory;
 import SmartHomeDDD.repository.DeviceRepository;
 import SmartHomeDDD.repository.SensorRepository;
 import SmartHomeDDD.valueObject.DeviceID;
@@ -26,7 +26,7 @@ class SensorServiceTest {
         // Arrange
         SensorService sensorService;
         SensorRepository sensorRepository = mock(SensorRepository.class);
-        SensorFactory sensorFactory = mock(SensorFactory.class);
+        ISensorFactory sensorFactory = mock(ISensorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
         // Act
@@ -42,7 +42,7 @@ class SensorServiceTest {
     public void shouldThrowIllegalArgumentException_whenGivenNullSensorRepository() {
         // Arrange
         SensorRepository sensorRepository = null;
-        SensorFactory sensorFactory = mock(SensorFactory.class);
+        ISensorFactory sensorFactory = mock(ISensorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
         // Act Assert
@@ -54,7 +54,7 @@ class SensorServiceTest {
     public void shouldThrowIllegalArgumentException_whenGivenNullSensorFactory() {
         // Arrange
         SensorRepository sensorRepository = mock(SensorRepository.class);
-        SensorFactory sensorFactory = null;
+        ISensorFactory sensorFactory = null;
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
         // Act Assert
@@ -67,7 +67,7 @@ class SensorServiceTest {
     public void shouldThrowIllegalArgumentException_whenGivenNullDeviceRepository() {
         // Arrange
         SensorRepository sensorRepository = mock(SensorRepository.class);
-        SensorFactory sensorFactory = mock(SensorFactory.class);
+        ISensorFactory sensorFactory = mock(ISensorFactory.class);
         DeviceRepository deviceRepository = null;
 
         // Act Assert
@@ -80,7 +80,7 @@ class SensorServiceTest {
     public void testAddSensor_DeviceFound_Success() {
         // Arrange
         SensorRepository sensorRepository = mock(SensorRepository.class);
-        SensorFactory sensorFactory = mock(SensorFactory.class);
+        ISensorFactory sensorFactory = mock(ISensorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
         SensorService sensorService = new SensorService(sensorRepository, sensorFactory, deviceRepository);
@@ -94,12 +94,12 @@ class SensorServiceTest {
 
         when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
 
-        Sensor mockSensor = mock(Sensor.class);
+        ISensor mockSensor = mock(ISensor.class);
 
         when(sensorFactory.create(deviceID, modelPath, sensorTypeID, sensorName)).thenReturn(mockSensor);
 
         // Act
-        Sensor actualSensor = sensorService.addSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        ISensor actualSensor = sensorService.addSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Assert
         assertNotNull(actualSensor);
@@ -112,7 +112,7 @@ class SensorServiceTest {
     public void testAddSensor_DeviceNotFound_ThrowException() {
         // Arrange
         SensorRepository sensorRepository = mock(SensorRepository.class);
-        SensorFactory sensorFactory = mock(SensorFactory.class);
+        ISensorFactory sensorFactory = mock(ISensorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
         SensorService sensorService = new SensorService(sensorRepository, sensorFactory, deviceRepository);

@@ -23,7 +23,7 @@ class ImpDeviceFactoryTest {
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
         DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
-        ImpDeviceFactory factory = new ImpDeviceFactory();
+        DeviceFactoryImpl factory = new DeviceFactoryImpl();
 
         //Act
         Device result = factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID);
@@ -43,7 +43,7 @@ class ImpDeviceFactoryTest {
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
         DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
-        ImpDeviceFactory factory = new ImpDeviceFactory();
+        DeviceFactoryImpl factory = new DeviceFactoryImpl();
 
         //Act & Assert
         assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID), "Factory should throw IllegalArgumentException for null RoomID.");
@@ -60,7 +60,7 @@ class ImpDeviceFactoryTest {
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
         DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
-        ImpDeviceFactory factory = new ImpDeviceFactory();
+        DeviceFactoryImpl factory = new DeviceFactoryImpl();
 
         //Act & Assert
         assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus,deviceTypeID), "Factory should throw IllegalArgumentException for null DeviceName.");
@@ -77,7 +77,7 @@ class ImpDeviceFactoryTest {
         DeviceStatus deviceStatus = null;
         DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
-        ImpDeviceFactory factory = new ImpDeviceFactory();
+        DeviceFactoryImpl factory = new DeviceFactoryImpl();
 
         //Act & Assert
         assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID), "Factory should throw IllegalArgumentException for null DeviceStatus.");
@@ -94,7 +94,7 @@ class ImpDeviceFactoryTest {
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
         DeviceTypeID deviceTypeID = null;
 
-        ImpDeviceFactory factory = new ImpDeviceFactory();
+        DeviceFactoryImpl factory = new DeviceFactoryImpl();
 
         //Act & Assert
         assertThrows(IllegalArgumentException.class, () -> factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID), "Factory should throw IllegalArgumentException for null DeviceTypeID.");

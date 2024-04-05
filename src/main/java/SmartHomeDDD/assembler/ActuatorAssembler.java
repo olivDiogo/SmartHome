@@ -2,11 +2,11 @@ package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.ActuatorDTO;
 import SmartHomeDDD.ddd.Assembler;
-import SmartHomeDDD.domain.Actuator.Actuator;
+import SmartHomeDDD.domain.Actuator.IActuator;
 
 import java.util.List;
 
-public class ActuatorAssembler implements Assembler<Actuator, ActuatorDTO> {
+public class ActuatorAssembler implements Assembler<IActuator, ActuatorDTO> {
 
     /**
      * Converts an Actuator domain entity to an ActuatorDTO data transfer object.
@@ -15,7 +15,7 @@ public class ActuatorAssembler implements Assembler<Actuator, ActuatorDTO> {
      * @return The ActuatorDTO data transfer object.
      */
     @Override
-    public ActuatorDTO domainToDTO(Actuator actuator) {
+    public ActuatorDTO domainToDTO(IActuator actuator) {
         if (actuator == null) {
             throw new IllegalArgumentException("The Actuator cannot be null.");
         }
@@ -37,7 +37,7 @@ public class ActuatorAssembler implements Assembler<Actuator, ActuatorDTO> {
      * @return The list of ActuatorDTO data transfer objects.
      */
     @Override
-    public List<ActuatorDTO> domainToDTO(List<Actuator> actuators) {
+    public List<ActuatorDTO> domainToDTO(List<IActuator> actuators) {
         if (actuators == null || actuators.isEmpty()) {
             throw new IllegalArgumentException("The list of Actuators cannot be null or empty.");
         }

@@ -1,7 +1,7 @@
 package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.ActuatorDTO;
-import SmartHomeDDD.domain.Actuator.Actuator;
+import SmartHomeDDD.domain.Actuator.IActuator;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +39,7 @@ public class ActuatorAssemblerTest {
         DeviceID deviceIDDouble = mock(DeviceID.class);
         when(deviceIDDouble.getId()).thenReturn(deviceID);
 
-        Actuator actuatorDouble = mock(Actuator.class);
+        IActuator actuatorDouble = mock(IActuator.class);
         when(actuatorDouble.getID()).thenReturn(actuatorIdDouble);
         when(actuatorDouble.getActuatorTypeID()).thenReturn(actuatorTypeIDDouble);
         when(actuatorDouble.getName()).thenReturn(actuatorNameDouble);
@@ -61,7 +61,7 @@ public class ActuatorAssemblerTest {
     @Test
     public void shouldThrowIllegalArgumentException_whenActuatorIsNull() {
         //Arrange
-        Actuator actuatorDouble = null;
+        IActuator actuatorDouble = null;
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
 
         //Act
@@ -107,21 +107,21 @@ public class ActuatorAssemblerTest {
         DeviceID deviceIDDouble = mock(DeviceID.class);
         when(deviceIDDouble.getId()).thenReturn(deviceID);
 
-        Actuator actuatorDouble1 = mock(Actuator.class);
+        IActuator actuatorDouble1 = mock(IActuator.class);
         when(actuatorDouble1.getID()).thenReturn(actuatorIdDouble1);
         when(actuatorDouble1.getActuatorTypeID()).thenReturn(actuatorTypeIDDouble);
         when(actuatorDouble1.getName()).thenReturn(actuatorNameDouble);
         when(actuatorDouble1.getModelPath()).thenReturn(modelPathDouble);
         when(actuatorDouble1.getDeviceID()).thenReturn(deviceIDDouble);
 
-        Actuator actuatorDouble2 = mock(Actuator.class);
+        IActuator actuatorDouble2 = mock(IActuator.class);
         when(actuatorDouble2.getID()).thenReturn(actuatorIdDouble2);
         when(actuatorDouble2.getActuatorTypeID()).thenReturn(actuatorTypeIDDouble);
         when(actuatorDouble2.getName()).thenReturn(actuatorNameDouble2);
         when(actuatorDouble2.getModelPath()).thenReturn(modelPathDouble);
         when(actuatorDouble2.getDeviceID()).thenReturn(deviceIDDouble);
 
-        List<Actuator> actuators = List.of(actuatorDouble1, actuatorDouble2);
+        List<IActuator> actuators = List.of(actuatorDouble1, actuatorDouble2);
 
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
 
@@ -139,7 +139,7 @@ public class ActuatorAssemblerTest {
     @Test
     public void shouldThrowIllegalArgumentException_whenListOfActuatorIsNull() {
         //Arrange
-        List<Actuator> actuators = null;
+        List<IActuator> actuators = null;
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
 
         //Act
@@ -157,7 +157,7 @@ public class ActuatorAssemblerTest {
     @Test
     public void shouldThrowIllegalArgumentException_whenListOfActuatorIsEmpty() {
         //Arrange
-        List<Actuator> actuators = List.of();
+        List<IActuator> actuators = List.of();
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
 
         //Act

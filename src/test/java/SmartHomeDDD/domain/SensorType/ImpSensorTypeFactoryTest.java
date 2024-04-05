@@ -31,7 +31,7 @@ public class ImpSensorTypeFactoryTest {
             when(mock.getUnit()).thenReturn(actualUnitDouble);
 
         })) {
-            ImpSensorTypeFactory impSensorTypeFactory = new ImpSensorTypeFactory();
+            SensorTypeFactoryImpl impSensorTypeFactory = new SensorTypeFactoryImpl();
 
             // Act
             SensorType sensorType = impSensorTypeFactory.createSensorType(typeDescriptionDouble, unitDouble);

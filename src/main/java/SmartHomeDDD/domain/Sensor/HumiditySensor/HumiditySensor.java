@@ -1,13 +1,13 @@
 package SmartHomeDDD.domain.Sensor.HumiditySensor;
 
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Sensor.ISensor;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public class HumiditySensor implements Sensor {
+public class HumiditySensor implements ISensor {
     private ModelPath _modelPath;
     private SensorName _sensorName;
     private SensorID _sensorID;

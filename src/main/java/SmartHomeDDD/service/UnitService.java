@@ -1,7 +1,7 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.Unit.Unit;
-import SmartHomeDDD.domain.Unit.UnitFactory;
+import SmartHomeDDD.domain.Unit.IUnitFactory;
 import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.UnitDescription;
 import SmartHomeDDD.valueObject.UnitID;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class UnitService {
 
     private UnitRepository _unitRepository;
-    private UnitFactory _UnitFactory;
+    private IUnitFactory _UnitFactory;
 
     /**
      * Constructor for MeasurementTypeService.
@@ -21,7 +21,7 @@ public class UnitService {
      * @param unitRepository
      * @param unitFactory
      */
-    public UnitService(UnitRepository unitRepository, UnitFactory unitFactory) {
+    public UnitService(UnitRepository unitRepository, IUnitFactory unitFactory) {
         validateMeasurementTypeRepository(unitRepository);
         validateMeasurementTypeFactory(unitFactory);
     }
@@ -44,7 +44,7 @@ public class UnitService {
      *
      * @param unitFactory The MeasurementTypeFactory to validate.
      */
-    private void validateMeasurementTypeFactory(UnitFactory unitFactory) {
+    private void validateMeasurementTypeFactory(IUnitFactory unitFactory) {
         if (unitFactory == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type factory.");
         } else {

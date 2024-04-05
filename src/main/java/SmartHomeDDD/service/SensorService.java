@@ -2,18 +2,18 @@ package SmartHomeDDD.service;
 
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Device.DeviceRepo;
-import SmartHomeDDD.domain.Sensor.Sensor;
-import SmartHomeDDD.domain.Sensor.SensorFactory;
+import SmartHomeDDD.domain.Device.IDeviceRepo;
+import SmartHomeDDD.domain.Sensor.ISensor;
+import SmartHomeDDD.domain.Sensor.ISensorFactory;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.Optional;
 
 public class SensorService {
 
-    private Repository<SensorID, Sensor> _sensorRepository;
-    private SensorFactory _sensorFactory;
-    private DeviceRepo _deviceRepository;
+    private Repository<SensorID, ISensor> _sensorRepository;
+    private ISensorFactory _sensorFactory;
+    private IDeviceRepo _deviceRepository;
 
     /**
      * Constructor for SensorService.
@@ -22,7 +22,7 @@ public class SensorService {
      * @param sensorFactory    is the factory for sensors.
      * @param deviceRepository is the repository for devices.
      */
-    public SensorService(Repository<SensorID, Sensor> sensorRepository, SensorFactory sensorFactory, DeviceRepo deviceRepository) {
+    public SensorService(Repository<SensorID, ISensor> sensorRepository, ISensorFactory sensorFactory, IDeviceRepo deviceRepository) {
         validateSensorRepository(sensorRepository);
         validateSensorFactory(sensorFactory);
         validateDeviceRepository(deviceRepository);
@@ -35,7 +35,7 @@ public class SensorService {
      *
      * @param sensorRepository The SensorRepository to validate.
      */
-    private void validateSensorRepository(Repository<SensorID, Sensor> sensorRepository) {
+    private void validateSensorRepository(Repository<SensorID, ISensor> sensorRepository) {
         if (sensorRepository == null) {
             throw new IllegalArgumentException("Please enter a valid sensor repository.");
         } else {
@@ -49,7 +49,7 @@ public class SensorService {
      *
      * @param sensorFactory The SensorFactory to validate.
      */
-    private void validateSensorFactory(SensorFactory sensorFactory) {
+    private void validateSensorFactory(ISensorFactory sensorFactory) {
         if (sensorFactory == null) {
             throw new IllegalArgumentException("Please enter a valid sensor factory.");
         } else {
@@ -62,7 +62,7 @@ public class SensorService {
      *
      * @param deviceRepository The DeviceRepository to validate.
      */
-    private void validateDeviceRepository(DeviceRepo deviceRepository) {
+    private void validateDeviceRepository(IDeviceRepo deviceRepository) {
         if (deviceRepository == null) {
             throw new IllegalArgumentException("Please enter a valid device repository.");
         } else {
@@ -79,13 +79,13 @@ public class SensorService {
      * @param sensorName   The name of the sensor.
      * @return The created and saved Sensor object.
      */
-    public Sensor addSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    public ISensor addSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         Optional<Device> deviceOptional = _deviceRepository.ofIdentity(deviceID);
         if (deviceOptional.isEmpty()) {
             throw new IllegalArgumentException("Device with ID " + deviceID + " not found.");
         }
 
-        Sensor sensor = _sensorFactory.create(deviceID, modelPath, sensorTypeID, sensorName);
+        ISensor sensor = _sensorFactory.create(deviceID, modelPath, sensorTypeID, sensorName);
         _sensorRepository.save(sensor);
         return sensor;
     }

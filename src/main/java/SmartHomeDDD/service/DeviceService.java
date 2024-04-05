@@ -2,8 +2,8 @@ package SmartHomeDDD.service;
 
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Device.DeviceFactory;
-import SmartHomeDDD.domain.Device.DeviceRepo;
+import SmartHomeDDD.domain.Device.IDeviceFactory;
+import SmartHomeDDD.domain.Device.IDeviceRepo;
 import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.valueObject.*;
 
@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class DeviceService {
-    private final DeviceRepo _deviceRepository;
-    private final DeviceFactory _deviceFactory;
+    private final IDeviceRepo _deviceRepository;
+    private final IDeviceFactory _deviceFactory;
     private final Repository<RoomID, Room> _roomRepository;
 
     /**
@@ -22,7 +22,7 @@ public class DeviceService {
      * @param deviceFactory    is the factory for the device.
      * @param roomRepository   is the repository for the room.
      */
-    public DeviceService(DeviceRepo deviceRepository, DeviceFactory deviceFactory, Repository<RoomID, Room> roomRepository) {
+    public DeviceService(IDeviceRepo deviceRepository, IDeviceFactory deviceFactory, Repository<RoomID, Room> roomRepository) {
         _deviceRepository = deviceRepository;
         _deviceFactory = deviceFactory;
         _roomRepository = roomRepository;

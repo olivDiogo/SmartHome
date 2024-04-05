@@ -1,7 +1,7 @@
 package SmartHomeDDD.repository;
 
 import SmartHomeDDD.ddd.Repository;
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Sensor.ISensor;
 import SmartHomeDDD.valueObject.DeviceID;
 import SmartHomeDDD.valueObject.SensorID;
 
@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class SensorRepository implements Repository<SensorID, Sensor> {
+public class SensorRepository implements Repository<SensorID, ISensor> {
 
 
     /**
      * Map to store the Sensor data.
      */
-    private final Map<SensorID, Sensor> _SensorData = new LinkedHashMap<>();
+    private final Map<SensorID, ISensor> _SensorData = new LinkedHashMap<>();
 
     /**
      * Method to save a domain entity.
@@ -25,7 +25,7 @@ public class SensorRepository implements Repository<SensorID, Sensor> {
      * @return
      */
     @Override
-    public Sensor save(Sensor Sensor) {
+    public ISensor save(ISensor Sensor) {
         if (Sensor == null) {
             throw new IllegalArgumentException("Sensor cannot be null.");
         } else if (containsOfIdentity(Sensor.getID())) {
@@ -42,8 +42,8 @@ public class SensorRepository implements Repository<SensorID, Sensor> {
      * @return
      */
     @Override
-    public List<Sensor> findAll() {
-        List<Sensor> allSensors = _SensorData.values().stream().toList();
+    public List<ISensor> findAll() {
+        List<ISensor> allSensors = _SensorData.values().stream().toList();
         return allSensors;
     }
 
@@ -54,8 +54,8 @@ public class SensorRepository implements Repository<SensorID, Sensor> {
      * @return
      */
     @Override
-    public Optional<Sensor> ofIdentity(SensorID SensorID) {
-        Optional<Sensor> Sensor = Optional.ofNullable(_SensorData.get(SensorID));
+    public Optional<ISensor> ofIdentity(SensorID SensorID) {
+        Optional<ISensor> Sensor = Optional.ofNullable(_SensorData.get(SensorID));
         return Sensor;
     }
 
@@ -76,8 +76,8 @@ public class SensorRepository implements Repository<SensorID, Sensor> {
      * @param deviceID is the unique identifier of the room.
      * @return a list of Sensors in the device.
      */
-    public List<Sensor> findByDeviceId(DeviceID deviceID) {
-        List<Sensor> Sensors = _SensorData.values().stream().filter(Sensor -> Sensor.getDeviceID().equals(deviceID)).toList();
+    public List<ISensor> findByDeviceId(DeviceID deviceID) {
+        List<ISensor> Sensors = _SensorData.values().stream().filter(Sensor -> Sensor.getDeviceID().equals(deviceID)).toList();
         return Sensors;
     }
 

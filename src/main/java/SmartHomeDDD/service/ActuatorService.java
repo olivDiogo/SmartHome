@@ -1,8 +1,8 @@
 package SmartHomeDDD.service;
 
 
-import SmartHomeDDD.domain.Actuator.Actuator;
-import SmartHomeDDD.domain.Actuator.ActuatorFactory;
+import SmartHomeDDD.domain.Actuator.IActuator;
+import SmartHomeDDD.domain.Actuator.IActuatorFactory;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.repository.ActuatorRepository;
 import SmartHomeDDD.repository.DeviceRepository;
@@ -18,7 +18,7 @@ import java.util.Optional;
 public class ActuatorService {
 
     private final ActuatorRepository _actuatorRepository;
-    private final ActuatorFactory _actuatorFactory;
+    private final IActuatorFactory _actuatorFactory;
     private final DeviceRepository _deviceRepository;
 
     /**
@@ -28,7 +28,7 @@ public class ActuatorService {
      * @param actuatorFactory    The factory for creating actuators.
      * @param deviceRepository   The repository for accessing devices.
      */
-    public ActuatorService(ActuatorRepository actuatorRepository, ActuatorFactory actuatorFactory, DeviceRepository deviceRepository) {
+    public ActuatorService(ActuatorRepository actuatorRepository, IActuatorFactory actuatorFactory, DeviceRepository deviceRepository) {
         _actuatorRepository = actuatorRepository;
         _actuatorFactory = actuatorFactory;
         _deviceRepository = deviceRepository;
@@ -44,12 +44,12 @@ public class ActuatorService {
      * @return The added actuator.
      * @throws IllegalArgumentException If the device with the specified ID does not exist.
      */
-    public Actuator addActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
+    public IActuator addActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
         Optional<Device> deviceOptional = _deviceRepository.ofIdentity(deviceID);
         if (deviceOptional.isEmpty()) {
             throw new IllegalArgumentException("Device with ID " + deviceID + " not found.");
         }
-        Actuator actuator = _actuatorFactory.createActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
+        IActuator actuator = _actuatorFactory.createActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
         _actuatorRepository.save(actuator);
         return actuator;
     }
@@ -60,7 +60,7 @@ public class ActuatorService {
      * @param actuatorID The ID of the actuator to retrieve.
      * @return An Optional containing the retrieved actuator, or empty if not found.
      */
-    public Optional<Actuator> getActuatorByID(ActuatorID actuatorID) {
+    public Optional<IActuator> getActuatorByID(ActuatorID actuatorID) {
         return _actuatorRepository.ofIdentity(actuatorID);
     }
 
@@ -69,7 +69,7 @@ public class ActuatorService {
      *
      * @return A list of all actuators.
      */
-    public List<Actuator> getAllActuators() {
+    public List<IActuator> getAllActuators() {
         return _actuatorRepository.findAll();
     }
 }

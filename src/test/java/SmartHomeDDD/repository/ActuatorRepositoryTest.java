@@ -1,6 +1,6 @@
 package SmartHomeDDD.repository;
 
-import SmartHomeDDD.domain.Actuator.Actuator;
+import SmartHomeDDD.domain.Actuator.IActuator;
 import SmartHomeDDD.valueObject.ActuatorID;
 import SmartHomeDDD.valueObject.DeviceID;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class ActuatorRepositoryTest {
     @Test
     void shouldSaveActuator_WhenGivenValidActuator() {
         //Arrange
-        Actuator actuator = mock(Actuator.class);
+        IActuator actuator = mock(IActuator.class);
         ActuatorID actuatorID = mock(ActuatorID.class);
 
         when(actuator.getID()).thenReturn(actuatorID);
@@ -39,7 +39,7 @@ class ActuatorRepositoryTest {
         ActuatorRepository actuatorRepository = new ActuatorRepository();
 
         //Act
-        Actuator savedActuator = actuatorRepository.save(actuator);
+        IActuator savedActuator = actuatorRepository.save(actuator);
 
         //Assert
         assertEquals(actuator, savedActuator);
@@ -51,7 +51,7 @@ class ActuatorRepositoryTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenGivenNullActuator() {
         //Arrange
-        Actuator actuator = null;
+        IActuator actuator = null;
         ActuatorRepository actuatorRepository = new ActuatorRepository();
         String expectedMessage = "Actuator cannot be null.";
 
@@ -68,7 +68,7 @@ class ActuatorRepositoryTest {
     @Test
     void shouldThrowException_WhenActuatorAlreadyExists() {
         //Arrange
-        Actuator actuator = mock(Actuator.class);
+        IActuator actuator = mock(IActuator.class);
         ActuatorID actuatorID = mock(ActuatorID.class);
 
         when(actuator.getID()).thenReturn(actuatorID);
@@ -92,7 +92,7 @@ class ActuatorRepositoryTest {
     @Test
     void shouldFindAllActuators_WhenFindAllIsCalled() {
         //Arrange
-        Actuator actuator = mock(Actuator.class);
+        IActuator actuator = mock(IActuator.class);
         ActuatorID actuatorID = mock(ActuatorID.class);
 
         when(actuator.getID()).thenReturn(actuatorID);
@@ -103,7 +103,7 @@ class ActuatorRepositoryTest {
         int expectedSize = List.of(actuator).size();
 
         //Act
-        List<Actuator> actuators = actuatorRepository.findAll();
+        List<IActuator> actuators = actuatorRepository.findAll();
 
         //Assert
         assertEquals(expectedSize, actuators.size());
@@ -115,7 +115,7 @@ class ActuatorRepositoryTest {
     @Test
     void shouldReturnActuator_WhenGivenValidActuatorID() {
         //Arrange
-        Actuator actuator = mock(Actuator.class);
+        IActuator actuator = mock(IActuator.class);
         ActuatorID actuatorID = mock(ActuatorID.class);
 
         when(actuator.getID()).thenReturn(actuatorID);
@@ -124,7 +124,7 @@ class ActuatorRepositoryTest {
         actuatorRepository.save(actuator);
 
         //Act
-        Optional<Actuator> foundActuator = actuatorRepository.ofIdentity(actuatorID);
+        Optional<IActuator> foundActuator = actuatorRepository.ofIdentity(actuatorID);
 
         //Assert
         assertTrue(foundActuator.isPresent());
@@ -136,7 +136,7 @@ class ActuatorRepositoryTest {
     @Test
     void shouldReturnEmptyOptional_WhenGivenInvalidActuatorID() {
         //Arrange
-        Actuator actuator = mock(Actuator.class);
+        IActuator actuator = mock(IActuator.class);
         ActuatorID actuatorID = mock(ActuatorID.class);
         ActuatorID invalidActuatorID = mock(ActuatorID.class);
 
@@ -146,7 +146,7 @@ class ActuatorRepositoryTest {
         actuatorRepository.save(actuator);
 
         //Act
-        Optional<Actuator> foundActuator = actuatorRepository.ofIdentity(invalidActuatorID);
+        Optional<IActuator> foundActuator = actuatorRepository.ofIdentity(invalidActuatorID);
 
         //Assert
         assertTrue(foundActuator.isEmpty());
@@ -158,7 +158,7 @@ class ActuatorRepositoryTest {
     @Test
     void shouldReturnTrue_WhenGivenValidActuatorID() {
         //Arrange
-        Actuator actuator = mock(Actuator.class);
+        IActuator actuator = mock(IActuator.class);
         ActuatorID actuatorID = mock(ActuatorID.class);
 
         when(actuator.getID()).thenReturn(actuatorID);
@@ -179,7 +179,7 @@ class ActuatorRepositoryTest {
     @Test
     void shouldReturnFalse_WhenGivenInvalidActuatorID() {
         //Arrange
-        Actuator actuator = mock(Actuator.class);
+        IActuator actuator = mock(IActuator.class);
         ActuatorID actuatorID = mock(ActuatorID.class);
         ActuatorID invalidActuatorID = mock(ActuatorID.class);
 
@@ -201,7 +201,7 @@ class ActuatorRepositoryTest {
     @Test
     void shouldReturnActuatorsList_WhenGivenValidDeviceID() {
         //Arrange
-        Actuator actuator = mock(Actuator.class);
+        IActuator actuator = mock(IActuator.class);
         ActuatorID actuatorID = mock(ActuatorID.class);
         DeviceID deviceID = mock(DeviceID.class);
 
@@ -214,7 +214,7 @@ class ActuatorRepositoryTest {
         int expectedSize = List.of(actuator).size();
 
         //Act
-        List<Actuator> actuators = actuatorRepository.findByDeviceID(deviceID);
+        List<IActuator> actuators = actuatorRepository.findByDeviceID(deviceID);
 
         //Assert
         assertEquals(expectedSize, actuators.size());

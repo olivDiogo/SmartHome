@@ -3,7 +3,7 @@ package SmartHomeDDD.service;
 import SmartHomeDDD.assembler.RoomAssembler;
 import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.domain.Room.Room;
-import SmartHomeDDD.domain.Room.RoomFactory;
+import SmartHomeDDD.domain.Room.IRoomFactory;
 import SmartHomeDDD.repository.HouseRepository;
 import SmartHomeDDD.repository.RoomRepository;
 import SmartHomeDDD.valueObject.*;
@@ -27,7 +27,7 @@ class RoomServiceTest {
         // Arrange
         RoomService roomService;
         RoomRepository roomRepository = mock(RoomRepository.class);
-        RoomFactory roomFactory = mock(RoomFactory.class);
+        IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
 
@@ -46,7 +46,7 @@ class RoomServiceTest {
         // Arrange
         RoomService roomService;
         RoomRepository roomRepository = mock(RoomRepository.class);
-        RoomFactory roomFactory = mock(RoomFactory.class);
+        IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
         roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
@@ -73,7 +73,7 @@ class RoomServiceTest {
         // Arrange
         RoomService roomService;
         RoomRepository roomRepository = mock(RoomRepository.class);
-        RoomFactory roomFactory = mock(RoomFactory.class);
+        IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
         roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
@@ -95,7 +95,7 @@ class RoomServiceTest {
         // Arrange
         RoomService roomService;
         RoomRepository roomRepository = mock(RoomRepository.class);
-        RoomFactory roomFactory = mock(RoomFactory.class);
+        IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
         roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
@@ -117,7 +117,7 @@ class RoomServiceTest {
         // Arrange
         RoomService roomService;
         RoomRepository roomRepository = mock(RoomRepository.class);
-        RoomFactory roomFactory = mock(RoomFactory.class);
+        IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
         roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
@@ -138,7 +138,7 @@ class RoomServiceTest {
         // Arrange
         RoomService roomService;
         RoomRepository roomRepository = mock(RoomRepository.class);
-        RoomFactory roomFactory = mock(RoomFactory.class);
+        IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
         roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
@@ -162,7 +162,7 @@ class RoomServiceTest {
         // Arrange
         RoomService roomService;
         RoomRepository roomRepository = mock(RoomRepository.class);
-        RoomFactory roomFactory = mock(RoomFactory.class);
+        IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
         roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
@@ -187,7 +187,7 @@ class RoomServiceTest {
         // Arrange
         RoomService roomService;
         RoomRepository roomRepository = mock(RoomRepository.class);
-        RoomFactory roomFactory = mock(RoomFactory.class);
+        IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
         roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);

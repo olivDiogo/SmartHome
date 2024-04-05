@@ -1,7 +1,7 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
-import SmartHomeDDD.domain.ActuatorType.ImpActuatorTypeFactory;
+import SmartHomeDDD.domain.ActuatorType.ActuatorTypeFactoryImpl;
 import SmartHomeDDD.repository.ActuatorTypeRepository;
 import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
@@ -29,7 +29,7 @@ public class ActuatorTypeServiceTest {
         TypeDescription actuatorTypeName = mock(TypeDescription.class);
         UnitID unitID = mock(UnitID.class);
 
-        ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
+        ActuatorTypeFactoryImpl actuatorTypeFactoryDouble = mock(ActuatorTypeFactoryImpl.class);
         when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
                 .thenReturn(actuatorTypeDouble);
 
@@ -58,7 +58,7 @@ public class ActuatorTypeServiceTest {
         TypeDescription actuatorTypeName = null;
         UnitID unitID = mock(UnitID.class);
 
-        ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
+        ActuatorTypeFactoryImpl actuatorTypeFactoryDouble = mock(ActuatorTypeFactoryImpl.class);
         ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
 
@@ -83,7 +83,7 @@ public class ActuatorTypeServiceTest {
         TypeDescription actuatorTypeName = mock(TypeDescription.class);
         UnitID unitID = mock(UnitID.class);
 
-        ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
+        ActuatorTypeFactoryImpl actuatorTypeFactoryDouble = mock(ActuatorTypeFactoryImpl.class);
         when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
                 .thenReturn(actuatorTypeDouble);
 
@@ -112,7 +112,7 @@ public class ActuatorTypeServiceTest {
         TypeDescription actuatorTypeName = mock(TypeDescription.class);
         UnitID unitID = mock(UnitID.class);
 
-        ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
+        ActuatorTypeFactoryImpl actuatorTypeFactoryDouble = mock(ActuatorTypeFactoryImpl.class);
         when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
                 .thenReturn(actuatorTypeDouble);
 
@@ -141,7 +141,7 @@ public class ActuatorTypeServiceTest {
         TypeDescription actuatorTypeName = mock(TypeDescription.class);
         UnitID unitID = mock(UnitID.class);
 
-        ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
+        ActuatorTypeFactoryImpl actuatorTypeFactoryDouble = mock(ActuatorTypeFactoryImpl.class);
         when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
                 .thenReturn(actuatorTypeDouble);
 
@@ -170,7 +170,7 @@ public class ActuatorTypeServiceTest {
         TypeDescription actuatorTypeName = mock(TypeDescription.class);
         UnitID unitID = mock(UnitID.class);
 
-        ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
+        ActuatorTypeFactoryImpl actuatorTypeFactoryDouble = mock(ActuatorTypeFactoryImpl.class);
         when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
                 .thenReturn(actuatorTypeDouble);
 
@@ -202,7 +202,7 @@ public class ActuatorTypeServiceTest {
         TypeDescription actuatorTypeName = mock(TypeDescription.class);
         UnitID unitID = mock(UnitID.class);
 
-        ImpActuatorTypeFactory actuatorTypeFactoryDouble = mock(ImpActuatorTypeFactory.class);
+        ActuatorTypeFactoryImpl actuatorTypeFactoryDouble = mock(ActuatorTypeFactoryImpl.class);
         when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
                 .thenReturn(actuatorTypeDouble);
 

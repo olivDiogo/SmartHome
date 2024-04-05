@@ -1,7 +1,7 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
-import SmartHomeDDD.domain.ActuatorType.ImpActuatorTypeFactory;
+import SmartHomeDDD.domain.ActuatorType.ActuatorTypeFactoryImpl;
 import SmartHomeDDD.repository.ActuatorTypeRepository;
 import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class ActuatorTypeService {
     private final ActuatorTypeRepository _actuatorTypeRepository;
-    private final ImpActuatorTypeFactory _actuatorTypeFactory;
+    private final ActuatorTypeFactoryImpl _actuatorTypeFactory;
     private final UnitRepository _unitRepository;
 
     /**
@@ -25,7 +25,7 @@ public class ActuatorTypeService {
      */
     public ActuatorTypeService(
             ActuatorTypeRepository actuatorTypeRepository,
-            ImpActuatorTypeFactory actuatorTypeFactory,
+            ActuatorTypeFactoryImpl actuatorTypeFactory,
             UnitRepository unitRepository) {
 
         this._actuatorTypeRepository = actuatorTypeRepository;

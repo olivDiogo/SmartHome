@@ -1,9 +1,9 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
-import SmartHomeDDD.domain.ActuatorModel.ActuatorModelFactory;
+import SmartHomeDDD.domain.ActuatorModel.IActuatorModelFactory;
 import SmartHomeDDD.domain.Unit.Unit;
-import SmartHomeDDD.domain.Unit.UnitFactory;
+import SmartHomeDDD.domain.Unit.IUnitFactory;
 import SmartHomeDDD.repository.ActuatorModelRepository;
 import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.*;
@@ -17,14 +17,14 @@ public class ActuatorConfigurationService {
 
     private ActuatorModelRepository _ActuatorModelRepository;
     private UnitRepository _unitRepository;
-    private ActuatorModelFactory _ActuatorModelFactory;
-    private UnitFactory _unitFactory;
+    private IActuatorModelFactory _ActuatorModelFactory;
+    private IUnitFactory _unitFactory;
 
     public ActuatorConfigurationService(
             ActuatorModelRepository ActuatorModelRepository,
             UnitRepository unitRepository,
-            ActuatorModelFactory ActuatorModelFactory,
-            UnitFactory unitFactory)
+            IActuatorModelFactory ActuatorModelFactory,
+            IUnitFactory unitFactory)
             throws InstantiationException {
         validateActuatorModelRepository(ActuatorModelRepository);
         validateMeasurementTypeRepository(unitRepository);
@@ -50,7 +50,7 @@ public class ActuatorConfigurationService {
         }
     }
 
-    private void validateActuatorModelFactory(ActuatorModelFactory ActuatorModelFactory) {
+    private void validateActuatorModelFactory(IActuatorModelFactory ActuatorModelFactory) {
         if (ActuatorModelFactory == null) {
             throw new IllegalArgumentException("Please enter a valid Actuator model factory.");
         } else {
@@ -58,7 +58,7 @@ public class ActuatorConfigurationService {
         }
     }
 
-    private void validateUnitFactory(UnitFactory unitFactory) {
+    private void validateUnitFactory(IUnitFactory unitFactory) {
         if (unitFactory == null) {
             throw new IllegalArgumentException("Please enter a valid unit factory.");
         } else {

@@ -17,7 +17,7 @@ public class ImpActuatorModelFactoryTest {
         // Arrange
         ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
         ModelPath modelPath = mock(ModelPath.class);
-        ActuatorModelFactory actuatorModelFactory = new ImpActuatorModelFactory();
+        IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         // Act
         try(MockedConstruction<ActuatorModel> actuatorModelMockedConstruction = mockConstruction(ActuatorModel.class, (mock, context) -> {

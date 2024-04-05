@@ -1,7 +1,7 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.SensorType.SensorType;
-import SmartHomeDDD.domain.SensorType.SensorTypeFactory;
+import SmartHomeDDD.domain.SensorType.ISensorTypeFactory;
 import SmartHomeDDD.repository.SensorTypeRepository;
 import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.SensorTypeID;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class SensorTypeService {
     private SensorTypeRepository _sensorTypeRepository;
-    private SensorTypeFactory _sensorTypeFactory;
+    private ISensorTypeFactory _sensorTypeFactory;
     private UnitRepository _unitRepository;
 
     /**
@@ -25,7 +25,7 @@ public class SensorTypeService {
      */
     public SensorTypeService(
             SensorTypeRepository sensorTypeRepository,
-            SensorTypeFactory sensorTypeFactory,
+            ISensorTypeFactory sensorTypeFactory,
             UnitRepository unitRepository) {
         validateSensorTypeRepository(sensorTypeRepository);
         validateSensorTypeFactory(sensorTypeFactory);
@@ -50,7 +50,7 @@ public class SensorTypeService {
      *
      * @param sensorTypeFactory The SensorTypeFactory to validate.
      */
-    private void validateSensorTypeFactory(SensorTypeFactory sensorTypeFactory) {
+    private void validateSensorTypeFactory(ISensorTypeFactory sensorTypeFactory) {
         if (sensorTypeFactory == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type factory.");
         } else {

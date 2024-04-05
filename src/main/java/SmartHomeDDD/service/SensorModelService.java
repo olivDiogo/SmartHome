@@ -1,8 +1,8 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.SensorModel.SensorModel;
-import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
-import SmartHomeDDD.domain.SensorModel.SensorModelRepo;
+import SmartHomeDDD.domain.SensorModel.ISensorModelFactory;
+import SmartHomeDDD.domain.SensorModel.ISensorModelRepo;
 import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelName;
 import SmartHomeDDD.valueObject.SensorTypeID;
@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class SensorModelService {
-    private SensorModelRepo _sensorModelRepository;
-    private SensorModelFactory _factorySensorModel;
+    private ISensorModelRepo _sensorModelRepository;
+    private ISensorModelFactory _factorySensorModel;
 
     /**
      * Constructor for SensorModelService.
@@ -20,7 +20,7 @@ public class SensorModelService {
      * @param sensorModelRepository is the repository for sensor models.
      * @param factorySensorModel    is the factory for sensor models.
      */
-    public SensorModelService(SensorModelRepo sensorModelRepository, SensorModelFactory factorySensorModel) {
+    public SensorModelService(ISensorModelRepo sensorModelRepository, ISensorModelFactory factorySensorModel) {
         validateSensorModelRepository(sensorModelRepository);
         validateFactorySensorModel(factorySensorModel);
 
@@ -31,7 +31,7 @@ public class SensorModelService {
      *
      * @param sensorModelRepository The SensorModelRepository to validate.
      */
-    private void validateSensorModelRepository(SensorModelRepo sensorModelRepository) {
+    private void validateSensorModelRepository(ISensorModelRepo sensorModelRepository) {
         if (sensorModelRepository == null) {
             throw new IllegalArgumentException("Please enter a valid sensor model repository.");
         } else {
@@ -44,7 +44,7 @@ public class SensorModelService {
      *
      * @param factorySensorModel The SensorModelFactory to validate.
      */
-    private void validateFactorySensorModel(SensorModelFactory factorySensorModel) {
+    private void validateFactorySensorModel(ISensorModelFactory factorySensorModel) {
         if (factorySensorModel == null) {
             throw new IllegalArgumentException("Please enter a valid sensor model factory.");
         } else {

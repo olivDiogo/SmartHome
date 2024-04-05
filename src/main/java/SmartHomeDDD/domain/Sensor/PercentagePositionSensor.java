@@ -7,7 +7,7 @@ import java.util.UUID;
  * Represents a percentage position sensor.
  * This sensor measures the percentage position of an object.
  */
-public class PercentagePositionSensor implements Sensor {
+public class PercentagePositionSensor implements ISensor {
 
     private ModelPath _modelPath; // The model path of the sensor.
     private SensorName _sensorName; // The name of the sensor.

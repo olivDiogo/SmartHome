@@ -33,7 +33,7 @@ class ImpActuatorFactoryTest {
         when(actuatorTypeIdMock.getId()).thenReturn("Switch");
 
         ActuatorName actuatorNameMock = mock(ActuatorName.class);
-        ImpActuatorFactory impActuatorFactory = new ImpActuatorFactory();
+        ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
 
         // Act
         SwitchActuator actuator = (SwitchActuator) impActuatorFactory.createActuator(deviceIdMock, modelPathMock, actuatorTypeIdMock, actuatorNameMock);
@@ -61,7 +61,7 @@ class ImpActuatorFactoryTest {
         SetIntegerActuatorLimits setIntegerActuatorLimitsMock = mock(SetIntegerActuatorLimits.class);
 
 
-        ImpActuatorFactory impActuatorFactory = new ImpActuatorFactory();
+        ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
 
         // Act
         SetIntegerActuator actuator = (SetIntegerActuator) impActuatorFactory.createActuator(deviceIdMock, modelPathMock, actuatorTypeIDMock, actuatorNameMock, setIntegerActuatorLimitsMock);
@@ -84,10 +84,10 @@ class ImpActuatorFactoryTest {
         ActuatorTypeID actuatorTypeIDMock = mock(ActuatorTypeID.class);
         ActuatorName actuatorNameMock = mock(ActuatorName.class);
 
-        ImpActuatorFactory impActuatorFactory = new ImpActuatorFactory();
+        ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
 
         // Act + Assert
-        Actuator result = impActuatorFactory.createActuator(deviceIdMock, modelPathMock, actuatorTypeIDMock, actuatorNameMock);
+        IActuator result = impActuatorFactory.createActuator(deviceIdMock, modelPathMock, actuatorTypeIDMock, actuatorNameMock);
 
         // Assert
         assertNull(result);
@@ -108,10 +108,10 @@ class ImpActuatorFactoryTest {
         ActuatorName actuatorNameMock = mock(ActuatorName.class);
         String wrongObject = "wrong object";
 
-        ImpActuatorFactory impActuatorFactory = new ImpActuatorFactory();
+        ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
 
         // Act
-        Actuator result = impActuatorFactory.createActuator(deviceIdMock, modelPathMock, actuatorTypeIdMock, actuatorNameMock, wrongObject);
+        IActuator result = impActuatorFactory.createActuator(deviceIdMock, modelPathMock, actuatorTypeIdMock, actuatorNameMock, wrongObject);
 
         // Assert
         assertNull(result);
@@ -129,7 +129,7 @@ class ImpActuatorFactoryTest {
 
         ActuatorName actuatorNameMock = mock(ActuatorName.class);
 
-        ImpActuatorFactory impActuatorFactory = new ImpActuatorFactory();
+        ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
 
         String expectedMessage = "At least 4 parameters are required.";
 

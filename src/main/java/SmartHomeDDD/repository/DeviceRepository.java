@@ -1,7 +1,7 @@
 package SmartHomeDDD.repository;
 
 import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Device.DeviceRepo;
+import SmartHomeDDD.domain.Device.IDeviceRepo;
 import SmartHomeDDD.valueObject.DeviceID;
 import SmartHomeDDD.valueObject.RoomID;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class DeviceRepository implements DeviceRepo {
+public class DeviceRepository implements IDeviceRepo {
 
     /**
      * Map to store the device data.

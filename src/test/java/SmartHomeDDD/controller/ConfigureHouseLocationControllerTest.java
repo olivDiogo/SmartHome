@@ -3,7 +3,7 @@ package SmartHomeDDD.controller;
 import SmartHomeDDD.DTO.HouseDTO;
 import SmartHomeDDD.DTO.HouseDataDTO;
 import SmartHomeDDD.assembler.HouseAssembler;
-import SmartHomeDDD.domain.House.ImpHouseFactory;
+import SmartHomeDDD.domain.House.HouseFactoryImpl;
 import SmartHomeDDD.repository.HouseRepository;
 import SmartHomeDDD.service.HouseService;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ class ConfigureHouseLocationControllerTest {
     void shouldInstantiateUS01ConfigureHouseLocationController_whenConstructorArgumentsAreValid() {
         // Arrange
         HouseRepository houseRepository = new HouseRepository();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = new HouseAssembler();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -43,7 +43,7 @@ class ConfigureHouseLocationControllerTest {
     void shouldThrowException_whenHouseAssemblerIsNull() {
         // Arrange: Initialize required components
         HouseRepository houseRepository = new HouseRepository();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = null;
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -71,7 +71,7 @@ class ConfigureHouseLocationControllerTest {
      void shouldReturnHouseDTO_whenHouseIsConfigured() {
         // Arrange: Initialize required components
         HouseRepository houseRepository = new HouseRepository();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = new HouseAssembler();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -99,7 +99,7 @@ class ConfigureHouseLocationControllerTest {
     void shouldReturnHouseDTO_whenHouseIsConfiguredWithSpanishPostalCode() {
         // Arrange
         HouseRepository houseRepository = new HouseRepository();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = new HouseAssembler();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -127,7 +127,7 @@ class ConfigureHouseLocationControllerTest {
     void shouldReturnHouseDTO_whenHouseIsConfiguredWithCanadianPostalCode() {
         // Arrange
         HouseRepository houseRepository = new HouseRepository();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = new HouseAssembler();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 
@@ -155,7 +155,7 @@ class ConfigureHouseLocationControllerTest {
     void shouldReturnHouseDTO_whenHouseIsConfiguredWithAmericanPostalCode() {
         // Arrange
         HouseRepository houseRepository = new HouseRepository();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = new HouseAssembler();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 

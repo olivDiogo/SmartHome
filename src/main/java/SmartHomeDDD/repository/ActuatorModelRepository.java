@@ -1,7 +1,7 @@
 package SmartHomeDDD.repository;
 
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
-import SmartHomeDDD.domain.ActuatorModel.ActuatorModelRepo;
+import SmartHomeDDD.domain.ActuatorModel.IActuatorModelRepo;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.ModelPath;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ActuatorModelRepository implements ActuatorModelRepo {
+public class ActuatorModelRepository implements IActuatorModelRepo {
 
     final private Map<ModelPath, ActuatorModel> DATA = new LinkedHashMap<>();
 

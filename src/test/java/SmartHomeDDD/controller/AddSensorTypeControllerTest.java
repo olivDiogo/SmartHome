@@ -5,11 +5,11 @@ import SmartHomeDDD.DTO.SensorTypeDataDTO;
 import SmartHomeDDD.DTO.UnitDTO;
 import SmartHomeDDD.assembler.SensorTypeAssembler;
 import SmartHomeDDD.assembler.UnitAssembler;
-import SmartHomeDDD.domain.SensorModel.ImpSensorModelFactory;
-import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
-import SmartHomeDDD.domain.SensorType.ImpSensorTypeFactory;
-import SmartHomeDDD.domain.Unit.ImpUnitFactory;
-import SmartHomeDDD.domain.Unit.UnitFactory;
+import SmartHomeDDD.domain.SensorModel.SensorModelFactoryImpl;
+import SmartHomeDDD.domain.SensorModel.ISensorModelFactory;
+import SmartHomeDDD.domain.SensorType.SensorTypeFactoryImpl;
+import SmartHomeDDD.domain.Unit.UnitFactoryImpl;
+import SmartHomeDDD.domain.Unit.IUnitFactory;
 import SmartHomeDDD.repository.SensorModelRepository;
 import SmartHomeDDD.repository.SensorTypeRepository;
 import SmartHomeDDD.repository.UnitRepository;
@@ -30,7 +30,7 @@ class AddSensorTypeControllerTest {
         SensorTypeService sensorTypeService = null;
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
         UnitRepository unitRepository = new UnitRepository();
-        UnitFactory unitFactory = new ImpUnitFactory();
+        IUnitFactory unitFactory = new UnitFactoryImpl();
         UnitService unitService = new UnitService(unitRepository, unitFactory);
         UnitAssembler unitAssembler = new UnitAssembler();
         String expectedMessage = "Valid SensorTypeService is required";
@@ -43,7 +43,7 @@ class AddSensorTypeControllerTest {
     void shouldThrowExceptionWhenUnitServiceIsNull() {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+        SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
         SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -59,10 +59,10 @@ class AddSensorTypeControllerTest {
     void shouldThrowExceptionWhenSensorTypeAssemblerIsNull() {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+        SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
         SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);        SensorTypeAssembler sensorTypeAssembler = null;
-        UnitFactory unitFactory = new ImpUnitFactory();
+        IUnitFactory unitFactory = new UnitFactoryImpl();
         UnitService unitService = new UnitService(unitRepository, unitFactory);
         UnitAssembler unitAssembler = new UnitAssembler();
         String expectedMessage = "Valid SensorTypeAssembler is required";
@@ -75,10 +75,10 @@ class AddSensorTypeControllerTest {
     void shouldThrowExceptionWhenUnitAssemblerIsNull() {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+        SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
         SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);        SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-        UnitFactory unitFactory = new ImpUnitFactory();
+        IUnitFactory unitFactory = new UnitFactoryImpl();
         UnitService unitService = new UnitService(unitRepository, unitFactory);
         UnitAssembler unitAssembler = null;
         String expectedMessage = "Valid UnitAssembler is required";
@@ -91,11 +91,11 @@ class AddSensorTypeControllerTest {
     void shouldReturnEmptyListOfUnitsWhenNoUnitLoaded() throws InstantiationException {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+        SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
         SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
-        UnitFactory unitFactory = new ImpUnitFactory();
+        IUnitFactory unitFactory = new UnitFactoryImpl();
         UnitService unitService = new UnitService(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
@@ -112,18 +112,18 @@ class AddSensorTypeControllerTest {
     void shouldReturnListOfUnitsWhenUnitsLoaded() throws InstantiationException {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+        SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
         SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
-        UnitFactory unitFactory = new ImpUnitFactory();
+        IUnitFactory unitFactory = new UnitFactoryImpl();
         UnitService unitService = new UnitService(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
 
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
-        SensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+        ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
 
         ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
 
@@ -139,18 +139,18 @@ class AddSensorTypeControllerTest {
     void shouldReturnSensorTypeDTOWhenSensorTypeAdded() throws InstantiationException {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+        SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
         SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
-        UnitFactory unitFactory = new ImpUnitFactory();
+        IUnitFactory unitFactory = new UnitFactoryImpl();
         UnitService unitService = new UnitService(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
 
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
-        SensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+        ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
 
         ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
 
@@ -172,18 +172,18 @@ class AddSensorTypeControllerTest {
     void shouldThrowExceptionWhenSensorTypeAlreadyExists() throws InstantiationException {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+        SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
         SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
-        UnitFactory unitFactory = new ImpUnitFactory();
+        IUnitFactory unitFactory = new UnitFactoryImpl();
         UnitService unitService = new UnitService(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
 
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
-        SensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+        ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
 
         ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
 
@@ -205,18 +205,18 @@ class AddSensorTypeControllerTest {
     void shouldThrowExceptionWhenAddingSensorTypeOfUnsupportedUnit() throws InstantiationException {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+        SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
         SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
-        UnitFactory unitFactory = new ImpUnitFactory();
+        IUnitFactory unitFactory = new UnitFactoryImpl();
         UnitService unitService = new UnitService(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
 
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
-        SensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+        ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
 
         ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
 
@@ -238,18 +238,18 @@ class AddSensorTypeControllerTest {
     void shouldThrowExceptionWhenAddingSensorWithSameDescriptionButDifferentUnit() throws InstantiationException {
         //Arrange
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+        SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
         SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
-        UnitFactory unitFactory = new ImpUnitFactory();
+        IUnitFactory unitFactory = new UnitFactoryImpl();
         UnitService unitService = new UnitService(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
 
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
-        SensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+        ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
 
         ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
 

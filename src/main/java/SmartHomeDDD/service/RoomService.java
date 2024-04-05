@@ -3,7 +3,7 @@ package SmartHomeDDD.service;
 import SmartHomeDDD.assembler.RoomAssembler;
 import SmartHomeDDD.domain.House.House;
 import SmartHomeDDD.domain.Room.Room;
-import SmartHomeDDD.domain.Room.RoomFactory;
+import SmartHomeDDD.domain.Room.IRoomFactory;
 import SmartHomeDDD.repository.HouseRepository;
 import SmartHomeDDD.repository.RoomRepository;
 import SmartHomeDDD.valueObject.*;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class RoomService {
     private final RoomRepository _roomRepository;
-    private final RoomFactory _roomFactory;
+    private final IRoomFactory _roomFactory;
     private final RoomAssembler _roomAssembler;
     private final HouseRepository _houseRepository;
 
@@ -25,7 +25,7 @@ public class RoomService {
      * @param roomAssembler
      * @param houseRepository
      */
-    public RoomService(RoomRepository roomRepository, RoomFactory roomFactory, RoomAssembler roomAssembler, HouseRepository houseRepository) {
+    public RoomService(RoomRepository roomRepository, IRoomFactory roomFactory, RoomAssembler roomAssembler, HouseRepository houseRepository) {
         _roomRepository = roomRepository;
         _roomFactory = roomFactory;
         _roomAssembler = roomAssembler;

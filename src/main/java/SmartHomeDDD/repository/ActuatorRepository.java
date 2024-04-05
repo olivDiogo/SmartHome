@@ -1,7 +1,7 @@
 package SmartHomeDDD.repository;
 
 import SmartHomeDDD.ddd.Repository;
-import SmartHomeDDD.domain.Actuator.Actuator;
+import SmartHomeDDD.domain.Actuator.IActuator;
 import SmartHomeDDD.valueObject.ActuatorID;
 import SmartHomeDDD.valueObject.DeviceID;
 
@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ActuatorRepository implements Repository<ActuatorID, Actuator> {
+public class ActuatorRepository implements Repository<ActuatorID, IActuator> {
 
     /**
      * Map to store the Actuator data.
      */
-    private final Map<ActuatorID, Actuator> _ActuatorData = new LinkedHashMap<>();
+    private final Map<ActuatorID, IActuator> _ActuatorData = new LinkedHashMap<>();
 
     /**
      * Method to save a domain actuator.
@@ -24,7 +24,7 @@ public class ActuatorRepository implements Repository<ActuatorID, Actuator> {
      * @return the saved actuator.
      */
     @Override
-    public Actuator save(Actuator actuator) {
+    public IActuator save(IActuator actuator) {
         if (actuator == null) {
             throw new IllegalArgumentException("Actuator cannot be null.");
         } else if (containsOfIdentity(actuator.getID())) {
@@ -41,8 +41,8 @@ public class ActuatorRepository implements Repository<ActuatorID, Actuator> {
      * @return the list of actuators.
      */
     @Override
-    public List<Actuator> findAll() {
-        List<Actuator> allActuators = _ActuatorData.values().stream().toList();
+    public List<IActuator> findAll() {
+        List<IActuator> allActuators = _ActuatorData.values().stream().toList();
         return allActuators;
     }
 
@@ -53,8 +53,8 @@ public class ActuatorRepository implements Repository<ActuatorID, Actuator> {
      * @return the actuator by its ID or null.
      */
     @Override
-    public Optional<Actuator> ofIdentity(ActuatorID actuatorID) {
-        Optional<Actuator> actuator = Optional.ofNullable(_ActuatorData.get(actuatorID));
+    public Optional<IActuator> ofIdentity(ActuatorID actuatorID) {
+        Optional<IActuator> actuator = Optional.ofNullable(_ActuatorData.get(actuatorID));
         return actuator;
     }
 
@@ -75,8 +75,8 @@ public class ActuatorRepository implements Repository<ActuatorID, Actuator> {
      * @param deviceID is the unique identifier of the device.
      * @return the list of actuators in the device.
      */
-    public List<Actuator> findByDeviceID(DeviceID deviceID) {
-        List<Actuator> actuators = _ActuatorData.values().stream().filter(actuator -> actuator.getDeviceID().equals(deviceID)).toList();
+    public List<IActuator> findByDeviceID(DeviceID deviceID) {
+        List<IActuator> actuators = _ActuatorData.values().stream().filter(actuator -> actuator.getDeviceID().equals(deviceID)).toList();
         return actuators;
     }
 }

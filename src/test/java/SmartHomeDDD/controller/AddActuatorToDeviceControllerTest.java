@@ -2,25 +2,18 @@ package SmartHomeDDD.controller;
 
 import SmartHomeDDD.DTO.*;
 import SmartHomeDDD.assembler.*;
-import SmartHomeDDD.domain.Actuator.Actuator;
-import SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;
-import SmartHomeDDD.domain.Actuator.ImpActuatorFactory;
-import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuator;
-import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuatorLimits;
-import SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator;
+import SmartHomeDDD.domain.Actuator.ActuatorFactoryImpl;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
-import SmartHomeDDD.domain.ActuatorModel.ImpActuatorModelFactory;
+import SmartHomeDDD.domain.ActuatorModel.ActuatorModelFactoryImpl;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
-import SmartHomeDDD.domain.ActuatorType.ImpActuatorTypeFactory;
+import SmartHomeDDD.domain.ActuatorType.ActuatorTypeFactoryImpl;
 import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Device.ImpDeviceFactory;
+import SmartHomeDDD.domain.Device.DeviceFactoryImpl;
 import SmartHomeDDD.domain.House.House;
-import SmartHomeDDD.domain.House.ImpHouseFactory;
-import SmartHomeDDD.domain.Room.ImpRoomFactory;
+import SmartHomeDDD.domain.House.HouseFactoryImpl;
+import SmartHomeDDD.domain.Room.RoomFactoryImpl;
 import SmartHomeDDD.domain.Room.Room;
-import SmartHomeDDD.domain.ActuatorType.ActuatorType;
-import SmartHomeDDD.domain.ActuatorType.ActuatorType;
-import SmartHomeDDD.domain.Unit.ImpUnitFactory;
+import SmartHomeDDD.domain.Unit.UnitFactoryImpl;
 import SmartHomeDDD.repository.*;
 import SmartHomeDDD.service.*;
 import SmartHomeDDD.valueObject.*;
@@ -35,19 +28,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AddActuatorToDeviceControllerTest {
     RoomRepository roomRepository = new RoomRepository();
-    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
-    ImpUnitFactory unitFactory = new ImpUnitFactory();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     ActuatorRepository actuatorRepository = new ActuatorRepository();
-    ImpActuatorFactory actuatorFactory = new ImpActuatorFactory();
+    ActuatorFactoryImpl actuatorFactory = new ActuatorFactoryImpl();
     ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
-    ImpActuatorTypeFactory actuatorTypeFactory = new ImpActuatorTypeFactory();
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
     ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ImpActuatorModelFactory actuatorModelFactory = new ImpActuatorModelFactory();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
     DeviceRepository deviceRepository = new DeviceRepository();
-    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
     RoomService roomService =
             new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
@@ -62,7 +55,7 @@ class AddActuatorToDeviceControllerTest {
     DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     HouseService houseService = new HouseService(houseFactory, houseRepository);
 
     private void loadHouseAndRoom() {

@@ -1,7 +1,7 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Device.DeviceFactory;
+import SmartHomeDDD.domain.Device.IDeviceFactory;
 import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.repository.DeviceRepository;
 import SmartHomeDDD.repository.RoomRepository;
@@ -26,7 +26,7 @@ class DeviceServiceTest {
         // Arrange
         DeviceService deviceService;
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         // Act
@@ -49,7 +49,7 @@ class DeviceServiceTest {
 
 
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
@@ -79,7 +79,7 @@ class DeviceServiceTest {
         DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
@@ -107,7 +107,7 @@ class DeviceServiceTest {
     public void shouldReturnAllDevices_WhenDevicesExist() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         RoomID roomID = mock(RoomID.class);
@@ -138,7 +138,7 @@ class DeviceServiceTest {
     public void shouldReturnEmptyList_WhenNoDevicesExist() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
@@ -162,7 +162,7 @@ class DeviceServiceTest {
     public void shouldReturnDevice_WhenGetDeviceByIdIsCalledWithValidDeviceID() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
@@ -188,7 +188,7 @@ class DeviceServiceTest {
     public void shouldReturnEmptyOptional_WhenGetDeviceByIdIsCalledWithInvalidDeviceID() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
@@ -212,7 +212,7 @@ class DeviceServiceTest {
     public void shouldGetDeviceListByRoomId_WhenGivenValidRoomId() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
@@ -240,7 +240,7 @@ class DeviceServiceTest {
     public void shouldDeactivateDevice_WhenGivenValidDeviceID() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
@@ -264,7 +264,7 @@ class DeviceServiceTest {
     public void shouldThrowException_WhenGivenInvalidDeviceID() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactory deviceFactory = mock(DeviceFactory.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);

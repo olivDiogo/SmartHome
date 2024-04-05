@@ -1,12 +1,12 @@
 package SmartHomeDDD.domain.Sensor.WindSensor;
 
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Sensor.ISensor;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.Random;
 import java.util.UUID;
 
-public class WindSensor implements Sensor {
+public class WindSensor implements ISensor {
     private ModelPath _modelPath;
     private SensorName _sensorName;
     private SensorID _sensorID;

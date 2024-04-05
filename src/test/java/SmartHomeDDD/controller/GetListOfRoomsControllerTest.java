@@ -2,7 +2,7 @@ package SmartHomeDDD.controller;
 
 import SmartHomeDDD.DTO.RoomDTO;
 import SmartHomeDDD.assembler.RoomAssembler;
-import SmartHomeDDD.domain.Room.ImpRoomFactory;
+import SmartHomeDDD.domain.Room.RoomFactoryImpl;
 import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.repository.HouseRepository;
 import SmartHomeDDD.repository.RoomRepository;
@@ -27,7 +27,7 @@ public class GetListOfRoomsControllerTest {
     void shouldCreateGetListOfRoomsController() {
         //Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
@@ -48,7 +48,7 @@ public class GetListOfRoomsControllerTest {
     void shouldReturnNull_whenRoomServiceIsNull() {
         //Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
@@ -69,7 +69,7 @@ public class GetListOfRoomsControllerTest {
     void shouldReturnNull_whenRoomAssemblerIsNull() {
         //Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = null;
         HouseRepository houseRepository = new HouseRepository();
 
@@ -90,7 +90,7 @@ public class GetListOfRoomsControllerTest {
     void shouldReturnEmptyList_whenThereAreNoRooms() {
         //Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
@@ -114,7 +114,7 @@ public class GetListOfRoomsControllerTest {
     void shouldReturnListOfRooms_WhenGetRoomsIsCalled() {
         //Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 

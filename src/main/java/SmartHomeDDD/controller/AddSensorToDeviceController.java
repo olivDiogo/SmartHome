@@ -4,7 +4,7 @@ import SmartHomeDDD.DTO.*;
 import SmartHomeDDD.assembler.*;
 import SmartHomeDDD.domain.Device.Device;
 import SmartHomeDDD.domain.Room.Room;
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Sensor.ISensor;
 import SmartHomeDDD.domain.SensorModel.SensorModel;
 import SmartHomeDDD.domain.SensorType.SensorType;
 import SmartHomeDDD.service.*;
@@ -270,7 +270,7 @@ public class AddSensorToDeviceController {
         SensorTypeID sensorTypeID = new SensorTypeID(sensorDataDTO.sensorTypeID);
         SensorName sensorName = new SensorName(sensorDataDTO.sensorName);
 
-        Sensor sensor = _sensorService.addSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        ISensor sensor = _sensorService.addSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         return _sensorAssembler.domainToDTO(sensor);
     }

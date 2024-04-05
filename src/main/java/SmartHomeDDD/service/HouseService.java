@@ -2,14 +2,14 @@ package SmartHomeDDD.service;
 
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.House.House;
-import SmartHomeDDD.domain.House.HouseFactory;
+import SmartHomeDDD.domain.House.IHouseFactory;
 import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
 import SmartHomeDDD.valueObject.HouseID;
 
 public class HouseService {
 
-    final HouseFactory houseFactory;
+    final IHouseFactory houseFactory;
 
     final Repository<HouseID, House> houseRepository;
 
@@ -19,7 +19,7 @@ public class HouseService {
      * @param houseFactory    the factory for creating House instances
      * @param houseRepository the repository for storing House instances
      */
-    public HouseService(HouseFactory houseFactory, Repository<HouseID, House> houseRepository) {
+    public HouseService(IHouseFactory houseFactory, Repository<HouseID, House> houseRepository) {
         validateHouseFactory(houseFactory);
         validateHouseRepository(houseRepository);
         this.houseFactory = houseFactory;
@@ -31,7 +31,7 @@ public class HouseService {
      *
      * @param houseFactory the HouseFactory to validate
      */
-    private void validateHouseFactory(HouseFactory houseFactory) {
+    private void validateHouseFactory(IHouseFactory houseFactory) {
         if (houseFactory == null) {
             throw new IllegalArgumentException("HouseFactory cannot be null.");
         }

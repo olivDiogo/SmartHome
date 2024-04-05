@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.Sensor.SunriseTimeSensor;
 
 import SmartHomeDDD.ddd.ValueObject;
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Sensor.ISensor;
 import SmartHomeDDD.valueObject.*;
 import org.shredzone.commons.suncalc.SunTimes;
 
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
-public class SunriseTimeSensor implements Sensor {
+public class SunriseTimeSensor implements ISensor {
 
     private SunriseSunsetTimeValue _sunriseTimeValue;
     private SensorTypeID _sensorTypeID;

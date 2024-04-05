@@ -1,12 +1,12 @@
 package SmartHomeDDD.domain.Actuator.SwitchActuator;
 
 import SmartHomeDDD.ddd.ValueObject;
-import SmartHomeDDD.domain.Actuator.Actuator;
+import SmartHomeDDD.domain.Actuator.IActuator;
 import SmartHomeDDD.valueObject.*;
 
 import java.util.UUID;
 
-public class SwitchActuator implements Actuator {
+public class SwitchActuator implements IActuator {
 
     private DeviceID _deviceID;
     private ActuatorName _actuatorName;

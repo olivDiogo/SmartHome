@@ -2,7 +2,7 @@ package SmartHomeDDD.controller;
 
 import SmartHomeDDD.DTO.*;
 import SmartHomeDDD.assembler.*;
-import SmartHomeDDD.domain.Actuator.Actuator;
+import SmartHomeDDD.domain.Actuator.IActuator;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
 import SmartHomeDDD.domain.Device.Device;
@@ -267,7 +267,7 @@ public class AddActuatorToDeviceController {
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataDTO.actuatorTypeID);
         ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
 
-        Actuator actuator = _actuatorService.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
+        IActuator actuator = _actuatorService.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
 
         return _actuatorAssembler.domainToDTO(actuator);
     }

@@ -2,11 +2,11 @@ package SmartHomeDDD.assembler;
 
 import SmartHomeDDD.DTO.SensorDTO;
 import SmartHomeDDD.ddd.Assembler;
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Sensor.ISensor;
 
 import java.util.List;
 
-public class SensorAssembler implements Assembler<Sensor, SensorDTO> {
+public class SensorAssembler implements Assembler<ISensor, SensorDTO> {
 
 
     /**
@@ -16,7 +16,7 @@ public class SensorAssembler implements Assembler<Sensor, SensorDTO> {
      * @return the DTO that was created.
      */
     @Override
-    public SensorDTO domainToDTO(Sensor sensor) {
+    public SensorDTO domainToDTO(ISensor sensor) {
         if (sensor == null)
             throw new IllegalArgumentException("Sensor cannot be null.");
 
@@ -38,7 +38,7 @@ public class SensorAssembler implements Assembler<Sensor, SensorDTO> {
      * @return the list of DTOs that was created.
      */
     @Override
-    public List<SensorDTO> domainToDTO(List<Sensor> sensors) {
+    public List<SensorDTO> domainToDTO(List<ISensor> sensors) {
         if (sensors == null || sensors.isEmpty())
             throw new IllegalArgumentException("The list of sensors cannot be null or empty");
 

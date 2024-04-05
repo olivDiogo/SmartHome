@@ -16,7 +16,7 @@ class ImpActuatorTypeFactoryTest {
     void shouldCreateActuatorType_whenAttributesAreValid() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        ImpActuatorTypeFactory factory = new ImpActuatorTypeFactory();
+        ActuatorTypeFactoryImpl factory = new ActuatorTypeFactoryImpl();
         UnitID unitID = mock(UnitID.class);
 
         // Act

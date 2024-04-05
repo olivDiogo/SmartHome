@@ -2,7 +2,7 @@ package SmartHomeDDD.service;
 
 import SmartHomeDDD.ddd.Repository;
 import SmartHomeDDD.domain.DeviceType.DeviceType;
-import SmartHomeDDD.domain.DeviceType.DeviceTypeFactory;
+import SmartHomeDDD.domain.DeviceType.IDeviceTypeFactory;
 import SmartHomeDDD.repository.DeviceTypeRepository;
 import SmartHomeDDD.valueObject.DeviceTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class DeviceTypeService {
 
     private Repository<DeviceTypeID, DeviceType> _deviceTypeRepository;
-    private DeviceTypeFactory _deviceTypeFactory;
+    private IDeviceTypeFactory _deviceTypeFactory;
 
     /**
      * Constructor for the DeviceTypeService class.
@@ -21,7 +21,7 @@ public class DeviceTypeService {
      * @param deviceTypeRepository The repository for the device type.
      * @param deviceTypeFactory    The factory for the device type.
      */
-    public DeviceTypeService(DeviceTypeRepository deviceTypeRepository, DeviceTypeFactory deviceTypeFactory) {
+    public DeviceTypeService(DeviceTypeRepository deviceTypeRepository, IDeviceTypeFactory deviceTypeFactory) {
         validateDeviceTypeRepository(deviceTypeRepository);
         validateDeviceTypeFactory(deviceTypeFactory);
     }
@@ -45,7 +45,7 @@ public class DeviceTypeService {
      *
      * @param deviceTypeFactory The factory for the device type.
      */
-    private void validateDeviceTypeFactory(DeviceTypeFactory deviceTypeFactory) {
+    private void validateDeviceTypeFactory(IDeviceTypeFactory deviceTypeFactory) {
         if (deviceTypeFactory == null) {
             throw new IllegalArgumentException("Please enter a valid device type factory.");
         } else {

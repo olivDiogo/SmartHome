@@ -1,9 +1,9 @@
 package SmartHomeDDD.service;
 
 import SmartHomeDDD.domain.SensorModel.SensorModel;
-import SmartHomeDDD.domain.SensorModel.SensorModelFactory;
+import SmartHomeDDD.domain.SensorModel.ISensorModelFactory;
 import SmartHomeDDD.domain.Unit.Unit;
-import SmartHomeDDD.domain.Unit.UnitFactory;
+import SmartHomeDDD.domain.Unit.IUnitFactory;
 import SmartHomeDDD.repository.SensorModelRepository;
 import SmartHomeDDD.repository.UnitRepository;
 import SmartHomeDDD.valueObject.*;
@@ -17,8 +17,8 @@ public class ConfigurationService {
 
     private SensorModelRepository _sensorModelRepository;
     private UnitRepository _unitRepository;
-    private SensorModelFactory _sensorModelFactory;
-    private UnitFactory _unitFactory;
+    private ISensorModelFactory _sensorModelFactory;
+    private IUnitFactory _unitFactory;
 
     /**
      * Constructor for ConfigurationService.
@@ -29,7 +29,7 @@ public class ConfigurationService {
      * @param unitFactory           is the factory for units.
      * @throws InstantiationException if something went wrong in reading the configuration.
      */
-    public ConfigurationService(SensorModelRepository sensorModelRepository, UnitRepository unitRepository, SensorModelFactory sensorModelFactory, UnitFactory unitFactory) throws InstantiationException {
+    public ConfigurationService(SensorModelRepository sensorModelRepository, UnitRepository unitRepository, ISensorModelFactory sensorModelFactory, IUnitFactory unitFactory) throws InstantiationException {
         validateSensorModelRepository(sensorModelRepository);
         validateMeasurementTypeRepository(unitRepository);
         validateSensorModelFactory(sensorModelFactory);
@@ -71,7 +71,7 @@ public class ConfigurationService {
      *
      * @param sensorModelFactory The SensorModelFactory to validate.
      */
-    private void validateSensorModelFactory(SensorModelFactory sensorModelFactory) {
+    private void validateSensorModelFactory(ISensorModelFactory sensorModelFactory) {
         if (sensorModelFactory == null) {
             throw new IllegalArgumentException("Please enter a valid sensor model factory.");
         } else {
@@ -84,7 +84,7 @@ public class ConfigurationService {
      *
      * @param unitFactory The MeasurementTypeFactory to validate.
      */
-    private void validateUnitFactory(UnitFactory unitFactory) {
+    private void validateUnitFactory(IUnitFactory unitFactory) {
         if (unitFactory == null) {
             throw new IllegalArgumentException("Please enter a valid unit factory.");
         } else {

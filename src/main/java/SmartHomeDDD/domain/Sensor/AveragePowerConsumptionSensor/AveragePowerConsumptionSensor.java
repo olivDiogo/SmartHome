@@ -1,7 +1,7 @@
 package SmartHomeDDD.domain.Sensor.AveragePowerConsumptionSensor;
 
 import SmartHomeDDD.ddd.ValueObject;
-import SmartHomeDDD.domain.Sensor.Sensor;
+import SmartHomeDDD.domain.Sensor.ISensor;
 import SmartHomeDDD.valueObject.*;
 
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class AveragePowerConsumptionSensor implements Sensor {
+public class AveragePowerConsumptionSensor implements ISensor {
 
     private final double _dValue = 0;
     private final HashMap<LocalDateTime, Double> _powerConsumptions;

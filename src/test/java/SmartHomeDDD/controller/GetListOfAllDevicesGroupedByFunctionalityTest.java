@@ -4,13 +4,13 @@ import SmartHomeDDD.DTO.DeviceDTO;
 import SmartHomeDDD.assembler.DeviceAssembler;
 import SmartHomeDDD.assembler.RoomAssembler;
 import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Device.ImpDeviceFactory;
+import SmartHomeDDD.domain.Device.DeviceFactoryImpl;
 import SmartHomeDDD.domain.DeviceType.DeviceType;
-import SmartHomeDDD.domain.DeviceType.DeviceTypeFactory;
-import SmartHomeDDD.domain.DeviceType.ImpDeviceTypeFactory;
+import SmartHomeDDD.domain.DeviceType.IDeviceTypeFactory;
+import SmartHomeDDD.domain.DeviceType.DeviceTypeFactoryImpl;
 import SmartHomeDDD.domain.House.House;
-import SmartHomeDDD.domain.House.ImpHouseFactory;
-import SmartHomeDDD.domain.Room.ImpRoomFactory;
+import SmartHomeDDD.domain.House.HouseFactoryImpl;
+import SmartHomeDDD.domain.Room.RoomFactoryImpl;
 import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.repository.DeviceRepository;
 import SmartHomeDDD.repository.DeviceTypeRepository;
@@ -39,14 +39,14 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
     public void shouldInstantiateGetListOfAllDevicesGroupedByFunctionality_whenConstructorArgumentsAreValid() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
 
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
-        DeviceTypeFactory deviceTypeFactory = new ImpDeviceTypeFactory();
+        IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
         //Act
@@ -63,7 +63,7 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
         //Arrange
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
-        DeviceTypeFactory deviceTypeFactory = new ImpDeviceTypeFactory();
+        IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
         //Act & Assert
@@ -77,12 +77,12 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
     public void shouldThrowIllegalArgumentException_WhenGetListOfAllDevicesGroupedByFunctionalityIsCalledWithNullDeviceAssembler() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
 
-        DeviceTypeFactory deviceTypeFactory = new ImpDeviceTypeFactory();
+        IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
         //Act & Assert
@@ -96,7 +96,7 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
     public void shouldThrowIllegalArgumentException_WhenGetListOfAllDevicesGroupedByFunctionalityIsCalledWithNullDeviceTypeRepository() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
@@ -109,7 +109,7 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
     public void shouldThrowIllegalArgumentException_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithEmptyDevicesList() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
 
@@ -117,7 +117,7 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
 
-        DeviceTypeFactory deviceTypeFactory = new ImpDeviceTypeFactory();
+        IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
         GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
@@ -133,17 +133,17 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
     public void shouldReturnMapOfDevicesGroupedByFunctionality_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithValidDevicesListAndDevicesHaveDifferentType() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
-        DeviceTypeFactory deviceTypeFactory = new ImpDeviceTypeFactory();
+        IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
-        ImpDeviceTypeFactory impDeviceTypeFactory = new ImpDeviceTypeFactory();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        DeviceTypeFactoryImpl impDeviceTypeFactory = new DeviceTypeFactoryImpl();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseRepository houseRepository = new HouseRepository();
         HouseService houseService = new HouseService (houseFactory, houseRepository);
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
@@ -164,7 +164,7 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
         House house = houseService.addHouse(newAddress, newGPS);
 
         /* Create a room */
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
 
@@ -211,17 +211,17 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
     public void shouldReturnMapOfDevicesGroupedByFunctionality_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithValidDevicesListAndDevicesHaveSameType() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
-        DeviceTypeFactory deviceTypeFactory = new ImpDeviceTypeFactory();
+        IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
-        ImpDeviceTypeFactory impDeviceTypeFactory = new ImpDeviceTypeFactory();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        DeviceTypeFactoryImpl impDeviceTypeFactory = new DeviceTypeFactoryImpl();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseRepository houseRepository = new HouseRepository();
         HouseService houseService = new HouseService (houseFactory, houseRepository);
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
@@ -242,7 +242,7 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
         House house = houseService.addHouse(newAddress, newGPS);
 
         /* Create a room */
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
 
@@ -287,17 +287,17 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
     public void shouldThrowIllegalArgumentException_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithInvalidDeviceType() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
-        DeviceTypeFactory deviceTypeFactory = new ImpDeviceTypeFactory();
+        IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
-        ImpDeviceTypeFactory impDeviceTypeFactory = new ImpDeviceTypeFactory();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        DeviceTypeFactoryImpl impDeviceTypeFactory = new DeviceTypeFactoryImpl();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseRepository houseRepository = new HouseRepository();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
@@ -318,7 +318,7 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
         House house = houseService.addHouse(newAddress, newGPS);
 
         /* Create a room */
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
 

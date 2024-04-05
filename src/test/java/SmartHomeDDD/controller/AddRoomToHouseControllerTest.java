@@ -3,8 +3,8 @@ package SmartHomeDDD.controller;
 import SmartHomeDDD.DTO.RoomDTO;
 import SmartHomeDDD.assembler.RoomAssembler;
 import SmartHomeDDD.domain.House.House;
-import SmartHomeDDD.domain.House.ImpHouseFactory;
-import SmartHomeDDD.domain.Room.ImpRoomFactory;
+import SmartHomeDDD.domain.House.HouseFactoryImpl;
+import SmartHomeDDD.domain.Room.RoomFactoryImpl;
 import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.repository.HouseRepository;
 import SmartHomeDDD.repository.RoomRepository;
@@ -27,7 +27,7 @@ class AddRoomToHouseControllerTest {
     void shouldInstantiateAddRoomToHouseController_WhenParametersAreValid() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
@@ -48,7 +48,7 @@ class AddRoomToHouseControllerTest {
     void shouldThrowException_WhenHouseIsNotFound() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
@@ -67,11 +67,11 @@ class AddRoomToHouseControllerTest {
     void shouldReturnRoomDTO_WhenRoomIsAdded() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseService houseService = new HouseService(houseFactory, houseRepository);
 
 
@@ -124,7 +124,7 @@ class AddRoomToHouseControllerTest {
     void shouldThrowException_WhenRoomNameIsNotProvided() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
@@ -143,7 +143,7 @@ class AddRoomToHouseControllerTest {
     void shouldThrowException_WhenRoomFloorIsNotValid() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
@@ -161,7 +161,7 @@ class AddRoomToHouseControllerTest {
     void shouldThrowException_WhenRoomWidthIsNotValid() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
@@ -179,7 +179,7 @@ class AddRoomToHouseControllerTest {
     void shouldThrowException_WhenRoomLengthIsNotValid() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
@@ -197,7 +197,7 @@ class AddRoomToHouseControllerTest {
     void shouldThrowException_WhenRoomHeightIsNotValid() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 

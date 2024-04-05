@@ -4,10 +4,10 @@ import SmartHomeDDD.DTO.DeviceDTO;
 import SmartHomeDDD.assembler.DeviceAssembler;
 import SmartHomeDDD.assembler.RoomAssembler;
 import SmartHomeDDD.domain.Device.Device;
-import SmartHomeDDD.domain.Device.ImpDeviceFactory;
+import SmartHomeDDD.domain.Device.DeviceFactoryImpl;
 import SmartHomeDDD.domain.House.House;
-import SmartHomeDDD.domain.House.ImpHouseFactory;
-import SmartHomeDDD.domain.Room.ImpRoomFactory;
+import SmartHomeDDD.domain.House.HouseFactoryImpl;
+import SmartHomeDDD.domain.Room.RoomFactoryImpl;
 import SmartHomeDDD.domain.Room.Room;
 import SmartHomeDDD.repository.DeviceRepository;
 import SmartHomeDDD.repository.HouseRepository;
@@ -33,7 +33,7 @@ class DeactivateDeviceControllerTest {
         // Arrange
         DeactivateDeviceController deactivateDeviceController;
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
@@ -52,15 +52,15 @@ class DeactivateDeviceControllerTest {
     void shouldReturnAllDevices_WhenRequestAllDevicesIsCalled() {
         // Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
@@ -102,15 +102,15 @@ class DeactivateDeviceControllerTest {
     void shouldReturnNoDevices_WhenRequestAllDevicesIsCalled() {
         // Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
@@ -138,15 +138,15 @@ class DeactivateDeviceControllerTest {
     void shouldReturnDeactivatedDevice_WhenRequestDeactivateDeviceIsCalled() {
         // Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
@@ -188,15 +188,15 @@ class DeactivateDeviceControllerTest {
     void shouldReturnDeviceNotFound_WhenRequestDeactivateDeviceIsCalledAndDeviceIsNotFound() {
         // Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
-        ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        ImpRoomFactory roomFactory = new ImpRoomFactory();
+        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
         RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
         DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
-        ImpHouseFactory houseFactory = new ImpHouseFactory();
+        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
 
