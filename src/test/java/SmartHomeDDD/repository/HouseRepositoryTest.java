@@ -11,52 +11,67 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * Unit tests for the HouseRepository class.
+ */
 class HouseRepositoryTest {
 
+    /**
+     * Tests the save method of the HouseRepository when given a valid house.
+     */
     @Test
     void shouldSaveHouseWhenGivenValidHouse() {
-        //Arrange
+        // Arrange
         House house = mock(House.class);
         HouseID houseID = mock(HouseID.class);
         when(house.getID()).thenReturn(houseID);
         HouseRepository houseRepository = new HouseRepository();
-        //Act
+
+        // Act
         House savedHouse = houseRepository.save(house);
-        //Assert
+
+        // Assert
         assertEquals(house, savedHouse);
     }
 
+    /**
+     * Tests the save method of the HouseRepository when given a null house.
+     */
     @Test
     void shouldThrowIllegalArgumentExceptionWhenGivenNullHouse() {
-        //Arrange
+        // Arrange
         House house = null;
         HouseRepository houseRepository = new HouseRepository();
-        String expectedMessage = "House cannot be null.";
-        //Act
+
+        // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> houseRepository.save(house));
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
+        assertEquals("House cannot be null.", exception.getMessage());
     }
 
+    /**
+     * Tests the save method of the HouseRepository when a house with the same ID already exists.
+     */
     @Test
-    void shouldThrowExceptionWhenHouseAlreadyExists() {
-        //Arrange
+    void shouldThrowIllegalArgumentExceptionWhenHouseAlreadyExists() {
+        // Arrange
         House house = mock(House.class);
         HouseID houseID = mock(HouseID.class);
         when(house.getID()).thenReturn(houseID);
         HouseRepository houseRepository = new HouseRepository();
 
         houseRepository.save(house);
-        String expectedMessage = "House already exists.";
-        //Act
+
+        // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> houseRepository.save(house));
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
+        assertEquals("House already exists.", exception.getMessage());
     }
 
+    /**
+     * Tests the findAll method of the HouseRepository when houses are saved.
+     */
     @Test
     void shouldReturnAllHousesWhenFindAllIsCalled() {
-        //Arrange
+        // Arrange
         House firstHouse = mock(House.class);
         HouseID firstHouseID = mock(HouseID.class);
         when(firstHouse.getID()).thenReturn(firstHouseID);
@@ -69,39 +84,54 @@ class HouseRepositoryTest {
         houseRepository.save(firstHouse);
         houseRepository.save(secondHouse);
         List<House> expectedList = List.of(firstHouse, secondHouse);
-        //Act
+
+        // Act
         List<House> allHouses = houseRepository.findAll();
-        //Assert
+
+        // Assert
         assertEquals(expectedList, allHouses);
     }
 
+    /**
+     * Tests the findAll method of the HouseRepository when no houses are saved.
+     */
     @Test
     void shouldReturnEmptyListWhenNoHousesAreSaved() {
-        //Arrange
+        // Arrange
         HouseRepository houseRepository = new HouseRepository();
-        //Act
+
+        // Act
         List<House> allHouses = houseRepository.findAll();
-        //Assert
+
+        // Assert
         assertTrue(allHouses.isEmpty());
     }
 
+    /**
+     * Tests the ofIdentity method of the HouseRepository when given a valid house ID.
+     */
     @Test
     void shoudReturnHouseWhenGivenValidHouseID() {
-        //Arrange
+        // Arrange
         House house = mock(House.class);
         HouseID houseID = mock(HouseID.class);
         when(house.getID()).thenReturn(houseID);
         HouseRepository houseRepository = new HouseRepository();
         houseRepository.save(house);
-        //Act
+
+        // Act
         House returnedHouse = houseRepository.ofIdentity(houseID).get();
-        //Assert
+
+        // Assert
         assertEquals(house, returnedHouse);
     }
 
+    /**
+     * Tests the ofIdentity method of the HouseRepository when given an invalid house ID.
+     */
     @Test
     void shouldReturnOptinalEmptyWhenGivenInvalidHouseID() {
-        //Arrange
+        // Arrange
         HouseRepository houseRepository = new HouseRepository();
 
         House house = mock(House.class);
@@ -110,29 +140,39 @@ class HouseRepositoryTest {
         houseRepository.save(house);
 
         HouseID nonExistentHouseID = mock(HouseID.class);
-        //Act
+
+        // Act
         Optional<House> returnedHouse = houseRepository.ofIdentity(nonExistentHouseID);
-        //Assert
+
+        // Assert
         assertTrue(returnedHouse.isEmpty());
     }
 
+    /**
+     * Tests the containsOfIdentity method of the HouseRepository when given a valid house ID.
+     */
     @Test
     void shouldReturnTrueWhenGivenValidHouseID() {
-        //Arrange
+        // Arrange
         House house = mock(House.class);
         HouseID houseID = mock(HouseID.class);
         when(house.getID()).thenReturn(houseID);
         HouseRepository houseRepository = new HouseRepository();
         houseRepository.save(house);
-        //Act
+
+        // Act
         boolean containsHouse = houseRepository.containsOfIdentity(houseID);
-        //Assert
+
+        // Assert
         assertTrue(containsHouse);
     }
 
+    /**
+     * Tests the containsOfIdentity method of the HouseRepository when given an invalid house ID.
+     */
     @Test
     void shouldReturnFalseWhenGivenInvalidHouseID() {
-        //Arrange
+        // Arrange
         HouseRepository houseRepository = new HouseRepository();
 
         House house = mock(House.class);
@@ -141,10 +181,12 @@ class HouseRepositoryTest {
         houseRepository.save(house);
 
         HouseID nonExistentHouseID = mock(HouseID.class);
-        //Act
+
+        // Act
         boolean containsHouse = houseRepository.containsOfIdentity(nonExistentHouseID);
-        //Assert
+
+        // Assert
         assertFalse(containsHouse);
     }
-
 }
+
