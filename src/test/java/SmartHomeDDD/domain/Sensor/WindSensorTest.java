@@ -27,7 +27,9 @@ class WindSensorTest {
 
         try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class, (mock, context) -> {})) {
             // Act
-            new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
+            WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
+            // Assert
+            assertEquals(deviceID, windSensor.getDeviceID());
         }
     }
 

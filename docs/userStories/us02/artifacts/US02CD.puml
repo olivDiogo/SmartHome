@@ -3,8 +3,9 @@
 
 class AddRoomController<<Controller>> {
 - _roomService: RoomService
-+AddRoomToHouseController(roomService:RoomService)
-+CreateRoom(houseID: String, name: String, description: String, int floor, double width, double length, double height):RoomDTO
+- _roomAssembler: RoomAssembler
++AddRoomToHouseController(RoomService roomService, RoomAssembler roomAssembler)
++AddRoom(houseID: String, name: String, int floor, int width, int length, int height):RoomDTO
 }
 
 class RoomService <<Service>>{
@@ -13,16 +14,16 @@ class RoomService <<Service>>{
 - _roomAssembler: RoomAssembler
 - _houseRepository: HouseRepository
 +RoomService(roomRepository:RoomRepository, roomFactory:RoomFactory, roomAssembler:RoomAssembler, houseRepository:HouseRepository)
-+addRoom(houseID: String, name: String, description: String, int floor, double width, double length, double height): RoomDTO
++addRoom(houseID: String, name: String, int floor, int width, int length, int height): RoomDTO
 }
 
 class RoomRepository <<Repository>>{
 - _map<RoomID,Room> room
-+addRoomToRepository(room:Room) Room
++save(room: Room): Room
 }
 
 class RoomFactory <<Factory>>{
-+createRoom(houseID: HouseID, name: RoomName, dimensions: Dimensions, floor: Floor):Description
++createRoom(houseID: HouseID, roomName: RoomName, dimension: Dimension, roomFloor: RoomFloor):Room
 }
 
 class RoomAssembler <<Assembler>>{
@@ -30,10 +31,11 @@ class RoomAssembler <<Assembler>>{
 }
 
 class RoomDTO <<DTO>>{
-+ _name: String
-+ _floor: String
-+ _dimensions: String
-+RoomDTO(room:Room))
++ _roomName: String
++ _roomFloor: String
++ _roomDimension: String
++ _roomID: String
++RoomDTO(roomId: String, roomName: String, floor: String, dimension: String)
 }
 
 class Room <<Entity>>{

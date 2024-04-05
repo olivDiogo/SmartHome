@@ -17,10 +17,12 @@ import SmartHomeDDD.domain.Unit.ImpUnitFactory;
 import SmartHomeDDD.repository.*;
 import SmartHomeDDD.service.*;
 import SmartHomeDDD.valueObject.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -65,7 +67,7 @@ public class AddSensorToDeviceControllerTest {
     DeviceAssembler deviceAssembler = new DeviceAssembler();
 
     // Act
-    new AddSensorToDeviceController(
+    AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(
         roomService,
         roomAssembler,
         deviceService,
@@ -76,6 +78,9 @@ public class AddSensorToDeviceControllerTest {
         sensorTypeAssembler,
         sensorAssembler,
         sensorService);
+
+    // Assert
+    Assertions.assertNotNull(addSensorToDeviceController);
   }
 
   /**
@@ -771,7 +776,7 @@ public class AddSensorToDeviceControllerTest {
 
   /** Test to get rooms from a house. */
   @Test
-  public void shouldGetRoomsFromHouse_WhenGivenValidHouseID() throws InstantiationException {
+  void shouldGetRoomsFromHouse_WhenGivenValidHouseID() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -881,7 +886,7 @@ public class AddSensorToDeviceControllerTest {
 
   /** Throws exception when the room ID does not exist in the repository. */
   @Test
-  public void shouldThrowException_WhenRoomIDDoesNotExistInRepository()
+  void shouldThrowException_WhenRoomIDDoesNotExistInRepository()
       throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
@@ -952,7 +957,7 @@ public class AddSensorToDeviceControllerTest {
 
   /** Test to get devices from a room. */
   @Test
-  public void shouldGetDevicesFromRoom_WhenParametersAreValid() throws InstantiationException {
+  void shouldGetDevicesFromRoom_WhenParametersAreValid() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();

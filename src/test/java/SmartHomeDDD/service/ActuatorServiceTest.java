@@ -31,7 +31,10 @@ class ActuatorServiceTest {
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
         //Act
-        new ActuatorService(actuatorRepository, actuatorFactory, deviceRepository);
+        ActuatorService actuatorService = new ActuatorService(actuatorRepository, actuatorFactory, deviceRepository);
+
+        //Assert
+        assertNotNull(actuatorService);
     }
 
     /**

@@ -127,24 +127,6 @@ public class DeviceTypeTest {
     }
 
     /**
-     * Should return int hash code.
-     */
-    @Test
-    public void shouldReturnIntHashCode_whenHashCodeIsCalled() {
-        // Arrange
-        String description = "Device Type Description";
-        TypeDescription deviceTypeDescription = new TypeDescription(description);
-
-        DeviceType deviceType = new DeviceType(deviceTypeDescription);
-
-        // Act
-        int result = deviceType.hashCode();
-
-        // Assert
-        assertNotNull(result);
-    }
-
-    /**
      * Test case to verify the behavior of getDescription() method in DeviceType class.
      */
     @Test
