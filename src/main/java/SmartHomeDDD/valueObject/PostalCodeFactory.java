@@ -5,9 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 
 public class PostalCodeFactory {
 
-    public PostalCodeFactory() {
-    }
-
     /**
      * Creates a PostalCode object based on the given postal code and country code.
      *
