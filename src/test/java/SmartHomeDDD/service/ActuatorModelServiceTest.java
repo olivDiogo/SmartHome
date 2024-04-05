@@ -4,6 +4,7 @@ import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModelFactory;
 import SmartHomeDDD.repository.ActuatorModelRepository;
 import SmartHomeDDD.valueObject.ActuatorModelName;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.ModelPath;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
@@ -118,6 +119,36 @@ class ActuatorModelServiceTest {
             // Assert
             assertEquals(actuatorModelOptional.get(), actuatorModel);
         }
+    }
+
+    /**
+     * Tests retrieval of actuator models by their type ID.
+     */
+    @Test
+    void shouldReturnActuatorModelsByTypeID_WhenParametersAreValid () {
+        //Arrange
+        ActuatorModel actuatorModel = mock(ActuatorModel.class);
+        ActuatorModelFactory actuatorModelFactory = mock(ActuatorModelFactory.class);
+        ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
+
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+
+        when (actuatorModelRepository.findByActuatorTypeId(actuatorTypeID)).thenReturn(List.of(actuatorModel));
+
+        ActuatorModelService actuatorModelService = new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
+
+        int expected = 1;
+
+        //Act
+        List <ActuatorModel> actuatorModels = actuatorModelService.getActuatorModelsByActuatorTypeId(actuatorTypeID);
+
+        int result = actuatorModels.size();
+
+
+        //Assert
+        assertEquals(expected, result);
+
+
     }
 
 }
