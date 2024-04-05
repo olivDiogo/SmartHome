@@ -70,6 +70,27 @@ class ActuatorTypeTest {
         }
 
         /**
+         * Test of method equals of class ActuatorType when the instances are equal.
+         */
+        @Test
+        void shouldReturnGetUnit() {
+            // Arrange
+            String typeDescription = "typeDescription";
+            String id = "unitID";
+
+            TypeDescription actuatorName = new TypeDescription(typeDescription);
+            UnitID unitID = new UnitID(id);
+
+            ActuatorType actuatorType = new ActuatorType(actuatorName, unitID);
+
+            // Act
+            UnitID result = actuatorType.getUnit();
+
+            // Assert
+            assertEquals(unitID, result);
+        }
+
+        /**
          * Test method equals of class ActuatorType when the instance is compared to itself.
          */
         @Test
