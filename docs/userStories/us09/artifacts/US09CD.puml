@@ -4,9 +4,10 @@
 
 class GetListOfAllDevicesGroupedByFunctionalityController {
     -_deviceService: DeviceService
+    -_deviceTypeService: DeviceTypeService
     -_deviceAssembler: DeviceAssembler
 
-    +GetListOfAllDevicesGroupedByFunctionalityController(deviceService: DeviceService)
+    +GetListOfAllDevicesGroupedByFunctionalityController(deviceService: DeviceService, deviceTypeService: DeviceTypeService, deviceAssembler: DeviceAssembler)
     +getAllDevicesGroupedByFunctionality(): Map<DeviceType, List<DeviceDTO>>
 
 }
@@ -15,14 +16,14 @@ class DeviceService {
     -_deviceFactory: DeviceFactory
     -_deviceRepo: DeviceRepository
     +DeviceService(factoryDevice: FactoryDevice, deviceRepo: DeviceRepository)
-    +getDevices(): List<DeviceDTO>
+    +getAllDevices(): List<Device>
 }
 
 class DeviceTypeService {
     -_deviceTypeFactory: DeviceTypeFactory
     -_deviceTypeRepo: DeviceTypeRepository
     +DeviceTypeService(factoryDeviceType: FactoryDeviceType, deviceTypeRepo: DeviceTypeRepository)
-    +getDeviceTypeByID(): DeviceType
+    +getDeviceTypeByID(deviceTypeID: DeviceTypeID): DeviceType
 }
 
 class DeviceRepository {
@@ -46,8 +47,8 @@ class DeviceDTO {
     +id: String
     +roomID: String
     +name: String
-    +deviceTypeID: String
-    +DeviceDTO(id: DeviceID, roomID: RoomID, name: DeviceName, deviceTypeID: DeviceType)
+    +deviceStatus: String
+    +DeviceDTO(id: DeviceID, roomID: RoomID, name: DeviceName, deviceStatus: DeviceStatus)
 }
 
 GetListOfAllDevicesGroupedByFunctionalityController "1" ..> "1" DeviceService: uses

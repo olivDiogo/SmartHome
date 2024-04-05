@@ -20,6 +20,7 @@ public class GetListOfAllDevicesGroupedByFunctionality {
      *
      * @param deviceService
      * @param deviceAssembler
+     * @param deviceTypeService
      */
     public GetListOfAllDevicesGroupedByFunctionality(DeviceService deviceService, DeviceAssembler deviceAssembler, DeviceTypeService deviceTypeService) {
         validateDeviceService(deviceService);
