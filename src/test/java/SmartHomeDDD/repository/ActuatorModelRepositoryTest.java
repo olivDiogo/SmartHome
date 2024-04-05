@@ -1,6 +1,7 @@
 package SmartHomeDDD.repository;
 
 import SmartHomeDDD.domain.ActuatorModel.ActuatorModel;
+import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.ModelPath;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -106,7 +107,7 @@ public class ActuatorModelRepositoryTest {
      */
 
     @Test
-   public void shouldReturnActuatorModelWhenGivenValidActuatorModelID() {
+    public void shouldReturnActuatorModelWhenGivenValidActuatorModelID() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
@@ -125,7 +126,7 @@ public class ActuatorModelRepositoryTest {
      */
 
     @Test
-   public void shouldReturnOptionalEmptyWhenGivenInvalidSensorModelID() {
+    public void shouldReturnOptionalEmptyWhenGivenInvalidSensorModelID() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
@@ -176,5 +177,27 @@ public class ActuatorModelRepositoryTest {
         boolean result = actuatorModelRepository.containsOfIdentity(invalidActuatorModelID);
         //Assert
         assertFalse(result);
+    }
+
+    /**
+     * Test of findByActuatorTypeId method, of class ActuatorModelRepository, should return list of ActuatorModels by ActuatorTypeID.
+     */
+    @Test
+    public void shouldReturnListOfActuatorModelsByActuatorTypeID() {
+        //Arrange
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        ActuatorModel actuatorModel = mock(ActuatorModel.class);
+        ModelPath actuatorModelID = mock(ModelPath.class);
+
+        ActuatorTypeID actuatorModelTypeID = mock(ActuatorTypeID.class);
+        when(actuatorModel.getID()).thenReturn(actuatorModelID);
+        when(actuatorModel.getActuatorTypeID()).thenReturn(actuatorModelTypeID);
+
+        actuatorModelRepository.save(actuatorModel);
+
+        //Act
+        List<ActuatorModel> actuatorModels = actuatorModelRepository.findByActuatorTypeId(actuatorModelTypeID);
+        //Assert
+        assertTrue(actuatorModels.contains(actuatorModel));
     }
 }
