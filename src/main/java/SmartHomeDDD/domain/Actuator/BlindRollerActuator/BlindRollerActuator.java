@@ -27,7 +27,7 @@ public class BlindRollerActuator implements Actuator {
      * @param actuatorName   The name of the actuator.
      * @param modelPath      The model path of the actuator.
      */
-    public BlindRollerActuator(DeviceID deviceID, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, ModelPath modelPath) {
+    public BlindRollerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
         validateDeviceID(deviceID);
         validateActuatorTypeID(actuatorTypeID);
         validateActuatorName(actuatorName);

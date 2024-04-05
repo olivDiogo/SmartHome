@@ -5,8 +5,7 @@ import SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerValue;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 class BlindRollerActuatorTest {
@@ -17,13 +16,18 @@ class BlindRollerActuatorTest {
     @Test
     void shouldCreateBlindRollerActuator_WhenConstructorArgumentsAreValid() {
         //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
 
         //Act
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         //Assert
         assertNotNull(blindRollerActuator);
@@ -35,19 +39,25 @@ class BlindRollerActuatorTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenDeviceIDIsNull() {
         //Arrange
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
-        DeviceID deviceID = null;
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
+
+        DeviceID deviceIDObject = null;
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
 
         String expectedMessage = "DeviceID cannot be null";
 
-       //Act+Assert
-        try {
-            new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        //Act+Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
     }
 
     /**
@@ -56,19 +66,26 @@ class BlindRollerActuatorTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenActuatorTypeIDIsNull() {
         //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = null;
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = null;
 
         String expectedMessage = "ActuatorTypeID cannot be null";
 
         //Act+Assert
-        try {
-            new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+
     }
 
     /**
@@ -77,19 +94,27 @@ class BlindRollerActuatorTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenActuatorNameIsNull() {
         //Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
-        ActuatorName actuatorName = null;
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorTypeID = "1";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = null;
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
 
         String expectedMessage = "ActuatorName cannot be null";
 
         //Act+Assert
-        try {
-            new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
+       Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+                new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+            });
+
+         String actualMessage = exception.getMessage();
+
+            assertEquals(expectedMessage, actualMessage);
+
     }
 
     /**
@@ -98,19 +123,26 @@ class BlindRollerActuatorTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenModelPathIsNull() {
         //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
-        ModelPath modelPath = null;
+        String deviceID = "1";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = null;
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
 
         String expectedMessage = "ModelPath cannot be null";
 
         //Act+Assert
-       try {
-            new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
+       Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+                new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+            });
+
+         String actualMessage = exception.getMessage();
+
+            assertEquals(expectedMessage, actualMessage);
 
     }
 
@@ -120,12 +152,18 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnActuatorID_WhenGetIDIsCalled() {
         // Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         // Act
         ActuatorID result = blindRollerActuator.getID();
@@ -142,18 +180,23 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnActuatorName_WhenGetNameIsCalled() {
         //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         //Act
         ActuatorName result = blindRollerActuator.getName();
 
         //Assert
-        assertNotNull(result);
+        assertEquals(actuatorName, result.getActuatorName());
     }
 
     /**
@@ -162,19 +205,25 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnModelPath_WhenGetModelPathIsCalled() {
         //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        String expected = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         //Act
         ModelPath result = blindRollerActuator.getModelPath();
 
         //Assert
-        assertNotNull(result);
-
+        assertEquals(expected, result.toString());
     }
 
     /**
@@ -183,18 +232,26 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnActuatorTypeID_WhenGetActuatorTypeIDIsCalled() {
         //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        String expected = "1";
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         //Act
         ActuatorTypeID result = blindRollerActuator.getActuatorTypeID();
 
         //Assert
-        assertNotNull(result);
+        assertEquals(expected, result.toString());
+
     }
     /**
      * Test of getDeviceID method, of class BlindRoller
@@ -202,18 +259,25 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnDeviceID_WhenGetDeviceIDIsCalled() {
         //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        String expected = "1";
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         //Act
         DeviceID result = blindRollerActuator.getDeviceID();
 
         //Assert
-        assertNotNull(result);
+        assertEquals(expected, result.toString());
     }
 
     /**
@@ -222,13 +286,21 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnActuatorValue_WhenSetValueIsCalled() {
         //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
-        BlindRollerValue blindRollerValue = new BlindRollerValue(1);
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
+        int value = 50;
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        BlindRollerValue blindRollerValue = new BlindRollerValue(value);
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         //Act
         BlindRollerValue result = blindRollerActuator.setValue(blindRollerValue);
@@ -243,17 +315,22 @@ class BlindRollerActuatorTest {
     @Test
     void shouldReturnNull_WhenSetValueIsNull() {
         //Arrange
-        DeviceID deviceID = new DeviceID("1");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("BlindRoller");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
 
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, actuatorTypeID, actuatorName, modelPath);
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         //Act
         BlindRollerValue result = blindRollerActuator.setValue(null);
 
         //Assert
-        assertEquals(null, result);
+        assertNull(result);
     }
 }
