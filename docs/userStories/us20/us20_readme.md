@@ -1,4 +1,4 @@
-# US20 - To have a type of sensor for Sunrise Time on a given location
+# US20 - To have a type of sensor that gives the sunrise instant for a given calendar date.
 
 ## 1. Requirements Engineering
 

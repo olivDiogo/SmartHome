@@ -2,6 +2,8 @@
 'https://plantuml.com/class-diagram
 
 !pragma layout smetana
+!pragma scale 100 width
+!pragma useVerticalIfPossible
 
 package domain.Sensor {
     interface Sensor {
@@ -98,24 +100,29 @@ package ddd {
 
   interface AggregateRoot {
   }
+
+  interface ValueObject{
+  }
 }
 
 AveragePowerConsumptionSensor ..|> domain.Sensor.Sensor
 
-AveragePowerConsumptionSensor --> "1" AveragePowerConsumptionSensorValue : has
-AveragePowerConsumptionSensor -->  "1" SensorTypeID : has
-AveragePowerConsumptionSensor -->  "1" SensorModelID : has
-AveragePowerConsumptionSensor -->  "1" SensorID : has
-AveragePowerConsumptionSensor -->  "1" DeviceID : has
-AveragePowerConsumptionSensor -->  "1" ModelPath : has
+AveragePowerConsumptionSensor"1" --> "1" AveragePowerConsumptionSensorValue : has
+AveragePowerConsumptionSensor"1" -->  "1" SensorTypeID : has
+AveragePowerConsumptionSensor"1" -->  "1" SensorModelID : has
+AveragePowerConsumptionSensor"1" -->  "1" SensorID : has
+AveragePowerConsumptionSensor"1" -->  "1" DeviceID : has
+AveragePowerConsumptionSensor"1" -->  "1" ModelPath : has
 
 DomainEntity --|> DomainID
 AggregateRoot --|> DomainEntity
 AggregateRoot --|> DomainID
+AveragePowerConsumptionSensorValue ..|> ValueObject
 
 SensorTypeID ..|> ddd.DomainID
 SensorModelID ..|> ddd.DomainID
 SensorID ..|> ddd.DomainID
 DeviceID ..|> ddd.DomainID
+ddd.DomainID ..|> ValueObject
 
 @enduml
