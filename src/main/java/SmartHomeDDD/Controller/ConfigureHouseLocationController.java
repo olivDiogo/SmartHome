@@ -1,4 +1,4 @@
-package SmartHomeDDD.Controller;
+package SmartHomeDDD.controller;
 
 import SmartHomeDDD.DTO.HouseDTO;
 import SmartHomeDDD.DTO.HouseDataDTO;
@@ -9,13 +9,10 @@ import SmartHomeDDD.valueObject.Address;
 import SmartHomeDDD.valueObject.GPS;
 import SmartHomeDDD.valueObject.PostalCodeFactory;
 
-
-import java.util.List;
-
 /**
  * Controller responsible for configuring the location of a house.
  */
-public class US01ConfigureHouseLocationController {
+public class ConfigureHouseLocationController {
     private HouseService _houseService;
     private HouseAssembler _houseAssembler;
 
@@ -26,7 +23,7 @@ public class US01ConfigureHouseLocationController {
      * @param houseAssembler The assembler responsible for converting between domain and DTO objects.
      * @throws IllegalArgumentException If either houseService or houseAssembler is null.
      */
-    public US01ConfigureHouseLocationController(HouseService houseService, HouseAssembler houseAssembler) {
+    public ConfigureHouseLocationController(HouseService houseService, HouseAssembler houseAssembler) {
         validateHouseService(houseService);
         validateHouseAssembler(houseAssembler);
     }
