@@ -43,6 +43,10 @@ public class AddDeviceToRoomController {
         validateDeviceAssembler(deviceAssembler);
     }
 
+    /**
+     * Validates the room service.
+     * @param roomService
+     */
     private void validateRoomService(RoomService roomService) {
         if (roomService == null) {
             throw new IllegalArgumentException("Please enter a valid room service.");
@@ -51,6 +55,10 @@ public class AddDeviceToRoomController {
         }
     }
 
+    /**
+     * Validates the room assembler.
+     * @param roomAssembler
+     */
     private void validateRoomAssembler(RoomAssembler roomAssembler) {
         if (roomAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid room assembler.");
@@ -59,6 +67,10 @@ public class AddDeviceToRoomController {
         }
     }
 
+    /**
+     * Validates the device service.
+     * @param deviceService
+     */
     private void validateDeviceService(DeviceService deviceService) {
         if (deviceService == null) {
             throw new IllegalArgumentException("Please enter a valid device service.");
@@ -67,6 +79,10 @@ public class AddDeviceToRoomController {
         }
     }
 
+    /**
+     * Validates the device assembler.
+     * @param deviceAssembler
+     */
     private void validateDeviceAssembler(DeviceAssembler deviceAssembler) {
         if (deviceAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid device assembler.");
