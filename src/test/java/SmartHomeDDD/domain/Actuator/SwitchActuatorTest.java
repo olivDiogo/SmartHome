@@ -127,7 +127,7 @@ public class SwitchActuatorTest {
             new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
         } catch (IllegalArgumentException e) {
             // Assert
-            assert e.getMessage().equals("The value of 'actuatorTypeID' should be 'Switch'.");
+            assertEquals( e.getMessage(), "The value of 'actuatorTypeID' should be 'Switch'.");
         }
     }
 
@@ -229,7 +229,7 @@ public class SwitchActuatorTest {
             new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
         } catch (IllegalArgumentException e) {
             // Assert
-            assert e.getMessage().equals("The value of 'actuatorTypeID' should be 'Switch'.");
+            assertEquals(e.getMessage(), "The value of 'actuatorTypeID' should be 'Switch'.");
         }
 
     }

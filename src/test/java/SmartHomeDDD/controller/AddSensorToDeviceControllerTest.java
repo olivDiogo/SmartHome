@@ -17,10 +17,12 @@ import SmartHomeDDD.domain.Unit.ImpUnitFactory;
 import SmartHomeDDD.repository.*;
 import SmartHomeDDD.service.*;
 import SmartHomeDDD.valueObject.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -65,7 +67,7 @@ public class AddSensorToDeviceControllerTest {
     DeviceAssembler deviceAssembler = new DeviceAssembler();
 
     // Act
-    new AddSensorToDeviceController(
+    AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(
         roomService,
         roomAssembler,
         deviceService,
@@ -76,6 +78,9 @@ public class AddSensorToDeviceControllerTest {
         sensorTypeAssembler,
         sensorAssembler,
         sensorService);
+
+    // Assert
+    Assertions.assertNotNull(addSensorToDeviceController);
   }
 
   /**

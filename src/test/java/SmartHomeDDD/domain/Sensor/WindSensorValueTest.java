@@ -16,7 +16,9 @@ class WindSensorValueTest {
         double speed = 10.5;
         double direction = 0.0;
         //Act
-        new WindSensorValue(speed, direction);
+        WindSensorValue windSensorValue = new WindSensorValue(speed, direction);
+        //Assert
+        assertEquals(speed, windSensorValue.getSpeed(), "The speed returned should match the speed set in the constructor.");
     }
 
     /**

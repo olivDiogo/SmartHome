@@ -13,8 +13,7 @@ import SmartHomeDDD.service.RoomService;
 import SmartHomeDDD.valueObject.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for the AddRoomToHouseController class.
@@ -36,6 +35,9 @@ class AddRoomToHouseControllerTest {
 
         //Act
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomService, roomAssembler);
+
+        // Assert
+        assertNotNull(addRoomToHouseController);
 
     }
 
