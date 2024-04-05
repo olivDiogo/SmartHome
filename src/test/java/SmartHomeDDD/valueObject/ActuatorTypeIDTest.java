@@ -167,4 +167,35 @@ public class ActuatorTypeIDTest {
         // Assert
         Assertions.assertEquals(expected, result);
     }
+
+    /**
+     * Should return false when an object is null.
+     */
+    @Test
+    void shouldReturnFalse_WhenOneObjectIsNull() {
+        // Arrange
+        String actuatorTypeIDDescription = "switch";
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeIDDescription);
+
+        // Act
+        boolean result = actuatorTypeID.equals(null);
+
+        // Assert
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    void shouldReturnActuatorTypeID_WhenToStringIsCalled() {
+        // Arrange
+        String actuatorTypeIDDescription = "switch";
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeIDDescription);
+
+        String expected = "switch";
+
+        // Act
+        String result = actuatorTypeID.toString();
+
+        // Assert
+        Assertions.assertEquals(expected, result);
+    }
 }
