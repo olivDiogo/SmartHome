@@ -30,7 +30,7 @@ N/A
 
 The relevant domain concepts for this user story:
 
-![artifacts/us19_DM.svg](artifacts/us12_DM.svg)
+![artifacts/us19_DM.svg](artifacts/us19_DM.svg)
 
 ## 3. Design
 
@@ -39,7 +39,7 @@ The relevant domain concepts for this user story:
 N/A
 
 ### 3.2 Class Diagram
-![artifacts/us19_CD.svg](artifacts/us12_CD.svg)
+![artifacts/us19_CD.svg](artifacts/us19_CD.svg)
 
 ### 3.3 Applied Patterns
 

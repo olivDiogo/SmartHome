@@ -53,9 +53,9 @@ _DeviceDTO_ -> for the device data transfer object
 ## 2. Design
 _The team will design the best way to implement the requirements._
 ### 2.1. Class Diagram
-![ClassDiagram](/artifacts/US09CD.svg)
+![ClassDiagram](artifacts/US09CD.svg)
 ### 2.2. Sequence Diagram
-![SequenceDiagram](/artifacts/US09SD.svg)
+![SequenceDiagram](artifacts/US09SD.svg)
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization 
 and maintainability.

@@ -7,7 +7,7 @@ _As a Power User, I want to deactivate a device, so that it is no longer availab
 _The device will be deactivated and will no longer be available for use._
 
 ### 1.1. System Sequence Diagram
-![System Sequence Diagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/main/docs/userStories/us08/artifacts/US08SD.png)
+![System Sequence Diagram](artifacts/US08SSD.svg)
 
 ### 1.2. Use Case description
 _To deactivate a device_
@@ -40,16 +40,16 @@ US02 - a Room must exist
 US05 - a Device must exist in a Room
 
 ### 1.4. Relevant domain model aggregates
-![Device](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/d4d86161ae4fb96ee7daa42a58395cddec6f2ca4/docs/ooa/agreggateModels/Device.png)
+![Device](../../../docs/general/agreggateModels/Device.png)
 
 ## 2. Design
 _The team will design the best way to implement the requirements._
 
 ### 2.1. Class Diagram
-![ClassDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/94937c55368fe87d019760d5a6cba7ea933479f9/docs/userStories/us08/artifacts/US08CD.png)
+![ClassDiagram](artifacts/US08CD.png)
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1/blob/94937c55368fe87d019760d5a6cba7ea933479f9/docs/userStories/us08/artifacts/US08SD.png)
+![SequenceDiagram](artifacts/US08SD.png)
 
 ### 2.3. Applied Patterns
 - Single Responsibility Principle - Each class has a single responsibility, promoting better code organization and maintainability.

@@ -43,10 +43,10 @@ _RoomDTO_ -> for the room data transfer object
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](/artifacts/US02CD.svg)
+![ClassDiagram](artifacts/US02CD.svg)
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](/artifacts/US02SD.svg)
+![SequenceDiagram](artifacts/US02SD.svg)
 
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization

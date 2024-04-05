@@ -7,7 +7,7 @@ _As a Power User (or Administrator), I want to add a device to a room._
 _The device will be added to a room. The device will have a name, a status, a type, a location, and a reference ID._
 
 ### 1.1. System Sequence Diagram
-![System Sequence Diagram](./artifacts/US05SSD.svg)
+![System Sequence Diagram](artifacts/US05SSD.svg)
 
 ### 1.2. Use Case description
 _To add a device to a room_
