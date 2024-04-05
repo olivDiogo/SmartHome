@@ -47,5 +47,5 @@ Not applicable.
 
 ## 3 Acceptance Tests
 _The actuator should be able to switch a load ON/OFF:_
-- [Test Link](../../../test/java/SmartHomeDDD/domain/Actuator/SwitchActuatorTest.java#L272);
-- [Test Link](../../../test/java/SmartHomeDDD/domain/Actuator/SwitchActuatorTest.java#L300);
+- [Test Link](../../../src/test/java/SmartHomeDDD/domain/Actuator/SwitchActuatorTest.java#L272);
+- [Test Link](../../../src/test/java/SmartHomeDDD/domain/Actuator/SwitchActuatorTest.java#L300);

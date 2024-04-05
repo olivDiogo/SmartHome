@@ -45,4 +45,4 @@ Not applicable.
 and maintainability.
 
 ## 3 Acceptance Tests
-- The SetIntegerActuator should be able to set an integer value in the range defined by [lower limit, upper limit] - [Test Link](../../../test/java/SmartHomeDDD/domain/Actuator/SetIntegerActuatorTest.java#L301)
+- The SetIntegerActuator should be able to set an integer value in the range defined by [lower limit, upper limit] - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Actuator/SetIntegerActuatorTest.java#L301)

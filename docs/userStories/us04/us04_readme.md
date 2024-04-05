@@ -68,7 +68,7 @@ Unit repository, to provide a list of supported units and check if the given uni
 ## 3. Tests
 _The team will design the best way to test the requirements._
 
-- Should add sensorType with valid description and valid unit [Test Link](../../../test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L139)
-- Should throw exception if sensorType already exists [Test Link](../../../test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L172)
-- Should throw exception if unit not supported [Test Link](../../../test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L205)
-- The sensorType description should be unique [Test Link](../../../test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L238)
+- Should add sensorType with valid description and valid unit [Test Link](../../../src/test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L139)
+- Should throw exception if sensorType already exists [Test Link](../../../src/test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L172)
+- Should throw exception if unit not supported [Test Link](../../../src/test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L205)
+- The sensorType description should be unique [Test Link](../../../src/test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L238)

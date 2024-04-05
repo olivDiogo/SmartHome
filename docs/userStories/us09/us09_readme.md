@@ -64,5 +64,5 @@ data, respectively, between the service layer and the controller, which guarante
 - Repository: The DeviceRepository is used to store and retrieve the Device data.
 
 ## 3. Acceptance Tests
-- Should return a list of devices grouped by functionality when devices exist in the house and have different functionalities - [Test Link](../../../test/java/SmartHomeDDD/controller/GetListOfAllDevicesGroupedByFunctionalityTest.java#L130)
-- Should return a list of devices grouped by functionality when devices exist in the house and have the same functionality - [Test Link](../../../test/java/SmartHomeDDD/controller/GetListOfAllDevicesGroupedByFunctionalityTest.java#L202)
+- Should return a list of devices grouped by functionality when devices exist in the house and have different functionalities - [Test Link](../../../src/test/java/SmartHomeDDD/controller/GetListOfAllDevicesGroupedByFunctionalityTest.java#L130)
+- Should return a list of devices grouped by functionality when devices exist in the house and have the same functionality - [Test Link](../../../src/test/java/SmartHomeDDD/controller/GetListOfAllDevicesGroupedByFunctionalityTest.java#L202)

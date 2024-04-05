@@ -45,7 +45,7 @@ Not applicable.
 
 ## 3. Acceptance Tests
 
-- Should throw exception when not given valid date period  - [Test Link](../../../test/java/SmartHomeDDD/domain/Sensor/ElectricConsumptionWhSensorTest.java#L112)
-- Should throw exception when not given valid sensorType (Sensor Type not supported) - [Test Link](../../../test/java/SmartHomeDDD/domain/Sensor/ElectricConsumptionWhSensorTest.java#L74)
-- Should return the energy consumption over a period - [Test Link](../../../test/java/SmartHomeDDD/domain/Sensor/ElectricConsumptionWhSensorTest.java#L221)
-- Should return zero if there is no energy consumption - [Test Link](../../../test/java/SmartHomeDDD/domain/Sensor/ElectricConsumptionWhSensorTest.java#L242)
+- Should throw exception when not given valid date period  - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Sensor/ElectricConsumptionWhSensorTest.java#L112)
+- Should throw exception when not given valid sensorType (Sensor Type not supported) - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Sensor/ElectricConsumptionWhSensorTest.java#L74)
+- Should return the energy consumption over a period - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Sensor/ElectricConsumptionWhSensorTest.java#L221)
+- Should return zero if there is no energy consumption - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Sensor/ElectricConsumptionWhSensorTest.java#L242)

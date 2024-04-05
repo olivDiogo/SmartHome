@@ -58,5 +58,5 @@ _The team will design the best way to implement the requirements._
 - Data Transfer Object: The RoomDTO class will be used to transfer data between the layers of the application.
 
 ## 4. Acceptance tests
-- Should return a list of all rooms - [Test Link](src/test/java/SmartHomeDDD/controller/GetListOfRoomsControllerTest.java#L114) 
+- Should return a list of all rooms - [Test Link](../../../src/test/java/SmartHomeDDD/controller/GetListOfRoomsControllerTest.java#L114) 
 

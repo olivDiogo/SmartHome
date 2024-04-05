@@ -45,5 +45,5 @@ Not applicable.
 
 ## 4. Acceptance Tests
 
-- The InstantPowerConsumptionSensor should be able to return the value of the power consumption in a given instant - [Test Link](../../../test/java/SmartHomeDDD/domain/Sensor/InstantPowerConsumptionSensorTest.java#L243)
+- The InstantPowerConsumptionSensor should be able to return the value of the power consumption in a given instant - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Sensor/InstantPowerConsumptionSensorTest.java#L243)
 

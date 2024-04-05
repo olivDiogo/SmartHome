@@ -45,4 +45,4 @@ and maintainability.
 
 ## 3. Acceptance Tests
 
-- The SolarIrradianceSensor should be able to return the value of the solar irradiance - [Test Link](../../../test/java/SmartHomeDDD/domain/Sensor/SolarIrradianceSensorTest.java#L243)
+- The SolarIrradianceSensor should be able to return the value of the solar irradiance - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Sensor/SolarIrradianceSensorTest.java#L243)

@@ -46,4 +46,4 @@ and maintainability.
 
 ## 3. Acceptance Tests
 
-- The HumiditySensor should be able to return the value of the humidity - [Test Link](../../../test/java/SmartHomeDDD/domain/Sensor/SwitchSensorTest.java#L287)
+- The HumiditySensor should be able to return the value of the humidity - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Sensor/SwitchSensorTest.java#L287)

@@ -46,4 +46,4 @@ and maintainability.
 
 ## 3. Acceptance Tests
 
-- Test to verify that PercentagePositionSensor is properly instantiated when constructor arguments are valid - [Test Link](/Users/WagnerPaiva/Documents/GitHub/2023-2024-switch-dev-project-assignment-grupo-1/src/test/java/SmartHomeDDD/domain/Sensor/PercentagePositionSensorTest.java#L22)
+- Test to verify that PercentagePositionSensor is properly instantiated when constructor arguments are valid - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Sensor/PercentagePositionSensorTest.java#L22)

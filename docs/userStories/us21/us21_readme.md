@@ -41,7 +41,7 @@ _Sunset Time Sensor_
 
 ## 3. Tests
 
-- Should Throw Exception When GPS Is Invalid [Test Link](../../../test/java/SmartHomeDDD/controller/SunsetTimeSensorTest.java#L89)
-- Should Return Sunset Time For Current Day [Test Link](../../../test/java/SmartHomeDDD/controller/SunsetTimeSensorTest.java#L103)
-- Should Return Sunset Time For Given Day [Test Link](../../../test/java/SmartHomeDDD/controller/SunsetTimeSensorTest.java#L120)
-- Should Throw Exception SensorType Not Appropriate [Test Link](../../../test/java/SmartHomeDDD/controller/SunsetTimeSensorTest.java#L47)
+- Should Throw Exception When GPS Is Invalid [Test Link](../../../src/test/java/SmartHomeDDD/controller/SunsetTimeSensorTest.java#L89)
+- Should Return Sunset Time For Current Day [Test Link](../../../src/test/java/SmartHomeDDD/controller/SunsetTimeSensorTest.java#L103)
+- Should Return Sunset Time For Given Day [Test Link](../../../src/test/java/SmartHomeDDD/controller/SunsetTimeSensorTest.java#L120)
+- Should Throw Exception SensorType Not Appropriate [Test Link](../../../src/test/java/SmartHomeDDD/controller/SunsetTimeSensorTest.java#L47)

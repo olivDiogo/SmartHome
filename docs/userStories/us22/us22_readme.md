@@ -44,5 +44,5 @@ Not applicable.
 
 ## 4. Acceptance Tests
 
-- The DewPointSensor should be able to return the value of the dew point - [Test Link](src/test/java/SmartHomeDDD/domain/Sensor/DewPointSensorTest.java)
+- The DewPointSensor should be able to return the value of the dew point - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Sensor/DewPointSensorTest.java)
 
