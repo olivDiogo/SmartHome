@@ -12,27 +12,27 @@ participant ":RoomRepository" as Repository
 participant ":RoomAssembler" as Assembler
 participant "roomDTO :RoomDTO" as DTO
 
-User o-> Controller: addRoom(roomDataDTO(String houseID, String name, int floor, int width, int length, int height))
+User o-> Controller: addRoom(roomDataDTO)
 activate Controller
-Controller -> Service: addRoom(roomDataDTO(String houseID, String name, int floor, int width, int length, int height))
+Controller -> Service: addRoom(houseID: String, name: String, int floor, int width, int length, int height): RoomDTO
 activate Service
-Service -> Factory: createRoom(HouseID houseID, RoomName name, Dimensions dimensions, Floor floor)
+Service -> Factory: createRoom(houseID: HouseID, roomName: RoomName, dimension: Dimension, roomFloor: RoomFloor):Room
 activate Factory
 create Room
 Factory -> Room: createRoom(HouseID houseID, RoomName name, Dimensions dimensions, Floor floor)
 activate Room
 Room --> Factory: room
 deactivate Room
-Factory --> Controller: room
+Factory --> Service: room
 deactivate Factory
-Controller -> Repository: save(room)
+Service -> Repository: save(room)
 activate Repository
 Repository --> Service : room
 deactivate Repository
-Service -> Assembler: roomToDTO(room)
+Service -> Assembler: RoomDTO(room : Room)
 activate Assembler
 create DTO
-Assembler -> DTO: domainToDTO(room)
+Assembler -> DTO: roomDTO(String roomName, String roomDimension, String roomFloor, String roomID)
 activate DTO
 DTO --> Assembler: roomDTO
 deactivate DTO
