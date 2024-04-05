@@ -155,16 +155,6 @@ public class SetDecimalActuator {
     }
 
     /**
-     * Gets the current value of the actuator.
-     *
-     * @return The SetDecimalValue object representing the current value of the actuator.
-     */
-
-    public SetDecimalValue getValue() {
-        return _value;
-    }
-
-    /**
      * Gets the limits within which the actuator can set values.
      *
      * @return The SetDecimalActuatorLimits object representing the limits of the actuator.

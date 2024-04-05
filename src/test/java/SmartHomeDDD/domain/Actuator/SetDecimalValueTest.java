@@ -40,4 +40,21 @@ class SetDecimalValueTest {
         assertEquals(expected, result);
     }
 
+
+    /**
+     * Verifies that the getValue method returns the expected decimal value.
+     */
+    @Test
+    void shouldGetValue() {
+        // Arrange
+        double value = 1.5;
+        SetDecimalValue setDecimalValue = new SetDecimalValue(value);
+
+        // Act
+        double result = setDecimalValue.getValue();
+
+        // Assert
+        assertEquals(value, result);
+    }
+
 }
