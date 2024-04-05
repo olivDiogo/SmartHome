@@ -92,24 +92,29 @@ package ddd {
 
   interface AggregateRoot {
   }
+
+    interface ValueObject{
+    }
 }
 
 SunriseTimeSensor ..|> domain.Sensor.Sensor
 
-SunriseTimeSensor --> "1" SunriseTimeSensorValue : has
-SunriseTimeSensor -->  "1" SensorTypeID : has
-SunriseTimeSensor -->  "1" SensorModelID : has
-SunriseTimeSensor -->  "1" SensorID : has
-SunriseTimeSensor -->  "1" DeviceID : has
-SunriseTimeSensor -->  "1" ModelPath : has
+SunriseTimeSensor"1" --> "1" SunriseTimeSensorValue : has
+SunriseTimeSensor"1" -->  "1" SensorTypeID : has
+SunriseTimeSensor"1" -->  "1" SensorModelID : has
+SunriseTimeSensor"1" -->  "1" SensorID : has
+SunriseTimeSensor"1" -->  "1" DeviceID : has
+SunriseTimeSensor"1" -->  "1" ModelPath : has
 
 DomainEntity --|> DomainID
 AggregateRoot --|> DomainEntity
 AggregateRoot --|> DomainID
+SunriseTimeSensorValue ..|> ValueObject
 
 SensorTypeID ..|> ddd.DomainID
 SensorModelID ..|> ddd.DomainID
 SensorID ..|> ddd.DomainID
 DeviceID ..|> ddd.DomainID
+DomainID ..|> ValueObject
 
 @enduml
