@@ -119,12 +119,11 @@ domain.actuator.BlindRollerActuator.ActuatorName ..|> domain.ddd.ValueObject
 DomainEntity --|> DomainID
 AggregateRoot --|> DomainEntity
 
-domain.actuator.Actuator ..|> domain.ddd.AggregateRoot
+domain.actuator.Actuator --> domain.ddd.AggregateRoot
 
 ActuatorTypeID ..|> domain.ddd.DomainID
 ActuatorID ..|> domain.ddd.DomainID
 ModelPath ..|> domain.ddd.DomainID
-ActuatorName ..|> domain.ddd.DomainID
 DeviceID ..|> domain.ddd.DomainID
 
 @enduml
