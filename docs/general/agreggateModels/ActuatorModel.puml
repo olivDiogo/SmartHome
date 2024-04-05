@@ -4,29 +4,29 @@
 package SmartHome.ActuatorModel{
 
     class ActuatorModel <<Entity>> <<Root>>{
-    - _id : ActuatorModelId
-    - _filePathName : FilePathName
-    - _actuatorModel : ActuatorModel
+    - _actuatorTypeID : ActuatorTypeID
+    - _actuatorModelName : ActuatorModelName
+    - _modelPath: ModelPath
     }
 }
 
 package SmartHome.ValueObject {
 
-     class ActuatorModelId <<ValueObject>>{
-        - _actuatorModelId : String
+     class ActuatorTypeId <<ValueObject>>{
+        - _actuatorTypeId : String
      }
 
-     class FilePathName <<ValueObject>>{
-        - _filePathName : String
+     class ModelPath <<ValueObject>>{
+        - _modelPath : String
      }
-     class ActuatorModel <<ValueObject>>{
-        - _actuatorModel : String
+     class ActuatorModelName <<ValueObject>>{
+        - _actuatorModelName : String
      }
 }
 
-SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ActuatorModelId : has
-SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.FilePathName : has
-SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ActuatorModel : has
+SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ActuatorTypeId : has
+SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ModelPath : has
+SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ActuatorModelName : has
 
 
 @enduml
