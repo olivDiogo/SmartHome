@@ -45,14 +45,4 @@ public class ActuatorTypeAssembler implements Assembler<ActuatorType, ActuatorTy
         List<ActuatorTypeDTO> actuatorTypeDTOS = actuatorTypes.stream().map(this::domainToDTO).toList();
         return actuatorTypeDTOS;
     }
-
-    /**
-     * Converts an ActuatorTypeDTO data transfer object to an ActuatorType domain entity.
-     *
-     * @param actuatorTypeID is the data transfer object to be converted.
-     * @return The ActuatorType domain entity.
-     */
-    public String actuatorTypeIDToString(ActuatorTypeID actuatorTypeID) {
-        return actuatorTypeID.toString();
-    }
 }

@@ -5,33 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PercentagePositionSensorValueTest {
-
-    /**
-     * Tests the instantiation of PercentagePosicionSensorValue when the constructor arguments are valid.
-     * The percentage is 0.
-     */
-    @Test
-    void shouldInstantiatePercentagePosicionSensorValue_whenConstructorArgumentsAreValidAndEquals0() {
-        // Arrange
-        int percentage = 0;
-
-        // Act
-        new PercentagePositionSensorValue(percentage);
-    }
-
-    /**
-     * Tests the instantiation of PercentagePosicionSensorValue when the constructor arguments are valid.
-     * The percentage is 100.
-     */
-    @Test
-    void shouldInstantiatePercentagePosicionSensorValue_whenConstructorArgumentsAreValidAndEquals100() {
-        // Arrange
-        int percentage = 100;
-
-        // Act
-        new PercentagePositionSensorValue(percentage);
-    }
-
     /**
      * Tests the toString method of PercentagePosicionSensorValue when the percentage is 0.
      */
@@ -63,5 +36,36 @@ class PercentagePositionSensorValueTest {
         // Assert
         assertEquals("100", result);
     }
+    /**
+     * Tests the toString method of PercentagePosicionSensorValue when percentage above range.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenPercentageIsAboveRange() {
+        // Arrange
+        int percentage = 101;
+        String expectedMessage = "The percentage must be between 0 and 100.";
+
+        // Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensorValue(percentage));
+
+        // Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+    /**
+     * Tests the toString method of PercentagePosicionSensorValue when percentage below range.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenPercentageIsBelowRange() {
+        // Arrange
+        int percentage = -1;
+        String expectedMessage = "The percentage must be between 0 and 100.";
+
+        // Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensorValue(percentage));
+
+        // Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
 
 }

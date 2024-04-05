@@ -35,7 +35,7 @@ _ImplFactoryActuator_ -> for the actuator instantiation
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](/artifacts/US16CD.svg)
+![ClassDiagram](artifacts/US16CD.svg)
 
 ### 2.2. Sequence Diagram
 Not applicable.

@@ -42,10 +42,10 @@ _HouseDTO_ -> for the house data transfer object
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](/Users/WagnerPaiva/Documents/GitHub/2023-2024-switch-dev-project-assignment-grupo-1/docs/userStories/us01/artifacts/US01CD.png)
+![ClassDiagram](artifacts/US01CD.png)
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](/Users/WagnerPaiva/Documents/GitHub/2023-2024-switch-dev-project-assignment-grupo-1/docs/userStories/us01/artifacts/US01SD.png)
+![SequenceDiagram](artifacts/US01SD.png)
 
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization
