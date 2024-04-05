@@ -2,7 +2,6 @@
 'US12 - As a Power User [or Administrator], I want to add an actuator to an existing
 'device in a room. The actuator must be of a model of an existing type of actuator.
 !pragma layout smetana
-
 actor "Power User or Admin" as User
 participant System
 
