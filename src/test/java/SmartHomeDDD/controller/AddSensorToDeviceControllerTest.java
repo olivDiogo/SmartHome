@@ -1417,9 +1417,9 @@ public class AddSensorToDeviceControllerTest {
         exception.getMessage());
   }
 
-  /** Test addSensorToDevice method with valid parameters. */
+  /** Test addSensorToDevice method with valid parameters. Adding temperature sensor. */
   @Test
-  void shouldAddSensorToDevice_whenParametersAreValid() throws InstantiationException {
+  void shouldAddSensorToDevice_whenParametersAreValidForTemperatureSensor() throws InstantiationException {
     // Arrange
     RoomRepository roomRepository = new RoomRepository();
     ImpRoomFactory roomFactory = new ImpRoomFactory();
@@ -1527,6 +1527,885 @@ public class AddSensorToDeviceControllerTest {
     assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
   }
 
+  /** Test addSensorToDevice method with valid parameters. Adding HumiditySensor sensor. */
+  @Test
+  void shouldAddSensorToDevice_whenParametersAreValidForHumiditySensor() throws InstantiationException {
+    // Arrange
+    RoomRepository roomRepository = new RoomRepository();
+    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomAssembler roomAssembler = new RoomAssembler();
+    HouseRepository houseRepository = new HouseRepository();
+    UnitRepository unitRepository = new UnitRepository();
+    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    SensorRepository sensorRepository = new SensorRepository();
+    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeService sensorTypeService =
+            new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+
+    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
+    SensorModelRepository sensorModelRepository = new SensorModelRepository();
+    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+    SensorModelService sensorModelService =
+            new SensorModelService(sensorModelRepository, sensorModelFactory);
+    DeviceRepository deviceRepository = new DeviceRepository();
+    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceService deviceService =
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+    SensorAssembler sensorAssembler = new SensorAssembler();
+    SensorService sensorService =
+            new SensorService(sensorRepository, sensorFactory, deviceRepository);
+    RoomService roomService =
+            new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+    ConfigurationService configurationService =
+            new ConfigurationService(
+                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
+
+    Address newAddress =
+            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
+
+    House house = houseService.addHouse(newAddress, newGPS);
+
+    HouseID houseID = house.getID();
+
+    String name1 = "Quarto do Joao";
+    RoomName roomName1 = new RoomName(name1);
+
+    int width = 10;
+    int length = 10;
+    int height = 10;
+    Dimension dimension = new Dimension(width, length, height);
+
+    int floor = 2;
+    RoomFloor roomFloor = new RoomFloor(floor);
+
+    Room room = roomService.addRoom(houseID, roomName1, dimension, roomFloor);
+
+    RoomID roomID = room.getID();
+    DeviceName deviceName = new DeviceName(name1);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+
+    Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+
+    TypeDescription typeDescription = new TypeDescription("Humidity");
+    UnitID unit = new UnitID("Percent");
+    SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unit);
+    sensorTypeService.saveSensorType(sensorType);
+
+
+    String modelPath = "SmartHomeDDD.domain.Sensor.HumiditySensor.HumiditySensor";
+    String sensorName = "Sensor";
+
+    sensorTypeAssembler.domainToDTO(sensorType);
+
+    SensorDataDTO sensorDataDTO =
+            new SensorDataDTO(
+                    device.getID().getId(), modelPath, sensorName, sensorType.getID().getId());
+
+    AddSensorToDeviceController addSensorToDeviceController =
+            new AddSensorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    sensorModelService,
+                    sensorModelAssembler,
+                    sensorTypeService,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorService);
+
+    // Act
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+
+    // Assert
+    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+  }
+
+  /** Test addSensorToDevice method with valid parameters. Adding AveragePowerConsumptionSensor sensor. */
+  @Test
+  void shouldAddSensorToDevice_whenParametersAreValidForAveragePowerConsumptionSensor() throws InstantiationException {
+    // Arrange
+    RoomRepository roomRepository = new RoomRepository();
+    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomAssembler roomAssembler = new RoomAssembler();
+    HouseRepository houseRepository = new HouseRepository();
+    UnitRepository unitRepository = new UnitRepository();
+    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    SensorRepository sensorRepository = new SensorRepository();
+    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeService sensorTypeService =
+            new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+
+    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
+    SensorModelRepository sensorModelRepository = new SensorModelRepository();
+    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+    SensorModelService sensorModelService =
+            new SensorModelService(sensorModelRepository, sensorModelFactory);
+    DeviceRepository deviceRepository = new DeviceRepository();
+    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceService deviceService =
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+    SensorAssembler sensorAssembler = new SensorAssembler();
+    SensorService sensorService =
+            new SensorService(sensorRepository, sensorFactory, deviceRepository);
+    RoomService roomService =
+            new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+    ConfigurationService configurationService =
+            new ConfigurationService(
+                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
+
+    Address newAddress =
+            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
+
+    House house = houseService.addHouse(newAddress, newGPS);
+
+    HouseID houseID = house.getID();
+
+    String name1 = "Quarto do Joao";
+    RoomName roomName1 = new RoomName(name1);
+
+    int width = 10;
+    int length = 10;
+    int height = 10;
+    Dimension dimension = new Dimension(width, length, height);
+
+    int floor = 2;
+    RoomFloor roomFloor = new RoomFloor(floor);
+
+    Room room = roomService.addRoom(houseID, roomName1, dimension, roomFloor);
+
+    RoomID roomID = room.getID();
+    DeviceName deviceName = new DeviceName(name1);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+
+    Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+
+    TypeDescription typeDescription = new TypeDescription("AveragePowerConsumption");
+    UnitID unit = new UnitID("Watt");
+    SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unit);
+    sensorTypeService.saveSensorType(sensorType);
+
+
+    String modelPath = "SmartHomeDDD.domain.Sensor.AveragePowerConsumptionSensor.AveragePowerConsumptionSensor";
+    String sensorName = "Sensor";
+
+    sensorTypeAssembler.domainToDTO(sensorType);
+
+    SensorDataDTO sensorDataDTO =
+            new SensorDataDTO(
+                    device.getID().getId(), modelPath, sensorName, sensorType.getID().getId());
+
+    AddSensorToDeviceController addSensorToDeviceController =
+            new AddSensorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    sensorModelService,
+                    sensorModelAssembler,
+                    sensorTypeService,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorService);
+
+    // Act
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+
+    // Assert
+    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+  }
+
+  /** Test addSensorToDevice method with valid parameters. Adding Switch sensor. */
+  @Test
+  void shouldAddSensorToDevice_whenParametersAreValidForSwitchSensor() throws InstantiationException {
+    // Arrange
+    RoomRepository roomRepository = new RoomRepository();
+    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomAssembler roomAssembler = new RoomAssembler();
+    HouseRepository houseRepository = new HouseRepository();
+    UnitRepository unitRepository = new UnitRepository();
+    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    SensorRepository sensorRepository = new SensorRepository();
+    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeService sensorTypeService =
+            new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+
+    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
+    SensorModelRepository sensorModelRepository = new SensorModelRepository();
+    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+    SensorModelService sensorModelService =
+            new SensorModelService(sensorModelRepository, sensorModelFactory);
+    DeviceRepository deviceRepository = new DeviceRepository();
+    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceService deviceService =
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+    SensorAssembler sensorAssembler = new SensorAssembler();
+    SensorService sensorService =
+            new SensorService(sensorRepository, sensorFactory, deviceRepository);
+    RoomService roomService =
+            new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+    ConfigurationService configurationService =
+            new ConfigurationService(
+                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
+
+    Address newAddress =
+            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
+
+    House house = houseService.addHouse(newAddress, newGPS);
+
+    HouseID houseID = house.getID();
+
+    String name1 = "Quarto do Joao";
+    RoomName roomName1 = new RoomName(name1);
+
+    int width = 10;
+    int length = 10;
+    int height = 10;
+    Dimension dimension = new Dimension(width, length, height);
+
+    int floor = 2;
+    RoomFloor roomFloor = new RoomFloor(floor);
+
+    Room room = roomService.addRoom(houseID, roomName1, dimension, roomFloor);
+
+    RoomID roomID = room.getID();
+    DeviceName deviceName = new DeviceName(name1);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+
+    Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+
+    TypeDescription typeDescription = new TypeDescription("Switch");
+    UnitID unit = new UnitID("Watt");
+    SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unit);
+    sensorTypeService.saveSensorType(sensorType);
+
+
+    String modelPath = "SmartHomeDDD.domain.Sensor.SwitchSensor.SwitchSensor";
+    String sensorName = "Sensor";
+
+    sensorTypeAssembler.domainToDTO(sensorType);
+
+    SensorDataDTO sensorDataDTO =
+            new SensorDataDTO(
+                    device.getID().getId(), modelPath, sensorName, sensorType.getID().getId());
+
+    AddSensorToDeviceController addSensorToDeviceController =
+            new AddSensorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    sensorModelService,
+                    sensorModelAssembler,
+                    sensorTypeService,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorService);
+
+    // Act
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+
+    // Assert
+    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+  }
+
+  /** Test addSensorToDevice method with valid parameters. Adding DewPointSensor sensor. */
+  @Test
+  void shouldAddSensorToDevice_whenParametersAreValidForDewPointSensor() throws InstantiationException {
+    // Arrange
+    RoomRepository roomRepository = new RoomRepository();
+    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomAssembler roomAssembler = new RoomAssembler();
+    HouseRepository houseRepository = new HouseRepository();
+    UnitRepository unitRepository = new UnitRepository();
+    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    SensorRepository sensorRepository = new SensorRepository();
+    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeService sensorTypeService =
+            new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+
+    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
+    SensorModelRepository sensorModelRepository = new SensorModelRepository();
+    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+    SensorModelService sensorModelService =
+            new SensorModelService(sensorModelRepository, sensorModelFactory);
+    DeviceRepository deviceRepository = new DeviceRepository();
+    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceService deviceService =
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+    SensorAssembler sensorAssembler = new SensorAssembler();
+    SensorService sensorService =
+            new SensorService(sensorRepository, sensorFactory, deviceRepository);
+    RoomService roomService =
+            new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+    ConfigurationService configurationService =
+            new ConfigurationService(
+                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
+
+    Address newAddress =
+            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
+
+    House house = houseService.addHouse(newAddress, newGPS);
+
+    HouseID houseID = house.getID();
+
+    String name1 = "Quarto do Joao";
+    RoomName roomName1 = new RoomName(name1);
+
+    int width = 10;
+    int length = 10;
+    int height = 10;
+    Dimension dimension = new Dimension(width, length, height);
+
+    int floor = 2;
+    RoomFloor roomFloor = new RoomFloor(floor);
+
+    Room room = roomService.addRoom(houseID, roomName1, dimension, roomFloor);
+
+    RoomID roomID = room.getID();
+    DeviceName deviceName = new DeviceName(name1);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+
+    Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+
+    TypeDescription typeDescription = new TypeDescription("DewPoint");
+    UnitID unit = new UnitID("Celsius");
+    SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unit);
+    sensorTypeService.saveSensorType(sensorType);
+
+
+    String modelPath = "SmartHomeDDD.domain.Sensor.DewPointSensor.DewPointSensor";
+    String sensorName = "Sensor";
+
+    sensorTypeAssembler.domainToDTO(sensorType);
+
+    SensorDataDTO sensorDataDTO =
+            new SensorDataDTO(
+                    device.getID().getId(), modelPath, sensorName, sensorType.getID().getId());
+
+    AddSensorToDeviceController addSensorToDeviceController =
+            new AddSensorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    sensorModelService,
+                    sensorModelAssembler,
+                    sensorTypeService,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorService);
+
+    // Act
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+
+    // Assert
+    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+  }
+
+  /** Test addSensorToDevice method with valid parameters. Adding Solar Irradiance sensor. */
+  @Test
+  void shouldAddSensorToDevice_whenParametersAreValidForSolarIrradianceSensor() throws InstantiationException {
+    // Arrange
+    RoomRepository roomRepository = new RoomRepository();
+    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomAssembler roomAssembler = new RoomAssembler();
+    HouseRepository houseRepository = new HouseRepository();
+    UnitRepository unitRepository = new UnitRepository();
+    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    SensorRepository sensorRepository = new SensorRepository();
+    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeService sensorTypeService =
+            new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+
+    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
+    SensorModelRepository sensorModelRepository = new SensorModelRepository();
+    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+    SensorModelService sensorModelService =
+            new SensorModelService(sensorModelRepository, sensorModelFactory);
+    DeviceRepository deviceRepository = new DeviceRepository();
+    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceService deviceService =
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+    SensorAssembler sensorAssembler = new SensorAssembler();
+    SensorService sensorService =
+            new SensorService(sensorRepository, sensorFactory, deviceRepository);
+    RoomService roomService =
+            new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+    ConfigurationService configurationService =
+            new ConfigurationService(
+                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
+
+    Address newAddress =
+            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
+
+    House house = houseService.addHouse(newAddress, newGPS);
+
+    HouseID houseID = house.getID();
+
+    String name1 = "Quarto do Joao";
+    RoomName roomName1 = new RoomName(name1);
+
+    int width = 10;
+    int length = 10;
+    int height = 10;
+    Dimension dimension = new Dimension(width, length, height);
+
+    int floor = 2;
+    RoomFloor roomFloor = new RoomFloor(floor);
+
+    Room room = roomService.addRoom(houseID, roomName1, dimension, roomFloor);
+
+    RoomID roomID = room.getID();
+    DeviceName deviceName = new DeviceName(name1);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+
+    Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+
+    TypeDescription typeDescription = new TypeDescription("SolarIrradiance");
+    UnitID unit = new UnitID("WattBySquareMeter");
+    SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unit);
+    sensorTypeService.saveSensorType(sensorType);
+
+
+    String modelPath = "SmartHomeDDD.domain.Sensor.SolarIrradianceSensor.SolarIrradianceSensor";
+    String sensorName = "Sensor";
+
+    sensorTypeAssembler.domainToDTO(sensorType);
+
+    SensorDataDTO sensorDataDTO =
+            new SensorDataDTO(
+                    device.getID().getId(), modelPath, sensorName, sensorType.getID().getId());
+
+    AddSensorToDeviceController addSensorToDeviceController =
+            new AddSensorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    sensorModelService,
+                    sensorModelAssembler,
+                    sensorTypeService,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorService);
+
+    // Act
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+
+    // Assert
+    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+  }
+
+  /** Test addSensorToDevice method with valid parameters. Adding PercentagePositionSensor sensor. */
+  @Test
+  void shouldAddSensorToDevice_whenParametersAreValidForPercentagePositionSensor() throws InstantiationException {
+    // Arrange
+    RoomRepository roomRepository = new RoomRepository();
+    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomAssembler roomAssembler = new RoomAssembler();
+    HouseRepository houseRepository = new HouseRepository();
+    UnitRepository unitRepository = new UnitRepository();
+    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    SensorRepository sensorRepository = new SensorRepository();
+    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeService sensorTypeService =
+            new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+
+    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
+    SensorModelRepository sensorModelRepository = new SensorModelRepository();
+    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+    SensorModelService sensorModelService =
+            new SensorModelService(sensorModelRepository, sensorModelFactory);
+    DeviceRepository deviceRepository = new DeviceRepository();
+    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceService deviceService =
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+    SensorAssembler sensorAssembler = new SensorAssembler();
+    SensorService sensorService =
+            new SensorService(sensorRepository, sensorFactory, deviceRepository);
+    RoomService roomService =
+            new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+    ConfigurationService configurationService =
+            new ConfigurationService(
+                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
+
+    Address newAddress =
+            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
+
+    House house = houseService.addHouse(newAddress, newGPS);
+
+    HouseID houseID = house.getID();
+
+    String name1 = "Quarto do Joao";
+    RoomName roomName1 = new RoomName(name1);
+
+    int width = 10;
+    int length = 10;
+    int height = 10;
+    Dimension dimension = new Dimension(width, length, height);
+
+    int floor = 2;
+    RoomFloor roomFloor = new RoomFloor(floor);
+
+    Room room = roomService.addRoom(houseID, roomName1, dimension, roomFloor);
+
+    RoomID roomID = room.getID();
+    DeviceName deviceName = new DeviceName(name1);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+
+    Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+
+    TypeDescription typeDescription = new TypeDescription("Position");
+    UnitID unit = new UnitID("Percent");
+    SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unit);
+    sensorTypeService.saveSensorType(sensorType);
+
+
+    String modelPath = "SmartHomeDDD.domain.Sensor.PercentagePositionSensor";
+    String sensorName = "Sensor";
+
+    sensorTypeAssembler.domainToDTO(sensorType);
+
+    SensorDataDTO sensorDataDTO =
+            new SensorDataDTO(
+                    device.getID().getId(), modelPath, sensorName, sensorType.getID().getId());
+
+    AddSensorToDeviceController addSensorToDeviceController =
+            new AddSensorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    sensorModelService,
+                    sensorModelAssembler,
+                    sensorTypeService,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorService);
+
+    // Act
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+
+    // Assert
+    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+  }
+
+  /** Test addSensorToDevice method with valid parameters. Adding Instance Power Consumption sensor. */
+  @Test
+  void shouldAddSensorToDevice_whenParametersAreValidForInstantPowerConsumptionSensor() throws InstantiationException {
+    // Arrange
+    RoomRepository roomRepository = new RoomRepository();
+    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomAssembler roomAssembler = new RoomAssembler();
+    HouseRepository houseRepository = new HouseRepository();
+    UnitRepository unitRepository = new UnitRepository();
+    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    SensorRepository sensorRepository = new SensorRepository();
+    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeService sensorTypeService =
+            new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+
+    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
+    SensorModelRepository sensorModelRepository = new SensorModelRepository();
+    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+    SensorModelService sensorModelService =
+            new SensorModelService(sensorModelRepository, sensorModelFactory);
+    DeviceRepository deviceRepository = new DeviceRepository();
+    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceService deviceService =
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+    SensorAssembler sensorAssembler = new SensorAssembler();
+    SensorService sensorService =
+            new SensorService(sensorRepository, sensorFactory, deviceRepository);
+    RoomService roomService =
+            new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+    ConfigurationService configurationService =
+            new ConfigurationService(
+                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
+
+    Address newAddress =
+            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
+
+    House house = houseService.addHouse(newAddress, newGPS);
+
+    HouseID houseID = house.getID();
+
+    String name1 = "Quarto do Joao";
+    RoomName roomName1 = new RoomName(name1);
+
+    int width = 10;
+    int length = 10;
+    int height = 10;
+    Dimension dimension = new Dimension(width, length, height);
+
+    int floor = 2;
+    RoomFloor roomFloor = new RoomFloor(floor);
+
+    Room room = roomService.addRoom(houseID, roomName1, dimension, roomFloor);
+
+    RoomID roomID = room.getID();
+    DeviceName deviceName = new DeviceName(name1);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+
+    Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+
+    TypeDescription typeDescription = new TypeDescription("InstantPowerConsumption");
+    UnitID unit = new UnitID("Watt");
+    SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unit);
+    sensorTypeService.saveSensorType(sensorType);
+
+
+    String modelPath = "SmartHomeDDD.domain.Sensor.InstantPowerConsumptionSensor.InstantPowerConsumptionSensor";
+    String sensorName = "Sensor";
+
+    sensorTypeAssembler.domainToDTO(sensorType);
+
+    SensorDataDTO sensorDataDTO =
+            new SensorDataDTO(
+                    device.getID().getId(), modelPath, sensorName, sensorType.getID().getId());
+
+    AddSensorToDeviceController addSensorToDeviceController =
+            new AddSensorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    sensorModelService,
+                    sensorModelAssembler,
+                    sensorTypeService,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorService);
+
+    // Act
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+
+    // Assert
+    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+  }
+
+  /** Test addSensorToDevice method with valid parameters. Adding Percentage Position Sensor. */
+  @Test
+  void shouldAddSensorToDevice_whenParametersAreValidForInstantElectricConsumptionSensor () throws InstantiationException {
+    // Arrange
+    RoomRepository roomRepository = new RoomRepository();
+    ImpRoomFactory roomFactory = new ImpRoomFactory();
+    RoomAssembler roomAssembler = new RoomAssembler();
+    HouseRepository houseRepository = new HouseRepository();
+    UnitRepository unitRepository = new UnitRepository();
+    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    ImpHouseFactory houseFactory = new ImpHouseFactory();
+    SensorRepository sensorRepository = new SensorRepository();
+    ImpSensorFactory sensorFactory = new ImpSensorFactory();
+    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ImpSensorTypeFactory sensorTypeFactory = new ImpSensorTypeFactory();
+    SensorTypeService sensorTypeService =
+            new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+
+    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
+    SensorModelRepository sensorModelRepository = new SensorModelRepository();
+    ImpSensorModelFactory sensorModelFactory = new ImpSensorModelFactory();
+    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+    SensorModelService sensorModelService =
+            new SensorModelService(sensorModelRepository, sensorModelFactory);
+    DeviceRepository deviceRepository = new DeviceRepository();
+    ImpDeviceFactory deviceFactory = new ImpDeviceFactory();
+    DeviceService deviceService =
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+    SensorAssembler sensorAssembler = new SensorAssembler();
+    SensorService sensorService =
+            new SensorService(sensorRepository, sensorFactory, deviceRepository);
+    RoomService roomService =
+            new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+    ConfigurationService configurationService =
+            new ConfigurationService(
+                    sensorModelRepository, unitRepository, sensorModelFactory, new ImpUnitFactory());
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    HouseService houseService = new HouseService(houseFactory, houseRepository);
+
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
+
+    Address newAddress =
+            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
+
+    House house = houseService.addHouse(newAddress, newGPS);
+
+    HouseID houseID = house.getID();
+
+    String name1 = "Quarto do Joao";
+    RoomName roomName1 = new RoomName(name1);
+
+    int width = 10;
+    int length = 10;
+    int height = 10;
+    Dimension dimension = new Dimension(width, length, height);
+
+    int floor = 2;
+    RoomFloor roomFloor = new RoomFloor(floor);
+
+    Room room = roomService.addRoom(houseID, roomName1, dimension, roomFloor);
+
+    RoomID roomID = room.getID();
+    DeviceName deviceName = new DeviceName(name1);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+
+    Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+
+    TypeDescription typeDescription = new TypeDescription("Position");
+    UnitID unit = new UnitID("Percent");
+    SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unit);
+    sensorTypeService.saveSensorType(sensorType);
+
+
+    String modelPath = "SmartHomeDDD.domain.Sensor.PercentagePositionSensor";
+    String sensorName = "Sensor";
+
+    sensorTypeAssembler.domainToDTO(sensorType);
+
+    SensorDataDTO sensorDataDTO =
+            new SensorDataDTO(
+                    device.getID().getId(), modelPath, sensorName, sensorType.getID().getId());
+
+    AddSensorToDeviceController addSensorToDeviceController =
+            new AddSensorToDeviceController(
+                    roomService,
+                    roomAssembler,
+                    deviceService,
+                    deviceAssembler,
+                    sensorModelService,
+                    sensorModelAssembler,
+                    sensorTypeService,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorService);
+
+    // Act
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+
+    // Assert
+    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+  }
   /** Test addSensorToDevice method with invalid parameters. */
   @Test
   void shouldThrowException_whenParametersAreInvalid() throws InstantiationException {
