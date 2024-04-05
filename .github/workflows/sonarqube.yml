@@ -52,9 +52,9 @@ jobs:
           restore-keys: ${{ runner.os }}-pitest
           
       - name: Build & SonarQube DEI Scan with Maven scanner (much quicker)
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
-#          SONAR_HOST_URL: ${{ secrets.SONARQUBE_HOST }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONARQUBE_HOST }}
         run: >
           mvn -B --file pom.xml test jacoco:report 
           org.pitest:pitest-maven:mutationCoverage 
@@ -63,22 +63,22 @@ jobs:
           -DhistoryOutputFile=target/.pitest-cache/fasterPitMutationTesting-history.txt 
           -DtimestampedReports=false 
           -Dsonar.pitest.mode=reuseReport 
-#          org.sonarsource.scanner.maven:sonar-maven-plugin:${SONAR_MAVEN_PLUGIN_VERSION}:sonar 
+          org.sonarsource.scanner.maven:sonar-maven-plugin:${SONAR_MAVEN_PLUGIN_VERSION}:sonar 
 #          -Dthreads=2
-#          -Dsonar.sourceEncoding=UTF-8 
-#          -Dsonar.sources=src/main/ 
-#          -Dsonar.cpd.exclusions=**/test/** 
-#          -Dsonar.issue.ignore.multicriteria=e5,e6,e7,e8,e9,e10 
-#          -Dsonar.issue.ignore.multicriteria.e5.ruleKey=squid:S106 
-#          -Dsonar.issue.ignore.multicriteria.e5.resourceKey=**/ui/**/*.java 
-#          -Dsonar.issue.ignore.multicriteria.e6.ruleKey=squid:S00112 
-#          -Dsonar.issue.ignore.multicriteria.e6.resourceKey=**/*.java 
-#          -Dsonar.issue.ignore.multicriteria.e7.ruleKey=squid:S1148 
-#          -Dsonar.issue.ignore.multicriteria.e7.resourceKey=**/*.java 
-#          -Dsonar.issue.ignore.multicriteria.e8.ruleKey=squid:S1166 
-#          -Dsonar.issue.ignore.multicriteria.e8.resourceKey=**/*.java 
-#          -Dsonar.issue.ignore.multicriteria.e9.ruleKey=squid:S2250 
-#          -Dsonar.issue.ignore.multicriteria.e9.resourceKey=**/*.java 
-#          -Dsonar.issue.ignore.multicriteria.e10.ruleKey=squid:S3422 
-#          -Dsonar.issue.ignore.multicriteria.e10.resourceKey=**/*.xml
-#          -Dsonar.projectName="SWITCH-2023 $SONARQUBE_PROJECT_NAME"
+          -Dsonar.sourceEncoding=UTF-8 
+          -Dsonar.sources=src/main/ 
+          -Dsonar.cpd.exclusions=**/test/** 
+          -Dsonar.issue.ignore.multicriteria=e5,e6,e7,e8,e9,e10 
+          -Dsonar.issue.ignore.multicriteria.e5.ruleKey=squid:S106 
+          -Dsonar.issue.ignore.multicriteria.e5.resourceKey=**/ui/**/*.java 
+          -Dsonar.issue.ignore.multicriteria.e6.ruleKey=squid:S00112 
+          -Dsonar.issue.ignore.multicriteria.e6.resourceKey=**/*.java 
+          -Dsonar.issue.ignore.multicriteria.e7.ruleKey=squid:S1148 
+          -Dsonar.issue.ignore.multicriteria.e7.resourceKey=**/*.java 
+          -Dsonar.issue.ignore.multicriteria.e8.ruleKey=squid:S1166 
+          -Dsonar.issue.ignore.multicriteria.e8.resourceKey=**/*.java 
+          -Dsonar.issue.ignore.multicriteria.e9.ruleKey=squid:S2250 
+          -Dsonar.issue.ignore.multicriteria.e9.resourceKey=**/*.java 
+          -Dsonar.issue.ignore.multicriteria.e10.ruleKey=squid:S3422 
+          -Dsonar.issue.ignore.multicriteria.e10.resourceKey=**/*.xml
+          -Dsonar.projectName="SWITCH-2023 $SONARQUBE_PROJECT_NAME"
