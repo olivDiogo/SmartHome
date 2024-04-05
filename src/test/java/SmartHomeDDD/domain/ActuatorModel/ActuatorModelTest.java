@@ -200,6 +200,26 @@ class ActuatorModelTest {
         //Assert
         assertEquals(modelPath, result);
     }
+
+    /**
+     * Test of class ActuatorModel getActuatorTypeID method
+     */
+    @Test
+    void shouldReturnActuatorTypeID_WhenGetActuatorTypeIDIsCalled() {
+        //Arrange
+        ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator;BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
+        ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+
+        //Act
+        ActuatorTypeID result = actuatorModel.getActuatorTypeID();
+
+        //Assert
+        assertEquals(actuatorTypeID, result);
+    }
+
+
 }
 
 
