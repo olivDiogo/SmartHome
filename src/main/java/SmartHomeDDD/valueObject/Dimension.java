@@ -76,6 +76,14 @@ public class Dimension implements ValueObject {
     }
 
     /**
+     * Method to return the hash code of the object.
+     */
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(this._width) + Integer.hashCode(this._height) + Integer.hashCode(this._depth);
+    }
+
+    /**
      * Method to return the values of the object in a string.
      *
      * @return the values of the object in a string.

@@ -181,4 +181,23 @@ public class RoomNameTest {
         // Assert
         assertTrue(actualRoomName.equals(roomName));
     }
+
+    /**
+     * Tests the hashCode method.
+     */
+
+    @Test
+    public void shouldReturnHashCode_whenCallingHashCode(){
+        // Arrange
+        String roomName = "Kitchen 1";
+        RoomName roomNameObject = new RoomName(roomName);
+
+        int expectedHashCode = roomName.hashCode();
+
+        // Act
+        int actualHashCode = roomNameObject.hashCode();
+
+        // Assert
+        assertEquals(expectedHashCode, actualHashCode);
+    }
 }

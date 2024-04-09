@@ -239,5 +239,24 @@ public class DimensionTest {
         assertTrue(result.equals(expected));
     }
 
+    /**
+     * Test hashCode method.
+     */
+    @Test
+    public void shouldReturnHashCode_whenCallingHashCode() {
+        //Arrange
+        int width = 13;
+        int height = 15;
+        int depth = 17;
+        Dimension dimension = new Dimension(width, height, depth);
+
+        int expectedHashCode = dimension.hashCode();
+
+        //Act
+        int result = dimension.hashCode();
+
+        //Assert
+        assertEquals(expectedHashCode, result);
+    }
 
 }

@@ -34,6 +34,12 @@ public class RoomFloor implements ValueObject {
     }
 
     @Override
+    public int hashCode() {
+        return Integer.hashCode(_floor);
+    }
+
+
+    @Override
     public String toString() {
         return "RoomFloor{" +
                 "_floor=" + _floor +

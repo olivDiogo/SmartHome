@@ -135,4 +135,20 @@ class RoomFloorTest {
         assertFalse(result);
     }
 
+    /**
+     * Test hashCode method.
+     */
+    @Test
+    void shouldReturnExpectedHashCode_whenCallingHashCode() {
+        // Arrange
+        int floor = 5;
+        RoomFloor roomFloor = new RoomFloor(floor);
+
+        // Act
+        int result = roomFloor.hashCode();
+
+        // Assert
+        assertEquals(floor, result);
+    }
+
 }
