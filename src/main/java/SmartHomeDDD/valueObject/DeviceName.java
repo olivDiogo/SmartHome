@@ -56,6 +56,16 @@ public class DeviceName implements ValueObject {
     }
 
     /**
+     * Returns the hash code of the object.
+     *
+     * @return The hash code of the object.
+     */
+    @Override
+    public int hashCode() {
+        return _name.hashCode();
+    }
+
+    /**
      * Returns the string representation of the object.
      *
      * @return The string representation of the object.

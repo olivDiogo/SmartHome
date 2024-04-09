@@ -188,6 +188,23 @@ class DeviceNameTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test if the hashCode method returns the same hash code for two equal device names.
+     */
+    @Test
+    public void shouldReturnHashCode_whenCallingHashCode() {
+        // Arrange
+        String deviceName = "Living Room 2";
+        DeviceName deviceNameVO = new DeviceName(deviceName);
+        int expectedHashCode = deviceName.hashCode();
+
+        // Act
+        int result = deviceNameVO.hashCode();
+
+        // Assert
+        assertEquals(expectedHashCode, result);
+    }
+
 
 
 }
