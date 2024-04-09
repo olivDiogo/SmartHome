@@ -383,5 +383,24 @@ class GPSTest {
         //Assert
         assertEquals(longitude, result, 0.00001);
     }
+
+    /**
+     * Validates the hash code of a GPS instance.
+     */
+    @Test
+    void shouldReturnExpectedHashCode_WhenCallingHashCode(){
+        //Arrange
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        GPS gps = new GPS(latitude, longitude);
+
+        int expected = Double.hashCode(latitude) + Double.hashCode(longitude);
+
+        //Act
+        int result = gps.hashCode();
+
+        //Assert
+        assertEquals(expected, result);
+    }
 }
 

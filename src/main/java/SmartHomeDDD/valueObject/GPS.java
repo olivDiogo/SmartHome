@@ -93,6 +93,14 @@ public class GPS implements ValueObject {
     }
 
     /**
+     * Returns the hash code of this GPS object.
+     */
+    @Override
+    public int hashCode() {
+        return Double.hashCode(this._latitude) + Double.hashCode(this._longitude);
+    }
+
+    /**
      * Gets the latitude value of this GPS location.
      *
      * @return the latitude value.

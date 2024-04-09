@@ -181,6 +181,24 @@ class UnitSymbolTest {
         assertTrue(result.contains(unit));
     }
 
+    /**
+     * Test if the hashCode method returns the same hash code for two equal unit symbols.
+     */
+    @Test
+    void shouldReturnSameHashCode_WhenTwoUnitSymbolsAreEqual() {
+        //Arrange
+        String unit = "C";
+        UnitSymbol unitSymbol = new UnitSymbol(unit);
+
+        int expected = unitSymbol.hashCode();
+
+        //Act
+        int hashCode = unitSymbol.hashCode();
+
+        //Assert
+        assertEquals(expected, hashCode);
+    }
+
 
 
 }

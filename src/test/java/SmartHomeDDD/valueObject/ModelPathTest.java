@@ -112,4 +112,19 @@ class ModelPathTest {
         assertEquals(path, result);
     }
 
+    @Test
+    void shouldReturnExpectedHashCode_WhenCallingHashCode() {
+        //Arrange
+        String path = "/SmartHomeDDD/valueObject/ModelPath.java";
+        ModelPath modelPath = new ModelPath(path);
+
+        int expectedHashCode = path.hashCode();
+
+        //Act
+        int result = modelPath.hashCode();
+
+        //Assert
+        assertEquals(expectedHashCode, result);
+    }
+
 }

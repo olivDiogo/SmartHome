@@ -36,5 +36,13 @@ public class ModelPath implements ValueObject, DomainID {
         return path.equals(modelPath.path);
     }
 
+    /**
+     * @return the hash code of the object.
+     */
+    @Override
+    public int hashCode() {
+        return path.hashCode();
+    }
+
 
 }

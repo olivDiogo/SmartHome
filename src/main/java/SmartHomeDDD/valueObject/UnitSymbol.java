@@ -28,6 +28,11 @@ public class UnitSymbol implements ValueObject {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return _unit.hashCode();
+    }
+
     public String getUnit() {
         return _unit;
     }
