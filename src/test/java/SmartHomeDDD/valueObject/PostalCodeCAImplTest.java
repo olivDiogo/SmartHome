@@ -91,4 +91,63 @@ class PostalCodeCAImplTest {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> new PostalCodeCAImpl(postalCode));
     }
+
+    /**
+     * Test equals method returns true for same object.
+     */
+    @Test
+    void shouldReturnTrue_WhenEqualsIsCalledWithSameObject() {
+        // Arrange
+        String postalCode = "K1A 0B1";
+        PostalCodeCAImpl postalCodeCA = new PostalCodeCAImpl(postalCode);
+        // Act
+        boolean result = postalCodeCA.equals(postalCodeCA);
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Test equals method returns false for different object.
+     */
+    @Test
+    void shouldReturnFalse_WhenEqualsIsCalledWithDifferentObject() {
+        // Arrange
+        String postalCode1 = "K1A 0B1";
+        String postalCode2 = "K1A 0B2";
+        PostalCodeCAImpl postalCodeCA1 = new PostalCodeCAImpl(postalCode1);
+        PostalCodeCAImpl postalCodeCA2 = new PostalCodeCAImpl(postalCode2);
+        // Act
+        boolean result = postalCodeCA1.equals(postalCodeCA2);
+        // Assert
+        assertFalse(result);
+    }
+
+     /**
+      * Test equals method returns false for different class.
+      */
+    @Test
+    void shouldReturnFalse_WhenEqualsIsCalledWithDifferentClass() {
+        // Arrange
+        String postalCode = "K1A 0B1";
+        PostalCodeCAImpl postalCodeCA = new PostalCodeCAImpl(postalCode);
+        // Act
+        boolean result = postalCodeCA.equals(postalCode);
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test hashCode method
+     */
+    @Test
+    void shouldReturnHashCode_WhenHashCodeIsCalled() {
+        // Arrange
+        String postalCode = "K1A 0B1";
+        PostalCodeCAImpl postalCodeCA = new PostalCodeCAImpl(postalCode);
+        // Act
+        int result = postalCodeCA.hashCode();
+        // Assert
+        assertEquals(postalCode.hashCode(), result);
+    }
+
 }

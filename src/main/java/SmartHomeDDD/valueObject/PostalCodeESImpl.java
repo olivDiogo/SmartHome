@@ -28,4 +28,20 @@ public class PostalCodeESImpl implements IPostalCode {
     public String toString() {
         return postalCode;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof PostalCodeESImpl)) {
+            return false;
+        }
+        PostalCodeESImpl postalCodeES = (PostalCodeESImpl) obj;
+        return postalCode.equals(postalCodeES.getCode());
+    }
+    @Override
+    public int hashCode() {
+        return postalCode.hashCode();
+    }
 }

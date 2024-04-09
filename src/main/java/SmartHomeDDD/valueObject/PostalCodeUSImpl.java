@@ -34,4 +34,20 @@ public class PostalCodeUSImpl implements IPostalCode {
     public String toString() {
         return postalCode;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof PostalCodeUSImpl)) {
+            return false;
+        }
+        PostalCodeUSImpl postalCodeUS = (PostalCodeUSImpl) obj;
+        return postalCode.equals(postalCodeUS.getCode());
+    }
+    @Override
+    public int hashCode() {
+        return postalCode.hashCode();
+    }
 }

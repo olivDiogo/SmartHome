@@ -34,4 +34,20 @@ public class PostalCodePTImpl implements IPostalCode {
     public String toString() {
         return postalCode;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof PostalCodePTImpl)) {
+            return false;
+        }
+        PostalCodePTImpl postalCodePT = (PostalCodePTImpl) obj;
+        return postalCode.equals(postalCodePT.getCode());
+    }
+    @Override
+    public int hashCode() {
+        return postalCode.hashCode();
+    }
 }

@@ -80,4 +80,94 @@ class PostalCodeESImplTest {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> new PostalCodeESImpl(postalCode));
     }
+
+    /**
+     * Test equals method with same postal code.
+     */
+    @Test
+    void shouldReturnTrue_WhenPostalCodesAreEqual() {
+        // Arrange
+        String postalCode = "28039";
+        PostalCodeESImpl postalCodeES1 = new PostalCodeESImpl(postalCode);
+        PostalCodeESImpl postalCodeES2 = new PostalCodeESImpl(postalCode);
+        // Act
+        boolean result = postalCodeES1.equals(postalCodeES2);
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Test equals method with different postal code.
+     */
+    @Test
+    void shouldReturnFalse_WhenPostalCodesAreDifferent() {
+        // Arrange
+        String postalCode1 = "28039";
+        String postalCode2 = "28040";
+        PostalCodeESImpl postalCodeES1 = new PostalCodeESImpl(postalCode1);
+        PostalCodeESImpl postalCodeES2 = new PostalCodeESImpl(postalCode2);
+        // Act
+        boolean result = postalCodeES1.equals(postalCodeES2);
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test equals method with same object.
+     */
+    @Test
+    void shouldReturnTrue_WhenEqualsIsCalledWithSameObject() {
+        // Arrange
+        String postalCode = "28039";
+        PostalCodeESImpl postalCodeES = new PostalCodeESImpl(postalCode);
+        // Act
+        boolean result = postalCodeES.equals(postalCodeES);
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Test equals method with different object.
+     */
+    @Test
+    void shouldReturnFalse_WhenEqualsIsCalledWithDifferentObject() {
+        // Arrange
+        String postalCode1 = "28039";
+        String postalCode2 = "28040";
+        PostalCodeESImpl postalCodeES1 = new PostalCodeESImpl(postalCode1);
+        PostalCodeESImpl postalCodeES2 = new PostalCodeESImpl(postalCode2);
+        // Act
+        boolean result = postalCodeES1.equals(postalCodeES2);
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test equals method with different class.
+     */
+    @Test
+    void shouldReturnFalse_WhenEqualsIsCalledWithDifferentClass() {
+        // Arrange
+        String postalCode = "28039";
+        PostalCodeESImpl postalCodeES = new PostalCodeESImpl(postalCode);
+        // Act
+        boolean result = postalCodeES.equals(postalCode);
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test hashCode method.
+     */
+    @Test
+    void shouldReturnHashCode_WhenHashCodeIsCalled() {
+        // Arrange
+        String postalCode = "28039";
+        PostalCodeESImpl postalCodeES = new PostalCodeESImpl(postalCode);
+        // Act
+        int result = postalCodeES.hashCode();
+        // Assert
+        assertEquals(postalCode.hashCode(), result);
+    }
+
 }

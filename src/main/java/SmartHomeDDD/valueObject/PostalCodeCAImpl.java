@@ -34,4 +34,20 @@ public class PostalCodeCAImpl implements IPostalCode {
     public String toString() {
         return postalCode;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof PostalCodeCAImpl)) {
+            return false;
+        }
+        PostalCodeCAImpl postalCodeCA = (PostalCodeCAImpl) obj;
+        return postalCode.equals(postalCodeCA.getCode());
+    }
+    @Override
+    public int hashCode() {
+        return postalCode.hashCode();
+    }
 }
