@@ -5,7 +5,7 @@ import SmartHomeDDD.ddd.DTO;
 /**
  * Represents a Data Transfer Object (DTO) for a sensor model.
  */
-public final class SensorModelDTO implements DTO {
+public class SensorModelDTO implements DTO {
     /**
      * The unique identifier of the sensor model.
      */

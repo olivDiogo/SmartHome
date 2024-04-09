@@ -129,4 +129,23 @@ class SensorModelNameTest {
         // Assert
         assertFalse(sensorModelName.equals(name));
     }
+
+    /**
+     * Test hashCode method of the class SensorModel
+     */
+    @Test
+    public void shouldReturnHashCode_whenCallingHashCode() {
+        // Arrange
+        String name = "SensorModelName";
+        SensorModelName sensorModelName = new SensorModelName(name);
+
+        int expected = name.hashCode();
+
+        // Act
+        int result = sensorModelName.hashCode();
+
+        // Assert
+        assertEquals(expected, result);
+
+    }
 }

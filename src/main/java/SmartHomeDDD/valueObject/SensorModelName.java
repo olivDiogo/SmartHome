@@ -52,4 +52,13 @@ public class SensorModelName {
 
         return _name.equals(that._name);
     }
+
+    /**
+     * @return The hash code of the object.
+     */
+    @Override
+    public int hashCode() {
+        return _name.hashCode();
+    }
+
 }

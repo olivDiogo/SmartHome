@@ -55,6 +55,13 @@ public class SensorName implements ValueObject {
         return _name.equals(that._name);
     }
 
+    /**
+     * Returns the hash code of the object.
+     */
+    @Override
+    public int hashCode() {
+        return _name.hashCode();
+    }
 
     /**
      * @return The string representation of the sensor name.

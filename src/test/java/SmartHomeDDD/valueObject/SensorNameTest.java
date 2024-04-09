@@ -200,4 +200,20 @@ class SensorNameTest {
         // Assert
         assertTrue(result.contains(sensorName));
     }
+
+    /**
+     * Tests the hashCode method.
+     */
+    @Test
+    void shouldReturnHashCode_WhenHashCodeIsCalled(){
+        // Arrange
+        String sensorName = "Temperature Sensor 1";
+        SensorName sensorNameObject = new SensorName(sensorName);
+
+        // Act
+        int hashCode = sensorNameObject.hashCode();
+
+        // Assert
+        assertEquals(sensorName.hashCode(), hashCode);
+    }
 }
