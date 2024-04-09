@@ -23,9 +23,6 @@ public class DeviceTypeDTO implements DTO {
      */
     @Override
     public String toString() {
-        return "DeviceTypeDTO{" +
-                "deviceTypeID='" + deviceTypeID + '\'' +
-                ", deviceTypeDescription='" + deviceTypeDescription + '\'' +
-                '}';
+        return deviceTypeID + " " + deviceTypeDescription;
     }
 }

@@ -23,7 +23,7 @@ class ActuatorTypeAssemblerTest {
    * valid.
    */
   @Test
-  public void shouldReturnActuatorTypeAssemblerDTO_WhenDescriptionTypeIsValid() {
+  void shouldReturnActuatorTypeAssemblerDTO_WhenDescriptionTypeIsValid() {
     // Arrange
     String actuatorTypeID = "SwitchActuator"; // Assuming this is the ID, not the description
     String typeDescription = "Switch Actuator";
@@ -37,22 +37,20 @@ class ActuatorTypeAssemblerTest {
     when(actuatorType.getID()).thenReturn(actuatorTypeIDMock);
     when(actuatorType.getActuatorTypeName()).thenReturn(typeDescriptionMock);
     when(actuatorType.getUnit()).thenReturn(unitIDMock);
-    when(actuatorTypeIDMock.toString()).thenReturn(actuatorTypeID); // Keep this if you use toString() elsewhere
+    when(actuatorTypeIDMock.toString())
+        .thenReturn(actuatorTypeID); // Keep this if you use toString() elsewhere
     when(actuatorTypeIDMock.getId()).thenReturn(actuatorTypeID); // Correct stubbing for getId()
     when(typeDescriptionMock.toString()).thenReturn(typeDescription);
     when(unitIDMock.toString()).thenReturn(unit);
 
     ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
 
-    ActuatorTypeDTO expectedActuatorType =
-            new ActuatorTypeDTO(actuatorTypeID, typeDescription, unit);
-
-// Act
+    String expected = actuatorTypeID + " " + typeDescription + " " + unit;
+    // Act
     ActuatorTypeDTO actuatorTypeDTO = actuatorTypeAssembler.domainToDTO(actuatorType);
 
-// Assert
-    assertEquals(expectedActuatorType.actuatorTypeID, actuatorTypeDTO.actuatorTypeID);
-
+    // Assert
+    assertEquals(expected, actuatorTypeDTO.toString());
   }
 
   /**
@@ -60,7 +58,7 @@ class ActuatorTypeAssemblerTest {
    * null.
    */
   @Test
-  public void shouldThrowIllegalArgumentException_WhenActuatorTypeIsNull() {
+  void shouldThrowIllegalArgumentException_WhenActuatorTypeIsNull() {
     // Arrange
     ActuatorType actuatorType = null;
     ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
@@ -82,7 +80,7 @@ class ActuatorTypeAssemblerTest {
    * type is valid.
    */
   @Test
-  public void shouldReturnActuatorTypeAssemblerDTOList_WhenDescriptionTypeIsValid() {
+  void shouldReturnActuatorTypeAssemblerDTOList_WhenDescriptionTypeIsValid() {
     // Arrange
     String actuatorTypeID1 = "BlindActuator";
     String typeDescription1 = "Blind Actuator";
@@ -107,7 +105,6 @@ class ActuatorTypeAssemblerTest {
     when(unit1Mock.toString()).thenReturn(unit1);
     when(actuatorTypeID1Mock.getId()).thenReturn(actuatorTypeID1);
 
-
     // Setting up mocks for actuatorType2
     ActuatorTypeID actuatorTypeID2Mock = mock(ActuatorTypeID.class);
     TypeDescription typeDescription2Mock = mock(TypeDescription.class);
@@ -127,24 +124,21 @@ class ActuatorTypeAssemblerTest {
     // Expected DTOs
     ActuatorTypeDTO expectedDTO1 = new ActuatorTypeDTO(actuatorTypeID1, typeDescription1, unit1);
     ActuatorTypeDTO expectedDTO2 = new ActuatorTypeDTO(actuatorTypeID2, typeDescription2, unit2);
-    List<ActuatorTypeDTO> expectedDTOList = Arrays.asList(expectedDTO1, expectedDTO2);
+    List<ActuatorTypeDTO> expectedDTOList = List.of(expectedDTO1, expectedDTO2);
 
     // Act
     List<ActuatorTypeDTO> resultDTOList = actuatorTypeAssembler.domainToDTO(actuatorTypeList);
 
     // Assert
     assertEquals(expectedDTOList.toString(), resultDTOList.toString());
-    assertEquals(expectedDTOList.get(0).actuatorTypeID, resultDTOList.get(0).actuatorTypeID);
-    assertEquals(expectedDTOList.get(1).actuatorTypeID, resultDTOList.get(1).actuatorTypeID);
   }
-
 
   /**
    * Test if the domainToDTO method throws an IllegalArgumentException when the list of
    * ActuatorTypes is null.
    */
   @Test
-  public void shouldThrowIllegalArgumentException_WhenActuatorTypeListIsNull() {
+  void shouldThrowIllegalArgumentException_WhenActuatorTypeListIsNull() {
     // Arrange
     List<ActuatorType> actuatorTypeList = null;
     ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
@@ -163,7 +157,7 @@ class ActuatorTypeAssemblerTest {
   }
 
   @Test
-  public void shouldThrowIllegalArgumentException_WhenActuatorTypeListIsEmpty() {
+  void shouldThrowIllegalArgumentException_WhenActuatorTypeListIsEmpty() {
     // Arrange
     List<ActuatorType> actuatorTypeList = new ArrayList<>();
     ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
@@ -186,7 +180,7 @@ class ActuatorTypeAssemblerTest {
    * ActuatorTypes contains null.
    */
   @Test
-  public void shouldThrowIllegalArgumentException_WhenActuatorTypeListContainsNull() {
+  void shouldThrowIllegalArgumentException_WhenActuatorTypeListContainsNull() {
     // Arrange
     ActuatorType actuatorType = mock(ActuatorType.class);
 

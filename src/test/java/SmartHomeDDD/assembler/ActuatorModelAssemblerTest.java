@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ActuatorModelAssemblerTest {
+class ActuatorModelAssemblerTest {
 
     /**
      * Tests the conversion of an actuator model to an actuator model DTO, when the actuator model is valid.
      */
     @Test
-    public void shouldConvertActuatorModelToActuatorModelDTO_whenActuatorModelIsValid() {
+    void shouldConvertActuatorModelToActuatorModelDTO_whenActuatorModelIsValid() {
         // Arrange
         String actuatorModelID = "path";
         ModelPath actuatorModelIDDouble = mock(ModelPath.class);
@@ -39,19 +39,20 @@ public class ActuatorModelAssemblerTest {
         when(actuatorModelDouble.getID()).thenReturn(actuatorModelPathDouble);
 
         ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
+        String expected = actuatorModelID + " " + actuatorModelName + " " + actuatorModelPath;
 
         // Act
         ActuatorModelDTO actuatorModelDTO = actuatorModelAssembler.domainToDTO(actuatorModelDouble);
 
         // Assert
-        assertEquals(actuatorModelID, actuatorModelDTO.actuatorModelID);
+        assertEquals(expected, actuatorModelDTO.toString());
     }
 
     /**
      * Tests the conversion of an actuator model to an actuator model DTO, when the actuator model is null.
      */
     @Test
-    public void shouldThrowException_whenActuatorModelIsNull() {
+    void shouldThrowException_whenActuatorModelIsNull() {
         // Arrange
         ActuatorModel actuatorModel = null;
         ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
@@ -64,7 +65,7 @@ public class ActuatorModelAssemblerTest {
      * Tests the conversion of a list of actuator models to a list of actuator model DTOs, when the list of actuator models is valid.
      */
     @Test
-    public void shouldConvertListOfActuatorModelsToListOfActuatorModelDTO_whenActuatorModelListIsValid(){
+    void shouldConvertListOfActuatorModelsToListOfActuatorModelDTO_whenActuatorModelListIsValid(){
         // Arrange
         /* ActuatorModel 1 */
         String actuatorModelID1 = "path1";
@@ -102,24 +103,25 @@ public class ActuatorModelAssemblerTest {
         when(actuatorModelDouble2.getActuatorModelName()).thenReturn(actuatorModelNameDouble2);
         when(actuatorModelDouble2.getID()).thenReturn(actuatorModelPathDouble2);
 
-
         List<ActuatorModel> actuatorModels = List.of(actuatorModelDouble1, actuatorModelDouble2);
 
         ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
+        ActuatorModelDTO actuatorModelDTO1 = new ActuatorModelDTO(actuatorModelID1, actuatorModelName1, actuatorModelPath1);
+        ActuatorModelDTO actuatorModelDTO2 = new ActuatorModelDTO(actuatorModelID2, actuatorModelName2, actuatorModelPath2);
+        List<ActuatorModelDTO> expected = List.of(actuatorModelDTO1, actuatorModelDTO2);
 
         // Act
         List<ActuatorModelDTO> actuatorModelsDTO = actuatorModelAssembler.domainToDTO(actuatorModels);
 
         // Assert
-        assertEquals(actuatorModelID1, actuatorModelsDTO.get(0).actuatorModelID);
-        assertEquals(actuatorModelID2, actuatorModelsDTO.get(1).actuatorModelID);
+        assertEquals(expected.toString(), actuatorModelsDTO.toString());
     }
 
     /**
      * Tests the conversion of a list of actuator models to a list of actuator model DTOs when the list is null.
      */
     @Test
-    public void shouldThrowException_whenActuatorModelListIsNull() {
+    void shouldThrowException_whenActuatorModelListIsNull() {
         // Arrange
         List<ActuatorModel> actuatorModels = null;
         ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
@@ -132,7 +134,7 @@ public class ActuatorModelAssemblerTest {
      * Tests the conversion of a list of actuator models to a list of actuator model DTOs when the list is empty.
      */
     @Test
-    public void shouldThrowException_whenActuatorModelListIsEmpty() {
+    void shouldThrowException_whenActuatorModelListIsEmpty() {
         // Arrange
         List<ActuatorModel> actuatorModels = List.of();
         ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();

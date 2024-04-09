@@ -51,18 +51,4 @@ public class DeviceTypeAssembler implements Assembler<DeviceType, DeviceTypeDTO>
         List<DeviceTypeDTO> deviceTypesDTOS = deviceTypes.stream().map(this::domainToDTO).toList();
         return deviceTypesDTOS;
     }
-
-    /**
-     * Converts a DeviceTypeID object to a string representation.
-     *
-     * @param deviceTypeID the DeviceTypeID object to be converted.
-     * @return The string representation of the DeviceTypeID.
-     */
-    public String deviceTypeIDToString(DeviceTypeID deviceTypeID) {
-        return deviceTypeID.toString();
-    }
-
-    public String deviceTypeDescriptionToString(TypeDescription deviceTypeDescription) {
-        return deviceTypeDescription.toString();
-    }
 }

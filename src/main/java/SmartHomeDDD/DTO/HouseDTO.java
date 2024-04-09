@@ -19,10 +19,7 @@ public class HouseDTO implements DTO {
     }
 
     public String toString() {
-        return "HouseDTO{" +
-                "address='" + address + '\'' +
-                ", gps='" + gps + '\'' +
-                '}';
+        return address + " " + gps;
     }
 }
 

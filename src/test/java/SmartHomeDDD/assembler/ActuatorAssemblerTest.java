@@ -11,13 +11,13 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ActuatorAssemblerTest {
+class ActuatorAssemblerTest {
 
     /**
      * Should convert Actuator to ActuatorDTO when Actuator is valid.
      */
     @Test
-    public void shouldConvertActuatorToActuatorDTO_whenActuatorIsValid() {
+    void shouldConvertActuatorToActuatorDTO_whenActuatorIsValid() {
         //Arrange
         String actuatorID = "1";
         ActuatorID actuatorIdDouble = mock(ActuatorID.class);
@@ -47,19 +47,20 @@ public class ActuatorAssemblerTest {
         when(actuatorDouble.getDeviceID()).thenReturn(deviceIDDouble);
 
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
+        String expected = actuatorID + " " + actuatorTypeID + " " + actuatorName + " " + actuatorModelPath + " " + deviceID;
 
         //Act
         ActuatorDTO actuatorDTO = actuatorAssembler.domainToDTO(actuatorDouble);
 
         //Assert
-        assertEquals(actuatorDTO.id, actuatorID);
+        assertEquals(expected, actuatorDTO.toString());
     }
 
     /**
      * Should throw IllegalArgumentException when Actuator is null.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenActuatorIsNull() {
+    void shouldThrowIllegalArgumentException_whenActuatorIsNull() {
         //Arrange
         IActuator actuatorDouble = null;
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
@@ -77,7 +78,7 @@ public class ActuatorAssemblerTest {
      * Should convert a list of Actuator to a list of ActuatorDTO when the list of Actuator is valid.
      */
     @Test
-    public void shouldConvertListOfActuatorToListOfActuatorDTO_whenListOfActuatorIsValid() {
+    void shouldConvertListOfActuatorToListOfActuatorDTO_whenListOfActuatorIsValid() {
         //Arrange
         String actuatorID1 = "1";
         ActuatorID actuatorIdDouble1 = mock(ActuatorID.class);
@@ -124,20 +125,22 @@ public class ActuatorAssemblerTest {
         List<IActuator> actuators = List.of(actuatorDouble1, actuatorDouble2);
 
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
+        ActuatorDTO actuatorDTO1 = new ActuatorDTO(actuatorID1, actuatorTypeID, actuatorName1, actuatorModelPath, deviceID);
+        ActuatorDTO actuatorDTO2 = new ActuatorDTO(actuatorID2, actuatorTypeID, actuatorName2, actuatorModelPath, deviceID);
+        List <ActuatorDTO> expected = List.of(actuatorDTO1, actuatorDTO2);
 
         //Act
         List<ActuatorDTO> actuatorsDTO = actuatorAssembler.domainToDTO(actuators);
 
         //Assert
-        assertEquals(actuatorsDTO.get(0).id, actuatorID1);
-        assertEquals(actuatorsDTO.get(1).id, actuatorID2);
+        assertEquals(expected.toString(), actuatorsDTO.toString());
     }
 
     /**
      * Should throw IllegalArgumentException when the list of Actuator is null.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenListOfActuatorIsNull() {
+    void shouldThrowIllegalArgumentException_whenListOfActuatorIsNull() {
         //Arrange
         List<IActuator> actuators = null;
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
@@ -155,7 +158,7 @@ public class ActuatorAssemblerTest {
      * Should throw IllegalArgumentException when the list of Actuator is empty.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenListOfActuatorIsEmpty() {
+    void shouldThrowIllegalArgumentException_whenListOfActuatorIsEmpty() {
         //Arrange
         List<IActuator> actuators = List.of();
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();

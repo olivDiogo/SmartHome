@@ -38,4 +38,9 @@ public class DeviceDTO implements DTO {
         this.deviceName = deviceName;
         this.deviceStatus = deviceStatus;
     }
+
+    @Override
+    public String toString() {
+        return deviceID + " " + roomID + " " + deviceName + " " + deviceStatus;
+    }
 }

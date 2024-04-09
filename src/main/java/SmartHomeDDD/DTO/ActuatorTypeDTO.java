@@ -32,11 +32,7 @@ public class ActuatorTypeDTO implements DTO {
      */
     @Override
     public String toString() {
-        return "ActuatorTypeDTO{" +
-                "actuatorTypeID='" + actuatorTypeID + '\'' +
-                ", _actuatorTypeDescription='" + actuatorTypeID + '\'' +
-                ", _unit='" + unit +
-                '}';
+        return actuatorTypeID + " " + actuatorTypeDescription + " " + unit;
     }
 }
 
