@@ -19,7 +19,7 @@ public class SensorTypeAssembler implements Assembler<SensorType, SensorTypeDTO>
             throw new IllegalArgumentException("Sensor type cannot be null.");
 
         String sensorTypeID = sensorType.getID().toString();
-        String sensorTypeDescription = sensorType.getID().toString();
+        String sensorTypeDescription = sensorType.getName().toString();
         String unit = sensorType.getUnit().toString();
 
         SensorTypeDTO sensorTypeDTO = new SensorTypeDTO(sensorTypeID, sensorTypeDescription, unit);

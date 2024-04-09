@@ -33,4 +33,9 @@ public final class SensorModelDTO implements DTO {
         this.sensorModelName = sensorModelName;
         this._modelPath = modelPath;
     }
+
+    @Override
+    public String toString() {
+        return sensorModelID + " " + sensorModelName + " " + _modelPath;
+    }
 }

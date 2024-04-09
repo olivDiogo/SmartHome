@@ -21,5 +21,9 @@ public class SensorTypeDTO implements DTO {
         this.sensorTypeDescription = sensorTypeDescription;
         this.unit = unit;
     }
-}
 
+    @Override
+    public String toString() {
+    return sensorTypeID + " " + sensorTypeDescription + " " + unit;
+  }
+}

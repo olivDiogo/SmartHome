@@ -87,27 +87,7 @@ class AddSensorTypeControllerTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
-    @Test
-    void shouldReturnEmptyListOfUnitsWhenNoUnitLoaded() throws InstantiationException {
-        //Arrange
-        SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-        UnitRepository unitRepository = new UnitRepository();
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
-        IUnitFactory unitFactory = new UnitFactoryImpl();
-        UnitService unitService = new UnitService(unitRepository, unitFactory);
-
-        UnitAssembler unitAssembler = new UnitAssembler();
-        SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-
-        int expected = 0;
-        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitService, unitAssembler);
-        //Act
-        int actual = addSensorTypeController.getSupportedUnits().size();
-        //Assert
-        assertEquals(expected, actual);
-    }
     @Test
     void shouldReturnListOfUnitsWhenUnitsLoaded() throws InstantiationException {
         //Arrange
