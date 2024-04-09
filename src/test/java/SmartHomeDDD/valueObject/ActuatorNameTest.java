@@ -4,8 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
-public class ActuatorNameTest {
+class ActuatorNameTest {
 
+    /**
+     * Test the instantiation of a new actuator name.
+     */
     @Test
     void shouldInstantiateANewActuatorName() {
         //Arrange
@@ -18,6 +21,9 @@ public class ActuatorNameTest {
         assertNotNull(result);
     }
 
+    /**
+     * Test the instantiation of a new actuator name with a null value.
+     */
     @Test
     void shouldThrowIllegalArgumentException_whenActuatorNameIsNull() {
 
@@ -33,6 +39,9 @@ public class ActuatorNameTest {
         assertTrue(exceptionMessage.contains(expectedMessage));
     }
 
+    /**
+     * Test the instantiation of a new actuator name with a blank value.
+     */
     @Test
     void shouldThrowIllegalArgumentException_whenActuatorNameIsBlank() {
 
@@ -48,6 +57,9 @@ public class ActuatorNameTest {
         assertTrue(exceptionMessage.contains(expectedMessage));
     }
 
+    /**
+     * Test the instantiation of a new actuator name with an empty value.
+     */
     @Test
     void shouldThrowIllegalArgumentException_whenActuatorNameIsEmpty() {
 
@@ -63,6 +75,9 @@ public class ActuatorNameTest {
         assertTrue(exceptionMessage.contains(expectedMessage));
     }
 
+    /**
+     * Test the instantiation of a new actuator name with special characters.
+     */
     @Test
     void shouldThrowIllegalArgumentException_whenActuatorNameContainsSpecialCharacters() {
 
@@ -78,6 +93,9 @@ public class ActuatorNameTest {
         assertTrue(exceptionMessage.contains(expectedMessage));
     }
 
+    /**
+     * Test the instantiation of a new actuator name with a valid value.
+     */
     @Test
     void shouldGetActuatorName() {
 
@@ -87,6 +105,75 @@ public class ActuatorNameTest {
         String result = actuatorNameVO.getActuatorName();
 
         assertTrue(result.equals(actuatorName));
+    }
+
+    /**
+     * Test the equals method when comparing two equal actuator names.
+     */
+    @Test
+    void shouldReturnTrue_whenComparingTwoEqualActuatorNames() {
+        // Arrange
+        String actuatorName = "Switch Actuator";
+        ActuatorName actuatorNameVO = new ActuatorName(actuatorName);
+        ActuatorName actuatorNameVO2 = new ActuatorName(actuatorName);
+
+        // Act
+        boolean result = actuatorNameVO.equals(actuatorNameVO2);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Test the equals method when comparing two different actuator names.
+     */
+    @Test
+    void shouldReturnFalse_whenComparingTwoDifferentActuatorNames() {
+        // Arrange
+        String actuatorName = "Switch Actuator";
+        String actuatorName2 = "Light Actuator";
+        ActuatorName actuatorNameVO = new ActuatorName(actuatorName);
+        ActuatorName actuatorNameVO2 = new ActuatorName(actuatorName2);
+
+        // Act
+        boolean result = actuatorNameVO.equals(actuatorNameVO2);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test the equals method when comparing an actuator name with a different object.
+     */
+    @Test
+    void shouldReturnFalse_whenComparingActuatorNameWithDifferentObject() {
+        // Arrange
+        String actuatorName = "Switch Actuator";
+        ActuatorName actuatorNameVO = new ActuatorName(actuatorName);
+        Object object = new Object();
+
+        // Act
+        boolean result = actuatorNameVO.equals(object);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test the hashCode method.
+     */
+    @Test
+    void shouldReturnHashCode_whenCallingHashCode() {
+        // Arrange
+        String actuatorName = "Switch Actuator";
+        ActuatorName actuatorNameVO = new ActuatorName(actuatorName);
+        int expectedHashCode = actuatorName.hashCode();
+
+        // Act
+        int result = actuatorNameVO.hashCode();
+
+        // Assert
+        assertEquals(expectedHashCode, result);
     }
 
 }

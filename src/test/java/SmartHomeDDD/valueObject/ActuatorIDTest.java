@@ -187,5 +187,20 @@ class ActuatorIDTest {
         assertEquals(expected, actuatorIDReturned);
     }
 
+    /**
+     * Test equals method with different object.
+     */
+    @Test
+    public void shouldReturnFalse_WhenObjectIsDifferent() {
+        // Arrange
+        String actuatorIDDescription = "Actuator2GKA";
+        ActuatorID actuatorID = new ActuatorID(actuatorIDDescription);
+        Object obj = new Object();
+        // Act
+        boolean result = actuatorID.equals(obj);
+        // Assert
+        assertFalse(result);
+    }
+
 
 }

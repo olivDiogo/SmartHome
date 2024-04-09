@@ -129,4 +129,22 @@ class ActuatorModelNameTest {
         // Assert
         assertFalse(ActuatorModelName.equals(name));
     }
+
+    /**
+     * Test the hashCode method of the class ActuatorModelName.
+     */
+    @Test
+    public void shouldReturnHashCode_whenCallingHashCode() {
+        // Arrange
+        String name = "ActuatorModelName";
+        ActuatorModelName actuatorModelName = new ActuatorModelName(name);
+
+        int expectedHashCode = name.hashCode();
+
+        // Act
+        int result = actuatorModelName.hashCode();
+
+        // Assert
+        assertEquals(expectedHashCode, result);
+    }
 }

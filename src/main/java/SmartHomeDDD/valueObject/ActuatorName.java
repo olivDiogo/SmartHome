@@ -23,4 +23,22 @@ public class ActuatorName implements ValueObject {
     public String getActuatorName() {
         return _actuatorName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ActuatorName that = (ActuatorName) o;
+
+        return _actuatorName.equals(that._actuatorName);
+    }
+
+    /**
+     * @return the hash code of the object.
+     */
+    @Override
+    public int hashCode() {
+        return _actuatorName.hashCode();
+    }
 }
