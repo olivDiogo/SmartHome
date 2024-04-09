@@ -6,16 +6,18 @@ import SmartHomeDDD.valueObject.Dimension;
 import SmartHomeDDD.valueObject.RoomFloor;
 import SmartHomeDDD.valueObject.RoomID;
 import SmartHomeDDD.valueObject.RoomName;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class RoomAssemblerTest {
+class RoomAssemblerTest {
 
     /**
      * Test if the constructor of the RoomAssembler class can be called.
@@ -56,13 +58,13 @@ public class RoomAssemblerTest {
 
         RoomAssembler roomAssembler = new RoomAssembler();
 
-        RoomDTO expectedRoom = new RoomDTO(roomName, dimension, roomfloor, roomID);
+        String expected = roomName + " " + dimension + " " + roomfloor + " " + roomID;
 
         // Act
         RoomDTO roomDTO = roomAssembler.domainToDTO(room);
 
         // Assert
-        assertEquals(expectedRoom.roomId, roomDTO.roomId);
+        assertEquals(expected, roomDTO.toString());
 
     }
 
@@ -86,75 +88,62 @@ public class RoomAssemblerTest {
     }
 
 
-//    @Test
-//    void shouldReturnANewRoomDTOList_whenGivenARoomList() {
-//        // Arrange
-//        String roomName = "Test Room";
-//        String dimension = "Width: 10, Height: 10, Depth: 10 ";
-//        String roomfloor = "RoomFloor{_floor=1}";
-//        String roomID = "1";
-//
-//        String roomName2 = "Test Room 2";
-//        String dimension2 = "Width: 10, Height: 20, Depth: 30 ";
-//        String roomfloor2 = "RoomFloor{_floor=2}";
-//        String roomID2 = "2";
-//
-//        Room room = mock(Room.class);
-//
-//        when(room.getRoomName()).thenReturn(mock(RoomName.class));
-//        when(room.getRoomName().toString()).thenReturn(roomName);
-//
-//        when(room.getDimension()).thenReturn(mock(Dimension.class));
-//        when(room.getDimension().toString()).thenReturn(dimension);
-//
-//        when(room.getRoomFloor()).thenReturn(mock(RoomFloor.class));
-//        when(room.getRoomFloor().toString()).thenReturn(roomfloor);
-//
-//        when(room.getID()).thenReturn(mock(RoomID.class));
-//        when(room.getID().toString()).thenReturn(roomID);
-//
-//        Room room2 = mock(Room.class);
-//
-//        when(room2.getRoomName()).thenReturn(mock(RoomName.class));
-//        when(room2.getRoomName().toString()).thenReturn(roomName2);
-//
-//        when(room2.getDimension()).thenReturn(mock(Dimension.class));
-//        when(room2.getDimension().toString()).thenReturn(dimension2);
-//
-//        when(room2.getRoomFloor()).thenReturn(mock(RoomFloor.class));
-//        when(room2.getRoomFloor().toString()).thenReturn(roomfloor2);
-//
-//        when(room2.getID()).thenReturn(mock(RoomID.class));
-//        when(room2.getID().toString()).thenReturn(roomID2);
-//
-//
-//        List<Room> rooms = new ArrayList<>();
-//        rooms.add(room);
-//        rooms.add(room2);
-//
-//        RoomAssembler roomAssembler = new RoomAssembler();
-//
-//        RoomDTO roomDTO = new RoomDTO(roomName, dimension, roomfloor, roomID);
-//        RoomDTO roomDTO2 = new RoomDTO(roomName2, dimension2, roomfloor2, roomID2);
-//
-//        List<RoomDTO> expected = new ArrayList<>();
-//        expected.add(roomDTO);
-//        expected.add(roomDTO2);
-//
-//        // Act
-//        List<RoomDTO> result = roomAssembler.domainToDTO(rooms);
-//
-//        // Assert
-//        assertEquals(expected.get(0).roomName, result.get(0).roomName);
-//        assertEquals(expected.get(0).dimensions, result.get(0).dimensions);
-//        assertEquals(expected.get(0).floor, result.get(0).floor);
-//        assertEquals(expected.get(0).roomId, result.get(0).roomId);
-//        assertEquals(expected.get(1).roomName, result.get(1).roomName);
-//        assertEquals(expected.get(1).dimensions, result.get(1).dimensions);
-//        assertEquals(expected.get(1).floor, result.get(1).floor);
-//        assertEquals(expected.get(1).roomId, result.get(1).roomId);
-//
-//    }
+    @Test
+    void shouldReturnANewRoomDTOList_whenGivenARoomList() {
+        // Arrange
+        String roomName = "Test Room";
+        String dimension = "Width: 10, Height: 10, Depth: 10 ";
+        String roomFloor = "RoomFloor 1";
+        String roomID = "1";
+
+        String roomName2 = "Test Room 2";
+        String dimension2 = "Width: 10, Height: 20, Depth: 30 ";
+        String roomFloor2 = "RoomFloor 2";
+        String roomID2 = "2";
+
+        Room room = mock(Room.class);
+
+        when(room.getRoomName()).thenReturn(mock(RoomName.class));
+        when(room.getRoomName().toString()).thenReturn(roomName);
+
+        when(room.getDimension()).thenReturn(mock(Dimension.class));
+        when(room.getDimension().toString()).thenReturn(dimension);
+
+        when(room.getRoomFloor()).thenReturn(mock(RoomFloor.class));
+        when(room.getRoomFloor().toString()).thenReturn(roomFloor);
+
+        when(room.getID()).thenReturn(mock(RoomID.class));
+        when(room.getID().toString()).thenReturn(roomID);
+
+        Room room2 = mock(Room.class);
+
+        when(room2.getRoomName()).thenReturn(mock(RoomName.class));
+        when(room2.getRoomName().toString()).thenReturn(roomName2);
+
+        when(room2.getDimension()).thenReturn(mock(Dimension.class));
+        when(room2.getDimension().toString()).thenReturn(dimension2);
+
+        when(room2.getRoomFloor()).thenReturn(mock(RoomFloor.class));
+        when(room2.getRoomFloor().toString()).thenReturn(roomFloor2);
+
+        when(room2.getID()).thenReturn(mock(RoomID.class));
+        when(room2.getID().toString()).thenReturn(roomID2);
+
+        List<Room> rooms = Arrays.asList(room, room2);
+
+        RoomAssembler roomAssembler = new RoomAssembler();
+
+        RoomDTO roomDTO = new RoomDTO(roomName, dimension, roomFloor, roomID);
+        RoomDTO roomDTO2 = new RoomDTO(roomName2, dimension2, roomFloor2, roomID2);
+
+        List<RoomDTO> expected = List.of(roomDTO, roomDTO2);
+
+        // Act
+        List<RoomDTO> result = roomAssembler.domainToDTO(rooms);
+
+        // Assert
+        assertEquals(expected.toString(), result.toString());
+    }
 
     /**
      * Test if the domainToDTO method throws an IllegalArgumentException when the list of Rooms is null.

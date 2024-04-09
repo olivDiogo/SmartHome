@@ -40,7 +40,7 @@ public class UnitAssembler implements Assembler<Unit, UnitDTO> {
 
     @Override
     public List<UnitDTO> domainToDTO(List<Unit> units) {
-        if (units == null) {
+        if (units == null || units.isEmpty() || units.contains(null)){
             throw new IllegalArgumentException("The list of MeasurementTypes cannot be null.");
         }
         List<UnitDTO> unitDTOS = new ArrayList<>();

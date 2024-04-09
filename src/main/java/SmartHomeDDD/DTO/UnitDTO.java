@@ -23,10 +23,6 @@ public class UnitDTO implements DTO {
 
     @Override
     public String toString() {
-        return "UnitDTO{" +
-                "unitID='" + unitID + '\'' +
-                ", description='" + description + '\'' +
-                ", unitSymbol='" + unitSymbol +
-                '}';
+        return unitID + " " + description + " " + unitSymbol;
     }
 }
