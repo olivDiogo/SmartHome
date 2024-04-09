@@ -2,12 +2,14 @@ package SmartHomeDDD.valueObject;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class AddressTest {
 
@@ -461,4 +463,31 @@ public class AddressTest {
         assertEquals(street + ", " + doorNumber, actualAddress);
     }
 
+    /**
+     * Test hashCode method
+     */
+    @Test
+    void shouldReturnHashCode_whenCallingHashCode() {
+        //Arrange
+        String street = "Isep Street 2";
+        String doorNumber = "12 A";
+        String postalCode = "4000-123";
+        String countryCode = "PT";
+
+        IPostalCode postalCodeDouble = mock(IPostalCode.class);
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+
+        when(factory.createPostalCode(postalCode, countryCode)).thenReturn(postalCodeDouble);
+
+        Address address = new Address(street, doorNumber, postalCode, countryCode, factory);
+
+        int expectedHashCode = street.hashCode() + doorNumber.hashCode() + postalCodeDouble.hashCode() + countryCode.hashCode();
+
+        // Act
+        int result = address.hashCode();
+
+        // Assert
+        assertEquals(expectedHashCode, result);
+
+    }
 }

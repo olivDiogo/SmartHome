@@ -80,6 +80,13 @@ public class Address implements ValueObject {
     }
 
     /**
+     * hashCode method for Address.
+      */
+    public int hashCode() {
+        return this._street.hashCode() + this._doorNumber.hashCode() + this._countryCode.hashCode() + this._postalCode.hashCode();
+    }
+
+    /**
      * Getter for street.
      *
      * @return _street.
