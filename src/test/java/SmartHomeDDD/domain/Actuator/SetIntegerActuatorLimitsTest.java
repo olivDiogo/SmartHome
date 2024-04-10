@@ -36,7 +36,7 @@ public class SetIntegerActuatorLimitsTest {
             new SetIntegerActuatorLimits(lowerLimit, upperLimit);
         } catch (IllegalArgumentException e) {
             // Assert
-            assert e.getMessage().equals("Lower limit cannot be greater than upper limit");
+            assertEquals(e.getMessage(), "Lower limit cannot be greater than upper limit");
         }
     }
 

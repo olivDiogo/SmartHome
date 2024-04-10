@@ -26,7 +26,10 @@ public class AveragePowerConsumptionSensorTest {
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
     // Act
-    new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    // Assert
+    Assertions.assertNotNull(averagePowerConsumptionSensor);
+
   }
 
   /** tests if Exception is thrown for null Sensor type. */

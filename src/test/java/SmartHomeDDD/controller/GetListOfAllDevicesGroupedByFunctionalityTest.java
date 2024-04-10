@@ -21,12 +21,14 @@ import SmartHomeDDD.service.DeviceTypeService;
 import SmartHomeDDD.service.HouseService;
 import SmartHomeDDD.service.RoomService;
 import SmartHomeDDD.valueObject.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -50,9 +52,10 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
         DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
 
         //Act
-        new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
+        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
 
         //Assert
+        Assertions.assertNotNull(getListOfAllDevicesGroupedByFunctionality);
     }
 
     /**
@@ -200,8 +203,8 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
         Map<DeviceType, List<DeviceDTO>> result = getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality();
 
         //Assert
-        assert result.get(deviceType1).get(0).deviceID.toString().equals(device1.getID().getId());
-        assert result.get(deviceType2).get(0).deviceID.toString().equals(device2.getID().getId());
+        assertEquals(result.get(deviceType1).get(0).deviceID.toString(), device1.getID().getId());
+        assertEquals(result.get(deviceType2).get(0).deviceID.toString(), device2.getID().getId());
     }
 
     /**
@@ -276,8 +279,9 @@ public class GetListOfAllDevicesGroupedByFunctionalityTest {
         Map<DeviceType, List<DeviceDTO>> result = getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality();
 
         //Assert
-        assert result.get(deviceType).get(0).deviceID.toString().equals(device1.getID().getId());
-        assert result.get(deviceType).get(1).deviceID.toString().equals(device2.getID().getId());
+        Assertions.assertEquals(result.get(deviceType).get(0).deviceID.toString(), device1.getID().getId());
+        Assertions.assertEquals(result.get(deviceType).get(1).deviceID.toString(), device2.getID().getId());
+
     }
 
     /**
