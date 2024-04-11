@@ -105,10 +105,10 @@ public class House implements AggregateRoot<HouseID> {
      * @return true if the specified object is a House and has the same _id as this house; false otherwise
      */
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        House house = (House) o;
-        return _houseID.equals(house._houseID);
+       if (o instanceof House houseObject) {
+            return _houseID.equals(houseObject._houseID);
+        }
+        return false;
     }
 
     /**

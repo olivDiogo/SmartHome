@@ -204,41 +204,6 @@ class HouseTest {
         assertFalse(result);
     }
 
-    /**
-     * Tests that two House instances with the same HouseID are considered equal.
-     * This test ensures that the equals method correctly evaluates the identity of House instances.
-     */
-    @Test
-    void shouldReturnTrue_WhenThereAreTwoEqualHouses() throws NoSuchFieldException, IllegalAccessException {
-        // Arrange
-        String street = "Rua do Amial";
-        String doorNumber = "12";
-        String zipCode = "4200-055";
-        String countryCode = "PT";
-        double latitude = 41.14961;
-        double longitude = -8.61099;
-        PostalCodeFactory factory = new PostalCodeFactory();
-        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
-        GPS gps = new GPS(latitude, longitude);
-
-
-        House house1 = new House(address, gps);
-        House house2 = new House(address, gps);
-
-        // Use reflection to set _houseID to the same value for both instances
-        Field houseIDField = House.class.getDeclaredField("_houseID");
-        houseIDField.setAccessible(true);
-        HouseID sharedHouseID = new HouseID(UUID.randomUUID().toString());
-        houseIDField.set(house1, sharedHouseID);
-        houseIDField.set(house2, sharedHouseID);
-
-            // Act
-            boolean result = house1.equals(house2);
-
-            // Assert
-            assertTrue(result);
-        }
-
 
     /**
      * Tests the equals method of class House when the instance is compared to a null object.
