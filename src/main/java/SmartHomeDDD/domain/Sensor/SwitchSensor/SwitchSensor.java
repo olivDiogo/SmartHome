@@ -16,10 +16,10 @@ public class SwitchSensor implements ISensor {
     private DeviceID _deviceID;
 
     /**
-     * @param deviceID
-     * @param modelPath
-     * @param sensorTypeID
-     * @param sensorName
+     * @param deviceID   The device ID.
+     * @param modelPath The model path.
+     * @param sensorTypeID The sensor type ID.
+     * @param sensorName The sensor name.
      */
     public SwitchSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
@@ -156,4 +156,32 @@ public class SwitchSensor implements ISensor {
     public DeviceID getDeviceID() {
         return this._deviceID;
     }
+
+    /**
+     * Compares this instance with another instance.
+     * @param o is the object to be compared.
+     * @return true if the instances are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof SwitchSensor switchSensor) {
+            return this._sensorID.equals(switchSensor.getID());
+        }
+        return false;
+    }
+
+    /**
+     * Generates a hash code for the sensor.
+     * @return The hash code.
+     */
+    @Override
+    public int hashCode() {
+        return this._sensorID.hashCode();
+    }
+
+    @Override
+    public String toString () {
+        return "SwitchSensor: DeviceID= " + _deviceID.getId() + " ModelPath= " + _modelPath.getId() + " SensorTypeID= " + _sensorTypeID.getId() + " SensorName= " + _sensorName.getSensorName() + " SensorID= " + _sensorID.getId();
+    }
 }
+
