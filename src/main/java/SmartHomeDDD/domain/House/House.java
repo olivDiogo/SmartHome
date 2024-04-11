@@ -119,10 +119,19 @@ public class House implements AggregateRoot<HouseID> {
      * @return a string representation of this House instance, containing values of its properties
      */
     public String toString() {
-        return "House{" +
-                "_houseID=" + _houseID +
-                ", _address=" + _address +
-                ", _gps=" + _gps +
-                '}';
+        return "House:" +
+                "houseID=" + _houseID +
+                ", address=" + _address +
+                ", gps=" + _gps;
+    }
+    /**
+     * Returns a hash code value for the House instance.
+     * The hash code is based on the unique identifier of the house (_houseID).
+     * This method overrides the {@link Object#hashCode()} method.
+     *
+     * @return a hash code value for this House instance
+     */
+    public int hashCode() {
+        return _houseID.hashCode();
     }
 }

@@ -309,14 +309,34 @@ class HouseTest {
         GPS gps = new GPS(latitude, longitude);
 
         House house = new House(address, gps);
+        String expected = "House:houseID=" + house.getID() + ", address=" + house.getAddress() + ", gps=" + house.getGps();
 
         // Act
         String result = house.toString();
 
         // Assert
-        assertTrue(result.contains("House{"));
-        assertTrue(result.contains("_houseID="));
-        assertTrue(result.contains("_address="));
-        assertTrue(result.contains("_gps="));
+        assertEquals(expected, result);
+    }
+    @Test
+    void hashCodeShouldBeGeneratedFromHouseIDInLineWithOverritenEquals() {
+        // Arrange
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
+        House house = new House(address, gps);
+        HouseID houseID = house.getID();
+        int expectedHashCode = houseID.hashCode();
+
+        // Act
+        int hashCode = house.hashCode();
+
+        // Assert
+        assertEquals(expectedHashCode, hashCode);
     }
 }
