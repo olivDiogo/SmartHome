@@ -2,11 +2,7 @@ package SmartHomeDDD.domain.DeviceType;
 
 import SmartHomeDDD.valueObject.TypeDescription;
 
-/**
- * Factory implementation for creating device types.
- * This class provides a concrete implementation for the DeviceTypeFactory interface,
- * allowing for the creation of DeviceType instances based on provided descriptions.
- */
+
 public class DeviceTypeFactoryImpl implements IDeviceTypeFactory {
 
     /**
