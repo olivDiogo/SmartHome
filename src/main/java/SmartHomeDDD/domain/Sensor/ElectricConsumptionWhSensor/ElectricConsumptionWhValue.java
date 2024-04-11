@@ -36,9 +36,7 @@ public class ElectricConsumptionWhValue implements ValueObject {
     }
 
     /**
-     * Returns the value of electric consumption in watt-hours.
-     *
-     * @return the value of electric consumption in watt-hours
+     * Returns string representation of the value of electric consumption in watt-hours.
      */
     @Override
     public String toString() {
@@ -47,9 +45,7 @@ public class ElectricConsumptionWhValue implements ValueObject {
     }
 
     /**
-     * Returns the value of electric consumption in watt-hours.
-     *
-     * @return the value of electric consumption in watt-hours
+     * Returns true if the given object is equal to this object.
      */
     @Override
     public boolean equals(Object o) {
@@ -60,9 +56,7 @@ public class ElectricConsumptionWhValue implements ValueObject {
     }
 
     /**
-     * Returns the value of electric consumption in watt-hours.
-     *
-     * @return the value of electric consumption in watt-hours
+        * Returns hashcode
      */
     @Override
     public int hashCode() {

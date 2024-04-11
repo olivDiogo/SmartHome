@@ -6,16 +6,18 @@ import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuator;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuatorLimits;
 import SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerValue;
 import SmartHomeDDD.valueObject.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SetIntegerActuatorTest {
+class SetIntegerActuatorAggregateTest {
     /**
      * Test to verify that the SetIntegerActuator class can be instantiated when the constructor arguments are valid.
      */
     @Test
-    public void shouldInstantiateSetIntegerActuator_whenConstructorArgumentsAreValid() {
+    void shouldInstantiateSetIntegerActuator_whenConstructorArgumentsAreValid() {
         //Arrange
         DeviceID deviceID = new DeviceID("deviceID");
         ModelPath modelPath = new ModelPath("modelPath");
@@ -30,142 +32,12 @@ public class SetIntegerActuatorTest {
         assertNotNull(sensor);
     }
 
-    /**
-     * Test to verify that the SetIntegerActuator class throws an IllegalArgumentException when the deviceID is null.
-     */
-    @Test
-    public void shouldThrowIllegalArgumentException_whenDeviceIDIsNull() {
-        //Arrange
-        DeviceID deviceId = null;
-        ModelPath modelPathDouble = new ModelPath("modelPath");
-        ActuatorName actuatorNameDouble = new ActuatorName("actuatorName");
-        ActuatorTypeID actuatorTypeIDDouble = new ActuatorTypeID("SetIntegerActuator");
-        SetIntegerActuatorLimits limitsDouble = new SetIntegerActuatorLimits(0, 100);
-
-        String expectedMessage = "DeviceID cannot be null";
-
-        //Act & Assert
-        try {
-            new SetIntegerActuator(deviceId, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble, limitsDouble);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), expectedMessage);
-        }
-    }
-
-    /**
-     * Test to verify that the SetIntegerActuator class throws an IllegalArgumentException when the modelPath is null.
-     */
-    @Test
-    public void shouldThrowIllegalArgumentException_whenModelPathIsNull() {
-        //Arrange
-        DeviceID deviceID = new DeviceID("deviceID");
-        ModelPath modelPath = null;
-        ActuatorName actuatorName = new ActuatorName("actuatorName");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
-        String expectedMessage = "ModelPath cannot be null";
-
-        //Act & Assert
-        try {
-            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), expectedMessage);
-        }
-    }
-
-    /**
-     * Test to verify that the SetIntegerActuator class throws an IllegalArgumentException when the actuatorName is null.
-     */
-    @Test
-    public void shouldThrowIllegalArgumentException_whenActuatorNameIsNull() {
-        //Arrange
-        DeviceID deviceID = new DeviceID("deviceID");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = null;
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
-
-        String expectedMessage = "ActuatorName cannot be null";
-
-        //Act & Assert
-        try {
-            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), expectedMessage);
-        }
-    }
-
-    /**
-     * Test to verify that the SetIntegerActuator class throws an IllegalArgumentException when the actuatorTypeID is null.
-     */
-    @Test
-    public void shouldThrowIllegalArgumentException_whenActuatorTypeIDIsNull() {
-        //Arrange
-        DeviceID deviceID = new DeviceID("deviceID");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("actuatorName");
-        ActuatorTypeID actuatorTypeID = null;
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
-
-        String expectedMessage = "ActuatorTypeID cannot be null";
-
-        //Act & Assert
-        try {
-            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), expectedMessage);
-        }
-    }
-
-    /**
-     * Test to verify that the SetIntegerActuator class throws an IllegalArgumentException when the actuatorTypeID is not SetInteger.
-     */
-    @Test
-    public void shouldThrowIllegalArgumentException_whenActuatorTypeIDIsNotSetInteger() {
-        //Arrange
-        DeviceID deviceID = new DeviceID("deviceID");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("actuatorName");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("NotSetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
-
-        String expectedMessage = "ActuatorTypeID must be SetInteger";
-
-        //Act & Assert
-        try {
-            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), expectedMessage);
-        }
-    }
-
-    /**
-     * Test to verify that the SetIntegerActuator class throws an IllegalArgumentException when the limits is null.
-     */
-    @Test
-    public void shouldThrowIllegalArgumentException_whenLimitsIsNull() {
-        //Arrange
-        DeviceID deviceID = new DeviceID("deviceID");
-        ModelPath modelPath = new ModelPath("modelPath");
-        ActuatorName actuatorName = new ActuatorName("actuatorName");
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = null;
-
-        String expectedMessage = "SetIntegerActuatorLimits cannot be null";
-
-        //Act & Assert
-        try {
-            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), expectedMessage);
-        }
-    }
 
     /**
      * Test to get the actuator ID.
      */
     @Test
-    public void shouldGetActuatorID() {
+    void shouldGetActuatorID_WhenGetIdIsCalled() {
         //Arrange
         DeviceID deviceID = new DeviceID("deviceID");
         ModelPath modelPath = new ModelPath("modelPath");
@@ -179,14 +51,14 @@ public class SetIntegerActuatorTest {
         ActuatorID result = setIntegerActuator.getID();
 
         //Assert
-        assertNotNull(result);
+        Assertions.assertTrue(setIntegerActuator.toString().contains(result.toString()));
     }
 
     /**
      * Test to get the actuator name.
      */
     @Test
-    public void shouldGetActuatorName() {
+    void shouldGetActuatorName_WhenGetNameIsCalled() {
         //Arrange
         String name = "actuatorName";
 
@@ -209,7 +81,7 @@ public class SetIntegerActuatorTest {
      * Test to get the model path.
      */
     @Test
-    public void shouldGetModelPath() {
+    void shouldGetModelPath_WhenGetModelPathIsCalled() {
         //Arrange
         String path = "modelPath";
 
@@ -233,7 +105,7 @@ public class SetIntegerActuatorTest {
      * Test to get the actuator type ID.
      */
     @Test
-    public void shouldGetActuatorTypeID() {
+    void shouldGetActuatorTypeID_WhenGetActuatorTypeIDisCalled() {
         //Arrange
         String id = "SetInteger";
 
@@ -257,7 +129,7 @@ public class SetIntegerActuatorTest {
      * Test to get the device ID.
      */
     @Test
-    public void shouldGetDeviceID() {
+    void shouldGetDeviceID_WhenGetDeviceIdIsCaleed() {
         //Arrange
         String id = "deviceID";
 
@@ -280,7 +152,7 @@ public class SetIntegerActuatorTest {
      * Test to get the limits.
      */
     @Test
-    public void shouldGetLimits() {
+    void shouldGetLimits_WhenGetLimitsIsCalled() {
         //Arrange
         int lowerLimit = 0;
         int upperLimit = 100;
@@ -305,7 +177,7 @@ public class SetIntegerActuatorTest {
      * Test to set the value when it is valid and within range.
      */
     @Test
-    public void shouldSetValue_whenValueIsWithinRange() {
+    void shouldSetValue_whenValueIsWithinRange() {
         //Arrange
         int value = 50;
 
@@ -333,7 +205,7 @@ public class SetIntegerActuatorTest {
      * Test to set the value when it is valid but below the lower limit.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenValueIsBelowLowerLimit() {
+    void shouldThrowIllegalArgumentException_whenValueIsBelowLowerLimit() {
         //Arrange
         int value = -1;
 
@@ -353,18 +225,18 @@ public class SetIntegerActuatorTest {
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         //Act & Assert
-        try {
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             setIntegerActuator.setValue(valueDouble);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), expectedMessage);
-        }
+        });
+
+        assertEquals(exception.getMessage(), expectedMessage);
     }
 
     /**
      * Test to set the value when it is valid but above the upper limit.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenValueIsAboveUpperLimit() {
+    void shouldThrowIllegalArgumentException_whenValueIsAboveUpperLimit() {
         //Arrange
         int value = 101;
 
@@ -384,18 +256,18 @@ public class SetIntegerActuatorTest {
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         //Act & Assert
-        try {
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             setIntegerActuator.setValue(valueDouble);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), expectedMessage);
-        }
+        });
+
+        assertEquals(exception.getMessage(), expectedMessage);
     }
 
     /**
      * Test to set the value when it is null
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenValueIsNull() {
+    void shouldThrowIllegalArgumentException_whenValueIsNull() {
         //Arrange
         int lowerLimit = 0;
         int upperLimit = 100;
@@ -413,18 +285,18 @@ public class SetIntegerActuatorTest {
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         //Act & Assert
-        try {
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             setIntegerActuator.setValue(value);
-        } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), expectedMessage);
-        }
+        });
+
+        assertEquals(exception.getMessage(), expectedMessage);
     }
 
     /**
      * Test to set the value when it is not an instance of SetIntegerValue
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenValueIsNotInstanceOfSetIntegerValue() {
+    void shouldThrowIllegalArgumentException_whenValueIsNotInstanceOfSetIntegerValue() {
         //Arrange
         int value = 1;
         ValueObject valueDouble = new BlindRollerValue(value);
@@ -444,7 +316,120 @@ public class SetIntegerActuatorTest {
         ValueObject result = setIntegerActuator.setValue(valueDouble);
 
         //Assert
-        assertNull(result);
+        Assertions.assertNull(result);
+    }
+
+    /**
+     * Test method equals when the instance is compared to itself.
+     */
+    @Test
+    void shouldReturnTrue_whenInstanceIsComparedToItself() {
+        //Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("actuatorName");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
+        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        //Act
+        boolean result = setIntegerActuator.equals(setIntegerActuator);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Test of method equals when the instances are not equal.
+     */
+    @Test
+    void shouldReturnFalse_whenInstancesAreNotEqual(){
+        //Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("actuatorName");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
+        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        SetIntegerActuator setIntegerActuator2 = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        //Act
+        boolean result = setIntegerActuator.equals(setIntegerActuator2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test of method equals when the instance is compared to an object of a different class.
+     */
+    @Test
+    void shouldReturnFalse_whenInstanceIsComparedToAnObjectOfDifferentClass(){
+        //Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("actuatorName");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
+        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        //Act
+        boolean result = setIntegerActuator.equals(modelPath);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test of method toString.
+     */
+    @Test
+    void shouldReturnString_whenToStringIsCalled(){
+        //Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("actuatorName");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
+        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+        SetIntegerValue value = setIntegerActuator.setValue(new SetIntegerValue(50));
+        ActuatorID actuatorID = setIntegerActuator.getID();
+
+        String expectedString = actuatorID + " " + actuatorName + " " + modelPath + " " + actuatorTypeID + " " + deviceID + " " + value + " " + limits;
+
+        //Act
+        String result = setIntegerActuator.toString();
+
+        //Assert
+        assertEquals(result, expectedString);
+    }
+
+    /**
+     * Test of method hashcode.
+     */
+    @Test
+    void shouldReturnHashCode_whenHashCodeIsCalled(){
+        //Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("actuatorName");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
+        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+        ActuatorID actuatorID = setIntegerActuator.getID();
+        int expected = actuatorID.getId().hashCode();
+
+        //Act
+        int result = setIntegerActuator.hashCode();
+
+        //Assert
+        assertEquals(expected, result);
     }
 }
 

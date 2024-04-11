@@ -186,4 +186,39 @@ public class SetIntegerActuator implements IActuator {
 
         return null;
     }
+
+    /**
+     * Method to compare two instances
+     *
+     * @param object
+     * @return
+     */
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof SetIntegerActuator setIntegerActuator) {
+            return this._actuatorID.equals(setIntegerActuator._actuatorID);
+        }
+        return false;
+    }
+
+    /**
+     * Method to get hash code
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return _actuatorID.hashCode();
+    }
+
+    /**
+     * Method to get string representation
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return _actuatorID + " " + _actuatorName + " " + _modelPath + " " + _actuatorTypeID + " " + _deviceID + " " + _value + " " + _limits;
+    }
 }

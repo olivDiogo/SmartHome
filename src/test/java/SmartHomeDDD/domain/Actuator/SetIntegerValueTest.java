@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class SetIntegerValueTest {
+class SetIntegerValueTest {
     /**
      * Test for SetIntegerValue instantiation
      */
     @Test
-    public void shouldInstantiateSetIntegerValue() {
+    void shouldInstantiateSetIntegerValue() {
         // Arrange
         int value = 1;
 
@@ -26,7 +26,7 @@ public class SetIntegerValueTest {
      * Test for method toString
      */
     @Test
-    public void shouldReturnStringValue() {
+    void shouldReturnStringValue() {
         // Arrange
         int value = 1;
         SetIntegerValue setIntegerValue = new SetIntegerValue(value);
@@ -38,5 +38,55 @@ public class SetIntegerValueTest {
 
         // Assert
         assertEquals(result,expected);
+    }
+
+    /**
+     * Test method equals when the instance is compared to itself.
+     */
+    @Test
+    void shouldReturnTrue_whenComparedToItself() {
+        // Arrange
+        int value = 1;
+        SetIntegerValue setIntegerValue = new SetIntegerValue(value);
+
+        // Act
+        boolean result = setIntegerValue.equals(setIntegerValue);
+
+        // Assert
+        assertEquals(result,true);
+    }
+
+    /**
+     * Test of method equals when the instances are not equal.
+     */
+    @Test
+    void shouldReturnFalse_whenInstancesAreNotEqual() {
+        // Arrange
+        int value1 = 1;
+        int value2 = 2;
+        SetIntegerValue setIntegerValue1 = new SetIntegerValue(value1);
+        SetIntegerValue setIntegerValue2 = new SetIntegerValue(value2);
+
+        // Act
+        boolean result = setIntegerValue1.equals(setIntegerValue2);
+
+        // Assert
+        assertEquals(result,false);
+    }
+
+    /**
+     * Test of method equals when the instance is compared to an object of a different class.
+     */
+    @Test
+    void shouldReturnFalse_whenComparedWithDifferentClass() {
+        // Arrange
+        int value = 1;
+        SetIntegerValue setIntegerValue = new SetIntegerValue(value);
+
+        // Act
+        boolean result = setIntegerValue.equals(new Object());
+
+        // Assert
+        assertEquals(result,false);
     }
 }

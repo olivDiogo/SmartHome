@@ -10,7 +10,7 @@ import org.mockito.MockedConstruction;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class ActuatorTypeEntityTest {
+class ActuatorTypeTest {
 
     /**
      * Test of constructor of class ActuatorType, when arguments are valid.
