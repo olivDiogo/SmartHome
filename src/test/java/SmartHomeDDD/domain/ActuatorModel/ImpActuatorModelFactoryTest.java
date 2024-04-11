@@ -12,24 +12,26 @@ import static org.mockito.Mockito.mockConstruction;
 
 public class ImpActuatorModelFactoryTest {
 
-    @Test
-    void shouldCreateActuatorModelWhenGivenValidActuatorModelNameAndModelPath() {
-        // Arrange
-        ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
-        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
-        // Act
-        try(MockedConstruction<ActuatorModel> actuatorModelMockedConstruction = mockConstruction(ActuatorModel.class, (mock, context) -> {
-            ActuatorModelName actualActuatorModelName = (ActuatorModelName) context.arguments().get(0);
-            ModelPath actualModelPath = (ModelPath) context.arguments().get(1);
-
-        })) {
-            ActuatorModel actuatorModel = actuatorModelFactory.createActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
-            // Assert
-            assertTrue(actuatorModelMockedConstruction.constructed().size() == 1);
-            assertTrue(actuatorModelMockedConstruction.constructed().get(0) == actuatorModel);
-        }
-
+  @Test
+  void shouldCreateActuatorModelWhenGivenValidActuatorModelNameAndModelPath() {
+    // Arrange
+    ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
+    ModelPath modelPath = mock(ModelPath.class);
+    IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
+    ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+    // Act
+    try (MockedConstruction<ActuatorModel> actuatorModelMockedConstruction =
+        mockConstruction(
+            ActuatorModel.class,
+            (mock, context) -> {
+              ActuatorModelName actualActuatorModelName =
+                  (ActuatorModelName) context.arguments().get(0);
+              ModelPath actualModelPath = (ModelPath) context.arguments().get(1);
+            })) {
+      ActuatorModel actuatorModel =
+          actuatorModelFactory.createActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+      // Assert
+      assertTrue(actuatorModelMockedConstruction.constructed().get(0) == actuatorModel);
     }
+  }
 }
