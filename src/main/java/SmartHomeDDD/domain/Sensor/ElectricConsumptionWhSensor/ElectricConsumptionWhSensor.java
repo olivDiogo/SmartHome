@@ -1,9 +1,11 @@
 package SmartHomeDDD.domain.Sensor.ElectricConsumptionWhSensor;
 
 import SmartHomeDDD.ddd.ValueObject;
+import SmartHomeDDD.domain.ActuatorType.ActuatorType;
 import SmartHomeDDD.domain.Sensor.ISensor;
 import SmartHomeDDD.valueObject.*;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -38,10 +40,10 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
 
     public ElectricConsumptionWhSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, DatePeriod datePeriod) {
+        validateDeviceID(deviceID);
+        validateSensorTypeID(sensorTypeID);
         validateModelPath(modelPath);
         validateSensorName(sensorName);
-        validateSensorTypeID(sensorTypeID);
-        validateDeviceID(deviceID);
         validateDatePeriod(datePeriod);
         generateElectricConsumptionWhID();
     }
@@ -101,7 +103,7 @@ public class ElectricConsumptionWhSensor implements ISensor {
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
-        } else if (!sensorTypeID.getId().equals("ElectricConsumptionWh")) {
+        } else if (!Objects.equals("ElectricConsumptionWh", sensorTypeID.getId())) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'ElectricConsumptionWh'");
         } else {
             this._sensorTypeID = sensorTypeID;
@@ -177,7 +179,7 @@ public class ElectricConsumptionWhSensor implements ISensor {
      * @return the period during which the sensor measures consumption
      */
     @Override
-    public ValueObject getValue() {
+    public ElectricConsumptionWhValue getValue() {
         int consumptionInWh = getConsumptionInWhForGivenPeriod();
         _electricConsumptionWhValue = new ElectricConsumptionWhValue(consumptionInWh);
         return _electricConsumptionWhValue;
@@ -193,21 +195,37 @@ public class ElectricConsumptionWhSensor implements ISensor {
     }
 
     /**
+     * Method to compare two instances
+     *
+     * @param object
+     * @return
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof ElectricConsumptionWhSensor electricConsumptionWhSensor) {
+            return this._sensorID.equals(electricConsumptionWhSensor._sensorID);
+        }
+        return false;
+    }
+
+    /**
+     * Method to get hash code
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return _sensorID.hashCode();
+    }
+
+    /**
      * Returns the period during which the sensor measures consumption.
      *
      * @return the period during which the sensor measures consumption
      */
     @Override
     public String toString() {
-        return "ElectricConsumptionWhSensor{" +
-                "_deviceID=" + _deviceID +
-                ", _modelPath=" + _modelPath +
-                ", _sensorTypeID=" + _sensorTypeID +
-                ", _electricConsumptionWhValue=" + _electricConsumptionWhValue +
-                ", _sensorName=" + _sensorName +
-                ", _sensorID=" + _sensorID +
-                ", _datePeriod=" + _datePeriod +
-                '}';
+        return _deviceID + " " + _modelPath + " " + _sensorTypeID + " " + _electricConsumptionWhValue + " " + _sensorName + " " + _sensorID + " " + _datePeriod;
     }
 
 }
