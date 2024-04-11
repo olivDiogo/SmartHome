@@ -40,7 +40,7 @@ public class Unit implements AggregateRoot<UnitID> {
      */
     private void validateUnitSymbol(UnitSymbol unitSymbol) {
         if (unitSymbol == null) {
-            throw new IllegalArgumentException("Measurement unit is required");
+            throw new IllegalArgumentException("Unit symbol is required");
         }
     }
 
@@ -107,17 +107,25 @@ public class Unit implements AggregateRoot<UnitID> {
     }
 
     /**
+     * Returns a hash code value for the object.
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return _unitID.hashCode();
+    }
+
+    /**
      * Returns a string representation of the measurement type.
      *
      * @return A string representation of the measurement type.
      */
     @Override
     public String toString() {
-        return "Unit{" +
-                "_unitSymbol=" + _unitSymbol +
-                ", _unitDescription=" + _unitDescription +
-                ", _unitID=" + _unitID +
-                '}';
+        return "Unit:" +
+                "unitSymbol=" + _unitSymbol +
+                ", unitDescription=" + _unitDescription +
+                ", unitID=" + _unitID;
     }
 
 }

@@ -63,7 +63,7 @@ public class UnitService {
         validateDescription(description);
         validateUnit(unit);
 
-        Unit measurementUnit = _UnitFactory.createMeasurement(description, unit);
+        Unit measurementUnit = _UnitFactory.createUnit(description, unit);
         return _unitRepository.save(measurementUnit);
     }
 

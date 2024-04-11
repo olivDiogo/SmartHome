@@ -12,5 +12,5 @@ public interface IUnitFactory {
      * @param unitSymbol      The unit of measurement (e.g., Celsius, Pascal) associated with this measurement type.
      * @return A new {@link Unit} instance configured with the specified description and unit.
      */
-    Unit createMeasurement(UnitDescription unitDescription, UnitSymbol unitSymbol);
+    Unit createUnit(UnitDescription unitDescription, UnitSymbol unitSymbol);
 }

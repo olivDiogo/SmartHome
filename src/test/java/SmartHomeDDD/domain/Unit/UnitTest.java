@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.*;
 
 class UnitTest {
 
@@ -15,41 +15,34 @@ class UnitTest {
      * Validates construction with valid arguments.
      */
     @Test
-    void shouldReturnValidMeasurement_WhenGivenValidParameters() {
+    void shouldReturnValidUnit_WhenGivenValidParameters() {
         //Arrange
-        String unit = "C";
-        String description = "Celsius";
-
-        UnitSymbol unitDouble = new UnitSymbol(unit);
-        UnitDescription unitDescriptionDouble = new UnitDescription(description);
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
 
         //Act
         Unit result = new Unit(unitDescriptionDouble, unitDouble);
 
         //Assert
         assertNotNull(result);
-
     }
 
     /**
      * Expects IllegalArgumentException for null measurement unit.
      */
     @Test
-    void shouldThrowIllegalArgumentException_WhenGivenNullUnit() {
+    void shouldThrowIllegalArgumentException_WhenGivenNullUnitSymbol() {
         //Arrange
-        String description = "Celsius";
         UnitSymbol unitDouble = null;
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
 
-        UnitDescription unitDescriptionDouble = new UnitDescription(description);
+        String expectedMessage = "Unit symbol is required";
 
-        String expectedMessage = "Measurement unit is required";
-
-        //Act
+        //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unitDescriptionDouble, unitDouble));
 
-        String actualMessage = exception.getMessage();
-
         //Assert
+        String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
     }
 
@@ -59,19 +52,16 @@ class UnitTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenGivenNullUnitDescription() {
         //Arrange
-        String unit = "C";
-
-        UnitSymbol unitDouble = new UnitSymbol(unit);
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
         UnitDescription unitDescriptionDouble = null;
 
         String expectedMessage = "Unit description is required";
 
-        //Act
+        //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unitDescriptionDouble, unitDouble));
 
-        String actualMessage = exception.getMessage();
-
         //Assert
+        String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
     }
 
@@ -81,17 +71,15 @@ class UnitTest {
     @Test
     void shouldReturnTrue_WhenGivenSameObject() {
         //Arrange
-        String unitSymbol = "C";
-        String description = "Celsius";
-
-        UnitSymbol unitDouble = new UnitSymbol(unitSymbol);
-        UnitDescription unitDescriptionDouble = new UnitDescription(description);
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
 
         try (MockedConstruction<UnitID> mockedUnitID = mockConstruction(UnitID.class)) {
-
             Unit unit = new Unit(unitDescriptionDouble, unitDouble);
+
             //Act
             boolean result = unit.equals(unit);
+
             //Assert
             assertTrue(result);
         }
@@ -101,21 +89,19 @@ class UnitTest {
      * Tests inequality on objects with different IDs.
      */
     @Test
-    void shouldReturnFalse_WhenComparingTwoObjectsWithDifferentID() throws Exception {
+    void shouldReturnFalse_WhenComparingTwoObjectsWithDifferentID() {
         //Arrange
-        String unitSymbol = "C";
-        String description = "Celsius";
-        String anotherDescription = "Fahrenheit";
-
-        UnitSymbol unitDouble = new UnitSymbol(unitSymbol);
-        UnitDescription unitDescriptionDouble = new UnitDescription(description);
-        UnitDescription anotherUnitDescriptionDouble = new UnitDescription(anotherDescription);
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        UnitDescription anotherUnitDescriptionDouble = mock(UnitDescription.class);
 
         try (MockedConstruction<UnitID> mockedUnitID = mockConstruction(UnitID.class)) {
             Unit unit = new Unit(unitDescriptionDouble, unitDouble);
             Unit unit2 = new Unit(anotherUnitDescriptionDouble, unitDouble);
+
             //Act
             boolean result = unit.equals(unit2);
+
             //Assert
             assertFalse(result);
         }
@@ -127,55 +113,52 @@ class UnitTest {
     @Test
     void shouldReturnFalse_WhenComparingObjectWithNull() {
         //Arrange
-        String unitSymbol = "C";
-        String description = "Celsius";
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
 
-        UnitSymbol unitDouble = new UnitSymbol(unitSymbol);
-        UnitDescription unitDescriptionDouble = new UnitDescription(description);
+        try (MockedConstruction<UnitID> mockedUnitID = mockConstruction(UnitID.class)) {
+            Unit unit = new Unit(unitDescriptionDouble, unitDouble);
 
-        Unit unit = new Unit(unitDescriptionDouble, unitDouble);
+            //Act
+            boolean result = unit.equals(null);
 
-        //Act
-        boolean result = unit.equals(null);
-        //Assert
-        assertFalse(result);
-
+            //Assert
+            assertFalse(result);
+        }
     }
 
     /**
-     * Tests getting MeasurementDescription.
+     * Tests getting Unit description.
      */
     @Test
-    void shouldReturnMeasurementDescription_whenGetUnitDescriptionIsCalled() {
+    void shouldReturnUnitDescription_whenGetUnitDescriptionIsCalled() {
         //Arrange
-        String unitSymbol = "C";
         String description = "Celsius";
 
-        UnitSymbol unitDouble = new UnitSymbol(unitSymbol);
-        UnitDescription unitDescriptionDouble = new UnitDescription(description);
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
 
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        when(unitDescriptionDouble.toString()).thenReturn(description);
 
-        Unit unit = new Unit(unitDescriptionDouble, unitDouble);
+        try(MockedConstruction<UnitID> mockedUnitID = mockConstruction(UnitID.class)) {
+            Unit unit = new Unit(unitDescriptionDouble, unitDouble);
 
-        //Act
-        UnitDescription result = unit.getUnitDescription();
+            //Act
+            UnitDescription result = unit.getUnitDescription();
 
-        //Assert
-        assertEquals(unitDescriptionDouble, result);
-
+            //Assert
+            assertEquals(unitDescriptionDouble, result);
+        }
     }
 
     /**
      * Tests getting ID.
      */
     @Test
-    void shouldReturnMeasurementID_whenGetIDisCalled() {
+    void shouldReturnUnitID_whenGetIDisCalled() {
         //Arrange
-        String unitSymbol = "C";
-        String description = "Celsius";
-
-        UnitSymbol unitDouble = new UnitSymbol(unitSymbol);
-        UnitDescription unitDescriptionDouble = new UnitDescription(description);
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
 
         try (MockedConstruction<UnitID> mockedUnitID = mockConstruction(UnitID.class)) {
             Unit unit = new Unit(unitDescriptionDouble, unitDouble);
@@ -197,42 +180,72 @@ class UnitTest {
         String unitSymbol = "C";
         String description = "Celsius";
 
-        UnitSymbol unitDouble = new UnitSymbol(unitSymbol);
-        UnitDescription unitDescriptionDouble = new UnitDescription(description);
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        when(unitDouble.toString()).thenReturn(unitSymbol);
+
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        when(unitDescriptionDouble.toString()).thenReturn(description);
 
         try (MockedConstruction<UnitID> mockedUnitID = mockConstruction(UnitID.class)) {
             Unit unit = new Unit(unitDescriptionDouble, unitDouble);
 
             UnitID unitIDDouble = mockedUnitID.constructed().get(0);
-            String expected = "Unit{" +
-                    "_unitSymbol=" + unitDouble +
-                    ", _unitDescription=" + unitDescriptionDouble +
-                    ", _unitID=" + unitIDDouble +
-                    '}';
+
+            String expected = "Unit:" +
+                    "unitSymbol=" + unitDouble +
+                    ", unitDescription=" + unitDescriptionDouble +
+                    ", unitID=" + unitIDDouble;
 
             //Act
             String result = unit.toString();
 
             //Assert
-            assertTrue(result.contains(expected));
+            assertEquals(expected, result);
         }
     }
 
+    /**
+     * Tests getting unit symbol.
+     */
     @Test
     void shouldReturnUnitSymbol_whenGetUnitSymbolIsCalled() {
         //Arrange
         String unitSymbol = "C";
-        String description = "Celsius";
 
-        UnitSymbol unitDouble = new UnitSymbol(unitSymbol);
-        UnitDescription unitDescriptionDouble = new UnitDescription(description);
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        when(unitDouble.toString()).thenReturn(unitSymbol);
 
-        Unit unit = new Unit(unitDescriptionDouble, unitDouble);
-        //Act
-        UnitSymbol result = unit.getUnitSymbol();
-        //Assert
-        assertEquals(unitDouble, result);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
 
+        try (MockedConstruction<UnitID> mockedUnitID = mockConstruction(UnitID.class)) {
+            Unit unit = new Unit(unitDescriptionDouble, unitDouble);
+
+            //Act
+            UnitSymbol result = unit.getUnitSymbol();
+
+            //Assert
+            assertEquals(unitDouble, result);
+        }
     }
 
+    /**
+     * Tests returning hash code.
+     */
+    @Test
+    void shouldReturnHashCode_whenGetHashCodeIsCalled(){
+        //Arrange
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+
+        try (MockedConstruction<UnitID> mockedUnitID = mockConstruction(UnitID.class)) {
+            Unit unit = new Unit(unitDescriptionDouble, unitDouble);
+            int expected = unit.getID().hashCode();
+
+            //Act
+            int result = unit.hashCode();
+
+            //Assert
+            assertEquals(expected, result);
+        }
+    }
 }

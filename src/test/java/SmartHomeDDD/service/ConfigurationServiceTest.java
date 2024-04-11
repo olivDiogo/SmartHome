@@ -108,7 +108,7 @@ class ConfigurationServiceTest {
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
         IUnitFactory unitFactory = mock(IUnitFactory.class);
-        when(unitFactory.createMeasurement(any(), any())).thenReturn(mock(Unit.class));
+        when(unitFactory.createUnit(any(), any())).thenReturn(mock(Unit.class));
         Configurations configs = new Configurations();
         int defaultSensorModels = configs.properties(new File("configDDD.properties")).getStringArray("measurement").length;
 
@@ -119,7 +119,7 @@ class ConfigurationServiceTest {
 
             // Act
             ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
-            verify(unitFactory, times(defaultSensorModels)).createMeasurement(any(), any());
+            verify(unitFactory, times(defaultSensorModels)).createUnit(any(), any());
         } catch (InstantiationException e) {
             throw new RuntimeException(e);
         }

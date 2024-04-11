@@ -144,7 +144,7 @@ public class ConfigurationService {
                 String measurementTypeUnit = measurementTypes[1].split(":")[1];
                 UnitSymbol measurementTUnit = new UnitSymbol(measurementTypeUnit);
 
-                Unit measurementType = _unitFactory.createMeasurement(measurementDescription, measurementTUnit);
+                Unit measurementType = _unitFactory.createUnit(measurementDescription, measurementTUnit);
                 _unitRepository.save(measurementType);
             }
         } catch (ConfigurationException exception) {

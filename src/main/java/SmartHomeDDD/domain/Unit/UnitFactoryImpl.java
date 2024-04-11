@@ -11,7 +11,7 @@ public class UnitFactoryImpl implements IUnitFactory {
      * Creates and returns a new {@link Unit} instance with the provided measurement value, measurement type, and measurement time.
      */
 
-    public Unit createMeasurement(UnitDescription unitDescription, UnitSymbol unitSymbol) {
+    public Unit createUnit(UnitDescription unitDescription, UnitSymbol unitSymbol) {
         return new Unit(unitDescription, unitSymbol);
     }
 }

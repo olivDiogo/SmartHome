@@ -138,7 +138,7 @@ class ActuatorConfigurationServiceTest {
     ActuatorModelRepository ActuatorModelRepository = mock(ActuatorModelRepository.class);
     UnitRepository unitRepository = mock(UnitRepository.class);
     IUnitFactory unitFactory = mock(IUnitFactory.class);
-    when(unitFactory.createMeasurement(any(), any())).thenReturn(mock(Unit.class));
+    when(unitFactory.createUnit(any(), any())).thenReturn(mock(Unit.class));
     Configurations configs = new Configurations();
     int defaultActuatorModels =
         configs.properties(new File("configDDD.properties")).getStringArray("measurement").length;
@@ -152,7 +152,7 @@ class ActuatorConfigurationServiceTest {
       ActuatorConfigurationService ActuatorConfigurationService =
           new ActuatorConfigurationService(
               ActuatorModelRepository, unitRepository, ActuatorModelFactory, unitFactory);
-      verify(unitFactory, times(defaultActuatorModels)).createMeasurement(any(), any());
+      verify(unitFactory, times(defaultActuatorModels)).createUnit(any(), any());
     } catch (InstantiationException e) {
       throw new RuntimeException(e);
     }

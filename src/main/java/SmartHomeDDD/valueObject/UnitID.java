@@ -48,6 +48,7 @@ public class UnitID implements DomainID {
      * @param o The object to compare this instance against.
      * @return true if the given object is an instance of MeasurementID and has an equal ID; false otherwise.
      */
+    @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
@@ -63,6 +64,7 @@ public class UnitID implements DomainID {
      *
      * @return The hash code of the measurement ID.
      */
+    @Override
     public int hashCode() {
         return _id.hashCode();
     }

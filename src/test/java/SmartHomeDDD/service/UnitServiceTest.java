@@ -88,7 +88,7 @@ class UnitServiceTest {
         when(description.getDescription()).thenReturn("Temperature");
         when(unit.getUnit()).thenReturn("Celsius");
 
-        when(unitFactoryDouble.createMeasurement(description, unit)).thenReturn(unitDouble);
+        when(unitFactoryDouble.createUnit(description, unit)).thenReturn(unitDouble);
         when(unitRepositoryDouble.save(unitDouble)).thenReturn(unitDouble);
 
         // Act

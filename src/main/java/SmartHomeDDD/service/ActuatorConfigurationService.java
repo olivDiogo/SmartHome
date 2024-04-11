@@ -117,7 +117,7 @@ public class ActuatorConfigurationService {
                 UnitSymbol measurementTUnit = new UnitSymbol(measurementTypeUnit);
 
                 Unit measurementType =
-                        _unitFactory.createMeasurement(measurementDescription, measurementTUnit);
+                        _unitFactory.createUnit(measurementDescription, measurementTUnit);
                 _unitRepository.save(measurementType);
             }
         } catch (ConfigurationException exception) {
