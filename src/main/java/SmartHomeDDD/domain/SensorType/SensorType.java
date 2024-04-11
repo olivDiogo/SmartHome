@@ -90,9 +90,18 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
     @Override
     public boolean equals(Object object) {
         if (object instanceof SensorType sensorTypeObject) {
-            return (this._id.toString().equals(sensorTypeObject._id.toString()));
+            return _id.equals(sensorTypeObject._id);
         }
         return false;
+
+    }
+
+    /**
+     * Returns the hash code of the sensor type.
+     */
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
     }
 
     /**
@@ -102,8 +111,10 @@ public class SensorType implements AggregateRoot<SensorTypeID> {
      */
     @Override
     public String toString() {
-        return "ID: " + _id.toString() +
-                "\nTypeDescription: " + _name.toString() +
-                "\nUnit: " + _unit.toString();
+        return "SensorType:" +
+                "id=" + _id +
+                ", name=" + _name +
+                ", unit=" + _unit;
+
     }
 }
