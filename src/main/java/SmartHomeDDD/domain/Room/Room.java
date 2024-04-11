@@ -6,11 +6,11 @@ import SmartHomeDDD.valueObject.*;
 import java.util.UUID;
 
 public class Room implements AggregateRoot<RoomID> {
-  private HouseID _houseID;
+  private final HouseID _houseID;
   private RoomID _roomID;
   private RoomName _roomName;
   private Dimension _dimension;
-  private RoomFloor _roomFloor;
+  private final RoomFloor _roomFloor;
 
   /**
    * Constructs a new Room instance with the specified house ID, room name, dimension, and room
@@ -27,6 +27,10 @@ public class Room implements AggregateRoot<RoomID> {
     validateRoomName(roomName);
     validateRoomDimension(dimension);
     validateRoomFloor(roomFloor);
+    _houseID = houseID;
+    _roomFloor = roomFloor;
+    _roomName = roomName;
+    _dimension = dimension;
   }
 
   /** Generates a new RoomID object. */
@@ -42,8 +46,6 @@ public class Room implements AggregateRoot<RoomID> {
   private void validateHouseID(HouseID houseID) {
     if (houseID == null) {
       throw new IllegalArgumentException("HouseID is required");
-    } else {
-      _houseID = houseID;
     }
   }
 
@@ -55,8 +57,6 @@ public class Room implements AggregateRoot<RoomID> {
   private void validateRoomName(RoomName roomName) {
     if (roomName == null) {
       throw new IllegalArgumentException("RoomName is required");
-    } else {
-      _roomName = roomName;
     }
   }
 
@@ -68,8 +68,6 @@ public class Room implements AggregateRoot<RoomID> {
   private void validateRoomDimension(Dimension dimension) {
     if (dimension == null) {
       throw new IllegalArgumentException("Dimension is required");
-    } else {
-      _dimension = dimension;
     }
   }
 
@@ -81,8 +79,6 @@ public class Room implements AggregateRoot<RoomID> {
   private void validateRoomFloor(RoomFloor roomFloor) {
     if (roomFloor == null) {
       throw new IllegalArgumentException("RoomFloor is required");
-    } else {
-      _roomFloor = roomFloor;
     }
   }
 
@@ -148,6 +144,15 @@ public class Room implements AggregateRoot<RoomID> {
    */
   @Override
   public String toString() {
-    return _houseID + " " + _roomID + " " + _roomName + " " + _dimension + " " + _roomFloor;
+    return "Room:" + "houseID= " +_houseID + ", roomID= " +_roomID + ", roomName= " +_roomName + ", dimension= " +_dimension + ", roomFloor= " +_roomFloor;
+  }
+
+    /**
+     * Method to return the hash code of the object.
+     *
+     * @return the hash code of the object.
+     */
+  public int hashCode() {
+    return _roomID.hashCode();
   }
 }
