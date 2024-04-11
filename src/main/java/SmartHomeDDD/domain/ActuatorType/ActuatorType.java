@@ -1,6 +1,7 @@
 package SmartHomeDDD.domain.ActuatorType;
 
 import SmartHomeDDD.ddd.AggregateRoot;
+import SmartHomeDDD.domain.Unit.Unit;
 import SmartHomeDDD.valueObject.ActuatorTypeID;
 import SmartHomeDDD.valueObject.TypeDescription;
 import SmartHomeDDD.valueObject.UnitID;
@@ -94,20 +95,38 @@ public class ActuatorType implements AggregateRoot<ActuatorTypeID> {
         return _unit;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ActuatorType that)) return false;
-        return _id.equals(that._id);
-    }
+    /**
+     * Method to compare two instances
+     *
+     * @param object
+     * @return
+     */
 
     @Override
+    public boolean equals(Object object) {
+        if (object instanceof ActuatorType actuatorType) {
+            return this._id.equals(actuatorType._id);
+        }
+        return false;
+    }
+
+    /**
+     * Method to get hash code
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
+
+    /**
+     * Method to get string representation
+     *
+     * @return
+     */
+    @Override
     public String toString() {
-        return "ActuatorType{"
-                + "_actuatorTypeID="
-                + _id
-                + ", _actuatorTypeName="
-                + _actuatorTypeName
-                + '}';
+        return _id + " " + _actuatorTypeName + " " + _unit;
     }
 }
