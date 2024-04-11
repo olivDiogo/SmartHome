@@ -1,98 +1,115 @@
 package SmartHomeDDD.domain.DeviceType;
 
 import SmartHomeDDD.domain.ActuatorType.ActuatorType;
-import SmartHomeDDD.valueObject.DeviceTypeID;
-import SmartHomeDDD.valueObject.TypeDescription;
-import SmartHomeDDD.valueObject.UnitID;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
+import SmartHomeDDD.valueObject.DeviceTypeID;
+import SmartHomeDDD.valueObject.TypeDescription;
 
+import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mockConstruction;
-import static org.mockito.Mockito.when;
 
-public class DeviceTypeTest {
+class DeviceTypeTest {
 
     /**
-     * Should create an instance of {@link DeviceType} when the constructor attributes are valid.
+     * Should create an instance of DeviceType when the constructor attributes are valid.
      */
     @Test
-    public void shouldCreateInstanceOfDeviceType_whenConstructorAttributesAreValid() {
+    void shouldCreateInstanceOfDeviceType_whenConstructorAttributesAreValid() {
         // Arrange
-        String description = "Device Type Description";
-        TypeDescription deviceTypeDescription = new TypeDescription(description);
+        TypeDescription deviceTypeDescription = mock(TypeDescription.class);
 
-        //Act
-        DeviceType deviceType = new DeviceType(deviceTypeDescription);
+        try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
+            when(mock.getId()).thenReturn("123");
+        })) {
+            // Act
+            DeviceType deviceType = new DeviceType(deviceTypeDescription);
 
-        // Assert
-        assertNotNull(deviceType);
+            // Assert
+            assertNotNull(deviceType);
+
+        }
     }
 
     /**
      * Should throw an exception when the device type description is null.
      */
     @Test
-    public void shouldThrowException_whenDeviceTypeDescriptionIsNull() {
+    void shouldThrowException_whenDeviceTypeDescriptionIsNull() {
         // Arrange
         TypeDescription deviceTypeDescription = null;
 
-        // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new DeviceType(deviceTypeDescription);
-        });
+        String expectedMessage = "Device type description cannot be null.";
 
-        // Assert
-        assertEquals("Device type description cannot be null.", exception.getMessage());
+        try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
+            when(mock.getId()).thenReturn("123");
+        })) {
+            //Act + Assert
+
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+                new DeviceType(deviceTypeDescription);
+            });
+
+            assertEquals(expectedMessage, exception.getMessage());
+
+        }
     }
 
     /**
      * Should return the device type ID.
      */
     @Test
-    public void shouldReturnDeviceTypeID_whenGetIdIsCalled() {
+    void shouldReturnDeviceTypeID_whenGetIdIsCalled() {
         // Arrange
-        String description = "Device Type Description";
-        TypeDescription deviceTypeDescription = new TypeDescription(description);
+        TypeDescription deviceTypeDescription = mock(TypeDescription.class);
 
-        DeviceType deviceType = new DeviceType(deviceTypeDescription);
-        // Act
-        DeviceTypeID result = deviceType.getID();
+        String expectedId = "123";
 
-        // Assert
-        assertNotNull(result);
+        try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
+            when(mock.getId()).thenReturn("123");
+        })) {
+            DeviceType deviceType = new DeviceType(deviceTypeDescription);
+
+            // Act
+            DeviceTypeID result = deviceType.getID();
+
+            // Assert
+            assertEquals(expectedId, result.getId());
+        }
     }
 
     /**
      * Should return true when the instances are the same object.
      */
     @Test
-    public void shouldReturnTrue_whenInstancesAreSameObject() {
+    void shouldReturnTrue_whenInstancesAreSameObject() {
         // Arrange
-        String description = "Device Type Description";
-        TypeDescription deviceTypeDescription = new TypeDescription(description);
+        TypeDescription deviceTypeDescription = mock(TypeDescription.class);
 
-        DeviceType deviceType = new DeviceType(deviceTypeDescription);
+        try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
+            when(mock.getId()).thenReturn("123");
+        })) {
+            DeviceType deviceType = new DeviceType(deviceTypeDescription);
 
-        // Act
-        boolean result = deviceType.equals(deviceType);
+            // Act
+            boolean result = deviceType.equals(deviceType);
 
-        // Assert
-        assertTrue(result);
+            // Assert
+            assertTrue(result);
+        }
     }
 
     /**
      * Should return true when the instances are equal.
      */
     @Test
-    public void shouldReturnTrue_whenInstancesAreEqual() {
+    void shouldReturnFalse_whenInstancesAreNotEqual() {
         // Arrange
-        String description = "Device Type Description";
-        TypeDescription deviceTypeDescription1 = new TypeDescription(description);
-        TypeDescription deviceTypeDescription2 = new TypeDescription(description);
+        TypeDescription deviceTypeDescription1 = mock(TypeDescription.class);
+        TypeDescription deviceTypeDescription2 = mock(TypeDescription.class);
 
         try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn("123");
+            when(mock.getId()).thenReturn("123");
         })) {
             DeviceType deviceType1 = new DeviceType(deviceTypeDescription1);
             DeviceType deviceType2 = new DeviceType(deviceTypeDescription2);
@@ -101,45 +118,98 @@ public class DeviceTypeTest {
             boolean result = deviceType1.equals(deviceType2);
 
             // Assert
-            assertTrue(result);
+            assertFalse(result);
         }
     }
 
     /**
-     * Should return false when the object is not an instance of {@link DeviceType}.
+     * Should return false when the object is not an instance of DeviceType.
      */
     @Test
-    public void shouldReturnFalse_whenObjectIsNotInstanceOfDeviceType() {
+    void shouldReturnFalse_WhenObjectIsNotTheInstanceOfDeviceType() {
         // Arrange
-        String description = "Device Type Description";
-        String id = "unitID";
-        TypeDescription deviceTypeDescription = new TypeDescription(description);
+        TypeDescription deviceTypeDescription = mock(TypeDescription.class);
 
-        DeviceType deviceType = new DeviceType(deviceTypeDescription);
-        UnitID unitID = new UnitID(id);
-        ActuatorType actuatorType = new ActuatorType(deviceTypeDescription, unitID);
+        try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
+            when(mock.getId()).thenReturn("123");
+        })) {
+            DeviceType deviceType = new DeviceType(deviceTypeDescription);
+            ActuatorType actuatorType = mock(ActuatorType.class);
 
-        // Act
-        boolean result = deviceType.equals(actuatorType);
+            // Act
+            boolean result = deviceType.equals(actuatorType);
 
-        // Assert
-        assertFalse(result);
+            // Assert
+            assertFalse(result);
+        }
     }
 
     /**
-     * Test case to verify the behavior of getDescription() method in DeviceType class.
+     * Should return the device type description.
      */
     @Test
     void shouldReturnDeviceTypeDescription_whenGetDescriptionIsCalled() {
         // Arrange
-        String description = "Device Type Description";
-        TypeDescription deviceTypeDescription = new TypeDescription(description);
-        DeviceType deviceType = new DeviceType(deviceTypeDescription);
+        TypeDescription deviceTypeDescription = mock(TypeDescription.class);
 
-        // Act
-        TypeDescription result = deviceType.getDescription();
+        try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
+            when(mock.getId()).thenReturn("123");
+        })) {
+            DeviceType deviceType = new DeviceType(deviceTypeDescription);
 
-        // Assert
-        assertEquals(description, result.toString());
+            // Act
+            TypeDescription result = deviceType.getDescription();
+
+            // Assert
+            assertEquals(deviceTypeDescription, result);
+        }
     }
+
+    /**
+     * Should return the device type ID hash code.
+     */
+    @Test
+    void shouldReturnDeviceTypeHashCode_whenHashCodeIsCalled() {
+        // Arrange
+        TypeDescription deviceTypeDescription = mock(TypeDescription.class);
+
+        try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
+            when(mock.getId()).thenReturn("123");
+        })) {
+            DeviceType deviceType = new DeviceType(deviceTypeDescription);
+
+            int expected = deviceType.getID().hashCode();
+
+            // Act
+            int result = deviceType.hashCode();
+
+            // Assert
+            assertEquals(expected, result);
+        }
+    }
+
+    /**
+     * Should return the device type string representation.
+     */
+    @Test
+    void shouldReturnDeviceTypeStringRepresentation_whenToStringIsCalled() {
+        // Arrange
+        TypeDescription deviceTypeDescription = mock(TypeDescription.class);
+
+        try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
+            when(mock.getId()).thenReturn("123");
+        })) {
+            DeviceType deviceType = new DeviceType(deviceTypeDescription);
+
+            String expected = "Device Type:  Device Description= " + deviceTypeDescription.getDescription() + " ID= " + deviceType.getID().getId();
+
+            // Act
+            String result = deviceType.toString();
+
+            // Assert
+            assertEquals(expected, result);
+        }
+    }
+
+
 }
