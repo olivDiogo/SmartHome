@@ -159,12 +159,11 @@ public class Device implements AggregateRoot<DeviceID> {
      */
     @Override
     public String toString() {
-        return "Device{" +
-                "_roomID=" + _roomID +
-                ", _deviceID=" + _deviceID +
-                ", _deviceName=" + _deviceName +
-                ", _deviceStatus=" + _deviceStatus +
-                '}';
+        return "Device:" +
+                "roomID=" + _roomID +
+                ", deviceID=" + _deviceID +
+                ", deviceName=" + _deviceName +
+                ", deviceStatus=" + _deviceStatus;
     }
 
     /**
