@@ -5,72 +5,137 @@ import SmartHomeDDD.valueObject.ModelPath;
 import SmartHomeDDD.valueObject.SensorModelName;
 import SmartHomeDDD.valueObject.SensorTypeID;
 
-
 public class SensorModel implements AggregateRoot<ModelPath> {
-    private SensorModelName _sensorModelName;
-    private ModelPath _modelPath;
-    private SensorTypeID _sensorTypeID;
+  private SensorModelName _sensorModelName;
+  private ModelPath _modelPath;
+  private SensorTypeID _sensorTypeID;
 
-    public SensorModel(SensorModelName sensorModelName, ModelPath modelPath, SensorTypeID sensorTypeID) {
-        validateSensorModelName(sensorModelName);
-        validateModelPath(modelPath);
-        validateSensorTypeID(sensorTypeID);
-    }
+  /**
+   * Creates a new sensor model with the given sensor model name, model path, and sensor type ID.
+   *
+   * @param sensorModelName The name of the sensor model.
+   * @param modelPath The path to the model.
+   * @param sensorTypeID The ID of the sensor type.
+   */
+  public SensorModel(
+      SensorModelName sensorModelName, ModelPath modelPath, SensorTypeID sensorTypeID) {
+    validateSensorModelName(sensorModelName);
+    validateModelPath(modelPath);
+    validateSensorTypeID(sensorTypeID);
+  }
 
-    private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("Please enter a valid sensor type ID.");
-        } else {
-            this._sensorTypeID = sensorTypeID;
-        }
+  /**
+   * Validates the sensor type ID.
+   *
+   * @param sensorTypeID The sensor type ID to validate.
+   */
+  private void validateSensorTypeID(SensorTypeID sensorTypeID) {
+    if (sensorTypeID == null) {
+      throw new IllegalArgumentException("Please enter a valid sensor type ID.");
+    } else {
+      this._sensorTypeID = sensorTypeID;
     }
+  }
 
-    private void validateSensorModelName(SensorModelName sensorModelName) {
-        if (sensorModelName == null) {
-            throw new IllegalArgumentException("Please enter a valid sensor model name.");
-        } else {
-            this._sensorModelName = sensorModelName;
-        }
+  /**
+   * Validates the sensor model name.
+   *
+   * @param sensorModelName The sensor model name to validate.
+   */
+  private void validateSensorModelName(SensorModelName sensorModelName) {
+    if (sensorModelName == null) {
+      throw new IllegalArgumentException("Please enter a valid sensor model name.");
+    } else {
+      this._sensorModelName = sensorModelName;
     }
+  }
 
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("Please enter a valid model path.");
-        } else {
-            this._modelPath = modelPath;
-        }
+  /**
+   * Validates the model path.
+   *
+   * @param modelPath The model path to validate.
+   */
+  private void validateModelPath(ModelPath modelPath) {
+    if (modelPath == null) {
+      throw new IllegalArgumentException("Please enter a valid model path.");
+    } else {
+      this._modelPath = modelPath;
     }
+  }
 
-    public SensorTypeID getSensorTypeID() {
-        return _sensorTypeID;
-    }
+  /**
+   * Returns the sensor type ID.
+   *
+   * @return The sensor type ID.
+   */
+  public SensorTypeID getSensorTypeID() {
+    return _sensorTypeID;
+  }
 
-    public SensorModelName getSensorModelName() {
-        return _sensorModelName;
-    }
+  /**
+   * Returns the sensor model name.
+   *
+   * @return The sensor model name.
+   */
+  public SensorModelName getSensorModelName() {
+    return _sensorModelName;
+  }
 
-    public ModelPath getModelPath() {
-        return _modelPath;
-    }
+  /**
+   * Returns the model path.
+   *
+   * @return The model path.
+   */
+  public ModelPath getModelPath() {
+    return _modelPath;
+  }
 
-    @Override
-    public ModelPath getID() {
-        return _modelPath;
-    }
+  /**
+   * Returns the unique identifier of the SensorModel instance.
+   *
+   * @return The ModelPath that uniquely identifies the sensor model.
+   */
+  @Override
+  public ModelPath getID() {
+    return _modelPath;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof SensorModel castedSensorModel) {
-            return _modelPath.equals(castedSensorModel._modelPath);
-        }
-        return false;
+  /**
+   * Compares the sensor model to another object.
+   *
+   * @param object The object to compare.
+   * @return True if the objects are equal, false otherwise.
+   */
+  @Override
+  public boolean equals(Object object) {
+    if (object instanceof SensorModel sensorModel) {
+      return _modelPath.equals(sensorModel._modelPath);
     }
+    return false;
+  }
 
-    @Override
-    public String toString() {
-        return "SensorModel{" +
-                ", _sensorModelName=" + _sensorModelName +
-                ", _modelPath=" + _modelPath +
-                '}';
-    }
+  /**
+   * Returns the hash code of the sensor model.
+   *
+   * @return The hash code of the sensor model.
+   */
+  @Override
+  public int hashCode() {
+    return _modelPath.hashCode();
+  }
+
+  /**
+   * Returns a string representation of the sensor model.
+   *
+   * @return A string representation of the sensor model.
+   */
+  @Override
+  public String toString() {
+    return "SensorModel: sensorModelName="
+        + _sensorModelName
+        + ", modelPath="
+        + _modelPath
+        + ", sensorTypeID="
+        + _sensorTypeID;
+  }
 }

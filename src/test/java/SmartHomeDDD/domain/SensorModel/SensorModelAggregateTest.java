@@ -6,32 +6,37 @@ import SmartHomeDDD.valueObject.SensorTypeID;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-class SensorModelTest {
+/**
+ * Tests for the {@link SensorModel} class, ensuring that sensor models are created correctly under
+ * various conditions and that appropriate exceptions are thrown when invalid parameters are
+ * provided.
+ */
+class SensorModelAggregateTest {
 
-  /** Test of class SensorModel constructor with valid parameters */
+  /** The method should return a valid sensor model when given valid parameters. */
   @Test
   void shouldReturnValidSensorModel_WhenGivenValidParameters() {
     // Arrange
-    SensorModelName sensorModelName = mock(SensorModelName.class);
-    ModelPath modelPath = mock(ModelPath.class);
-    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-    // Act
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
     SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
 
     // Assert
     assertNotNull(sensorModel);
   }
 
-  /** Test of class SensorModel constructor with null SensorModelName */
+  /** The method should throw an IllegalArgumentException when given a null sensor model name. */
   @Test
   void shouldThrowIllegalArgumentException_WhenGivenNullSensorModelName() {
     // Arrange
     SensorModelName sensorModelName = null;
-    ModelPath modelPath = mock(ModelPath.class);
-    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+
     String expectedMessage = "Please enter a valid sensor model name.";
+
     // Act
     IllegalArgumentException exception =
         assertThrows(
@@ -41,14 +46,16 @@ class SensorModelTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test of class SensorModel constructor with null ModelPath */
+  /** The method should throw an IllegalArgumentException when given a null model path. */
   @Test
   void shouldThrowIllegalArgumentException_WhenGivenNullModelPath() {
     // Arrange
-    SensorModelName sensorModelName = mock(SensorModelName.class);
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
     ModelPath modelPath = null;
-    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+
     String expectedMessage = "Please enter a valid model path.";
+
     // Act
     IllegalArgumentException exception =
         assertThrows(
@@ -58,27 +65,30 @@ class SensorModelTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test of class SensorModel constructor with null SensorTypeID */
+  /** The method should return true when given the same object. */
   @Test
   void shouldReturnTrue_WhenGivenSameObject() {
     // Arrange
-    SensorModelName sensorModelName = mock(SensorModelName.class);
-    ModelPath modelPath = mock(ModelPath.class);
-    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+
     SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
+
     // Act
     boolean result = sensorModel.equals(sensorModel);
     // Assert
     assertTrue(result);
   }
 
-  /** Test of class SensorModel equals method with null */
+  /** The method should return false when given null. */
   @Test
   void shouldReturnFalse_WhenGivenNull() {
     // Arrange
-    SensorModelName sensorModelName = mock(SensorModelName.class);
-    ModelPath modelPath = mock(ModelPath.class);
-    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+
     SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
     // Act
     boolean result = sensorModel.equals(null);
@@ -86,13 +96,14 @@ class SensorModelTest {
     assertFalse(result);
   }
 
-  /** Test of class SensorModel to get the expected ID */
+  /** The method should sensor model id when get id is called. */
   @Test
   void shouldReturnSensorModelID_WhenGetIDIsCalled() {
     // Arrange
-    SensorModelName sensorModelName = mock(SensorModelName.class);
-    ModelPath modelPath = mock(ModelPath.class);
-    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+
     SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
     // Act
     ModelPath sensorModelID = sensorModel.getID();
@@ -100,13 +111,14 @@ class SensorModelTest {
     assertTrue(sensorModel.toString().contains(sensorModelID.toString()));
   }
 
-  /** Test of class SensorModel to get it in string format. */
+  /** The method should return object in string format when to string is called. */
   @Test
   void shouldReturnObjectInStringFormat_WhenToStringIsCalled() {
     // Arrange
-    SensorModelName sensorModelName = mock(SensorModelName.class);
-    ModelPath modelPath = mock(ModelPath.class);
-    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+
     SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
     String expected =
         "SensorModel: sensorModelName="
@@ -122,13 +134,13 @@ class SensorModelTest {
     assertTrue(result.contains(expected));
   }
 
-  /** Test of class SensorModel to get sensor model name. */
+  /** The method should return sensor model name when get sensor model name is called. */
   @Test
   void shouldReturnSensorModelName_WhenGetSensorModelNameIsCalled() {
     // Arrange
-    SensorModelName sensorModelName = mock(SensorModelName.class);
-    ModelPath modelPath = mock(ModelPath.class);
-    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
 
     SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
     // Act
@@ -137,29 +149,31 @@ class SensorModelTest {
     assertEquals(sensorModelName, result);
   }
 
-  /** Test of class SensorModel to get model path. */
+  /** The method should return model path when get model path is called. */
   @Test
   void shouldReturnModelPath_WhenGetModelPathIsCalled() {
     // Arrange
-    SensorModelName sensorModelName = mock(SensorModelName.class);
-    ModelPath modelPath = mock(ModelPath.class);
-    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
 
     SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
+
     // Act
     ModelPath result = sensorModel.getModelPath();
     // Assert
     assertEquals(modelPath, result);
   }
 
-  /** Test of class SensorModel throws exception when given null sensor type ID. */
+  /** should throw an IllegalArgumentException when given a null sensor type ID. */
   @Test
   void shouldThrownIllegalArgumentException_WhenGivenNullSensorTypeID() {
     // Arrange
-    SensorModelName sensorModelName = mock(SensorModelName.class);
-    ModelPath modelPath = mock(ModelPath.class);
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
     SensorTypeID sensorTypeID = null;
     String expectedMessage = "Please enter a valid sensor type ID.";
+
     // Act
     IllegalArgumentException exception =
         assertThrows(
@@ -169,40 +183,38 @@ class SensorModelTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test of class SensorModel to get sensor type ID. */
+  /** should return sensor type id when get sensor type id is called. */
   @Test
   void shouldReturnSensorTypeID_WhenGetSensorTypeIDIsCalled() {
     // Arrange
-    SensorModelName sensorModelName = mock(SensorModelName.class);
-    ModelPath modelPath = mock(ModelPath.class);
-    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
     SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
+
     // Act
     SensorTypeID result = sensorModel.getSensorTypeID();
     // Assert
     assertEquals(sensorTypeID, result);
   }
 
-  /** Test of class SensorModel to check if two objects have the same hashCode. */
+  /** should return the same hash code when given the same object. */
   @Test
-  void shouldReturnTheHashCode_WhenHashCodeIsCalled() {
+  void shouldReturnSameHashCode_WhenGivenSameObject() {
     // Arrange
-    SensorModelName sensorModelName1 = mock(SensorModelName.class);
-    ModelPath modelPath1 = mock(ModelPath.class);
-    SensorTypeID sensorTypeID1 = mock(SensorTypeID.class);
+    SensorModelName sensorModelName1 = new SensorModelName("sensorModelName");
+    ModelPath modelPath1 = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID1 = new SensorTypeID("sensorTypeID");
     SensorModel sensorModel1 = new SensorModel(sensorModelName1, modelPath1, sensorTypeID1);
 
-    SensorModelName sensorModelName2 = mock(SensorModelName.class);
-    SensorTypeID sensorTypeID2 = mock(SensorTypeID.class);
-    SensorModel sensorModel2 = new SensorModel(sensorModelName2, modelPath1, sensorTypeID2);
-
+    SensorModelName sensorModelName2 = new SensorModelName("sensorModelName");
+    ModelPath modelPath2 = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID2 = new SensorTypeID("sensorTypeID");
+    SensorModel sensorModel2 = new SensorModel(sensorModelName2, modelPath2, sensorTypeID2);
     // Act
-
-    int expectedHashCode1 = sensorModel1.hashCode();
-    int expectedHashCode2 = sensorModel2.hashCode();
-
+    int result = sensorModel1.hashCode();
+    int result2 = sensorModel2.hashCode();
     // Assert
-    assertEquals(expectedHashCode1, expectedHashCode2);
+    assertEquals(result, result2);
   }
 }
