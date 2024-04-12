@@ -143,7 +143,7 @@ public class SwitchActuator implements IActuator {
     /**
      * Sets the value of the actuator.
      *
-     * @param value
+     * @param value the value object of the actuator
      * @return the value object of this Actuator
      */
     @Override
@@ -155,6 +155,38 @@ public class SwitchActuator implements IActuator {
             return value;
         }
         return null;
+    }
+
+    /**
+     * Returns the Switch Actuator in a string format.
+     *
+     * @return the string format of the Switch Actuator
+     */
+    @Override
+    public String toString() {
+        return "SwitchActuator: DeviceID=" + _deviceID + ", ActuatorName=" + _actuatorName + ", ModelPath=" + _modelPath + ", ActuatorTypeID=" + _actuatorTypeID + ", ActuatorID=" + _actuatorID + ", Value=" + _value;
+    }
+
+    /**
+     * Compares the Switch Actuator with another object.
+     * @param object is the object to be compared.
+     * @return true if the object is equal to the Switch Actuator, false otherwise.
+     */
+    @Override
+    public boolean equals (Object object) {
+        if (object instanceof SwitchActuator switchActuator){
+            return switchActuator._deviceID.equals(this._deviceID) && switchActuator._actuatorName.equals(this._actuatorName) && switchActuator._modelPath.equals(this._modelPath) && switchActuator._actuatorTypeID.equals(this._actuatorTypeID) && switchActuator._actuatorID.equals(this._actuatorID) && switchActuator._value.equals(this._value);
+        }
+        return false;
+    }
+
+    /**
+     * Returns the hash code of the Switch Actuator.
+     * @return the hash code of the Switch Actuator.
+     */
+    @Override
+    public int hashCode() {
+        return this._actuatorID.hashCode();
     }
 
 }

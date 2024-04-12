@@ -81,4 +81,68 @@ public class SwitchActuatorValueTest {
         // Assert
         assertTrue(result.equals("Off"));
     }
+
+    /**
+     * Should return true when two SwitchActuatorValue objects are equal.
+     */
+    @Test
+    void shouldReturnTrue_whenTwoSwitchActuatorValueObjectsAreEqual() {
+        // Arrange
+        SwitchActuatorValue switchActuatorValue1 = new SwitchActuatorValue(true);
+        SwitchActuatorValue switchActuatorValue2 = new SwitchActuatorValue(true);
+
+        // Act
+        boolean result = switchActuatorValue1.equals(switchActuatorValue2);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Should return false when two SwitchActuatorValue objects are not equal.
+     */
+    @Test
+    void shouldReturnFalse_whenTwoSwitchActuatorValueObjectsAreNotEqual() {
+        // Arrange
+        SwitchActuatorValue switchActuatorValue1 = new SwitchActuatorValue(true);
+        SwitchActuatorValue switchActuatorValue2 = new SwitchActuatorValue(false);
+
+        // Act
+        boolean result = switchActuatorValue1.equals(switchActuatorValue2);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Should return false when the object is not an instance of SwitchActuatorValue.
+     */
+    @Test
+    void shouldReturnFalse_whenObjectIsNotInstanceOfSwitchActuatorValue() {
+        // Arrange
+        SwitchActuatorValue switchActuatorValue = new SwitchActuatorValue(true);
+
+        // Act
+        boolean result = switchActuatorValue.equals(new Object());
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Should return the same hash code when two SwitchActuatorValue objects are equal.
+     */
+    @Test
+    void shouldReturnSameHashCode_whenTwoSwitchActuatorValueObjectsAreEqual() {
+        // Arrange
+        SwitchActuatorValue switchActuatorValue1 = new SwitchActuatorValue(true);
+        SwitchActuatorValue switchActuatorValue2 = new SwitchActuatorValue(true);
+
+        // Act
+        int hashCode1 = switchActuatorValue1.hashCode();
+        int hashCode2 = switchActuatorValue2.hashCode();
+
+        // Assert
+        assertEquals(hashCode1, hashCode2);
+    }
 }

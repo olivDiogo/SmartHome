@@ -40,4 +40,27 @@ public class SwitchActuatorValue implements IValueObject {
         return _value ? "On" : "Off";
     }
 
+    /**
+     * Method to compare two SwitchActuatorValue objects.
+     * @param o the o
+     * @return the boolean
+     */
+    @Override
+    public boolean equals (Object o ) {
+        if (o instanceof SwitchActuatorValue switchActuatorValue) {
+            return switchActuatorValue._value == this._value;
+        }
+        return false;
+    }
+
+    /**
+     * Method to get the hash code of the SwitchActuatorValue object.
+     * @return the hash code
+     */
+    @Override
+    public int hashCode() {
+
+        return Boolean.hashCode(this._value);
+    }
+
 }
