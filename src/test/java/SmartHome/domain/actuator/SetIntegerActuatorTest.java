@@ -1,4 +1,4 @@
-package smartHome.domain.sensor;
+package smartHome.domain.actuator;
 
 import smartHome.domain.actuator.setIntegerActuator.SetIntegerActuator;
 import smartHome.domain.actuator.setIntegerActuator.SetIntegerActuatorLimits;
