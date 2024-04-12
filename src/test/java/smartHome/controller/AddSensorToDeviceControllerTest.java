@@ -14,6 +14,7 @@ import smartHome.domain.sensorModel.SensorModel;
 import smartHome.domain.sensorType.SensorTypeFactoryImpl;
 import smartHome.domain.sensorType.SensorType;
 import smartHome.domain.unit.UnitFactoryImpl;
+import smartHome.dto.sensorDataDto.SensorDataGenericDTOImp;
 import smartHome.persistence.mem.*;
 import smartHome.service.*;
 import smartHome.valueObject.*;
@@ -1502,8 +1503,8 @@ public class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataDTO sensorDataDTO =
-            new SensorDataDTO(
+    SensorDataGenericDTOImp sensorDataGenericDTOImp =
+            new SensorDataGenericDTOImp(
                     device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -1520,10 +1521,10 @@ public class AddSensorToDeviceControllerTest {
                     sensorService);
 
     // Act
-    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
     // Assert
-    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+    assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
   /** Test addSensorToDevice method with valid parameters. Adding HumiditySensor sensor. */
@@ -1612,8 +1613,8 @@ public class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataDTO sensorDataDTO =
-            new SensorDataDTO(
+    SensorDataGenericDTOImp sensorDataGenericDTOImp =
+            new SensorDataGenericDTOImp(
                     device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -1630,10 +1631,10 @@ public class AddSensorToDeviceControllerTest {
                     sensorService);
 
     // Act
-    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
     // Assert
-    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+    assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
   /** Test addSensorToDevice method with valid parameters. Adding AveragePowerConsumptionSensor sensor. */
@@ -1722,8 +1723,8 @@ public class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataDTO sensorDataDTO =
-            new SensorDataDTO(
+    SensorDataGenericDTOImp sensorDataGenericDTOImp =
+            new SensorDataGenericDTOImp(
                     device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -1740,10 +1741,10 @@ public class AddSensorToDeviceControllerTest {
                     sensorService);
 
     // Act
-    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
     // Assert
-    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+    assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
   /** Test addSensorToDevice method with valid parameters. Adding Switch sensor. */
@@ -1832,8 +1833,8 @@ public class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataDTO sensorDataDTO =
-            new SensorDataDTO(
+    SensorDataGenericDTOImp sensorDataGenericDTOImp =
+            new SensorDataGenericDTOImp(
                     device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -1850,10 +1851,10 @@ public class AddSensorToDeviceControllerTest {
                     sensorService);
 
     // Act
-    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
     // Assert
-    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+    assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
   /** Test addSensorToDevice method with valid parameters. Adding DewPointSensor sensor. */
@@ -1942,8 +1943,8 @@ public class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataDTO sensorDataDTO =
-            new SensorDataDTO(
+    SensorDataGenericDTOImp sensorDataGenericDTOImp =
+            new SensorDataGenericDTOImp(
                     device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -1960,10 +1961,10 @@ public class AddSensorToDeviceControllerTest {
                     sensorService);
 
     // Act
-    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
     // Assert
-    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+    assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
   /** Test addSensorToDevice method with valid parameters. Adding Solar Irradiance sensor. */
@@ -2052,8 +2053,8 @@ public class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataDTO sensorDataDTO =
-            new SensorDataDTO(
+    SensorDataGenericDTOImp sensorDataGenericDTOImp =
+            new SensorDataGenericDTOImp(
                     device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -2070,10 +2071,10 @@ public class AddSensorToDeviceControllerTest {
                     sensorService);
 
     // Act
-    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
     // Assert
-    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+    assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
   /** Test addSensorToDevice method with valid parameters. Adding PercentagePositionSensor sensor. */
@@ -2162,8 +2163,8 @@ public class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataDTO sensorDataDTO =
-            new SensorDataDTO(
+    SensorDataGenericDTOImp sensorDataGenericDTOImp =
+            new SensorDataGenericDTOImp(
                     device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -2180,10 +2181,10 @@ public class AddSensorToDeviceControllerTest {
                     sensorService);
 
     // Act
-    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
     // Assert
-    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+    assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
   /** Test addSensorToDevice method with valid parameters. Adding Instance Power Consumption sensor. */
@@ -2272,8 +2273,8 @@ public class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataDTO sensorDataDTO =
-            new SensorDataDTO(
+    SensorDataGenericDTOImp sensorDataGenericDTOImp =
+            new SensorDataGenericDTOImp(
                     device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -2290,10 +2291,10 @@ public class AddSensorToDeviceControllerTest {
                     sensorService);
 
     // Act
-    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
     // Assert
-    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+    assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
   /** Test addSensorToDevice method with valid parameters. Adding Percentage Position Sensor. */
@@ -2382,8 +2383,8 @@ public class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataDTO sensorDataDTO =
-            new SensorDataDTO(
+    SensorDataGenericDTOImp sensorDataGenericDTOImp =
+            new SensorDataGenericDTOImp(
                     device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -2400,10 +2401,10 @@ public class AddSensorToDeviceControllerTest {
                     sensorService);
 
     // Act
-    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataDTO);
+    SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
     // Assert
-    assertEquals(sensorDataDTO.deviceID, sensorDTO.deviceID);
+    assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
   /** Test addSensorToDevice method with invalid parameters. */
   @Test
@@ -2486,7 +2487,7 @@ public class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataDTO sensorDataDTO = null;
+    SensorDataGenericDTOImp sensorDataGenericDTOImp = null;
 
     AddSensorToDeviceController addSensorToDeviceController =
             new AddSensorToDeviceController(
@@ -2505,7 +2506,7 @@ public class AddSensorToDeviceControllerTest {
     IllegalArgumentException exception =
             assertThrows(
                     IllegalArgumentException.class,
-                    () -> addSensorToDeviceController.addSensorToDevice(sensorDataDTO));
+                    () -> addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp));
 
     // Assert
     assertEquals(exception.getMessage(), "Please enter a valid sensor data DTO.");

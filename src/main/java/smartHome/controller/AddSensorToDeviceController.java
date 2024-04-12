@@ -1,12 +1,16 @@
 package smartHome.controller;
 
 import smartHome.assembler.*;
+import smartHome.assembler.sensorVOAssembler.ISensorVOAssembler;
+import smartHome.assembler.sensorVOAssembler.SensorVOAssemblerImpl;
 import smartHome.domain.device.Device;
 import smartHome.domain.room.Room;
 import smartHome.domain.sensor.ISensor;
 import smartHome.domain.sensorModel.SensorModel;
 import smartHome.domain.sensorType.SensorType;
 import smartHome.dto.*;
+import smartHome.dto.sensorDataDto.ISensorDataDTO;
+import smartHome.dto.sensorDataDto.SensorDataGenericDTOImp;
 import smartHome.service.*;
 import smartHome.valueObject.*;
 
@@ -260,18 +264,15 @@ public class AddSensorToDeviceController {
     /**
      * Adds a sensor to a device.
      *
-     * @param sensorDataDTO is the sensor data to add.
+     * @param sensorDataDTOImp is the sensor data to add.
      * @return the sensor DTO.
      */
-    public SensorDTO addSensorToDevice(SensorDataDTO sensorDataDTO) {
-        validateSensorDataDTO(sensorDataDTO);
+    public SensorDTO addSensorToDevice(ISensorDataDTO sensorDataDTOImp) {
+        validateSensorDataDTO(sensorDataDTOImp);
+        ISensorVOAssembler sensorVOAssembler = new SensorVOAssemblerImpl();
+        Object[] sensorParameters = sensorVOAssembler.getSensorParameters(sensorDataDTOImp);
 
-        ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
-        DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorDataDTO.sensorTypeID);
-        SensorName sensorName = new SensorName(sensorDataDTO.sensorName);
-
-        ISensor sensor = _sensorService.addSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        ISensor sensor = _sensorService.addSensor(sensorParameters);
 
         return _sensorAssembler.domainToDTO(sensor);
     }
@@ -279,10 +280,10 @@ public class AddSensorToDeviceController {
     /**
      * Validates the sensor data DTO.
      *
-     * @param sensorDataDTO The sensor data DTO.
+     * @param sensorDataDTOImp The sensor data DTO.
      */
-    private void validateSensorDataDTO(SensorDataDTO sensorDataDTO) {
-        if (sensorDataDTO == null) {
+    private void validateSensorDataDTO(ISensorDataDTO sensorDataDTOImp) {
+        if (sensorDataDTOImp == null) {
             throw new IllegalArgumentException("Please enter a valid sensor data DTO.");
         }
     }
