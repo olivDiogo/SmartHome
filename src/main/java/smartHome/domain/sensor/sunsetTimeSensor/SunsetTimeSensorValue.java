@@ -16,25 +16,22 @@ public class SunsetTimeSensorValue implements IValueObject {
      */
 
     public SunsetTimeSensorValue(LocalTime value) {
-        setValue(value);
+        validateValue(value);
+        this._value = value;
     }
 
     /**
-     * Gets the value of the SunsetTimeValue.
-     *
-     * @return the value of the SunsetTimeValue.
+     * Validates the value being passed in the constructor.
      */
-    private void setValue(LocalTime value) {
+    private void validateValue(LocalTime value) {
         if (value == null)
             throw new IllegalArgumentException("Time is required");
-        else this._value = value;
     }
 
     /**
-     * Clones the SunsetTimeValue.
-     *
-     * @return a new SunsetTimeValue with the same value.
+     * Returns the value of the SunsetTimeValue as a String.
      */
+    @Override
     public String toString() {
         int hours = this._value.getHour();
         int minutes = this._value.getMinute();
