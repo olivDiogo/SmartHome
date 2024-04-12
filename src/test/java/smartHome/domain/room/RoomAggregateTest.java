@@ -299,18 +299,16 @@ class RoomAggregateTest {
         Dimension dimension = new Dimension(width, length, height);
         RoomFloor roomFloor = new RoomFloor(floor);
 
-        try (MockedConstruction<RoomID> mockedRoom = mockConstruction(RoomID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn("RoomID");
-        })) {
-            Room room1 = new Room(houseID, roomName, dimension, roomFloor);
-            Room room2 = new Room(houseID, roomName, dimension, roomFloor);
+
+        Room room = new Room(houseID, roomName, dimension, roomFloor);
+
 
             //Act
-            boolean result = room1.equals(room2);
+            boolean result = room.equals(room);
 
             //Assert
             assertTrue(result);
-        }
+
     }
 
     /**

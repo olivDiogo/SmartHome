@@ -25,8 +25,11 @@ class RoomTest {
         Dimension dimension = mock(Dimension.class);
         RoomFloor roomFloor = mock(RoomFloor.class);
 
-        //Act & Assert
-        new Room(houseID, roomName, dimension, roomFloor);
+        //Act
+        Room room = new Room(houseID, roomName, dimension, roomFloor);
+
+        //Assert
+        assertNotNull(room);
     }
 
     /**
@@ -39,9 +42,13 @@ class RoomTest {
         RoomName roomName = mock(RoomName.class);
         Dimension dimension = mock(Dimension.class);
         RoomFloor roomFloor = mock(RoomFloor.class);
+        String expected = "HouseID is required";
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+
+        //Assert
+        assertEquals(expected, exception.getMessage());
     }
 
     /**
@@ -54,9 +61,13 @@ class RoomTest {
         RoomName roomName = null;
         Dimension dimension = mock(Dimension.class);
         RoomFloor roomFloor = mock(RoomFloor.class);
+        String expected = "RoomName is required";
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+
+        //Assert
+        assertEquals(expected, exception.getMessage());
     }
 
     /**
@@ -69,9 +80,13 @@ class RoomTest {
         RoomName roomName = mock(RoomName.class);
         Dimension dimension = null;
         RoomFloor roomFloor = mock(RoomFloor.class);
+        String expected = "Dimension is required";
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+
+        //Assert
+        assertEquals(expected, exception.getMessage());
     }
 
     /**
@@ -84,16 +99,20 @@ class RoomTest {
         RoomName roomName = mock(RoomName.class);
         Dimension dimension = mock(Dimension.class);
         RoomFloor roomFloor = null;
+        String expected = "RoomFloor is required";
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+
+        //Assert
+        assertEquals(expected, exception.getMessage());
     }
 
     /**
      * Tests if the houseID is returned correctly.
      */
     @Test
-    void shouldReturnHouseID() {
+    void shouldReturnHouseID_WhenGetHouseIDisCalled() {
         //Arrange
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
@@ -113,7 +132,7 @@ class RoomTest {
      * Tests if the room name is returned correctly.
      */
     @Test
-    void shouldReturnRoomName() {
+    void shouldReturnRoomName_WhenGetRoomNameIsCalled() {
         //Arrange
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
@@ -133,7 +152,7 @@ class RoomTest {
      * Tests if the room dimension is returned correctly.
      */
     @Test
-    void shouldReturnDimension() {
+    void shouldReturnDimension_WhenGetDimensionIsCalled() {
         //Arrange
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
@@ -153,7 +172,7 @@ class RoomTest {
      * Tests if the room ID is returned correctly.
      */
     @Test
-    void shouldReturnRoomFloor() {
+    void shouldReturnRoomFloor_WhenGetRoomFloorIsCalled() {
         //Arrange
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
@@ -170,7 +189,7 @@ class RoomTest {
     }
 
     /**
-     * Tests if the equals method returns false when comparing a room to a null object.
+     * Tests if the equals method returns false when comparing a room to a different class object.
      */
     @Test
     void shouldReturnFalse_WhenRoomIsComparedToNull() {
@@ -183,51 +202,25 @@ class RoomTest {
         Room room = new Room(houseID, roomName, dimension, roomFloor);
 
         //Act
-        boolean result = room.equals(null);
+        boolean result = room.equals(dimension);
 
         //Assert
         assertFalse(result);
     }
 
     /**
-     * Tests if the equals method returns true when comparing the same room.
+     * Tests if the equals method returns false when comparing two different rooms.
      */
     @Test
-    void shouldReturnTrue_WhenTwoRoomsHaveTheSameID() {
+    void shouldReturnFalse_WhenTwoRoomsHaveDifferentIDs() {
         //Arrange
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
         Dimension dimension = mock(Dimension.class);
         RoomFloor roomFloor = mock(RoomFloor.class);
 
-        try (MockedConstruction<RoomID> mockedRoom = mockConstruction(RoomID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn("RoomID");
-        })) {
-            Room room1 = new Room(houseID, roomName, dimension, roomFloor);
-            Room room2 = new Room(houseID, roomName, dimension, roomFloor);
-
-            //Act
-            boolean result = room1.equals(room2);
-
-            //Assert
-            assertTrue(result);
-        }
-    }
-
-    /**
-     * Tests if the equals method returns false when comparing two different rooms.
-     */
-    @Test
-    void shouldReturnFalse_WhenThereAreTwoDifferentHouses() {
-        //Arrange
-        HouseID houseID1 = mock(HouseID.class);
-        HouseID houseID2 = mock(HouseID.class);
-        RoomName roomName = mock(RoomName.class);
-        Dimension dimension = mock(Dimension.class);
-        RoomFloor roomFloor = mock(RoomFloor.class);
-
-        Room room1 = new Room(houseID1, roomName, dimension, roomFloor);
-        Room room2 = new Room(houseID2, roomName, dimension, roomFloor);
+        Room room1 = new Room(houseID, roomName, dimension, roomFloor);
+        Room room2 = new Room(houseID, roomName, dimension, roomFloor);
 
         //Act
         boolean result = room1.equals(room2);
@@ -277,27 +270,27 @@ class RoomTest {
     }
 
     /**
-     * Verifica se o método {@code hashCode} é gerado a partir do {@code RoomID}
-     * em linha com a implementação sobrescrita do método {@code equals}.
+     * Test of method hashcode.
      */
     @Test
-    void hashCodeShouldBeGenerateFromRoomIDImLineWithOverritenEquals() {
+    void shouldReturnHashCode_WhenHashCodeIsCalled() {
         // Arrange
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
         Dimension dimension = mock(Dimension.class);
         RoomFloor roomFloor = mock(RoomFloor.class);
 
-        try (MockedConstruction<RoomID> roomID = mockConstruction(RoomID.class)) {
-            Room room = new Room(houseID, roomName, dimension, roomFloor);
-            RoomID roomIDDouble = roomID.constructed().get(0);
-            int expected = roomIDDouble.hashCode();
+        Room room = new Room(houseID, roomName, dimension, roomFloor);
 
-            //Act
-            int actual = room.hashCode();
+        try (MockedConstruction<RoomID> mocked = mockConstruction(RoomID.class, (mock, context) -> {
+            when(mock.toString()).thenReturn("1");
+        })) {
+            int expected = room.getID().hashCode();
+            // Act
+            int result = room.hashCode();
 
-            //Assert
-            assertEquals(expected, actual);
+            // Assert
+            assertEquals(expected, result);
         }
     }
 }

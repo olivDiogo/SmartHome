@@ -23,10 +23,10 @@ public class Room implements IAggregateRoot<RoomID> {
      */
     Room(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor) {
         validateHouseID(houseID);
-        generateRoomID();
         validateRoomName(roomName);
         validateRoomDimension(dimension);
         validateRoomFloor(roomFloor);
+        generateRoomID();
         _houseID = houseID;
         _roomFloor = roomFloor;
         _roomName = roomName;
@@ -128,15 +128,16 @@ public class Room implements IAggregateRoot<RoomID> {
     /**
      * Checks if this Room instance is equal to another object.
      *
-     * @param o The object to compare.
+     * @param object The object to compare.
      * @return true if the objects are equal, false if they are different.
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Room room = (Room) o;
-        return _roomID.toString().equals(room._roomID.toString());
+    public boolean equals(Object object) {
+        if (object instanceof Room) {
+            Room room = (Room) object;
+            return _roomID.equals(room._roomID);
+        }
+        return false;
     }
 
     /**
