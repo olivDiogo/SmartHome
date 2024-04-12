@@ -20,6 +20,7 @@ class ActuatorTypeTest {
     void shouldCreateActuatorType_whenAttributesAreValid() {
         // Arrange
         TypeDescription actuatorName = mock(TypeDescription.class);
+        when(actuatorName.toString()).thenReturn("ValidName");
         UnitID unitID = mock(UnitID.class);
 
         // Act
@@ -96,7 +97,9 @@ class ActuatorTypeTest {
     void shouldReturnFalse_whenInstancesAreNotEqual() {
         // Arrange
         TypeDescription typeDescriptionDouble1 = mock(TypeDescription.class);
+        when(typeDescriptionDouble1.toString()).thenReturn("Name1");
         TypeDescription typeDescriptionDouble2 = mock(TypeDescription.class);
+        when(typeDescriptionDouble2.toString()).thenReturn("Name2");
         UnitID unitID1 = mock(UnitID.class);
         UnitID unitID2 = mock(UnitID.class);
 
@@ -122,7 +125,7 @@ class ActuatorTypeTest {
         ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble, unitID);
 
         // Act
-        boolean isEqual = actuatorType.equals(new Object());
+        boolean isEqual = actuatorType.equals(unitID);
         // Assert
         assertFalse(isEqual, "ActuatorType should not be equal to an object of a different class");
     }
