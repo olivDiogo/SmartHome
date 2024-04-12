@@ -5,7 +5,7 @@ import smartHome.ddd.IValueObject;
 
 import java.time.LocalTime;
 
-public class SunriseSunsetTimeValue implements IValueObject {
+public class SunriseTimeSensorValue implements IValueObject {
 
     private LocalTime _value;
 
@@ -15,7 +15,7 @@ public class SunriseSunsetTimeValue implements IValueObject {
      * @param value the value to be set.
      */
 
-    public SunriseSunsetTimeValue(LocalTime value) {
+    public SunriseTimeSensorValue(LocalTime value) {
         setValue(value);
     }
 
@@ -42,5 +42,21 @@ public class SunriseSunsetTimeValue implements IValueObject {
         return String.format("Sunrise Time: %02d:%02d:%02d", hours, minutes, seconds);
     }
 
+    /**
+     * Equals method for SunriseTimeValue.
+     */
+    public boolean equals(Object obj) {
+        if (obj instanceof SunriseTimeSensorValue sunriseTimeSensorValue) {
+            return this._value.equals(sunriseTimeSensorValue._value);
+        }
+        return false;
+    }
+
+    /**
+     * HashCode method for SunriseTimeValue.
+     */
+    public int hashCode() {
+        return _value.hashCode();
+    }
 
 }

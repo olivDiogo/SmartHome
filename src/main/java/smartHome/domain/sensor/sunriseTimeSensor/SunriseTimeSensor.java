@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class SunriseTimeSensor implements ISensor {
 
-    private SunriseSunsetTimeValue _sunriseTimeValue;
+    private SunriseTimeSensorValue _sunriseTimeValue;
     private SensorTypeID _sensorTypeID;
     private SensorID _sensorID;
     private SensorName _sensorName;
@@ -24,13 +24,7 @@ public class SunriseTimeSensor implements ISensor {
      *
      * @throws InstantiationException if the SensorType with description 'SunriseTime' does not exist.
      */
-    public SunriseTimeSensor(
-            DeviceID deviceID,
-            ModelPath modelPath,
-            SensorTypeID sensorTypeID,
-            SensorName sensorName,
-            GPS gps)
-            throws InstantiationException {
+    public SunriseTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps) {
         validateDeviceID(deviceID);
         validateSensorTypeID(sensorTypeID);
         validateModelPath(modelPath);
@@ -38,6 +32,7 @@ public class SunriseTimeSensor implements ISensor {
         generateSensorID();
         validateGPS(gps);
     }
+
 
     private void validateDeviceID(DeviceID deviceID) {
         if (deviceID == null) {
@@ -133,9 +128,9 @@ public class SunriseTimeSensor implements ISensor {
      * @return the value of the SunriseTimeSensor.
      */
     @Override
-    public IValueObject getValue() {
+    public SunriseTimeSensorValue getValue() {
         LocalTime sunrise = getSunriseTime(LocalDate.now());
-        this._sunriseTimeValue = new SunriseSunsetTimeValue(sunrise);
+        this._sunriseTimeValue = new SunriseTimeSensorValue(sunrise);
         return this._sunriseTimeValue;
     }
 
@@ -145,9 +140,42 @@ public class SunriseTimeSensor implements ISensor {
      * @param date the date to be used.
      * @return the value of the SunriseTimeSensor for a given date.
      */
-    public IValueObject getValue(LocalDate date) {
+    public SunriseTimeSensorValue getValue(LocalDate date) {
         LocalTime sunrise = getSunriseTime(date);
-        this._sunriseTimeValue = new SunriseSunsetTimeValue(sunrise);
+        this._sunriseTimeValue = new SunriseTimeSensorValue(sunrise);
         return this._sunriseTimeValue;
+    }
+
+    /**
+     * Equals method for SunriseTimeSensor.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof SunriseTimeSensor sunriseTimeObject) {
+            return _sensorID.equals(sunriseTimeObject._sensorID);
+        }
+        return false;
+    }
+
+    /**
+     * HashCode method for SunriseTimeSensor.
+     */
+    @Override
+    public int hashCode() {
+        return _sensorID.hashCode();
+    }
+
+    /**
+     * ToString method for SunriseTimeSensor.
+     */
+    @Override
+    public String toString() {
+        return "SunriseTimeSensor:" +
+                ", sensorID=" + _sensorID +
+                ", sensorName=" + _sensorName +
+                ", modelPath=" + _modelPath +
+                ", sensorTypeID=" + _sensorTypeID +
+                ", deviceID=" + _deviceID +
+                ", gps=" + gps;
     }
 }
