@@ -1,9 +1,11 @@
-package smartHome.domain.actuator.switchActuator;
+package smartHome.domain.actuator;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import smartHome.ddd.IValueObject;
 import smartHome.domain.actuator.setIntegerActuator.SetIntegerActuator;
+import smartHome.domain.actuator.switchActuator.SwitchActuator;
+import smartHome.domain.actuator.switchActuator.SwitchActuatorValue;
 import smartHome.valueObject.*;
 
 import static org.junit.jupiter.api.Assertions.*;

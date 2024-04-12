@@ -3,8 +3,7 @@ package smartHome.domain.sensor;
 import smartHome.domain.sensor.switchSensor.SwitchSensorValue;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SwitchSensorValueTest {
     /**
@@ -70,4 +69,70 @@ class SwitchSensorValueTest {
         // Assert
         assertEquals("Off", result);
     }
+
+    /**
+     * Tests the equals method of SwitchSensorValue when is the same object.
+     */
+    @Test
+    void shouldReturnTrue_whenEqualsIsTheSameObject() {
+        // Arrange
+        SwitchSensorValue switchSensorValue = new SwitchSensorValue(true);
+        SwitchSensorValue switchSensorValue1 = switchSensorValue;
+
+        // Act
+        boolean result = switchSensorValue.equals(switchSensorValue1);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Tests the equals method of SwitchSensorValue when the objects are not equal.
+     */
+    @Test
+    void shouldReturnFalse_whenObjectsAreNotEqual() {
+        // Arrange
+        SwitchSensorValue switchSensorValue = new SwitchSensorValue(true);
+        SwitchSensorValue switchSensorValue1 = new SwitchSensorValue(false);
+
+        // Act
+        boolean result = switchSensorValue.equals(switchSensorValue1);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Tests the equals method of SwitchSensorValue when the object is not an instance of switchSensorValue.
+     */
+    @Test
+    void shouldReturnFalse_whenObjectIsNotInstanceOfSwitchSensorValue() {
+        // Arrange
+        SwitchSensorValue switchSensorValue = new SwitchSensorValue(true);
+        Object object = new Object();
+
+        // Act
+        boolean result = switchSensorValue.equals(object);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Should return the hashCode
+     */
+    @Test
+    void shouldReturnHashCode() {
+        // Arrange
+        SwitchSensorValue switchSensorValue = new SwitchSensorValue(true);
+        SwitchSensorValue switchSensorValue1 = new SwitchSensorValue(true);
+
+        // Act
+        int result = switchSensorValue.hashCode();
+        int result1 = switchSensorValue1.hashCode();
+
+        // Assert
+       assertEquals(result, result1);
+    }
+
 }

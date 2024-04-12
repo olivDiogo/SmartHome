@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class SwitchSensorTest {
+    /**
+     * Should create instance of SwitchSensor when constructor attributes are valid.
+     */
     @Test
     void shouldCreateInstanceOfSwitchSensor_whenConstructorAttributesAreValid() {
         // Arrange
@@ -33,8 +36,11 @@ class SwitchSensorTest {
 
     }
 
+    /**
+     * Should return SwitchSensorID when getID is called.
+     */
     @Test
-    void shouldReturnSwitchSensorID_WhengetIDIsCalled() {
+    void shouldReturnSwitchSensorID_WhenGetIDIsCalled() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -62,6 +68,9 @@ class SwitchSensorTest {
         }
     }
 
+    /**
+     * Should return SensorName when getSensorName is called.
+     */
     @Test
     void shouldReturnSensorName_WhenGetSensorNameIsCalled() {
         // Arrange
@@ -91,6 +100,9 @@ class SwitchSensorTest {
         }
     }
 
+    /**
+     * Should return ModelPath when getModelPath is called.
+     */
     @Test
     void shouldReturnModelPath_WhenGetModelPathMethodIsCalled() {
         // Arrange
@@ -120,6 +132,9 @@ class SwitchSensorTest {
         }
     }
 
+    /**
+     * Should return SensorTypeID when getSensorTypeID is called.
+     */
     @Test
     void shouldReturnSensorTypeID_WhenGetSensorTypeIDMethodIsCalled() {
         // Arrange
@@ -145,6 +160,9 @@ class SwitchSensorTest {
         }
     }
 
+    /**
+     * Should return SwitchSensorValue when getValue is called.
+     */
     @Test
     void shouldReturnValue_WhenGetValueMethodIsCalled() {
         // Arrange
@@ -173,6 +191,9 @@ class SwitchSensorTest {
         }
     }
 
+    /**
+     * Should return DeviceID when getDeviceID is called.
+     */
     @Test
     void shouldReturnDeviceID_WhenGetDeviceIDMethodIsCalled() {
         // Arrange
@@ -199,6 +220,9 @@ class SwitchSensorTest {
         }
     }
 
+    /**
+     * Should return true when instances are same object.
+     */
     @Test
     void shouldReturnTrue_WhenInstancesAreSameObject() {
         // Arrange
@@ -221,6 +245,9 @@ class SwitchSensorTest {
         }
     }
 
+    /**
+     * Should return false when instances are not equal.
+     */
     @Test
     void shouldReturnFalse_WhenInstancesAreNotEqual() {
         // Arrange
@@ -252,6 +279,9 @@ class SwitchSensorTest {
         }
     }
 
+    /**
+     * Should return false when object is not the instance of SwitchSensor.
+     */
     @Test
     void shouldReturnFalse_WhenObjectIsNotTheInstanceOfSwitchSensor() {
         // Arrange
@@ -276,6 +306,9 @@ class SwitchSensorTest {
         }
     }
 
+    /**
+     * Should return sensor hashcode.
+     */
     @Test
     void shouldReturnSwitchSensorHashCode_WhenHashCodeMethodIsCalled() {
         // Arrange
@@ -300,6 +333,9 @@ class SwitchSensorTest {
         }
     }
 
+    /**
+     * Should return SwitchSensor in string format.
+     */
     @Test
     void shouldReturnSwitchSensorInString_WhenToStringMethodIsCalled () {
         // Arrange
