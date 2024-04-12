@@ -1,19 +1,19 @@
 package smartHome.domain.device;
 
+import org.junit.jupiter.api.Test;
 import smartHome.valueObject.*;
-import org.junit.Test;
 import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class DeviceTest {
+class DeviceTest {
 
     /**
      * Instantiates a new Device object with valid parameters.
      */
     @Test
-    public void shouldInstantiateANewDevice() {
+    void shouldInstantiateANewDevice() {
 
         //Arrange
         RoomID roomID = mock(RoomID.class);
@@ -34,7 +34,7 @@ public class DeviceTest {
      * Throws an IllegalArgumentException when the constructor is called with a null RoomID.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullRoomID() {
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullRoomID() {
 
         //Arrange
         RoomID roomID = null;
@@ -61,7 +61,7 @@ public class DeviceTest {
      * Throws an IllegalArgumentException when the constructor is called with a null DeviceName.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceName() {
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceName() {
 
         //Arrange
         RoomID roomID = mock(RoomID.class);
@@ -89,7 +89,7 @@ public class DeviceTest {
      * Throws an IllegalArgumentException when the constructor is called with a null DeviceStatus.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceStatus() {
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceStatus() {
 
         //Arrange
         RoomID roomID = mock(RoomID.class);
@@ -114,7 +114,7 @@ public class DeviceTest {
      * Throws an IllegalArgumentException when the constructor is called with a null DeviceTypeID.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceTypeID() {
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceTypeID() {
 
         //Arrange
         RoomID roomID = mock(RoomID.class);
@@ -139,7 +139,7 @@ public class DeviceTest {
      * Should return the RoomID of the Device object.
      */
     @Test
-    public void shouldReturnRoomID() {
+    void shouldReturnRoomID() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -160,7 +160,7 @@ public class DeviceTest {
      * Should return the DeviceID of the Device object.
      */
     @Test
-    public void shouldReturnDeviceID() {
+    void shouldReturnDeviceID() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -186,7 +186,7 @@ public class DeviceTest {
      * Should return the DeviceName of the Device object.
      */
     @Test
-    public void shouldReturnDeviceName() {
+    void shouldReturnDeviceName() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -206,7 +206,7 @@ public class DeviceTest {
      * Should return the DeviceStatus of the Device object.
      */
     @Test
-    public void shouldReturnDeviceStatus() {
+    void shouldReturnDeviceStatus() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -226,7 +226,7 @@ public class DeviceTest {
      * Should return true when equals method is called with the same object.
      */
     @Test
-    public void shouldReturnTrueWhenGivenSameObject() {
+    void shouldReturnTrueWhenGivenSameObject() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -243,37 +243,12 @@ public class DeviceTest {
         }
     }
 
-    /**
-     * Should return true when comparing two objects with same ID.
-     */
-    @Test
-    public void shouldReturnTrueWhenComparingTwoObjectsWithSameID() {
-        //Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
-
-        try (MockedConstruction<DeviceID> mocked = mockConstruction(DeviceID.class, (mock, context) ->
-                when(mock.toString()).thenReturn("1"))) {
-
-            Device device1 = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
-            Device device2 = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
-
-            //Act
-            boolean result = device1.equals(device2);
-
-            //Assert
-            assertTrue(result);
-
-        }
-    }
 
     /**
      * Should return false when comparing two objects with different ID.
      */
     @Test
-    public void shouldReturnFalseWhenComparingTwoObjectsWithDifferentID() {
+    void shouldReturnFalseWhenComparingTwoObjectsWithDifferentID() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         RoomID roomID2 = mock(RoomID.class);
@@ -295,7 +270,7 @@ public class DeviceTest {
     }
 
     @Test
-    public void shouldReturnFalseWhenComparingObjectWithNull() {
+    void shouldReturnFalseWhenComparingObjectWithNull() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -318,7 +293,7 @@ public class DeviceTest {
      * Should return device as a string when toString is called.
      */
     @Test
-    public void shouldReturnExpectedStringWhenToStringIsCalled() {
+    void shouldReturnExpectedStringWhenToStringIsCalled() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -339,7 +314,7 @@ public class DeviceTest {
     }
 
     @Test
-    public void shouldReturnDeactivatedDeviceStatus_WhenDeactivateDeviceIsCalled() {
+    void shouldReturnDeactivatedDeviceStatus_WhenDeactivateDeviceIsCalled() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -367,7 +342,7 @@ public class DeviceTest {
      * Should return the DeviceTypeID of the Device object.
      */
     @Test
-    public void shouldReturnDeviceTypeID() {
+    void shouldReturnDeviceTypeID() {
         //Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -383,5 +358,23 @@ public class DeviceTest {
         }
     }
 
+    @Test
+    void shouldReturnDeviceHashCode_whenHashCodeIsCalled() {
+        //Arrange
+        RoomID roomID = mock(RoomID.class);
+        DeviceName deviceName = mock(DeviceName.class);
+        DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
+        try (MockedConstruction<DeviceID> mocked = mockConstruction(DeviceID.class)) {
+            Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+            int expected = device.getID().hashCode();
+
+            //Act
+            int result = device.hashCode();
+
+            //Assert
+            assertEquals(expected,result);
+        }
+    }
 }

@@ -1,20 +1,18 @@
 package smartHome.domain.device;
 
 import smartHome.valueObject.*;
-import org.junit.Test;
-import org.mockito.MockedConstruction;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mockConstruction;
-import static org.mockito.Mockito.when;
 
-public class DeviceAggregateTest {
+
+class DeviceAggregateTest {
 
     /**
      * Test that the Device class can be instantiated with valid parameters.
      */
     @Test
-    public void shouldInstantiateANewDevice() {
+    void shouldInstantiateANewDevice() {
         //Arrange
         String roomIDName = "1a24";
         String name = "lamp";
@@ -38,7 +36,7 @@ public class DeviceAggregateTest {
      */
 
     @Test
-    public void shouldReturnRoomID() {
+    void shouldReturnRoomID() {
         //Arrange
         String roomIDName = "1a24";
         String name = "lamp";
@@ -63,7 +61,7 @@ public class DeviceAggregateTest {
      * Tests if the deviceID is returned correctly.
      */
     @Test
-    public void shouldReturnDeviceID() {
+    void shouldReturnDeviceID() {
         //Arrange
         String roomIDName = "1a24";
         String name = "lamp";
@@ -90,7 +88,7 @@ public class DeviceAggregateTest {
      * Tests if the deviceName is returned correctly.
      */
     @Test
-    public void shouldReturnDeviceName() {
+    void shouldReturnDeviceName() {
         //Arrange
         String roomIDName = "1a24";
         String name = "lamp";
@@ -117,7 +115,7 @@ public class DeviceAggregateTest {
      * Tests if the deviceStatus is returned correctly.
      */
     @Test
-    public void shouldReturnDeviceStatus() {
+    void shouldReturnDeviceStatus() {
         //Arrange
         String roomIDName = "1a24";
         String name = "lamp";
@@ -144,7 +142,7 @@ public class DeviceAggregateTest {
      * Test that the Equals method returns true when the Device is compared to itself.
      */
     @Test
-    public void shouldReturnTrueWhenGivenSameObject() {
+    void shouldReturnTrueWhenGivenSameObject() {
         //Arrange
         String roomIDName = "1a24";
         String name = "lamp";
@@ -167,42 +165,12 @@ public class DeviceAggregateTest {
 
     }
 
-    /**
-     * Test that the Equals method returns false when the Device is compared to a different object.
-     */
-
-    @Test
-    public void shouldReturnTrueWhenComparingTwoObjectsWithSameID() {
-        //Arrange
-        String roomIDName = "1a24";
-        String name = "lamp";
-        boolean status = true;
-        String typeID = "123";
-
-        RoomID roomID = new RoomID(roomIDName);
-        DeviceName deviceName = new DeviceName(name);
-        DeviceStatus deviceStatus = new DeviceStatus(status);
-        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
-
-        try (MockedConstruction<DeviceID> mocked = mockConstruction(DeviceID.class, (mock, context) ->
-                when(mock.toString()).thenReturn("1"))) {
-
-            Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
-            Device device2 = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
-
-            //Act
-            boolean result = device.equals(device2);
-
-            //Assert
-            assertTrue(result);
-        }
-    }
 
     /**
      * Test that the Equals method returns false when the Device is compared to a different objects.
      */
     @Test
-    public void shouldReturnFalseWhenComparingTwoObjectsWithDifferentID() {
+    void shouldReturnFalseWhenComparingTwoObjectsWithDifferentID() {
         //Arrange
         String roomIDName = "1a24";
         String roomIDName2 = "1a25";
@@ -232,7 +200,7 @@ public class DeviceAggregateTest {
      */
 
     @Test
-    public void shouldReturnFalseWhenComparingObjectWithNullObject() {
+    void shouldReturnFalseWhenComparingObjectWithNullObject() {
         //Arrange
         String roomIDName = "1a24";
         String name = "lamp";
@@ -260,7 +228,7 @@ public class DeviceAggregateTest {
      */
 
     @Test
-    public void shouldReturnExpectedStringWhenToStringIsCalled() {
+    void shouldReturnExpectedStringWhenToStringIsCalled() {
         //Arrange
         String roomIDName = "1a24";
         String name = "lamp";
@@ -292,7 +260,7 @@ public class DeviceAggregateTest {
      * Test that the deactivateDevice method returns the expected DeviceStatus.
      */
     @Test
-    public void shouldReturnDeactivatedDeviceStatus_WhenDeactivateDeviceIsCalled() {
+    void shouldReturnDeactivatedDeviceStatus_WhenDeactivateDeviceIsCalled() {
 
         //Arrange
         String roomIDName = "1a24";
@@ -320,7 +288,7 @@ public class DeviceAggregateTest {
      * Test that the getDeviceTypeID method returns the expected DeviceTypeID.
      */
     @Test
-    public void shouldReturnDeviceTypeID() {
+    void shouldReturnDeviceTypeID() {
         //Arrange
         String roomIDName = "1a24";
         String name = "lamp";

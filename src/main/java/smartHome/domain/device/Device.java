@@ -132,18 +132,14 @@ public class Device implements IAggregateRoot<DeviceID> {
     }
 
     /**
-     * Checks if this Device instance is equal to another object.
-     *
-     * @param object The object to compare.
-     * @return true if the objects are equal, false if they are different.
+     * Compares this instance with another instance.
+     * @param object is the object to be compared.
+     * @return true if the instances are equal, false otherwise.
      */
     @Override
     public boolean equals(Object object) {
-        if (this == object)
-            return true;
-
-        if (object instanceof Device objectDevice) {
-            return _deviceID.toString().equals(objectDevice._deviceID.toString());
+        if (object instanceof Device device) {
+            return _deviceID.equals(device.getID());
         }
         return false;
     }
@@ -171,4 +167,14 @@ public class Device implements IAggregateRoot<DeviceID> {
         _deviceStatus = new DeviceStatus(false);
         return _deviceStatus;
     }
+
+    /**
+     * Generates a hash code for the Device instance.
+     * @return The hash code.
+     */
+    @Override
+    public int hashCode() {
+        return this._deviceID.hashCode();
+    }
+
 }
