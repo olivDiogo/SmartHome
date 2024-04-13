@@ -30,7 +30,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
             SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
@@ -56,7 +56,7 @@ class SunsetTimeSensorTest {
 
         String expectedMessage = "DeviceID cannot be null.";
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
 
@@ -81,7 +81,7 @@ class SunsetTimeSensorTest {
 
         String expectedMessage = "SensorTypeID cannot be null.";
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
 
@@ -107,7 +107,7 @@ class SunsetTimeSensorTest {
 
         String expectedMessage = "SensorTypeID must be 'SunsetTime'.";
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
 
@@ -133,7 +133,7 @@ class SunsetTimeSensorTest {
 
         String expectedMessage = "ModelPath cannot be null.";
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
 
@@ -159,7 +159,7 @@ class SunsetTimeSensorTest {
 
         String expectedMessage = "SensorName cannot be null";
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
 
@@ -185,7 +185,7 @@ class SunsetTimeSensorTest {
 
         String expectedMessage = "GPS cannot be null.";
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
 
@@ -209,18 +209,19 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
             LocalTime expectedSunsetTime = Objects.requireNonNull(SunTimes.compute().on(LocalDate.now()).at(gps.getLatitude(), gps.getLongitude()).execute().getSet()).toLocalTime().truncatedTo(ChronoUnit.SECONDS);
 
-            SunsetTimeSensorValue expected = new SunsetTimeSensorValue(expectedSunsetTime);
+            SunsetTimeSensorValue expected = mock(SunsetTimeSensorValue.class);
+            when(expected.toString()).thenReturn(String.valueOf(expectedSunsetTime));
 
             //Act
             SunsetTimeSensorValue sunsetTime = sunsetTimeSensor.getValue();
 
             //Assert
-            assertEquals(expected.toString(), sunsetTime.toString());
+            assertEquals("Sunset Time: " + expected, sunsetTime.toString());
         }
     }
 
@@ -228,7 +229,7 @@ class SunsetTimeSensorTest {
      * Test to check if SunsetTimeSensorValue is returned for a given day
      */
     @Test
-    void shouldReturnSunsetTimeForGivenDay_whenGetValueIsCalledWithADate()  {
+    void shouldReturnSunsetTimeForGivenDay_whenGetValueIsCalledWithADate() {
         //Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -239,19 +240,20 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
             LocalDate date = LocalDate.now().plusDays(5);
             LocalTime expectedSunsetTime = Objects.requireNonNull(SunTimes.compute().on(date).at(gps.getLatitude(), gps.getLongitude()).execute().getSet()).toLocalTime().truncatedTo(ChronoUnit.SECONDS);
 
-            SunsetTimeSensorValue expected = new SunsetTimeSensorValue(expectedSunsetTime);
+            SunsetTimeSensorValue expected = mock(SunsetTimeSensorValue.class);
+            when(expected.toString()).thenReturn(String.valueOf(expectedSunsetTime));
 
             //Act
             SunsetTimeSensorValue sunsetTime = sunsetTimeSensor.getValue(date);
 
             //Assert
-            assertEquals(expected.toString(), sunsetTime.toString());
+            assertEquals("Sunset Time: " + expected, sunsetTime.toString());
         }
     }
 
@@ -270,7 +272,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
             //Act
@@ -296,7 +298,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
 
             SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
@@ -323,7 +325,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
 
             SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
@@ -350,7 +352,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
             //Act
@@ -376,7 +378,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
 
             SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
@@ -404,7 +406,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName2 = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
 
             SunsetTimeSensor sunsetTimeSensor1 = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName1, gps);
             SunsetTimeSensor sunsetTimeSensor2 = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName2, gps);
@@ -432,7 +434,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
 
             SunsetTimeSensor sunsetTimeSensor1 = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
@@ -459,7 +461,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
 
             SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
@@ -487,7 +489,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        try(MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
 
             SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
 
@@ -498,6 +500,48 @@ class SunsetTimeSensorTest {
 
             //Assert
             assertEquals(expected, hashCode);
+        }
+    }
+
+    /**
+     * Test to check if toString returns the expected value
+     */
+    @Test
+    void shouldReturnStringValue_whenToStringIsCalled() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("SunsetTime");
+
+        GPS gps = mock(GPS.class);
+
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            when(mock.toString()).thenReturn("MockedSensorID");
+        })) {
+            SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+            String expectedValue = sunsetTimeSensor.getValue().toString();
+
+            SunsetTimeSensorValue sunsetTimeSensorValue = mock(SunsetTimeSensorValue.class);
+            when(sunsetTimeSensorValue.toString()).thenReturn(expectedValue);
+
+
+            String expected = "SunsetTimeSensor:" +
+                    " sunriseTimeValue=" + expectedValue +
+                    ", sensorTypeID=" + sensorTypeID +
+                    ", sensorID=MockedSensorID" +
+                    ", sensorName=" + sensorName +
+                    ", deviceID=" + deviceID +
+                    ", modelPath=" + modelPath +
+                    ", gps=" + gps;
+
+            //Act
+            String result = sunsetTimeSensor.toString();
+
+            //Assert
+            assertEquals(expected, result);
         }
     }
 

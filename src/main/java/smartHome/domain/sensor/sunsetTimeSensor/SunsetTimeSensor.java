@@ -212,7 +212,7 @@ public class SunsetTimeSensor implements ISensor {
     @Override
     public String toString() {
         return "SunsetTimeSensor:" +
-                "sunriseTimeValue=" + _sunsetTimeValue +
+                " sunriseTimeValue=" + _sunsetTimeValue +
                 ", sensorTypeID=" + _sensorTypeID +
                 ", sensorID=" + _sensorID +
                 ", sensorName=" + _sensorName +
