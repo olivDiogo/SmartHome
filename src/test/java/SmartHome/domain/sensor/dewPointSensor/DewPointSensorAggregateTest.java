@@ -1,18 +1,17 @@
-package smartHome.domain.sensor;
+package smartHome.domain.sensor.dewPointSensor;
 
-import smartHome.domain.sensor.dewPointSensor.DewPointSensor;
 import smartHome.valueObject.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DewPointSensorTest {
+class DewPointSensorAggregateTest {
 
     /**
      * Test to check if the DewPointSensor is instantiated correctly.
      */
     @Test
-    public void shouldInstantiateDewPointSensor_WhenParametersAreValid() {
+    void shouldInstantiateDewPointSensor_WhenParametersAreValid() {
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
@@ -35,7 +34,7 @@ class DewPointSensorTest {
      * Test to check if the DewPointSensor throws an exception when the DeviceID is null.
      */
     @Test
-    public void shouldThrowException_WhenDeviceIDIsNull() {
+    void shouldThrowException_WhenDeviceIDIsNull() {
         //Arrange
         String modelPathName = "SmartHome.sensors.DewPointSensor";
         String name = "DewPointSensor";
@@ -64,7 +63,7 @@ class DewPointSensorTest {
      * Test to check if the DewPointSensor throws an exception when the ModelPath is null.
      */
     @Test
-    public void shouldThrowException_WhenModelPathIsNull() {
+    void shouldThrowException_WhenModelPathIsNull() {
         //Arrange
         String deviceIDName = "123A";
         String name = "DewPointSensor";
@@ -92,7 +91,7 @@ class DewPointSensorTest {
      * Test to check if the DewPointSensor throws an exception when the SensorName is null.
      */
     @Test
-    public void shouldThrowException_WhenSensorNameIsNull() {
+    void shouldThrowException_WhenSensorNameIsNull() {
         //Arrange
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
@@ -120,7 +119,7 @@ class DewPointSensorTest {
      * Test to check if the DewPointSensor throws an exception when the SensorTypeID is null.
      */
     @Test
-    public void shouldThrowException_WhenSensorTypeIDIsNull() {
+    void shouldThrowException_WhenSensorTypeIDIsNull() {
         //Arrange
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
@@ -175,7 +174,7 @@ class DewPointSensorTest {
      * Should return Sensor ID.
      */
     @Test
-    public void shouldGetDewPointID() {
+    void shouldGetDewPointID() {
         //Arrange
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
@@ -200,7 +199,7 @@ class DewPointSensorTest {
      * Should get sensor name.
      */
     @Test
-    public void shouldGetDewPointName() {
+    void shouldGetDewPointName() {
         //Arrange
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
@@ -218,7 +217,7 @@ class DewPointSensorTest {
         SensorName result = dewPointSensor.getName();
 
         //Assert
-        assertEquals(sensorName.toString(), result.toString());
+        assertEquals(sensorName, result);
 
     }
 
@@ -226,7 +225,7 @@ class DewPointSensorTest {
      * Should get model Path.
      */
     @Test
-    public void shouldGetDewPointModelPath() {
+    void shouldGetDewPointModelPath() {
         //Arrange
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
@@ -244,14 +243,14 @@ class DewPointSensorTest {
         ModelPath result = dewPointSensor.getModelPath();
 
         //Assert
-        assertEquals(modelPath.toString(), result.toString());
+        assertEquals(modelPath, result);
     }
 
     /**
      * Should get sensorType ID.
      */
     @Test
-    public void shouldGetDewPointSensorTypeID() {
+    void shouldGetDewPointSensorTypeID() {
         //Arrange
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
@@ -269,14 +268,14 @@ class DewPointSensorTest {
         SensorTypeID result = dewPointSensor.getSensorTypeID();
 
         //Assert
-        assertEquals(sensorTypeID.toString(), result.toString());
+        assertEquals(sensorTypeID, result);
     }
 
     /**
      * Should return device ID.
      */
     @Test
-    public void shouldGetDeviceID() {
+    void shouldGetDeviceID() {
         //Arrange
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
@@ -294,14 +293,14 @@ class DewPointSensorTest {
         DeviceID result = dewPointSensor.getDeviceID();
 
         //Assert
-        assertEquals(deviceID.toString(), result.toString());
+        assertEquals(deviceID, result);
     }
 
     /**
      * Should return dew point value.
      */
     @Test
-    public void shouldGetDewPointValue() {
+    void shouldGetDewPointValue() {
         //Arrange
         String deviceIDName = "123A";
         String modelPathName = "SmartHome.sensors.DewPointSensor";
@@ -321,5 +320,168 @@ class DewPointSensorTest {
         assertTrue(value >= -70 && value <= 70);
     }
 
+    /**
+     * Tests method equals when the instance is compared to itself.
+     */
+    @Test
+    void shouldReturnTrue_WhenComparingTheSameInstance() {
+        //Arrange
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "DewPoint";
 
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        //Act
+        boolean result = dewPointSensor.equals(dewPointSensor);
+
+        //Assert
+        assertTrue(result);
+    }
+
+
+    /**
+     * Tests method equals when there are two different objects.
+     */
+    @Test
+    void shouldReturnFalse_WhenThereTwoDifferentObjects() {
+        //Arrange
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "DewPoint";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        //Act
+        boolean result = dewPointSensor.equals(new Object());
+
+        //Assert
+        assertFalse(result);
+    }
+
+
+    /**
+     * Tests equals when instances is compared to a null object.
+     */
+    @Test
+    void shouldReturnFalse_WhenComparedToNull() {
+        //Arrange
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "DewPoint";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        //Act
+        boolean result = dewPointSensor.equals(null);
+
+        //Assert
+        assertFalse(result);
+    }
+
+
+    /**
+     * Tests equals when instances is compared to an object of a different class.
+     */
+    @Test
+    void shouldReturnFalse_WhenComparedToDifferentClass() {
+        //Arrange
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "DewPoint";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        //Act
+        boolean result = dewPointSensor.equals(new Object());
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test hashCode method.
+     */
+    @Test
+    void shouldReturnHashCode_whenHashCodeIsCalled() {
+        //Arrange
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "DewPoint";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        SensorID sensorID = dewPointSensor.getID();
+        int expected = sensorID.hashCode();
+
+        //Act
+        int result = dewPointSensor.hashCode();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test toString method.
+     */
+    @Test
+    void shouldReturnString_whenToStringIsCalled() {
+        //Arrange
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "DewPoint";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        DewPointValue dewPointValue = dewPointSensor.getValue();
+
+        String expected = "DewPointSensor:" +
+                " modelPath=" + modelPath +
+                ", sensorName=" + sensorName +
+                ", sensorID=" + dewPointSensor.getID() +
+                ", sensorTypeID=" + sensorTypeID +
+                ", dewPointValue=" + dewPointValue +
+                ", deviceID=" + deviceID;
+
+        //Act
+        String result = dewPointSensor.toString();
+
+        //Assert
+        assertEquals(expected, result);
+    }
 }

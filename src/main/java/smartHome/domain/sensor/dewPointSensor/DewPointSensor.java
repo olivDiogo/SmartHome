@@ -160,5 +160,45 @@ public class DewPointSensor implements ISensor {
         return this._deviceID;
     }
 
+    /**
+     * Method to compare the sensor with another object.
+     *
+     * @return the result of the comparison.
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof DewPointSensor dewPointSensor) {
+
+            return this._sensorID.equals(dewPointSensor._sensorID);
+        }
+        return false;
+    }
+
+
+    /**
+     * Method to get the hash code of the sensor.
+     *
+     * @return the hash code.
+     */
+    @Override
+    public int hashCode(){
+        return this._sensorID.hashCode();
+    }
+
+    /**
+     * Method to get the string representation of the sensor.
+     *
+     * @return the string representation.
+     */
+    @Override
+    public String toString() {
+        return "DewPointSensor:" +
+                " modelPath=" + _modelPath +
+                ", sensorName=" + _sensorName +
+                ", sensorID=" + _sensorID +
+                ", sensorTypeID=" + _sensorTypeID +
+                ", dewPointValue=" + _dewPointValue +
+                ", deviceID=" + _deviceID;
+    }
 
 }
