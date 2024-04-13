@@ -1,6 +1,5 @@
-package smartHome.domain.actuator;
+package smartHome.domain.actuator.setDecimalActuator;
 
-import smartHome.domain.actuator.setDecimalActuator.SetDecimalActuatorLimits;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -205,5 +204,24 @@ class SetDecimalActuatorLimitsTest {
         // Assert
         assertFalse(result);
     }
+
+    /**
+     * Test if the toString method returns the expected string.
+     */
+    @Test void shouldReturnToString_whenToStringIsCalled() {
+        // Arrange
+        double lowerLimit = 1.5;
+        double upperLimit = 9.5;
+        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+
+        String expected = "Lower limit: " + lowerLimit + ", Upper limit: " + upperLimit;
+
+        // Act
+        String result = setDecimalActuatorLimits.toString();
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
 
 }

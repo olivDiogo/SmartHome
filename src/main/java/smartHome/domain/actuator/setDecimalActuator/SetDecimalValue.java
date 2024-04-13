@@ -36,5 +36,25 @@ public class SetDecimalValue implements IValueObject {
     public String toString() {
         return Double.toString(_value);
     }
+
+    /**
+     * Overrides the equals method to compare two SetDecimalValue objects.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof SetDecimalValue setDecimalValue) {
+            double epsilon = 0.001;
+            return Math.abs(_value - setDecimalValue._value) < epsilon;
+        }
+        return false;
+    }
+
+    /**
+     * Overrides the hashCode method to return the hash code of the decimal value.
+     */
+    @Override
+    public int hashCode() {
+        return Double.hashCode(_value);
+    }
 }
 

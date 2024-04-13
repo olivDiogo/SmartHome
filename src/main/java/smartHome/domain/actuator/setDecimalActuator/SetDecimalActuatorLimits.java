@@ -1,6 +1,7 @@
 package smartHome.domain.actuator.setDecimalActuator;
 
 import smartHome.ddd.IValueObject;
+import smartHome.domain.sensor.averagePowerConsumptionSensor.AveragePowerConsumptionSensorValue;
 
 /**
  * Represents the limits within which a decimal actuator can set values.
@@ -55,18 +56,23 @@ public class SetDecimalActuatorLimits implements IValueObject {
     }
 
     /**
-     * Indicates whether some other object is "equal to" this one.
-     *
-     * @param o The reference object with which to compare.
-     * @return true if this object is the same as the obj argument; false otherwise.
+     * Overrides the equals method to compare two SetDecimalActuatorLimits objects.
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SetDecimalActuatorLimits that)) return false;
+        if (o instanceof SetDecimalActuatorLimits setDecimalActuatorLimits) {
+            double epsilon = 0.001;
+            return Math.abs(_lowerLimit - setDecimalActuatorLimits._lowerLimit) < epsilon && Math.abs(_upperLimit - setDecimalActuatorLimits._upperLimit) < epsilon;
 
-        if (_lowerLimit != that._lowerLimit) return false;
-        return _upperLimit == that._upperLimit;
+        }
+        return false;
+    }
+
+    /**
+     * Overrides the toString method to return a string representation of the SetDecimalActuatorLimits object.
+     */
+    public String toString() {
+        return "Lower limit: " + this._lowerLimit + ", Upper limit: " + this._upperLimit;
     }
 }
 

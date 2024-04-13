@@ -186,5 +186,37 @@ public class SetDecimalActuator {
         }
         return null;
     }
+
+    /**
+     * Method to compare two instances
+     *
+     * @param object The object to compare with.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof SetDecimalActuator setDecimalActuator) {
+            return _actuatorID.equals(setDecimalActuator._actuatorID);
+        }
+        return false;
+    }
+
+    /**
+     * Overrides the hashCode method to return the hash code of the actuator ID.
+     */
+    @Override
+    public int hashCode() {
+        return _actuatorID.hashCode();
+    }
+
+    /**
+     * Returns a string representation of the actuator.
+     *
+     * @return A string representation of the actuator.
+     */
+    @Override
+    public String toString() {
+        return "ActuatorID: " + _actuatorID + ", ActuatorName: " + _actuatorName + ", ModelPath: " + _modelPath + ", ActuatorTypeID: " + _actuatorTypeID + ", DeviceID: " + _deviceID + ", Limits: " + _limits;
+    }
 }
 

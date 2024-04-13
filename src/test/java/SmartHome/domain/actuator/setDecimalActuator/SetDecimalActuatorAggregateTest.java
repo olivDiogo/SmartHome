@@ -1,19 +1,16 @@
-package smartHome.domain.actuator;
+package smartHome.domain.actuator.setDecimalActuator;
 
 import smartHome.ddd.IValueObject;
-import smartHome.domain.actuator.setDecimalActuator.SetDecimalActuator;
-import smartHome.domain.actuator.setDecimalActuator.SetDecimalActuatorLimits;
-import smartHome.domain.actuator.setDecimalActuator.SetDecimalValue;
+import smartHome.domain.actuator.blindRollerActuator.BlindRollerValue;
 import smartHome.valueObject.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test cases for the SetDecimalActuator class.
  */
-class SetDecimalActuatorTest {
+class SetDecimalActuatorAggregateTest {
 
     /**
      * Verifies that SetDecimalActuator is correctly instantiated when elements are valid.
@@ -400,14 +397,158 @@ class SetDecimalActuatorTest {
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
-        // Act & Assert
+        //Act
         try {
             setDecimalActuator.setValue(valueDouble);
         } catch (IllegalArgumentException e) {
+            //Assert
             assertEquals(expectedMessage, e.getMessage());
         }
     }
 
+    /**
+     * Test to set the value when it is not an instance of SetIntegerValue
+     */
+    @Test
+    void shouldReturnNull_WhenValueIsNotSetDecimalValue() {
+        // Arrange
+        double lowerLimit = 1.5;
+        double upperLimit = 9.5;
+
+        DeviceID deviceID = new DeviceID("DeviceID");
+        ModelPath modelPath = new ModelPath("ModelPath");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
+        ActuatorName actuatorName = new ActuatorName("ActuatorName");
+        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
 
+        IValueObject nonDecimalValue = new BlindRollerValue(2);
+        IValueObject result = setDecimalActuator.setValue(nonDecimalValue);
+
+        assertNull(result);
+    }
+
+    /**
+     * Test method equals when the instance is compared to itself.
+     */
+    @Test
+    void shouldReturnTrue_WhenInstanceIsComparedToItself() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("DeviceID");
+        ModelPath modelPath = new ModelPath("ModelPath");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
+        ActuatorName actuatorName = new ActuatorName("ActuatorName");
+        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        // Act
+        boolean result = setDecimalActuator.equals(setDecimalActuator);
+
+        // Assert
+        assertTrue(result);
+    }
+
+
+    /**
+     * Test of method equals when the instances are not equal.
+     */
+    @Test
+    void shouldReturnFalse_whenInstancesAreNotEqual(){
+        // Arrange
+        DeviceID deviceID = new DeviceID("DeviceID");
+        ModelPath modelPath = new ModelPath("ModelPath");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
+        ActuatorName actuatorName = new ActuatorName("ActuatorName");
+        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+        SetDecimalActuator setDecimalActuator2 = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        // Act
+        boolean result = setDecimalActuator.equals(setDecimalActuator2);
+
+        // Assert
+        assertFalse(result);
+    }
+
+
+    /**
+     * Test of method equals when the instance is compared to an object of a different class.
+     */
+    @Test
+    void shouldReturnFalse_whenInstanceIsComparedToAnObjectOfDifferentClass(){
+        // Arrange
+        DeviceID deviceID = new DeviceID("DeviceID");
+        ModelPath modelPath = new ModelPath("ModelPath");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
+        ActuatorName actuatorName = new ActuatorName("ActuatorName");
+        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        // Act
+        boolean result = setDecimalActuator.equals(modelPath);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test of method toString.
+     */
+    @Test
+    void shouldReturnString_whenToStringIsCalled(){
+        // Arrange
+        DeviceID deviceID = new DeviceID("DeviceID");
+        ModelPath modelPath = new ModelPath("ModelPath");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
+        ActuatorName actuatorName = new ActuatorName("ActuatorName");
+        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+        ActuatorID actuatorID = setDecimalActuator.getActuatorID();
+
+        String expected = "ActuatorID: " + actuatorID + ", ActuatorName: " + actuatorName + ", ModelPath: " + modelPath + ", ActuatorTypeID: " + actuatorTypeID + ", DeviceID: " + deviceID + ", Limits: " + limits;
+
+        // Act
+        String result = setDecimalActuator.toString();
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+
+    /**
+     * Test of method hashcode.
+     */
+    @Test
+    void shouldReturnHashCode_whenHashCodeIsCalled(){
+        // Arrange
+        String deviceID = "DeviceID";
+        String modelPath = "ModelPath";
+        String actuatorTypeID = "SetDecimal";
+        String actuatorName = "ActuatorName";
+        double lowerLimit = 1.5;
+        double upperLimit = 9.5;
+
+        DeviceID deviceId = new DeviceID(deviceID);
+        ModelPath modelPath1 = new ModelPath(modelPath);
+        ActuatorTypeID actuatorTypeID1 = new ActuatorTypeID(actuatorTypeID);
+        ActuatorName actuatorName1 = new ActuatorName(actuatorName);
+        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceId, modelPath1, actuatorTypeID1, actuatorName1, limits);
+        ActuatorID actuatorID = setDecimalActuator.getActuatorID();
+
+        int expected = actuatorID.getID().hashCode();
+
+        // Act
+        int result = setDecimalActuator.hashCode();
+
+        // Assert
+        assertEquals(expected,result);
+    }
 }
