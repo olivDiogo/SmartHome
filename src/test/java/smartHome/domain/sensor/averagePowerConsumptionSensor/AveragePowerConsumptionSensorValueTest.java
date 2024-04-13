@@ -87,5 +87,52 @@ public class AveragePowerConsumptionSensorValueTest {
         //Assert
         Assertions.assertEquals(expected, actualResult);
     }
+    /**
+     * See if the equals method works.
+     */
+    @Test
+    void seeIfEqualsWorks() {
+        //Arrange
+        double dValue = 12.3;
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue);
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue1 = new AveragePowerConsumptionSensorValue(dValue);
+        //Act
+        boolean actualResult = averagePowerConsumptionSensorValue.equals(averagePowerConsumptionSensorValue1);
+        //Assert
+        Assertions.assertTrue(actualResult);
+    }
+    @Test
+    void shouldReturnEqualsUpToPrecisionOfThreeDecimals() {
+        // Arrange
+        double dValue = 12.3;
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue);
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue1 = new AveragePowerConsumptionSensorValue(dValue + 0.001);
+        // Act
+        boolean actualResult = averagePowerConsumptionSensorValue.equals(averagePowerConsumptionSensorValue1);
+        // Assert
+        Assertions.assertTrue(actualResult);
+    }
+    @Test
+    void shouldReturnFalseWhenNotInstanceOfAveragePowerConsumptionSensorValue() {
+        // Arrange
+        double dValue = 12.3;
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue);
+        // Act
+        boolean actualResult = averagePowerConsumptionSensorValue.equals(new Object());
+        // Assert
+        Assertions.assertFalse(actualResult);
+    }
+    @Test
+    void shouldReturnFalseWhenDifferentValues() {
+        // Arrange
+        double dValue = 12.3;
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue);
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue1 = new AveragePowerConsumptionSensorValue(dValue + 0.002);
+        // Act
+        boolean actualResult = averagePowerConsumptionSensorValue.equals(averagePowerConsumptionSensorValue1);
+        // Assert
+        Assertions.assertFalse(actualResult);
+    }
+
 
 }

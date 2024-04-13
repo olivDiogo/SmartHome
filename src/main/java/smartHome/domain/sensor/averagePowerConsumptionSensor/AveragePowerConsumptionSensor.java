@@ -11,8 +11,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class AveragePowerConsumptionSensor implements ISensor {
+    /**
+     * This class represents a PowerConsumptionSensor in the Smart Home System.
+     * It includes details about the sensor's identification, type, and power consumption values.
+     * It implements the ISensor interface with SensorID as its identifier.
+     *
+     */
 
-    private final double _dValue = 0;
     private final HashMap<LocalDateTime, Double> _powerConsumptions;
     private AveragePowerConsumptionSensorValue _averagePowerConsumptionSensorValue;
     private SensorTypeID _sensorTypeID;
@@ -25,16 +30,20 @@ public class AveragePowerConsumptionSensor implements ISensor {
     private ModelPath _modelPath;
 
     /**
-     * Creates a new PowerConsumptionSensor.
+     * @param deviceID     The device ID.
+     * @param modelPath    The model path.
+     * @param sensorTypeID The sensor type ID.
+     * @param sensorName   The sensor name.
      */
     public AveragePowerConsumptionSensor(
             DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName)
-            throws InstantiationException {
+            throws IllegalArgumentException {
         validateDeviceID(deviceID);
         validateSensorTypeID(sensorTypeID);
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         generateSensorID();
+        _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(0);
         _powerConsumptions = new HashMap<>();
     }
 
@@ -161,19 +170,49 @@ public class AveragePowerConsumptionSensor implements ISensor {
         return _deviceID;
     }
 
+    /**
+     * Checks if this PowerConsumptionSensor instance is equal to another object.
+     * Equality is based solely on the unique identifier of the sensor (_sensorID).
+     * This method overrides the {@link Object#equals(Object)} method.
+     *
+     * @param o the object to be compared with this PowerConsumptionSensor instance for equality
+     * @return true if the specified object is a PowerConsumptionSensor and has the same _sensorID as this sensor; false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof AveragePowerConsumptionSensor averagePowerConsumptionSensor){
+            return _sensorID.equals(averagePowerConsumptionSensor._sensorID);
+        }
+        return false;
+    }
+    /**
+     * Overrides the hashCode method to return the hash code of the _sensorID.
+     * To keep the contract with the equals method, this method must be overridden.
+     */
+    @Override
+    public int hashCode() {
+        return _sensorID.hashCode();
+    }
+
+    /**
+     * Returns a string representation of this PowerConsumptionSensor instance.
+     * The string includes the class name, along
+     * * with the _sensorID, _sensorName, _deviceID, _modelPath, and _sensorTypeID properties.
+     * This method overrides the {@link Object#toString()} method.
+     *
+     */
     public String toString() {
-        return "PowerConsumptionSensor{"
-                + "_sensorID="
+        return "PowerConsumptionSensor:"
+                + " sensorID= "
                 + _sensorID
-                + ", _sensorName="
+                + ",  sensorName="
                 + _sensorName
-                + ", _deviceID="
+                + ",  deviceID="
                 + _deviceID
-                + ", _modelPath="
+                + ", modelPath="
                 + _modelPath
-                + ", _sensorTypeID="
-                + _sensorTypeID
-                + '}';
+                + ", sensorTypeID="
+                + _sensorTypeID;
     }
 
     /**
@@ -182,8 +221,7 @@ public class AveragePowerConsumptionSensor implements ISensor {
      * @return the value of the PowerConsumptionSensor.
      */
     public IValueObject getValue() {
-        return this._averagePowerConsumptionSensorValue =
-                new AveragePowerConsumptionSensorValue(_dValue);
+        return this._averagePowerConsumptionSensorValue;
     }
 
     /**
@@ -194,8 +232,8 @@ public class AveragePowerConsumptionSensor implements ISensor {
      * @return the value of the PowerConsumptionSensor.
      */
     public IValueObject getValue(LocalDateTime initialTime, LocalDateTime finalTime) {
-
-        return this._averagePowerConsumptionSensorValue =
-                new AveragePowerConsumptionSensorValue(getAverageValue(initialTime, finalTime));
+        double averageValue = getAverageValue(initialTime, finalTime);
+        _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(averageValue);
+         return _averagePowerConsumptionSensorValue;
     }
 }

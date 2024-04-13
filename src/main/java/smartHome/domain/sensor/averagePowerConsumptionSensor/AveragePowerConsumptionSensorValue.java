@@ -13,7 +13,7 @@ public class AveragePowerConsumptionSensorValue implements IValueObject {
      */
 
     public AveragePowerConsumptionSensorValue(double dValue) {
-        setValue(dValue);
+        validateValue(dValue);
     }
 
     /**
@@ -31,19 +31,25 @@ public class AveragePowerConsumptionSensorValue implements IValueObject {
      * @return the value of the PowerConsumptionSensorValue.
      */
 
-    private void setValue(double dValue) {
+    private void validateValue(double dValue) {
         if (dValue < 0)
             throw new IllegalArgumentException("Value must be positive");
         this._dValue = dValue;
     }
 
-    /**
-     * Clones the PowerConsumptionSensorValue.
-     *
-     * @return a new PowerConsumptionSensorValue with the same value.
-     */
-
     public String toString() {
         return this._dValue + "";
+    }
+
+    /**
+     * Overrides the equals method to compare two PowerConsumptionSensorValue objects.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue) {
+            double epsilon = 0.001;
+            return Math.abs(_dValue - averagePowerConsumptionSensorValue._dValue) < epsilon;
+        }
+        return false;
     }
 }

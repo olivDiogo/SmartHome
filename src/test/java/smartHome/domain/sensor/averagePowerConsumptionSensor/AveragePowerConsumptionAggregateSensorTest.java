@@ -8,12 +8,13 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class AveragePowerConsumptionSensorTest {
+class AveragePowerConsumptionAggregateSensorTest {
 
   /** See if the constructor works. */
   @Test
-  void shouldInstantiateAveragePowerConsumptionSensor() throws InstantiationException {
+  void shouldInstantiateAveragePowerConsumptionSensor()  {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -145,7 +146,7 @@ public class AveragePowerConsumptionSensorTest {
 
   /** See if the getAverageValue method works. */
   @Test
-  void shouldReturnAveragePowerConsumptionForAGivenPeriod() throws InstantiationException {
+  void shouldReturnAveragePowerConsumptionForAGivenPeriod()  {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -177,8 +178,7 @@ public class AveragePowerConsumptionSensorTest {
 
   /** See if the getAverageValue method works with another time. */
   @Test
-  void shouldReturnAveragePowerConsumptionForAGivenPeriodOnADiferenteFormat()
-      throws InstantiationException {
+  void shouldReturnAveragePowerConsumptionForAGivenPeriodOnADiferenteFormat() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -210,8 +210,7 @@ public class AveragePowerConsumptionSensorTest {
 
   /** See if the getAverageValue method works with more values than the initial and final time. */
   @Test
-  void shouldReturnAveragePowerConsumptionForAGivenPeriodWithThreeReadings()
-      throws InstantiationException {
+  void shouldReturnAveragePowerConsumptionForAGivenPeriodWithThreeReadings() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -356,7 +355,7 @@ public class AveragePowerConsumptionSensorTest {
 
   /** Tests if Exception is thrown for initial time equals to final time. */
   @Test
-  void shouldReturnAverageValueWhenInitialEqualsToFinalTime() throws InstantiationException {
+  void shouldReturnAverageValueWhenInitialEqualsToFinalTime()  {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -389,7 +388,7 @@ public class AveragePowerConsumptionSensorTest {
 
   /** See if the getValue method works but value is not a dummy, for this instance. */
   @Test
-  void shouldReturnAverageValueForThisInstant() throws InstantiationException {
+  void shouldReturnAverageValueForThisInstant()  {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -413,7 +412,7 @@ public class AveragePowerConsumptionSensorTest {
 
   /** See if the addReading method works. */
   @Test
-  void shouldReturnReading() throws InstantiationException {
+  void shouldReturnReading()  {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -440,7 +439,7 @@ public class AveragePowerConsumptionSensorTest {
    */
   @Test
   void shouldGenerateSensorID_WhenAveragePowerConsumptionSensorIsInstantiated()
-      throws InstantiationException {
+  {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -462,7 +461,7 @@ public class AveragePowerConsumptionSensorTest {
   /** Test to verify that the {@link AveragePowerConsumptionSensor} returns the sensor name. */
   @Test
   void shouldGetSensorName_WhenAveragePowerConsumptionSensorIsInstantiated()
-      throws InstantiationException {
+       {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -483,7 +482,7 @@ public class AveragePowerConsumptionSensorTest {
   /** Test to verify that the {@link AveragePowerConsumptionSensor} returns the model path. */
   @Test
   void shouldGetModelPath_WhenAveragePowerConsumptionSensorIsInstantiated()
-      throws InstantiationException {
+       {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -504,7 +503,7 @@ public class AveragePowerConsumptionSensorTest {
   /** Test to verify that the {@link AveragePowerConsumptionSensor} returns the device ID. */
   @Test
   void shouldGetDeviceID_WhenAveragePowerConsumptionSensorIsInstantiated()
-      throws InstantiationException {
+       {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -525,7 +524,7 @@ public class AveragePowerConsumptionSensorTest {
   /** Test to verify that the {@link AveragePowerConsumptionSensor} returns the sensor type ID. */
   @Test
   void shouldGetSensorTypeID_WhenAveragePowerConsumptionSensorIsInstantiated()
-      throws InstantiationException {
+       {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -542,5 +541,129 @@ public class AveragePowerConsumptionSensorTest {
     SensorTypeID result = averagePowerConsumptionSensor.getSensorTypeID();
 
     Assertions.assertEquals(sensorTypeID.toString(), result.toString());
+  }
+  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns true when comparing the same sensor. */
+  @Test
+  void shouldReturnTrueWhenComparingSameAveragePowerConsumptionSensors() {
+    // Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "modelPath";
+    String sensorNameValue = "sensorName";
+    String sensorTypeIDValue = "AveragePowerConsumption";
+
+    DeviceID deviceID1 = new DeviceID(deviceIDValue);
+    ModelPath modelPath1 = new ModelPath(modelPathValue);
+    SensorName sensorName1 = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID1 = new SensorTypeID(sensorTypeIDValue);
+
+
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor =
+        new AveragePowerConsumptionSensor(deviceID1, modelPath1, sensorTypeID1, sensorName1);
+    // Act
+    boolean result = averagePowerConsumptionSensor.equals(averagePowerConsumptionSensor);
+
+    // Assert
+    assertTrue(result);
+  }
+  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns false when comparing different sensors. */
+  @Test
+  void shouldReturnFalseWhenComparingDifferentAveragePowerConsumptionSensors() {
+    // Arrange
+    String deviceIDValue1 = "deviceID1";
+    String modelPathValue1 = "modelPath1";
+    String sensorNameValue1 = "sensorName1";
+    String sensorTypeIDValue1 = "AveragePowerConsumption";
+
+    DeviceID deviceID1 = new DeviceID(deviceIDValue1);
+    ModelPath modelPath1 = new ModelPath(modelPathValue1);
+    SensorName sensorName1 = new SensorName(sensorNameValue1);
+    SensorTypeID sensorTypeID1 = new SensorTypeID(sensorTypeIDValue1);
+
+    String deviceIDValue2 = "deviceID2";
+    String modelPathValue2 = "modelPath2";
+    String sensorNameValue2 = "sensorName2";
+    String sensorTypeIDValue2 = "AveragePowerConsumption";
+
+    DeviceID deviceID2 = new DeviceID(deviceIDValue2);
+    ModelPath modelPath2 = new ModelPath(modelPathValue2);
+    SensorName sensorName2 = new SensorName(sensorNameValue2);
+    SensorTypeID sensorTypeID2 = new SensorTypeID(sensorTypeIDValue2);
+
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor1 =
+        new AveragePowerConsumptionSensor(deviceID1, modelPath1, sensorTypeID1, sensorName1);
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor2 =
+        new AveragePowerConsumptionSensor(deviceID2, modelPath2, sensorTypeID2, sensorName2);
+    // Act
+    boolean result = averagePowerConsumptionSensor1.equals(averagePowerConsumptionSensor2);
+
+    // Assert
+    Assertions.assertFalse(result);
+  }
+  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns false when comparing with null. */
+  @Test
+  void shouldReturnFalseWhenComparingWithNull() {
+    // Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "modelPath";
+    String sensorNameValue = "sensorName";
+    String sensorTypeIDValue = "AveragePowerConsumption";
+
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor =
+        new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    // Act
+    boolean result = averagePowerConsumptionSensor.equals(null);
+
+    // Assert
+    Assertions.assertFalse(result);
+  }
+  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns false when comparing with different type. */
+  @Test
+  void shouldReturnFalseWhenComparingWithDifferentType() {
+    // Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "modelPath";
+    String sensorNameValue = "sensorName";
+    String sensorTypeIDValue = "AveragePowerConsumption";
+
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor =
+        new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    // Act
+    boolean result = averagePowerConsumptionSensor.equals(deviceID);
+
+    // Assert
+    Assertions.assertFalse(result);
+  }
+  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns the same hash code for the same sensor. */
+  @Test
+  void hashCodeShouldBeDerivedFromSensorID() {
+    // Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "modelPath";
+    String sensorNameValue = "sensorName";
+    String sensorTypeIDValue = "AveragePowerConsumption";
+
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor =
+        new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    // Act
+    int expectedHashCode = averagePowerConsumptionSensor.getID().hashCode();
+
+    int result = averagePowerConsumptionSensor.hashCode();
+
+    // Assert
+    Assertions.assertEquals(expectedHashCode, result);
   }
 }
