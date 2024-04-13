@@ -3,6 +3,7 @@ package smartHome.domain.sensor.solarIrradianceSensor;
 import smartHome.domain.sensor.ISensor;
 import smartHome.valueObject.*;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class SolarIrradianceSensor implements ISensor {
@@ -57,7 +58,7 @@ public class SolarIrradianceSensor implements ISensor {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID cannot be null");
         }
-        if (sensorTypeID.getID() != "SolarIrradiance") {
+        if (!Objects.equals(sensorTypeID.getID(), "SolarIrradiance")) {
             throw new IllegalArgumentException("SensorTypeID must be SolarIrradiance");
         }
         this._sensorTypeID = sensorTypeID;
@@ -147,5 +148,18 @@ public class SolarIrradianceSensor implements ISensor {
     @Override
     public DeviceID getDeviceID() {
         return this._deviceID;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof SolarIrradianceSensor sensor) {
+            return this._sensorID.equals(sensor._sensorID);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this._sensorID.hashCode();
     }
 }

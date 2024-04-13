@@ -1,4 +1,4 @@
-package smartHome.domain.sensor;
+package smartHome.domain.sensor.SolarIrradienceSensor;
 
 import smartHome.domain.sensor.solarIrradianceSensor.SolarIrradianceValue;
 import org.junit.jupiter.api.Test;
