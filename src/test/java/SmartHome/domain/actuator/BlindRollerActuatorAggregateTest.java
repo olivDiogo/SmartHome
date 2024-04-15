@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
-class BlindRollerActuatorTest {
+class BlindRollerActuatorAggregateTest {
 
     /**
      * Test of constructor, of class BlindRollerActuator.
@@ -332,5 +332,136 @@ class BlindRollerActuatorTest {
 
         //Assert
         assertNull(result);
+    }
+
+    /**
+     * Test equals method should return true when instances are same object.
+     */
+    @Test
+    void shouldReturnTrue_WhenInstancesAreSameObject() {
+        //Arrange
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+
+        //Act
+        boolean result = blindRollerActuator.equals(blindRollerActuator);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Test equals method should return false when instances are different objects.
+     */
+    @Test
+    void shouldReturnFalse_WhenInstancesAreDifferentObjects() {
+        //Arrange
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+
+        BlindRollerActuator blindRollerActuator2 = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+
+        //Act
+        boolean result = blindRollerActuator.equals(blindRollerActuator2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test equals method should return false when an object is not an instance of switch actuator.
+     */
+    @Test
+    void shouldReturnFalse_WhenObjectIsNotInstanceOfBlindRollerActuator() {
+        //Arrange
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+
+        Object object = new Object();
+
+        //Act
+        boolean result = blindRollerActuator.equals(object);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test hashcode method
+     */
+    @Test
+    void shouldReturnHashCode_WhenGetHashCodeIsCalled() {
+        //Arrange
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+
+        //Act
+        int result = blindRollerActuator.hashCode();
+
+        //Assert
+        assertNotNull(result);
+    }
+
+    /**
+     * Test toString method
+     */
+    @Test
+    void shouldReturnString_WhenToStringIsCalled() {
+        //Arrange
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+
+        String expected = blindRollerActuator.getID() + " " + blindRollerActuator.getDeviceID() + " " + blindRollerActuator.getModelPath() + " " + blindRollerActuator.getActuatorTypeID() + " " + blindRollerActuator.getName();
+
+        //Act
+        String result = blindRollerActuator.toString();
+
+        //Assert
+        assertEquals(expected, result);
     }
 }

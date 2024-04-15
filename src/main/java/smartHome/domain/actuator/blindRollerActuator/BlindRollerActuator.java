@@ -2,6 +2,7 @@ package smartHome.domain.actuator.blindRollerActuator;
 
 import smartHome.ddd.IValueObject;
 import smartHome.domain.actuator.IActuator;
+import smartHome.domain.actuator.setDecimalActuator.SetDecimalActuator;
 import smartHome.valueObject.*;
 
 import java.util.UUID;
@@ -14,9 +15,9 @@ public class BlindRollerActuator implements IActuator {
 
     private ActuatorID _actuatorID;
     private DeviceID _deviceID;
+    private ModelPath _modelPath;
     private ActuatorTypeID _actuatorTypeID;
     private ActuatorName _actuatorName;
-    private ModelPath _modelPath;
     private BlindRollerValue _value;
 
     /**
@@ -32,7 +33,6 @@ public class BlindRollerActuator implements IActuator {
         validateActuatorTypeID(actuatorTypeID);
         validateActuatorName(actuatorName);
         validateModelPath(modelPath);
-
         generateActuatorID();
     }
 
@@ -159,5 +159,37 @@ public class BlindRollerActuator implements IActuator {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Method to compare two instances
+     *
+     * @param object The object to compare with.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof BlindRollerActuator actuator) {
+            return _actuatorID.equals(actuator._actuatorID);
+        }
+        return false;
+    }
+
+    /**
+     * Overrides the hashCode method to return the hash code of the actuator ID.
+     */
+    @Override
+    public int hashCode() {
+        return _actuatorID.hashCode();
+    }
+
+    /**
+     * Returns a string representation of the actuator.
+     *
+     * @return A string representation of the actuator.
+     */
+    @Override
+    public String toString() {
+        return _actuatorID + " " + _deviceID + " " + _modelPath + " " + _actuatorTypeID + " " + _actuatorName;
     }
 }
