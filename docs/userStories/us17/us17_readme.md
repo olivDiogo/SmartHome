@@ -23,7 +23,7 @@ _To have a sensor that gives the temperature._
 _This user story does not depend on another._
 
 ### 1.4. Relevant domain aggregate model 
-![Sensor](../../general/agreggateModels/Sensor.png)
+![Sensor](../../ooa/4.agreggateModels/Sensor.png)
 
 ### 1.5. Required classes
 _SwitchSensor_ -> for the sensor class with its functionality

@@ -10,7 +10,7 @@ As Product Owner, I want the system to have a type of sensor that gives the sunr
 
 The relevant domain concepts for this user story:
 
-![Sensor](../../../docs/general/agreggateModels/Sensor.png)
+![Sensor](../../ooa/4.agreggateModels/Sensor.png)
 
 ## 3. Design
 
@@ -20,7 +20,7 @@ N/A
 
 ### 3.2 Class Diagram
 
-![artifacts/us20_CD.svg](artifacts/us20_CD.svg)
+![artifacts/us20_CD.svg](artifacts/us20_CD_v2.svg)
 
 ### 3.3 Applied Patterns
 

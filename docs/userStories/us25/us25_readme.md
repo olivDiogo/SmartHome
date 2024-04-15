@@ -11,7 +11,7 @@ average power consumption over a period (W)._
 
 The relevant domain concepts for this user story:
 
-![Sensor](../../../docs/general/agreggateModels/Sensor.png)
+![Sensor](../../ooa/4.agreggateModels/Sensor.png)
 
 ## 3. Design
 
@@ -21,7 +21,7 @@ N/A
 
 ### 3.2 Class Diagram
 
-![artifacts/us25_CD.svg](artifacts/us25_CD.svg)
+![artifacts/us25_CD.svg](artifacts/us25_CD_v2.svg)
 
 ### 3.3 Applied Patterns
 

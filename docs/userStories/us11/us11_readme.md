@@ -23,7 +23,7 @@ _To have a sensor that gives the humidity._
 _This user story does not depend on another._
 
 ### 1.4. Relevant domain aggregate model 
-![Sensor](../../general/agreggateModels/Sensor.png)
+![Sensor](../../ooa/4.agreggateModels/Sensor.png)
 
 ### 1.5. Required classes
 _HumiditySensor_ -> for the sensor class with its functionality
@@ -36,7 +36,7 @@ _ImplFactorySensor_ -> for the sensor instantiation
 ## 2. Design
 _The team will design the best way to implement the requirements._
 ### 2.1. Class Diagram
-![ClassDiagram](artifacts/US11CD.png)
+![ClassDiagram](../uc11/artifacts/US11CD.png)
 ### 2.2. Sequence Diagram
 Not applicable.
 ### 2.3. Applied Patterns

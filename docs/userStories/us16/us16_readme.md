@@ -23,7 +23,7 @@ _To have an actuator that sets an decimal value_
 This user story does not depend on any other user story.
 
 ### 1.3. Relevant domain model aggregates
-![Actuator](../../general/agreggateModels/Actuator.png)
+![Actuator](../../ooa/4.agreggateModels/Actuator.png)
 
 ### 1.4. Required classes
 _SetDecimalActuator_ -> for the actuator class with its functionality
@@ -35,7 +35,7 @@ _ImplFactoryActuator_ -> for the actuator instantiation
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](artifacts/US16CD.svg)
+![ClassDiagram](artifacts/us16_CD_v1.svg)
 
 ### 2.2. Sequence Diagram
 Not applicable.

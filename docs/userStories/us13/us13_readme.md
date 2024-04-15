@@ -24,7 +24,7 @@ _To have an actuator that switches a load ON/OFF_
 _This user story does not depend on another._
 
 ### 1.4. Relevant domain aggregate model
-![Actuator](../../general/agreggateModels/Actuator.png)
+![Actuator](../../ooa/4.agreggateModels/Actuator.png)
 
 ### 1.5. Required classes
 _SwitchActuator_ -> for the actuator class with its functionality
@@ -38,7 +38,7 @@ _ImplFactoryActuator_ -> for the actuator instantiation
 _The team will design the best way to implement the requirements._
 
 ### 2.1. Class Diagram
-![ClassDiagram](artifacts/US13CD.svg)
+![ClassDiagram](artifacts/us13_CD_v2.svg)
 ### 2.2. Sequence Diagram
 Not applicable.
 ### 2.3. Applied Patterns

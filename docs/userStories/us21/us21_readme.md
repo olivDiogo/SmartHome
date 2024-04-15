@@ -27,9 +27,9 @@ _Sunset Time Sensor_
 ### 1.3. Dependency of another user story
 
 ### 1.4. Relevant domain model aggregates
-![SensorType](../../../docs/general/agreggateModels/sensorTypeAggregate.png)
-![Unit](../../../docs/general/agreggateModels/Unit.png)
-![Sensor](../../../docs/general/agreggateModels/Sensor.png)
+![SensorType](../../ooa/4.agreggateModels/sensorTypeAggregate.png)
+![Unit](../../ooa/4.agreggateModels/Unit.png)
+![Sensor](../../ooa/4.agreggateModels/Sensor.png)
 
 ## 2. Analysis
 ### 2.1. Class Diagram

@@ -39,7 +39,7 @@ The relevant domain concepts for this user story:
 N/A
 
 ### 3.2 Class Diagram
-![artifacts/us19_CD.svg](artifacts/us19_CD.svg)
+![artifacts/us19_CD.svg](artifacts/us19_CD_v2.svg)
 
 ### 3.3 Applied Patterns
 

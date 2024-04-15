@@ -24,7 +24,7 @@ _To have an actuator that sets an integer value_
 _This user story does not depend on another._
 
 ### 1.4. Relevant domain aggregate model 
-![Actuator](../../general/agreggateModels/Actuator.png)
+![Actuator](../../ooa/4.agreggateModels/Actuator.png)
 
 ### 1.5. Required classes
 _SetIntegerActuator_ -> for the actuator class with its functionality

@@ -48,7 +48,7 @@
 - You can follow this standard
 
 ```markdown
-## USXXX
+## UCXXX
 
 ## 1. Requirements Engineering
 
