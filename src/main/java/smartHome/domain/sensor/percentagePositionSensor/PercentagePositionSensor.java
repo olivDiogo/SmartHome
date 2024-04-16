@@ -27,7 +27,7 @@ public class PercentagePositionSensor implements ISensor {
      * @param sensorName   The name of the sensor.
      * @throws IllegalArgumentException if any of the parameters are null.
      */
-    public PercentagePositionSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
+    public PercentagePositionSensor(ModelPath modelPath, SensorName sensorName, SensorTypeID sensorTypeID, DeviceID deviceID) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
@@ -162,4 +162,23 @@ public class PercentagePositionSensor implements ISensor {
         return this._percentagePositionSensorValue;
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof PercentagePositionSensor percentagePositionSensorObject) {
+            return _sensorID.equals(percentagePositionSensorObject._sensorID);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return _sensorID.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "SwitchSensor: DeviceID= " + _deviceID.getID() + " ModelPath= " + _modelPath.getID() + " SensorTypeID= " + _sensorTypeID.getID() + " SensorName= " + _sensorName.getSensorName() + " SensorID= " + _sensorID.getID();
+    }
+
 }
