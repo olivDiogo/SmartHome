@@ -162,4 +162,23 @@ public class PercentagePositionSensor implements ISensor {
         return this._percentagePositionSensorValue;
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof PercentagePositionSensor percentagePositionSensorObject) {
+            return _sensorID.equals(percentagePositionSensorObject._sensorID);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return _sensorID.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "SwitchSensor: DeviceID= " + _deviceID.getID() + " ModelPath= " + _modelPath.getID() + " SensorTypeID= " + _sensorTypeID.getID() + " SensorName= " + _sensorName.getSensorName() + " SensorID= " + _sensorID.getID();
+    }
+
 }
