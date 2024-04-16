@@ -12,18 +12,94 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ActuatorTypeServiceTest {
+class ActuatorTypeServiceTest {
+
+    /**
+     * Tests the instantiation of ActuatorTypeService with valid parameters.
+     */
+    @Test
+    void shouldInstantiateActuatorTypeService_WhenParametersAreValid() {
+        // Arrange
+        ActuatorTypeRepository actuatorTypeRepository = mock(ActuatorTypeRepository.class);
+        ActuatorTypeFactoryImpl actuatorTypeFactory = mock(ActuatorTypeFactoryImpl.class);
+        UnitRepository unitRepository = mock(UnitRepository.class);
+
+        // Act
+        ActuatorTypeService actuatorTypeService =
+                new ActuatorTypeService(actuatorTypeRepository, actuatorTypeFactory, unitRepository);
+
+        // Assert
+        assertNotNull(actuatorTypeService);
+    }
+
+    /**
+     * Test that the ActuatorTypeService can throw an IllegalArgumentException when the ActuatorType
+     * repository is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenActuatorTypeRepositoryIsNull() {
+        // Arrange
+        ActuatorTypeFactoryImpl actuatorTypeFactoryDouble = mock(ActuatorTypeFactoryImpl.class);
+        UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> new ActuatorTypeService(null, actuatorTypeFactoryDouble, unitRepositoryDouble));
+
+        // Assert
+        assertEquals("Please enter a valid actuator type repository.", exception.getMessage());
+    }
+
+    /**
+     * Test that the ActuatorTypeService can throw an IllegalArgumentException when the ActuatorType
+     * factory is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenActuatorTypeFactoryIsNull() {
+        // Arrange
+        ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
+        UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> new ActuatorTypeService(actuatorTypeRepositoryDouble, null, unitRepositoryDouble));
+
+        // Assert
+        assertEquals("Please enter a valid actuator type factory.", exception.getMessage());
+    }
+
+    /**
+     * Test that the ActuatorTypeService can throw an IllegalArgumentException when the Unit
+     * repository is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenUnitRepositoryIsNull() {
+        // Arrange
+        ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
+        ActuatorTypeFactoryImpl actuatorTypeFactoryDouble = mock(ActuatorTypeFactoryImpl.class);
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> new ActuatorTypeService(actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, null));
+
+        // Assert
+        assertEquals("Please enter a valid unit repository.", exception.getMessage());
+    }
+
+
     /**
      * Test that the ActuatorTypeService can return the ActuatorType when the ActuatorType is created
      * and saved to the repository.
      */
     @Test
-    public void shouldReturnTheActuatorType_whenActuatorTypeIsCreatedAndSavedToRepository() {
+    void shouldReturnTheActuatorType_whenActuatorTypeIsCreatedAndSavedToRepository() {
         // Arrange
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
         TypeDescription actuatorTypeName = mock(TypeDescription.class);
@@ -53,7 +129,7 @@ public class ActuatorTypeServiceTest {
      * name is null.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenActuatorTypeNameIsNull() {
+    void shouldThrowIllegalArgumentException_whenActuatorTypeNameIsNull() {
         // Arrange
         TypeDescription actuatorTypeName = null;
         UnitID unitID = mock(UnitID.class);
@@ -77,7 +153,7 @@ public class ActuatorTypeServiceTest {
      * already exists.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenActuatorTypeAlreadyExists() {
+    void shouldThrowIllegalArgumentException_whenActuatorTypeAlreadyExists() {
         // Arrange
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
         TypeDescription actuatorTypeName = mock(TypeDescription.class);
@@ -106,7 +182,7 @@ public class ActuatorTypeServiceTest {
      * Test save method
      */
     @Test
-    public void shouldReturnTheActuatorType_whenActuatorTypeIsSavedToRepository() {
+    void shouldReturnTheActuatorType_whenActuatorTypeIsSavedToRepository() {
         // Arrange
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
         TypeDescription actuatorTypeName = mock(TypeDescription.class);
@@ -135,7 +211,7 @@ public class ActuatorTypeServiceTest {
      * Test find all actuator types
      */
     @Test
-    public void shouldReturnAllActuatorTypes_whenFindAllActuatorTypes() {
+    void shouldReturnAllActuatorTypes_whenFindAllActuatorTypes() {
         // Arrange
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
         TypeDescription actuatorTypeName = mock(TypeDescription.class);
@@ -164,7 +240,7 @@ public class ActuatorTypeServiceTest {
      * Test find actuator by typeId
      */
     @Test
-    public void shouldReturnActuatorType_whenFindActuatorTypeByTypeId() {
+    void shouldReturnActuatorType_whenFindActuatorTypeByTypeId() {
         // Arrange
         ActuatorType actuatorTypeDouble = mock(ActuatorType.class);
         TypeDescription actuatorTypeName = mock(TypeDescription.class);

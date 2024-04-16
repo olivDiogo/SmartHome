@@ -27,14 +27,44 @@ public class ActuatorTypeService {
      * @param unitRepository
      */
     public ActuatorTypeService(
-            ActuatorTypeRepository actuatorTypeRepository,
-            ActuatorTypeFactoryImpl actuatorTypeFactory,
-            UnitRepository unitRepository) {
-
+            IRepository<ActuatorTypeID, ActuatorType> actuatorTypeRepository,
+            IActuatorTypeFactory actuatorTypeFactory,
+            IRepository<UnitID, Unit> unitRepository) {
+        validateActuatorTypeRepository(actuatorTypeRepository);
         this._actuatorTypeRepository = actuatorTypeRepository;
+        validateActuatorTypeFactory(actuatorTypeFactory);
         this._actuatorTypeFactory = actuatorTypeFactory;
+        validateUnitRepository(unitRepository);
         this._unitRepository = unitRepository;
     }
+
+    /**
+     * Validate the actuatorType repository.
+     */
+    private void validateActuatorTypeRepository(IRepository<ActuatorTypeID, ActuatorType> actuatorTypeRepository) {
+        if (actuatorTypeRepository == null) {
+            throw new IllegalArgumentException("Please enter a valid actuator type repository.");
+        }
+    }
+
+    /**
+     * Validate the actuatorType factory.
+     */
+    private void validateActuatorTypeFactory(IActuatorTypeFactory actuatorTypeFactory) {
+        if (actuatorTypeFactory == null) {
+            throw new IllegalArgumentException("Please enter a valid actuator type factory.");
+        }
+    }
+
+    /**
+     * Validate the unit repository.
+     */
+    private void validateUnitRepository(IRepository<UnitID, Unit> unitRepository) {
+        if (unitRepository == null) {
+            throw new IllegalArgumentException("Please enter a valid unit repository.");
+        }
+    }
+
 
     /**
      * Add an ActuatorType. If the ActuatorType already exists, throw an IllegalArgumentException.
