@@ -13,7 +13,7 @@ class DeviceTest {
      * Instantiates a new Device object with valid parameters.
      */
     @Test
-    void shouldInstantiateANewDevice() {
+    void shouldInstantiateANewDevice_WhenIDDoesntExist() {
 
         //Arrange
         RoomID roomID = mock(RoomID.class);
@@ -29,6 +29,27 @@ class DeviceTest {
             assertNotNull(device);
         }
     }
+
+    /**
+     * Instantiates a new Device object with valid parameters if ID already exists.
+     */
+    @Test
+    void shouldInstantiateANewDevice_whenIDExists() {
+        //Arrange
+        RoomID roomID = mock(RoomID.class);
+        DeviceName deviceName = mock(DeviceName.class);
+        DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+
+
+        //Act
+        Device device = new Device(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
+
+        //Assert
+        assertNotNull(device);
+    }
+
 
     /**
      * Throws an IllegalArgumentException when the constructor is called with a null RoomID.

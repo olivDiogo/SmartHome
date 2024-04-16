@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeviceAggregateTest {
 
     /**
-     * Test that the Device class can be instantiated with valid parameters.
+     * Test that the Device class can be instantiated without ID.
      */
     @Test
     void shouldInstantiateANewDevice() {
@@ -31,8 +31,34 @@ class DeviceAggregateTest {
         assertNotNull(device);
     }
 
+
     /**
-     * Tests if the roomID is returned correctly.
+     * Test that the Device class can be instantiated with ID.
+     */
+    @Test
+    void shouldInstantiateANewDeviceWithID() {
+        //Arrange
+        String roomIDName = "1a24";
+        String name = "lamp";
+        boolean status = true;
+        String typeID = "123";
+        String deviceID = "1";
+
+        RoomID roomID = new RoomID(roomIDName);
+        DeviceName deviceName = new DeviceName(name);
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
+        DeviceID deviceIDDouble = new DeviceID(deviceID);
+
+        //Act
+        Device device = new Device(deviceIDDouble, roomID, deviceName, deviceStatus, deviceTypeID);
+
+        //Assert
+        assertNotNull(device);
+    }
+
+    /**
+     * Test roomID
      */
 
     @Test

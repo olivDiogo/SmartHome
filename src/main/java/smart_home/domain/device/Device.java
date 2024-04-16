@@ -34,6 +34,22 @@ public class Device implements IAggregateRoot<DeviceID> {
     }
 
     /**
+     * Constructs a new Device instance with the specified device ID, room ID, device name, device state, and device type ID.
+     * @param deviceID
+     * @param roomID
+     * @param deviceName
+     * @param deviceStatus
+     * @param deviceTypeID
+     */
+    Device(DeviceID deviceID, RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus, DeviceTypeID deviceTypeID) {
+        this._deviceID = deviceID;
+        this._roomID = roomID;
+        this._deviceName = deviceName;
+        this._deviceStatus = deviceStatus;
+        this._deviceTypeID = deviceTypeID;
+    }
+
+    /**
      * Generates a new DeviceID object.
      */
     private void generateDeviceID() {

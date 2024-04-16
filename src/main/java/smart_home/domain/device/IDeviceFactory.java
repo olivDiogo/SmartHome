@@ -1,9 +1,6 @@
 package smart_home.domain.device;
 
-import smart_home.value_object.DeviceName;
-import smart_home.value_object.DeviceStatus;
-import smart_home.value_object.DeviceTypeID;
-import smart_home.value_object.RoomID;
+import smart_home.value_object.*;
 
 public interface IDeviceFactory {
 
@@ -13,7 +10,19 @@ public interface IDeviceFactory {
      * @param roomID      The room ID where the device is located.
      * @param deviceName  The name of the device.
      * @param deviceState The state of the device.
-     * @return a newly created Device instance
+     * @return a newly created Device instance without ID
      */
     Device createDevice(RoomID roomID, DeviceName deviceName, DeviceStatus deviceState, DeviceTypeID deviceTypeID);
+
+    /**
+     * Creates and returns a new {@link Device} instance with the provided device ID, room ID, device name, device state, and device type ID.
+     * @param deviceID
+     * @param roomID
+     * @param deviceName
+     * @param deviceState
+     * @param deviceTypeID
+     * @return a newly created Device instance with ID
+     */
+
+    Device createDevice(DeviceID deviceID, RoomID roomID, DeviceName deviceName, DeviceStatus deviceState, DeviceTypeID deviceTypeID);
 }
