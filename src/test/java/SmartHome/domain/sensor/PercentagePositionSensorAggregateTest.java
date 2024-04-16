@@ -1,14 +1,11 @@
 package smartHome.domain.sensor;
 
-
-import org.junit.jupiter.api.Test;
 import smartHome.domain.sensor.percentagePositionSensor.PercentagePositionSensor;
-import smartHome.domain.sensor.percentagePositionSensor.PercentagePositionSensorValue;
 import smartHome.valueObject.DeviceID;
 import smartHome.valueObject.ModelPath;
 import smartHome.valueObject.SensorName;
 import smartHome.valueObject.SensorTypeID;
-
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Test cases for the PercentagePositionSensor class.
  */
-class PercentagePositionSensorTest {
+class PercentagePositionSensorAggregateTest {
 
     /**
      * Test to verify that PercentagePositionSensor is properly instantiated when constructor arguments are valid.
@@ -99,7 +96,6 @@ class PercentagePositionSensorTest {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID));
         assertEquals("DeviceID is required", thrown.getMessage());
     }
-
 
     /**
      * Test to verify that the correct value is returned when getValue is called.
@@ -257,7 +253,7 @@ class PercentagePositionSensorTest {
     }
 
     @Test
-    void shouldReturnSensorValue_whenGetSensorValueIsCalled() {
+    void shouldReturnTrue_WhenInstancesAreSameObject() {
         // Arrange
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
@@ -272,10 +268,84 @@ class PercentagePositionSensorTest {
         PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
 
         // Act
-        PercentagePositionSensorValue result = percentagePositionSensor.getValue();
+        boolean result = percentagePositionSensor.equals(percentagePositionSensor);
 
         // Assert
-        assertNotNull(result);
+
+        assertTrue(result);
+    }
+
+    @Test
+    void shouldReturnFalse_WhenInstancesAreNotEqual() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Percentage";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+
+        // Act
+        boolean result = percentagePositionSensor.equals(null);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void shouldReturnPercentagePositionSensorHashCode_WhenHashCodeMethodIsCalled(){
+
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Percentage";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        int expected = percentagePositionSensor.hashCode();
+        // Act
+        int result = percentagePositionSensor.hashCode();
+
+        // Assert
+
+        assertEquals(expected,result);
+    }
+
+    /** test for tostring method */
+
+    @Test
+    void shouldReturnPercentagePositionSensorString_WhenToStringMethodIsCalled(){
+
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Percentage";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        String expected = "SwitchSensor: DeviceID= " + deviceIDValue + " ModelPath= " + modelPathValue + " SensorTypeID= " + sensorTypeIDValue + " SensorName= " + sensorNameValue + " SensorID= " + percentagePositionSensor.getID().getID();
+        // Act
+        String result = percentagePositionSensor.toString();
+
+        // Assert
+
+        assertEquals(expected,result);
     }
 
 }
