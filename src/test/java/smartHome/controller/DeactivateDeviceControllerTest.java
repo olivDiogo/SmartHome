@@ -46,6 +46,50 @@ class DeactivateDeviceControllerTest {
     }
 
     /**
+     * Test to verify that the US08DeactivateDevice constructor throws an exception when the DeviceService is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenUS08DeactivateDeviceIsConstructedAndDeviceServiceIsNull() {
+        // Arrange
+        DeactivateDeviceController deactivateDeviceController;
+        DeviceRepository deviceRepository = new DeviceRepository();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+        RoomRepository roomRepository = new RoomRepository();
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceAssembler deviceAssembler = new DeviceAssembler();
+
+        // Act
+        IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new DeactivateDeviceController(null, deviceAssembler);
+        });
+
+        // Assert
+        assertEquals("DeviceService cannot be null.", exception.getMessage());
+    }
+
+/**
+     * Test to verify that the US08DeactivateDevice constructor throws an exception when the DeviceAssembler is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenUS08DeactivateDeviceIsConstructedAndDeviceAssemblerIsNull() {
+        // Arrange
+        DeactivateDeviceController deactivateDeviceController;
+        DeviceRepository deviceRepository = new DeviceRepository();
+        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+        RoomRepository roomRepository = new RoomRepository();
+        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceAssembler deviceAssembler = new DeviceAssembler();
+
+        // Act
+        IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new DeactivateDeviceController(deviceService, null);
+        });
+
+        // Assert
+        assertEquals("DeviceAssembler cannot be null.", exception.getMessage());
+    }
+
+    /**
      * Test to verify that the requestAllDevices method returns all devices.
      */
     @Test

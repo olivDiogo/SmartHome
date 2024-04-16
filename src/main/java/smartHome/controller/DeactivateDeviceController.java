@@ -21,8 +21,32 @@ public class DeactivateDeviceController {
      * @param deviceAssembler is the assembler for the device.
      */
     public DeactivateDeviceController(DeviceService deviceService, DeviceAssembler deviceAssembler) {
+        validateDeviceService(deviceService);
         _deviceService = deviceService;
+        validateDeviceAssembler(deviceAssembler);
         _deviceAssembler = deviceAssembler;
+    }
+
+    /**
+     * Validates that the DeviceService is not null.
+     *
+     * @param deviceService the DeviceService to validate
+     */
+    private void validateDeviceService(DeviceService deviceService) {
+        if (deviceService == null) {
+            throw new IllegalArgumentException("DeviceService cannot be null.");
+        }
+    }
+
+    /**
+     * Validates that the DeviceAssembler is not null.
+     *
+     * @param deviceAssembler the DeviceAssembler to validate
+     */
+    private void validateDeviceAssembler(DeviceAssembler deviceAssembler) {
+        if (deviceAssembler == null) {
+            throw new IllegalArgumentException("DeviceAssembler cannot be null.");
+        }
     }
 
     /**
