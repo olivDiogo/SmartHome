@@ -1,12 +1,13 @@
 package smartHome.domain.actuatorType;
 
+import smartHome.valueObject.ActuatorTypeID;
 import smartHome.valueObject.TypeDescription;
 import smartHome.valueObject.UnitID;
 
 public class ActuatorTypeFactoryImpl implements IActuatorTypeFactory {
 
     /**
-     * Creates and returns a new {@link SmartHome.domain.ActuatorType} instance with the provided description.
+     * Creates and returns a new ActuatorType instance with the provided description.
      *
      * @param name the description of the actuatorType
      * @return a newly created ActuatorType instance
@@ -14,5 +15,16 @@ public class ActuatorTypeFactoryImpl implements IActuatorTypeFactory {
     @Override
     public ActuatorType createActuatorType(TypeDescription name, UnitID unitID) {
         return new ActuatorType(name, unitID);
+    }
+
+    /**
+     * @param name
+     * @param unitID
+     * @param actuatorTypeID
+     * @return
+     */
+    @Override
+    public ActuatorType createActuatorType(TypeDescription name, UnitID unitID, ActuatorTypeID actuatorTypeID) {
+        return new ActuatorType(name, unitID, actuatorTypeID);
     }
 }
