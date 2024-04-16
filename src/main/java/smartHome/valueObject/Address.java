@@ -105,6 +105,24 @@ public class Address implements IValueObject {
     }
 
     /**
+     * Getter for country code.
+     *
+     * @return _countryCode.
+     */
+    public String getCountryCode() {
+        return this._countryCode;
+    }
+
+    /**
+     * Getter for postal code.
+     *
+     * @return _postalCode.
+     */
+    public IPostalCode getPostalCode() {
+        return this._postalCode;
+    }
+
+    /**
      * Address object to string
      *
      * @return String
