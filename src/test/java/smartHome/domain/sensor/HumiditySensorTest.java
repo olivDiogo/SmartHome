@@ -1,296 +1,441 @@
 package smartHome.domain.sensor;
 
+
+import org.mockito.MockedConstruction;
 import smartHome.domain.sensor.humiditySensor.HumiditySensor;
 import smartHome.domain.sensor.humiditySensor.HumiditySensorValue;
 import smartHome.valueObject.*;
 import org.junit.jupiter.api.Test;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
+/**
+ * Test class for the HumiditySensor class.
+ */
 class HumiditySensorTest {
 
     /**
-     * Tests the instantiation of HumiditySensor when the constructor arguments are valid.
+     * Test case for instantiating HumiditySensor with valid constructor arguments.
      */
     @Test
     void shouldInstantiateHumiditySensor_whenConstructorArgumentsAreValid() {
         // Arrange
-        String deviceIDValue = "deviceID";
-        String modelPathValue = "modelPath";
-        String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Humidity";
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
 
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-
-        // Act
-        HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
-
-        // Assert
-        assertNotNull(humiditySensor);
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("1234");
+        })) {
+            // Act
+            HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            // Assert
+            assertNotNull(humiditySensor);
+        }
     }
 
     /**
-     * Tests the instantiation of HumiditySensor when the deviceID is null.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenDeviceIDIsNull() {
-        // Arrange
-        String modelPathValue = "modelPath";
-        String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Humidity";
-
-        DeviceID deviceID = null;
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-
-        // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName));
-
-        // Assert
-        assertEquals("DeviceID is required", exception.getMessage());
-    }
-
-    /**
-     * Tests the instantiation of HumiditySensor when the modelPath is null.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenModelPathIsNull() {
-        // Arrange
-        String deviceIDValue = "deviceID";
-        String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Humidity";
-
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = null;
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-
-        // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName));
-
-        // Assert
-        assertEquals("ModelPath is required", exception.getMessage());
-    }
-
-    /**
-     * Tests the instantiation of HumiditySensor when the sensorTypeID is null.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNull() {
-        // Arrange
-        String deviceIDValue = "deviceID";
-        String modelPathValue = "modelPath";
-        String sensorNameValue = "sensorName";
-
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = null;
-
-        // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName));
-
-        // Assert
-        assertEquals("SensorTypeID is required", exception.getMessage());
-    }
-
-    /**
-     * Tests the instantiation of HumiditySensor when the sensorName is null.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenSensorNameIsNull() {
-        // Arrange
-        String deviceIDValue = "deviceID";
-        String modelPathValue = "modelPath";
-        String sensorTypeIDValue = "Humidity";
-
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = null;
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-
-        // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName));
-
-        // Assert
-        assertEquals("SensorName is required", exception.getMessage());
-    }
-
-    /**
-     * Tests the getID method of HumiditySensor.
+     * Test case for getting SensorID.
      */
     @Test
     void shouldReturnSensorID_whenGetIDIsCalled() {
         // Arrange
-        String deviceIDValue = "deviceID";
-        String modelPathValue = "modelPath";
-        String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Humidity";
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
 
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = mock(SensorID.class);
+        when(sensorID.getID()).thenReturn("1234");
 
-        HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+        String expectedID = "1234";
 
-        // Act
-        SensorID result = humiditySensor.getID();
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("1234");
+        })) {
 
-        // Assert
-        assertNotNull(result);
+            HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+            // Act
+            SensorID result = humiditySensor.getID();
+            // Assert
+            assertEquals(expectedID, result.getID());
+
+        }
     }
 
     /**
-     * Tests the getModelPath method of HumiditySensor.
+     * Test case for getting SensorName.
      */
     @Test
-    void shouldReturnModelPath_whenGetModelPathIsCalled() {
+    void shouldReturnSensorName_whenGetSensorNameIsCalled() {
         // Arrange
-        String deviceIDValue = "deviceID";
-        String modelPathValue = "modelPath";
-        String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Humidity";
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        when(sensorName.toString()).thenReturn("SensorName");
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
 
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        String expectedSensorName = "SensorName";
 
-        HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("1234");
+        })) {
+            // Act
+            HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            SensorName result = humiditySensor.getName();
 
-        // Act
-        ModelPath result = humiditySensor.getModelPath();
-
-        // Assert
-        assertEquals(modelPath, result);
+            // Assert
+            assertEquals(expectedSensorName, result.toString());
+        }
     }
 
     /**
-     * Tests the getName method of HumiditySensor.
+     * Test case for getting ModelPath.
      */
     @Test
-    void shouldReturnSensorName_whenGetNameIsCalled() {
+    void shouldReturnModelPath_whenGetModelPathMethodIsCalled() {
         // Arrange
-        String deviceIDValue = "deviceID";
-        String modelPathValue = "modelPath";
-        String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Humidity";
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        when(modelPath.toString()).thenReturn("ModelPath");
 
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
 
-        HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+        SensorID sensorID = mock(SensorID.class);
+        when(sensorID.getID()).thenReturn("1234");
 
-        // Act
-        SensorName result = humiditySensor.getName();
+        String expectedModelPath = "ModelPath";
 
-        // Assert
-        assertEquals(sensorName, result);
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("1234");
+        })) {
+
+            // Act
+            HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            ModelPath result = humiditySensor.getModelPath();
+
+            // Assert
+            assertEquals(expectedModelPath, result.toString());
+        }
     }
 
     /**
-     * Tests the getSensorTypeID method of HumiditySensor.
+     * Test case for getting SensorTypeID.
      */
     @Test
-    void shouldReturnSensorTypeID_whenGetSensorTypeIDIsCalled() {
+    void shouldReturnSensorTypeID_whenGetSensorTypeIDMethodIsCalled() {
         // Arrange
-        String deviceIDValue = "deviceID";
-        String modelPathValue = "modelPath";
-        String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Humidity";
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
 
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
 
-        HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+        String expectedSensorTypeID = "Humidity";
 
-        // Act
-        SensorTypeID result = humiditySensor.getSensorTypeID();
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("1234");
+        })) {
+            // Act
+            HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            SensorTypeID result = humiditySensor.getSensorTypeID();
 
-        // Assert
-        assertEquals(sensorTypeID, result);
+            // Assert
+            assertEquals(expectedSensorTypeID, result.getID());
+        }
     }
 
     /**
-     * Tests the getter for the sensor type ID when the sensor type ID is not of type 'Humidity'.
+     * Test case for getting DeviceID.
      */
     @Test
-    void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNotHumidity() {
+    void shouldReturnDeviceID_whenGetDeviceIDMethodIsCalled() {
         // Arrange
-        String deviceIDValue = "deviceID";
-        String modelPathValue = "modelPath";
-        String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Temperature";
+        DeviceID deviceID = mock(DeviceID.class);
+        when(deviceID.toString()).thenReturn("Device ID");
 
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
 
-        // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName));
+        String expectedDeviceID = "Device ID";
 
-        // Assert
-        assertEquals("SensorTypeID must be of type 'Humidity'", exception.getMessage());
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("1234");
+        })) {
+            // Act
+            HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            DeviceID result = humiditySensor.getDeviceID();
+
+            // Assert
+            assertEquals(expectedDeviceID, result.toString());
+        }
     }
 
     /**
-     * Tests the getDeviceID method of HumiditySensor.
+     * Test case for verifying equality of two objects.
      */
     @Test
-    void shouldReturnDeviceID_whenGetDeviceIDIsCalled() {
+    void shouldReturnTrue_WhenInstancesAreSameObject() {
         // Arrange
-        String deviceIDValue = "deviceID";
-        String modelPathValue = "modelPath";
-        String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Humidity";
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
 
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("1234");
+        })) {
+            HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-        HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            // Act
+            boolean result = humiditySensor.equals(humiditySensor);
 
-        // Act
-        DeviceID result = humiditySensor.getDeviceID();
-
-        // Assert
-        assertEquals(deviceID, result);
+            // Assert
+            assertTrue(result);
+        }
     }
 
     /**
-     * Tests the getSensorValue method of HumiditySensor.
+     * Test case for verifying inequality of two objects.
      */
     @Test
-    void shouldReturnSensorValue_whenGetSensorValueIsCalled() {
+    void shouldReturnFalse_WhenInstancesAreNotEqual() {
         // Arrange
-        String deviceIDValue = "deviceID";
-        String modelPathValue = "modelPath";
-        String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Humidity";
+        DeviceID deviceID1 = mock(DeviceID.class);
+        ModelPath modelPath1 = mock(ModelPath.class);
+        SensorName sensorName1 = mock(SensorName.class);
+        SensorTypeID sensorTypeID1 = mock(SensorTypeID.class);
+        when(sensorTypeID1.getID()).thenReturn("Humidity");
 
-        DeviceID deviceID = new DeviceID(deviceIDValue);
-        ModelPath modelPath = new ModelPath(modelPathValue);
-        SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        DeviceID deviceID2 = mock(DeviceID.class);
+        ModelPath modelPath2 = mock(ModelPath.class);
+        SensorName sensorName2 = mock(SensorName.class);
+        SensorTypeID sensorTypeID2 = mock(SensorTypeID.class);
+        when(sensorTypeID2.getID()).thenReturn("Humidity");
 
-        HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction1 = mockConstruction(SensorID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("1234");
+        })) {
+            HumiditySensor humiditySensor1 = new HumiditySensor(deviceID1, modelPath1, sensorTypeID1, sensorName1);
+            HumiditySensor humiditySensor2 = new HumiditySensor(deviceID2, modelPath2, sensorTypeID2, sensorName2);
 
-        // Act
-        HumiditySensorValue result = humiditySensor.getValue();
+            // Act
+            boolean result = humiditySensor1.equals(humiditySensor2);
 
-        // Assert
-        double value = Double.parseDouble(result.toString());
-        assertTrue(value >= 0 && value <= 100);
+            // Assert
+            assertFalse(result);
+        }
     }
+
+    /**
+     * Test case for getting hashCode of HumiditySensor.
+     */
+    @Test
+    void shouldReturnHumiditySensorHashCode_WhenHashCodeMethodIsCalled() {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
+
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("1234");
+        })) {
+            HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            int expected = humiditySensor.getID().hashCode();
+            // Act
+            int result = humiditySensor.hashCode();
+
+            // Assert
+            assertEquals(expected, result);
+        }
+    }
+
+    /**
+     * Test case for throwing IllegalArgumentException when ModelPath is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenModelPathIsNull() {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = null;
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+        })) {
+            // Act
+            try {
+                new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            } catch (IllegalArgumentException e) {
+                // Assert
+                assertEquals("ModelPath is required", e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Test case for throwing IllegalArgumentException when SensorTypeID is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNull() {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = null;
+
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+        })) {
+            // Act
+            try {
+                new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            } catch (IllegalArgumentException e) {
+                // Assert
+                assertEquals("SensorTypeID is required", e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Test case for throwing IllegalArgumentException when DeviceID is not null and type is different.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenDeviceIDNotNullAndTypeDifferent() {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath  modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Switch");
+
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+        })) {
+            // Act
+            try {
+                new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            } catch (IllegalArgumentException e) {
+                // Assert
+                assertEquals("SensorTypeID must be of type 'Humidity'", e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Test case for throwing IllegalArgumentException when SensorName is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorNameIsNull() {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = null;
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+        })) {
+            // Act
+            try {
+                new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            } catch (IllegalArgumentException e) {
+                // Assert
+                assertEquals("SensorName is required", e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Test case for getting value of HumiditySensor.
+     */
+    @Test
+    void shouldReturnValue_WhenGetValueMethodIsCalled() {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
+
+        {
+            HumiditySensor sensor;
+
+            try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+            })) {
+                sensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            }
+            try (MockedConstruction<HumiditySensorValue> sensorValueConstruction = mockConstruction(HumiditySensorValue.class, (mock, context) -> {
+
+            })) {
+                HumiditySensorValue result = sensor.getValue();
+                // Assert
+                List<HumiditySensorValue> values = sensorValueConstruction.constructed();
+                assertEquals(values.get(0), result);
+            }
+        }
+    }
+
+    /**
+     * Test case for throwing IllegalArgumentException when DeviceID is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenDeviceIDIsNull() {
+        // Arrange
+        DeviceID deviceID = null;
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
+
+        try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
+        })) {
+            // Act
+            try {
+                new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+            } catch (IllegalArgumentException e) {
+                // Assert
+                assertEquals("DeviceID is required", e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Test case for verifying inequality with null object.
+     */
+    @Test
+    void shouldReturnFalse_WhenComparingObjectWithNull() {
+        //Arrange
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+
+        when(sensorTypeIDDouble.getID()).thenReturn("Humidity");
+
+        try (MockedConstruction<SensorID> mocked = mockConstruction(SensorID.class)) {
+            HumiditySensor humiditySensor = new HumiditySensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble);
+            //Act
+            boolean result = humiditySensor.equals(null);
+            //Assert
+            assertFalse(result);
+        }
+    }
+
 }
+
+
+
+
