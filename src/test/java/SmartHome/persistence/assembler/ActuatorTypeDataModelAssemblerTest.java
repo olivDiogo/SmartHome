@@ -8,7 +8,10 @@ import smartHome.valueObject.ActuatorTypeID;
 import smartHome.valueObject.TypeDescription;
 import smartHome.valueObject.UnitID;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -58,20 +61,18 @@ class ActuatorTypeDataModelAssemblerTest {
         String actuatorTypeName = "Temperature";
         String unitID = "Celsius";
 
-        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-        TypeDescription actuatorTypeNameDouble = mock(TypeDescription.class);
-        UnitID unitIDDouble = mock(UnitID.class);
-
         ActuatorTypeDataModel actuatorTypeDataModelDouble = mock(ActuatorTypeDataModel.class);
-
         when(actuatorTypeDataModelDouble.getActuatorTypeID()).thenReturn(actuatorTypeID);
         when(actuatorTypeDataModelDouble.getActuatorTypeName()).thenReturn(actuatorTypeName);
         when(actuatorTypeDataModelDouble.getUnitID()).thenReturn(unitID);
 
         IActuatorTypeFactory actuatorTypeFactory = mock(IActuatorTypeFactory.class);
-        ActuatorTypeDataModelAssembler actuatorTypeDataModelAssembler = new ActuatorTypeDataModelAssembler(actuatorTypeFactory);
+        ActuatorType expected = new ActuatorType(new TypeDescription(actuatorTypeName), new UnitID(unitID), new ActuatorTypeID(actuatorTypeID));
 
-        ActuatorType expected = actuatorTypeFactory.createActuatorType(actuatorTypeNameDouble, unitIDDouble, actuatorTypeIDDouble);
+        when(actuatorTypeFactory.createActuatorType(any(TypeDescription.class), any(UnitID.class), any(ActuatorTypeID.class)))
+                .thenReturn(expected);
+
+        ActuatorTypeDataModelAssembler actuatorTypeDataModelAssembler = new ActuatorTypeDataModelAssembler(actuatorTypeFactory);
 
         // Act
         ActuatorType result = actuatorTypeDataModelAssembler.toDomain(actuatorTypeDataModelDouble);
@@ -81,10 +82,10 @@ class ActuatorTypeDataModelAssemblerTest {
     }
 
     /**
-     * Test to ensure that a list of ActuatorTypeDataModels can be converted to a list of ActuatorTypes successfully.
+     * Test to ensure that a list of two ActuatorTypeDataModels can be converted to a list of ActuatorTypes successfully.
      */
     @Test
-    void shouldConvertActuatorTypeDataModelListToDomainList_WhenActuatorTypeDataModelListIsValid() {
+    void shouldConvertListOfActuatorTypeDataModelsToDomain_WhenListOfActuatorTypeDataModelsIsValid() {
         // Arrange
         String actuatorTypeID = "1";
         String actuatorTypeName = "Temperature";
@@ -100,15 +101,20 @@ class ActuatorTypeDataModelAssemblerTest {
         when(actuatorTypeDataModelDouble.getActuatorTypeName()).thenReturn(actuatorTypeName);
         when(actuatorTypeDataModelDouble.getUnitID()).thenReturn(unitID);
 
+        List<ActuatorTypeDataModel> actuatorTypeDataModels = List.of(actuatorTypeDataModelDouble, actuatorTypeDataModelDouble);
+
         IActuatorTypeFactory actuatorTypeFactory = mock(IActuatorTypeFactory.class);
         ActuatorTypeDataModelAssembler actuatorTypeDataModelAssembler = new ActuatorTypeDataModelAssembler(actuatorTypeFactory);
 
         ActuatorType expected = actuatorTypeFactory.createActuatorType(actuatorTypeNameDouble, unitIDDouble, actuatorTypeIDDouble);
 
         // Act
-        ActuatorType result = actuatorTypeDataModelAssembler.toDomain(actuatorTypeDataModelDouble);
+        List<ActuatorType> result = actuatorTypeDataModelAssembler.toDomain(actuatorTypeDataModels);
 
         // Assert
-        assertEquals(expected, result);
+        assertEquals(2, result.size());
+        assertEquals(expected, result.get(0));
+        assertEquals(expected, result.get(1));
+        assertEquals(actuatorTypeDataModels.size(), result.size());
     }
 }
