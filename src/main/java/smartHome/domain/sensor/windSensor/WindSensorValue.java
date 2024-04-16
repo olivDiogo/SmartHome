@@ -34,4 +34,21 @@ public class WindSensorValue implements IValueObject {
     public double getDirection() {
         return this._direction;
     }
+
+    /**
+     * Compares this WindSensorValue to another object.
+     *
+     *
+     * @param obj The object to compare.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof WindSensorValue) {
+            WindSensorValue other = (WindSensorValue) obj;
+            return this._speed == other._speed && this._direction == other._direction;
+        }
+        return false;
+    }
+
 }

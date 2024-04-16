@@ -3,6 +3,7 @@ package smartHome.domain.sensor.windSensor;
 import smartHome.domain.sensor.ISensor;
 import smartHome.valueObject.*;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ public class WindSensor implements ISensor {
     private SensorName _sensorName;
     private SensorID _sensorID;
     private SensorTypeID _sensorTypeID;
-    private WindSensorValue _WindSensorValue;
+    private WindSensorValue _windSensorValue;
     private DeviceID _deviceID;
 
     public WindSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
@@ -63,6 +64,10 @@ public class WindSensor implements ISensor {
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
+
+        } else if (!Objects.equals(sensorTypeID.getID(), "Wind")) {
+            throw new IllegalArgumentException("SensorTypeID must be 'Wind'");
+
         } else {
             this._sensorTypeID = sensorTypeID;
         }
@@ -141,7 +146,47 @@ public class WindSensor implements ISensor {
         Random rand = new Random();
         int speed = rand.nextInt(408); //wind speed world record
         double direction = rand.nextDouble() * 2 * Math.PI; // direction in radians
-        this._WindSensorValue = new WindSensorValue(speed, direction);
-        return _WindSensorValue;
+        this._windSensorValue = new WindSensorValue(speed, direction);
+        return _windSensorValue;
+    }
+
+    /**
+     *Checks if the sensor is equal to another sensor.
+     *
+     * @param o The sensor to compare.
+     * @return True if the sensors are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WindSensor sensor = (WindSensor) o;
+        return _sensorID.toString().equals(sensor._sensorID.toString());
+    }
+
+    /**
+     * Method to get the hash code of the sensor.
+     *
+     * @return the hash code.
+     */
+    @Override
+    public int hashCode() {
+        return _sensorID.hashCode();
+    }
+
+    /**
+     * Method to get the string representation of the sensor.
+     *
+     * @return the string representation.
+     */
+    @Override
+    public String toString() {
+        return "WindSensor:" +
+                " modelPath=" + _modelPath +
+                ", sensorName=" + _sensorName +
+                ", sensorID=" + _sensorID +
+                ", sensorTypeID=" + _sensorTypeID +
+                ", windSensorValue=" + _windSensorValue +
+                ", deviceID=" + _deviceID;
     }
 }
