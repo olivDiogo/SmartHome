@@ -34,6 +34,27 @@ public class Room implements IAggregateRoot<RoomID> {
     }
 
     /**
+     * Constructs a new Room instance with the specified house ID, room name, dimension, room floor, and room ID.
+     * @param houseID
+     * @param roomName
+     * @param dimension
+     * @param roomFloor
+     * @param roomID
+     */
+    Room(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor, RoomID roomID) {
+        validateHouseID(houseID);
+        validateRoomID(roomID);
+        validateRoomName(roomName);
+        validateRoomDimension(dimension);
+        validateRoomFloor(roomFloor);
+        _roomID = roomID;
+        _houseID = houseID;
+        _roomFloor = roomFloor;
+        _roomName = roomName;
+        _dimension = dimension;
+    }
+
+    /**
      * Generates a new RoomID object.
      */
     private void generateRoomID() {
@@ -48,6 +69,15 @@ public class Room implements IAggregateRoot<RoomID> {
     private void validateHouseID(HouseID houseID) {
         if (houseID == null) {
             throw new IllegalArgumentException("HouseID is required");
+        }
+    }
+
+    /**
+     * Validates the provided RoomID object.
+     */
+    private void validateRoomID(RoomID roomID) {
+        if (roomID == null) {
+            throw new IllegalArgumentException("RoomID is required");
         }
     }
 
@@ -94,6 +124,11 @@ public class Room implements IAggregateRoot<RoomID> {
         return _roomID;
     }
 
+    /**
+     * Method to return the house ID.
+     *
+     * @return the house ID.
+     */
     public HouseID getHouseID() {
         return _houseID;
     }

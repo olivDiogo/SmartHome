@@ -1,9 +1,6 @@
 package smartHome.domain.room;
 
-import smartHome.valueObject.Dimension;
-import smartHome.valueObject.HouseID;
-import smartHome.valueObject.RoomFloor;
-import smartHome.valueObject.RoomName;
+import smartHome.valueObject.*;
 
 /**
  * Interface defining a factory for creating {@link Room} instances.
@@ -21,4 +18,16 @@ public interface IRoomFactory {
      * @return a newly created Room instance
      */
     Room createRoom(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor);
+
+    /**
+     * Creates and returns a new {@link Room} instance with the provided house ID, room name, dimension, room floor, and room ID.
+     * @param houseID
+     * @param roomName
+     * @param dimension
+     * @param roomFloor
+     * @param roomID
+     * @return
+     */
+    Room createRoom(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor, RoomID roomID);
+
 }

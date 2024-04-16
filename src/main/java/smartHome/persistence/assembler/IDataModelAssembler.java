@@ -2,7 +2,7 @@ package smartHome.persistence.assembler;
 
 import java.util.List;
 
-public interface IDataModelConverter<ID, T>{
+public interface IDataModelAssembler<ID, T>{
     /**
      * Method to convert a domain entity into a DTO.
      *

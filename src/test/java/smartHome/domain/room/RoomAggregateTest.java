@@ -36,6 +36,64 @@ class RoomAggregateTest {
     }
 
     /**
+     * Test that the Room class can be instantiated with valid parameters, including the RoomID.
+     */
+    @Test
+    void shouldInstantiateRoom_WhenConstructorIsCalledWithValidParametersIncludingRoomID() {
+        //Arrange
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+        String roomID = "RoomID";
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
+        RoomID roomID1 = new RoomID(roomID);
+
+        //Act
+        Room room = new Room(houseID, roomName, dimension, roomFloor, roomID1);
+
+        //Assert
+        assertNotNull(room);
+    }
+
+    /**
+     * Test that the Room class throws an IllegalArgumentException when the constructor is called with a null RoomID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullRoomID() {
+        //Arrange
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
+        RoomID roomID = null;
+
+        String expectedMessage = "RoomID is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor, roomID));
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+
+    /**
      * Test that the Room class throws an IllegalArgumentException when the constructor is called with a null HouseID.
      */
     @Test

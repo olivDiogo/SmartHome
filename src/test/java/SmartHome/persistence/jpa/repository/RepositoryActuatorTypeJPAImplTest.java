@@ -2,7 +2,7 @@ package smartHome.persistence.jpa.repository;
 
 import org.junit.jupiter.api.Test;
 import smartHome.domain.actuatorType.ActuatorType;
-import smartHome.persistence.assembler.IDataModelConverter;
+import smartHome.persistence.assembler.IDataModelAssembler;
 import smartHome.persistence.jpa.dataModel.ActuatorTypeDataModel;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +16,7 @@ class RepositoryActuatorTypeJPAImplTest {
     @Test
     void shouldInstantiateRepositoryActuatorTypeJPAImpl_WHenGivenDataModelConverter() {
         //Arrange
-        IDataModelConverter<ActuatorTypeDataModel, ActuatorType> dataModelConverter = mock(IDataModelConverter.class);
+        IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelConverter = mock(IDataModelAssembler.class);
 
         //Act
         RepositoryActuatorTypeJPAImpl repositoryActuatorTypeJPA = new RepositoryActuatorTypeJPAImpl(dataModelConverter);
@@ -31,7 +31,7 @@ class RepositoryActuatorTypeJPAImplTest {
     @Test
     void shouldThrowIllegalArgumentException_whenGivenNullDataModelConverter() {
         //Arrange
-        IDataModelConverter<ActuatorTypeDataModel, ActuatorType> dataModelConverter = null;
+        IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelConverter = null;
 
         String expectedMessage = "The data model converter must not be null.";
 

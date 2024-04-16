@@ -1,7 +1,6 @@
-package smartHome.persistence;
+package smartHome.persistence.mem;
 
 import smartHome.domain.sensor.ISensor;
-import smartHome.persistence.mem.SensorRepository;
 import smartHome.valueObject.DeviceID;
 import smartHome.valueObject.SensorID;
 import org.junit.jupiter.api.Test;

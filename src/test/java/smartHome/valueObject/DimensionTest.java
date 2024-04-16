@@ -195,6 +195,26 @@ public class DimensionTest {
     }
 
     /**
+     * Test to check if the Dimension object is different from another object with different type.
+     */
+    @Test
+    public void shouldReturnFalse_whenComparingDifferentObjects() {
+        //Arrange
+        int width = 13;
+        int height = 15;
+        int depth = 17;
+
+        Dimension dimension = new Dimension(width, height, depth);
+        String dimension2 = "Dimension";
+
+        //Act
+        boolean result = dimension.equals(dimension2);
+
+        //Assert
+        assertTrue(!result);
+    }
+
+    /**
      * Test to check if the object is different from another object with different values.
      */
     @Test
@@ -258,5 +278,60 @@ public class DimensionTest {
         //Assert
         assertEquals(expectedHashCode, result);
     }
+
+    /**
+     * Test getWidth method.
+     */
+    @Test
+    void shouldReturnWidth_whenCallingGetWidth() {
+        //Arrange
+        int width = 13;
+        int height = 15;
+        int depth = 17;
+        Dimension dimension = new Dimension(width, height, depth);
+
+        //Act
+        int result = dimension.getWidth();
+
+        //Assert
+        assertEquals(width, result);
+    }
+
+    /**
+     * Test getHeight method.
+     */
+    @Test
+    void shouldReturnHeight_whenCallingGetHeight() {
+        //Arrange
+        int width = 13;
+        int height = 15;
+        int depth = 17;
+        Dimension dimension = new Dimension(width, height, depth);
+
+        //Act
+        int result = dimension.getHeight();
+
+        //Assert
+        assertEquals(height, result);
+    }
+
+    /**
+     * Test getDepth method.
+     */
+    @Test
+    void shouldReturnDepth_whenCallingGetDepth() {
+        //Arrange
+        int width = 13;
+        int height = 15;
+        int depth = 17;
+        Dimension dimension = new Dimension(width, height, depth);
+
+        //Act
+        int result = dimension.getDepth();
+
+        //Assert
+        assertEquals(depth, result);
+    }
+
 
 }

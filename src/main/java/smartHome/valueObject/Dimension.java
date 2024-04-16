@@ -92,4 +92,28 @@ public class Dimension implements IValueObject {
     public String toString() {
         return "Width: " + this._width + ", Height: " + this._height + ", Depth: " + this._depth;
     }
+
+    /**
+     * Method to return the width of the room.
+     * @return
+     */
+    public int getWidth() {
+        return _width;
+    }
+
+    /**
+     * Method to return the height of the room.
+     * @return
+     */
+    public int getHeight() {
+        return _height;
+    }
+
+    /**
+     * Method to return the depth of the room.
+     * @return
+     */
+    public int getDepth() {
+        return _depth;
+    }
 }

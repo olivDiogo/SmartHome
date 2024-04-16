@@ -33,6 +33,47 @@ class RoomTest {
     }
 
     /**
+     * Test that the Room class can be instantiated with valid parameters, including the RoomID.
+     */
+    @Test
+    void shouldInstantiateRoom_WhenConstructorIsCalledWithValidParametersIncludingRoomID() {
+        //Arrange
+        HouseID houseID = mock(HouseID.class);
+        RoomID roomID = mock(RoomID.class);
+        RoomName roomName = mock(RoomName.class);
+        Dimension dimension = mock(Dimension.class);
+        RoomFloor roomFloor = mock(RoomFloor.class);
+
+        //Act
+        Room room = new Room(houseID, roomName, dimension, roomFloor, roomID);
+
+        //Assert
+        assertNotNull(room);
+
+    }
+
+    /**
+     * Test that the Room class throws an IllegalArgumentException when the constructor is called with a null RoomID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullRoomID() {
+        //Arrange
+        HouseID houseID = mock(HouseID.class);
+        RoomID roomID = null;
+        RoomName roomName = mock(RoomName.class);
+        Dimension dimension = mock(Dimension.class);
+        RoomFloor roomFloor = mock(RoomFloor.class);
+
+        String expected = "RoomID is required";
+
+        //Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor, roomID));
+
+        //Assert
+        assertEquals(expected, exception.getMessage());
+    }
+
+    /**
      * Test that the Room class throws an IllegalArgumentException when the constructor is called with a null HouseID.
      */
     @Test

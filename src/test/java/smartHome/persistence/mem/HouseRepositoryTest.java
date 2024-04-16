@@ -1,7 +1,6 @@
-package smartHome.persistence;
+package smartHome.persistence.mem;
 
 import smartHome.domain.house.House;
-import smartHome.persistence.mem.HouseRepository;
 import smartHome.valueObject.HouseID;
 import org.junit.jupiter.api.Test;
 

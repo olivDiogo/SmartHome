@@ -10,7 +10,7 @@ import smartHome.valueObject.UnitID;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActuatorTypeDataModelAssembler implements IDataModelConverter<ActuatorTypeDataModel, ActuatorType>{
+public class ActuatorTypeDataModelAssembler implements IDataModelAssembler<ActuatorTypeDataModel, ActuatorType>{
     private IActuatorTypeFactory _actuatorTypeFactory;
 
 public ActuatorTypeDataModelAssembler(IActuatorTypeFactory actuatorTypeFactory) {

@@ -3,7 +3,7 @@ package smartHome.persistence.jpa.repository;
 import jakarta.persistence.*;
 import smartHome.domain.repository.ISensorTypeRepository;
 import smartHome.domain.sensorType.SensorType;
-import smartHome.persistence.assembler.IDataModelConverter;
+import smartHome.persistence.assembler.IDataModelAssembler;
 import smartHome.persistence.jpa.dataModel.SensorTypeDataModel;
 import smartHome.valueObject.SensorTypeID;
 
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class RepositorySensorTypeJPAImpl implements ISensorTypeRepository {
-    private IDataModelConverter<SensorTypeDataModel, SensorType> _dataModelConverter;
+    private IDataModelAssembler<SensorTypeDataModel, SensorType> _dataModelConverter;
     private EntityManagerFactory _factory;
 
     /**
@@ -19,7 +19,7 @@ public class RepositorySensorTypeJPAImpl implements ISensorTypeRepository {
      *
      * @param dataModelConverter
      */
-    public RepositorySensorTypeJPAImpl(IDataModelConverter<SensorTypeDataModel, SensorType> dataModelConverter) {
+    public RepositorySensorTypeJPAImpl(IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter) {
         validateDataModelConverter(dataModelConverter);
 
         this._dataModelConverter = dataModelConverter;
@@ -31,7 +31,7 @@ public class RepositorySensorTypeJPAImpl implements ISensorTypeRepository {
      *
      * @param entity the data model converter
      */
-    private void validateDataModelConverter(IDataModelConverter<SensorTypeDataModel, SensorType> entity) {
+    private void validateDataModelConverter(IDataModelAssembler<SensorTypeDataModel, SensorType> entity) {
         if (entity == null)
             throw new IllegalArgumentException("Data model converter cannot be null.");
     }
@@ -87,7 +87,7 @@ public class RepositorySensorTypeJPAImpl implements ISensorTypeRepository {
     public List<SensorType> findAll() {
         EntityManager em = getEntityManager();
         try {
-            Query query = getEntityManager().createQuery("SELECT e FROM SensorTypeDataModel e");
+            Query query = em.createQuery("SELECT e FROM SensorTypeDataModel e");
 
             List<SensorTypeDataModel> listDataModel = query.getResultList();
 

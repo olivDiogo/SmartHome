@@ -1,7 +1,6 @@
-package smartHome.persistence;
+package smartHome.persistence.mem;
 
 import smartHome.domain.actuator.IActuator;
-import smartHome.persistence.mem.ActuatorRepository;
 import smartHome.valueObject.ActuatorID;
 import smartHome.valueObject.DeviceID;
 import org.junit.jupiter.api.Test;

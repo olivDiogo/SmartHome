@@ -1,9 +1,6 @@
 package smartHome.domain.room;
 
-import smartHome.valueObject.Dimension;
-import smartHome.valueObject.HouseID;
-import smartHome.valueObject.RoomFloor;
-import smartHome.valueObject.RoomName;
+import smartHome.valueObject.*;
 
 /**
  * Implementation of the {@link IRoomFactory} interface, responsible for creating
@@ -27,5 +24,20 @@ public class RoomFactoryImpl implements IRoomFactory {
     @Override
     public Room createRoom(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor) throws IllegalArgumentException {
         return new Room(houseID, roomName, dimension, roomFloor);
+    }
+
+    /**
+     * Creates a new {@link Room} instance using the provided house ID, room name, dimension, room floor, and room ID.
+     * @param houseID
+     * @param roomName
+     * @param dimension
+     * @param roomFloor
+     * @param roomID
+     * @return
+     * @throws IllegalArgumentException
+     */
+    @Override
+    public Room createRoom(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor, RoomID roomID) throws IllegalArgumentException {
+        return new Room(houseID, roomName, dimension, roomFloor, roomID);
     }
 }

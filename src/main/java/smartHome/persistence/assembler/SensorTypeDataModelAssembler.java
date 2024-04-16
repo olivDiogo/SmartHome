@@ -10,7 +10,7 @@ import smartHome.valueObject.UnitID;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SensorTypeDataModelAssembler implements IDataModelConverter<SensorTypeDataModel, SensorType>{
+public class SensorTypeDataModelAssembler implements IDataModelAssembler<SensorTypeDataModel, SensorType> {
     private ISensorTypeFactory _sensorTypeFactory;
 
     /**

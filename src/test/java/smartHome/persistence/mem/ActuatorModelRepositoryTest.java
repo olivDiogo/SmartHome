@@ -1,7 +1,6 @@
-package smartHome.persistence;
+package smartHome.persistence.mem;
 
 import smartHome.domain.actuatorModel.ActuatorModel;
-import smartHome.persistence.mem.ActuatorModelRepository;
 import smartHome.valueObject.ActuatorTypeID;
 import smartHome.valueObject.ModelPath;
 import org.junit.Test;
