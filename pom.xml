@@ -184,12 +184,12 @@
                 <configuration>
                     <targetClasses>
                         <!-- Example: <param>lapr.project.model.*</param> -->
-                        <param>smartHome.*</param>
+                        <param>smart_home.*</param>
                     </targetClasses>
 
                     <targetTests>
                         <!-- Example: <param>lapr.project.utils.*</param> -->
-                        <param>smartHome.*</param>
+                        <param>smart_home.*</param>
                     </targetTests>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
