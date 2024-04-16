@@ -28,18 +28,18 @@ _To add a room to the house_
 This use case depends on UC01 (a House must exist).
 
 ### 1.3. Relevant domain model aggregates
-![Room](../../ooa/4.agreggateModels/Room.png)
+![Room](../../ooa/4.agreggateModels/Room.svg)
 
 ### 1.4. System Sequence Diagram
-![System Sequence Diagram](artifacts/US02SSD.svg)
+![System Sequence Diagram](artifacts/uc02_SSD_v1.svg)
 
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](artifacts/US02CD.svg)
+![ClassDiagram](artifacts/uc02_CD_v2.svg)
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](artifacts/US02SD.svg)
+![SequenceDiagram](artifacts/uc02_SD_v2.svg)
 
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization

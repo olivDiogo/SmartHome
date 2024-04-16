@@ -49,7 +49,7 @@ _To add an actuator to a device_
 This use case depends on UC03 and UC06.
 
 ### 1.3. Relevant domain aggregate model
-
+![Device](../../ooa/4.agreggateModels/ActuatorType.svg)
 
 ### 1.4. Customer Specifications and Clarifications
 
@@ -58,20 +58,20 @@ This use case depends on UC03 and UC06.
   - A: Não.
 
 ### 1.5. System Sequence Diagram
-![US012-SSD](artifacts/us12_SSD.svg)
+![US012-SSD](artifacts/us12_SSD_v2.svg)
 
 ## 2. Design
 
 ### 2.1 Class Diagram
-![US012-CD](artifacts/us12_CD.svg)
+![US012-CD](artifacts/us12_CD_v2.svg)
 
 ### 2.2. Sequence Diagram
-![US012-SD](artifacts/us12_SD.svg)
-![US012-SD-ref1](artifacts/us12_SD_ref1.svg)
-![US012-SD-ref2](artifacts/us12_SD_ref2.svg)
-![US012-SD-ref3](artifacts/us12_SD_ref3.svg)
-![US012-SD-ref4](artifacts/us12_SD_ref4.svg)
-![US012-SD-ref5](artifacts/us12_SD_ref5.svg)
+![US012-SD](artifacts/us12_SD_v2.svg)
+![US012-SD-ref1](artifacts/us12_SD_v2_ref1.svg)
+![US012-SD-ref2](artifacts/us12_SD_v2_ref2.svg)
+![US012-SD-ref3](artifacts/us12_SD_v2_ref3.svg)
+![US012-SD-ref4](artifacts/us12_SD_v2_ref4.svg)
+![US012-SD-ref5](artifacts/us12_SD_v2_ref5.svg)
 
 
 ### 2.3 Applied Patterns

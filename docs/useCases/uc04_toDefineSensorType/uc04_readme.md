@@ -44,25 +44,25 @@ _To define a sensor type_
 No dependencies.
 
 ### 1.3. Relevant domain model aggregates
-![SensorType](../../ooa/4.agreggateModels/sensorTypeAggregate.png)
-![Unit](../../ooa/4.agreggateModels/Unit.png)
+![SensorType](../../ooa/4.agreggateModels/SensorType.svg)
+![Unit](../../ooa/4.agreggateModels/Unit.svg)
 
 ### 1.4. System Sequence Diagram
-![System Sequence Diagram](./artifacts/US04SSD.png)
+![System Sequence Diagram](./artifacts/uc04_SSD_v1.svg)
 
 ## 2. Design
 _To tackle the current US we will be using the SensorType Service. Since SensorType only exists with an associated Unit the service should know the 
 Unit repository, to provide a list of supported units and check if the given unitID is on the Repo._
 
 ### 2.1. Class Diagram
-![ClassDiagram](./artifacts/US04CD.png)
+![ClassDiagram](./artifacts/uc04_CD_v2.svg)
 
 ### 2.2. Sequence Diagram
 #### 2.2.1 Controller SSD
-![SequenceDiagram](./artifacts/US04SD.png)
+![SequenceDiagram](./artifacts/uc04_SD_v2.svg)
 
 #### 2.2.2 Load Units SSD
-![SequenceDiagram](./artifacts/SDLoadUnits.png)
+![SequenceDiagram](./artifacts/uc04_SDLoadUnits_v1.svg)
 
 ### 2.3. Applied Patterns
 - Factory Method: The Sensor Type is created using the factory pattern, that is responsible for creating all supported sensor types

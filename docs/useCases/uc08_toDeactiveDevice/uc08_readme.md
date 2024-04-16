@@ -39,18 +39,18 @@ This UC depends on the following UCs:
 * UC05 - a Device must exist in a Room
 
 ### 1.3. Relevant domain model aggregates
-![Device](../../ooa/4.agreggateModels/Device.png)
+![Device](../../ooa/4.agreggateModels/Device.svg)
 
 ### 1.4. System Sequence Diagram
-![System Sequence Diagram](artifacts/US08SSD.svg)
+![System Sequence Diagram](artifacts/uc08_SSD_v1.svg)
 
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](artifacts/US08CD.png)
+![ClassDiagram](artifacts/uc08_CD_v2.svg)
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](artifacts/US08SD.png)
+![SequenceDiagram](artifacts/uc08_SD_v2.svg)
 
 ### 2.3. Applied Patterns
 - Single Responsibility Principle - Each class has a single responsibility, promoting better code organization and maintainability.

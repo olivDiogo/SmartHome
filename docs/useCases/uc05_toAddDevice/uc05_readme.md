@@ -40,18 +40,18 @@ _To add a device to a room_
 Depends on UC03 because the list of rooms is needed to add a device to a room.
 
 ### 1.3. Relevant domain aggregate model
-![Device](../../ooa/4.agreggateModels/Device.png)
+![Device](../../ooa/4.agreggateModels/Device.svg)
 
 ### 1.4. System Sequence Diagram
-![System Sequence Diagram](artifacts/US05SSD.svg)
+![System Sequence Diagram](artifacts/uc05_SSD_v1.svg)
 
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](./artifacts/US05CD.svg)
+![ClassDiagram](./artifacts/uc05_CD_v2.svg)
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](./artifacts/US05SD.svg)
+![SequenceDiagram](./artifacts/uc05_SD_v2.svg)
 
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization and maintainability.

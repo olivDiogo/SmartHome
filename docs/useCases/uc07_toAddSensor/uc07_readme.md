@@ -55,22 +55,22 @@ This use case depends on UC03 and UC06.
 
 
 ### 1.3. Relevant domain model aggregates
-![Room](../../ooa/4.agreggateModels/Room.png)
-![Device](../../ooa/4.agreggateModels/Device.png)
-![Sensor](../../ooa/4.agreggateModels/Sensor.png)
-![SensorType](../../ooa/4.agreggateModels/sensorTypeAggregate.png)
-![SensorModel](../../ooa/4.agreggateModels/SensorModel.png)
+![Room](../../ooa/4.agreggateModels/Room.svg)
+![Device](../../ooa/4.agreggateModels/Device.svg)
+![Sensor](../../ooa/4.agreggateModels/Sensor.svg)
+![SensorType](../../ooa/4.agreggateModels/sensorTypeAggregate.svg)
+![SensorModel](../../ooa/4.agreggateModels/SensorModel.svg)
 
 ### 1.4. System Sequence Diagram
-![System Sequence Diagram](./artifacts/US07_SSD.svg)
+![System Sequence Diagram](./artifacts/uc07_SSD_v1.svg)
 
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](./artifacts/US07_CD.svg)
+![ClassDiagram](./artifacts/uc07_CD_v2.svg)
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](./artifacts/US07_SD.svg)
+![SequenceDiagram](./artifacts/uc07_SD_v2.svg)
 
 ### 2.3. Applied Patterns
 - Factory Method: The sensor is created using the factory pattern, that is responsible for creating all supported sensor models

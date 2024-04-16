@@ -33,18 +33,18 @@ No dependencies.
 
 ### 1.3. Relevant domain aggregate model
 
-![Room](../../ooa/4.agreggateModels/Room.png)
+![Room](../../ooa/4.agreggateModels/Room.svg)
 
 ### 1.4. System Sequence Diagram
-![System Sequence Diagram](artifacts/US03SSD.svg)
+![System Sequence Diagram](artifacts/uc03_SSD_v1.svg)
 
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](artifacts/US03CD.svg) 
+![ClassDiagram](artifacts/uc03_CD_v2.svg) 
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](artifacts/US03SD.svg)
+![SequenceDiagram](artifacts/uc03_SD_v2.svg)
 
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization

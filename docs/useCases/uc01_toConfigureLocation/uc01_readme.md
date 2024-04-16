@@ -29,15 +29,15 @@ _To configure the location of the house_
 No dependencies.
 
 ### 1.3. Relevant domain aggregate model
-![House](../../ooa/4.agreggateModels/House.png)
+![House](../../ooa/4.agreggateModels/House.svg)
 
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](artifacts/uc01_CD_v2.png)
+![ClassDiagram](artifacts/uc01_CD_v2.svg)
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](artifacts/US01SD.png)
+![SequenceDiagram](artifacts/uc01_SD_v2.svg)
 
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization

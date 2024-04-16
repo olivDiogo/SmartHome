@@ -33,19 +33,19 @@ _To get list of devices in a room_
 This use case has dependencies with US03. This use case requires a list of all rooms in the house.
 
 ### 1.3. Relevant domain aggregate model
-![Device](../../ooa/4.agreggateModels/Device.png)
-![Room](../../ooa/4.agreggateModels/Room.png)
+![Device](../../ooa/4.agreggateModels/Device.svg)
+![Room](../../ooa/4.agreggateModels/Room.svg)
 
 ### 1.4. System Sequence Diagram
-![SystemSequenceDiagram]()
+![SystemSequenceDiagram](artifacts/uc06_SSD_v1.svg)
 
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](artifacts/US06CD.svg)
+![ClassDiagram](artifacts/uc06_CD_v2.svg)
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](artifacts/US06SD.svg)
+![SequenceDiagram](artifacts/uc06_SD_v2.svg)
 
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization

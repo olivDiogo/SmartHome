@@ -34,18 +34,18 @@ _To get list of devices grouped by functionality_
 No dependencies.
 
 ### 1.3. Relevant domain aggregate model 
-![Device](../../ooa/4.agreggateModels/Device.png)
+![Device](../../ooa/4.agreggateModels/Device.svg)
 
 ### 1.4. System Sequence Diagram
-![System Sequence Diagram](./artifacts/US09SSD.svg)
+![System Sequence Diagram](./artifacts/uc09_SSD_v1.svg)
 
 ## 2. Design
 
 ### 2.1. Class Diagram
-![ClassDiagram](artifacts/US09CD.svg)
+![ClassDiagram](artifacts/uc09_CD_v2.svg)
 
 ### 2.2. Sequence Diagram
-![SequenceDiagram](artifacts/US09SD.svg)
+![SequenceDiagram](artifacts/uc09_SD_v2.svg)
 
 ### 2.3. Applied Patterns
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization 
