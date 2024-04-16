@@ -1,6 +1,9 @@
 package smartHome.valueObject;
 
-public class ActuatorModelName {
+import smartHome.ddd.IDomainID;
+import smartHome.ddd.IValueObject;
+
+public class ActuatorModelName implements IValueObject{
 
     private final String _name;
 

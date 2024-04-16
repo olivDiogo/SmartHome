@@ -21,7 +21,26 @@ public class ActuatorModelTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
     // Act
-    new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+    ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+
+    // Assert
+    assertNotNull(actuatorModel);
+  }
+
+  @Test
+  void shouldReturnValidActuatorModel_WhenGivenValidParametersAndActuatorModelID() {
+    // Arrange
+    ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
+    ModelPath modelPath = mock(ModelPath.class);
+    ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+    ActuatorModelID actuatorModelID = mock(ActuatorModelID.class);
+
+    // Act
+    ActuatorModel actuatorModel =
+        new ActuatorModel(actuatorModelID, actuatorModelName, modelPath, actuatorTypeID);
+
+    // Assert
+    assertNotNull(actuatorModel);
   }
 
   /** Test of class ActuatorModel constructor with null ActuatorModelName */
@@ -75,6 +94,25 @@ public class ActuatorModelTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
+  /** Test of class ActuatorModel constructor with null ActuatorModelID */
+  @Test
+  void shouldThrowIllegalArgumentException_WhenGivenNullActuatorModelID() {
+    // Arrange
+    ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
+    ModelPath modelPath = mock(ModelPath.class);
+    ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+    ActuatorModelID actuatorModelID = null;
+
+    String expectedMessage = "Please enter a valid actuator model ID.";
+    // Act
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new ActuatorModel(actuatorModelID, actuatorModelName, modelPath, actuatorTypeID));
+    // Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
+
   /** Test of class ActuatorModel equals method with same object */
   @Test
   void shouldReturnTrue_WhenGivenSameObject() {
@@ -109,7 +147,8 @@ public class ActuatorModelTest {
         mockConstruction(ActuatorModelID.class, (mock, context) -> {})) {
 
       ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
-      ActuatorModel actuatorModel2 = new ActuatorModel(actuatorModelName, modelPath2, actuatorTypeID);
+      ActuatorModel actuatorModel2 =
+          new ActuatorModel(actuatorModelName, modelPath2, actuatorTypeID);
 
       // Act
       boolean result = actuatorModel.equals(actuatorModel2);

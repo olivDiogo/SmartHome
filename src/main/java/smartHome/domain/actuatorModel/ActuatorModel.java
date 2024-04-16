@@ -1,6 +1,7 @@
 package smartHome.domain.actuatorModel;
 
 import smartHome.ddd.IAggregateRoot;
+import smartHome.valueObject.ActuatorModelID;
 import smartHome.valueObject.ActuatorModelName;
 import smartHome.valueObject.ActuatorTypeID;
 import smartHome.valueObject.ModelPath;
@@ -9,6 +10,7 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
     private ActuatorModelName _actuatorModelName;
     private ModelPath _modelPath;
     private ActuatorTypeID _actuatorTypeID;
+    private ActuatorModelID _actuatorModelID;
 
     /**
      * ActuatorModel constructor
@@ -21,6 +23,27 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
         validateActuatorModelName(actuatorModelName);
         validateModelPath(modelPath);
         validateActuatorTypeID(actuatorTypeID);
+    }
+
+    public ActuatorModel(
+            ActuatorModelID actuatorModelID, ActuatorModelName actuatorModelName, ModelPath modelPath, ActuatorTypeID actuatorTypeID) {
+        validateActuatorModelName(actuatorModelName);
+        validateModelPath(modelPath);
+        validateActuatorTypeID(actuatorTypeID);
+        validateActuatorModelID(actuatorModelID);
+    }
+
+    /**
+     * Validate actuator model ID
+     *
+     * @param actuatorModelID
+     */
+    private void validateActuatorModelID(ActuatorModelID actuatorModelID) {
+        if (actuatorModelID == null) {
+            throw new IllegalArgumentException("Please enter a valid actuator model ID.");
+        } else {
+            this._actuatorModelID = actuatorModelID;
+        }
     }
 
     /**
