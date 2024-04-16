@@ -22,7 +22,7 @@ class DeviceServiceTest {
      * Test the constructor of the DeviceService class.
      */
     @Test
-    public void shouldInstantiateDeviceService_WhenGivenValidParameters() {
+    void shouldInstantiateDeviceService_WhenGivenValidParameters() {
         // Arrange
         DeviceService deviceService;
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
@@ -37,10 +37,79 @@ class DeviceServiceTest {
     }
 
     /**
+     * Test the constructor of the DeviceService class with a null DeviceRepository.
+     */
+    @Test
+    void shouldThrowException_WhenGivenNullDeviceRepository() {
+        // Arrange
+        DeviceRepository deviceRepository = null;
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+        RoomRepository roomRepository = mock(RoomRepository.class);
+
+        String expectedMessage = "DeviceRepository cannot be null.";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        // Assert
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * Test the constructor of the DeviceService class with a null DeviceFactory.
+     */
+    @Test
+    void shouldThrowException_WhenGivenNullDeviceFactory() {
+        // Arrange
+        DeviceRepository deviceRepository = mock(DeviceRepository.class);
+        IDeviceFactory deviceFactory = null;
+        RoomRepository roomRepository = mock(RoomRepository.class);
+
+        String expectedMessage = "DeviceFactory cannot be null.";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        // Assert
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * Test the constructor of the DeviceService class with a null RoomRepository.
+     */
+    @Test
+    void shouldThrowException_WhenGivenNullRoomRepository() {
+        // Arrange
+        DeviceRepository deviceRepository = mock(DeviceRepository.class);
+        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+        RoomRepository roomRepository = null;
+
+        String expectedMessage = "RoomRepository cannot be null.";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        // Assert
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
      * Test the addDevice method of the DeviceService class with a valid roomID, deviceName and deviceStatus.
      */
     @Test
-    public void shouldAddADevice_WhenGivenValidParameters() {
+    void shouldAddADevice_WhenGivenValidParameters() {
         // Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);

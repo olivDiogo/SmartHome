@@ -23,9 +23,45 @@ public class DeviceService {
      * @param roomRepository   is the repository for the room.
      */
     public DeviceService(IDeviceRepository deviceRepository, IDeviceFactory deviceFactory, IRepository<RoomID, Room> roomRepository) {
+        validateDeviceRepository(deviceRepository);
         _deviceRepository = deviceRepository;
+        validateDeviceFactory(deviceFactory);
         _deviceFactory = deviceFactory;
+        validateRoomRepository(roomRepository);
         _roomRepository = roomRepository;
+    }
+
+    /**
+     * Validates that the DeviceRepository is not null.
+     *
+     * @param deviceRepository the DeviceRepository to validate
+     */
+    private void validateDeviceRepository(IDeviceRepository deviceRepository) {
+        if (deviceRepository == null) {
+            throw new IllegalArgumentException("DeviceRepository cannot be null.");
+        }
+    }
+
+    /**
+     * Validates that the DeviceFactory is not null.
+     *
+     * @param deviceFactory the DeviceFactory to validate
+     */
+    private void validateDeviceFactory(IDeviceFactory deviceFactory) {
+        if (deviceFactory == null) {
+            throw new IllegalArgumentException("DeviceFactory cannot be null.");
+        }
+    }
+
+    /**
+     * Validates that the RoomRepository is not null.
+     *
+     * @param roomRepository the RoomRepository to validate
+     */
+    private void validateRoomRepository(IRepository<RoomID, Room> roomRepository) {
+        if (roomRepository == null) {
+            throw new IllegalArgumentException("RoomRepository cannot be null.");
+        }
     }
 
     /**
