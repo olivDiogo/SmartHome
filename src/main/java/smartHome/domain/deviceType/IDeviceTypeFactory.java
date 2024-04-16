@@ -1,6 +1,8 @@
 package smartHome.domain.deviceType;
 
+import smartHome.valueObject.DeviceTypeID;
 import smartHome.valueObject.TypeDescription;
+
 
 /**
  * Represents a factory interface for creating {@link DeviceType} instances.
@@ -15,6 +17,8 @@ public interface IDeviceTypeFactory {
      *                              It contains information such as the type name and attributes.
      * @return A new instance of {@link DeviceType} configured according to the provided description.
      */
-    DeviceType createDeviceType(TypeDescription deviceTypeDescription);
+    DeviceType createDeviceType (TypeDescription deviceTypeDescription);
+
+    DeviceType createDeviceType (DeviceTypeID id,TypeDescription description);
 
 }

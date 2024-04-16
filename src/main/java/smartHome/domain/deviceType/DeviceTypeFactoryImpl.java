@@ -1,5 +1,6 @@
 package smartHome.domain.deviceType;
 
+import smartHome.valueObject.DeviceTypeID;
 import smartHome.valueObject.TypeDescription;
 
 
@@ -14,6 +15,10 @@ public class DeviceTypeFactoryImpl implements IDeviceTypeFactory {
     @Override
     public DeviceType createDeviceType(TypeDescription deviceTypeDescription) throws IllegalArgumentException {
         return new DeviceType(deviceTypeDescription);
+    }
+    @Override
+    public DeviceType createDeviceType(DeviceTypeID id, TypeDescription description) throws IllegalArgumentException{
+        return new DeviceType(id, description);
     }
 }
 

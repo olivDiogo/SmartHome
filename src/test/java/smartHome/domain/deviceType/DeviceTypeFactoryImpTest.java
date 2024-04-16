@@ -1,5 +1,6 @@
 package smartHome.domain.deviceType;
 
+import smartHome.valueObject.DeviceTypeID;
 import smartHome.valueObject.TypeDescription;
 import org.junit.jupiter.api.Test;
 
@@ -25,4 +26,20 @@ class DeviceTypeFactoryImpTest {
         assertNotNull(deviceType);
     }
 
+    /**
+     * Should create device type when create device type is called with valid parameters including ID.
+     */
+    @Test
+    void shouldCreateDeviceType_WhenCreateDeviceTypeIsCalledWithValidParametersIncludingID() {
+        // Arrange
+        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+        DeviceTypeFactoryImpl factory = new DeviceTypeFactoryImpl();
+
+        // Act
+        DeviceType deviceType = factory.createDeviceType(deviceTypeIDDouble, typeDescriptionDouble);
+
+        // Assert
+        assertNotNull(deviceType);
+    }
 }

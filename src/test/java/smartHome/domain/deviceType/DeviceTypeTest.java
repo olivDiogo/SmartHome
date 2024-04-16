@@ -32,6 +32,27 @@ class DeviceTypeTest {
     }
 
     /**
+     * Should create an instance of DeviceType when the constructor attributes are valid including DeviceTypeID
+     */
+    @Test
+    void shouldCreateInstanceOfDeviceType_whenConstructorAttributesAreValidIncludingDeviceTypeID() {
+        // Arrange
+        TypeDescription deviceTypeDescription = mock(TypeDescription.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+
+        try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("123");
+        })) {
+            // Act
+            DeviceType deviceType = new DeviceType(deviceTypeID, deviceTypeDescription);
+
+            // Assert
+            assertNotNull(deviceType);
+
+        }
+    }
+
+    /**
      * Should throw an exception when the device type description is null.
      */
     @Test

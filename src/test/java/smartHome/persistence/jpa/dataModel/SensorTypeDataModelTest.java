@@ -155,6 +155,4 @@ class SensorTypeDataModelTest {
         //Act
         assertNotNull(sensorTypeDataModel);
     }
-
-
 }
