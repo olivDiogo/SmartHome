@@ -1,10 +1,11 @@
 package smartHome.domain.sensorType;
 
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 import smartHome.valueObject.SensorTypeID;
 import smartHome.valueObject.TypeDescription;
 import smartHome.valueObject.UnitID;
-import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -161,6 +162,7 @@ class SensorTypeTest {
 
         }
     }
+
     /**
      * Tests inequality on objects with different IDs.
      */
@@ -190,7 +192,7 @@ class SensorTypeTest {
      * Tests inequality with null.
      */
     @Test
-    void shouldGetFalse_whenWhenComparingObjectWithNull(){
+    void shouldGetFalse_whenWhenComparingObjectWithNull() {
         // Arrange
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
         UnitID unitDouble = mock(UnitID.class);
@@ -237,30 +239,48 @@ class SensorTypeTest {
         }
     }
 
-        /**
-         * Test of hashCode method, of class SensorType.
-         */
-        @Test
-        void shouldReturnHashCode_whenHashCodeIsCalled() {
-            // Arrange
-            TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-            UnitID unitDouble = mock(UnitID.class);
+    /**
+     * Test of hashCode method, of class SensorType.
+     */
+    @Test
+    void shouldReturnHashCode_whenHashCodeIsCalled() {
+        // Arrange
+        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+        UnitID unitDouble = mock(UnitID.class);
 
 
-            try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class)) {
-                SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
-                int expected = sensorType.getID().hashCode();
+        try (MockedConstruction<SensorTypeID> sensorTypeIdDouble = mockConstruction(SensorTypeID.class)) {
+            SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
+            int expected = sensorType.getID().hashCode();
 
-                // Act
-                int result = sensorType.hashCode();
+            // Act
+            int result = sensorType.hashCode();
 
-                // Assert
-                assertEquals(expected, result);
-
-            }
+            // Assert
+            assertEquals(expected, result);
 
         }
 
     }
+
+    /**
+     * Test of equals method, of class SensorType.
+     */
+    @Test
+    void shouldInstantiateSensorType_WhenParametersAreValid() {
+        // Arrange
+        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+        UnitID unitDouble = mock(UnitID.class);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+
+        // Act
+        SensorType sensorType = new SensorType(sensorTypeIDDouble, typeDescriptionDouble, unitDouble);
+
+        // Assert
+        assertNotNull(sensorType);
+    }
+
+
+}
 
 

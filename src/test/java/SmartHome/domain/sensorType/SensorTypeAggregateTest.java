@@ -1,10 +1,10 @@
 package smartHome.domain.sensorType;
 
 
+import org.junit.jupiter.api.Test;
 import smartHome.valueObject.SensorTypeID;
 import smartHome.valueObject.TypeDescription;
 import smartHome.valueObject.UnitID;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -251,26 +251,122 @@ class SensorTypeAggregateTest {
 
 
     /**
-    * Test of hashCode method, of class SensorType.
-    */
+     * Test of hashCode method, of class SensorType.
+     */
     @Test
     void shouldReturnHashCode_whenHashCodeIsCalled() {
-    // Arrange
-    String typeDescription = "DewPointSensor";
-    String unitID = "Celsius";
+        // Arrange
+        String typeDescription = "DewPointSensor";
+        String unitID = "Celsius";
 
-    TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
-    UnitID unitDouble = new UnitID(unitID);
+        TypeDescription typeDescriptionDouble = new TypeDescription(typeDescription);
+        UnitID unitDouble = new UnitID(unitID);
 
-    SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
+        SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
 
-    int expected = sensorType.getID().hashCode();
+        int expected = sensorType.getID().hashCode();
 
-    // Act
-    int result = sensorType.hashCode();
+        // Act
+        int result = sensorType.hashCode();
 
-    // Assert
-    assertEquals(expected, result);
-}
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of constructor of class SensorType, when arguments are valid.
+     */
+    @Test
+    void shouldInstantiateSensorType_WhenParametersAreValid() {
+        //Arrange
+        String strTypeDescription = "DewPoint";
+        String strUnitID = "Celsius";
+        String strSensorTypeID = "123";
+
+        TypeDescription typeDescription = new TypeDescription(strTypeDescription);
+        UnitID unitID = new UnitID(strUnitID);
+        SensorTypeID sensorTypeID = new SensorTypeID(strSensorTypeID);
+
+        //Act
+        SensorType sensor = new SensorType(sensorTypeID, typeDescription, unitID);
+
+        //Assert
+        assertNotNull(sensor);
+    }
+
+    /**
+     * Test of constructor of class SensorType, when type description is null.
+     */
+    @Test
+    void shouldThrowException_WhenTypeDescriptionIsNull () {
+        //Arrange
+        String strUnitID = "Celsius";
+        String strSensorTypeID = "123";
+
+        TypeDescription typeDescription = null;
+        UnitID unitID = new UnitID(strUnitID);
+        SensorTypeID sensorTypeID = new SensorTypeID(strSensorTypeID);
+
+        String expectedMessage = "Sensor type name must not be null.";
+
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SensorType(sensorTypeID, typeDescription, unitID);
+        });
+
+        //Assert
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * Test of constructor of class SensorType, when unit is null.
+     */
+    @Test
+    void shouldThrowException_WhenUnitIDIsNull () {
+        //Arrange
+        String strTypeDescription = "DewPoint";
+        String strSensorTypeID = "123";
+
+        TypeDescription typeDescription = new TypeDescription(strTypeDescription);
+        UnitID unitID = null;
+        SensorTypeID sensorTypeID = new SensorTypeID(strSensorTypeID);
+
+        String expectedMessage = "Unit must not be null.";
+
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SensorType(sensorTypeID, typeDescription, unitID);
+        });
+
+        //Assert
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * Test of constructor of class SensorType, when sensor type ID is null.
+     */
+    @Test
+    void shouldThrowException_WhenSensorTypeIDIsNull () {
+        //Arrange
+        String strTypeDescription = "DewPoint";
+        String strUnitID = "Celsius";
+
+        TypeDescription typeDescription = new TypeDescription(strTypeDescription);
+        UnitID unitID = new UnitID(strUnitID);
+        SensorTypeID sensorTypeID = null;
+
+        String expectedMessage = "Sensor Type ID is required.";
+
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SensorType(sensorTypeID, typeDescription, unitID);
+        });
+
+        //Assert
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }
 
 }

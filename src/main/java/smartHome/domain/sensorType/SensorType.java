@@ -27,6 +27,35 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
     }
 
     /**
+     * Creates a new {@link SensorType} instance using the provided sensor type ID, name and unit.
+     *
+     * @param sensorTypeID the sensor type ID, must not be null
+     * @param name         the sensor type name, must not be null
+     * @param unitID       the unit of the sensor type, must not be null
+     */
+    SensorType(SensorTypeID sensorTypeID, TypeDescription name, UnitID unitID) {
+        validateSensorTypeID(sensorTypeID);
+        validateSensorTypeName(name);
+        validateUnit(unitID);
+
+        this._name = name;
+        this._unit = unitID;
+
+    }
+
+    /**
+     * Validates the sensor type ID.
+     *
+     * @param sensorTypeID the sensor type ID, must not be null
+     */
+    private void validateSensorTypeID(SensorTypeID sensorTypeID) {
+        if (sensorTypeID == null)
+            throw new IllegalArgumentException("Sensor Type ID is required.");
+
+        this._id = sensorTypeID;
+    }
+
+    /**
      * Creates a new {@link SensorTypeID} instance.
      */
     private void generateID(TypeDescription name) {
