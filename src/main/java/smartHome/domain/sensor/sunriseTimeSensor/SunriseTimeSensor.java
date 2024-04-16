@@ -1,7 +1,6 @@
 package smartHome.domain.sensor.sunriseTimeSensor;
 
 import org.shredzone.commons.suncalc.SunTimes;
-import smartHome.ddd.IValueObject;
 import smartHome.domain.sensor.ISensor;
 import smartHome.valueObject.*;
 

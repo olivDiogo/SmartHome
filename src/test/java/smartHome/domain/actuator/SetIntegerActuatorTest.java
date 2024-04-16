@@ -1,10 +1,10 @@
 package smartHome.domain.actuator;
 
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 import smartHome.domain.actuator.setIntegerActuator.SetIntegerActuator;
 import smartHome.domain.actuator.setIntegerActuator.SetIntegerActuatorLimits;
 import smartHome.valueObject.*;
-import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

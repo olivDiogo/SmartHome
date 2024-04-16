@@ -1,12 +1,11 @@
 package smartHome.domain.actuator;
 
+import org.junit.jupiter.api.Test;
 import smartHome.domain.actuator.blindRollerActuator.BlindRollerActuator;
 import smartHome.domain.actuator.blindRollerActuator.BlindRollerValue;
 import smartHome.valueObject.*;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
 class BlindRollerActuatorAggregateTest {
 

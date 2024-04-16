@@ -1,7 +1,7 @@
 package smartHome.domain.sensor.dewPointSensor;
 
-import smartHome.valueObject.*;
 import org.junit.jupiter.api.Test;
+import smartHome.valueObject.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

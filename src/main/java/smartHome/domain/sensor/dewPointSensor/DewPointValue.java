@@ -1,7 +1,6 @@
 package smartHome.domain.sensor.dewPointSensor;
 
 import smartHome.ddd.IValueObject;
-import smartHome.domain.sensor.sunriseTimeSensor.SunriseTimeSensorValue;
 
 public class DewPointValue implements IValueObject {
     private final int _DewPointValue;

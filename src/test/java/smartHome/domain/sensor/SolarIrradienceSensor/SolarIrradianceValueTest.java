@@ -1,7 +1,7 @@
 package smartHome.domain.sensor.SolarIrradienceSensor;
 
-import smartHome.domain.sensor.solarIrradianceSensor.SolarIrradianceValue;
 import org.junit.jupiter.api.Test;
+import smartHome.domain.sensor.solarIrradianceSensor.SolarIrradianceValue;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
