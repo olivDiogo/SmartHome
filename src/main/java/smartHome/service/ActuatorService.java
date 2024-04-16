@@ -1,11 +1,11 @@
 package smartHome.service;
 
 
+import smartHome.ddd.IRepository;
 import smartHome.domain.actuator.IActuator;
 import smartHome.domain.actuator.IActuatorFactory;
 import smartHome.domain.device.Device;
-import smartHome.persistence.mem.ActuatorRepository;
-import smartHome.persistence.mem.DeviceRepository;
+import smartHome.domain.repository.IDeviceRepository;
 import smartHome.valueObject.*;
 
 import java.util.List;
@@ -17,9 +17,9 @@ import java.util.Optional;
  */
 public class ActuatorService {
 
-    private final ActuatorRepository _actuatorRepository;
+    private final IRepository<ActuatorID, IActuator> _actuatorRepository;
     private final IActuatorFactory _actuatorFactory;
-    private final DeviceRepository _deviceRepository;
+    private final IDeviceRepository _deviceRepository;
 
     /**
      * Constructs an ActuatorService with the specified repositories and factory.
@@ -28,7 +28,7 @@ public class ActuatorService {
      * @param actuatorFactory    The factory for creating actuators.
      * @param deviceRepository   The repository for accessing devices.
      */
-    public ActuatorService(ActuatorRepository actuatorRepository, IActuatorFactory actuatorFactory, DeviceRepository deviceRepository) {
+    public ActuatorService(IRepository<ActuatorID, IActuator> actuatorRepository, IActuatorFactory actuatorFactory, IDeviceRepository deviceRepository) {
         _actuatorRepository = actuatorRepository;
         _actuatorFactory = actuatorFactory;
         _deviceRepository = deviceRepository;

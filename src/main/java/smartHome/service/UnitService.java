@@ -1,8 +1,8 @@
 package smartHome.service;
 
+import smartHome.ddd.IRepository;
 import smartHome.domain.unit.IUnitFactory;
 import smartHome.domain.unit.Unit;
-import smartHome.persistence.mem.UnitRepository;
 import smartHome.valueObject.UnitDescription;
 import smartHome.valueObject.UnitID;
 import smartHome.valueObject.UnitSymbol;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class UnitService {
 
-    private UnitRepository _unitRepository;
+    private IRepository<UnitID, Unit> _unitRepository;
     private IUnitFactory _UnitFactory;
 
     /**
@@ -21,7 +21,7 @@ public class UnitService {
      * @param unitRepository
      * @param unitFactory
      */
-    public UnitService(UnitRepository unitRepository, IUnitFactory unitFactory) {
+    public UnitService(IRepository<UnitID, Unit> unitRepository, IUnitFactory unitFactory) {
         validateMeasurementTypeRepository(unitRepository);
         validateMeasurementTypeFactory(unitFactory);
     }
@@ -31,7 +31,7 @@ public class UnitService {
      *
      * @param unitRepository The MeasurementTypeRepository to validate.
      */
-    private void validateMeasurementTypeRepository(UnitRepository unitRepository) {
+    private void validateMeasurementTypeRepository(IRepository<UnitID, Unit> unitRepository) {
         if (unitRepository == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type repository.");
         } else {

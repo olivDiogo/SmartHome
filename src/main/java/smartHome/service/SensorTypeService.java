@@ -1,8 +1,9 @@
 package smartHome.service;
 
+import smartHome.ddd.IRepository;
 import smartHome.domain.sensorType.ISensorTypeFactory;
 import smartHome.domain.sensorType.SensorType;
-import smartHome.persistence.mem.SensorTypeRepository;
+import smartHome.domain.unit.Unit;
 import smartHome.persistence.mem.UnitRepository;
 import smartHome.valueObject.SensorTypeID;
 import smartHome.valueObject.TypeDescription;
@@ -12,9 +13,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class SensorTypeService {
-    private SensorTypeRepository _sensorTypeRepository;
+    private IRepository<SensorTypeID, SensorType> _sensorTypeRepository;
     private ISensorTypeFactory _sensorTypeFactory;
-    private UnitRepository _unitRepository;
+    private IRepository<UnitID, Unit> _unitRepository;
 
     /**
      * Constructor for SensorTypeService.
@@ -23,10 +24,7 @@ public class SensorTypeService {
      * @param sensorTypeFactory    is the factory for sensor types.
      * @param unitRepository       is the repository for units.
      */
-    public SensorTypeService(
-            SensorTypeRepository sensorTypeRepository,
-            ISensorTypeFactory sensorTypeFactory,
-            UnitRepository unitRepository) {
+    public SensorTypeService(IRepository<SensorTypeID, SensorType> sensorTypeRepository, ISensorTypeFactory sensorTypeFactory, UnitRepository unitRepository) {
         validateSensorTypeRepository(sensorTypeRepository);
         validateSensorTypeFactory(sensorTypeFactory);
         validateMeasurementTypeRepository(unitRepository);
@@ -37,7 +35,7 @@ public class SensorTypeService {
      *
      * @param sensorTypeRepository The SensorTypeRepository to validate.
      */
-    private void validateSensorTypeRepository(SensorTypeRepository sensorTypeRepository) {
+    private void validateSensorTypeRepository(IRepository<SensorTypeID, SensorType> sensorTypeRepository) {
         if (sensorTypeRepository == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type repository.");
         } else {

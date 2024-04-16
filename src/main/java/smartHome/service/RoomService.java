@@ -1,21 +1,21 @@
 package smartHome.service;
 
-import smartHome.assembler.RoomAssembler;
+import smartHome.ddd.IAssembler;
+import smartHome.ddd.IRepository;
 import smartHome.domain.house.House;
 import smartHome.domain.room.IRoomFactory;
 import smartHome.domain.room.Room;
-import smartHome.persistence.mem.HouseRepository;
-import smartHome.persistence.mem.RoomRepository;
+import smartHome.dto.RoomDTO;
 import smartHome.valueObject.*;
 
 import java.util.List;
 import java.util.Optional;
 
 public class RoomService {
-    private final RoomRepository _roomRepository;
+    private final IRepository<RoomID, Room> _roomRepository;
     private final IRoomFactory _roomFactory;
-    private final RoomAssembler _roomAssembler;
-    private final HouseRepository _houseRepository;
+    private final IAssembler<Room, RoomDTO> _roomAssembler;
+    private final IRepository<HouseID, House> _houseRepository;
 
     /**
      * Constructor for RoomService.
@@ -25,7 +25,7 @@ public class RoomService {
      * @param roomAssembler
      * @param houseRepository
      */
-    public RoomService(RoomRepository roomRepository, IRoomFactory roomFactory, RoomAssembler roomAssembler, HouseRepository houseRepository) {
+    public RoomService(IRepository<RoomID, Room> roomRepository, IRoomFactory roomFactory, IAssembler<Room, RoomDTO> roomAssembler, IRepository<HouseID, House> houseRepository) {
         _roomRepository = roomRepository;
         _roomFactory = roomFactory;
         _roomAssembler = roomAssembler;
