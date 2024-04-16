@@ -66,7 +66,6 @@
             <scope>provided</scope>
         </dependency>
 
-
         <dependency>
             <groupId>org.shredzone.commons</groupId>
             <artifactId>commons-suncalc</artifactId>
@@ -185,12 +184,12 @@
                 <configuration>
                     <targetClasses>
                         <!-- Example: <param>lapr.project.model.*</param> -->
-                        <param>SmartHomeDDD.*</param>
+                        <param>smartHome.*</param>
                     </targetClasses>
 
                     <targetTests>
                         <!-- Example: <param>lapr.project.utils.*</param> -->
-                        <param>SmartHomeDDD.*</param>
+                        <param>smartHome.*</param>
                     </targetTests>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
@@ -198,12 +197,11 @@
                     </outputFormats>
                     <!--<verbose>true</verbose>-->
                     <features>
-                           <feature>+auto_threads</feature>
+                        <feature>+auto_threads</feature>
                     </features>
                 </configuration>
 
             </plugin>
-
 
         </plugins>
     </build>
