@@ -50,3 +50,5 @@ Thumbs.db
 *.wmv
 
 /SmartHome.iml
+/src/main/resources/META-INF/test.mv.trace.db
+/src/main/resources/META-INF/test.mv.mv.db

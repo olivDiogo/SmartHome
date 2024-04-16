@@ -5,8 +5,9 @@ import smartHome.domain.actuator.blindRollerActuator.BlindRollerActuator;
 import smartHome.domain.actuator.blindRollerActuator.BlindRollerValue;
 import smartHome.valueObject.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 public class BlindRollerActuatorTest {
     /**

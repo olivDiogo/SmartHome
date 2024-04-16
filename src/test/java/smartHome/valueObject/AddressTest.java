@@ -487,4 +487,39 @@ public class AddressTest {
         assertEquals(expectedHashCode, result);
 
     }
+    @Test
+    void shouldReturnTheCountryCodeWhenGetCountryCodeIsCalled() {
+        // Arrange
+        String street = "Rua Isep";
+        String doorNumber = "122A";
+        String postalCode = "4000-009";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+
+        // Act
+        Address address = new Address(street, doorNumber, postalCode, countryCode, factory);
+        String result = address.getCountryCode();
+
+        // Assert
+        assertEquals(countryCode, result);
+    }
+    @Test
+    void shouldReturnThePostalCodeWhenGetPostalCodeIsCalled() {
+        // Arrange
+        String street = "Rua Isep";
+        String doorNumber = "122A";
+        String postalCode = "4000-009";
+        String countryCode = "PT";
+        PostalCodeFactory factory = mock(PostalCodeFactory.class);
+        IPostalCode postalCodeDouble = mock(IPostalCode.class);
+        when(factory.createPostalCode(postalCode, countryCode)).thenReturn(postalCodeDouble);
+
+
+        // Act
+        Address address = new Address(street, doorNumber, postalCode, countryCode, factory);
+        IPostalCode result = address.getPostalCode();
+
+        // Assert
+        assertEquals(postalCodeDouble, result);
+    }
 }

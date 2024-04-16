@@ -1,10 +1,10 @@
 package smartHome.domain.sensor;
 
+import org.junit.jupiter.api.Test;
 import smartHome.domain.sensor.dewPointSensor.DewPointSensor;
 import smartHome.domain.sensor.instantPowerConsumptionSensor.InstantPowerConsumptionSensor;
 import smartHome.domain.sensor.instantPowerConsumptionSensor.InstantPowerConsumptionValue;
 import smartHome.valueObject.*;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;

@@ -1,7 +1,7 @@
 package smartHome.domain.sensor.SunriseTimeSensor;
 
-import smartHome.domain.sensor.sunriseTimeSensor.SunriseTimeSensorValue;
 import org.junit.jupiter.api.Test;
+import smartHome.domain.sensor.sunriseTimeSensor.SunriseTimeSensorValue;
 
 import java.time.LocalTime;
 

@@ -1,11 +1,12 @@
 package smartHome.domain.sensor.SolarIrradienceSensor;
 
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 import smartHome.domain.sensor.solarIrradianceSensor.SolarIrradianceSensor;
 import smartHome.domain.sensor.solarIrradianceSensor.SolarIrradianceValue;
 import smartHome.valueObject.*;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.Assert.*;
-import org.mockito.MockedConstruction;
 import static org.mockito.Mockito.*;
 
 public class SolarIrradianceSensorTest {

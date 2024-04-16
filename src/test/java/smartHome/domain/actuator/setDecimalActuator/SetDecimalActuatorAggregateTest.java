@@ -1,9 +1,9 @@
 package smartHome.domain.actuator.setDecimalActuator;
 
+import org.junit.jupiter.api.Test;
 import smartHome.ddd.IValueObject;
 import smartHome.domain.actuator.blindRollerActuator.BlindRollerValue;
 import smartHome.valueObject.*;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
