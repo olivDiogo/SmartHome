@@ -27,7 +27,7 @@ public class PercentagePositionSensor implements ISensor {
      * @param sensorName   The name of the sensor.
      * @throws IllegalArgumentException if any of the parameters are null.
      */
-    public PercentagePositionSensor(ModelPath modelPath, SensorName sensorName, SensorTypeID sensorTypeID, DeviceID deviceID) {
+    public PercentagePositionSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
