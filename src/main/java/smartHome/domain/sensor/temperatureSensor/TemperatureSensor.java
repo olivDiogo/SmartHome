@@ -73,8 +73,10 @@ public class TemperatureSensor implements ISensor {
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
+
         } else if (!Objects.equals(sensorTypeID.getID(), "Temperature")) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'Temperature'");
+
         } else {
             this._sensorTypeID = sensorTypeID;
         }
@@ -159,5 +161,45 @@ public class TemperatureSensor implements ISensor {
     @Override
     public DeviceID getDeviceID() {
         return _deviceID;
+    }
+
+    /**
+     * Checks if the object is equal to the current instance.
+     *
+     * @param o is the object to be compared.
+     * @return
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TemperatureSensor)) return false;
+        TemperatureSensor that = (TemperatureSensor) o;
+        return Objects.equals(_sensorID, that._sensorID);
+    }
+
+    /**
+     * Returns the hash code of the sensor ID.
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return _sensorID.hashCode();
+    }
+
+    /**
+     * Returns the string representation of the sensor.
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "TemperatureSensor:" +
+                " modelPath=" + _modelPath +
+                ", sensorName=" + _sensorName +
+                ", sensorID=" + _sensorID +
+                ", sensorTypeID=" + _sensorTypeID +
+                ", temperatureValue=" + _temperatureValue +
+                ", deviceID=" + _deviceID;
     }
 }

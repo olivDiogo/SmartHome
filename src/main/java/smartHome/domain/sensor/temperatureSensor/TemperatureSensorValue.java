@@ -8,7 +8,7 @@ public class TemperatureSensorValue implements IValueObject {
      * Represents the value of the temperature measured by the sensor.
      * This class is used to encapsulate the numeric value of the temperature measurement.
      */
-    private double _dValue;
+    private double _TemperatureValue;
 
     /**
      * Constructs a new TemperatureSensorValue with the specified temperature measurement.
@@ -30,7 +30,7 @@ public class TemperatureSensorValue implements IValueObject {
         if (dValue < -273.15) {
             throw new IllegalArgumentException("Temperature value must be above or equal to -273.15");
         } else {
-            this._dValue = dValue;
+            this._TemperatureValue = dValue;
         }
     }
 
@@ -42,6 +42,33 @@ public class TemperatureSensorValue implements IValueObject {
      */
     @Override
     public String toString() {
-        return this._dValue + "";
+        return this._TemperatureValue + "";
     }
+
+    /**
+     * Compares this TemperatureSensorValue to another object.
+     * This method returns true if and only if the other object is a TemperatureSensorValue with the same value.
+     *
+     * @param obj The object to compare.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TemperatureSensorValue) {
+            TemperatureSensorValue other = (TemperatureSensorValue) obj;
+            return this._TemperatureValue == other._TemperatureValue;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the hash code of the temperature value.
+     *
+     * @return The hash code of the temperature value.
+     */
+    @Override
+    public int hashCode() {
+        return Double.hashCode(_TemperatureValue);
+    }
+
 }

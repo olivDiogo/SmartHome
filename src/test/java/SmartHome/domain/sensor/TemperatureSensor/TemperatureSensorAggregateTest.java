@@ -1,14 +1,14 @@
-package smartHome.domain.sensor;
+package smartHome.domain.sensor.TemperatureSensor;
 
-
+import org.junit.jupiter.api.Test;
 import smartHome.domain.sensor.temperatureSensor.TemperatureSensor;
 import smartHome.domain.sensor.temperatureSensor.TemperatureSensorValue;
 import smartHome.valueObject.*;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TemperatureSensorTest {
+public class TemperatureSensorAggregateTest {
+
 
     /**
      * Tests the instantiation of TemperatureSensor when the constructor arguments are valid.
@@ -245,17 +245,22 @@ class TemperatureSensorTest {
         String deviceIDValue = "some-device-id";
         String modelPathValue = "some-model-path";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "NotTemperature";
+        String typeID = "SomethingElse";
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
         SensorName sensorName = new SensorName(sensorNameValue);
-        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        String expectedMessage = "SensorTypeID must be of type 'Temperature'";
 
         // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName));
+
+        String actualMessage = exception.getMessage();
 
         // Assert
-        assertEquals("SensorTypeID must be of type 'Temperature'", exception.getMessage());
+        assertEquals(expectedMessage, actualMessage);
     }
 
     /**
@@ -282,4 +287,139 @@ class TemperatureSensorTest {
         double value = Double.parseDouble(result.toString());
         assertTrue(value >= -273.15);
     }
+
+    /**
+     * Tests method equals when the instance is compared to itself.
+     */
+    @Test
+    void shouldReturnTrue_WhenComparingTheSameInstance(){
+        // Arrange
+        String deviceIDValue = "some-device-id";
+        String modelPathValue = "some-model-path";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Temperature";
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Act
+        boolean result = sensor.equals(sensor);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Tests method equals when there are two different objects.
+     */
+    @Test
+    void shouldReturnFalse_WhenThereTwoDifferentObjects() {
+        // Arrange
+        String deviceIDValue = "some-device-id";
+        String modelPathValue = "some-model-path";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Temperature";
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Act
+        boolean result = sensor.equals(new Object());
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Tests equals when instances is compared to a null object.
+     */
+    @Test
+    void shouldReturnFalse_WhenComparedToNull() {
+        // Arrange
+        String deviceIDValue = "some-device-id";
+        String modelPathValue = "some-model-path";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Temperature";
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        // Act
+        boolean result = sensor.equals(null);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test hashCode method.
+     */
+    @Test
+    void shouldReturnHashCode_whenHashCodeIsCalled(){
+        // Arrange
+        String deviceIDValue = "some-device-id";
+        String modelPathValue = "some-model-path";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Temperature";
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        SensorID sensorID = sensor.getID();
+
+        int expected = sensorID.hashCode();
+
+        // Act
+        int result = sensor.hashCode();
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test toString method.
+     */
+    @Test
+    void shouldReturnString_whenToStringIsCalled() {
+        // Arrange
+        String deviceIDValue = "some-device-id";
+        String modelPathValue = "some-model-path";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Temperature";
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        String expectedValue = sensor.getValue().toString();
+
+        String expected = "TemperatureSensor:" +
+                " modelPath=" + modelPath +
+                ", sensorName=" + sensorName +
+                ", sensorID=" + sensor.getID() +
+                ", sensorTypeID=" + sensorTypeID +
+                ", temperatureValue=" + expectedValue +
+                ", deviceID=" + deviceID;
+
+        // Act
+        String result = sensor.toString();
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
 }
