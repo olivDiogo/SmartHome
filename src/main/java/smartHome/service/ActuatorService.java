@@ -29,9 +29,45 @@ public class ActuatorService {
      * @param deviceRepository   The repository for accessing devices.
      */
     public ActuatorService(IRepository<ActuatorID, IActuator> actuatorRepository, IActuatorFactory actuatorFactory, IDeviceRepository deviceRepository) {
+        validateActuatorRepository(actuatorRepository);
         _actuatorRepository = actuatorRepository;
+        validateActuatorFactory(actuatorFactory);
         _actuatorFactory = actuatorFactory;
+        validateDeviceRepository(deviceRepository);
         _deviceRepository = deviceRepository;
+    }
+
+    /**
+     * Validates the actuator repository.
+     * @param actuatorRepository The actuator repository to validate.
+     * @throws IllegalArgumentException If the actuator repository is null.
+     */
+    private void validateActuatorRepository(IRepository<ActuatorID, IActuator> actuatorRepository) {
+        if (actuatorRepository == null) {
+            throw new IllegalArgumentException("Actuator repository cannot be null.");
+        }
+    }
+
+    /**
+     * Validates the actuator factory.
+     * @param actuatorFactory The actuator factory to validate.
+     * @throws IllegalArgumentException If the actuator factory is null.
+     */
+    private void validateActuatorFactory(IActuatorFactory actuatorFactory) {
+        if (actuatorFactory == null) {
+            throw new IllegalArgumentException("Actuator factory cannot be null.");
+        }
+    }
+
+    /**
+     * Validates the device repository.
+     * @param deviceRepository The device repository to validate.
+     * @throws IllegalArgumentException If the device repository is null.
+     */
+    private void validateDeviceRepository(IDeviceRepository deviceRepository) {
+        if (deviceRepository == null) {
+            throw new IllegalArgumentException("Device repository cannot be null.");
+        }
     }
 
     /**
