@@ -1,19 +1,18 @@
-# US019 - To have a type of sensor for wind speed and direction
+## US019 
 
-## 1. Requirements Engineering
+## 0. Description
+_As a Product Owner, I want the system to have a type of sensor that gives the wind speed (km/h) and direction using angles in radians (trigonometric circle starting at east)._
 
-As Product Owner, I want the system to have a type of sensor that gives the wind speed (km/h) and direction (8 cardinal points).
+## 1. Analysis
+_A sensor model (with a corresponding type) that can measure wind speed and direction as specified will be included in the system._
 
-### 1.1 System Sequence Diagram
-
+### 1.1. Created/Affected Use Cases
 N/A
 
-### 1.2 Dependency of other user stories
-
-N/A
+### 1.2. Acceptance Criteria
+* AC1: The system must have a sensor that can measure wind speed in km/h and direction in radians, with the circle starting at east.
 
 ### 1.3 Customer Specifications and Clarifications
-
 - Question 1
   - Q. Existe algum limite de velocidade do vento?
   - A. Não lhe sei dizer.
@@ -24,41 +23,5 @@ N/A
   - Q. A direção do vento deve ser representada por pontos cardeais ou ângulos?
   - A. Não tinha pensado nisso, mas ângulos em radianos torna a coisa mais flexível. O círculo trignométrico começa a leste. Assim, Norte = Pi/2.
 
-## 2. Analysis
-
-### 2.1 Domain Model Excerpt
-
-The relevant domain concepts for this user story:
-
-![artifacts/us19_DM.svg](artifacts/us19_DM.svg)
-
-## 3. Design
-
-### 3.1 Functionality Development (System Sequence Diagram)
-
-N/A
-
-### 3.2 Class Diagram
-![artifacts/us19_CD.svg](artifacts/us19_CD_v2.svg)
-
-### 3.3 Applied Patterns
-
-* **Single Responsibility Principle** - All classes have only one and well-defined responsibility.
-
-* **Low Coupling** - Dependencies between classes are at their lowest point possible. The use of Services classes reduced the dependency level between them.
-
-* **High Cohesion** - Due to low coupling, the responsibilities of each class are highly focused, therefore cohesion's high.
-
-### 3.4 Tests
-
-#### Test 1: Get a valid wind speed and direction
-
-### 3.5 Frontend Design
-
-TBD
-
-## 4. Implementation
-
-## 5. Integration/Demonstration
-
-## 6. Comments
+### 1.4 Class Diagram
+![ClassDiagram](artifacts/us19_CD_v2.svg)

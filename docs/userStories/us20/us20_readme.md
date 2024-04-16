@@ -1,36 +1,19 @@
-# US20 - To have a type of sensor that gives the sunrise instant for a given calendar date.
+## US20 
 
-## 1. Requirements Engineering
+## 0. Description
+_As a Product Owner, I want the system to have a type of sensor that gives the sunrise time for a given location on a specific calendar date._
 
-As Product Owner, I want the system to have a type of sensor that gives the sunrise time on a given location.
+## 1. Analysis
+_A sensor model (with a corresponding type) that provides sunrise times will be included in the system._
 
-## 2. Analysis
-
-### 2.1 Domain Model Excerpt
-
-The relevant domain concepts for this user story:
-
-![Sensor](../../ooa/4.agreggateModels/Sensor.png)
-
-## 3. Design
-
-### 3.1 Functionality Development (System Sequence Diagram)
-
+### 1.1. Created/Affected Use Cases
 N/A
 
-### 3.2 Class Diagram
+### 1.2. Acceptance Criteria
+* AC1: The system must have a sensor that can accurately determine the sunrise time for any given location and date.
 
-![artifacts/us20_CD.svg](artifacts/us20_CD_v2.svg)
+### 1.3 Customer Specifications and Clarifications
+N/A
 
-### 3.3 Applied Patterns
-
-* **Single Responsibility Principle** - All classes have only one and well-defined responsibility.
-* **Low Coupling** - Dependencies between classes are at their lowest point possible. The use of Services classes reduced the dependency level between them.
-* **High Cohesion** - Due to low coupling, the responsibilities of each class are highly focused, therefore cohesion's high.
-
-### 4. Tests
-
-#### Test 1: Get a valid sunrise time on a given location [Test](../../../src/test/java/SmartHomeDDD/domain/Sensor/SunriseTimeSensorTest.java#L361)
-
-
-
+### 1.4 Class Diagram
+![ClassDiagram](artifacts/us20_CD_v2.svg)

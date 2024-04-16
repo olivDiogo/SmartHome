@@ -1,36 +1,19 @@
-# US25 - To have a type of sensor that gives the average power consumption over a period (W).
+## US25 
 
-## 1. Requirements Engineering
+## 0. Description
+_As a Product Owner, I want the system to have a type of sensor that gives the average power consumption over a period (W)._
 
-_As Product Owner, I want the system to have a type of sensor that gives the
-average power consumption over a period (W)._
+## 1. Analysis
+_A sensor model (with a corresponding type) that measures the average power consumption over a defined period will be included in the system._
 
-## 2. Analysis
-
-### 2.1 Domain Model Excerpt
-
-The relevant domain concepts for this user story:
-
-![Sensor](../../ooa/4.agreggateModels/Sensor.png)
-
-## 3. Design
-
-### 3.1 Functionality Development (System Sequence Diagram)
-
+### 1.1. Created/Affected Use Cases
 N/A
 
-### 3.2 Class Diagram
+### 1.2. Acceptance Criteria
+* AC1: The system must have a sensor that can calculate and report the average power consumption over a specified period.
 
-![artifacts/us25_CD.svg](artifacts/us25_CD_v2.svg)
+### 1.3 Customer Specifications and Clarifications
+N/A
 
-### 3.3 Applied Patterns
-
-* **Single Responsibility Principle** - All classes have only one and well-defined responsibility.
-* **Low Coupling** - Dependencies between classes are at their lowest point possible. The use of Services classes reduced the dependency level between them.
-* **High Cohesion** - Due to low coupling, the responsibilities of each class are highly focused, therefore cohesion's high.
-
-## 4 Tests
-
-#### Test 1: Get a valid average power consumption over a period [Test](../../../src/test/java/SmartHomeDDD/domain/Sensor/AveragePowerConsumptionSensor/AveragePowerConsumptionSensorTest.java#L143)
-
-
+### 1.4 Class Diagram
+![ClassDiagram](artifacts/us25_CD_v2.svg)

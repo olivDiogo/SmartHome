@@ -1,49 +1,19 @@
-## US18 - Percentege Position Sensor
+## US18 
 
-## 0. Requirements
-_As Product Owner, To want the system to have a type of sensor that gives the current value/position in a scale (%).
+## 0. Description
+_As Product Owner, I want the system to have a type of sensor that gives the current value/position in a scale (%)._
 
 ## 1. Analysis
-_A sensor model (with a corresponding type) capable of giving the scale of percentege._
+_A sensor model (with a corresponding type) capable of giving the current value/position in a percentage scale will be included in the system._
 
-### 1.1. System Sequence Diagram
-Not applicable.
+### 1.1. Created/Affected Use Cases
+N/A
 
-### 1.2. Use Case description
-_To have a sensor that gives the temperature._
-    
-        Use Case Name: To want the system to have a type of sensor that gives the current value/position in a scale (%).
-    
-        Actor: Product Owner
-    
-        Goal: To have a sensor model (with a corresponding type) capable of giving the scale of percentege.
+### 1.2. Acceptance Criteria
+* AC1: The system must have a sensor that can detect and report a position or value as a percentage on a scale.
 
+### 1.3 Customer Specifications and Clarifications
+N/A
 
-### 1.3. Dependency of another user story
-_This user story does not depend on another._
-
-### 1.4. Relevant domain aggregate model 
-![Sensor](../../ooa/4.agreggateModels/Sensor.png)
-
-### 1.5. Required classes
-_PercentegePositionSensor_ -> for the sensor class with its functionality
-
-_PercentegePositionSensorValue_ -> for the value of the scale of percentege
-
-_ImplFactorySensor_ -> for the sensor instantiation
-
-
-## 2. Design
-_The team will design the best way to implement the requirements._
-### 2.1. Class Diagram
-![ClassDiagram](artifacts/US18CD.png)
-### 2.2. Sequence Diagram
-Not applicable.
-### 2.3. Applied Patterns
-- Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization 
-and maintainability.
-- Factory Pattern: The factory pattern is used to create the sensor instances.
-
-## 3. Acceptance Tests
-
-- Test to verify that PercentagePositionSensor is properly instantiated when constructor arguments are valid - [Test Link](../../../src/test/java/SmartHomeDDD/domain/Sensor/PercentagePositionSensorTest.java#L22)
+### 1.4 Class Diagram
+![ClassDiagram](artifacts/us18_CD_v2.svg)
