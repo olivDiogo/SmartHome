@@ -13,11 +13,11 @@ import static org.mockito.Mockito.*;
 class ActuatorTypeTest {
 
     /**
-     * Test of constructor of class ActuatorType, when arguments are valid.
+     * Test of the first constructor of class ActuatorType, when arguments are valid.
      */
 
     @Test
-    void shouldCreateActuatorType_whenAttributesAreValid() {
+    void shouldCreateActuatorTypeInTheFirstConstructor_whenAttributesAreValid() {
         // Arrange
         TypeDescription actuatorName = mock(TypeDescription.class);
         when(actuatorName.toString()).thenReturn("ValidName");
@@ -29,6 +29,26 @@ class ActuatorTypeTest {
         // Assert
         assertNotNull(actuatorType);
     }
+
+    /**
+     * Test of the second constructor of class ActuatorType, when arguments are valid.
+     */
+    @Test
+    void shouldCreateActuatorTypeInTheSecondConstructor_whenAttributesAreValid() {
+        // Arrange
+        TypeDescription actuatorName = mock(TypeDescription.class);
+        when(actuatorName.toString()).thenReturn("ValidName");
+        UnitID unitID = mock(UnitID.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        when(actuatorTypeID.toString()).thenReturn("1");
+
+        // Act
+        ActuatorType actuatorType = new ActuatorType(actuatorName, unitID, actuatorTypeID);
+
+        // Assert
+        assertNotNull(actuatorType);
+    }
+
 
     /**
      * Test of constructor of class ActuatorType, when typeDescription is null.

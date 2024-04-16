@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class ActuatorTypeAggregateTest {
 
         /**
-        * Test of constructor of class ActuatorType, when arguments are valid.
+        * Test of the first constructor of class ActuatorType, when arguments are valid.
         */
         @Test
-        void shouldCreateActuatorType_whenAttributesAreValid() {
+        void shouldCreateActuatorType_whenAttributesAreValidInTheFirstConstructor() {
             // Arrange
             String typeDescription = "typeDescription";
             String id = "unitID";
@@ -30,8 +30,28 @@ class ActuatorTypeAggregateTest {
             assertNotNull(actuatorType);
         }
 
-        /**
-         * Test of method getID of class ActuatorType.
+    /**
+     * Test of the second constructor of class ActuatorType, when arguments are valid.
+     */
+    @Test
+    void shouldCreateActuatorType_whenAttributesAreValidInTheSecondConstructor() {
+        // Arrange
+        String typeDescription = "typeDescription";
+        String id = "unitID";
+
+        TypeDescription actuatorName = new TypeDescription(typeDescription);
+        UnitID unitID = new UnitID(id);
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("1");
+
+        // Act
+        ActuatorType actuatorType = new ActuatorType(actuatorName, unitID, actuatorTypeID);
+
+        // Assert
+        assertNotNull(actuatorType);
+    }
+
+    /**
+     * Test of method getID of class ActuatorType.
          */
         @Test
         void shouldReturnActuatorTypeID_whenGetIDisCalled() {
