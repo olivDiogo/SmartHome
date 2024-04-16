@@ -1,19 +1,13 @@
-## US08 
+## UC08 
 
 ## 0. Description
 
 To deactivate a Device
 
-## 0. Requirements
-_As a Power User, I want to deactivate a device, so that it is no longer available for use._
-
 ## 1. Analysis
-_The device will be deactivated and will no longer be available for use._
+The system will deactivate an existing active device.
 
-### 1.1. System Sequence Diagram
-![System Sequence Diagram](artifacts/US08SSD.svg)
-
-### 1.2. Use Case description
+### 1.1. Use Case description
 _To deactivate a device_
     
         Use Case Name: To deactivate a device
@@ -38,16 +32,19 @@ _To deactivate a device_
         Alternative Flows:
         Non-existing device: If the device does not exist, the system will not deactivate it.
 
-### 1.3. Dependency of another user story
-US01 - a House must exist
-US02 - a Room must exist
-US05 - a Device must exist in a Room
+### 1.2. Dependency on other use cases
+This UC depends on the following UCs:
+* UC01 - a House must exist
+* UC02 - a Room must exist
+* UC05 - a Device must exist in a Room
 
-### 1.4. Relevant domain model aggregates
+### 1.3. Relevant domain model aggregates
 ![Device](../../ooa/4.agreggateModels/Device.png)
 
+### 1.4. System Sequence Diagram
+![System Sequence Diagram](artifacts/US08SSD.svg)
+
 ## 2. Design
-_The team will design the best way to implement the requirements._
 
 ### 2.1. Class Diagram
 ![ClassDiagram](artifacts/US08CD.png)
@@ -65,11 +62,4 @@ _The team will design the best way to implement the requirements._
 - Value Object Pattern - Defines immutable objects that represent descriptive values of attributes, improving data integrity and consistency across the application.
 - Factory Pattern - Encapsulates object creation, providing a centralized point for creating instances of classes, promoting code reuse and reducing dependencies between classes.
 
-## 3. Tests
-_The team will design the best way to test the requirements._
-
-- Should return a list of devices
-- Should return an empty list if there are no devices
-- Should deactivate a device
-- Should return the device not found message if the device does not exist
 

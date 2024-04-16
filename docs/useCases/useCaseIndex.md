@@ -10,7 +10,7 @@
 
 [uc05](uc05_toAddDevice/uc05_readme.md) - To Add Device to Room
 
-[uc06](uc06_toGetListOfAllDevices/uc06_readme.md) - To Get List of All Devices in House
+[uc06](uc06_toGetListOfAllDevicesInRoom/uc06_readme.md) - To Get List of All Devices in House
 
 [uc07](uc07_toAddSensor/uc07_readme.md) - To Add Sensor to Device
 

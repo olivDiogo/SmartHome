@@ -5,12 +5,11 @@
 As an Administrator, I want to configure the location of the house.
 
 ## 1. Analysis
-
-The location the house will have an address, GPS a Postal Code. The location the house will be added to the house.
+The location of the house will have an address, GPS a Postal Code. The location of the house will be added to the house.
 
 ### 1.1. Created/Affected Use Cases
 
-* Creates: Use Case 1: To Add Location to the House
+* Creates: Use Case 1 - To Add Location to the House
 
 ### 1.2. Acceptance Criteria
 

@@ -1,39 +1,71 @@
-# US012
+# UC10
 
 ## 0. Description
 
 To add an actuator to an existing Device in a Room.
 
-## 1. Requirements Engineering
+## 1. Analysis
+All actuators will have an ID, a device ID, a model, a name, an actuator type ID and a value.
+Some actuators might have additional information.
 
-As a Power User (or Administrator), I want to add an actuator to an existing device in a room. The actuator must be of a model of an existing type of actuator.
+### 1.1. Use Case Description
+_To add an actuator to a device_
 
-### 1.1 System Sequence Diagram
+    Use Case Name: To add an actuator to a device
 
-![US012-SSD](artifacts/us12_SSD.svg)
+    Actor: Power User / Administrator
 
-### 1.2 Dependency of other user stories
+    Goal: To add an actuator to a device
 
-* There is a dependency with US03 - To get a list of existing rooms
-* There is a dependency with US06 - To get a list of devices in a room
+    Preconditions:
+    The Power User / Administrator has access to the device management interface within the system.
+    The system has a mechanism for storing and accessing the devices in the room.
+    The system has a mechanism for storing and accessing the actuators in the room.
+    The system has a mechanism for storing and accessing the actuator models in the room.
+    The system has a mechanism for storing and accessing the actuator types in the room.
+    Trigger: The Power User / Administrator selects the option to add an actuator to a device.
 
-### 1.3 Customer Specifications and Clarifications
+    Basic Flow:
+    The Power User (or Administrator) selects the option to add an actuator to an existing device in a room.
+    The system provides a list with all the rooms in the house.
+    The Power User (or Administrator) selects a room from the list.
+    The system provides a list with all the devices in the room.
+    The Power User (or Administrator) selects a device from the list.
+    The system provides a list with all the actuator types supported by the system.
+    The Power User (or Administrator) selects an actuator type from the list.
+    The system provides a list with all the actuator models of that type supported by the system.
+    The Power User (or Administrator) selects an actuator model from the list.
+    The system provides a form to fill in the actuator description.
+    The Power User (or Administrator) fills in the actuator description.
+    The Power User (or Administrator) submits the form.
+    The system adds the new actuator to the device.
+
+    Alternative Flows:
+    1. The Power User / Administrator selects an actuator that does not exist in the room.
+    2. The Power User / Administrator selects a device that does not exist in the room.
+    3. The Power User / Administrator selects a device that is deactivated.
+
+### 1.2. Dependency of other user stories
+This use case depends on UC03 and UC06.
+
+### 1.3. Relevant domain aggregate model
+
+
+### 1.4. Customer Specifications and Clarifications
 
 - Question 1
   - Q: é possível adicionar um atuador a um device que se encontra desativado? 
   - A: Não.
 
-## 2. Analysis
+### 1.5. System Sequence Diagram
+![US012-SSD](artifacts/us12_SSD.svg)
 
-### 2.1 Domain Model Excerpt
+## 2. Design
 
-The relevant domain concepts for this user story:
+### 2.1 Class Diagram
+![US012-CD](artifacts/us12_CD.svg)
 
-![US012-DM](artifacts/us12_DM.svg)
-
-## 3. Design
-
-### 3.1 Functionality Development (System Sequence Diagram)
+### 2.2. Sequence Diagram
 ![US012-SD](artifacts/us12_SD.svg)
 ![US012-SD-ref1](artifacts/us12_SD_ref1.svg)
 ![US012-SD-ref2](artifacts/us12_SD_ref2.svg)
@@ -41,36 +73,11 @@ The relevant domain concepts for this user story:
 ![US012-SD-ref4](artifacts/us12_SD_ref4.svg)
 ![US012-SD-ref5](artifacts/us12_SD_ref5.svg)
 
-### 3.2 Class Diagram
-![US012-CD](artifacts/us12_CD.svg)
 
-### 3.3 Applied Patterns
-
-* **Single Responsibility Principle** - All classes have only one and well-defined responsibility.
-
-* **Controller** - A controller (AddActuatorController) receives and coordinates system operations connecting the UI layer to the App's logic layer.
-
-* **Information Expert** - The flow of this process is entirely made following this principle: for a particular responsibility, it is determined the information needed to fulfill it and where that information is stored.
-
-* **Pure Fabrication** - Services that represent a concept outside the problem's domain, but they have set of responsibilities designed to achieve low coupling, high cohesion and the potential for reuse.
-
-* **Low Coupling** - Dependencies between classes are at their lowest point possible. The use of Services classes reduced the dependency level between them.
-
-* **High Cohesion** - Due to low coupling, the responsibilities of each class are highly focused, therefore cohesion's high.
-
-### 3.4 Tests
-
-#### Test 01: Add Actuator to Device Successfully
-#### Test 02: Add Nonexistent Actuator Model to Device
-#### Test 03: Add Actuator to Non-Existing Device
-#### Test 04: Add Actuator to Deactivated Device
-
-### 3.5 Frontend Design
-
-TBD
-
-## 4. Implementation
-
-## 5. Integration/Demonstration
-
-## 6. Comments
+### 2.3 Applied Patterns
+- All classes have only one and well-defined responsibility.
+- A controller (AddActuatorController) receives and coordinates system operations connecting the UI layer to the App's logic layer.
+- The flow of this process is entirely made following this principle: for a particular responsibility, it is determined the information needed to fulfill it and where that information is stored.
+- Services that represent a concept outside the problem's domain, but they have set of responsibilities designed to achieve low coupling, high cohesion and the potential for reuse.
+- Dependencies between classes are at their lowest point possible. The use of Services classes reduced the dependency level between them.
+- Due to low coupling, the responsibilities of each class are highly focused, therefore cohesion's high.

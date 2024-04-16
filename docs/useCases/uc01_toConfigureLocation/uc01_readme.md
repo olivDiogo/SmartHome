@@ -5,12 +5,30 @@
 To Configure Location
 
 ## 1. Analysis
-The location the house will have an address, GPS a Postal Code. The location the house will be added to the house.
+The location of the house will have an address, GPS a Postal Code.
+The location of the house will be added to the house.
 
-### 1.1. Dependency of another use cases
+### 1.1. Use Case Description
+_To configure the location of the house_
+
+    Use Case Name: To configure the location of the house
+
+    Actor: Administrator
+
+    Goal: To configure the location of the house
+
+    Preconditions:
+    The Administrator has access to the location management interface within the system.
+    The system has a mechanism for storing and accessing the location of the house.
+
+    Basic Flow: 
+    Admininstrator selects option to configure the location of the house.
+    System adds the location of the house.
+
+### 1.2. Dependency on other use cases
 No dependencies.
 
-### 1.2. Relevant domain model aggregates
+### 1.3. Relevant domain aggregate model
 ![House](../../ooa/4.agreggateModels/House.png)
 
 ## 2. Design

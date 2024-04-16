@@ -1,21 +1,18 @@
-## US04 
+## UC04 
 
 ## 0. Description
 
-To add a supported Sensor Type
+To define a Sensor Type
 
-## 1. Requirements
-_As an Administrator, I want to define a sensor type._
+## 1. Analysis
+The sensor type will have an ID, a description and a unit.
+The sensor type will be added to the system.
 
-_The Administrator wants to add a new sensor type, a sensor type will have to be from one supported unit. So to add a new sensor type we will first provide all the units supported by the system._
 
-### 1.1. System Sequence Diagram
-![System Sequence Diagram](./artifacts/US04SSD.png)
+### 1.1. Use Case description
+_To define a sensor type_
 
-### 1.2. Use Case description
-_To add a new sensor type_
-
-    Use Case Name: Add a new sensor type
+    Use Case Name: To define a sensor type
     
     Actor: Administrator
     
@@ -39,40 +36,36 @@ _To add a new sensor type_
     
     Alternative Flows:
     Non-existing list: If there are no units supported by the system, the list is empty.
-    Invalid unit: If the unit selected is not supported by the system, the system throws an exception.
     Invalid description: If the sensor type description is null or empty, the system throws an exception.
     Invalid description: If the sensor type description contains special characters, the system throws an exception.
     Invalid description: If the sensor type description is not unique, the system throws an exception.
 
-### 1.3. Dependency of another user story
-_At present this US has no dependency on another user story_
+### 1.2. Dependency on other use cases
+No dependencies.
 
-_However we assume that the system already has configured units_
-### 1.4. Relevant domain model aggregates
+### 1.3. Relevant domain model aggregates
 ![SensorType](../../ooa/4.agreggateModels/sensorTypeAggregate.png)
 ![Unit](../../ooa/4.agreggateModels/Unit.png)
 
-## 2. Analysis
+### 1.4. System Sequence Diagram
+![System Sequence Diagram](./artifacts/US04SSD.png)
+
+## 2. Design
 _To tackle the current US we will be using the SensorType Service. Since SensorType only exists with an associated Unit the service should know the 
 Unit repository, to provide a list of supported units and check if the given unitID is on the Repo._
+
 ### 2.1. Class Diagram
 ![ClassDiagram](./artifacts/US04CD.png)
+
 ### 2.2. Sequence Diagram
-### 2.2.1 Controller SSD
+#### 2.2.1 Controller SSD
 ![SequenceDiagram](./artifacts/US04SD.png)
 
-### 2.2.2 Load Units SSD
+#### 2.2.2 Load Units SSD
 ![SequenceDiagram](./artifacts/SDLoadUnits.png)
 
-- Factory Method: The senorType is created using the factory pattern, that is responsible for creating all supported sensor types
+### 2.3. Applied Patterns
+- Factory Method: The Sensor Type is created using the factory pattern, that is responsible for creating all supported sensor types
 - Single Responsibility Principle: Each class has a single responsibility, this promotes a better code organization and maintainability.
 - Data Transfer Object: The sensorTypeDTO is used to transfer the sensorType data between the controller and the service layer.
 - Repository: The sensorTypeRepository is used to store and retrieve sensorType data.
-
-## 3. Tests
-_The team will design the best way to test the requirements._
-
-- Should add sensorType with valid description and valid unit [Test Link](../../../src/test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L139)
-- Should throw exception if sensorType already exists [Test Link](../../../src/test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L172)
-- Should throw exception if unit not supported [Test Link](../../../src/test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L205)
-- The sensorType description should be unique [Test Link](../../../src/test/java/SmartHomeDDD/controller/AddSensorTypeControllerTest.java#L238)

@@ -1,14 +1,11 @@
-## US02
+## UC02
 
 ## 0. Description
 
 To add Room to House
 
-## 0. Requirements
-As an Administrator, I want to add a new room to the house, in order to configure it (name, house floor and dimensions).
-
 ## 1. Analysis
-The room will have a name, a floor and dimensions. The room will be added to the house.
+The room will have a house ID, a name, a floor and dimensions. The room will be added to the house.
 
 ### 1.1. Use Case Description
 _To add a room to the house_
@@ -17,7 +14,7 @@ _To add a room to the house_
 
     Actor: Administrator
 
-    Goal: To add a new room to thw house
+    Goal: To add a new room to the house
 
     Preconditions:
     The Administrator has access to the rooms management interface within the system.
@@ -27,22 +24,14 @@ _To add a room to the house_
     Admininstrator selects option to add a room to the house.
     System adds the room to the house.
 
-### 1.2. Dependency of another user story
-This user story depends on US01 (a House must exist).
+### 1.2. Dependency on other use cases
+This use case depends on UC01 (a House must exist).
 
 ### 1.3. Relevant domain model aggregates
 ![Room](../../ooa/4.agreggateModels/Room.png)
 
-### 1.4. Required classes
-_Controller_ -> for the management of the services and the interface
-
-_RoomService_ -> for the room management
-
-_RoomRepository_ -> for the room storage
-
-_RoomAssembler_ -> for the room data transfer object management
-
-_RoomDTO_ -> for the room data transfer object
+### 1.4. System Sequence Diagram
+![System Sequence Diagram](artifacts/US02SSD.svg)
 
 ## 2. Design
 
@@ -56,13 +45,4 @@ _RoomDTO_ -> for the room data transfer object
 - Single Responsibility Principle: Each class has a single responsibility, which promotes a better code organization
 - Factory Method: The RoomAssembler class will be used to create the data transfer objects.
 - Data Transfer Object: The RoomDTO class will be used to transfer data between the layers of the application.
-- Repository: The roomRepository is used to store and retrieve room data.
-
-## 3. Tests
-- Should instantiate AddRoomToHouseController when parameters are valid
-- Should throw exception if house does not exist
-- Should add a new room to the house given a valid houseID, name, floor and dimensions
-- Should throw exception if the house id is invalid
-- Should throw exception if the room name is invalid
-- Should throw exception if the room floor is invalid
-- Should throw exception if the room dimensions are invalid
+- Repository: The RoomRepository is used to store and retrieve room data.
