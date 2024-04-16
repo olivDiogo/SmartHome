@@ -30,6 +30,24 @@ public class House implements IAggregateRoot<HouseID> {
         validateAddress(address);
         validateGps(gps);
     }
+    House(HouseID houseID, Address address, GPS gps) {
+        validateHouseID(houseID);
+        validateAddress(address);
+        validateGps(gps);
+    }
+    /**
+     *Validates the provided HouseID object.
+     *
+     * @param houseID The HouseID to be validated.
+     *                @throws IllegalArgumentException if houseID is null.
+     */
+    private void validateHouseID(HouseID houseID) {
+        if (houseID == null) {
+            throw new IllegalArgumentException("HouseID is required");
+        } else {
+            _houseID = houseID;
+        }
+    }
 
     /**
      * Generates a unique identifier for the House instance.

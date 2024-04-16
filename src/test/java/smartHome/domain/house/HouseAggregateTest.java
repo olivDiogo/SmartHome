@@ -301,4 +301,42 @@ class HouseAggregateTest {
         // Assert
         assertEquals(expectedHashCode, hashCode);
     }
+    @Test
+    void shouldThrowIllegalArgumentException_WhenHouseIDIsNull() {
+        // Arrange
+        HouseID houseID = null;
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new House(houseID, address, gps));
+
+        // Assert
+        assertEquals("HouseID is required", exception.getMessage());
+    }
+    @Test
+    void shouldInstantiateHouseWhenAllParameteresValidAndUsingHouseID() {
+        // Arrange
+        HouseID houseID = new HouseID("68");
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = new GPS(latitude, longitude);
+        // Act
+        House house = new House(houseID, address, gps);
+        //Assert
+        assertNotNull(house);
+    }
 }

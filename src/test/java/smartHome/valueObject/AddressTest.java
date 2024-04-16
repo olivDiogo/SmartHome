@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class AddressTest {
+ class AddressTest {
 
     /**
      * Tests the correct instantiation of an Address
