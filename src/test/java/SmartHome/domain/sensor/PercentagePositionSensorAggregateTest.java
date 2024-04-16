@@ -27,7 +27,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
 
         //Act
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         //Assert
         assertNotNull(percentagePositionSensor);
@@ -45,7 +45,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
 
         //Act & Assert
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
         assertEquals("ModelPath is required", thrown.getMessage());
     }
 
@@ -61,7 +61,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = null;
 
         //Act & Assert
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
         assertEquals("SensorName is required", thrown.getMessage());
     }
 
@@ -77,7 +77,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
 
         //Act & Assert
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
         assertEquals("SensorTypeID is required", thrown.getMessage());
     }
 
@@ -93,7 +93,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
 
         //Act & Assert
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
         assertEquals("DeviceID is required", thrown.getMessage());
     }
 
@@ -113,7 +113,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Act
         String result = percentagePositionSensor.getValue().toString();
@@ -138,7 +138,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Act
         String result = percentagePositionSensor.getID().toString();
@@ -164,7 +164,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Act
         SensorTypeID result = percentagePositionSensor.getSensorTypeID();
@@ -190,7 +190,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Act
         DeviceID result = percentagePositionSensor.getDeviceID();
@@ -216,7 +216,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Act
         ModelPath result = percentagePositionSensor.getModelPath();
@@ -242,7 +242,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Act
         SensorName result = percentagePositionSensor.getName();
@@ -265,7 +265,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Act
         boolean result = percentagePositionSensor.equals(percentagePositionSensor);
@@ -288,7 +288,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Act
         boolean result = percentagePositionSensor.equals(null);
@@ -312,7 +312,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
         int expected = percentagePositionSensor.hashCode();
         // Act
         int result = percentagePositionSensor.hashCode();
@@ -338,7 +338,7 @@ class PercentagePositionSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(modelPath, sensorName, sensorTypeID, deviceID);
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
         String expected = "SwitchSensor: DeviceID= " + deviceIDValue + " ModelPath= " + modelPathValue + " SensorTypeID= " + sensorTypeIDValue + " SensorName= " + sensorNameValue + " SensorID= " + percentagePositionSensor.getID().getID();
         // Act
         String result = percentagePositionSensor.toString();
