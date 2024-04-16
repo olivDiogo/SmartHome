@@ -12,6 +12,21 @@ import static org.mockito.Mockito.when;
 
 class ActuatorTypeDataModelTest {
 
+    /**
+     * Test for the empty constructor of the {@link ActuatorTypeDataModel} class.
+     */
+    @Test
+    void shouldInstantiateActuatorTypeDataModel_whenEmptyConstructorIsCalled(){
+        // Arrange
+        ActuatorTypeDataModel actuatorTypeDataModel = new ActuatorTypeDataModel();
+
+        // Act
+        assertNotNull(actuatorTypeDataModel);
+    }
+
+    /**
+     * Test for the constructor of the {@link ActuatorTypeDataModel} class.
+     */
     @Test
     void shouldInstantiateActuatorTypeDataModel_WhenAttributesAreValid() {
         //Arrange
@@ -40,6 +55,9 @@ class ActuatorTypeDataModelTest {
         assertNotNull(actuatorTypeDataModel);
     }
 
+    /**
+     * Test for the constructor of the {@link ActuatorTypeDataModel} class when actuatorType is null.
+     */
     @Test
     void shouldThrowIllegalArgumentException_WhenActuatorTypeIsNull() {
         //Arrange
@@ -55,6 +73,9 @@ class ActuatorTypeDataModelTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * Test for the getActuatorTypeID method of the {@link ActuatorTypeDataModel} class.
+     */
     @Test
     void shouldReturnActuatorTypeID_WhenGetActuatorTypeID() {
         //Arrange
@@ -84,6 +105,9 @@ class ActuatorTypeDataModelTest {
         assertEquals(strActuatorTypeID, result);
     }
 
+    /**
+     * Test for the getActuatorTypeName method of the {@link ActuatorTypeDataModel} class.
+     */
     @Test
     void shouldReturnActuatorTypeName_WhenGetActuatorTypeName() {
             //Arrange
@@ -113,6 +137,9 @@ class ActuatorTypeDataModelTest {
             assertEquals(strTypeDescription, result);
         }
 
+    /**
+     * Test for the getUnitID method of the {@link ActuatorTypeDataModel} class.
+     */
     @Test
     void shouldReturnUnitID_WhenGetUnitID() {
         //Arrange
