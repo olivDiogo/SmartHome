@@ -7,39 +7,39 @@ import smart_home.domain.unit.Unit;
 import smart_home.dto.SensorTypeDTO;
 import smart_home.dto.SensorTypeDataDTO;
 import smart_home.dto.UnitDTO;
-import smart_home.service.SensorTypeService;
-import smart_home.service.UnitService;
+import smart_home.service.SensorTypeServiceImpl;
+import smart_home.service.UnitServiceImpl;
 import smart_home.value_object.TypeDescription;
 import smart_home.value_object.UnitID;
 
 import java.util.List;
 
 public class AddSensorTypeController {
-    private SensorTypeService _sensorTypeService;
-    private UnitService _unitService;
+    private SensorTypeServiceImpl _sensorTypeServiceImpl;
+    private UnitServiceImpl _unitServiceImpl;
     private SensorTypeAssembler _sensorTypeAssembler;
     private UnitAssembler _unitAssembler;
 
-    public AddSensorTypeController(SensorTypeService sensorTypeService, SensorTypeAssembler sensorTypeAssembler,
-                                   UnitService unitService, UnitAssembler unitAssembler) {
-        validateSensorTypeService(sensorTypeService);
-        validateUnitService(unitService);
+    public AddSensorTypeController(SensorTypeServiceImpl sensorTypeServiceImpl, SensorTypeAssembler sensorTypeAssembler,
+                                   UnitServiceImpl unitServiceImpl, UnitAssembler unitAssembler) {
+        validateSensorTypeService(sensorTypeServiceImpl);
+        validateUnitService(unitServiceImpl);
         validateSensorTypeAssembler(sensorTypeAssembler);
         validateUnitAssembler(unitAssembler);
     }
 
-    private void validateSensorTypeService(SensorTypeService sensorTypeService) {
-        if (sensorTypeService == null) {
+    private void validateSensorTypeService(SensorTypeServiceImpl sensorTypeServiceImpl) {
+        if (sensorTypeServiceImpl == null) {
             throw new IllegalArgumentException("Valid SensorTypeService is required");
         }
-        _sensorTypeService = sensorTypeService;
+        _sensorTypeServiceImpl = sensorTypeServiceImpl;
     }
 
-    private void validateUnitService(UnitService unitService) {
-        if (unitService == null) {
+    private void validateUnitService(UnitServiceImpl unitServiceImpl) {
+        if (unitServiceImpl == null) {
             throw new IllegalArgumentException("Valid UnitService is required");
         }
-        _unitService = unitService;
+        _unitServiceImpl = unitServiceImpl;
     }
 
     private void validateSensorTypeAssembler(SensorTypeAssembler sensorTypeAssembler) {
@@ -57,7 +57,7 @@ public class AddSensorTypeController {
     }
 
     public List<UnitDTO> getSupportedUnits() {
-        List<Unit> units = _unitService.getAllMeasurementTypes();
+        List<Unit> units = _unitServiceImpl.getAllMeasurementTypes();
         return _unitAssembler.domainToDTO(units);
     }
 
@@ -65,8 +65,8 @@ public class AddSensorTypeController {
         try {
             TypeDescription typeDescription = new TypeDescription(sensorTypeDataDTO.sensorTypeDescription);
             UnitID unitID = new UnitID(sensorTypeDataDTO.unitID);
-            SensorType sensorType = _sensorTypeService.createSensorType(typeDescription, unitID);
-            SensorType savedSensorType = _sensorTypeService.saveSensorType(sensorType);
+            SensorType sensorType = _sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
+            SensorType savedSensorType = _sensorTypeServiceImpl.addSensorType(sensorType);
             return _sensorTypeAssembler.domainToDTO(savedSensorType);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid sensor type data.");

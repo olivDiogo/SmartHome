@@ -18,10 +18,10 @@ import smart_home.persistence.mem.DeviceRepository;
 import smart_home.persistence.mem.DeviceTypeRepository;
 import smart_home.persistence.mem.HouseRepository;
 import smart_home.persistence.mem.RoomRepository;
-import smart_home.service.DeviceService;
-import smart_home.service.DeviceTypeService;
-import smart_home.service.HouseService;
-import smart_home.service.RoomService;
+import smart_home.service.DeviceServiceImpl;
+import smart_home.service.DeviceTypeServiceImpl;
+import smart_home.service.HouseServiceImpl;
+import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.*;
 
 import java.util.List;
@@ -42,16 +42,16 @@ import static org.mockito.Mockito.when;
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
         IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         //Act
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
+        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         //Assert
         Assertions.assertNotNull(getListOfAllDevicesGroupedByFunctionality);
@@ -66,10 +66,10 @@ import static org.mockito.Mockito.when;
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
         IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionality(null, deviceAssembler, deviceTypeService), "DeviceService cannot be null.");
+        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionality(null, deviceAssembler, deviceTypeServiceImpl), "DeviceService cannot be null.");
     }
 
     /**
@@ -81,14 +81,14 @@ import static org.mockito.Mockito.when;
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
 
         IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionality(deviceService, null, deviceTypeService), "DeviceAssembler cannot be null.");
+        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, null, deviceTypeServiceImpl), "DeviceAssembler cannot be null.");
     }
 
     /**
@@ -100,11 +100,11 @@ import static org.mockito.Mockito.when;
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, null), "DeviceTypeService cannot be null.");
+        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, null), "DeviceTypeService cannot be null.");
     }
 
     @Test
@@ -113,16 +113,16 @@ import static org.mockito.Mockito.when;
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
 
         IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
+        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         //Act & Assert
         assertThrows(IllegalArgumentException.class, () -> getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality(), "No devices found.");
@@ -137,19 +137,19 @@ import static org.mockito.Mockito.when;
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
         IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         DeviceTypeFactoryImpl impDeviceTypeFactory = new DeviceTypeFactoryImpl();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseRepository houseRepository = new HouseRepository();
-        HouseService houseService = new HouseService (houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
+        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         /* Create a house */
         String street = "Rua Do Isep";
@@ -163,12 +163,12 @@ import static org.mockito.Mockito.when;
         double longitude = -8.608;
         GPS newGPS = new GPS(latitude, longitude);
 
-        House house = houseService.addHouse(newAddress, newGPS);
+        House house = houseServiceImpl.addHouse(newAddress, newGPS);
 
         /* Create a room */
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         String strRoomName = "Bedroom";
         RoomName roomName = new RoomName(strRoomName);
@@ -176,7 +176,7 @@ import static org.mockito.Mockito.when;
         RoomFloor roomFloor = new RoomFloor(1);
         HouseID houseID = house.getID();
 
-        Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+        Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
 
         /* Create and save devices */
         RoomID roomID = room.getID();
@@ -195,8 +195,8 @@ import static org.mockito.Mockito.when;
         deviceTypeRepository.save(deviceType1);
         deviceTypeRepository.save(deviceType2);
 
-        Device device1 = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceType1.getID());
-        Device device2 = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceType2.getID());
+        Device device1 = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceType1.getID());
+        Device device2 = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceType2.getID());
 
         //Act
         Map<DeviceType, List<DeviceDTO>> result = getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality();
@@ -215,19 +215,19 @@ import static org.mockito.Mockito.when;
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
         IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         DeviceTypeFactoryImpl impDeviceTypeFactory = new DeviceTypeFactoryImpl();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseRepository houseRepository = new HouseRepository();
-        HouseService houseService = new HouseService (houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
+        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         /* Create a house */
         String street = "Rua Do Isep";
@@ -241,12 +241,12 @@ import static org.mockito.Mockito.when;
         double longitude = -8.608;
         GPS newGPS = new GPS(latitude, longitude);
 
-        House house = houseService.addHouse(newAddress, newGPS);
+        House house = houseServiceImpl.addHouse(newAddress, newGPS);
 
         /* Create a room */
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         String strRoomName = "Bedroom";
         RoomName roomName = new RoomName(strRoomName);
@@ -254,7 +254,7 @@ import static org.mockito.Mockito.when;
         RoomFloor roomFloor = new RoomFloor(1);
         HouseID houseID = house.getID();
 
-        Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+        Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
 
         /* Create and save devices */
         RoomID roomID = room.getID();
@@ -271,8 +271,8 @@ import static org.mockito.Mockito.when;
 
         deviceTypeRepository.save(deviceType);
 
-        Device device1 = deviceService.addDevice(roomID, deviceName1, deviceStatus, deviceType.getID());
-        Device device2 = deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceType.getID());
+        Device device1 = deviceServiceImpl.addDevice(roomID, deviceName1, deviceStatus, deviceType.getID());
+        Device device2 = deviceServiceImpl.addDevice(roomID, deviceName2, deviceStatus, deviceType.getID());
 
         //Act
         Map<DeviceType, List<DeviceDTO>> result = getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality();
@@ -292,19 +292,19 @@ import static org.mockito.Mockito.when;
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
         IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         DeviceTypeFactoryImpl impDeviceTypeFactory = new DeviceTypeFactoryImpl();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseRepository houseRepository = new HouseRepository();
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceService, deviceAssembler, deviceTypeService);
+        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         /* Create a house */
         String street = "Rua Do Isep";
@@ -318,12 +318,12 @@ import static org.mockito.Mockito.when;
         double longitude = -8.608;
         GPS newGPS = new GPS(latitude, longitude);
 
-        House house = houseService.addHouse(newAddress, newGPS);
+        House house = houseServiceImpl.addHouse(newAddress, newGPS);
 
         /* Create a room */
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         String strRoomName = "Bedroom";
         RoomName roomName = new RoomName(strRoomName);
@@ -331,7 +331,7 @@ import static org.mockito.Mockito.when;
         RoomFloor roomFloor = new RoomFloor(1);
         HouseID houseID = house.getID();
 
-        Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+        Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
 
         /* Create and save devices */
         RoomID roomID = room.getID();
@@ -347,7 +347,7 @@ import static org.mockito.Mockito.when;
         when(deviceType.getID()).thenReturn(new DeviceTypeID("Wrong Type ID"));
         when(deviceType.getDescription()).thenReturn(deviceTypeDescription);
 
-        Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceType.getID());
+        Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceType.getID());
 
         String expectedMessage = "DeviceType not found.";
 

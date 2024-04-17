@@ -6,29 +6,29 @@ import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;
 import smart_home.dto.DeviceDTO;
 import smart_home.dto.RoomDTO;
-import smart_home.service.DeviceService;
-import smart_home.service.RoomService;
+import smart_home.service.DeviceServiceImpl;
+import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.RoomID;
 
 import java.util.List;
 
 public class GetDevicesFromRoomController {
-    private RoomService _roomService;
-    private DeviceService _deviceService;
+    private RoomServiceImpl _roomServiceImpl;
+    private DeviceServiceImpl _deviceServiceImpl;
     private RoomAssembler _roomAssembler;
     private DeviceAssembler _deviceAssembler;
 
     /**
      * Constructor for GetDevicesFromRoomController.
      *
-     * @param roomService     is the service for the room.
-     * @param deviceService   is the service for the device.
+     * @param roomServiceImpl     is the service for the room.
+     * @param deviceServiceImpl   is the service for the device.
      * @param roomAssembler   is the assembler for the room.
      * @param deviceAssembler is the assembler for the device.
      */
-    public GetDevicesFromRoomController(RoomService roomService, DeviceService deviceService, RoomAssembler roomAssembler, DeviceAssembler deviceAssembler) {
-        validateRoomService(roomService);
-        validateDeviceService(deviceService);
+    public GetDevicesFromRoomController(RoomServiceImpl roomServiceImpl, DeviceServiceImpl deviceServiceImpl, RoomAssembler roomAssembler, DeviceAssembler deviceAssembler) {
+        validateRoomService(roomServiceImpl);
+        validateDeviceService(deviceServiceImpl);
         validateRoomAssembler(roomAssembler);
         validateDeviceAssembler(deviceAssembler);
     }
@@ -36,26 +36,26 @@ public class GetDevicesFromRoomController {
     /**
      * Validates the room service.
      *
-     * @param roomService is the room service.
+     * @param roomServiceImpl is the room service.
      */
-    private void validateRoomService(RoomService roomService) {
-        if (roomService == null) {
+    private void validateRoomService(RoomServiceImpl roomServiceImpl) {
+        if (roomServiceImpl == null) {
             throw new IllegalArgumentException("RoomService is required");
         } else {
-            this._roomService = roomService;
+            this._roomServiceImpl = roomServiceImpl;
         }
     }
 
     /**
      * Validates the device service.
      *
-     * @param deviceService is the device service.
+     * @param deviceServiceImpl is the device service.
      */
-    private void validateDeviceService(DeviceService deviceService) {
-        if (deviceService == null) {
+    private void validateDeviceService(DeviceServiceImpl deviceServiceImpl) {
+        if (deviceServiceImpl == null) {
             throw new IllegalArgumentException("DeviceService is required");
         } else {
-            this._deviceService = deviceService;
+            this._deviceServiceImpl = deviceServiceImpl;
         }
     }
 
@@ -91,7 +91,7 @@ public class GetDevicesFromRoomController {
      * @return a list of rooms.
      */
     public List<RoomDTO> getRooms() {
-        List<Room> rooms = _roomService.getRooms();
+        List<Room> rooms = _roomServiceImpl.getAllRooms();
 
         List<RoomDTO> roomDTOList = _roomAssembler.domainToDTO(rooms);
 
@@ -107,11 +107,11 @@ public class GetDevicesFromRoomController {
     public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
         RoomID roomID = new RoomID(roomDTO.roomId);
 
-        if (!_roomService.getRoomById(roomID).isPresent()) {
+        if (!_roomServiceImpl.getRoomById(roomID).isPresent()) {
             throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
         }
 
-        List<Device> devices = _deviceService.getDevicesByRoomId(roomID);
+        List<Device> devices = _deviceServiceImpl.getDevicesByRoomId(roomID);
 
         List<DeviceDTO> deviceDTOList = _deviceAssembler.domainToDTO(devices);
 

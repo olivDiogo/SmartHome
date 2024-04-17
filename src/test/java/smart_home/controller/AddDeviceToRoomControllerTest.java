@@ -15,9 +15,9 @@ import smart_home.dto.RoomDTO;
 import smart_home.persistence.mem.DeviceRepository;
 import smart_home.persistence.mem.HouseRepository;
 import smart_home.persistence.mem.RoomRepository;
-import smart_home.service.DeviceService;
-import smart_home.service.HouseService;
-import smart_home.service.RoomService;
+import smart_home.service.DeviceServiceImpl;
+import smart_home.service.HouseServiceImpl;
+import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.*;
 
 import java.util.List;
@@ -37,17 +37,17 @@ class AddDeviceToRoomControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         // Act
-        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler);
+        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
         // Assert
         assertNotNull(addDeviceToRoomController);
@@ -60,19 +60,19 @@ class AddDeviceToRoomControllerTest {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
         RoomAssembler roomAssembler = new RoomAssembler();
-        RoomService roomService = null;
+        RoomServiceImpl roomServiceImpl = null;
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         String expectedMessage = "Please enter a valid room service.";
 
         // Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
 
         // Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -85,20 +85,20 @@ class AddDeviceToRoomControllerTest {
     void shouldThrowException_WhenRoomAssemblerIsNull() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        RoomService roomService = new RoomService(roomRepository, new RoomFactoryImpl(), new RoomAssembler(), new HouseRepository());
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, new RoomFactoryImpl(), new RoomAssembler(), new HouseRepository());
         RoomAssembler roomAssembler = null;
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         String expectedMessage = "Please enter a valid room assembler.";
 
         // Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
 
         // Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -111,16 +111,16 @@ class AddDeviceToRoomControllerTest {
     void shouldThrowException_WhenDeviceServiceIsNull() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        RoomService roomService = new RoomService(roomRepository, new RoomFactoryImpl(), new RoomAssembler(), new HouseRepository());
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, new RoomFactoryImpl(), new RoomAssembler(), new HouseRepository());
         RoomAssembler roomAssembler = new RoomAssembler();
-        DeviceService deviceService = null;
+        DeviceServiceImpl deviceServiceImpl = null;
 
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         String expectedMessage = "Please enter a valid device service.";
 
         // Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
 
         // Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -133,19 +133,19 @@ class AddDeviceToRoomControllerTest {
     void shouldThrowException_WhenDeviceAssemblerIsNull() {
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
-        RoomService roomService = new RoomService(roomRepository, new RoomFactoryImpl(), new RoomAssembler(), new HouseRepository());
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, new RoomFactoryImpl(), new RoomAssembler(), new HouseRepository());
         RoomAssembler roomAssembler = new RoomAssembler();
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = null;
 
         String expectedMessage = "Please enter a valid device assembler.";
 
         // Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
 
         // Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -162,20 +162,20 @@ class AddDeviceToRoomControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
-        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler);
+        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
         String street = "Rua Do Isep";
         String doorNumber = "122A";
@@ -188,7 +188,7 @@ class AddDeviceToRoomControllerTest {
         double longitude = -8.608;
         GPS newGPS = new GPS(latitude, longitude);
 
-        House house = houseService.addHouse(newAddress, newGPS);
+        House house = houseServiceImpl.addHouse(newAddress, newGPS);
 
         HouseID houseID = house.getID();
 
@@ -203,7 +203,7 @@ class AddDeviceToRoomControllerTest {
         int floor = 1;
         RoomFloor roomFloor = new RoomFloor(floor);
 
-        roomService.addRoom(houseID, roomName, dimension, roomFloor);
+        roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
 
         List<Room> rooms = roomRepository.findAll();
 
@@ -235,16 +235,16 @@ class AddDeviceToRoomControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
-        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler);
+        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
         // Act + Assert
         assertThrows(IllegalArgumentException.class, () -> {addDeviceToRoomController.getAllRooms();
@@ -262,11 +262,11 @@ class AddDeviceToRoomControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
         //Room
         String street = "Rua Do Isep";
@@ -280,7 +280,7 @@ class AddDeviceToRoomControllerTest {
         double longitude = -8.608;
         GPS newGPS = new GPS(latitude, longitude);
 
-        House house = houseService.addHouse(newAddress, newGPS);
+        House house = houseServiceImpl.addHouse(newAddress, newGPS);
 
         HouseID houseID = house.getID();
 
@@ -295,7 +295,7 @@ class AddDeviceToRoomControllerTest {
         int floor = 1;
         RoomFloor roomFloor = new RoomFloor(floor);
 
-        roomService.addRoom(houseID, roomName, dimension, roomFloor);
+        roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
 
         List<Room> rooms = roomRepository.findAll();
 
@@ -315,13 +315,13 @@ class AddDeviceToRoomControllerTest {
                                //Device
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-        Device device = deviceService.addDevice(roomIdVO, deviceNameVO, deviceStatusVO, deviceTypeIDVO);
+        Device device = deviceServiceImpl.addDevice(roomIdVO, deviceNameVO, deviceStatusVO, deviceTypeIDVO);
 
                                //DeviceDTO
         DeviceAssembler deviceAssembler = new DeviceAssembler();
-        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler);
+        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
         DeviceDTO expectedDeviceDTO = deviceAssembler.domainToDTO(device);
 
@@ -344,16 +344,16 @@ class AddDeviceToRoomControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
-        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomService, roomAssembler, deviceService, deviceAssembler);
+        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
         DeviceDataDTO deviceDataDTO = new DeviceDataDTO("1", "Lamp", true, "1");
 

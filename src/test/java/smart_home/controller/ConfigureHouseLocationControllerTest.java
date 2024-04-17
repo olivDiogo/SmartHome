@@ -6,7 +6,7 @@ import smart_home.domain.house.HouseFactoryImpl;
 import smart_home.dto.HouseDTO;
 import smart_home.dto.HouseDataDTO;
 import smart_home.persistence.mem.HouseRepository;
-import smart_home.service.HouseService;
+import smart_home.service.HouseServiceImpl;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertThrows;
@@ -27,10 +27,10 @@ class ConfigureHouseLocationControllerTest {
         HouseRepository houseRepository = new HouseRepository();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = new HouseAssembler();
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
         // Act
-        ConfigureHouseLocationController result = new ConfigureHouseLocationController(houseService, houseAssembler);
+        ConfigureHouseLocationController result = new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
 
         // Assert
         assertNotNull(result);
@@ -45,10 +45,10 @@ class ConfigureHouseLocationControllerTest {
         HouseRepository houseRepository = new HouseRepository();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = null;
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> {new ConfigureHouseLocationController(houseService, houseAssembler);});
+        assertThrows(IllegalArgumentException.class, () -> {new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);});
     }
 
     /**
@@ -58,10 +58,10 @@ class ConfigureHouseLocationControllerTest {
     void shouldThrowException_whenHouseServiceIsNull() {
         // Arrange: Initialize required components
         HouseAssembler houseAssembler = new HouseAssembler();
-        HouseService houseService = null;
+        HouseServiceImpl houseServiceImpl = null;
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> {new ConfigureHouseLocationController(houseService, houseAssembler);});
+        assertThrows(IllegalArgumentException.class, () -> {new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);});
     }
 
     /**
@@ -73,9 +73,9 @@ class ConfigureHouseLocationControllerTest {
         HouseRepository houseRepository = new HouseRepository();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = new HouseAssembler();
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseService, houseAssembler);
+        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
 
         String street = "Rua do Ouro";
         String doorNumber = "123";
@@ -101,9 +101,9 @@ class ConfigureHouseLocationControllerTest {
         HouseRepository houseRepository = new HouseRepository();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = new HouseAssembler();
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseService, houseAssembler);
+        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
 
         String street = "Calle de la Paz";
         String doorNumber = "123";
@@ -129,9 +129,9 @@ class ConfigureHouseLocationControllerTest {
         HouseRepository houseRepository = new HouseRepository();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = new HouseAssembler();
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseService, houseAssembler);
+        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
 
         String street = "123 Main St";
         String doorNumber = "123";
@@ -157,9 +157,9 @@ class ConfigureHouseLocationControllerTest {
         HouseRepository houseRepository = new HouseRepository();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseAssembler houseAssembler = new HouseAssembler();
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseService, houseAssembler);
+        ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
 
         String street = "1600 Amphitheatre Parkway";
         String doorNumber = "123";

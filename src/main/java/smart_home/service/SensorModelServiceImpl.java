@@ -3,6 +3,7 @@ package smart_home.service;
 import smart_home.domain.repository.ISensorModelRepository;
 import smart_home.domain.sensor_model.ISensorModelFactory;
 import smart_home.domain.sensor_model.SensorModel;
+import smart_home.domain.service.ISensorModelService;
 import smart_home.value_object.ModelPath;
 import smart_home.value_object.SensorModelName;
 import smart_home.value_object.SensorTypeID;
@@ -10,7 +11,7 @@ import smart_home.value_object.SensorTypeID;
 import java.util.List;
 import java.util.Optional;
 
-public class SensorModelService {
+public class SensorModelServiceImpl implements ISensorModelService {
     private ISensorModelRepository _sensorModelRepository;
     private ISensorModelFactory _factorySensorModel;
 
@@ -20,7 +21,7 @@ public class SensorModelService {
      * @param sensorModelRepository is the repository for sensor models.
      * @param factorySensorModel    is the factory for sensor models.
      */
-    public SensorModelService(ISensorModelRepository sensorModelRepository, ISensorModelFactory factorySensorModel) {
+    public SensorModelServiceImpl(ISensorModelRepository sensorModelRepository, ISensorModelFactory factorySensorModel) {
         validateSensorModelRepository(sensorModelRepository);
         validateFactorySensorModel(factorySensorModel);
 
@@ -58,8 +59,9 @@ public class SensorModelService {
      * @param sensorModelName The name of the sensor model.
      * @param sensorPath      The path of the sensor model.
      * @param sensorTypeID    The type of the sensor model.
-     * @return
+     * @return The created sensor model.
      */
+    @Override
     public SensorModel createSensorModel(SensorModelName sensorModelName, ModelPath sensorPath, SensorTypeID sensorTypeID) {
         SensorModel sensorModel = _factorySensorModel.createSensorModel(sensorModelName, sensorPath, sensorTypeID);
         _sensorModelRepository.save(sensorModel);
@@ -72,6 +74,7 @@ public class SensorModelService {
      *
      * @return List of all sensor models.
      */
+    @Override
     public List<SensorModel> getAllSensorModels() {
         return _sensorModelRepository.findAll();
     }
@@ -82,6 +85,7 @@ public class SensorModelService {
      * @param modelPath The path of the sensor model.
      * @return The sensor model.
      */
+    @Override
     public Optional<SensorModel> getSensorModel(ModelPath modelPath) {
         return _sensorModelRepository.ofIdentity(modelPath);
     }
@@ -92,6 +96,7 @@ public class SensorModelService {
      * @param sensorTypeID The sensor type ID.
      * @return List of sensor models.
      */
+    @Override
     public List<SensorModel> getSensorModelsBySensorTypeId(SensorTypeID sensorTypeID) {
         return _sensorModelRepository.findBySensorTypeId(sensorTypeID);
     }

@@ -16,7 +16,7 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-class SensorModelServiceTest {
+class SensorModelServiceImplTest {
     /**
      * Test case for the constructor of the SensorModelService class.
      */
@@ -26,9 +26,9 @@ class SensorModelServiceTest {
         ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         //Act
-        SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
+        SensorModelServiceImpl sensorModelServiceImpl = new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
         //Assert
-        assertNotNull(sensorModelService);
+        assertNotNull(sensorModelServiceImpl);
     }
 
     /**
@@ -42,7 +42,7 @@ class SensorModelServiceTest {
 
         String expectedMessage = "Please enter a valid sensor model factory.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModelService(sensorModelRepository, sensorModelFactory));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -58,7 +58,7 @@ class SensorModelServiceTest {
 
         String expectedMessage = "Please enter a valid sensor model repository.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModelService(sensorModelRepository, sensorModelFactory));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -79,8 +79,8 @@ class SensorModelServiceTest {
              })) {
 
             // Act
-            SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
-            List<SensorModel> sensorModels = sensorModelService.getAllSensorModels();
+            SensorModelServiceImpl sensorModelServiceImpl = new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
+            List<SensorModel> sensorModels = sensorModelServiceImpl.getAllSensorModels();
 
             // Assert
             assertEquals(sensorModels, List.of(sensorModel));
@@ -106,9 +106,9 @@ class SensorModelServiceTest {
              })) {
 
             // Act
-            SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
+            SensorModelServiceImpl sensorModelServiceImpl = new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
 
-            Optional<SensorModel> actualSensor = sensorModelService.getSensorModel(sensorModelId);
+            Optional<SensorModel> actualSensor = sensorModelServiceImpl.getSensorModel(sensorModelId);
 
             // Assert
             assertEquals(sensorModel, actualSensor.get());
@@ -127,9 +127,9 @@ class SensorModelServiceTest {
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         when(sensorModelFactory.createSensorModel(sensorModelName, sensorPath, sensorTypeID)).thenReturn(sensorModel);
-        SensorModelService sensorModelService = new SensorModelService(mock(SensorModelRepository.class), sensorModelFactory);
+        SensorModelServiceImpl sensorModelServiceImpl = new SensorModelServiceImpl(mock(SensorModelRepository.class), sensorModelFactory);
         //Act
-        SensorModel actualSensorModel = sensorModelService.createSensorModel(sensorModelName, sensorPath, sensorTypeID);
+        SensorModel actualSensorModel = sensorModelServiceImpl.createSensorModel(sensorModelName, sensorPath, sensorTypeID);
         //Assert
         assertEquals(sensorModel, actualSensorModel);
     }
@@ -148,9 +148,9 @@ class SensorModelServiceTest {
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
         when(sensorModelFactory.createSensorModel(sensorModelName, sensorPath, sensorTypeID)).thenReturn(sensorModel);
 
-        SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
+        SensorModelServiceImpl sensorModelServiceImpl = new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
         //Act
-        sensorModelService.createSensorModel(sensorModelName, sensorPath, sensorTypeID);
+        sensorModelServiceImpl.createSensorModel(sensorModelName, sensorPath, sensorTypeID);
         //Assert
         verify(sensorModelRepository, times(1)).save(sensorModel);
     }
@@ -172,10 +172,10 @@ class SensorModelServiceTest {
         when(sensorModelRepository.findBySensorTypeId(sensorTypeID)).thenReturn(expectedSensorModels);
 
         ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
-        SensorModelService sensorModelService = new SensorModelService(sensorModelRepository, sensorModelFactory);
+        SensorModelServiceImpl sensorModelServiceImpl = new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
 
         // Act
-        List<SensorModel> actualSensorModels = sensorModelService.getSensorModelsBySensorTypeId(sensorTypeID);
+        List<SensorModel> actualSensorModels = sensorModelServiceImpl.getSensorModelsBySensorTypeId(sensorTypeID);
 
         // Assert
         assertEquals(expectedSensorModels, actualSensorModels);

@@ -16,7 +16,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class DeviceServiceTest {
+class DeviceServiceImplTest {
 
     /**
      * Test the constructor of the DeviceService class.
@@ -24,13 +24,13 @@ class DeviceServiceTest {
     @Test
     void shouldInstantiateDeviceService_WhenGivenValidParameters() {
         // Arrange
-        DeviceService deviceService;
+        DeviceServiceImpl deviceServiceImpl;
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
         // Act
-        DeviceService result = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl result = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         // Assert
         assertNotNull(result);
@@ -50,7 +50,7 @@ class DeviceServiceTest {
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         });
 
         String actualMessage = exception.getMessage();
@@ -73,7 +73,7 @@ class DeviceServiceTest {
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         });
 
         String actualMessage = exception.getMessage();
@@ -96,7 +96,7 @@ class DeviceServiceTest {
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new DeviceService(deviceRepository, deviceFactory, roomRepository);
+            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         });
 
         String actualMessage = exception.getMessage();
@@ -121,7 +121,7 @@ class DeviceServiceTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         Room mockRoom = mock(Room.class);
         Device mockDevice = mock(Device.class);
@@ -130,7 +130,7 @@ class DeviceServiceTest {
         when(deviceFactory.createDevice(any(RoomID.class), any(DeviceName.class), any(DeviceStatus.class), any(DeviceTypeID.class))).thenReturn(mockDevice);
 
         //Act
-        Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+        Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
 
         //Assert
         assertNotNull(device);
@@ -151,7 +151,7 @@ class DeviceServiceTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         when(roomRepository.ofIdentity(roomID)).thenReturn(Optional.empty());
 
@@ -159,7 +159,7 @@ class DeviceServiceTest {
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             //Act
-            deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+            deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
         });
 
         String actualMessage = exception.getMessage();
@@ -183,7 +183,7 @@ class DeviceServiceTest {
         DeviceName deviceName = mock(DeviceName.class);
         DeviceStatus deviceStatus = mock(DeviceStatus.class);
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         Device mockDevice = mock(Device.class);
         Device mockDevice2 = mock(Device.class);
@@ -192,7 +192,7 @@ class DeviceServiceTest {
         int expectedSize = 2;
 
         // Act
-        List<Device> deviceList = deviceService.getAllDevices();
+        List<Device> deviceList = deviceServiceImpl.getAllDevices();
         int result = deviceList.size();
 
         // Assert
@@ -210,14 +210,14 @@ class DeviceServiceTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         when(deviceRepository.findAll()).thenReturn(List.of());
 
         int expectedSize = 0;
 
         // Act
-        List<Device> deviceList = deviceService.getAllDevices();
+        List<Device> deviceList = deviceServiceImpl.getAllDevices();
         int result = deviceList.size();
 
         // Assert
@@ -234,7 +234,7 @@ class DeviceServiceTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceID deviceID = mock(DeviceID.class);
         Device mockDevice = mock(Device.class);
@@ -242,7 +242,7 @@ class DeviceServiceTest {
         when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
 
         // Act
-        Optional<Device> device = deviceService.getDeviceByID(deviceID);
+        Optional<Device> device = deviceServiceImpl.getDeviceByID(deviceID);
 
         // Assert
         assertNotNull(device);
@@ -260,14 +260,14 @@ class DeviceServiceTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceID deviceID = mock(DeviceID.class);
 
         when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
 
         // Act
-        Optional<Device> device = deviceService.getDeviceByID(deviceID);
+        Optional<Device> device = deviceServiceImpl.getDeviceByID(deviceID);
 
         // Assert
         assertNotNull(device);
@@ -284,7 +284,7 @@ class DeviceServiceTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         Room room = mock(Room.class);
         RoomID roomID = room.getID();
@@ -295,7 +295,7 @@ class DeviceServiceTest {
         when(deviceRepository.getDevicesByRoomId(roomID)).thenReturn(List.of(mockDevice, mockDevice2));
 
         // Act
-        List<Device> deviceList = deviceService.getDevicesByRoomId(roomID);
+        List<Device> deviceList = deviceServiceImpl.getDevicesByRoomId(roomID);
 
         // Assert
         assertNotNull(deviceList);
@@ -312,7 +312,7 @@ class DeviceServiceTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceID deviceIdDouble = mock(DeviceID.class);
         Device deviceDouble = mock(Device.class);
@@ -320,7 +320,7 @@ class DeviceServiceTest {
         when(deviceRepository.ofIdentity(deviceIdDouble)).thenReturn(Optional.of(deviceDouble));
 
         // Act
-        Device device = deviceService.deactivateDeviceByID(deviceIdDouble);
+        Device device = deviceServiceImpl.deactivateDeviceByID(deviceIdDouble);
 
         // Assert
         assertEquals(deviceDouble, device);
@@ -336,7 +336,7 @@ class DeviceServiceTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         DeviceID deviceIdDouble = mock(DeviceID.class);
 
@@ -347,7 +347,7 @@ class DeviceServiceTest {
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
 
-            deviceService.deactivateDeviceByID(deviceIdDouble);
+            deviceServiceImpl.deactivateDeviceByID(deviceIdDouble);
         });
 
         String actualMessage = exception.getMessage();

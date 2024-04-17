@@ -3,6 +3,7 @@ package smart_home.service;
 import smart_home.ddd.IRepository;
 import smart_home.domain.sensor_type.ISensorTypeFactory;
 import smart_home.domain.sensor_type.SensorType;
+import smart_home.domain.service.ISensorTypeService;
 import smart_home.domain.unit.Unit;
 import smart_home.persistence.mem.UnitRepository;
 import smart_home.value_object.SensorTypeID;
@@ -12,7 +13,7 @@ import smart_home.value_object.UnitID;
 import java.util.List;
 import java.util.Optional;
 
-public class SensorTypeService {
+public class SensorTypeServiceImpl implements ISensorTypeService {
     private IRepository<SensorTypeID, SensorType> _sensorTypeRepository;
     private ISensorTypeFactory _sensorTypeFactory;
     private IRepository<UnitID, Unit> _unitRepository;
@@ -24,7 +25,7 @@ public class SensorTypeService {
      * @param sensorTypeFactory    is the factory for sensor types.
      * @param unitRepository       is the repository for units.
      */
-    public SensorTypeService(IRepository<SensorTypeID, SensorType> sensorTypeRepository, ISensorTypeFactory sensorTypeFactory, UnitRepository unitRepository) {
+    public SensorTypeServiceImpl(IRepository<SensorTypeID, SensorType> sensorTypeRepository, ISensorTypeFactory sensorTypeFactory, UnitRepository unitRepository) {
         validateSensorTypeRepository(sensorTypeRepository);
         validateSensorTypeFactory(sensorTypeFactory);
         validateMeasurementTypeRepository(unitRepository);
@@ -76,6 +77,7 @@ public class SensorTypeService {
      * @param unitID The unit of the sensor type.
      * @return The created SensorType object.
      */
+    @Override
     public SensorType createSensorType(TypeDescription name, UnitID unitID) {
         if (!_unitRepository.containsOfIdentity(unitID)) {
             throw new IllegalArgumentException("Please enter a valid measurement type.");
@@ -90,7 +92,8 @@ public class SensorTypeService {
      * @param sensorType The SensorType to save.
      * @return The saved SensorType object.
      */
-    public SensorType saveSensorType(SensorType sensorType) {
+    @Override
+    public SensorType addSensorType(SensorType sensorType) {
         if (sensorType == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type.");
         }
@@ -103,7 +106,8 @@ public class SensorTypeService {
      * @param sensorTypeID The ID of the SensorType to find.
      * @return The SensorType object.
      */
-    public Optional<SensorType> findSensorTypeByID(SensorTypeID sensorTypeID) {
+    @Override
+    public Optional<SensorType> getSensorTypeByID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type ID.");
         }
@@ -115,7 +119,8 @@ public class SensorTypeService {
      *
      * @return A list of all SensorType objects.
      */
-    public List<SensorType> findAllSensorTypes() {
+    @Override
+    public List<SensorType> getAllSensorTypes() {
         return _sensorTypeRepository.findAll();
     }
 }

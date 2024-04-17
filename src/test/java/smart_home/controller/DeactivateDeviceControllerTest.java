@@ -13,8 +13,8 @@ import smart_home.dto.DeviceDTO;
 import smart_home.persistence.mem.DeviceRepository;
 import smart_home.persistence.mem.HouseRepository;
 import smart_home.persistence.mem.RoomRepository;
-import smart_home.service.DeviceService;
-import smart_home.service.RoomService;
+import smart_home.service.DeviceServiceImpl;
+import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.*;
 
 import java.util.List;
@@ -35,11 +35,11 @@ class DeactivateDeviceControllerTest {
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         // Act
-        DeactivateDeviceController result = new DeactivateDeviceController(deviceService, deviceAssembler);
+        DeactivateDeviceController result = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
 
         // Assert
         assertNotEquals(null, result);
@@ -55,7 +55,7 @@ class DeactivateDeviceControllerTest {
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         // Act
@@ -77,12 +77,12 @@ class DeactivateDeviceControllerTest {
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         // Act
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new DeactivateDeviceController(deviceService, null);
+            new DeactivateDeviceController(deviceServiceImpl, null);
         });
 
         // Assert
@@ -101,12 +101,12 @@ class DeactivateDeviceControllerTest {
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
 
         // Add a house
         String street = "Rua Do Isep";
@@ -124,13 +124,13 @@ class DeactivateDeviceControllerTest {
         RoomName roomName = new RoomName("Living Room");
         Dimension dimension = new Dimension(10, 10, 10);
         RoomFloor roomFloor = new RoomFloor(1);
-        Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+        Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
 
         // Add a device
         DeviceName deviceName = new DeviceName("Light bulb");
         DeviceStatus deviceStatus = new DeviceStatus(false);
         DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-        Device device = deviceService.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
+        Device device = deviceServiceImpl.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
 
         // Act
         List<DeviceDTO> devices = deactivateDeviceController.requestAllDevices();
@@ -151,12 +151,12 @@ class DeactivateDeviceControllerTest {
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
 
         // Add a house
         String street = "Rua Do Isep";
@@ -187,12 +187,12 @@ class DeactivateDeviceControllerTest {
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
 
         // Add a house
         String street = "Rua Do Isep";
@@ -209,13 +209,13 @@ class DeactivateDeviceControllerTest {
         RoomName roomName = new RoomName("Living Room");
         Dimension dimension = new Dimension(10, 10, 10);
         RoomFloor roomFloor = new RoomFloor(1);
-        Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+        Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
 
         // Add a device
         DeviceName deviceName = new DeviceName("Lightbulb");
         DeviceStatus deviceStatus = new DeviceStatus(false);
         DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-        Device device = deviceService.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
+        Device device = deviceServiceImpl.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
 
         DeviceDTO deviceDTO = new DeviceDTO(device.getID().toString(), room.getID().toString(), deviceName.toString(), deviceStatus.toString());
         // Act
@@ -237,12 +237,12 @@ class DeactivateDeviceControllerTest {
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceService, deviceAssembler);
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
 
         // Add a house
         String street = "Rua Do Isep";
@@ -259,7 +259,7 @@ class DeactivateDeviceControllerTest {
         RoomName roomName = new RoomName("Living Room");
         Dimension dimension = new Dimension(10, 10, 10);
         RoomFloor roomFloor = new RoomFloor(1);
-        Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+        Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
 
 
         DeviceDTO deviceDTO = new DeviceDTO("does_not_exist", room.getID().toString(), "Lightbulb", "OFF");

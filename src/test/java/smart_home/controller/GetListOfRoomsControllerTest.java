@@ -7,7 +7,7 @@ import smart_home.domain.room.RoomFactoryImpl;
 import smart_home.dto.RoomDTO;
 import smart_home.persistence.mem.HouseRepository;
 import smart_home.persistence.mem.RoomRepository;
-import smart_home.service.RoomService;
+import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.Dimension;
 import smart_home.value_object.HouseID;
 import smart_home.value_object.RoomFloor;
@@ -31,10 +31,10 @@ public class GetListOfRoomsControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         //Act
-        GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService, roomAssembler);
+        GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
 
         //Assert
         assertNotNull(getListOfRoomsController);
@@ -52,11 +52,11 @@ public class GetListOfRoomsControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = null;
+        RoomServiceImpl roomServiceImpl = null;
 
         //Act
         try {
-            GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService, roomAssembler);
+            GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid room service.", e.getMessage());
         }
@@ -73,11 +73,11 @@ public class GetListOfRoomsControllerTest {
         RoomAssembler roomAssembler = null;
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         //Act
         try {
-            GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService, roomAssembler);
+            GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid room assembler.", e.getMessage());
         }
@@ -94,9 +94,9 @@ public class GetListOfRoomsControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
-        GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService, roomAssembler);
+        GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
 
         //Act
         List<RoomDTO> roomDTOList = getListOfRoomsController.getRooms();
@@ -118,9 +118,9 @@ public class GetListOfRoomsControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
-        GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService, roomAssembler);
+        GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
 
         HouseID houseID = new HouseID("1");
         RoomName roomName = new RoomName("Living Room");

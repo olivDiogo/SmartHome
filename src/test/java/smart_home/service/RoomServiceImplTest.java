@@ -17,7 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class RoomServiceTest {
+class RoomServiceImplTest {
 
     /**
      * Test the constructor of the RoomService class.
@@ -25,17 +25,17 @@ class RoomServiceTest {
     @Test
     public void shouldInstantiateRoomService_whenGivenValidParameters() {
         // Arrange
-        RoomService roomService;
+        RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
 
         // Act
-        roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         // Assert
-        assertNotNull(roomService);
+        assertNotNull(roomServiceImpl);
     }
 
     /**
@@ -44,12 +44,12 @@ class RoomServiceTest {
     @Test
     public void shouldAddARoom_WhenGivenValidParameters() {
         // Arrange
-        RoomService roomService;
+        RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
         Dimension dimension = mock(Dimension.class);
@@ -60,7 +60,7 @@ class RoomServiceTest {
         when(roomFactory.createRoom(any(HouseID.class), any(RoomName.class), any(Dimension.class), any(RoomFloor.class))).thenReturn(mockRoom);
 
         // Act
-        Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+        Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
         // Assert
         assertNotNull(room);
     }
@@ -71,12 +71,12 @@ class RoomServiceTest {
     @Test
     public void shouldThrowException_whenHouseIDIsInvalid() {
         // Arrange
-        RoomService roomService;
+        RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
         Dimension dimension = mock(Dimension.class);
@@ -84,7 +84,7 @@ class RoomServiceTest {
         when(houseRepository.ofIdentity(any(HouseID.class))).thenReturn(Optional.empty());
 
         // Act+Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> roomService.addRoom(houseID, roomName, dimension, roomFloor));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor));
         assertEquals("House with ID " + houseID + " not found.", exception.getMessage());
     }
     /**
@@ -93,17 +93,17 @@ class RoomServiceTest {
     @Test
     public void shouldReturnAllRooms_whenGetRoomsIsCalled() {
         // Arrange
-        RoomService roomService;
+        RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
         Room mockRoom = mock(Room.class);
         when(roomRepository.findAll()).thenReturn(List.of(mockRoom));
 
         // Act
-        List<Room> rooms = roomService.getRooms();
+        List<Room> rooms = roomServiceImpl.getAllRooms();
 
         // Assert
         assertNotNull(rooms);
@@ -115,16 +115,16 @@ class RoomServiceTest {
     @Test
     public void shouldReturnEmptyList_whenGetRoomsIsCalledAndThereAreNoRooms() {
         // Arrange
-        RoomService roomService;
+        RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
         when(roomRepository.findAll()).thenReturn(List.of());
 
         // Act
-        List<Room> rooms = roomService.getRooms();
+        List<Room> rooms = roomServiceImpl.getAllRooms();
 
         // Assert
         assertNotNull(rooms);
@@ -136,18 +136,18 @@ class RoomServiceTest {
     @Test
     public void shouldReturnAllRooms_whenGetRoomsIsCalledAndThereAreMultipleRooms() {
         // Arrange
-        RoomService roomService;
+        RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
         Room mockRoom1 = mock(Room.class);
         Room mockRoom2 = mock(Room.class);
         when(roomRepository.findAll()).thenReturn(List.of(mockRoom1, mockRoom2));
 
         // Act
-        List<Room> rooms = roomService.getRooms();
+        List<Room> rooms = roomServiceImpl.getAllRooms();
 
         // Assert
         assertNotNull(rooms);
@@ -160,18 +160,18 @@ class RoomServiceTest {
     @Test
     public void shouldReturnRoom_whenGetRoomByIdIsCalledWithValidRoomID() {
         // Arrange
-        RoomService roomService;
+        RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
         RoomID roomID = mock(RoomID.class);
         Room mockRoom = mock(Room.class);
         when(roomRepository.ofIdentity(any(RoomID.class))).thenReturn(Optional.of(mockRoom));
 
         // Act
-        Optional<Room> room = roomService.getRoomById(roomID);
+        Optional<Room> room = roomServiceImpl.getRoomById(roomID);
 
         // Assert
         assertNotNull(room);
@@ -185,17 +185,17 @@ class RoomServiceTest {
     @Test
     public void shouldReturnEmptyOptional_whenGetRoomByIdIsCalledWithInvalidRoomID() {
         // Arrange
-        RoomService roomService;
+        RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
         RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
         RoomID roomID = mock(RoomID.class);
         when(roomRepository.ofIdentity(any(RoomID.class))).thenReturn(Optional.empty());
 
         // Act
-        Optional<Room> room = roomService.getRoomById(roomID);
+        Optional<Room> room = roomServiceImpl.getRoomById(roomID);
 
         // Assert
         assertNotNull(room);

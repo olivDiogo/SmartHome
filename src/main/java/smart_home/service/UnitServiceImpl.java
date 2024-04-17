@@ -1,6 +1,7 @@
 package smart_home.service;
 
 import smart_home.ddd.IRepository;
+import smart_home.domain.service.IUnitService;
 import smart_home.domain.unit.IUnitFactory;
 import smart_home.domain.unit.Unit;
 import smart_home.value_object.UnitDescription;
@@ -10,7 +11,7 @@ import smart_home.value_object.UnitSymbol;
 import java.util.List;
 import java.util.Optional;
 
-public class UnitService {
+public class UnitServiceImpl implements IUnitService {
 
     private IRepository<UnitID, Unit> _unitRepository;
     private IUnitFactory _UnitFactory;
@@ -18,10 +19,10 @@ public class UnitService {
     /**
      * Constructor for MeasurementTypeService.
      *
-     * @param unitRepository
-     * @param unitFactory
+     * @param unitRepository The repository for the measurement type.
+     * @param unitFactory   The factory for the measurement type.
      */
-    public UnitService(IRepository<UnitID, Unit> unitRepository, IUnitFactory unitFactory) {
+    public UnitServiceImpl(IRepository<UnitID, Unit> unitRepository, IUnitFactory unitFactory) {
         validateMeasurementTypeRepository(unitRepository);
         validateMeasurementTypeFactory(unitFactory);
     }
@@ -59,7 +60,8 @@ public class UnitService {
      * @param unit        The unit of the measurement type.
      * @return The created and saved MeasurementType object.
      */
-    public Unit createAndSaveMeasurementType(UnitDescription description, UnitSymbol unit) {
+    @Override
+    public Unit addMeasurementType(UnitDescription description, UnitSymbol unit) {
         validateDescription(description);
         validateUnit(unit);
 
@@ -97,7 +99,8 @@ public class UnitService {
      * @param unitID The unique identifier of the MeasurementType.
      * @return An Optional containing the found MeasurementType, or an empty Optional if not found.
      */
-    public Optional<Unit> findMeasurementTypeById(UnitID unitID) {
+    @Override
+    public Optional<Unit> getMeasurementTypeById(UnitID unitID) {
         if (unitID == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type ID.");
         }
@@ -109,6 +112,7 @@ public class UnitService {
      *
      * @return A List containing all MeasurementTypes.
      */
+    @Override
     public List<Unit> getAllMeasurementTypes() {
         return _unitRepository.findAll();
     }

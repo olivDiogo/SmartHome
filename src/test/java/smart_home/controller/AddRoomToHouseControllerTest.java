@@ -9,8 +9,8 @@ import smart_home.domain.room.RoomFactoryImpl;
 import smart_home.dto.RoomDTO;
 import smart_home.persistence.mem.HouseRepository;
 import smart_home.persistence.mem.RoomRepository;
-import smart_home.service.HouseService;
-import smart_home.service.RoomService;
+import smart_home.service.HouseServiceImpl;
+import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,10 +31,10 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
 
         //Act
-        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomService, roomAssembler);
+        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Assert
         assertNotNull(addRoomToHouseController);
@@ -52,8 +52,8 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomService, roomAssembler);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
         assertThrows(IllegalArgumentException.class, () -> {addRoomToHouseController.addRoom("1", "Living Room", 1, 10, 10, 10);});
@@ -72,7 +72,7 @@ class AddRoomToHouseControllerTest {
         HouseRepository houseRepository = new HouseRepository();
 
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
 
         String street = "Rua Isep";
@@ -87,7 +87,7 @@ class AddRoomToHouseControllerTest {
         double longitude = -8.608;
         GPS newGPS = new GPS(latitude, longitude);
 
-        House house = houseService.addHouse(newAddress, newGPS);
+        House house = houseServiceImpl.addHouse(newAddress, newGPS);
 
         HouseID houseID = house.getID();
 
@@ -103,10 +103,10 @@ class AddRoomToHouseControllerTest {
         RoomFloor roomFloor = new RoomFloor(floor);
         Dimension dimension = new Dimension(width, length, height);
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomService, roomAssembler);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
-        Room room = roomService.addRoom(houseID1, roomName, dimension, roomFloor);
+        Room room = roomServiceImpl.addRoom(houseID1, roomName, dimension, roomFloor);
 
         RoomDTO expectedRoomDTO = roomAssembler.domainToDTO(room);
 
@@ -128,8 +128,8 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomService, roomAssembler);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
         assertThrows(IllegalArgumentException.class, () -> {addRoomToHouseController.addRoom("1", null, 1, 10, 10, 10);});
@@ -147,8 +147,8 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomService, roomAssembler);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
         assertThrows(IllegalArgumentException.class, () -> {addRoomToHouseController.addRoom("1", "Living Room", -1000, 10, 10, 10);});
@@ -165,8 +165,8 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomService, roomAssembler);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
         assertThrows(IllegalArgumentException.class, () -> {addRoomToHouseController.addRoom("1", "Living Room", 1, -1000, 10, 10);});
@@ -183,8 +183,8 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomService, roomAssembler);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
         assertThrows(IllegalArgumentException.class, () -> {addRoomToHouseController.addRoom("1", "Living Room", 1, 10, -1000, 10);});
@@ -201,8 +201,8 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomService roomService = new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomService, roomAssembler);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
         assertThrows(IllegalArgumentException.class, () -> {addRoomToHouseController.addRoom("1", "Living Room", 1, 10, 10, -1000);});

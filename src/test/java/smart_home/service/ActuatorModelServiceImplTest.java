@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-class ActuatorModelServiceTest {
+class ActuatorModelServiceImplTest {
 
     /**
      * Verifies service instantiation with valid parameters.
@@ -27,7 +27,7 @@ class ActuatorModelServiceTest {
         ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
 
         //Act
-        ActuatorModelService result = new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
+        ActuatorModelServiceImpl result = new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory);
 
         //Assert
         assertNotNull(result);
@@ -45,7 +45,7 @@ class ActuatorModelServiceTest {
         String expectedMessage = "Please enter a valid actuator model factory.";
 
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModelService(actuatorModelRepository, actuatorModelFactory));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory));
 
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -63,7 +63,7 @@ class ActuatorModelServiceTest {
         String expectedMessage = "Please enter a valid actuator model repository.";
 
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModelService(actuatorModelRepository, actuatorModelFactory));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory));
 
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
@@ -87,8 +87,8 @@ class ActuatorModelServiceTest {
              })) {
 
             // Act
-            ActuatorModelService actuatorModelService = new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
-            List<ActuatorModel> actuatorModels = actuatorModelService.getAllActuatorModels();
+            ActuatorModelServiceImpl actuatorModelServiceImpl = new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory);
+            List<ActuatorModel> actuatorModels = actuatorModelServiceImpl.getAllActuatorModels();
 
             // Assert
             assertEquals(actuatorModels, List.of(actuatorModel));
@@ -113,8 +113,8 @@ class ActuatorModelServiceTest {
              })) {
 
             // Act
-            ActuatorModelService actuatorModelService = new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
-            Optional<ActuatorModel> actuatorModelOptional = actuatorModelService.getActuatorModel(mock(ModelPath.class));
+            ActuatorModelServiceImpl actuatorModelServiceImpl = new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory);
+            Optional<ActuatorModel> actuatorModelOptional = actuatorModelServiceImpl.getActuatorModel(mock(ModelPath.class));
 
             // Assert
             assertEquals(actuatorModelOptional.get(), actuatorModel);
@@ -135,12 +135,12 @@ class ActuatorModelServiceTest {
 
         when (actuatorModelRepository.findByActuatorTypeId(actuatorTypeID)).thenReturn(List.of(actuatorModel));
 
-        ActuatorModelService actuatorModelService = new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
+        ActuatorModelServiceImpl actuatorModelServiceImpl = new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory);
 
         int expected = 1;
 
         //Act
-        List <ActuatorModel> actuatorModels = actuatorModelService.getActuatorModelsByActuatorTypeId(actuatorTypeID);
+        List <ActuatorModel> actuatorModels = actuatorModelServiceImpl.getActuatorModelsByActuatorTypeId(actuatorTypeID);
 
         int result = actuatorModels.size();
 

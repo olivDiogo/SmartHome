@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class HouseServiceTest {
+public class HouseServiceImplTest {
 
     /**
      * Test that the HouseService class can be instantiated.
@@ -23,7 +23,7 @@ public class HouseServiceTest {
         HouseRepository houseRepositoryDouble = mock(HouseRepository.class);
 
         // Act
-        HouseService result = new HouseService(houseFactoryDouble, houseRepositoryDouble);
+        HouseServiceImpl result = new HouseServiceImpl(houseFactoryDouble, houseRepositoryDouble);
 
         // Assert
         assertNotNull(result);
@@ -39,7 +39,7 @@ public class HouseServiceTest {
         HouseRepository houseRepository = mock(HouseRepository.class);
         String expectedMessage = "HouseFactory cannot be null.";
         // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HouseService(houseFactory, houseRepository));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HouseServiceImpl(houseFactory, houseRepository));
         // Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -54,7 +54,7 @@ public class HouseServiceTest {
         HouseRepository houseRepository = null;
         String expectedMessage = "HouseRepository cannot be null.";
         // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HouseService(houseFactory, houseRepository));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HouseServiceImpl(houseFactory, houseRepository));
         // Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -72,9 +72,9 @@ public class HouseServiceTest {
         Address address = mock(Address.class);
         GPS gps = mock(GPS.class);
         when(houseFactory.createHouse(address, gps)).thenReturn(house);
-        HouseService houseService = new HouseService(houseFactory, houseRepository);
+        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
         // Act
-        House result = houseService.addHouse(address, gps);
+        House result = houseServiceImpl.addHouse(address, gps);
         // Assert
         assertEquals(house, result);
     }

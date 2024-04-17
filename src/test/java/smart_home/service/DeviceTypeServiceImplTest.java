@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class DeviceTypeServiceTest {
+public class DeviceTypeServiceImplTest {
 
     /**
      * Test for the DeviceTypeService constructor.
@@ -26,10 +26,10 @@ public class DeviceTypeServiceTest {
         IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
 
         //Act
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         //Assert
-        assertNotNull(deviceTypeService);
+        assertNotNull(deviceTypeServiceImpl);
     }
 
     /**
@@ -45,7 +45,7 @@ public class DeviceTypeServiceTest {
 
         //Act
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
-            new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+            new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
         });
 
         //Assert
@@ -64,7 +64,7 @@ public class DeviceTypeServiceTest {
 
         //Act
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
-            new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+            new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
         });
 
         //Assert
@@ -86,10 +86,10 @@ public class DeviceTypeServiceTest {
         DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
         when(deviceTypeRepository.save(deviceType)).thenReturn(deviceType);
 
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         //Act
-        DeviceType resultDeviceType = deviceTypeService.addDeviceType(typeDescription);
+        DeviceType resultDeviceType = deviceTypeServiceImpl.addDeviceType(typeDescription);
 
         //Assert
         assertEquals(deviceType, resultDeviceType);
@@ -103,13 +103,13 @@ public class DeviceTypeServiceTest {
         //Arrange
         DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
         IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
         TypeDescription typeDescription = null;
         String expectedMessage = "Please enter a valid device type.";
 
         //Act
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
-            deviceTypeService.addDeviceType(typeDescription);
+            deviceTypeServiceImpl.addDeviceType(typeDescription);
         });
 
         //Assert
@@ -129,10 +129,10 @@ public class DeviceTypeServiceTest {
 
 
         IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         //Act
-        DeviceType resultDeviceType = deviceTypeService.getDeviceTypeByID(deviceTypeID).get();
+        DeviceType resultDeviceType = deviceTypeServiceImpl.getDeviceTypeByID(deviceTypeID).get();
 
         //Assert
         assertEquals(deviceType, resultDeviceType);
@@ -146,13 +146,13 @@ public class DeviceTypeServiceTest {
         //Arrange
         DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
         IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
         DeviceTypeID deviceTypeID = null;
         String expectedMessage = "Please enter a valid device type ID.";
 
         //Act
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
-            deviceTypeService.getDeviceTypeByID(deviceTypeID);
+            deviceTypeServiceImpl.getDeviceTypeByID(deviceTypeID);
         });
 
         //Assert
@@ -167,12 +167,12 @@ public class DeviceTypeServiceTest {
         //Arrange
         DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
         IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         List<DeviceType> deviceTypes = deviceTypeRepository.findAll();
 
         //Act
-        List<DeviceType> resultList = deviceTypeService.findAllDeviceTypes();
+        List<DeviceType> resultList = deviceTypeServiceImpl.getAllDeviceTypes();
 
         //Assert
         assertEquals(deviceTypes, resultList);
@@ -187,7 +187,7 @@ public class DeviceTypeServiceTest {
         //Arrange
         DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
         IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
-        DeviceTypeService deviceTypeService = new DeviceTypeService(deviceTypeRepository, deviceTypeFactory);
+        DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         DeviceType deviceType = mock(DeviceType.class);
         List<DeviceType> deviceTypes = List.of(deviceType);
@@ -195,7 +195,7 @@ public class DeviceTypeServiceTest {
 
 
         //Act
-        List<DeviceType> resultList = deviceTypeService.findAllDeviceTypes();
+        List<DeviceType> resultList = deviceTypeServiceImpl.getAllDeviceTypes();
 
         //Assert
         assertFalse(resultList.isEmpty());

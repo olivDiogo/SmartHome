@@ -15,8 +15,8 @@ import smart_home.persistence.mem.SensorModelRepository;
 import smart_home.persistence.mem.SensorTypeRepository;
 import smart_home.persistence.mem.UnitRepository;
 import smart_home.service.ConfigurationService;
-import smart_home.service.SensorTypeService;
-import smart_home.service.UnitService;
+import smart_home.service.SensorTypeServiceImpl;
+import smart_home.service.UnitServiceImpl;
 
 import java.util.List;
 
@@ -27,15 +27,15 @@ class AddSensorTypeControllerTest {
     @Test
     void shouldThrowExceptionWhenSensorTypeServiceIsNull() {
         //Arrange
-        SensorTypeService sensorTypeService = null;
+        SensorTypeServiceImpl sensorTypeServiceImpl = null;
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
         UnitRepository unitRepository = new UnitRepository();
         IUnitFactory unitFactory = new UnitFactoryImpl();
-        UnitService unitService = new UnitService(unitRepository, unitFactory);
+        UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
         UnitAssembler unitAssembler = new UnitAssembler();
         String expectedMessage = "Valid SensorTypeService is required";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitService, unitAssembler));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -45,13 +45,13 @@ class AddSensorTypeControllerTest {
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-        UnitService unitService = null;
+        UnitServiceImpl unitServiceImpl = null;
         UnitAssembler unitAssembler = new UnitAssembler();
         String expectedMessage = "Valid UnitService is required";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitService, unitAssembler));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -61,13 +61,13 @@ class AddSensorTypeControllerTest {
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);        SensorTypeAssembler sensorTypeAssembler = null;
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);        SensorTypeAssembler sensorTypeAssembler = null;
         IUnitFactory unitFactory = new UnitFactoryImpl();
-        UnitService unitService = new UnitService(unitRepository, unitFactory);
+        UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
         UnitAssembler unitAssembler = new UnitAssembler();
         String expectedMessage = "Valid SensorTypeAssembler is required";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitService, unitAssembler));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -77,13 +77,13 @@ class AddSensorTypeControllerTest {
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);        SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);        SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
         IUnitFactory unitFactory = new UnitFactoryImpl();
-        UnitService unitService = new UnitService(unitRepository, unitFactory);
+        UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
         UnitAssembler unitAssembler = null;
         String expectedMessage = "Valid UnitAssembler is required";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitService, unitAssembler));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -94,10 +94,10 @@ class AddSensorTypeControllerTest {
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
         IUnitFactory unitFactory = new UnitFactoryImpl();
-        UnitService unitService = new UnitService(unitRepository, unitFactory);
+        UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -109,7 +109,7 @@ class AddSensorTypeControllerTest {
 
         List<UnitDTO> expected = unitAssembler.domainToDTO(unitRepository.findAll());
 
-        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitService, unitAssembler);
+        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler);
         //Act
         List<UnitDTO> actual = addSensorTypeController.getSupportedUnits();
         //Assert
@@ -121,10 +121,10 @@ class AddSensorTypeControllerTest {
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
         IUnitFactory unitFactory = new UnitFactoryImpl();
-        UnitService unitService = new UnitService(unitRepository, unitFactory);
+        UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -134,7 +134,7 @@ class AddSensorTypeControllerTest {
 
         ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
 
-        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitService, unitAssembler);
+        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler);
 
         String supportedUnit = "Celsius";
         String sensorTypeDescription = "Temperature";
@@ -154,10 +154,10 @@ class AddSensorTypeControllerTest {
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
         IUnitFactory unitFactory = new UnitFactoryImpl();
-        UnitService unitService = new UnitService(unitRepository, unitFactory);
+        UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -167,7 +167,7 @@ class AddSensorTypeControllerTest {
 
         ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
 
-        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitService, unitAssembler);
+        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler);
 
         String supportedUnit = "Celsius";
         String sensorTypeDescription = "Temperature";
@@ -187,10 +187,10 @@ class AddSensorTypeControllerTest {
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
         IUnitFactory unitFactory = new UnitFactoryImpl();
-        UnitService unitService = new UnitService(unitRepository, unitFactory);
+        UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -200,7 +200,7 @@ class AddSensorTypeControllerTest {
 
         ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
 
-        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitService, unitAssembler);
+        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler);
 
         String sensorTypeDescription = "Temperature";
 
@@ -220,10 +220,10 @@ class AddSensorTypeControllerTest {
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
         SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
         UnitRepository unitRepository = new UnitRepository();
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
         IUnitFactory unitFactory = new UnitFactoryImpl();
-        UnitService unitService = new UnitService(unitRepository, unitFactory);
+        UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
 
         UnitAssembler unitAssembler = new UnitAssembler();
         SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -233,7 +233,7 @@ class AddSensorTypeControllerTest {
 
         ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
 
-        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeService, sensorTypeAssembler, unitService, unitAssembler);
+        AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler);
 
         String sensorTypeDescription = "Temperature";
 

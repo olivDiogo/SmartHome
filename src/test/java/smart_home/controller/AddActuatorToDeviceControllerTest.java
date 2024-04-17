@@ -42,21 +42,21 @@ class AddActuatorToDeviceControllerTest {
     DeviceRepository deviceRepository = new DeviceRepository();
     DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
-    RoomService roomService =
-            new RoomService(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ActuatorModelService actuatorModelService =
-            new ActuatorModelService(actuatorModelRepository, actuatorModelFactory);
-    ActuatorTypeService actuatorTypeService =
-            new ActuatorTypeService(actuatorTypeRepository, actuatorTypeFactory, unitRepository);
+    RoomServiceImpl roomServiceImpl =
+            new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+    ActuatorModelServiceImpl actuatorModelServiceImpl =
+            new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory);
+    ActuatorTypeServiceImpl actuatorTypeServiceImpl =
+            new ActuatorTypeServiceImpl(actuatorTypeRepository, actuatorTypeFactory, unitRepository);
     ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
     ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
-    ActuatorService actuatorService =
-            new ActuatorService(actuatorRepository, actuatorFactory, deviceRepository);
-    DeviceService deviceService = new DeviceService(deviceRepository, deviceFactory, roomRepository);
+    ActuatorServiceImpl actuatorServiceImpl =
+            new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    HouseService houseService = new HouseService(houseFactory, houseRepository);
+    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
     private void loadHouseAndRoom() {
         String street = "Rua Do Isep";
@@ -74,11 +74,11 @@ class AddActuatorToDeviceControllerTest {
         GPS newGPS = new GPS(latitude, longitude);
         Address newAddress =
                 new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-        House house = houseService.addHouse(newAddress, newGPS);
+        House house = houseServiceImpl.addHouse(newAddress, newGPS);
         HouseID houseID = house.getID();
         Dimension dimension = new Dimension(width, length, height);
         RoomFloor roomFloor = new RoomFloor(floor);
-        roomService.addRoom(houseID, roomName1, dimension, roomFloor);
+        roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
     }
 
     private Device loadDevice(RoomID roomID) {
@@ -88,9 +88,9 @@ class AddActuatorToDeviceControllerTest {
         DeviceName deviceName2 = new DeviceName(nameDevice);
         DeviceStatus deviceStatus = new DeviceStatus(true);
         DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-        deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
-        deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
-        List<Device> devices = deviceService.getDevicesByRoomId(roomID);
+        deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+        deviceServiceImpl.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
+        List<Device> devices = deviceServiceImpl.getDevicesByRoomId(roomID);
         return devices.get(0);
     }
 
@@ -109,14 +109,14 @@ class AddActuatorToDeviceControllerTest {
             new AddActuatorToDeviceController(
                     null,
                     roomAssembler,
-                    deviceService,
+                    deviceServiceImpl,
                     deviceAssembler,
-                    actuatorModelService,
+                    actuatorModelServiceImpl,
                     actuatorModelAssembler,
-                    actuatorTypeService,
+                    actuatorTypeServiceImpl,
                     actuatorTypeAssembler,
                     actuatorAssembler,
-                    actuatorService);
+                    actuatorServiceImpl);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid room service.", e.getMessage());
         }
@@ -136,16 +136,16 @@ class AddActuatorToDeviceControllerTest {
         // Act
         try {
             new AddActuatorToDeviceController(
-                    roomService,
+                    roomServiceImpl,
                     null,
-                    deviceService,
+                    deviceServiceImpl,
                     deviceAssembler,
-                    actuatorModelService,
+                    actuatorModelServiceImpl,
                     actuatorModelAssembler,
-                    actuatorTypeService,
+                    actuatorTypeServiceImpl,
                     actuatorTypeAssembler,
                     actuatorAssembler,
-                    actuatorService);
+                    actuatorServiceImpl);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid room assembler.", e.getMessage());
         }
@@ -165,16 +165,16 @@ class AddActuatorToDeviceControllerTest {
         // Act
         try {
             new AddActuatorToDeviceController(
-                    roomService,
+                    roomServiceImpl,
                     roomAssembler,
                     null,
                     deviceAssembler,
-                    actuatorModelService,
+                    actuatorModelServiceImpl,
                     actuatorModelAssembler,
-                    actuatorTypeService,
+                    actuatorTypeServiceImpl,
                     actuatorTypeAssembler,
                     actuatorAssembler,
-                    actuatorService);
+                    actuatorServiceImpl);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid device service.", e.getMessage());
         }
@@ -194,16 +194,16 @@ class AddActuatorToDeviceControllerTest {
         // Act
         try {
             new AddActuatorToDeviceController(
-                    roomService,
+                    roomServiceImpl,
                     roomAssembler,
-                    deviceService,
+                    deviceServiceImpl,
                     null,
-                    actuatorModelService,
+                    actuatorModelServiceImpl,
                     actuatorModelAssembler,
-                    actuatorTypeService,
+                    actuatorTypeServiceImpl,
                     actuatorTypeAssembler,
                     actuatorAssembler,
-                    actuatorService);
+                    actuatorServiceImpl);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid device assembler.", e.getMessage());
         }
@@ -223,16 +223,16 @@ class AddActuatorToDeviceControllerTest {
         // Act
         try {
             new AddActuatorToDeviceController(
-                    roomService,
+                    roomServiceImpl,
                     roomAssembler,
-                    deviceService,
+                    deviceServiceImpl,
                     deviceAssembler,
                     null,
                     actuatorModelAssembler,
-                    actuatorTypeService,
+                    actuatorTypeServiceImpl,
                     actuatorTypeAssembler,
                     actuatorAssembler,
-                    actuatorService);
+                    actuatorServiceImpl);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid actuator model service.", e.getMessage());
         }
@@ -252,16 +252,16 @@ class AddActuatorToDeviceControllerTest {
         // Act
         try {
             new AddActuatorToDeviceController(
-                    roomService,
+                    roomServiceImpl,
                     roomAssembler,
-                    deviceService,
+                    deviceServiceImpl,
                     deviceAssembler,
-                    actuatorModelService,
+                    actuatorModelServiceImpl,
                     null,
-                    actuatorTypeService,
+                    actuatorTypeServiceImpl,
                     actuatorTypeAssembler,
                     actuatorAssembler,
-                    actuatorService);
+                    actuatorServiceImpl);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid actuator model assembler.", e.getMessage());
         }
@@ -275,16 +275,16 @@ class AddActuatorToDeviceControllerTest {
         // Act
         try {
             new AddActuatorToDeviceController(
-                    roomService,
+                    roomServiceImpl,
                     roomAssembler,
-                    deviceService,
+                    deviceServiceImpl,
                     deviceAssembler,
-                    actuatorModelService,
+                    actuatorModelServiceImpl,
                     actuatorModelAssembler,
-                    actuatorTypeService,
+                    actuatorTypeServiceImpl,
                     actuatorTypeAssembler,
                     actuatorAssembler,
-                    actuatorService);
+                    actuatorServiceImpl);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid actuator type service.", e.getMessage());
         }
@@ -304,16 +304,16 @@ class AddActuatorToDeviceControllerTest {
         // Act
         try {
             new AddActuatorToDeviceController(
-                    roomService,
+                    roomServiceImpl,
                     roomAssembler,
-                    deviceService,
+                    deviceServiceImpl,
                     deviceAssembler,
-                    actuatorModelService,
+                    actuatorModelServiceImpl,
                     actuatorModelAssembler,
                     null,
                     actuatorTypeAssembler,
                     actuatorAssembler,
-                    actuatorService);
+                    actuatorServiceImpl);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid actuator type service.", e.getMessage());
         }
@@ -333,16 +333,16 @@ class AddActuatorToDeviceControllerTest {
         // Act
         try {
             new AddActuatorToDeviceController(
-                    roomService,
+                    roomServiceImpl,
                     roomAssembler,
-                    deviceService,
+                    deviceServiceImpl,
                     deviceAssembler,
-                    actuatorModelService,
+                    actuatorModelServiceImpl,
                     actuatorModelAssembler,
-                    actuatorTypeService,
+                    actuatorTypeServiceImpl,
                     null,
                     actuatorAssembler,
-                    actuatorService);
+                    actuatorServiceImpl);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid actuator type assembler.", e.getMessage());
         }
@@ -362,16 +362,16 @@ class AddActuatorToDeviceControllerTest {
         // Act
         try {
             new AddActuatorToDeviceController(
-                    roomService,
+                    roomServiceImpl,
                     roomAssembler,
-                    deviceService,
+                    deviceServiceImpl,
                     deviceAssembler,
-                    actuatorModelService,
+                    actuatorModelServiceImpl,
                     actuatorModelAssembler,
-                    actuatorTypeService,
+                    actuatorTypeServiceImpl,
                     actuatorTypeAssembler,
                     null,
-                    actuatorService);
+                    actuatorServiceImpl);
         } catch (IllegalArgumentException e) {
             assertEquals("Please enter a valid actuator assembler.", e.getMessage());
         }
@@ -391,13 +391,13 @@ class AddActuatorToDeviceControllerTest {
         // Act
         try {
             new AddActuatorToDeviceController(
-                    roomService,
+                    roomServiceImpl,
                     roomAssembler,
-                    deviceService,
+                    deviceServiceImpl,
                     deviceAssembler,
-                    actuatorModelService,
+                    actuatorModelServiceImpl,
                     actuatorModelAssembler,
-                    actuatorTypeService,
+                    actuatorTypeServiceImpl,
                     actuatorTypeAssembler,
                     actuatorAssembler,
                     null);
@@ -416,16 +416,16 @@ class AddActuatorToDeviceControllerTest {
         // Arrange
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
 
         // Act
         List<RoomDTO> result = controller.getRooms();
@@ -444,16 +444,16 @@ class AddActuatorToDeviceControllerTest {
         // Arrange
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
         loadHouseAndRoom();
         List<Room> rooms = roomRepository.findAll();
         List<RoomDTO> expectedRoomsDTOList = roomAssembler.domainToDTO(rooms);
@@ -485,16 +485,16 @@ class AddActuatorToDeviceControllerTest {
 
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
 
         String roomID = "123";
         RoomID nonExistentRoomID = new RoomID(roomID);
@@ -523,21 +523,21 @@ class AddActuatorToDeviceControllerTest {
         // Arrange
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
         loadHouseAndRoom();
         List<Room> rooms = roomRepository.findAll();
         RoomID roomID = rooms.get(0).getID();
         loadDevice(roomID);
-        List<Device> devices = deviceService.getDevicesByRoomId(roomID);
+        List<Device> devices = deviceServiceImpl.getDevicesByRoomId(roomID);
         List<DeviceDTO> deviceDTOListExpected = deviceAssembler.domainToDTO(devices);
         List<RoomDTO> roomsDTOList = controller.getRooms();
         RoomDTO roomDTO = roomsDTOList.get(0);
@@ -568,21 +568,21 @@ class AddActuatorToDeviceControllerTest {
 
         TypeDescription typeDescription = new TypeDescription("BlindRoller");
         UnitID unit = new UnitID("Percent");
-        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-        actuatorTypeService.saveActuatorType(actuatorType);
+        ActuatorType actuatorType = actuatorTypeServiceImpl.createActuatorType(typeDescription, unit);
+        actuatorTypeServiceImpl.addActuatorType(actuatorType);
 
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
 
         List<ActuatorTypeDTO> ActuatorTypeDTOList = controller.getActuatorTypes();
 
@@ -610,21 +610,21 @@ class AddActuatorToDeviceControllerTest {
 
         TypeDescription typeDescription = new TypeDescription("BlindRoller");
         UnitID unit = new UnitID("Percent");
-        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-        actuatorTypeService.saveActuatorType(actuatorType);
+        ActuatorType actuatorType = actuatorTypeServiceImpl.createActuatorType(typeDescription, unit);
+        actuatorTypeServiceImpl.addActuatorType(actuatorType);
 
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
 
         ActuatorTypeDTO dto = actuatorTypeAssembler.domainToDTO(actuatorType);
         List<ActuatorModelDTO> ActuatorModelDTOList = controller.getActuatorModels(dto);
@@ -651,23 +651,23 @@ class AddActuatorToDeviceControllerTest {
         UnitDescription unitDescription = new UnitDescription("Celsius");
         UnitID unitID = new UnitID("Celsius");
         UnitSymbol unitSymbol = new UnitSymbol("C");
-        UnitService unitService = new UnitService(unitRepository, unitFactory);
-        unitService.createAndSaveMeasurementType(unitDescription, unitSymbol);
-        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unitID);
-        actuatorTypeService.saveActuatorType(actuatorType);
+        UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
+        unitServiceImpl.addMeasurementType(unitDescription, unitSymbol);
+        ActuatorType actuatorType = actuatorTypeServiceImpl.createActuatorType(typeDescription, unitID);
+        actuatorTypeServiceImpl.addActuatorType(actuatorType);
 
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
 
         ActuatorTypeDTO dto = actuatorTypeAssembler.domainToDTO(actuatorType);
 
@@ -688,16 +688,16 @@ class AddActuatorToDeviceControllerTest {
 
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
 
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> controller.getActuatorTypes());
@@ -719,26 +719,26 @@ class AddActuatorToDeviceControllerTest {
 
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
 
         TypeDescription typeDescription = new TypeDescription("Temperature");
         UnitID unit = new UnitID("Celsius");
-        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-        actuatorTypeService.saveActuatorType(actuatorType);
+        ActuatorType actuatorType = actuatorTypeServiceImpl.createActuatorType(typeDescription, unit);
+        actuatorTypeServiceImpl.addActuatorType(actuatorType);
 
         TypeDescription nonExistintTypeDescription = new TypeDescription("Humidity");
         UnitID unitID = new UnitID("Percent");
         ActuatorType nonExistintActuatorType =
-                actuatorTypeService.createActuatorType(nonExistintTypeDescription, unitID);
+                actuatorTypeServiceImpl.createActuatorType(nonExistintTypeDescription, unitID);
 
         ActuatorTypeDTO actuatorTypeDTO = actuatorTypeAssembler.domainToDTO(nonExistintActuatorType);
 
@@ -771,8 +771,8 @@ class AddActuatorToDeviceControllerTest {
 
         TypeDescription typeDescription = new TypeDescription("BlindRoller");
         UnitID unit = new UnitID("Percent");
-        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-        actuatorTypeService.saveActuatorType(actuatorType);
+        ActuatorType actuatorType = actuatorTypeServiceImpl.createActuatorType(typeDescription, unit);
+        actuatorTypeServiceImpl.addActuatorType(actuatorType);
 
         String modelPath = "smart_home.domain.actuator.blind_roller_actuator.BlindRollerActuator";
         String actuatorName = "Actuator";
@@ -786,16 +786,16 @@ class AddActuatorToDeviceControllerTest {
 
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
         // Act
         ActuatorDTO actuatorDTO = controller.addActuatorToDevice(actuatorDataDTO);
         int result = actuatorRepository.findAll().size();
@@ -825,8 +825,8 @@ class AddActuatorToDeviceControllerTest {
 
         TypeDescription typeDescription = new TypeDescription("Switch");
         UnitID unit = new UnitID("Percent");
-        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-        actuatorTypeService.saveActuatorType(actuatorType);
+        ActuatorType actuatorType = actuatorTypeServiceImpl.createActuatorType(typeDescription, unit);
+        actuatorTypeServiceImpl.addActuatorType(actuatorType);
 
         String modelPath = "smart_home.domain.actuator.switch_actuator.SwitchActuator";
         String actuatorName = "Actuator";
@@ -840,16 +840,16 @@ class AddActuatorToDeviceControllerTest {
                         device.getID().toString(), modelPath, actuatorName, actuatorType.getID().getID());
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
         // Act
         ActuatorDTO actuatorDTO = controller.addActuatorToDevice(actuatorDataDTO);
         int result = actuatorRepository.findAll().size();
@@ -879,24 +879,24 @@ class AddActuatorToDeviceControllerTest {
 
         TypeDescription typeDescription = new TypeDescription("Switch");
         UnitID unit = new UnitID("Percent");
-        ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unit);
-        actuatorTypeService.saveActuatorType(actuatorType);
+        ActuatorType actuatorType = actuatorTypeServiceImpl.createActuatorType(typeDescription, unit);
+        actuatorTypeServiceImpl.addActuatorType(actuatorType);
 
         actuatorTypeAssembler.domainToDTO(actuatorType);
 
         ActuatorDataDTO actuatorDataDTO = null;
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
-                        roomService,
+                        roomServiceImpl,
                         roomAssembler,
-                        deviceService,
+                        deviceServiceImpl,
                         deviceAssembler,
-                        actuatorModelService,
+                        actuatorModelServiceImpl,
                         actuatorModelAssembler,
-                        actuatorTypeService,
+                        actuatorTypeServiceImpl,
                         actuatorTypeAssembler,
                         actuatorAssembler,
-                        actuatorService);
+                        actuatorServiceImpl);
         // Act
         IllegalArgumentException exception =
                 assertThrows(

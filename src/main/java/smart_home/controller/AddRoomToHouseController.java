@@ -3,7 +3,7 @@ package smart_home.controller;
 import smart_home.assembler.RoomAssembler;
 import smart_home.domain.room.Room;
 import smart_home.dto.RoomDTO;
-import smart_home.service.RoomService;
+import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.Dimension;
 import smart_home.value_object.HouseID;
 import smart_home.value_object.RoomFloor;
@@ -15,17 +15,17 @@ import smart_home.value_object.RoomName;
  */
 public class AddRoomToHouseController {
 
-    private final RoomService _roomService;
+    private final RoomServiceImpl _roomServiceImpl;
     private final RoomAssembler _roomAssembler;
 
     /**
      * Constructs an AddRoomToHouseController with the specified services.
      *
-     * @param roomService   The service for managing rooms.
+     * @param roomServiceImpl   The service for managing rooms.
      * @param roomAssembler The assembler for converting between domain and DTO objects.
      */
-    public AddRoomToHouseController(RoomService roomService, RoomAssembler roomAssembler) {
-        _roomService = roomService;
+    public AddRoomToHouseController(RoomServiceImpl roomServiceImpl, RoomAssembler roomAssembler) {
+        _roomServiceImpl = roomServiceImpl;
         _roomAssembler = roomAssembler;
     }
 
@@ -46,7 +46,7 @@ public class AddRoomToHouseController {
         RoomFloor roomFloor = new RoomFloor(floor);
         Dimension dimension = new Dimension(width, length, height);
 
-        Room room = _roomService.addRoom(houseID1, roomName, dimension, roomFloor);
+        Room room = _roomServiceImpl.addRoom(houseID1, roomName, dimension, roomFloor);
 
         return _roomAssembler.domainToDTO(room);
     }

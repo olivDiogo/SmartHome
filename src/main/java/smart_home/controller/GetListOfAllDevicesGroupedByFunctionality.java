@@ -4,40 +4,40 @@ import smart_home.assembler.DeviceAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.device_type.DeviceType;
 import smart_home.dto.DeviceDTO;
-import smart_home.service.DeviceService;
-import smart_home.service.DeviceTypeService;
+import smart_home.service.DeviceServiceImpl;
+import smart_home.service.DeviceTypeServiceImpl;
 
 import java.util.*;
 
 public class GetListOfAllDevicesGroupedByFunctionality {
-    private DeviceService _deviceService;
-    private DeviceTypeService _deviceTypeService;
+    private DeviceServiceImpl _deviceServiceImpl;
+    private DeviceTypeServiceImpl _deviceTypeServiceImpl;
     private DeviceAssembler _deviceAssembler;
 
 
     /**
      * Constructor for GetListOfAllDevicesGroupedByFunctionality.
      *
-     * @param deviceService
+     * @param deviceServiceImpl
      * @param deviceAssembler
-     * @param deviceTypeService
+     * @param deviceTypeServiceImpl
      */
-    public GetListOfAllDevicesGroupedByFunctionality(DeviceService deviceService, DeviceAssembler deviceAssembler, DeviceTypeService deviceTypeService) {
-        validateDeviceService(deviceService);
+    public GetListOfAllDevicesGroupedByFunctionality(DeviceServiceImpl deviceServiceImpl, DeviceAssembler deviceAssembler, DeviceTypeServiceImpl deviceTypeServiceImpl) {
+        validateDeviceService(deviceServiceImpl);
         validateDeviceAssembler(deviceAssembler);
-        validateDeviceTypeService(deviceTypeService);
+        validateDeviceTypeService(deviceTypeServiceImpl);
     }
 
     /**
      * Validate the DeviceService.
      *
-     * @param deviceService The DeviceService to validate.
+     * @param deviceServiceImpl The DeviceService to validate.
      */
-    private void validateDeviceService(DeviceService deviceService) {
-        if (deviceService == null) {
+    private void validateDeviceService(DeviceServiceImpl deviceServiceImpl) {
+        if (deviceServiceImpl == null) {
             throw new IllegalArgumentException("DeviceService cannot be null.");
         }
-        _deviceService = deviceService;
+        _deviceServiceImpl = deviceServiceImpl;
     }
 
     /**
@@ -55,18 +55,18 @@ public class GetListOfAllDevicesGroupedByFunctionality {
     /**
      * Validate the DeviceTypeRepository.
      *
-     * @param deviceTypeService The DeviceTypeRepository to validate.
+     * @param deviceTypeServiceImpl The DeviceTypeRepository to validate.
      */
-    private void validateDeviceTypeService(DeviceTypeService deviceTypeService) {
-        if (deviceTypeService == null) {
+    private void validateDeviceTypeService(DeviceTypeServiceImpl deviceTypeServiceImpl) {
+        if (deviceTypeServiceImpl == null) {
             throw new IllegalArgumentException("DeviceTypeService cannot be null.");
         }
-        _deviceTypeService = deviceTypeService;
+        _deviceTypeServiceImpl = deviceTypeServiceImpl;
     }
 
 
     public Map<DeviceType, List<DeviceDTO>> getDevicesDTOGroupedByFunctionality() {
-        List<Device> devices = _deviceService.getAllDevices();
+        List<Device> devices = _deviceServiceImpl.getAllDevices();
 
         if (devices.isEmpty()) {
             throw new IllegalArgumentException("No devices found.");
@@ -76,7 +76,7 @@ public class GetListOfAllDevicesGroupedByFunctionality {
 
         for (Device device : devices) {
 
-            Optional<DeviceType> deviceType = _deviceTypeService.getDeviceTypeByID(device.getDeviceTypeID());
+            Optional<DeviceType> deviceType = _deviceTypeServiceImpl.getDeviceTypeByID(device.getDeviceTypeID());
 
             if (deviceType.isPresent()) {
                 DeviceType deviceTypeObj = deviceType.get();

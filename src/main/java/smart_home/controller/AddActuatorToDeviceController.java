@@ -14,57 +14,57 @@ import java.util.Collections;
 import java.util.List;
 
 public class AddActuatorToDeviceController {
-    private RoomService _roomService;
+    private RoomServiceImpl _roomServiceImpl;
     private RoomAssembler _roomAssembler;
-    private DeviceService _deviceService;
+    private DeviceServiceImpl _deviceServiceImpl;
     private DeviceAssembler _deviceAssembler;
-    private ActuatorModelService _actuatorModelService;
+    private ActuatorModelServiceImpl _actuatorModelServiceImpl;
     private ActuatorModelAssembler _actuatorModelAssembler;
     private ConfigurationService _configurationService;
-    private ActuatorTypeService _actuatorTypeService;
+    private ActuatorTypeServiceImpl _actuatorTypeServiceImpl;
     private ActuatorTypeAssembler _actuatorTypeAssembler;
     private ActuatorAssembler _actuatorAssembler;
-    private ActuatorService _actuatorService;
+    private ActuatorServiceImpl _actuatorServiceImpl;
 
 
     /**
      * Constructor for the GetListOfRoomsController class.
      *
-     * @param roomService   The room service.
+     * @param roomServiceImpl   The room service.
      * @param roomAssembler The room assembler.
      */
-    public AddActuatorToDeviceController(RoomService roomService,
+    public AddActuatorToDeviceController(RoomServiceImpl roomServiceImpl,
                                          RoomAssembler roomAssembler,
-                                         DeviceService deviceService,
+                                         DeviceServiceImpl deviceServiceImpl,
                                          DeviceAssembler deviceAssembler,
-                                         ActuatorModelService actuatorModelService,
+                                         ActuatorModelServiceImpl actuatorModelServiceImpl,
                                          ActuatorModelAssembler actuatorModelAssembler,
-                                         ActuatorTypeService actuatorTypeService,
+                                         ActuatorTypeServiceImpl actuatorTypeServiceImpl,
                                          ActuatorTypeAssembler actuatorTypeAssembler,
                                          ActuatorAssembler actuatorAssembler,
-                                         ActuatorService actuatorService) {
-        validateRoomService(roomService);
+                                         ActuatorServiceImpl actuatorServiceImpl) {
+        validateRoomService(roomServiceImpl);
         validateRoomAssembler(roomAssembler);
-        validateDeviceService(deviceService);
+        validateDeviceService(deviceServiceImpl);
         validateDeviceAssembler(deviceAssembler);
-        validateActuatorModelService(actuatorModelService);
+        validateActuatorModelService(actuatorModelServiceImpl);
         validateActuatorModelAssembler(actuatorModelAssembler);
-        validateActuatorTypeService(actuatorTypeService);
+        validateActuatorTypeService(actuatorTypeServiceImpl);
         validateActuatorTypeAssembler(actuatorTypeAssembler);
         validateActuatorAssembler(actuatorAssembler);
-        validateActuatorService(actuatorService);
+        validateActuatorService(actuatorServiceImpl);
     }
 
     /**
      * Validates the room service.
      *
-     * @param roomService The room service.
+     * @param roomServiceImpl The room service.
      */
-    private void validateRoomService(RoomService roomService) {
-        if (roomService == null) {
+    private void validateRoomService(RoomServiceImpl roomServiceImpl) {
+        if (roomServiceImpl == null) {
             throw new IllegalArgumentException("Please enter a valid room service.");
         } else {
-            this._roomService = roomService;
+            this._roomServiceImpl = roomServiceImpl;
         }
     }
 
@@ -84,13 +84,13 @@ public class AddActuatorToDeviceController {
     /**
      * Validates the device service.
      *
-     * @param deviceService The device service.
+     * @param deviceServiceImpl The device service.
      */
-    private void validateDeviceService(DeviceService deviceService) {
-        if (deviceService == null) {
+    private void validateDeviceService(DeviceServiceImpl deviceServiceImpl) {
+        if (deviceServiceImpl == null) {
             throw new IllegalArgumentException("Please enter a valid device service.");
         } else {
-            this._deviceService = deviceService;
+            this._deviceServiceImpl = deviceServiceImpl;
         }
     }
 
@@ -110,13 +110,13 @@ public class AddActuatorToDeviceController {
     /**
      * Validates the actuator model service.
      *
-     * @param actuatorModelService The actuator model service.
+     * @param actuatorModelServiceImpl The actuator model service.
      */
-    private void validateActuatorModelService(ActuatorModelService actuatorModelService) {
-        if (actuatorModelService == null) {
+    private void validateActuatorModelService(ActuatorModelServiceImpl actuatorModelServiceImpl) {
+        if (actuatorModelServiceImpl == null) {
             throw new IllegalArgumentException("Please enter a valid actuator model service.");
         } else {
-            this._actuatorModelService = actuatorModelService;
+            this._actuatorModelServiceImpl = actuatorModelServiceImpl;
         }
     }
 
@@ -136,13 +136,13 @@ public class AddActuatorToDeviceController {
     /**
      * Validates the actuator type service.
      *
-     * @param actuatorTypeService The actuator type service.
+     * @param actuatorTypeServiceImpl The actuator type service.
      */
-    private void validateActuatorTypeService(ActuatorTypeService actuatorTypeService) {
-        if (actuatorTypeService == null) {
+    private void validateActuatorTypeService(ActuatorTypeServiceImpl actuatorTypeServiceImpl) {
+        if (actuatorTypeServiceImpl == null) {
             throw new IllegalArgumentException("Please enter a valid actuator type service.");
         } else {
-            this._actuatorTypeService = actuatorTypeService;
+            this._actuatorTypeServiceImpl = actuatorTypeServiceImpl;
         }
     }
 
@@ -170,13 +170,13 @@ public class AddActuatorToDeviceController {
     /**
      * Validates the actuator service.
      *
-     * @param actuatorService The actuator service.
+     * @param actuatorServiceImpl The actuator service.
      */
-    private void validateActuatorService(ActuatorService actuatorService) {
-        if (actuatorService == null) {
+    private void validateActuatorService(ActuatorServiceImpl actuatorServiceImpl) {
+        if (actuatorServiceImpl == null) {
             throw new IllegalArgumentException("Please enter a valid actuator service.");
         } else {
-            this._actuatorService = actuatorService;
+            this._actuatorServiceImpl = actuatorServiceImpl;
         }
     }
 
@@ -187,7 +187,7 @@ public class AddActuatorToDeviceController {
      */
     public List<RoomDTO> getRooms() {
 
-        List<Room> listOfRooms = _roomService.getRooms();
+        List<Room> listOfRooms = _roomServiceImpl.getAllRooms();
         if (listOfRooms == null || listOfRooms.isEmpty()) {
             return Collections.emptyList(); // Return an empty list if there are no devices.
         }
@@ -205,11 +205,11 @@ public class AddActuatorToDeviceController {
     public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
         RoomID roomID = new RoomID(roomDTO.roomId);
 
-        if (!_roomService.getRoomById(roomID).isPresent()) {
+        if (!_roomServiceImpl.getRoomById(roomID).isPresent()) {
             throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
         }
 
-        List<Device> devices = _deviceService.getDevicesByRoomId(roomID);
+        List<Device> devices = _deviceServiceImpl.getDevicesByRoomId(roomID);
 
         List<DeviceDTO> deviceDTOList = _deviceAssembler.domainToDTO(devices);
 
@@ -223,7 +223,7 @@ public class AddActuatorToDeviceController {
      * @return a list of actuator types.
      */
     public List<ActuatorTypeDTO> getActuatorTypes() {
-        List<ActuatorType> actuatorTypeList = _actuatorTypeService.findAllActuatorTypes();
+        List<ActuatorType> actuatorTypeList = _actuatorTypeServiceImpl.getAllActuatorTypes();
         if (actuatorTypeList.isEmpty()) {
             throw new IllegalArgumentException("No actuator types found.");
         }
@@ -239,11 +239,11 @@ public class AddActuatorToDeviceController {
 
     public List<ActuatorModelDTO> getActuatorModels(ActuatorTypeDTO actuatorTypeDTO) {
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeDTO.actuatorTypeID);
-        if (!_actuatorTypeService.findActuatorTypeByID(actuatorTypeID).isPresent()) {
+        if (!_actuatorTypeServiceImpl.getActuatorTypeByID(actuatorTypeID).isPresent()) {
             throw new IllegalArgumentException("Actuator type with ID " + actuatorTypeID + " not found.");
         }
 
-        List<ActuatorModel> actuatorModels = _actuatorModelService.getActuatorModelsByActuatorTypeId(actuatorTypeID);
+        List<ActuatorModel> actuatorModels = _actuatorModelServiceImpl.getActuatorModelsByActuatorTypeId(actuatorTypeID);
         if (actuatorModels == null || actuatorModels.isEmpty()) {
             throw new IllegalArgumentException("No actuator models found.");
         }
@@ -267,7 +267,7 @@ public class AddActuatorToDeviceController {
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataDTO.actuatorTypeID);
         ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
 
-        IActuator actuator = _actuatorService.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
+        IActuator actuator = _actuatorServiceImpl.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
 
         return _actuatorAssembler.domainToDTO(actuator);
     }

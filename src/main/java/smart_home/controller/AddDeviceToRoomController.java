@@ -7,8 +7,8 @@ import smart_home.domain.room.Room;
 import smart_home.dto.DeviceDTO;
 import smart_home.dto.DeviceDataDTO;
 import smart_home.dto.RoomDTO;
-import smart_home.service.DeviceService;
-import smart_home.service.RoomService;
+import smart_home.service.DeviceServiceImpl;
+import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.DeviceName;
 import smart_home.value_object.DeviceStatus;
 import smart_home.value_object.DeviceTypeID;
@@ -22,37 +22,37 @@ import java.util.Optional;
  */
 public class AddDeviceToRoomController {
 
-    private RoomService _roomService;
+    private RoomServiceImpl _roomServiceImpl;
     private RoomAssembler _roomAssembler;
-    private DeviceService _deviceService;
+    private DeviceServiceImpl _deviceServiceImpl;
     private DeviceAssembler _deviceAssembler;
 
     /**
      * Constructs a new AddDeviceToRoomController with necessary service and assembler dependencies.
      * validates the room service, room assembler, device service, and device assembler.
      *
-     * @param roomService     Service for managing room-related operations.
+     * @param roomServiceImpl     Service for managing room-related operations.
      * @param roomAssembler   Assembler for converting room entities to DTOs.
-     * @param deviceService   Service for managing device-related operations.
+     * @param deviceServiceImpl   Service for managing device-related operations.
      * @param deviceAssembler Assembler for converting device entities to DTOs.
      */
-    public AddDeviceToRoomController(RoomService roomService, RoomAssembler roomAssembler, DeviceService deviceService, DeviceAssembler deviceAssembler) {
-        validateRoomService(roomService);
+    public AddDeviceToRoomController(RoomServiceImpl roomServiceImpl, RoomAssembler roomAssembler, DeviceServiceImpl deviceServiceImpl, DeviceAssembler deviceAssembler) {
+        validateRoomService(roomServiceImpl);
         validateRoomAssembler(roomAssembler);
-        validateDeviceService(deviceService);
+        validateDeviceService(deviceServiceImpl);
         validateDeviceAssembler(deviceAssembler);
     }
 
     /**
      * Validates the room service.
      *
-     * @param roomService
+     * @param roomServiceImpl
      */
-    private void validateRoomService(RoomService roomService) {
-        if (roomService == null) {
+    private void validateRoomService(RoomServiceImpl roomServiceImpl) {
+        if (roomServiceImpl == null) {
             throw new IllegalArgumentException("Please enter a valid room service.");
         } else {
-            this._roomService = roomService;
+            this._roomServiceImpl = roomServiceImpl;
         }
     }
 
@@ -72,13 +72,13 @@ public class AddDeviceToRoomController {
     /**
      * Validates the device service.
      *
-     * @param deviceService
+     * @param deviceServiceImpl
      */
-    private void validateDeviceService(DeviceService deviceService) {
-        if (deviceService == null) {
+    private void validateDeviceService(DeviceServiceImpl deviceServiceImpl) {
+        if (deviceServiceImpl == null) {
             throw new IllegalArgumentException("Please enter a valid device service.");
         } else {
-            this._deviceService = deviceService;
+            this._deviceServiceImpl = deviceServiceImpl;
         }
     }
 
@@ -101,7 +101,7 @@ public class AddDeviceToRoomController {
      * @return a list of RoomDTOs.
      */
     public List<RoomDTO> getAllRooms() {
-        List<Room> rooms = _roomService.getRooms();
+        List<Room> rooms = _roomServiceImpl.getAllRooms();
         return _roomAssembler.domainToDTO(rooms);
     }
 
@@ -119,12 +119,12 @@ public class AddDeviceToRoomController {
         DeviceStatus deviceStatusVO = new DeviceStatus(deviceDataDTO.deviceStatus);
         DeviceTypeID deviceTypeIDVO = new DeviceTypeID(deviceDataDTO.deviceTypeID);
 
-        Optional<Room> roomOptional = _roomService.getRoomById(roomIdVO);
+        Optional<Room> roomOptional = _roomServiceImpl.getRoomById(roomIdVO);
         if (roomOptional.isEmpty()) {
             throw new IllegalArgumentException("Room with ID " + roomIdVO + " not found.");
         }
 
-        Device device = _deviceService.addDevice(roomIdVO, deviceNameVO, deviceStatusVO, deviceTypeIDVO);
+        Device device = _deviceServiceImpl.addDevice(roomIdVO, deviceNameVO, deviceStatusVO, deviceTypeIDVO);
 
         return _deviceAssembler.domainToDTO(device);
     }

@@ -26,7 +26,7 @@ public class SwitchSensor implements ISensor {
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
         validateDeviceID(deviceID);
-        generateHumidityID();
+        generateSwitchSensorID();
 
         switchSensorValue = new SwitchSensorValue(false);
         this._modelPath = modelPath;
@@ -71,7 +71,7 @@ public class SwitchSensor implements ISensor {
     /**
      * generates a new HumidityID
      */
-    private void generateHumidityID() {
+    private void generateSwitchSensorID() {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
     }
 

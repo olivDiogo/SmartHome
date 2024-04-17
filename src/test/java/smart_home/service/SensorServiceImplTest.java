@@ -18,22 +18,22 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-class SensorServiceTest {
+class SensorServiceImplTest {
 
     /* test the constructor with mock objects */
     @Test
     public void shouldInstantiateSensorService_whenGivenValidParameters() {
         // Arrange
-        SensorService sensorService;
+        SensorServiceImpl sensorServiceImpl;
         SensorRepository sensorRepository = mock(SensorRepository.class);
         ISensorFactory sensorFactory = mock(ISensorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
         // Act
-        sensorService = new SensorService(sensorRepository, sensorFactory, deviceRepository);
+        sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
 
         // Assert
-        assertNotNull(sensorService);
+        assertNotNull(sensorServiceImpl);
     }
 
 
@@ -46,7 +46,7 @@ class SensorServiceTest {
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
         // Act Assert
-        assertThrows(IllegalArgumentException.class, () -> new SensorService(sensorRepository, sensorFactory, deviceRepository));
+        assertThrows(IllegalArgumentException.class, () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository));
     }
 
     /* test the constructor with null sensor factory */
@@ -58,7 +58,7 @@ class SensorServiceTest {
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
         // Act Assert
-        assertThrows(IllegalArgumentException.class, () -> new SensorService(sensorRepository, sensorFactory , deviceRepository));
+        assertThrows(IllegalArgumentException.class, () -> new SensorServiceImpl(sensorRepository, sensorFactory , deviceRepository));
     }
 
     /* test the constructor with null device repository */
@@ -71,7 +71,7 @@ class SensorServiceTest {
         DeviceRepository deviceRepository = null;
 
         // Act Assert
-        assertThrows(IllegalArgumentException.class, () -> new SensorService(sensorRepository, sensorFactory , deviceRepository));
+        assertThrows(IllegalArgumentException.class, () -> new SensorServiceImpl(sensorRepository, sensorFactory , deviceRepository));
     }
 
 
@@ -83,7 +83,7 @@ class SensorServiceTest {
         ISensorFactory sensorFactory = mock(ISensorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-        SensorService sensorService = new SensorService(sensorRepository, sensorFactory, deviceRepository);
+        SensorServiceImpl sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
 
         DeviceID deviceID = new DeviceID("deviceID");
         ModelPath modelPath = new ModelPath("modelPath");
@@ -99,7 +99,7 @@ class SensorServiceTest {
         when(sensorFactory.create(deviceID, modelPath, sensorTypeID, sensorName)).thenReturn(mockSensor);
 
         // Act
-        ISensor actualSensor = sensorService.addSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        ISensor actualSensor = sensorServiceImpl.addSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Assert
         assertNotNull(actualSensor);
@@ -115,7 +115,7 @@ class SensorServiceTest {
         ISensorFactory sensorFactory = mock(ISensorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-        SensorService sensorService = new SensorService(sensorRepository, sensorFactory, deviceRepository);
+        SensorServiceImpl sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
 
         DeviceID deviceID = new DeviceID("deviceID");
         ModelPath modelPath = new ModelPath("modelPath");
@@ -125,6 +125,6 @@ class SensorServiceTest {
         when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
 
         // Act Assert
-        assertThrows(IllegalArgumentException.class, () -> sensorService.addSensor(deviceID, modelPath, sensorTypeID, sensorName));
+        assertThrows(IllegalArgumentException.class, () -> sensorServiceImpl.addSensor(deviceID, modelPath, sensorTypeID, sensorName));
     }
 }

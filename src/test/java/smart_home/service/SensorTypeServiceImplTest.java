@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class SensorTypeServiceTest {
+class SensorTypeServiceImplTest {
     @Test
     void shouldInstantiateSensorTypeServiceWhenGivenValidParameters() {
         //Arrange
@@ -25,7 +25,7 @@ class SensorTypeServiceTest {
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
 
         //Act
-        SensorTypeService result = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl result = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
         //Assert
         assertNotNull(result);
@@ -38,7 +38,7 @@ class SensorTypeServiceTest {
         UnitRepository unitRepository = mock(UnitRepository.class);
         String expectedMessage = "Please enter a valid sensor type repository.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -50,7 +50,7 @@ class SensorTypeServiceTest {
         UnitRepository unitRepository = mock(UnitRepository.class);
         String expectedMessage = "Please enter a valid sensor type factory.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -62,7 +62,7 @@ class SensorTypeServiceTest {
         UnitRepository unitRepository = null;
         String expectedMessage = "Please enter a valid measurement type repository.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -81,9 +81,9 @@ class SensorTypeServiceTest {
         UnitRepository unitRepository = mock(UnitRepository.class);
         when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
 
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
         //Act
-        SensorType resultSensorType = sensorTypeService.createSensorType(typeDescription, unitID);
+        SensorType resultSensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
         //Assert
         assertEquals(sensorType, resultSensorType);
     }
@@ -101,10 +101,10 @@ class SensorTypeServiceTest {
         UnitRepository unitRepository = mock(UnitRepository.class);
         when(unitRepository.containsOfIdentity(unitID)).thenReturn(false);
 
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
         String expectedMessage = "Please enter a valid measurement type.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> sensorTypeService.createSensorType(typeDescription, unitID));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> sensorTypeServiceImpl.createSensorType(typeDescription, unitID));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -118,9 +118,9 @@ class SensorTypeServiceTest {
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
 
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
         //Act
-        SensorType resultSensorType = sensorTypeService.saveSensorType(sensorType);
+        SensorType resultSensorType = sensorTypeServiceImpl.addSensorType(sensorType);
         //Assert
         assertEquals(sensorType, resultSensorType);
     }
@@ -133,10 +133,10 @@ class SensorTypeServiceTest {
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
 
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
         String expectedMessage = "Please enter a valid sensor type.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> sensorTypeService.saveSensorType(sensorType));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> sensorTypeServiceImpl.addSensorType(sensorType));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -151,9 +151,9 @@ class SensorTypeServiceTest {
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
 
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
         //Act
-        SensorType resultSensorType = sensorTypeService.findSensorTypeByID(sensorTypeID).get();
+        SensorType resultSensorType = sensorTypeServiceImpl.getSensorTypeByID(sensorTypeID).get();
         //Assert
         assertEquals(sensorType, resultSensorType);
     }
@@ -166,10 +166,10 @@ class SensorTypeServiceTest {
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
 
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
         String expectedMessage = "Please enter a valid sensor type ID.";
         //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> sensorTypeService.findSensorTypeByID(sensorTypeID));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> sensorTypeServiceImpl.getSensorTypeByID(sensorTypeID));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -183,9 +183,9 @@ class SensorTypeServiceTest {
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
 
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
         //Act
-        Optional<SensorType> resultSensorType = sensorTypeService.findSensorTypeByID(sensorTypeID);
+        Optional<SensorType> resultSensorType = sensorTypeServiceImpl.getSensorTypeByID(sensorTypeID);
         //Assert
         assertTrue(resultSensorType.isEmpty());
     }
@@ -200,9 +200,9 @@ class SensorTypeServiceTest {
         UnitRepository unitRepository = mock(UnitRepository.class);
         List<SensorType> expectedSensorTypes = List.of(sensorType);
 
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
         //Act
-        List<SensorType> resultSensorTypes = sensorTypeService.findAllSensorTypes();
+        List<SensorType> resultSensorTypes = sensorTypeServiceImpl.getAllSensorTypes();
         //Assert
         assertEquals(expectedSensorTypes, resultSensorTypes);
     }
@@ -216,9 +216,9 @@ class SensorTypeServiceTest {
         UnitRepository unitRepository = mock(UnitRepository.class);
         List<SensorType> expectedSensorTypes = List.of();
 
-        SensorTypeService sensorTypeService = new SensorTypeService(sensorTypeRepository, sensorTypeFactory, unitRepository);
+        SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
         //Act
-        List<SensorType> resultSensorTypes = sensorTypeService.findAllSensorTypes();
+        List<SensorType> resultSensorTypes = sensorTypeServiceImpl.getAllSensorTypes();
         //Assert
         assertEquals(expectedSensorTypes, resultSensorTypes);
     }

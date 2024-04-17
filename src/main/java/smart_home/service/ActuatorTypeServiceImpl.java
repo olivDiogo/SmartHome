@@ -3,6 +3,7 @@ package smart_home.service;
 import smart_home.ddd.IRepository;
 import smart_home.domain.actuator_type.ActuatorType;
 import smart_home.domain.actuator_type.IActuatorTypeFactory;
+import smart_home.domain.service.IActuatorTypeService;
 import smart_home.domain.unit.Unit;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.TypeDescription;
@@ -11,7 +12,7 @@ import smart_home.value_object.UnitID;
 import java.util.List;
 import java.util.Optional;
 
-public class ActuatorTypeService {
+public class ActuatorTypeServiceImpl implements IActuatorTypeService {
     private final IRepository<ActuatorTypeID, ActuatorType> _actuatorTypeRepository;
     private final IActuatorTypeFactory _actuatorTypeFactory;
     private final IRepository<UnitID, Unit> _unitRepository;
@@ -23,7 +24,7 @@ public class ActuatorTypeService {
      * @param actuatorTypeFactory
      * @param unitRepository
      */
-    public ActuatorTypeService(
+    public ActuatorTypeServiceImpl(
             IRepository<ActuatorTypeID, ActuatorType> actuatorTypeRepository,
             IActuatorTypeFactory actuatorTypeFactory,
             IRepository<UnitID, Unit> unitRepository) {
@@ -69,6 +70,7 @@ public class ActuatorTypeService {
      * @param name is the name of the ActuatorType.
      * @return the ActuatorType.
      */
+    @Override
     public ActuatorType createActuatorType(TypeDescription name, UnitID unitID) {
         if (!_unitRepository.containsOfIdentity(unitID)) {
             throw new IllegalArgumentException("Please enter a valid measurement type.");
@@ -80,7 +82,8 @@ public class ActuatorTypeService {
     /**
      * Save an ActuatorType. If the ActuatorType is null, throw an IllegalArgumentException.
      */
-    public ActuatorType saveActuatorType(ActuatorType type) {
+    @Override
+    public ActuatorType addActuatorType(ActuatorType type) {
         if (type == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type.");
         }
@@ -90,14 +93,16 @@ public class ActuatorTypeService {
     /**
      * Find all actuator types in the repository.
      */
-    public List<ActuatorType> findAllActuatorTypes() {
+    @Override
+    public List<ActuatorType> getAllActuatorTypes() {
         return _actuatorTypeRepository.findAll();
     }
 
     /**
      * Find actuator by typeId
      */
-    public Optional<ActuatorType> findActuatorTypeByID(ActuatorTypeID typeId) {
+    @Override
+    public Optional<ActuatorType> getActuatorTypeByID(ActuatorTypeID typeId) {
         if (typeId == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type ID.");
         }

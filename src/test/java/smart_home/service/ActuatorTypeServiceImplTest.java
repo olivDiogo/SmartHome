@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class ActuatorTypeServiceTest {
+class ActuatorTypeServiceImplTest {
 
     /**
      * Tests the instantiation of ActuatorTypeService with valid parameters.
@@ -29,11 +29,11 @@ class ActuatorTypeServiceTest {
         UnitRepository unitRepository = mock(UnitRepository.class);
 
         // Act
-        ActuatorTypeService actuatorTypeService =
-                new ActuatorTypeService(actuatorTypeRepository, actuatorTypeFactory, unitRepository);
+        ActuatorTypeServiceImpl actuatorTypeServiceImpl =
+                new ActuatorTypeServiceImpl(actuatorTypeRepository, actuatorTypeFactory, unitRepository);
 
         // Assert
-        assertNotNull(actuatorTypeService);
+        assertNotNull(actuatorTypeServiceImpl);
     }
 
     /**
@@ -49,7 +49,7 @@ class ActuatorTypeServiceTest {
         // Act & Assert
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> new ActuatorTypeService(null, actuatorTypeFactoryDouble, unitRepositoryDouble));
+                () -> new ActuatorTypeServiceImpl(null, actuatorTypeFactoryDouble, unitRepositoryDouble));
 
         // Assert
         assertEquals("Please enter a valid actuator type repository.", exception.getMessage());
@@ -68,7 +68,7 @@ class ActuatorTypeServiceTest {
         // Act & Assert
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> new ActuatorTypeService(actuatorTypeRepositoryDouble, null, unitRepositoryDouble));
+                () -> new ActuatorTypeServiceImpl(actuatorTypeRepositoryDouble, null, unitRepositoryDouble));
 
         // Assert
         assertEquals("Please enter a valid actuator type factory.", exception.getMessage());
@@ -87,7 +87,7 @@ class ActuatorTypeServiceTest {
         // Act & Assert
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> new ActuatorTypeService(actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, null));
+                () -> new ActuatorTypeServiceImpl(actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, null));
 
         // Assert
         assertEquals("Please enter a valid unit repository.", exception.getMessage());
@@ -112,13 +112,13 @@ class ActuatorTypeServiceTest {
         ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
 
-        ActuatorTypeService actuatorTypeService =
-                new ActuatorTypeService(
+        ActuatorTypeServiceImpl actuatorTypeServiceImpl =
+                new ActuatorTypeServiceImpl(
                         actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
         when(unitRepositoryDouble.containsOfIdentity(unitID)).thenReturn(true);
 
         // Act
-        ActuatorType actuatorType = actuatorTypeService.createActuatorType(actuatorTypeName, unitID);
+        ActuatorType actuatorType = actuatorTypeServiceImpl.createActuatorType(actuatorTypeName, unitID);
 
         // Assert
         assertEquals(actuatorType, actuatorTypeDouble);
@@ -138,14 +138,14 @@ class ActuatorTypeServiceTest {
         ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
 
-        ActuatorTypeService actuatorTypeService =
-                new ActuatorTypeService(
+        ActuatorTypeServiceImpl actuatorTypeServiceImpl =
+                new ActuatorTypeServiceImpl(
                         actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
 
         // Act + Assert
         assertThrows(
                 IllegalArgumentException.class,
-                () -> actuatorTypeService.createActuatorType(actuatorTypeName, unitID));
+                () -> actuatorTypeServiceImpl.createActuatorType(actuatorTypeName, unitID));
     }
 
     /**
@@ -168,14 +168,14 @@ class ActuatorTypeServiceTest {
 
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
 
-        ActuatorTypeService actuatorTypeService =
-                new ActuatorTypeService(
+        ActuatorTypeServiceImpl actuatorTypeServiceImpl =
+                new ActuatorTypeServiceImpl(
                         actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
 
         // Act + Assert
         assertThrows(
                 IllegalArgumentException.class,
-                () -> actuatorTypeService.createActuatorType(actuatorTypeName, unitID));
+                () -> actuatorTypeServiceImpl.createActuatorType(actuatorTypeName, unitID));
     }
 
     /**
@@ -195,13 +195,13 @@ class ActuatorTypeServiceTest {
         ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
 
-        ActuatorTypeService actuatorTypeService =
-                new ActuatorTypeService(
+        ActuatorTypeServiceImpl actuatorTypeServiceImpl =
+                new ActuatorTypeServiceImpl(
                         actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
         when(actuatorTypeRepositoryDouble.save(actuatorTypeDouble)).thenReturn(actuatorTypeDouble);
 
         // Act
-        ActuatorType actuatorType = actuatorTypeService.saveActuatorType(actuatorTypeDouble);
+        ActuatorType actuatorType = actuatorTypeServiceImpl.addActuatorType(actuatorTypeDouble);
 
         // Assert
         assertEquals(actuatorTypeDouble, actuatorType);
@@ -224,13 +224,13 @@ class ActuatorTypeServiceTest {
         ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
 
-        ActuatorTypeService actuatorTypeService =
-                new ActuatorTypeService(
+        ActuatorTypeServiceImpl actuatorTypeServiceImpl =
+                new ActuatorTypeServiceImpl(
                         actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
         when(actuatorTypeRepositoryDouble.findAll()).thenReturn(List.of(actuatorTypeDouble));
 
         // Act
-        List<ActuatorType> actuatorTypes = actuatorTypeService.findAllActuatorTypes();
+        List<ActuatorType> actuatorTypes = actuatorTypeServiceImpl.getAllActuatorTypes();
 
         // Assert
         assertEquals(List.of(actuatorTypeDouble), actuatorTypes);
@@ -256,13 +256,13 @@ class ActuatorTypeServiceTest {
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("1");
 
-        ActuatorTypeService actuatorTypeService =
-                new ActuatorTypeService(
+        ActuatorTypeServiceImpl actuatorTypeServiceImpl =
+                new ActuatorTypeServiceImpl(
                         actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
         when(actuatorTypeRepositoryDouble.ofIdentity(actuatorTypeID)).thenReturn(Optional.of(actuatorTypeDouble));
 
         // Act
-        Optional<ActuatorType> actuatorType = actuatorTypeService.findActuatorTypeByID(actuatorTypeID);
+        Optional<ActuatorType> actuatorType = actuatorTypeServiceImpl.getActuatorTypeByID(actuatorTypeID);
 
         // Assert
         assertEquals(Optional.of(actuatorTypeDouble), actuatorType);
@@ -289,14 +289,14 @@ class ActuatorTypeServiceTest {
 
         String expectedMessage = "Please enter a valid sensor type ID.";
 
-        ActuatorTypeService actuatorTypeService =
-                new ActuatorTypeService(
+        ActuatorTypeServiceImpl actuatorTypeServiceImpl =
+                new ActuatorTypeServiceImpl(
                         actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
 
         // Act + Assert
         Exception exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> actuatorTypeService.findActuatorTypeByID(actuatorTypeID));
+                () -> actuatorTypeServiceImpl.getActuatorTypeByID(actuatorTypeID));
 
         String actualMessage = exception.getMessage();
 

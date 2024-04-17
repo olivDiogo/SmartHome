@@ -4,7 +4,7 @@ import smart_home.assembler.HouseAssembler;
 import smart_home.domain.house.House;
 import smart_home.dto.HouseDTO;
 import smart_home.dto.HouseDataDTO;
-import smart_home.service.HouseService;
+import smart_home.service.HouseServiceImpl;
 import smart_home.value_object.Address;
 import smart_home.value_object.GPS;
 import smart_home.value_object.PostalCodeFactory;
@@ -13,32 +13,32 @@ import smart_home.value_object.PostalCodeFactory;
  * Controller responsible for configuring the location of a house.
  */
 public class ConfigureHouseLocationController {
-    private HouseService _houseService;
+    private HouseServiceImpl _houseServiceImpl;
     private HouseAssembler _houseAssembler;
 
     /**
      * Constructs a new instance of US01ConfigureHouseLocationController with the provided dependencies.
      *
-     * @param houseService   The service responsible for house-related operations.
+     * @param houseServiceImpl   The service responsible for house-related operations.
      * @param houseAssembler The assembler responsible for converting between domain and DTO objects.
      * @throws IllegalArgumentException If either houseService or houseAssembler is null.
      */
-    public ConfigureHouseLocationController(HouseService houseService, HouseAssembler houseAssembler) {
-        validateHouseService(houseService);
+    public ConfigureHouseLocationController(HouseServiceImpl houseServiceImpl, HouseAssembler houseAssembler) {
+        validateHouseService(houseServiceImpl);
         validateHouseAssembler(houseAssembler);
     }
 
     /**
      * Validates the provided houseService parameter.
      *
-     * @param houseService The house service to validate.
+     * @param houseServiceImpl The house service to validate.
      * @throws IllegalArgumentException If houseService is null.
      */
-    private void validateHouseService(HouseService houseService) {
-        if (houseService == null) {
+    private void validateHouseService(HouseServiceImpl houseServiceImpl) {
+        if (houseServiceImpl == null) {
             throw new IllegalArgumentException("HouseService cannot be null.");
         }
-        this._houseService = houseService;
+        this._houseServiceImpl = houseServiceImpl;
     }
 
     /**
@@ -64,7 +64,7 @@ public class ConfigureHouseLocationController {
         Address address = new Address(houseDataDTO.street, houseDataDTO.doorNumber, houseDataDTO.postalCode, houseDataDTO.countryCode, new PostalCodeFactory());
         GPS gps = new GPS(houseDataDTO.latitude, houseDataDTO.longitude);
 
-        House house = _houseService.addHouse(address, gps);
+        House house = _houseServiceImpl.addHouse(address, gps);
         HouseDTO houseDTO = _houseAssembler.domainToDTO(house);
 
         return houseDTO;

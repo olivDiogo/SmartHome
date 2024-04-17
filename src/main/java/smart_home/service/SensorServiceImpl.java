@@ -5,12 +5,13 @@ import smart_home.domain.device.Device;
 import smart_home.domain.repository.IDeviceRepository;
 import smart_home.domain.sensor.ISensor;
 import smart_home.domain.sensor.ISensorFactory;
+import smart_home.domain.service.ISensorService;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.SensorID;
 
 import java.util.Optional;
 
-public class SensorService {
+public class SensorServiceImpl implements ISensorService {
 
     private IRepository<SensorID, ISensor> _sensorRepository;
     private ISensorFactory _sensorFactory;
@@ -23,7 +24,7 @@ public class SensorService {
      * @param sensorFactory    is the factory for sensors.
      * @param deviceRepository is the repository for devices.
      */
-    public SensorService(
+    public SensorServiceImpl(
             IRepository<SensorID, ISensor> sensorRepository,
             ISensorFactory sensorFactory,
             IDeviceRepository deviceRepository) {
@@ -79,17 +80,7 @@ public class SensorService {
      *                   a sensor object.
      * @return The created and saved Sensor object.
      */
-    //    public ISensor addSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID,
-    // SensorName sensorName) {
-    //        Optional<Device> deviceOptional = _deviceRepository.ofIdentity(deviceID);
-    //        if (deviceOptional.isEmpty()) {
-    //            throw new IllegalArgumentException("Device with ID " + deviceID + " not found.");
-    //        }
-    //
-    //        ISensor sensor = _sensorFactory.create(deviceID, modelPath, sensorTypeID, sensorName);
-    //        _sensorRepository.save(sensor);
-    //        return sensor;
-    //    }
+    @Override
     public ISensor addSensor(Object... parameters) {
         DeviceID deviceID = (DeviceID) parameters[0];
 

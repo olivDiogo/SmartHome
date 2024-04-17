@@ -3,6 +3,7 @@ package smart_home.service;
 import smart_home.domain.actuator_model.ActuatorModel;
 import smart_home.domain.actuator_model.IActuatorModelFactory;
 import smart_home.domain.repository.IActuatorModelRepository;
+import smart_home.domain.service.IActuatorModelService;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.ModelPath;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
  * Service class for managing actuator models within the smart home domain.
  * This includes loading default actuator models from a configuration file, as well as providing access to these models.
  */
-public class ActuatorModelService {
+public class ActuatorModelServiceImpl implements IActuatorModelService {
     private IActuatorModelRepository _actuatorModelRepository;
     private IActuatorModelFactory _factoryActuatorModel;
 
@@ -24,7 +25,7 @@ public class ActuatorModelService {
      * @param actuatorModelRepository Repository for storing and retrieving actuator models.
      * @param factoryActuatorModel    Factory for creating new actuator model instances.
      */
-    public ActuatorModelService(IActuatorModelRepository actuatorModelRepository, IActuatorModelFactory factoryActuatorModel) {
+    public ActuatorModelServiceImpl(IActuatorModelRepository actuatorModelRepository, IActuatorModelFactory factoryActuatorModel) {
         validateActuatorModelRepository(actuatorModelRepository);
         validateFactoryActuatorModel(factoryActuatorModel);
     }
@@ -62,6 +63,7 @@ public class ActuatorModelService {
      *
      * @return A list of all actuator models.
      */
+    @Override
     public List<ActuatorModel> getAllActuatorModels() {
         return _actuatorModelRepository.findAll();
     }
@@ -72,6 +74,7 @@ public class ActuatorModelService {
      * @param modelPath The unique ID of the actuator model.
      * @return An Optional containing the actuator model if found, or an empty Optional otherwise.
      */
+    @Override
     public Optional<ActuatorModel> getActuatorModel(ModelPath modelPath) {
         return _actuatorModelRepository.ofIdentity(modelPath);
     }
@@ -82,6 +85,7 @@ public class ActuatorModelService {
      * @param actuatorTypeID
      * @return
      */
+    @Override
     public List<ActuatorModel> getActuatorModelsByActuatorTypeId(ActuatorTypeID actuatorTypeID) {
         return _actuatorModelRepository.findByActuatorTypeId(actuatorTypeID);
     }

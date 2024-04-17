@@ -5,12 +5,13 @@ import smart_home.domain.device.Device;
 import smart_home.domain.device.IDeviceFactory;
 import smart_home.domain.repository.IDeviceRepository;
 import smart_home.domain.room.Room;
+import smart_home.domain.service.IDeviceService;
 import smart_home.value_object.*;
 
 import java.util.List;
 import java.util.Optional;
 
-public class DeviceService {
+public class DeviceServiceImpl implements IDeviceService {
     private final IDeviceRepository _deviceRepository;
     private final IDeviceFactory _deviceFactory;
     private final IRepository<RoomID, Room> _roomRepository;
@@ -22,7 +23,7 @@ public class DeviceService {
      * @param deviceFactory    is the factory for the device.
      * @param roomRepository   is the repository for the room.
      */
-    public DeviceService(IDeviceRepository deviceRepository, IDeviceFactory deviceFactory, IRepository<RoomID, Room> roomRepository) {
+    public DeviceServiceImpl(IDeviceRepository deviceRepository, IDeviceFactory deviceFactory, IRepository<RoomID, Room> roomRepository) {
         validateDeviceRepository(deviceRepository);
         _deviceRepository = deviceRepository;
         validateDeviceFactory(deviceFactory);
@@ -106,6 +107,7 @@ public class DeviceService {
      *
      * @return a list of devices.
      */
+    @Override
     public List<Device> getAllDevices() {
         return _deviceRepository.findAll();
     }
@@ -116,6 +118,7 @@ public class DeviceService {
      * @param deviceId is the unique identifier of the device.
      * @return an optional containing the device if found, empty otherwise.
      */
+    @Override
     public Optional<Device> getDeviceByID(DeviceID deviceId) {
         return _deviceRepository.ofIdentity(deviceId);
     }
@@ -126,8 +129,8 @@ public class DeviceService {
      * @param roomId is the unique identifier of the room.
      * @return a list of devices in the room.
      */
+    @Override
     public List<Device> getDevicesByRoomId(RoomID roomId) {
         return _deviceRepository.getDevicesByRoomId(roomId);
     }
-
 }

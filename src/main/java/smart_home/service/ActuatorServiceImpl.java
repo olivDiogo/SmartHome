@@ -6,6 +6,7 @@ import smart_home.domain.actuator.IActuator;
 import smart_home.domain.actuator.IActuatorFactory;
 import smart_home.domain.device.Device;
 import smart_home.domain.repository.IDeviceRepository;
+import smart_home.domain.service.IActuatorService;
 import smart_home.value_object.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Optional;
 /**
  * This class represents a service for managing actuators.
  */
-public class ActuatorService {
+public class ActuatorServiceImpl implements IActuatorService {
 
     private final IRepository<ActuatorID, IActuator> _actuatorRepository;
     private final IActuatorFactory _actuatorFactory;
@@ -28,7 +29,7 @@ public class ActuatorService {
      * @param actuatorFactory    The factory for creating actuators.
      * @param deviceRepository   The repository for accessing devices.
      */
-    public ActuatorService(IRepository<ActuatorID, IActuator> actuatorRepository, IActuatorFactory actuatorFactory, IDeviceRepository deviceRepository) {
+    public ActuatorServiceImpl(IRepository<ActuatorID, IActuator> actuatorRepository, IActuatorFactory actuatorFactory, IDeviceRepository deviceRepository) {
         validateActuatorRepository(actuatorRepository);
         _actuatorRepository = actuatorRepository;
         validateActuatorFactory(actuatorFactory);
@@ -80,6 +81,7 @@ public class ActuatorService {
      * @return The added actuator.
      * @throws IllegalArgumentException If the device with the specified ID does not exist.
      */
+    @Override
     public IActuator addActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
         Optional<Device> deviceOptional = _deviceRepository.ofIdentity(deviceID);
         if (deviceOptional.isEmpty()) {
@@ -96,6 +98,7 @@ public class ActuatorService {
      * @param actuatorID The ID of the actuator to retrieve.
      * @return An Optional containing the retrieved actuator, or empty if not found.
      */
+    @Override
     public Optional<IActuator> getActuatorByID(ActuatorID actuatorID) {
         return _actuatorRepository.ofIdentity(actuatorID);
     }
@@ -105,6 +108,7 @@ public class ActuatorService {
      *
      * @return A list of all actuators.
      */
+    @Override
     public List<IActuator> getAllActuators() {
         return _actuatorRepository.findAll();
     }
