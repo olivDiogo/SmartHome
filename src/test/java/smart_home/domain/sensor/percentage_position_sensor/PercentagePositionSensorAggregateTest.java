@@ -339,7 +339,7 @@ class PercentagePositionSensorAggregateTest {
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
         PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
-        String expected = "SwitchSensor: DeviceID= " + deviceIDValue + " ModelPath= " + modelPathValue + " SensorTypeID= " + sensorTypeIDValue + " SensorName= " + sensorNameValue + " SensorID= " + percentagePositionSensor.getID().getID();
+        String expected = "PercentagePositionSensor: DeviceID= " + deviceIDValue + " ModelPath= " + modelPathValue + " SensorTypeID= " + sensorTypeIDValue + " SensorName= " + sensorNameValue + " SensorID= " + percentagePositionSensor.getID().getID();
         // Act
         String result = percentagePositionSensor.toString();
 
