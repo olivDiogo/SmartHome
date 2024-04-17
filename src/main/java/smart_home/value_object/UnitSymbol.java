@@ -17,6 +17,10 @@ public class UnitSymbol implements IValueObject {
         }
     }
 
+    public String getSymbol() {
+        return _unit;
+    }
+
     public boolean equals(Object object) {
         if (this == object) {
             return true;
