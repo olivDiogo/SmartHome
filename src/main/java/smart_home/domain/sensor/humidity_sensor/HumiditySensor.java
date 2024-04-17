@@ -1,6 +1,7 @@
 package smart_home.domain.sensor.humidity_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
@@ -27,10 +28,10 @@ public class HumiditySensor implements ISensor {
      * @param sensorName   The name of the sensor.
      */
     public HumiditySensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        validateModelPath(modelPath);
-        validateSensorName(sensorName);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(sensorName);
         validateSensorTypeID(sensorTypeID);
-        validateDeviceID(deviceID);
         generateHumidityID();
 
         this._deviceID = deviceID;
@@ -41,30 +42,25 @@ public class HumiditySensor implements ISensor {
 
     /**
      * Constructor with sensorID.
-      * @param deviceID
-     * @param modelPath
-     * @param sensorTypeID
-     * @param sensorName
-     * @param sensorID
+     *
+     * @param deviceID     The ID of the device to which the sensor belongs.
+     * @param modelPath    The path of the model associated with the sensor.
+     * @param sensorTypeID The type ID of the sensor.
+     * @param sensorName   The name of the sensor.
+     * @param sensorID is the sensor id
      */
     public HumiditySensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        validateModelPath(modelPath);
-        validateSensorName(sensorName);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(sensorName);
         validateSensorTypeID(sensorTypeID);
-        validateDeviceID(deviceID);
-        validateSensorID(sensorID);
+        Validator.validateNotNull(sensorID);
 
         this._deviceID = deviceID;
         this._sensorTypeID = sensorTypeID;
         this._modelPath = modelPath;
         this._sensorName = sensorName;
         this._sensorID = sensorID;
-    }
-
-    private void validateSensorID (SensorID sensorID){
-        if (sensorID == null) {
-            throw new IllegalArgumentException("SensorID cannot be null.");
-        }
     }
 
     /**
@@ -75,54 +71,19 @@ public class HumiditySensor implements ISensor {
     }
 
     /**
-     * Validates the model path.
-     *
-     * @param modelPath The model path to validate.
-     * @throws IllegalArgumentException if the model path is null.
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath is required");
-        }
-    }
-
-    /**
-     * Validates the sensor name.
-     *
-     * @param sensorName The sensor name to validate.
-     * @throws IllegalArgumentException if the sensor name is null.
-     */
-    private void validateSensorName(SensorName sensorName) {
-        if (sensorName == null) {
-            throw new IllegalArgumentException("SensorName is required");
-        }
-    }
-
-    /**
      * Validates the sensor type ID.
      *
      * @param sensorTypeID The sensor type ID to validate.
      * @throws IllegalArgumentException if the sensor type ID is null or not of type 'Humidity'.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("SensorTypeID is required");
-        } else if (!Objects.equals(sensorTypeID.getID(), "Humidity")) {
+       Validator.validateNotNull(sensorTypeID);
+
+        if (!Objects.equals(sensorTypeID.getID(), "Humidity")) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'Humidity'");
         }
     }
 
-    /**
-     * Validates the device ID.
-     *
-     * @param deviceID The device ID to validate.
-     * @throws IllegalArgumentException if the device ID is null.
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID is required");
-        }
-    }
 
     /**
      * Returns the sensor ID.

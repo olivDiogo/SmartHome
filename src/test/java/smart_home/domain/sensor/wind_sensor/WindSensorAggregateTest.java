@@ -433,7 +433,7 @@ public class WindSensorAggregateTest {
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
         SensorID sensorID = null;
 
-        String expectedMessage = "SensorID cannot be null.";
+        String expectedMessage = "SensorID is required";
 
         // Act + Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new WindSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));

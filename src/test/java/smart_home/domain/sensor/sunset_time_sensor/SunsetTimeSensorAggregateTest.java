@@ -65,7 +65,7 @@ class SunsetTimeSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
         GPS gps = new GPS(0, 0);
 
-        String expectedMessage = "DeviceID cannot be null.";
+        String expectedMessage = "DeviceID is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
@@ -86,7 +86,7 @@ class SunsetTimeSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
         GPS gps = new GPS(0, 0);
 
-        String expectedMessage = "SensorTypeID cannot be null.";
+        String expectedMessage = "SensorTypeID is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
@@ -128,7 +128,7 @@ class SunsetTimeSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
         GPS gps = new GPS(0, 0);
 
-        String expectedMessage = "ModelPath cannot be null.";
+        String expectedMessage = "ModelPath is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
@@ -149,7 +149,7 @@ class SunsetTimeSensorAggregateTest {
         SensorName sensorName = null;
         GPS gps = new GPS(0, 0);
 
-        String expectedMessage = "SensorName cannot be null";
+        String expectedMessage = "SensorName is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
@@ -170,7 +170,7 @@ class SunsetTimeSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
         GPS gps = null;
 
-        String expectedMessage = "GPS cannot be null.";
+        String expectedMessage = "GPS is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));

@@ -65,7 +65,7 @@ public class SolarIrradianceSensorTest {
         when(sensorTypeID.getID()).thenReturn("SolarIrradiance");
         SensorID sensorID = null;
 
-        String expectedMessage = "SensorID cannot be null";
+        String expectedMessage = "SensorID is required";
 
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () -> new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));
@@ -93,7 +93,7 @@ public class SolarIrradianceSensorTest {
                 new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
             } catch (IllegalArgumentException e) {
                 // Assert
-                assert e.getMessage().equals("DeviceID cannot be null");
+                assert e.getMessage().equals("DeviceID is required");
             }
         }
     }
@@ -115,7 +115,7 @@ public class SolarIrradianceSensorTest {
                 new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
             } catch (IllegalArgumentException e) {
                 // Assert
-                assert e.getMessage().equals("ModelPath cannot be null");
+                assert e.getMessage().equals("ModelPath is required");
             }
         }
     }
@@ -137,7 +137,7 @@ public class SolarIrradianceSensorTest {
                 new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
             } catch (IllegalArgumentException e) {
                 // Assert
-                assert e.getMessage().equals("SensorName cannot be null");
+                assert e.getMessage().equals("SensorName is required");
             }
         }
     }
@@ -159,7 +159,7 @@ public class SolarIrradianceSensorTest {
                 new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
             } catch (IllegalArgumentException e) {
                 // Assert
-                assert e.getMessage().equals("SensorTypeID cannot be null");
+                assert e.getMessage().equals("SensorTypeID is required");
             }
         }
     }

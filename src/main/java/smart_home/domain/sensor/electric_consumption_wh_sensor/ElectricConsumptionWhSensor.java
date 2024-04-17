@@ -1,6 +1,7 @@
 package smart_home.domain.sensor.electric_consumption_wh_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
@@ -38,32 +39,32 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
 
     public ElectricConsumptionWhSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, DatePeriod datePeriod) {
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(deviceID);
         this._deviceID = deviceID;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        validateModelPath(modelPath);
+        Validator.validateNotNull(modelPath);
         this._modelPath = modelPath;
-        validateSensorName(sensorName);
+        Validator.validateNotNull(sensorName);
         this._sensorName = sensorName;
-        validateDatePeriod(datePeriod);
+        Validator.validateNotNull(datePeriod);
         this._datePeriod = datePeriod;
 
         generateElectricConsumptionWhID();
     }
 
     public ElectricConsumptionWhSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, DatePeriod datePeriod, SensorID sensorID) {
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(deviceID);
         this._deviceID = deviceID;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        validateModelPath(modelPath);
+        Validator.validateNotNull(modelPath);
         this._modelPath = modelPath;
-        validateSensorName(sensorName);
+        Validator.validateNotNull(sensorName);
         this._sensorName = sensorName;
-        validateDatePeriod(datePeriod);
+        Validator.validateNotNull(datePeriod);
         this._datePeriod = datePeriod;
-        validateSensorID(sensorID);
+        Validator.validateNotNull(sensorID);
         this._sensorID = sensorID;
     }
 
@@ -76,72 +77,18 @@ public class ElectricConsumptionWhSensor implements ISensor {
     }
 
     /**
-     * Validates the SensorID
-     *
-     * @param sensorID the ID of the sensor
-     */
-    private void validateSensorID(SensorID sensorID) {
-        if (sensorID == null) {
-            throw new IllegalArgumentException("SensorID is required");
-        }
-    }
-
-    /**
-     * Validates the given parameters.
-     *
-     * @param datePeriod the period during which the sensor measures consumption
-     */
-    private void validateDatePeriod(DatePeriod datePeriod) {
-        if (datePeriod == null) {
-            throw new IllegalArgumentException("DatePeriod is required");
-        }
-    }
-
-    /**
-     * Validates the given parameters.
-     *
-     * @param modelPath the model path of the sensor
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath is required");
-        }
-    }
-
-    /**
-     * Validates the given parameters.
-     *
-     * @param sensorName the name of the sensor
-     */
-    private void validateSensorName(SensorName sensorName) {
-        if (sensorName == null) {
-            throw new IllegalArgumentException("SensorName is required");
-        }
-    }
-
-    /**
      * Validates the given parameters.
      *
      * @param sensorTypeID the type ID of the sensor
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("SensorTypeID is required");
-        } else if (!Objects.equals("ElectricConsumptionWh", sensorTypeID.getID())) {
+        Validator.validateNotNull(sensorTypeID);
+
+        if (!Objects.equals("ElectricConsumptionWh", sensorTypeID.getID())) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'ElectricConsumptionWh'");
         }
     }
 
-    /**
-     * Validates the given parameters.
-     *
-     * @param deviceID the ID of the device
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID is required");
-        }
-    }
 
     /**
      * Returns the ID of the sensor.

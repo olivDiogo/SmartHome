@@ -1,6 +1,7 @@
 package smart_home.domain.sensor.switch_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
@@ -22,10 +23,10 @@ public class SwitchSensor implements ISensor {
      * @param sensorName   The sensor name.
      */
     public SwitchSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        validateModelPath(modelPath);
-        validateSensorName(sensorName);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
         validateSensorTypeID(sensorTypeID);
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(sensorName);
         generateSwitchSensorID();
 
         switchSensorValue = new SwitchSensorValue(false);
@@ -44,11 +45,11 @@ public class SwitchSensor implements ISensor {
      * @param sensorID   The sensor ID.
      */
     public SwitchSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        validateModelPath(modelPath);
-        validateSensorName(sensorName);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
         validateSensorTypeID(sensorTypeID);
-        validateDeviceID(deviceID);
-        validateSensorID(sensorID);
+        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorID);
 
         switchSensorValue = new SwitchSensorValue(false);
         this._modelPath = modelPath;
@@ -58,15 +59,7 @@ public class SwitchSensor implements ISensor {
 
     }
 
-    /**
-     * Validates the sensorID.
-     * @param sensorID The sensorID.
-     */
-    private void validateSensorID(SensorID sensorID) {
-        if (sensorID == null) {
-            throw new IllegalArgumentException("SensorID cannot be null.");
-        }
-    }
+
 
     /**
      * generates a new HumidityID
@@ -76,48 +69,15 @@ public class SwitchSensor implements ISensor {
     }
 
     /**
-     * Validates the model path.
-     *
-     * @param modelPath The model path.
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath is required");
-        }
-    }
-
-    /**
-     * Validates the sensor name.
-     *
-     * @param sensorName The sensor name.
-     */
-    private void validateSensorName(SensorName sensorName) {
-        if (sensorName == null) {
-            throw new IllegalArgumentException("SensorName is required");
-        }
-    }
-
-    /**
      * Validates the sensor type ID.
      *
      * @param sensorTypeID The sensor type ID.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("SensorTypeID is required");
-        } else if (!Objects.equals(sensorTypeID.getID(), "Switch")) {
-            throw new IllegalArgumentException("SensorTypeID must be of type 'Switch'");
-        }
-    }
+        Validator.validateNotNull(sensorTypeID);
 
-    /**
-     * Validates the device ID.
-     *
-     * @param deviceID The device ID.
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID is required");
+        if (!Objects.equals(sensorTypeID.getID(), "Switch")) {
+            throw new IllegalArgumentException("SensorTypeID must be of type 'Switch'");
         }
     }
 

@@ -1,6 +1,7 @@
 package smart_home.domain.sensor.dew_point_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
@@ -24,27 +25,27 @@ public class DewPointSensor implements ISensor {
      * @param sensorTypeID The sensor type ID.
      */
     public DewPointSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        validateModelPath(modelPath);
+        Validator.validateNotNull(deviceID);
+        this._deviceID = deviceID;
+        Validator.validateNotNull(modelPath);
         this._modelPath = modelPath;
-        validateSensorName(sensorName);
+        Validator.validateNotNull(sensorName);
         this._sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        validateDeviceID(deviceID);
-        this._deviceID = deviceID;
         generateDewPointID();
     }
 
     public DewPointSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        validateModelPath(modelPath);
+        Validator.validateNotNull(deviceID);
+        this._deviceID = deviceID;
+        Validator.validateNotNull(modelPath);
         this._modelPath = modelPath;
-        validateSensorName(sensorName);
+        Validator.validateNotNull(sensorName);
         this._sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        validateDeviceID(deviceID);
-        this._deviceID = deviceID;
-        validateSensorID(sensorID);
+        Validator.validateNotNull(sensorID);
         this._sensorID = sensorID;
     }
 
@@ -55,38 +56,6 @@ public class DewPointSensor implements ISensor {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
-    /**
-     * Validates the sensor ID.
-     *
-     * @param sensorID The sensor ID.
-     */
-    private void validateSensorID(SensorID sensorID) {
-        if (sensorID == null) {
-            throw new IllegalArgumentException("SensorID is required");
-        }
-    }
-
-    /**
-     * Validates the model path.
-     *
-     * @param modelPath The model path.
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath is required");
-        }
-    }
-
-    /**
-     * Validates the sensor name.
-     *
-     * @param sensorName The sensor name.
-     */
-    private void validateSensorName(SensorName sensorName) {
-        if (sensorName == null) {
-            throw new IllegalArgumentException("SensorName is required");
-        }
-    }
 
     /**
      * Validates the sensor type ID.
@@ -94,25 +63,12 @@ public class DewPointSensor implements ISensor {
      * @param sensorTypeID The sensor type ID.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("SensorTypeID is required");
+        Validator.validateNotNull(sensorTypeID);
 
-        } else if (!Objects.equals(sensorTypeID.getID(), "DewPoint")) {
+        if (!Objects.equals(sensorTypeID.getID(), "DewPoint")) {
             throw new IllegalArgumentException("SensorTypeID must be 'DewPoint'");
         }
     }
-
-    /**
-     * Validates the device ID.
-     *
-     * @param deviceID The device ID.
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID is required");
-        }
-    }
-
 
     /**
      * Gets the sensor ID.

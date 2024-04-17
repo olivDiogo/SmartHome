@@ -78,7 +78,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        String expectedMessage = "SensorID cannot be null.";
+        String expectedMessage = "SensorID is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, null));
@@ -103,7 +103,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        String expectedMessage = "DeviceID cannot be null.";
+        String expectedMessage = "DeviceID is required";
 
         try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
@@ -128,7 +128,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        String expectedMessage = "SensorTypeID cannot be null.";
+        String expectedMessage = "SensorTypeID is required";
 
         try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
@@ -180,7 +180,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = mock(GPS.class);
 
-        String expectedMessage = "ModelPath cannot be null.";
+        String expectedMessage = "ModelPath is required";
 
         try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
@@ -206,7 +206,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = null;
         GPS gps = mock(GPS.class);
 
-        String expectedMessage = "SensorName cannot be null";
+        String expectedMessage = "SensorName is required";
 
         try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act
@@ -232,7 +232,7 @@ class SunsetTimeSensorTest {
         SensorName sensorName = mock(SensorName.class);
         GPS gps = null;
 
-        String expectedMessage = "GPS cannot be null.";
+        String expectedMessage = "GPS is required";
 
         try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
             //Act

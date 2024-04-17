@@ -2,6 +2,7 @@ package smart_home.domain.sensor.average_power_consumption_sensor;
 
 import smart_home.ddd.IValueObject;
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,6 @@ public class AveragePowerConsumptionSensor implements ISensor {
      * This class represents a PowerConsumptionSensor in the Smart Home System.
      * It includes details about the sensor's identification, type, and power consumption values.
      * It implements the ISensor interface with SensorID as its identifier.
-     *
      */
 
     private final HashMap<LocalDateTime, Double> _powerConsumptions;
@@ -38,10 +38,11 @@ public class AveragePowerConsumptionSensor implements ISensor {
     public AveragePowerConsumptionSensor(
             DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName)
             throws IllegalArgumentException {
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(deviceID);
         validateSensorTypeID(sensorTypeID);
-        validateModelPath(modelPath);
-        validateSensorName(sensorName);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(sensorName);
+
         generateSensorID();
 
         this._deviceID = deviceID;
@@ -62,11 +63,11 @@ public class AveragePowerConsumptionSensor implements ISensor {
     public AveragePowerConsumptionSensor(
             DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID)
             throws IllegalArgumentException {
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorID);
         validateSensorTypeID(sensorTypeID);
-        validateModelPath(modelPath);
-        validateSensorName(sensorName);
-        validateSensorID(sensorID);
         _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(0);
         _powerConsumptions = new HashMap<>();
 
@@ -77,39 +78,11 @@ public class AveragePowerConsumptionSensor implements ISensor {
         this._sensorName = sensorName;
     }
 
-    /**
-     * Validates the sensorID.
-     * @param sensorID The sensorID.
-     */
-    private void validateSensorID(SensorID sensorID) {
-        if (sensorID == null) {
-            throw new IllegalArgumentException("SensorID cannot be null.");
-        }
-    }
-
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID cannot be null.");
-        }
-    }
-
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("SensorTypeID cannot be null.");
-        } else if (!sensorTypeID.getID().equals("AveragePowerConsumption")) {
+        Validator.validateNotNull(sensorTypeID);
+
+        if (!sensorTypeID.getID().equals("AveragePowerConsumption")) {
             throw new IllegalArgumentException("SensorTypeID must be 'AveragePowerConsumption'.");
-        }
-    }
-
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath cannot be null.");
-        }
-    }
-
-    private void validateSensorName(SensorName sensorName) {
-        if (sensorName == null) {
-            throw new IllegalArgumentException("SensorName cannot be null");
         }
     }
 
@@ -129,10 +102,9 @@ public class AveragePowerConsumptionSensor implements ISensor {
         if (_powerConsumptions.containsKey(readTime))
             throw new IllegalArgumentException("There is already a reading for this time");
 
-        {
-            _powerConsumptions.put(readTime, reading);
-            return reading;
-        }
+        this._powerConsumptions.put(readTime, reading);
+        return reading;
+
     }
 
     /**
@@ -212,11 +184,12 @@ public class AveragePowerConsumptionSensor implements ISensor {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof AveragePowerConsumptionSensor averagePowerConsumptionSensor){
+        if (o instanceof AveragePowerConsumptionSensor averagePowerConsumptionSensor) {
             return _sensorID.equals(averagePowerConsumptionSensor._sensorID);
         }
         return false;
     }
+
     /**
      * Overrides the hashCode method to return the hash code of the _sensorID.
      * To keep the contract with the equals method, this method must be overridden.
@@ -231,7 +204,6 @@ public class AveragePowerConsumptionSensor implements ISensor {
      * The string includes the class name, along
      * * with the _sensorID, _sensorName, _deviceID, _modelPath, and _sensorTypeID properties.
      * This method overrides the {@link Object#toString()} method.
-     *
      */
     public String toString() {
         return "PowerConsumptionSensor:"
@@ -266,6 +238,6 @@ public class AveragePowerConsumptionSensor implements ISensor {
     public IValueObject getValue(LocalDateTime initialTime, LocalDateTime finalTime) {
         double averageValue = getAverageValue(initialTime, finalTime);
         _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(averageValue);
-         return _averagePowerConsumptionSensorValue;
+        return _averagePowerConsumptionSensorValue;
     }
 }

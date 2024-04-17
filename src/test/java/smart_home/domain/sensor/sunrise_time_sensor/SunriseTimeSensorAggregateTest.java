@@ -53,7 +53,7 @@ class SunriseTimeSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = null;
         GPS gps = new GPS(GPSLatitude, GPSLongitude);
-        String expectedMessage = "SensorTypeID cannot be null.";
+        String expectedMessage = "SensorTypeID is required";
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
@@ -105,7 +105,7 @@ class SunriseTimeSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
         GPS gps = null;
-        String expectedMessage = "GPS cannot be null.";
+        String expectedMessage = "GPS is required";
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
@@ -131,7 +131,7 @@ class SunriseTimeSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         GPS gps = new GPS(GPSLatitude, GPSLongitude);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-        String expectedMessage = "DeviceID cannot be null.";
+        String expectedMessage = "DeviceID is required";
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
@@ -157,7 +157,7 @@ class SunriseTimeSensorAggregateTest {
         SensorName sensorName = new SensorName(sensorNameValue);
         GPS gps = new GPS(GPSLatitude, GPSLongitude);
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-        String expectedMessage = "ModelPath cannot be null.";
+        String expectedMessage = "ModelPath is required";
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
@@ -183,7 +183,7 @@ class SunriseTimeSensorAggregateTest {
         SensorName sensorName = null;
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
         GPS gps = new GPS(GPSLatitude, GPSLongitude);
-        String expectedMessage = "SensorName cannot be null";
+        String expectedMessage = "SensorName is required";
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps));
@@ -621,7 +621,7 @@ class SunriseTimeSensorAggregateTest {
         GPS gps = new GPS(GPSLatitude, GPSLongitude);
         SensorID sensorID = null;
 
-        String expectedMessage = "SensorID cannot be null.";
+        String expectedMessage = "SensorID is required";
 
         // Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));

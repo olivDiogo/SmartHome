@@ -2,6 +2,7 @@ package smart_home.domain.sensor.sunset_time_sensor;
 
 import org.shredzone.commons.suncalc.SunTimes;
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.time.LocalDate;
@@ -21,26 +22,22 @@ public class SunsetTimeSensor implements ISensor {
 
     /**
      * Constructor for SunsetTimeSensor
-     * @param deviceID
-     * @param modelPath
-     * @param sensorTypeID
-     * @param sensorName
-     * @param gps
+     * @param deviceID is the device id
+     * @param modelPath is the model path
+     * @param sensorTypeID is the sensor type id
+     * @param sensorName is the sensor name
+     * @param gps is the gps
      */
     public SunsetTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps) {
-        validateDeviceID(deviceID);
+       Validator.validateNotNull(deviceID);
         _deviceID = deviceID;
-
         validateSensorTypeID(sensorTypeID);
         _sensorTypeID = sensorTypeID;
-
-        validateModelPath(modelPath);
+       Validator.validateNotNull(modelPath);
         _modelPath = modelPath;
-
-        validateSensorName(sensorName);
+        Validator.validateNotNull(sensorName);
         _sensorName = sensorName;
-
-        validateGpsLocation(gps);
+        Validator.validateNotNull(gps);
         _gps = gps;
 
         generateSensorID();
@@ -49,93 +46,40 @@ public class SunsetTimeSensor implements ISensor {
     /**
      * Constructor for SunsetTimeSensor
      *
-     * @param deviceID
-     * @param modelPath
-     * @param sensorTypeID
-     * @param sensorName
-     * @param gps
-     * @param sensorID
+     * @param deviceID is the device id
+     * @param modelPath is the model path
+     * @param sensorTypeID is the sensor type id
+     * @param sensorName is the sensor name
+     * @param gps is the gps
+     * @param sensorID is the sensor id
      */
     public SunsetTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps, SensorID sensorID) {
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(deviceID);
         _deviceID = deviceID;
-
         validateSensorTypeID(sensorTypeID);
         _sensorTypeID = sensorTypeID;
-
-        validateModelPath(modelPath);
+        Validator.validateNotNull(modelPath);
         _modelPath = modelPath;
-
-        validateSensorName(sensorName);
+        Validator.validateNotNull(sensorName);
         _sensorName = sensorName;
-
-        validateGpsLocation(gps);
+        Validator.validateNotNull(gps);
         _gps = gps;
-
-        validateSensorID(sensorID);
+        Validator.validateNotNull(sensorID);
         _sensorID = sensorID;
     }
 
     /**
-     * Validate SensorID
-     */
-    private void validateSensorID(SensorID sensorID) {
-        if (sensorID == null) {
-            throw new IllegalArgumentException("SensorID cannot be null.");
-        }
-    }
-
-    /**
-     * Validate DeviceID
-     * @param deviceID
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID cannot be null.");
-        }
-    }
-
-    /**
      * Validate SensorTypeID
-     * @param sensorTypeID
+     * @param sensorTypeID is the sensor type id
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("SensorTypeID cannot be null.");
-        } else if (!sensorTypeID.getID().equals("SunsetTime")) {
+        Validator.validateNotNull(sensorTypeID);
+
+        if (!sensorTypeID.getID().equals("SunsetTime")) {
             throw new IllegalArgumentException("SensorTypeID must be 'SunsetTime'.");
         }
     }
 
-    /**
-     * Validate ModelPath
-     * @param modelPath
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath cannot be null.");
-        }
-    }
-
-    /**
-     * Validate SensorName
-     * @param sensorName
-     */
-    private void validateSensorName(SensorName sensorName) {
-        if (sensorName == null) {
-            throw new IllegalArgumentException("SensorName cannot be null");
-        }
-    }
-
-    /**
-     * Validate GPS Location
-     * @param gps
-     */
-    private void validateGpsLocation(GPS gps) {
-        if (gps == null) {
-            throw new IllegalArgumentException("GPS cannot be null.");
-        }
-    }
 
     /**
      * Generate SensorID

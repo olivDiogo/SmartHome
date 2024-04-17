@@ -1,6 +1,7 @@
 package smart_home.domain.sensor.solar_irradiance_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
@@ -17,17 +18,17 @@ public class SolarIrradianceSensor implements ISensor {
     /**
      * Constructor for SolarIrradianceSensor
      *
-     * @param deviceID
-     * @param modelPath
-     * @param sensorTypeID
-     * @param sensorName
+     * @param deviceID     is the deviceID
+     * @param modelPath    is the model path
+     * @param sensorTypeID is the sensor type ID
+     * @param sensorName   is the sensor name
      */
     public SolarIrradianceSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(deviceID);
         this._deviceID = deviceID;
-        validateModelPath(modelPath);
+        Validator.validateNotNull(modelPath);
         this._modelPath = modelPath;
-        validateSensorName(sensorName);
+        Validator.validateNotNull(sensorName);
         this._sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
@@ -38,22 +39,22 @@ public class SolarIrradianceSensor implements ISensor {
     /**
      * Constructor for SolarIrradianceSensor with SensorID
      *
-     * @param deviceID
-     * @param modelPath
-     * @param sensorTypeID
-     * @param sensorName
-     * @param sensorID
+     * @param deviceID     is the deviceID
+     * @param modelPath    is the model path
+     * @param sensorTypeID is the sensor type ID
+     * @param sensorName   is the sensor name
+     * @param sensorID     is the sensor id
      */
     public SolarIrradianceSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(deviceID);
         this._deviceID = deviceID;
-        validateModelPath(modelPath);
+        Validator.validateNotNull(modelPath);
         this._modelPath = modelPath;
-        validateSensorName(sensorName);
+        Validator.validateNotNull(sensorName);
         this._sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        validateSensorID(sensorID);
+        Validator.validateNotNull(sensorID);
         this._sensorID = sensorID;
     }
 
@@ -64,67 +65,26 @@ public class SolarIrradianceSensor implements ISensor {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
-    /**
-     * Validates the sensorID
-     */
-    private void validateSensorID(SensorID sensorID) {
-        if (sensorID == null) {
-            throw new IllegalArgumentException("SensorID cannot be null");
-        }
-    }
-
-    /**
-     * Validates the sensorName
-     *
-     * @param sensorName
-     */
-    private void validateSensorName(SensorName sensorName) {
-        if (sensorName == null) {
-            throw new IllegalArgumentException("SensorName cannot be null");
-        }
-    }
 
     /**
      * Validates the sensorTypeID
      *
-     * @param sensorTypeID
+     * @param sensorTypeID is the sensor type id
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("SensorTypeID cannot be null");
-        }
+        Validator.validateNotNull(sensorTypeID);
+
         if (!Objects.equals(sensorTypeID.getID(), "SolarIrradiance")) {
             throw new IllegalArgumentException("SensorTypeID must be SolarIrradiance");
         }
 
     }
 
-    /**
-     * Validates the modelPath
-     *
-     * @param modelPath
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath cannot be null");
-        }
-    }
-
-    /**
-     * Validates the deviceID
-     *
-     * @param deviceID
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID cannot be null");
-        }
-    }
 
     /**
      * Getter for sensorID
      *
-     * @return
+     * @return sensor id
      */
     @Override
     public SensorID getID() {
@@ -134,7 +94,7 @@ public class SolarIrradianceSensor implements ISensor {
     /**
      * Getter for sensorName
      *
-     * @return
+     * @return sensor name
      */
     @Override
     public SensorName getName() {
@@ -144,7 +104,7 @@ public class SolarIrradianceSensor implements ISensor {
     /**
      * Getter for modelPath
      *
-     * @return
+     * @return the model path
      */
     @Override
     public ModelPath getModelPath() {
@@ -154,7 +114,7 @@ public class SolarIrradianceSensor implements ISensor {
     /**
      * Getter for sensorTypeID
      *
-     * @return
+     * @return sensor type id
      */
     @Override
     public SensorTypeID getSensorTypeID() {
@@ -164,7 +124,7 @@ public class SolarIrradianceSensor implements ISensor {
     /**
      * Getter for sensor value
      *
-     * @return
+     * @return sensor value
      */
     @Override
     public SolarIrradianceValue getValue() {
@@ -176,7 +136,7 @@ public class SolarIrradianceSensor implements ISensor {
     /**
      * Getter for deviceID
      *
-     * @return
+     * @return device id
      */
     @Override
     public DeviceID getDeviceID() {

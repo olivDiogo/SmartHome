@@ -27,7 +27,7 @@ class SunriseTimeSensorTest {
 
         when(sensorTypeIDDouble.getID()).thenReturn("SunriseTime");
 
-        String expectedMessage = "ModelPath cannot be null.";
+        String expectedMessage = "ModelPath is required";
 
         //Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble, gpsDouble));
@@ -48,7 +48,7 @@ class SunriseTimeSensorTest {
         SensorName sensorNameDouble = mock(SensorName.class);
         GPS gpsDouble = mock(GPS.class);
 
-        String expectedMessage = "SensorTypeID cannot be null.";
+        String expectedMessage = "SensorTypeID is required";
 
         //Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble, gpsDouble));
@@ -69,7 +69,7 @@ class SunriseTimeSensorTest {
         SensorName sensorNameDouble = mock(SensorName.class);
         GPS gpsDouble = mock(GPS.class);
 
-        String expectedMessage = "DeviceID cannot be null.";
+        String expectedMessage = "DeviceID is required";
 
         //Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble, gpsDouble));
@@ -92,7 +92,7 @@ class SunriseTimeSensorTest {
 
         when(sensorTypeIDDouble.getID()).thenReturn("SunriseTime");
 
-        String expectedMessage = "SensorName cannot be null";
+        String expectedMessage = "SensorName is required";
 
         //Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble, gpsDouble));
@@ -115,7 +115,7 @@ class SunriseTimeSensorTest {
 
         when(sensorTypeIDDouble.getID()).thenReturn("SunriseTime");
 
-        String expectedMessage = "GPS cannot be null.";
+        String expectedMessage = "GPS is required";
 
         //Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceIDDouble, modelPathDouble, sensorTypeIDDouble, sensorNameDouble, gpsDouble));

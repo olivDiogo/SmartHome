@@ -1,6 +1,7 @@
 package smart_home.domain.sensor.wind_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
@@ -16,10 +17,11 @@ public class WindSensor implements ISensor {
     private DeviceID _deviceID;
 
     public WindSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        validateModelPath(modelPath);
-        validateSensorName(sensorName);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(sensorName);
         validateSensorTypeID(sensorTypeID);
-        validateDeviceID(deviceID);
+
         generateWindID();
 
         this._modelPath = modelPath;
@@ -37,11 +39,11 @@ public class WindSensor implements ISensor {
      * @param sensorID The sensor ID.
      */
     public WindSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        validateModelPath(modelPath);
-        validateSensorName(sensorName);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(sensorName);
         validateSensorTypeID(sensorTypeID);
-        validateDeviceID(deviceID);
-        validateSensorID (sensorID);
+        Validator.validateNotNull(sensorID);
 
         this._modelPath = modelPath;
         this._sensorName = sensorName;
@@ -50,15 +52,6 @@ public class WindSensor implements ISensor {
         this._sensorID = sensorID;
     }
 
-    /**
-     * Validates the sensorID.
-     * @param sensorID The sensorID.
-     */
-    private void validateSensorID(SensorID sensorID) {
-        if (sensorID == null) {
-            throw new IllegalArgumentException("SensorID cannot be null.");
-        }
-    }
 
     /**
      * Generates a new sensor id.
@@ -68,52 +61,19 @@ public class WindSensor implements ISensor {
     }
 
     /**
-     * Validates the model path.
-     *
-     * @param modelPath The model path.
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath is required");
-        }
-    }
-
-    /**
-     * Validates the sensor name.
-     *
-     * @param sensorName The sensor name.
-     */
-    private void validateSensorName(SensorName sensorName) {
-        if (sensorName == null) {
-            throw new IllegalArgumentException("SensorName is required");
-        }
-    }
-
-    /**
      * Validates the sensor type ID.
      *
      * @param sensorTypeID The sensor type ID.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("SensorTypeID is required");
+        Validator.validateNotNull(sensorTypeID);
 
-        } else if (!Objects.equals(sensorTypeID.getID(), "Wind")) {
+        if (!Objects.equals(sensorTypeID.getID(), "Wind")) {
             throw new IllegalArgumentException("SensorTypeID must be 'Wind'");
 
         }
     }
 
-    /**
-     * Validates the device ID.
-     *
-     * @param deviceID The device ID.
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID is required");
-        }
-    }
 
     /**
      * Gets the sensor ID.

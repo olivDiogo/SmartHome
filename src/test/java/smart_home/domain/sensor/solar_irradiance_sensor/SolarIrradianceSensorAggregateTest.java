@@ -53,7 +53,7 @@ public class SolarIrradianceSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
         SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        String expectedMessage = "DeviceID cannot be null";
+        String expectedMessage = "DeviceID is required";
 
         // Act
         Exception e =
@@ -77,7 +77,7 @@ public class SolarIrradianceSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
         SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        String expectedMessage = "ModelPath cannot be null";
+        String expectedMessage = "ModelPath is required";
 
         // Act
         Exception e =
@@ -101,7 +101,7 @@ public class SolarIrradianceSensorAggregateTest {
         SensorName sensorName = null;
         SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
 
-        String expectedMessage = "SensorName cannot be null";
+        String expectedMessage = "SensorName is required";
 
         // Act
         Exception e =
@@ -125,7 +125,7 @@ public class SolarIrradianceSensorAggregateTest {
         SensorName sensorName = new SensorName("sensorName");
         SensorTypeID sensorTypeID = null;
 
-        String expectedMessage = "SensorTypeID cannot be null";
+        String expectedMessage = "SensorTypeID is required";
 
         // Act
         Exception e =

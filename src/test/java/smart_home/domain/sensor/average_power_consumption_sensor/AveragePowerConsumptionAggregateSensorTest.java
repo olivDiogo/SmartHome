@@ -51,7 +51,7 @@ class AveragePowerConsumptionAggregateSensorTest {
         () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName));
 
     // Assert
-    Assertions.assertEquals("SensorTypeID cannot be null.", e.getMessage());
+    Assertions.assertEquals("SensorTypeID is required", e.getMessage());
   }
 
   /** tests if Exception is thrown when sensorType is different */
@@ -96,7 +96,7 @@ class AveragePowerConsumptionAggregateSensorTest {
         () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName));
 
     // Assert
-    Assertions.assertEquals("DeviceID cannot be null.", e.getMessage());
+    Assertions.assertEquals("DeviceID is required", e.getMessage());
   }
 
   /** tests if Exception is thrown for null ModelPath. */
@@ -118,7 +118,7 @@ class AveragePowerConsumptionAggregateSensorTest {
         () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName));
 
     // Assert
-    Assertions.assertEquals("ModelPath cannot be null.", e.getMessage());
+    Assertions.assertEquals("ModelPath is required", e.getMessage());
   }
 
   /** tests if Exception is thrown for null SensorName. */
@@ -140,7 +140,7 @@ class AveragePowerConsumptionAggregateSensorTest {
         () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName));
 
     // Assert
-    Assertions.assertEquals("SensorName cannot be null", e.getMessage());
+    Assertions.assertEquals("SensorName is required", e.getMessage());
   }
 
   /** See if the getAverageValue method works. */
@@ -712,7 +712,7 @@ class AveragePowerConsumptionAggregateSensorTest {
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
     SensorID sensorID = null;
 
-    String expectedMessage = "SensorID cannot be null.";
+    String expectedMessage = "SensorID is required";
 
     //Act + Assert
     Exception e = Assertions.assertThrows(

@@ -478,7 +478,7 @@ public class SwitchSensorAggregateTest {
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
         SensorID sensorID = null;
 
-        String expectedMessage = "SensorID cannot be null.";
+        String expectedMessage = "SensorID is required";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {

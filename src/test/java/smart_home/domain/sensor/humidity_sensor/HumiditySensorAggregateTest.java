@@ -338,7 +338,7 @@ public class HumiditySensorAggregateTest {
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
         SensorID sensorID = null;
 
-        String expectedMessage = "SensorID cannot be null.";
+        String expectedMessage = "SensorID is required";
 
         //Act + Assert
         Exception exception = Assertions.assertThrows(
