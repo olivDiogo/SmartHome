@@ -1,4 +1,4 @@
-package smart_home.domain.actuator;
+package smart_home.domain.actuator.switch_actuator;
 
 
 import org.junit.jupiter.api.Test;
@@ -8,6 +8,8 @@ import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator;
 import smart_home.domain.actuator.switch_actuator.SwitchActuator;
 import smart_home.domain.actuator.switch_actuator.SwitchActuatorValue;
 import smart_home.value_object.*;
+
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -30,6 +32,49 @@ public class SwitchActuatorAggregateTest {
 
         // Assert
         assertNotNull(switchActuator);
+    }
+
+    /**
+     * Test the second constructor.
+     */
+    @Test
+    void shouldInstantiateSwitchActuator_WhenSecondConstructorArgumentsAreValid() {
+        // Arrange
+        ActuatorID actuatorID = new ActuatorID(UUID.randomUUID().toString());
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("actuatorName");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("Switch");
+
+        // Act
+        SwitchActuator switchActuator = new SwitchActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName);
+
+        // Assert
+        assertNotNull(switchActuator);
+    }
+
+    /**
+     * Test for invalid actuatorID
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorIDIsNull() {
+        // Arrange
+        ActuatorID actuatorID = null;
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("actuatorName");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("Switch");
+
+        String expectedMessage = "actuatorID should not be null.";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
     }
 
     /**

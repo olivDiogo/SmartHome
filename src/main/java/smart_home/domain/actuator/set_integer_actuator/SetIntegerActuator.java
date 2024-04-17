@@ -33,6 +33,33 @@ public class SetIntegerActuator implements IActuator {
     }
 
     /**
+     * Constructor for SetIntegerActuator
+     * @param actuatorID
+     * @param deviceID
+     * @param modelPath
+     * @param actuatorTypeID
+     * @param actuatorName
+     */
+    public SetIntegerActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetIntegerActuatorLimits limits) {
+        validateActuatorID(actuatorID);
+        validateDeviceID(deviceID);
+        validateModelPath(modelPath);
+        validateActuatorName(actuatorName);
+        validateActuatorTypeID(actuatorTypeID);
+        validateLimits(limits);
+    }
+
+    /**
+     * Validates the actuatorID
+     */
+    private void validateActuatorID(ActuatorID actuatorID) {
+        if (actuatorID == null) {
+            throw new IllegalArgumentException("ActuatorID cannot be null");
+        }
+        this._actuatorID = actuatorID;
+    }
+
+    /**
      * Generates actuatorID
      */
 

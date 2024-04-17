@@ -1,4 +1,4 @@
-package smart_home.domain.actuator;
+package smart_home.domain.actuator.set_integer_actuator;
 
 import org.junit.jupiter.api.Test;
 import smart_home.domain.actuator.set_integer_actuator.SetIntegerValue;

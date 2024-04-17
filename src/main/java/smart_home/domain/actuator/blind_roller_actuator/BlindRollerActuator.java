@@ -36,6 +36,24 @@ public class BlindRollerActuator implements IActuator {
     }
 
     /**
+     * Constructs a new BlindRollerActuator with the specified parameters.
+     *
+     * @param actuatorID     The ID of the actuator.
+     * @param deviceID       The ID of the device associated with this actuator.
+     * @param actuatorTypeID The type ID of the actuator.
+     * @param actuatorName   The name of the actuator.
+     * @param modelPath      The model path of the actuator.
+     */
+    public BlindRollerActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
+        validateDeviceID(deviceID);
+        validateActuatorTypeID(actuatorTypeID);
+        validateActuatorName(actuatorName);
+        validateModelPath(modelPath);
+        validateActuatorID(actuatorID);
+        this._actuatorID = actuatorID;
+    }
+
+    /**
      * Validates and sets the device ID.
      *
      * @param deviceID The device ID to be validated.
@@ -92,6 +110,18 @@ public class BlindRollerActuator implements IActuator {
      */
     private void generateActuatorID() {
         this._actuatorID = new ActuatorID(UUID.randomUUID().toString());
+    }
+
+    /**
+     * Validates the actuator ID.
+     *
+     * @param actuatorID The actuator ID to be validated.
+     * @throws IllegalArgumentException If the actuatorID is null.
+     */
+    private void validateActuatorID(ActuatorID actuatorID) {
+        if (actuatorID == null) {
+            throw new IllegalArgumentException("ActuatorID cannot be null");
+        }
     }
 
     /**

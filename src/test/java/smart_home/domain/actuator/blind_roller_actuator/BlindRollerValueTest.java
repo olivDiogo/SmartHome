@@ -1,4 +1,4 @@
-package smart_home.domain.actuator;
+package smart_home.domain.actuator.blind_roller_actuator;
 
 import org.junit.Test;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;

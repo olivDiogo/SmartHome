@@ -1,4 +1,4 @@
-package smart_home.domain.actuator;
+package smart_home.domain.actuator.set_integer_actuator;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
@@ -14,7 +14,7 @@ class SetIntegerActuatorTest {
      * Test to verify that the SetIntegerActuator class can be instantiated when the constructor arguments are valid.
      */
     @Test
-    void testSetIntegerActuatorCanBeInstantiated_WhenConstructorArgumentsAreValid() {
+    void shouldCreateSetIntegerActuator_WhenConstructorArgumentsAreValid() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -31,10 +31,54 @@ class SetIntegerActuatorTest {
     }
 
     /**
+     * Test the second constructor.
+     */
+    @Test
+    void shouldCreateSetIntegerActuator_WhenSecondConstructorArgumentsAreValid() {
+        // Arrange
+        ActuatorID actuatorID = mock(ActuatorID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        when(actuatorTypeID.getID()).thenReturn("SetInteger");
+        SetIntegerActuatorLimits limits = mock(SetIntegerActuatorLimits.class);
+
+        // Act
+        SetIntegerActuator actuator = new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        // Assert
+        assertNotNull(actuator);
+    }
+
+    /**
+     * Test for invalid actuatorID
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorIDIsNull() {
+        // Arrange
+        ActuatorID actuatorID = null;
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        SetIntegerActuatorLimits limits = mock(SetIntegerActuatorLimits.class);
+        String expectedMessage = "ActuatorID cannot be null";
+
+        // Act & Assert
+        IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+        });
+
+        // Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
      * Test to verify that the SetIntegerActuator class throws an IllegalArgumentException when the deviceID is null.
      */
     @Test
-    void testSetIntegerActuatorThrowsIllegalArgumentException_WhenDeviceIDIsNull() {
+    void shouldThrowIllegalArgumentException_WhenDeviceIDIsNull() {
         // Arrange
         DeviceID deviceID = null;
         ModelPath modelPath = mock(ModelPath.class);

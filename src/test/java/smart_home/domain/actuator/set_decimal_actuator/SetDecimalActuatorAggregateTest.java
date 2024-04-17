@@ -32,6 +32,49 @@ class SetDecimalActuatorAggregateTest {
     }
 
     /**
+     * Test the second constructor.
+     */
+    @Test
+    void shouldInstantiateSetDecimalActuator_WhenSecondConstructorElementsAreValid() {
+        // Arrange
+        ActuatorID actuatorID = new ActuatorID("ActuatorID");
+        DeviceID deviceID = new DeviceID("DeviceID");
+        ModelPath modelPath = new ModelPath("ModelPath");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
+        ActuatorName actuatorName = new ActuatorName("ActuatorName");
+        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+
+        // Act
+        SetDecimalActuator sensor = new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        // Assert
+        assertNotNull(sensor);
+    }
+
+    /**
+     * Test for invalid ActuatorID
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorIDIsNull() {
+        // Arrange
+        ActuatorID actuatorID = null;
+        DeviceID deviceID = new DeviceID("DeviceID");
+        ModelPath modelPath = new ModelPath("ModelPath");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
+        ActuatorName actuatorName = new ActuatorName("ActuatorName");
+        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+
+        String expectedMessage = "ActuatorID cannot be null";
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+        });
+
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
      * Verifies that an IllegalArgumentException is thrown when the DeviceID is null.
      */
     @Test

@@ -1,17 +1,16 @@
-package smart_home.domain.actuator;
+package smart_home.domain.actuator.blind_roller_actuator;
 
 import org.junit.jupiter.api.Test;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerActuator;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smart_home.value_object.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 public class BlindRollerActuatorTest {
     /**
-     * Test of constructor, of class BlindRollerActuator.
+     * Test the first constructor, of class BlindRollerActuator.
      */
     @Test
     void shouldCreateBlindRollerActuator_WhenConstructorArgumentsAreValid() {
@@ -22,10 +21,29 @@ public class BlindRollerActuatorTest {
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
 
         //Act
-        new BlindRollerActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+        BlindRollerActuator blindRollerActuator  = new BlindRollerActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
 
         //Assert
-        assertNotNull(deviceIDDouble);
+        assertNotNull(blindRollerActuator );
+    }
+
+    /**
+     * Test the second constructor, of class BlindRollerActuator.
+     */
+    @Test
+    void shouldCreateBlindRollerActuator_WhenSecondConstructorArgumentsAreValid() {
+        //Arrange
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        ActuatorID actuatorIDDouble = mock(ActuatorID.class);
+
+        //Act
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(actuatorIDDouble, deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+
+        //Assert
+        assertNotNull(blindRollerActuator);
     }
 
     /**
@@ -40,12 +58,12 @@ public class BlindRollerActuatorTest {
 
         String expectedMessage = "DeviceID cannot be null";
 
-        //Act+Assert
-        try {
+        //Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new BlindRollerActuator(null, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -60,12 +78,12 @@ public class BlindRollerActuatorTest {
 
         String expectedMessage = "ActuatorTypeID cannot be null";
 
-        //Act+Assert
-        try {
+        //Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new BlindRollerActuator(deviceIDDouble, modelPathDouble, null, actuatorNameDouble);
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -80,12 +98,12 @@ public class BlindRollerActuatorTest {
 
         String expectedMessage = "ActuatorName cannot be null";
 
-        //Act+Assert
-        try {
+        //Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new BlindRollerActuator(deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, null);
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -100,12 +118,32 @@ public class BlindRollerActuatorTest {
 
         String expectedMessage = "ModelPath cannot be null";
 
-        //Act+Assert
-        try {
+        //Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new BlindRollerActuator(deviceIDDouble, null, actuatorTypeIDDouble, actuatorNameDouble);
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test for invalid actuatorID
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorIDIsNull() {
+        //Arrange
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+
+        String expectedMessage = "ActuatorID cannot be null";
+
+        //Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new BlindRollerActuator(null, deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+        });
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -126,7 +164,6 @@ public class BlindRollerActuatorTest {
 
         // Assert
         assertNotNull(result);
-
     }
 
 
@@ -248,6 +285,6 @@ public class BlindRollerActuatorTest {
         BlindRollerValue result = blindRollerActuator.setValue(null);
 
         //Assert
-        assertEquals(null, result);
+        assertNull(result);
     }
 }

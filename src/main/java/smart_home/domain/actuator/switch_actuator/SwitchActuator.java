@@ -32,6 +32,31 @@ public class SwitchActuator implements IActuator {
         generateActuatorID();
     }
 
+    /**
+     * Instantiates a new Switch actuator.
+     * @param actuatorID     the actuator id
+     * @param deviceID       the device id
+     * @param modelPath      the model path
+     * @param actuatorTypeID the actuator type id
+     * @param actuatorName   the actuator name
+     */
+    public SwitchActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
+        validateDeviceID(deviceID);
+        validateActuatorName(actuatorName);
+        validateModelPath(modelPath);
+        validateActuatorTypeID(actuatorTypeID);
+        validateActuatorID(actuatorID);
+    }
+
+    /**
+     * Validates the actuatorID
+     */
+    private void validateActuatorID(ActuatorID actuatorID) {
+        if (actuatorID == null)
+            throw new IllegalArgumentException("actuatorID should not be null.");
+        this._actuatorID = actuatorID;
+    }
+
 
     /**
      * generate actuator id

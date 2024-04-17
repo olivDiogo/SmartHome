@@ -43,6 +43,25 @@ public class SetDecimalActuator {
     }
 
     /**
+     * Constructs a SetDecimalActuator object with the provided parameters.
+     *
+     * @param actuatorID     The ID of the actuator.
+     * @param deviceID       The ID of the device associated with the actuator.
+     * @param modelPath      The path of the model associated with the actuator.
+     * @param actuatorTypeID The ID of the actuator type.
+     * @param actuatorName   The name of the actuator.
+     * @param limits         The limits within which the actuator can set values.
+     */
+    public SetDecimalActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetDecimalActuatorLimits limits) {
+        validateActuatorID(actuatorID);
+        validateDeviceID(deviceID);
+        validateModelPath(modelPath);
+        validateActuatorName(actuatorName);
+        validateActuatorTypeID(actuatorTypeID);
+        validateLimits(limits);
+    }
+
+    /**
      * Generates a new actuator ID.
      */
     private void generateActuatorID() {
@@ -107,6 +126,18 @@ public class SetDecimalActuator {
             throw new IllegalArgumentException("Limits cannot be null");
         }
         this._limits = limits;
+    }
+
+    /**
+     * Validates the provided actuator ID.
+     *
+     * @param actuatorID The ID of the actuator.
+     */
+    private void validateActuatorID(ActuatorID actuatorID) {
+        if (actuatorID == null) {
+            throw new IllegalArgumentException("ActuatorID cannot be null");
+        }
+        this._actuatorID = actuatorID;
     }
 
     /**

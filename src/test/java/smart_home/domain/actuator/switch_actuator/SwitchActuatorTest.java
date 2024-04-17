@@ -1,4 +1,4 @@
-package smart_home.domain.actuator;
+package smart_home.domain.actuator.switch_actuator;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
@@ -35,6 +35,33 @@ class SwitchActuatorTest {
             assertNotNull(switchActuator);
         }
     }
+
+    /**
+     * Should create instance of SwitchActuator when parameters of the second constructor are valid.
+     */
+    @Test
+    void shouldCreateInstanceOfSwitchActuator_WhenParametersOfSecondConstructorAreValid() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        ActuatorID actuatorID = mock(ActuatorID.class);
+
+        when(actuatorTypeID.getID()).thenReturn("Switch");
+
+        try (MockedConstruction<ActuatorID> mocked = mockConstruction(ActuatorID.class, (mock, context) -> {
+            when(mock.getID()).thenReturn("123");
+        })) {
+            //Act
+            SwitchActuator switchActuator = new SwitchActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName);
+
+            //Assert
+            assertNotNull(switchActuator);
+        }
+    }
+
+
 
     /**
      * Should return SwitchActuatorID when getActuatorID is called.

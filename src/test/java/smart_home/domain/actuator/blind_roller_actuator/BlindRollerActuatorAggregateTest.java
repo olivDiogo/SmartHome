@@ -1,4 +1,4 @@
-package smart_home.domain.actuator;
+package smart_home.domain.actuator.blind_roller_actuator;
 
 import org.junit.jupiter.api.Test;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerActuator;
@@ -27,6 +27,31 @@ class BlindRollerActuatorAggregateTest {
 
         //Act
         BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+
+        //Assert
+        assertNotNull(blindRollerActuator);
+    }
+
+    /**
+     * Test the second constructor, of class BlindRollerActuator.
+     */
+    @Test
+    void shouldCreateBlindRollerActuator_WhenSecondConstructorArgumentsAreValid() {
+        //Arrange
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "1";
+        String actuatorID = "1";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+        ActuatorID actuatorIDObject = new ActuatorID(actuatorID);
+
+        //Act
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(actuatorIDObject, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         //Assert
         assertNotNull(blindRollerActuator);

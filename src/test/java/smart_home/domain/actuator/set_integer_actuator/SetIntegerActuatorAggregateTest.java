@@ -1,4 +1,4 @@
-package smart_home.domain.actuator;
+package smart_home.domain.actuator.set_integer_actuator;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,6 +27,26 @@ class SetIntegerActuatorAggregateTest {
 
         //Act
         SetIntegerActuator sensor = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        //Assert
+        assertNotNull(sensor);
+    }
+
+    /**
+     * Test the second constructor.
+     */
+    @Test
+    void shouldInstantiateSetIntegerActuator_whenSecondConstructorArgumentsAreValid() {
+        //Arrange
+        ActuatorID actuatorID = new ActuatorID("actuatorID");
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        ActuatorName actuatorName = new ActuatorName("actuatorName");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
+        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+
+        //Act
+        SetIntegerActuator sensor = new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         //Assert
         assertNotNull(sensor);
