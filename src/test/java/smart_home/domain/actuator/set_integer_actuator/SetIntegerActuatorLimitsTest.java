@@ -5,12 +5,12 @@ import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuatorLimits;
 
 import static org.junit.Assert.*;
 
-public class SetIntegerActuatorLimitsTest {
+ class SetIntegerActuatorLimitsTest {
     /**
      * Tests if the object is instantiated when the limits are valid
      */
     @Test
-    public void shouldInstantiateSetIntegerActuatorLimits_whenLimitsAreValid() {
+     void shouldInstantiateSetIntegerActuatorLimits_whenLimitsAreValid() {
         // Arrange
         int lowerLimit = 1;
         int upperLimit = 100;
@@ -26,7 +26,7 @@ public class SetIntegerActuatorLimitsTest {
      * Tests if the object is instantiated when the limits are invalid
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenLimitsAreInvalid() {
+     void shouldThrowIllegalArgumentException_whenLimitsAreInvalid() {
         // Arrange
         int lowerLimit = 100;
         int upperLimit = 0;
@@ -44,7 +44,7 @@ public class SetIntegerActuatorLimitsTest {
      * Tests getLowerLimit
      */
     @Test
-    public void shouldReturnLowerLimit_whenGetLowerLimitIsCalled() {
+     void shouldReturnLowerLimit_whenGetLowerLimitIsCalled() {
         // Arrange
         int lowerLimit = 1;
         int upperLimit = 100;
@@ -61,7 +61,7 @@ public class SetIntegerActuatorLimitsTest {
      * Tests getUpperLimit
      */
     @Test
-    public void shouldReturnUpperLimit_whenGetUpperLimitIsCalled() {
+     void shouldReturnUpperLimit_whenGetUpperLimitIsCalled() {
         // Arrange
         int lowerLimit = 1;
         int upperLimit = 100;
@@ -78,7 +78,7 @@ public class SetIntegerActuatorLimitsTest {
      * Tests equals when the object is the same
      */
     @Test
-    public void shouldReturnTrue_whenEqualsIsCalledWithSameObject() {
+     void shouldReturnTrue_whenEqualsIsCalledWithSameObject() {
         // Arrange
         int lowerLimit = 1;
         int upperLimit = 100;
@@ -95,7 +95,7 @@ public class SetIntegerActuatorLimitsTest {
      * Tests equals when the object is different
      */
     @Test
-    public void shouldReturnFalse_whenEqualsIsCalledWithDifferentObject() {
+     void shouldReturnFalse_whenEqualsIsCalledWithDifferentObject() {
         // Arrange
         int lowerLimit = 0;
         int upperLimit = 100;
@@ -112,7 +112,7 @@ public class SetIntegerActuatorLimitsTest {
      * Tests equals when the object is different but the limits are the same
      */
     @Test
-    public void shouldReturnTrue_whenEqualsIsCalledWithDifferentObjectButSameLimits() {
+     void shouldReturnTrue_whenEqualsIsCalledWithDifferentObjectButSameLimits() {
         // Arrange
         int lowerLimit = 0;
         int upperLimit = 100;
@@ -130,7 +130,7 @@ public class SetIntegerActuatorLimitsTest {
      * Tests equals when the object is different and the lower limit is different
      */
     @Test
-    public void shouldReturnFalse_whenEqualsIsCalledWithDifferentObjectAndDifferentLowerLimit() {
+     void shouldReturnFalse_whenEqualsIsCalledWithDifferentObjectAndDifferentLowerLimit() {
         // Arrange
         int lowerLimit1 = 0;
         int lowerLimit2 = 1;
@@ -149,7 +149,7 @@ public class SetIntegerActuatorLimitsTest {
      * Tests equals when the object is different and the upper limit is different
      */
     @Test
-    public void shouldReturnFalse_whenEqualsIsCalledWithDifferentObjectAndDifferentUpperLimit() {
+     void shouldReturnFalse_whenEqualsIsCalledWithDifferentObjectAndDifferentUpperLimit() {
         // Arrange
         int lowerLimit = 0;
         int upperLimit1 = 100;

@@ -2,6 +2,7 @@ package smart_home.domain.actuator.switch_actuator;
 
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.IActuator;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.UUID;
@@ -25,11 +26,16 @@ public class SwitchActuator implements IActuator {
      */
 
     public SwitchActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
-        validateDeviceID(deviceID);
-        validateActuatorName(actuatorName);
-        validateModelPath(modelPath);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(actuatorName);
         validateActuatorTypeID(actuatorTypeID);
+
         generateActuatorID();
+        this._actuatorTypeID = actuatorTypeID;
+        this._actuatorName = actuatorName;
+        this._modelPath = modelPath;
+        this._deviceID = deviceID;
     }
 
     /**
@@ -41,22 +47,18 @@ public class SwitchActuator implements IActuator {
      * @param actuatorName   the actuator name
      */
     public SwitchActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
-        validateDeviceID(deviceID);
-        validateActuatorName(actuatorName);
-        validateModelPath(modelPath);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(actuatorName);
         validateActuatorTypeID(actuatorTypeID);
-        validateActuatorID(actuatorID);
-    }
+        Validator.validateNotNull(actuatorID);
 
-    /**
-     * Validates the actuatorID
-     */
-    private void validateActuatorID(ActuatorID actuatorID) {
-        if (actuatorID == null)
-            throw new IllegalArgumentException("actuatorID should not be null.");
+        this._actuatorTypeID = actuatorTypeID;
+        this._actuatorName = actuatorName;
+        this._modelPath = modelPath;
+        this._deviceID = deviceID;
         this._actuatorID = actuatorID;
     }
-
 
     /**
      * generate actuator id
@@ -65,51 +67,17 @@ public class SwitchActuator implements IActuator {
         this._actuatorID = new ActuatorID(UUID.randomUUID().toString());
     }
 
-    /**
-     * Validate device id.
-     *
-     * @param deviceID
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null)
-            throw new IllegalArgumentException("deviceID should not be null.");
-        this._deviceID = deviceID;
-    }
-
-    /**
-     * Validate actuator name.
-     *
-     * @param actuatorName
-     */
-    private void validateActuatorName(ActuatorName actuatorName) {
-        if (actuatorName == null)
-            throw new IllegalArgumentException("The value of 'actuatorName' should not be null.");
-        this._actuatorName = actuatorName;
-    }
-
-    /**
-     * Validate model path.
-     *
-     * @param modelPath
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null)
-            throw new IllegalArgumentException("The value of 'modelPath' should not be null.");
-        this._modelPath = modelPath;
-    }
 
     /**
      * Validate actuator type id.
      *
-     * @param actuatorTypeID
+     * @param actuatorTypeID the actuator type id
      */
     private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
-        if (actuatorTypeID == null)
-            throw new IllegalArgumentException("The value of 'actuatorTypeID' should not be null.");
+       Validator.validateNotNull(actuatorTypeID);
+
         if (!actuatorTypeID.getID().equals("Switch")) {
             throw new IllegalArgumentException("The value of 'actuatorTypeID' should be 'Switch'.");
-        } else {
-            this._actuatorTypeID = actuatorTypeID;
         }
     }
 

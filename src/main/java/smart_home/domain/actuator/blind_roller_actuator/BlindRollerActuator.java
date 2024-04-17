@@ -2,6 +2,7 @@ package smart_home.domain.actuator.blind_roller_actuator;
 
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.IActuator;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.UUID;
@@ -28,11 +29,16 @@ public class BlindRollerActuator implements IActuator {
      * @param modelPath      The model path of the actuator.
      */
     public BlindRollerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(deviceID);
         validateActuatorTypeID(actuatorTypeID);
-        validateActuatorName(actuatorName);
-        validateModelPath(modelPath);
+        Validator.validateNotNull(actuatorName);
+        Validator.validateNotNull(modelPath);
+
         generateActuatorID();
+        this._actuatorTypeID = actuatorTypeID;
+        this._actuatorName = actuatorName;
+        this._modelPath = modelPath;
+        this._deviceID = deviceID;
     }
 
     /**
@@ -45,26 +51,21 @@ public class BlindRollerActuator implements IActuator {
      * @param modelPath      The model path of the actuator.
      */
     public BlindRollerActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(deviceID);
         validateActuatorTypeID(actuatorTypeID);
-        validateActuatorName(actuatorName);
-        validateModelPath(modelPath);
-        validateActuatorID(actuatorID);
+        Validator.validateNotNull(actuatorName);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(actuatorID);
+
+        this._deviceID = deviceID;
         this._actuatorID = actuatorID;
+        this._actuatorTypeID = actuatorTypeID;
+        this._actuatorName = actuatorName;
+        this._modelPath = modelPath;
+
     }
 
-    /**
-     * Validates and sets the device ID.
-     *
-     * @param deviceID The device ID to be validated.
-     * @throws IllegalArgumentException If the deviceID is null.
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID cannot be null");
-        }
-        this._deviceID = deviceID;
-    }
+
 
     /**
      * Validates and sets the actuator type ID.
@@ -73,37 +74,9 @@ public class BlindRollerActuator implements IActuator {
      * @throws IllegalArgumentException If the actuatorTypeID is null.
      */
     private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
-        if (actuatorTypeID == null) {
-            throw new IllegalArgumentException("ActuatorTypeID cannot be null");
-        }
-        this._actuatorTypeID = actuatorTypeID;
+        Validator.validateNotNull(actuatorTypeID);
     }
 
-    /**
-     * Validates and sets the actuator name.
-     *
-     * @param actuatorName The actuator name to be validated.
-     * @throws IllegalArgumentException If the actuatorName is null.
-     */
-    private void validateActuatorName(ActuatorName actuatorName) {
-        if (actuatorName == null) {
-            throw new IllegalArgumentException("ActuatorName cannot be null");
-        }
-        this._actuatorName = actuatorName;
-    }
-
-    /**
-     * Validates and sets the model path.
-     *
-     * @param modelPath The model path to be validated.
-     * @throws IllegalArgumentException If the modelPath is null.
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath cannot be null");
-        }
-        this._modelPath = modelPath;
-    }
 
     /**
      * Generates a unique actuator ID.
@@ -112,17 +85,6 @@ public class BlindRollerActuator implements IActuator {
         this._actuatorID = new ActuatorID(UUID.randomUUID().toString());
     }
 
-    /**
-     * Validates the actuator ID.
-     *
-     * @param actuatorID The actuator ID to be validated.
-     * @throws IllegalArgumentException If the actuatorID is null.
-     */
-    private void validateActuatorID(ActuatorID actuatorID) {
-        if (actuatorID == null) {
-            throw new IllegalArgumentException("ActuatorID cannot be null");
-        }
-    }
 
     /**
      * Returns the actuator ID.

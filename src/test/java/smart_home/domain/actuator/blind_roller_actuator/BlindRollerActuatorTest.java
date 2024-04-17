@@ -56,7 +56,7 @@ public class BlindRollerActuatorTest {
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
 
-        String expectedMessage = "DeviceID cannot be null";
+        String expectedMessage = "DeviceID is required";
 
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -76,7 +76,7 @@ public class BlindRollerActuatorTest {
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
 
-        String expectedMessage = "ActuatorTypeID cannot be null";
+        String expectedMessage = "ActuatorTypeID is required";
 
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -96,7 +96,7 @@ public class BlindRollerActuatorTest {
         ModelPath modelPathDouble = mock(ModelPath.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
 
-        String expectedMessage = "ActuatorName cannot be null";
+        String expectedMessage = "ActuatorName is required";
 
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -116,7 +116,7 @@ public class BlindRollerActuatorTest {
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
 
-        String expectedMessage = "ModelPath cannot be null";
+        String expectedMessage = "ModelPath is required";
 
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -137,7 +137,7 @@ public class BlindRollerActuatorTest {
         ActuatorName actuatorNameDouble = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
 
-        String expectedMessage = "ActuatorID cannot be null";
+        String expectedMessage = "ActuatorID is required";
 
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {

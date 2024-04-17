@@ -1,5 +1,7 @@
 package smart_home.utils;
 
+import smart_home.domain.actuator.set_decimal_actuator.SetDecimalActuatorLimits;
+import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuatorLimits;
 import smart_home.value_object.*;
 
 public class Validator {
@@ -48,5 +50,37 @@ public class Validator {
             throw new IllegalArgumentException("SensorTypeID is required");
         }
     }
+
+    public static void validateNotNull(ActuatorName actuatorName) {
+        if (actuatorName == null) {
+            throw new IllegalArgumentException("ActuatorName is required");
+        }
+    }
+
+    public static void validateNotNull(ActuatorID actuatorID){
+        if (actuatorID == null) {
+            throw new IllegalArgumentException("ActuatorID is required");
+        }
+    }
+
+    public static void validateNotNull(ActuatorTypeID actuatorTypeID){
+        if (actuatorTypeID == null) {
+            throw new IllegalArgumentException("ActuatorTypeID is required");
+        }
+    }
+
+    public static void validateNotNull(SetDecimalActuatorLimits limits) {
+        if (limits == null) {
+            throw new IllegalArgumentException("SetDecimalActuatorLimits are required");
+        }
+    }
+
+    public static void validateNotNull(SetIntegerActuatorLimits limits) {
+        if (limits == null) {
+            throw new IllegalArgumentException("SetIntegerActuatorLimits are required");
+        }
+    }
+
+
 
 }

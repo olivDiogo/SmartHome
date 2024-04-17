@@ -2,6 +2,7 @@ package smart_home.domain.actuator.set_integer_actuator;
 
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.IActuator;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.UUID;
@@ -18,45 +19,49 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Constructor for SetIntegerActuator
      *
-     * @param deviceID
-     * @param modelPath
-     * @param actuatorTypeID
-     * @param actuatorName
+     * @param deviceID is the ID of the device associated with the actuator
+     * @param modelPath is the path of the model associated with the actuator
+     * @param actuatorTypeID is the ID of the actuator type
+     * @param actuatorName is the name of the actuator
      */
     public SetIntegerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetIntegerActuatorLimits limits) {
-        validateDeviceID(deviceID);
-        validateModelPath(modelPath);
-        validateActuatorName(actuatorName);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(actuatorName);
         validateActuatorTypeID(actuatorTypeID);
-        validateLimits(limits);
+        Validator.validateNotNull(limits);
+
+        this._actuatorTypeID = actuatorTypeID;
+        this._actuatorName = actuatorName;
+        this._modelPath = modelPath;
+        this._deviceID = deviceID;
+        this._limits = limits;
         generateActuatorID();
     }
 
     /**
      * Constructor for SetIntegerActuator
-     * @param actuatorID
-     * @param deviceID
-     * @param modelPath
-     * @param actuatorTypeID
-     * @param actuatorName
+     * @param actuatorID is the ID of the actuator
+     * @param deviceID is the ID of the device associated with the actuator
+     * @param modelPath is the path of the model associated with the actuator
+     * @param actuatorTypeID is the ID of the actuator type
+     * @param actuatorName is the name of the actuator
      */
     public SetIntegerActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetIntegerActuatorLimits limits) {
-        validateActuatorID(actuatorID);
-        validateDeviceID(deviceID);
-        validateModelPath(modelPath);
-        validateActuatorName(actuatorName);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(actuatorName);
         validateActuatorTypeID(actuatorTypeID);
-        validateLimits(limits);
-    }
+        Validator.validateNotNull(limits);
+        Validator.validateNotNull(actuatorID);
 
-    /**
-     * Validates the actuatorID
-     */
-    private void validateActuatorID(ActuatorID actuatorID) {
-        if (actuatorID == null) {
-            throw new IllegalArgumentException("ActuatorID cannot be null");
-        }
+        this._actuatorTypeID = actuatorTypeID;
+        this._actuatorName = actuatorName;
+        this._modelPath = modelPath;
+        this._deviceID = deviceID;
+        this._limits = limits;
         this._actuatorID = actuatorID;
+
     }
 
     /**
@@ -67,29 +72,6 @@ public class SetIntegerActuator implements IActuator {
         this._actuatorID = new ActuatorID(UUID.randomUUID().toString());
     }
 
-    /**
-     * Validates the actuatorName
-     *
-     * @param actuatorName
-     */
-    private void validateActuatorName(ActuatorName actuatorName) {
-        if (actuatorName == null) {
-            throw new IllegalArgumentException("ActuatorName cannot be null");
-        }
-        this._actuatorName = actuatorName;
-    }
-
-    /**
-     * Validates the modelPath
-     *
-     * @param modelPath
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath cannot be null");
-        }
-        this._modelPath = modelPath;
-    }
 
     /**
      * Validates the actuatorTypeID
@@ -97,43 +79,19 @@ public class SetIntegerActuator implements IActuator {
      * @param actuatorTypeID
      */
     private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
-        if (actuatorTypeID == null) {
-            throw new IllegalArgumentException("ActuatorTypeID cannot be null");
-        }
+        Validator.validateNotNull(actuatorTypeID);
+
         if (!actuatorTypeID.getID().equals("SetInteger")) {
             throw new IllegalArgumentException("ActuatorTypeID must be SetInteger");
         }
-        this._actuatorTypeID = actuatorTypeID;
     }
 
-    /**
-     * Validates the deviceID
-     *
-     * @param deviceID
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID cannot be null");
-        }
-        this._deviceID = deviceID;
-    }
 
-    /**
-     * Validates the limits
-     *
-     * @param limits
-     */
-    private void validateLimits(SetIntegerActuatorLimits limits) {
-        if (limits == null) {
-            throw new IllegalArgumentException("SetIntegerActuatorLimits cannot be null");
-        }
-        this._limits = limits;
-    }
 
     /**
      * Getter for actuatorID
      *
-     * @return
+     * @return actuatorID
      */
     @Override
     public ActuatorID getID() {
@@ -143,7 +101,7 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Getter for actuatorName
      *
-     * @return
+     * @return actuatorName
      */
     @Override
     public ActuatorName getName() {
@@ -153,7 +111,7 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Getter for modelPath
      *
-     * @return
+     * @return modelPath
      */
     @Override
     public ModelPath getModelPath() {
@@ -163,7 +121,7 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Getter for actuatorTypeID
      *
-     * @return
+     * @return actuatorTypeID
      */
     @Override
     public ActuatorTypeID getActuatorTypeID() {
@@ -173,7 +131,7 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Getter for deviceID
      *
-     * @return
+     * @return deviceID
      */
     @Override
     public DeviceID getDeviceID() {
@@ -183,7 +141,7 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Getter for limits
      *
-     * @return
+     * @return limits
      */
     public SetIntegerActuatorLimits getLimits() {
         return this._limits;
@@ -192,7 +150,7 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Sets the value within the range
      *
-     * @return
+     * @return SetIntegerValue
      */
     @Override
     public SetIntegerValue setValue(IValueObject value) {
@@ -217,8 +175,8 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Method to compare two instances
      *
-     * @param object
-     * @return
+     * @param object The object to compare with.
+     * @return true if the objects are equal, false otherwise.
      */
 
     @Override
@@ -232,7 +190,7 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Method to get hash code
      *
-     * @return
+     * @return hash code
      */
     @Override
     public int hashCode() {
@@ -242,7 +200,7 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Method to get string representation
      *
-     * @return
+     * @return string representation
      */
     @Override
     public String toString() {

@@ -1,6 +1,7 @@
 package smart_home.domain.actuator.set_decimal_actuator;
 
 import smart_home.ddd.IValueObject;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.UUID;
@@ -34,12 +35,19 @@ public class SetDecimalActuator {
      * @param limits         The limits within which the actuator can set values.
      */
     public SetDecimalActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetDecimalActuatorLimits limits) {
-        validateDeviceID(deviceID);
-        validateModelPath(modelPath);
-        validateActuatorName(actuatorName);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(actuatorName);
         validateActuatorTypeID(actuatorTypeID);
-        validateLimits(limits);
+        Validator.validateNotNull(limits);
+
         generateActuatorID();
+        this._actuatorName = actuatorName;
+        this._modelPath = modelPath;
+        this._deviceID = deviceID;
+        this._actuatorTypeID = actuatorTypeID;
+        this._limits = limits;
+
     }
 
     /**
@@ -53,12 +61,19 @@ public class SetDecimalActuator {
      * @param limits         The limits within which the actuator can set values.
      */
     public SetDecimalActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetDecimalActuatorLimits limits) {
-        validateActuatorID(actuatorID);
-        validateDeviceID(deviceID);
-        validateModelPath(modelPath);
-        validateActuatorName(actuatorName);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(actuatorName);
         validateActuatorTypeID(actuatorTypeID);
-        validateLimits(limits);
+        Validator.validateNotNull(limits);
+        Validator.validateNotNull(actuatorID);
+
+        this._actuatorName = actuatorName;
+        this._modelPath = modelPath;
+        this._deviceID = deviceID;
+        this._actuatorTypeID = actuatorTypeID;
+        this._limits = limits;
+        this._actuatorID = actuatorID;
     }
 
     /**
@@ -68,41 +83,7 @@ public class SetDecimalActuator {
         this._actuatorID = new ActuatorID(UUID.randomUUID().toString());
     }
 
-    /**
-     * Validates the provided actuator name.
-     *
-     * @param actuatorName The name of the actuator.
-     */
-    private void validateActuatorName(ActuatorName actuatorName) {
-        if (actuatorName == null) {
-            throw new IllegalArgumentException("ActuatorName cannot be null");
-        }
-        this._actuatorName = actuatorName;
-    }
 
-    /**
-     * Validates the provided model path.
-     *
-     * @param modelPath The path of the model associated with the actuator.
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath cannot be null");
-        }
-        this._modelPath = modelPath;
-    }
-
-    /**
-     * Validates the provided device ID.
-     *
-     * @param deviceID The ID of the device associated with the actuator.
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID cannot be null");
-        }
-        this._deviceID = deviceID;
-    }
 
     /**
      * Validates the provided actuator type ID.
@@ -110,34 +91,8 @@ public class SetDecimalActuator {
      * @param actuatorTypeID The ID of the actuator type.
      */
     private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
-        if (actuatorTypeID == null) {
-            throw new IllegalArgumentException("ActuatorTypeID cannot be null");
-        }
-        this._actuatorTypeID = actuatorTypeID;
-    }
+        Validator.validateNotNull(actuatorTypeID);
 
-    /**
-     * Validates the provided limits.
-     *
-     * @param limits The limits within which the actuator can set values.
-     */
-    private void validateLimits(SetDecimalActuatorLimits limits) {
-        if (limits == null) {
-            throw new IllegalArgumentException("Limits cannot be null");
-        }
-        this._limits = limits;
-    }
-
-    /**
-     * Validates the provided actuator ID.
-     *
-     * @param actuatorID The ID of the actuator.
-     */
-    private void validateActuatorID(ActuatorID actuatorID) {
-        if (actuatorID == null) {
-            throw new IllegalArgumentException("ActuatorID cannot be null");
-        }
-        this._actuatorID = actuatorID;
     }
 
     /**

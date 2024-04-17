@@ -64,7 +64,7 @@ class SetDecimalActuatorAggregateTest {
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
         SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
 
-        String expectedMessage = "ActuatorID cannot be null";
+        String expectedMessage = "ActuatorID is required";
 
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -86,7 +86,7 @@ class SetDecimalActuatorAggregateTest {
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
         SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
 
-        String expectedMessage = "DeviceID cannot be null";
+        String expectedMessage = "DeviceID is required";
 
         // Act
         try {
@@ -110,7 +110,7 @@ class SetDecimalActuatorAggregateTest {
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
         SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
 
-        String expectedMessage = "ModelPath cannot be null";
+        String expectedMessage = "ModelPath is required";
 
         // Act
         try {
@@ -133,7 +133,7 @@ class SetDecimalActuatorAggregateTest {
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
         SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
 
-        String expectedMessage = "ActuatorTypeID cannot be null";
+        String expectedMessage = "ActuatorTypeID is required";
 
         // Act
         try {
@@ -156,7 +156,7 @@ class SetDecimalActuatorAggregateTest {
         ActuatorName actuatorName = null;
         SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
 
-        String expectedMessage = "ActuatorName cannot be null";
+        String expectedMessage = "ActuatorName is required";
 
         // Act
         try {
@@ -179,7 +179,7 @@ class SetDecimalActuatorAggregateTest {
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
         SetDecimalActuatorLimits limits = null;
 
-        String expectedMessage = "Limits cannot be null";
+        String expectedMessage = "SetDecimalActuatorLimits are required";
 
         // Act
         try {

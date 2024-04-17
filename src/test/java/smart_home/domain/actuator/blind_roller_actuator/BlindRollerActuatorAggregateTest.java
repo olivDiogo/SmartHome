@@ -72,7 +72,7 @@ class BlindRollerActuatorAggregateTest {
         ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
         ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
 
-        String expectedMessage = "DeviceID cannot be null";
+        String expectedMessage = "DeviceID is required";
 
         //Act+Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -99,7 +99,7 @@ class BlindRollerActuatorAggregateTest {
         ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
         ActuatorTypeID actuatorTypeIDObject = null;
 
-        String expectedMessage = "ActuatorTypeID cannot be null";
+        String expectedMessage = "ActuatorTypeID is required";
 
         //Act+Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -128,7 +128,7 @@ class BlindRollerActuatorAggregateTest {
         ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
 
 
-        String expectedMessage = "ActuatorName cannot be null";
+        String expectedMessage = "ActuatorName is required";
 
         //Act+Assert
        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -157,7 +157,7 @@ class BlindRollerActuatorAggregateTest {
         ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
 
 
-        String expectedMessage = "ModelPath cannot be null";
+        String expectedMessage = "ModelPath is required";
 
         //Act+Assert
        Exception exception = assertThrows(IllegalArgumentException.class, () -> {

@@ -65,7 +65,7 @@ public class SwitchActuatorAggregateTest {
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("Switch");
 
-        String expectedMessage = "actuatorID should not be null.";
+        String expectedMessage = "ActuatorID is required";
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -93,7 +93,7 @@ public class SwitchActuatorAggregateTest {
         ActuatorName actuatorName = new ActuatorName(actuatorNameString);
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeIDString);
 
-        String expectedMessage = "deviceID should not be null.";
+        String expectedMessage = "DeviceID is required";
 
 
         // Act
@@ -122,7 +122,7 @@ public class SwitchActuatorAggregateTest {
         ActuatorName actuatorName = null;
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeIDString);
 
-        String expectedMessage = "The value of 'actuatorName' should not be null.";
+        String expectedMessage = "ActuatorName is required";
 
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -151,7 +151,7 @@ public class SwitchActuatorAggregateTest {
         ActuatorName actuatorName = new ActuatorName(actuatorNameString);
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeIDString);
 
-        String expectedMessage = "The value of 'modelPath' should not be null.";
+        String expectedMessage = "ModelPath is required";
 
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -180,7 +180,7 @@ public class SwitchActuatorAggregateTest {
         ActuatorName actuatorName = new ActuatorName(actuatorNameString);
         ActuatorTypeID actuatorTypeID = null;
 
-        String expectedMessage = "The value of 'actuatorTypeID' should not be null.";
+        String expectedMessage = "ActuatorTypeID is required";
 
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
