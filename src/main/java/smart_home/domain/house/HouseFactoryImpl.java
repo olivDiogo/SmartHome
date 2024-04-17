@@ -2,6 +2,7 @@ package smart_home.domain.house;
 
 import smart_home.value_object.Address;
 import smart_home.value_object.GPS;
+import smart_home.value_object.HouseID;
 
 /**
  * Implementation of the {@link IHouseFactory} interface, responsible for creating
@@ -24,6 +25,10 @@ public class HouseFactoryImpl implements IHouseFactory {
     @Override
     public House createHouse(Address address, GPS gps) throws IllegalArgumentException {
         return new House(address, gps);
+    }
+    @Override
+    public House createHouse(HouseID houseID, Address address, GPS gps) {
+        return new House(houseID, address, gps);
     }
 }
 

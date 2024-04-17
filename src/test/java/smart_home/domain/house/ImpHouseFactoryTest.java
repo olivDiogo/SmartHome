@@ -3,6 +3,7 @@ package smart_home.domain.house;
 import org.junit.jupiter.api.Test;
 import smart_home.value_object.Address;
 import smart_home.value_object.GPS;
+import smart_home.value_object.HouseID;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -60,5 +61,19 @@ class ImpHouseFactoryTest {
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> factory.createHouse(address, gps), "Factory should throw IllegalArgumentException for null GPS.");
+    }
+    @Test
+    void shouldCreateHouse_WhenCreateHouseIsCalledWithValidParametersAndHouseID(){
+        // Arrange
+        Address address = mock(Address.class);
+        GPS gps = mock(GPS.class);
+        HouseID houseID = mock(HouseID.class);
+        HouseFactoryImpl factory = new HouseFactoryImpl();
+
+        // Act
+        House result= factory.createHouse(houseID, address, gps);
+
+        // Assert
+        assertNotNull(result);
     }
 }
