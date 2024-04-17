@@ -32,7 +32,7 @@ public class PercentagePositionSensor implements ISensor {
         validateSensorName(sensorName);
         validateSensorTypeID(sensorTypeID);
         validateDeviceID(deviceID);
-        generateHumidityID();
+        generatePercentageID();
 
         this._modelPath = modelPath;
         this._sensorName = sensorName;
@@ -78,7 +78,7 @@ public class PercentagePositionSensor implements ISensor {
     /**
      * Generates a unique ID for the sensor.
      */
-    private void generateHumidityID() {
+    private void generatePercentageID() {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
@@ -195,6 +195,12 @@ public class PercentagePositionSensor implements ISensor {
 
     }
 
+    /**
+     * Method to compare this object with another object for equality.
+     *
+     * @param o The object to be compared.
+     * @return true if the objects are equal, otherwise false.
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof PercentagePositionSensor percentagePositionSensorObject) {
@@ -203,14 +209,24 @@ public class PercentagePositionSensor implements ISensor {
         return false;
     }
 
+    /**
+     * Returns a hash code value for this object.
+     *
+     * @return The hash code value for this object.
+     */
     @Override
     public int hashCode() {
         return _sensorID.hashCode();
     }
 
+    /**
+     * Returns a string representation of this object.
+     *
+     * @return The string representation of this object.
+     */
     @Override
     public String toString() {
-        return "SwitchSensor: DeviceID= " + _deviceID.getID() + " ModelPath= " + _modelPath.getID() + " SensorTypeID= " + _sensorTypeID.getID() + " SensorName= " + _sensorName.getSensorName() + " SensorID= " + _sensorID.getID();
+        return "PercentagePositionSensor: DeviceID= " + _deviceID.getID() + " ModelPath= " + _modelPath.getID() + " SensorTypeID= " + _sensorTypeID.getID() + " SensorName= " + _sensorName.getSensorName() + " SensorID= " + _sensorID.getID();
     }
 
 }
