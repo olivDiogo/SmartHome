@@ -27,7 +27,45 @@ public class SwitchSensor implements ISensor {
         validateSensorTypeID(sensorTypeID);
         validateDeviceID(deviceID);
         generateHumidityID();
+
         switchSensorValue = new SwitchSensorValue(false);
+        this._modelPath = modelPath;
+        this._sensorName = sensorName;
+        this._sensorTypeID = sensorTypeID;
+        this._deviceID = deviceID;
+
+    }
+
+    /**
+     * @param deviceID     The device ID.
+     * @param modelPath    The model path.
+     * @param sensorTypeID The sensor type ID.
+     * @param sensorName   The sensor name.
+     * @param sensorID   The sensor ID.
+     */
+    public SwitchSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
+        validateModelPath(modelPath);
+        validateSensorName(sensorName);
+        validateSensorTypeID(sensorTypeID);
+        validateDeviceID(deviceID);
+        validateSensorID(sensorID);
+
+        switchSensorValue = new SwitchSensorValue(false);
+        this._modelPath = modelPath;
+        this._sensorName = sensorName;
+        this._sensorTypeID = sensorTypeID;
+        this._deviceID = deviceID;
+
+    }
+
+    /**
+     * Validates the sensorID.
+     * @param sensorID The sensorID.
+     */
+    private void validateSensorID(SensorID sensorID) {
+        if (sensorID == null) {
+            throw new IllegalArgumentException("SensorID cannot be null.");
+        }
     }
 
     /**
@@ -45,8 +83,6 @@ public class SwitchSensor implements ISensor {
     private void validateModelPath(ModelPath modelPath) {
         if (modelPath == null) {
             throw new IllegalArgumentException("ModelPath is required");
-        } else {
-            this._modelPath = modelPath;
         }
     }
 
@@ -58,8 +94,6 @@ public class SwitchSensor implements ISensor {
     private void validateSensorName(SensorName sensorName) {
         if (sensorName == null) {
             throw new IllegalArgumentException("SensorName is required");
-        } else {
-            this._sensorName = sensorName;
         }
     }
 
@@ -73,8 +107,6 @@ public class SwitchSensor implements ISensor {
             throw new IllegalArgumentException("SensorTypeID is required");
         } else if (!Objects.equals(sensorTypeID.getID(), "Switch")) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'Switch'");
-        } else {
-            this._sensorTypeID = sensorTypeID;
         }
     }
 
@@ -86,8 +118,6 @@ public class SwitchSensor implements ISensor {
     private void validateDeviceID(DeviceID deviceID) {
         if (deviceID == null) {
             throw new IllegalArgumentException("DeviceID is required");
-        } else {
-            this._deviceID = deviceID;
         }
     }
 

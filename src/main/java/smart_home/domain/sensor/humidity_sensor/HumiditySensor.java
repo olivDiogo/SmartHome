@@ -32,8 +32,39 @@ public class HumiditySensor implements ISensor {
         validateSensorTypeID(sensorTypeID);
         validateDeviceID(deviceID);
         generateHumidityID();
+
         this._deviceID = deviceID;
         this._sensorTypeID = sensorTypeID;
+        this._modelPath = modelPath;
+        this._sensorName = sensorName;
+    }
+
+    /**
+     * Constructor with sensorID.
+      * @param deviceID
+     * @param modelPath
+     * @param sensorTypeID
+     * @param sensorName
+     * @param sensorID
+     */
+    public HumiditySensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
+        validateModelPath(modelPath);
+        validateSensorName(sensorName);
+        validateSensorTypeID(sensorTypeID);
+        validateDeviceID(deviceID);
+        validateSensorID(sensorID);
+
+        this._deviceID = deviceID;
+        this._sensorTypeID = sensorTypeID;
+        this._modelPath = modelPath;
+        this._sensorName = sensorName;
+        this._sensorID = sensorID;
+    }
+
+    private void validateSensorID (SensorID sensorID){
+        if (sensorID == null) {
+            throw new IllegalArgumentException("SensorID cannot be null.");
+        }
     }
 
     /**
@@ -52,8 +83,6 @@ public class HumiditySensor implements ISensor {
     private void validateModelPath(ModelPath modelPath) {
         if (modelPath == null) {
             throw new IllegalArgumentException("ModelPath is required");
-        } else {
-            this._modelPath = modelPath;
         }
     }
 
@@ -66,8 +95,6 @@ public class HumiditySensor implements ISensor {
     private void validateSensorName(SensorName sensorName) {
         if (sensorName == null) {
             throw new IllegalArgumentException("SensorName is required");
-        } else {
-            this._sensorName = sensorName;
         }
     }
 

@@ -1,6 +1,8 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.humidity_sensor;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import smart_home.domain.sensor.average_power_consumption_sensor.AveragePowerConsumptionSensor;
 import smart_home.domain.sensor.humidity_sensor.HumiditySensor;
 import smart_home.domain.sensor.humidity_sensor.HumiditySensorValue;
 import smart_home.value_object.*;
@@ -292,7 +294,61 @@ public class HumiditySensorAggregateTest {
 
         // Assert
         double value = Double.parseDouble(result.toString());
-        assertTrue(value >= 0 && value <= 100);
+        Assertions.assertTrue(value >= 0 && value <= 100);
+    }
+
+    /**
+     * Tests if the humidity sensor is instantiated correctly.
+     */
+    @Test
+    void shouldInstantiateHumiditySensor_WithSensorID () {
+        //Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Humidity";
+        String sensorIDValue = "sensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        //Act
+        HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath,  sensorTypeID, sensorName, sensorID);
+
+        //Assert
+        Assertions.assertNotNull(humiditySensor);
+    }
+
+    /**
+     * Should throw an exception when the sensorID is null.
+     */
+    @Test
+    void shouldThrowException_WhenSensorIDIsNull () {
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Humidity";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = null;
+
+        String expectedMessage = "SensorID cannot be null.";
+
+        //Act + Assert
+        Exception exception = Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertEquals(expectedMessage, actualMessage);
     }
 }
 

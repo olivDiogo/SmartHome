@@ -1,8 +1,9 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.humidity_sensor;
 
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
+import smart_home.domain.sensor.dew_point_sensor.DewPointSensor;
 import smart_home.domain.sensor.humidity_sensor.HumiditySensor;
 import smart_home.domain.sensor.humidity_sensor.HumiditySensorValue;
 import smart_home.value_object.*;
@@ -319,7 +320,7 @@ class HumiditySensorTest {
     void shouldThrowIllegalArgumentException_whenDeviceIDNotNullAndTypeDifferent() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
-        ModelPath  modelPath = mock(ModelPath.class);
+        ModelPath modelPath = mock(ModelPath.class);
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         when(sensorTypeID.getID()).thenReturn("Switch");
@@ -433,6 +434,26 @@ class HumiditySensorTest {
             //Assert
             assertFalse(result);
         }
+    }
+
+    @Test
+    void shouldInstantiateHumiditySensor_WhenSensorIDIsValid() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Humidity");
+
+        SensorID sensorID = mock(SensorID.class);
+
+        //Act
+        HumiditySensor humiditySensor= new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        //Assert
+        assertNotNull(humiditySensor);
+
     }
 
 }

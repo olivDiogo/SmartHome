@@ -573,5 +573,63 @@ class SunriseTimeSensorAggregateTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * See if the constructor works.
+     */
+    @Test
+    void shouldInstantiateSunriseTimeSensor_WhenSensorIDIsValid() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "SunriseTime";
+        double GPSLatitude = 90.0;
+        double GPSLongitude = 180.0;
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        GPS gps = new GPS(GPSLatitude, GPSLongitude);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        // Act
+        SunriseTimeSensor result = new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID);
+
+        // Assert
+        assertNotNull(result);
+    }
+
+    /**
+     * See if the constructor throws an exception when the SensorID parameter is null.
+     */
+    @Test
+    void shouldThrowException_WhenSensorIDIsNull() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "SunriseTime";
+        double GPSLatitude = 90.0;
+        double GPSLongitude = 180.0;
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        GPS gps = new GPS(GPSLatitude, GPSLongitude);
+        SensorID sensorID = null;
+
+        String expectedMessage = "SensorID cannot be null.";
+
+        // Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
 
 }

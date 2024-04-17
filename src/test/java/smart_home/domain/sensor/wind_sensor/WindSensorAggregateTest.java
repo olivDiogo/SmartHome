@@ -393,4 +393,54 @@ public class WindSensorAggregateTest {
         // Assert
         assertEquals(expected, result);
     }
+
+    /**
+     * Tests the instantiation of WindSensor when the constructor arguments are valid.
+     */
+    @Test
+    void shouldInstantiateWindSensor_WhenSensorIDIsValid() {
+        // Arrange
+        String deviceIDValue = "some-device-id";
+        String modelPathValue = "some-model-path";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Wind";
+        String sensorIDValue = "sensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        // Act
+        WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        // Assert
+        assertNotNull(windSensor);
+    }
+
+    @Test
+    void shouldThrowException_WhenSensorIDIsNull () {
+        // Arrange
+        String deviceIDValue = "some-device-id";
+        String modelPathValue = "some-model-path";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Wind";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = null;
+
+        String expectedMessage = "SensorID cannot be null.";
+
+        // Act + Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new WindSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+
+    }
 }

@@ -1,4 +1,4 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.switch_sensor;
 
 import org.junit.jupiter.api.Test;
 import smart_home.domain.sensor.dew_point_sensor.DewPointSensor;
@@ -434,5 +434,60 @@ public class SwitchSensorAggregateTest {
 
         //Assert
         assertEquals(expected, result);
+    }
+
+    /**
+     * Tests the instantiation of SwitchSensor when the constructor arguments are valid.
+     */
+    @Test
+    void shouldInstantiateSwitchSensor_whenSensorIDIsValid() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        // Act
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        // Assert
+        assertNotNull(switchSensor);
+    }
+
+    /**
+     * Tests the instantiation of SwitchSensor when the sensorID is null.
+     */
+    @Test
+    void shouldThrowException_WhenSensorIDIsNull () {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = null;
+
+        String expectedMessage = "SensorID cannot be null.";
+
+        //Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+
     }
 }

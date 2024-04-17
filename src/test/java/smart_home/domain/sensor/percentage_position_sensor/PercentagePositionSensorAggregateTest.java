@@ -1,11 +1,11 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.percentage_position_sensor;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import smart_home.domain.sensor.average_power_consumption_sensor.AveragePowerConsumptionSensor;
+import smart_home.domain.sensor.humidity_sensor.HumiditySensor;
 import smart_home.domain.sensor.percentage_position_sensor.PercentagePositionSensor;
-import smart_home.value_object.DeviceID;
-import smart_home.value_object.ModelPath;
-import smart_home.value_object.SensorName;
-import smart_home.value_object.SensorTypeID;
+import smart_home.value_object.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -347,5 +347,62 @@ class PercentagePositionSensorAggregateTest {
 
         assertEquals(expected,result);
     }
+
+    /**
+     * Should instantiate percentage position sensor with sensorID valid.
+     */
+    @Test
+    void shouldInstantiatePercentagePositionSensor_WhenSensorIDIsValid () {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Percentage";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        //Act
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        //Assert
+        assertNotNull(percentagePositionSensor);
+    }
+
+    /**
+     * Should throw exception when sensorID is null
+     */
+    @Test
+    void shouldThrowException_WhenSensorIDIsNull () {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Percentage";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = null;
+
+        String expectedMessage = "SensorID cannot be null.";
+
+        //Act + assert
+        Exception exception = Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+
+    }
+
+
 
 }

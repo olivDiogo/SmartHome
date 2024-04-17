@@ -33,6 +33,46 @@ public class PercentagePositionSensor implements ISensor {
         validateSensorTypeID(sensorTypeID);
         validateDeviceID(deviceID);
         generateHumidityID();
+
+        this._modelPath = modelPath;
+        this._sensorName = sensorName;
+        this._sensorTypeID = sensorTypeID;
+        this._deviceID = deviceID;
+    }
+
+    /**
+     * Constructs a PercentagePositionSensor with the given parameters.
+     *
+     * @param deviceID     The ID of the device.
+     * @param modelPath    The model path of the sensor.
+     * @param sensorTypeID The type ID of the sensor.
+     * @param sensorName   The name of the sensor.
+     * @param sensorID     The ID of the sensor.
+     * @throws IllegalArgumentException if any of the parameters are null.
+     */
+    public PercentagePositionSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
+        validateModelPath(modelPath);
+        validateSensorName(sensorName);
+        validateSensorTypeID(sensorTypeID);
+        validateDeviceID(deviceID);
+        validateSensorID(sensorID);
+
+        this._modelPath = modelPath;
+        this._sensorName = sensorName;
+        this._sensorTypeID = sensorTypeID;
+        this._deviceID = deviceID;
+        this._sensorID = sensorID;
+    }
+
+
+    /**
+     * Validates the sensorID.
+     * @param sensorID The sensorID.
+     */
+    private void validateSensorID(SensorID sensorID) {
+        if (sensorID == null) {
+            throw new IllegalArgumentException("SensorID cannot be null.");
+        }
     }
 
     /**
@@ -51,8 +91,6 @@ public class PercentagePositionSensor implements ISensor {
     private void validateModelPath(ModelPath modelPath) {
         if (modelPath == null) {
             throw new IllegalArgumentException("ModelPath is required");
-        } else {
-            this._modelPath = modelPath;
         }
     }
 
@@ -65,8 +103,6 @@ public class PercentagePositionSensor implements ISensor {
     private void validateSensorName(SensorName sensorName) {
         if (sensorName == null) {
             throw new IllegalArgumentException("SensorName is required");
-        } else {
-            this._sensorName = sensorName;
         }
     }
 
@@ -79,8 +115,6 @@ public class PercentagePositionSensor implements ISensor {
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
         if (sensorTypeID == null) {
             throw new IllegalArgumentException("SensorTypeID is required");
-        } else {
-            this._sensorTypeID = sensorTypeID;
         }
     }
 
@@ -93,8 +127,6 @@ public class PercentagePositionSensor implements ISensor {
     private void validateDeviceID(DeviceID deviceID) {
         if (deviceID == null) {
             throw new IllegalArgumentException("DeviceID is required");
-        } else {
-            this._deviceID = deviceID;
         }
     }
 

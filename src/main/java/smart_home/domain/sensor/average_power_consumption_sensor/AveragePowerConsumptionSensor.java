@@ -43,15 +43,53 @@ public class AveragePowerConsumptionSensor implements ISensor {
         validateModelPath(modelPath);
         validateSensorName(sensorName);
         generateSensorID();
+
+        this._deviceID = deviceID;
+        this._sensorTypeID = sensorTypeID;
+        this._modelPath = modelPath;
+        this._sensorName = sensorName;
+
         _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(0);
         _powerConsumptions = new HashMap<>();
+    }
+
+    /**
+     * @param deviceID     The device ID.
+     * @param modelPath    The model path.
+     * @param sensorTypeID The sensor type ID.
+     * @param sensorName   The sensor name.
+     */
+    public AveragePowerConsumptionSensor(
+            DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID)
+            throws IllegalArgumentException {
+        validateDeviceID(deviceID);
+        validateSensorTypeID(sensorTypeID);
+        validateModelPath(modelPath);
+        validateSensorName(sensorName);
+        validateSensorID(sensorID);
+        _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(0);
+        _powerConsumptions = new HashMap<>();
+
+        this._sensorID = sensorID;
+        this._deviceID = deviceID;
+        this._sensorTypeID = sensorTypeID;
+        this._modelPath = modelPath;
+        this._sensorName = sensorName;
+    }
+
+    /**
+     * Validates the sensorID.
+     * @param sensorID The sensorID.
+     */
+    private void validateSensorID(SensorID sensorID) {
+        if (sensorID == null) {
+            throw new IllegalArgumentException("SensorID cannot be null.");
+        }
     }
 
     private void validateDeviceID(DeviceID deviceID) {
         if (deviceID == null) {
             throw new IllegalArgumentException("DeviceID cannot be null.");
-        } else {
-            _deviceID = deviceID;
         }
     }
 
@@ -60,24 +98,18 @@ public class AveragePowerConsumptionSensor implements ISensor {
             throw new IllegalArgumentException("SensorTypeID cannot be null.");
         } else if (!sensorTypeID.getID().equals("AveragePowerConsumption")) {
             throw new IllegalArgumentException("SensorTypeID must be 'AveragePowerConsumption'.");
-        } else {
-            _sensorTypeID = sensorTypeID;
         }
     }
 
     private void validateModelPath(ModelPath modelPath) {
         if (modelPath == null) {
             throw new IllegalArgumentException("ModelPath cannot be null.");
-        } else {
-            _modelPath = modelPath;
         }
     }
 
     private void validateSensorName(SensorName sensorName) {
         if (sensorName == null) {
             throw new IllegalArgumentException("SensorName cannot be null");
-        } else {
-            _sensorName = sensorName;
         }
     }
 

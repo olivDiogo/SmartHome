@@ -441,6 +441,25 @@ class SunriseTimeSensorTest {
 
     }
 
+    @Test
+    void shouldInstantiateSunriseTimeSensor_WhenSensorIDIsValid () {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName= mock(SensorName.class);
+        GPS gps = mock(GPS.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        SensorID sensorID = mock(SensorID.class);
+
+        when(sensorTypeID.getID()).thenReturn("SunriseTime");
+
+        // Act
+        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID);
+
+        // Assert
+        assertNotNull(sunriseTimeSensor);
+    }
+
 
 
 }

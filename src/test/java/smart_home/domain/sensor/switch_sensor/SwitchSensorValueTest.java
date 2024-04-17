@@ -1,4 +1,4 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.switch_sensor;
 
 import org.junit.jupiter.api.Test;
 import smart_home.domain.sensor.switch_sensor.SwitchSensorValue;

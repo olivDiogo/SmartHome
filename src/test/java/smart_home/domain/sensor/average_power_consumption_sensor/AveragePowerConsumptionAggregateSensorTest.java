@@ -7,8 +7,7 @@ import smart_home.value_object.*;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 class AveragePowerConsumptionAggregateSensorTest {
 
@@ -472,10 +471,14 @@ class AveragePowerConsumptionAggregateSensorTest {
     ModelPath modelPath = new ModelPath(modelPathValue);
     SensorName sensorName = new SensorName(sensorNameValue);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
     AveragePowerConsumptionSensor averagePowerConsumptionSensor =
         new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+    //Act
     SensorName result = averagePowerConsumptionSensor.getName();
 
+    //Assert
     Assertions.assertEquals(sensorName.toString(), result.toString());
   }
 
@@ -665,5 +668,60 @@ class AveragePowerConsumptionAggregateSensorTest {
 
     // Assert
     Assertions.assertEquals(expectedHashCode, result);
+  }
+
+  /**
+   * Should instantiate average power consumption sensor.
+   */
+  @Test
+  void shouldReturnAveragePowerConsumptionSensor_WithValidParametersIncludingSensorID () {
+    //Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "modelPath";
+    String sensorNameValue = "sensorName";
+    String sensorTypeIDValue = "AveragePowerConsumption";
+    String sensorIDValue = "sensorID";
+
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+    SensorID sensorID = new SensorID(sensorIDValue);
+
+    //Act
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID);
+
+    //Assert
+    assertNotNull(averagePowerConsumptionSensor);
+  }
+
+  /**
+   * Should throw exception when sensorID null.
+   */
+  @Test
+  void shouldThrowException_WhenSensorIDIsNull () {
+    //Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "modelPath";
+    String sensorNameValue = "sensorName";
+    String sensorTypeIDValue = "AveragePowerConsumption";
+
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+    SensorID sensorID = null;
+
+    String expectedMessage = "SensorID cannot be null.";
+
+    //Act + Assert
+    Exception e = Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+    String actualMessage = e.getMessage();
+
+    //Assert
+    assertEquals(expectedMessage, actualMessage);
   }
 }

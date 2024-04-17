@@ -1,4 +1,4 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.switch_sensor;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
@@ -364,5 +364,26 @@ class SwitchSensorTest {
             // Assert
             assertEquals(expected, result);
         }
+    }
+
+    /**
+     * Should instantiate SwitchSensor when sensorID is valid.
+     */
+    @Test
+    void shouldInstantiateSwitchSensor_WhenSensorIDIsValid () {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorID sensorID = mock(SensorID.class);
+
+        when(sensorTypeID.getID()).thenReturn("Switch");
+
+        // Act
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        // Assert
+        assertNotNull(switchSensor);
     }
 }

@@ -1,15 +1,15 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.percentage_position_sensor;
 
 
 import org.junit.jupiter.api.Test;
+import smart_home.domain.sensor.humidity_sensor.HumiditySensor;
 import smart_home.domain.sensor.percentage_position_sensor.PercentagePositionSensor;
 import smart_home.domain.sensor.percentage_position_sensor.PercentagePositionSensorValue;
-import smart_home.value_object.DeviceID;
-import smart_home.value_object.ModelPath;
-import smart_home.value_object.SensorName;
-import smart_home.value_object.SensorTypeID;
+import smart_home.value_object.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 /**
@@ -275,6 +275,25 @@ class PercentagePositionSensorTest {
 
         // Assert
         assertNotNull(result);
+    }
+
+    @Test
+    void shouldInstantiatePercentagePositionSensor_WhenSensorIDIsValid () {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("Percentage");
+
+        SensorID sensorID = mock(SensorID.class);
+
+        //Act
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        //Assert
+        assertNotNull(percentagePositionSensor);
     }
 
 }

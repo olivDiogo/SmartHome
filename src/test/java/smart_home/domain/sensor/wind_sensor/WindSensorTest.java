@@ -430,5 +430,26 @@ class WindSensorTest {
         }
     }
 
+    /**
+     * Tests the instantiation of WindSensor when the sensorID is null.
+     */
+    @Test
+    void shouldInstantiateWindSensor_WhenSensorIDIsValid () {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        SensorID sensorID = mock(SensorID.class);
+
+        when(sensorTypeID.getID()).thenReturn("Wind");
+
+        //Act
+        WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        //Assert
+        assertNotNull(windSensor);
+    }
+
 
 }
