@@ -1,15 +1,9 @@
 package smart_home.domain.sensor.humidity_sensor;
 
-
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
-import smart_home.domain.sensor.dew_point_sensor.DewPointSensor;
-import smart_home.domain.sensor.humidity_sensor.HumiditySensor;
-import smart_home.domain.sensor.humidity_sensor.HumiditySensorValue;
 import smart_home.value_object.*;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -436,26 +430,26 @@ class HumiditySensorTest {
         }
     }
 
+    /**
+     * Test case to verify the instantiation of a HumiditySensor when the SensorID is valid.
+     */
     @Test
     void shouldInstantiateHumiditySensor_WhenSensorIDIsValid() {
-        //Arrange
+        // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
         SensorName sensorName = mock(SensorName.class);
-
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorTypeID.getID()).thenReturn("Humidity");
-
         SensorID sensorID = mock(SensorID.class);
 
-        //Act
+        when(sensorTypeID.getID()).thenReturn("Humidity");
+
+        // Act
         HumiditySensor humiditySensor= new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
 
-        //Assert
+        // Assert
         assertNotNull(humiditySensor);
-
     }
-
 }
 
 
