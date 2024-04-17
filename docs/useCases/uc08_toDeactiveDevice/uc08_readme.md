@@ -33,10 +33,7 @@ _To deactivate a device_
         Non-existing device: If the device does not exist, the system will not deactivate it.
 
 ### 1.2. Dependency on other use cases
-This UC depends on the following UCs:
-* UC01 - a House must exist
-* UC02 - a Room must exist
-* UC05 - a Device must exist in a Room
+This UC depends on UC06.
 
 ### 1.3. Relevant domain model aggregates
 ![Device](../../ooa/4.agreggateModels/Device.svg)

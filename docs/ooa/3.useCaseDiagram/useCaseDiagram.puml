@@ -12,11 +12,11 @@ skinparam ActorBackgroundColor black
 (UC02: To add new room to the house) as (Use2)
 (UC03: To get list existing rooms) as (Use3)
 (UC04: To define sensor type) as (Use4)
-(UUC05: To add new device to a room) as (Use5)
+(UC05: To add new device to a room) as (Use5)
 (UC06: To get list of devices in a room) as (Use6)
 (UC7: To add a new sensor to a device) as (Use7)
 (UC8: To deactivate a device) as (Use8)
-(UC9: To get list of devices in the house grouped by functionality type) as (Use9)
+(UC9: To group all devices by functionality) as (Use9)
 (UC10: To add a new actuator to a device) as (Use10)
 
 Admin --> (Use1)
@@ -34,6 +34,7 @@ Power_User -up-> (Use5)
 Power_User -up-> (Use6)
 Power_User -up-> (Use7)
 Power_User -up-> (Use8)
+Power_User -up-> (Use9)
 Power_User -up-> (Use10)
 
 Room_Owner -up-> (Use6)
@@ -42,6 +43,6 @@ Room_Owner -up-> (Use6)
 (Use5) ..> (Use3): <<includes>>
 (Use7) ..> (Use6): <<includes>>
 (Use8) ..> (Use6): <<includes>>
-(Use9) ..> (Use6): <<includes>>
+
 
 @enduml

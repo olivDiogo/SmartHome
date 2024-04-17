@@ -51,7 +51,7 @@ _To add a sensor to an existing device in a room_
     Invalid description: If the sensor description is not unique, the system throws an exception.
 
 ### 1.2. Dependency on other use cases
-This use case depends on UC03 and UC06.
+This use case depends on UC06.
 
 
 ### 1.3. Relevant domain model aggregates
