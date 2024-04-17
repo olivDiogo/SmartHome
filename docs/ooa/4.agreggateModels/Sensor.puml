@@ -2,7 +2,7 @@
 'https://plantuml.com/class-diagram
 !pragma layout smetana
 
-package SmartHome.AggregateSensor {
+package sensor {
     class Sensor <<Entity>> <<Root>> {
         - _deviceID : DeviceID
         - _sensorTypeDescription : SensorTypeDescription
@@ -10,9 +10,6 @@ package SmartHome.AggregateSensor {
         - _sensorName : SensorName
         - _value : Value
     }
-}
-
-package SmartHome.AggregateSensor {
     class DeviceID <<ValueObject>> <<ID>> {
         - _id : String
     }
@@ -28,14 +25,19 @@ package SmartHome.AggregateSensor {
         - _name : String
     }
 
-    interface Value <<ValueObject>>{
+    class ValueImpl <<ValueObject>>{
+    }
+
+    class SensorID <<ValueObject>> <<ID>> {
+        - _id : String
     }
 }
 
 Sensor "*" -- "1" SensorTypeDescription : has
 Sensor "*" -- "1" SensorModelPath : has
-Sensor "1" -- "1" Value : has
+Sensor "1" -- "1" ValueImpl : has
 Sensor "*" -- "1" DeviceID : has
 Sensor "*" -- "1" SensorName : has
+Sensor "1" -- "1" SensorID : has
 
 @enduml

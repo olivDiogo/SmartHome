@@ -1,16 +1,13 @@
 @startuml
 !pragma layout smetana
 
-package SmartHome.ActuatorModel{
+package actuator_model{
 
     class ActuatorModel <<Entity>> <<Root>>{
     - _actuatorTypeID : ActuatorTypeID
     - _actuatorModelName : ActuatorModelName
     - _modelPath: ModelPath
     }
-}
-
-package SmartHome.ValueObject {
 
      class ActuatorTypeId <<ValueObject>>{
         - _actuatorTypeId : String
@@ -24,9 +21,9 @@ package SmartHome.ValueObject {
      }
 }
 
-SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ActuatorTypeId : has
-SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ModelPath : has
-SmartHome.ActuatorModel.ActuatorModel "1" -- "1" SmartHome.ValueObject.ActuatorModelName : has
+ActuatorModel "*" -- "1" ActuatorTypeId : has
+ActuatorModel "1" -- "1" ModelPath : has
+ActuatorModel "*" -- "1" ActuatorModelName : has
 
 
 @enduml

@@ -1,7 +1,7 @@
 @startuml
 !pragma layout smetana
 
-package SmartHome.SensorType {
+package sensor_type {
 
   class SensorType<<Entity>><<Root>> {
     - _sensorTypeID : SensorTypeID
@@ -9,8 +9,6 @@ package SmartHome.SensorType {
     - _unitDescription : UnitID
   }
 
-}
-package SmartHome.SensorType {
   class SensorTypeDescription<<Value Object>> {
     - _description: String
   }
@@ -22,8 +20,8 @@ package SmartHome.SensorType {
     }
 
 }
-SmartHome.SensorType.SensorType "1" -- "1" UnitID
-SmartHome.SensorType.SensorType "1" -- "1" SensorTypeDescription
-SmartHome.SensorType.SensorType "1" -- "1" SensorTypeID
+SensorType "*" -- "1" UnitID
+SensorType "*" -- "1" SensorTypeDescription
+SensorType "1" -- "1" SensorTypeID
 
 @enduml

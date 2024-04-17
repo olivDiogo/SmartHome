@@ -1,7 +1,7 @@
 @startuml
 !pragma layout smetana
 
-package SmartHome.Unit {
+package unit {
     class Unit <<Entity>><<Root>> {
         - _id: UnitID
         - _symbol: Symbol
@@ -18,8 +18,8 @@ package SmartHome.Unit {
         - _id: string
         }
 
-Unit "1  " --> "1" UnitDescription
-Unit "1" --> "1  " Symbol
-Unit "1" --> "1  " UnitID
+Unit "*" --> "1" UnitDescription
+Unit "*" --> "1" Symbol
+Unit "1" --> "1" UnitID
 }
 @enduml

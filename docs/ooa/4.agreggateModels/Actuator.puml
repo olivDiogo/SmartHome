@@ -2,7 +2,7 @@
 'https://plantuml.com/class-diagram
 !pragma layout smetana
 
-package SmartHome.AggregateActuator {
+package actuator {
     class Actuator <<Entity>> <<Root>> {
         - _deviceID : DeviceID
         - _actuatorTypeID : ActuatorTypeID
@@ -11,18 +11,11 @@ package SmartHome.AggregateActuator {
         - _name : ActuatorName
         - _modelPath : ModelPath
     }
-}
-
-package SmartHome.ValueObject {
     class DeviceID <<ValueObject>> <<ID>> {
         - _id : String
     }
 
     class ActuatorTypeID <<ValueObject>> <<ID>> {
-        - _id : String
-    }
-
-    class ActuatorModelID <<ValueObject>> <<ID>> {
         - _id : String
     }
 
@@ -34,14 +27,20 @@ package SmartHome.ValueObject {
         - _path : String
     }
 
-    interface Value <<ValueObject>>{
+    class ValueImp <<ValueObject>>{
     }
+
+    class ActuatorID <<ValueObject>> <<ID>> {
+        - _id : String
+    }
+
 }
 
 Actuator "*" -- "1" ActuatorTypeID : has
-Actuator "*" -- "1" ActuatorModelID : has
-Actuator "1" -- "1" Value : has
+Actuator "1" -- "1" ValueImp : has
 Actuator "*" -- "1" DeviceID : has
 Actuator "*" -- "1" ActuatorName : has
 Actuator "*" -- "1" ModelPath : has
+Actuator "1" -- "1" ActuatorID : has
+
 @enduml

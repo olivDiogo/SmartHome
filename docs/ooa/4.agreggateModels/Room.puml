@@ -1,7 +1,7 @@
 @startuml
 !pragma layout smetana
 
-package SmartHome.Room {
+package room {
   class Room<<Entity>><<Root>>{
     -_houseID: HouseID
     -_roomID: RoomID
@@ -9,8 +9,6 @@ package SmartHome.Room {
     -_dimensions: Dimension
     -_floor: RoomFloor
   }
-
-  package ValueObject {
     class RoomID<<ValueObject>>{
       -_id: String
         }
@@ -33,6 +31,7 @@ package SmartHome.Room {
 Room "*" -- "1" Dimension: has
 Room "*" -- "1" RoomFloor: has
 Room "1" -- "1" RoomID: has
-Room "1" -- "1" RoomName: has
+Room "*" -- "1" RoomName: has
+Room "*" -- "1" HouseID: has
 
 @enduml

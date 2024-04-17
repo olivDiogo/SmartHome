@@ -1,14 +1,12 @@
 @startuml
 !pragma layout smetana
 
-package SmartHome.ActuatorType {
+package actuator_type {
 class ActuatorType<<entity>><<Root>> {
     - _actuatorTypeID : ActuatorTypeID
     - _description : Description
-
 }
 
-package SmartHome.ValueObject {
 class ActuatorDescription<<Value Object>> {
     - _description : String
 }
@@ -19,7 +17,9 @@ class ActuatorModel<<Value Object>> {
     - _model : String
 }
 
-SmartHome.ActuatorType.ActuatorType "1" -- "1" ActuatorDescription : has
-SmartHome.ActuatorType.ActuatorType "1" -- "1" ActuatorTypeID : has
+ActuatorType "*" -- "1" ActuatorDescription : has
+ActuatorType "1" -- "1" ActuatorTypeID : has
+ActuatorType "*" -- "1" ActuatorModel : has
+}
 
 @enduml

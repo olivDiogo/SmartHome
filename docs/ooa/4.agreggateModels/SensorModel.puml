@@ -1,15 +1,13 @@
 @startuml
 !pragma layout smetana
 
-package SmartHome.SensorModel{
+package sensor_model{
 
     class SensorModel <<Entity>> <<Root>>{
     - _sensorModelName : SensorModelName
     - _modelPath : SensorModelPath
     }
-}
 
-package SmartHome.SensorModel {
      class SensorModelPath <<ValueObject>><<ID>>{
         - _path : String
      }
@@ -18,6 +16,7 @@ package SmartHome.SensorModel {
      }
 }
 
-SmartHome.SensorModel.SensorModel "1" -- "1" SmartHome.SensorModel.SensorModelPath : has
-SmartHome.SensorModel.SensorModel "1" -- "1" SmartHome.SensorModel.SensorModelName : has
+SensorModel "1" -- "1" SensorModelPath : has
+SensorModel "*" -- "1" SensorModelName : has
+
 @enduml

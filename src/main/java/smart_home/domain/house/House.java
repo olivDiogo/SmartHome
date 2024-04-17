@@ -52,7 +52,7 @@ public class House implements IAggregateRoot<HouseID> {
     /**
      * Generates a unique identifier for the House instance.
      */
-    private void generateID() {
+    private void generateID()    {
         _houseID = new HouseID(UUID.randomUUID().toString());
     }
 
