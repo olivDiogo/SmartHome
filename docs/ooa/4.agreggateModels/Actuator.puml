@@ -4,12 +4,6 @@
 
 package actuator {
     class Actuator <<Entity>> <<Root>> {
-        - _deviceID : DeviceID
-        - _actuatorTypeID : ActuatorTypeID
-        - _actuatorModelID : ActuatorModelID
-        - _value : Value
-        - _name : ActuatorName
-        - _modelPath : ModelPath
     }
     class DeviceID <<ValueObject>> <<ID>> {
         - _id : String
@@ -27,7 +21,7 @@ package actuator {
         - _path : String
     }
 
-    class ValueImp <<ValueObject>>{
+    class Value <<ValueObject>>{
     }
 
     class ActuatorID <<ValueObject>> <<ID>> {
@@ -36,11 +30,11 @@ package actuator {
 
 }
 
-Actuator "*" -- "1" ActuatorTypeID : has
-Actuator "1" -- "1" ValueImp : has
-Actuator "*" -- "1" DeviceID : has
-Actuator "*" -- "1" ActuatorName : has
-Actuator "*" -- "1" ModelPath : has
-Actuator "1" -- "1" ActuatorID : has
+Actuator  -- "1" ActuatorTypeID : has
+Actuator  -- "1" Value : has
+Actuator  -- "1" DeviceID : has
+Actuator  -- "1" ActuatorName : has
+Actuator  -- "1" ModelPath : has
+Actuator  -- "1" ActuatorID : has
 
 @enduml

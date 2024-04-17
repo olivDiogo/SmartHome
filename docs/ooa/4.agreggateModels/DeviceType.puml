@@ -3,8 +3,6 @@
 
 package device_type {
 class DeviceType<<entity>><<Root>> {
-    - _deviceTypeID : DeviceTypeID
-    - _description : Description
 }
 
 class DeviceDescription<<Value Object>> {
@@ -14,7 +12,7 @@ class DeviceTypeID<<Value Object>> {
     - _deviceTypeID : String
 }
 
-DeviceType "*" -- "1" DeviceDescription : has
-DeviceType "1" -- "1" DeviceTypeID : has
+DeviceType  -- "1" DeviceDescription : has
+DeviceType  -- "1" DeviceTypeID : has
 
 @enduml

@@ -4,9 +4,7 @@
 package actuator_model{
 
     class ActuatorModel <<Entity>> <<Root>>{
-    - _actuatorTypeID : ActuatorTypeID
-    - _actuatorModelName : ActuatorModelName
-    - _modelPath: ModelPath
+
     }
 
      class ActuatorTypeId <<ValueObject>>{
@@ -21,9 +19,9 @@ package actuator_model{
      }
 }
 
-ActuatorModel "*" -- "1" ActuatorTypeId : has
-ActuatorModel "1" -- "1" ModelPath : has
-ActuatorModel "*" -- "1" ActuatorModelName : has
+ActuatorModel  -- "1" ActuatorTypeId : has
+ActuatorModel  -- "1" ModelPath : has
+ActuatorModel  -- "1" ActuatorModelName : has
 
 
 @enduml

@@ -3,11 +3,6 @@
 
 package device {
 class Device <<entity>><<Root>>{
-    - _deviceID: DeviceID
-    - _deviceTypeID: DeviceTypeID
-    - _roomID: RoomID
-    - _name: Name
-    - _deviceStatus: DeviceStatus
     }
 
     class DeviceID<<value object>>{
@@ -27,9 +22,9 @@ class Device <<entity>><<Root>>{
     }
 }
 
-Device "1" -- "1" DeviceID : has
-Device "*" -- "1" Name : has
-Device "*" -- "1" DeviceTypeID : has
-Device "*" -- "1" RoomID : has
-Device "*" -- "1" DeviceStatus : has
+Device  -- "1" DeviceID : has
+Device  -- "1" Name : has
+Device  -- "1" DeviceTypeID : has
+Device  -- "1" RoomID : has
+Device  -- "1" DeviceStatus : has
 @enduml

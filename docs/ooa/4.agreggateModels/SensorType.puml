@@ -4,9 +4,6 @@
 package sensor_type {
 
   class SensorType<<Entity>><<Root>> {
-    - _sensorTypeID : SensorTypeID
-    - _sensorTypeDescription : TypeDescription
-    - _unitDescription : UnitID
   }
 
   class SensorTypeDescription<<Value Object>> {
@@ -20,8 +17,8 @@ package sensor_type {
     }
 
 }
-SensorType "*" -- "1" UnitID
-SensorType "*" -- "1" SensorTypeDescription
-SensorType "1" -- "1" SensorTypeID
+SensorType  -- "1" UnitID
+SensorType  -- "1" SensorTypeDescription
+SensorType  -- "1" SensorTypeID
 
 @enduml

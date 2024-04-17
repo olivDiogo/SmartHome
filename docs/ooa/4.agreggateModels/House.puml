@@ -5,9 +5,6 @@
 package house {
 
     class House <<entity>> <<Root>> {
-    - _houseID : HouseID
-    - _address : Address
-    - _gps : GPS
     }
 
     class GPS <<valueObject>> {
@@ -19,7 +16,6 @@ package house {
     - _street : String
     - _doorNumber : int
     - _countryCode: String
-    - _postalCode : IPostalCode
     }
 
     class PostalCodeImpl <<valueObject>> {
@@ -32,9 +28,9 @@ package house {
     }
 }
 
-House "1" -- "1" HouseID : has
-House "1" -- "1" GPS : has
-House "1" -- "1" Address : has
-Address "1" -- "1" PostalCodeImpl : has
+House  -- "1" HouseID : has
+House  -- "1" GPS : has
+House  -- "1" Address : has
+Address  -- "1" PostalCodeImpl : has
 
 @enduml

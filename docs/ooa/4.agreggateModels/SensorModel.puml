@@ -4,8 +4,6 @@
 package sensor_model{
 
     class SensorModel <<Entity>> <<Root>>{
-    - _sensorModelName : SensorModelName
-    - _modelPath : SensorModelPath
     }
 
      class SensorModelPath <<ValueObject>><<ID>>{
@@ -16,7 +14,7 @@ package sensor_model{
      }
 }
 
-SensorModel "1" -- "1" SensorModelPath : has
-SensorModel "*" -- "1" SensorModelName : has
+SensorModel  -- "1" SensorModelPath : has
+SensorModel  -- "1" SensorModelName : has
 
 @enduml

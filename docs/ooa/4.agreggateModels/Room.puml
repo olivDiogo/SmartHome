@@ -3,11 +3,6 @@
 
 package room {
   class Room<<Entity>><<Root>>{
-    -_houseID: HouseID
-    -_roomID: RoomID
-    -_roomName: RoomName
-    -_dimensions: Dimension
-    -_floor: RoomFloor
   }
     class RoomID<<ValueObject>>{
       -_id: String
@@ -28,10 +23,10 @@ package room {
         }
   }
 
-Room "*" -- "1" Dimension: has
-Room "*" -- "1" RoomFloor: has
-Room "1" -- "1" RoomID: has
-Room "*" -- "1" RoomName: has
-Room "*" -- "1" HouseID: has
+Room  -- "1" Dimension: has
+Room  -- "1" RoomFloor: has
+Room  -- "1" RoomID: has
+Room  -- "1" RoomName: has
+Room  -- "1" HouseID: has
 
 @enduml

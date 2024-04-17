@@ -3,8 +3,6 @@
 
 package actuator_type {
 class ActuatorType<<entity>><<Root>> {
-    - _actuatorTypeID : ActuatorTypeID
-    - _description : Description
 }
 
 class ActuatorDescription<<Value Object>> {
@@ -17,9 +15,9 @@ class ActuatorModel<<Value Object>> {
     - _model : String
 }
 
-ActuatorType "*" -- "1" ActuatorDescription : has
-ActuatorType "1" -- "1" ActuatorTypeID : has
-ActuatorType "*" -- "1" ActuatorModel : has
+ActuatorType  -- "1" ActuatorDescription : has
+ActuatorType  -- "1" ActuatorTypeID : has
+ActuatorType  -- "1" ActuatorModel : has
 }
 
 @enduml

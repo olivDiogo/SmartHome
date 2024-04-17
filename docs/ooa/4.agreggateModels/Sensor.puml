@@ -4,11 +4,6 @@
 
 package sensor {
     class Sensor <<Entity>> <<Root>> {
-        - _deviceID : DeviceID
-        - _sensorTypeDescription : SensorTypeDescription
-        - _modelPath : ModelPath
-        - _sensorName : SensorName
-        - _value : Value
     }
     class DeviceID <<ValueObject>> <<ID>> {
         - _id : String
@@ -33,11 +28,11 @@ package sensor {
     }
 }
 
-Sensor "*" -- "1" SensorTypeDescription : has
-Sensor "*" -- "1" SensorModelPath : has
-Sensor "1" -- "1" ValueImpl : has
-Sensor "*" -- "1" DeviceID : has
-Sensor "*" -- "1" SensorName : has
-Sensor "1" -- "1" SensorID : has
+Sensor  -- "1" SensorTypeDescription : has
+Sensor  -- "1" SensorModelPath : has
+Sensor  -- "1" ValueImpl : has
+Sensor  -- "1" DeviceID : has
+Sensor  -- "1" SensorName : has
+Sensor  -- "1" SensorID : has
 
 @enduml
