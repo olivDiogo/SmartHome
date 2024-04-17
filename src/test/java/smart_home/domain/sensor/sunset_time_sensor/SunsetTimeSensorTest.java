@@ -40,6 +40,55 @@ class SunsetTimeSensorTest {
     }
 
     /**
+     * Test to check if SunsetTimeSensor is instantiated when all attributes are valid, including SensorID
+     */
+    @Test
+    void shouldInstantiateSunsetTimeSensor_whenAttributesAreValidIncludingSensorID() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("SunsetTime");
+
+        SensorName sensorName = mock(SensorName.class);
+        GPS gps = mock(GPS.class);
+
+        SensorID sensorID = mock(SensorID.class);
+
+        //Act
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID);
+
+        //Assert
+        assertNotNull(sunsetTimeSensor);
+    }
+
+    /**
+     * Test to check if IllegalArgumentException is thrown when SensorID is null
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorIDIsNull() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("SunsetTime");
+
+        SensorName sensorName = mock(SensorName.class);
+        GPS gps = mock(GPS.class);
+
+        String expectedMessage = "SensorID cannot be null.";
+
+        //Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, null));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+
+    }
+
+    /**
      * Test to check if IllegalArgumentException is thrown when DeviceID is null
      */
     @Test

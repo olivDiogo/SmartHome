@@ -47,6 +47,45 @@ public class SunsetTimeSensor implements ISensor {
     }
 
     /**
+     * Constructor for SunsetTimeSensor
+     *
+     * @param deviceID
+     * @param modelPath
+     * @param sensorTypeID
+     * @param sensorName
+     * @param gps
+     * @param sensorID
+     */
+    public SunsetTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps, SensorID sensorID) {
+        validateDeviceID(deviceID);
+        _deviceID = deviceID;
+
+        validateSensorTypeID(sensorTypeID);
+        _sensorTypeID = sensorTypeID;
+
+        validateModelPath(modelPath);
+        _modelPath = modelPath;
+
+        validateSensorName(sensorName);
+        _sensorName = sensorName;
+
+        validateGpsLocation(gps);
+        _gps = gps;
+
+        validateSensorID(sensorID);
+        _sensorID = sensorID;
+    }
+
+    /**
+     * Validate SensorID
+     */
+    private void validateSensorID(SensorID sensorID) {
+        if (sensorID == null) {
+            throw new IllegalArgumentException("SensorID cannot be null.");
+        }
+    }
+
+    /**
      * Validate DeviceID
      * @param deviceID
      */

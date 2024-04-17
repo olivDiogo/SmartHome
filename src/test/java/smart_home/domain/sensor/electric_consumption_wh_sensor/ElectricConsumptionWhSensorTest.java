@@ -1,10 +1,8 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.electric_consumption_wh_sensor;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
-import smart_home.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhSensor;
-import smart_home.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhValue;
 import smart_home.value_object.*;
 
 import static org.junit.Assert.assertTrue;
@@ -82,7 +80,7 @@ class ElectricConsumptionWhSensorTest {
         DatePeriod datePeriod = mock(DatePeriod.class);
         String expectedMessage = "SensorTypeID must be of type 'ElectricConsumptionWh'";
 
-        when (sensorTypeID.getID()).thenReturn("NotElectricConsumptionWh");
+        when(sensorTypeID.getID()).thenReturn("NotElectricConsumptionWh");
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod));
@@ -148,6 +146,52 @@ class ElectricConsumptionWhSensorTest {
 
         //Act & Assert
         assertEquals(sensorTypeID, electricConsumptionWhSensor.getSensorTypeID());
+    }
+
+    /**
+     * Should create ElectricConsumptionWhSensor instance when all parameters are valid, including SensorID
+     */
+    @Test
+    void shouldCreateElectricConsumptionWhSensorInstance_WhenAllParametersAreValidIncludingSensorID() {
+        //Arrange
+        ModelPath modelPath = mock(ModelPath.class);
+        DeviceID deviceID = mock(DeviceID.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        SensorName sensorName = mock(SensorName.class);
+        DatePeriod datePeriod = mock(DatePeriod.class);
+        SensorID sensorID = mock(SensorID.class);
+        when(sensorID.toString()).thenReturn("1");
+
+        when(sensorTypeID.getID()).thenReturn("ElectricConsumptionWh");
+
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod, sensorID);
+
+        //Act & Assert
+        assertTrue(electricConsumptionWhSensor.toString().contains("1"));
+
+    }
+
+    /**
+     * Should throw IllegalArgumentException when SensorID is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenSensorIDIsNull() {
+        //Arrange
+        ModelPath modelPath = mock(ModelPath.class);
+        DeviceID deviceID = mock(DeviceID.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        SensorName sensorName = mock(SensorName.class);
+        DatePeriod datePeriod = mock(DatePeriod.class);
+        SensorID sensorID = null;
+        String expectedMessage = "SensorID is required";
+
+        when(sensorTypeID.getID()).thenReturn("ElectricConsumptionWh");
+
+        //Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod, sensorID));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -248,7 +292,7 @@ class ElectricConsumptionWhSensorTest {
      * Test getValue method
      */
     @Test
-    void shouldReturnElectricConsumptionWhForGivenTimePeriod_WhenGetValueIsCalled(){
+    void shouldReturnElectricConsumptionWhForGivenTimePeriod_WhenGetValueIsCalled() {
         //Arrange
         ModelPath modelPath = mock(ModelPath.class);
         DeviceID deviceID = mock(DeviceID.class);
@@ -377,9 +421,9 @@ class ElectricConsumptionWhSensorTest {
         SensorName sensorName = mock(SensorName.class);
         DatePeriod datePeriod = mock(DatePeriod.class);
 
-        try(MockedConstruction<SensorID> sensorIdDouble = mockConstruction(SensorID.class, (mock, context) -> {
+        try (MockedConstruction<SensorID> sensorIdDouble = mockConstruction(SensorID.class, (mock, context) -> {
             when(mock.toString()).thenReturn("1");
-        })){
+        })) {
             ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod);
 
             int expected = electricConsumptionWhSensor.getID().hashCode();

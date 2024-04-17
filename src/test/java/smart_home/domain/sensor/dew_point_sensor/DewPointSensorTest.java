@@ -34,6 +34,59 @@ class DewPointSensorTest {
     }
 
     /**
+     * Test to check if the DewPointSensor is instantiated correctly, including the Sensor ID in the constructor.
+     */
+    @Test
+    void shouldInstantiateDewPointSensor_WhenParametersAreValidWithSensorID() {
+
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorID sensorID = mock(SensorID.class);
+
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("DewPoint");
+
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+            //Act
+            DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+            //Assert
+            assertNotNull(dewPointSensor);
+        }
+
+    }
+
+    /**
+     * Test to check if the DewPointSensor throws an exception when the SensorID is null.
+     */
+    @Test
+    void shouldThrowException_WhenSensorIDIsNull() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorID sensorID = null;
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("DewPoint");
+
+        String expectedMessage = "SensorID is required";
+
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+            //Act + Assert
+            Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                    new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID)
+            );
+
+            String actualMessage = exception.getMessage();
+
+            //Assert
+            assertEquals(expectedMessage, actualMessage);
+        }
+    }
+
+    /**
      * Test to check if the DewPointSensor throws an exception when the DeviceID is null.
      */
     @Test

@@ -26,15 +26,55 @@ public class InstantPowerConsumptionSensor implements ISensor {
   public InstantPowerConsumptionSensor(
       DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
     validateModelPath(modelPath);
+    this._modelPath = modelPath;
     validateSensorName(sensorName);
+    this._sensorName = sensorName;
     validateSensorTypeID(sensorTypeID);
+    this._sensorTypeID = sensorTypeID;
     validateDeviceID(deviceID);
+    this._deviceID = deviceID;
+
     generateInstantPowerConsumptionID();
   }
 
-  /** Generates a new InstantPowerConsumptionID. */
+  /**
+   * Constructor of the class, including the sensor ID.
+   * @param deviceID
+   * @param modelPath
+   * @param sensorTypeID
+   * @param sensorName
+   * @param sensorID
+   */
+  public InstantPowerConsumptionSensor(
+      DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
+    validateModelPath(modelPath);
+    this._modelPath = modelPath;
+    validateSensorName(sensorName);
+    this._sensorName = sensorName;
+    validateSensorTypeID(sensorTypeID);
+    this._sensorTypeID = sensorTypeID;
+    validateDeviceID(deviceID);
+    this._deviceID = deviceID;
+    validateSensorID(sensorID);
+    this._sensorID = sensorID;
+  }
+
+  /**
+   * Generates a new InstantPowerConsumptionID.
+   */
   private void generateInstantPowerConsumptionID() {
     this._sensorID = new SensorID(UUID.randomUUID().toString());
+  }
+
+  /**
+   * Validates the sensor ID.
+   *
+   * @param sensorID
+   */
+  private void validateSensorID(SensorID sensorID) {
+    if (sensorID == null) {
+      throw new IllegalArgumentException("SensorID is required");
+    }
   }
 
   /**
@@ -45,8 +85,6 @@ public class InstantPowerConsumptionSensor implements ISensor {
   private void validateModelPath(ModelPath modelPath) {
     if (modelPath == null) {
       throw new IllegalArgumentException("ModelPath is required");
-    } else {
-      this._modelPath = modelPath;
     }
   }
 
@@ -58,8 +96,6 @@ public class InstantPowerConsumptionSensor implements ISensor {
   private void validateSensorName(SensorName sensorName) {
     if (sensorName == null) {
       throw new IllegalArgumentException("SensorName is required");
-    } else {
-      this._sensorName = sensorName;
     }
   }
 
@@ -74,8 +110,6 @@ public class InstantPowerConsumptionSensor implements ISensor {
 
     } else if (!Objects.equals(sensorTypeID.getID(), "InstantPowerConsumption")) {
       throw new IllegalArgumentException("SensorTypeID must be of type 'InstantPowerConsumption'");
-    } else {
-      this._sensorTypeID = sensorTypeID;
     }
   }
 
@@ -87,8 +121,6 @@ public class InstantPowerConsumptionSensor implements ISensor {
   private void validateDeviceID(DeviceID deviceID) {
     if (deviceID == null) {
       throw new IllegalArgumentException("DeviceID is required");
-    } else {
-      this._deviceID = deviceID;
     }
   }
 

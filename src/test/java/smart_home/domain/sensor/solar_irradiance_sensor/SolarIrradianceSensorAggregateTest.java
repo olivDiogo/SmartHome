@@ -24,6 +24,26 @@ public class SolarIrradianceSensorAggregateTest {
         assertNotNull(sensor);
     }
 
+    /**
+     * Tests the instantiation of SolarIrradianceSensor when the constructor arguments are valid, including the sensorID.
+     */
+    @Test
+    void shouldInstantiateSolarIrradianceSensor_whenConstructorArgumentsAreValidIncludingSensorID() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
+        SensorID sensorID = new SensorID("ID");
+
+        // Act
+        SolarIrradianceSensor sensor =
+                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        // Assert
+        assertNotNull(sensor);
+    }
+
     /** Tests the instantiation of SolarIrradianceSensor when the deviceID is null. */
     @Test
     void shouldThrowIllegalArgumentException_whenDeviceIDIsNull() {

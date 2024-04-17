@@ -31,6 +31,30 @@ public class TemperatureSensorAggregateTest {
     }
 
     /**
+     * Tests the instantiation of TemperatureSensor when the constructor arguments are valid, including SensorID.
+     */
+    @Test
+    void shouldInstantiateTemperatureSensor_whenConstructorArgumentsAreValidIncludingSensorID() {
+        // Arrange
+        String deviceIDValue = "some-device-id";
+        String modelPathValue = "some-model-path";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Temperature";
+        String sensorIDValue = "some-sensor-id";
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        // Act
+        TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        // Assert
+        assertNotNull(sensor);
+    }
+
+    /**
      * Tests the instantiation of TemperatureSensor when the deviceID is null.
      */
     @Test

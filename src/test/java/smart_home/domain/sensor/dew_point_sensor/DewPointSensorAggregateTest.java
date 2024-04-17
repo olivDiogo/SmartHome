@@ -31,6 +31,31 @@ class DewPointSensorAggregateTest {
     }
 
     /**
+     * Test to check if the DewPointSensor is instantiated correctly with a SensorID.
+     */
+    @Test
+    void shouldInstantiateDewPointSensor_WhenParametersAreValidWithSensorID() {
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "DewPoint";
+        String sensorIDName = "1234";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+        SensorID sensorID = new SensorID(sensorIDName);
+
+        // act
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        //assert
+        assertNotNull(dewPointSensor);
+
+    }
+
+    /**
      * Test to check if the DewPointSensor throws an exception when the DeviceID is null.
      */
     @Test

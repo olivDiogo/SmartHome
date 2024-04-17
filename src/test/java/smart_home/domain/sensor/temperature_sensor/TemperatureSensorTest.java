@@ -22,13 +22,60 @@ class TemperatureSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Temperature");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act
             TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Assert
             assertNotNull(sensor);
         }
+    }
+
+    /**
+     * Tests the instantiation of TemperatureSensor when the constructor arguments are valid, including SensorId.
+     */
+    @Test
+    void shouldInstantiateTemperatureSensor_whenConstructorArgumentsAreValidWithSensorId() {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        SensorID sensorID = mock(SensorID.class);
+
+        when(sensorTypeID.getID()).thenReturn("Temperature");
+
+        // Act
+        TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        // Assert
+        assertNotNull(sensor);
+    }
+
+    /**
+     * Tests the instantiation of TemperatureSensor when the SensorID is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorIDIsNull() {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        SensorID sensorID = null;
+
+        when(sensorTypeID.getID()).thenReturn("Temperature");
+
+        String expectedMessage = "SensorID is required";
+
+        // Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+
+        //Assert
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
     }
 
     /**
@@ -46,7 +93,7 @@ class TemperatureSensorTest {
 
         String expectedMessage = "DeviceID is required";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act + Assert
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
                 new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
@@ -75,7 +122,7 @@ class TemperatureSensorTest {
 
         String expectedMessage = "ModelPath is required";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act + Assert
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
                 new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
@@ -104,7 +151,7 @@ class TemperatureSensorTest {
 
         String expectedMessage = "SensorName is required";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act + Assert
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
                 new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
@@ -131,7 +178,7 @@ class TemperatureSensorTest {
 
         String expectedMessage = "SensorTypeID is required";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act + Assert
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
                 new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
@@ -158,7 +205,7 @@ class TemperatureSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Temperature");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
@@ -181,7 +228,7 @@ class TemperatureSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Temperature");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
@@ -205,7 +252,7 @@ class TemperatureSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Temperature");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
@@ -229,7 +276,7 @@ class TemperatureSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Temperature");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
@@ -253,7 +300,7 @@ class TemperatureSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Temperature");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
@@ -279,7 +326,7 @@ class TemperatureSensorTest {
 
         String expectedMessage = "SensorTypeID must be of type 'Temperature'";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act + Assert
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
                 new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
@@ -330,7 +377,7 @@ class TemperatureSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Temperature");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             TemperatureSensor temperatureSensor1 = new TemperatureSensor(deviceID1, modelPath, sensorTypeID, sensorName);
             TemperatureSensor temperatureSensor2 = new TemperatureSensor(deviceID2, modelPath, sensorTypeID, sensorName);
 
@@ -355,7 +402,7 @@ class TemperatureSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Temperature");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             TemperatureSensor temperatureSensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act
@@ -380,7 +427,7 @@ class TemperatureSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Temperature");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             TemperatureSensor temperatureSensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
             // Act

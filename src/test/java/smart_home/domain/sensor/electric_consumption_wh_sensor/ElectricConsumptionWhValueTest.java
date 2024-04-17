@@ -1,7 +1,6 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.electric_consumption_wh_sensor;
 
 import org.junit.jupiter.api.Test;
-import smart_home.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhValue;
 
 import static org.junit.jupiter.api.Assertions.*;
 

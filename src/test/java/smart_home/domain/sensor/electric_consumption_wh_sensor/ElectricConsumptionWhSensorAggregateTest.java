@@ -1,8 +1,6 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.electric_consumption_wh_sensor;
 
 import org.junit.jupiter.api.Test;
-import smart_home.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhSensor;
-import smart_home.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhValue;
 import smart_home.value_object.*;
 
 import java.time.LocalDateTime;

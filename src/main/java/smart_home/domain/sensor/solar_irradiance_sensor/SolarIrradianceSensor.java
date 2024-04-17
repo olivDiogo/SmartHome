@@ -24,10 +24,37 @@ public class SolarIrradianceSensor implements ISensor {
      */
     public SolarIrradianceSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateDeviceID(deviceID);
+        this._deviceID = deviceID;
         validateModelPath(modelPath);
+        this._modelPath = modelPath;
         validateSensorName(sensorName);
+        this._sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
+        this._sensorTypeID = sensorTypeID;
+
         generateSensorID();
+    }
+
+    /**
+     * Constructor for SolarIrradianceSensor with SensorID
+     *
+     * @param deviceID
+     * @param modelPath
+     * @param sensorTypeID
+     * @param sensorName
+     * @param sensorID
+     */
+    public SolarIrradianceSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
+        validateDeviceID(deviceID);
+        this._deviceID = deviceID;
+        validateModelPath(modelPath);
+        this._modelPath = modelPath;
+        validateSensorName(sensorName);
+        this._sensorName = sensorName;
+        validateSensorTypeID(sensorTypeID);
+        this._sensorTypeID = sensorTypeID;
+        validateSensorID(sensorID);
+        this._sensorID = sensorID;
     }
 
     /**
@@ -35,6 +62,15 @@ public class SolarIrradianceSensor implements ISensor {
      */
     private void generateSensorID() {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
+    }
+
+    /**
+     * Validates the sensorID
+     */
+    private void validateSensorID(SensorID sensorID) {
+        if (sensorID == null) {
+            throw new IllegalArgumentException("SensorID cannot be null");
+        }
     }
 
     /**
@@ -46,7 +82,6 @@ public class SolarIrradianceSensor implements ISensor {
         if (sensorName == null) {
             throw new IllegalArgumentException("SensorName cannot be null");
         }
-        this._sensorName = sensorName;
     }
 
     /**
@@ -61,7 +96,7 @@ public class SolarIrradianceSensor implements ISensor {
         if (!Objects.equals(sensorTypeID.getID(), "SolarIrradiance")) {
             throw new IllegalArgumentException("SensorTypeID must be SolarIrradiance");
         }
-        this._sensorTypeID = sensorTypeID;
+
     }
 
     /**
@@ -73,7 +108,6 @@ public class SolarIrradianceSensor implements ISensor {
         if (modelPath == null) {
             throw new IllegalArgumentException("ModelPath cannot be null");
         }
-        this._modelPath = modelPath;
     }
 
     /**
@@ -85,7 +119,6 @@ public class SolarIrradianceSensor implements ISensor {
         if (deviceID == null) {
             throw new IllegalArgumentException("DeviceID cannot be null");
         }
-        this._deviceID = deviceID;
     }
 
     /**

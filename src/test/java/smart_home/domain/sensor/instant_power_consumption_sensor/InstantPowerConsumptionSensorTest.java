@@ -1,10 +1,8 @@
-package smart_home.domain.sensor;
+package smart_home.domain.sensor.instant_power_consumption_sensor;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import smart_home.domain.sensor.dew_point_sensor.DewPointSensor;
-import smart_home.domain.sensor.instant_power_consumption_sensor.InstantPowerConsumptionSensor;
-import smart_home.domain.sensor.instant_power_consumption_sensor.InstantPowerConsumptionValue;
 import smart_home.value_object.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,6 +31,30 @@ class InstantPowerConsumptionSensorTest {
             // Assert
             assertNotNull(instantPowerConsumptionSensor);
         }
+
+    }
+
+    /**
+     * Should create instance of InstantPowerConsumptionSensor when constructor attributes are valid, including SensorID.
+     */
+    @Test
+    void shouldCreateInstanceOfInstantPowerConsumptionSensor_whenConstructorAttributesAreValidIncludingSensorID() {
+        // Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorName sensorName = mock(SensorName.class);
+
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("InstantPowerConsumption");
+
+        SensorID sensorID = mock(SensorID.class);
+        when(sensorID.getID()).thenReturn("1234");
+
+        // Act
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        // Assert
+        assertNotNull(instantPowerConsumptionSensor);
 
     }
 

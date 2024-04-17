@@ -25,10 +25,27 @@ public class DewPointSensor implements ISensor {
      */
     public DewPointSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         validateModelPath(modelPath);
+        this._modelPath = modelPath;
         validateSensorName(sensorName);
+        this._sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
+        this._sensorTypeID = sensorTypeID;
         validateDeviceID(deviceID);
+        this._deviceID = deviceID;
         generateDewPointID();
+    }
+
+    public DewPointSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
+        validateModelPath(modelPath);
+        this._modelPath = modelPath;
+        validateSensorName(sensorName);
+        this._sensorName = sensorName;
+        validateSensorTypeID(sensorTypeID);
+        this._sensorTypeID = sensorTypeID;
+        validateDeviceID(deviceID);
+        this._deviceID = deviceID;
+        validateSensorID(sensorID);
+        this._sensorID = sensorID;
     }
 
     /**
@@ -39,6 +56,17 @@ public class DewPointSensor implements ISensor {
     }
 
     /**
+     * Validates the sensor ID.
+     *
+     * @param sensorID The sensor ID.
+     */
+    private void validateSensorID(SensorID sensorID) {
+        if (sensorID == null) {
+            throw new IllegalArgumentException("SensorID is required");
+        }
+    }
+
+    /**
      * Validates the model path.
      *
      * @param modelPath The model path.
@@ -46,8 +74,6 @@ public class DewPointSensor implements ISensor {
     private void validateModelPath(ModelPath modelPath) {
         if (modelPath == null) {
             throw new IllegalArgumentException("ModelPath is required");
-        } else {
-            this._modelPath = modelPath;
         }
     }
 
@@ -59,8 +85,6 @@ public class DewPointSensor implements ISensor {
     private void validateSensorName(SensorName sensorName) {
         if (sensorName == null) {
             throw new IllegalArgumentException("SensorName is required");
-        } else {
-            this._sensorName = sensorName;
         }
     }
 
@@ -75,9 +99,6 @@ public class DewPointSensor implements ISensor {
 
         } else if (!Objects.equals(sensorTypeID.getID(), "DewPoint")) {
             throw new IllegalArgumentException("SensorTypeID must be 'DewPoint'");
-
-        } else {
-            this._sensorTypeID = sensorTypeID;
         }
     }
 
@@ -89,8 +110,6 @@ public class DewPointSensor implements ISensor {
     private void validateDeviceID(DeviceID deviceID) {
         if (deviceID == null) {
             throw new IllegalArgumentException("DeviceID is required");
-        } else {
-            this._deviceID = deviceID;
         }
     }
 

@@ -34,6 +34,26 @@ class SunsetTimeSensorAggregateTest {
     }
 
     /**
+     * Test to check if SunsetTimeSensor is instantiated when all attributes are valid, including SensorID
+     */
+    @Test
+    void shouldInstantiateSunsetTimeSensor_whenAttributesAreValidIncludingSensorID() {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        GPS gps = new GPS(0, 0);
+        SensorID sensorID = new SensorID(UUID.randomUUID().toString());
+
+        //Act
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID);
+
+        //Assert
+        assertNotNull(sunsetTimeSensor);
+    }
+
+    /**
      * Test to check if IllegalArgumentException is thrown when DeviceID is null
      */
     @Test
