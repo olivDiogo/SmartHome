@@ -1,6 +1,7 @@
 package smart_home.domain.actuator.blind_roller_actuator;
 
 import org.junit.jupiter.api.Test;
+import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerActuator;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smart_home.value_object.*;
@@ -18,7 +19,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -41,7 +42,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
         String actuatorID = "1";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
@@ -65,7 +66,7 @@ class BlindRollerActuatorAggregateTest {
         //Arrange
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = null;
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -120,7 +121,7 @@ class BlindRollerActuatorAggregateTest {
         //Arrange
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -149,7 +150,7 @@ class BlindRollerActuatorAggregateTest {
         //Arrange
         String deviceID = "1";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = null;
@@ -179,7 +180,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -207,7 +208,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -232,7 +233,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -259,14 +260,14 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
         ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
         ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
 
-        String expected = "1";
+        String expected = "BlindRoller";
 
         BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
@@ -286,7 +287,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -313,7 +314,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         int value = 50;
 
@@ -327,7 +328,7 @@ class BlindRollerActuatorAggregateTest {
         BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         //Act
-        BlindRollerValue result = blindRollerActuator.setValue(blindRollerValue);
+        IValueObject result = blindRollerActuator.setValue(blindRollerValue);
 
         //Assert
         assertNotNull(result);
@@ -342,7 +343,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -352,7 +353,7 @@ class BlindRollerActuatorAggregateTest {
         BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         //Act
-        BlindRollerValue result = blindRollerActuator.setValue(null);
+        IValueObject result = blindRollerActuator.setValue(null);
 
         //Assert
         assertNull(result);
@@ -367,7 +368,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -392,7 +393,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -419,7 +420,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -446,7 +447,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);
@@ -471,7 +472,7 @@ class BlindRollerActuatorAggregateTest {
         String deviceID = "1";
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
         String actuatorName = "BlindRoller";
-        String actuatorTypeID = "1";
+        String actuatorTypeID = "BlindRoller";
 
         DeviceID deviceIDObject = new DeviceID(deviceID);
         ModelPath modelPathObject = new ModelPath(modelPath);

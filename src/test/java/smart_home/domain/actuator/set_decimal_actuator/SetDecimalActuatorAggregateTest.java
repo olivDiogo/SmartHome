@@ -89,12 +89,12 @@ class SetDecimalActuatorAggregateTest {
         String expectedMessage = "DeviceID is required";
 
         // Act
-        try {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        } catch (IllegalArgumentException e) {
-            // Assert
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        // Assert
+        assertEquals(expectedMessage, exception.getMessage());
 
     }
 
@@ -113,12 +113,12 @@ class SetDecimalActuatorAggregateTest {
         String expectedMessage = "ModelPath is required";
 
         // Act
-        try {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        } catch (IllegalArgumentException e) {
-            // Assert
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -136,12 +136,34 @@ class SetDecimalActuatorAggregateTest {
         String expectedMessage = "ActuatorTypeID is required";
 
         // Act
-        try {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        } catch (IllegalArgumentException e) {
-            // Assert
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test for an invalid actuatorTypeID of another type
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorTypeIDIsNotSetDecimal() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("DeviceID");
+        ModelPath modelPath = new ModelPath("ModelPath");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("Switch");
+        ActuatorName actuatorName = new ActuatorName("ActuatorName");
+        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+
+        String expectedMessage = "The value of 'actuatorTypeID' should be 'SetDecimal'.";
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+        });
+
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -158,13 +180,13 @@ class SetDecimalActuatorAggregateTest {
 
         String expectedMessage = "ActuatorName is required";
 
-        // Act
-        try {
+        //Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        } catch (IllegalArgumentException e) {
-            // Assert
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -182,12 +204,12 @@ class SetDecimalActuatorAggregateTest {
         String expectedMessage = "SetDecimalActuatorLimits are required";
 
         // Act
-        try {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        } catch (IllegalArgumentException e) {
-            // Assert
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        // Assert
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
 
@@ -412,11 +434,12 @@ class SetDecimalActuatorAggregateTest {
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act & Assert
-        try {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             setDecimalActuator.setValue(valueDouble);
-        } catch (IllegalArgumentException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -441,12 +464,12 @@ class SetDecimalActuatorAggregateTest {
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         //Act
-        try {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             setDecimalActuator.setValue(valueDouble);
-        } catch (IllegalArgumentException e) {
-            //Assert
-            assertEquals(expectedMessage, e.getMessage());
-        }
+        });
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
