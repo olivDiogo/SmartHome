@@ -2,6 +2,8 @@ package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.house.House;
+import smart_home.domain.house.IHouseFactory;
+import smart_home.domain.repository.IHouseRepository;
 import smart_home.value_object.HouseID;
 
 import java.util.*;
@@ -10,7 +12,7 @@ import java.util.*;
  * This class represents a repository for houses, implementing the Repository interface.
  * It provides methods to save, find all, find by identity, and check if a house exists in the repository.
  */
-public class HouseRepository implements IRepository<HouseID, House> {
+public class HouseRepository implements IHouseRepository {
     private final Map<HouseID, House> _houseData = new LinkedHashMap<>();
 
     /**
