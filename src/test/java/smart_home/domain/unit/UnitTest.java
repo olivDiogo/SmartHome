@@ -27,23 +27,6 @@ class UnitTest {
         assertNotNull(result);
     }
 
-    /**
-     * Validates construction with valid arguments.
-     */
-    @Test
-    void shouldReturnValidUnit_WhenGivenValidParametersWithID() {
-        //Arrange
-        UnitSymbol unitDouble = mock(UnitSymbol.class);
-        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
-        UnitID unitIDDouble = mock(UnitID.class);
-
-        //Act
-        Unit result = new Unit(unitDescriptionDouble, unitDouble, unitIDDouble);
-
-        //Assert
-        assertNotNull(result);
-    }
-
 
     /**
      * Expects IllegalArgumentException for null measurement unit.
@@ -80,6 +63,64 @@ class UnitTest {
 
         //Assert
         String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+
+    /**
+     * Validates construction with valid arguments.
+     */
+    @Test
+    void shouldReturnValidUnit_WhenGivenValidParametersWithID() {
+        //Arrange
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        UnitID unitIDDouble = mock(UnitID.class);
+
+        //Act
+        Unit result = new Unit(unitDescriptionDouble, unitDouble, unitIDDouble);
+
+        //Assert
+        assertNotNull(result);
+    }
+
+    /**
+     * Expects IllegalArgumentException for null measurement unit.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenGivenNullUnitSymbolWithID() {
+        //Arrange
+        UnitSymbol unitDouble = null;
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        UnitID unitIDDouble = mock(UnitID.class);
+
+        String expectedMessage = "Unit symbol is required";
+
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unitDescriptionDouble, unitDouble, unitIDDouble));
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * Expects IllegalArgumentException for null unit description.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenGivenNullUnitDescriptionWithID(){
+        //Arrange
+        UnitSymbol unitSymbol = mock(UnitSymbol.class);
+        UnitDescription unitDescription = null;
+        UnitID unitIDDouble = mock(UnitID.class);
+
+        String expectedMessage = "Unit description is required";
+
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unitDescription, unitSymbol, unitIDDouble));
+        String actualMessage = exception.getMessage();
+
+        //Assert
         assertEquals(expectedMessage, actualMessage);
     }
 
