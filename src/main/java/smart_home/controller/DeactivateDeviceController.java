@@ -1,6 +1,7 @@
 package smart_home.controller;
 
 import smart_home.assembler.DeviceAssembler;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.service.IDeviceService;
 import smart_home.dto.DeviceDTO;
@@ -12,7 +13,7 @@ import java.util.List;
 public class DeactivateDeviceController {
 
     private final IDeviceService _deviceService;
-    private final DeviceAssembler _deviceAssembler;
+    private final IAssembler<Device, DeviceDTO> _deviceAssembler;
 
     /**
      * Constructor for US08DeactivateDevice.
@@ -20,7 +21,7 @@ public class DeactivateDeviceController {
      * @param deviceService   is the service for the device.
      * @param deviceAssembler is the assembler for the device.
      */
-    public DeactivateDeviceController(IDeviceService deviceService, DeviceAssembler deviceAssembler) {
+    public DeactivateDeviceController(IDeviceService deviceService, IAssembler<Device, DeviceDTO> deviceAssembler) {
         validateDeviceService(deviceService);
         _deviceService = deviceService;
         validateDeviceAssembler(deviceAssembler);
@@ -43,7 +44,7 @@ public class DeactivateDeviceController {
      *
      * @param deviceAssembler the DeviceAssembler to validate
      */
-    private void validateDeviceAssembler(DeviceAssembler deviceAssembler) {
+    private void validateDeviceAssembler(IAssembler<Device, DeviceDTO> deviceAssembler) {
         if (deviceAssembler == null) {
             throw new IllegalArgumentException("DeviceAssembler cannot be null.");
         }
