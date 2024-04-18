@@ -3,6 +3,7 @@ package smart_home.domain.actuator;
 import smart_home.ddd.IAggregateRoot;
 import smart_home.ddd.IValueObject;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
 public interface IActuator extends IAggregateRoot<ActuatorID> {
 
@@ -54,4 +55,10 @@ public interface IActuator extends IAggregateRoot<ActuatorID> {
     IValueObject setValue(IValueObject value);
 
 
+    /**
+     * Method to accept the visitor.
+     *
+     * @param visitor The visitor.
+     */
+    String accept(IActuatorVisitor visitor);
 }

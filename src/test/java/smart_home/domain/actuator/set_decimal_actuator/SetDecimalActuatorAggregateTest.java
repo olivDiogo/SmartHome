@@ -3,8 +3,12 @@ package smart_home.domain.actuator.set_decimal_actuator;
 import org.junit.jupiter.api.Test;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
+import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -378,7 +382,7 @@ class SetDecimalActuatorAggregateTest {
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceId, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
-        ActuatorID result = setDecimalActuator.getActuatorID();
+        ActuatorID result = setDecimalActuator.getID();
 
         // Assert
         assertNotNull(result);
@@ -402,7 +406,7 @@ class SetDecimalActuatorAggregateTest {
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
-        ActuatorName result = setDecimalActuator.getActuatorName();
+        ActuatorName result = setDecimalActuator.getName();
 
         // Assert
         assertEquals(result, actuatorName);
@@ -498,8 +502,8 @@ class SetDecimalActuatorAggregateTest {
         SetDecimalActuatorLimits result = setDecimalActuator.getLimits();
 
         // Assert
-        assertEquals(result.getLowerLimit(), lowerLimit);
-        assertEquals(result.getUpperLimit(), upperLimit);
+        assertEquals(result.getLowerLimit(), lowerLimit, 0.01);
+        assertEquals(result.getUpperLimit(), upperLimit, 0.01);
     }
 
     /**
@@ -672,7 +676,7 @@ class SetDecimalActuatorAggregateTest {
      * Test of method equals when the instances are not equal.
      */
     @Test
-    void shouldReturnFalse_whenInstancesAreNotEqual(){
+    void shouldReturnFalse_whenInstancesAreNotEqual() {
         // Arrange
         DeviceID deviceID = new DeviceID("DeviceID");
         ModelPath modelPath = new ModelPath("ModelPath");
@@ -695,7 +699,7 @@ class SetDecimalActuatorAggregateTest {
      * Test of method equals when the instance is compared to an object of a different class.
      */
     @Test
-    void shouldReturnFalse_whenInstanceIsComparedToAnObjectOfDifferentClass(){
+    void shouldReturnFalse_whenInstanceIsComparedToAnObjectOfDifferentClass() {
         // Arrange
         DeviceID deviceID = new DeviceID("DeviceID");
         ModelPath modelPath = new ModelPath("ModelPath");
@@ -716,7 +720,7 @@ class SetDecimalActuatorAggregateTest {
      * Test of method toString.
      */
     @Test
-    void shouldReturnString_whenToStringIsCalled(){
+    void shouldReturnString_whenToStringIsCalled() {
         // Arrange
         DeviceID deviceID = new DeviceID("DeviceID");
         ModelPath modelPath = new ModelPath("ModelPath");
@@ -725,7 +729,7 @@ class SetDecimalActuatorAggregateTest {
         SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
-        ActuatorID actuatorID = setDecimalActuator.getActuatorID();
+        ActuatorID actuatorID = setDecimalActuator.getID();
 
         String expected = "ActuatorID: " + actuatorID + ", ActuatorName: " + actuatorName + ", ModelPath: " + modelPath + ", ActuatorTypeID: " + actuatorTypeID + ", DeviceID: " + deviceID + ", Limits: " + limits;
 
@@ -741,7 +745,7 @@ class SetDecimalActuatorAggregateTest {
      * Test of method hashcode.
      */
     @Test
-    void shouldReturnHashCode_whenHashCodeIsCalled(){
+    void shouldReturnHashCode_whenHashCodeIsCalled() {
         // Arrange
         String deviceID = "DeviceID";
         String modelPath = "ModelPath";
@@ -757,7 +761,7 @@ class SetDecimalActuatorAggregateTest {
         SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceId, modelPath1, actuatorTypeID1, actuatorName1, limits);
-        ActuatorID actuatorID = setDecimalActuator.getActuatorID();
+        ActuatorID actuatorID = setDecimalActuator.getID();
 
         int expected = actuatorID.getID().hashCode();
 
@@ -765,6 +769,31 @@ class SetDecimalActuatorAggregateTest {
         int result = setDecimalActuator.hashCode();
 
         // Assert
-        assertEquals(expected,result);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of accept method, of class SetDecimalActuator.
+     */
+    @Test
+    void shouldReturnString_WhenAcceptIsCalled() {
+        //Arrange
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.SetDecimalActuator.SetDecimalActuator");
+        ActuatorName actuatorName = new ActuatorName("SetDecimal");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
+        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName,limits);
+
+        IActuatorVisitor visitor = new ActuatorVisitorForDataModelImpl(new ActuatorDataModel());
+
+        String expected = setDecimalActuator.toString();
+
+        //Act
+        String result = setDecimalActuator.accept(visitor);
+
+        //Assert
+        assertEquals(expected, result);
     }
 }

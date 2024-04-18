@@ -2,8 +2,12 @@ package smart_home.domain.actuator.set_decimal_actuator;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
+import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -227,16 +231,17 @@ class SetDecimalActuatorTest {
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
-        ActuatorID result = setDecimalActuator.getActuatorID();
+        ActuatorID result = setDecimalActuator.getID();
 
         // Assert
-        assertTrue(setDecimalActuator.toString().contains(result.toString()));    }
+        assertTrue(setDecimalActuator.toString().contains(result.toString()));
+    }
 
     /**
      * Test to get the actuator name.
      */
     @Test
-    void shouldGetActuatorName_WhenCalled() {
+    void shouldGetName_WhenCalled() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -247,7 +252,7 @@ class SetDecimalActuatorTest {
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
-        ActuatorName result = setDecimalActuator.getActuatorName();
+        ActuatorName result = setDecimalActuator.getName();
 
         // Assert
         assertEquals(actuatorName, result);
@@ -367,7 +372,7 @@ class SetDecimalActuatorTest {
      * Test of method equals when the instances are not equal.
      */
     @Test
-    void shouldReturnFalse_whenInstancesAreNotEqual(){
+    void shouldReturnFalse_whenInstancesAreNotEqual() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -390,7 +395,7 @@ class SetDecimalActuatorTest {
      * Test of method equals when the instance is compared to an object of a different class.
      */
     @Test
-    void shouldReturnFalse_WhenInstanceIsComparedToAnObjectOfDifferentClass(){
+    void shouldReturnFalse_WhenInstanceIsComparedToAnObjectOfDifferentClass() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -412,7 +417,7 @@ class SetDecimalActuatorTest {
      * Test of method toString.
      */
     @Test
-    void shouldReturnString_WhenToStringIsCalled(){
+    void shouldReturnString_WhenToStringIsCalled() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -421,7 +426,7 @@ class SetDecimalActuatorTest {
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
         SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
 
-        try(MockedConstruction<ActuatorID> mocked = mockConstruction(ActuatorID.class, (mock, context) -> {
+        try (MockedConstruction<ActuatorID> mocked = mockConstruction(ActuatorID.class, (mock, context) -> {
             when(mock.toString()).thenReturn("ActuatorID");
         })) {
             SetDecimalActuator actuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
@@ -439,7 +444,7 @@ class SetDecimalActuatorTest {
      * Test of method hashcode.
      */
     @Test
-    void shouldReturnHashCode_WhenHashCodeIsCalled(){
+    void shouldReturnHashCode_WhenHashCodeIsCalled() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -453,7 +458,7 @@ class SetDecimalActuatorTest {
         })) {
             SetDecimalActuator actuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
-            int expected = actuator.getActuatorID().hashCode();
+            int expected = actuator.getID().hashCode();
 
             //Act
             int result = actuator.hashCode();
@@ -462,4 +467,33 @@ class SetDecimalActuatorTest {
             assertEquals(expected, result);
         }
     }
+
+    /**
+     * Test of accept method, of class SetDecimalActuator.
+     */
+    @Test
+    void shouldReturnString_WhenAcceptIsCalled() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        when(actuatorTypeID.getID()).thenReturn("SetDecimal");
+        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+
+        SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+
+        ActuatorDataModel actuatorDataModel = mock(ActuatorDataModel.class);
+
+        IActuatorVisitor visitor = new ActuatorVisitorForDataModelImpl(actuatorDataModel);
+
+        String expected = setDecimalActuator.toString();
+
+        //Act
+        String result = setDecimalActuator.accept(visitor);
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
 }

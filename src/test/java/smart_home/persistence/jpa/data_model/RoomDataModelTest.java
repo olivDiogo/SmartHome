@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class RoomDataModelTest {
+class RoomDataModelTest {
     /**
      * Test for the empty constructor of the RoomDataModel class.
      */

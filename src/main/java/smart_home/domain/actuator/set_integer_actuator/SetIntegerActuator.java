@@ -4,6 +4,7 @@ import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.IActuator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
 import java.util.UUID;
 
@@ -19,10 +20,10 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Constructor for SetIntegerActuator
      *
-     * @param deviceID is the ID of the device associated with the actuator
-     * @param modelPath is the path of the model associated with the actuator
+     * @param deviceID       is the ID of the device associated with the actuator
+     * @param modelPath      is the path of the model associated with the actuator
      * @param actuatorTypeID is the ID of the actuator type
-     * @param actuatorName is the name of the actuator
+     * @param actuatorName   is the name of the actuator
      */
     public SetIntegerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetIntegerActuatorLimits limits) {
         Validator.validateNotNull(deviceID, "DeviceID");
@@ -41,11 +42,12 @@ public class SetIntegerActuator implements IActuator {
 
     /**
      * Constructor for SetIntegerActuator
-     * @param actuatorID is the ID of the actuator
-     * @param deviceID is the ID of the device associated with the actuator
-     * @param modelPath is the path of the model associated with the actuator
+     *
+     * @param actuatorID     is the ID of the actuator
+     * @param deviceID       is the ID of the device associated with the actuator
+     * @param modelPath      is the path of the model associated with the actuator
      * @param actuatorTypeID is the ID of the actuator type
-     * @param actuatorName is the name of the actuator
+     * @param actuatorName   is the name of the actuator
      */
     public SetIntegerActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetIntegerActuatorLimits limits) {
         Validator.validateNotNull(deviceID, "DeviceID");
@@ -85,7 +87,6 @@ public class SetIntegerActuator implements IActuator {
             throw new IllegalArgumentException("ActuatorTypeID must be SetInteger");
         }
     }
-
 
 
     /**
@@ -170,6 +171,17 @@ public class SetIntegerActuator implements IActuator {
         }
 
         return null;
+    }
+
+    /**
+     * Accepts the visitor
+     *
+     * @param visitor The visitor.
+     */
+    @Override
+    public String accept(IActuatorVisitor visitor) {
+        visitor.visitorSetIntegerActuator(this);
+        return this.toString();
     }
 
     /**

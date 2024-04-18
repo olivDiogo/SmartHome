@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator;
-import smart_home.domain.actuator.switch_actuator.SwitchActuator;
-import smart_home.domain.actuator.switch_actuator.SwitchActuatorValue;
+import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -417,6 +419,31 @@ class SwitchActuatorTest {
             //Assert
             assertEquals(expectedString, result);
         }
+    }
+
+    /**
+     * Test of accept method, of class SwitchActuator.
+     */
+    @Test
+    void shouldReturnString_WhenAcceptIsCalled() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        when(actuatorTypeID.getID()).thenReturn("Switch");
+
+        SwitchActuator switchActuator = new SwitchActuator (deviceID, modelPath, actuatorTypeID, actuatorName);
+
+        IActuatorVisitor visitor = new ActuatorVisitorForDataModelImpl(new ActuatorDataModel());
+
+        String expected = switchActuator.toString();
+
+        //Act
+        String result = switchActuator.accept(visitor);
+
+        //Assert
+        assertEquals(expected, result);
     }
 
 }

@@ -1,10 +1,12 @@
 package smart_home.domain.actuator.set_integer_actuator;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
-import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator;
-import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuatorLimits;
+import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -599,5 +601,34 @@ class SetIntegerActuatorTest {
             //Assert
             assertEquals(expected, result);
         }
+    }
+
+    /**
+     * Test of accept method, of class {@link SetIntegerActuator}.
+     */
+    @Test
+    void shouldReturnString_WhenAcceptIsCalled() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        when(actuatorTypeID.getID()).thenReturn("SetInteger");
+
+        SetIntegerActuatorLimits limits = mock(SetIntegerActuatorLimits.class);
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator (deviceID, modelPath, actuatorTypeID, actuatorName,limits);
+
+        ActuatorDataModel actuatorDataModel = mock(ActuatorDataModel.class);
+
+        IActuatorVisitor visitor = new ActuatorVisitorForDataModelImpl(actuatorDataModel);
+
+        String expected = setIntegerActuator.toString();
+
+        //Act
+        String result = setIntegerActuator.accept(visitor);
+
+        //Assert
+        Assert.assertEquals(expected, result);
     }
 }

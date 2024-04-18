@@ -2,146 +2,157 @@ package smart_home.domain.actuator.blind_roller_actuator;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
-import smart_home.domain.actuator.blind_roller_actuator.BlindRollerActuator;
-import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
-import smart_home.domain.actuator.switch_actuator.SwitchActuator;
 import smart_home.domain.actuator.switch_actuator.SwitchActuatorValue;
+import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class BlindRollerActuatorTest {
-  /** Test the first constructor, of class BlindRollerActuator. */
-  @Test
-  void shouldCreateBlindRollerActuator_WhenConstructorArgumentsAreValid() {
-    // Arrange
-    DeviceID deviceIDDouble = mock(DeviceID.class);
-    ModelPath modelPathDouble = mock(ModelPath.class);
-    ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-    ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-    when(actuatorTypeIDDouble.getID()).thenReturn("BlindRoller");
+    /**
+     * Test the first constructor, of class BlindRollerActuator.
+     */
+    @Test
+    void shouldCreateBlindRollerActuator_WhenConstructorArgumentsAreValid() {
+        // Arrange
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        when(actuatorTypeIDDouble.getID()).thenReturn("BlindRoller");
 
-    try (MockedConstruction<ActuatorID> mocked =
-        mockConstruction(
-            ActuatorID.class,
-            (mock, context) -> {
-              when(mock.getID()).thenReturn("123");
-            })) {
-      // Act
-      BlindRollerActuator blindRollerActuator =
-          new BlindRollerActuator(
-              deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+        try (MockedConstruction<ActuatorID> mocked =
+                     mockConstruction(
+                             ActuatorID.class,
+                             (mock, context) -> {
+                                 when(mock.getID()).thenReturn("123");
+                             })) {
+            // Act
+            BlindRollerActuator blindRollerActuator =
+                    new BlindRollerActuator(
+                            deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
 
-      // Assert
-      assertNotNull(blindRollerActuator);
+            // Assert
+            assertNotNull(blindRollerActuator);
+        }
     }
-  }
 
-  /** Test the second constructor, of class BlindRollerActuator. */
-  @Test
-  void shouldCreateBlindRollerActuator_WhenSecondConstructorArgumentsAreValid() {
-    // Arrange
-    DeviceID deviceIDDouble = mock(DeviceID.class);
-    ModelPath modelPathDouble = mock(ModelPath.class);
-    ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-    ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
-    ActuatorID actuatorIDDouble = mock(ActuatorID.class);
+    /**
+     * Test the second constructor, of class BlindRollerActuator.
+     */
+    @Test
+    void shouldCreateBlindRollerActuator_WhenSecondConstructorArgumentsAreValid() {
+        // Arrange
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+        ActuatorID actuatorIDDouble = mock(ActuatorID.class);
 
-    when(actuatorTypeIDDouble.getID()).thenReturn("BlindRoller");
+        when(actuatorTypeIDDouble.getID()).thenReturn("BlindRoller");
 
-    try (MockedConstruction<ActuatorID> mocked =
-        mockConstruction(
-            ActuatorID.class,
-            (mock, context) -> {
-              when(mock.getID()).thenReturn("123");
-            })) {
-      // Act
-      BlindRollerActuator blindRollerActuator =
-          new BlindRollerActuator(
-              actuatorIDDouble,
-              deviceIDDouble,
-              modelPathDouble,
-              actuatorTypeIDDouble,
-              actuatorNameDouble);
+        try (MockedConstruction<ActuatorID> mocked =
+                     mockConstruction(
+                             ActuatorID.class,
+                             (mock, context) -> {
+                                 when(mock.getID()).thenReturn("123");
+                             })) {
+            // Act
+            BlindRollerActuator blindRollerActuator =
+                    new BlindRollerActuator(
+                            actuatorIDDouble,
+                            deviceIDDouble,
+                            modelPathDouble,
+                            actuatorTypeIDDouble,
+                            actuatorNameDouble);
 
-      // Assert
-      assertNotNull(blindRollerActuator);
+            // Assert
+            assertNotNull(blindRollerActuator);
+        }
     }
-  }
 
-  /** Test for invalid deviceID */
-  @Test
-  void shouldThrowIllegalArgumentException_WhenDeviceIDIsNull() {
-    // Arrange
-    ModelPath modelPathDouble = mock(ModelPath.class);
-    ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-    ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
+    /**
+     * Test for invalid deviceID
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenDeviceIDIsNull() {
+        // Arrange
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
 
-    String expectedMessage = "DeviceID is required";
+        String expectedMessage = "DeviceID is required";
 
-    // Act & Assert
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              new BlindRollerActuator(
-                  null, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
-            });
+        // Act & Assert
+        IllegalArgumentException exception =
+                assertThrows(
+                        IllegalArgumentException.class,
+                        () -> {
+                            new BlindRollerActuator(
+                                    null, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble);
+                        });
 
-    assertEquals(expectedMessage, exception.getMessage());
-  }
+        assertEquals(expectedMessage, exception.getMessage());
+    }
 
-  /** Test for invalid actuatorTypeID */
-  @Test
-  void shouldThrowIllegalArgumentException_WhenActuatorTypeIDIsNull() {
-    // Arrange
-    DeviceID deviceIDDouble = mock(DeviceID.class);
-    ModelPath modelPathDouble = mock(ModelPath.class);
-    ActuatorName actuatorNameDouble = mock(ActuatorName.class);
+    /**
+     * Test for invalid actuatorTypeID
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorTypeIDIsNull() {
+        // Arrange
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        ActuatorName actuatorNameDouble = mock(ActuatorName.class);
 
-    String expectedMessage = "ActuatorTypeID is required";
+        String expectedMessage = "ActuatorTypeID is required";
 
-    // Act & Assert
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              new BlindRollerActuator(deviceIDDouble, modelPathDouble, null, actuatorNameDouble);
-            });
+        // Act & Assert
+        IllegalArgumentException exception =
+                assertThrows(
+                        IllegalArgumentException.class,
+                        () -> {
+                            new BlindRollerActuator(deviceIDDouble, modelPathDouble, null, actuatorNameDouble);
+                        });
 
-    assertEquals(expectedMessage, exception.getMessage());
-  }
+        assertEquals(expectedMessage, exception.getMessage());
+    }
 
-  /** Test for an invalid actuatorTypeID of another type */
-  @Test
-  void shouldThrowIllegalArgumentException_WhenActuatorTypeIDIsNotBlindRoller() {
-    // Arrange
-    String deviceID = "1";
-    String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
-    String actuatorName = "BlindRoller";
-    String actuatorTypeID = "2";
+    /**
+     * Test for an invalid actuatorTypeID of another type
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorTypeIDIsNotBlindRoller() {
+        // Arrange
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "2";
 
-    DeviceID deviceIDObject = new DeviceID(deviceID);
-    ModelPath modelPathObject = new ModelPath(modelPath);
-    ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
-    ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
 
-    String expectedMessage = "The value of 'actuatorTypeID' should be 'BlindRoller'.";
+        String expectedMessage = "The value of 'actuatorTypeID' should be 'BlindRoller'.";
 
-    // Act+Assert
-    Exception exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              new BlindRollerActuator(
-                  deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
-            });
+        // Act+Assert
+        Exception exception =
+                assertThrows(
+                        IllegalArgumentException.class,
+                        () -> {
+                            new BlindRollerActuator(
+                                    deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+                        });
 
-    String actualMessage = exception.getMessage();
+        String actualMessage = exception.getMessage();
 
-    assertEquals(expectedMessage, actualMessage);
-  }
+        assertEquals(expectedMessage, actualMessage);
+    }
 
     /**
      * Should return SwitchActuatorID when getActuatorID is called.
@@ -353,7 +364,7 @@ class BlindRollerActuatorTest {
      * Should return true when instances are same object.
      */
     @Test
-void shouldReturnTrue_WhenInstancesAreSameObject() {
+    void shouldReturnTrue_WhenInstancesAreSameObject() {
         // Arrange
         DeviceID deviceIDDouble = mock(DeviceID.class);
         ModelPath modelPathDouble = mock(ModelPath.class);
@@ -496,7 +507,7 @@ void shouldReturnTrue_WhenInstancesAreSameObject() {
             when(mock.getID()).thenReturn("123");
             when(mock.toString()).thenReturn("123");
         })) {
-            BlindRollerActuator blindRollerActuator = new BlindRollerActuator (deviceID, modelPath, actuatorTypeID, actuatorName);
+            BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
             blindRollerActuator.setValue(switchActuatorValue);
 
             String expectedString = "123 123 modelPath BlindRoller BlindRoller Actuator";
@@ -507,5 +518,32 @@ void shouldReturnTrue_WhenInstancesAreSameObject() {
             //Assert
             assertEquals(expectedString, result);
         }
+    }
+
+
+    /**
+     * Test of accept method, of class BlindRollerActuator.
+     */
+    @Test
+    void shouldReturnString_WhenAcceptIsCalled() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        when(actuatorTypeID.getID()).thenReturn("BlindRoller");
+
+        ActuatorDataModel actuatorDataModel = mock(ActuatorDataModel.class);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
+
+        IActuatorVisitor visitor = new ActuatorVisitorForDataModelImpl(actuatorDataModel);
+
+        String expected = blindRollerActuator.toString();
+
+        //Act
+        String result = blindRollerActuator.accept(visitor);
+
+        //Assert
+        assertEquals(expected, result);
     }
 }

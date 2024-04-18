@@ -4,6 +4,7 @@ import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.IActuator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
 import java.util.UUID;
 
@@ -40,6 +41,7 @@ public class SwitchActuator implements IActuator {
 
     /**
      * Instantiates a new Switch actuator.
+     *
      * @param actuatorID     the actuator id
      * @param deviceID       the device id
      * @param modelPath      the model path
@@ -162,12 +164,13 @@ public class SwitchActuator implements IActuator {
 
     /**
      * Compares the Switch Actuator with another object.
+     *
      * @param object is the object to be compared.
      * @return true if the object is equal to the Switch Actuator, false otherwise.
      */
     @Override
-    public boolean equals (Object object) {
-        if (object instanceof SwitchActuator switchActuator){
+    public boolean equals(Object object) {
+        if (object instanceof SwitchActuator switchActuator) {
             return switchActuator._deviceID.equals(this._deviceID) && switchActuator._actuatorName.equals(this._actuatorName) && switchActuator._modelPath.equals(this._modelPath) && switchActuator._actuatorTypeID.equals(this._actuatorTypeID) && switchActuator._actuatorID.equals(this._actuatorID) && switchActuator._value.equals(this._value);
         }
         return false;
@@ -175,6 +178,7 @@ public class SwitchActuator implements IActuator {
 
     /**
      * Returns the hash code of the Switch Actuator.
+     *
      * @return the hash code of the Switch Actuator.
      */
     @Override
@@ -182,4 +186,15 @@ public class SwitchActuator implements IActuator {
         return this._actuatorID.hashCode();
     }
 
+    /**
+     * Accepts the visitor.
+     *
+     * @param visitor is the visitor to be accepted.
+     * @return the string format of the Switch Actuator.
+     */
+    @Override
+    public String accept(IActuatorVisitor visitor) {
+        visitor.visitorSwitchActuator(this);
+        return this.toString();
+    }
 }

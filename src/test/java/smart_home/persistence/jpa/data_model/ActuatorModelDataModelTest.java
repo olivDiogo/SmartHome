@@ -10,8 +10,7 @@ import smart_home.value_object.ModelPath;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-public class ActuatorModelDataModelTest {
+ class ActuatorModelDataModelTest {
 
   /** Test to ensure that an ActuatorModelDataModel can be instantiated successfully */
   @Test

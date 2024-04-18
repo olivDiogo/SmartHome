@@ -5,16 +5,17 @@ import org.junit.jupiter.api.Test;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator;
-import smart_home.domain.actuator.switch_actuator.SwitchActuator;
-import smart_home.domain.actuator.switch_actuator.SwitchActuatorValue;
+import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
 import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
-public class SwitchActuatorAggregateTest {
+class SwitchActuatorAggregateTest {
 
     /**
      * Should instantiate SwitchActuator when constructor arguments are valid.
@@ -409,7 +410,7 @@ public class SwitchActuatorAggregateTest {
      * Should set value when string is "OFF".
      */
     @Test
-    public void shouldSetValue_whenValueIsOff() {
+    void shouldSetValue_whenValueIsOff() {
         //Arrange
         String value = "Off";
 
@@ -629,5 +630,29 @@ public class SwitchActuatorAggregateTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test of accept method, of class SwitchActuator.
+     */
+    @Test
+    void shouldReturnString_WhenAcceptIsCalled() {
+        //Arrange
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator");
+        ActuatorName actuatorName = new ActuatorName("SwitchActuator");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("Switch");
 
+        SwitchActuator switchActuator = new SwitchActuator (deviceID, modelPath, actuatorTypeID, actuatorName);
+
+
+
+        IActuatorVisitor visitor = new ActuatorVisitorForDataModelImpl(new ActuatorDataModel());
+
+        String expected = switchActuator.toString();
+
+        //Act
+        String result = switchActuator.accept(visitor);
+
+        //Assert
+       assertEquals(expected, result);
+    }
 }

@@ -3,9 +3,10 @@ package smart_home.domain.actuator.blind_roller_actuator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import smart_home.ddd.IValueObject;
-import smart_home.domain.actuator.blind_roller_actuator.BlindRollerActuator;
-import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
+import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
 import static org.junit.Assert.*;
 
@@ -220,13 +221,13 @@ class BlindRollerActuatorAggregateTest {
         String expectedMessage = "ActuatorName is required";
 
         //Act+Assert
-       Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
-            });
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+        });
 
-         String actualMessage = exception.getMessage();
+        String actualMessage = exception.getMessage();
 
-            assertEquals(expectedMessage, actualMessage);
+        assertEquals(expectedMessage, actualMessage);
 
     }
 
@@ -279,13 +280,13 @@ class BlindRollerActuatorAggregateTest {
         String expectedMessage = "ModelPath is required";
 
         //Act+Assert
-       Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
-            });
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+        });
 
-         String actualMessage = exception.getMessage();
+        String actualMessage = exception.getMessage();
 
-            assertEquals(expectedMessage, actualMessage);
+        assertEquals(expectedMessage, actualMessage);
 
     }
 
@@ -427,6 +428,7 @@ class BlindRollerActuatorAggregateTest {
         assertEquals(expected, result.toString());
 
     }
+
     /**
      * Test of getDeviceID method, of class BlindRoller
      */
@@ -606,7 +608,7 @@ class BlindRollerActuatorAggregateTest {
         BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
         ActuatorID actuatorID = blindRollerActuator.getID();
-        int expected =  actuatorID.hashCode();
+        int expected = actuatorID.hashCode();
         //Act
         int result = blindRollerActuator.hashCode();
 
@@ -639,5 +641,29 @@ class BlindRollerActuatorAggregateTest {
 
         //Assert
         assertEquals(expected, result);
+    }
+
+    /**
+     * Test of accept method, of class BlindRollerActuator.
+     */
+    @Test
+    void shouldReturnString_WhenAcceptIsCalled() {
+        //Arrange
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.blind_roller_actuator.BlindRollerActuator");
+        ActuatorName actuatorName = new ActuatorName("BlindRoller");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
+
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
+
+        IActuatorVisitor visitor = new ActuatorVisitorForDataModelImpl(new ActuatorDataModel());
+
+        String expected = blindRollerActuator.toString();
+
+        //Act
+        String result = blindRollerActuator.accept(visitor);
+
+        //Assert
+        assertEquals(expected,result);
     }
 }

@@ -1,13 +1,14 @@
 package smart_home.domain.actuator.set_integer_actuator;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
-import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator;
-import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuatorLimits;
-import smart_home.domain.actuator.set_integer_actuator.SetIntegerValue;
+import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
+import smart_home.visitor_pattern.IActuatorVisitor;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -451,5 +452,33 @@ class SetIntegerActuatorAggregateTest {
         //Assert
         assertEquals(expected, result);
     }
+
+    /**
+     * Test of accept method, of class {@link SetIntegerActuator}.
+     */
+    @Test
+    void shouldReturnString_WhenAcceptIsCalled() {
+        //Arrange
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuator");
+        ActuatorName actuatorName = new ActuatorName("SetInteger");
+        ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
+        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(1, 9);
+
+        ActuatorDataModel actuatorDataModel = new ActuatorDataModel();
+
+        SetIntegerActuator setIntegerActuator = new SetIntegerActuator (deviceID, modelPath, actuatorTypeID, actuatorName,limits);
+
+        IActuatorVisitor visitor = new ActuatorVisitorForDataModelImpl(actuatorDataModel);
+
+        String expected = setIntegerActuator.toString();
+
+        //Act
+        String result = setIntegerActuator.accept(visitor);
+
+        //Assert
+        Assert.assertEquals(expected, result);
+    }
+
 }
 
