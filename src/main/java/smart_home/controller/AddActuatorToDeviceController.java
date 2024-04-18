@@ -6,6 +6,7 @@ import smart_home.domain.actuator_model.ActuatorModel;
 import smart_home.domain.actuator_type.ActuatorType;
 import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;
+import smart_home.domain.service.*;
 import smart_home.dto.*;
 import smart_home.service.*;
 import smart_home.value_object.*;
@@ -14,57 +15,61 @@ import java.util.Collections;
 import java.util.List;
 
 public class AddActuatorToDeviceController {
-    private RoomServiceImpl _roomServiceImpl;
+    private IRoomService _roomService;
     private RoomAssembler _roomAssembler;
-    private DeviceServiceImpl _deviceServiceImpl;
+    private IDeviceService _deviceService;
     private DeviceAssembler _deviceAssembler;
-    private ActuatorModelServiceImpl _actuatorModelServiceImpl;
+    private IActuatorModelService _actuatorModelService;
     private ActuatorModelAssembler _actuatorModelAssembler;
     private ConfigurationService _configurationService;
-    private ActuatorTypeServiceImpl _actuatorTypeServiceImpl;
+    private smart_home.domain.service.IActuatorTypeService _actuatorTypeService;
     private ActuatorTypeAssembler _actuatorTypeAssembler;
     private ActuatorAssembler _actuatorAssembler;
-    private ActuatorServiceImpl _actuatorServiceImpl;
+    private smart_home.domain.service.IActuatorService _actuatorService;
 
 
     /**
      * Constructor for the GetListOfRoomsController class.
      *
-     * @param roomServiceImpl   The room service.
-     * @param roomAssembler The room assembler.
+     * @param roomService          The room service.
+     * @param roomAssembler        The room assembler.
+     * @param deviceService       The device service.
+     * @param actuatorModelService The actuator model service.
+     * @param actuatorTypeService The actuator type service.
+     * @param actuatorService The actuator service.
      */
-    public AddActuatorToDeviceController(RoomServiceImpl roomServiceImpl,
+    public AddActuatorToDeviceController(IRoomService roomService,
                                          RoomAssembler roomAssembler,
-                                         DeviceServiceImpl deviceServiceImpl,
+                                         IDeviceService deviceService,
                                          DeviceAssembler deviceAssembler,
-                                         ActuatorModelServiceImpl actuatorModelServiceImpl,
+                                         IActuatorModelService actuatorModelService,
                                          ActuatorModelAssembler actuatorModelAssembler,
-                                         ActuatorTypeServiceImpl actuatorTypeServiceImpl,
+                                         smart_home.domain.service.IActuatorTypeService actuatorTypeService,
                                          ActuatorTypeAssembler actuatorTypeAssembler,
                                          ActuatorAssembler actuatorAssembler,
-                                         ActuatorServiceImpl actuatorServiceImpl) {
-        validateRoomService(roomServiceImpl);
+                                         smart_home.domain.service.IActuatorService actuatorService) {
+        validateRoomService(roomService);
         validateRoomAssembler(roomAssembler);
-        validateDeviceService(deviceServiceImpl);
+        validateDeviceService(deviceService);
         validateDeviceAssembler(deviceAssembler);
-        validateActuatorModelService(actuatorModelServiceImpl);
+        validateActuatorModelService(actuatorModelService);
         validateActuatorModelAssembler(actuatorModelAssembler);
-        validateActuatorTypeService(actuatorTypeServiceImpl);
+        validateActuatorTypeService(actuatorTypeService);
         validateActuatorTypeAssembler(actuatorTypeAssembler);
         validateActuatorAssembler(actuatorAssembler);
-        validateActuatorService(actuatorServiceImpl);
+        validateActuatorService(actuatorService);
     }
 
     /**
      * Validates the room service.
      *
-     * @param roomServiceImpl The room service.
+     * @param roomService The room service.
      */
-    private void validateRoomService(RoomServiceImpl roomServiceImpl) {
-        if (roomServiceImpl == null) {
+    private void validateRoomService(IRoomService roomService) {
+        if (roomService == null) {
             throw new IllegalArgumentException("Please enter a valid room service.");
         } else {
-            this._roomServiceImpl = roomServiceImpl;
+            this._roomService = roomService;
         }
     }
 
@@ -84,13 +89,13 @@ public class AddActuatorToDeviceController {
     /**
      * Validates the device service.
      *
-     * @param deviceServiceImpl The device service.
+     * @param deviceService The device service.
      */
-    private void validateDeviceService(DeviceServiceImpl deviceServiceImpl) {
-        if (deviceServiceImpl == null) {
+    private void validateDeviceService(IDeviceService deviceService) {
+        if (deviceService == null) {
             throw new IllegalArgumentException("Please enter a valid device service.");
         } else {
-            this._deviceServiceImpl = deviceServiceImpl;
+            this._deviceService = deviceService;
         }
     }
 
@@ -112,11 +117,11 @@ public class AddActuatorToDeviceController {
      *
      * @param actuatorModelServiceImpl The actuator model service.
      */
-    private void validateActuatorModelService(ActuatorModelServiceImpl actuatorModelServiceImpl) {
+    private void validateActuatorModelService(IActuatorModelService actuatorModelServiceImpl) {
         if (actuatorModelServiceImpl == null) {
             throw new IllegalArgumentException("Please enter a valid actuator model service.");
         } else {
-            this._actuatorModelServiceImpl = actuatorModelServiceImpl;
+            this._actuatorModelService = actuatorModelServiceImpl;
         }
     }
 
@@ -136,13 +141,13 @@ public class AddActuatorToDeviceController {
     /**
      * Validates the actuator type service.
      *
-     * @param actuatorTypeServiceImpl The actuator type service.
+     * @param actuatorTypeService The actuator type service.
      */
-    private void validateActuatorTypeService(ActuatorTypeServiceImpl actuatorTypeServiceImpl) {
-        if (actuatorTypeServiceImpl == null) {
+    private void validateActuatorTypeService(IActuatorTypeService actuatorTypeService) {
+        if (actuatorTypeService == null) {
             throw new IllegalArgumentException("Please enter a valid actuator type service.");
         } else {
-            this._actuatorTypeServiceImpl = actuatorTypeServiceImpl;
+            this._actuatorTypeService = actuatorTypeService;
         }
     }
 
@@ -170,13 +175,13 @@ public class AddActuatorToDeviceController {
     /**
      * Validates the actuator service.
      *
-     * @param actuatorServiceImpl The actuator service.
+     * @param actuatorService The actuator service.
      */
-    private void validateActuatorService(ActuatorServiceImpl actuatorServiceImpl) {
-        if (actuatorServiceImpl == null) {
+    private void validateActuatorService(IActuatorService actuatorService) {
+        if (actuatorService == null) {
             throw new IllegalArgumentException("Please enter a valid actuator service.");
         } else {
-            this._actuatorServiceImpl = actuatorServiceImpl;
+            this._actuatorService = actuatorService;
         }
     }
 
@@ -187,7 +192,7 @@ public class AddActuatorToDeviceController {
      */
     public List<RoomDTO> getRooms() {
 
-        List<Room> listOfRooms = _roomServiceImpl.getAllRooms();
+        List<Room> listOfRooms = _roomService.getAllRooms();
         if (listOfRooms == null || listOfRooms.isEmpty()) {
             return Collections.emptyList(); // Return an empty list if there are no devices.
         }
@@ -205,11 +210,11 @@ public class AddActuatorToDeviceController {
     public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
         RoomID roomID = new RoomID(roomDTO.roomId);
 
-        if (!_roomServiceImpl.getRoomById(roomID).isPresent()) {
+        if (!_roomService.getRoomById(roomID).isPresent()) {
             throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
         }
 
-        List<Device> devices = _deviceServiceImpl.getDevicesByRoomId(roomID);
+        List<Device> devices = _deviceService.getDevicesByRoomId(roomID);
 
         List<DeviceDTO> deviceDTOList = _deviceAssembler.domainToDTO(devices);
 
@@ -223,7 +228,7 @@ public class AddActuatorToDeviceController {
      * @return a list of actuator types.
      */
     public List<ActuatorTypeDTO> getActuatorTypes() {
-        List<ActuatorType> actuatorTypeList = _actuatorTypeServiceImpl.getAllActuatorTypes();
+        List<ActuatorType> actuatorTypeList = _actuatorTypeService.getAllActuatorTypes();
         if (actuatorTypeList.isEmpty()) {
             throw new IllegalArgumentException("No actuator types found.");
         }
@@ -239,11 +244,11 @@ public class AddActuatorToDeviceController {
 
     public List<ActuatorModelDTO> getActuatorModels(ActuatorTypeDTO actuatorTypeDTO) {
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeDTO.actuatorTypeID);
-        if (!_actuatorTypeServiceImpl.getActuatorTypeByID(actuatorTypeID).isPresent()) {
+        if (!_actuatorTypeService.getActuatorTypeByID(actuatorTypeID).isPresent()) {
             throw new IllegalArgumentException("Actuator type with ID " + actuatorTypeID + " not found.");
         }
 
-        List<ActuatorModel> actuatorModels = _actuatorModelServiceImpl.getActuatorModelsByActuatorTypeId(actuatorTypeID);
+        List<ActuatorModel> actuatorModels = _actuatorModelService.getActuatorModelsByActuatorTypeId(actuatorTypeID);
         if (actuatorModels == null || actuatorModels.isEmpty()) {
             throw new IllegalArgumentException("No actuator models found.");
         }
@@ -267,7 +272,7 @@ public class AddActuatorToDeviceController {
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataDTO.actuatorTypeID);
         ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
 
-        IActuator actuator = _actuatorServiceImpl.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
+        IActuator actuator = _actuatorService.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
 
         return _actuatorAssembler.domainToDTO(actuator);
     }

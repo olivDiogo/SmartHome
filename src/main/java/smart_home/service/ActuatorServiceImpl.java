@@ -6,7 +6,6 @@ import smart_home.domain.actuator.IActuator;
 import smart_home.domain.actuator.IActuatorFactory;
 import smart_home.domain.device.Device;
 import smart_home.domain.repository.IDeviceRepository;
-import smart_home.domain.service.IActuatorService;
 import smart_home.value_object.*;
 
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.Optional;
 /**
  * This class represents a service for managing actuators.
  */
-public class ActuatorServiceImpl implements IActuatorService {
+public class ActuatorServiceImpl implements smart_home.domain.service.IActuatorService {
 
     private final IRepository<ActuatorID, IActuator> _actuatorRepository;
     private final IActuatorFactory _actuatorFactory;

@@ -3,7 +3,6 @@ package smart_home.service;
 import smart_home.ddd.IRepository;
 import smart_home.domain.actuator_type.ActuatorType;
 import smart_home.domain.actuator_type.IActuatorTypeFactory;
-import smart_home.domain.service.IActuatorTypeService;
 import smart_home.domain.unit.Unit;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.TypeDescription;
@@ -12,7 +11,7 @@ import smart_home.value_object.UnitID;
 import java.util.List;
 import java.util.Optional;
 
-public class ActuatorTypeServiceImpl implements IActuatorTypeService {
+public class ActuatorTypeServiceImpl implements smart_home.domain.service.IActuatorTypeService {
     private final IRepository<ActuatorTypeID, ActuatorType> _actuatorTypeRepository;
     private final IActuatorTypeFactory _actuatorTypeFactory;
     private final IRepository<UnitID, Unit> _unitRepository;

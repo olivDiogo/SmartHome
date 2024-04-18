@@ -1,4 +1,4 @@
-package smart_home.repository;
+package smart_home.domain.repository;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.actuator_type.ActuatorType;

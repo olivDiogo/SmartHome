@@ -31,10 +31,10 @@ class ActuatorServiceImplTest {
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
         //Act
-        ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
+        ActuatorServiceImpl ActuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
 
         //Assert
-        assertNotNull(actuatorServiceImpl);
+        assertNotNull(ActuatorServiceImpl);
     }
 
     /**
@@ -101,7 +101,7 @@ class ActuatorServiceImplTest {
         IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-        ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
+        ActuatorServiceImpl ActuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
 
         Device mockDevice = mock(Device.class);
         IActuator mockActuator = mock(IActuator.class);
@@ -110,7 +110,7 @@ class ActuatorServiceImplTest {
         when(actuatorFactory.createActuator(deviceID, modelPath, actuatorTypeID, actuatorName)).thenReturn(mockActuator);
 
         //Act
-        IActuator actuator = actuatorServiceImpl.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
+        IActuator actuator = ActuatorServiceImpl.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
 
         //Assert
         assertNotNull(actuator);
@@ -132,12 +132,12 @@ class ActuatorServiceImplTest {
         IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-        ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
+        ActuatorServiceImpl ActuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
 
         when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> actuatorServiceImpl.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName));
+        assertThrows(IllegalArgumentException.class, () -> ActuatorServiceImpl.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName));
     }
 
     /**
@@ -156,13 +156,13 @@ class ActuatorServiceImplTest {
         IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-        ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
+        ActuatorServiceImpl ActuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
 
         IActuator mockActuator = mock(IActuator.class);
         when(actuatorRepository.ofIdentity(actuatorID)).thenReturn(Optional.of(mockActuator));
 
         //Act
-        Optional<IActuator> actuator = actuatorServiceImpl.getActuatorByID(actuatorID);
+        Optional<IActuator> actuator = ActuatorServiceImpl.getActuatorByID(actuatorID);
 
         //Assert
         assertTrue(actuator.isPresent());
@@ -181,12 +181,12 @@ class ActuatorServiceImplTest {
         IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-        ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
+        ActuatorServiceImpl ActuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
 
         when(actuatorRepository.ofIdentity(actuatorID)).thenReturn(Optional.empty());
 
         //Act
-        Optional<IActuator> actuator = actuatorServiceImpl.getActuatorByID(actuatorID);
+        Optional<IActuator> actuator = ActuatorServiceImpl.getActuatorByID(actuatorID);
 
         //Assert
         assertTrue(actuator.isEmpty());
@@ -208,7 +208,7 @@ class ActuatorServiceImplTest {
         ModelPath modelPath = mock(ModelPath.class);
         DeviceID deviceID = mock(DeviceID.class);
 
-        ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
+        ActuatorServiceImpl ActuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
 
         IActuator mockActuator = mock(IActuator.class);
         IActuator mockActuator2 = mock(IActuator.class);
@@ -217,7 +217,7 @@ class ActuatorServiceImplTest {
         int expectedActuators = 2;
 
         //Act
-        List<IActuator> actuators = actuatorServiceImpl.getAllActuators();
+        List<IActuator> actuators = ActuatorServiceImpl.getAllActuators();
 
         //Assert
         assertEquals(expectedActuators, actuators.size());
@@ -233,12 +233,12 @@ class ActuatorServiceImplTest {
         IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-        ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
+        ActuatorServiceImpl ActuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
 
         when(actuatorRepository.findAll()).thenReturn(List.of());
 
         //Act
-        List<IActuator> actuators = actuatorServiceImpl.getAllActuators();
+        List<IActuator> actuators = ActuatorServiceImpl.getAllActuators();
 
         //Assert
         assertTrue(actuators.isEmpty());

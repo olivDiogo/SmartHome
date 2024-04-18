@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import smart_home.domain.actuator_type.ActuatorType;
 import smart_home.persistence.assembler.IDataModelAssembler;
 import smart_home.persistence.jpa.data_model.ActuatorTypeDataModel;
-import smart_home.repository.IActuatorTypeRepository;
+import smart_home.domain.repository.IActuatorTypeRepository;
 import smart_home.value_object.ActuatorTypeID;
 
 import java.util.List;
