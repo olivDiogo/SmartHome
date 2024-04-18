@@ -1,6 +1,6 @@
 package smart_home.controller;
 
-import smart_home.assembler.*;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.actuator.IActuator;
 import smart_home.domain.actuator_model.ActuatorModel;
 import smart_home.domain.actuator_type.ActuatorType;
@@ -16,16 +16,16 @@ import java.util.List;
 
 public class AddActuatorToDeviceController {
     private IRoomService _roomService;
-    private RoomAssembler _roomAssembler;
+    private IAssembler<Room, RoomDTO> _roomAssembler;
     private IDeviceService _deviceService;
-    private DeviceAssembler _deviceAssembler;
+    private IAssembler<Device, DeviceDTO> _deviceAssembler;
     private IActuatorModelService _actuatorModelService;
-    private ActuatorModelAssembler _actuatorModelAssembler;
+    private IAssembler<ActuatorModel, ActuatorModelDTO> _actuatorModelAssembler;
     private ConfigurationService _configurationService;
-    private smart_home.domain.service.IActuatorTypeService _actuatorTypeService;
-    private ActuatorTypeAssembler _actuatorTypeAssembler;
-    private ActuatorAssembler _actuatorAssembler;
-    private smart_home.domain.service.IActuatorService _actuatorService;
+    private IActuatorTypeService _actuatorTypeService;
+    private IAssembler<ActuatorType, ActuatorTypeDTO> _actuatorTypeAssembler;
+    private IAssembler<IActuator, ActuatorDTO> _actuatorAssembler;
+    private IActuatorService _actuatorService;
 
 
     /**
@@ -39,15 +39,15 @@ public class AddActuatorToDeviceController {
      * @param actuatorService The actuator service.
      */
     public AddActuatorToDeviceController(IRoomService roomService,
-                                         RoomAssembler roomAssembler,
+                                         IAssembler<Room, RoomDTO> roomAssembler,
                                          IDeviceService deviceService,
-                                         DeviceAssembler deviceAssembler,
+                                         IAssembler<Device, DeviceDTO> deviceAssembler,
                                          IActuatorModelService actuatorModelService,
-                                         ActuatorModelAssembler actuatorModelAssembler,
-                                         smart_home.domain.service.IActuatorTypeService actuatorTypeService,
-                                         ActuatorTypeAssembler actuatorTypeAssembler,
-                                         ActuatorAssembler actuatorAssembler,
-                                         smart_home.domain.service.IActuatorService actuatorService) {
+                                         IAssembler<ActuatorModel, ActuatorModelDTO> actuatorModelAssembler,
+                                         IActuatorTypeService actuatorTypeService,
+                                         IAssembler<ActuatorType, ActuatorTypeDTO> actuatorTypeAssembler,
+                                         IAssembler<IActuator, ActuatorDTO> actuatorAssembler,
+                                         IActuatorService actuatorService) {
         validateRoomService(roomService);
         validateRoomAssembler(roomAssembler);
         validateDeviceService(deviceService);
@@ -78,7 +78,7 @@ public class AddActuatorToDeviceController {
      *
      * @param roomAssembler The room assembler.
      */
-    private void validateRoomAssembler(RoomAssembler roomAssembler) {
+    private void validateRoomAssembler(IAssembler<Room, RoomDTO> roomAssembler) {
         if (roomAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid room assembler.");
         } else {
@@ -104,7 +104,7 @@ public class AddActuatorToDeviceController {
      *
      * @param deviceAssembler The device assembler.
      */
-    private void validateDeviceAssembler(DeviceAssembler deviceAssembler) {
+    private void validateDeviceAssembler(IAssembler<Device, DeviceDTO> deviceAssembler) {
         if (deviceAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid device assembler.");
         } else {
@@ -130,7 +130,7 @@ public class AddActuatorToDeviceController {
      *
      * @param actuatorModelAssembler The actuator model assembler.
      */
-    private void validateActuatorModelAssembler(ActuatorModelAssembler actuatorModelAssembler) {
+    private void validateActuatorModelAssembler(IAssembler<ActuatorModel, ActuatorModelDTO> actuatorModelAssembler) {
         if (actuatorModelAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid actuator model assembler.");
         } else {
@@ -156,7 +156,7 @@ public class AddActuatorToDeviceController {
      *
      * @param actuatorTypeAssembler The actuator type assembler.
      */
-    private void validateActuatorTypeAssembler(ActuatorTypeAssembler actuatorTypeAssembler) {
+    private void validateActuatorTypeAssembler(IAssembler<ActuatorType, ActuatorTypeDTO> actuatorTypeAssembler) {
         if (actuatorTypeAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid actuator type assembler.");
         } else {
@@ -164,7 +164,7 @@ public class AddActuatorToDeviceController {
         }
     }
 
-    private void validateActuatorAssembler(ActuatorAssembler actuatorAssembler) {
+    private void validateActuatorAssembler(IAssembler<IActuator, ActuatorDTO> actuatorAssembler) {
         if (actuatorAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid actuator assembler.");
         } else {
@@ -274,7 +274,7 @@ public class AddActuatorToDeviceController {
 
         IActuator actuator = _actuatorService.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
 
-        return _actuatorAssembler.domainToDTO(actuator);
+        return (ActuatorDTO) _actuatorAssembler.domainToDTO(actuator);
     }
 
 
@@ -288,6 +288,4 @@ public class AddActuatorToDeviceController {
             throw new IllegalArgumentException("Please enter a valid actuator data DTO.");
         }
     }
-
-
 }
