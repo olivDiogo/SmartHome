@@ -2,6 +2,7 @@ package smart_home.controller;
 
 import smart_home.assembler.SensorTypeAssembler;
 import smart_home.assembler.UnitAssembler;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.sensor_type.SensorType;
 import smart_home.domain.service.ISensorTypeService;
 import smart_home.domain.service.IUnitService;
@@ -19,8 +20,8 @@ import java.util.List;
 public class AddSensorTypeController {
     private ISensorTypeService _sensorTypeService;
     private IUnitService _unitService;
-    private SensorTypeAssembler _sensorTypeAssembler;
-    private UnitAssembler _unitAssembler;
+    private IAssembler<SensorType, SensorTypeDTO> _sensorTypeAssembler;
+    private IAssembler<Unit, UnitDTO> _unitAssembler;
 
     /**
      * Constructs an AddSensorTypeController with the specified services and assemblers.
@@ -30,8 +31,8 @@ public class AddSensorTypeController {
      * @param unitService The service for managing units.
      * @param unitAssembler The assembler for converting units to DTOs.
      */
-    public AddSensorTypeController(ISensorTypeService sensorTypeService, SensorTypeAssembler sensorTypeAssembler,
-                                   IUnitService unitService, UnitAssembler unitAssembler) {
+    public AddSensorTypeController(ISensorTypeService sensorTypeService, IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler,
+                                   IUnitService unitService, IAssembler<Unit, UnitDTO> unitAssembler) {
         validateSensorTypeService(sensorTypeService);
         validateUnitService(unitService);
         validateSensorTypeAssembler(sensorTypeAssembler);
@@ -67,7 +68,7 @@ public class AddSensorTypeController {
      *
      * @param sensorTypeAssembler The sensor type assembler to validate.
      */
-    private void validateSensorTypeAssembler(SensorTypeAssembler sensorTypeAssembler) {
+    private void validateSensorTypeAssembler(IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler) {
         if (sensorTypeAssembler == null) {
             throw new IllegalArgumentException("Valid SensorTypeAssembler is required");
         }
@@ -79,7 +80,7 @@ public class AddSensorTypeController {
      *
      * @param unitAssembler The unit assembler to validate.
      */
-    private void validateUnitAssembler(UnitAssembler unitAssembler) {
+    private void validateUnitAssembler(IAssembler<Unit, UnitDTO> unitAssembler) {
         if (unitAssembler == null) {
             throw new IllegalArgumentException("Valid UnitAssembler is required");
         }
