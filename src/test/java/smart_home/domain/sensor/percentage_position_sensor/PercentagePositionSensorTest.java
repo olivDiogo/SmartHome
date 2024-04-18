@@ -319,15 +319,19 @@ class PercentagePositionSensorTest {
             SensorName sensorName = mock(SensorName.class);
             SensorTypeID sensorTypeID = mock(SensorTypeID.class);
             when(sensorTypeID.getID()).thenReturn("PercentagePosition");
-            SensorID sensorID = mock(SensorID.class);
 
-            PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
 
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+            PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+            SensorID percentagePositionSensorID = percentagePositionSensor.getID();
+            int expected = percentagePositionSensorID.hashCode();
             //Act
             int result = percentagePositionSensor.hashCode();
 
             //Assert
-            assertNotNull(result);
+            assertEquals(expected, result);
+        }
         }
 
     /**
