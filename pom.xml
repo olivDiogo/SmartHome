@@ -36,6 +36,11 @@
         <maven-surefire-plugin>3.0.0-M9</maven-surefire-plugin>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <spring-boot.version>3.2.4</spring-boot.version>
+        <!-- Spring Data JPA version -->
+        <spring-data-jpa.version>3.2.4</spring-data-jpa.version>
+        <!-- Hibernate version -->
+        <hibernate.version>5.6.4.Final</hibernate.version>
 
     </properties>
 
@@ -115,6 +120,25 @@
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.1.4.Final</version>
+        </dependency>
+
+        <!-- Hibernate Core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
     </dependencies>
 
@@ -200,7 +224,12 @@
                         <feature>+auto_threads</feature>
                     </features>
                 </configuration>
+            </plugin>
 
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
             </plugin>
 
         </plugins>
