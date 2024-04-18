@@ -2148,11 +2148,11 @@ public class AddSensorToDeviceControllerTest {
     RoomID roomID = room.getID();
     DeviceName deviceName = new DeviceName(name1);
     DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+    DeviceTypeID deviceTypeID = new DeviceTypeID("PercentPosition");
 
     Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
 
-    TypeDescription typeDescription = new TypeDescription("Position");
+    TypeDescription typeDescription = new TypeDescription("PercentagePosition");
     UnitID unit = new UnitID("Percent");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);
@@ -2368,11 +2368,11 @@ public class AddSensorToDeviceControllerTest {
     RoomID roomID = room.getID();
     DeviceName deviceName = new DeviceName(name1);
     DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+    DeviceTypeID deviceTypeID = new DeviceTypeID("PercentPosition");
 
     Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
 
-    TypeDescription typeDescription = new TypeDescription("Position");
+    TypeDescription typeDescription = new TypeDescription("PercentagePosition");
     UnitID unit = new UnitID("Percent");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);

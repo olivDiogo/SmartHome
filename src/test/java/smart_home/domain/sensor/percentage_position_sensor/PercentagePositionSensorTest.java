@@ -2,10 +2,11 @@ package smart_home.domain.sensor.percentage_position_sensor;
 
 
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 import smart_home.value_object.*;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 /**
@@ -14,6 +15,9 @@ import static org.mockito.Mockito.when;
 class PercentagePositionSensorTest {
 
 
+    /**
+     * Test to verify that an instance of PercentagePositionSensor is created when the constructor arguments are valid.
+     */
     @Test
     void shouldInstantiatePercentagePositionSensor_whenConstructorArgumentsAreValid() {
         //Arrange
@@ -21,12 +25,16 @@ class PercentagePositionSensorTest {
         ModelPath modelPath = mock(ModelPath.class);
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("PercentagePosition");
 
-        //Act
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        try (MockedConstruction<SensorID> mocked = mockConstruction(SensorID.class)) {
 
-        //Assert
-        assertNotNull(percentagePositionSensor);
+            //Act
+            PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+            //Assert
+            assertNotNull(percentagePositionSensor);
+        }
     }
 
     /**
@@ -39,6 +47,8 @@ class PercentagePositionSensorTest {
         ModelPath modelPath = null;
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("PercentagePosition");
+
 
         //Act & Assert
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
@@ -57,9 +67,15 @@ class PercentagePositionSensorTest {
         SensorName sensorName = null;
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
 
-        //Act & Assert
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
-        assertEquals("SensorName is required", thrown.getMessage());
+        String expectedMessage = "SensorName is required";
+
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+
+
+            //Act & Assert
+            IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
+            assertEquals(expectedMessage, thrown.getMessage());
+        }
     }
 
     /**
@@ -73,9 +89,14 @@ class PercentagePositionSensorTest {
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = null;
 
-        //Act & Assert
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
-        assertEquals("SensorTypeID is required", thrown.getMessage());
+        String expectedMessage = "SensorTypeID is required";
+
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+
+            //Act & Assert
+            IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
+            assertEquals(expectedMessage, thrown.getMessage());
+        }
     }
 
     /**
@@ -88,10 +109,17 @@ class PercentagePositionSensorTest {
         ModelPath modelPath = mock(ModelPath.class);
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("PercentagePosition");
 
-        //Act & Assert
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
-        assertEquals("DeviceID is required", thrown.getMessage());
+
+        String expectedMessage = "DeviceID is required";
+
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+            //Act & Assert
+            IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
+            assertEquals(expectedMessage, thrown.getMessage());
+
+        }
     }
 
 
@@ -105,13 +133,21 @@ class PercentagePositionSensorTest {
         ModelPath modelPath = mock(ModelPath.class);
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("PercentagePosition");
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        int expected = 14;
 
-        // Act
-        PercentagePositionSensorValue result = percentagePositionSensor.getValue();
-        // Assert
-        assertNotNull(result);
+
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+
+            // Act
+            PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+            int value = Integer.parseInt(percentagePositionSensor.getValue().toString());
+
+            // Assert
+            assertEquals(expected, value);
+        }
 
     }
 
@@ -119,257 +155,267 @@ class PercentagePositionSensorTest {
      * Test to verify with mock that the correct ID is returned when getID is called.
      */
     @Test
-    void shouldReturnSensorValue_whenGetIDIsCalled() {
+    void shouldReturnSensorID_whenGetIDIsCalled() {
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
         SensorID sensorID = mock(SensorID.class);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        when(sensorTypeID.getID()).thenReturn("PercentagePosition");
 
-        // Act
-        SensorID result = percentagePositionSensor.getID();
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
 
-        // Assert
-        assertNotNull(result);
+            PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+            // Act
+            SensorID result = percentagePositionSensor.getID();
+
+            // Assert
+            assertNotNull(result);
+        }
     }
 
     /**
      * Test to verify that the correct SensorTypeID is returned when getSensorTypeID is called.
      */
     @Test
-    void shouldReturnSensorValue_whenGetSensorTypeIDIsCalled() {
+    void shouldReturnSensorTypeID_whenGetSensorTypeIDIsCalled() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        when(sensorTypeID.getID()).thenReturn("PercentagePosition");
 
-        // Act
-        SensorTypeID result = percentagePositionSensor.getSensorTypeID();
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
 
-        // Assert
-        assertNotNull(result);
+            PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-    }
+            // Act
+            SensorTypeID result = percentagePositionSensor.getSensorTypeID();
+
+            // Assert
+            assertEquals(sensorTypeID, result);
+            }
+
+        }
+        /**
+         * Test to verify that the correct DeviceID is returned when getDeviceID is called.
+         */
+        @Test
+        void shouldReturnDeviceID_whenGetDeviceIDIsCalled () {
+            // Arrange
+            DeviceID deviceID = mock(DeviceID.class);
+            ModelPath modelPath = mock(ModelPath.class);
+            SensorName sensorName = mock(SensorName.class);
+            SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+
+            when(sensorTypeID.getID()).thenReturn("PercentagePosition");
+
+            try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+
+                PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+                // Act
+                DeviceID result = percentagePositionSensor.getDeviceID();
+
+                // Assert
+                assertEquals(deviceID, result);
+            }
+        }
+
+        /**
+         * Test to verify with mock that the correct ModelPath is returned when getModelPath is called.
+         */
+        @Test
+        void shouldReturnSensorModelPath_whenGetModelPathIsCalled () {
+            // Arrange
+            DeviceID deviceID = mock(DeviceID.class);
+            ModelPath modelPath = mock(ModelPath.class);
+            SensorName sensorName = mock(SensorName.class);
+            SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+
+            when(sensorTypeID.getID()).thenReturn("PercentagePosition");
+
+            try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+
+                PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+                // Act
+                ModelPath result = percentagePositionSensor.getModelPath();
+
+                // Assert
+                assertEquals(modelPath, result);
+            }
+        }
+
+        /**
+         * Test to verify with mock that the correct SensorName is returned when getName is called.
+         */
+        @Test
+        void shouldReturnSensorName_whenGetNameIsCalled () {
+            // Arrange
+            DeviceID deviceID = mock(DeviceID.class);
+            ModelPath modelPath = mock(ModelPath.class);
+            SensorName sensorName = mock(SensorName.class);
+            SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+
+            when(sensorTypeID.getID()).thenReturn("PercentagePosition");
+
+            try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+
+                PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+                // Act
+                SensorName result = percentagePositionSensor.getName();
+
+                // Assert
+                assertEquals(sensorName, result);
+            }
+
+        }
+
+
     /**
-     * Test to verify that the correct DeviceID is returned when getDeviceID is called.
+     * Test to verify that the correct SensorID is returned when getID is called.
      */
     @Test
-    void shouldReturnSensorValue_whenGetDeviceIDIsCalled() {
-        // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    void shouldReturnFalse_WhenInstancesAreNotEqual () {
+            //Arrange
+            DeviceID deviceID1 = mock(DeviceID.class);
+            ModelPath modelPath1 = mock(ModelPath.class);
+            SensorName sensorName1 = mock(SensorName.class);
+            SensorTypeID sensorTypeID1 = mock(SensorTypeID.class);
+            when(sensorTypeID1.getID()).thenReturn("PercentagePosition");
+            SensorID sensorID1 = mock(SensorID.class);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+            DeviceID deviceID2 = mock(DeviceID.class);
+            ModelPath modelPath2 = mock(ModelPath.class);
+            SensorName sensorName2 = mock(SensorName.class);
+            SensorTypeID sensorTypeID2 = mock(SensorTypeID.class);
+            when(sensorTypeID2.getID()).thenReturn("PercentagePosition");
+            SensorID sensorID2 = mock(SensorID.class);
 
-        // Act
-        DeviceID result = percentagePositionSensor.getDeviceID();
+            PercentagePositionSensor percentagePositionSensor1 = new PercentagePositionSensor(deviceID1, modelPath1, sensorTypeID1, sensorName1, sensorID1);
+            PercentagePositionSensor percentagePositionSensor2 = new PercentagePositionSensor(deviceID2, modelPath2, sensorTypeID2, sensorName2, sensorID2);
 
-        // Assert
-        assertNotNull(result);
-    }
+            //Act
+            boolean result = percentagePositionSensor1.equals(percentagePositionSensor2);
 
-    /**
-     * Test to verify with mock that the correct ModelPath is returned when getModelPath is called.
-     */
-    @Test
-    void shouldReturnSensorValue_whenGetModelPathIsCalled() {
-        // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
-
-        // Act
-        ModelPath result = percentagePositionSensor.getModelPath();
-
-        // Assert
-        assertNotNull(result);
-    }
+            //Assert
+            assertFalse(result);
+        }
 
     /**
-     * Test to verify with mock that the correct SensorName is returned when getName is called.
+     * Test to verify that the correct SensorID is returned when getID is called.
      */
     @Test
-    void shouldReturnSensorValue_whenGetNameIsCalled() {
-        // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    void shouldReturnPercentagePositionSensorHashCode_WhenHashCodeMethodIsCalled () {
+            //Arrange
+            DeviceID deviceID = mock(DeviceID.class);
+            ModelPath modelPath = mock(ModelPath.class);
+            SensorName sensorName = mock(SensorName.class);
+            SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+            when(sensorTypeID.getID()).thenReturn("PercentagePosition");
+            SensorID sensorID = mock(SensorID.class);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+            PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
 
-        // Act
-        SensorName result = percentagePositionSensor.getName();
+            //Act
+            int result = percentagePositionSensor.hashCode();
 
-        // Assert
-        assertNotNull(result);
+            //Assert
+            assertNotNull(result);
+        }
 
-    }
-
-
-    @Test
-    void shouldInstantiatePercentagePositionSensor_WhenSensorIDIsValid () {
-        //Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorTypeID.getID()).thenReturn("Percentage");
-
-        SensorID sensorID = mock(SensorID.class);
-
-        //Act
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
-
-        //Assert
-        assertNotNull(percentagePositionSensor);
-    }
-
-    @Test
-    void shouldReturnFalse_WhenInstancesAreNotEqual() {
-        //Arrange
-        DeviceID deviceID1 = mock(DeviceID.class);
-        ModelPath modelPath1 = mock(ModelPath.class);
-        SensorName sensorName1 = mock(SensorName.class);
-        SensorTypeID sensorTypeID1 = mock(SensorTypeID.class);
-        when(sensorTypeID1.getID()).thenReturn("Percentage");
-        SensorID sensorID1 = mock(SensorID.class);
-
-        DeviceID deviceID2 = mock(DeviceID.class);
-        ModelPath modelPath2 = mock(ModelPath.class);
-        SensorName sensorName2 = mock(SensorName.class);
-        SensorTypeID sensorTypeID2 = mock(SensorTypeID.class);
-        when(sensorTypeID2.getID()).thenReturn("Percentage");
-        SensorID sensorID2 = mock(SensorID.class);
-
-        PercentagePositionSensor percentagePositionSensor1 = new PercentagePositionSensor(deviceID1, modelPath1, sensorTypeID1, sensorName1, sensorID1);
-        PercentagePositionSensor percentagePositionSensor2 = new PercentagePositionSensor(deviceID2, modelPath2, sensorTypeID2, sensorName2, sensorID2);
-
-        //Act
-        boolean result = percentagePositionSensor1.equals(percentagePositionSensor2);
-
-        //Assert
-        assertFalse(result);
-    }
-
-    @Test
-    void shouldReturnPercentagePositionSensorHashCode_WhenHashCodeMethodIsCalled() {
-        //Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorTypeID.getID()).thenReturn("Percentage");
-        SensorID sensorID = mock(SensorID.class);
-
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
-
-        //Act
-        int result = percentagePositionSensor.hashCode();
-
-        //Assert
-        assertNotNull(result);
-    }
-
+    /**
+     * Test to verify that the correct SensorID is returned when getID is called.
+     */
     @Test
     void shouldReturnPercentagePositionSensorInString_WhenToStringMethodIsCalled () {
-        //Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorTypeID.getID()).thenReturn("Percentage");
-        SensorID sensorID = mock(SensorID.class);
+            //Arrange
+            DeviceID deviceID = mock(DeviceID.class);
+            ModelPath modelPath = mock(ModelPath.class);
+            SensorName sensorName = mock(SensorName.class);
+            SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+            when(sensorTypeID.getID()).thenReturn("PercentagePosition");
+            SensorID sensorID = mock(SensorID.class);
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+            PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
 
-        //Act
-        String result = percentagePositionSensor.toString();
+            //Act
+            String result = percentagePositionSensor.toString();
 
-        //Assert
-        assertNotNull(result);
-    }
+            //Assert
+            assertNotNull(result);
+        }
 
+    /**
+     * Instantiates a sensor when sensor ID is valid
+     */
     @Test
     void shouldInstantiatePercentagePositionSensor_WhenValidateSensorIDIsValid () {
-        //Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
+            //Arrange
+            DeviceID deviceID = mock(DeviceID.class);
+            ModelPath modelPath = mock(ModelPath.class);
+            SensorName sensorName = mock(SensorName.class);
 
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorTypeID.getID()).thenReturn("Percentage");
+            SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+            when(sensorTypeID.getID()).thenReturn("PercentagePosition");
 
-        SensorID sensorID = mock(SensorID.class);
+            SensorID sensorID = mock(SensorID.class);
 
-        //Act
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+            //Act
+            PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
 
-        //Assert
-        assertNotNull(percentagePositionSensor);
-    }
+            //Assert
+            assertNotNull(percentagePositionSensor);
+        }
 
+
+    /**
+     * Should return false when comparing with a null object
+     */
     @Test
-    void shouldInstantiatePercentagePositionSensor_WhenValidateSensorIDIsNotValid () {
-        //Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
+    void shouldReturnFalse_WhenComparingObjectWithNull () {
+            //Arrange
+            DeviceID deviceID = mock(DeviceID.class);
+            ModelPath modelPath = mock(ModelPath.class);
+            SensorName sensorName = mock(SensorName.class);
+            SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+            SensorID sensorID = mock(SensorID.class);
 
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorTypeID.getID()).thenReturn("Percentage");
+            when(sensorTypeID.getID()).thenReturn("PercentagePosition");
 
-        SensorID sensorID = mock(SensorID.class);
 
-        //Act
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+            PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
 
-        //Assert
-        assertNotNull(percentagePositionSensor);
-    }
+            //Act
+            boolean result = percentagePositionSensor.equals(null);
 
-    /** test equals false */
+            //Assert
+            assertFalse(result);
+        }
 
+    /**
+     * Should throw an exception when sensor ID is null
+     */
     @Test
-    void shouldReturnFalse_WhenComparingObjectWithNull() {
-        //Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        SensorID sensorID = mock(SensorID.class);
+    void shouldThrowIllegalArgumentException_whenValidateSensorIDIsNull () {
+            //Arrange
+            DeviceID deviceID = mock(DeviceID.class);
+            ModelPath modelPath = mock(ModelPath.class);
+            SensorName sensorName = mock(SensorName.class);
+            SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+            SensorID sensorID = null;
 
-        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+            when(sensorTypeID.getID()).thenReturn("PercentagePosition");
 
-        //Act
-        boolean result = percentagePositionSensor.equals(null);
 
-        //Assert
-        assertFalse(result);
+            //Act & Assert
+            IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));
+            assertEquals("SensorID is required", thrown.getMessage());
+        }
     }
-
-    @Test
-    void shouldThrowIllegalArgumentException_whenValidateSensorIDIsNull() {
-        //Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        SensorID sensorID = null;
-
-        //Act & Assert
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));
-        assertEquals("SensorID cannot be null.", thrown.getMessage());
-    }
-}

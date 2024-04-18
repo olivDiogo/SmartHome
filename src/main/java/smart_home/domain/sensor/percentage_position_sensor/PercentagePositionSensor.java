@@ -1,6 +1,7 @@
 package smart_home.domain.sensor.percentage_position_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.UUID;
@@ -28,10 +29,10 @@ public class PercentagePositionSensor implements ISensor {
      * @throws IllegalArgumentException if any of the parameters are null.
      */
     public PercentagePositionSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        validateModelPath(modelPath);
-        validateSensorName(sensorName);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(sensorName);
         validateSensorTypeID(sensorTypeID);
-        validateDeviceID(deviceID);
+        Validator.validateNotNull(deviceID);
         generatePercentageID();
 
         this._modelPath = modelPath;
@@ -51,11 +52,11 @@ public class PercentagePositionSensor implements ISensor {
      * @throws IllegalArgumentException if any of the parameters are null.
      */
     public PercentagePositionSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        validateModelPath(modelPath);
-        validateSensorName(sensorName);
+        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(sensorName);
         validateSensorTypeID(sensorTypeID);
-        validateDeviceID(deviceID);
-        validateSensorID(sensorID);
+        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(sensorID);
 
         this._modelPath = modelPath;
         this._sensorName = sensorName;
@@ -66,44 +67,10 @@ public class PercentagePositionSensor implements ISensor {
 
 
     /**
-     * Validates the sensorID.
-     * @param sensorID The sensorID.
-     */
-    private void validateSensorID(SensorID sensorID) {
-        if (sensorID == null) {
-            throw new IllegalArgumentException("SensorID cannot be null.");
-        }
-    }
-
-    /**
      * Generates a unique ID for the sensor.
      */
     private void generatePercentageID() {
         this._sensorID = new SensorID(UUID.randomUUID().toString());
-    }
-
-    /**
-     * Validates the model path.
-     *
-     * @param modelPath The model path to validate.
-     * @throws IllegalArgumentException if the model path is null.
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("ModelPath is required");
-        }
-    }
-
-    /**
-     * Validates the sensor name.
-     *
-     * @param sensorName The sensor name to validate.
-     * @throws IllegalArgumentException if the sensor name is null.
-     */
-    private void validateSensorName(SensorName sensorName) {
-        if (sensorName == null) {
-            throw new IllegalArgumentException("SensorName is required");
-        }
     }
 
     /**
@@ -113,22 +80,13 @@ public class PercentagePositionSensor implements ISensor {
      * @throws IllegalArgumentException if the sensor type ID is null.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("SensorTypeID is required");
+        Validator.validateNotNull(sensorTypeID);
+
+        if (!sensorTypeID.getID().equals("PercentagePosition")) {
+            throw new IllegalArgumentException("SensorTypeID must be 'PercentagePosition'");
         }
     }
 
-    /**
-     * Validates the device ID.
-     *
-     * @param deviceID The device ID to validate.
-     * @throws IllegalArgumentException if the device ID is null.
-     */
-    private void validateDeviceID(DeviceID deviceID) {
-        if (deviceID == null) {
-            throw new IllegalArgumentException("DeviceID is required");
-        }
-    }
 
     /**
      * Gets the ID of the sensor.

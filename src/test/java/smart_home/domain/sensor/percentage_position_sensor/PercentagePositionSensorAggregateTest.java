@@ -23,7 +23,7 @@ class PercentagePositionSensorAggregateTest {
         //Arrange
         DeviceID deviceID = new DeviceID("1");
         ModelPath modelPath = new ModelPath("modelPath");
-        SensorTypeID sensorTypeID = new SensorTypeID("1");
+        SensorTypeID sensorTypeID = new SensorTypeID("PercentagePosition");
         SensorName sensorName = new SensorName("sensorName");
 
         //Act
@@ -41,7 +41,7 @@ class PercentagePositionSensorAggregateTest {
         //Arrange
         DeviceID deviceID = new DeviceID("1");
         ModelPath modelPath = null;
-        SensorTypeID sensorTypeID = new SensorTypeID("1");
+        SensorTypeID sensorTypeID = new SensorTypeID("PercentagePosition");
         SensorName sensorName = new SensorName("sensorName");
 
         //Act & Assert
@@ -57,7 +57,7 @@ class PercentagePositionSensorAggregateTest {
         //Arrange
         DeviceID deviceID = new DeviceID("1");
         ModelPath modelPath = new ModelPath("modelPath");
-        SensorTypeID sensorTypeID = new SensorTypeID("1");
+        SensorTypeID sensorTypeID = new SensorTypeID("PercentagePosition");
         SensorName sensorName = null;
 
         //Act & Assert
@@ -89,7 +89,7 @@ class PercentagePositionSensorAggregateTest {
         //Arrange
         DeviceID deviceID = null;
         ModelPath modelPath = new ModelPath("modelPath");
-        SensorTypeID sensorTypeID = new SensorTypeID("1");
+        SensorTypeID sensorTypeID = new SensorTypeID("PercentagePosition");
         SensorName sensorName = new SensorName("sensorName");
 
         //Act & Assert
@@ -106,7 +106,7 @@ class PercentagePositionSensorAggregateTest {
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -126,12 +126,12 @@ class PercentagePositionSensorAggregateTest {
      * Test to verify that the correct ID is returned when getID is called.
      */
     @Test
-    void shouldReturnSensorValue_whenGetIDIsCalled() {
+    void shouldReturnSensorID_whenGetIDIsCalled() {
         // Arrange
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -152,12 +152,12 @@ class PercentagePositionSensorAggregateTest {
      * Test to verify that the correct SensorTypeID is returned when getSensorTypeID is called.
      */
     @Test
-    void shouldReturnSensorValue_whenGetSensorTypeIDIsCalled() {
+    void shouldReturnSensorTypeID_whenGetSensorTypeIDIsCalled() {
         // Arrange
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -178,12 +178,12 @@ class PercentagePositionSensorAggregateTest {
      * Test to verify that the correct DeviceID is returned when getDeviceID is called.
      */
     @Test
-    void shouldReturnSensorValue_whenGetDeviceIDIsCalled() {
+    void shouldReturnDeviceID_whenGetDeviceIDIsCalled() {
         // Arrange
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -204,12 +204,12 @@ class PercentagePositionSensorAggregateTest {
      * Test to verify that the correct ModelPath is returned when getModelPath is called.
      */
     @Test
-    void shouldReturnSensorValue_whenGetModelPathIsCalled() {
+    void shouldReturnModelPath_whenGetModelPathIsCalled() {
         // Arrange
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -230,12 +230,12 @@ class PercentagePositionSensorAggregateTest {
      * Test to verify that the correct SensorName is returned when getName is called.
      */
     @Test
-    void shouldReturnSensorValue_whenGetNameIsCalled() {
+    void shouldReturnSensorName_whenGetNameIsCalled() {
         // Arrange
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -258,7 +258,7 @@ class PercentagePositionSensorAggregateTest {
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -281,7 +281,7 @@ class PercentagePositionSensorAggregateTest {
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -305,7 +305,7 @@ class PercentagePositionSensorAggregateTest {
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -331,7 +331,7 @@ class PercentagePositionSensorAggregateTest {
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -357,7 +357,7 @@ class PercentagePositionSensorAggregateTest {
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
         String sensorIDValue = "SensorID";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
@@ -382,7 +382,7 @@ class PercentagePositionSensorAggregateTest {
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "Percentage";
+        String sensorTypeIDValue = "PercentagePosition";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
         ModelPath modelPath = new ModelPath(modelPathValue);
@@ -390,7 +390,7 @@ class PercentagePositionSensorAggregateTest {
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
         SensorID sensorID = null;
 
-        String expectedMessage = "SensorID cannot be null.";
+        String expectedMessage = "SensorID is required";
 
         //Act + assert
         Exception exception = Assertions.assertThrows(
