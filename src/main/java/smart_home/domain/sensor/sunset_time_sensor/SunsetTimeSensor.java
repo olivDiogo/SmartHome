@@ -29,15 +29,15 @@ public class SunsetTimeSensor implements ISensor {
      * @param gps is the gps
      */
     public SunsetTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps) {
-       Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(deviceID, "DeviceID");
         _deviceID = deviceID;
         validateSensorTypeID(sensorTypeID);
         _sensorTypeID = sensorTypeID;
-       Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(modelPath, "ModelPath");
         _modelPath = modelPath;
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorName, "SensorName");
         _sensorName = sensorName;
-        Validator.validateNotNull(gps);
+        Validator.validateNotNull(gps, "GPS");
         _gps = gps;
 
         generateSensorID();
@@ -54,17 +54,17 @@ public class SunsetTimeSensor implements ISensor {
      * @param sensorID is the sensor id
      */
     public SunsetTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps, SensorID sensorID) {
-        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(deviceID, "DeviceID");
         _deviceID = deviceID;
         validateSensorTypeID(sensorTypeID);
         _sensorTypeID = sensorTypeID;
-        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(modelPath, "ModelPath");
         _modelPath = modelPath;
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorName, "SensorName");
         _sensorName = sensorName;
-        Validator.validateNotNull(gps);
+        Validator.validateNotNull(gps, "GPS");
         _gps = gps;
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(sensorID, "SensorID");
         _sensorID = sensorID;
     }
 
@@ -73,7 +73,7 @@ public class SunsetTimeSensor implements ISensor {
      * @param sensorTypeID is the sensor type id
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!sensorTypeID.getID().equals("SunsetTime")) {
             throw new IllegalArgumentException("SensorTypeID must be 'SunsetTime'.");

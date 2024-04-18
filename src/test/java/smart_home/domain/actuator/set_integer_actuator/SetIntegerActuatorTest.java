@@ -321,7 +321,7 @@ class SetIntegerActuatorTest {
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetInteger");
         SetIntegerActuatorLimits limits = null;
-        String expectedMessage ="SetIntegerActuatorLimits are required";
+        String expectedMessage ="SetIntegerActuatorLimits is required";
         ActuatorID actuatorID = mock(ActuatorID.class);
 
 
@@ -346,7 +346,7 @@ class SetIntegerActuatorTest {
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetInteger");
         SetIntegerActuatorLimits limits = null;
-        String expectedMessage ="SetIntegerActuatorLimits are required";
+        String expectedMessage ="SetIntegerActuatorLimits is required";
 
         // Act & Assert
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {

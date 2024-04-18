@@ -28,9 +28,9 @@ public class HumiditySensor implements ISensor {
      * @param sensorName   The name of the sensor.
      */
     public HumiditySensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
         generateHumidityID();
 
@@ -50,11 +50,11 @@ public class HumiditySensor implements ISensor {
      * @param sensorID is the sensor id
      */
     public HumiditySensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(sensorID, "SensorID");
 
         this._deviceID = deviceID;
         this._sensorTypeID = sensorTypeID;
@@ -77,7 +77,7 @@ public class HumiditySensor implements ISensor {
      * @throws IllegalArgumentException if the sensor type ID is null or not of type 'Humidity'.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-       Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!Objects.equals(sensorTypeID.getID(), "Humidity")) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'Humidity'");

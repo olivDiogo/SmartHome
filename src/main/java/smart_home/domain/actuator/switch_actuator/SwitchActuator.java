@@ -26,9 +26,9 @@ public class SwitchActuator implements IActuator {
      */
 
     public SwitchActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(actuatorName);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(actuatorName, "ActuatorName");
         validateActuatorTypeID(actuatorTypeID);
 
         generateActuatorID();
@@ -47,11 +47,11 @@ public class SwitchActuator implements IActuator {
      * @param actuatorName   the actuator name
      */
     public SwitchActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(actuatorName);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(actuatorName, "ActuatorName");
         validateActuatorTypeID(actuatorTypeID);
-        Validator.validateNotNull(actuatorID);
+        Validator.validateNotNull(actuatorID, "ActuatorID");
 
         this._actuatorTypeID = actuatorTypeID;
         this._actuatorName = actuatorName;
@@ -74,7 +74,7 @@ public class SwitchActuator implements IActuator {
      * @param actuatorTypeID the actuator type id
      */
     private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
-       Validator.validateNotNull(actuatorTypeID);
+        Validator.validateNotNull(actuatorTypeID, "ActuatorTypeID");
 
         if (!actuatorTypeID.getID().equals("Switch")) {
             throw new IllegalArgumentException("The value of 'actuatorTypeID' should be 'Switch'.");

@@ -25,11 +25,11 @@ public class SetIntegerActuator implements IActuator {
      * @param actuatorName is the name of the actuator
      */
     public SetIntegerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetIntegerActuatorLimits limits) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(actuatorName);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(actuatorName, "ActuatorName");
         validateActuatorTypeID(actuatorTypeID);
-        Validator.validateNotNull(limits);
+        Validator.validateNotNull(limits, "SetIntegerActuatorLimits");
 
         this._actuatorTypeID = actuatorTypeID;
         this._actuatorName = actuatorName;
@@ -48,12 +48,12 @@ public class SetIntegerActuator implements IActuator {
      * @param actuatorName is the name of the actuator
      */
     public SetIntegerActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetIntegerActuatorLimits limits) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(actuatorName);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(actuatorName, "ActuatorName");
         validateActuatorTypeID(actuatorTypeID);
-        Validator.validateNotNull(limits);
-        Validator.validateNotNull(actuatorID);
+        Validator.validateNotNull(limits, "SetIntegerActuatorLimits");
+        Validator.validateNotNull(actuatorID, "ActuatorID");
 
         this._actuatorTypeID = actuatorTypeID;
         this._actuatorName = actuatorName;
@@ -79,7 +79,7 @@ public class SetIntegerActuator implements IActuator {
      * @param actuatorTypeID
      */
     private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
-        Validator.validateNotNull(actuatorTypeID);
+        Validator.validateNotNull(actuatorTypeID, "ActuatorTypeID");
 
         if (!actuatorTypeID.getID().equals("SetInteger")) {
             throw new IllegalArgumentException("ActuatorTypeID must be SetInteger");

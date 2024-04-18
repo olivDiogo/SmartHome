@@ -39,32 +39,32 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
 
     public ElectricConsumptionWhSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, DatePeriod datePeriod) {
-        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(deviceID, "DeviceID");
         this._deviceID = deviceID;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(modelPath, "ModelPath");
         this._modelPath = modelPath;
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorName, "SensorName");
         this._sensorName = sensorName;
-        Validator.validateNotNull(datePeriod);
+        Validator.validateNotNull(datePeriod, "DatePeriod");
         this._datePeriod = datePeriod;
 
         generateElectricConsumptionWhID();
     }
 
     public ElectricConsumptionWhSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, DatePeriod datePeriod, SensorID sensorID) {
-        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(deviceID, "DeviceID");
         this._deviceID = deviceID;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(modelPath, "ModelPath");
         this._modelPath = modelPath;
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorName, "SensorName");
         this._sensorName = sensorName;
-        Validator.validateNotNull(datePeriod);
+        Validator.validateNotNull(datePeriod, "DatePeriod");
         this._datePeriod = datePeriod;
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(sensorID, "SensorID");
         this._sensorID = sensorID;
     }
 
@@ -82,7 +82,7 @@ public class ElectricConsumptionWhSensor implements ISensor {
      * @param sensorTypeID the type ID of the sensor
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!Objects.equals("ElectricConsumptionWh", sensorTypeID.getID())) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'ElectricConsumptionWh'");

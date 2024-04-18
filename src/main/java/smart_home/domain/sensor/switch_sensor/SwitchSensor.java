@@ -23,10 +23,10 @@ public class SwitchSensor implements ISensor {
      * @param sensorName   The sensor name.
      */
     public SwitchSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
         validateSensorTypeID(sensorTypeID);
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorName, "SensorName");
         generateSwitchSensorID();
 
         switchSensorValue = new SwitchSensorValue(false);
@@ -45,11 +45,11 @@ public class SwitchSensor implements ISensor {
      * @param sensorID   The sensor ID.
      */
     public SwitchSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
         validateSensorTypeID(sensorTypeID);
-        Validator.validateNotNull(sensorName);
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(sensorName, "SensorName");
+        Validator.validateNotNull(sensorID, "SensorID");
 
         switchSensorValue = new SwitchSensorValue(false);
         this._modelPath = modelPath;
@@ -74,7 +74,7 @@ public class SwitchSensor implements ISensor {
      * @param sensorTypeID The sensor type ID.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!Objects.equals(sensorTypeID.getID(), "Switch")) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'Switch'");

@@ -24,11 +24,11 @@ public class SunriseTimeSensor implements ISensor {
      *
      */
     public SunriseTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
-        Validator.validateNotNull(gps);
+        Validator.validateNotNull(gps, "GPS");
 
         generateSensorID();
         this._deviceID = deviceID;
@@ -43,12 +43,12 @@ public class SunriseTimeSensor implements ISensor {
      *
      */
     public SunriseTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps, SensorID sensorID) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
-        Validator.validateNotNull(gps);
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(gps, "GPS");
+        Validator.validateNotNull(sensorID, "SensorID");
 
         this._deviceID = deviceID;
         this._sensorTypeID = sensorTypeID;
@@ -60,7 +60,7 @@ public class SunriseTimeSensor implements ISensor {
 
 
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!sensorTypeID.getID().equals("SunriseTime")) {
             throw new IllegalArgumentException("SensorTypeID must be 'SunriseTime'.");

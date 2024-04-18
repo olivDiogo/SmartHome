@@ -26,13 +26,13 @@ public class TemperatureSensor implements ISensor {
      * @param sensorTypeID The sensor type ID.
      */
     public TemperatureSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(modelPath, "ModelPath");
         this._modelPath = modelPath;
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorName, "SensorName");
         this._sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(deviceID, "DeviceID");
         this._deviceID = deviceID;
 
         generateTemperatureID();
@@ -48,15 +48,15 @@ public class TemperatureSensor implements ISensor {
      * @param sensorID     The sensor ID.
      */
     public TemperatureSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(modelPath, "ModelPath");
         this._modelPath = modelPath;
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorName, "SensorName");
         this._sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(deviceID, "DeviceID");
         this._deviceID = deviceID;
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(sensorID, "SensorID");
         this._sensorID = sensorID;
     }
 
@@ -74,7 +74,7 @@ public class TemperatureSensor implements ISensor {
      * @param sensorTypeID The sensor type ID.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-       Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!Objects.equals(sensorTypeID.getID(), "Temperature")) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'Temperature'");

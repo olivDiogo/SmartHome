@@ -17,9 +17,9 @@ public class WindSensor implements ISensor {
     private DeviceID _deviceID;
 
     public WindSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
 
         generateWindID();
@@ -39,11 +39,11 @@ public class WindSensor implements ISensor {
      * @param sensorID The sensor ID.
      */
     public WindSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(sensorID, "SensorID");
 
         this._modelPath = modelPath;
         this._sensorName = sensorName;
@@ -66,7 +66,7 @@ public class WindSensor implements ISensor {
      * @param sensorTypeID The sensor type ID.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!Objects.equals(sensorTypeID.getID(), "Wind")) {
             throw new IllegalArgumentException("SensorTypeID must be 'Wind'");

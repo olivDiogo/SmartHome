@@ -2,9 +2,12 @@ package smart_home.domain.sensor.solar_irradiance_sensor;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
+import smart_home.domain.sensor.temperature_sensor.TemperatureSensor;
 import smart_home.value_object.*;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class SolarIrradianceSensorTest {
@@ -87,15 +90,16 @@ public class SolarIrradianceSensorTest {
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
-            // Act
-            try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assert e.getMessage().equals("DeviceID is required");
-            }
-        }
+        String expected = "DeviceID is required";
+
+        // Act
+        IllegalArgumentException result = assertThrows(IllegalArgumentException.class, () -> {
+
+            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        //Assert
+        assertEquals(expected, result.getMessage());
     }
 
     /**
@@ -109,14 +113,19 @@ public class SolarIrradianceSensorTest {
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
 
+        String expectedMessage = "ModelPath is required";
+
         try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
-            // Act
-            try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assert e.getMessage().equals("ModelPath is required");
-            }
+            // Act + Assert
+            Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+                new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
+            });
+
+            String actualMessage = exception.getMessage();
+
+            //Assert
+            assertEquals(expectedMessage, actualMessage);
+
         }
     }
 
@@ -131,15 +140,15 @@ public class SolarIrradianceSensorTest {
         SensorName sensorName = null;
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
-            // Act
-            try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assert e.getMessage().equals("SensorName is required");
-            }
-        }
+        String expected = "SensorName is required";
+
+        //Act
+        IllegalArgumentException result = assertThrows(IllegalArgumentException.class, () -> {
+            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        //Assert
+        assertEquals(expected, result.getMessage());
     }
 
     /**
@@ -153,15 +162,15 @@ public class SolarIrradianceSensorTest {
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = null;
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
-            // Act
-            try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assert e.getMessage().equals("SensorTypeID is required");
-            }
-        }
+        String expected = "SensorTypeID is required";
+
+        //Act
+        IllegalArgumentException result = assertThrows(IllegalArgumentException.class, () -> {
+            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        });
+
+        //Assert
+        assertEquals(expected, result.getMessage());
     }
 
     /**
@@ -171,27 +180,30 @@ public class SolarIrradianceSensorTest {
     void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNotSolarIrradiance() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorTypeID.getID()).thenReturn("NotSolarIrradiance");
+    ModelPath modelPath = mock(ModelPath.class);
+    SensorName sensorName = mock(SensorName.class);
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    when(sensorTypeID.getID()).thenReturn("NotSolarIrradiance");
 
-        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
-            // Act
-            try {
-                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assert e.getMessage().equals("SensorTypeID must be SolarIrradiance");
-            }
-        }
-    }
+    String expected = "SensorTypeID must be SolarIrradiance";
 
-    /**
-     * Tests the getter for the sensorID.
-     */
-    @Test
-    void shouldReturnSensorID_whenGetSensorIDIsCalled() {
+    // Act
+    IllegalArgumentException result =
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> {
+              new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+            });
+
+    // Assert
+    assertEquals(expected, result.getMessage());
+  }
+
+  /**
+   * Tests the getter for the sensorID.
+   */
+  @Test
+  void shouldReturnSensorID_whenGetSensorIDIsCalled() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);

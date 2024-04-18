@@ -38,10 +38,10 @@ public class AveragePowerConsumptionSensor implements ISensor {
     public AveragePowerConsumptionSensor(
             DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName)
             throws IllegalArgumentException {
-        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(deviceID, "DeviceID");
         validateSensorTypeID(sensorTypeID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
 
         generateSensorID();
 
@@ -63,10 +63,15 @@ public class AveragePowerConsumptionSensor implements ISensor {
     public AveragePowerConsumptionSensor(
             DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID)
             throws IllegalArgumentException {
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(sensorName);
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
+        Validator.validateNotNull(sensorID, "SensorID");
+
+        //delete this
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
+
+
         validateSensorTypeID(sensorTypeID);
         _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(0);
         _powerConsumptions = new HashMap<>();
@@ -79,7 +84,7 @@ public class AveragePowerConsumptionSensor implements ISensor {
     }
 
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!sensorTypeID.getID().equals("AveragePowerConsumption")) {
             throw new IllegalArgumentException("SensorTypeID must be 'AveragePowerConsumption'.");

@@ -33,10 +33,10 @@ public class BlindRollerActuator implements IActuator {
       ModelPath modelPath,
       ActuatorTypeID actuatorTypeID,
       ActuatorName actuatorName) {
-    Validator.validateNotNull(deviceID);
+    Validator.validateNotNull(deviceID, "DeviceID");
     validateActuatorTypeID(actuatorTypeID);
-    Validator.validateNotNull(actuatorName);
-    Validator.validateNotNull(modelPath);
+    Validator.validateNotNull(actuatorName, "ActuatorName");
+    Validator.validateNotNull(modelPath, "ModelPath");
 
     generateActuatorID();
     this._actuatorTypeID = actuatorTypeID;
@@ -60,11 +60,11 @@ public class BlindRollerActuator implements IActuator {
       ModelPath modelPath,
       ActuatorTypeID actuatorTypeID,
       ActuatorName actuatorName) {
-    Validator.validateNotNull(deviceID);
+    Validator.validateNotNull(deviceID, "DeviceID");
     validateActuatorTypeID(actuatorTypeID);
-    Validator.validateNotNull(actuatorName);
-    Validator.validateNotNull(modelPath);
-    Validator.validateNotNull(actuatorID);
+    Validator.validateNotNull(actuatorName, "ActuatorName");
+    Validator.validateNotNull(modelPath, "ModelPath");
+    Validator.validateNotNull(actuatorID, "ActuatorID");
 
     this._deviceID = deviceID;
     this._actuatorID = actuatorID;
@@ -80,7 +80,7 @@ public class BlindRollerActuator implements IActuator {
    * @throws IllegalArgumentException If the actuatorTypeID is null.
    */
   private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
-    Validator.validateNotNull(actuatorTypeID);
+    Validator.validateNotNull(actuatorTypeID, "ActuatorTypeID");
     if (!actuatorTypeID.getID().equals("BlindRoller")) {
       throw new IllegalArgumentException("The value of 'actuatorTypeID' should be 'BlindRoller'.");
     }

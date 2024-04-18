@@ -24,16 +24,15 @@ public class SolarIrradianceSensor implements ISensor {
      * @param sensorName   is the sensor name
      */
     public SolarIrradianceSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        Validator.validateNotNull(deviceID);
-        this._deviceID = deviceID;
-        Validator.validateNotNull(modelPath);
-        this._modelPath = modelPath;
-        Validator.validateNotNull(sensorName);
-        this._sensorName = sensorName;
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
-
         generateSensorID();
+        this._deviceID = deviceID;
+        this._modelPath = modelPath;
+        this._sensorTypeID = sensorTypeID;
+        this._sensorName = sensorName;
     }
 
     /**
@@ -46,16 +45,16 @@ public class SolarIrradianceSensor implements ISensor {
      * @param sensorID     is the sensor id
      */
     public SolarIrradianceSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        Validator.validateNotNull(deviceID);
-        this._deviceID = deviceID;
-        Validator.validateNotNull(modelPath);
-        this._modelPath = modelPath;
-        Validator.validateNotNull(sensorName);
-        this._sensorName = sensorName;
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(sensorID, "SensorID");
         this._sensorID = sensorID;
+        this._deviceID = deviceID;
+        this._modelPath = modelPath;
+        this._sensorTypeID = sensorTypeID;
+        this._sensorName = sensorName;
     }
 
     /**
@@ -72,12 +71,11 @@ public class SolarIrradianceSensor implements ISensor {
      * @param sensorTypeID is the sensor type id
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!Objects.equals(sensorTypeID.getID(), "SolarIrradiance")) {
             throw new IllegalArgumentException("SensorTypeID must be SolarIrradiance");
         }
-
     }
 
 
@@ -129,7 +127,6 @@ public class SolarIrradianceSensor implements ISensor {
     @Override
     public SolarIrradianceValue getValue() {
         this._value = new SolarIrradianceValue(4500);
-
         return this._value;
     }
 

@@ -12,12 +12,12 @@ import java.util.UUID;
  */
 public class PercentagePositionSensor implements ISensor {
 
-    private ModelPath _modelPath; // The model path of the sensor.
-    private SensorName _sensorName; // The name of the sensor.
-    private SensorID _sensorID; // The ID of the sensor.
-    private SensorTypeID _sensorTypeID; // The type ID of the sensor.
-    private PercentagePositionSensorValue _percentagePositionSensorValue; // The value of the sensor.
-    private DeviceID _deviceID; // The ID of the device associated with the sensor.
+    private ModelPath _modelPath;
+    private SensorName _sensorName;
+    private SensorID _sensorID;
+    private SensorTypeID _sensorTypeID;
+    private PercentagePositionSensorValue _percentagePositionSensorValue;
+    private DeviceID _deviceID;
 
     /**
      * Constructs a PercentagePositionSensor with the given parameters.
@@ -29,12 +29,11 @@ public class PercentagePositionSensor implements ISensor {
      * @throws IllegalArgumentException if any of the parameters are null.
      */
     public PercentagePositionSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
-        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(deviceID, "DeviceID");
         generatePercentageID();
-
         this._modelPath = modelPath;
         this._sensorName = sensorName;
         this._sensorTypeID = sensorTypeID;
@@ -52,11 +51,11 @@ public class PercentagePositionSensor implements ISensor {
      * @throws IllegalArgumentException if any of the parameters are null.
      */
     public PercentagePositionSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
-        Validator.validateNotNull(modelPath);
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(modelPath, "ModelPath");
+        Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
-        Validator.validateNotNull(deviceID);
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(sensorID, "SensorID");
 
         this._modelPath = modelPath;
         this._sensorName = sensorName;
@@ -80,7 +79,7 @@ public class PercentagePositionSensor implements ISensor {
      * @throws IllegalArgumentException if the sensor type ID is null.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!sensorTypeID.getID().equals("PercentagePosition")) {
             throw new IllegalArgumentException("SensorTypeID must be 'PercentagePosition'");

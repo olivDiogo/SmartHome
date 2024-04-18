@@ -327,7 +327,7 @@ class SetDecimalActuatorAggregateTest {
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
         SetDecimalActuatorLimits limits = null;
 
-        String expectedMessage = "SetDecimalActuatorLimits are required";
+        String expectedMessage = "SetDecimalActuatorLimits is required";
 
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -351,7 +351,7 @@ class SetDecimalActuatorAggregateTest {
         SetDecimalActuatorLimits limits = null;
         ActuatorID actuatorID = new ActuatorID("123");
 
-        String expectedMessage = "SetDecimalActuatorLimits are required";
+        String expectedMessage = "SetDecimalActuatorLimits is required";
 
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {

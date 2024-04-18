@@ -201,7 +201,7 @@ class SetDecimalActuatorTest {
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
         SetDecimalActuatorLimits limits = null;
-        String expectedMessage = "SetDecimalActuatorLimits are required";
+        String expectedMessage = "SetDecimalActuatorLimits is required";
 
         // Act & Assert
         Exception exception = assertThrows(Exception.class, () -> {

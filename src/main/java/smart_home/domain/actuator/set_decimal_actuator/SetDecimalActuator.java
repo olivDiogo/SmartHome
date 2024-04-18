@@ -38,11 +38,11 @@ public class SetDecimalActuator {
       ActuatorTypeID actuatorTypeID,
       ActuatorName actuatorName,
       SetDecimalActuatorLimits limits) {
-    Validator.validateNotNull(deviceID);
-    Validator.validateNotNull(modelPath);
-    Validator.validateNotNull(actuatorName);
+    Validator.validateNotNull(deviceID, "DeviceID");
+    Validator.validateNotNull(modelPath, "ModelPath");
+    Validator.validateNotNull(actuatorName, "ActuatorName");
     validateActuatorTypeID(actuatorTypeID);
-    Validator.validateNotNull(limits);
+    Validator.validateNotNull(limits, "SetDecimalActuatorLimits");
 
     generateActuatorID();
     this._actuatorName = actuatorName;
@@ -69,12 +69,12 @@ public class SetDecimalActuator {
       ActuatorTypeID actuatorTypeID,
       ActuatorName actuatorName,
       SetDecimalActuatorLimits limits) {
-    Validator.validateNotNull(deviceID);
-    Validator.validateNotNull(modelPath);
-    Validator.validateNotNull(actuatorName);
+    Validator.validateNotNull(deviceID, "DeviceID");
+    Validator.validateNotNull(modelPath, "ModelPath");
+    Validator.validateNotNull(actuatorName, "ActuatorName");
     validateActuatorTypeID(actuatorTypeID);
-    Validator.validateNotNull(limits);
-    Validator.validateNotNull(actuatorID);
+    Validator.validateNotNull(limits, "SetDecimalActuatorLimits");
+    Validator.validateNotNull(actuatorID, "ActuatorID");
 
     this._actuatorName = actuatorName;
     this._modelPath = modelPath;
@@ -95,7 +95,7 @@ public class SetDecimalActuator {
    * @param actuatorTypeID The ID of the actuator type.
    */
   private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
-    Validator.validateNotNull(actuatorTypeID);
+    Validator.validateNotNull(actuatorTypeID, "ActuatorTypeID");
 
     if (!actuatorTypeID.getID().equals("SetDecimal")) {
       throw new IllegalArgumentException("The value of 'actuatorTypeID' should be 'SetDecimal'.");

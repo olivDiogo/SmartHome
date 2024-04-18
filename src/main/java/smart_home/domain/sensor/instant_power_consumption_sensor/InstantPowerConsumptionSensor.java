@@ -26,13 +26,13 @@ public class InstantPowerConsumptionSensor implements ISensor {
      */
     public InstantPowerConsumptionSensor(
             DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
-        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(modelPath, "ModelPath");
         this._modelPath = modelPath;
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorName, "SensorName");
         this._sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(deviceID, "DeviceID");
         this._deviceID = deviceID;
 
         generateInstantPowerConsumptionID();
@@ -50,15 +50,15 @@ public class InstantPowerConsumptionSensor implements ISensor {
     public InstantPowerConsumptionSensor(
             DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
 
-        Validator.validateNotNull(modelPath);
+        Validator.validateNotNull(modelPath, "ModelPath");
         this._modelPath = modelPath;
-        Validator.validateNotNull(sensorName);
+        Validator.validateNotNull(sensorName, "SensorName");
         this._sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
         this._sensorTypeID = sensorTypeID;
-        Validator.validateNotNull(deviceID);
+        Validator.validateNotNull(deviceID, "DeviceID");
         this._deviceID = deviceID;
-        Validator.validateNotNull(sensorID);
+        Validator.validateNotNull(sensorID, "SensorID");
         this._sensorID = sensorID;
     }
 
@@ -76,7 +76,7 @@ public class InstantPowerConsumptionSensor implements ISensor {
      * @param sensorTypeID The sensor type ID.
      */
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        Validator.validateNotNull(sensorTypeID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
 
         if (!Objects.equals(sensorTypeID.getID(), "InstantPowerConsumption")) {
             throw new IllegalArgumentException("SensorTypeID must be of type 'InstantPowerConsumption'");
