@@ -400,7 +400,126 @@ class PercentagePositionSensorAggregateTest {
         String actualMessage = exception.getMessage();
 
         assertEquals(expectedMessage, actualMessage);
+    }
+    /**
+     * Test to verify that the PercentagePositionSensor throws an exception when the device ID is null
+     * Whit valid sensor ID.
+     */
+    @Test
+    void shouldThrowException_WhenDeviceIDIsNull () {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "PercentagePosition";
+        String sensorIDValue = "SensorID";
 
+        DeviceID deviceID = null;
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        String expectedMessage = "DeviceID is required";
+
+        //Act + assert
+        Exception exception = Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+    /**
+     * Test to verify that the PercentagePositionSensor throws an exception when the model path is null
+     * Whit valid sensor ID.
+     */
+    @Test
+    void shouldThrowException_WhenModelPathIsNull () {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "PercentagePosition";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = null;
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        String expectedMessage = "ModelPath is required";
+
+        //Act + assert
+        Exception exception = Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+    /**
+     * Test to verify that the PercentagePositionSensor throws an exception when the sensor name is null
+     * Whit valid sensor ID.
+     */
+    @Test
+    void shouldThrowException_WhenSensorNameIsNull () {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "PercentagePosition";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = null;
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        String expectedMessage = "SensorName is required";
+
+        //Act + assert
+        Exception exception = Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+    /**
+     * Test to verify that the PercentagePositionSensor throws an exception when the sensor type ID is null
+     * Whit valid sensor ID.
+     */
+    @Test
+    void shouldThrowException_WhenSensorTypeIDIsNull () {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "PercentagePosition";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = null;
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        String expectedMessage = "SensorTypeID is required";
+
+        //Act + assert
+        Exception exception = Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
     }
 
 }
