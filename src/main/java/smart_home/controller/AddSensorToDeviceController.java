@@ -3,6 +3,7 @@ package smart_home.controller;
 import smart_home.assembler.*;
 import smart_home.assembler.sensor_vo_assembler.ISensorVOAssembler;
 import smart_home.assembler.sensor_vo_assembler.SensorVOAssemblerImpl;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;
 import smart_home.domain.sensor.ISensor;
@@ -21,14 +22,14 @@ import java.util.List;
 
 public class AddSensorToDeviceController {
     private IRoomService _roomService;
-    private RoomAssembler _roomAssembler;
+    private IAssembler<Room, RoomDTO> _roomAssembler;
     private IDeviceService _deviceService;
-    private DeviceAssembler _deviceAssembler;
+    private IAssembler<Device, DeviceDTO> _deviceAssembler;
     private ISensorModelService _sensorModelService;
-    private SensorModelAssembler _sensorModelAssembler;
+    private IAssembler<SensorModel, SensorModelDTO> _sensorModelAssembler;
     private ISensorTypeService _sensorTypeService;
-    private SensorTypeAssembler _sensorTypeAssembler;
-    private SensorAssembler _sensorAssembler;
+    private IAssembler<SensorType, SensorTypeDTO> _sensorTypeAssembler;
+    private IAssembler<ISensor, SensorDTO> _sensorAssembler;
     private ISensorService _sensorService;
 
     /**
@@ -38,16 +39,16 @@ public class AddSensorToDeviceController {
      * @param roomAssembler The room assembler.
      */
     public AddSensorToDeviceController(
-            RoomServiceImpl roomService,
-            RoomAssembler roomAssembler,
+            IRoomService roomService,
+            IAssembler<Room, RoomDTO> roomAssembler,
             IDeviceService deviceService,
-            DeviceAssembler deviceAssembler,
-            SensorModelServiceImpl sensorModelService,
-            SensorModelAssembler sensorModelAssembler,
-            SensorTypeServiceImpl sensorTypeService,
-            SensorTypeAssembler sensorTypeAssembler,
-            SensorAssembler sensorAssembler,
-            SensorServiceImpl sensorService) {
+            IAssembler<Device, DeviceDTO> deviceAssembler,
+            ISensorModelService sensorModelService,
+            IAssembler<SensorModel, SensorModelDTO> sensorModelAssembler,
+            ISensorTypeService sensorTypeService,
+            IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler,
+            IAssembler<ISensor, SensorDTO> sensorAssembler,
+            ISensorService sensorService) {
         validateRoomService(roomService);
         validateRoomAssembler(roomAssembler);
         validateDeviceService(deviceService);
@@ -78,7 +79,7 @@ public class AddSensorToDeviceController {
      *
      * @param roomAssembler The room assembler.
      */
-    private void validateRoomAssembler(RoomAssembler roomAssembler) {
+    private void validateRoomAssembler(IAssembler<Room, RoomDTO> roomAssembler) {
         if (roomAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid room assembler.");
         } else {
@@ -104,7 +105,7 @@ public class AddSensorToDeviceController {
      *
      * @param deviceAssembler The device assembler.
      */
-    private void validateDeviceAssembler(DeviceAssembler deviceAssembler) {
+    private void validateDeviceAssembler(IAssembler<Device, DeviceDTO> deviceAssembler) {
         if (deviceAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid device assembler.");
         } else {
@@ -130,7 +131,7 @@ public class AddSensorToDeviceController {
      *
      * @param sensorModelAssembler The sensor model assembler.
      */
-    private void validateSensorModelAssembler(SensorModelAssembler sensorModelAssembler) {
+    private void validateSensorModelAssembler(IAssembler<SensorModel, SensorModelDTO> sensorModelAssembler) {
         if (sensorModelAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid sensor model assembler.");
         } else {
@@ -143,7 +144,7 @@ public class AddSensorToDeviceController {
      *
      * @param sensorTypeService The sensor type service.
      */
-    private void validateSensorTypeService(SensorTypeServiceImpl sensorTypeService) {
+    private void validateSensorTypeService(ISensorTypeService sensorTypeService) {
         if (sensorTypeService == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type service.");
         } else {
@@ -156,7 +157,7 @@ public class AddSensorToDeviceController {
      *
      * @param sensorTypeAssembler The sensor type assembler.
      */
-    private void validateSensorTypeAssembler(SensorTypeAssembler sensorTypeAssembler) {
+    private void validateSensorTypeAssembler(IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler) {
         if (sensorTypeAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type assembler.");
         } else {
@@ -169,7 +170,7 @@ public class AddSensorToDeviceController {
      *
      * @param sensorAssembler The sensor assembler.
      */
-    private void validateSensorAssembler(SensorAssembler sensorAssembler) {
+    private void validateSensorAssembler(IAssembler<ISensor, SensorDTO> sensorAssembler) {
         if (sensorAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid sensor assembler.");
         } else {
