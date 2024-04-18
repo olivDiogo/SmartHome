@@ -13,7 +13,22 @@ public class BlindRollerValueTest {
     @Test
     public void shouldCreateBlindRollerValue() {
         // Arrange
-        int value = 1;
+        int value = 100;
+
+        // Act
+        BlindRollerValue blindRollerValue =  new BlindRollerValue(value);
+
+        // Assert
+        assertNotNull(blindRollerValue);
+    }
+
+    /**
+     * Test constructor
+     */
+    @Test
+    public void shouldCreateBlindRollerWithValueZero() {
+        // Arrange
+        int value = 0;
 
         // Act
         BlindRollerValue blindRollerValue =  new BlindRollerValue(value);

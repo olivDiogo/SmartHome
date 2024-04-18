@@ -62,6 +62,34 @@ class BlindRollerActuatorAggregateTest {
      * Test for invalid deviceID
      */
     @Test
+    void shouldThrowIllegalArgumentException_WhenDeviceIDIsNullForSecondConstructor() {
+        //Arrange
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "BlindRoller";
+
+        DeviceID deviceIDObject = null;
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+        ActuatorID actuatorIDObject = new ActuatorID("1");
+
+        String expectedMessage = "DeviceID is required";
+
+        //Act+Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new BlindRollerActuator(actuatorIDObject, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * Test for invalid deviceID
+     */
+    @Test
     void shouldThrowIllegalArgumentException_WhenDeviceIDIsNull() {
         //Arrange
         String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
@@ -114,6 +142,65 @@ class BlindRollerActuatorAggregateTest {
     }
 
     /**
+     * Test for invalid actuatorTypeID
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorTypeIDIsNullForSecondConstructor() {
+        //Arrange
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorName = "BlindRoller";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = null;
+        ActuatorID actuatorID = new ActuatorID("1");
+
+        String expectedMessage = "ActuatorTypeID is required";
+
+        //Act+Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new BlindRollerActuator(actuatorID, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+
+    }
+
+    /**
+     * Test for invalid actuatorName
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorNameIsNullForSecondConstructor() {
+        //Arrange
+        String deviceID = "1";
+        String modelPath = "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator";
+        String actuatorTypeID = "BlindRoller";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath(modelPath);
+        ActuatorName actuatorNameObject = null;
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+        ActuatorID actuatorID = new ActuatorID("1");
+
+
+        String expectedMessage = "ActuatorName is required";
+
+        //Act+Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new BlindRollerActuator(actuatorID, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+
+    }
+
+    /**
      * Test for invalid actuatorName
      */
     @Test
@@ -146,6 +233,36 @@ class BlindRollerActuatorAggregateTest {
      * Test for invalid modelPath
      */
     @Test
+    void shouldThrowIllegalArgumentException_WhenModelPathIsNullForSecondConstructor() {
+        //Arrange
+        String deviceID = "1";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "BlindRoller";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = null;
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+        ActuatorID actuatorID = new ActuatorID("1");
+
+
+        String expectedMessage = "ModelPath is required";
+
+        //Act+Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new BlindRollerActuator(actuatorID, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+
+    }
+
+    /**
+     * Test for invalid modelPath
+     */
+    @Test
     void shouldThrowIllegalArgumentException_WhenModelPathIsNull() {
         //Arrange
         String deviceID = "1";
@@ -170,6 +287,37 @@ class BlindRollerActuatorAggregateTest {
             assertEquals(expectedMessage, actualMessage);
 
     }
+
+    /**
+     * Test for invalid modelPath
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenActuatorIDIsNullForSecondConstructor() {
+        //Arrange
+        String deviceID = "1";
+        String actuatorName = "BlindRoller";
+        String actuatorTypeID = "BlindRoller";
+
+        DeviceID deviceIDObject = new DeviceID(deviceID);
+        ModelPath modelPathObject = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator");
+        ActuatorName actuatorNameObject = new ActuatorName(actuatorName);
+        ActuatorTypeID actuatorTypeIDObject = new ActuatorTypeID(actuatorTypeID);
+        ActuatorID actuatorID = null;
+
+
+        String expectedMessage = "ActuatorID is required";
+
+        //Act+Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new BlindRollerActuator(actuatorID, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+
+    }
+
 
     /**
      * Test of getID method, of class BlindRollerActuator.

@@ -4,10 +4,8 @@ import smart_home.domain.actuator.set_decimal_actuator.SetDecimalActuatorLimits;
 import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuatorLimits;
 import smart_home.value_object.*;
 
-public class Validator {
+public  class Validator {
 
-    Validator() {
-    }
 
     public static void validateNotNull(DeviceID deviceID) {
         if (deviceID == null) {
