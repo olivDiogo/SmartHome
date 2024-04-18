@@ -724,4 +724,124 @@ class AveragePowerConsumptionAggregateSensorTest {
     //Assert
     assertEquals(expectedMessage, actualMessage);
   }
+
+  /**
+   * Should throw exception when model path null.
+   */
+    @Test
+    void shouldThrowException_WhenModelPathIsNull () {
+      //Arrange
+      String deviceIDValue = "deviceID";
+      String sensorNameValue = "sensorName";
+      String sensorTypeIDValue = "AveragePowerConsumption";
+      String sensorIDValue = "sensorID";
+
+      DeviceID deviceID = new DeviceID(deviceIDValue);
+      ModelPath modelPath = null;
+      SensorName sensorName = new SensorName(sensorNameValue);
+      SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+      SensorID sensorID = new SensorID(sensorIDValue);
+
+      String expectedMessage = "ModelPath is required";
+
+      //Act + Assert
+      Exception e = Assertions.assertThrows(
+          IllegalArgumentException.class,
+          () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+      String actualMessage = e.getMessage();
+
+      //Assert
+      assertEquals(expectedMessage, actualMessage);
+    }
+
+  /**
+   * Should throw exception when sensor name null.
+   */
+    @Test
+    void shouldThrowException_WhenSensorNameIsNull () {
+      //Arrange
+      String deviceIDValue = "deviceID";
+      String modelPathValue = "modelPath";
+      String sensorTypeIDValue = "AveragePowerConsumption";
+      String sensorIDValue = "sensorID";
+
+      DeviceID deviceID = new DeviceID(deviceIDValue);
+      ModelPath modelPath = new ModelPath(modelPathValue);
+      SensorName sensorName = null;
+      SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+      SensorID sensorID = new SensorID(sensorIDValue);
+
+      String expectedMessage = "SensorName is required";
+
+      //Act + Assert
+      Exception e = Assertions.assertThrows(
+          IllegalArgumentException.class,
+          () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+      String actualMessage = e.getMessage();
+
+      //Assert
+      assertEquals(expectedMessage, actualMessage);
+    }
+
+  /**
+   * Should throw exception when sensor type ID null.
+   */
+    @Test
+    void shouldThrowException_WhenSensorTypeIDIsNull () {
+      //Arrange
+      String deviceIDValue = "deviceID";
+      String modelPathValue = "modelPath";
+      String sensorNameValue = "sensorName";
+      String sensorIDValue = "sensorID";
+
+      DeviceID deviceID = new DeviceID(deviceIDValue);
+      ModelPath modelPath = new ModelPath(modelPathValue);
+      SensorName sensorName = new SensorName(sensorNameValue);
+      SensorTypeID sensorTypeID = null;
+      SensorID sensorID = new SensorID(sensorIDValue);
+
+      String expectedMessage = "SensorTypeID is required";
+
+      //Act + Assert
+      Exception e = Assertions.assertThrows(
+          IllegalArgumentException.class,
+          () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+      String actualMessage = e.getMessage();
+
+      //Assert
+      assertEquals(expectedMessage, actualMessage);
+    }
+  /**
+   * Should throw exception when device ID null.
+   */
+    @Test
+    void shouldThrowException_WhenDeviceIDIsNull () {
+      //Arrange
+      String modelPathValue = "modelPath";
+      String sensorNameValue = "sensorName";
+      String sensorTypeIDValue = "AveragePowerConsumption";
+      String sensorIDValue = "sensorID";
+
+      DeviceID deviceID = null;
+      ModelPath modelPath = new ModelPath(modelPathValue);
+      SensorName sensorName = new SensorName(sensorNameValue);
+      SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+      SensorID sensorID = new SensorID(sensorIDValue);
+
+      String expectedMessage = "DeviceID is required";
+
+      //Act + Assert
+      Exception e = Assertions.assertThrows(
+          IllegalArgumentException.class,
+          () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+
+      String actualMessage = e.getMessage();
+
+      //Assert
+      assertEquals(expectedMessage, actualMessage);
+    }
+
 }
