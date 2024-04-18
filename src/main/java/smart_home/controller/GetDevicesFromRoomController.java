@@ -2,6 +2,7 @@ package smart_home.controller;
 
 import smart_home.assembler.DeviceAssembler;
 import smart_home.assembler.RoomAssembler;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;
 import smart_home.domain.service.IDeviceService;
@@ -15,8 +16,8 @@ import java.util.List;
 public class GetDevicesFromRoomController {
     private IRoomService _roomService;
     private IDeviceService _deviceService;
-    private RoomAssembler _roomAssembler;
-    private DeviceAssembler _deviceAssembler;
+    private IAssembler<Room, RoomDTO> _roomAssembler;
+    private IAssembler<Device, DeviceDTO> _deviceAssembler;
 
     /**
      * Constructor for GetDevicesFromRoomController.
@@ -26,7 +27,7 @@ public class GetDevicesFromRoomController {
      * @param roomAssembler   is the assembler for the room.
      * @param deviceAssembler is the assembler for the device.
      */
-    public GetDevicesFromRoomController(IRoomService roomService, IDeviceService deviceService, RoomAssembler roomAssembler, DeviceAssembler deviceAssembler) {
+    public GetDevicesFromRoomController(IRoomService roomService, IDeviceService deviceService, IAssembler<Room, RoomDTO> roomAssembler, IAssembler<Device, DeviceDTO> deviceAssembler) {
         validateRoomService(roomService);
         validateDeviceService(deviceService);
         validateRoomAssembler(roomAssembler);
@@ -64,7 +65,7 @@ public class GetDevicesFromRoomController {
      *
      * @param roomAssembler is the room assembler.
      */
-    private void validateRoomAssembler(RoomAssembler roomAssembler) {
+    private void validateRoomAssembler(IAssembler<Room, RoomDTO> roomAssembler) {
         if (roomAssembler == null) {
             throw new IllegalArgumentException("RoomAssembler is required");
         } else {
@@ -77,7 +78,7 @@ public class GetDevicesFromRoomController {
      *
      * @param deviceAssembler is the device assembler.
      */
-    private void validateDeviceAssembler(DeviceAssembler deviceAssembler) {
+    private void validateDeviceAssembler(IAssembler<Device, DeviceDTO> deviceAssembler) {
         if (deviceAssembler == null) {
             throw new IllegalArgumentException("DeviceAssembler is required");
         } else {
