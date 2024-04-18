@@ -22,7 +22,7 @@ public class DeviceTypeServiceImpl implements IDeviceTypeService {
      * @param deviceTypeRepository The repository for the device type.
      * @param deviceTypeFactory    The factory for the device type.
      */
-    public DeviceTypeServiceImpl(DeviceTypeRepository deviceTypeRepository, IDeviceTypeFactory deviceTypeFactory) {
+    public DeviceTypeServiceImpl(IRepository<DeviceTypeID, DeviceType> deviceTypeRepository, IDeviceTypeFactory deviceTypeFactory) {
         validateDeviceTypeRepository(deviceTypeRepository);
         validateDeviceTypeFactory(deviceTypeFactory);
     }
@@ -32,7 +32,7 @@ public class DeviceTypeServiceImpl implements IDeviceTypeService {
      *
      * @param deviceTypeRepository The repository for the device type.
      */
-    private void validateDeviceTypeRepository(DeviceTypeRepository deviceTypeRepository) {
+    private void validateDeviceTypeRepository(IRepository<DeviceTypeID, DeviceType> deviceTypeRepository) {
         if (deviceTypeRepository == null) {
             throw new IllegalArgumentException("Please enter a valid device type repository.");
         } else {
