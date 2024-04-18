@@ -25,7 +25,7 @@ public class SensorTypeServiceImpl implements ISensorTypeService {
      * @param sensorTypeFactory    is the factory for sensor types.
      * @param unitRepository       is the repository for units.
      */
-    public SensorTypeServiceImpl(IRepository<SensorTypeID, SensorType> sensorTypeRepository, ISensorTypeFactory sensorTypeFactory, UnitRepository unitRepository) {
+    public SensorTypeServiceImpl(IRepository<SensorTypeID, SensorType> sensorTypeRepository, ISensorTypeFactory sensorTypeFactory, IRepository<UnitID, Unit> unitRepository) {
         validateSensorTypeRepository(sensorTypeRepository);
         validateSensorTypeFactory(sensorTypeFactory);
         validateMeasurementTypeRepository(unitRepository);
@@ -62,7 +62,7 @@ public class SensorTypeServiceImpl implements ISensorTypeService {
      *
      * @param unitRepository The MeasurementTypeRepository to validate.
      */
-    private void validateMeasurementTypeRepository(UnitRepository unitRepository) {
+    private void validateMeasurementTypeRepository(IRepository<UnitID, Unit> unitRepository) {
         if (unitRepository == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type repository.");
         } else {
