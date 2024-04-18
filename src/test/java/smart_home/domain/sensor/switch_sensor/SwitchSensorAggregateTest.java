@@ -130,6 +130,161 @@ public class SwitchSensorAggregateTest {
     }
 
     /**
+     * Tests the instantiation of SwitchSensor when the constructor arguments are valid with SensorID.
+     */
+    @Test
+    void shouldInstantiateSwitchSensor_whenConstructorArgumentsAreValidWithSensorID() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        // Act
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        // Assert
+        assertNotNull(switchSensor);
+    }
+
+    /**
+     * Tests the instantiation of SwitchSensor when the sensorID is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorIDIsNull() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = null;
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+
+        // Assert
+        assertEquals("SensorID is required", exception.getMessage());
+    }
+
+    /**
+     * Tests the instantiation of SwitchSensor when the deviceID is null with SensorID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenDeviceIDIsNullWithSensorID() {
+        // Arrange
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = null;
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+
+        // Assert
+        assertEquals("DeviceID is required", exception.getMessage());
+    }
+
+    /**
+     * Tests the instantiation of SwitchSensor when the modelPath is null with SensorID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenModelPathIsNullWithSensorID() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = null;
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+
+        // Assert
+        assertEquals("ModelPath is required", exception.getMessage());
+    }
+
+    /**
+     * Tests the instantiation of SwitchSensor when the sensorTypeID is null with SensorID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNullWithSensorID() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = null;
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+
+        // Assert
+        assertEquals("SensorTypeID is required", exception.getMessage());
+    }
+
+    /**
+     * Tests the instantiation of SwitchSensor when the sensorName is null with SensorID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorNameIsNullWithSensorID() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorTypeIDValue = "Switch";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = null;
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+
+        // Assert
+        assertEquals("SensorName is required", exception.getMessage());
+    }
+
+    /**
      * Tests the getID method of SwitchSensor.
      */
     @Test

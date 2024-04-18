@@ -179,6 +179,159 @@ class SunsetTimeSensorAggregateTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+
+    /**
+     * Test to check if SunsetTimeSensor is instantiated when all attributes are valid
+     */
+    @Test
+    void shouldInstantiateSunsetTimeSensor_whenAttributesAreValidWithSensorID() {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        GPS gps = new GPS(0, 0);
+        SensorID sensorID = new SensorID(UUID.randomUUID().toString());
+
+        //Act
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID);
+
+        //Assert
+        assertNotNull(sunsetTimeSensor);
+    }
+
+    /**
+     * Test to check if IllegalArgumentException is thrown when SensorID is null
+     */
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSensorIDIsNull() {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        GPS gps = new GPS(0, 0);
+        SensorID sensorID = null;
+
+        String expectedMessage = "SensorID is required";
+
+        //Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to check if IllegalArgumentException is thrown when DeviceID is null with SensorID
+     */
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenDeviceIDIsNullWithSensorID() {
+        //Arrange
+        DeviceID deviceID = null;
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        GPS gps = new GPS(0, 0);
+        SensorID sensorID = new SensorID(UUID.randomUUID().toString());
+
+        String expectedMessage = "DeviceID is required";
+
+        //Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to check if IllegalArgumentException is thrown when SensorTypeID is null with SensorID
+     */
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSensorTypeIDIsNullWithSensorID() {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = null;
+        SensorName sensorName = new SensorName("sensorName");
+        GPS gps = new GPS(0, 0);
+        SensorID sensorID = new SensorID(UUID.randomUUID().toString());
+
+        String expectedMessage = "SensorTypeID is required";
+
+        //Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to check if IllegalArgumentException is thrown when ModelPath is null with SensorID
+     */
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenModelPathIsNullWithSensorID() {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = null;
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        GPS gps = new GPS(0, 0);
+        SensorID sensorID = new SensorID(UUID.randomUUID().toString());
+
+        String expectedMessage = "ModelPath is required";
+
+        //Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to check if IllegalArgumentException is thrown when SensorName is null with SensorID
+     */
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSensorNameIsNullWithSensorID() {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = null;
+        GPS gps = new GPS(0, 0);
+        SensorID sensorID = new SensorID(UUID.randomUUID().toString());
+
+        String expectedMessage = "SensorName is required";
+
+        //Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test to check if IllegalArgumentException is thrown when GPS is null with SensorID
+     */
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenGPSIsNullWithSensorID() {
+        //Arrange
+        DeviceID deviceID = new DeviceID(UUID.randomUUID().toString());
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        GPS gps = null;
+        SensorID sensorID = new SensorID(UUID.randomUUID().toString());
+
+        String expectedMessage = "GPS is required";
+
+        //Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+
+        //Assert
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
     /**
      * Test to check if SunsetTimeSensorValue is returned for the current day
      */

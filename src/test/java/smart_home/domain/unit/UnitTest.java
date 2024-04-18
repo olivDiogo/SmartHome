@@ -125,6 +125,26 @@ class UnitTest {
     }
 
     /**
+     * Expects IllegalArgumentException for null unitID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenGivenNullUnitID() {
+        //Arrange
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        UnitID unitIDDouble = null;
+
+        String expectedMessage = "Unit ID is required";
+
+        //Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unitDescriptionDouble, unitDouble, unitIDDouble));
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
      * Tests equality on the same object instance.
      */
     @Test

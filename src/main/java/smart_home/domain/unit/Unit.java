@@ -44,6 +44,7 @@ public class Unit implements IAggregateRoot<UnitID> {
     Unit(UnitDescription unitDescription, UnitSymbol unitSymbol, UnitID unitID) {
         validateUnitSymbol(unitSymbol);
         validateUnitDescription(unitDescription);
+        validateUnitID(unitID);
         this._unitSymbol = unitSymbol;
         this._unitDescription = unitDescription;
         this._unitID = unitID;
@@ -70,6 +71,12 @@ public class Unit implements IAggregateRoot<UnitID> {
     private void validateUnitDescription(UnitDescription unitDescription) {
         if (unitDescription == null) {
             throw new IllegalArgumentException("Unit description is required");
+        }
+    }
+
+    private void validateUnitID(UnitID unitID) {
+        if (unitID == null) {
+            throw new IllegalArgumentException("Unit ID is required");
         }
     }
 

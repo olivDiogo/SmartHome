@@ -141,6 +141,161 @@ public class SolarIrradianceSensorAggregateTest {
     }
 
     /**
+     * Tests the instantiation of SolarIrradianceSensor with SensorID.
+     */
+    @Test
+    void shouldInstantiateSolarIrradianceSensor_whenSensorIDIsProvided() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
+        SensorID sensorID = new SensorID("ID");
+
+        // Act
+        SolarIrradianceSensor sensor =
+                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        // Assert
+        assertNotNull(sensor);
+    }
+
+    /**
+     * Tests the instantiation of SolarIrradianceSensor when the sensorID is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorIDIsNull() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
+        SensorID sensorID = null;
+
+        String expectedMessage = "SensorID is required";
+
+        // Act
+        Exception e =
+                assertThrows(
+                        IllegalArgumentException.class,
+                        () -> {
+                            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+                        });
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * Tests the instantiation of SolarIrradianceSensor when the DeviceID is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenDeviceIDIsNullIncludingSensorID() {
+        // Arrange
+        DeviceID deviceID = null;
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
+        SensorID sensorID = new SensorID("ID");
+
+        String expectedMessage = "DeviceID is required";
+
+        // Act
+        Exception e =
+                assertThrows(
+                        IllegalArgumentException.class,
+                        () -> {
+                            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+                        });
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * Tests the instantiation of SolarIrradianceSensor when the ModelPath is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenModelPathIsNullIncludingSensorID() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = null;
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
+        SensorID sensorID = new SensorID("ID");
+
+        String expectedMessage = "ModelPath is required";
+
+        // Act
+        Exception e =
+                assertThrows(
+                        IllegalArgumentException.class,
+                        () -> {
+                            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+                        });
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * Tests the instantiation of SolarIrradianceSensor when the SensorName is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorNameIsNullIncludingSensorID() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = null;
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
+        SensorID sensorID = new SensorID("ID");
+
+        String expectedMessage = "SensorName is required";
+
+        // Act
+        Exception e =
+                assertThrows(
+                        IllegalArgumentException.class,
+                        () -> {
+                            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+                        });
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * Tests the instantiation of SolarIrradianceSensor when the SensorTypeID is null.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNullIncludingSensorID() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = null;
+        SensorID sensorID = new SensorID("ID");
+
+        String expectedMessage = "SensorTypeID is required";
+
+        // Act
+        Exception e =
+                assertThrows(
+                        IllegalArgumentException.class,
+                        () -> {
+                            new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+                        });
+
+        // Assert
+        String actualMessage = e.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
      * Tests the instantiation of SolarIrradianceSensor when the sensorTypeID is not SolarIrradiance.
      */
     @Test

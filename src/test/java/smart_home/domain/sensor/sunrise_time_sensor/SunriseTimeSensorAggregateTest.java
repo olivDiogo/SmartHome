@@ -193,6 +193,202 @@ class SunriseTimeSensorAggregateTest {
     }
 
     /**
+     * Test the instantiation of the SunriseTime with the SensorID.
+     */
+    @Test
+    void shouldInstantiateSunriseTimeSensorWithSensorID() throws InstantiationException {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "SunriseTime";
+        String sensorIDValue = "SensorID";
+        double GPSLatitude = 90.0;
+        double GPSLongitude = 180.0;
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+        GPS gps = new GPS(GPSLatitude, GPSLongitude);
+
+        // Act
+        SunriseTimeSensor result = new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID);
+
+        // Assert
+        assertNotNull(result);
+    }
+
+    /**
+     * See if the constructor throws an exception when the SensorID parameter is null.
+     */
+    @Test
+    void shouldThrowExceptionWhenSensorIDIsNull() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "SunriseTime";
+        double GPSLatitude = 90.0;
+        double GPSLongitude = 180.0;
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        GPS gps = new GPS(GPSLatitude, GPSLongitude);
+        SensorID sensorID = null;
+        String expectedMessage = "SensorID is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * See if the constructor throws an exception when the DeviceID parameter is null.
+     */
+    @Test
+    void shouldThrowExceptionWhenDeviceIDIsNullWithSensorID() {
+        // Arrange
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "SunriseTime";
+        String sensorIDValue = "SensorID";
+        double GPSLatitude = 90.0;
+        double GPSLongitude = 180.0;
+
+        DeviceID deviceID = null;
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+        GPS gps = new GPS(GPSLatitude, GPSLongitude);
+        String expectedMessage = "DeviceID is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * See if the constructor throws an exception when the ModelPath parameter is null.
+     */
+    @Test
+    void shouldThrowExceptionWhenModelPathIsNullWithSensorID() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "SunriseTime";
+        String sensorIDValue = "SensorID";
+        double GPSLatitude = 90.0;
+        double GPSLongitude = 180.0;
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = null;
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+        GPS gps = new GPS(GPSLatitude, GPSLongitude);
+        String expectedMessage = "ModelPath is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * See if the constructor throws an exception when the SensorName parameter is null.
+     */
+    @Test
+    void shouldThrowExceptionWhenSensorNameIsNullWithSensorID() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorTypeIDValue = "SunriseTime";
+        String sensorIDValue = "SensorID";
+        double GPSLatitude = 90.0;
+        double GPSLongitude = 180.0;
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = null;
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+        GPS gps = new GPS(GPSLatitude, GPSLongitude);
+        String expectedMessage = "SensorName is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * See if the constructor throws an exception when the SensorTypeID parameter is null.
+     */
+    @Test
+    void shouldThrowExceptionWhenSensorTypeIDIsNullWithSensorID() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorIDValue = "SensorID";
+        double GPSLatitude = 90.0;
+        double GPSLongitude = 180.0;
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = null;
+        SensorID sensorID = new SensorID(sensorIDValue);
+        GPS gps = new GPS(GPSLatitude, GPSLongitude);
+        String expectedMessage = "SensorTypeID is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * See if the constructor throws an exception when the GPS parameter is null.
+     */
+    @Test
+    void shouldThrowExceptionWhenGpsIsNullWithSensorID() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "SunriseTime";
+        String sensorIDValue = "SensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+        GPS gps = null;
+        String expectedMessage = "GPS is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+
+    /**
      * See if the getSensorName method works.
      */
     @Test
