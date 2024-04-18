@@ -33,6 +33,23 @@ public class Unit implements IAggregateRoot<UnitID> {
     }
 
     /**
+     * Constructs a new instance of MeasurementType with the specified unit description, measurement unit, and unit ID.
+     * This constructor ensures the measurement type is fully initialized and valid.
+     *
+     * @param unitDescription The description of the measurement unit, not null.
+     * @param unitSymbol      The unit of measurement, not null.
+     * @param unitID          The unique identifier for the measurement type, not null.
+     * @throws IllegalArgumentException if either the unit description, measurement unit, or unit ID is null.
+     */
+    Unit(UnitDescription unitDescription, UnitSymbol unitSymbol, UnitID unitID) {
+        validateUnitSymbol(unitSymbol);
+        validateUnitDescription(unitDescription);
+        this._unitSymbol = unitSymbol;
+        this._unitDescription = unitDescription;
+        this._unitID = unitID;
+    }
+
+    /**
      * Validates that the measurement unit is not null.
      *
      * @param unitSymbol The symbol of unit to validate.

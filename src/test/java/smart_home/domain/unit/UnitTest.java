@@ -28,6 +28,24 @@ class UnitTest {
     }
 
     /**
+     * Validates construction with valid arguments.
+     */
+    @Test
+    void shouldReturnValidUnit_WhenGivenValidParametersWithID() {
+        //Arrange
+        UnitSymbol unitDouble = mock(UnitSymbol.class);
+        UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
+        UnitID unitIDDouble = mock(UnitID.class);
+
+        //Act
+        Unit result = new Unit(unitDescriptionDouble, unitDouble, unitIDDouble);
+
+        //Assert
+        assertNotNull(result);
+    }
+
+
+    /**
      * Expects IllegalArgumentException for null measurement unit.
      */
     @Test

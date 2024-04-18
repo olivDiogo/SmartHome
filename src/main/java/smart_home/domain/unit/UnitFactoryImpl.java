@@ -1,6 +1,7 @@
 package smart_home.domain.unit;
 
 import smart_home.value_object.UnitDescription;
+import smart_home.value_object.UnitID;
 import smart_home.value_object.UnitSymbol;
 
 /**
@@ -11,7 +12,16 @@ public class UnitFactoryImpl implements IUnitFactory {
      * Creates and returns a new {@link Unit} instance with the provided measurement value, measurement type, and measurement time.
      */
 
-    public Unit createUnit(UnitDescription unitDescription, UnitSymbol unitSymbol) {
+    @Override
+    public Unit createUnit(UnitDescription unitDescription, UnitSymbol unitSymbol) throws IllegalArgumentException{
         return new Unit(unitDescription, unitSymbol);
+    }
+
+    /**
+     * Creates and returns a new {@link Unit} instance with the provided measurement value, measurement type, measurement time, and unit ID.
+     */
+    @Override
+    public Unit createUnit(UnitDescription unitDescription, UnitSymbol unitSymbol, UnitID unitID) throws IllegalArgumentException{
+        return new Unit(unitDescription, unitSymbol, unitID);
     }
 }

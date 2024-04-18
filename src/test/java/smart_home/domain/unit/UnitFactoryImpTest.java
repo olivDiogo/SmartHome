@@ -2,6 +2,7 @@ package smart_home.domain.unit;
 
 import org.junit.jupiter.api.Test;
 import smart_home.value_object.UnitDescription;
+import smart_home.value_object.UnitID;
 import smart_home.value_object.UnitSymbol;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -27,6 +28,26 @@ class UnitFactoryImpTest {
 
         // Act
         Unit result = factory.createUnit(unitDescription, unitSymbol);
+
+        // Assert
+        assertNotNull(result);
+    }
+
+    /**
+     * Test to ensure that a Unit can be created successfully when
+     * {@link UnitFactoryImpl#createUnit(UnitDescription, UnitSymbol, UnitID)}
+     * is called with valid parameters. This test verifies that no exceptions are thrown during the creation process.
+     */
+    @Test
+    void shouldCreateUnit_whenCreateUnitIsCalledWithValidParameters() {
+        // Arrange
+        UnitDescription unitDescription = mock(UnitDescription.class);
+        UnitSymbol unitSymbol = mock(UnitSymbol.class);
+        UnitID unitID = mock(UnitID.class);
+        UnitFactoryImpl factory = new UnitFactoryImpl();
+
+        // Act
+        Unit result = factory.createUnit(unitDescription, unitSymbol, unitID);
 
         // Assert
         assertNotNull(result);
