@@ -20,9 +20,9 @@ public class GetListOfAllDevicesGroupedByFunctionalityController {
     /**
      * Constructor for GetListOfAllDevicesGroupedByFunctionality.
      *
-     * @param deviceService
-     * @param deviceAssembler
-     * @param deviceTypeService
+     * @param deviceService  is the service for the device.
+     * @param deviceAssembler is the assembler for the device.
+     * @param deviceTypeService is the service for the device type.
      */
     public GetListOfAllDevicesGroupedByFunctionalityController(IDeviceService deviceService, IAssembler<Device, DeviceDTO> deviceAssembler, IDeviceTypeService deviceTypeService) {
         validateDeviceService(deviceService);

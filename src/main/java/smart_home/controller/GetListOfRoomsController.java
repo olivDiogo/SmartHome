@@ -1,6 +1,7 @@
 package smart_home.controller;
 
 import smart_home.assembler.RoomAssembler;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.room.Room;
 import smart_home.domain.service.IRoomService;
 import smart_home.dto.RoomDTO;
@@ -11,7 +12,7 @@ import java.util.List;
 public class GetListOfRoomsController {
 
     private IRoomService _roomService;
-    private RoomAssembler _roomAssembler;
+    private IAssembler<Room, RoomDTO> _roomAssembler;
 
 
     /**
@@ -20,7 +21,7 @@ public class GetListOfRoomsController {
      * @param roomService   The room service.
      * @param roomAssembler The room assembler.
      */
-    public GetListOfRoomsController(IRoomService roomService, RoomAssembler roomAssembler) {
+    public GetListOfRoomsController(IRoomService roomService, IAssembler<Room, RoomDTO> roomAssembler) {
         validateRoomService(roomService);
         validateRoomAssembler(roomAssembler);
     }
@@ -43,7 +44,7 @@ public class GetListOfRoomsController {
      *
      * @param roomAssembler The room assembler.
      */
-    private void validateRoomAssembler(RoomAssembler roomAssembler) {
+    private void validateRoomAssembler(IAssembler<Room, RoomDTO> roomAssembler) {
         if (roomAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid room assembler.");
         } else {
