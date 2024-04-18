@@ -34,61 +34,6 @@ class InstantPowerConsumptionSensorAggregateTest {
         assertNotNull(instantPowerConsumptionSensor);
     }
 
-    /**
-     * Test to verify that the InstantPowerConsumptionSensor is instantiated when all parameters are
-     * valid, including SensorID.
-     */
-    @Test
-    void shouldInstantiateInstantPowerConsumptionSensor_WhenAllParametersAreValidIncludingSensorID() {
-        // Arrange
-        String deviceIDName = "123B";
-        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
-        String name = "InstantPowerConsumptionSensor";
-        String typeID = "InstantPowerConsumption";
-        String sensorIDName = "1234";
-
-        DeviceID deviceID = new DeviceID(deviceIDName);
-        ModelPath modelPath = new ModelPath(modelPathName);
-        SensorName sensorName = new SensorName(name);
-        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
-        SensorID sensorID = new SensorID(sensorIDName);
-
-        // act
-        InstantPowerConsumptionSensor instantPowerConsumptionSensor =
-                new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
-
-        // assert
-        assertNotNull(instantPowerConsumptionSensor);
-    }
-
-    /**
-     * Test to verify that the InstantPowerConsumptionSensor throws an exception when the sensor ID is null
-     */
-    @Test
-    void shouldThrowException_WhenSensorIDIsNull() {
-        // Arrange
-        String deviceIDName = "123B";
-        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
-        String name = "InstantPowerConsumptionSensor";
-        String typeID = "InstantPowerConsumption";
-        SensorID sensorID = null;
-
-        DeviceID deviceID = new DeviceID(deviceIDName);
-        ModelPath modelPath = new ModelPath(modelPathName);
-        SensorName sensorName = new SensorName(name);
-        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
-
-        String expectedMessage = "SensorID is required";
-
-        // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
-                        });
-
-        // assert
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
 
 
     /**
@@ -555,4 +500,173 @@ class InstantPowerConsumptionSensorAggregateTest {
         // Assert
         assertEquals(expected, result);
     }
+    /**
+     * Test to verify that the InstantPowerConsumptionSensor is instantiated when all parameters are
+     * valid, including SensorID.
+     */
+    @Test
+    void shouldInstantiateInstantPowerConsumptionSensor_WhenAllParametersAreValidIncludingSensorID() {
+        // Arrange
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "InstantPowerConsumption";
+        String sensorIDName = "1234";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+        SensorID sensorID = new SensorID(sensorIDName);
+
+        // act
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor =
+                new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+
+        // assert
+        assertNotNull(instantPowerConsumptionSensor);
+    }
+
+    /**
+     * Test to verify that the InstantPowerConsumptionSensor throws an exception when the sensor ID is null
+     */
+    @Test
+    void shouldThrowException_WhenSensorIDIsNull() {
+        // Arrange
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "InstantPowerConsumption";
+        SensorID sensorID = null;
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        String expectedMessage = "SensorID is required";
+
+        // Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+
+        // assert
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * Test to verify that the InstantPowerConsumptionSensor throws an exception when the sensor type is null
+     * Whit valid sensor ID.
+     */
+    @Test
+    void shouldThrowExceptionWhitValidSensorID_WhenSensorTypeIDisNull() {
+        // Arrange
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String sensorIDName = "1234";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorID sensorID = new SensorID(sensorIDName);
+        SensorTypeID sensorTypeID = null;
+
+        String expectedMessage = "SensorTypeID is required";
+
+        // Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+    /**
+     * Test to verify that the InstantPowerConsumptionSensor throws an exception when the sensor name is null
+     * Whit valid sensor ID.
+     */
+    @Test
+    void shouldThrowExceptionWhitValidSensorID_WhenSensorNameIsNull() {
+        // Arrange
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String typeID = "InstantPowerConsumption";
+        String sensorIDName = "1234";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorID sensorID = new SensorID(sensorIDName);
+        SensorName sensorName = null;
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        String expectedMessage = "SensorName is required";
+
+        // Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+    /**
+     * Test to verify that the InstantPowerConsumptionSensor throws an exception when the model path is null
+     * Whit valid sensor ID.
+     */
+    @Test
+    void shouldThrowExceptionWhitValidSensorID_WhenModelPathIsNull() {
+        // Arrange
+        String deviceIDName = "123B";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "InstantPowerConsumption";
+        String sensorIDName = "1234";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = null;
+        SensorID sensorID = new SensorID(sensorIDName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        String expectedMessage = "ModelPath is required";
+
+        // Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+    /**
+     * Test to verify that the InstantPowerConsumptionSensor throws an exception when the device ID is null
+     * Whit valid sensor ID.
+     */
+    @Test
+    void shouldThrowExceptionWhitValidSensorID_WhenDeviceIDIsNull() {
+        // Arrange
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "InstantPowerConsumption";
+        String sensorIDName = "1234";
+
+        DeviceID deviceID = null;
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorID sensorID = new SensorID(sensorIDName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        String expectedMessage = "DeviceID is required";
+
+        // Act + Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        });
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
 }
