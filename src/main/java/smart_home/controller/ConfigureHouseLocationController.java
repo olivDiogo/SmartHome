@@ -1,6 +1,7 @@
 package smart_home.controller;
 
 import smart_home.assembler.HouseAssembler;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.house.House;
 import smart_home.domain.service.IHouseService;
 import smart_home.dto.HouseDTO;
@@ -14,7 +15,7 @@ import smart_home.value_object.PostalCodeFactory;
  */
 public class ConfigureHouseLocationController {
     private IHouseService _houseService;
-    private HouseAssembler _houseAssembler;
+    private IAssembler<House, HouseDTO> _houseAssembler;
 
     /**
      * Constructs a new instance of US01ConfigureHouseLocationController with the provided dependencies.
@@ -23,7 +24,7 @@ public class ConfigureHouseLocationController {
      * @param houseAssembler The assembler responsible for converting between domain and DTO objects.
      * @throws IllegalArgumentException If either houseService or houseAssembler is null.
      */
-    public ConfigureHouseLocationController(IHouseService houseService, HouseAssembler houseAssembler) {
+    public ConfigureHouseLocationController(IHouseService houseService, IAssembler<House, HouseDTO> houseAssembler) {
         validateHouseService(houseService);
         validateHouseAssembler(houseAssembler);
     }
@@ -47,7 +48,7 @@ public class ConfigureHouseLocationController {
      * @param houseAssembler The house assembler to validate.
      * @throws IllegalArgumentException If houseAssembler is null.
      */
-    private void validateHouseAssembler(HouseAssembler houseAssembler) {
+    private void validateHouseAssembler(IAssembler<House, HouseDTO> houseAssembler) {
         if (houseAssembler == null) {
             throw new IllegalArgumentException("HouseAssembler cannot be null.");
         }
