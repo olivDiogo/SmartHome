@@ -264,4 +264,205 @@ class ElectricConsumptionWhSensorAggregateTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test for the constructor that takes a sensor ID as a parameter.
+     */
+    @Test
+    void shouldReturnElectricConsumptionWhSensor_whenSensorIDIsGiven() {
+        // Arrange
+        String idName = "sensorID";
+        String deviceIDName = "deviceID";
+        String modelPathName = "SmartHome.sensors.ElectricConsumptionWh";
+        String sensorTypeIDName = "ElectricConsumptionWh";
+        String name = "ElectricConsumptionWhSensor";
+
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime endDate = LocalDateTime.now();
+
+        DatePeriod datePeriod = new DatePeriod(startDate, endDate);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDName);
+        SensorName sensorName = new SensorName(name);
+        SensorID sensorID = new SensorID(idName);
+
+        // Act
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod, sensorID);
+
+        // Assert
+        assertNotNull(electricConsumptionWhSensor);
+    }
+
+    /**
+     * Test for model path null, whit Sensor ID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenModelPathIsNullWithSensorID() {
+        // Arrange
+        String idName = "sensorID";
+        String deviceIDName = "deviceID";
+        String sensorTypeIDName = "ElectricConsumptionWh";
+        String name = "ElectricConsumptionWhSensor";
+
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime endDate = LocalDateTime.now();
+
+        DatePeriod datePeriod = new DatePeriod(startDate, endDate);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = null;
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDName);
+        SensorName sensorName = new SensorName(name);
+        SensorID sensorID = new SensorID(idName);
+
+        String expectedMessage = "ModelPath is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+    /**
+     * Test for sensor name null, whit Sensor ID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorNameIsNullWithSensorID() {
+        // Arrange
+        String idName = "sensorID";
+        String deviceIDName = "deviceID";
+        String modelPathName = "SmartHome.sensors.ElectricConsumptionWh";
+        String sensorTypeIDName = "ElectricConsumptionWh";
+
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime endDate = LocalDateTime.now();
+
+        DatePeriod datePeriod = new DatePeriod(startDate, endDate);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDName);
+        SensorName sensorName = null;
+        SensorID sensorID = new SensorID(idName);
+
+        String expectedMessage = "SensorName is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+    /**
+     * Test for sensor type ID null, whit Sensor ID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNullWithSensorID() {
+        // Arrange
+        String idName = "sensorID";
+        String deviceIDName = "deviceID";
+        String modelPathName = "SmartHome.sensors.ElectricConsumptionWh";
+        String name = "ElectricConsumptionWhSensor";
+
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime endDate = LocalDateTime.now();
+
+        DatePeriod datePeriod = new DatePeriod(startDate, endDate);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorTypeID sensorTypeID = null;
+        SensorName sensorName = new SensorName(name);
+        SensorID sensorID = new SensorID(idName);
+
+        String expectedMessage = "SensorTypeID is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+    /**
+     * Test for sensor ID null, whit Sensor ID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenSensorIDIsNullWithSensorID() {
+        // Arrange
+        String deviceIDName = "deviceID";
+        String modelPathName = "SmartHome.sensors.ElectricConsumptionWh";
+        String sensorTypeIDName = "ElectricConsumptionWh";
+        String name = "ElectricConsumptionWhSensor";
+
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime endDate = LocalDateTime.now();
+
+        DatePeriod datePeriod = new DatePeriod(startDate, endDate);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDName);
+        SensorName sensorName = new SensorName(name);
+        SensorID sensorID = null;
+
+        String expectedMessage = "SensorID is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+    /**
+     * Test for device ID null, whit Sensor ID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenDeviceIDIsNullWithSensorID() {
+        // Arrange
+        String idName = "sensorID";
+        String modelPathName = "SmartHome.sensors.ElectricConsumptionWh";
+        String sensorTypeIDName = "ElectricConsumptionWh";
+        String name = "ElectricConsumptionWhSensor";
+
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime endDate = LocalDateTime.now();
+
+        DatePeriod datePeriod = new DatePeriod(startDate, endDate);
+        DeviceID deviceID = null;
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDName);
+        SensorName sensorName = new SensorName(name);
+        SensorID sensorID = new SensorID(idName);
+
+        String expectedMessage = "DeviceID is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+    /**
+     * Test for date period null, whit Sensor ID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_whenDatePeriodIsNullWithSensorID() {
+        // Arrange
+        String idName = "sensorID";
+        String deviceIDName = "deviceID";
+        String modelPathName = "SmartHome.sensors.ElectricConsumptionWh";
+        String sensorTypeIDName = "ElectricConsumptionWh";
+        String name = "ElectricConsumptionWhSensor";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDName);
+        SensorName sensorName = new SensorName(name);
+        SensorID sensorID = new SensorID(idName);
+
+        String expectedMessage = "DatePeriod is required";
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, null, sensorID));
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+
 }
