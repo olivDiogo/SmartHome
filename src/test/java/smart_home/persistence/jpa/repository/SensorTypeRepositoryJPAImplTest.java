@@ -8,7 +8,7 @@ import smart_home.persistence.jpa.data_model.SensorTypeDataModel;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-class RepositorySensorTypeJPAImplTest {
+class SensorTypeRepositoryJPAImplTest {
 
     /**
      * Test to verify if the RepositorySensorTypeJPAImpl is instantiated correctly
@@ -19,7 +19,7 @@ class RepositorySensorTypeJPAImplTest {
         IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter = mock(IDataModelAssembler.class);
 
         //Act
-        RepositorySensorTypeJPAImpl repositorySensorTypeJPA = new RepositorySensorTypeJPAImpl(dataModelConverter);
+        SensorTypeRepositoryJPAImpl repositorySensorTypeJPA = new SensorTypeRepositoryJPAImpl(dataModelConverter);
 
         //Assert
         assertNotNull(repositorySensorTypeJPA);
@@ -36,7 +36,7 @@ class RepositorySensorTypeJPAImplTest {
         String expectedMessage = "Data model converter cannot be null.";
 
         //Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new RepositorySensorTypeJPAImpl( dataModelConverter));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeRepositoryJPAImpl( dataModelConverter));
 
         String actualMessage = exception.getMessage();
 

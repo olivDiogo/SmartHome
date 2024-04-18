@@ -10,7 +10,7 @@ import smart_home.value_object.ActuatorTypeID;
 import java.util.List;
 import java.util.Optional;
 
-public class RepositoryActuatorTypeJPAImpl implements IActuatorTypeRepository {
+public class ActuatorTypeRepositoryJPAImpl implements IActuatorTypeRepository {
     private EntityManagerFactory _factory;
     private IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> _dataModelConverter;
 
@@ -18,22 +18,22 @@ public class RepositoryActuatorTypeJPAImpl implements IActuatorTypeRepository {
      * Constructs a new repository instance with the specified entity manager factory and data model converter.
      *
      *
-     * @param dataModelConverter  the converter to transform data models to domain models and vice versa
+     * @param dataModelAssembler  the converter to transform data models to domain models and vice versa
      */
-    public RepositoryActuatorTypeJPAImpl(IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelConverter) {
-        validateDataModelConverter(dataModelConverter);
+    public ActuatorTypeRepositoryJPAImpl(IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler) {
+        validateDataModelAssembler(dataModelAssembler);
         _factory = Persistence.createEntityManagerFactory("smart_home");
-        _dataModelConverter = dataModelConverter;
+        _dataModelConverter = dataModelAssembler;
     }
 
     /**
      * Validates the data model converter.
      *
-     * @param dataModelConverter the data model converter to validate
+     * @param dataModelAssembler the data model converter to validate
      * @throws IllegalArgumentException if the data model converter is null
      */
-    private void validateDataModelConverter(IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelConverter) {
-        if (dataModelConverter == null) {
+    private void validateDataModelAssembler(IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler) {
+        if (dataModelAssembler == null) {
             throw new IllegalArgumentException("The data model converter must not be null.");
         }
     }

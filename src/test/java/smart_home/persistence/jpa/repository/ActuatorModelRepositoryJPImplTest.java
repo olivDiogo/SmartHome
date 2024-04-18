@@ -8,7 +8,7 @@ import smart_home.persistence.jpa.data_model.ActuatorModelDataModel;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-public class RepositoryActuatorModelJPImplTest {
+class ActuatorModelRepositoryJPImplTest {
 
     /**
      * Test to verify if the RepositoryActuatorModelJPAImpl is instantiated correctly
@@ -19,7 +19,7 @@ public class RepositoryActuatorModelJPImplTest {
         IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelConverter = mock(IDataModelAssembler.class);
 
         //Act
-        RepositoryActuatorModelJPAImpl repositoryActuatorModelJPA = new RepositoryActuatorModelJPAImpl(dataModelConverter);
+        ActuatorModelRepositoryJPAImpl repositoryActuatorModelJPA = new ActuatorModelRepositoryJPAImpl(dataModelConverter);
 
         //Assert
         assertNotNull(repositoryActuatorModelJPA);
@@ -36,7 +36,7 @@ public class RepositoryActuatorModelJPImplTest {
         String expectedMessage = "Data model converter cannot be null";
 
         //Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new RepositoryActuatorModelJPAImpl(dataModelConverter));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModelRepositoryJPAImpl(dataModelConverter));
 
         String actualMessage = exception.getMessage();
 

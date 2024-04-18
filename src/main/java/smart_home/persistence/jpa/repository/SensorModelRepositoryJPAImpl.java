@@ -11,7 +11,7 @@ import smart_home.value_object.SensorTypeID;
 import java.util.List;
 import java.util.Optional;
 
-public class RepositorySensorModelJPAImpl implements ISensorModelRepository {
+public class SensorModelRepositoryJPAImpl implements ISensorModelRepository {
 
     private EntityManagerFactory _factory;
     private IDataModelAssembler<SensorModelDataModel, SensorModel> _dataModelConverter;
@@ -21,7 +21,7 @@ public class RepositorySensorModelJPAImpl implements ISensorModelRepository {
      *
      * @param dataModelConverter IDataModelConverter<SensorModelDataModel, SensorModel>
      */
-    public RepositorySensorModelJPAImpl(IDataModelAssembler<SensorModelDataModel, SensorModel> dataModelConverter) {
+    public SensorModelRepositoryJPAImpl(IDataModelAssembler<SensorModelDataModel, SensorModel> dataModelConverter) {
         validateDataModelConverter(dataModelConverter);
         this._dataModelConverter = dataModelConverter;
         _factory = Persistence.createEntityManagerFactory("smart_home");

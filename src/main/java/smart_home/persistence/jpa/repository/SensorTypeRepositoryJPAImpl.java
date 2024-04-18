@@ -10,16 +10,16 @@ import smart_home.value_object.SensorTypeID;
 import java.util.List;
 import java.util.Optional;
 
-public class RepositorySensorTypeJPAImpl implements ISensorTypeRepository {
+public class SensorTypeRepositoryJPAImpl implements ISensorTypeRepository {
     private IDataModelAssembler<SensorTypeDataModel, SensorType> _dataModelConverter;
     private EntityManagerFactory _factory;
 
     /**
-     * Creates an instance of {@link RepositorySensorTypeJPAImpl} with the provided data model converter.
+     * Creates an instance of {@link SensorTypeRepositoryJPAImpl} with the provided data model converter.
      *
      * @param dataModelConverter
      */
-    public RepositorySensorTypeJPAImpl(IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter) {
+    public SensorTypeRepositoryJPAImpl(IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter) {
         validateDataModelConverter(dataModelConverter);
 
         this._dataModelConverter = dataModelConverter;

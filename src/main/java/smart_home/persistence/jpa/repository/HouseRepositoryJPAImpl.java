@@ -10,19 +10,46 @@ import smart_home.value_object.HouseID;
 import java.util.List;
 import java.util.Optional;
 
-public class RepositoryHouseJPAImpl implements IHouseRepository {
+public class HouseRepositoryJPAImpl implements IHouseRepository {
         private IDataModelAssembler<HouseDataModel, House> _dataModelConverter;
         private EntityManagerFactory _factory;
 
-        public RepositoryHouseJPAImpl(IDataModelAssembler<HouseDataModel, House> dataModelConverter) {
-            _dataModelConverter = dataModelConverter;
-            _factory = Persistence.createEntityManagerFactory("smartHome");
+        /**
+         * HouseRepositoryJPAImpl constructor
+         * @param dataModelAssembler the converter to transform data models to domain models and vice versa
+         */
+
+        public HouseRepositoryJPAImpl(IDataModelAssembler<HouseDataModel, House> dataModelAssembler) {
+            validateDataModelConverter(dataModelAssembler);
+            _dataModelConverter = dataModelAssembler;
+            _factory = Persistence.createEntityManagerFactory("smart_home");
         }
+
+        /**
+         * Validates the data model converter.
+         * @param dataModelAssembler the data model converter to validate
+         * @throws IllegalArgumentException if the data model converter is null
+         */
+        private void validateDataModelConverter(IDataModelAssembler<HouseDataModel, House> dataModelAssembler) {
+            if (dataModelAssembler == null) {
+                throw new IllegalArgumentException("Data model assembler cannot be null.");
+            }
+        }
+
+        /**
+         * Method to get entity manager
+         * @return EntityManager
+         */
         private EntityManager getEntityManager() {
             EntityManager manager = _factory.createEntityManager();
             return manager;
         }
 
+        /**
+         * Method to save house
+         * @param house the domain entity to be saved
+         * @return House
+         */
         @Override
         public House save(House house) {
             if (house == null) {
@@ -38,6 +65,10 @@ public class RepositoryHouseJPAImpl implements IHouseRepository {
             return house;
         }
 
+        /**
+         * Method to find all houses
+         * @return List<House>
+         */
         @Override
         public List<House> findAll() {
             Query query = getEntityManager().createQuery(
@@ -47,6 +78,11 @@ public class RepositoryHouseJPAImpl implements IHouseRepository {
             return listDomain;
         }
 
+        /**
+         * Method to find house by identity
+         * @param objectID the identity of the house
+         * @return Optional<House>
+         */
         @Override
         public Optional<House> ofIdentity(HouseID objectID) {
             HouseDataModel houseDataModel = getEntityManager().find(HouseDataModel.class, objectID);
@@ -59,6 +95,11 @@ public class RepositoryHouseJPAImpl implements IHouseRepository {
             }
         }
 
+        /**
+         * Method to check if house contains identity
+         * @param objectID the identity of the house
+         * @return boolean
+         */
         @Override
         public boolean containsOfIdentity(HouseID objectID) {
             Optional<House> houseDataModel = ofIdentity(objectID);

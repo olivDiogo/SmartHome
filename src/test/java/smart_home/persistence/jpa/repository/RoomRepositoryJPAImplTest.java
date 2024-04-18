@@ -7,7 +7,7 @@ import smart_home.persistence.assembler.RoomDataModelAssembler;
 
 import static org.junit.Assert.*;
 
-public class RepositoryRoomJPAImplTest {
+public class RoomRepositoryJPAImplTest {
 
     /**
      * Test class instantiation of RepositoryRoomJPAImpl.
@@ -18,7 +18,7 @@ public class RepositoryRoomJPAImplTest {
         RoomDataModelAssembler dataModelAssembler = new RoomDataModelAssembler(new RoomFactoryImpl());
 
         //Act
-        RepositoryRoomJPAImpl repositoryRoomJPA = new RepositoryRoomJPAImpl(dataModelAssembler);
+        RoomRepositoryJPAImpl repositoryRoomJPA = new RoomRepositoryJPAImpl(dataModelAssembler);
 
         //Assert
         assertNotNull(repositoryRoomJPA);
@@ -35,7 +35,7 @@ public class RepositoryRoomJPAImplTest {
         String expectedMessage = "Data model assembler cannot be null.";
 
         //Act + Assert
-        Exception e = assertThrows(IllegalArgumentException.class, () -> new RepositoryRoomJPAImpl(dataModelAssembler));
+        Exception e = assertThrows(IllegalArgumentException.class, () -> new RoomRepositoryJPAImpl(dataModelAssembler));
 
         //Assert
         String actualMessage = e.getMessage();

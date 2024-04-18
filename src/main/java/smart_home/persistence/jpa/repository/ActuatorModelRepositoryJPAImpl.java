@@ -11,7 +11,7 @@ import smart_home.value_object.ModelPath;
 import java.util.List;
 import java.util.Optional;
 
-public class RepositoryActuatorModelJPAImpl implements IActuatorModelRepository {
+public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository {
   private EntityManagerFactory _factory;
   private IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> _dataModelConverter;
 
@@ -20,7 +20,7 @@ public class RepositoryActuatorModelJPAImpl implements IActuatorModelRepository 
    *
    * @param dataModelConverter
    */
-  public RepositoryActuatorModelJPAImpl(
+  public ActuatorModelRepositoryJPAImpl(
       IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelConverter) {
     validateDataModelConverter(dataModelConverter);
     _factory = Persistence.createEntityManagerFactory("smart_home");

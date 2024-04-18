@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 
-class RepositorySensorModelTypeJPAImplTest {
+class SensorModelRepositoryJPAImplTest {
 
     /**
      * Test to check if the RepositorySensorModelTypeJPAImpl is instantiated when the SensorModelFactory and DataModelConverter are valid
@@ -22,7 +22,7 @@ class RepositorySensorModelTypeJPAImplTest {
         IDataModelAssembler<SensorModelDataModel, SensorModel> dataModelConverter = mock(IDataModelAssembler.class);
 
         //Act
-        RepositorySensorModelJPAImpl repositorySensorModelTypeJPA = new RepositorySensorModelJPAImpl(dataModelConverter);
+        SensorModelRepositoryJPAImpl repositorySensorModelTypeJPA = new SensorModelRepositoryJPAImpl(dataModelConverter);
 
         //Assert
         assertNotNull(repositorySensorModelTypeJPA);
@@ -41,7 +41,7 @@ class RepositorySensorModelTypeJPAImplTest {
         String expectedMessage = "Data Model Converter cannot be null.";
 
         //Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new RepositorySensorModelJPAImpl(dataModelConverter));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorModelRepositoryJPAImpl(dataModelConverter));
 
         String actualMessage = exception.getMessage();
 

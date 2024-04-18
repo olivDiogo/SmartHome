@@ -13,16 +13,16 @@ import smart_home.value_object.DeviceTypeID;
 import java.util.List;
 import java.util.Optional;
 
-public class RepositoryDeviceTypeJPAImpl implements IDeviceTypeRepository {
+public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
 
   private IDataModelAssembler<DeviceTypeDataModel, DeviceType> _dataModelAssembler;
   private EntityManagerFactory _factory;
 
   /**
-   * Creates an instance of {@link RepositoryDeviceTypeJPAImpl} with the provided data model
+   * Creates an instance of {@link DeviceTypeRepositoryJPAImpl} with the provided data model
    * assembler.
    */
-  public RepositoryDeviceTypeJPAImpl(
+  public DeviceTypeRepositoryJPAImpl(
       IDataModelAssembler<DeviceTypeDataModel, DeviceType> dataModelAssembler) {
     validateDataModelAssembler(dataModelAssembler);
     this._dataModelAssembler = dataModelAssembler;

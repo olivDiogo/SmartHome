@@ -16,7 +16,7 @@ import java.util.Optional;
  * This repository is responsible for performing database operations on Device entities
  * using a JPA EntityManager.
  */
-public class RepositoryDeviceJPAImpl implements IDeviceRepository {
+public class DeviceRepositoryJPAImpl implements IDeviceRepository {
 
     private EntityManagerFactory _factory;
     private IDataModelAssembler<DeviceDataModel, Device> _dataModelConverter;
@@ -27,7 +27,7 @@ public class RepositoryDeviceJPAImpl implements IDeviceRepository {
      * @param dataModelConverter A converter to transform DeviceDataModel objects to Device domain objects.
      */
 
-    public RepositoryDeviceJPAImpl(IDataModelAssembler<DeviceDataModel, Device> dataModelConverter) {
+    public DeviceRepositoryJPAImpl(IDataModelAssembler<DeviceDataModel, Device> dataModelConverter) {
         validateDataModelConverter(dataModelConverter);
         _factory = Persistence.createEntityManagerFactory("smart_home");
         _dataModelConverter = dataModelConverter;

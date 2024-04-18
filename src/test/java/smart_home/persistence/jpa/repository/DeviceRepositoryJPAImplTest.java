@@ -8,7 +8,7 @@ import smart_home.persistence.jpa.data_model.DeviceDataModel;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-class RepositoryDeviceJPAImplTest {
+class DeviceRepositoryJPAImplTest {
 
     /**
      * Test to verify if the RepositoryDeviceJPAImpl is instantiated correctly
@@ -19,7 +19,7 @@ class RepositoryDeviceJPAImplTest {
         IDataModelAssembler<DeviceDataModel, Device> dataModelAssembler = mock(IDataModelAssembler.class);
 
         //Act
-        RepositoryDeviceJPAImpl repositoryDeviceJPA = new RepositoryDeviceJPAImpl(dataModelAssembler);
+        DeviceRepositoryJPAImpl repositoryDeviceJPA = new DeviceRepositoryJPAImpl(dataModelAssembler);
 
         //Assert
         assertNotNull(repositoryDeviceJPA);
@@ -36,7 +36,7 @@ class RepositoryDeviceJPAImplTest {
         String expectedMessage = "The data model converter must not be null.";
 
         //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new RepositoryDeviceJPAImpl(dataModelConverter));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new DeviceRepositoryJPAImpl(dataModelConverter));
         String actualMessage = exception.getMessage();
 
         assertEquals(expectedMessage, actualMessage);

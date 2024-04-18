@@ -7,7 +7,7 @@ import smart_home.persistence.assembler.UnitDataModelAssembler;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RepositoryUninJPAImplTest {
+class UnitRepositoryJPAImplTest {
 
     /**
      * Test class instantiation of RepositoryUninJPAImpl.
@@ -18,7 +18,7 @@ class RepositoryUninJPAImplTest {
         UnitDataModelAssembler dataModelAssembler = new UnitDataModelAssembler(new UnitFactoryImpl());
 
         //Act
-        RepositoryUninJPAImpl repositoryUninJPA = new RepositoryUninJPAImpl(dataModelAssembler);
+        UnitRepositoryJPAImpl repositoryUninJPA = new UnitRepositoryJPAImpl(dataModelAssembler);
 
         //Assert
         assertNotNull(repositoryUninJPA);
@@ -35,7 +35,7 @@ class RepositoryUninJPAImplTest {
         String expectedMessage = "Data model assembler cannot be null.";
 
         //Act + Assert
-        Exception e = assertThrows(IllegalArgumentException.class, () -> new RepositoryUninJPAImpl(dataModelAssembler));
+        Exception e = assertThrows(IllegalArgumentException.class, () -> new UnitRepositoryJPAImpl(dataModelAssembler));
 
         //Assert
         String actualMessage = e.getMessage();

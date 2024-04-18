@@ -10,7 +10,7 @@ import smart_home.value_object.RoomID;
 import java.util.List;
 import java.util.Optional;
 
-public class RepositoryRoomJPAImpl implements IRoomRepository {
+public class RoomRepositoryJPAImpl implements IRoomRepository {
     private EntityManagerFactory _factory;
     private IDataModelAssembler<RoomDataModel, Room> _dataModelConverter;
 
@@ -18,7 +18,7 @@ public class RepositoryRoomJPAImpl implements IRoomRepository {
      * RepositoryRoomJPAImpl constructor
      * @param dataModelConverter
      */
-    public RepositoryRoomJPAImpl(IDataModelAssembler<RoomDataModel, Room> dataModelConverter) {
+    public RoomRepositoryJPAImpl(IDataModelAssembler<RoomDataModel, Room> dataModelConverter) {
         validateDataModelConverter(dataModelConverter);
 
         _dataModelConverter = dataModelConverter;
