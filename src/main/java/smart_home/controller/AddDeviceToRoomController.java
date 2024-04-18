@@ -2,6 +2,7 @@ package smart_home.controller;
 
 import smart_home.assembler.DeviceAssembler;
 import smart_home.assembler.RoomAssembler;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;
 import smart_home.domain.service.IDeviceService;
@@ -25,7 +26,7 @@ import java.util.Optional;
 public class AddDeviceToRoomController {
 
     private IRoomService _roomService;
-    private RoomAssembler _roomAssembler;
+    private IAssembler<Room, RoomDTO> _roomAssembler;
     private IDeviceService _deviceService;
     private DeviceAssembler _deviceAssembler;
 
@@ -33,13 +34,13 @@ public class AddDeviceToRoomController {
      * Constructs a new AddDeviceToRoomController with necessary service and assembler dependencies.
      * validates the room service, room assembler, device service, and device assembler.
      *
-     * @param roomServiceImpl     Service for managing room-related operations.
+     * @param roomService     Service for managing room-related operations.
      * @param roomAssembler   Assembler for converting room entities to DTOs.
      * @param deviceServiceImpl   Service for managing device-related operations.
      * @param deviceAssembler Assembler for converting device entities to DTOs.
      */
-    public AddDeviceToRoomController(RoomServiceImpl roomServiceImpl, RoomAssembler roomAssembler, DeviceServiceImpl deviceServiceImpl, DeviceAssembler deviceAssembler) {
-        validateRoomService(roomServiceImpl);
+    public AddDeviceToRoomController(IRoomService roomService, IAssembler<Room, RoomDTO> roomAssembler, DeviceServiceImpl deviceServiceImpl, DeviceAssembler deviceAssembler) {
+        validateRoomService(roomService);
         validateRoomAssembler(roomAssembler);
         validateDeviceService(deviceServiceImpl);
         validateDeviceAssembler(deviceAssembler);
@@ -63,7 +64,7 @@ public class AddDeviceToRoomController {
      *
      * @param roomAssembler The room assembler to validate.
      */
-    private void validateRoomAssembler(RoomAssembler roomAssembler) {
+    private void validateRoomAssembler(IAssembler<Room, RoomDTO> roomAssembler) {
         if (roomAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid room assembler.");
         } else {
