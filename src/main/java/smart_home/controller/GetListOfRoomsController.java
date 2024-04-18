@@ -2,39 +2,39 @@ package smart_home.controller;
 
 import smart_home.assembler.RoomAssembler;
 import smart_home.domain.room.Room;
+import smart_home.domain.service.IRoomService;
 import smart_home.dto.RoomDTO;
-import smart_home.service.RoomServiceImpl;
 
 import java.util.Collections;
 import java.util.List;
 
 public class GetListOfRoomsController {
 
-    private RoomServiceImpl _roomServiceImpl;
+    private IRoomService _roomService;
     private RoomAssembler _roomAssembler;
 
 
     /**
      * Constructor for the GetListOfRoomsController class.
      *
-     * @param roomServiceImpl   The room service.
+     * @param roomService   The room service.
      * @param roomAssembler The room assembler.
      */
-    public GetListOfRoomsController(RoomServiceImpl roomServiceImpl, RoomAssembler roomAssembler) {
-        validateRoomService(roomServiceImpl);
+    public GetListOfRoomsController(IRoomService roomService, RoomAssembler roomAssembler) {
+        validateRoomService(roomService);
         validateRoomAssembler(roomAssembler);
     }
 
     /**
      * Validates the room service.
      *
-     * @param roomServiceImpl The room service.
+     * @param roomService The room service.
      */
-    private void validateRoomService(RoomServiceImpl roomServiceImpl) {
-        if (roomServiceImpl == null) {
+    private void validateRoomService(IRoomService roomService) {
+        if (roomService == null) {
             throw new IllegalArgumentException("Please enter a valid room service.");
         } else {
-            this._roomServiceImpl = roomServiceImpl;
+            this._roomService = roomService;
         }
     }
 
@@ -58,7 +58,7 @@ public class GetListOfRoomsController {
      */
     public List<RoomDTO> getRooms() {
 
-        List<Room> listOfRooms = _roomServiceImpl.getAllRooms();
+        List<Room> listOfRooms = _roomService.getAllRooms();
         if (listOfRooms == null || listOfRooms.isEmpty()) {
             return Collections.emptyList(); // Return an empty list if there are no devices.
         }
