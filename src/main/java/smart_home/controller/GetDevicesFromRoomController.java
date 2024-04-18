@@ -4,31 +4,31 @@ import smart_home.assembler.DeviceAssembler;
 import smart_home.assembler.RoomAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;
+import smart_home.domain.service.IDeviceService;
+import smart_home.domain.service.IRoomService;
 import smart_home.dto.DeviceDTO;
 import smart_home.dto.RoomDTO;
-import smart_home.service.DeviceServiceImpl;
-import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.RoomID;
 
 import java.util.List;
 
 public class GetDevicesFromRoomController {
-    private RoomServiceImpl _roomServiceImpl;
-    private DeviceServiceImpl _deviceServiceImpl;
+    private IRoomService _roomService;
+    private IDeviceService _deviceService;
     private RoomAssembler _roomAssembler;
     private DeviceAssembler _deviceAssembler;
 
     /**
      * Constructor for GetDevicesFromRoomController.
      *
-     * @param roomServiceImpl     is the service for the room.
-     * @param deviceServiceImpl   is the service for the device.
+     * @param roomService     is the service for the room.
+     * @param deviceService   is the service for the device.
      * @param roomAssembler   is the assembler for the room.
      * @param deviceAssembler is the assembler for the device.
      */
-    public GetDevicesFromRoomController(RoomServiceImpl roomServiceImpl, DeviceServiceImpl deviceServiceImpl, RoomAssembler roomAssembler, DeviceAssembler deviceAssembler) {
-        validateRoomService(roomServiceImpl);
-        validateDeviceService(deviceServiceImpl);
+    public GetDevicesFromRoomController(IRoomService roomService, IDeviceService deviceService, RoomAssembler roomAssembler, DeviceAssembler deviceAssembler) {
+        validateRoomService(roomService);
+        validateDeviceService(deviceService);
         validateRoomAssembler(roomAssembler);
         validateDeviceAssembler(deviceAssembler);
     }
@@ -36,26 +36,26 @@ public class GetDevicesFromRoomController {
     /**
      * Validates the room service.
      *
-     * @param roomServiceImpl is the room service.
+     * @param roomService is the room service.
      */
-    private void validateRoomService(RoomServiceImpl roomServiceImpl) {
-        if (roomServiceImpl == null) {
+    private void validateRoomService(IRoomService roomService) {
+        if (roomService == null) {
             throw new IllegalArgumentException("RoomService is required");
         } else {
-            this._roomServiceImpl = roomServiceImpl;
+            this._roomService = roomService;
         }
     }
 
     /**
      * Validates the device service.
      *
-     * @param deviceServiceImpl is the device service.
+     * @param deviceService is the device service.
      */
-    private void validateDeviceService(DeviceServiceImpl deviceServiceImpl) {
-        if (deviceServiceImpl == null) {
+    private void validateDeviceService(IDeviceService deviceService) {
+        if (deviceService == null) {
             throw new IllegalArgumentException("DeviceService is required");
         } else {
-            this._deviceServiceImpl = deviceServiceImpl;
+            this._deviceService = deviceService;
         }
     }
 
@@ -91,7 +91,7 @@ public class GetDevicesFromRoomController {
      * @return a list of rooms.
      */
     public List<RoomDTO> getRooms() {
-        List<Room> rooms = _roomServiceImpl.getAllRooms();
+        List<Room> rooms = _roomService.getAllRooms();
 
         List<RoomDTO> roomDTOList = _roomAssembler.domainToDTO(rooms);
 
@@ -107,11 +107,11 @@ public class GetDevicesFromRoomController {
     public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
         RoomID roomID = new RoomID(roomDTO.roomId);
 
-        if (!_roomServiceImpl.getRoomById(roomID).isPresent()) {
+        if (!_roomService.getRoomById(roomID).isPresent()) {
             throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
         }
 
-        List<Device> devices = _deviceServiceImpl.getDevicesByRoomId(roomID);
+        List<Device> devices = _deviceService.getDevicesByRoomId(roomID);
 
         List<DeviceDTO> deviceDTOList = _deviceAssembler.domainToDTO(devices);
 
