@@ -17,23 +17,40 @@ public class RepositoryUninJPAImpl implements IUnitRepository {
 
     private EntityManagerFactory _factory;
 
+    /**
+     * RepositoryUninJPAImpl constructor
+     * @param dataModelAssembler
+     */
     public RepositoryUninJPAImpl(IDataModelAssembler<UnitDataModel, Unit> dataModelAssembler){
         validateDataModelConverter(dataModelAssembler);
         _dataModelConverter = dataModelAssembler;
         _factory = Persistence.createEntityManagerFactory("smart_home");
     }
 
+    /**
+     * Method to validate unit data model converter
+     * @param entity IDataModelConverter<UnitDataModel, Unit>
+     */
     private void validateDataModelConverter(IDataModelAssembler<UnitDataModel, Unit> entity){
         if (entity == null) {
             throw new IllegalArgumentException("Data model assembler cannot be null.");
         }
     }
 
+    /**
+     * Method to get entity manager
+     * @return EntityManager
+     */
     private EntityManager getEntityManager(){
         EntityManager manager = _factory.createEntityManager();
         return manager;
     }
 
+    /**
+     * Method to save unit
+     * @param unit is the domain entity to be saved.
+     * @return Unit
+     */
     @Override
     public Unit save(Unit unit){
         if (unit == null) {
@@ -59,6 +76,10 @@ public class RepositoryUninJPAImpl implements IUnitRepository {
         return unit;
     }
 
+    /**
+     * Method to find all units
+     * @return List<Unit>
+     */
     @Override
     public List<Unit> findAll() {
         EntityManager entityManager = getEntityManager();
@@ -73,6 +94,11 @@ public class RepositoryUninJPAImpl implements IUnitRepository {
         }
     }
 
+    /**
+     * Method to find unit by identity
+     * @param objectID is the identity of the unit
+     * @return Optional<Unit>
+     */
     @Override
     public Optional<Unit> ofIdentity(UnitID objectID) {
         EntityManager entityManager = getEntityManager();
@@ -89,7 +115,11 @@ public class RepositoryUninJPAImpl implements IUnitRepository {
         }
     }
 
-
+    /**
+     * Method to check if unit contains identity
+     * @param objectID is the identity of the unit
+     * @return boolean
+     */
     @Override
     public boolean containsOfIdentity(UnitID objectID) {
         Optional<Unit> unitDataModel = ofIdentity(objectID);

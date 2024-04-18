@@ -12,6 +12,9 @@ import static org.mockito.Mockito.when;
 
 class UnitDataModelTest {
 
+    /**
+     * Test Instance of UnitDataModel when empty constructor is called
+     */
     @Test
     void shouldInstantiateUnitDataModel_whenEmptyConstructorIsCalled(){
         // Arrange
@@ -21,6 +24,9 @@ class UnitDataModelTest {
         assertNotNull(unitDataModel);
     }
 
+    /**
+     * Test Instance of UnitDataModel when Unit is valid
+     */
     @Test
     void shouldInstantiateUnitDataModel_whenUnitIsValid(){
         // Arrange
@@ -36,6 +42,9 @@ class UnitDataModelTest {
         assertNotNull(unitDataModel);
     }
 
+    /**
+     * Test Instance of UnitDataModel when Unit is null
+     */
     @Test
     void shouldThrowException_whenUnitIsNull(){
         // Arrange
@@ -51,6 +60,9 @@ class UnitDataModelTest {
         assertEquals(expectedMessage, actualMessage);
     }
 
+    /**
+     * Test returns UnitID when getUnitID is called
+     */
     @Test
     void shouldReturnUnitID_whenGetUnitIDIsCalled(){
         // Arrange
@@ -70,6 +82,9 @@ class UnitDataModelTest {
         assertEquals(unitID.getID(), ActualUnitID);
     }
 
+    /**
+     * Test returns UnitSymbol when getUnitSymbol is called
+     */
     @Test
     void shouldReturnUnitSymbol_whenGetUnitSymbolIsCalled(){
         // Arrange
@@ -89,6 +104,9 @@ class UnitDataModelTest {
         assertEquals("UnitSymbol", unitSymbol);
     }
 
+    /**
+     * Test returns UnitDescription when getUnitDescription is called
+     */
     @Test
     void shouldReturnUnitDescription_whenGetUnitDescriptionIsCalled(){
         // Arrange

@@ -17,6 +17,9 @@ import static org.mockito.Mockito.when;
 
 class UnitDataModelAssemblerTest {
 
+    /**
+     * Test Instantiation of UnitDataModelAssembler when UnitFactory is valid
+     */
     @Test
     void shouldInstantiateUnitDataModelAssembler_whenUnitFactoryIsValid(){
 
@@ -30,6 +33,9 @@ class UnitDataModelAssemblerTest {
         assertNotNull(unitDataModelAssembler);
     }
 
+    /**
+     * Test Instantiation of UnitDataModelAssembler when UnitFactory is null
+     */
     @Test
     void shouldThrowIllegalArgumentException_whenUnitFactoryIsNull(){
 
@@ -45,6 +51,9 @@ class UnitDataModelAssemblerTest {
             assertNotNull(expectedMessage, actualMessage);
     }
 
+    /**
+     * Test toDomain method of UnitDataModelAssembler when given valid UnitDataModel
+     */
     @Test
     void shouldReturnUnit_whenGivenValidUnitDataModel(){
 
@@ -74,6 +83,9 @@ class UnitDataModelAssemblerTest {
         assertEquals(expected, unit);
     }
 
+    /**
+     * Test toDomain method of UnitDataModelAssembler when given null UnitDataModel
+     */
     @Test
     void shouldThrowIllegalArgumentException_whenGivenNullUnitDataModel(){
 
@@ -91,6 +103,9 @@ class UnitDataModelAssemblerTest {
         assertEquals(expectedMessage, actualMessage);
     }
 
+    /**
+     * Test toDomain method of UnitDataModelAssembler when given list of UnitDataModels
+     */
     @Test
     void shouldReturnListOfUnits_whenGivenListOfUnitDataModels(){
 
