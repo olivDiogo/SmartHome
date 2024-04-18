@@ -8,6 +8,7 @@ import smart_home.domain.room.Room;
 import smart_home.domain.sensor.ISensor;
 import smart_home.domain.sensor_model.SensorModel;
 import smart_home.domain.sensor_type.SensorType;
+import smart_home.domain.service.*;
 import smart_home.dto.*;
 import smart_home.dto.sensor_data_dto.ISensorDataDTO;
 import smart_home.service.*;
@@ -19,56 +20,56 @@ import java.util.List;
 
 
 public class AddSensorToDeviceController {
-    private RoomServiceImpl _roomServiceImpl;
+    private IRoomService _roomService;
     private RoomAssembler _roomAssembler;
-    private DeviceServiceImpl _deviceServiceImpl;
+    private IDeviceService _deviceService;
     private DeviceAssembler _deviceAssembler;
-    private SensorModelServiceImpl _sensorModelServiceImpl;
+    private ISensorModelService _sensorModelService;
     private SensorModelAssembler _sensorModelAssembler;
-    private SensorTypeServiceImpl _sensorTypeServiceImpl;
+    private ISensorTypeService _sensorTypeService;
     private SensorTypeAssembler _sensorTypeAssembler;
     private SensorAssembler _sensorAssembler;
-    private SensorServiceImpl _sensorServiceImpl;
+    private ISensorService _sensorService;
 
     /**
      * Constructor for the GetListOfRoomsController class.
      *
-     * @param roomServiceImpl   The room service.
+     * @param roomService   The room service.
      * @param roomAssembler The room assembler.
      */
     public AddSensorToDeviceController(
-            RoomServiceImpl roomServiceImpl,
+            RoomServiceImpl roomService,
             RoomAssembler roomAssembler,
-            DeviceServiceImpl deviceServiceImpl,
+            IDeviceService deviceService,
             DeviceAssembler deviceAssembler,
-            SensorModelServiceImpl sensorModelServiceImpl,
+            SensorModelServiceImpl sensorModelService,
             SensorModelAssembler sensorModelAssembler,
-            SensorTypeServiceImpl sensorTypeServiceImpl,
+            SensorTypeServiceImpl sensorTypeService,
             SensorTypeAssembler sensorTypeAssembler,
             SensorAssembler sensorAssembler,
-            SensorServiceImpl sensorServiceImpl) {
-        validateRoomService(roomServiceImpl);
+            SensorServiceImpl sensorService) {
+        validateRoomService(roomService);
         validateRoomAssembler(roomAssembler);
-        validateDeviceService(deviceServiceImpl);
+        validateDeviceService(deviceService);
         validateDeviceAssembler(deviceAssembler);
-        validateSensorModelService(sensorModelServiceImpl);
+        validateSensorModelService(sensorModelService);
         validateSensorModelAssembler(sensorModelAssembler);
-        validateSensorTypeService(sensorTypeServiceImpl);
+        validateSensorTypeService(sensorTypeService);
         validateSensorTypeAssembler(sensorTypeAssembler);
         validateSensorAssembler(sensorAssembler);
-        validateSensorService(sensorServiceImpl);
+        validateSensorService(sensorService);
     }
 
     /**
      * Validates the room service.
      *
-     * @param roomServiceImpl The room service.
+     * @param roomService The room service.
      */
-    private void validateRoomService(RoomServiceImpl roomServiceImpl) {
-        if (roomServiceImpl == null) {
+    private void validateRoomService(IRoomService roomService) {
+        if (roomService == null) {
             throw new IllegalArgumentException("Please enter a valid room service.");
         } else {
-            this._roomServiceImpl = roomServiceImpl;
+            this._roomService = roomService;
         }
     }
 
@@ -88,13 +89,13 @@ public class AddSensorToDeviceController {
     /**
      * Validates the device service.
      *
-     * @param deviceServiceImpl The device service.
+     * @param deviceService The device service.
      */
-    private void validateDeviceService(DeviceServiceImpl deviceServiceImpl) {
-        if (deviceServiceImpl == null) {
+    private void validateDeviceService(IDeviceService deviceService) {
+        if (deviceService == null) {
             throw new IllegalArgumentException("Please enter a valid device service.");
         } else {
-            this._deviceServiceImpl = deviceServiceImpl;
+            this._deviceService = deviceService;
         }
     }
 
@@ -114,13 +115,13 @@ public class AddSensorToDeviceController {
     /**
      * Validates the sensor model service.
      *
-     * @param sensorModelServiceImpl The sensor model service.
+     * @param sensorModelService The sensor model service.
      */
-    private void validateSensorModelService(SensorModelServiceImpl sensorModelServiceImpl) {
-        if (sensorModelServiceImpl == null) {
+    private void validateSensorModelService(ISensorModelService sensorModelService) {
+        if (sensorModelService == null) {
             throw new IllegalArgumentException("Please enter a valid sensor model service.");
         } else {
-            this._sensorModelServiceImpl = sensorModelServiceImpl;
+            this._sensorModelService = sensorModelService;
         }
     }
 
@@ -140,13 +141,13 @@ public class AddSensorToDeviceController {
     /**
      * Validates the sensor type service.
      *
-     * @param sensorTypeServiceImpl The sensor type service.
+     * @param sensorTypeService The sensor type service.
      */
-    private void validateSensorTypeService(SensorTypeServiceImpl sensorTypeServiceImpl) {
-        if (sensorTypeServiceImpl == null) {
+    private void validateSensorTypeService(SensorTypeServiceImpl sensorTypeService) {
+        if (sensorTypeService == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type service.");
         } else {
-            this._sensorTypeServiceImpl = sensorTypeServiceImpl;
+            this._sensorTypeService = sensorTypeService;
         }
     }
 
@@ -179,13 +180,13 @@ public class AddSensorToDeviceController {
     /**
      * Validates the sensor service.
      *
-     * @param sensorServiceImpl The sensor service.
+     * @param sensorService The sensor service.
      */
-    private void validateSensorService(SensorServiceImpl sensorServiceImpl) {
-        if (sensorServiceImpl == null) {
+    private void validateSensorService(ISensorService sensorService) {
+        if (sensorService == null) {
             throw new IllegalArgumentException("Please enter a valid sensor service.");
         } else {
-            this._sensorServiceImpl = sensorServiceImpl;
+            this._sensorService = sensorService;
         }
     }
 
@@ -196,7 +197,7 @@ public class AddSensorToDeviceController {
      */
     public List<RoomDTO> getRooms() {
 
-        List<Room> listOfRooms = _roomServiceImpl.getAllRooms();
+        List<Room> listOfRooms = _roomService.getAllRooms();
         if (listOfRooms == null || listOfRooms.isEmpty()) {
             return Collections.emptyList(); // Return an empty list if there are no devices.
         }
@@ -214,11 +215,11 @@ public class AddSensorToDeviceController {
     public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
         RoomID roomID = new RoomID(roomDTO.roomId);
 
-        if (!_roomServiceImpl.getRoomById(roomID).isPresent()) {
+        if (!_roomService.getRoomById(roomID).isPresent()) {
             throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
         }
 
-        List<Device> devices = _deviceServiceImpl.getDevicesByRoomId(roomID);
+        List<Device> devices = _deviceService.getDevicesByRoomId(roomID);
 
         List<DeviceDTO> deviceDTOList = _deviceAssembler.domainToDTO(devices);
 
@@ -231,7 +232,7 @@ public class AddSensorToDeviceController {
      * @return a list of sensor types.
      */
     public List<SensorTypeDTO> getSensorTypes() {
-        List<SensorType> sensorTypeList = _sensorTypeServiceImpl.getAllSensorTypes();
+        List<SensorType> sensorTypeList = _sensorTypeService.getAllSensorTypes();
         if (sensorTypeList.isEmpty()) {
             throw new IllegalArgumentException("No sensor types found.");
         }
@@ -247,12 +248,12 @@ public class AddSensorToDeviceController {
     public List<SensorModelDTO> getSensorModels(SensorTypeDTO sensorTypeDTO) {
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeDTO.sensorTypeID);
 
-        if (!_sensorTypeServiceImpl.getSensorTypeByID(sensorTypeID).isPresent()) {
+        if (!_sensorTypeService.getSensorTypeByID(sensorTypeID).isPresent()) {
             throw new IllegalArgumentException("Sensor type with ID " + sensorTypeID + " not found.");
         }
 
         List<SensorModel> sensorModels =
-                _sensorModelServiceImpl.getSensorModelsBySensorTypeId(sensorTypeID);
+                _sensorModelService.getSensorModelsBySensorTypeId(sensorTypeID);
         if (sensorModels == null || sensorModels.isEmpty()) {
             throw new IllegalArgumentException("No sensor models found.");
         }
@@ -272,7 +273,7 @@ public class AddSensorToDeviceController {
         ISensorVOAssembler sensorVOAssembler = new SensorVOAssemblerImpl();
         Object[] sensorParameters = sensorVOAssembler.getSensorParameters(sensorDataDTOImp);
 
-        ISensor sensor = _sensorServiceImpl.addSensor(sensorParameters);
+        ISensor sensor = _sensorService.addSensor(sensorParameters);
 
         return _sensorAssembler.domainToDTO(sensor);
     }
