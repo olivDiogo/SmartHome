@@ -3,6 +3,8 @@ package smart_home.controller;
 import smart_home.assembler.SensorTypeAssembler;
 import smart_home.assembler.UnitAssembler;
 import smart_home.domain.sensor_type.SensorType;
+import smart_home.domain.service.ISensorTypeService;
+import smart_home.domain.service.IUnitService;
 import smart_home.domain.unit.Unit;
 import smart_home.dto.SensorTypeDTO;
 import smart_home.dto.SensorTypeDataDTO;
@@ -15,33 +17,56 @@ import smart_home.value_object.UnitID;
 import java.util.List;
 
 public class AddSensorTypeController {
-    private SensorTypeServiceImpl _sensorTypeServiceImpl;
-    private UnitServiceImpl _unitServiceImpl;
+    private ISensorTypeService _sensorTypeService;
+    private IUnitService _unitService;
     private SensorTypeAssembler _sensorTypeAssembler;
     private UnitAssembler _unitAssembler;
 
-    public AddSensorTypeController(SensorTypeServiceImpl sensorTypeServiceImpl, SensorTypeAssembler sensorTypeAssembler,
-                                   UnitServiceImpl unitServiceImpl, UnitAssembler unitAssembler) {
-        validateSensorTypeService(sensorTypeServiceImpl);
-        validateUnitService(unitServiceImpl);
+    /**
+     * Constructs an AddSensorTypeController with the specified services and assemblers.
+     *
+     * @param sensorTypeService The service for managing sensor types.
+     * @param sensorTypeAssembler The assembler for converting sensor types to DTOs.
+     * @param unitService The service for managing units.
+     * @param unitAssembler The assembler for converting units to DTOs.
+     */
+    public AddSensorTypeController(ISensorTypeService sensorTypeService, SensorTypeAssembler sensorTypeAssembler,
+                                   IUnitService unitService, UnitAssembler unitAssembler) {
+        validateSensorTypeService(sensorTypeService);
+        validateUnitService(unitService);
         validateSensorTypeAssembler(sensorTypeAssembler);
         validateUnitAssembler(unitAssembler);
     }
 
-    private void validateSensorTypeService(SensorTypeServiceImpl sensorTypeServiceImpl) {
-        if (sensorTypeServiceImpl == null) {
+    /**
+     * Validates the sensor type service.
+     *
+     * @param sensorTypeService The sensor type service to validate.
+     */
+    private void validateSensorTypeService(ISensorTypeService sensorTypeService) {
+        if (sensorTypeService == null) {
             throw new IllegalArgumentException("Valid SensorTypeService is required");
         }
-        _sensorTypeServiceImpl = sensorTypeServiceImpl;
+        _sensorTypeService = sensorTypeService;
     }
 
-    private void validateUnitService(UnitServiceImpl unitServiceImpl) {
-        if (unitServiceImpl == null) {
+    /**
+     * Validates the unit service.
+     *
+     * @param unitService The unit service to validate.
+     */
+    private void validateUnitService(IUnitService unitService) {
+        if (unitService == null) {
             throw new IllegalArgumentException("Valid UnitService is required");
         }
-        _unitServiceImpl = unitServiceImpl;
+        _unitService = unitService;
     }
 
+    /**
+     * Validates the sensor type assembler.
+     *
+     * @param sensorTypeAssembler The sensor type assembler to validate.
+     */
     private void validateSensorTypeAssembler(SensorTypeAssembler sensorTypeAssembler) {
         if (sensorTypeAssembler == null) {
             throw new IllegalArgumentException("Valid SensorTypeAssembler is required");
@@ -49,6 +74,11 @@ public class AddSensorTypeController {
         _sensorTypeAssembler = sensorTypeAssembler;
     }
 
+    /**
+     * Validates the unit assembler.
+     *
+     * @param unitAssembler The unit assembler to validate.
+     */
     private void validateUnitAssembler(UnitAssembler unitAssembler) {
         if (unitAssembler == null) {
             throw new IllegalArgumentException("Valid UnitAssembler is required");
@@ -56,17 +86,28 @@ public class AddSensorTypeController {
         _unitAssembler = unitAssembler;
     }
 
+    /**
+     * Get all supported units.
+     *
+     * @return The list of supported units.
+     */
     public List<UnitDTO> getSupportedUnits() {
-        List<Unit> units = _unitServiceImpl.getAllMeasurementTypes();
+        List<Unit> units = _unitService.getAllMeasurementTypes();
         return _unitAssembler.domainToDTO(units);
     }
 
+    /**
+     * Add and save a sensor type.
+     *
+     * @param sensorTypeDataDTO The sensor type data to add and save.
+     * @return The sensor type DTO.
+     */
     public SensorTypeDTO addAndSaveSensorType(SensorTypeDataDTO sensorTypeDataDTO) {
         try {
             TypeDescription typeDescription = new TypeDescription(sensorTypeDataDTO.sensorTypeDescription);
             UnitID unitID = new UnitID(sensorTypeDataDTO.unitID);
-            SensorType sensorType = _sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
-            SensorType savedSensorType = _sensorTypeServiceImpl.addSensorType(sensorType);
+            SensorType sensorType = _sensorTypeService.createSensorType(typeDescription, unitID);
+            SensorType savedSensorType = _sensorTypeService.addSensorType(sensorType);
             return _sensorTypeAssembler.domainToDTO(savedSensorType);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid sensor type data.");
