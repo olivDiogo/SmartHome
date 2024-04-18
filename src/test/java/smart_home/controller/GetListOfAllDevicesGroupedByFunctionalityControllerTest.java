@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
- class GetListOfAllDevicesGroupedByFunctionalityTest {
+ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     /**
      * Test to ensure that GetListOfAllDevicesGroupedByFunctionality can be instantiated successfully.
      */
@@ -51,7 +51,7 @@ import static org.mockito.Mockito.when;
         DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         //Act
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
+        GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         //Assert
         Assertions.assertNotNull(getListOfAllDevicesGroupedByFunctionality);
@@ -69,7 +69,7 @@ import static org.mockito.Mockito.when;
         DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionality(null, deviceAssembler, deviceTypeServiceImpl), "DeviceService cannot be null.");
+        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionalityController(null, deviceAssembler, deviceTypeServiceImpl), "DeviceService cannot be null.");
     }
 
     /**
@@ -88,7 +88,7 @@ import static org.mockito.Mockito.when;
         DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, null, deviceTypeServiceImpl), "DeviceAssembler cannot be null.");
+        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionalityController(deviceServiceImpl, null, deviceTypeServiceImpl), "DeviceAssembler cannot be null.");
     }
 
     /**
@@ -104,7 +104,7 @@ import static org.mockito.Mockito.when;
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
         //Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, null), "DeviceTypeService cannot be null.");
+        assertThrows(IllegalArgumentException.class, () -> new GetListOfAllDevicesGroupedByFunctionalityController(deviceServiceImpl, deviceAssembler, null), "DeviceTypeService cannot be null.");
     }
 
     @Test
@@ -122,7 +122,7 @@ import static org.mockito.Mockito.when;
         IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
         DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
 
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
+        GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         //Act & Assert
         assertThrows(IllegalArgumentException.class, () -> getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality(), "No devices found.");
@@ -149,7 +149,7 @@ import static org.mockito.Mockito.when;
         HouseRepository houseRepository = new HouseRepository();
         HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
+        GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         /* Create a house */
         String street = "Rua Do Isep";
@@ -227,7 +227,7 @@ import static org.mockito.Mockito.when;
         HouseRepository houseRepository = new HouseRepository();
         HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
+        GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         /* Create a house */
         String street = "Rua Do Isep";
@@ -304,7 +304,7 @@ import static org.mockito.Mockito.when;
         HouseRepository houseRepository = new HouseRepository();
         HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        GetListOfAllDevicesGroupedByFunctionality getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionality(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
+        GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         /* Create a house */
         String street = "Rua Do Isep";
