@@ -1,6 +1,7 @@
 package smart_home.controller;
 
 import smart_home.assembler.DeviceAssembler;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.device_type.DeviceType;
 import smart_home.domain.service.IDeviceService;
@@ -13,7 +14,7 @@ import java.util.*;
 public class GetListOfAllDevicesGroupedByFunctionalityController {
     private IDeviceService _deviceService;
     private IDeviceTypeService _deviceTypeService;
-    private DeviceAssembler _deviceAssembler;
+    private IAssembler<Device, DeviceDTO> _deviceAssembler;
 
 
     /**
@@ -23,7 +24,7 @@ public class GetListOfAllDevicesGroupedByFunctionalityController {
      * @param deviceAssembler
      * @param deviceTypeService
      */
-    public GetListOfAllDevicesGroupedByFunctionalityController(IDeviceService deviceService, DeviceAssembler deviceAssembler, IDeviceTypeService deviceTypeService) {
+    public GetListOfAllDevicesGroupedByFunctionalityController(IDeviceService deviceService, IAssembler<Device, DeviceDTO> deviceAssembler, IDeviceTypeService deviceTypeService) {
         validateDeviceService(deviceService);
         validateDeviceAssembler(deviceAssembler);
         validateDeviceTypeService(deviceTypeService);
@@ -46,7 +47,7 @@ public class GetListOfAllDevicesGroupedByFunctionalityController {
      *
      * @param deviceAssembler The DeviceAssembler to validate.
      */
-    private void validateDeviceAssembler(DeviceAssembler deviceAssembler) {
+    private void validateDeviceAssembler(IAssembler<Device, DeviceDTO> deviceAssembler) {
         if (deviceAssembler == null) {
             throw new IllegalArgumentException("DeviceAssembler cannot be null.");
         }
