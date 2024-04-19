@@ -464,5 +464,35 @@ class ElectricConsumptionWhSensorAggregateTest {
 
         assertEquals(expectedMessage, actualMessage);
     }
+    /**
+     * Should Return the date period of the sensor.
+     */
+    @Test
+    void shouldReturnDatePeriod_whenGetDatePeriodIsCalled() {
+        // Arrange
+        String idName = "sensorID";
+        String deviceIDName = "deviceID";
+        String modelPathName = "SmartHome.sensors.ElectricConsumptionWh";
+        String sensorTypeIDName = "ElectricConsumptionWh";
+        String name = "ElectricConsumptionWhSensor";
+
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime endDate = LocalDateTime.now();
+
+        DatePeriod datePeriod = new DatePeriod(startDate, endDate);
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDName);
+        SensorName sensorName = new SensorName(name);
+        SensorID sensorID = new SensorID(idName);
+
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod, sensorID);
+
+        // Act
+        DatePeriod result = electricConsumptionWhSensor.getDatePeriod();
+
+        // Assert
+        assertEquals(datePeriod, result);
+    }
 
 }

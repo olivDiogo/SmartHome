@@ -145,6 +145,15 @@ public class ElectricConsumptionWhSensor implements ISensor {
      *
      * @return the period during which the sensor measures consumption
      */
+
+    public DatePeriod getDatePeriod() {
+        return _datePeriod;
+    }
+
+    /**
+     * Returns the value of the sensor.
+     * @return
+     */
     @Override
     public ElectricConsumptionWhValue getValue() {
         int consumptionInWh = getConsumptionInWhForGivenPeriod();
