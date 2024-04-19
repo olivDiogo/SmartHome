@@ -207,9 +207,11 @@ class DeviceRepositoryTest {
         List<Device> expectedDeviceList = List.of(device, device2, device3);
 
         //Act
-        List<Device> returnedDeviceList = deviceRepository.getDevicesByRoomId(roomID);
+        List<Device> returnedDeviceList = deviceRepository.findBy_roomID(roomID);
 
         //Assert
         assertEquals(expectedDeviceList, returnedDeviceList);
     }
+
+
 }

@@ -47,17 +47,6 @@ public class DeviceDataModel {
         this.deviceStatus = device.getDeviceStatus().getStatus();
     }
 
-    /**
-     * Validates the device object.
-     *
-     * @param device The Device object to validate.
-     * @throws IllegalArgumentException if the provided device is null.
-     */
-    private void validateDevice(Device device) {
-        if (device == null) {
-            throw new IllegalArgumentException("Device cannot be null.");
-        }
-    }
 
     /**
      * Returns the device ID.
@@ -102,6 +91,18 @@ public class DeviceDataModel {
      */
     public boolean getDeviceStatus() {
         return deviceStatus;
+    }
+
+    /**
+     * Updates the device data model from the domain.
+     */
+    public boolean updateFromDomain(Device device){
+        this.deviceID = device.getID().getID();
+        this.roomID = device.getRoomID().getID();
+        this.deviceName = device.getDeviceName().getName();
+        this.deviceTypeID = device.getDeviceTypeID().getID();
+        this.deviceStatus = device.getDeviceStatus().getStatus();
+        return true;
     }
 }
 

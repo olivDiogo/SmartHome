@@ -281,6 +281,47 @@ class DeviceDataModelTest {
         //Assert
         assertEquals(deviceStatus, result);
     }
+    /**
+     * Test to update the device data model from the domain.
+     */
+    @Test
+    void shouldUpdateDeviceDataModel_WhenUpdateFromDomain(){
+        //Arrange
+        String strRoomID = "1";
+        String strDeviceName = "Light";
+        String strDeviceTypeID = "1";
+        boolean deviceStatus = true;
+        String strDeviceID = "1";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        RoomID roomIDDouble = mock(RoomID.class);
+        DeviceName deviceNameDouble = mock(DeviceName.class);
+        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+        DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
+
+        when(deviceIDDouble.getID()).thenReturn(strDeviceID);
+        when(roomIDDouble.getID()).thenReturn(strRoomID);
+        when(deviceNameDouble.getName()).thenReturn(strDeviceName);
+        when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
+        when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
+
+        Device deviceDouble = mock(Device.class);
+
+        when(deviceDouble.getID()).thenReturn(deviceIDDouble);
+        when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
+        when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+        when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
+        when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
+
+        DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
+
+        //Act
+        boolean result = deviceDataModel.updateFromDomain(deviceDouble);
+
+        //Assert
+        assertTrue(result);
+    }
+
 
 
 

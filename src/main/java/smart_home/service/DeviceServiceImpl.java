@@ -131,6 +131,6 @@ public class DeviceServiceImpl implements IDeviceService {
      */
     @Override
     public List<Device> getDevicesByRoomId(RoomID roomId) {
-        return _deviceRepository.getDevicesByRoomId(roomId);
+        return _deviceRepository.findBy_roomID(roomId);
     }
 }

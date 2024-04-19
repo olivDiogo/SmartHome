@@ -11,5 +11,7 @@ import java.util.List;
  * Represents a repository for managing Device instances.
  */
 public interface IDeviceRepository extends IRepository<DeviceID, Device> {
-    List<Device> getDevicesByRoomId(RoomID roomId);
+    List<Device> findBy_roomID(RoomID roomId);
+
+    Device update(Device device);
 }

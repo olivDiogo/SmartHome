@@ -84,6 +84,7 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
 
     /**
      * Retrieves all Device entities from the database.
+     *
      * @return A list of Device domain objects.
      */
 
@@ -101,6 +102,7 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
 
     /**
      * Retrieves a Device entity from the database by its unique identifier.
+     *
      * @param deviceID is the unique identifier of the domain entity.
      * @return An Optional containing the found Device, or an empty Optional if no device is found.
      */
@@ -121,6 +123,7 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
         }
 
     }
+
     /**
      * Checks if a Device with a specific identity exists in the database.
      *
@@ -141,7 +144,7 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
      */
 
     @Override
-    public List<Device> getDevicesByRoomId(RoomID roomId) {
+    public List<Device> findBy_roomID(RoomID roomId) {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createQuery("SELECT e FROM DeviceDataModel e WHERE e.roomID = :roomId");
@@ -152,5 +155,36 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
             em.close();
         }
 
+    }
+
+    @Override
+    public Device update(Device device) {
+        DeviceDataModel deviceDataModel = getEntityManager().find(DeviceDataModel.class, device.getID().getID());
+
+        if (deviceDataModel != null) {
+            boolean isUpdated = deviceDataModel.updateFromDomain(device);
+
+            if (isUpdated) {
+                EntityManager em = getEntityManager();
+                EntityTransaction tx = em.getTransaction();
+
+                try {
+                    tx.begin();
+                    em.merge(deviceDataModel);
+                    tx.commit();
+                } catch (RuntimeException e) {
+                    if (tx.isActive()) {
+                        tx.rollback();
+                    }
+                    throw e;
+                } finally {
+                    em.close();
+                }
+                return device;
+            } else {
+                return null;
+            }
+        }
+        return null;
     }
 }

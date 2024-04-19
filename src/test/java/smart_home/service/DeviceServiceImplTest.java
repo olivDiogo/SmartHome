@@ -292,7 +292,7 @@ class DeviceServiceImplTest {
         Device mockDevice = mock(Device.class);
         Device mockDevice2 = mock(Device.class);
 
-        when(deviceRepository.getDevicesByRoomId(roomID)).thenReturn(List.of(mockDevice, mockDevice2));
+        when(deviceRepository.findBy_roomID(roomID)).thenReturn(List.of(mockDevice, mockDevice2));
 
         // Act
         List<Device> deviceList = deviceServiceImpl.getDevicesByRoomId(roomID);

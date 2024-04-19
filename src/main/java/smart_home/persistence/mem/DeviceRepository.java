@@ -79,8 +79,15 @@ public class DeviceRepository implements IDeviceRepository {
      */
 
     @Override
-    public List<Device> getDevicesByRoomId(RoomID roomId) {
+    public List<Device> findBy_roomID(RoomID roomId) {
         List<Device> devices = _deviceData.values().stream().filter(device -> device.getRoomID().equals(roomId)).toList();
         return devices;
+    }
+    /**
+     * Method to update a device
+     */
+    @Override
+    public Device update(Device device) {
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }
