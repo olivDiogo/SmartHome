@@ -5,6 +5,7 @@ import smart_home.domain.repository.IRoomRepository;
 import smart_home.domain.room.Room;
 import smart_home.persistence.assembler.IDataModelAssembler;
 import smart_home.persistence.jpa.data_model.RoomDataModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.RoomID;
 
 import java.util.List;
@@ -19,20 +20,10 @@ public class RoomRepositoryJPAImpl implements IRoomRepository {
      * @param dataModelConverter
      */
     public RoomRepositoryJPAImpl(IDataModelAssembler<RoomDataModel, Room> dataModelConverter) {
-        validateDataModelConverter(dataModelConverter);
+        Validator.validateNotNull(dataModelConverter, "Data model assembler");
 
         _dataModelConverter = dataModelConverter;
         _factory = Persistence.createEntityManagerFactory("smart_home");
-    }
-
-    /**
-     * Method to validate room data model converter
-     * @param entity IDataModelConverter<RoomDataModel, Room>
-     */
-    private void validateDataModelConverter(IDataModelAssembler<RoomDataModel, Room> entity) {
-        if (entity == null) {
-            throw new IllegalArgumentException("Data model assembler cannot be null.");
-        }
     }
 
     /**

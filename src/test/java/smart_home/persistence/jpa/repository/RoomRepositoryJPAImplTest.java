@@ -32,7 +32,7 @@ public class RoomRepositoryJPAImplTest {
         //Arrange
         IDataModelAssembler dataModelAssembler = null;
 
-        String expectedMessage = "Data model assembler cannot be null.";
+        String expectedMessage = "Data model assembler is required";
 
         //Act + Assert
         Exception e = assertThrows(IllegalArgumentException.class, () -> new RoomRepositoryJPAImpl(dataModelAssembler));
