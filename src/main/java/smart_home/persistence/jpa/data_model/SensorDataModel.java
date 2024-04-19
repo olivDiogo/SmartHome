@@ -31,13 +31,33 @@ public class SensorDataModel {
 
     public SensorDataModel(ISensor sensor) {
         Validator.validateNotNull(sensor, "Sensor");
+        setGenericSensor(sensor);
+    }
+    //Setters
+
+    public void setGenericSensor(ISensor sensor) {
         this.sensorID = sensor.getID().getID();
         this.deviceID = sensor.getDeviceID().getID();
         this.modelPath = sensor.getModelPath().getID();
         this.sensorTypeID = sensor.getSensorTypeID().getID();
         this.sensorName = sensor.getName().getSensorName();
     }
-    //Setters
+
+    public void setSensorID(String sensorID) {
+        this.sensorID = sensorID;
+    }
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
+    public void setModelPath(String modelPath) {
+        this.modelPath = modelPath;
+    }
+    public void setSensorTypeID(String sensorTypeID) {
+        this.sensorTypeID = sensorTypeID;
+    }
+    public void setSensorName(String sensorName) {
+        this.sensorName = sensorName;
+    }
 
     public void setLatitude(String latitude) {
         this.latitude = latitude;
