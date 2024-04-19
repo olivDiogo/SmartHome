@@ -1,0 +1,411 @@
+package smart_home.persistence.jpa.data_model;
+
+import org.h2.engine.Mode;
+import org.junit.jupiter.api.Test;
+import smart_home.domain.sensor.ISensor;
+import smart_home.domain.sensor.temperature_sensor.TemperatureSensor;
+import smart_home.value_object.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+class SensorDataModelTest {
+    @Test
+    void shouldCreateSensorDataModel() {
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+
+        String expected = "SensorDataModel{" +
+                "sensorID='" + sensorID + '\'' +
+                ", deviceID='" + deviceID + '\'' +
+                ", modelPath='" + modelPath + '\'' +
+                ", sensorTypeID='" + sensorTypeID + '\'' +
+                ", sensorName='" + sensorName + '\'' +
+                ", latitude='" + null + '\'' +
+                ", longitude='" + null + '\'' +
+                ", startDate='" + null + '\'' +
+                ", endDate='" + null + '\'' +
+                '}';
+        //Act
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        //Assert
+        assertEquals(expected, sensorDataModel.toString());
+    }
+
+    @Test
+    void shouldSetLatitude() {
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        String latitude = "10.0";
+        //Act
+        sensorDataModel.setLatitude(latitude);
+        //Assert
+        assertEquals(latitude, sensorDataModel.getLatitude());
+    }
+    @Test
+    void shouldSetLongitude() {
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        String longitude = "20.0";
+        //Act
+        sensorDataModel.setLongitude(longitude);
+        //Assert
+        assertEquals(longitude, sensorDataModel.getLongitude());
+    }
+
+@Test
+    void shouldSetStartDate() {
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        String startDate = "2021-01-01";
+        //Act
+        sensorDataModel.setStartDate(startDate);
+        //Assert
+        assertEquals(startDate, sensorDataModel.getStartDate());
+    }
+    @Test
+    void shouldSetEndData() {
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        String endDate = "2021-01-01";
+        //Act
+        sensorDataModel.setEndDate(endDate);
+        //Assert
+        assertEquals(endDate, sensorDataModel.getEndDate());
+    }
+ @Test
+    void shouldReturnSensorID() {
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        //Act
+        String result = sensorDataModel.getSensorID();
+        //Assert
+        assertEquals(sensorID, result);
+    }
+    @Test
+    void shouldReturnDeviceID() {
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        //Act
+        String result = sensorDataModel.getDeviceID();
+        //Assert
+        assertEquals(deviceID, result);
+    }
+    @Test
+    void shouldReturnModelPath() {
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        //Act
+        String result = sensorDataModel.getModelPath();
+        //Assert
+        assertEquals(modelPath, result);
+    }
+    @Test
+    void shouldReturnSensorTypeID() {
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        //Act
+        String result = sensorDataModel.getSensorTypeID();
+        //Assert
+        assertEquals(sensorTypeID, result);
+    }
+    @Test
+    void shouldReturnSensorName() {
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        //Act
+        String result = sensorDataModel.getSensorName();
+        //Assert
+        assertEquals(sensorName, result);
+    }
+    @Test
+    void shouldReturnLatitudeAndLongitude(){
+        //Arrange
+        String deviceID = "deviceID";
+        String modelPath = "modelPath";
+        String sensorTypeID = "Temperature";
+        String sensorName = "TemperatureSensor";
+        String sensorID = "Teste";
+        String latitude = "10.0";
+        String longitude = "20.0";
+
+        DeviceID deviceIDDouble = mock(DeviceID.class);
+        when(deviceIDDouble.getID()).thenReturn(deviceID);
+        ModelPath modelPathDouble = mock(ModelPath.class);
+        when(modelPathDouble.getID()).thenReturn(modelPath);
+        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+        when(sensorTypeIDDouble.getID()).thenReturn(sensorTypeID);
+        SensorName sensorNameDouble = mock(SensorName.class);
+        when(sensorNameDouble.getSensorName()).thenReturn(sensorName);
+        SensorID sensorIDDouble = mock(SensorID.class);
+        when(sensorIDDouble.getID()).thenReturn(sensorID);
+        ISensor sensorMock = mock(ISensor.class);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+
+        when(sensorMock.getID()).thenReturn(sensorIDDouble);
+        when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
+        when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
+        when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
+        when(sensorMock.getName()).thenReturn(sensorNameDouble);
+        SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
+        sensorDataModel.setLatitude(latitude);
+        sensorDataModel.setLongitude(longitude);
+        //Act
+        String result = sensorDataModel.getLatitude();
+        String result2 = sensorDataModel.getLongitude();
+        //Assert
+        assertEquals(latitude, result);
+        assertEquals(longitude, result2);
+    }
+}
