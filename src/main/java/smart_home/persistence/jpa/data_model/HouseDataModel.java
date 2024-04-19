@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import smart_home.domain.house.House;
+import smart_home.utils.Validator;
 
 /**
  * Class to represent the house data model
@@ -39,7 +40,7 @@ public class HouseDataModel {
      * @param house
      */
     public HouseDataModel(House house) {
-        validateHouse(house);
+        Validator.validateNotNull(house, "House");
         this._houseID = house.getID().getID();
         this._latitude = house.getGps().getLatitude();
         this._longitude = house.getGps().getLongitude();
@@ -47,15 +48,6 @@ public class HouseDataModel {
         this._doorNumber = house.getAddress().getDoorNumber();
         this._countryCode = house.getAddress().getCountryCode();
         this._postalCode = house.getAddress().getPostalCode().getCode();
-    }
-    /**
-     * Method to validate house
-     * @param house
-     */
-    private void validateHouse(House house) {
-        if (house == null) {
-            throw new IllegalArgumentException("House cannot be null.");
-        }
     }
 
     /**

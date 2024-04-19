@@ -30,7 +30,7 @@ class DeviceDataModelTest {
     void shouldThrowIllegalArgumentException_WhenDeviceIsNull(){
         //Arrange
         Device device = null;
-        String expectedMessage = "Device cannot be null.";
+        String expectedMessage = "Device is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new DeviceDataModel(device));

@@ -50,7 +50,7 @@ class UnitDataModelTest {
         // Arrange
         Unit unit = null;
 
-        String expectedMessage = "Unit cannot be null.";
+        String expectedMessage = "Unit is required";
 
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new UnitDataModel(unit));

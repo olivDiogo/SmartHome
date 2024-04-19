@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import smart_home.domain.sensor_type.SensorType;
+import smart_home.utils.Validator;
 
 @Entity
 @Table(name = "SensorType")
@@ -29,21 +30,12 @@ public class SensorTypeDataModel {
      * @param sensorType the sensor type
      */
     public SensorTypeDataModel(SensorType sensorType) {
-        validateSensorType(sensorType);
+        Validator.validateNotNull(sensorType, "Sensor Type");
         this._sensorTypeID = sensorType.getID().getID();
         this._typeDescription = sensorType.getName().getID();
         this._unitID = sensorType.getUnit().getID();
     }
 
-    /**
-     * Validates the sensor type
-     *
-     * @param sensorType the sensor type
-     */
-    private void validateSensorType(SensorType sensorType) {
-        if (sensorType == null)
-            throw new IllegalArgumentException("SensorType cannot be null");
-    }
 
     /**
      * Get the sensor type ID

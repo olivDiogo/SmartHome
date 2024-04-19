@@ -50,7 +50,7 @@ class DeviceTypeDataModelTest {
     // Arrange
     DeviceType deviceTypeDouble = null;
 
-    String expectedMessage = "DeviceType cannot be null";
+    String expectedMessage = "Device Type is required";
 
     // Act + Assert
     Exception exception =

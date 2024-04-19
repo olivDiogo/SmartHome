@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import smart_home.domain.actuator.IActuator;
+import smart_home.utils.Validator;
 
 @Entity
 @Table(name = "Actuator")
@@ -29,24 +30,13 @@ public class ActuatorDataModel {
      * Class constructor
      */
     public ActuatorDataModel(IActuator actuator) {
-        validateActuator(actuator);
+        Validator.validateNotNull(actuator, "Actuator");
         this._actuatorID = actuator.getID().getID();
         this._deviceID = actuator.getDeviceID().getID();
         this._modelPath = actuator.getModelPath().getID();
         this._actuatorTypeID = actuator.getActuatorTypeID().getID();
         this._actuatorName = actuator.getName().getActuatorName();
 
-    }
-
-    /**
-     * Method to validate actuator
-     *
-     * @param actuator is the actuator to be validated
-     */
-    private void validateActuator(IActuator actuator) {
-        if (actuator == null) {
-            throw new IllegalArgumentException("Actuator cannot be null.");
-        }
     }
 
     /**

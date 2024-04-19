@@ -45,7 +45,7 @@ class SensorTypeDataModelTest {
         //Arrange
         SensorType sensorTypeDouble = null;
 
-        String expectedMessage = "SensorType cannot be null";
+        String expectedMessage = "Sensor Type is required";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeDataModel(sensorTypeDouble));

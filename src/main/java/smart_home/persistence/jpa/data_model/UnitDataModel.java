@@ -4,7 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.apache.commons.lang3.Validate;
 import smart_home.domain.unit.Unit;
+import smart_home.utils.Validator;
 
 
 @Entity
@@ -34,22 +36,10 @@ public class UnitDataModel {
      * @param unit The Unit object to construct from.
      */
     public UnitDataModel(Unit unit){
-        validateUnit(unit);
+        Validator.validateNotNull(unit, "Unit");
         this._unitID = unit.getID().getID();
         this._unitSymbol = unit.getUnitSymbol().getUnit();
         this._unitDescription = unit.getUnitDescription().getDescription();
-    }
-
-    /**
-     * Validates the provided Unit object.
-     *
-     * @param unit The Unit object to validate.
-     * @throws IllegalArgumentException If the provided unit is null.
-     */
-    private void validateUnit(Unit unit){
-        if(unit == null){
-            throw new IllegalArgumentException("Unit cannot be null.");
-        }
     }
 
     /**

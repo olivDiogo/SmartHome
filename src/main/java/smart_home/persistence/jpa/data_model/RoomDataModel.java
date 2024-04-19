@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import smart_home.domain.room.Room;
+import smart_home.utils.Validator;
 
 @Entity
 public class RoomDataModel {
@@ -34,7 +35,7 @@ public class RoomDataModel {
      * @param room
      */
     public RoomDataModel(Room room){
-        validateRoom(room);
+        Validator.validateNotNull(room, "Room");
         this._roomID = room.getID().getID();
         this._houseID = room.getHouseID().getID();
         this._roomName = room.getRoomName().getRoomName();
@@ -44,15 +45,6 @@ public class RoomDataModel {
         this._floor = room.getRoomFloor().getFloor();
     }
 
-    /**
-     * Method to validate room
-     * @param room
-     */
-    private void validateRoom(Room room){
-        if(room == null){
-            throw new IllegalArgumentException("Room cannot be null.");
-        }
-    }
 
     /**
      * Method to return the room ID.

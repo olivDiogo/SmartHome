@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import smart_home.domain.device_type.DeviceType;
+import smart_home.utils.Validator;
 
 @Entity
 @Table(name = "DeviceType")
@@ -23,18 +24,9 @@ public class DeviceTypeDataModel {
    * @param deviceType the device type
    */
   public DeviceTypeDataModel(DeviceType deviceType) {
-    validateDeviceType(deviceType);
+    Validator.validateNotNull(deviceType, "Device Type");
     this._deviceTypeID = deviceType.getID().getID();
     this._deviceTypeDescription = deviceType.getDescription().getDescription();
-  }
-
-  /**
-   * Validates the device type
-   *
-   * @param deviceType the device type
-   */
-  private void validateDeviceType(DeviceType deviceType) {
-    if (deviceType == null) throw new IllegalArgumentException("DeviceType cannot be null");
   }
 
   /**

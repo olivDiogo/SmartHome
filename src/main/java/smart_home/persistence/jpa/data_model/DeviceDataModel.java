@@ -2,6 +2,7 @@ package smart_home.persistence.jpa.data_model;
 
 import jakarta.persistence.*;
 import smart_home.domain.device.Device;
+import smart_home.utils.Validator;
 
 
 /**
@@ -38,7 +39,7 @@ public class DeviceDataModel {
      * @throws IllegalArgumentException if the device parameter is null.
      */
     public DeviceDataModel(Device device) {
-        validateDevice(device);
+        Validator.validateNotNull(device, "Device");
         this.deviceID = device.getID().getID();
         this.roomID = device.getRoomID().getID();
         this.deviceName = device.getDeviceName().getName();

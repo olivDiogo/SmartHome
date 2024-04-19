@@ -65,7 +65,7 @@ class HouseDataModelTest {
     void shouldThrowExceptionWHenHouseIsNull() {
         // Arrange
         House house = null;
-        String expected = "House cannot be null.";
+        String expected = "House is required";
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HouseDataModel(house));
         // Assert

@@ -54,7 +54,7 @@ import static org.mockito.Mockito.when;
         assertThrows(
             IllegalArgumentException.class, () -> new ActuatorModelDataModel(actuatorModel));
     // Assert
-    assertEquals("ActuatorModel cannot be null.", exception.getMessage());
+    assertEquals("Actuator Model is required", exception.getMessage());
   }
 
   /**

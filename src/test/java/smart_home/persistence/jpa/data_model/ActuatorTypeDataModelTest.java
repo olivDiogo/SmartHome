@@ -63,7 +63,7 @@ class ActuatorTypeDataModelTest {
         //Arrange
         ActuatorType actuatorTypeDouble = null;
 
-        String expectedMessage = "ActuatorType cannot be null";
+        String expectedMessage = "Actuator Type is required";
 
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorTypeDataModel(actuatorTypeDouble));

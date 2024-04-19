@@ -55,7 +55,7 @@ class RoomDataModelTest {
         // Arrange
         Room roomDouble = null;
 
-        String expectedMessage = "Room cannot be null.";
+        String expectedMessage = "Room is required";
 
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () ->

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 
 @Entity
 @Table(name = "sensor")
@@ -29,6 +30,7 @@ public class SensorDataModel {
     }
 
     public SensorDataModel(ISensor sensor) {
+        Validator.validateNotNull(sensor, "Sensor");
         this.sensorID = sensor.getID().getID();
         this.deviceID = sensor.getDeviceID().getID();
         this.modelPath = sensor.getModelPath().getID();
