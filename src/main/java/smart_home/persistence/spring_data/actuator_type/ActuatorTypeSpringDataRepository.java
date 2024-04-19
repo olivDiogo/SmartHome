@@ -36,26 +36,6 @@ public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository
     }
 
     /**
-     * Validates the data model converter.
-     *
-     * @param dataModelAssembler the data model converter to validate
-     * @throws IllegalArgumentException if the data model converter is null
-     */
-    private void validateDataModelAssembler(IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler) {
-        Validator.validateNotNull(dataModelAssembler, "Data model assembler");
-    }
-
-    /**
-     * Validates the repository.
-     *
-     * @param repository the repository to validate
-     * @throws IllegalArgumentException if the repository is null
-     */
-    private void validateRepository(IActuatorTypeSpringDataRepository repository) {
-        Validator.validateNotNull(repository, "Repository");
-    }
-
-    /**
      * Method to create an entity manager
      *
      * @return entity manager
