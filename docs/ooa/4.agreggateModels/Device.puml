@@ -8,7 +8,7 @@ class Device <<entity>><<Root>>{
     class DeviceID<<value object>>{
         - _id: String
     }
-    class Name<<value object>>{
+    class DeviceName<<value object>>{
         - _name: String
     }
     class DeviceTypeID<<value object>>{
@@ -23,7 +23,7 @@ class Device <<entity>><<Root>>{
 }
 
 Device  -- "1" DeviceID : has
-Device  -- "1" Name : has
+Device  -- "1" DeviceName : has
 Device  -- "1" DeviceTypeID : has
 Device  -- "1" RoomID : has
 Device  -- "1" DeviceStatus : has

@@ -12,8 +12,8 @@ package sensor {
     class SensorTypeDescription <<ValueObject>> <<ID>> {
         - _id : String
     }
-    class SensorModelPath <<ValueObject>> <<ID>> {
-        - _id : String
+    class ModelPath <<ValueObject>> {
+        - _path : String
     }
 
     class SensorName <<ValueObject>> {
@@ -29,7 +29,7 @@ package sensor {
 }
 
 Sensor  -- "1" SensorTypeDescription : has
-Sensor  -- "1" SensorModelPath : has
+Sensor  -- "1" ModelPath : has
 Sensor  -- "1" ValueImpl : has
 Sensor  -- "1" DeviceID : has
 Sensor  -- "1" SensorName : has
