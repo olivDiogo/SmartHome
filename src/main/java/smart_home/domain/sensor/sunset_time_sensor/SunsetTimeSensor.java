@@ -154,6 +154,12 @@ public class SunsetTimeSensor implements ISensor {
         this._sunsetTimeValue = new SunsetTimeSensorValue(sunrise);
         return this._sunsetTimeValue;
     }
+    /**
+     * Get GPS
+     */
+    public GPS getGPS() {
+        return _gps;
+    }
 
     /**
      * Returns the sunset time for the given date

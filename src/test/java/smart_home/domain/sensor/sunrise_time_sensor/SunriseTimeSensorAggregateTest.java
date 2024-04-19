@@ -796,6 +796,33 @@ class SunriseTimeSensorAggregateTest {
         // Assert
         assertNotNull(result);
     }
+    /**
+     * Should Return the GPS value
+     */
+    @Test
+    void shouldReturnGPSValue() throws InstantiationException {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "SunriseTime";
+        double GPSLatitude = 90.0;
+        double GPSLongitude = 180.0;
+        GPS expected = new GPS(GPSLatitude, GPSLongitude);
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, expected);
+
+        // Act
+        GPS result = sunriseTimeSensor.getGPS();
+
+        // Assert
+        assertEquals(expected, result);
+    }
 
     /**
      * See if the constructor throws an exception when the SensorID parameter is null.

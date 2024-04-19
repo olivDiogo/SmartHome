@@ -551,6 +551,26 @@ class SunsetTimeSensorTest {
             assertEquals(expected, hashCode);
         }
     }
+    /**
+     * ShouldReturnGPS_whenGetGPSIsCalled
+     */
+    @Test
+    void ShouldReturnGPS_whenGetGPSIsCalled() {
+        //Arrange
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+        when(sensorTypeID.getID()).thenReturn("SunsetTime");
+        SensorName sensorName = mock(SensorName.class);
+        GPS gps = mock(GPS.class);
+        try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class)) {
+            SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+            //Act
+            GPS actualGPS = sunsetTimeSensor.getGPS();
+            //Assert
+            assertEquals(gps, actualGPS);
+        }
+    }
 
     /**
      * Test to check if toString returns the expected value

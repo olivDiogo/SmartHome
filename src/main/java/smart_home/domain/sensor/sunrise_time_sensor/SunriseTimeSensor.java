@@ -122,6 +122,12 @@ public class SunriseTimeSensor implements ISensor {
         this._sunriseTimeValue = new SunriseTimeSensorValue(sunrise);
         return this._sunriseTimeValue;
     }
+    /**
+     * Gets the GPS configuration of the sensor.
+     */
+    public GPS getGPS() {
+        return gps;
+    }
 
     /**
      * Gets the value of the SunriseTimeSensor for a given date.
