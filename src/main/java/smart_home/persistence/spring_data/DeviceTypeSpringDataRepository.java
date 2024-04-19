@@ -8,6 +8,7 @@ import smart_home.domain.device_type.IDeviceTypeFactory;
 import smart_home.domain.repository.IDeviceTypeRepository;
 import smart_home.persistence.assembler.IDataModelAssembler;
 import smart_home.persistence.jpa.data_model.DeviceTypeDataModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.DeviceTypeID;
 
 import java.util.List;
@@ -15,19 +16,24 @@ import java.util.Optional;
 
 public class DeviceTypeSpringDataRepository implements IDeviceTypeRepository {
     IDeviceTypeSpringDataRepository repository;
-    IDeviceTypeFactory factory;
+    EntityManagerFactory factory;
     IDataModelAssembler <DeviceTypeDataModel, DeviceType> assembler;
 
-    public DeviceTypeSpringDataRepository (IDeviceTypeFactory factory, IDeviceTypeSpringDataRepository repository, IDataModelAssembler assembler) {
-        this.factory = factory;
+    public DeviceTypeSpringDataRepository (IDeviceTypeSpringDataRepository repository, IDataModelAssembler assembler) {
+        this.factory = Persistence.createEntityManagerFactory("smart_home");
+        Validator.validateNotNull(repository, "Repository");
         this.repository = repository;
+        Validator.validateNotNull(assembler, "Assembler");
         this.assembler = assembler;
     }
 
     private EntityManager getEntityManager() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("smart_home");
-        EntityManager manager = factory.createEntityManager();
-        return manager;
+        try {
+            EntityManager manager = factory.createEntityManager();
+            return manager;
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating the entity manager", e);
+        }
     }
 
     /**
