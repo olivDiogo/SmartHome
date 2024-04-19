@@ -1,9 +1,9 @@
 package smart_home.utils;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class ValueSimulator {
-    static Random random = new Random();
+    static SecureRandom random = new SecureRandom();
 
     private ValueSimulator() {
     }
@@ -11,6 +11,7 @@ public class ValueSimulator {
         if (lowerBond > upperBond) {
             throw new IllegalArgumentException("Lower bond should be less than upper bond");
         }
+
         return lowerBond + (upperBond - lowerBond) * random.nextDouble();
     }
     public static int generateRandomValue(int lowerBond, int upperBond) {
@@ -19,7 +20,7 @@ public class ValueSimulator {
         }
         return lowerBond + random.nextInt(upperBond - lowerBond);
     }
-    public static boolean generateRandomValue() {
+    public static boolean generateRandomBoolean() {
         return random.nextBoolean();
     }
 }

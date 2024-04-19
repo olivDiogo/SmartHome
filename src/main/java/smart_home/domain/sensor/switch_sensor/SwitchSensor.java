@@ -128,7 +128,7 @@ public class SwitchSensor implements ISensor {
      */
     @Override
     public SwitchSensorValue getValue() {
-        boolean randomBoolean = ValueSimulator.generateRandomValue();
+        boolean randomBoolean = ValueSimulator.generateRandomBoolean();
         this.switchSensorValue = new SwitchSensorValue(randomBoolean);
 
         return this.switchSensorValue;

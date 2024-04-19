@@ -46,7 +46,7 @@ class ValueSimulatorTest {
      }
     @Test
     void generateRandomBoolean() {
-        boolean randomValue = ValueSimulator.generateRandomValue();
+        boolean randomValue = ValueSimulator.generateRandomBoolean();
         assertTrue(randomValue || randomValue == false);
     }
 
