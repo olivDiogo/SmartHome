@@ -501,7 +501,6 @@ class PercentagePositionSensorAggregateTest {
         String deviceIDValue = "deviceID";
         String modelPathValue = "modelPath";
         String sensorNameValue = "sensorName";
-        String sensorTypeIDValue = "PercentagePosition";
         String sensorIDValue = "SensorID";
 
         DeviceID deviceID = new DeviceID(deviceIDValue);
