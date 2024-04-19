@@ -4,7 +4,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import smart_home.domain.repository.IRoomRepository;
-import smart_home.domain.room.IRoomFactory;
 import smart_home.domain.room.Room;
 import smart_home.persistence.assembler.IDataModelAssembler;
 import smart_home.persistence.jpa.data_model.RoomDataModel;
@@ -16,19 +15,18 @@ import java.util.Optional;
 
 public class RoomSpringDataRepository implements IRoomRepository {
     IRoomSpringDataRepository _repository;
-    IRoomFactory _factory;
+    EntityManagerFactory _factory;
     IDataModelAssembler <RoomDataModel, Room> _assembler;
 
     /**
      * Constructor of the RoomSpringDataRepository.
      *
-     * @param factory is the room factory.
      * @param repository is the room spring repository.
      * @param assembler is the room data model assembler.
      */
-    public RoomSpringDataRepository (IRoomFactory factory, IRoomSpringDataRepository repository, IDataModelAssembler assembler) {
-        Validator.validateNotNull(factory, "Room factory");
-        this._factory = factory;
+    public RoomSpringDataRepository (IRoomSpringDataRepository repository, IDataModelAssembler assembler) {
+        this._factory = Persistence.createEntityManagerFactory("smart_home");
+
         Validator.validateNotNull(repository, "Room repository");
         this._repository = repository;
         Validator.validateNotNull(assembler, "Room data model assembler");
@@ -39,9 +37,11 @@ public class RoomSpringDataRepository implements IRoomRepository {
      * Method to get the Entity Manager.
      */
     private EntityManager getEntityManager() {
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory("smart_home")) {
-            EntityManager manager = factory.createEntityManager();
+        try  {
+            EntityManager manager = _factory.createEntityManager();
             return manager;
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating the entity manager", e);
         }
     }
 
