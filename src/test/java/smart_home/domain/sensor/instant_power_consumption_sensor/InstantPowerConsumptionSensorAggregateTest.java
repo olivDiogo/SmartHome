@@ -3,9 +3,11 @@ package smart_home.domain.sensor.instant_power_consumption_sensor;
 import org.junit.jupiter.api.Test;
 import smart_home.domain.sensor.dew_point_sensor.DewPointSensor;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static smart_home.persistence.jpa.data_model.ActuatorDataModel_._deviceID;
 
 class InstantPowerConsumptionSensorAggregateTest {
 
@@ -454,16 +456,12 @@ class InstantPowerConsumptionSensorAggregateTest {
         InstantPowerConsumptionSensor instantPowerConsumptionSensor =
                 new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-        String expected =
-                deviceID
-                        + " "
-                        + modelPath
-                        + " "
-                        + sensorTypeID
-                        + " "
-                        + sensorName
-                        + " "
-                        + instantPowerConsumptionSensor.getID();
+        String expected = "InstantPowerConsumptionSensor: " +
+                "modelPath=" + modelPath +
+                ", sensorName=" + sensorName +
+                ", sensorID=" + instantPowerConsumptionSensor.getID() +
+                ", sensorTypeID=" + sensorTypeID +
+                ", deviceID=" + deviceID;
 
         // Act
         String result = instantPowerConsumptionSensor.toString();
@@ -667,5 +665,26 @@ class InstantPowerConsumptionSensorAggregateTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        // Arrange
+        String deviceIDName = "123B";
+        String modelPathName = "SmartHome.sensors.InstantPowerConsumptionSensor";
+        String name = "InstantPowerConsumptionSensor";
+        String typeID = "InstantPowerConsumption";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        InstantPowerConsumptionSensor instantPowerConsumptionSensor =
+                new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        String expected = instantPowerConsumptionSensor.toString();
+        ISensorVisitor mockVisitor = mock(ISensorVisitor.class);
+        // act
+        String result = instantPowerConsumptionSensor.accept(mockVisitor);
+        // assert
+        assertEquals(expected, result);    }
 
 }

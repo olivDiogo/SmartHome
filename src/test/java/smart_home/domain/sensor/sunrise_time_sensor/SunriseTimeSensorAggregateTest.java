@@ -3,10 +3,12 @@ package smart_home.domain.sensor.sunrise_time_sensor;
 import org.junit.jupiter.api.Test;
 import smart_home.ddd.IValueObject;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class SunriseTimeSensorAggregateTest {
 
@@ -852,6 +854,32 @@ class SunriseTimeSensorAggregateTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "SunriseTime";
+        double GPSLatitude = 90.0;
+        double GPSLongitude = 180.0;
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        GPS gps = new GPS(GPSLatitude, GPSLongitude);
+
+        SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+        ISensorVisitor visitor = mock(ISensorVisitor.class);
+
+        String expected = sunriseTimeSensor.toString();
+        // Act
+        String result = sunriseTimeSensor.accept(visitor);
+        // Assert
+        assertEquals(expected, result);
+
     }
 
 

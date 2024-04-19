@@ -4,8 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
+import smart_home.visitor_pattern.SensorVisitorForDataModelImpl;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
 
 class HumiditySensorAggregateTest {
 
@@ -513,6 +516,63 @@ class HumiditySensorAggregateTest {
         String actualMessage = exception.getMessage();
 
         assertEquals(expectedMessage, actualMessage);
+    }
+    /**
+     * Visitor should be able to visit the HumiditySensor
+     */
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Humidity";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
+        String expected = humiditySensor.toString();
+        ISensorVisitor visitor = mock(SensorVisitorForDataModelImpl.class);
+        // Act
+        String result = humiditySensor.accept(visitor);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+    /**
+     * Should return expected string
+     */
+    @Test
+    void shouldReturnExpectedString() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Humidity";
+        String sensorIDValue = "sensorID";
+
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        SensorID sensorID = new SensorID(sensorIDValue);
+
+        HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
+        String expected = "HumiditySensor{" +
+                "_modelPath=" + modelPath +
+                ", _sensorName=" + sensorName +
+                ", _sensorID=" + sensorID +
+                ", _sensorTypeID=" + sensorTypeID +
+                ", _deviceID=" + deviceID +
+                '}';
+        // Act
+        String result = humiditySensor.toString();
+
+        // Assert
+        assertEquals(expected, result);
     }
 
 

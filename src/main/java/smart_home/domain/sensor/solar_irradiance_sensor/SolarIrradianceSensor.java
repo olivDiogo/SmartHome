@@ -3,6 +3,7 @@ package smart_home.domain.sensor.solar_irradiance_sensor;
 import smart_home.domain.sensor.ISensor;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -151,5 +152,13 @@ public class SolarIrradianceSensor implements ISensor {
     @Override
     public int hashCode() {
         return this._sensorID.hashCode();
+    }
+
+    /**
+     * Accept method for visitor pattern
+     */
+    public String accept(ISensorVisitor visitor) {
+        visitor.visitSolarIrradianceSensor(this);
+        return this.toString();
     }
 }

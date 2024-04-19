@@ -4,6 +4,7 @@ import org.shredzone.commons.suncalc.SunTimes;
 import smart_home.domain.sensor.ISensor;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -172,5 +173,9 @@ public class SunriseTimeSensor implements ISensor {
                 ", sensorTypeID=" + _sensorTypeID +
                 ", deviceID=" + _deviceID +
                 ", gps=" + gps;
+    }
+    public String accept(ISensorVisitor visitor) {
+        visitor.visitSunriseTimeSensor(this);
+        return this.toString();
     }
 }

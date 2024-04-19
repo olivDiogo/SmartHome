@@ -4,6 +4,7 @@ import smart_home.domain.sensor.ISensor;
 import smart_home.utils.ValueSimulator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -172,6 +173,17 @@ public class DewPointSensor implements ISensor {
                 ", sensorTypeID=" + _sensorTypeID +
                 ", dewPointValue=" + _dewPointValue +
                 ", deviceID=" + _deviceID;
+    }
+
+    /**
+     * Method to accept the visitor.
+     *
+     * @param visitor The visitor.
+     * @return the result of the visit.
+     */
+    public String accept(ISensorVisitor visitor) {
+        visitor.visitDewPointSensor(this);
+        return this.toString();
     }
 
 }

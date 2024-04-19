@@ -3,6 +3,7 @@ package smart_home.domain.sensor.electric_consumption_wh_sensor;
 import smart_home.domain.sensor.ISensor;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -202,6 +203,13 @@ public class ElectricConsumptionWhSensor implements ISensor {
     @Override
     public String toString() {
         return _deviceID + " " + _modelPath + " " + _sensorTypeID + " " + _electricConsumptionWhValue + " " + _sensorName + " " + _sensorID + " " + _datePeriod;
+    }
+    /**
+     * Accept method for the visitor pattern.
+     */
+    public String accept(ISensorVisitor visitor) {
+        visitor.visitElectricConsumptionWhSensor(this);
+        return this.toString();
     }
 
 }

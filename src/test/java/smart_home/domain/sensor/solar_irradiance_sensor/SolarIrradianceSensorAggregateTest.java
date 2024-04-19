@@ -2,9 +2,12 @@ package smart_home.domain.sensor.solar_irradiance_sensor;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import smart_home.value_object.*;
+import static org.mockito.Mockito.mock;
 
-public class SolarIrradianceSensorAggregateTest {
+import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
+
+class SolarIrradianceSensorAggregateTest {
 
     /** Tests the instantiation of SolarIrradianceSensor when the constructor arguments are valid. */
     @Test
@@ -496,6 +499,25 @@ public class SolarIrradianceSensorAggregateTest {
         int expected = solarIrradianceSensor.getID().hashCode();
         // Act
         int result = solarIrradianceSensor.hashCode();
+
+        // Assert
+        assertEquals(expected, result);
+    }
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        // Arrange
+        DeviceID deviceID = new DeviceID("deviceID");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorName sensorName = new SensorName("sensorName");
+        SensorTypeID sensorTypeID = new SensorTypeID("SolarIrradiance");
+
+        SolarIrradianceSensor sensor =
+                new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        String expected = sensor.toString();
+        ISensorVisitor visitor = mock(ISensorVisitor.class);
+        //Act
+        String result = sensor.accept(visitor);
 
         // Assert
         assertEquals(expected, result);

@@ -2,8 +2,11 @@ package smart_home.domain.sensor.dew_point_sensor;
 
 import org.junit.jupiter.api.Test;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
+import smart_home.visitor_pattern.SensorVisitorForDataModelImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class DewPointSensorAggregateTest {
 
@@ -646,5 +649,27 @@ class DewPointSensorAggregateTest {
         String actualMessage = exception.getMessage();
 
         assertEquals(expectedMessage, actualMessage);
+    }
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        String deviceIDName = "123A";
+        String modelPathName = "SmartHome.sensors.DewPointSensor";
+        String name = "DewPointSensor";
+        String typeID = "DewPoint";
+
+        DeviceID deviceID = new DeviceID(deviceIDName);
+        ModelPath modelPath = new ModelPath(modelPathName);
+        SensorName sensorName = new SensorName(name);
+        SensorTypeID sensorTypeID = new SensorTypeID(typeID);
+
+        DewPointSensor dewPointSensor = new DewPointSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        String expected = dewPointSensor.toString();
+        ISensorVisitor visitor = mock(SensorVisitorForDataModelImpl.class);
+        //Act
+        String result = dewPointSensor.accept(visitor);
+
+        //assert
+        assertEquals(expected, result);
+
     }
 }

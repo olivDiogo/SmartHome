@@ -6,8 +6,10 @@ import smart_home.domain.sensor.average_power_consumption_sensor.AveragePowerCon
 import smart_home.domain.sensor.humidity_sensor.HumiditySensor;
 import smart_home.domain.sensor.percentage_position_sensor.PercentagePositionSensor;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 
 /**
@@ -519,6 +521,25 @@ class PercentagePositionSensorAggregateTest {
         String actualMessage = exception.getMessage();
 
         assertEquals(expectedMessage, actualMessage);
+    }
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        //Arrange
+        DeviceID deviceID = new DeviceID("1");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("PercentagePosition");
+        SensorName sensorName = new SensorName("sensorName");
+
+        PercentagePositionSensor percentagePositionSensor = new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        String expected = percentagePositionSensor.toString();
+
+        ISensorVisitor visitor = mock(ISensorVisitor.class);
+        //Act
+        String result = percentagePositionSensor.accept(visitor);
+
+        //Assert
+        assertEquals(expected, result);
     }
 
 }

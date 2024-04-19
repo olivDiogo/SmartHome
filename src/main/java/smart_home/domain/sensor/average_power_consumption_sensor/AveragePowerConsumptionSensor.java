@@ -4,6 +4,7 @@ import smart_home.ddd.IValueObject;
 import smart_home.domain.sensor.ISensor;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -244,5 +245,12 @@ public class AveragePowerConsumptionSensor implements ISensor {
         double averageValue = getAverageValue(initialTime, finalTime);
         _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(averageValue);
         return _averagePowerConsumptionSensorValue;
+    }
+    /**
+     * Accept method for the visitor pattern.
+     */
+    public String accept(ISensorVisitor visitor) {
+        visitor.visitAveragePowerConsumptionSensor(this);
+        return this.toString();
     }
 }

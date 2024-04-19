@@ -2,10 +2,13 @@ package smart_home.domain.sensor.electric_consumption_wh_sensor;
 
 import org.junit.jupiter.api.Test;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
+import smart_home.visitor_pattern.SensorVisitorForDataModelImpl;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class ElectricConsumptionWhSensorAggregateTest {
 
@@ -494,5 +497,26 @@ class ElectricConsumptionWhSensorAggregateTest {
         // Assert
         assertEquals(datePeriod, result);
     }
+    /**
+     * Shoud accept the visitor.
+     */
 
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        //Arrange
+        ModelPath modelPath = new ModelPath("modelPath");
+        DeviceID deviceID = new DeviceID("deviceID");
+        SensorTypeID sensorTypeID = new SensorTypeID("ElectricConsumptionWh");
+        SensorName sensorName = new SensorName("sensorName");
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime endDate = LocalDateTime.now();
+        DatePeriod datePeriod = new DatePeriod(startDate, endDate);
+        ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod);
+        String expected = electricConsumptionWhSensor.toString();
+
+        ISensorVisitor visitor = mock(SensorVisitorForDataModelImpl.class);
+        //Act
+        String result = electricConsumptionWhSensor.accept(visitor);
+        //Assert
+        assertEquals(expected, result);    }
 }

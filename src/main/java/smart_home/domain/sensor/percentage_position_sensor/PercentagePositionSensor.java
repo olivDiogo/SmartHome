@@ -3,6 +3,7 @@ package smart_home.domain.sensor.percentage_position_sensor;
 import smart_home.domain.sensor.ISensor;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.util.UUID;
 
@@ -184,6 +185,15 @@ public class PercentagePositionSensor implements ISensor {
     @Override
     public String toString() {
         return "PercentagePositionSensor: DeviceID= " + _deviceID.getID() + " ModelPath= " + _modelPath.getID() + " SensorTypeID= " + _sensorTypeID.getID() + " SensorName= " + _sensorName.getSensorName() + " SensorID= " + _sensorID.getID();
+    }
+
+    /**
+      * Accepts a visitor
+     * @param visitor The visitor
+     */
+    public String accept(ISensorVisitor visitor) {
+        visitor.visitPercentageSensor(this);
+        return this.toString();
     }
 
 }

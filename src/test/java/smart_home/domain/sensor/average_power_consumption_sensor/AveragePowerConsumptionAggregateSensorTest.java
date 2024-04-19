@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import smart_home.ddd.IValueObject;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.time.LocalDateTime;
+import static org.mockito.Mockito.mock;
 
 class AveragePowerConsumptionAggregateSensorTest {
 
@@ -842,5 +844,25 @@ class AveragePowerConsumptionAggregateSensorTest {
       //Assert
       assertEquals(expectedMessage, actualMessage);
     }
+  @Test
+  void shouldAcceptVisitorAndReturnInstanceOfObjectInString()  {
+    // Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "modelPath";
+    String sensorNameValue = "sensorName";
+    String sensorTypeIDValue = "AveragePowerConsumption";
+
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    ISensorVisitor visitor = mock(ISensorVisitor.class);
+    String expected = averagePowerConsumptionSensor.toString();
+    // Act
+    String result = averagePowerConsumptionSensor.accept(visitor);
+    // Assert
+    assertEquals(expected, result);
+  }
 
 }
