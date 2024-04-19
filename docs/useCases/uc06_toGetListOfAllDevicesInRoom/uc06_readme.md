@@ -33,8 +33,8 @@ _To get list of devices in a room_
 This use case has dependencies with US03. This use case requires a list of all rooms in the house.
 
 ### 1.3. Relevant domain aggregate model
-![Device](../../ooa/4.agreggateModels/Device.svg)
-![Room](../../ooa/4.agreggateModels/Room.svg)
+![Device](../../ooa/4.agreggateModels/Device_v1.svg)
+![Room](../../ooa/4.agreggateModels/Room_v1.svg)
 
 ### 1.4. System Sequence Diagram
 ![SystemSequenceDiagram](artifacts/uc06_SSD_v1.svg)

@@ -28,7 +28,7 @@ _To add a room to the house_
 This use case depends on UC01 (a House must exist).
 
 ### 1.3. Relevant domain model aggregates
-![Room](../../ooa/4.agreggateModels/Room.svg)
+![Room](../../ooa/4.agreggateModels/Room_v1.svg)
 
 ### 1.4. System Sequence Diagram
 ![System Sequence Diagram](artifacts/uc02_SSD_v1.svg)

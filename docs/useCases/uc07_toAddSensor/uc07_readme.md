@@ -55,11 +55,11 @@ This use case depends on UC06.
 
 
 ### 1.3. Relevant domain model aggregates
-![Room](../../ooa/4.agreggateModels/Room.svg)
-![Device](../../ooa/4.agreggateModels/Device.svg)
-![Sensor](../../ooa/4.agreggateModels/Sensor.svg)
-![SensorType](../../ooa/4.agreggateModels/sensorTypeAggregate.svg)
-![SensorModel](../../ooa/4.agreggateModels/SensorModel.svg)
+![Room](../../ooa/4.agreggateModels/Room_v1.svg)
+![Device](../../ooa/4.agreggateModels/Device_v1.svg)
+![Sensor](../../ooa/4.agreggateModels/Sensor_v1.svg)
+![SensorType](../../ooa/4.agreggateModels/SensorType_v1.svg)
+![SensorModel](../../ooa/4.agreggateModels/SensorModel_v1.svg)
 
 ### 1.4. System Sequence Diagram
 ![System Sequence Diagram](./artifacts/uc07_SSD_v1.svg)

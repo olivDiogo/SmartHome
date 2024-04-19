@@ -33,7 +33,7 @@ No dependencies.
 
 ### 1.3. Relevant domain aggregate model
 
-![Room](../../ooa/4.agreggateModels/Room.svg)
+![Room](../../ooa/4.agreggateModels/Room_v1.svg)
 
 ### 1.4. System Sequence Diagram
 ![System Sequence Diagram](artifacts/uc03_SSD_v1.svg)

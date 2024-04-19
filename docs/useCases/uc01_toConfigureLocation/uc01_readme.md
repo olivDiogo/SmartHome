@@ -29,7 +29,7 @@ _To configure the location of the house_
 No dependencies.
 
 ### 1.3. Relevant domain aggregate model
-![House](../../ooa/4.agreggateModels/House.svg)
+![House](../../ooa/4.agreggateModels/House_v1.svg)
 
 ## 2. Design
 

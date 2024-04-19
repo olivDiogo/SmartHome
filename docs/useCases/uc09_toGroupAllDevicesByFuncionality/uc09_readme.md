@@ -34,7 +34,7 @@ _To get list of devices grouped by functionality_
 No dependencies.
 
 ### 1.3. Relevant domain aggregate model 
-![Device](../../ooa/4.agreggateModels/Device.svg)
+![Device](../../ooa/4.agreggateModels/Device_v1.svg)
 
 ### 1.4. System Sequence Diagram
 ![System Sequence Diagram](./artifacts/uc09_SSD_v1.svg)

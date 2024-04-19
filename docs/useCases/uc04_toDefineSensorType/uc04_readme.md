@@ -44,8 +44,8 @@ _To define a sensor type_
 No dependencies.
 
 ### 1.3. Relevant domain model aggregates
-![SensorType](../../ooa/4.agreggateModels/SensorType.svg)
-![Unit](../../ooa/4.agreggateModels/Unit.svg)
+![SensorType](../../ooa/4.agreggateModels/SensorType_v1.svg)
+![Unit](../../ooa/4.agreggateModels/Unit_v1.svg)
 
 ### 1.4. System Sequence Diagram
 ![System Sequence Diagram](./artifacts/uc04_SSD_v1.svg)
