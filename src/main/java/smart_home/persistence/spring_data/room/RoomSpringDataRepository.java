@@ -101,4 +101,29 @@ public class RoomSpringDataRepository implements IRoomRepository {
     public boolean containsOfIdentity(RoomID objectID) {
         return _repository.existsById(objectID.getID());
     }
+
+    /**
+     * Method to update a domain entity.
+     *
+     * @param room is the room to be updated.
+     * @return the updated room.
+     */
+    @Override
+    public Room update(Room room) {
+        RoomDataModel roomDataModel = getEntityManager().find(RoomDataModel.class, room.getID().getID());
+
+        if(roomDataModel != null) {
+           boolean isUpdated = roomDataModel.updateFromDomain(room);
+
+           if(isUpdated) {
+               _repository.save(roomDataModel);
+
+               return room;
+           } else {
+               return null;
+           }
+        } else {
+            return null;
+        }
+    }
 }

@@ -123,4 +123,35 @@ public class RoomRepositoryJPAImpl implements IRoomRepository {
 
         return roomDataModel.isPresent();
     }
+
+    /**
+     * Method to update room
+     *
+     * @param room is the room to be updated.
+     * @return the updated room.
+     */
+    @Override
+    public Room update(Room room) {
+        RoomDataModel roomDataModel = getEntityManager().find(RoomDataModel.class, room.getID().getID());
+
+        if(roomDataModel != null) {
+            boolean isUpdated = roomDataModel.updateFromDomain(room);
+
+            if(isUpdated) {
+                EntityManager em = getEntityManager();
+                EntityTransaction tx = em.getTransaction();
+                tx.begin();
+                em.merge(roomDataModel);
+                tx.commit();
+                em.close();
+
+                return room;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
+    }
 }

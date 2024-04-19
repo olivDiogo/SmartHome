@@ -101,4 +101,21 @@ public class RoomDataModel {
         return this._floor;
     }
 
+    /**
+     * Method to update the room data model from the domain.
+     *
+     * @param room is the room to be updated.
+     * @return true if the room was updated, false if not.
+     */
+    public boolean updateFromDomain(Room room) {
+        this._roomID = room.getID().getID();
+        this._houseID = room.getHouseID().getID();
+        this._roomName = room.getRoomName().getRoomName();
+        this._width = room.getDimension().getWidth();
+        this._depth = room.getDimension().getDepth();
+        this._height = room.getDimension().getHeight();
+        this._floor = room.getRoomFloor().getFloor();
+
+        return true;
+    }
 }

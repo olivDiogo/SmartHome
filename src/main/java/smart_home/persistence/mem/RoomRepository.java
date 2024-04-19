@@ -1,6 +1,7 @@
 package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
+import smart_home.domain.repository.IRoomRepository;
 import smart_home.domain.room.Room;
 import smart_home.utils.Validator;
 import smart_home.value_object.RoomID;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class RoomRepository implements IRepository<RoomID, Room> {
+public class RoomRepository implements IRoomRepository {
     private final Map<RoomID, Room> DATA = new LinkedHashMap<RoomID, Room>();
 
     /**
@@ -56,5 +57,16 @@ public class RoomRepository implements IRepository<RoomID, Room> {
      */
     public boolean containsOfIdentity(RoomID id) {
         return DATA.containsKey(id);
+    }
+
+    /**
+     * Updates the room in the repository
+     *
+     * @param room Room
+     * @return Room
+     */
+    @Override
+    public Room update(Room room) {
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }
