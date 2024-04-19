@@ -19,7 +19,6 @@ public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository
 
     private IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> _dataModelAssembler;
 
-    private EntityManagerFactory _factory;
 
     /**
      * Constructs a new repository instance with the specified entity manager factory and data model assembler.
@@ -30,18 +29,8 @@ public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository
     public ActuatorTypeSpringDataRepository(IActuatorTypeSpringDataRepository repository, IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler) {
         Validator.validateNotNull(dataModelAssembler, "Data model assembler");
         Validator.validateNotNull(repository, "Repository");
-        _factory = Persistence.createEntityManagerFactory("smart_home");
         _dataModelAssembler = dataModelAssembler;
         _repository = repository;
-    }
-
-    /**
-     * Method to create an entity manager
-     *
-     * @return entity manager
-     */
-    private EntityManager getEntityManager() {
-        return _factory.createEntityManager();
     }
 
     /**
