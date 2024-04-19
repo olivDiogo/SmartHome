@@ -3,6 +3,7 @@ package smart_home.persistence.assembler;
 import smart_home.domain.actuator_model.ActuatorModel;
 import smart_home.domain.actuator_model.IActuatorModelFactory;
 import smart_home.persistence.jpa.data_model.ActuatorModelDataModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.ActuatorModelID;
 import smart_home.value_object.ActuatorModelName;
 import smart_home.value_object.ActuatorTypeID;
@@ -22,6 +23,7 @@ public class ActuatorModelDataModelAssembler
      * @param _actuatorModelFactory is the factory used to create ActuatorModel instances.
      */
     public ActuatorModelDataModelAssembler(IActuatorModelFactory _actuatorModelFactory) {
+        Validator.validateNotNull(_actuatorModelFactory, "Actuator Model Factory");
         this._actuatorModelFactory = _actuatorModelFactory;
     }
 
@@ -34,6 +36,7 @@ public class ActuatorModelDataModelAssembler
      */
     @Override
     public ActuatorModel toDomain(ActuatorModelDataModel actuatorModelDataModel) {
+
         ActuatorModelID actuatorModelID = new ActuatorModelID(actuatorModelDataModel.get_actuatorModelID());
         ActuatorModelName actuatorModelName =
                 new ActuatorModelName(actuatorModelDataModel.get_actuatorModelName());

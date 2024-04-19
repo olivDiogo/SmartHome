@@ -3,6 +3,7 @@ package smart_home.persistence.assembler;
 import smart_home.domain.room.IRoomFactory;
 import smart_home.domain.room.Room;
 import smart_home.persistence.jpa.data_model.RoomDataModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.ArrayList;
@@ -17,19 +18,10 @@ public class RoomDataModelAssembler implements IDataModelAssembler<RoomDataModel
      * @param roomFactory is the factory used to create Room instances.
      */
     public RoomDataModelAssembler(IRoomFactory roomFactory) {
-        validateRoomFactory(roomFactory);
+        Validator.validateNotNull(roomFactory, "Room Factory");
         _roomFactory = roomFactory;
     }
 
-    /**
-     * Validates Room Factory
-     * @param roomFactory
-     */
-    private void validateRoomFactory(IRoomFactory roomFactory) {
-        if (roomFactory == null) {
-            throw new IllegalArgumentException("Room factory cannot be null");
-        }
-    }
 
     /**
      * Converts a RoomDataModel instance to a Room instance.
@@ -39,9 +31,7 @@ public class RoomDataModelAssembler implements IDataModelAssembler<RoomDataModel
      */
     @Override
     public Room toDomain(RoomDataModel roomDataModel) {
-        if(roomDataModel == null){
-            throw new IllegalArgumentException("RoomDataModel cannot be null.");
-        }
+        Validator.validateNotNull(roomDataModel, "Room Data Model");
 
         RoomID roomID = new RoomID(roomDataModel.getRoomID());
         HouseID houseID = new HouseID(roomDataModel.getHouseID());

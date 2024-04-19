@@ -3,6 +3,7 @@ package smart_home.persistence.assembler;
 import smart_home.domain.sensor_type.ISensorTypeFactory;
 import smart_home.domain.sensor_type.SensorType;
 import smart_home.persistence.jpa.data_model.SensorTypeDataModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.SensorTypeID;
 import smart_home.value_object.TypeDescription;
 import smart_home.value_object.UnitID;
@@ -18,22 +19,13 @@ public class SensorTypeDataModelAssembler implements IDataModelAssembler<SensorT
      * @param sensorTypeFactory the sensorTypeFactory to be used
      */
     public SensorTypeDataModelAssembler(ISensorTypeFactory sensorTypeFactory) {
-        validateSensorTypeFactory (sensorTypeFactory);
+        Validator.validateNotNull(sensorTypeFactory, "Sensor Type Factory");
         this._sensorTypeFactory = sensorTypeFactory;
     }
 
-    /**
-     * Validate the sensorTypeFactory
-     * @param sensorTypeFactory the sensorTypeFactory to be validated
-     */
-    private void validateSensorTypeFactory (ISensorTypeFactory sensorTypeFactory) {
-        if (sensorTypeFactory == null)
-            throw new IllegalArgumentException("Sensor Type Factory cannot be null");
-    }
     @Override
     public SensorType toDomain(SensorTypeDataModel sensorTypeDataModel) {
-        if (sensorTypeDataModel == null)
-            throw new IllegalArgumentException("Sensor Type Data Model cannot be null");
+        Validator.validateNotNull(sensorTypeDataModel, "Sensor Type Data Model");
 
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeDataModel.getSensorTypeID());
         TypeDescription typeDescription = new TypeDescription(sensorTypeDataModel.getTypeDescription());

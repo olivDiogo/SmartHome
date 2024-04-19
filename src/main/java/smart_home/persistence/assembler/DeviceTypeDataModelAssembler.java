@@ -3,6 +3,7 @@ package smart_home.persistence.assembler;
 import smart_home.domain.device_type.DeviceType;
 import smart_home.domain.device_type.IDeviceTypeFactory;
 import smart_home.persistence.jpa.data_model.DeviceTypeDataModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.DeviceTypeID;
 import smart_home.value_object.TypeDescription;
 
@@ -17,23 +18,14 @@ public class DeviceTypeDataModelAssembler implements IDataModelAssembler <Device
      * @param deviceTypeFactory the deviceTypeFactory to be used
      */
     public DeviceTypeDataModelAssembler(IDeviceTypeFactory deviceTypeFactory) {
-    validateDeviceTypeFactory(deviceTypeFactory);
+      Validator.validateNotNull(deviceTypeFactory, "Device Type Factory");
     this._deviceTypeFactory = deviceTypeFactory;
   }
 
-    /**
-     * Validate the deviceTypeFactory
-     * @param deviceTypeFactory the deviceTypeFactory to be validated
-     */
-    private void validateDeviceTypeFactory(IDeviceTypeFactory deviceTypeFactory) {
-    if (deviceTypeFactory == null)
-      throw new IllegalArgumentException("Device Type Factory cannot be null");
-    }
 
     @Override
     public DeviceType toDomain(DeviceTypeDataModel deviceTypeDataModel) {
-    if (deviceTypeDataModel == null)
-      throw new IllegalArgumentException("Device Type Data Model cannot be null");
+    Validator.validateNotNull(deviceTypeDataModel, "Device Type Data Model");
 
     DeviceTypeID deviceTypeID = new DeviceTypeID(deviceTypeDataModel.getDeviceTypeID());
     TypeDescription typeDescription = new TypeDescription(deviceTypeDataModel.getDeviceTypeDescription());

@@ -4,6 +4,7 @@ package smart_home.persistence.assembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.device.IDeviceFactory;
 import smart_home.persistence.jpa.data_model.DeviceDataModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.ArrayList;
@@ -25,19 +26,9 @@ public class DeviceDataModelAssembler implements IDataModelAssembler<DeviceDataM
      * @param deviceFactory The factory used to create Device domain objects.
      */
     public DeviceDataModelAssembler(IDeviceFactory deviceFactory) {
-        validateDeviceFactory(deviceFactory);
+       Validator.validateNotNull(deviceFactory, "Device Factory");
         _deviceFactory = deviceFactory;
     }
-
-    /**
-     * Validates the device factory.
-     */
-    private void validateDeviceFactory(IDeviceFactory deviceFactory) {
-        if (deviceFactory == null) {
-            throw new IllegalArgumentException("Device Factory cannot be null");
-        }
-    }
-
 
     /**
      * Converts a {@link DeviceDataModel} object to a {@link Device} domain object.
@@ -47,9 +38,8 @@ public class DeviceDataModelAssembler implements IDataModelAssembler<DeviceDataM
      */
     @Override
     public Device toDomain(DeviceDataModel deviceDataModel) {
-        if (deviceDataModel == null) {
-            throw new IllegalArgumentException("Device Data Model cannot be null");
-        }
+       Validator.validateNotNull(deviceDataModel, "Device Data Model");
+
         RoomID roomID = new RoomID(deviceDataModel.getRoomID());
         DeviceName deviceName = new DeviceName(deviceDataModel.getDeviceName());
         DeviceTypeID deviceTypeID = new DeviceTypeID(deviceDataModel.getDeviceTypeID());

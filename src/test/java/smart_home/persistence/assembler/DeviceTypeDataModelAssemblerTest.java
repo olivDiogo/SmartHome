@@ -14,7 +14,7 @@ class DeviceTypeDataModelAssemblerTest {
     // Arrange
     IDeviceTypeFactory deviceTypeFactory = null;
 
-    String expected = "Device Type Factory cannot be null";
+    String expected = "Device Type Factory is required";
 
     // Act
     Exception exception =

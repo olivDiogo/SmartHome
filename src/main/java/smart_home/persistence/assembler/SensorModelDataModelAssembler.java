@@ -3,6 +3,7 @@ package smart_home.persistence.assembler;
 import smart_home.domain.sensor_model.ISensorModelFactory;
 import smart_home.domain.sensor_model.SensorModel;
 import smart_home.persistence.jpa.data_model.SensorModelDataModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.ModelPath;
 import smart_home.value_object.SensorModelName;
 import smart_home.value_object.SensorTypeID;
@@ -20,19 +21,8 @@ public class SensorModelDataModelAssembler implements IDataModelAssembler<Sensor
      * @param sensorModelFactory ISensorModelFactory
      */
     public SensorModelDataModelAssembler(ISensorModelFactory sensorModelFactory) {
-        validateSensorModelFactory(sensorModelFactory);
+        Validator.validateNotNull(sensorModelFactory, "Sensor Model Factory");
         this._sensorModelFactory = sensorModelFactory;
-    }
-
-
-    /**
-     * Method to validate the sensorModelFactory
-     *
-     * @param sensorModelFactory ISensorModelFactory object
-     */
-    private void validateSensorModelFactory(ISensorModelFactory sensorModelFactory) {
-        if (sensorModelFactory == null)
-            throw new IllegalArgumentException("Sensor Model Factory cannot be null");
     }
 
     /**
@@ -43,8 +33,7 @@ public class SensorModelDataModelAssembler implements IDataModelAssembler<Sensor
      */
     @Override
     public SensorModel toDomain(SensorModelDataModel sensorModelDataModel) {
-        if (sensorModelDataModel == null)
-            throw new IllegalArgumentException("Sensor Model Data Model cannot be null");
+        Validator.validateNotNull(sensorModelDataModel, "Sensor Model Data Model");
 
         ModelPath modelPath = new ModelPath(sensorModelDataModel.getModelPath());
         SensorModelName sensorModelName = new SensorModelName(sensorModelDataModel.getSensorModelName());

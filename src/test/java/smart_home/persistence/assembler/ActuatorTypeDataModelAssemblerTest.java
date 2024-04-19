@@ -25,7 +25,7 @@ class ActuatorTypeDataModelAssemblerTest {
         // Arrange
         IActuatorTypeFactory actuatorTypeFactory = null;
 
-        String expected = "Actuator Type Factory cannot be null";
+        String expected = "Actuator Type Factory is required";
 
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorTypeDataModelAssembler(actuatorTypeFactory));

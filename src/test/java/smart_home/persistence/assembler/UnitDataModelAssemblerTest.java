@@ -93,7 +93,7 @@ class UnitDataModelAssemblerTest {
         UnitFactoryImpl unitFactoryDouble = mock(UnitFactoryImpl.class);
         UnitDataModelAssembler unitDataModelAssembler = new UnitDataModelAssembler(unitFactoryDouble);
         UnitDataModel unitDataModelDouble = null;
-        String expectedMessage = "UnitDataModel cannot be null.";
+        String expectedMessage = "Unit Data Model is required";
 
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> unitDataModelAssembler.toDomain(unitDataModelDouble));
@@ -131,7 +131,7 @@ class UnitDataModelAssemblerTest {
 
         List<UnitDataModel> unitDataModels = List.of(unitDataModelDouble);
 
-        Unit expected = unitFactoryDouble.createUnit(unitDescriptionDouble, unitSymbolDouble);
+        Unit expected = unitFactoryDouble.createUnit(unitDescriptionDouble, unitSymbolDouble, unitIDDouble);
 
         // Act
         List<Unit> units = unitDataModelAssembler.toDomain(unitDataModels);

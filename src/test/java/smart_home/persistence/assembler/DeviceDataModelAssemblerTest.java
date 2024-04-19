@@ -41,7 +41,7 @@ class DeviceDataModelAssemblerTest {
         //Arrange
         IDeviceFactory deviceFactory = null;
 
-        String expectedMessage = "Device Factory cannot be null";
+        String expectedMessage = "Device Factory is required";
 
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new DeviceDataModelAssembler(deviceFactory));
@@ -98,7 +98,7 @@ class DeviceDataModelAssemblerTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
 
-        String expectedMessage = "Device Data Model cannot be null";
+        String expectedMessage = "Device Data Model is required";
 
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> deviceDataModelAssembler.toDomain(deviceDataModel));

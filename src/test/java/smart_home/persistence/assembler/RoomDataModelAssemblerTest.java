@@ -100,7 +100,7 @@ public class RoomDataModelAssemblerTest {
         RoomDataModelAssembler roomDataModelAssembler = new RoomDataModelAssembler(roomFactoryDouble);
 
         RoomDataModel roomDataModelDouble = null;
-        String expectedMessage = "RoomDataModel cannot be null.";
+        String expectedMessage = "Room Data Model is required";
 
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> roomDataModelAssembler.toDomain(roomDataModelDouble));

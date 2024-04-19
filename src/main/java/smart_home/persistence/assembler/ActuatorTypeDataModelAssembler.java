@@ -1,8 +1,10 @@
 package smart_home.persistence.assembler;
 
+import org.apache.commons.lang3.Validate;
 import smart_home.domain.actuator_type.ActuatorType;
 import smart_home.domain.actuator_type.IActuatorTypeFactory;
 import smart_home.persistence.jpa.data_model.ActuatorTypeDataModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.TypeDescription;
 import smart_home.value_object.UnitID;
@@ -14,18 +16,10 @@ public class ActuatorTypeDataModelAssembler implements IDataModelAssembler<Actua
     private IActuatorTypeFactory _actuatorTypeFactory;
 
 public ActuatorTypeDataModelAssembler(IActuatorTypeFactory actuatorTypeFactory) {
-        validateActuatorTypeFactory (actuatorTypeFactory);
+    Validator.validateNotNull(actuatorTypeFactory, "Actuator Type Factory");
         _actuatorTypeFactory = actuatorTypeFactory;
     }
 
-    /**
-     * Validate the actuatorTypeFactory
-     * @param actuatorTypeFactory the actuatorTypeFactory to be validated
-     */
-    private void validateActuatorTypeFactory (IActuatorTypeFactory actuatorTypeFactory) {
-        if (actuatorTypeFactory == null)
-            throw new IllegalArgumentException("Actuator Type Factory cannot be null");
-    }
 
     /**
      * Method to convert a domain entity into a DataModel.

@@ -26,7 +26,7 @@ class SensorModelDataModelAssemblerTest {
         // Arrange
         ISensorModelFactory sensorModelFactory = null;
 
-        String expected = "Sensor Model Factory cannot be null";
+        String expected = "Sensor Model Factory is required";
 
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorModelDataModelAssembler(sensorModelFactory));
@@ -91,7 +91,7 @@ class SensorModelDataModelAssemblerTest {
         ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         SensorModelDataModelAssembler sensorModelDataModelAssembler = new SensorModelDataModelAssembler(sensorModelFactory);
 
-        String expected = "Sensor Model Data Model cannot be null";
+        String expected = "Sensor Model Data Model is required";
 
         //Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> sensorModelDataModelAssembler.toDomain(sensorModelDataModel));
