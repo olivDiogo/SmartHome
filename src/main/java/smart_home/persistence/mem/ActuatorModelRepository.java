@@ -70,7 +70,7 @@ public class ActuatorModelRepository implements IActuatorModelRepository {
      * Find all ActuatorModels by their ActuatorTypeID.
      */
     @Override
-    public List<ActuatorModel> findByActuatorTypeId(ActuatorTypeID actuatorTypeID) {
+    public List<ActuatorModel> findBy_actuatorTypeID(ActuatorTypeID actuatorTypeID) {
         return DATA.values().stream().filter(actuatorModel -> actuatorModel.getActuatorTypeID().equals(actuatorTypeID)).toList();
     }
 }

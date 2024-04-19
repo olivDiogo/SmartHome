@@ -196,7 +196,7 @@ public class ActuatorModelRepositoryTest {
         actuatorModelRepository.save(actuatorModel);
 
         //Act
-        List<ActuatorModel> actuatorModels = actuatorModelRepository.findByActuatorTypeId(actuatorModelTypeID);
+        List<ActuatorModel> actuatorModels = actuatorModelRepository.findBy_actuatorTypeID(actuatorModelTypeID);
         //Assert
         assertTrue(actuatorModels.contains(actuatorModel));
     }

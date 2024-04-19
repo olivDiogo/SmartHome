@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface IActuatorModelRepository extends IRepository<ModelPath, ActuatorModel> {
 
-    List<ActuatorModel> findByActuatorTypeId(ActuatorTypeID actuatorModelID);
+    List<ActuatorModel> findBy_actuatorTypeID(ActuatorTypeID actuatorModelID);
 }

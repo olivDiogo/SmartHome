@@ -1,6 +1,5 @@
 package smart_home.controller;
 
-import smart_home.assembler.HouseAssembler;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.house.House;
 import smart_home.domain.service.IHouseService;

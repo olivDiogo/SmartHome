@@ -140,7 +140,7 @@ public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository 
    * @return List<ActuatorModel>
    */
   @Override
-  public List<ActuatorModel> findByActuatorTypeId(ActuatorTypeID actuatorTypeID) {
+  public List<ActuatorModel> findBy_actuatorTypeID(ActuatorTypeID actuatorTypeID) {
     EntityManager entityManager = getEntityManager();
     try {
       Query query =

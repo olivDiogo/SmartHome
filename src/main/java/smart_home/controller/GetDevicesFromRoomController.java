@@ -1,7 +1,5 @@
 package smart_home.controller;
 
-import smart_home.assembler.DeviceAssembler;
-import smart_home.assembler.RoomAssembler;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;

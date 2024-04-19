@@ -1,7 +1,5 @@
 package smart_home.controller;
 
-import smart_home.assembler.SensorTypeAssembler;
-import smart_home.assembler.UnitAssembler;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.sensor_type.SensorType;
 import smart_home.domain.service.ISensorTypeService;
@@ -10,8 +8,6 @@ import smart_home.domain.unit.Unit;
 import smart_home.dto.SensorTypeDTO;
 import smart_home.dto.SensorTypeDataDTO;
 import smart_home.dto.UnitDTO;
-import smart_home.service.SensorTypeServiceImpl;
-import smart_home.service.UnitServiceImpl;
 import smart_home.value_object.TypeDescription;
 import smart_home.value_object.UnitID;
 

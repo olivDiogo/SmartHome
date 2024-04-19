@@ -87,7 +87,7 @@ public class ActuatorModelServiceImpl implements IActuatorModelService {
      */
     @Override
     public List<ActuatorModel> getActuatorModelsByActuatorTypeId(ActuatorTypeID actuatorTypeID) {
-        return _actuatorModelRepository.findByActuatorTypeId(actuatorTypeID);
+        return _actuatorModelRepository.findBy_actuatorTypeID(actuatorTypeID);
     }
 
 }

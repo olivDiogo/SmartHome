@@ -22,7 +22,7 @@ public class SpringDataConfig {
         em = new LocalContainerEntityManagerFactoryBean();
         em.setPersistenceXmlLocation("classpath:META-INF/persistence.xml");
         em.setPersistenceUnitName("smart_home");
-        em.setPackagesToScan("smart_home.persistence.jpa.datamodel");
+        em.setPackagesToScan("smart_home.persistence.jpa.data_model");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         return em;
     }

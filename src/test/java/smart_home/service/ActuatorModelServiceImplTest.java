@@ -133,7 +133,7 @@ class ActuatorModelServiceImplTest {
 
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
-        when (actuatorModelRepository.findByActuatorTypeId(actuatorTypeID)).thenReturn(List.of(actuatorModel));
+        when (actuatorModelRepository.findBy_actuatorTypeID(actuatorTypeID)).thenReturn(List.of(actuatorModel));
 
         ActuatorModelServiceImpl actuatorModelServiceImpl = new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory);
 

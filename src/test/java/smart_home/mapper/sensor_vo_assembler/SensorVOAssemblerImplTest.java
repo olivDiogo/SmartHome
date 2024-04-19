@@ -1,4 +1,4 @@
-package smart_home.assembler.sensor_vo_assembler;
+package smart_home.mapper.sensor_vo_assembler;
 
 import org.junit.jupiter.api.Test;
 import smart_home.dto.sensor_data_dto.ISensorDataDTO;

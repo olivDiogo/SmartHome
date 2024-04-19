@@ -1,7 +1,7 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
-import smart_home.assembler.HouseAssembler;
+import smart_home.mapper.HouseAssembler;
 import smart_home.domain.house.HouseFactoryImpl;
 import smart_home.dto.HouseDTO;
 import smart_home.dto.HouseDataDTO;

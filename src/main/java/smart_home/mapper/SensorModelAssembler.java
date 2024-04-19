@@ -1,4 +1,4 @@
-package smart_home.assembler;
+package smart_home.mapper;
 
 import smart_home.ddd.IAssembler;
 import smart_home.domain.sensor_model.SensorModel;

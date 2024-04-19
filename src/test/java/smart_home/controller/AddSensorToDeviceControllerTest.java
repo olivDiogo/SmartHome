@@ -2,7 +2,7 @@ package smart_home.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import smart_home.assembler.*;
+import smart_home.mapper.*;
 import smart_home.domain.device.Device;
 import smart_home.domain.device.DeviceFactoryImpl;
 import smart_home.domain.house.House;

@@ -1,8 +1,8 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
-import smart_home.assembler.SensorTypeAssembler;
-import smart_home.assembler.UnitAssembler;
+import smart_home.mapper.SensorTypeAssembler;
+import smart_home.mapper.UnitAssembler;
 import smart_home.domain.sensor_model.ISensorModelFactory;
 import smart_home.domain.sensor_model.SensorModelFactoryImpl;
 import smart_home.domain.sensor_type.SensorTypeFactoryImpl;

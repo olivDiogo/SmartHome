@@ -1,7 +1,6 @@
 package smart_home.controller;
 
-import smart_home.assembler.DeviceAssembler;
-import smart_home.assembler.RoomAssembler;
+import smart_home.mapper.DeviceAssembler;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;
@@ -11,7 +10,6 @@ import smart_home.dto.DeviceDTO;
 import smart_home.dto.DeviceDataDTO;
 import smart_home.dto.RoomDTO;
 import smart_home.service.DeviceServiceImpl;
-import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.DeviceName;
 import smart_home.value_object.DeviceStatus;
 import smart_home.value_object.DeviceTypeID;

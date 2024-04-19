@@ -1,7 +1,7 @@
 package smart_home.service;
 
 import org.junit.jupiter.api.Test;
-import smart_home.assembler.RoomAssembler;
+import smart_home.mapper.RoomAssembler;
 import smart_home.domain.house.House;
 import smart_home.domain.room.IRoomFactory;
 import smart_home.domain.room.Room;

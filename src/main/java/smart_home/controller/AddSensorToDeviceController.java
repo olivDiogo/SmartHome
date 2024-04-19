@@ -1,8 +1,7 @@
 package smart_home.controller;
 
-import smart_home.assembler.*;
-import smart_home.assembler.sensor_vo_assembler.ISensorVOAssembler;
-import smart_home.assembler.sensor_vo_assembler.SensorVOAssemblerImpl;
+import smart_home.mapper.sensor_vo_assembler.ISensorVOAssembler;
+import smart_home.mapper.sensor_vo_assembler.SensorVOAssemblerImpl;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;
@@ -12,7 +11,6 @@ import smart_home.domain.sensor_type.SensorType;
 import smart_home.domain.service.*;
 import smart_home.dto.*;
 import smart_home.dto.sensor_data_dto.ISensorDataDTO;
-import smart_home.service.*;
 import smart_home.value_object.RoomID;
 import smart_home.value_object.SensorTypeID;
 

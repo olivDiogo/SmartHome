@@ -1,4 +1,4 @@
-package smart_home.assembler;
+package smart_home.mapper;
 
 import org.junit.jupiter.api.Test;
 import smart_home.domain.actuator_type.ActuatorType;

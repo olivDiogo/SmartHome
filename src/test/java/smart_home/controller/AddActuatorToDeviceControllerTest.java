@@ -1,7 +1,7 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
-import smart_home.assembler.*;
+import smart_home.mapper.*;
 import smart_home.domain.actuator.ActuatorFactoryImpl;
 import smart_home.domain.actuator_model.ActuatorModel;
 import smart_home.domain.actuator_model.ActuatorModelFactoryImpl;
