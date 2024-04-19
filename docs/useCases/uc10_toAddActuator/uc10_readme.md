@@ -58,20 +58,20 @@ This use case depends on UC03 and UC06.
   - A: Não.
 
 ### 1.5. System Sequence Diagram
-![US012-SSD](artifacts/us12_SSD_v2.svg)
+![UC10-SSD](artifacts/uc10_SSD_v2.svg)
 
 ## 2. Design
 
 ### 2.1 Class Diagram
-![US012-CD](artifacts/us12_CD_v2.svg)
+![UC10-CD](artifacts/uc10_CD_v2.svg)
 
 ### 2.2. Sequence Diagram
-![US012-SD](artifacts/us12_SD_v2.svg)
-![US012-SD-ref1](artifacts/us12_SD_v2_ref1.svg)
-![US012-SD-ref2](artifacts/us12_SD_v2_ref2.svg)
-![US012-SD-ref3](artifacts/us12_SD_v2_ref3.svg)
-![US012-SD-ref4](artifacts/us12_SD_v2_ref4.svg)
-![US012-SD-ref5](artifacts/us12_SD_v2_ref5.svg)
+![UC10-SD](artifacts/uc10_SD_v2.svg)
+![UC10-SD-ref1](artifacts/uc10_SD_v2_ref1.svg)
+![UC10-SD-ref2](artifacts/uc10_SD_v2_ref2.svg)
+![UC10-SD-ref3](artifacts/uc10_SD_v2_ref3.svg)
+![UC10-SD-ref4](artifacts/uc10_SD_v2_ref4.svg)
+![UC10-SD-ref5](artifacts/uc10_SD_v2_ref5.svg)
 
 
 ### 2.3 Applied Patterns

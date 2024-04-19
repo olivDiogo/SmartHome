@@ -19,3 +19,5 @@
 [uc09](uc09_toGroupAllDevicesByFuncionality/uc09_readme.md) - To Group All Devices in House by Functionality
 
 [uc10](uc10_toAddActuator/uc10_readme.md) - To Add Actuator to Device
+
+[uc11](uc11_toGetLogFromDevice/uc11_readme.md) - To Get Log from Device

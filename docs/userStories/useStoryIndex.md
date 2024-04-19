@@ -52,12 +52,12 @@
 
 [US26](us26/us26_readme.md) - As Product Owner, I want the system to have a type of sensor that gives the electric energy consumption over a period (Wh).
 
-US30 - 
+US30 - Como PO, pretendo aplicar/adotar DDD ao projeto.
 
 US31 - As Product Owner, I want the system to support data persistence using JPA.
 
 US32 - As Product Owner, I want the system to support data persistence using Spring.
 
-US33 - As a Room Owner [or Power User, or Administrator], I want to get a list of all measurement of a device in a room, in a given period.
+[US33](us33/us33_readme.md) - As a Room Owner [or Power User, or Administrator], I want to get a list of all measurement of a device in a room, in a given period.
 
 US34 - As a Room Owner [or Power User, or Administrator], I want to get the maximum instantaneous temperature difference between a device in the room and the outside, in a given period.
