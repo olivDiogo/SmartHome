@@ -2,7 +2,6 @@ package smart_home.visitor_pattern;
 
 import org.junit.jupiter.api.Test;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
-import smart_home.persistence.jpa.data_model.ActuatorTypeDataModel;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,7 +33,7 @@ class ActuatorVisitorForDataModelImplTest {
         //Arrange
         ActuatorDataModel actuatorDataModel = null;
 
-        String expectedMessage = "ActuatorDataModel cannot be null";
+        String expectedMessage = "Actuator Data Model is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorVisitorForDataModelImpl(actuatorDataModel));

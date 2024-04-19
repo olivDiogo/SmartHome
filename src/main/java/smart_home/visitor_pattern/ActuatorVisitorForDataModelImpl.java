@@ -6,27 +6,18 @@ import smart_home.domain.actuator.set_decimal_actuator.SetDecimalActuator;
 import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator;
 import smart_home.domain.actuator.switch_actuator.SwitchActuator;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
+import smart_home.utils.Validator;
 
 public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataModel {
 
     private ActuatorDataModel _actuatorDataModel;
 
     public ActuatorVisitorForDataModelImpl(ActuatorDataModel actuatorDataModel) {
-        validateActuatorDataModel(actuatorDataModel);
+        Validator.validateNotNull(actuatorDataModel, "Actuator Data Model");
         this._actuatorDataModel = actuatorDataModel;
     }
 
 
-    /**
-     * Validate actuator data model.
-     *
-     * @param actuatorDataModel the actuator data model
-     */
-    private void validateActuatorDataModel(ActuatorDataModel actuatorDataModel) {
-        if (actuatorDataModel == null) {
-            throw new IllegalArgumentException("ActuatorDataModel cannot be null");
-        }
-    }
 
     /**
      * Gets actuator data model.
