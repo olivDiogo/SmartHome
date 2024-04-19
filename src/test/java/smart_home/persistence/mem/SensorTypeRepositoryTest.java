@@ -51,7 +51,7 @@ public class SensorTypeRepositoryTest {
         //Arrange
         SensorType sensorType = null;
         SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-        String expectedMessage = "SensorType cannot be null.";
+        String expectedMessage = "SensorType is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> sensorTypeRepository.save(sensorType));

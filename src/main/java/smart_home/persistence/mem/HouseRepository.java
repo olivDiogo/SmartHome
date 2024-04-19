@@ -4,14 +4,11 @@ import smart_home.ddd.IRepository;
 import smart_home.domain.house.House;
 import smart_home.domain.house.IHouseFactory;
 import smart_home.domain.repository.IHouseRepository;
+import smart_home.utils.Validator;
 import smart_home.value_object.HouseID;
 
 import java.util.*;
 
-/**
- * This class represents a repository for houses, implementing the Repository interface.
- * It provides methods to save, find all, find by identity, and check if a house exists in the repository.
- */
 public class HouseRepository implements IHouseRepository {
     private final Map<HouseID, House> _houseData = new LinkedHashMap<>();
 
@@ -24,9 +21,9 @@ public class HouseRepository implements IHouseRepository {
      */
     @Override
     public House save(House house) {
-        if (house == null) {
-            throw new IllegalArgumentException("House cannot be null.");
-        } else if (containsOfIdentity(house.getID())) {
+        Validator.validateNotNull(house, "House");
+
+        if (containsOfIdentity(house.getID())) {
             throw new IllegalArgumentException("House already exists.");
         } else {
             _houseData.put(house.getID(), house);

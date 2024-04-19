@@ -38,7 +38,7 @@ class DeviceRepositoryTest {
         //Arrange
         Device Device = null;
         DeviceRepository DeviceRepository = new DeviceRepository();
-        String expectedMessage = "Device cannot be null.";
+        String expectedMessage = "Device is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> DeviceRepository.save(Device));
         //Assert

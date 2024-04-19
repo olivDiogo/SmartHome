@@ -2,14 +2,12 @@ package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.device_type.DeviceType;
+import smart_home.utils.Validator;
 import smart_home.value_object.DeviceTypeID;
 
 import java.util.*;
 
-/**
- * This class represents a repository for storing and managing device types.
- * It implements the Repository interface for handling DeviceTypeID and DeviceType objects.
- */
+
 public class DeviceTypeRepository implements IRepository<DeviceTypeID, DeviceType> {
 
     // Data structure to store device types
@@ -24,9 +22,9 @@ public class DeviceTypeRepository implements IRepository<DeviceTypeID, DeviceTyp
      */
     @Override
     public DeviceType save(DeviceType deviceType) {
-        if (deviceType == null) {
-            throw new IllegalArgumentException("DeviceType cannot be null.");
-        } else if (containsOfIdentity(deviceType.getID())) {
+        Validator.validateNotNull(deviceType, "DeviceType");
+
+        if (containsOfIdentity(deviceType.getID())) {
             throw new IllegalArgumentException("DeviceType already exists.");
         } else {
             _deviceTypeData.put(deviceType.getID(), deviceType);

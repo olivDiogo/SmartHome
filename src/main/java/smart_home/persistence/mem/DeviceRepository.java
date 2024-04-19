@@ -1,7 +1,9 @@
 package smart_home.persistence.mem;
 
+import org.apache.commons.lang3.Validate;
 import smart_home.domain.device.Device;
 import smart_home.domain.repository.IDeviceRepository;
+import smart_home.utils.Validator;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.RoomID;
 
@@ -25,9 +27,9 @@ public class DeviceRepository implements IDeviceRepository {
      */
     @Override
     public Device save(Device device) {
-        if (device == null) {
-            throw new IllegalArgumentException("Device cannot be null.");
-        } else if (containsOfIdentity(device.getID())) {
+        Validator.validateNotNull(device, "Device");
+
+        if (containsOfIdentity(device.getID())) {
             throw new IllegalArgumentException("Device already exists.");
         } else {
             _deviceData.put(device.getID(), device);

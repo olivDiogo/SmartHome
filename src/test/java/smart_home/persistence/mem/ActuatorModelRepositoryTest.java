@@ -40,7 +40,7 @@ public class ActuatorModelRepositoryTest {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = null;
-        String expectedMessage = "ActuatorModel cannot be null.";
+        String expectedMessage = "ActuatorModel is required";
         //Act
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> actuatorModelRepository.save(actuatorModel));
         //Assert

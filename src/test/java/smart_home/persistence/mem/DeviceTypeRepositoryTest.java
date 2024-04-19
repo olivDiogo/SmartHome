@@ -41,7 +41,7 @@ public class DeviceTypeRepositoryTest {
         //Arrange
         DeviceType deviceType = null;
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
-        String expectedMessage = "DeviceType cannot be null.";
+        String expectedMessage = "DeviceType is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> deviceTypeRepository.save(deviceType));

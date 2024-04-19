@@ -2,6 +2,7 @@ package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.unit.Unit;
+import smart_home.utils.Validator;
 import smart_home.value_object.UnitID;
 
 import java.util.LinkedHashMap;
@@ -21,9 +22,9 @@ public class UnitRepository implements IRepository<UnitID, Unit> {
      */
     @Override
     public Unit save(Unit entity) {
-        if (entity == null) {
-            throw new IllegalArgumentException("MeasurementType cannot be null.");
-        } else if (containsOfIdentity(entity.getID())) {
+        Validator.validateNotNull(entity, "MeasurementType");
+
+        if (containsOfIdentity(entity.getID())) {
             throw new IllegalArgumentException("MeasurementType already exists.");
         } else {
             _measurementTypeData.put(entity.getID(), entity);

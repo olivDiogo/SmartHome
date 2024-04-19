@@ -39,7 +39,7 @@ public class RoomRepositoryTest {
         Room roomDouble = null;
         RoomRepository roomRepository = new RoomRepository();
 
-        String expectedMessage = "Room cannot be null";
+        String expectedMessage = "Room is required";
 
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () ->

@@ -2,6 +2,7 @@ package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.room.Room;
+import smart_home.utils.Validator;
 import smart_home.value_object.RoomID;
 
 import java.util.LinkedHashMap;
@@ -19,9 +20,9 @@ public class RoomRepository implements IRepository<RoomID, Room> {
      * @return Room
      */
     public Room save(Room entity) {
-        if (entity == null)
-            throw new IllegalArgumentException("Room cannot be null");
-        else if (containsOfIdentity(entity.getID()))
+        Validator.validateNotNull(entity, "Room");
+
+        if (containsOfIdentity(entity.getID()))
             throw new IllegalArgumentException("Room already exists");
         else
             DATA.put(entity.getID(), entity);

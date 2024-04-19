@@ -3,6 +3,7 @@ package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.sensor_type.SensorType;
+import smart_home.utils.Validator;
 import smart_home.value_object.SensorTypeID;
 
 import java.util.LinkedHashMap;
@@ -24,9 +25,9 @@ public class SensorTypeRepository implements IRepository<SensorTypeID, SensorTyp
      */
     @Override
     public SensorType save(SensorType sensorType) {
-        if (sensorType == null) {
-            throw new IllegalArgumentException("SensorType cannot be null.");
-        } else if (containsOfIdentity(sensorType.getID())) {
+        Validator.validateNotNull(sensorType, "SensorType");
+
+        if (containsOfIdentity(sensorType.getID())) {
             throw new IllegalArgumentException("SensorType already exists.");
         } else {
             _sensorTypeData.put(sensorType.getID(), sensorType);

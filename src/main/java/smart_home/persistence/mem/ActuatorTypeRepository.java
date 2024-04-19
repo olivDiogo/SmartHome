@@ -2,6 +2,7 @@ package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.actuator_type.ActuatorType;
+import smart_home.utils.Validator;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.TypeDescription;
 
@@ -22,9 +23,9 @@ public class ActuatorTypeRepository implements IRepository<ActuatorTypeID, Actua
      */
     @Override
     public ActuatorType save(ActuatorType actuatorType) {
-        if (actuatorType == null) {
-            throw new IllegalArgumentException("ActuatorType cannot be null.");
-        } else if (containsOfIdentity(actuatorType.getID())) {
+        Validator.validateNotNull(actuatorType, "ActuatorType");
+
+        if (containsOfIdentity(actuatorType.getID())) {
             throw new IllegalArgumentException("ActuatorType already exists.");
         } else {
             _actuatorTypeData.put(actuatorType.getID(), actuatorType);

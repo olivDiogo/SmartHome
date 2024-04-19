@@ -2,6 +2,7 @@ package smart_home.persistence.mem;
 
 import smart_home.domain.actuator_model.ActuatorModel;
 import smart_home.domain.repository.IActuatorModelRepository;
+import smart_home.utils.Validator;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.ModelPath;
 
@@ -22,9 +23,9 @@ public class ActuatorModelRepository implements IActuatorModelRepository {
      */
     @Override
     public ActuatorModel save(ActuatorModel actuatorModel) {
-        if (actuatorModel == null) {
-            throw new IllegalArgumentException("ActuatorModel cannot be null.");
-        } else if (containsOfIdentity(actuatorModel.getID())) {
+        Validator.validateNotNull(actuatorModel, "ActuatorModel");
+
+        if (containsOfIdentity(actuatorModel.getID())) {
             throw new IllegalArgumentException("ActuatorModel already exists.");
         } else {
             DATA.put(actuatorModel.getID(), actuatorModel);

@@ -2,6 +2,7 @@ package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.Validator;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.SensorID;
 
@@ -11,24 +12,19 @@ import java.util.Map;
 import java.util.Optional;
 
 public class SensorRepository implements IRepository<SensorID, ISensor> {
-
-
-    /**
-     * Map to store the Sensor data.
-     */
     private final Map<SensorID, ISensor> _SensorData = new LinkedHashMap<>();
 
     /**
      * Method to save a domain entity.
      *
      * @param Sensor is the domain entity to be saved.
-     * @return
+     * @return the saved domain entity.
      */
     @Override
     public ISensor save(ISensor Sensor) {
-        if (Sensor == null) {
-            throw new IllegalArgumentException("Sensor cannot be null.");
-        } else if (containsOfIdentity(Sensor.getID())) {
+        Validator.validateNotNull(Sensor, "Sensor");
+
+        if (containsOfIdentity(Sensor.getID())) {
             throw new IllegalArgumentException("Sensor already exists.");
         } else {
             _SensorData.put(Sensor.getID(), Sensor);
@@ -39,7 +35,7 @@ public class SensorRepository implements IRepository<SensorID, ISensor> {
     /**
      * Method to find all domain entities.
      *
-     * @return
+     * @return a list of all domain entities.
      */
     @Override
     public List<ISensor> findAll() {
@@ -51,7 +47,7 @@ public class SensorRepository implements IRepository<SensorID, ISensor> {
      * Method to find a domain entity by its unique identifier.
      *
      * @param SensorID is the unique identifier of the domain entity.
-     * @return
+     * @return the domain entity if found, otherwise Optional.empty().
      */
     @Override
     public Optional<ISensor> ofIdentity(SensorID SensorID) {
@@ -63,7 +59,7 @@ public class SensorRepository implements IRepository<SensorID, ISensor> {
      * Method to check if a domain entity exists by its unique identifier.
      *
      * @param SensorID is the unique identifier of the domain entity.
-     * @return
+     * @return true if the domain entity exists, otherwise false.
      */
     @Override
     public boolean containsOfIdentity(SensorID SensorID) {

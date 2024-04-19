@@ -45,7 +45,7 @@ class HouseRepositoryTest {
 
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> houseRepository.save(house));
-        assertEquals("House cannot be null.", exception.getMessage());
+        assertEquals("House is required", exception.getMessage());
     }
 
     /**

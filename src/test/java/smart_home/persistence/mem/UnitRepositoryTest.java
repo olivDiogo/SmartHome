@@ -38,7 +38,7 @@ public class UnitRepositoryTest {
         //Arrange
         Unit unit = null;
         UnitRepository unitRepository = new UnitRepository();
-        String expectedMessage = "MeasurementType cannot be null.";
+        String expectedMessage = "MeasurementType is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> unitRepository.save(unit));

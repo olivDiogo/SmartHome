@@ -53,7 +53,7 @@ class ActuatorRepositoryTest {
         //Arrange
         IActuator actuator = null;
         ActuatorRepository actuatorRepository = new ActuatorRepository();
-        String expectedMessage = "Actuator cannot be null.";
+        String expectedMessage = "Actuator is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> actuatorRepository.save(actuator));

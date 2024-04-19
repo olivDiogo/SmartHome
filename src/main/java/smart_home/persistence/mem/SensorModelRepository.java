@@ -1,7 +1,9 @@
 package smart_home.persistence.mem;
 
+import org.apache.commons.lang3.Validate;
 import smart_home.domain.repository.ISensorModelRepository;
 import smart_home.domain.sensor_model.SensorModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.ModelPath;
 import smart_home.value_object.SensorTypeID;
 
@@ -15,9 +17,9 @@ public class SensorModelRepository implements ISensorModelRepository {
 
     @Override
     public SensorModel save(SensorModel entity) {
-        if (entity == null)
-            throw new IllegalArgumentException("SensorModel cannot be null.");
-        else if (containsOfIdentity(entity.getID()))
+        Validator.validateNotNull(entity, "Sensor Model");
+
+        if (containsOfIdentity(entity.getID()))
             throw new IllegalArgumentException("SensorModel already exists.");
         else
 

@@ -28,7 +28,7 @@ class SensorModelRepositoryTest {
         //Arrange
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
         SensorModel sensorModel = null;
-        String expectedMessage = "SensorModel cannot be null.";
+        String expectedMessage = "Sensor Model is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> sensorModelRepository.save(sensorModel));
         //Assert

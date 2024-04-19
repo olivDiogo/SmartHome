@@ -42,7 +42,7 @@ class ActuatorTypeRepositoryTest {
         ActuatorType actuatorType = null;
         ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
 
-        String expectedMessage = "ActuatorType cannot be null.";
+        String expectedMessage = "ActuatorType is required";
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             //Act
