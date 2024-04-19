@@ -351,7 +351,6 @@ class InstantPowerConsumptionSensorAggregateTest {
         // Assert
         double value = Double.parseDouble(result.toString());
         assertTrue(value > 0 && value <= 100);
-        assertTrue(value > 1);
     }
 
     /**

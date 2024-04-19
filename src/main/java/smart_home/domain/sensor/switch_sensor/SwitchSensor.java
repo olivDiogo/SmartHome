@@ -1,11 +1,11 @@
 package smart_home.domain.sensor.switch_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.ValueSimulator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
-import java.util.Random;
 import java.util.UUID;
 
 public class SwitchSensor implements ISensor {
@@ -128,10 +128,7 @@ public class SwitchSensor implements ISensor {
      */
     @Override
     public SwitchSensorValue getValue() {
-        Random random = new Random();
-        // Randomly choose true or false
-        boolean randomBoolean = random.nextBoolean();
-
+        boolean randomBoolean = ValueSimulator.generateRandomValue();
         this.switchSensorValue = new SwitchSensorValue(randomBoolean);
 
         return this.switchSensorValue;

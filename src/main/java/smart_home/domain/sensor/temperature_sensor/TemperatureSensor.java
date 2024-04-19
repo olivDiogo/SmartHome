@@ -1,11 +1,11 @@
 package smart_home.domain.sensor.temperature_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.ValueSimulator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
-import java.util.Random;
 import java.util.UUID;
 
 public class TemperatureSensor implements ISensor {
@@ -131,10 +131,7 @@ public class TemperatureSensor implements ISensor {
     @Override
     public TemperatureSensorValue getValue() {
         // Generate a random temperature as a simulation of hardware behavior
-        Random random = new Random();
-        // Generate a random double within a range. Example: -50.0 (min) to 50.0 (max)
-        double temperatureReading = -50.0 + (100.0 * random.nextDouble());
-
+        double temperatureReading = ValueSimulator.generateRandomValue(-50.0, 50.0);
         this._temperatureValue = new TemperatureSensorValue(temperatureReading);
 
         return _temperatureValue;

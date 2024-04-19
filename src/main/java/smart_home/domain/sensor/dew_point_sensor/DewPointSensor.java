@@ -1,11 +1,11 @@
 package smart_home.domain.sensor.dew_point_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.ValueSimulator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
-import java.util.Random;
 import java.util.UUID;
 
 public class DewPointSensor implements ISensor {
@@ -117,9 +117,7 @@ public class DewPointSensor implements ISensor {
      */
     @Override
     public DewPointValue getValue() {
-        Random rand = new Random();
-        int dewPointValue = rand.nextInt(141) - 70;
-
+        int dewPointValue = ValueSimulator.generateRandomValue(-70, 70);
         this._dewPointValue = new DewPointValue(dewPointValue);
 
         return _dewPointValue;

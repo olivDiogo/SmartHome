@@ -1,11 +1,11 @@
 package smart_home.domain.sensor.humidity_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.ValueSimulator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
-import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -132,8 +132,7 @@ public class HumiditySensor implements ISensor {
      */
     @Override
     public HumiditySensorValue getValue() {
-        Random random = new Random();
-        int humidityReadingReading = random.nextInt(101);
+        int humidityReadingReading = ValueSimulator.generateRandomValue(0, 100);
         _humiditySensorValue = new HumiditySensorValue(humidityReadingReading);
         return _humiditySensorValue;
     }

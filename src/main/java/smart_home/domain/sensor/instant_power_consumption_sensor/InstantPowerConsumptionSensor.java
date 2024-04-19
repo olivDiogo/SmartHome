@@ -1,11 +1,11 @@
 package smart_home.domain.sensor.instant_power_consumption_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.ValueSimulator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
-import java.util.Random;
 import java.util.UUID;
 
 public class InstantPowerConsumptionSensor implements ISensor {
@@ -129,9 +129,7 @@ public class InstantPowerConsumptionSensor implements ISensor {
      */
     @Override
     public InstantPowerConsumptionValue getValue() {
-        Random rand = new Random();
-        double instantPowerConsumptionValue = rand.nextDouble() * 100;
-
+        double instantPowerConsumptionValue = ValueSimulator.generateRandomValue(0.0, 100);
         this._instantPowerConsumptionValue =
                 new InstantPowerConsumptionValue(instantPowerConsumptionValue);
 

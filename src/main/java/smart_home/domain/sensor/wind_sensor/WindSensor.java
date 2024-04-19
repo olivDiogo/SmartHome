@@ -1,11 +1,11 @@
 package smart_home.domain.sensor.wind_sensor;
 
 import smart_home.domain.sensor.ISensor;
+import smart_home.utils.ValueSimulator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Objects;
-import java.util.Random;
 import java.util.UUID;
 
 public class WindSensor implements ISensor {
@@ -132,9 +132,8 @@ public class WindSensor implements ISensor {
      */
     @Override
     public WindSensorValue getValue() {
-        Random rand = new Random();
-        int speed = rand.nextInt(408); //wind speed world record
-        double direction = rand.nextDouble() * 2 * Math.PI; // direction in radians
+        int speed = ValueSimulator.generateRandomValue(0, 408);
+        double direction = ValueSimulator.generateRandomValue(0.0, 2 * Math.PI);
         this._windSensorValue = new WindSensorValue(speed, direction);
         return _windSensorValue;
     }
