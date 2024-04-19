@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 import smart_home.domain.repository.ISensorTypeRepository;
-import smart_home.domain.sensor_type.ISensorTypeFactory;
 import smart_home.domain.sensor_type.SensorType;
 import smart_home.persistence.assembler.IDataModelAssembler;
 import smart_home.persistence.jpa.data_model.SensorTypeDataModel;
@@ -19,22 +18,20 @@ import java.util.Optional;
 public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
 
     ISensorTypeSpringDataRepository _repository;
-    ISensorTypeFactory _factory;
+    EntityManagerFactory _factory;
     IDataModelAssembler<SensorTypeDataModel, SensorType> _assembler;
 
     /**
      * Constructor for SensorTypeSpringDataRepository
      *
-     * @param factory    sensor type factory
      * @param repository sensor type spring data repository
      * @param assembler  data model assembler
      */
-    public SensorTypeSpringDataRepository(ISensorTypeFactory factory, ISensorTypeSpringDataRepository repository, IDataModelAssembler assembler) {
-        Validator.validateNotNull(factory, "Sensor type factory");
+    public SensorTypeSpringDataRepository(ISensorTypeSpringDataRepository repository, IDataModelAssembler assembler) {
         Validator.validateNotNull(repository, "Sensor type spring data repository");
         Validator.validateNotNull(assembler, "Data model assembler");
 
-        this._factory = factory;
+        this._factory = Persistence.createEntityManagerFactory("smart_home");
         this._repository = repository;
         this._assembler = assembler;
     }
@@ -45,8 +42,10 @@ public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
      * @return entity manager
      */
     private EntityManager getEntityManager() {
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory("smart_home")) {
-            return factory.createEntityManager();
+        try  {
+            return _factory.createEntityManager();
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating the entity manager", e);
         }
     }
 
