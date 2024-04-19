@@ -2,12 +2,9 @@ package smart_home.domain.sensor.humidity_sensor;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import smart_home.domain.sensor.average_power_consumption_sensor.AveragePowerConsumptionSensor;
-import smart_home.domain.sensor.humidity_sensor.HumiditySensor;
-import smart_home.domain.sensor.humidity_sensor.HumiditySensorValue;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.value_object.*;
 
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class HumiditySensorAggregateTest {

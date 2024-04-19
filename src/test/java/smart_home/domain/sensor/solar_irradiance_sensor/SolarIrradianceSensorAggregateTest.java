@@ -1,9 +1,8 @@
 package smart_home.domain.sensor.solar_irradiance_sensor;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.value_object.*;
-
-import static org.junit.Assert.*;
 
 public class SolarIrradianceSensorAggregateTest {
 

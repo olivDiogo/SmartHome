@@ -1,6 +1,7 @@
 package smart_home.mapper;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.domain.house.House;
 import smart_home.dto.HouseDTO;
 import smart_home.value_object.Address;
@@ -9,8 +10,6 @@ import smart_home.value_object.GPS;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

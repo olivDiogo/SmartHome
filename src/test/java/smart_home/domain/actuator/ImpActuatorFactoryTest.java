@@ -1,7 +1,7 @@
 package smart_home.domain.actuator;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator;
 import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuatorLimits;
 import smart_home.domain.actuator.switch_actuator.SwitchActuator;
@@ -10,7 +10,6 @@ import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.ModelPath;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -134,7 +133,7 @@ class ImpActuatorFactoryTest {
         String expectedMessage = "At least 4 parameters are required.";
 
         // Act + Assert
-        Exception e = Assert.assertThrows(IllegalArgumentException.class, () -> {
+        Exception e = assertThrows(IllegalArgumentException.class, () -> {
             impActuatorFactory.createActuator(deviceIdMock, modelPathMock, actuatorNameMock);
         });
 

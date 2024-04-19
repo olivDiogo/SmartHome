@@ -1,6 +1,7 @@
 package smart_home.persistence.assembler;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.domain.device.Device;
 import smart_home.domain.device.DeviceFactoryImpl;
 import smart_home.domain.device.IDeviceFactory;
@@ -10,8 +11,6 @@ import smart_home.value_object.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

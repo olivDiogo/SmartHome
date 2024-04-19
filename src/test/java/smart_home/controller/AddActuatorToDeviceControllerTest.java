@@ -22,10 +22,7 @@ import smart_home.value_object.*;
 
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AddActuatorToDeviceControllerTest {
     RoomRepository roomRepository = new RoomRepository();

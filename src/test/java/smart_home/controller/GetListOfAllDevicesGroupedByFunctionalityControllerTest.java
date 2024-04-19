@@ -1,6 +1,6 @@
 package smart_home.controller;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import smart_home.mapper.DeviceAssembler;
 import smart_home.mapper.RoomAssembler;
@@ -27,7 +27,6 @@ import smart_home.value_object.*;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -54,7 +53,7 @@ import static org.mockito.Mockito.when;
         GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceServiceImpl, deviceAssembler, deviceTypeServiceImpl);
 
         //Assert
-        Assertions.assertNotNull(getListOfAllDevicesGroupedByFunctionality);
+        assertNotNull(getListOfAllDevicesGroupedByFunctionality);
     }
 
     /**
@@ -278,8 +277,8 @@ import static org.mockito.Mockito.when;
         Map<DeviceType, List<DeviceDTO>> result = getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality();
 
         //Assert
-        Assertions.assertEquals(result.get(deviceType).get(0).deviceID.toString(), device1.getID().getID());
-        Assertions.assertEquals(result.get(deviceType).get(1).deviceID.toString(), device2.getID().getID());
+        assertEquals(result.get(deviceType).get(0).deviceID.toString(), device1.getID().getID());
+        assertEquals(result.get(deviceType).get(1).deviceID.toString(), device2.getID().getID());
 
     }
 

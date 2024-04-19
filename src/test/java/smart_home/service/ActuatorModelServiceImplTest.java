@@ -1,6 +1,7 @@
 package smart_home.service;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.MockedConstruction;
 import smart_home.domain.actuator_model.ActuatorModel;
 import smart_home.domain.actuator_model.IActuatorModelFactory;
@@ -12,7 +13,6 @@ import smart_home.value_object.ModelPath;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 class ActuatorModelServiceImplTest {

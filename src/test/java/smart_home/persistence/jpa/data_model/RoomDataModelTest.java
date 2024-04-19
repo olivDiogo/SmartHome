@@ -1,10 +1,10 @@
 package smart_home.persistence.jpa.data_model;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.domain.room.Room;
 import smart_home.value_object.*;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

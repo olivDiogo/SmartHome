@@ -1,9 +1,8 @@
 package smart_home.domain.actuator.set_integer_actuator;
 
 import org.junit.jupiter.api.Test;
-import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuatorLimits;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.*;
 
  class SetIntegerActuatorLimitsTest {
     /**

@@ -1,6 +1,7 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.mapper.RoomAssembler;
 import smart_home.domain.room.Room;
 import smart_home.domain.room.RoomFactoryImpl;
@@ -15,8 +16,6 @@ import smart_home.value_object.RoomName;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class GetListOfRoomsControllerTest {
 

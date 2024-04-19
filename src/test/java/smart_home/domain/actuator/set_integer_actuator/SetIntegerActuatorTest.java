@@ -1,6 +1,5 @@
 package smart_home.domain.actuator.set_integer_actuator;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
@@ -629,6 +628,6 @@ class SetIntegerActuatorTest {
         String result = setIntegerActuator.accept(visitor);
 
         //Assert
-        Assert.assertEquals(expected, result);
+        assertEquals(expected, result);
     }
 }

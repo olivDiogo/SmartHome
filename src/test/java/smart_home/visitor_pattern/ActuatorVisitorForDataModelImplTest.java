@@ -1,10 +1,9 @@
 package smart_home.visitor_pattern;
 
 import org.junit.jupiter.api.Test;
-import smart_home.persistence.jpa.data_model.ActuatorDataModel;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 
 class ActuatorVisitorForDataModelImplTest {
 
@@ -58,6 +57,4 @@ class ActuatorVisitorForDataModelImplTest {
         //Assert
         assertNotNull(result);
     }
-
-
 }

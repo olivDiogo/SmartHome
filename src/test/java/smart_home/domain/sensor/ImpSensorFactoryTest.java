@@ -1,11 +1,11 @@
 package smart_home.domain.sensor;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.domain.sensor.solar_irradiance_sensor.SolarIrradianceSensor;
 import smart_home.domain.sensor.sunrise_time_sensor.SunriseTimeSensor;
 import smart_home.value_object.*;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

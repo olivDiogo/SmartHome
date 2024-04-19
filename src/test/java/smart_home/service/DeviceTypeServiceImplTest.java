@@ -1,6 +1,7 @@
 package smart_home.service;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.domain.device_type.DeviceType;
 import smart_home.domain.device_type.IDeviceTypeFactory;
 import smart_home.persistence.mem.DeviceTypeRepository;
@@ -10,7 +11,6 @@ import smart_home.value_object.TypeDescription;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

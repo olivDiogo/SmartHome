@@ -1,6 +1,7 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.mapper.DeviceAssembler;
 import smart_home.mapper.RoomAssembler;
 import smart_home.domain.device.Device;
@@ -21,8 +22,6 @@ import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.*;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 class AddDeviceToRoomControllerTest {
 

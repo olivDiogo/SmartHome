@@ -1,11 +1,11 @@
 package smart_home.persistence.jpa.repository;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.domain.room.RoomFactoryImpl;
 import smart_home.persistence.assembler.IDataModelAssembler;
 import smart_home.persistence.assembler.RoomDataModelAssembler;
 
-import static org.junit.Assert.*;
 
 public class RoomRepositoryJPAImplTest {
 

@@ -3,8 +3,7 @@ package smart_home.domain.sensor.average_power_consumption_sensor;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AveragePowerConsumptionSensorValueTest {
     /**

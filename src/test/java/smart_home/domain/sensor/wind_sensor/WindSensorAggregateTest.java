@@ -3,8 +3,6 @@ package smart_home.domain.sensor.wind_sensor;
 import org.junit.jupiter.api.Test;
 import smart_home.value_object.*;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WindSensorAggregateTest {

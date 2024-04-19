@@ -1,6 +1,7 @@
 package smart_home.persistence.assembler;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.domain.room.Room;
 import smart_home.domain.room.RoomFactoryImpl;
 import smart_home.persistence.jpa.data_model.RoomDataModel;
@@ -8,7 +9,6 @@ import smart_home.value_object.*;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class RoomDataModelAssemblerTest {

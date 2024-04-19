@@ -1,13 +1,13 @@
 package smart_home.mapper;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.domain.actuator.IActuator;
 import smart_home.dto.ActuatorDTO;
 import smart_home.value_object.*;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

@@ -1,15 +1,13 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.mapper.HouseAssembler;
 import smart_home.domain.house.HouseFactoryImpl;
 import smart_home.dto.HouseDTO;
 import smart_home.dto.HouseDataDTO;
 import smart_home.persistence.mem.HouseRepository;
 import smart_home.service.HouseServiceImpl;
-
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertThrows;
 
 
 /**

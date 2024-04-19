@@ -2,6 +2,7 @@ package smart_home.domain.actuator.switch_actuator;
 
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator;
@@ -12,7 +13,6 @@ import smart_home.visitor_pattern.IActuatorVisitor;
 
 import java.util.UUID;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 class SwitchActuatorAggregateTest {

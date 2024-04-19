@@ -1,9 +1,7 @@
 package smart_home.domain.actuator.switch_actuator;
 
 import org.junit.jupiter.api.Test;
-import smart_home.domain.actuator.switch_actuator.SwitchActuatorValue;
-
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SwitchActuatorValueTest {
 

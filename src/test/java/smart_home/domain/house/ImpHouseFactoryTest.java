@@ -1,11 +1,11 @@
 package smart_home.domain.house;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.value_object.Address;
 import smart_home.value_object.GPS;
 import smart_home.value_object.HouseID;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 

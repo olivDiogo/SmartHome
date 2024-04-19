@@ -1,11 +1,10 @@
 package smart_home.domain.actuator_model;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.value_object.ActuatorModelName;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.ModelPath;
-
-import static org.junit.Assert.*;
 
 class ActuatorModelAggregateTest {
 

@@ -2,12 +2,11 @@ package smart_home.domain.sensor.average_power_consumption_sensor;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.ddd.IValueObject;
 import smart_home.value_object.*;
 
 import java.time.LocalDateTime;
-
-import static org.junit.Assert.*;
 
 class AveragePowerConsumptionAggregateSensorTest {
 

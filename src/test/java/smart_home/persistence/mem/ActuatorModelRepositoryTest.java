@@ -3,14 +3,12 @@ package smart_home.persistence.mem;
 import smart_home.domain.actuator_model.ActuatorModel;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.ModelPath;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

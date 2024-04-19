@@ -1,6 +1,7 @@
 package smart_home.service;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.MockedConstruction;
 import smart_home.domain.sensor_model.ISensorModelFactory;
 import smart_home.domain.sensor_model.SensorModel;
@@ -13,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 class SensorModelServiceImplTest {

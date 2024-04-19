@@ -1,12 +1,12 @@
 package smart_home.domain.sensor.sunrise_time_sensor;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.MockedConstruction;
 import smart_home.value_object.*;
 
 import java.time.LocalDate;
 
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;

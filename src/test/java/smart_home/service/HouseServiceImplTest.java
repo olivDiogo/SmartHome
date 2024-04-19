@@ -1,13 +1,13 @@
 package smart_home.service;
 
-import org.junit.Test;
 import smart_home.domain.house.House;
 import smart_home.domain.house.IHouseFactory;
 import smart_home.persistence.mem.HouseRepository;
 import smart_home.value_object.Address;
 import smart_home.value_object.GPS;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

@@ -7,7 +7,6 @@ import smart_home.value_object.*;
 import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
 import smart_home.visitor_pattern.IActuatorVisitor;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

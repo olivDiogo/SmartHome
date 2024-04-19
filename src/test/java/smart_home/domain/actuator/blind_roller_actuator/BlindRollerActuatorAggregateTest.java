@@ -1,14 +1,12 @@
 package smart_home.domain.actuator.blind_roller_actuator;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import smart_home.ddd.IValueObject;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 import smart_home.value_object.*;
 import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
 import smart_home.visitor_pattern.IActuatorVisitor;
-
-import static org.junit.Assert.*;
 
 class BlindRollerActuatorAggregateTest {
 
@@ -613,7 +611,7 @@ class BlindRollerActuatorAggregateTest {
         int result = blindRollerActuator.hashCode();
 
         //Assert
-        Assertions.assertEquals(expected, result);
+        assertEquals(expected, result);
     }
 
     /**

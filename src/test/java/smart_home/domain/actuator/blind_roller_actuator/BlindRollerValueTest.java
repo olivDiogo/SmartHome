@@ -1,9 +1,9 @@
 package smart_home.domain.actuator.blind_roller_actuator;
 
-import org.junit.Test;
-import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
 
 public class BlindRollerValueTest {
 
