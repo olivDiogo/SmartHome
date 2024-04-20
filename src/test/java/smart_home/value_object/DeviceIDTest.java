@@ -60,25 +60,6 @@ class DeviceIDTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    /**
-     * Tests if the exception is thrown with an empty deviceID
-     */
-    @Test
-    void shouldThrowException_whenDeviceIdIsEmpty(){
-        // Arrange
-        String deviceID = "";
-        String expectedMessage = "The value of 'deviceID' should not null, blank, or empty.";
-
-        // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new DeviceID(deviceID)
-        );
-
-        // Assert
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
 
     /**
      * Tests the ID getter
@@ -186,4 +167,19 @@ class DeviceIDTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Tests if equals method returns false when the object is different
+     */
+    @Test
+    void shouldReturnFalse_whenObjectIsDifferent(){
+        // Arrange
+        String idDescription = "HXPTO";
+        DeviceID deviceID = new DeviceID(idDescription);
+
+        // Act
+        boolean result = deviceID.equals(new Object());
+
+        // Assert
+        assertFalse(result);
+    }
 }

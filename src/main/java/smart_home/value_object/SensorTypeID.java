@@ -17,7 +17,7 @@ public class SensorTypeID implements IDomainID {
     }
 
     private void validateId(String sensorTypeID) {
-        if (sensorTypeID == null || sensorTypeID.isBlank() || sensorTypeID.isEmpty())
+        if (sensorTypeID == null || sensorTypeID.isBlank())
             throw new IllegalArgumentException("'sensorTypeID' must be a non-empty string.");
     }
 

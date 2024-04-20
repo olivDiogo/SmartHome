@@ -23,19 +23,6 @@ class ActuatorModelNameTest {
     }
 
     /**
-     * Test the constructor of the class ActuatorModelName with an empty name.
-     */
-    @Test
-    void shouldThrowException_whenNameIsEmpty() {
-        // Arrange
-        String name = " ";
-
-        // Act+Assert
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModelName(name));
-        assertEquals("The device name cannot be null, blank, or empty.", exception.getMessage());
-    }
-
-    /**
      * Test the constructor of the class ActuatorModelName with a null name.
      */
     @Test
@@ -62,6 +49,19 @@ class ActuatorModelNameTest {
     }
 
     /**
+     * Test if the constructor throws IllegalArgumentException when name is blank
+     */
+    @Test
+    void shouldThrowException_whenNameIsEmpty() {
+        // Arrange
+        String name = "";
+
+        // Act+Assert
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModelName(name));
+        assertEquals("The device name cannot be null, blank, or empty.", exception.getMessage());
+    }
+
+    /**
      * Test the getActuatorModelName method of the class ActuatorModel
      */
     @Test
@@ -78,21 +78,36 @@ class ActuatorModelNameTest {
     }
 
     /**
+     * Tests if equals method returns true with same object
+     */
+    @Test
+    void shouldReturnTrue_whenComparingActuatorModelNameWithItself() {
+        // Arrange
+        String name = "ActuatorModelName";
+
+        // Act
+        ActuatorModelName actuatorModelName = new ActuatorModelName(name);
+
+        // Assert
+        assertTrue(actuatorModelName.equals(actuatorModelName));
+    }
+
+    /**
      * Test the equals method of the class ActuatorModelName.
      */
     @Test
     void shouldReturnTrue_whenComparingTwoEqualActuatorModelName() {
         // Arrange
-        ActuatorModelName ActuatorModelName1;
-        ActuatorModelName ActuatorModelName2;
+        ActuatorModelName actuatorModelName1;
+        ActuatorModelName actuatorModelName2;
         String name = "ActuatorModelName";
 
         // Act
-        ActuatorModelName1 = new ActuatorModelName(name);
-        ActuatorModelName2 = new ActuatorModelName(name);
+        actuatorModelName1 = new ActuatorModelName(name);
+        actuatorModelName2 = new ActuatorModelName(name);
 
         // Assert
-        assertTrue(ActuatorModelName1.equals(ActuatorModelName2));
+        assertTrue(actuatorModelName1.equals(actuatorModelName2));
     }
 
     /**

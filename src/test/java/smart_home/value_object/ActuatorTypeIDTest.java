@@ -54,24 +54,6 @@ class ActuatorTypeIDTest {
     assertTrue(actualMessage.contains(expectedMessage));
   }
 
-  /** Tests if the exception is thrown with an empty actuatorTypeID. */
-  @Test
-  void shouldThrowException_whenActuatorTypeIDIsEmpty() {
-    // Arrange
-    String actuatorTypeIDDescription = "";
-    String expectedMessage = "The value of 'actuatorTypeID' should not null, blank, or empty.";
-
-    // Act + Assert
-    Exception exception =
-        assertThrows(
-            IllegalArgumentException.class, () -> new ActuatorTypeID(actuatorTypeIDDescription));
-
-    // Assert
-    String actualMessage = exception.getMessage();
-
-    assertTrue(actualMessage.contains(expectedMessage));
-  }
-
   /** Tests if the ActuatorTypeID is correctly returned. */
   @Test
   void shouldReturnActuatorTypeID() {

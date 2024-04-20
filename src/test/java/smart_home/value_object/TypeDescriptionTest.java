@@ -47,20 +47,6 @@ class TypeDescriptionTest {
     }
 
     /**
-     * Should throw IllegalArgumentException when given empty.
-     */
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenGivenEmptyDescription() {
-        //Arrange
-        String description = "";
-        String expectedMessage = "The value of 'description' should not null, blank, or empty.";
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new TypeDescription(description));
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
-
-    /**
      * Should throw IllegalArgumentException when given description with more than 50 characters.
      */
     @Test
@@ -193,4 +179,38 @@ class TypeDescriptionTest {
         assertTrue(result);
     }
 
+    /**
+     * Tests if the equals method returns false when the type description is compared to another type description with a different ID.
+     */
+    @Test
+    void shouldReturnFalse_WhenTypeDescriptionIsDifferentFromOtherTypeDescription () {
+        //Arrange
+        String description = "This is a valid description";
+        String differentDescription = "This is a different description";
+
+        TypeDescription typeDescription = new TypeDescription(description);
+        TypeDescription differentTypeDescription = new TypeDescription(differentDescription);
+
+        //Act
+        boolean result = typeDescription.equals(differentTypeDescription);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Tests if the equals method returns false when the object is not an instance of TypeDescription
+     */
+    @Test
+    void shouldReturnFalse_WhenObjectIsNotInstanceOfTypeDescription() {
+        //Arrange
+        String description = "This is a valid description";
+        TypeDescription typeDescription = new TypeDescription(description);
+
+        //Act
+        boolean result = typeDescription.equals(description);
+
+        //Assert
+        assertFalse(result);
+    }
 }

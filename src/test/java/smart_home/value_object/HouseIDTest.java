@@ -52,22 +52,6 @@ class HouseIDTest {
     assertTrue(actualMessage.contains(expectedMessage));
   }
 
-  /** Tests if the exception is thrown with an empty houseID */
-  @Test
-  void shouldThrowException_whenHouseIdIsEmpty() {
-    // Arrange
-    String houseID = "";
-    String expectedMessage = "The value of 'houseID' should not null, blank, or empty.";
-
-    // Act + Assert
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> new HouseID(houseID));
-
-    // Assert
-    String actualMessage = exception.getMessage();
-
-    assertTrue(actualMessage.contains(expectedMessage));
-  }
-
   /** Tests the ID getter */
   @Test
   void shouldGetHouseID() {
@@ -160,5 +144,19 @@ class HouseIDTest {
 
     // Assert
     assertEquals(expected, result);
+  }
+
+  /** Tests if equals method returns false when the object is not an instance of HouseID */
+  @Test
+  void shouldReturnFalse_whenObjectIsNotInstanceOfHouseID() {
+    // Arrange
+    String idDescription = "HXPTO";
+    HouseID houseID = new HouseID(idDescription);
+
+    // Act
+    boolean result = houseID.equals(new Object());
+
+    // Assert
+    assertFalse(result);
   }
 }

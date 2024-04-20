@@ -46,13 +46,15 @@ public class SensorName implements IValueObject {
      * @return true if the instances are equal, false otherwise
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object object) {
+        if (this == object)
+            return true;
 
-        SensorName that = (SensorName) o;
+        if (object instanceof SensorName sensorName) {
 
-        return _name.equals(that._name);
+            return this._name.equals(sensorName._name);
+        }
+        return false;
     }
 
     /**

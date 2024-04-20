@@ -22,7 +22,7 @@ public class SensorID implements IDomainID {
      * @param sensorID String
      */
     private void validateSensorID(String sensorID) {
-        if (sensorID == null || sensorID.isBlank() || sensorID.isEmpty())
+        if (sensorID == null || sensorID.isBlank())
             throw new IllegalArgumentException("The value of 'sensorID' should not null, blank, or empty.");
     }
 

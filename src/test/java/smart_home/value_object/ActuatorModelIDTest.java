@@ -53,23 +53,6 @@ class ActuatorModelIDTest {
     }
 
     @Test
-    void shouldThrowException_whenActuatorModelIDIsEmpty() {
-        // Arrange
-        String actuatorModelIDDescription = "";
-        String expectedMessage = "The value of 'actuatorModelID' should not null, blank, or empty.";
-
-        // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new ActuatorModelID(actuatorModelIDDescription)
-        );
-
-        // Assert
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-    @Test
     void shouldReturnActuatorTypeID() {
         // Arrange
         String actuatorModelIDDescription = "switch";

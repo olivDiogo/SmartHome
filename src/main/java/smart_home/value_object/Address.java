@@ -28,7 +28,6 @@ public class Address implements IValueObject {
     private void validateStreet(String street) {
         if (street == null ||
                 street.trim().isEmpty() ||
-                street.length() > 70 ||
                 !street.matches("^[a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException("Invalid street");
         }
@@ -43,7 +42,6 @@ public class Address implements IValueObject {
     private void validateDoorNumber(String doorNumber) {
         if (doorNumber == null ||
                 doorNumber.trim().isEmpty() ||
-                doorNumber.length() > 10 ||
                 !doorNumber.matches("^[a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException("Invalid door number");
         }
@@ -51,9 +49,8 @@ public class Address implements IValueObject {
 
     private void validateCountryCode(String countryCode) {
         if (countryCode == null ||
-                countryCode.trim().isEmpty() ||
                 countryCode.length() != COUNTRY_CODE_LENGTH ||
-                !countryCode.matches("^[a-zA-Z]+$")) {
+                !countryCode.matches("^[A-Z]+$")) {
             throw new IllegalArgumentException("Invalid country code");
         }
     }

@@ -22,7 +22,7 @@ public class ActuatorModelName implements IValueObject{
      * @param name
      */
     private void validateActuatorModelName(String name) {
-        if (name == null || name.isEmpty() || name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("The device name cannot be null, blank, or empty.");
         }
 
@@ -46,13 +46,15 @@ public class ActuatorModelName implements IValueObject{
      * @param o
      * @return
      */
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object object) {
+        if (this == object)
+            return true;
 
-        ActuatorModelName that = (ActuatorModelName) o;
+        if (object instanceof ActuatorModelName actuatorModelName) {
 
-        return _name.equals(that._name);
+            return this._name.equals(actuatorModelName._name);
+        }
+        return false;
     }
 
     /**

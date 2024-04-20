@@ -10,6 +10,8 @@ import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.ModelPath;
 
+import java.lang.reflect.Constructor;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -141,7 +143,6 @@ class ImpActuatorFactoryTest {
         String actualMessage = e.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
-
 }
 
 

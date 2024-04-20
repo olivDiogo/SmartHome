@@ -12,7 +12,7 @@ public class ActuatorName implements IValueObject {
     }
 
     private void validateActuatorName(String actuatorName) {
-        if (actuatorName == null || actuatorName.isEmpty() || actuatorName.isBlank()) {
+        if (actuatorName == null || actuatorName.isBlank()) {
             throw new IllegalArgumentException("The actuator name cannot be null, blank, or empty.");
         }
         if (!actuatorName.matches("[a-zA-Z0-9 ]+")) {
@@ -25,13 +25,15 @@ public class ActuatorName implements IValueObject {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object object) {
+        if (this == object)
+            return true;
 
-        ActuatorName that = (ActuatorName) o;
+        if (object instanceof ActuatorName actuatorName) {
 
-        return _actuatorName.equals(that._actuatorName);
+            return this._actuatorName.equals(actuatorName._actuatorName);
+        }
+        return false;
     }
 
     /**

@@ -11,7 +11,7 @@ public class ActuatorModelID implements IDomainID {
     }
 
     private void validationActuatorModelID(String actuatorModelID) {
-        if (actuatorModelID == null || actuatorModelID.isBlank() || actuatorModelID.isEmpty())
+        if (actuatorModelID == null || actuatorModelID.isBlank())
             throw new IllegalArgumentException("The value of 'actuatorModelID' should not null, blank, or empty.");
     }
 
@@ -22,9 +22,14 @@ public class ActuatorModelID implements IDomainID {
 
     @Override
     public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-        ActuatorModelID actuatorModelID = (ActuatorModelID) object;
-        return _actuatorModelId.equals(actuatorModelID._actuatorModelId);
+        if (this == object)
+            return true;
+
+        if (object instanceof ActuatorModelID actuatorModelID) {
+
+            return this._actuatorModelId.equals(actuatorModelID._actuatorModelId);
+        }
+        return false;
     }
 
     @Override

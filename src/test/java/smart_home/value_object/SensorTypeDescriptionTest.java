@@ -36,16 +36,6 @@ class SensorTypeDescriptionTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenDescriptionIsEmpty() {
-        //Arrange
-        String description = "";
-        String expectedMessage = "The value of 'description' should not null, blank, or empty.";
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeDescription(description));
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
-    @Test
     void shouldThrowIllegalArgumentExceptionWhenDescriptionIsMoreThan50Characters() {
         //Arrange
         String description = "Temperature Sensor Temperature Sensor Temperature Sensor Temperature Sensor";

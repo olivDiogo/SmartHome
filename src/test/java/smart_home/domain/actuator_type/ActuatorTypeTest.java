@@ -214,4 +214,18 @@ class ActuatorTypeTest {
             assertEquals(expected, result);
         }
     }
+
+    @Test
+    void shouldThrowIllegalArgumentException_whenActuatorTypeIDIsNull(){
+        // Arrange
+        TypeDescription typeDescription = mock(TypeDescription.class);
+        UnitID unitID = mock(UnitID.class);
+        ActuatorTypeID actuatorTypeID = null;
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorType(typeDescription, unitID, actuatorTypeID));
+
+        // Assert
+        assertEquals("Actuator type ID must not be null.", exception.getMessage());
+    }
 }

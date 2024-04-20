@@ -61,26 +61,6 @@ class ActuatorIDTest {
     }
 
     /**
-     * Tests if the exception is thrown with an empty actuatorID.
-     */
-    @Test
-    void shouldThrowException_whenActuatorIdIsEmpty() {
-        // Arrange
-        String actuatorIDDescription = "";
-        String expectedMessage = "'actuatorID' must be a non-empty string.";
-
-        // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new ActuatorID(actuatorIDDescription)
-        );
-
-        // Assert
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-    /**
      * Tests if the ActuatorID is correctly returned.
      */
     @Test

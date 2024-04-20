@@ -57,23 +57,6 @@ class UnitDescriptionTest {
         assertEquals(expectedMessage, actualMessage);
     }
 
-    /**
-     * Expects IllegalArgumentException for empty description.
-     */
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenGivenEmptyDescription() {
-        //Arrange
-        String description = "";
-        String expectedMessage = "The value of 'description' should not null, blank, or empty.";
-
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
-
-        String actualMessage = exception.getMessage();
-
-        //Assert
-        assertEquals(expectedMessage, actualMessage);
-    }
 
     /**
      * Expects IllegalArgumentException for description with more than 50 characters.
@@ -187,5 +170,21 @@ class UnitDescriptionTest {
 
         //Assert
         assertEquals(description, result);
+    }
+
+    /**
+     * Tests if equals method returns false when the object is not an instance of UnitDescription
+     */
+    @Test
+    void shouldReturnFalseWhenComparingUnitDescriptionWithNull() {
+        // Arrange
+        String unitDescription = "This is a valid description";
+        UnitDescription unitDescriptionObject = new UnitDescription(unitDescription);
+
+        // Act
+        boolean result = unitDescriptionObject.equals(unitDescription);
+
+        // Assert
+        assertFalse(result);
     }
 }

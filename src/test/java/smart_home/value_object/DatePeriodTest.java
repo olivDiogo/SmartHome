@@ -100,6 +100,8 @@ class DatePeriodTest {
         //Assert
         assertEquals(1, result);
     }
+
+
     @Test
     void shouldReturnTrueWhenEqualsIsCalledWithSameDatePeriod() {
         //Arrange
@@ -111,6 +113,38 @@ class DatePeriodTest {
         boolean result = datePeriod.equals(datePeriod2);
         //Assert
         assertTrue(result);
+    }
+
+    /**
+     * Tests equals method should return false when comparing two datePeriods with same startDate but different endDate.
+     */
+    @Test
+    void shouldReturnFalseWhenEqualsIsCalledWithDifferentEndDate() {
+        //Arrange
+        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime endDate = LocalDateTime.now().plusMinutes(1);
+        DatePeriod datePeriod = new DatePeriod(startDate, endDate);
+        DatePeriod datePeriod2 = new DatePeriod(startDate, endDate.plusMinutes(1));
+        //Act
+        boolean result = datePeriod.equals(datePeriod2);
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Tests equals method should return false when comparing two datePeriods with same endDate but different startDate.
+     */
+    @Test
+    void shouldReturnFalseWhenEqualsIsCalledWithDifferentStartDate() {
+        //Arrange
+        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime endDate = LocalDateTime.now().plusMinutes(1);
+        DatePeriod datePeriod = new DatePeriod(startDate, endDate);
+        DatePeriod datePeriod2 = new DatePeriod(startDate.plusMinutes(1), endDate);
+        //Act
+        boolean result = datePeriod.equals(datePeriod2);
+        //Assert
+        assertFalse(result);
     }
     @Test
     void shouldReturnFalseWhenEqualsIsCalledWithDifferentDatePeriod() {

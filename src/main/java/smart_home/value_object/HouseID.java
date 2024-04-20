@@ -22,7 +22,7 @@ public class HouseID implements IDomainID {
      * @param houseID
      */
     private void validateHouseID(String houseID) {
-        if (houseID == null || houseID.isBlank() || houseID.isEmpty())
+        if (houseID == null || houseID.isBlank())
             throw new IllegalArgumentException("The value of 'houseID' should not null, blank, or empty.");
     }
 

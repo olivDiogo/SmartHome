@@ -25,9 +25,7 @@ public class RoomFloor implements IValueObject {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-
         if (o instanceof RoomFloor objectRoomFloor) {
-
             return this._floor == objectRoomFloor._floor;
         }
         return false;

@@ -78,6 +78,22 @@ class SensorModelNameTest {
     }
 
     /**
+     * Test if equals method returns true with the same object.
+     */
+    @Test
+    void shouldReturnTrue_whenComparingSensorModelNameWithItself() {
+        // Arrange
+        SensorModelName sensorModelName;
+        String name = "SensorModelName";
+
+        // Act
+        sensorModelName = new SensorModelName(name);
+
+        // Assert
+        assertTrue(sensorModelName.equals(sensorModelName));
+    }
+
+    /**
      * Test the equals method of the class SensorModelName.
      */
     @Test

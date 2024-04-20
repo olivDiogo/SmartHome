@@ -22,7 +22,7 @@ public class ActuatorID implements IDomainID {
      * @param actuatorID is the ID of the actuator.
      */
     private void validateId(String actuatorID) {
-        if (actuatorID == null || actuatorID.isBlank() || actuatorID.isEmpty())
+        if (actuatorID == null || actuatorID.isBlank())
             throw new IllegalArgumentException("'actuatorID' must be a non-empty string.");
 
     }

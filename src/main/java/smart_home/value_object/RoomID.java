@@ -21,7 +21,7 @@ public class RoomID implements IDomainID {
      * @param roomID is the ID of the room.
      */
     private void validateRoomID(String roomID) {
-        if (roomID == null || roomID.isBlank() || roomID.isEmpty())
+        if (roomID == null || roomID.isBlank())
             throw new IllegalArgumentException("'roomID' must be a non-empty string.");
     }
 

@@ -187,4 +187,19 @@ class SensorTypeIDTest {
         assertEquals(expected, sensorTypeIDObject.toString());
     }
 
+    /**
+     * Tests if equals method returns false when the object is not an instance of SensorTypeID
+     */
+    @Test
+    void shouldReturnFalseWhenComparingSensorTypeIDWithDifferentObject() {
+        // Arrange
+        String sensorTypeID = "Sensor2GKA";
+        SensorTypeID sensorTypeIDObject = new SensorTypeID(sensorTypeID);
+
+        // Act
+        boolean result = sensorTypeIDObject.equals(sensorTypeID);
+
+        // Assert
+        assertFalse(result);
+    }
 }

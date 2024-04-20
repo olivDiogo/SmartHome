@@ -120,7 +120,7 @@ class DimensionTest {
         int height = 15;
         int depth = -17;
 
-        String exepectedMessage = "'Depth' must be positive";
+        String expectedMessage = "'Depth' must be positive";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -129,7 +129,7 @@ class DimensionTest {
 
         String actualMessage = exception.getMessage();
 
-        assertTrue(actualMessage.contains(exepectedMessage));
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
@@ -142,7 +142,7 @@ class DimensionTest {
         int height = 15;
         int depth = 0;
 
-        String exepectedMessage = "'Depth' must be positive";
+        String expectedMessage = "'Depth' must be positive";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -151,7 +151,7 @@ class DimensionTest {
 
         String actualMessage = exception.getMessage();
 
-        assertTrue(actualMessage.contains(exepectedMessage));
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
@@ -213,28 +213,66 @@ class DimensionTest {
         assertFalse(result);
     }
 
+
     /**
-     * Test to check if the object is different from another object with different values.
+     * Test equals method when width is different.
      */
     @Test
-    void shouldReturnFalse_whenComparingTwoDifferentDimensions() {
+    void shouldReturnFalse_whenComparingDifferentWidth() {
         //Arrange
         int width = 13;
         int height = 15;
         int depth = 17;
 
-        int falseWidth = 10;
-        int falseHeight = 15;
-        int falseDepth = 17;
-
         Dimension dimension = new Dimension(width, height, depth);
-        Dimension dimension2 = new Dimension(falseWidth, falseHeight, falseDepth);
+        Dimension dimension2 = new Dimension(14, height, depth);
 
         //Act
         boolean result = dimension.equals(dimension2);
 
         //Assert
-        assertTrue(!result);
+        assertFalse(result);
+    }
+
+    /**
+     * Test equals method when height is different.
+     */
+    @Test
+    void shouldReturnFalse_whenComparingDifferentHeight() {
+        //Arrange
+        int width = 13;
+        int height = 15;
+        int depth = 17;
+
+        Dimension dimension = new Dimension(width, height, depth);
+        Dimension dimension2 = new Dimension(width, 16, depth);
+
+        //Act
+        boolean result = dimension.equals(dimension2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test equals method when depth is different.
+     */
+
+    @Test
+    void shouldReturnFalse_whenComparingDifferentDepth() {
+        //Arrange
+        int width = 13;
+        int height = 15;
+        int depth = 17;
+
+        Dimension dimension = new Dimension(width, height, depth);
+        Dimension dimension2 = new Dimension(width, height, 18);
+
+        //Act
+        boolean result = dimension.equals(dimension2);
+
+        //Assert
+        assertFalse(result);
     }
 
     /**

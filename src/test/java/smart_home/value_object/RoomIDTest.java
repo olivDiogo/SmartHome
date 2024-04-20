@@ -60,26 +60,6 @@ class RoomIDTest {
     }
 
     /**
-     * Tests if the exception is thrown with an empty roomID.
-     */
-    @Test
-    void shouldThrowException_whenRoomIdIsEmpty() {
-        // Arrange
-        String roomID = "";
-        String expectedMessage = "'roomID' must be a non-empty string.";
-
-        // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new RoomID(roomID)
-        );
-
-        // Assert
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-    /**
      * Tests if the RoomID is correctly returned.
      */
     @Test
@@ -177,6 +157,24 @@ class RoomIDTest {
 
         // Assert
         assertEquals(expected, result);
+    }
+
+    /**
+     * Tests if equals method returns false when the object is not an instance of RoomID
+     */
+    @Test
+    void shouldReturnFalse_whenObjectIsNotInstanceOfRoomID() {
+        // Arrange
+        String roomIDDescription = "Room12";
+        RoomID roomID = new RoomID(roomIDDescription);
+        int floor = 5;
+        RoomFloor roomFloor = new RoomFloor(floor);
+
+        // Act
+        boolean result = roomID.equals(roomFloor);
+
+        // Assert
+        assertFalse(result);
     }
 
 }

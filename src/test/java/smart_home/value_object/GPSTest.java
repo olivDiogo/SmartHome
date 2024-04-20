@@ -325,6 +325,46 @@ class GPSTest {
     }
 
     /**
+     * Test equals method when latitude is different.
+     */
+    @Test
+    void shouldReturnFalseWhenLatitudeIsDifferent(){
+        //Arrange
+        double latitude1 = 41.14961;
+        double longitude1 = -8.61099;
+        double latitude2 = 41.14962;
+        double longitude2 = -8.61099;
+        GPS gps1 = new GPS(latitude1, longitude1);
+        GPS gps2 = new GPS(latitude2, longitude2);
+
+        //Act
+        boolean isEquals = gps1.equals(gps2);
+
+        //Assert
+        assertFalse(isEquals);
+    }
+
+    /**
+     * Test equals method when longitude is different.
+     */
+    @Test
+    void shouldReturnFalseWhenLongitudeIsDifferent(){
+        //Arrange
+        double latitude1 = 41.14961;
+        double longitude1 = -8.61099;
+        double latitude2 = 41.14961;
+        double longitude2 = -8.61100;
+        GPS gps1 = new GPS(latitude1, longitude1);
+        GPS gps2 = new GPS(latitude2, longitude2);
+
+        //Act
+        boolean isEquals = gps1.equals(gps2);
+
+        //Assert
+        assertFalse(isEquals);
+    }
+
+    /**
      * Validates the string representation of a GPS instance.
      */
     @Test

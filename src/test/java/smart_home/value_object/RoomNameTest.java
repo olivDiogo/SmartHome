@@ -199,4 +199,20 @@ class RoomNameTest {
         // Assert
         assertEquals(expectedHashCode, actualHashCode);
     }
+
+    /**
+     * Tests if equals method returns false when the object is not an instance of RoomName
+     */
+    @Test
+    void shouldReturnFalseWhenComparingRoomNameWithDifferentObject() {
+        // Arrange
+        String roomName = "Kitchen 1";
+        RoomName roomNameObject = new RoomName(roomName);
+
+        // Act
+        boolean result = roomNameObject.equals(roomName);
+
+        // Assert
+        assertFalse(result);
+    }
 }

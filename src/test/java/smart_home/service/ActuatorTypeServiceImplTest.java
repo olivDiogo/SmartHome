@@ -302,6 +302,39 @@ class ActuatorTypeServiceImplTest {
 
         // Assert
         assertEquals(expectedMessage, actualMessage);
+    }
 
+    /**
+     * Tests if IllegalArgumentException is thrown when the ActuatorType is null.
+     */
+    @Test
+    void shouldThrowException_whenActuatorTypeIsNull() {
+        // Arrange
+        ActuatorType actuatorTypeDouble = null;
+        TypeDescription actuatorTypeName = mock(TypeDescription.class);
+        UnitID unitID = mock(UnitID.class);
+
+        ActuatorTypeFactoryImpl actuatorTypeFactoryDouble = mock(ActuatorTypeFactoryImpl.class);
+        when(actuatorTypeFactoryDouble.createActuatorType(actuatorTypeName, unitID))
+                .thenReturn(actuatorTypeDouble);
+
+        ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
+        UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+
+        String expectedMessage = "Please enter a valid sensor type.";
+
+        ActuatorTypeServiceImpl ActuatorTypeServiceImpl =
+                new ActuatorTypeServiceImpl(
+                        actuatorTypeRepositoryDouble, actuatorTypeFactoryDouble, unitRepositoryDouble);
+
+        // Act + Assert
+        Exception exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> ActuatorTypeServiceImpl.addActuatorType(actuatorTypeDouble));
+
+        String actualMessage = exception.getMessage();
+
+        // Assert
+        assertEquals(expectedMessage, actualMessage);
     }
 }

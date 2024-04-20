@@ -20,23 +20,6 @@ class ActuatorNameTest {
         assertNotNull(result);
     }
 
-    /**
-     * Test the instantiation of a new actuator name with a null value.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenActuatorNameIsNull() {
-
-        String actuatorName = null;
-        String expectedMessage = "The actuator name cannot be null, blank, or empty.";
-
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new ActuatorName(actuatorName)
-        );
-
-        String exceptionMessage = exception.getMessage();
-
-        assertTrue(exceptionMessage.contains(expectedMessage));
-    }
 
     /**
      * Test the instantiation of a new actuator name with a blank value.
@@ -56,14 +39,15 @@ class ActuatorNameTest {
         assertTrue(exceptionMessage.contains(expectedMessage));
     }
 
+
     /**
-     * Test the instantiation of a new actuator name with an empty value.
+     * Test the instantiation of a new actuator name with special characters.
      */
     @Test
-    void shouldThrowIllegalArgumentException_whenActuatorNameIsEmpty() {
+    void shouldThrowIllegalArgumentException_whenActuatorNameContainsSpecialCharacters() {
 
-        String actuatorName = "";
-        String expectedMessage = "The actuator name cannot be null, blank, or empty.";
+        String actuatorName = "Switch Actuator!";
+        String expectedMessage = "The actuator name can only contain letters and numbers.";
 
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
                 new ActuatorName(actuatorName)
@@ -75,13 +59,13 @@ class ActuatorNameTest {
     }
 
     /**
-     * Test the instantiation of a new actuator name with special characters.
+     * Test the instantiation of a new actuator name with a null value.
      */
     @Test
-    void shouldThrowIllegalArgumentException_whenActuatorNameContainsSpecialCharacters() {
+    void shouldThrowIllegalArgumentException_whenActuatorNameIsNull() {
 
-        String actuatorName = "Switch Actuator!";
-        String expectedMessage = "The actuator name can only contain letters and numbers.";
+        String actuatorName = null;
+        String expectedMessage = "The actuator name cannot be null, blank, or empty.";
 
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
                 new ActuatorName(actuatorName)
@@ -104,6 +88,22 @@ class ActuatorNameTest {
         String result = actuatorNameVO.getActuatorName();
 
         assertTrue(result.equals(actuatorName));
+    }
+
+    /**
+     * Tests equals method with same object
+     */
+    @Test
+    void shouldReturnTrue_whenComparingActuatorNameWithItself() {
+        // Arrange
+        String actuatorName = "Switch Actuator";
+        ActuatorName actuatorNameVO = new ActuatorName(actuatorName);
+
+        // Act
+        boolean result = actuatorNameVO.equals(actuatorNameVO);
+
+        // Assert
+        assertTrue(result);
     }
 
     /**

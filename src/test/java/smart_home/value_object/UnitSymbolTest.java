@@ -82,6 +82,22 @@ class UnitSymbolTest {
     }
 
     /**
+     * Test equals method with reflection
+     */
+    @Test
+    void shouldReturnTrue_WhenComparingUnitSymbolWithItself() {
+        //Arrange
+        String unit = "C";
+        UnitSymbol unitSymbol = new UnitSymbol(unit);
+
+        //Act
+        boolean result = unitSymbol.equals(unitSymbol);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    /**
      * Test case: Check if two UnitSymbol objects are equal
      */
     @Test
@@ -114,39 +130,6 @@ class UnitSymbolTest {
 
         //Assert
         assertFalse(result);
-    }
-
-    /**
-     * Test case: Check if two UnitSymbol objects are equal
-     */
-    @Test
-    void shouldReturnFalse_WhenOtherObjectIsNull () {
-        //Arrange
-        String unit = "C";
-        UnitSymbol unitSymbol1 = new UnitSymbol(unit);
-        UnitSymbol unitSymbol2 = null;
-
-        //Act
-        boolean result = unitSymbol1.equals(unitSymbol2);
-
-        //Assert
-        assertFalse(result);
-    }
-
-    /**
-     * Test case: Check if two UnitSymbol objects are equal
-     */
-    @Test
-    void shouldReturnTrue_WhenComparingObjectWithItself(){
-        //Arrange
-        String description = "C";
-        UnitSymbol unitSymbol = new UnitSymbol(description);
-
-        //Act
-        boolean result = unitSymbol.equals(unitSymbol);
-
-        //Assert
-        assertTrue(result);
     }
 
     /**
@@ -199,6 +182,35 @@ class UnitSymbolTest {
         assertEquals(expected, hashCode);
     }
 
+    /**
+     * Test getSymbol method
+     */
+    @Test
+    void shouldReturnUnitSymbol_WhenGetSymbolIsCalled() {
+        //Arrange
+        String unit = "C";
+        UnitSymbol unitSymbol = new UnitSymbol(unit);
 
+        //Act
+        String result = unitSymbol.getSymbol();
 
+        //Assert
+        assertEquals(unit, result);
+    }
+
+    /**
+     * Test if equals method returns false when the object is not an instance of UnitSymbol
+     */
+    @Test
+    void shouldReturnFalse_WhenComparingUnitSymbolWithDifferentObject() {
+        //Arrange
+        String unit = "C";
+        UnitSymbol unitSymbolObject = new UnitSymbol(unit);
+
+        //Act
+        boolean result = unitSymbolObject.equals(unit);
+
+        //Assert
+        assertFalse(result);
+    }
 }

@@ -51,6 +51,21 @@ class DeviceStatusTest {
     }
 
     /**
+     * Tests the equals method with two different DeviceStatus objects with same value
+     */
+    @Test
+    void shouldReturnTrue_WhenStatusIsTheSame(){
+        // Arrange
+        boolean status = true;
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+        DeviceStatus deviceStatus2 = new DeviceStatus(status);
+        // Act
+        boolean result = deviceStatus.equals(deviceStatus2);
+        // Assert
+        assertTrue(result);
+    }
+
+    /**
      * Tests the equals method with a different entry
      */
     @Test
@@ -135,4 +150,19 @@ class DeviceStatusTest {
         assertEquals(status, result);
     }
 
+    /**
+     * Tests if equals method returns false when the object is different
+     */
+    @Test
+    void shouldReturnFalse_whenObjectIsDifferent(){
+        // Arrange
+        boolean status = true;
+        DeviceStatus deviceStatus = new DeviceStatus(status);
+
+        // Act
+        boolean result = deviceStatus.equals(new Object());
+
+        // Assert
+        assertFalse(result);
+    }
 }

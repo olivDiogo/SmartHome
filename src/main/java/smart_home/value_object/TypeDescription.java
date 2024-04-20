@@ -11,7 +11,7 @@ public class TypeDescription implements IValueObject, IDomainID {
     }
 
     private void validate(String description) {
-        if (description == null || description.isBlank() || description.trim().isEmpty()) {
+        if (description == null || description.isBlank()) {
             throw new IllegalArgumentException("The value of 'description' should not null, blank, or empty.");
         } else if (description.length() > 50) {
             throw new IllegalArgumentException("The description cannot have more than 50 characters.");

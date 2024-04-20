@@ -20,7 +20,7 @@ public class SensorModelName {
      * @param name
      */
     private void validateSensorModelName(String name) {
-        if (name == null || name.isEmpty() || name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("The device name cannot be null, blank, or empty.");
         }
 
@@ -44,13 +44,15 @@ public class SensorModelName {
      * @param o
      * @return
      */
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object object) {
+        if (this == object)
+            return true;
 
-        SensorModelName that = (SensorModelName) o;
+        if (object instanceof SensorModelName sensorModelName) {
 
-        return _name.equals(that._name);
+            return this._name.equals(sensorModelName._name);
+        }
+        return false;
     }
 
     /**

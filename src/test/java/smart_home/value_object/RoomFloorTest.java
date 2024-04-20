@@ -151,4 +151,18 @@ class RoomFloorTest {
         assertEquals(floor, result);
     }
 
+    /**
+     * Tests if equals method returns false when the object is not an instance of RoomFloor
+     */
+    @Test
+    void shouldReturnFalseWhenComparingRoomFloorWithDifferentObject() {
+        // Arrange
+        int floor = 5;
+        RoomFloor roomFloor = new RoomFloor(floor);
+        Object object = new Object();
+        // Act
+        boolean result = roomFloor.equals(object);
+        // Assert
+        assertFalse(result);
+    }
 }

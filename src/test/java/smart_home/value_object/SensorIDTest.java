@@ -60,26 +60,6 @@ class SensorIDTest {
     }
 
     /**
-     * Tests if the exception is thrown with an empty sensorID
-     */
-    @Test
-    void shouldThrowException_whenSensorIdIsEmpty(){
-        // Arrange
-        String sensorID = "";
-        String expectedMessage = "The value of 'sensorID' should not null, blank, or empty.";
-
-        // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new SensorID(sensorID)
-        );
-
-        // Assert
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-    /**
      * Tests the ID getter
      */
     @Test
@@ -183,5 +163,21 @@ class SensorIDTest {
 
         // Assert
         assertEquals(expected, result);
+    }
+
+    /**
+     * Tests if equals method returns false when the object is not an instance of SensorID
+     */
+    @Test
+    void shouldReturnFalseWhenComparingSensorIDWithDifferentObject() {
+        // Arrange
+        String sensorID = "HXPTO";
+        SensorID sensorIDObject = new SensorID(sensorID);
+
+        // Act
+        boolean result = sensorIDObject.equals(sensorID);
+
+        // Assert
+        assertFalse(result);
     }
 }

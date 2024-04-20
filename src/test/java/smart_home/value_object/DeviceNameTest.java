@@ -205,6 +205,19 @@ class DeviceNameTest {
         assertEquals(expectedHashCode, result);
     }
 
+    /**
+     * Tests if equals method returns false when the object is not an instance of DeviceName
+     */
+    @Test
+    void shouldReturnFalseWhenComparingDeviceNameWithDifferentObject() {
+        // Arrange
+        String deviceName = "Living Room 2";
+        DeviceName deviceNameObject = new DeviceName(deviceName);
 
+        // Act
+        boolean result = deviceNameObject.equals(deviceName);
 
+        // Assert
+        assertFalse(result);
+    }
 }

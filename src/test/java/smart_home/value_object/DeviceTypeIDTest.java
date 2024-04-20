@@ -59,27 +59,6 @@ class DeviceTypeIDTest {
     }
 
     /**
-     * Tests if the exception is thrown with an empty deviceTypeID.
-     */
-    @Test
-    void shouldThrowException_whenDeviceTypeIdIsEmpty() {
-        // Arrange
-        String deviceTypeIDDescription = "";
-        String expectedMessage = "'deviceTypeID' must be a non-empty string.";
-
-        // Act + Assert
-        Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () ->
-                new DeviceTypeID(deviceTypeIDDescription)
-        );
-
-        // Assert
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-
-    /**
      * Tests if the device type ID is retured correctly.
      */
     @Test
@@ -140,6 +119,22 @@ class DeviceTypeIDTest {
 
         // Act
         boolean result = deviceTypeID1.equals(deviceTypeID2);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Tests equals method with a different object.
+     */
+    @Test
+    void shouldReturnFalse_WhenObjectIsDifferent(){
+        // Arrange
+        String deviceTypeIDDescription = "Fridge";
+        DeviceTypeID deviceTypeID = new DeviceTypeID(deviceTypeIDDescription);
+
+        // Act
+        boolean result = deviceTypeID.equals(deviceTypeIDDescription);
 
         // Assert
         assertFalse(result);

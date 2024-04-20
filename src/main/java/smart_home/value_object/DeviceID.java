@@ -21,7 +21,7 @@ public class DeviceID implements IDomainID {
      * @param deviceID String
      */
     private void validateDeviceID(String deviceID) {
-        if (deviceID == null || deviceID.isBlank() || deviceID.isEmpty())
+        if (deviceID == null || deviceID.isBlank())
             throw new IllegalArgumentException("The value of 'deviceID' should not null, blank, or empty.");
     }
 
