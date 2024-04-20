@@ -642,7 +642,7 @@ class AveragePowerConsumptionAggregateSensorTest {
     AveragePowerConsumptionSensor averagePowerConsumptionSensor =
         new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
     // Act
-    boolean result = averagePowerConsumptionSensor.equals(deviceID);
+    boolean result = averagePowerConsumptionSensor.equals(new Object());
 
     // Assert
     Assertions.assertFalse(result);

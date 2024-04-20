@@ -377,7 +377,7 @@ class ElectricConsumptionWhSensorTest {
         ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod);
 
         //Act
-        boolean result = electricConsumptionWhSensor.equals(sensorTypeID);
+        boolean result = electricConsumptionWhSensor.equals(new Object());
 
         //Assert
         Assertions.assertFalse(result);

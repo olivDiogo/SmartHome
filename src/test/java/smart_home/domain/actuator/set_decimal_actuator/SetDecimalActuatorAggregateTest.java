@@ -709,7 +709,7 @@ class SetDecimalActuatorAggregateTest {
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
-        boolean result = setDecimalActuator.equals(modelPath);
+        boolean result = setDecimalActuator.equals(new Object());
 
         // Assert
         assertFalse(result);

@@ -542,7 +542,7 @@ class SetIntegerActuatorTest {
         SetIntegerActuator actuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
-        boolean result = actuator.equals(modelPath);
+        boolean result = actuator.equals(new Object()   );
 
         // Assert
         assertFalse(result);

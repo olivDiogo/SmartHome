@@ -144,7 +144,7 @@ class ActuatorTypeTest {
         ActuatorType actuatorType = new ActuatorType(typeDescriptionDouble, unitID);
 
         // Act
-        boolean isEqual = actuatorType.equals(unitID);
+        boolean isEqual = actuatorType.equals(new Object());
         // Assert
         assertFalse(isEqual, "ActuatorType should not be equal to an object of a different class");
     }

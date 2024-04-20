@@ -215,7 +215,7 @@ class ElectricConsumptionWhSensorAggregateTest {
         ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod);
 
         // Act
-        boolean result = electricConsumptionWhSensor.equals(sensorName);
+        boolean result = electricConsumptionWhSensor.equals(new Object());
         // Assert
         assertFalse(result);
     }

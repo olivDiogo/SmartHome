@@ -99,12 +99,11 @@ class DeviceTypeAggregateTest {
     String description = "Device Type Description";
     TypeDescription deviceTypeDescription = new TypeDescription(description);
 
-    ActuatorType actuatorType = mock(ActuatorType.class);
 
     DeviceType deviceType = new DeviceType(deviceTypeDescription);
 
     // Act
-    boolean result = deviceType.equals(actuatorType);
+    boolean result = deviceType.equals(new Object());
 
     // Assert
     assertFalse(result);

@@ -346,10 +346,9 @@ class SwitchActuatorTest {
 
             switchActuator.setValue(value);
 
-            SetIntegerActuator setIntegerActuator = mock(SetIntegerActuator.class);
 
             //Act
-            boolean result = switchActuator.equals(setIntegerActuator);
+            boolean result = switchActuator.equals(new Object());
 
             //Assert
             assertFalse(result);

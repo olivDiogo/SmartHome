@@ -155,10 +155,9 @@ class DeviceTypeTest {
             when(mock.getID()).thenReturn("123");
         })) {
             DeviceType deviceType = new DeviceType(deviceTypeDescription);
-            ActuatorType actuatorType = mock(ActuatorType.class);
 
             // Act
-            boolean result = deviceType.equals(actuatorType);
+            boolean result = deviceType.equals(new Object());
 
             // Assert
             assertFalse(result);

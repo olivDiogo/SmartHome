@@ -398,7 +398,7 @@ class SetIntegerActuatorAggregateTest {
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         //Act
-        boolean result = setIntegerActuator.equals(modelPath);
+        boolean result = setIntegerActuator.equals(new Object());
 
         //Assert
         assertFalse(result);

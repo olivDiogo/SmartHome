@@ -243,7 +243,7 @@ class RoomTest {
         Room room = new Room(houseID, roomName, dimension, roomFloor);
 
         //Act
-        boolean result = room.equals(dimension);
+        boolean result = room.equals(new Object());
 
         //Assert
         assertFalse(result);

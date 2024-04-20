@@ -594,10 +594,8 @@ class SwitchActuatorAggregateTest {
 
         SwitchActuator switchActuator = new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
 
-        SetIntegerActuator setIntegerActuator = mock(SetIntegerActuator.class);
-
         // Act
-        boolean result = switchActuator.equals(setIntegerActuator);
+        boolean result = switchActuator.equals(new Object());
 
         // Assert
         assertFalse(result);

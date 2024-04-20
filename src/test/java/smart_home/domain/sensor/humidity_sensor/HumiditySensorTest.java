@@ -294,16 +294,13 @@ class HumiditySensorTest {
         ModelPath modelPath = mock(ModelPath.class);
         SensorName sensorName = mock(SensorName.class);
         SensorTypeID sensorTypeID = null;
-
+        String expected = "SensorTypeID is required";
         try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
         })) {
             // Act
-            try {
-                new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName);
-            } catch (IllegalArgumentException e) {
-                // Assert
-                assertEquals("SensorTypeID is required", e.getMessage());
-            }
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HumiditySensor(deviceID, modelPath, sensorTypeID, sensorName));
+            // Assert
+            assertEquals(expected, exception.getMessage());
         }
     }
 
