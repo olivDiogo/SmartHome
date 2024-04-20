@@ -120,7 +120,7 @@ class TypeDescriptionTest {
      * Test the getId method
      */
     @Test
-    public void shouldReturnTheIdAsAsString_whenGetIDIsCalled() {
+    void shouldReturnTheIdAsAsString_whenGetIDIsCalled() {
         //Arrange
         String description = "This is a valid description";
         TypeDescription typeDescription = new TypeDescription(description);
@@ -136,7 +136,7 @@ class TypeDescriptionTest {
      * Test the hashCode method
      */
     @Test
-    public void shouldReturnTheHashCodeOfTheDescription_whenHashCodeIsCalled() {
+    void shouldReturnTheHashCodeOfTheDescription_whenHashCodeIsCalled() {
         //Arrange
         String description = "This is a valid description";
         TypeDescription typeDescription = new TypeDescription(description);

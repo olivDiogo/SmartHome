@@ -10,7 +10,7 @@ class SensorModelNameTest {
      * Test the constructor of the class SensorModelName.
      */
     @Test
-    public void shouldInstantiateSensorModelName_whenGivenValidParameters() {
+    void shouldInstantiateSensorModelName_whenGivenValidParameters() {
         // Arrange
         SensorModelName sensorModelName;
         String name = "SensorModelName";
@@ -26,7 +26,7 @@ class SensorModelNameTest {
      * Test the constructor of the class SensorModelName with an empty name.
      */
     @Test
-    public void shouldThrowException_whenNameIsEmpty() {
+    void shouldThrowException_whenNameIsEmpty() {
         // Arrange
         String name = " ";
 
@@ -39,7 +39,7 @@ class SensorModelNameTest {
      * Test the constructor of the class SensorModelName with a null name.
      */
     @Test
-    public void shouldThrowException_whenNameIsNull() {
+    void shouldThrowException_whenNameIsNull() {
         // Arrange
         String name = null;
 
@@ -52,7 +52,7 @@ class SensorModelNameTest {
      * Test the constructor of the class SensorModelName with a name that has more than 5 characters.
      */
     @Test
-    public void shouldThrowException_whenNameContainsSpecialCharacters() {
+    void shouldThrowException_whenNameContainsSpecialCharacters() {
         // Arrange
         String name = "SensorModelName!";
 
@@ -65,7 +65,7 @@ class SensorModelNameTest {
      * Test the getSensorModelName method of the class SensorModel
      */
     @Test
-    public void shouldReturnSensorModelName_whenGetSensorModelNameIsCalled() {
+    void shouldReturnSensorModelName_whenGetSensorModelNameIsCalled() {
         // Arrange
         SensorModelName sensorModelName;
         String name = "SensorModelName";
@@ -81,7 +81,7 @@ class SensorModelNameTest {
      * Test the equals method of the class SensorModelName.
      */
     @Test
-    public void shouldReturnTrue_whenComparingTwoEqualSensorModelName() {
+    void shouldReturnTrue_whenComparingTwoEqualSensorModelName() {
         // Arrange
         SensorModelName sensorModelName1;
         SensorModelName sensorModelName2;
@@ -99,7 +99,7 @@ class SensorModelNameTest {
      * Test the equals method of the class SensorModelName with two different sensor model names.
      */
     @Test
-    public void shouldReturnFalse_whenComparingTwoDifferentSensorModelName() {
+    void shouldReturnFalse_whenComparingTwoDifferentSensorModelName() {
         // Arrange
         SensorModelName sensorModelName1;
         SensorModelName sensorModelName2;
@@ -118,7 +118,7 @@ class SensorModelNameTest {
      * Test the equals method of the class SensorModelName with the same sensor model name.
      */
     @Test
-    public void shouldReturnFalse_whenComparingSensorModelNameWithDifferentObject() {
+    void shouldReturnFalse_whenComparingSensorModelNameWithDifferentObject() {
         // Arrange
         SensorModelName sensorModelName;
         String name = "SensorModelName";
@@ -134,7 +134,7 @@ class SensorModelNameTest {
      * Test hashCode method of the class SensorModel
      */
     @Test
-    public void shouldReturnHashCode_whenCallingHashCode() {
+    void shouldReturnHashCode_whenCallingHashCode() {
         // Arrange
         String name = "SensorModelName";
         SensorModelName sensorModelName = new SensorModelName(name);

@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 
-public class BlindRollerValueTest {
+class BlindRollerValueTest {
 
     /**
      * Test constructor
      */
     @Test
-    public void shouldCreateBlindRollerValue() {
+    void shouldCreateBlindRollerValue() {
         // Arrange
         int value = 100;
 
@@ -26,7 +26,7 @@ public class BlindRollerValueTest {
      * Test constructor
      */
     @Test
-    public void shouldCreateBlindRollerWithValueZero() {
+    void shouldCreateBlindRollerWithValueZero() {
         // Arrange
         int value = 0;
 
@@ -41,7 +41,7 @@ public class BlindRollerValueTest {
      * Throws exception if value is less than 0
      */
     @Test
-    public void shouldThrowException_WhenValueIsLessThanZero() {
+    void shouldThrowException_WhenValueIsLessThanZero() {
         // Arrange
         int value = -1;
 
@@ -53,7 +53,7 @@ public class BlindRollerValueTest {
      * Throws exception if value is greater than 100
      */
     @Test
-    public void shouldThrowException_WhenValueIsGreaterThanHundred() {
+    void shouldThrowException_WhenValueIsGreaterThanHundred() {
         // Arrange
         int value = 101;
 
@@ -65,7 +65,7 @@ public class BlindRollerValueTest {
      * Test for method toString
      */
     @Test
-    public void shouldReturnStringValue() {
+    void shouldReturnStringValue() {
         // Arrange
         int value = 1;
         BlindRollerValue blindRollerValue = new BlindRollerValue(value);

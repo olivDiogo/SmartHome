@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 /**
  * Test class for DeviceTypeRepository.
  */
-public class DeviceTypeRepositoryTest {
+class DeviceTypeRepositoryTest {
 
     /**
      * Tests saving a device type when given a valid device type.

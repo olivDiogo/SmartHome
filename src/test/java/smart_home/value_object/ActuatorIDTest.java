@@ -9,7 +9,7 @@ class ActuatorIDTest {
      * Tests the correct instantiation of a ActuatorID.
      */
     @Test
-    public void shouldGetValidObject_whenUsingValidStringInConstructor() {
+    void shouldGetValidObject_whenUsingValidStringInConstructor() {
         // Arrange
         String actuatorIDDescription = "Actuator2GKA";
 
@@ -24,7 +24,7 @@ class ActuatorIDTest {
      * Tests if the exception is thrown with a null actuatorID.
      */
     @Test
-    public void shouldThrowException_whenActuatorIdIsNull() {
+    void shouldThrowException_whenActuatorIdIsNull() {
         // Arrange
         String actuatorIDDescription = null;
         String expectedMessage = "'actuatorID' must be a non-empty string.";
@@ -44,7 +44,7 @@ class ActuatorIDTest {
      * Tests if the exception is thrown with a blank actuatorID.
      */
     @Test
-    public void shouldThrowException_whenActuatorIdIsBlank() {
+    void shouldThrowException_whenActuatorIdIsBlank() {
         // Arrange
         String actuatorIDDescription = " ";
         String expectedMessage = "'actuatorID' must be a non-empty string.";
@@ -64,7 +64,7 @@ class ActuatorIDTest {
      * Tests if the exception is thrown with an empty actuatorID.
      */
     @Test
-    public void shouldThrowException_whenActuatorIdIsEmpty() {
+    void shouldThrowException_whenActuatorIdIsEmpty() {
         // Arrange
         String actuatorIDDescription = "";
         String expectedMessage = "'actuatorID' must be a non-empty string.";
@@ -84,7 +84,7 @@ class ActuatorIDTest {
      * Tests if the ActuatorID is correctly returned.
      */
     @Test
-    public void shouldReturnActuatorID() {
+    void shouldReturnActuatorID() {
         // Arrange
         String actuatorIDDescription = "Actuator2GKA";
         ActuatorID actuatorID = new ActuatorID(actuatorIDDescription);
@@ -102,7 +102,7 @@ class ActuatorIDTest {
      * Tests if the equals method returns true when the ActuatorID is compared to itself.
      */
     @Test
-    public void shouldReturnTrue_WhenActuatorIDIsEqualToItself() {
+    void shouldReturnTrue_WhenActuatorIDIsEqualToItself() {
         // Arrange
         String actuatorIDDescription = "Actuator2GKA";
         ActuatorID actuatorID = new ActuatorID(actuatorIDDescription);
@@ -118,7 +118,7 @@ class ActuatorIDTest {
      * Tests if the equals method returns true when the ActuatorID is compared to another ActuatorID with the same ID.
      */
     @Test
-    public void shouldReturnTrue_WhenActuatorIDIsEqualToOtherActuatorID() {
+    void shouldReturnTrue_WhenActuatorIDIsEqualToOtherActuatorID() {
         // Arrange
         String actuatorIDDescription = "Actuator2GKA";
         ActuatorID actuatorID1 = new ActuatorID(actuatorIDDescription);
@@ -135,7 +135,7 @@ class ActuatorIDTest {
      * Tests if the equals method returns false when the ActuatorID is compared to another ActuatorID with a different ID.
      */
     @Test
-    public void shouldReturnFalse_WhenActuatorIDIsNotEqualToOtherActuatorID() {
+    void shouldReturnFalse_WhenActuatorIDIsNotEqualToOtherActuatorID() {
         // Arrange
         String actuatorIDDescription1 = "Actuator2GKA";
         String actuatorIDDescription2 = "Actuator2GKB";
@@ -154,7 +154,7 @@ class ActuatorIDTest {
      * Tests if the hashCode method returns the same value for two ActuatorID with the same ID.
      */
     @Test
-    public void shouldReturnHashCode() {
+    void shouldReturnHashCode() {
         // Arrange
         String actuatorIDDescription = "Actuator2GKA";
         ActuatorID actuatorID = new ActuatorID(actuatorIDDescription);
@@ -172,7 +172,7 @@ class ActuatorIDTest {
      * Tests if the toString method returns the ActuatorID in a string.
      */
     @Test
-    public void shouldReturnActuatorIdInString () {
+    void shouldReturnActuatorIdInString () {
         // Arrange
         String actuatorIDDescription = "Actuator2GKA";
         ActuatorID actuatorID = new ActuatorID(actuatorIDDescription);
@@ -190,7 +190,7 @@ class ActuatorIDTest {
      * Test equals method with different object.
      */
     @Test
-    public void shouldReturnFalse_WhenObjectIsDifferent() {
+    void shouldReturnFalse_WhenObjectIsDifferent() {
         // Arrange
         String actuatorIDDescription = "Actuator2GKA";
         ActuatorID actuatorID = new ActuatorID(actuatorIDDescription);

@@ -5,7 +5,7 @@ import smart_home.value_object.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TemperatureSensorAggregateTest {
+class TemperatureSensorAggregateTest {
 
 
     /**

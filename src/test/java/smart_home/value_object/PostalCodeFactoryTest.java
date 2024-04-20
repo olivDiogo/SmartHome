@@ -12,7 +12,7 @@ class PostalCodeFactoryTest {
      * Test to ensure that a PostalCode object is successfully created for a supported country code.
      */
     @Test
-    public void shouldCreatePostalCode_WhenCountryCodeIsSupported() {
+    void shouldCreatePostalCode_WhenCountryCodeIsSupported() {
         // Arrange
         String postalCode = "1234-599";
         String countryCode = "PT";
@@ -30,7 +30,7 @@ class PostalCodeFactoryTest {
      * Test to ensure that IllegalArgumentException is thrown for an unsupported country code.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenCountryCodeIsUnsupported() {
+    void shouldThrowIllegalArgumentException_WhenCountryCodeIsUnsupported() {
         // Arrange
         String postalCode = "1234-566";
         String countryCode = "XX";
@@ -45,7 +45,7 @@ class PostalCodeFactoryTest {
      * Test to ensure that RuntimeException is thrown for an invalid postal code.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenPostalCodeIsInvalid() {
+    void shouldThrowIllegalArgumentException_WhenPostalCodeIsInvalid() {
         // Arrange
         String postalCode = "1234-65";
         String countryCode = "PT";

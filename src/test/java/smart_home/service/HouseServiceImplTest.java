@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class HouseServiceImplTest {
+class HouseServiceImplTest {
 
     /**
      * Test that the HouseService class can be instantiated.
      */
     @Test
-    public void shouldInstantiateValidHouse() {
+    void shouldInstantiateValidHouse() {
         // Arrange
         IHouseFactory houseFactoryDouble = mock(IHouseFactory.class);
         HouseRepository houseRepositoryDouble = mock(HouseRepository.class);
@@ -33,7 +33,7 @@ public class HouseServiceImplTest {
      * Test that the HouseService class throws an IllegalArgumentException when the HouseFactory is null.
      */
     @Test
-    public void shouldThrowIllegalArgumentExceptionWhenHouseFactoryIsNull() {
+    void shouldThrowIllegalArgumentExceptionWhenHouseFactoryIsNull() {
         // Arrange
         IHouseFactory houseFactory = null;
         HouseRepository houseRepository = mock(HouseRepository.class);
@@ -48,7 +48,7 @@ public class HouseServiceImplTest {
      * Test that the HouseService class throws an IllegalArgumentException when the HouseRepository is null.
      */
     @Test
-    public void shouldThrowIllegalArgumentExceptionWhenHouseRepositoryIsNull() {
+    void shouldThrowIllegalArgumentExceptionWhenHouseRepositoryIsNull() {
         // Arrange
         IHouseFactory houseFactory = mock(IHouseFactory.class);
         HouseRepository houseRepository = null;
@@ -64,7 +64,7 @@ public class HouseServiceImplTest {
      */
 
     @Test
-    public void shouldReturnHouseInstanceWhenHouseFactoryAndHouseRepositoryAreValid() {
+    void shouldReturnHouseInstanceWhenHouseFactoryAndHouseRepositoryAreValid() {
         // Arrange
         IHouseFactory houseFactory = mock(IHouseFactory.class);
         HouseRepository houseRepository = mock(HouseRepository.class);

@@ -3,12 +3,12 @@ package smart_home.value_object;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SensorIDTest {
+class SensorIDTest {
     /**
      * Tests the correct instantiation of a SensorID
      */
     @Test
-    public void shouldGetValidObject_whenUsingValidStringInConstructor() {
+    void shouldGetValidObject_whenUsingValidStringInConstructor() {
         // Arrange
         String sensorID = "SensorXPTO";
 
@@ -23,7 +23,7 @@ public class SensorIDTest {
      * Tests if the exception is thrown with a null sensorID
      */
     @Test
-    public void shouldThrowException_whenSensorIdIsNull(){
+    void shouldThrowException_whenSensorIdIsNull(){
         // Arrange
         String sensorID = null;
         String expectedMessage = "The value of 'sensorID' should not null, blank, or empty.";
@@ -43,7 +43,7 @@ public class SensorIDTest {
      * Tests if the exception is thrown with a blank sensorID
      */
     @Test
-    public void shouldThrowException_whenSensorIdIsBlank(){
+    void shouldThrowException_whenSensorIdIsBlank(){
         // Arrange
         String sensorID = " ";
         String expectedMessage = "The value of 'sensorID' should not null, blank, or empty.";
@@ -63,7 +63,7 @@ public class SensorIDTest {
      * Tests if the exception is thrown with an empty sensorID
      */
     @Test
-    public void shouldThrowException_whenSensorIdIsEmpty(){
+    void shouldThrowException_whenSensorIdIsEmpty(){
         // Arrange
         String sensorID = "";
         String expectedMessage = "The value of 'sensorID' should not null, blank, or empty.";
@@ -83,7 +83,7 @@ public class SensorIDTest {
      * Tests the ID getter
      */
     @Test
-    public void shouldGetSensorID(){
+    void shouldGetSensorID(){
         // Arrange
         String idDescription = "HXPTO";
         SensorID sensorID = new SensorID(idDescription);
@@ -101,7 +101,7 @@ public class SensorIDTest {
      * Tests if a sensorID is equal to itself
      */
     @Test
-    public void shouldReturnTrue_whenSensorIdIsEqualToItself(){
+    void shouldReturnTrue_whenSensorIdIsEqualToItself(){
         // Arrange
         String idDescription = "HXPTO";
         SensorID sensorID = new SensorID(idDescription);
@@ -117,7 +117,7 @@ public class SensorIDTest {
      * Tests if a sensorID1 is equal to a sensorID2 if the ID of both is the same
      */
     @Test
-    public void shouldReturnTrue_whenSensorIdIsEqualToOtherSensorId(){
+    void shouldReturnTrue_whenSensorIdIsEqualToOtherSensorId(){
         // Arrange
         String idDescription = "HXPTO";
         SensorID sensorID1 = new SensorID(idDescription);
@@ -134,7 +134,7 @@ public class SensorIDTest {
      * Tests if a sensorID1 is not equal to a sensorID2
      */
     @Test
-    public void shouldReturnTrue_whenSensorIdIsNotEqualToAnotherSensorId(){
+    void shouldReturnTrue_whenSensorIdIsNotEqualToAnotherSensorId(){
         // Arrange
         String idDescription1 = "HXPTO";
         SensorID sensorID1 = new SensorID(idDescription1);
@@ -153,7 +153,7 @@ public class SensorIDTest {
      * Tests if the sensorID is returned as an hashCode
      */
     @Test
-    public void shouldReturnHashCode(){
+    void shouldReturnHashCode(){
         // Arrange
         String idDescription = "HXPTO";
         SensorID sensorID = new SensorID(idDescription);
@@ -171,7 +171,7 @@ public class SensorIDTest {
      * Tests if the sensorID is returned as a string
      */
     @Test
-    public void shouldReturnSensorID(){
+    void shouldReturnSensorID(){
         // Arrange
         String idDescription = "HXPTO";
         SensorID sensorID = new SensorID(idDescription);

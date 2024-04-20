@@ -9,7 +9,7 @@ class SensorTypeIDTest {
      * Tests the correct instantiation of a SensorTypeID.
      */
     @Test
-    public void shouldGetValidObject_whenUsingValidStringInConstructor() {
+    void shouldGetValidObject_whenUsingValidStringInConstructor() {
         // Arrange
         String sensorTypeIDDescription = "Sensor2GKA";
         // Act
@@ -22,7 +22,7 @@ class SensorTypeIDTest {
      * Tests if the exception is thrown with a null sensorTypeID.
      */
     @Test
-    public void shouldThrowException_whenSensorTypeIdIsNull() {
+    void shouldThrowException_whenSensorTypeIdIsNull() {
         // Arrange
         String sensorTypeIDDescription = null;
         String expectedMessage = "'sensorTypeID' must be a non-empty string.";
@@ -43,7 +43,7 @@ class SensorTypeIDTest {
      * Tests if the exception is thrown with a blank sensorTypeID.
      */
     @Test
-    public void shouldThrowException_whenSensorTypeIdIsBlank() {
+    void shouldThrowException_whenSensorTypeIdIsBlank() {
         // Arrange
         String sensorTypeIDDescription = " ";
         String expectedMessage = "'sensorTypeID' must be a non-empty string.";
@@ -63,7 +63,7 @@ class SensorTypeIDTest {
      * Tests if the exception is thrown with an empty sensorTypeID.
      */
     @Test
-    public void shouldThrowException_whenSensorTypeIdIsEmpty() {
+    void shouldThrowException_whenSensorTypeIdIsEmpty() {
         // Arrange
         String sensorTypeIDDescription = "";
         String expectedMessage = "'sensorTypeID' must be a non-empty string.";
@@ -83,7 +83,7 @@ class SensorTypeIDTest {
      * Tests if the sensor type ID is returned correctly.
      */
     @Test
-    public void shouldReturnSensorTypeID () {
+    void shouldReturnSensorTypeID () {
         //Arrange
         String sensorTypeIDDescription = "Sensor2GKA";
         SensorTypeID sensorTypeIDObject = new SensorTypeID(sensorTypeIDDescription);
@@ -101,7 +101,7 @@ class SensorTypeIDTest {
      * Tests if the equals method returns true when the sensor type ID is compared to itself.
      */
     @Test
-    public void shouldReturnTrue_WhenSensorTypeIDIsEqualToItself() {
+    void shouldReturnTrue_WhenSensorTypeIDIsEqualToItself() {
         // Arrange
         String sensorTypeIDDescription = "Sensor2GKA";
         SensorTypeID sensorTypeID1 = new SensorTypeID(sensorTypeIDDescription);
@@ -117,7 +117,7 @@ class SensorTypeIDTest {
      * Tests if the equals method returns true when the sensor type ID is compared to another sensor type ID with the same ID.
      */
     @Test
-    public void shouldReturnTrue_WhenSensorTypeIDIsEqualToOtherSensorTypeId () {
+    void shouldReturnTrue_WhenSensorTypeIDIsEqualToOtherSensorTypeId () {
         //Arrange
         String sensorTypeIDDescription = "Sensor2GKA";
         SensorTypeID sensorTypeID1 = new SensorTypeID(sensorTypeIDDescription);
@@ -135,7 +135,7 @@ class SensorTypeIDTest {
      * Tests if the equals method returns false when the sensor type ID is compared to another sensor type ID with a different ID.
      */
     @Test
-    public void shouldReturnFalse_WhenSensorTypeIDisDifferentFromOtherSensorTYpeID () {
+    void shouldReturnFalse_WhenSensorTypeIDisDifferentFromOtherSensorTYpeID () {
         //Arrange
         String sensorTypeIDDescription = "Sensor2AVB";
         String sensorTypeID2Description = "Sensor2PDC";
@@ -155,7 +155,7 @@ class SensorTypeIDTest {
      * Tests if the hashcode is returned correctly.
      */
     @Test
-    public void shouldReturnHashCode () {
+    void shouldReturnHashCode () {
         //Arrange
         String sensorTypeIDDescription = "SensorAVB";
 
@@ -174,7 +174,7 @@ class SensorTypeIDTest {
      * Tests if the sensorTypeID object returns correct string representation.
      */
     @Test
-    public void shouldReturnSensorTypeIDInString () {
+    void shouldReturnSensorTypeIDInString () {
         // Arrange
         String sensorTypeIDDescription = "Sensor2GKA";
 

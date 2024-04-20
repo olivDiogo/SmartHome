@@ -381,7 +381,7 @@ class SwitchActuatorAggregateTest {
      * Should set value when string is "ON".
      */
     @Test
-    public void shouldSetValue_whenValueIsOn() {
+    void shouldSetValue_whenValueIsOn() {
         //Arrange
         String value = "On";
 

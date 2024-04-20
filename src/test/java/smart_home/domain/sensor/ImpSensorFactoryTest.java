@@ -9,13 +9,13 @@ import smart_home.value_object.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ImpSensorFactoryTest {
+class ImpSensorFactoryTest {
 
     /*
      * Test for creating a SolarIrradianceSensor, which has a constructor with 4 parameters.
      */
     @Test
-    public void shouldCreateSolarIrradianceSensor_whenAllFourConstructorParametersAreValid(){
+    void shouldCreateSolarIrradianceSensor_whenAllFourConstructorParametersAreValid(){
         // Arrange
         DeviceID deviceIdMock = mock(DeviceID.class);
         ModelPath modelPathMock = mock(ModelPath.class);
@@ -38,7 +38,7 @@ public class ImpSensorFactoryTest {
      * Test for creating a SunriseTimeSensor, which has a constructor with 5 parameters.
      */
     @Test
-    public void shouldCreateSunriseTimeSensor_whenAllFiveConstructorParametersAreValid(){
+    void shouldCreateSunriseTimeSensor_whenAllFiveConstructorParametersAreValid(){
         // Arrange
         DeviceID deviceIdMock = mock(DeviceID.class);
         ModelPath modelPathMock = mock(ModelPath.class);
@@ -62,7 +62,7 @@ public class ImpSensorFactoryTest {
      * Test for providing a wrong model path, which should return null.
      */
     @Test
-    public void shouldReturnNull_whenModelPathIsWrong(){
+    void shouldReturnNull_whenModelPathIsWrong(){
         // Arrange
         DeviceID deviceIdMock = mock(DeviceID.class);
         ModelPath modelPathMock = mock(ModelPath.class);
@@ -84,7 +84,7 @@ public class ImpSensorFactoryTest {
      * Test for providing wrong object type in constructor parameters, which should return null.
      */
     @Test
-    public void shouldReturnNull_whenWrongObjectTypeInConstructorParameters(){
+    void shouldReturnNull_whenWrongObjectTypeInConstructorParameters(){
         // Arrange
         DeviceID deviceIdMock = mock(DeviceID.class);
         ModelPath modelPathMock = mock(ModelPath.class);
@@ -107,7 +107,7 @@ public class ImpSensorFactoryTest {
      * Test for providing less than 4 constructor parameters, which should return null.
      */
     @Test
-    public void shouldThrowException_whenWrongNumberOfConstructorParameters(){
+    void shouldThrowException_whenWrongNumberOfConstructorParameters(){
         // Arrange
         DeviceID deviceIdMock = mock(DeviceID.class);
         ModelPath modelPathMock = mock(ModelPath.class);

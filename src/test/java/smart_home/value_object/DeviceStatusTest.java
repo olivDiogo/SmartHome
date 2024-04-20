@@ -10,7 +10,7 @@ class DeviceStatusTest {
      * Tests the DeviceStatus constructor with a true device status.
      */
     @Test
-    public void shouldGetValidObject_whenUsingDeviceStatusAsTrue(){
+    void shouldGetValidObject_whenUsingDeviceStatusAsTrue(){
         // Arrange
         boolean validDeviceStatus = true;
 
@@ -25,7 +25,7 @@ class DeviceStatusTest {
      * Tests the DeviceStatus constructor with a false device status.
      */
     @Test
-    public void shouldGetValidObject_whenUsingDeviceStatusAsFalse(){
+    void shouldGetValidObject_whenUsingDeviceStatusAsFalse(){
         // Arrange
         boolean validDeviceStatus = false;
 
@@ -40,7 +40,7 @@ class DeviceStatusTest {
      * Tests the equals method with the same entry
      */
     @Test
-    public void shouldReturnTrue_WhenStatusIsTheSameAsTrue(){
+    void shouldReturnTrue_WhenStatusIsTheSameAsTrue(){
         // Arrange
         boolean status = true;
         DeviceStatus deviceStatus = new DeviceStatus(status);
@@ -54,7 +54,7 @@ class DeviceStatusTest {
      * Tests the equals method with a different entry
      */
     @Test
-    public void shouldReturnFalse_WhenStatusIsDifferent(){
+    void shouldReturnFalse_WhenStatusIsDifferent(){
         // Arrange
         boolean status = true;
         DeviceStatus deviceStatus = new DeviceStatus(status);
@@ -69,7 +69,7 @@ class DeviceStatusTest {
      * Tests toString method when status is true
      */
     @Test
-    public void shouldReturnON_whenStatusIsTrue(){
+    void shouldReturnON_whenStatusIsTrue(){
         // Arrange
         boolean status = true;
         DeviceStatus deviceStatus = new DeviceStatus(status);
@@ -83,7 +83,7 @@ class DeviceStatusTest {
      * Tests toString method when status is false
      */
     @Test
-    public void shouldReturnOFF_whenStatusIsFalse(){
+    void shouldReturnOFF_whenStatusIsFalse(){
         // Arrange
         boolean status = false;
         DeviceStatus deviceStatus = new DeviceStatus(status);
@@ -97,7 +97,7 @@ class DeviceStatusTest {
      * Tests the hashCode method
      */
     @Test
-    public void shouldReturnHashCode_whenUsingHashCodeMethod(){
+    void shouldReturnHashCode_whenUsingHashCodeMethod(){
         // Arrange
         boolean status = true;
         DeviceStatus deviceStatus = new DeviceStatus(status);
@@ -111,7 +111,7 @@ class DeviceStatusTest {
      * Tests the getter method when status is true
      */
     @Test
-    public void shouldReturnTrue_whenUsingGetterMethod(){
+    void shouldReturnTrue_whenUsingGetterMethod(){
         // Arrange
         boolean status = true;
         DeviceStatus deviceStatus = new DeviceStatus(status);
@@ -125,7 +125,7 @@ class DeviceStatusTest {
      * Tests the getter method when status is false
      */
     @Test
-    public void shouldReturnFalse_whenUsingGetterMethod(){
+    void shouldReturnFalse_whenUsingGetterMethod(){
         // Arrange
         boolean status = false;
         DeviceStatus deviceStatus = new DeviceStatus(status);

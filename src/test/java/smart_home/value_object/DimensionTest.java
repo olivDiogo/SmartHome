@@ -3,13 +3,13 @@ package smart_home.value_object;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DimensionTest {
+class DimensionTest {
 
     /**
      * Test to check if the object is created with valid arguments.
      */
     @Test
-    public void shouldGetValidObject_whenUsingValidArguments() {
+    void shouldGetValidObject_whenUsingValidArguments() {
         //Arrange
         int width = 13;
         int height = 15;
@@ -26,7 +26,7 @@ public class DimensionTest {
      * Test to check if the object is created with invalid width
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenUsingInvalidWidth() {
+    void shouldThrowIllegalArgumentException_whenUsingInvalidWidth() {
         //Arrange
         int width = -13;
         int height = 15;
@@ -48,7 +48,7 @@ public class DimensionTest {
      * Test to check if the object is created with width equal to zero.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenUsingWidthEqualToZero() {
+    void shouldThrowIllegalArgumentException_whenUsingWidthEqualToZero() {
         //Arrange
         int width =0;
         int height = 15;
@@ -70,7 +70,7 @@ public class DimensionTest {
      * Test to check if the object is created with invalid height
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenUsingInvalidHeight() {
+    void shouldThrowIllegalArgumentException_WhenUsingInvalidHeight() {
         //Arrange
         int width = 13;
         int height = -15;
@@ -92,7 +92,7 @@ public class DimensionTest {
      * Test to check if the object is created with height equal to zero.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenUsingHeightEqualToZero() {
+    void shouldThrowIllegalArgumentException_WhenUsingHeightEqualToZero() {
         //Arrange
         int width = 13;
         int height =0;
@@ -114,7 +114,7 @@ public class DimensionTest {
      * Test to check if the object is created with invalid depth
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenUsingInvalidDepth() {
+    void shouldThrowIllegalArgumentException_WhenUsingInvalidDepth() {
         //Arrange
         int width = 13;
         int height = 15;
@@ -136,7 +136,7 @@ public class DimensionTest {
      * Test to check if the object is created with depth equal to zero.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenUsingDepthEqualToZero() {
+    void shouldThrowIllegalArgumentException_WhenUsingDepthEqualToZero() {
         //Arrange
         int width = 13;
         int height = 15;
@@ -158,7 +158,7 @@ public class DimensionTest {
      * Test to check if the object is equal to itself.
      */
     @Test
-    public void shouldReturnTrue_whenComparingTheSameDimensionObject() {
+    void shouldReturnTrue_whenComparingTheSameDimensionObject() {
         //Arrange
         int width = 13;
         int height = 15;
@@ -177,7 +177,7 @@ public class DimensionTest {
      * Test to check if the object is equal to another object with the same values.
      */
     @Test
-    public void shouldReturnTrue_whenComparingTwoEqualDimensions() {
+    void shouldReturnTrue_whenComparingTwoEqualDimensions() {
         //Arrange
         int width = 13;
         int height = 15;
@@ -197,7 +197,7 @@ public class DimensionTest {
      * Test to check if the Dimension object is different from another object with different type.
      */
     @Test
-    public void shouldReturnFalse_whenComparingDifferentObjects() {
+    void shouldReturnFalse_whenComparingDifferentObjects() {
         //Arrange
         int width = 13;
         int height = 15;
@@ -217,7 +217,7 @@ public class DimensionTest {
      * Test to check if the object is different from another object with different values.
      */
     @Test
-    public void shouldReturnFalse_whenComparingTwoDifferentDimensions() {
+    void shouldReturnFalse_whenComparingTwoDifferentDimensions() {
         //Arrange
         int width = 13;
         int height = 15;
@@ -241,7 +241,7 @@ public class DimensionTest {
      * Test to set dimension to string.
      */
     @Test
-    public void shouldReturnDimensionToString() {
+    void shouldReturnDimensionToString() {
         //Arrange
         int width = 13;
         int height = 15;
@@ -262,7 +262,7 @@ public class DimensionTest {
      * Test hashCode method.
      */
     @Test
-    public void shouldReturnHashCode_whenCallingHashCode() {
+    void shouldReturnHashCode_whenCallingHashCode() {
         //Arrange
         int width = 13;
         int height = 15;

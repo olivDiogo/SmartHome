@@ -3,7 +3,7 @@ package smart_home.value_object;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DeviceTypeIDTest {
+class DeviceTypeIDTest {
 
     /**
      * Tests the correct instantiation of a DeviceTypeID.

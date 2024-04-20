@@ -36,7 +36,7 @@ import static org.mockito.Mockito.when;
      * Test to ensure that GetListOfAllDevicesGroupedByFunctionality can be instantiated successfully.
      */
     @Test
-    public void shouldInstantiateGetListOfAllDevicesGroupedByFunctionality_whenConstructorArgumentsAreValid() {
+    void shouldInstantiateGetListOfAllDevicesGroupedByFunctionality_whenConstructorArgumentsAreValid() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -60,7 +60,7 @@ import static org.mockito.Mockito.when;
      * Test to ensure that GetListOfAllDevicesGroupedByFunctionality throws an IllegalArgumentException when the DeviceService is null.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenGetListOfAllDevicesGroupedByFunctionalityIsCalledWithNullDeviceService() {
+    void shouldThrowIllegalArgumentException_WhenGetListOfAllDevicesGroupedByFunctionalityIsCalledWithNullDeviceService() {
         //Arrange
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
@@ -75,7 +75,7 @@ import static org.mockito.Mockito.when;
      * Test to ensure that GetListOfAllDevicesGroupedByFunctionality throws an IllegalArgumentException when the DeviceAssembler is null.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenGetListOfAllDevicesGroupedByFunctionalityIsCalledWithNullDeviceAssembler() {
+    void shouldThrowIllegalArgumentException_WhenGetListOfAllDevicesGroupedByFunctionalityIsCalledWithNullDeviceAssembler() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -94,7 +94,7 @@ import static org.mockito.Mockito.when;
      * Test to ensure that GetListOfAllDevicesGroupedByFunctionality throws an IllegalArgumentException when the DeviceTypeRepository is null.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenGetListOfAllDevicesGroupedByFunctionalityIsCalledWithNullDeviceTypeRepository() {
+    void shouldThrowIllegalArgumentException_WhenGetListOfAllDevicesGroupedByFunctionalityIsCalledWithNullDeviceTypeRepository() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -107,7 +107,7 @@ import static org.mockito.Mockito.when;
     }
 
     @Test
-    public void shouldThrowIllegalArgumentException_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithEmptyDevicesList() {
+    void shouldThrowIllegalArgumentException_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithEmptyDevicesList() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -131,7 +131,7 @@ import static org.mockito.Mockito.when;
      * Test to ensure that GetDevicesDTOGroupedByFunctionality returns a map of devices grouped by functionality, when devices have different type.
      */
     @Test
-    public void shouldReturnMapOfDevicesGroupedByFunctionality_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithValidDevicesListAndDevicesHaveDifferentType() {
+    void shouldReturnMapOfDevicesGroupedByFunctionality_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithValidDevicesListAndDevicesHaveDifferentType() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -209,7 +209,7 @@ import static org.mockito.Mockito.when;
      * Test to ensure that GetDevicesDTOGroupedByFunctionality returns a map of devices grouped by functionality, when devices have the same type.
      */
     @Test
-    public void shouldReturnMapOfDevicesGroupedByFunctionality_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithValidDevicesListAndDevicesHaveSameType() {
+    void shouldReturnMapOfDevicesGroupedByFunctionality_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithValidDevicesListAndDevicesHaveSameType() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -286,7 +286,7 @@ import static org.mockito.Mockito.when;
      * Test to verify if an exception is thrown if the device type is not found.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithInvalidDeviceType() {
+    void shouldThrowIllegalArgumentException_WhenGetDevicesDTOGroupedByFunctionalityIsCalledWithInvalidDeviceType() {
         //Arrange
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();

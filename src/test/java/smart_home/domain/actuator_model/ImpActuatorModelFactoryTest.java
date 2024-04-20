@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
-public class ImpActuatorModelFactoryTest {
+class ImpActuatorModelFactoryTest {
 
   /**
    * Test to ensure that an ActuatorModel can be created successfully

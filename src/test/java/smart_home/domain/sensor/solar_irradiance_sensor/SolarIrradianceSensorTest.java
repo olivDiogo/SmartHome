@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-public class SolarIrradianceSensorTest {
+class SolarIrradianceSensorTest {
 
     /**
      * Tests the instantiation of SolarIrradianceSensor when the constructor arguments are valid.

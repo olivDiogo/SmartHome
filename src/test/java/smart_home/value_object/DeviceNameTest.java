@@ -10,7 +10,7 @@ class DeviceNameTest {
      * Tests the DeviceName constructor with a valid device name.
      */
     @Test
-    public void shouldGetValidObject_whenUsingValidDeviceName(){
+    void shouldGetValidObject_whenUsingValidDeviceName(){
         // Arrange
         String validDeviceName = "Living Room 2";
 
@@ -26,7 +26,7 @@ class DeviceNameTest {
      * Tests the DeviceName constructor with a null device name.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenDeviceNameNull(){
+    void shouldThrowIllegalArgumentException_whenDeviceNameNull(){
         // Arrange
         String nullDeviceName = null;
 
@@ -47,7 +47,7 @@ class DeviceNameTest {
      * Tests the DeviceName constructor with a blank device name.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenDeviceNameBlank(){
+    void shouldThrowIllegalArgumentException_whenDeviceNameBlank(){
         // Arrange
         String blankDeviceName = " ";
         String expectedMessage = "The device name cannot be null, blank, or empty.";
@@ -67,7 +67,7 @@ class DeviceNameTest {
      * Tests the DeviceName constructor with an empty device name.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenDeviceNameEmpty(){
+    void shouldThrowIllegalArgumentException_whenDeviceNameEmpty(){
         // Arrange
         String emptyDeviceName = "";
         String expectedMessage = "The device name cannot be null, blank, or empty.";
@@ -87,7 +87,7 @@ class DeviceNameTest {
      * Should throw illegal argument exception with a device name containing special characters.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenDeviceNameContainsSpecialCharacters(){
+    void shouldThrowIllegalArgumentException_whenDeviceNameContainsSpecialCharacters(){
         // Arrange
         String specialCharactersDeviceName = "Living Room 2@ # $ % ^ & * ( ) _ + = - { } [ ] | \\ / ? > < , . ; : '";
         String expectedMessage = "The device name can only contain letters and numbers.";
@@ -107,7 +107,7 @@ class DeviceNameTest {
      * Test if the equals method returns true when comparing two equal device names.
      */
     @Test
-    public void shouldReturnTrue_whenComparingTwoEqualDeviceNames(){
+    void shouldReturnTrue_whenComparingTwoEqualDeviceNames(){
         // Arrange
         String deviceName1 = "Living Room 2";
         String deviceName2 = "Living Room 2";
@@ -124,7 +124,7 @@ class DeviceNameTest {
      * Test if the equals method returns false when comparing two different device names.
      */
     @Test
-    public void shouldReturnFalse_whenComparingTwoDifferentDeviceNames(){
+    void shouldReturnFalse_whenComparingTwoDifferentDeviceNames(){
         // Arrange
         String deviceName1 = "Living Room 2";
         String deviceName2 = "Living Room 3";
@@ -141,7 +141,7 @@ class DeviceNameTest {
      * Test if the equals method returns true when comparing the same device name.
      */
     @Test
-    public void shouldReturnTrue_whenComparingTheSameDeviceName(){
+    void shouldReturnTrue_whenComparingTheSameDeviceName(){
         // Arrange
         String deviceName = "Living Room 2";
 
@@ -156,7 +156,7 @@ class DeviceNameTest {
      * Test if the deviceName object returns correct string representation.
      */
     @Test
-    public void shouldReturnDeviceNameInString () {
+    void shouldReturnDeviceNameInString () {
         // Arrange
         String deviceName = "Living Room";
 
@@ -173,7 +173,7 @@ class DeviceNameTest {
      * Test if the getName method returns the correct device name.
      */
     @Test
-    public void shouldReturnDeviceName () {
+    void shouldReturnDeviceName () {
         //Arrange
         String deviceName = "Living Room";
 
@@ -192,7 +192,7 @@ class DeviceNameTest {
      * Test if the hashCode method returns the same hash code for two equal device names.
      */
     @Test
-    public void shouldReturnHashCode_whenCallingHashCode() {
+    void shouldReturnHashCode_whenCallingHashCode() {
         // Arrange
         String deviceName = "Living Room 2";
         DeviceName deviceNameVO = new DeviceName(deviceName);

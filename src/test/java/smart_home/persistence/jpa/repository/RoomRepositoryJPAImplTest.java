@@ -7,7 +7,7 @@ import smart_home.persistence.assembler.IDataModelAssembler;
 import smart_home.persistence.assembler.RoomDataModelAssembler;
 
 
-public class RoomRepositoryJPAImplTest {
+class RoomRepositoryJPAImplTest {
 
     /**
      * Test class instantiation of RepositoryRoomJPAImpl.

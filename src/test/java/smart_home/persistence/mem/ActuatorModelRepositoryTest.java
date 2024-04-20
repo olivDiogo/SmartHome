@@ -12,14 +12,14 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ActuatorModelRepositoryTest {
+class ActuatorModelRepositoryTest {
 
     /**
      * Test of save method, of class ActuatorModelRepository, should add ActuatorModel to repository when given valid ActuatorModel.
      */
 
     @Test
-    public void shouldAddActuatorModelToRepositoryWhenGivenValidActuatorModel() {
+    void shouldAddActuatorModelToRepositoryWhenGivenValidActuatorModel() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
@@ -34,7 +34,7 @@ public class ActuatorModelRepositoryTest {
      */
 
     @Test
-    public void shouldThrowExceptionWhenGivenNullActuatorModel() {
+    void shouldThrowExceptionWhenGivenNullActuatorModel() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = null;
@@ -50,7 +50,7 @@ public class ActuatorModelRepositoryTest {
      */
 
     @Test
-    public void shouldThrowExceptionWhenActuatorModelAlreadyExists() {
+    void shouldThrowExceptionWhenActuatorModelAlreadyExists() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
@@ -67,7 +67,7 @@ public class ActuatorModelRepositoryTest {
      */
 
     @Test
-    public void shouldReturnListActuatorModels_WhenGetAllActuatorModelsIsCalled() {
+    void shouldReturnListActuatorModels_WhenGetAllActuatorModelsIsCalled() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
@@ -91,7 +91,7 @@ public class ActuatorModelRepositoryTest {
      */
 
     @Test
-    public void shouldReturnEmptyListWhenNoActuatorModelsAreAdded() {
+    void shouldReturnEmptyListWhenNoActuatorModelsAreAdded() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         //Act
@@ -105,7 +105,7 @@ public class ActuatorModelRepositoryTest {
      */
 
     @Test
-    public void shouldReturnActuatorModelWhenGivenValidActuatorModelID() {
+    void shouldReturnActuatorModelWhenGivenValidActuatorModelID() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
@@ -124,7 +124,7 @@ public class ActuatorModelRepositoryTest {
      */
 
     @Test
-    public void shouldReturnOptionalEmptyWhenGivenInvalidSensorModelID() {
+    void shouldReturnOptionalEmptyWhenGivenInvalidSensorModelID() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
@@ -143,7 +143,7 @@ public class ActuatorModelRepositoryTest {
      * Test of containsOfIdentity method, of class ActuatorModelRepository, should return true when given valid ActuatorModelID.
      */
     @Test
-    public void shouldReturnTrueWhenGivenValidSensorModelID() {
+    void shouldReturnTrueWhenGivenValidSensorModelID() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
@@ -162,7 +162,7 @@ public class ActuatorModelRepositoryTest {
      */
 
     @Test
-    public void shouldReturnFalseWhenGivenInvalidSensorModelID() {
+    void shouldReturnFalseWhenGivenInvalidSensorModelID() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);
@@ -181,7 +181,7 @@ public class ActuatorModelRepositoryTest {
      * Test of findByActuatorTypeId method, of class ActuatorModelRepository, should return list of ActuatorModels by ActuatorTypeID.
      */
     @Test
-    public void shouldReturnListOfActuatorModelsByActuatorTypeID() {
+    void shouldReturnListOfActuatorModelsByActuatorTypeID() {
         //Arrange
         ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
         ActuatorModel actuatorModel = mock(ActuatorModel.class);

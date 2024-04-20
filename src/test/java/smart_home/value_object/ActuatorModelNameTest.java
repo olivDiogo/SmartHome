@@ -10,7 +10,7 @@ class ActuatorModelNameTest {
      * Test the constructor of the class ActuatorModelName.
      */
     @Test
-    public void shouldInstantiateActuatorModelName_whenGivenValidParameters() {
+    void shouldInstantiateActuatorModelName_whenGivenValidParameters() {
         // Arrange
         ActuatorModelName ActuatorModelName;
         String name = "ActuatorModelName";
@@ -26,7 +26,7 @@ class ActuatorModelNameTest {
      * Test the constructor of the class ActuatorModelName with an empty name.
      */
     @Test
-    public void shouldThrowException_whenNameIsEmpty() {
+    void shouldThrowException_whenNameIsEmpty() {
         // Arrange
         String name = " ";
 
@@ -39,7 +39,7 @@ class ActuatorModelNameTest {
      * Test the constructor of the class ActuatorModelName with a null name.
      */
     @Test
-    public void shouldThrowException_whenNameIsNull() {
+    void shouldThrowException_whenNameIsNull() {
         // Arrange
         String name = null;
 
@@ -52,7 +52,7 @@ class ActuatorModelNameTest {
      * Test the constructor of the class ActuatorModelName with a name that has more than 5 characters.
      */
     @Test
-    public void shouldThrowException_whenNameContainsSpecialCharacters() {
+    void shouldThrowException_whenNameContainsSpecialCharacters() {
         // Arrange
         String name = "ActuatorModelName!";
 
@@ -65,7 +65,7 @@ class ActuatorModelNameTest {
      * Test the getActuatorModelName method of the class ActuatorModel
      */
     @Test
-    public void shouldReturnActuatorModelName_whenGetActuatorModelNameIsCalled() {
+    void shouldReturnActuatorModelName_whenGetActuatorModelNameIsCalled() {
         // Arrange
         ActuatorModelName ActuatorModelName;
         String name = "ActuatorModelName";
@@ -81,7 +81,7 @@ class ActuatorModelNameTest {
      * Test the equals method of the class ActuatorModelName.
      */
     @Test
-    public void shouldReturnTrue_whenComparingTwoEqualActuatorModelName() {
+    void shouldReturnTrue_whenComparingTwoEqualActuatorModelName() {
         // Arrange
         ActuatorModelName ActuatorModelName1;
         ActuatorModelName ActuatorModelName2;
@@ -99,7 +99,7 @@ class ActuatorModelNameTest {
      * Test the equals method of the class ActuatorModelName with two different Actuator model names.
      */
     @Test
-    public void shouldReturnFalse_whenComparingTwoDifferentActuatorModelName() {
+    void shouldReturnFalse_whenComparingTwoDifferentActuatorModelName() {
         // Arrange
         ActuatorModelName ActuatorModelName1;
         ActuatorModelName ActuatorModelName2;
@@ -118,7 +118,7 @@ class ActuatorModelNameTest {
      * Test the equals method of the class ActuatorModelName with the same Actuator model name.
      */
     @Test
-    public void shouldReturnFalse_whenComparingActuatorModelNameWithDifferentObject() {
+    void shouldReturnFalse_whenComparingActuatorModelNameWithDifferentObject() {
         // Arrange
         ActuatorModelName ActuatorModelName;
         String name = "ActuatorModelName";
@@ -134,7 +134,7 @@ class ActuatorModelNameTest {
      * Test the hashCode method of the class ActuatorModelName.
      */
     @Test
-    public void shouldReturnHashCode_whenCallingHashCode() {
+    void shouldReturnHashCode_whenCallingHashCode() {
         // Arrange
         String name = "ActuatorModelName";
         ActuatorModelName actuatorModelName = new ActuatorModelName(name);

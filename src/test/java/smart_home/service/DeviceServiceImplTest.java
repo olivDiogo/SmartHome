@@ -140,7 +140,7 @@ class DeviceServiceImplTest {
      * Test the addDevice method of the DeviceService class with an invalid roomID.
      */
     @Test
-    public void shouldThrowException_WhenGivenInvalidRoomID() {
+    void shouldThrowException_WhenGivenInvalidRoomID() {
         // Arrange
         RoomID roomID = mock(RoomID.class);
         DeviceName deviceName = mock(DeviceName.class);
@@ -173,7 +173,7 @@ class DeviceServiceImplTest {
      * Test the getAllDevices method of the DeviceService class with a valid
      */
     @Test
-    public void shouldReturnAllDevices_WhenDevicesExist() {
+    void shouldReturnAllDevices_WhenDevicesExist() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
@@ -204,7 +204,7 @@ class DeviceServiceImplTest {
      * Test the getDevices method when there are no devices.
      */
     @Test
-    public void shouldReturnEmptyList_WhenNoDevicesExist() {
+    void shouldReturnEmptyList_WhenNoDevicesExist() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
@@ -228,7 +228,7 @@ class DeviceServiceImplTest {
      * Test the getDeviceById method of the DeviceService class with a valid deviceID.
      */
     @Test
-    public void shouldReturnDevice_WhenGetDeviceByIdIsCalledWithValidDeviceID() {
+    void shouldReturnDevice_WhenGetDeviceByIdIsCalledWithValidDeviceID() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
@@ -254,7 +254,7 @@ class DeviceServiceImplTest {
      * Test the getDeviceById method of the DeviceService class with an invalid deviceID.
      */
     @Test
-    public void shouldReturnEmptyOptional_WhenGetDeviceByIdIsCalledWithInvalidDeviceID() {
+    void shouldReturnEmptyOptional_WhenGetDeviceByIdIsCalledWithInvalidDeviceID() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
@@ -278,7 +278,7 @@ class DeviceServiceImplTest {
      * Test the getDeviceListByRoomId method of the DeviceService class with a valid roomID.
      */
     @Test
-    public void shouldGetDeviceListByRoomId_WhenGivenValidRoomId() {
+    void shouldGetDeviceListByRoomId_WhenGivenValidRoomId() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
@@ -306,7 +306,7 @@ class DeviceServiceImplTest {
      * Tests deactivateDeviceByID method of the DeviceService class with a valid deviceID.
      */
     @Test
-    public void shouldDeactivateDevice_WhenGivenValidDeviceID() {
+    void shouldDeactivateDevice_WhenGivenValidDeviceID() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
@@ -330,7 +330,7 @@ class DeviceServiceImplTest {
      * Tests deactivateDeviceByID method of the DeviceService class with an invalid deviceID.
      */
     @Test
-    public void shouldThrowException_WhenGivenInvalidDeviceID() {
+    void shouldThrowException_WhenGivenInvalidDeviceID() {
         // Arrange
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);

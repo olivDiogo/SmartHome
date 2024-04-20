@@ -120,7 +120,7 @@ class ImpActuatorFactoryTest {
      * Test for providing less than 4 constructor parameters, which should return null.
      */
     @Test
-    public void shouldThrowException_whenWrongNumberOfConstructorParameters() {
+    void shouldThrowException_whenWrongNumberOfConstructorParameters() {
         // Arrange
         DeviceID deviceIdMock = mock(DeviceID.class);
         ModelPath modelPathMock = mock(ModelPath.class);

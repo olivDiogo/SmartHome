@@ -10,7 +10,7 @@ class UnitDescriptionTest {
      * Validates construction with valid arguments.
      */
     @Test
-    public void shouldInstantiateUnitDescriptionWhenGivenValidDescription() {
+    void shouldInstantiateUnitDescriptionWhenGivenValidDescription() {
         //Arrange
         String description = "This is a valid description";
 
@@ -25,7 +25,7 @@ class UnitDescriptionTest {
      * Expects IllegalArgumentException for null description.
      */
     @Test
-    public void shouldThrowIllegalArgumentExceptionWhenGivenNullDescription() {
+    void shouldThrowIllegalArgumentExceptionWhenGivenNullDescription() {
         //Arrange
         String description = null;
         String expectedMessage = "The value of 'description' should not null, blank, or empty.";
@@ -43,7 +43,7 @@ class UnitDescriptionTest {
      * Expects IllegalArgumentException for blank description.
      */
     @Test
-    public void shouldThrowIllegalArgumentExceptionWhenGivenBlankDescription() {
+    void shouldThrowIllegalArgumentExceptionWhenGivenBlankDescription() {
         //Arrange
         String description = " ";
         String expectedMessage = "The value of 'description' should not null, blank, or empty.";
@@ -61,7 +61,7 @@ class UnitDescriptionTest {
      * Expects IllegalArgumentException for empty description.
      */
     @Test
-    public void shouldThrowIllegalArgumentExceptionWhenGivenEmptyDescription() {
+    void shouldThrowIllegalArgumentExceptionWhenGivenEmptyDescription() {
         //Arrange
         String description = "";
         String expectedMessage = "The value of 'description' should not null, blank, or empty.";
@@ -79,7 +79,7 @@ class UnitDescriptionTest {
      * Expects IllegalArgumentException for description with more than 50 characters.
      */
     @Test
-    public void shouldThrowIllegalArgumentExceptionWhenGivenDescriptionWithMoreThan50Characters() {
+    void shouldThrowIllegalArgumentExceptionWhenGivenDescriptionWithMoreThan50Characters() {
         //Arrange
         String description = "This is a description with more than 50 characters. This is a description with more than 50 characters. This is a description with more than 50 characters.";
         String expectedMessage = "The description cannot have more than 50 characters.";
@@ -96,7 +96,7 @@ class UnitDescriptionTest {
      * Should return true when two objects have the same description.
      */
     @Test
-    public void shouldReturnTrue_WhenTwoObjectsHaveSameDescription(){
+    void shouldReturnTrue_WhenTwoObjectsHaveSameDescription(){
         //Arrange
         String description = "This is a valid description";
         UnitDescription unitDescription1 = new UnitDescription(description);
@@ -113,7 +113,7 @@ class UnitDescriptionTest {
      * Should return false when two objects have different description.
      */
     @Test
-    public void shouldReturnFalse_WhenTwoObjectsHaveDifferentDescription(){
+    void shouldReturnFalse_WhenTwoObjectsHaveDifferentDescription(){
         //Arrange
         String description1 = "This is a valid description";
         String description2 = "This is another valid description";
@@ -132,7 +132,7 @@ class UnitDescriptionTest {
      * Should return true when comparing object with itself.
      */
     @Test
-    public void shouldReturnTrue_WhenComparingObjectWithItself(){
+    void shouldReturnTrue_WhenComparingObjectWithItself(){
         //Arrange
         String description = "This is a valid description";
         UnitDescription unitDescription = new UnitDescription(description);
@@ -148,7 +148,7 @@ class UnitDescriptionTest {
      * Description with same description should have same hash code.
      */
     @Test
-    public void descriptionWithSameDescriptionShouldHaveSameHashCode(){
+    void descriptionWithSameDescriptionShouldHaveSameHashCode(){
         //Arrange
         String description = "This is a valid description";
         UnitDescription unitDescription1 = new UnitDescription(description);

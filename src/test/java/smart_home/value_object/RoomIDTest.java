@@ -9,7 +9,7 @@ class RoomIDTest {
      * Tests the correct instantiation of a RoomID
      */
     @Test
-    public void shouldGetValidObject_whenUsingValidStringInConstructor() {
+    void shouldGetValidObject_whenUsingValidStringInConstructor() {
         // Arrange
         String roomID = "Room12";
         // Act
@@ -23,7 +23,7 @@ class RoomIDTest {
      * Tests if the exception is thrown with a null roomID.
      */
     @Test
-    public void shouldThrowException_whenRoomIdIsNull() {
+    void shouldThrowException_whenRoomIdIsNull() {
         // Arrange
         String roomID = null;
         String expectedMessage = "'roomID' must be a non-empty string.";
@@ -43,7 +43,7 @@ class RoomIDTest {
      * Tests if the exception is thrown with a blank roomID.
      */
     @Test
-    public void shouldThrowException_whenRoomIdIsBlank() {
+    void shouldThrowException_whenRoomIdIsBlank() {
         // Arrange
         String roomID = " ";
         String expectedMessage = "'roomID' must be a non-empty string.";
@@ -63,7 +63,7 @@ class RoomIDTest {
      * Tests if the exception is thrown with an empty roomID.
      */
     @Test
-    public void shouldThrowException_whenRoomIdIsEmpty() {
+    void shouldThrowException_whenRoomIdIsEmpty() {
         // Arrange
         String roomID = "";
         String expectedMessage = "'roomID' must be a non-empty string.";
@@ -83,7 +83,7 @@ class RoomIDTest {
      * Tests if the RoomID is correctly returned.
      */
     @Test
-    public void shouldReturnRoomID() {
+    void shouldReturnRoomID() {
         // Arrange
         String roomID = "Room12";
         RoomID roomID1 = new RoomID(roomID);
@@ -101,7 +101,7 @@ class RoomIDTest {
      * Tests if the RoomID is equal to itself.
      */
     @Test
-    public void shouldReturnTrue_WhenRoomIdIsEqualToItself() {
+    void shouldReturnTrue_WhenRoomIdIsEqualToItself() {
         // Arrange
         String roomID = "Room12";
         RoomID roomID1 = new RoomID(roomID);
@@ -117,7 +117,7 @@ class RoomIDTest {
      * Tests if the RoomID is equal to another RoomID.
      */
     @Test
-    public void shouldReturnTrue_WhenRoomIdIsEqualToOtherRoomId() {
+    void shouldReturnTrue_WhenRoomIdIsEqualToOtherRoomId() {
         // Arrange
         String roomID = "Room12";
         RoomID roomID1 = new RoomID(roomID);
@@ -134,7 +134,7 @@ class RoomIDTest {
      * Tests if the RoomID is different from another RoomID.
      */
     @Test
-    public void shouldReturnFalse_WhenRoomIdIsDifferentFromOtherRoomId() {
+    void shouldReturnFalse_WhenRoomIdIsDifferentFromOtherRoomId() {
         // Arrange
         String roomID1Description = "Room12";
         String roomID2Description = "Room13";
@@ -153,7 +153,7 @@ class RoomIDTest {
      * Tests if the object in the hashcode is the same as the RoomID.
      */
     @Test
-    public void shouldReturnHashCode() {
+    void shouldReturnHashCode() {
         // Arrange
         String roomIDDescription = "Room12";
         RoomID roomID = new RoomID(roomIDDescription);
@@ -166,7 +166,7 @@ class RoomIDTest {
     }
 
     @Test
-    public void shouldReturnRoomIDInString () {
+    void shouldReturnRoomIDInString () {
         // Arrange
         String roomIDDescription = "Room12";
         RoomID roomID = new RoomID(roomIDDescription);

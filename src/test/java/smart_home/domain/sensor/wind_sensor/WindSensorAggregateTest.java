@@ -5,7 +5,7 @@ import smart_home.value_object.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WindSensorAggregateTest {
+class WindSensorAggregateTest {
 
     /**
      * Tests the instantiation of WindSensor when the constructor arguments are valid.

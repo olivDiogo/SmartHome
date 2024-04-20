@@ -18,7 +18,7 @@ class ActuatorTypeRepositoryTest {
      * Test the save method with valid ActuatorType.
      */
     @Test
-    public void shouldSaveActuatorType_whenGivenValidActuatorType() {
+    void shouldSaveActuatorType_whenGivenValidActuatorType() {
         //Arrange
         ActuatorType actuatorType = mock(ActuatorType.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
@@ -37,7 +37,7 @@ class ActuatorTypeRepositoryTest {
      * Test the save method with null ActuatorType.
      */
     @Test
-    public void shouldThrowIllegalArgumentException_whenGivenNullActuatorType() {
+    void shouldThrowIllegalArgumentException_whenGivenNullActuatorType() {
         //Arrange
         ActuatorType actuatorType = null;
         ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
@@ -59,7 +59,7 @@ class ActuatorTypeRepositoryTest {
      * Test the save method with an ActuatorType that already exists.
      */
     @Test
-    public void shouldThrowException_WhenSActuatorTypeAlreadyExists() {
+    void shouldThrowException_WhenSActuatorTypeAlreadyExists() {
         //Arrange
         ActuatorType actuatorType = mock(ActuatorType.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
@@ -86,7 +86,7 @@ class ActuatorTypeRepositoryTest {
      * Tests if all the actuators type are returned correctly.
      */
     @Test
-    public void shouldReturnAllActuatorTypes() {
+    void shouldReturnAllActuatorTypes() {
         //Arrange
         ActuatorType actuatorType = mock(ActuatorType.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
@@ -114,7 +114,7 @@ class ActuatorTypeRepositoryTest {
      * Test the findAll method when there are no ActuatorTypes saved.
      */
     @Test
-    public void shouldReturnEmptyList_whenNoActuatorTypesSaved() {
+    void shouldReturnEmptyList_whenNoActuatorTypesSaved() {
         //Arrange
         ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
 
@@ -129,7 +129,7 @@ class ActuatorTypeRepositoryTest {
      * Test the ofIdentity method with an invalid ActuatorTypeID.
      */
     @Test
-    public void shouldReturnOptionalEmpty_whenGivenInvalidActuatorTypeID() {
+    void shouldReturnOptionalEmpty_whenGivenInvalidActuatorTypeID() {
         //Arrange
         ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
 
@@ -152,7 +152,7 @@ class ActuatorTypeRepositoryTest {
      * Test the ofIdentity method with a valid ActuatorTypeID.
      */
     @Test
-    public void shouldReturnTrue_WhenGivenValidActuatorTypeID() {
+    void shouldReturnTrue_WhenGivenValidActuatorTypeID() {
         //Arrange
         ActuatorType actuatorType = mock(ActuatorType.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
@@ -172,7 +172,7 @@ class ActuatorTypeRepositoryTest {
      * Test the ofIdentity method with invalid ActuatorTypeID.
      */
     @Test
-    public void shouldReturnFalse_whenGivenInvalidActuatorTypeID() {
+    void shouldReturnFalse_whenGivenInvalidActuatorTypeID() {
         //Arrange
         ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
 
@@ -195,7 +195,7 @@ class ActuatorTypeRepositoryTest {
      * Test the existsOfName method with a valid ActuatorTypeName.
      */
     @Test
-    public void shouldReturnTrue_whenGivenValidActuatorTypeName() {
+    void shouldReturnTrue_whenGivenValidActuatorTypeName() {
         //Arrange
         ActuatorType actuatorType = mock(ActuatorType.class);
 
@@ -216,7 +216,7 @@ class ActuatorTypeRepositoryTest {
      * Test the existsOfName method with a null ActuatorTypeName.
      */
     @Test
-    public void shouldReturnFalse_whenGivenNullActuatorTypeName() {
+    void shouldReturnFalse_whenGivenNullActuatorTypeName() {
         //Arrange
         ActuatorType actuatorType = mock(ActuatorType.class);
 

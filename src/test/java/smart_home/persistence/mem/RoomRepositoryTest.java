@@ -12,13 +12,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-public class RoomRepositoryTest {
+class RoomRepositoryTest {
 
     /**
      * Test for the save room method when room is valid
      */
     @Test
-    public void shouldReturnRoomAfterSavingIt_whenRoomIsValid(){
+    void shouldReturnRoomAfterSavingIt_whenRoomIsValid(){
         // Arrange
         Room roomDouble = mock(Room.class);
         RoomRepository roomRepository = new RoomRepository();
@@ -34,7 +34,7 @@ public class RoomRepositoryTest {
      * Test for the save room method when room is null
      */
     @Test
-    public void shouldThrowException_whenRoomIsNull(){
+    void shouldThrowException_whenRoomIsNull(){
         // Arrange
         Room roomDouble = null;
         RoomRepository roomRepository = new RoomRepository();
@@ -56,7 +56,7 @@ public class RoomRepositoryTest {
      * Test for the save room method when room is null
      */
     @Test
-    public void shouldThrowException_whenRoomAlreadyExists(){
+    void shouldThrowException_whenRoomAlreadyExists(){
         // Arrange
         Room roomDouble = mock(Room.class);
         RoomRepository roomRepository = new RoomRepository();
@@ -80,7 +80,7 @@ public class RoomRepositoryTest {
      * Test for the find all rooms method when there are rooms
      */
     @Test
-    public void shouldReturnAllRooms(){
+    void shouldReturnAllRooms(){
         // Arrange
         RoomID roomID1 = new RoomID("1");
         Room roomDouble1 = mock(Room.class);
@@ -105,7 +105,7 @@ public class RoomRepositoryTest {
      * Test for the find all rooms method when no room exist
      */
     @Test
-    public void shouldReturnEmptyList_whenNoRoomsExist(){
+    void shouldReturnEmptyList_whenNoRoomsExist(){
         // Arrange
         RoomRepository roomRepository = new RoomRepository();
 
@@ -120,7 +120,7 @@ public class RoomRepositoryTest {
      * Test for the ofIdentity method when room exists
      */
     @Test
-    public void shouldReturnRoomById_whenRoomExists(){
+    void shouldReturnRoomById_whenRoomExists(){
         // Arrange
         RoomID roomID = new RoomID("1");
         Room roomDouble = mock(Room.class);
@@ -140,7 +140,7 @@ public class RoomRepositoryTest {
      * Test for the ofIdentity method when room does not exist
      */
     @Test
-    public void shouldReturnException_whenRoomDoesNotExist(){
+    void shouldReturnException_whenRoomDoesNotExist(){
         // Arrange
         RoomID roomID1 = new RoomID("1");
         Room roomDouble = mock(Room.class);
@@ -162,7 +162,7 @@ public class RoomRepositoryTest {
      * Test for the containsOfIdentity method when room exists
      */
     @Test
-    public void shouldReturnTrue_whenRoomIdExists(){
+    void shouldReturnTrue_whenRoomIdExists(){
         // Arrange
         RoomID roomID = new RoomID("1");
         Room roomDouble = mock(Room.class);
@@ -182,7 +182,7 @@ public class RoomRepositoryTest {
      * Test for the containsOfIdentity method when room does not exist
      */
     @Test
-    public void shouldReturnFalse_whenRoomIdDoesNotExists(){
+    void shouldReturnFalse_whenRoomIdDoesNotExists(){
         // Arrange
         RoomID roomID = new RoomID("1");
         Room roomDouble = mock(Room.class);

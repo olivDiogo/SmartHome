@@ -17,7 +17,7 @@ import smart_home.value_object.RoomName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetListOfRoomsControllerTest {
+class GetListOfRoomsControllerTest {
 
     /**
      * Test to check if the GetListOfRoomsController is being created correctly.

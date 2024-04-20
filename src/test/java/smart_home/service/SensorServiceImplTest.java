@@ -22,7 +22,7 @@ class SensorServiceImplTest {
 
     /* test the constructor with mock objects */
     @Test
-    public void shouldInstantiateSensorService_whenGivenValidParameters() {
+    void shouldInstantiateSensorService_whenGivenValidParameters() {
         // Arrange
         SensorServiceImpl sensorServiceImpl;
         SensorRepository sensorRepository = mock(SensorRepository.class);
@@ -39,7 +39,7 @@ class SensorServiceImplTest {
 
     /* test the constructor with null sensor repository */
     @Test
-    public void shouldThrowIllegalArgumentException_whenGivenNullSensorRepository() {
+    void shouldThrowIllegalArgumentException_whenGivenNullSensorRepository() {
         // Arrange
         SensorRepository sensorRepository = null;
         ISensorFactory sensorFactory = mock(ISensorFactory.class);
@@ -51,7 +51,7 @@ class SensorServiceImplTest {
 
     /* test the constructor with null sensor factory */
     @Test
-    public void shouldThrowIllegalArgumentException_whenGivenNullSensorFactory() {
+    void shouldThrowIllegalArgumentException_whenGivenNullSensorFactory() {
         // Arrange
         SensorRepository sensorRepository = mock(SensorRepository.class);
         ISensorFactory sensorFactory = null;
@@ -64,7 +64,7 @@ class SensorServiceImplTest {
     /* test the constructor with null device repository */
 
     @Test
-    public void shouldThrowIllegalArgumentException_whenGivenNullDeviceRepository() {
+    void shouldThrowIllegalArgumentException_whenGivenNullDeviceRepository() {
         // Arrange
         SensorRepository sensorRepository = mock(SensorRepository.class);
         ISensorFactory sensorFactory = mock(ISensorFactory.class);
@@ -77,7 +77,7 @@ class SensorServiceImplTest {
 
 
     @Test
-    public void testAddSensor_DeviceFound_Success() {
+    void testAddSensor_DeviceFound_Success() {
         // Arrange
         SensorRepository sensorRepository = mock(SensorRepository.class);
         ISensorFactory sensorFactory = mock(ISensorFactory.class);
@@ -109,7 +109,7 @@ class SensorServiceImplTest {
      * Test method addSensor To trow exception when device not found
      */
     @Test
-    public void testAddSensor_DeviceNotFound_ThrowException() {
+    void testAddSensor_DeviceNotFound_ThrowException() {
         // Arrange
         SensorRepository sensorRepository = mock(SensorRepository.class);
         ISensorFactory sensorFactory = mock(ISensorFactory.class);

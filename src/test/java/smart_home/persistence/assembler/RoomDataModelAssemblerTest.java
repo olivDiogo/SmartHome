@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-public class RoomDataModelAssemblerTest {
+class RoomDataModelAssemblerTest {
     /**
      * Test of RoomDataModelAssembler constructor.
      */

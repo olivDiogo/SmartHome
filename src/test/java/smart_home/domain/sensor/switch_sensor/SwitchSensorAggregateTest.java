@@ -9,7 +9,7 @@ import smart_home.value_object.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-public class SwitchSensorAggregateTest {
+class SwitchSensorAggregateTest {
     /**
      * Tests the instantiation of SwitchSensor when the constructor arguments are valid.
      */

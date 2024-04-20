@@ -14,7 +14,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class DeviceTypeServiceImplTest {
+class DeviceTypeServiceImplTest {
 
     /**
      * Test for the DeviceTypeService constructor.

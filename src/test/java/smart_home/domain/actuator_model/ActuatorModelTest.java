@@ -11,7 +11,7 @@ import smart_home.value_object.ModelPath;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockConstruction;
 
-public class ActuatorModelTest {
+class ActuatorModelTest {
 
   /** Test of class ActuatorModel constructor with valid parameters */
   @Test

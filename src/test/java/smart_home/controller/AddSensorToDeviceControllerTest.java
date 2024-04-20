@@ -26,7 +26,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AddSensorToDeviceControllerTest {
+class AddSensorToDeviceControllerTest {
 
   /** Test to check if the AddSensorToDeviceController is being created correctly. */
   @Test

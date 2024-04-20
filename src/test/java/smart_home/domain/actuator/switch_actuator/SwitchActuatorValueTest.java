@@ -3,7 +3,7 @@ package smart_home.domain.actuator.switch_actuator;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SwitchActuatorValueTest {
+class SwitchActuatorValueTest {
 
     /**
      * Should create instance of SwitchActuatorValue class.

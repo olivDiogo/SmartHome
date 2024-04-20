@@ -23,7 +23,7 @@ class RoomServiceImplTest {
      * Test the constructor of the RoomService class.
      */
     @Test
-    public void shouldInstantiateRoomService_whenGivenValidParameters() {
+    void shouldInstantiateRoomService_whenGivenValidParameters() {
         // Arrange
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
@@ -42,7 +42,7 @@ class RoomServiceImplTest {
      * Test the addRoom method of the RoomService class with a valid houseID, roomName, dimension and roomFloor.
      */
     @Test
-    public void shouldAddARoom_WhenGivenValidParameters() {
+    void shouldAddARoom_WhenGivenValidParameters() {
         // Arrange
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
@@ -69,7 +69,7 @@ class RoomServiceImplTest {
      * Test the addRoom method of the RoomService class with an invalid houseID.
      */
     @Test
-    public void shouldThrowException_whenHouseIDIsInvalid() {
+    void shouldThrowException_whenHouseIDIsInvalid() {
         // Arrange
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
@@ -91,7 +91,7 @@ class RoomServiceImplTest {
      * Test the getRooms method of the RoomService class.
      */
     @Test
-    public void shouldReturnAllRooms_whenGetRoomsIsCalled() {
+    void shouldReturnAllRooms_whenGetRoomsIsCalled() {
         // Arrange
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
@@ -113,7 +113,7 @@ class RoomServiceImplTest {
      * Test the getRooms method of the RoomService class when there are no rooms.
      */
     @Test
-    public void shouldReturnEmptyList_whenGetRoomsIsCalledAndThereAreNoRooms() {
+    void shouldReturnEmptyList_whenGetRoomsIsCalledAndThereAreNoRooms() {
         // Arrange
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
@@ -134,7 +134,7 @@ class RoomServiceImplTest {
      * Test the getRooms method of the RoomService class when there are multiple rooms.
      */
     @Test
-    public void shouldReturnAllRooms_whenGetRoomsIsCalledAndThereAreMultipleRooms() {
+    void shouldReturnAllRooms_whenGetRoomsIsCalledAndThereAreMultipleRooms() {
         // Arrange
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
@@ -158,7 +158,7 @@ class RoomServiceImplTest {
      * Test the getRoomById method of the RoomService class with a valid roomID.
      */
     @Test
-    public void shouldReturnRoom_whenGetRoomByIdIsCalledWithValidRoomID() {
+    void shouldReturnRoom_whenGetRoomByIdIsCalledWithValidRoomID() {
         // Arrange
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
@@ -183,7 +183,7 @@ class RoomServiceImplTest {
      * Test the getRoomById method of the RoomService class with an invalid roomID.
      */
     @Test
-    public void shouldReturnEmptyOptional_whenGetRoomByIdIsCalledWithInvalidRoomID() {
+    void shouldReturnEmptyOptional_whenGetRoomByIdIsCalledWithInvalidRoomID() {
         // Arrange
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);

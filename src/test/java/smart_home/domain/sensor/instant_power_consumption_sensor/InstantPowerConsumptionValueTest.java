@@ -10,7 +10,7 @@ class InstantPowerConsumptionValueTest {
      * Test to check if the InstantPowerConsumptionValue can be instantiated.
      */
     @Test
-    public void shouldInstantiateInstantPowerConsumptionValue() {
+    void shouldInstantiateInstantPowerConsumptionValue() {
         //arrange
         double instantPowerConsumptionValue =0.0;
 
@@ -25,7 +25,7 @@ class InstantPowerConsumptionValueTest {
      * Test to check if the InstantPowerConsumptionValue throws an exception when the value is negative.
      */
     @Test
-    public void shouldThrowExceptionWhenInstantPowerConsumptionValueIsNegative() {
+    void shouldThrowExceptionWhenInstantPowerConsumptionValueIsNegative() {
         //arrange
         double instantPowerConsumptionValue =-1.0;
 
@@ -46,7 +46,7 @@ class InstantPowerConsumptionValueTest {
      * Test to check if the InstantPowerConsumptionValue returns the value in string.
      */
     @Test
-    public void shouldReturnInstantPowerConsumptionInString() {
+    void shouldReturnInstantPowerConsumptionInString() {
         //arrange
         double instantPowerConsumptionValue =25.0;
         InstantPowerConsumptionValue instantPowerConsumptionValueObject = new InstantPowerConsumptionValue(instantPowerConsumptionValue);

@@ -137,7 +137,7 @@ class UnitSymbolTest {
      * Test case: Check if two UnitSymbol objects are equal
      */
     @Test
-    public void shouldReturnTrue_WhenComparingObjectWithItself(){
+    void shouldReturnTrue_WhenComparingObjectWithItself(){
         //Arrange
         String description = "C";
         UnitSymbol unitSymbol = new UnitSymbol(description);
