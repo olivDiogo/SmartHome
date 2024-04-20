@@ -878,7 +878,7 @@ class SunriseTimeSensorAggregateTest {
         // Act
         String result = sunriseTimeSensor.accept(visitor);
         // Assert
-        assertEquals(expected, result);
+            assertEquals(expected, result);
 
     }
 

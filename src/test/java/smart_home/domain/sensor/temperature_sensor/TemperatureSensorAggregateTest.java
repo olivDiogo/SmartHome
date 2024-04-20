@@ -2,8 +2,10 @@ package smart_home.domain.sensor.temperature_sensor;
 
 import org.junit.jupiter.api.Test;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class TemperatureSensorAggregateTest {
 
@@ -579,6 +581,26 @@ class TemperatureSensorAggregateTest {
 
         // Act
         String result = sensor.toString();
+
+        // Assert
+        assertEquals(expected, result);
+    }
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        // Arrange
+        String deviceIDValue = "some-device-id";
+        String modelPathValue = "some-model-path";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Temperature";
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+        TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
+        ISensorVisitor visitor = mock(ISensorVisitor.class);
+        String expected = sensor.toString();
+        // Act
+        String result = sensor.accept(visitor);
 
         // Assert
         assertEquals(expected, result);

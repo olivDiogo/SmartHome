@@ -4,6 +4,7 @@ import smart_home.domain.sensor.ISensor;
 import smart_home.utils.ValueSimulator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -185,5 +186,9 @@ public class TemperatureSensor implements ISensor {
                 ", sensorTypeID=" + _sensorTypeID +
                 ", temperatureValue=" + _temperatureValue +
                 ", deviceID=" + _deviceID;
+    }
+    public String accept(ISensorVisitor visitor) {
+        visitor.visitTemperatureSensor(this);
+        return this.toString();
     }
 }

@@ -4,6 +4,7 @@ import smart_home.domain.sensor.ISensor;
 import smart_home.utils.ValueSimulator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -171,5 +172,9 @@ public class SwitchSensor implements ISensor {
     @Override
     public String toString() {
         return "SwitchSensor: DeviceID= " + _deviceID.getID() + " ModelPath= " + _modelPath.getID() + " SensorTypeID= " + _sensorTypeID.getID() + " SensorName= " + _sensorName.getSensorName() + " SensorID= " + _sensorID.getID();
+    }
+    public String accept(ISensorVisitor visitor) {
+         visitor.visitSwitchSensor(this);
+        return this.toString();
     }
 }

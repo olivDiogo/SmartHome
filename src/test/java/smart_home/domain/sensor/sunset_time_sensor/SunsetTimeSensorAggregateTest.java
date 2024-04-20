@@ -3,6 +3,7 @@ package smart_home.domain.sensor.sunset_time_sensor;
 import org.junit.jupiter.api.Test;
 import org.shredzone.commons.suncalc.SunTimes;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,6 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class SunsetTimeSensorAggregateTest {
 
@@ -575,6 +577,24 @@ class SunsetTimeSensorAggregateTest {
 
         //Assert
         assertEquals(expected, hashCode);
+    }
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        //Arrange
+        DeviceID deviceID = new DeviceID("2");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("SunsetTime");
+        SensorName sensorName = new SensorName("sensorName");
+        GPS gps = new GPS(0, 0);
+
+        SunsetTimeSensor sunsetTimeSensor = new SunsetTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
+        ISensorVisitor visitor = mock(ISensorVisitor.class);
+
+        String expected = sunsetTimeSensor.toString();
+        //Act
+        String result = sunsetTimeSensor.accept(visitor);
+        //Assert
+        assertNotNull(sunsetTimeSensor);
     }
 
 }

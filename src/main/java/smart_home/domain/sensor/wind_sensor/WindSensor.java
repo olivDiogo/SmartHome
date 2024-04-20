@@ -4,6 +4,7 @@ import smart_home.domain.sensor.ISensor;
 import smart_home.utils.ValueSimulator;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -176,5 +177,15 @@ public class WindSensor implements ISensor {
                 ", sensorTypeID=" + _sensorTypeID +
                 ", windSensorValue=" + _windSensorValue +
                 ", deviceID=" + _deviceID;
+    }
+
+    /**
+     * Accepts the visitor.
+     *
+     * @param visitor The visitor.
+     */
+    public String accept(ISensorVisitor visitor) {
+         visitor.visitWindSensor(this);
+         return this.toString();
     }
 }

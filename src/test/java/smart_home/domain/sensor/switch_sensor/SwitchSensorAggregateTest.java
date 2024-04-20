@@ -5,6 +5,7 @@ import smart_home.domain.sensor.dew_point_sensor.DewPointSensor;
 import smart_home.domain.sensor.switch_sensor.SwitchSensor;
 import smart_home.domain.sensor.switch_sensor.SwitchSensorValue;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -643,6 +644,29 @@ class SwitchSensorAggregateTest {
         String actualMessage = exception.getMessage();
 
         assertEquals(expectedMessage, actualMessage);
+    }
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        // Arrange
+        String deviceIDValue = "deviceID";
+        String modelPathValue = "modelPath";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Switch";
 
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        ISensorVisitor visitor = mock(ISensorVisitor.class);
+
+        String expected = switchSensor.toString();
+        // Act
+
+        String result = switchSensor.accept(visitor);
+        // Assert
+        assertEquals( expected, result);
     }
 }

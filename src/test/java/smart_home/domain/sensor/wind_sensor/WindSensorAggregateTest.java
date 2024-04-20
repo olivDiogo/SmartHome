@@ -2,8 +2,10 @@ package smart_home.domain.sensor.wind_sensor;
 
 import org.junit.jupiter.api.Test;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class WindSensorAggregateTest {
 
@@ -580,4 +582,29 @@ class WindSensorAggregateTest {
         assertEquals(expectedMessage, actualMessage);
 
     }
+    @Test
+    void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
+        // Arrange
+        String deviceIDValue = "some-device-id";
+        String modelPathValue = "some-model-path";
+        String sensorNameValue = "sensorName";
+        String sensorTypeIDValue = "Wind";
+        DeviceID deviceID = new DeviceID(deviceIDValue);
+        ModelPath modelPath = new ModelPath(modelPathValue);
+        SensorName sensorName = new SensorName(sensorNameValue);
+        SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+
+        WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
+
+        ISensorVisitor visitor = mock(ISensorVisitor.class);
+
+        String expected = windSensor.toString();
+        // Act
+        String result = windSensor.accept(visitor);
+
+        // Assert
+       assertEquals(expected, result);
+    }
+
+
 }

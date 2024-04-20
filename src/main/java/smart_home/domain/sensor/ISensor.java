@@ -3,6 +3,7 @@ package smart_home.domain.sensor;
 import smart_home.ddd.IAggregateRoot;
 import smart_home.ddd.IValueObject;
 import smart_home.value_object.*;
+import smart_home.visitor_pattern.ISensorVisitor;
 
 public interface ISensor extends IAggregateRoot<SensorID> {
 
@@ -56,5 +57,10 @@ public interface ISensor extends IAggregateRoot<SensorID> {
      */
     DeviceID getDeviceID();
 
-
+    /**
+     * Accepts the visitor.
+     *
+     * @param visitor The visitor.
+     */
+    String accept(ISensorVisitor visitor);
 }
