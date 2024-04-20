@@ -113,4 +113,21 @@ class WindSensorValueTest {
         // Assert
         assertFalse(result);
     }
+    @Test
+    void equalsObjectsShouldReturnTheSameHash(){
+        // Arrange
+        double speed = 10.5;
+        double direction = 20.5;
+
+        WindSensorValue windSensorValue = new WindSensorValue(speed, direction);
+        WindSensorValue windSensorValue2 = new WindSensorValue(speed, direction);
+
+        boolean expected = windSensorValue.equals(windSensorValue2);
+
+        // Act
+        boolean result = windSensorValue.hashCode() == windSensorValue2.hashCode();
+
+        // Assert
+        assertEquals(expected, result);
+    }
 }

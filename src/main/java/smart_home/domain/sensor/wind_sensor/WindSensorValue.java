@@ -44,11 +44,14 @@ public class WindSensorValue implements IValueObject {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof WindSensorValue) {
-            WindSensorValue other = (WindSensorValue) obj;
+        if (obj instanceof WindSensorValue other) {
             return this._speed == other._speed && this._direction == other._direction;
         }
         return false;
+    }
+    @Override
+    public int hashCode() {
+        return Double.hashCode(_speed) + Double.hashCode(_direction);
     }
 
 }

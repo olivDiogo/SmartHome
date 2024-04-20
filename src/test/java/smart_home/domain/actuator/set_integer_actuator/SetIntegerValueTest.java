@@ -50,7 +50,7 @@ class SetIntegerValueTest {
         boolean result = setIntegerValue.equals(setIntegerValue);
 
         // Assert
-        assertEquals(result,true);
+        assertEquals(true,result);
     }
 
     /**
@@ -68,7 +68,7 @@ class SetIntegerValueTest {
         boolean result = setIntegerValue1.equals(setIntegerValue2);
 
         // Assert
-        assertEquals(result,false);
+        assertEquals(false,result);
     }
 
     /**
@@ -84,6 +84,20 @@ class SetIntegerValueTest {
         boolean result = setIntegerValue.equals(new Object());
 
         // Assert
-        assertEquals(result,false);
+        assertEquals(false,result);
+    }
+    @Test
+    void equalsObjectsShouldReturnTheSameHash(){
+        // Arrange
+        int value = 1;
+        SetIntegerValue setIntegerValue = new SetIntegerValue(value);
+        SetIntegerValue setIntegerValue2 = new SetIntegerValue(value);
+        boolean expected = setIntegerValue.equals(setIntegerValue2);
+
+        // Act
+        boolean result = setIntegerValue.hashCode() == setIntegerValue2.hashCode();
+
+        // Assert
+        assertEquals(expected,result);
     }
 }

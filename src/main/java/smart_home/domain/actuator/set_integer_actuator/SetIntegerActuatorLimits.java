@@ -56,10 +56,14 @@ public class SetIntegerActuatorLimits implements IValueObject {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SetIntegerActuatorLimits that)) return false;
+        if (o instanceof SetIntegerActuatorLimits that){
+            return _lowerLimit == that._lowerLimit && _upperLimit == that._upperLimit;
+        }
+        return false;
+    }
 
-        if (_lowerLimit != that._lowerLimit) return false;
-        return _upperLimit == that._upperLimit;
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(_lowerLimit) + Integer.hashCode(_upperLimit);
     }
 }

@@ -52,4 +52,8 @@ public class AveragePowerConsumptionSensorValue implements IValueObject {
         }
         return false;
     }
+    @Override
+    public int hashCode() {
+        return Double.hashCode(_dValue);
+    }
 }

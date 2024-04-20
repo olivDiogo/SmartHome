@@ -133,5 +133,20 @@ class AveragePowerConsumptionSensorValueTest {
         Assertions.assertFalse(actualResult);
     }
 
+    @Test
+    void equalsObjectsShouldHaveTheSameHashCode(){
+        // Arrange
+        double dValue = 12.3;
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue);
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue2 = new AveragePowerConsumptionSensorValue(dValue);
+        boolean expected = averagePowerConsumptionSensorValue.equals(averagePowerConsumptionSensorValue2);
+
+        // Act
+        boolean result = averagePowerConsumptionSensorValue.hashCode() == averagePowerConsumptionSensorValue2.hashCode();
+
+        // Assert
+        assertEquals(expected,result);
+    }
+
 
 }

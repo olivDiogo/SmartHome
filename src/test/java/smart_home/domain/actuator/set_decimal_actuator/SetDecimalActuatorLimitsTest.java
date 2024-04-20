@@ -222,6 +222,33 @@ class SetDecimalActuatorLimitsTest {
         // Assert
         assertEquals(expected, result);
     }
+    @Test
+    void shouldReturnHashCode_whenHashCodeIsCalled() {
+        // Arrange
+        double lowerLimit = 1.5;
+        double upperLimit = 9.5;
+        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+
+        // Act
+        int result = setDecimalActuatorLimits.hashCode();
+
+        // Assert
+        assertEquals(Double.hashCode(lowerLimit) + Double.hashCode(upperLimit), result);
+    }
+    @Test
+    void shouldReturnTrue_whenEqualsIsTrueHashCodeShouldBeTheSame() {
+        // Arrange
+        double lowerLimit = 1.5;
+        double upperLimit = 9.5;
+        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        SetDecimalActuatorLimits setDecimalActuatorLimits2 = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        boolean expected = setDecimalActuatorLimits.equals(setDecimalActuatorLimits2);
+        // Act
+        boolean result = setDecimalActuatorLimits.hashCode() == setDecimalActuatorLimits2.hashCode();
+
+        // Assert
+        assertEquals(expected, result);
+    }
 
 
 }

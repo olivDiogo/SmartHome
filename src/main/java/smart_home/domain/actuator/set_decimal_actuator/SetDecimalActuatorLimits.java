@@ -66,6 +66,10 @@ public class SetDecimalActuatorLimits implements IValueObject {
         }
         return false;
     }
+    @Override
+    public int hashCode() {
+        return Double.hashCode(_lowerLimit) + Double.hashCode(_upperLimit);
+    }
 
     /**
      * Overrides the toString method to return a string representation of the SetDecimalActuatorLimits object.

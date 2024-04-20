@@ -26,6 +26,10 @@ public class SetIntegerValue implements IValueObject {
         }
         return false;
     }
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(_value);
+    }
 
     /**
      * Returns the value of the integer actuator as a string.

@@ -29,14 +29,13 @@ import static org.junit.jupiter.api.Assertions.*;
         // Arrange
         int lowerLimit = 100;
         int upperLimit = 0;
-
+         String expectedMessage = "Lower limit cannot be greater than upper limit";
         // Act
-        try {
-            new SetIntegerActuatorLimits(lowerLimit, upperLimit);
-        } catch (IllegalArgumentException e) {
-            // Assert
-            assertEquals(e.getMessage(), "Lower limit cannot be greater than upper limit");
-        }
+       IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SetIntegerActuatorLimits(lowerLimit, upperLimit));
+
+        // Assert
+        assertEquals(expectedMessage, exception.getMessage());
+
     }
 
     /**
@@ -161,5 +160,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
         // Assert
         assertFalse(result);
+    }
+    @Test
+    void shouldReturnTrueForHashCode_whenTwoObjectsAreEqual() {
+        // Arrange
+        int lowerLimit = 1;
+        int upperLimit = 100;
+        SetIntegerActuatorLimits setIntegerActuatorLimits = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
+        SetIntegerActuatorLimits setIntegerActuatorLimits2 = new SetIntegerActuatorLimits(lowerLimit, lowerLimit);
+
+         boolean expected = setIntegerActuatorLimits.equals(setIntegerActuatorLimits2);
+
+       // Act
+         boolean result = setIntegerActuatorLimits.hashCode() == setIntegerActuatorLimits2.hashCode();
+        // Assert
+        assertEquals(expected, result);
     }
 }
