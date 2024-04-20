@@ -4,10 +4,11 @@ import smart_home.ddd.IValueObject;
 
 public class Address implements IValueObject {
 
+    private static final int COUNTRY_CODE_LENGTH = 2;
+
     private final String _street;
     private final String _doorNumber;
     private final String _countryCode; // ISO 3166-1 alpha-2 country code
-    private final int COUNTRY_CODE_LENGTH = 2;
     private final IPostalCode _postalCode;
 
     public Address(String street, String doorNumber, String postalCode, String countryCode, PostalCodeFactory factory) {
