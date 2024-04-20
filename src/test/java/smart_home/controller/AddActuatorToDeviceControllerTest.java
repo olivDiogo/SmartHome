@@ -1,6 +1,7 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+import smart_home.domain.sensor_model.SensorModelFactoryImpl;
 import smart_home.mapper.*;
 import smart_home.domain.actuator.ActuatorFactoryImpl;
 import smart_home.domain.actuator_model.ActuatorModel;
@@ -18,6 +19,7 @@ import smart_home.domain.unit.UnitFactoryImpl;
 import smart_home.dto.*;
 import smart_home.persistence.mem.*;
 import smart_home.service.*;
+import smart_home.utils.LoadModelsAndUnit;
 import smart_home.value_object.*;
 
 import java.util.List;
@@ -25,6 +27,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddActuatorToDeviceControllerTest {
+    SensorModelRepository sensorModelRepository = new SensorModelRepository();
+    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
     RoomRepository roomRepository = new RoomRepository();
     RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = new RoomAssembler();
@@ -98,9 +102,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldCreateAddActuatorToDeviceController() throws InstantiationException {
         // Assert
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
 
         // Act
         try {
@@ -128,9 +137,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldThrowException_whenRoomAssemblerIsNull() throws InstantiationException {
         // Assert
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
         // Act
         try {
             new AddActuatorToDeviceController(
@@ -157,9 +171,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldThrowException_whenDeviceServiceIsNull() throws InstantiationException {
         // Assert
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
         // Act
         try {
             new AddActuatorToDeviceController(
@@ -186,9 +205,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldThrowException_whenDeviceAssemblerIsNull() throws InstantiationException {
         // Assert
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
         // Act
         try {
             new AddActuatorToDeviceController(
@@ -215,9 +239,17 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldThrowException_whenActuatorModelServiceIsNull() throws InstantiationException {
         // Assert
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
+//        ActuatorConfigurationService configurationService =
+//                new ActuatorConfigurationService(
+//                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
         // Act
         try {
             new AddActuatorToDeviceController(
@@ -244,9 +276,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldThrowException_whenActuatorModelAssemblerIsNull() throws InstantiationException {
         // Assert
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
         // Act
         try {
             new AddActuatorToDeviceController(
@@ -296,9 +333,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldThrowException_whenActuatorTypeServiceIsNull() throws InstantiationException {
         // Assert
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
         // Act
         try {
             new AddActuatorToDeviceController(
@@ -325,9 +367,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldThrowException_whenActuatorTypeAssemblerIsNull() throws InstantiationException {
         // Assert
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
         // Act
         try {
             new AddActuatorToDeviceController(
@@ -354,9 +401,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldThrowException_whenActuatorAssemblerIsNull() throws InstantiationException {
         // Assert
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
         // Act
         try {
             new AddActuatorToDeviceController(
@@ -383,9 +435,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldThrowException_whenActuatorServiceIsNull() throws InstantiationException {
         // Assert
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
         // Act
         try {
             new AddActuatorToDeviceController(
@@ -477,9 +534,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldThrowException_WhenRoomIDDoesNotExistInRepository() throws InstantiationException {
         // Arrange
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
 
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
@@ -560,9 +622,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldGetAvailableActuatorTypesList() throws InstantiationException {
         // Arrange
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
 
         TypeDescription typeDescription = new TypeDescription("BlindRoller");
         UnitID unit = new UnitID("Percent");
@@ -602,9 +669,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldGetAvailableActuatorModelsList() throws InstantiationException {
         // Arrange
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
 
         TypeDescription typeDescription = new TypeDescription("BlindRoller");
         UnitID unit = new UnitID("Percent");
@@ -711,9 +783,14 @@ class AddActuatorToDeviceControllerTest {
      */
     @Test
     void shouldReturnEmptyList_whenThereAreNoActuatorTypes() throws InstantiationException {
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
 
         AddActuatorToDeviceController controller =
                 new AddActuatorToDeviceController(
@@ -758,9 +835,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldAddActuatorToDevice_whenParametersAreValidBlindRoller() throws InstantiationException {
         // Arrange
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
 
         loadHouseAndRoom();
         List<Room> rooms = roomRepository.findAll();
@@ -812,9 +894,14 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void shouldAddActuatorToDevice_whenParametersAreValidSwitchActuator() throws InstantiationException {
         // Arrange
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
 
         loadHouseAndRoom();
         List<Room> rooms = roomRepository.findAll();
@@ -866,9 +953,14 @@ class AddActuatorToDeviceControllerTest {
     void shouldThrowIllegalArgumentException_WhenActuatorDataDTOIsNull()
             throws InstantiationException {
         // Arrange
-        ActuatorConfigurationService configurationService =
-                new ActuatorConfigurationService(
-                        actuatorModelRepository, unitRepository, actuatorModelFactory, unitFactory);
+        LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
 
         loadHouseAndRoom();
         List<Room> rooms = roomRepository.findAll();

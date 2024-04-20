@@ -21,7 +21,6 @@ public class AddActuatorToDeviceController {
     private IAssembler<Device, DeviceDTO> _deviceAssembler;
     private IActuatorModelService _actuatorModelService;
     private IAssembler<ActuatorModel, ActuatorModelDTO> _actuatorModelAssembler;
-    private ConfigurationService _configurationService;
     private IActuatorTypeService _actuatorTypeService;
     private IAssembler<ActuatorType, ActuatorTypeDTO> _actuatorTypeAssembler;
     private IAssembler<IActuator, ActuatorDTO> _actuatorAssembler;

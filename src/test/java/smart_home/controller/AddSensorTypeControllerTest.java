@@ -1,6 +1,9 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+import smart_home.domain.actuator_model.ActuatorModelFactoryImpl;
+import smart_home.domain.actuator_model.IActuatorModelFactory;
+import smart_home.domain.repository.ISensorModelRepository;
 import smart_home.mapper.SensorTypeAssembler;
 import smart_home.mapper.UnitAssembler;
 import smart_home.domain.sensor_model.ISensorModelFactory;
@@ -11,12 +14,13 @@ import smart_home.domain.unit.UnitFactoryImpl;
 import smart_home.dto.SensorTypeDTO;
 import smart_home.dto.SensorTypeDataDTO;
 import smart_home.dto.UnitDTO;
+import smart_home.persistence.mem.ActuatorModelRepository;
 import smart_home.persistence.mem.SensorModelRepository;
 import smart_home.persistence.mem.SensorTypeRepository;
 import smart_home.persistence.mem.UnitRepository;
-import smart_home.service.ConfigurationService;
 import smart_home.service.SensorTypeServiceImpl;
 import smart_home.service.UnitServiceImpl;
+import smart_home.utils.LoadModelsAndUnit;
 
 import java.util.List;
 
@@ -105,7 +109,10 @@ class AddSensorTypeControllerTest {
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
         ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
 
-        ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
+
+        LoadModelsAndUnit loadModelsAndUnit = new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
 
         List<UnitDTO> expected = unitAssembler.domainToDTO(unitRepository.findAll());
 
@@ -132,7 +139,10 @@ class AddSensorTypeControllerTest {
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
         ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
 
-        ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
+
+        LoadModelsAndUnit loadModelsAndUnit = new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
 
         AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler);
 
@@ -165,7 +175,10 @@ class AddSensorTypeControllerTest {
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
         ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
 
-        ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
+
+        LoadModelsAndUnit loadModelsAndUnit = new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
 
         AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler);
 
@@ -198,7 +211,10 @@ class AddSensorTypeControllerTest {
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
         ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
 
-        ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
+
+        LoadModelsAndUnit loadModelsAndUnit = new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
 
         AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler);
 
@@ -231,7 +247,10 @@ class AddSensorTypeControllerTest {
         SensorModelRepository sensorModelRepository = new SensorModelRepository();
         ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
 
-        ConfigurationService configurationService = new ConfigurationService(sensorModelRepository, unitRepository,sensorModelFactory, unitFactory);
+        ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+        IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
+
+        LoadModelsAndUnit loadModelsAndUnit = new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
 
         AddSensorTypeController addSensorTypeController = new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler);
 

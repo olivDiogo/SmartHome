@@ -1,7 +1,7 @@
 package smart_home.controller;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import smart_home.domain.actuator_model.ActuatorModelFactoryImpl;
 import smart_home.mapper.*;
 import smart_home.domain.device.Device;
 import smart_home.domain.device.DeviceFactoryImpl;
@@ -19,6 +19,7 @@ import smart_home.dto.*;
 import smart_home.dto.sensor_data_dto.SensorDataGenericDTOImp;
 import smart_home.persistence.mem.*;
 import smart_home.service.*;
+import smart_home.utils.LoadModelsAndUnit;
 import smart_home.value_object.*;
 
 import java.util.List;
@@ -51,9 +52,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -107,9 +115,16 @@ public class AddSensorToDeviceControllerTest {
     RoomServiceImpl roomServiceImpl = null;
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+                new LoadModelsAndUnit(
+                        sensorModelRepository,
+                        actuatorModelRepository,
+                        unitRepository,
+                        sensorModelFactory,
+                        actuatorModelFactory,
+                        unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -165,9 +180,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -223,9 +245,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -280,9 +309,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -338,9 +374,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -399,9 +442,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -457,7 +507,6 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService = null;
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -511,9 +560,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl = null;
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorAssembler sensorAssembler = new SensorAssembler();
@@ -568,9 +624,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = null;
@@ -626,9 +689,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -682,9 +752,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -739,9 +816,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -799,9 +883,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -908,9 +999,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -980,9 +1078,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -1102,9 +1207,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -1245,9 +1357,16 @@ public class AddSensorToDeviceControllerTest {
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
     SensorModelServiceImpl sensorModelServiceImpl =
             new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -1312,9 +1431,16 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, unitFactory);
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unit = new UnitID("Celsius");
@@ -1373,10 +1499,18 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unit = new UnitID("Celsius");
@@ -1389,6 +1523,7 @@ public class AddSensorToDeviceControllerTest {
             sensorTypeServiceImpl.createSensorType(nonExistintTypeDescription, unitID);
 
     SensorTypeDTO sensorTypeDTO = sensorTypeAssembler.domainToDTO(nonExistintSensorType);
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
 
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
@@ -1448,9 +1583,17 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
@@ -1558,9 +1701,17 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
@@ -1668,9 +1819,17 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
@@ -1778,9 +1937,17 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
@@ -1888,9 +2055,17 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
@@ -1998,9 +2173,17 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
@@ -2108,9 +2291,17 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
@@ -2218,9 +2409,17 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
@@ -2328,9 +2527,17 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    ConfigurationService configurationService =
-            new ConfigurationService(
-                    sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
@@ -2437,8 +2644,17 @@ public class AddSensorToDeviceControllerTest {
             new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     RoomServiceImpl roomServiceImpl =
             new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-    new ConfigurationService(
-            sensorModelRepository, unitRepository, sensorModelFactory, new UnitFactoryImpl());
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
+    LoadModelsAndUnit loadModelsAndUnit =
+            new LoadModelsAndUnit(
+                    sensorModelRepository,
+                    actuatorModelRepository,
+                    unitRepository,
+                    sensorModelFactory,
+                    actuatorModelFactory,
+                    unitFactory);
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
