@@ -134,7 +134,7 @@ class DeviceTypeIDTest {
         DeviceTypeID deviceTypeID = new DeviceTypeID(deviceTypeIDDescription);
 
         // Act
-        boolean result = deviceTypeID.equals(deviceTypeIDDescription);
+        boolean result = deviceTypeID.equals(new Object());
 
         // Assert
         assertFalse(result);

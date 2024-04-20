@@ -175,7 +175,7 @@ class SensorIDTest {
         SensorID sensorIDObject = new SensorID(sensorID);
 
         // Act
-        boolean result = sensorIDObject.equals(sensorID);
+        boolean result = sensorIDObject.equals(new Object());
 
         // Assert
         assertFalse(result);

@@ -182,7 +182,7 @@ class UnitDescriptionTest {
         UnitDescription unitDescriptionObject = new UnitDescription(unitDescription);
 
         // Act
-        boolean result = unitDescriptionObject.equals(unitDescription);
+        boolean result = unitDescriptionObject.equals(new Object());
 
         // Assert
         assertFalse(result);

@@ -210,7 +210,7 @@ class RoomNameTest {
         RoomName roomNameObject = new RoomName(roomName);
 
         // Act
-        boolean result = roomNameObject.equals(roomName);
+        boolean result = roomNameObject.equals(new Object());
 
         // Assert
         assertFalse(result);

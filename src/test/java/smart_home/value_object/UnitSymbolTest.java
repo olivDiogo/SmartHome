@@ -208,7 +208,7 @@ class UnitSymbolTest {
         UnitSymbol unitSymbolObject = new UnitSymbol(unit);
 
         //Act
-        boolean result = unitSymbolObject.equals(unit);
+        boolean result = unitSymbolObject.equals(new Object());
 
         //Assert
         assertFalse(result);

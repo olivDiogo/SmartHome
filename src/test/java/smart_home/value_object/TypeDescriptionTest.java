@@ -208,7 +208,7 @@ class TypeDescriptionTest {
         TypeDescription typeDescription = new TypeDescription(description);
 
         //Act
-        boolean result = typeDescription.equals(description);
+        boolean result = typeDescription.equals(new Object());
 
         //Assert
         assertFalse(result);

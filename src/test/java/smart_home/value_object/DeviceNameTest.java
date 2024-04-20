@@ -215,7 +215,7 @@ class DeviceNameTest {
         DeviceName deviceNameObject = new DeviceName(deviceName);
 
         // Act
-        boolean result = deviceNameObject.equals(deviceName);
+        boolean result = deviceNameObject.equals(new Object());
 
         // Assert
         assertFalse(result);

@@ -171,7 +171,7 @@ class RoomIDTest {
         RoomFloor roomFloor = new RoomFloor(floor);
 
         // Act
-        boolean result = roomID.equals(roomFloor);
+        boolean result = roomID.equals(new Object());
 
         // Assert
         assertFalse(result);
