@@ -533,7 +533,7 @@ class SwitchSensorAggregateTest {
         SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         //Act
-        boolean result = switchSensor.equals(dewPointSensor);
+        boolean result = switchSensor.equals(new Object());
 
         //Assert
         assertFalse(result);

@@ -425,13 +425,11 @@ class InstantPowerConsumptionSensorAggregateTest {
         SensorName sensorName = new SensorName(name);
         SensorTypeID sensorTypeID = new SensorTypeID(typeID);
 
-        DewPointSensor dewPointSensor = mock(DewPointSensor.class);
-
         InstantPowerConsumptionSensor instantPowerConsumptionSensor =
                 new InstantPowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
         // Act
-        boolean result = instantPowerConsumptionSensor.equals(dewPointSensor);
+        boolean result = instantPowerConsumptionSensor.equals(new Object());
 
         // Assert
         assertFalse(result);

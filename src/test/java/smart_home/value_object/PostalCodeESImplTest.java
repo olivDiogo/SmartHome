@@ -151,7 +151,7 @@ class PostalCodeESImplTest {
         String postalCode = "28039";
         PostalCodeESImpl postalCodeES = new PostalCodeESImpl(postalCode);
         // Act
-        boolean result = postalCodeES.equals(postalCode);
+        boolean result = postalCodeES.equals(new Object());
         // Assert
         assertFalse(result);
     }

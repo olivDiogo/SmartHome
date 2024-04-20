@@ -296,10 +296,9 @@ class SwitchSensorTest {
         })) {
             SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-            DewPointSensor dewPointSensor = mock(DewPointSensor.class);
 
             // Act
-            boolean result = switchSensor.equals(dewPointSensor);
+            boolean result = switchSensor.equals(new Object());
 
             // Assert
             assertFalse(result);

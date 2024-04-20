@@ -131,7 +131,7 @@ class PostalCodeCAImplTest {
         String postalCode = "K1A 0B1";
         PostalCodeCAImpl postalCodeCA = new PostalCodeCAImpl(postalCode);
         // Act
-        boolean result = postalCodeCA.equals(postalCode);
+        boolean result = postalCodeCA.equals(new Object());
         // Assert
         assertFalse(result);
     }

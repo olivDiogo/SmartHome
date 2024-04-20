@@ -86,7 +86,7 @@ class ModelPathTest {
         String path = "/smart_home/value_object/ModelPath.java";
         ModelPath modelPath = new ModelPath(path);
         //Act
-        boolean result = modelPath.equals(path);
+        boolean result = modelPath.equals(new Object());
         //Assert
         assertFalse(result);
     }

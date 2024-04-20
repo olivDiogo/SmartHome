@@ -207,10 +207,10 @@ class DimensionTest {
         String dimension2 = "Dimension";
 
         //Act
-        boolean result = dimension.equals(dimension2);
+        boolean result = dimension.equals(new Object());
 
         //Assert
-        assertTrue(!result);
+        assertFalse(result);
     }
 
     /**

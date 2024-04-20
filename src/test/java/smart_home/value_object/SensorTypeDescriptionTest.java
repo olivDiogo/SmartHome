@@ -94,7 +94,7 @@ class SensorTypeDescriptionTest {
         String description = "Temperature Sensor";
         SensorTypeDescription sensorTypeDescription = new SensorTypeDescription(description);
         //Act
-        boolean result = sensorTypeDescription.equals(description);
+        boolean result = sensorTypeDescription.equals(new Object());
         //Assert
         assertFalse(result);
     }
