@@ -18,7 +18,6 @@ import java.util.Optional;
 public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
 
     ISensorTypeSpringDataRepository _repository;
-    EntityManagerFactory _factory;
     IDataModelAssembler<SensorTypeDataModel, SensorType> _assembler;
 
     /**
@@ -27,27 +26,14 @@ public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
      * @param repository sensor type spring data repository
      * @param assembler  data model assembler
      */
-    public SensorTypeSpringDataRepository(ISensorTypeSpringDataRepository repository, IDataModelAssembler assembler) {
+    public SensorTypeSpringDataRepository(ISensorTypeSpringDataRepository repository, IDataModelAssembler<SensorTypeDataModel, SensorType> assembler) {
         Validator.validateNotNull(repository, "Sensor type spring data repository");
         Validator.validateNotNull(assembler, "Data model assembler");
 
-        this._factory = Persistence.createEntityManagerFactory("smart_home");
         this._repository = repository;
         this._assembler = assembler;
     }
 
-    /**
-     * Method to create an entity manager
-     *
-     * @return entity manager
-     */
-    private EntityManager getEntityManager() {
-        try  {
-            return _factory.createEntityManager();
-        } catch (Exception e) {
-            throw new RuntimeException("Error creating the entity manager", e);
-        }
-    }
 
     /**
      * Method to save a domain entity.
