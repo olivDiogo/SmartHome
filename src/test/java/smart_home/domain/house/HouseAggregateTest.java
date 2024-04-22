@@ -55,6 +55,29 @@ class HouseAggregateTest {
 
     /**
      * Ensures that an IllegalArgumentException is thrown when attempting to instantiate
+     * a House with a null Address parameter, validating input parameter checks.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenSecondConstructorIsCalledWithNullAddress(){
+        // Arrange
+        Address address = null;
+        double latitude = 41.14961;
+        double longitude = -8.61099;
+        GPS gps = new GPS(latitude, longitude);
+
+        HouseID houseID = new HouseID("68");
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new House(houseID, address, gps));
+
+        // Assert
+        assertEquals("Address is required", exception.getMessage());
+    }
+
+
+
+    /**
+     * Ensures that an IllegalArgumentException is thrown when attempting to instantiate
      * a House with a null GPS parameter, validating input parameter checks.
      */
     @Test
@@ -70,6 +93,30 @@ class HouseAggregateTest {
 
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new House(address, gps));
+
+        // Assert
+        assertEquals("Gps is required", exception.getMessage());
+    }
+
+    /**
+     * Ensures that an IllegalArgumentException is thrown when attempting to instantiate
+     * a House with a null GPS parameter, validating input parameter checks.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenSecondConstructorIsCalledWithNullGPS(){
+        // Arrange
+        String street = "Rua do Amial";
+        String doorNumber = "12";
+        String zipCode = "4200-055";
+        String countryCode = "PT";
+        PostalCodeFactory factory = new PostalCodeFactory();
+        Address address = new Address(street, doorNumber, zipCode, countryCode, factory);
+        GPS gps = null;
+
+        HouseID houseID = new HouseID("68");
+
+        // Act
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new House(houseID, address, gps));
 
         // Assert
         assertEquals("Gps is required", exception.getMessage());
