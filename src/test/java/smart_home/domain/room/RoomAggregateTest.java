@@ -59,6 +59,8 @@ class RoomAggregateTest {
         assertNotNull(room);
     }
 
+
+
     /**
      * Test that the Room class throws an IllegalArgumentException when the constructor is called with a null RoomID.
      */
@@ -79,6 +81,36 @@ class RoomAggregateTest {
         RoomID roomID = null;
 
         String expectedMessage = "RoomID is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor, roomID));
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * Test that the Room class throws an IllegalArgumentException when the constructor is called with a null RoomID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenSecondConstructorIsCalledWithNullHouseID() {
+        //Arrange
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+        String strRoomID = "RoomID";
+
+        HouseID houseID = null;
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
+        RoomID roomID = new RoomID(strRoomID);
+
+        String expectedMessage = "HouseID is required";
 
         //Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor, roomID));
@@ -147,6 +179,36 @@ class RoomAggregateTest {
     }
 
     /**
+     * Test that the Room class throws an IllegalArgumentException when the constructor is called with a null RoomName.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenSecondConstructorIsCalledWithNullRoomName() {
+        //Arrange
+        String houseIDName = "HouseID";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        int floor = 1;
+        String strRoomID = "RoomID";
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = null;
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = new RoomFloor(floor);
+        RoomID roomID = new RoomID(strRoomID);
+
+        String expectedMessage = "RoomName is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor, roomID));
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
      * Test that the Room class throws an IllegalArgumentException when the constructor is called with a null Dimension.
      */
     @Test
@@ -165,6 +227,35 @@ class RoomAggregateTest {
 
         //Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
+    /**
+     * Test that the Room class throws an IllegalArgumentException when the constructor is called with a null Dimension.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenSecondConstructorIsCalledWithNullDimension() {
+        //Arrange
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int floor = 1;
+        String strRoomID = "RoomID";
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = null;
+        RoomFloor roomFloor = new RoomFloor(floor);
+        RoomID roomID = new RoomID(strRoomID);
+
+        String expectedMessage = "Dimension is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor, roomID));
 
         String actualMessage = exception.getMessage();
 
@@ -194,6 +285,36 @@ class RoomAggregateTest {
 
         //Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor));
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
+     * Test that the Room class throws an IllegalArgumentException when the constructor is called with a null RoomFloor.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_WhenSecondConstructorIsCalledWithNullRoomFloor() {
+        //Arrange
+        String houseIDName = "HouseID";
+        String name = "RoomName";
+        int width = 13;
+        int length = 12;
+        int height = 16;
+        String strRoomID = "RoomID";
+
+        HouseID houseID = new HouseID(houseIDName);
+        RoomName roomName = new RoomName(name);
+        Dimension dimension = new Dimension(width, length, height);
+        RoomFloor roomFloor = null;
+        RoomID roomID = new RoomID(strRoomID);
+
+        String expectedMessage = "RoomFloor is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Room(houseID, roomName, dimension, roomFloor, roomID));
 
         String actualMessage = exception.getMessage();
 
