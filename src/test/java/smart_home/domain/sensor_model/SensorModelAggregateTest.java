@@ -1,5 +1,6 @@
 package smart_home.domain.sensor_model;
 
+import org.springframework.ui.Model;
 import smart_home.value_object.ModelPath;
 import smart_home.value_object.SensorModelName;
 import smart_home.value_object.SensorTypeID;
@@ -81,20 +82,58 @@ class SensorModelAggregateTest {
     assertTrue(result);
   }
 
-  /** The method should return false when given null. */
+  /**
+   * The method should return false when the objects are not the same.
+    */
   @Test
-  void shouldReturnFalse_WhenGivenNull() {
+  void shouldReturnFalse_WhenObjectIsNotTheSame() {
     // Arrange
-    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+   String sensorModelValue = "sensorModelName";
+    SensorModelName sensorModelName = new SensorModelName(sensorModelValue);
     ModelPath modelPath = new ModelPath("modelPath");
+    ModelPath modelPath1 = new ModelPath("modelPath1");
     SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
 
     SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
+    SensorModel sensorModel1 = new SensorModel(sensorModelName, modelPath1, sensorTypeID);
     // Act
-    boolean result = sensorModel.equals(null);
+    boolean result = sensorModel.equals(sensorModel1);
     // Assert
     assertFalse(result);
   }
+
+  /**
+   * The method should return false when the object is not an instance of SensorModel.
+   */
+  @Test
+    void shouldReturnFalse_WhenObjectIsNotInstanceOfSensorModel() {
+        // Arrange
+        SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+
+        SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
+        // Act
+        boolean result = sensorModel.equals(new Object());
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void shouldReturnHashCode_WhenHashCodeIsCalled () {
+        // Arrange
+        SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+        ModelPath modelPath = new ModelPath("modelPath");
+        SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+
+        SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
+
+        int expected = modelPath.hashCode();
+        // Act
+        int result = sensorModel.hashCode();
+        // Assert
+        assertEquals(expected, result);
+    }
 
   /** The method should sensor model id when get id is called. */
   @Test
