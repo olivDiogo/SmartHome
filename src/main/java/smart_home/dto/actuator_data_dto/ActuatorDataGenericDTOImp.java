@@ -1,8 +1,8 @@
-package smart_home.dto;
+package smart_home.dto.actuator_data_dto;
 
 import java.util.Map;
 
-public class ActuatorDataDTO {
+public class ActuatorDataGenericDTOImp implements IActuatorDataDTO{
     /**
      * The data needed to create a actuator.
      */
@@ -10,7 +10,6 @@ public class ActuatorDataDTO {
     public final String actuatorModelPath;
     public final String actuatorName;
     public final String actuatorTypeID;
-    public Map<String, String> additionalParameters;
 
     /**
      * Constructs a new ActuatorDataDTO object with the specified actuator details.
@@ -20,11 +19,8 @@ public class ActuatorDataDTO {
      * @param actuatorName      The name of the actuator.
      * @param actuatorTypeID    The unique identifier of the actuator type.
      */
-    public ActuatorDataDTO(String deviceID, String actuatorModelPath, String actuatorName, String actuatorTypeID) {
-        this(deviceID, actuatorModelPath, actuatorName, actuatorTypeID, null);
-    }
 
-    public ActuatorDataDTO(String deviceID, String actuatorModelPath, String actuatorName, String actuatorTypeID, Map additionalParameters) {
+    public ActuatorDataGenericDTOImp(String deviceID, String actuatorModelPath, String actuatorName, String actuatorTypeID) {
         this.deviceID = deviceID;
         this.actuatorModelPath = actuatorModelPath;
         this.actuatorName = actuatorName;

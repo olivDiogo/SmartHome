@@ -23,7 +23,7 @@ class SetDecimalActuatorTest {
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
         ActuatorName actuatorName = mock(ActuatorName.class);
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
 
         // Act
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
@@ -45,7 +45,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
 
         // Act
         SetDecimalActuator actuator = new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
@@ -66,7 +66,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         String expectedMessage = "ActuatorID is required";
 
         // Act & Assert
@@ -89,7 +89,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         String expectedMessage = "DeviceID is required";
 
         // Act & Assert
@@ -112,7 +112,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         String expectedMessage = "ModelPath is required";
 
         // Act & Assert
@@ -135,7 +135,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = null;
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         String expectedMessage = "ActuatorName is required";
 
         // Act & Assert
@@ -157,7 +157,7 @@ class SetDecimalActuatorTest {
         ModelPath modelPath = mock(ModelPath.class);
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = null;
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         String expectedMessage = "ActuatorTypeID is required";
 
         // Act & Assert
@@ -180,7 +180,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetInteger");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         String expectedMessage = "The value of 'actuatorTypeID' should be 'SetDecimal'.";
 
         // Act & Assert
@@ -203,7 +203,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = null;
+        DecimalLimits limits = null;
         String expectedMessage = "SetDecimalActuatorLimits is required";
 
         // Act & Assert
@@ -226,7 +226,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
@@ -247,7 +247,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
@@ -269,7 +269,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
@@ -291,7 +291,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
@@ -312,7 +312,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
@@ -334,11 +334,11 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
-        SetDecimalActuatorLimits result = setDecimalActuator.getLimits();
+        DecimalLimits result = setDecimalActuator.getLimits();
 
         // Assert
         assertEquals(limits, result);
@@ -356,7 +356,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
@@ -378,7 +378,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
         SetDecimalActuator setDecimalActuator2 = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
@@ -401,7 +401,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -423,7 +423,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
 
         try (MockedConstruction<ActuatorID> mocked = mockConstruction(ActuatorID.class, (mock, context) -> {
             when(mock.toString()).thenReturn("ActuatorID");
@@ -450,7 +450,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
 
         try (MockedConstruction<ActuatorID> mocked = mockConstruction(ActuatorID.class, (mock, context) -> {
             when(mock.toString()).thenReturn("1");
@@ -478,7 +478,7 @@ class SetDecimalActuatorTest {
         ActuatorName actuatorName = mock(ActuatorName.class);
         ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
         when(actuatorTypeID.getID()).thenReturn("SetDecimal");
-        SetDecimalActuatorLimits limits = mock(SetDecimalActuatorLimits.class);
+        DecimalLimits limits = mock(DecimalLimits.class);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 

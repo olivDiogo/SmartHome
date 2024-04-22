@@ -15,7 +15,7 @@ public class SetIntegerActuator implements IActuator {
     private ActuatorTypeID _actuatorTypeID;
     private DeviceID _deviceID;
     private SetIntegerValue _value;
-    private SetIntegerActuatorLimits _limits;
+    private IntegerLimits _limits;
 
     /**
      * Constructor for SetIntegerActuator
@@ -25,7 +25,7 @@ public class SetIntegerActuator implements IActuator {
      * @param actuatorTypeID is the ID of the actuator type
      * @param actuatorName   is the name of the actuator
      */
-    public SetIntegerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetIntegerActuatorLimits limits) {
+    public SetIntegerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, IntegerLimits limits) {
         Validator.validateNotNull(deviceID, "DeviceID");
         Validator.validateNotNull(modelPath, "ModelPath");
         Validator.validateNotNull(actuatorName, "ActuatorName");
@@ -49,7 +49,7 @@ public class SetIntegerActuator implements IActuator {
      * @param actuatorTypeID is the ID of the actuator type
      * @param actuatorName   is the name of the actuator
      */
-    public SetIntegerActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, SetIntegerActuatorLimits limits) {
+    public SetIntegerActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, IntegerLimits limits) {
         Validator.validateNotNull(deviceID, "DeviceID");
         Validator.validateNotNull(modelPath, "ModelPath");
         Validator.validateNotNull(actuatorName, "ActuatorName");
@@ -144,7 +144,7 @@ public class SetIntegerActuator implements IActuator {
      *
      * @return limits
      */
-    public SetIntegerActuatorLimits getLimits() {
+    public IntegerLimits getLimits() {
         return this._limits;
     }
 

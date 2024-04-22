@@ -25,7 +25,7 @@ public class SetDecimalActuator implements IActuator {
 
     private SetDecimalValue _value;
 
-    private SetDecimalActuatorLimits _limits;
+    private DecimalLimits _limits;
 
     /**
      * Constructs a SetDecimalActuator object with the provided parameters.
@@ -41,7 +41,7 @@ public class SetDecimalActuator implements IActuator {
             ModelPath modelPath,
             ActuatorTypeID actuatorTypeID,
             ActuatorName actuatorName,
-            SetDecimalActuatorLimits limits) {
+            DecimalLimits limits) {
         Validator.validateNotNull(deviceID, "DeviceID");
         Validator.validateNotNull(modelPath, "ModelPath");
         Validator.validateNotNull(actuatorName, "ActuatorName");
@@ -72,7 +72,7 @@ public class SetDecimalActuator implements IActuator {
             ModelPath modelPath,
             ActuatorTypeID actuatorTypeID,
             ActuatorName actuatorName,
-            SetDecimalActuatorLimits limits) {
+            DecimalLimits limits) {
         Validator.validateNotNull(deviceID, "DeviceID");
         Validator.validateNotNull(modelPath, "ModelPath");
         Validator.validateNotNull(actuatorName, "ActuatorName");
@@ -158,7 +158,7 @@ public class SetDecimalActuator implements IActuator {
      *
      * @return The SetDecimalActuatorLimits object representing the limits of the actuator.
      */
-    public SetDecimalActuatorLimits getLimits() {
+    public DecimalLimits getLimits() {
         return _limits;
     }
 

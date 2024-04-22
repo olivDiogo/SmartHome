@@ -23,7 +23,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         //Act
         SetIntegerActuator sensor = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
@@ -43,7 +43,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         //Act
         SetIntegerActuator sensor = new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
@@ -63,7 +63,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -86,7 +86,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName(name);
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -109,7 +109,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath(path);
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -133,7 +133,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(id);
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -157,7 +157,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -181,12 +181,12 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
+        IntegerLimits limits = new IntegerLimits(lowerLimit, upperLimit);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         //Act
-        SetIntegerActuatorLimits result = setIntegerActuator.getLimits();
+        IntegerLimits result = setIntegerActuator.getLimits();
 
         //Assert
         assertEquals(result.getLowerLimit(), lowerLimit);
@@ -208,7 +208,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
+        IntegerLimits limits = new IntegerLimits(lowerLimit, upperLimit);
 
         SetIntegerValue valueDouble = new SetIntegerValue(value);
 
@@ -236,7 +236,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
+        IntegerLimits limits = new IntegerLimits(lowerLimit, upperLimit);
 
         SetIntegerValue valueDouble = new SetIntegerValue(value);
 
@@ -267,7 +267,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
+        IntegerLimits limits = new IntegerLimits(lowerLimit, upperLimit);
 
         SetIntegerValue valueDouble = new SetIntegerValue(value);
 
@@ -296,7 +296,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
+        IntegerLimits limits = new IntegerLimits(lowerLimit, upperLimit);
 
         SetIntegerValue value = null;
 
@@ -328,7 +328,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(lowerLimit, upperLimit);
+        IntegerLimits limits = new IntegerLimits(lowerLimit, upperLimit);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -349,7 +349,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -370,7 +370,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -393,7 +393,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -414,7 +414,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
         SetIntegerValue value = setIntegerActuator.setValue(new SetIntegerValue(50));
@@ -439,7 +439,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("modelPath");
         ActuatorName actuatorName = new ActuatorName("actuatorName");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(0, 100);
+        IntegerLimits limits = new IntegerLimits(0, 100);
 
         SetIntegerActuator setIntegerActuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
         ActuatorID actuatorID = setIntegerActuator.getID();
@@ -462,7 +462,7 @@ class SetIntegerActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuator");
         ActuatorName actuatorName = new ActuatorName("SetInteger");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetInteger");
-        SetIntegerActuatorLimits limits = new SetIntegerActuatorLimits(1, 9);
+        IntegerLimits limits = new IntegerLimits(1, 9);
 
         ActuatorDataModel actuatorDataModel = new ActuatorDataModel();
 

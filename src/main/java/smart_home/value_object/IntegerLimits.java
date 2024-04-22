@@ -1,8 +1,8 @@
-package smart_home.domain.actuator.set_integer_actuator;
+package smart_home.value_object;
 
 import smart_home.ddd.IValueObject;
 
-public class SetIntegerActuatorLimits implements IValueObject {
+public class IntegerLimits implements IValueObject {
     private int _lowerLimit;
     private int _upperLimit;
 
@@ -12,7 +12,7 @@ public class SetIntegerActuatorLimits implements IValueObject {
      * @param lowerLimit
      * @param upperLimit
      */
-    public SetIntegerActuatorLimits(int lowerLimit, int upperLimit) {
+    public IntegerLimits(int lowerLimit, int upperLimit) {
         validateLimits(lowerLimit, upperLimit);
     }
 
@@ -56,7 +56,7 @@ public class SetIntegerActuatorLimits implements IValueObject {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof SetIntegerActuatorLimits that){
+        if (o instanceof IntegerLimits that){
             return _lowerLimit == that._lowerLimit && _upperLimit == that._upperLimit;
         }
         return false;

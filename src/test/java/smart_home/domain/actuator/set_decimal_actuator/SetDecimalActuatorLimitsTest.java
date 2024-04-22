@@ -1,6 +1,7 @@
 package smart_home.domain.actuator.set_decimal_actuator;
 
 import org.junit.jupiter.api.Test;
+import smart_home.value_object.DecimalLimits;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,10 +20,10 @@ class SetDecimalActuatorLimitsTest {
         double upperLimit = 9.5;
 
         // Act
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
 
         // Assert
-        assertNotNull(setDecimalActuatorLimits);
+        assertNotNull(decimalLimits);
     }
 
     /**
@@ -38,7 +39,7 @@ class SetDecimalActuatorLimitsTest {
 
         // Act
         try {
-            new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+            new DecimalLimits(lowerLimit, upperLimit);
         } catch (IllegalArgumentException e) {
             // Assert
             assertEquals(expectedMessage, e.getMessage());
@@ -58,7 +59,7 @@ class SetDecimalActuatorLimitsTest {
 
         // Act
         try {
-            new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+            new DecimalLimits(lowerLimit, upperLimit);
         } catch (IllegalArgumentException e) {
             // Assert
             assertEquals(expectedMessage, e.getMessage());
@@ -73,10 +74,10 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
 
         // Act
-        double result = setDecimalActuatorLimits.getLowerLimit();
+        double result = decimalLimits.getLowerLimit();
 
         // Assert
         assertEquals(lowerLimit, result);
@@ -90,10 +91,10 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
 
         // Act
-        double result = setDecimalActuatorLimits.getUpperLimit();
+        double result = decimalLimits.getUpperLimit();
 
         // Assert
         assertEquals(upperLimit, result);
@@ -107,10 +108,10 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
 
         // Act
-        boolean result = setDecimalActuatorLimits.equals(setDecimalActuatorLimits);
+        boolean result = decimalLimits.equals(decimalLimits);
 
         // Assert
         assertTrue(result);
@@ -124,10 +125,10 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
 
         // Act
-        boolean result = setDecimalActuatorLimits.equals(new Object());
+        boolean result = decimalLimits.equals(new Object());
 
         // Assert
         assertFalse(result);
@@ -141,11 +142,11 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
-        SetDecimalActuatorLimits setDecimalActuatorLimits2 = new SetDecimalActuatorLimits(1.4, 9.5);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits2 = new DecimalLimits(1.4, 9.5);
 
         // Act
-        boolean result = setDecimalActuatorLimits.equals(setDecimalActuatorLimits2);
+        boolean result = decimalLimits.equals(decimalLimits2);
 
         // Assert
         assertFalse(result);
@@ -159,11 +160,11 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
-        SetDecimalActuatorLimits setDecimalActuatorLimits2 = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits2 = new DecimalLimits(lowerLimit, upperLimit);
 
         // Act
-        boolean result = setDecimalActuatorLimits.equals(setDecimalActuatorLimits2);
+        boolean result = decimalLimits.equals(decimalLimits2);
 
         // Assert
         assertTrue(result);
@@ -177,11 +178,11 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
-        SetDecimalActuatorLimits setDecimalActuatorLimits2 = new SetDecimalActuatorLimits(1.4, upperLimit);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits2 = new DecimalLimits(1.4, upperLimit);
 
         // Act
-        boolean result = setDecimalActuatorLimits.equals(setDecimalActuatorLimits2);
+        boolean result = decimalLimits.equals(decimalLimits2);
 
         // Assert
         assertFalse(result);
@@ -195,11 +196,11 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
-        SetDecimalActuatorLimits setDecimalActuatorLimits2 = new SetDecimalActuatorLimits(lowerLimit, 9.4);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits2 = new DecimalLimits(lowerLimit, 9.4);
 
         // Act
-        boolean result = setDecimalActuatorLimits.equals(setDecimalActuatorLimits2);
+        boolean result = decimalLimits.equals(decimalLimits2);
 
         // Assert
         assertFalse(result);
@@ -212,12 +213,12 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
 
         String expected = "Lower limit: " + lowerLimit + ", Upper limit: " + upperLimit;
 
         // Act
-        String result = setDecimalActuatorLimits.toString();
+        String result = decimalLimits.toString();
 
         // Assert
         assertEquals(expected, result);
@@ -227,10 +228,10 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
 
         // Act
-        int result = setDecimalActuatorLimits.hashCode();
+        int result = decimalLimits.hashCode();
 
         // Assert
         assertEquals(Double.hashCode(lowerLimit) + Double.hashCode(upperLimit), result);
@@ -240,11 +241,11 @@ class SetDecimalActuatorLimitsTest {
         // Arrange
         double lowerLimit = 1.5;
         double upperLimit = 9.5;
-        SetDecimalActuatorLimits setDecimalActuatorLimits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
-        SetDecimalActuatorLimits setDecimalActuatorLimits2 = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
-        boolean expected = setDecimalActuatorLimits.equals(setDecimalActuatorLimits2);
+        DecimalLimits decimalLimits = new DecimalLimits(lowerLimit, upperLimit);
+        DecimalLimits decimalLimits2 = new DecimalLimits(lowerLimit, upperLimit);
+        boolean expected = decimalLimits.equals(decimalLimits2);
         // Act
-        boolean result = setDecimalActuatorLimits.hashCode() == setDecimalActuatorLimits2.hashCode();
+        boolean result = decimalLimits.hashCode() == decimalLimits2.hashCode();
 
         // Assert
         assertEquals(expected, result);

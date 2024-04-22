@@ -8,7 +8,9 @@ import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;
 import smart_home.domain.service.*;
 import smart_home.dto.*;
-import smart_home.service.*;
+import smart_home.dto.actuator_data_dto.IActuatorDataDTO;
+import smart_home.mapper.actuator_vo_assembler.ActuatorVOAssemblerImpl;
+import smart_home.mapper.actuator_vo_assembler.IActuatorVOAssembler;
 import smart_home.value_object.*;
 
 import java.util.Collections;
@@ -260,18 +262,16 @@ public class AddActuatorToDeviceController {
     /**
      * Adds an actuator to a device.
      *
-     * @param actuatorDataDTO is the actuator data DTO.
+     * @param actuatorDataDTOImp is the actuator data DTO.
      * @return the actuator DTO.
      */
-    public ActuatorDTO addActuatorToDevice(ActuatorDataDTO actuatorDataDTO) {
-        validateActuatorDataDTO(actuatorDataDTO);
+    public ActuatorDTO addActuatorToDevice(IActuatorDataDTO actuatorDataDTOImp) {
+        validateActuatorDataDTO(actuatorDataDTOImp);
 
-        ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
-        DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
-        ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataDTO.actuatorTypeID);
-        ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
+        IActuatorVOAssembler actuatorVOAssembler = new ActuatorVOAssemblerImpl();
+        Object[] actuatorParameters = actuatorVOAssembler.getActuatorParameters(actuatorDataDTOImp);
 
-        IActuator actuator = _actuatorService.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
+        IActuator actuator = _actuatorService.addActuator(actuatorParameters);
 
         return (ActuatorDTO) _actuatorAssembler.domainToDTO(actuator);
     }
@@ -282,7 +282,7 @@ public class AddActuatorToDeviceController {
      *
      * @param actuatorDataDTO is the actuator data DTO.
      */
-    private void validateActuatorDataDTO(ActuatorDataDTO actuatorDataDTO) {
+    private void validateActuatorDataDTO(IActuatorDataDTO actuatorDataDTO) {
         if (actuatorDataDTO == null) {
             throw new IllegalArgumentException("Please enter a valid actuator data DTO.");
         }

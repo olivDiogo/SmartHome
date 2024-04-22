@@ -25,7 +25,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         // Act
         SetDecimalActuator sensor = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
@@ -45,7 +45,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         // Act
         SetDecimalActuator sensor = new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
@@ -66,7 +66,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
 
         String expectedMessage = "ActuatorID is required";
@@ -89,7 +89,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
         ActuatorID actuatorID = new ActuatorID("ActuatorID");
 
 
@@ -116,7 +116,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         String expectedMessage = "DeviceID is required";
 
@@ -140,7 +140,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = null;
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         String expectedMessage = "ModelPath is required";
 
@@ -163,7 +163,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = null;
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
         ActuatorID actuatorID = new ActuatorID("ActuatorID");
 
         String expectedMessage = "ModelPath is required";
@@ -187,7 +187,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = null;
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
         ActuatorID actuatorID = new ActuatorID("ActuatorID");
 
 
@@ -212,7 +212,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = null;
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         String expectedMessage = "ActuatorTypeID is required";
 
@@ -235,7 +235,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("Switch");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
         ActuatorID actuatorID = new ActuatorID("ActuatorID");
 
 
@@ -259,7 +259,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("Switch");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         String expectedMessage = "The value of 'actuatorTypeID' should be 'SetDecimal'.";
 
@@ -281,7 +281,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = null;
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
         ActuatorID actuatorID = new ActuatorID("123");
 
         String expectedMessage = "ActuatorName is required";
@@ -305,7 +305,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = null;
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         String expectedMessage = "ActuatorName is required";
 
@@ -328,7 +328,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = null;
+        DecimalLimits limits = null;
 
         String expectedMessage = "SetDecimalActuatorLimits is required";
 
@@ -351,7 +351,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = null;
+        DecimalLimits limits = null;
         ActuatorID actuatorID = new ActuatorID("123");
 
         String expectedMessage = "SetDecimalActuatorLimits is required";
@@ -376,7 +376,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceId, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -400,7 +400,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName(name);
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -423,7 +423,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath(path);
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -446,7 +446,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(id);
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -469,7 +469,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -493,12 +493,12 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits limits = new DecimalLimits(lowerLimit, upperLimit);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
         // Act
-        SetDecimalActuatorLimits result = setDecimalActuator.getLimits();
+        DecimalLimits result = setDecimalActuator.getLimits();
 
         // Assert
         assertEquals(result.getLowerLimit(), lowerLimit, 0.01);
@@ -519,7 +519,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits limits = new DecimalLimits(lowerLimit, upperLimit);
 
         SetDecimalValue valueDouble = new SetDecimalValue(value);
 
@@ -548,7 +548,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits limits = new DecimalLimits(lowerLimit, upperLimit);
 
         SetDecimalValue valueDouble = new SetDecimalValue(value);
 
@@ -578,7 +578,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits limits = new DecimalLimits(lowerLimit, upperLimit);
 
         SetDecimalValue valueDouble = new SetDecimalValue(value);
 
@@ -608,7 +608,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits limits = new DecimalLimits(lowerLimit, upperLimit);
 
         SetDecimalValue valueDouble = null;
 
@@ -638,7 +638,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits limits = new DecimalLimits(lowerLimit, upperLimit);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -659,7 +659,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -681,7 +681,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
         SetDecimalActuator setDecimalActuator2 = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
@@ -704,7 +704,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
 
@@ -725,7 +725,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("ModelPath");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
         ActuatorName actuatorName = new ActuatorName("ActuatorName");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits);
         ActuatorID actuatorID = setDecimalActuator.getID();
@@ -757,7 +757,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath1 = new ModelPath(modelPath);
         ActuatorTypeID actuatorTypeID1 = new ActuatorTypeID(actuatorTypeID);
         ActuatorName actuatorName1 = new ActuatorName(actuatorName);
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(lowerLimit, upperLimit);
+        DecimalLimits limits = new DecimalLimits(lowerLimit, upperLimit);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceId, modelPath1, actuatorTypeID1, actuatorName1, limits);
         ActuatorID actuatorID = setDecimalActuator.getID();
@@ -781,7 +781,7 @@ class SetDecimalActuatorAggregateTest {
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.SetDecimalActuator.SetDecimalActuator");
         ActuatorName actuatorName = new ActuatorName("SetDecimal");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("SetDecimal");
-        SetDecimalActuatorLimits limits = new SetDecimalActuatorLimits(1.5, 9.5);
+        DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName,limits);
 

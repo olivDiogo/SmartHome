@@ -3,14 +3,12 @@ package smart_home.domain.actuator;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator;
-import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuatorLimits;
+import smart_home.value_object.IntegerLimits;
 import smart_home.domain.actuator.switch_actuator.SwitchActuator;
 import smart_home.value_object.ActuatorName;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.ModelPath;
-
-import java.lang.reflect.Constructor;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -59,13 +57,13 @@ class ImpActuatorFactoryTest {
         ActuatorTypeID actuatorTypeIDMock = mock(ActuatorTypeID.class);
         when(actuatorTypeIDMock.getID()).thenReturn("SetInteger");
         ActuatorName actuatorNameMock = mock(ActuatorName.class);
-        SetIntegerActuatorLimits setIntegerActuatorLimitsMock = mock(SetIntegerActuatorLimits.class);
+        IntegerLimits integerLimitsMock = mock(IntegerLimits.class);
 
 
         ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
 
         // Act
-        SetIntegerActuator actuator = (SetIntegerActuator) impActuatorFactory.createActuator(deviceIdMock, modelPathMock, actuatorTypeIDMock, actuatorNameMock, setIntegerActuatorLimitsMock);
+        SetIntegerActuator actuator = (SetIntegerActuator) impActuatorFactory.createActuator(deviceIdMock, modelPathMock, actuatorTypeIDMock, actuatorNameMock, integerLimitsMock);
 
         // Assert
         assertNotNull(actuator);

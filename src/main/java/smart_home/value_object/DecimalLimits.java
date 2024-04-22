@@ -1,11 +1,11 @@
-package smart_home.domain.actuator.set_decimal_actuator;
+package smart_home.value_object;
 
 import smart_home.ddd.IValueObject;
 
 /**
  * Represents the limits within which a decimal actuator can set values.
  */
-public class SetDecimalActuatorLimits implements IValueObject {
+public class DecimalLimits implements IValueObject {
 
     private final double _lowerLimit;
 
@@ -18,7 +18,7 @@ public class SetDecimalActuatorLimits implements IValueObject {
      * @param upperLimit The upper limit for the actuator.
      * @throws IllegalArgumentException if the lower limit is greater than the upper limit.
      */
-    public SetDecimalActuatorLimits(double lowerLimit, double upperLimit) {
+    public DecimalLimits(double lowerLimit, double upperLimit) {
         validateLimits(lowerLimit, upperLimit);
         this._lowerLimit = lowerLimit;
         this._upperLimit = upperLimit;
@@ -59,9 +59,9 @@ public class SetDecimalActuatorLimits implements IValueObject {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof SetDecimalActuatorLimits setDecimalActuatorLimits) {
+        if (o instanceof DecimalLimits decimalLimits) {
             double epsilon = 0.001;
-            return Math.abs(_lowerLimit - setDecimalActuatorLimits._lowerLimit) < epsilon && Math.abs(_upperLimit - setDecimalActuatorLimits._upperLimit) < epsilon;
+            return Math.abs(_lowerLimit - decimalLimits._lowerLimit) < epsilon && Math.abs(_upperLimit - decimalLimits._upperLimit) < epsilon;
 
         }
         return false;
