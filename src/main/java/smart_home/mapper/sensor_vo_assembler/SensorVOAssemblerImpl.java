@@ -9,6 +9,13 @@ import smart_home.value_object.*;
 import java.time.LocalDateTime;
 
 public class SensorVOAssemblerImpl implements ISensorVOAssembler {
+
+    /**
+     * Returns the parameters needed to create a sensor.
+     *
+     * @param sensorDataDTO The sensor data DTO.
+     * @return The parameters needed to create a sensor.
+     */
     @Override
     public Object[] getSensorParameters(ISensorDataDTO sensorDataDTO) {
         if (sensorDataDTO instanceof SensorDataGenericDTOImp sensorDataGenericDTOImp) {
@@ -23,6 +30,13 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
         }
     }
 
+    /**
+     * Returns the parameters needed to create a sensor.
+     * The generic objects.
+     *
+     * @param sensorDataDTO The sensor data DTO.
+     * @return The parameters needed to create a sensor.
+     */
     private static Object[] getSensorParameteres (SensorDataGenericDTOImp sensorDataDTO) {
         DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
         ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
@@ -30,6 +44,14 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
         SensorTypeID sensorTypeID = new SensorTypeID(sensorDataDTO.sensorTypeID);
         return new Object[]{deviceID, modelPath, sensorTypeID, sensorName};
     }
+
+    /**
+     * Returns the parameters needed to create a sensor.
+     * The generic objects plus the GPS.
+     *
+     * @param sensorDataDTO The sensor data DTO.
+     * @return The parameters needed to create a sensor.
+     */
     private static Object[] getSensorParameteres (SensorDataWithGPSDTOImp sensorDataDTO) {
         DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
         ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
@@ -40,6 +62,14 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
         GPS gps = new GPS(latitude, longitude);
         return new Object[]{deviceID, modelPath, sensorTypeID, sensorName, gps};
     }
+
+    /**
+     * Returns the parameters needed to create a sensor.
+     * The generic objects plus the date.
+     *
+     * @param sensorDataDTO The sensor data DTO.
+     * @return The parameters needed to create a sensor.
+     */
     private static Object[] getSensorParameteres (SensorDataWithDateDTOImp sensorDataDTO) {
         DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
         ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);

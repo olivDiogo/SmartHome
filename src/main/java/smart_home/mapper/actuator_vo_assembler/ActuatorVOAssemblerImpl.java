@@ -6,6 +6,12 @@ import smart_home.value_object.*;
 
 public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
 
+  /**
+   * Returns an array of objects that are needed to create an actuator.
+   *
+   * @param actuatorDataDTO The actuator data DTO.
+   * @return An array of objects that are needed to create an actuator.
+   */
   @Override
   public Object[] getActuatorParameters(IActuatorDataDTO actuatorDataDTO) {
     if (actuatorDataDTO instanceof ActuatorDataGenericDTOImp actuatorDataGenericDTOImp) {
@@ -21,6 +27,13 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
     }
   }
 
+  /**
+   * Returns an array of objects that are needed to create an actuator.
+   * The generic objects.
+   *
+   * @param actuatorDataDTO The actuator data DTO.
+   * @return An array of objects that are needed to create an actuator.
+   */
   private static Object[] getActuatorParameteres(ActuatorDataGenericDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
     ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
@@ -29,6 +42,13 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
     return new Object[] {deviceID, modelPath, actuatorTypeID, actuatorName};
   }
 
+  /**
+   * Returns an array of objects that are needed to create an actuator.
+   * The generic objects plus the decimal limits.
+   *
+   * @param actuatorDataDTO The actuator data DTO.
+   * @return An array of objects that are needed to create an actuator.
+   */
   private static Object[] getActuatorParameteres(
       ActuatorDataWithDecimalLimitsDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
@@ -41,6 +61,13 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
     return new Object[] {deviceID, modelPath, actuatorTypeID, actuatorName, limits};
   }
 
+  /**
+   * Returns an array of objects that are needed to create an actuator.
+   * The generic objects plus the integer limits.
+   *
+   * @param actuatorDataDTO The actuator data DTO.
+   * @return An array of objects that are needed to create an actuator.
+   */
   private static Object[] getActuatorParameteres(
       ActuatorDataWithIntegerLimitsDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);

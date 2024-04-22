@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ActuatorVOAssemblerImplTest {
+  /** Tests if the object is instantiated when the attributes are null. */
   @Test
   void shouldThrowIllegalArgumentExceptionWhenUnsupportedActuatorDataDTO() {
     // Arrange
@@ -25,8 +26,8 @@ public class ActuatorVOAssemblerImplTest {
     // Assert
     assertEquals(message, exception.getMessage());
   }
-  ;
 
+  /** Tests if the object is instantiated when the ActuatorDataDTO is with decimal limits attribute. */
   @Test
   void shouldReturnArrayOfObjectsWhenActuatorDataDTOIsActuatorWithDecimalLimitsDataDTO() {
     // Arrange
@@ -55,6 +56,7 @@ public class ActuatorVOAssemblerImplTest {
     assertEquals(Arrays.stream(expected).toList(), Arrays.stream(result).toList());
   }
 
+  /** Tests if the object is instantiated when the ActuatorDataDTO is with generic data attribute. */
   @Test
   void shouldReturnArrayOfObjectsWhenActuatorDataDTOIsActuatorGenericDataDTOImp() {
     // Arrange
@@ -78,6 +80,7 @@ public class ActuatorVOAssemblerImplTest {
     assertEquals(Arrays.stream(expected).toList(), Arrays.stream(result).toList());
   }
 
+  /** Tests if the object is instantiated when the ActuatorDataDTO is with integer limits attribute. */
   @Test
   void shouldReturnArrayOfObjectsWhenActuatorDataDTOIsActuatorDataWithIntegerLimitsDTOImp() {
     // Arrange
