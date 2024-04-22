@@ -1,4 +1,4 @@
-package smart_home.persistence.spring_data;
+package smart_home.persistence.spring_data.actuator_model;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
