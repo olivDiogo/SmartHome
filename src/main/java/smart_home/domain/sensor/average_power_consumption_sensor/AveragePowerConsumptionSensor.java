@@ -68,12 +68,8 @@ public class AveragePowerConsumptionSensor implements ISensor {
         Validator.validateNotNull(modelPath, "ModelPath");
         Validator.validateNotNull(sensorName, "SensorName");
         Validator.validateNotNull(sensorID, "SensorID");
-
-        //delete this
-        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
-
-
         validateSensorTypeID(sensorTypeID);
+
         _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(0);
         _powerConsumptions = new HashMap<>();
 
@@ -230,7 +226,7 @@ public class AveragePowerConsumptionSensor implements ISensor {
      *
      * @return the value of the PowerConsumptionSensor.
      */
-    public IValueObject getValue() {
+    public AveragePowerConsumptionSensorValue getValue() {
         return this._averagePowerConsumptionSensorValue;
     }
 
@@ -241,7 +237,7 @@ public class AveragePowerConsumptionSensor implements ISensor {
      * @param finalTime   the final time of the range.
      * @return the value of the PowerConsumptionSensor.
      */
-    public IValueObject getValue(LocalDateTime initialTime, LocalDateTime finalTime) {
+    public AveragePowerConsumptionSensorValue getValue(LocalDateTime initialTime, LocalDateTime finalTime) {
         double averageValue = getAverageValue(initialTime, finalTime);
         _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(averageValue);
         return _averagePowerConsumptionSensorValue;

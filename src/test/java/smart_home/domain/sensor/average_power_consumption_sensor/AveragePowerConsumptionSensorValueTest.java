@@ -134,6 +134,18 @@ class AveragePowerConsumptionSensorValueTest {
     }
 
     @Test
+    void shouldReturnFalseWhenDifferentValuesOutsideEpsilonRange() {
+        // Arrange
+        double dValue = 12.3;
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(dValue + 0.005);
+        AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue1 = new AveragePowerConsumptionSensorValue(dValue + 0.003);
+        // Act
+        boolean actualResult = averagePowerConsumptionSensorValue.equals(averagePowerConsumptionSensorValue1);
+        // Assert
+        Assertions.assertFalse(actualResult);
+    }
+
+    @Test
     void equalsObjectsShouldHaveTheSameHashCode(){
         // Arrange
         double dValue = 12.3;
@@ -146,6 +158,19 @@ class AveragePowerConsumptionSensorValueTest {
 
         // Assert
         assertEquals(expected,result);
+    }
+
+    @Test
+    void shouldNotReturnZero_WhenValuesAreNonZero() {
+        // Arrange
+        double dValue = 12.3;
+        AveragePowerConsumptionSensorValue value = new AveragePowerConsumptionSensorValue(dValue);
+
+        // Act
+        int hashCode = value.hashCode();
+
+        // Assert
+        assertNotEquals(0, hashCode);
     }
 
 

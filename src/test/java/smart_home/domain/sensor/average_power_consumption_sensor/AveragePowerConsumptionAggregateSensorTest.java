@@ -55,6 +55,29 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals("SensorTypeID is required", e.getMessage());
   }
 
+  @Test
+  void shouldThrowExceptionForNullSensorTypeOfPowerConsumptionSensorForSecondConstructor() {
+    // Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "modelPath";
+    String sensorNameValue = "sensorName";
+    String sensorIDValue = "sensorID";
+
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = null;
+    SensorID sensorID = new SensorID(sensorIDValue);
+
+    // Act + Assert
+    Exception e =Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));
+
+    // Assert
+    Assertions.assertEquals("SensorTypeID is required", e.getMessage());
+  }
+
   /** tests if Exception is thrown when sensorType is different */
   @Test
   void shouldThrowExceptionForDifferentSensorTypeOfPowerConsumptionSensor() {
