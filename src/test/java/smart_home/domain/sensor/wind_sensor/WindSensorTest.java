@@ -25,7 +25,7 @@ class WindSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Wind");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act
             WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
             // Assert
@@ -48,7 +48,7 @@ class WindSensorTest {
 
         String expectedMessage = "DeviceID is required";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act + Assert
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
                 new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
@@ -77,7 +77,7 @@ class WindSensorTest {
 
         String expectedMessage = "ModelPath is required";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act + Assert
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
                 new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
@@ -105,7 +105,7 @@ class WindSensorTest {
 
         String expectedMessage = "SensorName is required";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act + Assert
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
                 new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
@@ -131,7 +131,7 @@ class WindSensorTest {
 
         String expectedMessage = "SensorTypeID is required";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act + Assert
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
                 new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
@@ -159,7 +159,7 @@ class WindSensorTest {
 
         String expectedMessage = "SensorTypeID must be 'Wind'";
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act + Assert
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
                 new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
@@ -185,7 +185,7 @@ class WindSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Wind");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act
             WindSensor sensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
@@ -208,7 +208,7 @@ class WindSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Wind");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act
             WindSensor sensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
@@ -231,7 +231,7 @@ class WindSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Wind");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act
             WindSensor sensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
@@ -254,7 +254,7 @@ class WindSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Wind");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act
             WindSensor sensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
@@ -277,7 +277,7 @@ class WindSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Wind");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act
             WindSensor sensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
@@ -331,7 +331,7 @@ class WindSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Wind");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act
             WindSensor windSensor1 = new WindSensor(deviceID1, modelPath, sensorTypeID, sensorName);
             WindSensor windSensor2 = new WindSensor(deviceID2, modelPath, sensorTypeID, sensorName);
@@ -346,7 +346,7 @@ class WindSensorTest {
      * Tests the equality if Object is not a WindSensor.
      */
     @Test
-    void shouldReturnFalse_WhenObjectIsNotAWindSensor(){
+    void shouldReturnFalse_WhenObjectIsNotAWindSensor() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -355,7 +355,7 @@ class WindSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Wind");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act
             WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
@@ -369,7 +369,7 @@ class WindSensorTest {
      * Test if the hashCode method returns the value for WindSensor.
      */
     @Test
-    void shouldReturnHashCode_whenHashCodeIsCalled(){
+    void shouldReturnHashCode_whenHashCodeIsCalled() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -378,7 +378,7 @@ class WindSensorTest {
 
         when(sensorTypeID.getID()).thenReturn("Wind");
 
-        try(MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
+        try (MockedConstruction<SensorID> sensorIDConstruction = mockConstruction(SensorID.class)) {
             // Act
             WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
@@ -395,32 +395,24 @@ class WindSensorTest {
      * Test if the toString method returns the value for WindSensor.
      */
     @Test
-    void shouldReturnStringValue_whenToStringIsCalled(){
+    void shouldReturnStringValue_whenToStringIsCalled() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
+        when(deviceID.getID()).thenReturn("DeviceID");
         ModelPath modelPath = mock(ModelPath.class);
+        when(modelPath.getID()).thenReturn("ModelPath");
         SensorName sensorName = mock(SensorName.class);
+        when(sensorName.getSensorName()).thenReturn("SensorName");
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-
         when(sensorTypeID.getID()).thenReturn("Wind");
 
         try (MockedConstruction<SensorID> sensorIdMockedConstruction = mockConstruction(SensorID.class, (mock, context) -> {
-            when(mock.toString()).thenReturn("MockedSensorID");
+            when(mock.getID()).thenReturn("MockedSensorID");
         })) {
 
             WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
-            String expectedValue = windSensor.getValue().toString();
+            String expected = "WindSensor: DeviceID= " + deviceID.getID() + " ModelPath= " + modelPath.getID() + " SensorTypeID= " + sensorTypeID.getID() + " SensorName= " + sensorName.getSensorName() + " SensorID= " + windSensor.getID().getID();
 
-            WindSensorValue windSensorValue = mock(WindSensorValue.class);
-            when(windSensorValue.toString()).thenReturn(expectedValue);
-
-            String expected = "WindSensor:" +
-                    " modelPath=" + modelPath +
-                    ", sensorName=" + sensorName +
-                    ", sensorID=MockedSensorID" +
-                    ", sensorTypeID=" + sensorTypeID +
-                    ", windSensorValue=" + expectedValue +
-                    ", deviceID=" + deviceID;
 
             // Act
             String result = windSensor.toString();
@@ -434,7 +426,7 @@ class WindSensorTest {
      * Tests the instantiation of WindSensor when the sensorID is null.
      */
     @Test
-    void shouldInstantiateWindSensor_WhenSensorIDIsValid () {
+    void shouldInstantiateWindSensor_WhenSensorIDIsValid() {
         // Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);

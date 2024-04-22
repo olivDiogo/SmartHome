@@ -33,11 +33,12 @@ public class WindSensor implements ISensor {
 
     /**
      * Constructor for WindSensor.
-     * @param deviceID The device ID.
-     * @param modelPath The model path.
+     *
+     * @param deviceID     The device ID.
+     * @param modelPath    The model path.
      * @param sensorTypeID The sensor type ID.
-     * @param sensorName The sensor name.
-     * @param sensorID The sensor ID.
+     * @param sensorName   The sensor name.
+     * @param sensorID     The sensor ID.
      */
     public WindSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
         Validator.validateNotNull(deviceID, "DeviceID");
@@ -140,17 +141,17 @@ public class WindSensor implements ISensor {
     }
 
     /**
-     *Checks if the sensor is equal to another sensor.
+     * Checks if the sensor is equal to another sensor.
      *
      * @param o The sensor to compare.
      * @return True if the sensors are equal, false otherwise.
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        WindSensor sensor = (WindSensor) o;
-        return _sensorID.toString().equals(sensor._sensorID.toString());
+        if (o instanceof WindSensor windSensor) {
+            return _sensorID.equals(windSensor._sensorID);
+        }
+        return false;
     }
 
     /**
@@ -170,13 +171,7 @@ public class WindSensor implements ISensor {
      */
     @Override
     public String toString() {
-        return "WindSensor:" +
-                " modelPath=" + _modelPath +
-                ", sensorName=" + _sensorName +
-                ", sensorID=" + _sensorID +
-                ", sensorTypeID=" + _sensorTypeID +
-                ", windSensorValue=" + _windSensorValue +
-                ", deviceID=" + _deviceID;
+        return "WindSensor: DeviceID= " + _deviceID.getID() + " ModelPath= " + _modelPath.getID() + " SensorTypeID= " + _sensorTypeID.getID() + " SensorName= " + _sensorName.getSensorName() + " SensorID= " + _sensorID.getID();
     }
 
     /**
@@ -185,7 +180,7 @@ public class WindSensor implements ISensor {
      * @param visitor The visitor.
      */
     public String accept(ISensorVisitor visitor) {
-         visitor.visitWindSensor(this);
-         return this.toString();
+        visitor.visitWindSensor(this);
+        return this.toString();
     }
 }

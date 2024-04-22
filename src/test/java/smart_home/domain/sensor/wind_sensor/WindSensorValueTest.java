@@ -130,4 +130,35 @@ class WindSensorValueTest {
         // Assert
         assertEquals(expected, result);
     }
+
+    @Test
+    void shouldReturnHashCode_WhenHashCodeIsCalled () {
+        // Arrange
+        double speed = 10.5;
+        double direction = 20.5;
+
+        WindSensorValue windSensorValue = new WindSensorValue(speed, direction);
+        WindSensorValue windSensorValue2 = new WindSensorValue(speed, direction);
+
+        // Act
+        int result = windSensorValue.hashCode();
+        int result2 = windSensorValue2.hashCode();
+
+        // Assert
+        assertEquals(result, result2);
+    }
+
+    @Test
+    void shouldNotReturnZero_WhenValuesAreNonZero() {
+        // Arrange
+        WindSensorValue windSensorValue = new WindSensorValue(10.5, 20.5);
+
+        // Act
+        int hashCode = windSensorValue.hashCode();
+
+        // Assert
+        assertNotEquals(0, hashCode);
+    }
+
+
 }

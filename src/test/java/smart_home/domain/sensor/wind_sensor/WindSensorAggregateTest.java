@@ -516,15 +516,8 @@ class WindSensorAggregateTest {
 
         WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-        String expectedValue = windSensor.getValue().toString();
 
-        String expected = "WindSensor:" +
-                " modelPath=" + modelPath +
-                ", sensorName=" + sensorName +
-                ", sensorID=" + windSensor.getID() +
-                ", sensorTypeID=" + sensorTypeID +
-                ", windSensorValue=" + expectedValue +
-                ", deviceID=" + deviceID;
+        String expected = "WindSensor: DeviceID= " + deviceIDValue + " ModelPath= " + modelPathValue + " SensorTypeID= " + sensorTypeIDValue + " SensorName= " + sensorNameValue + " SensorID= " + windSensor.getID();
 
         // Act
         String result = windSensor.toString();
