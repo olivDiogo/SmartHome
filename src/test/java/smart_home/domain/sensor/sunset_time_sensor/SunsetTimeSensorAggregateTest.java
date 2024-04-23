@@ -594,6 +594,7 @@ class SunsetTimeSensorAggregateTest {
         //Act
         String result = sunsetTimeSensor.accept(visitor);
         //Assert
+        assertEquals(expected,result);
         assertNotNull(sunsetTimeSensor);
     }
 

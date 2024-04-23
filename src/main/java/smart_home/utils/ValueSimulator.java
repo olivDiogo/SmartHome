@@ -5,8 +5,6 @@ import java.security.SecureRandom;
 public class ValueSimulator {
     static SecureRandom random = new SecureRandom();
 
-    private ValueSimulator() {
-    }
     public static double generateRandomValue(double lowerBond, double upperBond) {
         if (lowerBond > upperBond) {
             throw new IllegalArgumentException("Lower bond should be less than upper bond");

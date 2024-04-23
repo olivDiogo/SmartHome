@@ -49,5 +49,13 @@ class ValueSimulatorTest {
         boolean randomValue = ValueSimulator.generateRandomBoolean();
         assertTrue(randomValue || randomValue == false);
     }
+    @Test
+    void generateIsolatedRandomValueUsingIntWithValidBonds() {
+
+        int lowerBond = 0;
+        int upperBond = 10;
+        int randomValue = ValueSimulator.generateRandomValue(lowerBond, upperBond);
+        assertTrue(randomValue >= lowerBond && randomValue <= upperBond);
+    }
 
 }
