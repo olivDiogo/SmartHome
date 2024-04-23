@@ -130,4 +130,20 @@ class LogIDTest {
         assertEquals(logID.hashCode(), result);
     }
 
+    /**
+     * Test for toString method
+     */
+    @Test
+    void shouldReturnLogID_WhenToStringIsCalled() {
+        // Arrange
+        String logID = "logID";
+        LogID logIDObject = new LogID(logID);
+
+        // Act
+        String result = logIDObject.toString();
+
+        // Assert
+        assertEquals(logID, result);
+    }
+
 }
