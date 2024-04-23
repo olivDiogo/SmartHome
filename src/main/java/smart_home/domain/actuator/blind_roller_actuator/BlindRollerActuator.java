@@ -151,10 +151,10 @@ public class BlindRollerActuator implements IActuator {
      * @return The set value if successful, null otherwise.
      */
     @Override
-    public IValueObject setValue(IValueObject value) {
-        if (value instanceof BlindRollerValue) {
-            this._value = (BlindRollerValue) value;
-            return value;
+    public BlindRollerValue setValue(IValueObject value) {
+        if (value instanceof BlindRollerValue newValue) {
+            this._value = newValue;
+            return newValue;
         } else {
             return null;
         }
