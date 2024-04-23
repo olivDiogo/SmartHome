@@ -61,7 +61,9 @@ public class DecimalLimits implements IValueObject {
     public boolean equals(Object o) {
         if (o instanceof DecimalLimits decimalLimits) {
             double epsilon = 0.001;
-            return Math.abs(_lowerLimit - decimalLimits._lowerLimit) < epsilon && Math.abs(_upperLimit - decimalLimits._upperLimit) < epsilon;
+            double value = Math.abs(_lowerLimit - decimalLimits._lowerLimit);
+            double value2 = Math.abs(_upperLimit - decimalLimits._upperLimit);
+            return Math.min(value, epsilon) == value && Math.min(value2, epsilon) == value2;
 
         }
         return false;

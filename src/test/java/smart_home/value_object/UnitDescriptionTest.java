@@ -6,185 +6,192 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UnitDescriptionTest {
 
-    /**
-     * Validates construction with valid arguments.
-     */
-    @Test
-    void shouldInstantiateUnitDescriptionWhenGivenValidDescription() {
-        //Arrange
-        String description = "This is a valid description";
+  /** Validates construction with valid arguments. */
+  @Test
+  void shouldInstantiateUnitDescriptionWhenGivenValidDescription() {
+    // Arrange
+    String description = "This is a valid description";
 
-        //Act
-        UnitDescription unitDescription = new UnitDescription(description);
+    // Act
+    UnitDescription unitDescription = new UnitDescription(description);
 
-        //Assert
-        assertNotNull(unitDescription);
-    }
+    // Assert
+    assertNotNull(unitDescription);
+  }
 
-    /**
-     * Expects IllegalArgumentException for null description.
-     */
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenGivenNullDescription() {
-        //Arrange
-        String description = null;
-        String expectedMessage = "The value of 'description' should not null, blank, or empty.";
-        //Act
+  /** Expects IllegalArgumentException for null description. */
+  @Test
+  void shouldThrowIllegalArgumentExceptionWhenGivenNullDescription() {
+    // Arrange
+    String description = null;
+    String expectedMessage = "The value of 'description' should not null, blank, or empty.";
+    // Act
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
+    IllegalArgumentException exception =
+        assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
 
-        String actualMessage = exception.getMessage();
+    String actualMessage = exception.getMessage();
 
-        //Assert
-        assertEquals(expectedMessage, actualMessage);
-    }
+    // Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
 
-    /**
-     * Expects IllegalArgumentException for blank description.
-     */
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenGivenBlankDescription() {
-        //Arrange
-        String description = " ";
-        String expectedMessage = "The value of 'description' should not null, blank, or empty.";
+  /** Expects IllegalArgumentException for blank description. */
+  @Test
+  void shouldThrowIllegalArgumentExceptionWhenGivenBlankDescription() {
+    // Arrange
+    String description = " ";
+    String expectedMessage = "The value of 'description' should not null, blank, or empty.";
 
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
+    // Act
+    IllegalArgumentException exception =
+        assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
 
-        String actualMessage = exception.getMessage();
+    String actualMessage = exception.getMessage();
 
-        //Assert
-        assertEquals(expectedMessage, actualMessage);
-    }
+    // Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
 
+  /** Expects IllegalArgumentException for description with more than 50 characters. */
+  @Test
+  void shouldThrowIllegalArgumentExceptionWhenGivenDescriptionWithMoreThan50Characters() {
+    // Arrange
+    String description =
+        "This is a description with more than 50 characters. This is a description with more than 50 characters. This is a description with more than 50 characters.";
+    String expectedMessage = "The description cannot have more than 50 characters.";
+    // Act
+    IllegalArgumentException exception =
+        assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
 
-    /**
-     * Expects IllegalArgumentException for description with more than 50 characters.
-     */
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenGivenDescriptionWithMoreThan50Characters() {
-        //Arrange
-        String description = "This is a description with more than 50 characters. This is a description with more than 50 characters. This is a description with more than 50 characters.";
-        String expectedMessage = "The description cannot have more than 50 characters.";
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitDescription(description));
+    String actualMessage = exception.getMessage();
 
-        String actualMessage = exception.getMessage();
+    // Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
 
-        //Assert
-        assertEquals(expectedMessage, actualMessage);
-    }
+  /** Instantiates Unit description with 50 characters. */
+  @Test
+  void shouldInstantiateUnitDescription_WhenDescriptionHas50Characters() {
+    // Arrange
+    String description = "This is a description with exactly 50 characters..";
 
-    /**
-     * Should return true when two objects have the same description.
-     */
-    @Test
-    void shouldReturnTrue_WhenTwoObjectsHaveSameDescription(){
-        //Arrange
-        String description = "This is a valid description";
-        UnitDescription unitDescription1 = new UnitDescription(description);
-        UnitDescription unitDescription2 = new UnitDescription(description);
+    // Act
+    UnitDescription unitDescription = new UnitDescription(description);
 
-        //Act
-        boolean result = unitDescription1.equals(unitDescription2);
+    assertNotNull(unitDescription);
+  }
 
-        //Assert
-        assertTrue(result);
-    }
+  /** Should return true when two objects have the same description. */
+  @Test
+  void shouldReturnTrue_WhenTwoObjectsHaveSameDescription() {
+    // Arrange
+    String description = "This is a valid description";
+    UnitDescription unitDescription1 = new UnitDescription(description);
+    UnitDescription unitDescription2 = new UnitDescription(description);
 
-    /**
-     * Should return false when two objects have different description.
-     */
-    @Test
-    void shouldReturnFalse_WhenTwoObjectsHaveDifferentDescription(){
-        //Arrange
-        String description1 = "This is a valid description";
-        String description2 = "This is another valid description";
+    // Act
+    boolean result = unitDescription1.equals(unitDescription2);
 
-        UnitDescription unitDescription1 = new UnitDescription(description1);
-        UnitDescription unitDescription2 = new UnitDescription(description2);
+    // Assert
+    assertTrue(result);
+  }
 
-        //Act
-        boolean result = unitDescription1.equals(unitDescription2);
+  /** Should return false when two objects have different description. */
+  @Test
+  void shouldReturnFalse_WhenTwoObjectsHaveDifferentDescription() {
+    // Arrange
+    String description1 = "This is a valid description";
+    String description2 = "This is another valid description";
 
-        //Assert
-        assertFalse(result);
-    }
+    UnitDescription unitDescription1 = new UnitDescription(description1);
+    UnitDescription unitDescription2 = new UnitDescription(description2);
 
-    /**
-     * Should return true when comparing object with itself.
-     */
-    @Test
-    void shouldReturnTrue_WhenComparingObjectWithItself(){
-        //Arrange
-        String description = "This is a valid description";
-        UnitDescription unitDescription = new UnitDescription(description);
+    // Act
+    boolean result = unitDescription1.equals(unitDescription2);
 
-        //Act
-        boolean result = unitDescription.equals(unitDescription);
+    // Assert
+    assertFalse(result);
+  }
 
-        //Assert
-        assertTrue(result);
-    }
+  /** Should return true when comparing object with itself. */
+  @Test
+  void shouldReturnTrue_WhenComparingObjectWithItself() {
+    // Arrange
+    String description = "This is a valid description";
+    UnitDescription unitDescription = new UnitDescription(description);
 
-    /**
-     * Description with same description should have same hash code.
-     */
-    @Test
-    void descriptionWithSameDescriptionShouldHaveSameHashCode(){
-        //Arrange
-        String description = "This is a valid description";
-        UnitDescription unitDescription1 = new UnitDescription(description);
-        UnitDescription unitDescription2 = new UnitDescription(description);
-        //Act
-        int hashCode1 = unitDescription1.hashCode();
-        int hashCode2 = unitDescription2.hashCode();
-        //Assert
-        assertEquals(hashCode1, hashCode2);
-    }
+    // Act
+    boolean result = unitDescription.equals(unitDescription);
 
-    /**
-     * Description with different description should have different hash code.
-     */
-    @Test
-    void shouldReturnDescription_WhenToStringIsCalled() {
-        //Arrange
-        String description = "This is a valid description";
-        UnitDescription unitDescription = new UnitDescription(description);
+    // Assert
+    assertTrue(result);
+  }
 
-        //Act
-        String result = unitDescription.toString();
+  /** Description with same description should have same hash code. */
+  @Test
+  void descriptionWithSameDescriptionShouldHaveSameHashCode() {
+    // Arrange
+    String description = "This is a valid description";
+    UnitDescription unitDescription1 = new UnitDescription(description);
+    UnitDescription unitDescription2 = new UnitDescription(description);
+    // Act
+    int hashCode1 = unitDescription1.hashCode();
+    int hashCode2 = unitDescription2.hashCode();
+    // Assert
+    assertEquals(hashCode1, hashCode2);
+  }
 
-        //Assert
-        assertEquals(description, result);
-    }
+  /** Description with different description should have different hash code. */
+  @Test
+  void ShouldHaveDifferentHashCode_WhenOneIsZero() {
+    // Arrange
+    String description1 = "This is a valid description";
+    UnitDescription unitDescription1 = new UnitDescription(description1);
+    // Act
+    int hashCode2 = unitDescription1.hashCode();
+    // Assert
+    assertNotEquals(0, hashCode2);
+  }
 
-    @Test
-    void shouldReturnDescription_WhenMethodGetDescriptionIsCalled () {
-        //Arrange
-        String description = "This is a valid description";
-        UnitDescription unitDescription = new UnitDescription(description);
+  /** Description with different description should have different hash code. */
+  @Test
+  void shouldReturnDescription_WhenToStringIsCalled() {
+    // Arrange
+    String description = "This is a valid description";
+    UnitDescription unitDescription = new UnitDescription(description);
 
-        //Act
-        String result = unitDescription.getDescription();
+    // Act
+    String result = unitDescription.toString();
 
-        //Assert
-        assertEquals(description, result);
-    }
+    // Assert
+    assertEquals(description, result);
+  }
 
-    /**
-     * Tests if equals method returns false when the object is not an instance of UnitDescription
-     */
-    @Test
-    void shouldReturnFalseWhenComparingUnitDescriptionWithNull() {
-        // Arrange
-        String unitDescription = "This is a valid description";
-        UnitDescription unitDescriptionObject = new UnitDescription(unitDescription);
+  @Test
+  void shouldReturnDescription_WhenMethodGetDescriptionIsCalled() {
+    // Arrange
+    String description = "This is a valid description";
+    UnitDescription unitDescription = new UnitDescription(description);
 
-        // Act
-        boolean result = unitDescriptionObject.equals(new Object());
+    // Act
+    String result = unitDescription.getDescription();
 
-        // Assert
-        assertFalse(result);
-    }
+    // Assert
+    assertEquals(description, result);
+  }
+
+  /** Tests if equals method returns false when the object is not an instance of UnitDescription */
+  @Test
+  void shouldReturnFalseWhenComparingUnitDescriptionWithNull() {
+    // Arrange
+    String unitDescription = "This is a valid description";
+    UnitDescription unitDescriptionObject = new UnitDescription(unitDescription);
+
+    // Act
+    boolean result = unitDescriptionObject.equals(new Object());
+
+    // Assert
+    assertFalse(result);
+  }
 }

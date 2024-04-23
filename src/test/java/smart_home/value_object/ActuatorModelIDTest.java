@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ActuatorModelIDTest {
 
+    /**
+     * Validates construction with valid arguments.
+     */
     @Test
     void shouldGetValidObject_whenUsingValidStringInConstructor() {
         // Arrange
@@ -18,6 +21,9 @@ class ActuatorModelIDTest {
         assertNotNull(result);
     }
 
+    /**
+     * Should throw IllegalArgumentException when actuatorModelID description is null.
+     */
     @Test
     void shouldThrowException_whenActuatorModelIDIsNull() {
         // Arrange
@@ -35,6 +41,9 @@ class ActuatorModelIDTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * Should throw IllegalArgumentException when actuatorModelID description is blank.
+     */
     @Test
     void shouldThrowException_whenActuatorModelIDIsBlank() {
         // Arrange
@@ -52,8 +61,11 @@ class ActuatorModelIDTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /**
+     * Should return actuator model ID.
+     */
     @Test
-    void shouldReturnActuatorTypeID() {
+    void shouldReturnActuatorModelID() {
         // Arrange
         String actuatorModelIDDescription = "switch";
         ActuatorModelID actuatorModelID = new ActuatorModelID(actuatorModelIDDescription);
@@ -63,8 +75,11 @@ class ActuatorModelIDTest {
         assertEquals(actuatorModelIDDescription, result);
     }
 
+    /**
+     * Should return true when actuator model ID is equal to itself.
+     */
     @Test
-    void shouldReturnTrue_WhenActuatorTypeIDIsEqualToItself() {
+    void shouldReturnTrue_WhenActuatorModelIDIsEqualToItself() {
         // Arrange
         String actuatorModelIDDescription = "switch";
         ActuatorModelID actuatorModelID = new ActuatorModelID(actuatorModelIDDescription);
@@ -74,6 +89,9 @@ class ActuatorModelIDTest {
         assertTrue(result);
     }
 
+    /**
+     * Should return false when actuator model ID is different to another actuator model ID.
+     */
     @Test
     void shouldReturnFalse_whenComparingTwoDifferentActuatorModelID() {
         // Arrange
@@ -86,6 +104,23 @@ class ActuatorModelIDTest {
         assertFalse(result);
     }
 
+    /**
+     * Should return false when comparing actuator model ID to different object.
+     */
+    @Test
+    void shouldReturnFalse_whenComparingActuatorModelIDToDifferentObject() {
+        // Arrange
+        String actuatorModelIDDescription = "switch";
+        ActuatorModelID actuatorModelID = new ActuatorModelID(actuatorModelIDDescription);
+        // Act
+        boolean result = actuatorModelID.equals(new Object());
+        // Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Should return hashCode.
+     */
     @Test
     void shouldReturnHashCode() {
         // Arrange
@@ -97,6 +132,9 @@ class ActuatorModelIDTest {
         assertEquals(actuatorModelIDDescription.hashCode(), result);
     }
 
+    /**
+     * Should return false when comparing actuator model ID to null.
+     */
     @Test
     void shouldReturnFalse_whenComparingActuatorModelIDToNull() {
         // Arrange

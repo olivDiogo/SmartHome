@@ -82,6 +82,21 @@ class UnitSymbolTest {
     }
 
     /**
+     * Test case: Instantiate UnitSymbol with unit length equal to 5
+     */
+    @Test
+    void shouldInstantiateUnitSymbol_WhenUnitSymbolLengthIsEqualTo5() {
+        //Arrange
+        String unit = "12345";
+
+        //Act
+        UnitSymbol result = new UnitSymbol(unit);
+
+        //Assert
+        assertNotNull(result);
+    }
+
+    /**
      * Test equals method with reflection
      */
     @Test
@@ -180,6 +195,22 @@ class UnitSymbolTest {
 
         //Assert
         assertEquals(expected, hashCode);
+    }
+
+    /**
+     * Test if the hashCode method returns not equals when one hashCode is zero.
+     */
+    @Test
+    void shouldReturnDifferentHashCode_WhenOneUnitSymbolIsZero() {
+        //Arrange
+        String unit = "C";
+        UnitSymbol unitSymbol = new UnitSymbol(unit);
+
+        //Act
+        int result = unitSymbol.hashCode();
+
+        //Assert
+        assertNotEquals(0, result);
     }
 
     /**

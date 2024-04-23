@@ -61,6 +61,19 @@ class TypeDescriptionTest {
     }
 
     /**
+     * Should instantiate type description with given description with 50 characters.
+     */
+    @Test
+    void shouldInstantiateTypeDescriptionWhenGivenDescriptionWith50Characters() {
+        //Arrange
+        String description = "This is a description with exactly 50 characters..";
+        //Act
+        TypeDescription typeDescription = new TypeDescription(description);
+        //Assert
+        assertNotNull(typeDescription);
+    }
+
+    /**
      * Test the getDescription method.
      */
     @Test

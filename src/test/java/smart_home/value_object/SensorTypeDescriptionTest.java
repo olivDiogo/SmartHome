@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SensorTypeDescriptionTest {
+    /**
+     * Test the constructor
+     */
     @Test
     void shouldInstantiateSensorTypeDescriptionWhenDescriptionIsValid() {
         //Arrange
@@ -15,6 +18,9 @@ class SensorTypeDescriptionTest {
         assertNotNull(sensorTypeDescription);
     }
 
+    /**
+     * Should throw IllegalArgumentException when description is null.
+     */
     @Test
     void shouldThrowIllegalArgumentExceptionWhenDescriptionIsNull() {
         //Arrange
@@ -25,6 +31,10 @@ class SensorTypeDescriptionTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
+
+    /**
+     * Should throw IllegalArgumentException when description is blank.
+     */
     @Test
     void shouldThrowIllegalArgumentExceptionWhenDescriptionIsBlank() {
         //Arrange
@@ -35,6 +45,10 @@ class SensorTypeDescriptionTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
+
+    /**
+     * Should throw IllegalArgumentException when description has more than 50 characters.
+     */
     @Test
     void shouldThrowIllegalArgumentExceptionWhenDescriptionIsMoreThan50Characters() {
         //Arrange
@@ -45,6 +59,23 @@ class SensorTypeDescriptionTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
+
+    /**
+     * Should instantiate SensorTypeDescription when description has 50 characters.
+     */
+    @Test
+    void shouldInstantiateSensorTypeDescriptionWhenDescriptionHas50Characters() {
+        //Arrange
+        String description = "This is a description with exactly 50 characters..";
+        //Act
+        SensorTypeDescription sensorTypeDescription = new SensorTypeDescription(description);
+        //Assert
+        assertNotNull(sensorTypeDescription);
+    }
+
+    /**
+     * Should return description when getID is called.
+     */
     @Test
     void shouldReturnDescriptionWhenGetIDIsCalled() {
         //Arrange
@@ -55,6 +86,10 @@ class SensorTypeDescriptionTest {
         //Assert
         assertEquals(description, result);
     }
+
+    /**
+     * Should return true when two sensor type description are equal.
+     */
     @Test
     void shouldReturnTrueWhenTwoSensorTypeDescriptionAreEqual() {
         //Arrange
@@ -66,6 +101,10 @@ class SensorTypeDescriptionTest {
         //Assert
         assertTrue(result);
     }
+
+    /**
+     * Should return false when two sensor type description are not equal.
+     */
     @Test
     void shouldReturnFalseWhenTwoSensorTypeDescriptionAreNotEqual() {
         //Arrange
@@ -78,6 +117,10 @@ class SensorTypeDescriptionTest {
         //Assert
         assertFalse(result);
     }
+
+    /**
+     * Should return false when object is not sensor type description.
+     */
     @Test
     void shouldReturnFalseWhenObjectIsNotSensorTypeDescription() {
         //Arrange
@@ -88,6 +131,10 @@ class SensorTypeDescriptionTest {
         //Assert
         assertFalse(result);
     }
+
+    /**
+     * Should return hashCode when hashCode is called.
+     */
     @Test
     void shouldReturnHashCodeWhenHashCodeIsCalled() {
         //Arrange

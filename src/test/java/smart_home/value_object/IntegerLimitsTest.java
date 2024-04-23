@@ -1,7 +1,6 @@
-package smart_home.domain.actuator.set_integer_actuator;
+package smart_home.value_object;
 
 import org.junit.jupiter.api.Test;
-import smart_home.value_object.IntegerLimits;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -177,5 +176,20 @@ import static org.junit.jupiter.api.Assertions.*;
          boolean result = integerLimits.hashCode() == integerLimits2.hashCode();
         // Assert
         assertEquals(expected, result);
+    }
+
+    @Test
+    void shouldReturnNotEquals_WhenTwoObjectsHaveDifferentHashCodes() {
+        // Arrange
+        int lowerLimit = 1;
+        int upperLimit = 100;
+        IntegerLimits integerLimits = new IntegerLimits(lowerLimit, upperLimit);
+        IntegerLimits integerLimits2 = new IntegerLimits(lowerLimit, upperLimit);
+
+        // Act
+        int expected = Integer.hashCode(lowerLimit) - Integer.hashCode(upperLimit);
+        int result = integerLimits2.hashCode();
+        // Assert
+        assertNotEquals(expected, result);
     }
 }

@@ -3,8 +3,8 @@ package smart_home.value_object;
 import smart_home.ddd.IValueObject;
 
 public class IntegerLimits implements IValueObject {
-    private int _lowerLimit;
-    private int _upperLimit;
+    private final int _lowerLimit;
+    private final int _upperLimit;
 
     /**
      * Constructor for SetIntegerActuatorLimits
@@ -14,6 +14,8 @@ public class IntegerLimits implements IValueObject {
      */
     public IntegerLimits(int lowerLimit, int upperLimit) {
         validateLimits(lowerLimit, upperLimit);
+        this._lowerLimit = lowerLimit;
+        this._upperLimit = upperLimit;
     }
 
     /**
@@ -26,8 +28,6 @@ public class IntegerLimits implements IValueObject {
         if (lowerLimit > upperLimit) {
             throw new IllegalArgumentException("Lower limit cannot be greater than upper limit");
         }
-        this._lowerLimit = lowerLimit;
-        this._upperLimit = upperLimit;
     }
 
     /**
