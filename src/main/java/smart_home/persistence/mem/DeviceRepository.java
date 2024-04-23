@@ -88,6 +88,12 @@ public class DeviceRepository implements IDeviceRepository {
      */
     @Override
     public Device update(Device device) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Validate.notNull(device, "Device");
+        if (containsOfIdentity(device.getID())) {
+            _deviceData.put(device.getID(), device);
+        } else {
+            throw new IllegalArgumentException("Device does not exist.");
+        }
+        return device;
     }
 }
