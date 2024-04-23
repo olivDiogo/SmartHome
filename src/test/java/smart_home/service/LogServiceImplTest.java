@@ -62,7 +62,7 @@ class LogServiceImplTest {
         List<Log> expectedLogs = List.of(log, log2);
 
         ILogRepository logRepository = mock(ILogRepository.class);
-        when(logRepository.findByDeviceIDAndTimePeriod(deviceID, period)).thenReturn(expectedLogs);
+        when(logRepository.findByDeviceIDAndDatePeriodBetween(deviceID, period)).thenReturn(expectedLogs);
 
         LogServiceImpl logService = new LogServiceImpl(logRepository);
 
@@ -85,7 +85,7 @@ class LogServiceImplTest {
         List<Log> expectedLogs = emptyList();
 
         ILogRepository logRepository = mock(ILogRepository.class);
-        when(logRepository.findByDeviceIDAndTimePeriod(deviceID, period)).thenReturn(expectedLogs);
+        when(logRepository.findByDeviceIDAndDatePeriodBetween(deviceID, period)).thenReturn(expectedLogs);
 
         LogServiceImpl logService = new LogServiceImpl(logRepository);
 

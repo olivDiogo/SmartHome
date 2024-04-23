@@ -79,7 +79,7 @@ public class LogRepository implements ILogRepository {
      * @return List of Log
      */
     @Override
-    public List<Log> findByDeviceIDAndTimePeriod(DeviceID deviceID, DatePeriod period) {
+    public List<Log> findByDeviceIDAndDatePeriodBetween(DeviceID deviceID, DatePeriod period) {
 
         List<Log> logList = new ArrayList<>(logData.values());
 

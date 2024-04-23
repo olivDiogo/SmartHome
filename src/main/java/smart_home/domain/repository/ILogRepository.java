@@ -19,6 +19,6 @@ public interface ILogRepository extends IRepository<LogID, Log> {
      * @param period DatePeriod object
      * @return List of Log
      */
-    List<Log> findByDeviceIDAndTimePeriod (DeviceID deviceID, DatePeriod period);
+    List<Log> findByDeviceIDAndDatePeriodBetween(DeviceID deviceID, DatePeriod period);
 
 }
