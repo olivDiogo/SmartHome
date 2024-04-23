@@ -408,6 +408,54 @@ class ActuatorDataModelTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void shouldReturnStringRepresentationOfData_WhenToStringIsCalled() {
+        //Arrange
+        String _actuatorID = "123";
+        String _deviceID = "device1";
+        String _modelPath = "smart_home.domain.actuator.Switch.Switch";
+        String _actuatorTypeID = "Switch";
+        String _actuatorName = "Switch";
+        ActuatorID actuatorIDDouble = mock(ActuatorID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+
+        IActuator actuatorDouble = mock(IActuator.class);
+
+        when(actuatorIDDouble.getID()).thenReturn(_actuatorID);
+        when(deviceID.getID()).thenReturn(_deviceID);
+        when(modelPath.getID()).thenReturn(_modelPath);
+        when(actuatorTypeID.getID()).thenReturn(_actuatorTypeID);
+        when(actuatorName.getActuatorName()).thenReturn(_actuatorName);
+
+        when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
+        when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
+        when(actuatorDouble.getModelPath()).thenReturn(modelPath);
+        when(actuatorDouble.getActuatorTypeID()).thenReturn(actuatorTypeID);
+        when(actuatorDouble.getName()).thenReturn(actuatorName);
+
+        ActuatorDataModel actuatorDataModel = new ActuatorDataModel(actuatorDouble);
+        String expected = "ActuatorDataModel{" +
+                "actuatorID='" + _actuatorID + '\'' +
+                ", deviceID='" + _deviceID + '\'' +
+                ", modelPath='" + _modelPath + '\'' +
+                ", actuatorTypeID='" + _actuatorTypeID + '\'' +
+                ", actuatorName='" + _actuatorName + '\'' +
+                ", integerLowerBond='" + null + '\'' +
+                ", integerUpperBond='" + null + '\'' +
+                ", decimalLowerBond='" + null + '\'' +
+                ", decimalUpperBond='" + null + '\'' +
+                '}';
+
+        //Act
+        String result = actuatorDataModel.toString();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
 
 
 }

@@ -7,10 +7,10 @@ import smart_home.domain.actuator.switch_actuator.SwitchActuator;
 
 public interface IActuatorVisitor {
 
-    void visitorSetIntegerActuator(SetIntegerActuator setIntegerActuator);
-    void visitorSetDecimalActuator(SetDecimalActuator setDecimalActuator);
-    void visitorSwitchActuator(SwitchActuator setBooleanActuator);
-    void visitorBlindRollerActuator(BlindRollerActuator blindRollerActuator);
+    String visitorSetIntegerActuator(SetIntegerActuator setIntegerActuator);
+    String visitorSetDecimalActuator(SetDecimalActuator setDecimalActuator);
+    String visitorSwitchActuator(SwitchActuator setBooleanActuator);
+    String visitorBlindRollerActuator(BlindRollerActuator blindRollerActuator);
 
 
 }

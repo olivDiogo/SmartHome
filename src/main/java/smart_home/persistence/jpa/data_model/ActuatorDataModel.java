@@ -157,5 +157,19 @@ public class ActuatorDataModel {
         return this._actuatorName;
     }
 
+    @Override
+    public String toString() {
+        return "ActuatorDataModel{" +
+                "actuatorID='" + _actuatorID + '\'' +
+                ", deviceID='" + _deviceID + '\'' +
+                ", modelPath='" + _modelPath + '\'' +
+                ", actuatorTypeID='" + _actuatorTypeID + '\'' +
+                ", actuatorName='" + _actuatorName + '\'' +
+                ", integerLowerBond='" + _integerLowerBond + '\'' +
+                ", integerUpperBond='" + _integerUpperBond + '\'' +
+                ", decimalLowerBond='" + _decimalLowerBond + '\'' +
+                ", decimalUpperBond='" + _decimalUpperBond + '\'' +
+                '}';
+    }
 
 }

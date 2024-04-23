@@ -36,8 +36,13 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
      * @param setIntegerActuator the set integer actuator
      */
     @Override
-    public void visitorSetIntegerActuator(SetIntegerActuator setIntegerActuator) {
+    public String visitorSetIntegerActuator(SetIntegerActuator setIntegerActuator) {
         setGenericModelData(setIntegerActuator);
+         int min = setIntegerActuator.getLimits().getLowerLimit();
+        int max = setIntegerActuator.getLimits().getUpperLimit();
+        this._actuatorDataModel.setIntegerLowerBond(min);
+        this._actuatorDataModel.setIntegerUpperBond(max);
+        return _actuatorDataModel.toString();
     }
 
     /**
@@ -46,8 +51,13 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
      * @param setDecimalActuator the set decimal actuator
      */
     @Override
-    public void visitorSetDecimalActuator(SetDecimalActuator setDecimalActuator) {
+    public String visitorSetDecimalActuator(SetDecimalActuator setDecimalActuator) {
         setGenericModelData(setDecimalActuator);
+        double min = setDecimalActuator.getLimits().getLowerLimit();
+        double max = setDecimalActuator.getLimits().getUpperLimit();
+        this._actuatorDataModel.setDecimalLowerBond(min);
+        this._actuatorDataModel.setDecimalUpperBond(max);
+        return _actuatorDataModel.toString();
     }
 
     /**
@@ -56,8 +66,9 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
      * @param setBooleanActuator the set boolean actuator
      */
     @Override
-    public void visitorSwitchActuator(SwitchActuator setBooleanActuator) {
+    public String visitorSwitchActuator(SwitchActuator setBooleanActuator) {
         setGenericModelData(setBooleanActuator);
+        return _actuatorDataModel.toString();
     }
 
     /**
@@ -66,8 +77,9 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
      * @param blindRollerActuator the blind roller actuator
      */
     @Override
-    public void visitorBlindRollerActuator(BlindRollerActuator blindRollerActuator) {
+    public String visitorBlindRollerActuator(BlindRollerActuator blindRollerActuator) {
         setGenericModelData(blindRollerActuator);
+        return _actuatorDataModel.toString();
     }
 
     /**
@@ -76,6 +88,6 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
      * @param actuator the actuator
      */
     private void setGenericModelData(IActuator actuator) {
-        this._actuatorDataModel = new ActuatorDataModel(actuator);
+        this._actuatorDataModel.setGenericActuatorParameters(actuator);
     }
 }
