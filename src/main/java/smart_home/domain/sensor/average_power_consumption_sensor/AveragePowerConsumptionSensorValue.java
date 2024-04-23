@@ -48,7 +48,8 @@ public class AveragePowerConsumptionSensorValue implements IValueObject {
     public boolean equals(Object o) {
         if (o instanceof AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue) {
             double epsilon = 0.001;
-            return Math.abs(_dValue - averagePowerConsumptionSensorValue._dValue) < epsilon;
+            double a = Math.abs(_dValue - averagePowerConsumptionSensorValue._dValue);
+            return Math.min(a, epsilon) == a;
         }
         return false;
     }
