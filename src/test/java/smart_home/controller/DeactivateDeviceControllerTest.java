@@ -18,8 +18,11 @@ import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class DeactivateDeviceControllerTest {
 
@@ -179,7 +182,7 @@ class DeactivateDeviceControllerTest {
     @Test
     void shouldReturnDeactivatedDevice_WhenRequestDeactivateDeviceIsCalled() {
         // Arrange
-        DeviceRepository deviceRepository = new DeviceRepository();
+        DeviceRepository deviceRepository = mock(DeviceRepository.class);
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         RoomRepository roomRepository = new RoomRepository();
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
@@ -214,13 +217,16 @@ class DeactivateDeviceControllerTest {
         DeviceStatus deviceStatus = new DeviceStatus(false);
         DeviceTypeID deviceTypeID = new DeviceTypeID("1");
         Device device = deviceServiceImpl.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
+        DeviceID deviceId = device.getID();
+
+        when(deviceRepository.ofIdentity(deviceId)).thenReturn(Optional.of(device));
 
         DeviceDTO deviceDTO = new DeviceDTO(device.getID().toString(), room.getID().toString(), deviceName.toString(), deviceStatus.toString());
         // Act
         DeviceDTO deactivatedDevice = deactivateDeviceController.requestDeactivateDevice(deviceDTO);
 
         // Assert
-        assertEquals(deactivatedDevice.deviceStatus.toString(), "OFF");
+        assertEquals("OFF", deactivatedDevice.deviceStatus);
     }
 
     /**

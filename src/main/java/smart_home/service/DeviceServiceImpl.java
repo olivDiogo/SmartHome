@@ -95,7 +95,7 @@ public class DeviceServiceImpl implements IDeviceService {
         if (deviceOptional.isPresent()) {
             Device device = deviceOptional.get();
             device.deactivateDevice();
-            //_deviceRepository.save(device);
+            _deviceRepository.save(device);
             return device;
         } else {
             throw new IllegalArgumentException("Device with ID " + deviceID + " not found.");
