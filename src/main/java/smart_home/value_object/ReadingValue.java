@@ -6,7 +6,6 @@ import smart_home.utils.Validator;
 public class ReadingValue implements IValueObject {
 
     private String _readingValue;
-    private String _unit;
 
     public ReadingValue(String readingValue) {
         Validator.validateNotNull(readingValue, "Reading Value");
