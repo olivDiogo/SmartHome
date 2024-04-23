@@ -11,8 +11,9 @@ public class ActuatorModelID implements IDomainID {
     }
 
     private void validationActuatorModelID(String actuatorModelID) {
-        if (actuatorModelID == null || actuatorModelID.isBlank())
+        if (actuatorModelID == null || actuatorModelID.isBlank()) {
             throw new IllegalArgumentException("The value of 'actuatorModelID' should not null, blank, or empty.");
+        }
     }
 
     @Override
@@ -22,8 +23,9 @@ public class ActuatorModelID implements IDomainID {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object)
+        if (this == object) {
             return true;
+        }
 
         if (object instanceof ActuatorModelID actuatorModelID) {
 

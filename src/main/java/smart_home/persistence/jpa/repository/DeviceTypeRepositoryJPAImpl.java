@@ -36,7 +36,9 @@ public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
    */
   private void validateDataModelAssembler(
       IDataModelAssembler<DeviceTypeDataModel, DeviceType> entity) {
-    if (entity == null) throw new IllegalArgumentException("Data model assembler cannot be null.");
+    if (entity == null){
+        throw new IllegalArgumentException("Data model assembler cannot be null.");
+    }
   }
 
   /**

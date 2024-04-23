@@ -25,9 +25,11 @@ public class SunriseTimeSensorValue implements IValueObject {
      * @return the value of the SunriseTimeValue.
      */
     private void setValue(LocalTime value) {
-        if (value == null)
+        if (value == null) {
             throw new IllegalArgumentException("Time is required");
-        else this._value = value;
+        }
+        else{ this._value = value;
+        }
     }
 
     /**

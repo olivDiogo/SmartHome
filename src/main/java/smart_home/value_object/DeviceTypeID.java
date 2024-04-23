@@ -18,8 +18,9 @@ public class DeviceTypeID implements IDomainID {
     }
 
     private void validateId(String deviceTypeID) {
-        if (deviceTypeID == null || deviceTypeID.isBlank())
+        if (deviceTypeID == null || deviceTypeID.isBlank()){
             throw new IllegalArgumentException("'deviceTypeID' must be a non-empty string.");
+        }
     }
 
 
@@ -31,8 +32,9 @@ public class DeviceTypeID implements IDomainID {
      */
     @Override
     public boolean equals(Object object) {
-        if (this == object)
+        if (this == object) {
             return true;
+        }
 
         if (object instanceof DeviceTypeID deviceTypeID) {
 

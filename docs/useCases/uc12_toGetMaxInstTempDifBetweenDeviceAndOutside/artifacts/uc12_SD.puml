@@ -29,11 +29,11 @@ User -> Controller: getMaxInstTempDiffBetweenDeviceAndOutside (deviceDTO, initia
 
 activate Controller
 
-Controller -> LogService: getDeviceReadingsByTimePeriod (deviceID, initialTime, endTime)
+Controller -> LogService: getDeviceReadingsByTimePeriod (outsideDeviceID, datePeriod)
 
 activate LogService
 
-LogService -> LogRepository: findByDeviceIDAndTimePeriod (deviceID, initialTime, endTime)
+LogService -> LogRepository: findByDeviceIDAndTimePeriod (outsideDeviceID, datePeriod)
 
 activate LogRepository
 
@@ -47,11 +47,11 @@ deactivate LogService
 
 Controller -> Controller: toDomain (deviceDTO)
 
-Controller -> LogService: getTDeviceReadingsByTimePeriod (deviceID, initialTime, endTime)
+Controller -> LogService: getTDeviceReadingsByTimePeriod (deviceID, datePeriod)
 
 activate LogService
 
-LogService -> LogRepository: findByDeviceIDAndTimePeriod (deviceID, initialTime, endTime)
+LogService -> LogRepository: findByDeviceIDAndTimePeriod (deviceID, datePeriod)
 
 activate LogRepository
 

@@ -19,11 +19,13 @@ public class SensorModelRepository implements ISensorModelRepository {
     public SensorModel save(SensorModel entity) {
         Validator.validateNotNull(entity, "Sensor Model");
 
-        if (containsOfIdentity(entity.getID()))
+        if (containsOfIdentity(entity.getID())){
             throw new IllegalArgumentException("SensorModel already exists.");
-        else
+        }
+        else{
 
             DATA.put(entity.getModelPath(), entity);
+        }
         return entity;
     }
 

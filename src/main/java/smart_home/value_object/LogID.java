@@ -16,8 +16,9 @@ public class LogID implements IDomainID {
     }
 
     private void validateLogID(String logID) {
-        if (logID == null || logID.isBlank())
+        if (logID == null || logID.isBlank()) {
             throw new IllegalArgumentException("The value of 'logID' should not null, blank, or empty.");
+        }
     }
 
     /**
@@ -36,8 +37,9 @@ public class LogID implements IDomainID {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o){
             return true;
+        }
 
         if (o instanceof LogID objectLogID) {
 

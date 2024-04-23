@@ -36,8 +36,9 @@ public class SensorTypeDataModelAssembler implements IDataModelAssembler<SensorT
 
     @Override
     public List<SensorType> toDomain(List<SensorTypeDataModel> sensorTypeDataModels) {
-        if (sensorTypeDataModels == null || sensorTypeDataModels.isEmpty())
+        if (sensorTypeDataModels == null || sensorTypeDataModels.isEmpty()){
             throw new IllegalArgumentException("The list of sensor types cannot be null or empty.");
+        }
 
         List <SensorType> sensorTypes = new ArrayList<>();
 

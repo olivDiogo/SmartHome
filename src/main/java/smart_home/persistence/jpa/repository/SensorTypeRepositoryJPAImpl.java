@@ -32,8 +32,9 @@ public class SensorTypeRepositoryJPAImpl implements ISensorTypeRepository {
      * @param entity the data model converter
      */
     private void validateDataModelConverter(IDataModelAssembler<SensorTypeDataModel, SensorType> entity) {
-        if (entity == null)
+        if (entity == null){
             throw new IllegalArgumentException("Data model converter cannot be null.");
+        }
     }
 
     /**
@@ -112,8 +113,9 @@ public class SensorTypeRepositoryJPAImpl implements ISensorTypeRepository {
         try {
             SensorTypeDataModel sensorTypeDataModel = em.find(SensorTypeDataModel.class, sensorTypeID);
 
-            if (sensorTypeDataModel == null)
+            if (sensorTypeDataModel == null){
                 return Optional.empty();
+            }
 
             SensorType sensorType = _dataModelConverter.toDomain(sensorTypeDataModel);
 

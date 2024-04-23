@@ -26,7 +26,7 @@ public class DeviceDataModelAssembler implements IDataModelAssembler<DeviceDataM
      * @param deviceFactory The factory used to create Device domain objects.
      */
     public DeviceDataModelAssembler(IDeviceFactory deviceFactory) {
-       Validator.validateNotNull(deviceFactory, "Device Factory");
+        Validator.validateNotNull(deviceFactory, "Device Factory");
         _deviceFactory = deviceFactory;
     }
 
@@ -38,7 +38,7 @@ public class DeviceDataModelAssembler implements IDataModelAssembler<DeviceDataM
      */
     @Override
     public Device toDomain(DeviceDataModel deviceDataModel) {
-       Validator.validateNotNull(deviceDataModel, "Device Data Model");
+        Validator.validateNotNull(deviceDataModel, "Device Data Model");
 
         RoomID roomID = new RoomID(deviceDataModel.getRoomID());
         DeviceName deviceName = new DeviceName(deviceDataModel.getDeviceName());
@@ -58,8 +58,9 @@ public class DeviceDataModelAssembler implements IDataModelAssembler<DeviceDataM
      */
     @Override
     public List<Device> toDomain(List<DeviceDataModel> deviceDataModels) {
-        if(deviceDataModels == null || deviceDataModels.isEmpty())
+        if (deviceDataModels == null || deviceDataModels.isEmpty()) {
             throw new IllegalArgumentException("The list of devices cannot be null or empty.");
+        }
         List<Device> listDomain = new ArrayList<>();
         for (DeviceDataModel deviceDataModel : deviceDataModels) {
             Device device = toDomain(deviceDataModel);

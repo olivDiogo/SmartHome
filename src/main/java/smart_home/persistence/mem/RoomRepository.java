@@ -23,10 +23,11 @@ public class RoomRepository implements IRoomRepository {
     public Room save(Room entity) {
         Validator.validateNotNull(entity, "Room");
 
-        if (containsOfIdentity(entity.getID()))
+        if (containsOfIdentity(entity.getID())) {
             throw new IllegalArgumentException("Room already exists");
-        else
+        } else {
             DATA.put(entity.getID(), entity);
+        }
         return entity;
     }
 

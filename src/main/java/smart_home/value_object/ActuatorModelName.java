@@ -47,8 +47,9 @@ public class ActuatorModelName implements IValueObject{
      * @return
      */
     public boolean equals(Object object) {
-        if (this == object)
+        if (this == object) {
             return true;
+        }
 
         if (object instanceof ActuatorModelName actuatorModelName) {
 

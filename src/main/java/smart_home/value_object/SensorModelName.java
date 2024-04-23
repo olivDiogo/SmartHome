@@ -41,12 +41,13 @@ public class SensorModelName {
     /**
      * Compares this instance with another instance.
      *
-     * @param o
+     * @param object
      * @return
      */
     public boolean equals(Object object) {
-        if (this == object)
+        if (this == object){
             return true;
+        }
 
         if (object instanceof SensorModelName sensorModelName) {
 

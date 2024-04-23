@@ -101,8 +101,9 @@ public class RoomRepositoryJPAImpl implements IRoomRepository {
         try{
             RoomDataModel roomDataModel = em.find(RoomDataModel.class, objectID);
 
-            if (roomDataModel == null)
+            if (roomDataModel == null){
                 return Optional.empty();
+            }
 
             Room room = _dataModelConverter.toDomain(roomDataModel);
 

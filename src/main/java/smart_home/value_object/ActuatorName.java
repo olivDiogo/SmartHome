@@ -26,8 +26,9 @@ public class ActuatorName implements IValueObject {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object)
+        if (this == object){
             return true;
+        }
 
         if (object instanceof ActuatorName actuatorName) {
 

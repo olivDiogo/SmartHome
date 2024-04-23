@@ -42,13 +42,14 @@ public class SensorName implements IValueObject {
     /**
      * Compares this instance with another instance.
      *
-     * @param o the other instance to compare with
+     * @param object the other instance to compare with
      * @return true if the instances are equal, false otherwise
      */
     @Override
     public boolean equals(Object object) {
-        if (this == object)
+        if (this == object) {
             return true;
+        }
 
         if (object instanceof SensorName sensorName) {
 
