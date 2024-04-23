@@ -3,7 +3,7 @@ package smart_home.domain.sensor.humidity_sensor;
 import smart_home.ddd.IValueObject;
 
 public class HumiditySensorValue implements IValueObject {
-    private int _iValue;
+    private int _humidityValue;
 
     /**
      * Constructs a HumiditySensorValue with a specified humidity percentage.
@@ -25,7 +25,7 @@ public class HumiditySensorValue implements IValueObject {
         if (iValue < 0 || iValue > 100) {
             throw new IllegalArgumentException("Humidity value must be between 0 and 100");
         } else {
-            this._iValue = iValue;
+            this._humidityValue = iValue;
         }
     }
 
@@ -35,6 +35,34 @@ public class HumiditySensorValue implements IValueObject {
      * @return The humidity value as a string.
      */
     public String toString() {
-        return this._iValue + "";
+        return this._humidityValue + "";
     }
+
+    /**
+     * Compares this HumiditySensorValue to another object.
+     * This method returns true if and only if the other object is a HumiditySensorValue with the same value.
+     *
+     * @param obj The object to compare.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof HumiditySensorValue) {
+            HumiditySensorValue other = (HumiditySensorValue) obj;
+            return this._humidityValue == other._humidityValue;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the hash code of the humidity value.
+     *
+     * @return The hash code of the humudity value.
+     */
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(_humidityValue);
+    }
+
+
 }
