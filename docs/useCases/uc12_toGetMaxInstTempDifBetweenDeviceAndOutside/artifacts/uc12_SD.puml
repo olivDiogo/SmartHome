@@ -47,11 +47,11 @@ deactivate LogService
 
 Controller -> Controller: toDomain (deviceDTO)
 
-Controller -> LogService: getTDeviceReadingsByTimePeriod (deviceID, datePeriod)
+Controller -> LogService: getTDeviceReadingsByTimePeriod (deviceID, sensorTypeID, datePeriod)
 
 activate LogService
 
-LogService -> LogRepository: findByDeviceIDAndTimePeriod (deviceID, datePeriod)
+LogService -> LogRepository: findByDeviceIDAndTimePeriod (deviceID, sensorTypeID, datePeriod)
 
 activate LogRepository
 
