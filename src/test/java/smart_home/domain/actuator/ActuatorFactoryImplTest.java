@@ -14,7 +14,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-class ImpActuatorFactoryTest {
+class ActuatorFactoryImplTest {
 
     /**
      * Test of createActuator method, of class ImpActuatorFactory when the constructor has 4 parameters
@@ -101,7 +101,7 @@ class ImpActuatorFactoryTest {
         // Arrange
         DeviceID deviceIdMock = mock(DeviceID.class);
         ModelPath modelPathMock = mock(ModelPath.class);
-        when(modelPathMock.toString()).thenReturn("SmartHomeDDD.domain.Actuator.SetIntegerActuator.SetIntegerActuator");
+        when(modelPathMock.toString()).thenReturn("smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator");
 
         ActuatorTypeID actuatorTypeIdMock = mock(ActuatorTypeID.class);
         ActuatorName actuatorNameMock = mock(ActuatorName.class);
@@ -124,7 +124,7 @@ class ImpActuatorFactoryTest {
         // Arrange
         DeviceID deviceIdMock = mock(DeviceID.class);
         ModelPath modelPathMock = mock(ModelPath.class);
-        when(modelPathMock.toString()).thenReturn("SmartHomeDDD.domain.Actuator.SwitchActuator.SwitchActuator");
+        when(modelPathMock.toString()).thenReturn("smart_home.domain.actuator.switch_actuator.SwitchActuator");
 
         ActuatorName actuatorNameMock = mock(ActuatorName.class);
 
