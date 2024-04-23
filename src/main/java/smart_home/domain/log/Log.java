@@ -3,7 +3,13 @@ package smart_home.domain.log;
 import smart_home.ddd.IAggregateRoot;
 import smart_home.domain.sensor_type.SensorType;
 import smart_home.utils.Validator;
-import smart_home.value_object.*;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.LogID;
+import smart_home.value_object.ReadingValue;
+import smart_home.value_object.SensorID;
+import smart_home.value_object.SensorTypeID;
+import smart_home.value_object.UnitID;
+
 
 import java.time.LocalDateTime;
 import java.util.UUID;
