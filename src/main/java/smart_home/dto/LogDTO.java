@@ -1,13 +1,15 @@
 package smart_home.dto;
 
-public class LogDTO {
-    private String logID;
-    private String deviceID;
-    private String sensorID;
-    private String sensorTypeID;
-    private String reading;
-    private String timestamp;
-    private String unitID;
+import smart_home.ddd.IDTO;
+
+public class LogDTO implements IDTO {
+    public String logID;
+    public String deviceID;
+    public String sensorID;
+    public String sensorTypeID;
+    public String reading;
+    public String timestamp;
+    public String unitID;
 
     /**
      * Constructs a new LogDTO object with the specified log details.
