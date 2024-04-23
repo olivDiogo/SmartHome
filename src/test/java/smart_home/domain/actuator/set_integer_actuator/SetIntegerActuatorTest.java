@@ -1,14 +1,24 @@
 package smart_home.domain.actuator.set_integer_actuator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
-import smart_home.value_object.*;
+import smart_home.value_object.ActuatorID;
+import smart_home.value_object.ActuatorName;
+import smart_home.value_object.ActuatorTypeID;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.IntegerLimits;
+import smart_home.value_object.ModelPath;
 import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
 import smart_home.visitor_pattern.IActuatorVisitor;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class SetIntegerActuatorTest {
     /**
@@ -47,7 +57,8 @@ class SetIntegerActuatorTest {
         IntegerLimits limits = mock(IntegerLimits.class);
 
         // Act
-        SetIntegerActuator actuator = new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+        SetIntegerActuator actuator = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID,
+            actuatorName, limits, actuatorID);
 
         // Assert
         assertNotNull(actuator);
@@ -70,7 +81,8 @@ class SetIntegerActuatorTest {
 
         // Act & Assert
         Exception exception = org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
-            new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         // Assert
@@ -117,7 +129,8 @@ class SetIntegerActuatorTest {
 
         // Act & Assert
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         // Assert
@@ -163,7 +176,8 @@ class SetIntegerActuatorTest {
 
         // Act & Assert
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         // Assert
@@ -187,7 +201,8 @@ class SetIntegerActuatorTest {
 
         // Act & Assert
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         // Assert
@@ -233,7 +248,8 @@ class SetIntegerActuatorTest {
 
         // Act & Assert
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         // Assert
@@ -303,7 +319,8 @@ class SetIntegerActuatorTest {
 
         // Act & Assert
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         // Assert
@@ -328,7 +345,8 @@ class SetIntegerActuatorTest {
 
         // Act & Assert
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetIntegerActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         // Assert

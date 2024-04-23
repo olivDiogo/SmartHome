@@ -1,12 +1,16 @@
 package smart_home.domain.actuator.set_decimal_actuator;
 
+import java.util.UUID;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.IActuator;
 import smart_home.utils.Validator;
-import smart_home.value_object.*;
+import smart_home.value_object.ActuatorID;
+import smart_home.value_object.ActuatorName;
+import smart_home.value_object.ActuatorTypeID;
+import smart_home.value_object.DecimalLimits;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.ModelPath;
 import smart_home.visitor_pattern.IActuatorVisitor;
-
-import java.util.UUID;
 
 /**
  * Represents a decimal actuator used to set decimal values within specified limits.
@@ -15,17 +19,17 @@ public class SetDecimalActuator implements IActuator {
 
     private ActuatorID _actuatorID;
 
-    private ActuatorName _actuatorName;
+  private final ActuatorName _actuatorName;
 
-    private ModelPath _modelPath;
+  private final ModelPath _modelPath;
 
-    private ActuatorTypeID _actuatorTypeID;
+  private final ActuatorTypeID _actuatorTypeID;
 
-    private DeviceID _deviceID;
+  private final DeviceID _deviceID;
 
     private SetDecimalValue _value;
 
-    private DecimalLimits _limits;
+  private final DecimalLimits _limits;
 
     /**
      * Constructs a SetDecimalActuator object with the provided parameters.
@@ -59,20 +63,16 @@ public class SetDecimalActuator implements IActuator {
     /**
      * Constructs a SetDecimalActuator object with the provided parameters.
      *
-     * @param actuatorID     The ID of the actuator.
      * @param deviceID       The ID of the device associated with the actuator.
      * @param modelPath      The path of the model associated with the actuator.
      * @param actuatorTypeID The ID of the actuator type.
      * @param actuatorName   The name of the actuator.
      * @param limits         The limits within which the actuator can set values.
+     * @param actuatorID     The ID of the actuator.
      */
     public SetDecimalActuator(
-            ActuatorID actuatorID,
-            DeviceID deviceID,
-            ModelPath modelPath,
-            ActuatorTypeID actuatorTypeID,
-            ActuatorName actuatorName,
-            DecimalLimits limits) {
+        DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID,
+        ActuatorName actuatorName, DecimalLimits limits, ActuatorID actuatorID) {
         Validator.validateNotNull(deviceID, "DeviceID");
         Validator.validateNotNull(modelPath, "ModelPath");
         Validator.validateNotNull(actuatorName, "ActuatorName");

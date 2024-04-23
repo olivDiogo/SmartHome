@@ -1,15 +1,25 @@
 package smart_home.domain.actuator.blind_roller_actuator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import smart_home.domain.actuator.switch_actuator.SwitchActuatorValue;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
-import smart_home.value_object.*;
+import smart_home.value_object.ActuatorID;
+import smart_home.value_object.ActuatorName;
+import smart_home.value_object.ActuatorTypeID;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.ModelPath;
 import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
 import smart_home.visitor_pattern.IActuatorVisitor;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class BlindRollerActuatorTest {
     /**
@@ -63,11 +73,9 @@ class BlindRollerActuatorTest {
             // Act
             BlindRollerActuator blindRollerActuator =
                     new BlindRollerActuator(
-                            actuatorIDDouble,
-                            deviceIDDouble,
-                            modelPathDouble,
-                            actuatorTypeIDDouble,
-                            actuatorNameDouble);
+                        deviceIDDouble, modelPathDouble, actuatorTypeIDDouble, actuatorNameDouble,
+                        actuatorIDDouble
+                    );
 
             // Assert
             assertNotNull(blindRollerActuator);

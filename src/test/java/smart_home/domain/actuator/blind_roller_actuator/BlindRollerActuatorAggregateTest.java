@@ -1,10 +1,20 @@
 package smart_home.domain.actuator.blind_roller_actuator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import smart_home.ddd.IValueObject;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
-import smart_home.value_object.*;
+import smart_home.value_object.ActuatorID;
+import smart_home.value_object.ActuatorName;
+import smart_home.value_object.ActuatorTypeID;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.ModelPath;
 import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
 import smart_home.visitor_pattern.IActuatorVisitor;
 
@@ -52,7 +62,8 @@ class BlindRollerActuatorAggregateTest {
         ActuatorID actuatorIDObject = new ActuatorID(actuatorID);
 
         //Act
-        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(actuatorIDObject, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+        BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject,
+            modelPathObject, actuatorTypeIDObject, actuatorNameObject, actuatorIDObject);
 
         //Assert
         assertNotNull(blindRollerActuator);
@@ -78,7 +89,8 @@ class BlindRollerActuatorAggregateTest {
 
         //Act+Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new BlindRollerActuator(actuatorIDObject, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+            new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject,
+                actuatorNameObject, actuatorIDObject);
         });
 
         String actualMessage = exception.getMessage();
@@ -161,7 +173,8 @@ class BlindRollerActuatorAggregateTest {
 
         //Act+Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new BlindRollerActuator(actuatorID, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+            new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject,
+                actuatorNameObject, actuatorID);
         });
 
         String actualMessage = exception.getMessage();
@@ -191,7 +204,8 @@ class BlindRollerActuatorAggregateTest {
 
         //Act+Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new BlindRollerActuator(actuatorID, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+            new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject,
+                actuatorNameObject, actuatorID);
         });
 
         String actualMessage = exception.getMessage();
@@ -250,7 +264,8 @@ class BlindRollerActuatorAggregateTest {
 
         //Act+Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new BlindRollerActuator(actuatorID, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+            new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject,
+                actuatorNameObject, actuatorID);
         });
 
         String actualMessage = exception.getMessage();
@@ -309,7 +324,8 @@ class BlindRollerActuatorAggregateTest {
 
         //Act+Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new BlindRollerActuator(actuatorID, deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
+            new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject,
+                actuatorNameObject, actuatorID);
         });
 
         String actualMessage = exception.getMessage();

@@ -1,16 +1,24 @@
 package smart_home.domain.actuator.switch_actuator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import smart_home.ddd.IValueObject;
-import smart_home.domain.actuator.set_integer_actuator.SetIntegerActuator;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
-import smart_home.value_object.*;
+import smart_home.value_object.ActuatorID;
+import smart_home.value_object.ActuatorName;
+import smart_home.value_object.ActuatorTypeID;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.ModelPath;
 import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
 import smart_home.visitor_pattern.IActuatorVisitor;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class SwitchActuatorTest {
 
@@ -55,7 +63,8 @@ class SwitchActuatorTest {
             when(mock.getID()).thenReturn("123");
         })) {
             //Act
-            SwitchActuator switchActuator = new SwitchActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName);
+            SwitchActuator switchActuator = new SwitchActuator(deviceID, modelPath, actuatorTypeID,
+                actuatorName, actuatorID);
 
             //Assert
             assertNotNull(switchActuator);

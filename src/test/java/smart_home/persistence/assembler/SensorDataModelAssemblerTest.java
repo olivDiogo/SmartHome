@@ -1,14 +1,9 @@
 package smart_home.persistence.assembler;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import smart_home.domain.sensor.ISensor;
 import smart_home.domain.sensor.ISensorFactory;
@@ -44,10 +39,8 @@ class SensorDataModelAssemblerTest {
 
     SensorDataModelAssembler sensorDataModelAssembler = new SensorDataModelAssembler(sensorFactory);
 
-    ISensor sensor2 = sensorDataModelAssembler.toDomain(sensorDataModel);
-
     // Act
-
+    ISensor sensor2 = sensorDataModelAssembler.toDomain(sensorDataModel);
     // Assert
     assertEquals(sensor, sensor2);
 

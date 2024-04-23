@@ -1,16 +1,23 @@
 package smart_home.domain.actuator.set_integer_actuator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
-import smart_home.value_object.*;
+import smart_home.value_object.ActuatorID;
+import smart_home.value_object.ActuatorName;
+import smart_home.value_object.ActuatorTypeID;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.IntegerLimits;
+import smart_home.value_object.ModelPath;
 import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
 import smart_home.visitor_pattern.IActuatorVisitor;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SetIntegerActuatorAggregateTest {
     /**
@@ -46,7 +53,8 @@ class SetIntegerActuatorAggregateTest {
         IntegerLimits limits = new IntegerLimits(0, 100);
 
         //Act
-        SetIntegerActuator sensor = new SetIntegerActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+        SetIntegerActuator sensor = new SetIntegerActuator(deviceID, modelPath, actuatorTypeID,
+            actuatorName, limits, actuatorID);
 
         //Assert
         assertNotNull(sensor);

@@ -1,21 +1,25 @@
 package smart_home.domain.actuator.set_integer_actuator;
 
+import java.util.UUID;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.IActuator;
 import smart_home.utils.Validator;
-import smart_home.value_object.*;
+import smart_home.value_object.ActuatorID;
+import smart_home.value_object.ActuatorName;
+import smart_home.value_object.ActuatorTypeID;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.IntegerLimits;
+import smart_home.value_object.ModelPath;
 import smart_home.visitor_pattern.IActuatorVisitor;
-
-import java.util.UUID;
 
 public class SetIntegerActuator implements IActuator {
     private ActuatorID _actuatorID;
-    private ActuatorName _actuatorName;
-    private ModelPath _modelPath;
-    private ActuatorTypeID _actuatorTypeID;
-    private DeviceID _deviceID;
+  private final ActuatorName _actuatorName;
+  private final ModelPath _modelPath;
+  private final ActuatorTypeID _actuatorTypeID;
+  private final DeviceID _deviceID;
     private SetIntegerValue _value;
-    private IntegerLimits _limits;
+  private final IntegerLimits _limits;
 
     /**
      * Constructor for SetIntegerActuator
@@ -43,13 +47,14 @@ public class SetIntegerActuator implements IActuator {
     /**
      * Constructor for SetIntegerActuator
      *
-     * @param actuatorID     is the ID of the actuator
      * @param deviceID       is the ID of the device associated with the actuator
      * @param modelPath      is the path of the model associated with the actuator
      * @param actuatorTypeID is the ID of the actuator type
      * @param actuatorName   is the name of the actuator
+     * @param actuatorID     is the ID of the actuator
      */
-    public SetIntegerActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName, IntegerLimits limits) {
+    public SetIntegerActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID,
+        ActuatorName actuatorName, IntegerLimits limits, ActuatorID actuatorID) {
         Validator.validateNotNull(deviceID, "DeviceID");
         Validator.validateNotNull(modelPath, "ModelPath");
         Validator.validateNotNull(actuatorName, "ActuatorName");

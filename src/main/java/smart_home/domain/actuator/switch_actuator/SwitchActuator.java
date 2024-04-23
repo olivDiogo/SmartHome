@@ -1,19 +1,22 @@
 package smart_home.domain.actuator.switch_actuator;
 
+import java.util.UUID;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.IActuator;
 import smart_home.utils.Validator;
-import smart_home.value_object.*;
+import smart_home.value_object.ActuatorID;
+import smart_home.value_object.ActuatorName;
+import smart_home.value_object.ActuatorTypeID;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.ModelPath;
 import smart_home.visitor_pattern.IActuatorVisitor;
-
-import java.util.UUID;
 
 public class SwitchActuator implements IActuator {
 
-    private DeviceID _deviceID;
-    private ActuatorName _actuatorName;
-    private ModelPath _modelPath;
-    private ActuatorTypeID _actuatorTypeID;
+  private final DeviceID _deviceID;
+  private final ActuatorName _actuatorName;
+  private final ModelPath _modelPath;
+  private final ActuatorTypeID _actuatorTypeID;
     private ActuatorID _actuatorID;
     private SwitchActuatorValue _value;
 
@@ -42,13 +45,14 @@ public class SwitchActuator implements IActuator {
     /**
      * Instantiates a new Switch actuator.
      *
-     * @param actuatorID     the actuator id
      * @param deviceID       the device id
      * @param modelPath      the model path
      * @param actuatorTypeID the actuator type id
      * @param actuatorName   the actuator name
+     * @param actuatorID     the actuator id
      */
-    public SwitchActuator(ActuatorID actuatorID, DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID, ActuatorName actuatorName) {
+    public SwitchActuator(DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID,
+        ActuatorName actuatorName, ActuatorID actuatorID) {
         Validator.validateNotNull(deviceID, "DeviceID");
         Validator.validateNotNull(modelPath, "ModelPath");
         Validator.validateNotNull(actuatorName, "ActuatorName");

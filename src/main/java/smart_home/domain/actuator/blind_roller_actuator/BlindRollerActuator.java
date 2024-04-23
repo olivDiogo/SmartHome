@@ -1,12 +1,15 @@
 package smart_home.domain.actuator.blind_roller_actuator;
 
+import java.util.UUID;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.IActuator;
 import smart_home.utils.Validator;
-import smart_home.value_object.*;
+import smart_home.value_object.ActuatorID;
+import smart_home.value_object.ActuatorName;
+import smart_home.value_object.ActuatorTypeID;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.ModelPath;
 import smart_home.visitor_pattern.IActuatorVisitor;
-
-import java.util.UUID;
 
 /**
  * Represents a Blind Roller Actuator in the Smart Home Domain. This actuator is responsible for
@@ -15,10 +18,10 @@ import java.util.UUID;
 public class BlindRollerActuator implements IActuator {
 
     private ActuatorID _actuatorID;
-    private DeviceID _deviceID;
-    private ModelPath _modelPath;
-    private ActuatorTypeID _actuatorTypeID;
-    private ActuatorName _actuatorName;
+  private final DeviceID _deviceID;
+  private final ModelPath _modelPath;
+  private final ActuatorTypeID _actuatorTypeID;
+  private final ActuatorName _actuatorName;
     private BlindRollerValue _value;
 
     /**
@@ -49,18 +52,15 @@ public class BlindRollerActuator implements IActuator {
     /**
      * Constructs a new BlindRollerActuator with the specified parameters.
      *
-     * @param actuatorID     The ID of the actuator.
      * @param deviceID       The ID of the device associated with this actuator.
+     * @param modelPath      The model path of the actuator.
      * @param actuatorTypeID The type ID of the actuator.
      * @param actuatorName   The name of the actuator.
-     * @param modelPath      The model path of the actuator.
+     * @param actuatorID     The ID of the actuator.
      */
     public BlindRollerActuator(
-            ActuatorID actuatorID,
-            DeviceID deviceID,
-            ModelPath modelPath,
-            ActuatorTypeID actuatorTypeID,
-            ActuatorName actuatorName) {
+        DeviceID deviceID, ModelPath modelPath, ActuatorTypeID actuatorTypeID,
+        ActuatorName actuatorName, ActuatorID actuatorID) {
         Validator.validateNotNull(deviceID, "DeviceID");
         validateActuatorTypeID(actuatorTypeID);
         Validator.validateNotNull(actuatorName, "ActuatorName");

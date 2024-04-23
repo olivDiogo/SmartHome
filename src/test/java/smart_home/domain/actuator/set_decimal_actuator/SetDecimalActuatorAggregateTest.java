@@ -1,14 +1,24 @@
 package smart_home.domain.actuator.set_decimal_actuator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 import smart_home.ddd.IValueObject;
 import smart_home.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
-import smart_home.value_object.*;
+import smart_home.value_object.ActuatorID;
+import smart_home.value_object.ActuatorName;
+import smart_home.value_object.ActuatorTypeID;
+import smart_home.value_object.DecimalLimits;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.ModelPath;
 import smart_home.visitor_pattern.ActuatorVisitorForDataModelImpl;
 import smart_home.visitor_pattern.IActuatorVisitor;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test cases for the SetDecimalActuator class.
@@ -48,7 +58,8 @@ class SetDecimalActuatorAggregateTest {
         DecimalLimits limits = new DecimalLimits(1.5, 9.5);
 
         // Act
-        SetDecimalActuator sensor = new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+        SetDecimalActuator sensor = new SetDecimalActuator(deviceID, modelPath, actuatorTypeID,
+            actuatorName, limits, actuatorID);
 
         // Assert
         assertNotNull(sensor);
@@ -73,7 +84,8 @@ class SetDecimalActuatorAggregateTest {
 
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         assertEquals(expectedMessage, exception.getMessage());
@@ -97,7 +109,8 @@ class SetDecimalActuatorAggregateTest {
 
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         // Assert
@@ -170,7 +183,8 @@ class SetDecimalActuatorAggregateTest {
 
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         //Assert
@@ -195,7 +209,8 @@ class SetDecimalActuatorAggregateTest {
 
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         //Assert
@@ -243,7 +258,8 @@ class SetDecimalActuatorAggregateTest {
 
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         assertEquals(expectedMessage, exception.getMessage());
@@ -288,7 +304,8 @@ class SetDecimalActuatorAggregateTest {
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         //Assert
@@ -358,7 +375,8 @@ class SetDecimalActuatorAggregateTest {
 
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new SetDecimalActuator(actuatorID, deviceID, modelPath, actuatorTypeID, actuatorName, limits);
+            new SetDecimalActuator(deviceID, modelPath, actuatorTypeID, actuatorName, limits,
+                actuatorID);
         });
 
         // Assert
