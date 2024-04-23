@@ -390,4 +390,148 @@ class GetLogFromDeviceControllerTest {
         // Assert
         assertEquals(logs.get(0).toString(), logDTO.toString());
     }
+
+    /**
+     * Test getLogFromDevice method when timeStart is after timeEnd.
+     */
+    @Test
+    void shouldReturnInvalidTimePeriod_WhenTimeStartIsAfterTimeEnd() {
+      // Arrange
+      LogRepository logRepository = new LogRepository();
+      LogServiceImpl logService = new LogServiceImpl(logRepository);
+      LogAssembler logAssembler = new LogAssembler();
+      DeviceRepository deviceRepository = new DeviceRepository();
+      DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+      RoomRepository roomRepository = new RoomRepository();
+      RoomFactoryImpl roomFactory = new RoomFactoryImpl();
+      RoomAssembler roomAssembler = new RoomAssembler();
+      HouseRepository houseRepository = new HouseRepository();
+      HouseFactoryImpl houseFactory = new HouseFactoryImpl();
+      RoomServiceImpl roomService = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler,
+          houseRepository);
+      DeviceServiceImpl deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory,
+          roomRepository);
+      DeviceAssembler deviceAssembler = new DeviceAssembler();
+      PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+      GetLogFromDeviceController getLogFromDeviceController = new GetLogFromDeviceController(
+          logService, deviceService, logRepository, deviceRepository, logAssembler, roomService,
+          roomAssembler, deviceAssembler);
+
+      // Add a house
+      String street = "Rua Do Isep";
+      String doorNumber = "122A";
+      String countryCode = "PT";
+      String postalCode = "4000-007";
+      Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+      GPS gps = new GPS(41.5514, -8.4221);
+      House house = houseFactory.createHouse(address, gps);
+      houseRepository.save(house);
+
+      // Add a room
+      HouseID houseID = house.getID();
+      RoomName roomName = new RoomName("Living Room");
+      Dimension dimension = new Dimension(10, 10, 10);
+      RoomFloor roomFloor = new RoomFloor(1);
+      Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+
+      // Add a log
+      LogFactoryImpl logFactory = new LogFactoryImpl();
+      LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 0);
+      ReadingValue readingValue = new ReadingValue("20");
+      SensorID sensorID = new SensorID("1");
+      SensorTypeID sensorTypeID = new SensorTypeID("Temperature");
+      UnitID unitID = new UnitID("C");
+      DeviceID deviceID = new DeviceID("2");
+      Log log = logFactory.createLog(deviceID, sensorID, timeStamp, readingValue, sensorTypeID,
+          unitID);
+      logRepository.save(log);
+
+      // Create LogDataDTO
+      String timeEnd = "2020-03-01T13:45:30";
+      String timeStart = "2022-03-01T13:50:30";
+      LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
+
+      String expected = "Start date cannot be after end date.";
+
+      // Act & Assert
+      IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+          () -> getLogFromDeviceController.getLogFromDevice(logDataDTO));
+      assertEquals(expected, exception.getMessage());
+    }
+
+    /**
+     * Test when no measurements are available for the given period.
+     */
+    @Test
+    void shouldReturnNoMeasurementsAvailable_WhenNoMeasurementsForGivenPeriod() {
+      // Arrange
+      LogRepository logRepository = new LogRepository();
+      LogServiceImpl logService = new LogServiceImpl(logRepository);
+      LogAssembler logAssembler = new LogAssembler();
+      DeviceRepository deviceRepository = new DeviceRepository();
+      DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+      RoomRepository roomRepository = new RoomRepository();
+      RoomFactoryImpl roomFactory = new RoomFactoryImpl();
+      RoomAssembler roomAssembler = new RoomAssembler();
+      HouseRepository houseRepository = new HouseRepository();
+      HouseFactoryImpl houseFactory = new HouseFactoryImpl();
+      RoomServiceImpl roomService = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler,
+          houseRepository);
+      DeviceServiceImpl deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory,
+          roomRepository);
+      DeviceAssembler deviceAssembler = new DeviceAssembler();
+      PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+      GetLogFromDeviceController getLogFromDeviceController = new GetLogFromDeviceController(
+          logService, deviceService, logRepository, deviceRepository, logAssembler, roomService,
+          roomAssembler, deviceAssembler);
+
+      // Add a house
+      String street = "Rua Do Isep";
+      String doorNumber = "122A";
+      String countryCode = "PT";
+      String postalCode = "4000-007";
+      Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+      GPS gps = new GPS(41.5514, -8.4221);
+      House house = houseFactory.createHouse(address, gps);
+      houseRepository.save(house);
+
+      // Add a room
+      HouseID houseID = house.getID();
+      RoomName roomName = new RoomName("Living Room");
+      Dimension dimension = new Dimension(10, 10, 10);
+      RoomFloor roomFloor = new RoomFloor(1);
+      Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+
+      // Add a device
+      DeviceName deviceName = new DeviceName("Light bulb");
+      DeviceStatus deviceStatus = new DeviceStatus(false);
+      DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+      Device device = deviceService.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
+      DeviceID deviceID = device.getID();
+
+      // Add a log
+      LogFactoryImpl logFactory = new LogFactoryImpl();
+      LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 0);
+      ReadingValue readingValue = new ReadingValue("20");
+      SensorID sensorID = new SensorID("1");
+      SensorTypeID sensorTypeID = new SensorTypeID("Temperature");
+      UnitID unitID = new UnitID("C");
+      DeviceID deviceID2 = new DeviceID("2");
+      Log log = logFactory.createLog(deviceID2, sensorID, timeStamp, readingValue, sensorTypeID, unitID);
+      logRepository.save(log);
+
+      // Create LogDataDTO
+      String timeStart = "2020-03-01T13:45:30";
+      String timeEnd = "2022-03-01T13:50:30";
+      LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
+
+      LogDTO logDTO = new LogDTO("No logs found", "", "", "", "", "", "");
+
+      // Act
+      List<LogDTO> logs = getLogFromDeviceController.getLogFromDevice(logDataDTO);
+
+      // Assert
+      assertEquals(logs.get(0).toString(), logDTO.toString());
+    }
+
 }

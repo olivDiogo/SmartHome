@@ -96,6 +96,10 @@ public class GetLogFromDeviceController {
             return List.of(logDTO);
         }
         List<Log> logs = _logService.getDeviceReadingsByTimePeriod(deviceID, period);
+        if (logs.isEmpty()) {
+            LogDTO logDTO = new LogDTO("No logs found", "", "", "", "", "", "");
+            return List.of(logDTO);
+        }
         return _logAssembler.domainToDTO(logs);
     }
 }

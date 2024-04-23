@@ -16,11 +16,12 @@ in a given period.
 
 ### 1.2. Acceptance Criteria
 
-* AC1: The system must display all the measurements recorded by the selected device during the specified period.
+* AC1: The system must return all the measurements recorded by the selected device during the specified period.
 * AC2: For each measurement the system must display the measurement type and a timestamp.
 * AC3: The system should validate that the start date is earlier than the end date
 * AC4: If no measurements are available for the given period, the system should return an error with the error message"
   This is a Smart Home, not a time machine!"
+* AC5: If the device does not exist, the system should return a LogDTO with the error message "Device not found".
 
 ### 1.3 Customer Specifications and Clarifications
 
