@@ -307,13 +307,33 @@ class DimensionTest {
         int depth = 17;
         Dimension dimension = new Dimension(width, height, depth);
 
-        int expectedHashCode = dimension.hashCode();
+        int expectedHashCode = Integer.hashCode(width) + Integer.hashCode(height) + Integer.hashCode(depth);
 
         //Act
         int result = dimension.hashCode();
 
         //Assert
         assertEquals(expectedHashCode, result);
+    }
+
+    /**
+     * Test hashCode method for different objects.
+     */
+    @Test
+    void shouldReturnHashCode_whenCallingHashCodeWithDifferentHashCode() {
+        //Arrange
+        int width = 13;
+        int height = 15;
+        int depth = 17;
+        Dimension dimension = new Dimension(width, height, depth);
+
+        int expectedHashCode = Integer.hashCode(width) - Integer.hashCode(height) + Integer.hashCode(depth);
+
+        //Act
+        int result = dimension.hashCode();
+
+        //Assert
+        assertNotEquals(expectedHashCode, result);
     }
 
     /**
