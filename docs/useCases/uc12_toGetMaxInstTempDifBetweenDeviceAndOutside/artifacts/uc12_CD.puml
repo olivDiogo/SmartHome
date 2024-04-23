@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/class-diagram
+!pragma layout smetana
+
+
+class GetMaxInstantaneousTempDifBetweenRoomAndOutsideCTRL {
+'Atributes'
+- LogService: logService
+
+'Methods'
+
++ getDevicesByTypeDescription(Map, RoomDTO) : List<DeviceDTO>
++ getMaxInstTempDiffBetweenDeviceAndOutside(DeviceDTO, DatePeriod) : int
+}
+
+class LogService {
+'Atributes'
+- LogRepository: logRepository
+
+'Methods'
++ getDeviceReadingsByTimePeriod (DeviceID, DatePeriod) : List<Log>
+}
+
+class LogRepository {
+'Atributes'
+- Map<LogID, Log>: logData
+
+'Methods'
++ findByDeviceIDAndTimePeriod (DeviceID, DatePeriod) : List<Log>
+
+}
+
+GetMaxInstantaneousTempDifBetweenRoomAndOutsideCTRL "1" ..> "1" LogService : Uses
+LogService "1" ..> "1" LogRepository : Uses
+
+
+@enduml
