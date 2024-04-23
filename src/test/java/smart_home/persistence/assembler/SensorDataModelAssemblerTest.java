@@ -1,8 +1,14 @@
 package smart_home.persistence.assembler;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import smart_home.domain.sensor.ISensor;
 import smart_home.domain.sensor.ISensorFactory;
@@ -100,6 +106,56 @@ class SensorDataModelAssemblerTest {
 
     //Assert
     assertEquals(electricConsumptionWhSensor, sensor);
+  }
 
+  @Test
+  void shouldReturnListOfSensorsOfDifferentSubClasses(){
+    //Arrange
+    //Sensor Temp
+    String deviceIDTemp = "some-device-id";
+    String modelPathTemp = "smart_home.domain.sensor.temperature_sensor.TemperatureSensor";
+    String sensorNameTemp = "sensorName";
+    String sensorTypeIDTemp = "Temperature";
+    DeviceID deviceID = new DeviceID(deviceIDTemp);
+    ModelPath modelPath = new ModelPath(modelPathTemp);
+    SensorName sensorName = new SensorName(sensorNameTemp);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDTemp);
+
+    TemperatureSensor temperatureSensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    SensorDataModel tempatureSensorDataModel = new SensorDataModel(temperatureSensor);
+
+    //Sensor Sunrise
+    String deviceIDSunr = "deviceID";
+    String modelPathSunr = "smart_home.domain.sensor.sunrise_time_sensor.SunriseTimeSensor";
+    String sensorNameSunr = "sensorName";
+    String sensorTypeIDSunr = "SunriseTime";
+    double GPSLatitude = 90.0;
+    double GPSLongitude = 180.0;
+
+    DeviceID sunrDeviceID = new DeviceID(deviceIDSunr);
+    ModelPath sunrModelPath = new ModelPath(modelPathSunr);
+    SensorName sunrSensorName = new SensorName(sensorNameSunr);
+    SensorTypeID sunrSensorTypeID = new SensorTypeID(sensorTypeIDSunr);
+    GPS gps = new GPS(GPSLatitude, GPSLongitude);
+
+    SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(sunrDeviceID, sunrModelPath, sunrSensorTypeID, sunrSensorName, gps);
+    SensorDataModel sunriseSensorDataModel = new SensorDataModel(sunriseTimeSensor);
+    sunriseSensorDataModel.setLatitude(String.valueOf(GPSLatitude));
+    sunriseSensorDataModel.setLongitude(String.valueOf(GPSLongitude));
+
+    List<SensorDataModel> sensorDataModels = List.of(tempatureSensorDataModel, sunriseSensorDataModel);
+    List<ISensor> expected = List.of(temperatureSensor, sunriseTimeSensor);
+
+    ISensorFactory sensorFactory = new SensorFactoryImpl();
+
+    SensorDataModelAssembler sensorDataModelAssembler = new SensorDataModelAssembler(sensorFactory);
+    //Act
+
+    List<ISensor> result = sensorDataModelAssembler.toDomain(sensorDataModels);
+    System.out.println(result);
+    System.out.println(expected);
+
+    //Assert
+    assertEquals(expected, result);
   }
 }

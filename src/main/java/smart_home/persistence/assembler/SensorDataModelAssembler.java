@@ -15,7 +15,7 @@ import smart_home.value_object.SensorID;
 import smart_home.value_object.SensorName;
 import smart_home.value_object.SensorTypeID;
 
-public class SensorDataModelAssembler {
+public class SensorDataModelAssembler implements IDataModelAssembler<SensorDataModel, ISensor> {
   private ISensorFactory _sensorFactory;
   private List<Object> _parameters = new ArrayList<>();
 
@@ -36,6 +36,14 @@ public class SensorDataModelAssembler {
     getDatePeriod(sensorDataModel);
     getSensorID(sensorDataModel);
     return _sensorFactory.create(_parameters.toArray());
+  }
+  public List<ISensor> toDomain (List<SensorDataModel> sensorDataModels) {
+    List<ISensor> sensors = new ArrayList<>();
+    for (SensorDataModel sensorDataModel : sensorDataModels) {
+      ISensor sensor = toDomain(sensorDataModel);
+      sensors.add(sensor);
+    }
+    return sensors;
   }
 
   public boolean getDeviceID(SensorDataModel sensorDataModel) {
