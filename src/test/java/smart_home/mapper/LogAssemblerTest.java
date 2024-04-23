@@ -31,7 +31,6 @@ class LogAssemblerTest {
         String unitID = "1";
 
         Log log = mock(Log.class);
-        ReadingValue readingValue = mock(ReadingValue.class);
 
         when(log.getID()).thenReturn(mock(LogID.class));
         when(log.getID().toString()).thenReturn(logID);
@@ -45,8 +44,8 @@ class LogAssemblerTest {
         when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
         when(log.getDescription().toString()).thenReturn(sensorTypeID);
 
-        when(readingValue.toString()).thenReturn(reading);
-        when(log.getValue()).thenReturn(reading);
+        when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
+        when(log.getReadingValue().toString()).thenReturn(reading);
 
         when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
         when(log.getTimeStamp().toString()).thenReturn(timestamp);
@@ -108,8 +107,8 @@ class LogAssemblerTest {
         when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
         when(log.getDescription().toString()).thenReturn(sensorTypeID);
 
-        when(readingValue.toString()).thenReturn(reading);
-        when(log.getValue()).thenReturn(reading);
+        when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
+        when(log.getReadingValue().toString()).thenReturn(reading);
 
         when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
         when(log.getTimeStamp().toString()).thenReturn(timestamp);
@@ -186,8 +185,8 @@ class LogAssemblerTest {
         when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
         when(log.getDescription().toString()).thenReturn(sensorTypeID);
 
-        when(readingValue.toString()).thenReturn(reading);
-        when(log.getValue()).thenReturn(reading);
+        when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
+        when(log.getReadingValue().toString()).thenReturn(reading);
 
         when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
         when(log.getTimeStamp().toString()).thenReturn(timestamp);
@@ -231,8 +230,8 @@ class LogAssemblerTest {
         when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
         when(log.getDescription().toString()).thenReturn("1");
 
-        when(readingValue.toString()).thenReturn("1");
-        when(log.getValue()).thenReturn("1");
+        when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
+        when(log.getReadingValue().toString()).thenReturn("20");
 
         when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
         when(log.getTimeStamp().toString()).thenReturn("2021-10-10 10:10:10");

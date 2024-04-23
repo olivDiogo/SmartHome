@@ -416,7 +416,7 @@ class LogAggregateTest {
      * Test the getValue method of the Log Class.
      */
     @Test
-    void shouldReturnValue_WhenGetValueIsCalled(){
+    void shouldReturnValue_WhenGetReadingValueIsCalled(){
         // Arrange
         LogID logID = new LogID("logID");
         DeviceID deviceID = new DeviceID("deviceID");
@@ -428,10 +428,10 @@ class LogAggregateTest {
         Log log = new Log(deviceID, sensorID, localDateTime, value, description, unit);
 
         // Act
-        String result = log.getValue();
+        ReadingValue result = log.getReadingValue();
 
         // Assert
-        assertEquals(value.toString(), result);
+        assertEquals(value, result);
     }
 
     /**
