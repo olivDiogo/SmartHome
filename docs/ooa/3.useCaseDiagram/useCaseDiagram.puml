@@ -18,6 +18,8 @@ skinparam ActorBackgroundColor black
 (UC8: To deactivate a device) as (Use8)
 (UC9: To group all devices by functionality) as (Use9)
 (UC10: To add a new actuator to a device) as (Use10)
+(UC11)
+(UC12: To get the maximum instantaneous temperature difference between a device and the outside, in a given period.) as (Use12)
 
 Admin --> (Use1)
 Admin --> (Use2)
@@ -29,6 +31,7 @@ Admin --> (Use7)
 Admin --> (Use8)
 Admin --> (Use9)
 Admin --> (Use10)
+Admin --> (Use12)
 
 Power_User -up-> (Use5)
 Power_User -up-> (Use6)
@@ -36,13 +39,19 @@ Power_User -up-> (Use7)
 Power_User -up-> (Use8)
 Power_User -up-> (Use9)
 Power_User -up-> (Use10)
+Power_User -up-> (Use12)
 
 Room_Owner -up-> (Use6)
+Room_Owner -up-> (Use12)
 
 (Use6) ..> (Use3): <<includes>>
 (Use5) ..> (Use3): <<includes>>
 (Use7) ..> (Use6): <<includes>>
 (Use8) ..> (Use6): <<includes>>
+(Use10) ..> (Use6): <<includes>>
+(Use12)..> (Use3): <<includes>>
+(Use12)..> (Use9): <<includes>>
+
 
 
 @enduml

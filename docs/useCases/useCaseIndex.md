@@ -16,8 +16,10 @@
 
 [uc08](uc08_toDeactiveDevice/uc08_readme.md) - To Deactivate Device
 
-[uc09](uc09_toGroupAllDevicesByFuncionality/uc09_readme.md) - To Group All Devices in House by Functionality
+[uc09](uc09_toGroupAllDevicesByFunctionality/uc09_readme.md) - To Group All Devices in House by Functionality
 
 [uc10](uc10_toAddActuator/uc10_readme.md) - To Add Actuator to Device
 
 [uc11](uc11_toGetLogFromDevice/uc11_readme.md) - To Get Log from Device
+
+[uc12](uc12_toGetMaxInstTempDifBetweenDeviceAndOutside/uc12_readme.md) - To Get Max Instantaneous Temperature Difference Between Device and Outside
