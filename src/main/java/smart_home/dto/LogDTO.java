@@ -24,4 +24,12 @@ public class LogDTO implements IDTO {
         this.unitID = unitID;
     }
 
+    /**
+     * toString method for LogDTO.
+     */
+    @Override
+    public String toString() {
+        return logID + " " + deviceID + " " + sensorID + " " + sensorTypeID + " " + reading + " " + timestamp + " " + unitID;
+    }
+
 }
