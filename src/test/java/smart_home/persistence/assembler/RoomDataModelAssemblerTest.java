@@ -157,7 +157,4 @@ class RoomDataModelAssemblerTest {
         // Assert
         assertEquals(expected, rooms.get(0));
     }
-
-
-
 }
