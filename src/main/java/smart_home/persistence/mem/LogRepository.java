@@ -80,20 +80,10 @@ public class LogRepository implements ILogRepository {
      */
     @Override
     public List<Log> findByDeviceIDAndDatePeriodBetween(DeviceID deviceID, DatePeriod period) {
-
-        List<Log> logList = new ArrayList<>(logData.values());
-
-        List<Log> logListByDeviceID = new ArrayList<>();
-
-        for (Log log : logList) {
-            if (log.getDeviceID().getID().equals(deviceID.getID()) && log.getTimeStamp().isAfter(period.getStartDate().minusMinutes(1))
-                    && log.getTimeStamp().isBefore(period.getEndDate().plusMinutes(1))) {
-                logListByDeviceID.add(log);
-            }
-        }
-
-        return logListByDeviceID;
+      return logData.values().stream()
+          .filter(log -> log.getDeviceID().getID().equals(deviceID.getID()))
+          .filter(log -> log.getTimeStamp().isAfter(period.getStartDate().minusMinutes(1)))
+          .filter(log -> log.getTimeStamp().isBefore(period.getEndDate().plusMinutes(1)))
+          .toList();
     }
-
-
 }
