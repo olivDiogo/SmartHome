@@ -1,0 +1,14 @@
+@startuml
+!pragma layout smetana
+
+actor "Room Owner or Power User or Admin" as User
+participant System
+
+User -> System: Give me the list of rooms
+System --> User: List of Rooms
+User -> System: Give me the list of devices in this room
+System --> User: List of Devices
+User -> System: For this Device, I want the list of measurements
+System --> User: List of measurements
+
+@enduml

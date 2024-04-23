@@ -1,10 +1,9 @@
-package smart_home.domain;
+package smart_home.domain.log;
 
 import smart_home.ddd.IAggregateRoot;
+import smart_home.domain.sensor_type.SensorType;
 import smart_home.utils.Validator;
-import smart_home.value_object.DeviceID;
-import smart_home.value_object.LogID;
-import smart_home.value_object.SensorID;
+import smart_home.value_object.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,12 +13,14 @@ public class Log implements IAggregateRoot<LogID> {
     private DeviceID _deviceID;
     private SensorID _sensorID;
     private LocalDateTime _localDateTime;
-    private String _reading;
+    private ReadingValue _reading;
+    private SensorTypeID _description;
+    private UnitID _unit;
 
     /**
      * Constructs a new Log instance with the specified device ID, sensor ID, timestamp, and value.
      */
-    Log(DeviceID deviceID, SensorID sensorID, LocalDateTime localDateTime, String value) {
+    Log(DeviceID deviceID, SensorID sensorID, LocalDateTime localDateTime, ReadingValue value, SensorTypeID description, UnitID unit) {
         Validator.validateNotNull(deviceID, "Device ID");
         this._deviceID = deviceID;
         Validator.validateNotNull(sensorID, "Sensor ID");
@@ -28,13 +29,17 @@ public class Log implements IAggregateRoot<LogID> {
         this._localDateTime = localDateTime;
         Validator.validateNotNull(value, "Value");
         this._reading = value;
+        Validator.validateNotNull(description, "Description");
+        this._description = description;
+        Validator.validateNotNull(unit, "Unit");
+        this._unit = unit;
         generateLogID();
     }
 
     /**
      * Constructs a new Log instance with the specified log ID, device ID, sensor ID, timestamp, and value.
      */
-    Log(LogID logID, DeviceID deviceID, SensorID sensorID, LocalDateTime localDateTime, String value) {
+    Log(LogID logID, DeviceID deviceID, SensorID sensorID, LocalDateTime localDateTime, ReadingValue value, SensorTypeID description, UnitID unit) {
         Validator.validateNotNull(logID, "Log ID");
         this._logID = logID;
         Validator.validateNotNull(deviceID, "Device ID");
@@ -45,6 +50,10 @@ public class Log implements IAggregateRoot<LogID> {
         this._localDateTime = localDateTime;
         Validator.validateNotNull(value, "Value");
         this._reading = value;
+        Validator.validateNotNull(description, "Description");
+        this._description = description;
+        Validator.validateNotNull(unit, "Unit");
+        this._unit = unit;
     }
 
     /**
@@ -89,7 +98,21 @@ public class Log implements IAggregateRoot<LogID> {
      * @return the _value
      */
     public String getValue() {
-        return _reading;
+        return _reading.toString();
+    }
+
+    /**
+     * @return the _description
+     */
+    public SensorTypeID getDescription() {
+        return _description;
+    }
+
+    /**
+     * @return the _unit
+     */
+    public UnitID getUnit() {
+        return _unit;
     }
 
     /**
@@ -120,6 +143,6 @@ public class Log implements IAggregateRoot<LogID> {
      */
     @Override
     public String toString() {
-        return _logID + " " + _deviceID + " " + _sensorID + " " + _localDateTime + " " + _reading;
+        return _logID + " " + _deviceID + " " + _sensorID + " " + _localDateTime + " " + _reading + " " + _description + " " + _unit;
     }
 }

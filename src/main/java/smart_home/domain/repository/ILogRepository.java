@@ -1,7 +1,7 @@
 package smart_home.domain.repository;
 
 import smart_home.ddd.IRepository;
-import smart_home.domain.Log;
+import smart_home.domain.log.Log;
 import smart_home.value_object.DatePeriod;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.LogID;

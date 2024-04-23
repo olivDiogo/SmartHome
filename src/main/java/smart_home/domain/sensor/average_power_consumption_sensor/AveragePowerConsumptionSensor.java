@@ -1,6 +1,5 @@
 package smart_home.domain.sensor.average_power_consumption_sensor;
 
-import smart_home.ddd.IValueObject;
 import smart_home.domain.sensor.ISensor;
 import smart_home.utils.Validator;
 import smart_home.value_object.*;

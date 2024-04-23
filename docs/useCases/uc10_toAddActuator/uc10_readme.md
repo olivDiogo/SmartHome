@@ -49,7 +49,7 @@ _To add an actuator to a device_
 This use case depends on UC03 and UC06.
 
 ### 1.3. Relevant domain aggregate model
-![Device](../../ooa/4.agreggateModels/ActuatorType_v1.svg)
+![Device](../../../../../../../docs/ooa/4.agreggateModels/ActuatorType_v1.svg)
 
 ### 1.4. Customer Specifications and Clarifications
 

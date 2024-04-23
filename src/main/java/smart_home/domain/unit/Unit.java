@@ -83,7 +83,9 @@ public class Unit implements IAggregateRoot<UnitID> {
     /**
      * Generates a unique identifier for the measurement type.
      */
-    private void generateID(UnitDescription unitDescription) {
+    private void
+
+    generateID(UnitDescription unitDescription) {
         _unitID = new UnitID(unitDescription.toString());
     }
 

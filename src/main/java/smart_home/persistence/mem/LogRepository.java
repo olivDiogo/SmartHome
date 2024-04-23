@@ -9,7 +9,7 @@ import smart_home.value_object.LogID;
 
 import java.util.*;
 
-import smart_home.domain.Log;
+import smart_home.domain.log.Log;
 
 
 public class LogRepository implements ILogRepository {
