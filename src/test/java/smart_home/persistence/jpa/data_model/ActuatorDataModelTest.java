@@ -265,5 +265,149 @@ class ActuatorDataModelTest {
         assertEquals(expected, result);
 
     }
+    @Test
+    void shouldReturnActuatorIntegerLowerLimit_WhenGetLowerLimitIsCalled() {
+        //Arrange
+        ActuatorID actuatorIDDouble = mock(ActuatorID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+
+        IActuator actuatorDouble = mock(IActuator.class);
+
+        when(actuatorIDDouble.getID()).thenReturn("123");
+        when(deviceID.getID()).thenReturn("device1");
+        when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
+        when(actuatorTypeID.getID()).thenReturn("Switch");
+        when(actuatorName.getActuatorName()).thenReturn("Switch");
+
+        when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
+        when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
+        when(actuatorDouble.getModelPath()).thenReturn(modelPath);
+        when(actuatorDouble.getActuatorTypeID()).thenReturn(actuatorTypeID);
+        when(actuatorDouble.getName()).thenReturn(actuatorName);
+
+        ActuatorDataModel actuatorDataModel = new ActuatorDataModel(actuatorDouble);
+        int integerLowerLimit = 3;
+        String expected = String.valueOf(integerLowerLimit);
+
+        actuatorDataModel.setIntegerLowerBond(integerLowerLimit);
+
+        //Act
+        String result = actuatorDataModel.getIntegerLowerBond();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void shouldReturnActuatorIntegerUpperLimit_WhenGetUpperLimitIsCalled() {
+        //Arrange
+        ActuatorID actuatorIDDouble = mock(ActuatorID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+
+        IActuator actuatorDouble = mock(IActuator.class);
+
+        when(actuatorIDDouble.getID()).thenReturn("123");
+        when(deviceID.getID()).thenReturn("device1");
+        when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
+        when(actuatorTypeID.getID()).thenReturn("Switch");
+        when(actuatorName.getActuatorName()).thenReturn("Switch");
+
+        when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
+        when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
+        when(actuatorDouble.getModelPath()).thenReturn(modelPath);
+        when(actuatorDouble.getActuatorTypeID()).thenReturn(actuatorTypeID);
+        when(actuatorDouble.getName()).thenReturn(actuatorName);
+
+        ActuatorDataModel actuatorDataModel = new ActuatorDataModel(actuatorDouble);
+        int integerUpperLimit = 3;
+        String expected = String.valueOf(integerUpperLimit);
+
+        actuatorDataModel.setIntegerUpperBond(integerUpperLimit);
+
+        //Act
+        String result = actuatorDataModel.getIntegerUpperBond();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void shouldReturnActuatorDecimalLowerLimit_WhenGetDecimalLowerLimitIsCalled() {
+        //Arrange
+        ActuatorID actuatorIDDouble = mock(ActuatorID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+
+        IActuator actuatorDouble = mock(IActuator.class);
+
+        when(actuatorIDDouble.getID()).thenReturn("123");
+        when(deviceID.getID()).thenReturn("device1");
+        when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
+        when(actuatorTypeID.getID()).thenReturn("Switch");
+        when(actuatorName.getActuatorName()).thenReturn("Switch");
+
+        when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
+        when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
+        when(actuatorDouble.getModelPath()).thenReturn(modelPath);
+        when(actuatorDouble.getActuatorTypeID()).thenReturn(actuatorTypeID);
+        when(actuatorDouble.getName()).thenReturn(actuatorName);
+
+        ActuatorDataModel actuatorDataModel = new ActuatorDataModel(actuatorDouble);
+        double decimalLowerLimit = 3.5;
+        String expected = String.valueOf(decimalLowerLimit);
+
+        actuatorDataModel.setDecimalLowerBond(decimalLowerLimit);
+
+        //Act
+        String result = actuatorDataModel.getDecimalLowerBond();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+    @Test
+    void shouldReturnActuatorDecimalUpperLimit_WhenGetDecimalUpperLimitIsCalled() {
+        //Arrange
+        ActuatorID actuatorIDDouble = mock(ActuatorID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+        ModelPath modelPath = mock(ModelPath.class);
+        ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+        ActuatorName actuatorName = mock(ActuatorName.class);
+
+        IActuator actuatorDouble = mock(IActuator.class);
+
+        when(actuatorIDDouble.getID()).thenReturn("123");
+        when(deviceID.getID()).thenReturn("device1");
+        when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
+        when(actuatorTypeID.getID()).thenReturn("Switch");
+        when(actuatorName.getActuatorName()).thenReturn("Switch");
+
+        when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
+        when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
+        when(actuatorDouble.getModelPath()).thenReturn(modelPath);
+        when(actuatorDouble.getActuatorTypeID()).thenReturn(actuatorTypeID);
+        when(actuatorDouble.getName()).thenReturn(actuatorName);
+
+        ActuatorDataModel actuatorDataModel = new ActuatorDataModel(actuatorDouble);
+        double decimalUpperLimit = 3.5;
+        String expected = String.valueOf(decimalUpperLimit);
+
+        actuatorDataModel.setDecimalUpperBond(decimalUpperLimit);
+
+        //Act
+        String result = actuatorDataModel.getDecimalUpperBond();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+
 
 }
