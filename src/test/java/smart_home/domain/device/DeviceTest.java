@@ -55,7 +55,7 @@ class DeviceTest {
      * Throws an IllegalArgumentException when the constructor is called with a null RoomID.
      */
     @Test
-    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullRoomID() {
+    void shouldThrowIllegalArgumentException_When1stConstructorIsCalledWithNullRoomID() {
 
         //Arrange
         RoomID roomID = null;
@@ -79,10 +79,38 @@ class DeviceTest {
     }
 
     /**
+     * Throws an IllegalArgumentException when the constructor is called with a null RoomID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_When2ndConstructorIsCalledWithNullRoomID() {
+
+        //Arrange
+        RoomID roomID = null;
+        DeviceName deviceName = mock(DeviceName.class);
+        DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+
+        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
+            String expectedMessage = "RoomID is required";
+
+            //Act & Assert
+            Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+                new Device(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
+            });
+
+            String actualMessage = exception.getMessage();
+
+            //Assert
+            assertEquals(expectedMessage, actualMessage);
+        }
+    }
+
+    /**
      * Throws an IllegalArgumentException when the constructor is called with a null DeviceName.
      */
     @Test
-    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceName() {
+    void shouldThrowIllegalArgumentException_When1stConstructorIsCalledWithNullDeviceName() {
 
         //Arrange
         RoomID roomID = mock(RoomID.class);
@@ -105,12 +133,40 @@ class DeviceTest {
         }
     }
 
+    /**
+     * Throws an IllegalArgumentException when the constructor is called with a null DeviceName.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_When2ndConstructorIsCalledWithNullDeviceName() {
+
+        //Arrange
+        RoomID roomID = mock(RoomID.class);
+        DeviceName deviceName = null;
+        DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+
+        try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
+            String expectedMessage = "DeviceName is required";
+
+            //Act & Assert
+            Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+                new Device(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
+            });
+
+            String actualMessage = exception.getMessage();
+
+            //Assert
+            assertEquals(expectedMessage, actualMessage);
+        }
+    }
+
 
     /**
      * Throws an IllegalArgumentException when the constructor is called with a null DeviceStatus.
      */
     @Test
-    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceStatus() {
+    void shouldThrowIllegalArgumentException_When1stConstructorIsCalledWithNullDeviceStatus() {
 
         //Arrange
         RoomID roomID = mock(RoomID.class);
@@ -132,10 +188,36 @@ class DeviceTest {
     }
 
     /**
+     * Throws an IllegalArgumentException when the constructor is called with a null DeviceStatus.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_When2ndConstructorIsCalledWithNullDeviceStatus() {
+
+        //Arrange
+        RoomID roomID = mock(RoomID.class);
+        DeviceName deviceName = mock(DeviceName.class);
+        DeviceStatus deviceStatus = null;
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        DeviceID deviceID = mock(DeviceID.class);
+
+        String expectedMessage = "DeviceStatus is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Device(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
      * Throws an IllegalArgumentException when the constructor is called with a null DeviceTypeID.
      */
     @Test
-    void shouldThrowIllegalArgumentException_WhenConstructorIsCalledWithNullDeviceTypeID() {
+    void shouldThrowIllegalArgumentException_When1stConstructorIsCalledWithNullDeviceTypeID() {
 
         //Arrange
         RoomID roomID = mock(RoomID.class);
@@ -148,6 +230,58 @@ class DeviceTest {
         //Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * Throws an IllegalArgumentException when the constructor is called with a null DeviceTypeID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_When2ndConstructorIsCalledWithNullDeviceTypeID() {
+
+        //Arrange
+        RoomID roomID = mock(RoomID.class);
+        DeviceName deviceName = mock(DeviceName.class);
+        DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = null;
+        DeviceID deviceID = mock(DeviceID.class);
+
+        String expectedMessage = "DeviceTypeID is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Device(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //Assert
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * Throws an IllegalArgumentException when the constructor is called with a null DeviceID.
+     */
+    @Test
+    void shouldThrowIllegalArgumentException_When2ndConstructorIsCalledWithNullDeviceID() {
+
+        //Arrange
+        RoomID roomID = mock(RoomID.class);
+        DeviceName deviceName = mock(DeviceName.class);
+        DeviceStatus deviceStatus = mock(DeviceStatus.class);
+        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+        DeviceID deviceID = null;
+
+        String expectedMessage = "DeviceID is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Device(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
         });
 
         String actualMessage = exception.getMessage();
