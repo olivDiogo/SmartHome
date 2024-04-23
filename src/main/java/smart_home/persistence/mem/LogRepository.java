@@ -82,8 +82,8 @@ public class LogRepository implements ILogRepository {
     public List<Log> findByDeviceIDAndDatePeriodBetween(DeviceID deviceID, DatePeriod period) {
       return logData.values().stream()
           .filter(log -> log.getDeviceID().getID().equals(deviceID.getID()))
-          .filter(log -> log.getTimeStamp().isAfter(period.getStartDate().minusMinutes(1)))
-          .filter(log -> log.getTimeStamp().isBefore(period.getEndDate().plusMinutes(1)))
+          .filter(log -> log.getTimeStamp().isAfter(period.getStartDate()))
+          .filter(log -> log.getTimeStamp().isBefore(period.getEndDate()))
           .toList();
     }
 }

@@ -1,10 +1,9 @@
-package smart_home.persistence.spring_data;
+package smart_home.persistence.spring_data.device_type;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import smart_home.domain.device_type.DeviceType;
-import smart_home.domain.device_type.IDeviceTypeFactory;
 import smart_home.domain.repository.IDeviceTypeRepository;
 import smart_home.persistence.assembler.IDataModelAssembler;
 import smart_home.persistence.jpa.data_model.DeviceTypeDataModel;
