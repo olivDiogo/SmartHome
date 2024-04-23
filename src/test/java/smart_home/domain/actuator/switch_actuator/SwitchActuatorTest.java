@@ -303,7 +303,7 @@ class SwitchActuatorTest {
      * should return false when instances are different objects.
      */
     @Test
-    void shouldReturnFalse_WhenInstancesAreNotEqual() {
+    void shouldReturnTrue_WhenInstancesShareTheSameID() {
         //Arrange
         DeviceID deviceID = mock(DeviceID.class);
         ModelPath modelPath = mock(ModelPath.class);
@@ -319,16 +319,11 @@ class SwitchActuatorTest {
 
             SwitchActuator switchActuator1 = new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
 
-            SwitchActuatorValue switchActuatorValueDouble = mock(SwitchActuatorValue.class);
-            when(switchActuatorValueDouble.toString()).thenReturn("true");
-
-            switchActuator.setValue(switchActuatorValueDouble);
-
             //Act
             boolean result = switchActuator.equals(switchActuator1);
 
             //Assert
-            assertFalse(result);
+            assertTrue(result);
         }
     }
 

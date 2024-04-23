@@ -175,7 +175,7 @@ public class SwitchActuator implements IActuator {
     @Override
     public boolean equals(Object object) {
         if (object instanceof SwitchActuator switchActuator) {
-            return switchActuator._deviceID.equals(this._deviceID) && switchActuator._actuatorName.equals(this._actuatorName) && switchActuator._modelPath.equals(this._modelPath) && switchActuator._actuatorTypeID.equals(this._actuatorTypeID) && switchActuator._actuatorID.equals(this._actuatorID) && switchActuator._value.equals(this._value);
+          return switchActuator._deviceID.equals(this._deviceID);
         }
         return false;
     }

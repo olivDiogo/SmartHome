@@ -561,7 +561,7 @@ class SwitchActuatorAggregateTest {
      * Tests if the method returns false when the object in not the same
      */
     @Test
-    void shouldReturnFalse_WhenObjectIsNotTheSame() {
+    void shouldReturnTrue_WhenObjectShareTheSameID() {
         // Arrange
         String deviceIDString = "deviceID";
         String modelPathString = "modelPath";
@@ -575,13 +575,16 @@ class SwitchActuatorAggregateTest {
 
         SwitchActuator switchActuator = new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
 
-        SwitchActuator switchActuator2 = new SwitchActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
+        ActuatorID actuatorID = switchActuator.getID();
+
+        SwitchActuator switchActuator2 = new SwitchActuator(deviceID, modelPath, actuatorTypeID,
+            actuatorName, actuatorID);
 
         // Act
         boolean result = switchActuator.equals(switchActuator2);
 
         // Assert
-        assertFalse(result);
+        assertTrue(result);
     }
 
     /**
