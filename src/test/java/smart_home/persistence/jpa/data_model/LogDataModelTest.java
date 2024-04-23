@@ -1,7 +1,6 @@
 package smart_home.persistence.jpa.data_model;
 
 import org.junit.jupiter.api.Test;
-import smart_home.domain.device.Device;
 import smart_home.domain.log.Log;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.LogID;
@@ -173,10 +172,10 @@ class LogDataModelTest {
         LogDataModel logDataModel = new LogDataModel(logDouble);
 
         //Act
-        String timestamp = logDataModel.getTimestamp();
+        LocalDateTime timestamp = logDataModel.getTimestamp();
 
         //Assert
-        assertEquals(timestampDouble.toString(), timestamp);
+        assertEquals(timestampDouble, timestamp);
     }
 
     /**
