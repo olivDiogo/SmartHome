@@ -118,7 +118,7 @@ class DeviceTest {
         DeviceStatus deviceStatus = null;
         DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
-        String expectedMessage = "DeviceState is required";
+        String expectedMessage = "DeviceStatus is required";
 
         //Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {

@@ -1,6 +1,7 @@
 package smart_home.domain.device;
 
 import smart_home.ddd.IAggregateRoot;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.UUID;
@@ -22,26 +23,32 @@ public class Device implements IAggregateRoot<DeviceID> {
      * @param deviceStatus The state of the device. Must not be null.
      */
     Device(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus, DeviceTypeID deviceTypeID) {
-        validateRoomID(roomID);
+        Validator.validateNotNull(roomID, "RoomID");
+        Validator.validateNotNull(deviceName, "DeviceName");
+        Validator.validateNotNull(deviceStatus, "DeviceStatus");
+        Validator.validateNotNull(deviceTypeID, "DeviceTypeID");
         this._roomID = roomID;
-        validateDeviceName(deviceName);
         this._deviceName = deviceName;
-        validateDeviceState(deviceStatus);
         this._deviceStatus = deviceStatus;
-        validateDeviceTypeID(deviceTypeID);
         this._deviceTypeID = deviceTypeID;
         generateDeviceID();
     }
 
     /**
      * Constructs a new Device instance with the specified device ID, room ID, device name, device state, and device type ID.
-     * @param deviceID
-     * @param roomID
-     * @param deviceName
-     * @param deviceStatus
-     * @param deviceTypeID
+     * @param deviceID The device ID. Must not be null.
+     * @param roomID The room ID where the device is located. Must not be null.
+     * @param deviceName The name of the device. Must not be null.
+     * @param deviceStatus The state of the device. Must not be null.
+     * @param deviceTypeID The device type ID. Must not be null.
      */
     Device(DeviceID deviceID, RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus, DeviceTypeID deviceTypeID) {
+        Validator.validateNotNull(deviceID, "DeviceID");
+        Validator.validateNotNull(roomID, "RoomID");
+        Validator.validateNotNull(deviceName, "DeviceName");
+        Validator.validateNotNull(deviceStatus, "DeviceStatus");
+        Validator.validateNotNull(deviceTypeID, "DeviceTypeID");
+
         this._deviceID = deviceID;
         this._roomID = roomID;
         this._deviceName = deviceName;
@@ -56,50 +63,6 @@ public class Device implements IAggregateRoot<DeviceID> {
         _deviceID = new DeviceID(UUID.randomUUID().toString());
     }
 
-    /**
-     * Validates the provided RoomID object.
-     *
-     * @param roomID The RoomID to be validated.
-     */
-    private void validateRoomID(RoomID roomID) {
-        if (roomID == null) {
-            throw new IllegalArgumentException("RoomID is required");
-        }
-    }
-
-    /**
-     * Validates the provided DeviceName object.
-     *
-     * @param deviceName The DeviceName to be validated.
-     */
-    private void validateDeviceName(DeviceName deviceName) {
-        if (deviceName == null) {
-            throw new IllegalArgumentException("DeviceName is required");
-        }
-    }
-
-
-    /**
-     * Validates the provided DeviceStatus object.
-     *
-     * @param deviceState The DeviceStatus to be validated.
-     */
-    private void validateDeviceState(DeviceStatus deviceState) {
-        if (deviceState == null) {
-            throw new IllegalArgumentException("DeviceState is required");
-        }
-    }
-
-    /**
-     * Validates the provided DeviceTypeID object.
-     *
-     * @param deviceTypeID The DeviceTypeID to be validated.
-     */
-    private void validateDeviceTypeID(DeviceTypeID deviceTypeID) {
-        if (deviceTypeID == null) {
-            throw new IllegalArgumentException("DeviceTypeID is required");
-        }
-    }
 
     /**
      * Method to return deviceID
