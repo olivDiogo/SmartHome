@@ -36,7 +36,7 @@ class SensorModelAggregateTest {
     ModelPath modelPath = new ModelPath("modelPath");
     SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
 
-    String expectedMessage = "Please enter a valid sensor model name.";
+    String expectedMessage = "SensorModelName is required";
 
     // Act
     IllegalArgumentException exception =
@@ -55,7 +55,7 @@ class SensorModelAggregateTest {
     ModelPath modelPath = null;
     SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
 
-    String expectedMessage = "Please enter a valid model path.";
+    String expectedMessage = "ModelPath is required";
 
     // Act
     IllegalArgumentException exception =
@@ -211,7 +211,7 @@ class SensorModelAggregateTest {
     SensorModelName sensorModelName = new SensorModelName("sensorModelName");
     ModelPath modelPath = new ModelPath("modelPath");
     SensorTypeID sensorTypeID = null;
-    String expectedMessage = "Please enter a valid sensor type ID.";
+    String expectedMessage = "SensorTypeID is required";
 
     // Act
     IllegalArgumentException exception =

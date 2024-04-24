@@ -307,7 +307,7 @@ class SensorTypeAggregateTest {
         UnitID unitID = new UnitID(strUnitID);
         SensorTypeID sensorTypeID = new SensorTypeID(strSensorTypeID);
 
-        String expectedMessage = "Sensor type name must not be null.";
+        String expectedMessage = "Name is required";
 
         //Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -332,7 +332,7 @@ class SensorTypeAggregateTest {
         UnitID unitID = null;
         SensorTypeID sensorTypeID = new SensorTypeID(strSensorTypeID);
 
-        String expectedMessage = "Unit must not be null.";
+        String expectedMessage = "Unit is required";
 
         //Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -357,7 +357,7 @@ class SensorTypeAggregateTest {
         UnitID unitID = new UnitID(strUnitID);
         SensorTypeID sensorTypeID = null;
 
-        String expectedMessage = "Sensor Type ID is required.";
+        String expectedMessage = "SensorTypeID is required";
 
         //Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {

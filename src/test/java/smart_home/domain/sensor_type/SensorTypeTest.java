@@ -37,7 +37,7 @@ class SensorTypeTest {
         TypeDescription typeDescriptionDouble = null;
         UnitID unitDouble = mock(UnitID.class);
 
-        String expectedMessage = "Sensor type name must not be null.";
+        String expectedMessage = "Name is required";
 
         // Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -59,7 +59,7 @@ class SensorTypeTest {
         TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
         UnitID unitDouble = null;
 
-        String expectedMessage = "Unit must not be null.";
+        String expectedMessage = "Unit is required";
 
 
         // Act

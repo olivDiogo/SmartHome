@@ -1,6 +1,7 @@
 package smart_home.domain.sensor_type;
 
 import smart_home.ddd.IAggregateRoot;
+import smart_home.utils.Validator;
 import smart_home.value_object.SensorTypeID;
 import smart_home.value_object.TypeDescription;
 import smart_home.value_object.UnitID;
@@ -17,10 +18,10 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
      * @param unit the unit of the sensor type, must not be null
      */
     SensorType(TypeDescription name, UnitID unit) {
-        validateSensorTypeName(name);
+        Validator.validateNotNull(name, "Name");
         this._name = name;
 
-        validateUnit(unit);
+        Validator.validateNotNull(unit, "Unit");
         this._unit = unit;
 
         generateID(name);
@@ -34,52 +35,22 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
      * @param unitID       the unit of the sensor type, must not be null
      */
     SensorType(SensorTypeID sensorTypeID, TypeDescription name, UnitID unitID) {
-        validateSensorTypeID(sensorTypeID);
-        validateSensorTypeName(name);
-        validateUnit(unitID);
+        Validator.validateNotNull(sensorTypeID, "SensorTypeID");
+        Validator.validateNotNull(name, "Name");
+        Validator.validateNotNull(unitID, "Unit");
 
         this._name = name;
         this._unit = unitID;
 
     }
 
-    /**
-     * Validates the sensor type ID.
-     *
-     * @param sensorTypeID the sensor type ID, must not be null
-     */
-    private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null)
-            throw new IllegalArgumentException("Sensor Type ID is required.");
 
-        this._id = sensorTypeID;
-    }
 
     /**
      * Creates a new {@link SensorTypeID} instance.
      */
     private void generateID(TypeDescription name) {
         _id = new SensorTypeID(name.toString());
-    }
-
-    /**
-     * Validates the sensor type name and sets it.
-     *
-     * @param name the sensor type name, must not be null
-     */
-    private void validateSensorTypeName(TypeDescription name) {
-        if (name == null)
-            throw new IllegalArgumentException("Sensor type name must not be null.");
-    }
-
-    /**
-     * Validates the unit and sets it.
-     *
-     * @param unit the unit of the sensor type, must not be null
-     */
-    private void validateUnit(UnitID unit) {
-        if (unit == null)
-            throw new IllegalArgumentException("Unit must not be null.");
     }
 
     /**

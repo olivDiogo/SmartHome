@@ -37,7 +37,7 @@ class UnitTest {
         UnitSymbol unitDouble = null;
         UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
 
-        String expectedMessage = "Unit symbol is required";
+        String expectedMessage = "UnitSymbol is required";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unitDescriptionDouble, unitDouble));
@@ -56,7 +56,7 @@ class UnitTest {
         UnitSymbol unitDouble = mock(UnitSymbol.class);
         UnitDescription unitDescriptionDouble = null;
 
-        String expectedMessage = "Unit description is required";
+        String expectedMessage = "UnitDescription is required";
 
         //Act + Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unitDescriptionDouble, unitDouble));
@@ -94,7 +94,7 @@ class UnitTest {
         UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
         UnitID unitIDDouble = mock(UnitID.class);
 
-        String expectedMessage = "Unit symbol is required";
+        String expectedMessage = "UnitSymbol is required";
 
         //Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unitDescriptionDouble, unitDouble, unitIDDouble));
@@ -114,7 +114,7 @@ class UnitTest {
         UnitDescription unitDescription = null;
         UnitID unitIDDouble = mock(UnitID.class);
 
-        String expectedMessage = "Unit description is required";
+        String expectedMessage = "UnitDescription is required";
 
         //Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unitDescription, unitSymbol, unitIDDouble));
@@ -134,7 +134,7 @@ class UnitTest {
         UnitDescription unitDescriptionDouble = mock(UnitDescription.class);
         UnitID unitIDDouble = null;
 
-        String expectedMessage = "Unit ID is required";
+        String expectedMessage = "UnitID is required";
 
         //Act
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Unit(unitDescriptionDouble, unitDouble, unitIDDouble));

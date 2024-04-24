@@ -1,6 +1,7 @@
 package smart_home.domain.unit;
 
 import smart_home.ddd.IAggregateRoot;
+import smart_home.utils.Validator;
 import smart_home.value_object.UnitDescription;
 import smart_home.value_object.UnitID;
 import smart_home.value_object.UnitSymbol;
@@ -24,8 +25,8 @@ public class Unit implements IAggregateRoot<UnitID> {
      * @throws IllegalArgumentException if either the unit description or measurement unit is null.
      */
     Unit(UnitDescription unitDescription, UnitSymbol unitSymbol) {
-        validateUnitSymbol(unitSymbol);
-        validateUnitDescription(unitDescription);
+        Validator.validateNotNull(unitDescription, "UnitDescription");
+        Validator.validateNotNull(unitSymbol, "UnitSymbol");
         this._unitSymbol = unitSymbol;
         this._unitDescription = unitDescription;
         generateID(unitDescription);
@@ -42,43 +43,14 @@ public class Unit implements IAggregateRoot<UnitID> {
      * @throws IllegalArgumentException if either the unit description, measurement unit, or unit ID is null.
      */
     Unit(UnitDescription unitDescription, UnitSymbol unitSymbol, UnitID unitID) {
-        validateUnitSymbol(unitSymbol);
-        validateUnitDescription(unitDescription);
-        validateUnitID(unitID);
+        Validator.validateNotNull(unitDescription, "UnitDescription");
+        Validator.validateNotNull(unitSymbol, "UnitSymbol");
+        Validator.validateNotNull(unitID, "UnitID");
         this._unitSymbol = unitSymbol;
         this._unitDescription = unitDescription;
         this._unitID = unitID;
     }
 
-    /**
-     * Validates that the measurement unit is not null.
-     *
-     * @param unitSymbol The symbol of unit to validate.
-     * @throws IllegalArgumentException if the symbol is null.
-     */
-    private void validateUnitSymbol(UnitSymbol unitSymbol) {
-        if (unitSymbol == null) {
-            throw new IllegalArgumentException("Unit symbol is required");
-        }
-    }
-
-    /**
-     * Validates that the unit description is not null.
-     *
-     * @param unitDescription The description to validate.
-     * @throws IllegalArgumentException if the unit description is null.
-     */
-    private void validateUnitDescription(UnitDescription unitDescription) {
-        if (unitDescription == null) {
-            throw new IllegalArgumentException("Unit description is required");
-        }
-    }
-
-    private void validateUnitID(UnitID unitID) {
-        if (unitID == null) {
-            throw new IllegalArgumentException("Unit ID is required");
-        }
-    }
 
     /**
      * Generates a unique identifier for the measurement type.
@@ -135,7 +107,7 @@ public class Unit implements IAggregateRoot<UnitID> {
     /**
      * Returns a hash code value for the object.
      *
-     * @return
+     * @return A hash code value for this object.
      */
     @Override
     public int hashCode() {

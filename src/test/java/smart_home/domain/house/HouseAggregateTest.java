@@ -95,7 +95,7 @@ class HouseAggregateTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new House(address, gps));
 
         // Assert
-        assertEquals("Gps is required", exception.getMessage());
+        assertEquals("GPS is required", exception.getMessage());
     }
 
     /**
@@ -119,7 +119,7 @@ class HouseAggregateTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new House(houseID, address, gps));
 
         // Assert
-        assertEquals("Gps is required", exception.getMessage());
+        assertEquals("GPS is required", exception.getMessage());
     }
 
     /**

@@ -31,7 +31,7 @@ class SensorModelTest {
     SensorModelName sensorModelName = null;
     ModelPath modelPath = mock(ModelPath.class);
     SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-    String expectedMessage = "Please enter a valid sensor model name.";
+    String expectedMessage = "SensorModelName is required";
     // Act
     IllegalArgumentException exception =
         assertThrows(
@@ -48,7 +48,7 @@ class SensorModelTest {
     SensorModelName sensorModelName = mock(SensorModelName.class);
     ModelPath modelPath = null;
     SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-    String expectedMessage = "Please enter a valid model path.";
+    String expectedMessage = "ModelPath is required";
     // Act
     IllegalArgumentException exception =
         assertThrows(
@@ -159,7 +159,7 @@ class SensorModelTest {
     SensorModelName sensorModelName = mock(SensorModelName.class);
     ModelPath modelPath = mock(ModelPath.class);
     SensorTypeID sensorTypeID = null;
-    String expectedMessage = "Please enter a valid sensor type ID.";
+    String expectedMessage = "SensorTypeID is required";
     // Act
     IllegalArgumentException exception =
         assertThrows(

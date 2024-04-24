@@ -1,6 +1,7 @@
 package smart_home.domain.house;
 
 import smart_home.ddd.IAggregateRoot;
+import smart_home.utils.Validator;
 import smart_home.value_object.Address;
 import smart_home.value_object.GPS;
 import smart_home.value_object.HouseID;
@@ -27,27 +28,22 @@ public class House implements IAggregateRoot<HouseID> {
      */
     House(Address address, GPS gps) {
         generateID();
-        validateAddress(address);
-        validateGps(gps);
+        Validator.validateNotNull(address, "Address");
+        Validator.validateNotNull(gps, "GPS");
+        this._address = address;
+        this._gps = gps;
+
     }
     House(HouseID houseID, Address address, GPS gps) {
-        validateHouseID(houseID);
-        validateAddress(address);
-        validateGps(gps);
+        Validator.validateNotNull(houseID, "HouseID");
+        Validator.validateNotNull(address, "Address");
+        Validator.validateNotNull(gps, "GPS");
+
+        this._houseID = houseID;
+        this._address = address;
+        this._gps = gps;
     }
-    /**
-     *Validates the provided HouseID object.
-     *
-     * @param houseID The HouseID to be validated.
-     *                @throws IllegalArgumentException if houseID is null.
-     */
-    private void validateHouseID(HouseID houseID) {
-        if (houseID == null) {
-            throw new IllegalArgumentException("HouseID is required");
-        } else {
-            _houseID = houseID;
-        }
-    }
+
 
     /**
      * Generates a unique identifier for the House instance.
@@ -56,35 +52,6 @@ public class House implements IAggregateRoot<HouseID> {
         _houseID = new HouseID(UUID.randomUUID().toString());
     }
 
-    /**
-     * Validates the provided Address object.
-     * Sets the house's address if valid or throws an exception if the address is null.
-     *
-     * @param address The Address to be validated.
-     * @throws IllegalArgumentException if address is null.
-     */
-    private void validateAddress(Address address) {
-        if (address == null) {
-            throw new IllegalArgumentException("Address is required");
-        } else {
-            _address = address;
-        }
-    }
-
-    /**
-     * Validates the provided GPS object.
-     * Sets the house's GPS coordinates if valid or throws an exception if the GPS data is null.
-     *
-     * @param gps The GPS to be validated.
-     * @throws IllegalArgumentException if gps is null.
-     */
-    private void validateGps(GPS gps) {
-        if (gps == null) {
-            throw new IllegalArgumentException("Gps is required");
-        } else {
-            _gps = gps;
-        }
-    }
 
     /**
      * Returns the unique identifier of the House instance.

@@ -1,6 +1,7 @@
 package smart_home.domain.sensor_model;
 
 import smart_home.ddd.IAggregateRoot;
+import smart_home.utils.Validator;
 import smart_home.value_object.ModelPath;
 import smart_home.value_object.SensorModelName;
 import smart_home.value_object.SensorTypeID;
@@ -19,49 +20,15 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
      */
     public SensorModel(
             SensorModelName sensorModelName, ModelPath modelPath, SensorTypeID sensorTypeID) {
-        validateSensorModelName(sensorModelName);
-        validateModelPath(modelPath);
-        validateSensorTypeID(sensorTypeID);
+      Validator.validateNotNull(sensorModelName, "SensorModelName");
+      Validator.validateNotNull(modelPath, "ModelPath");
+      Validator.validateNotNull(sensorTypeID, "SensorTypeID");
+        this._sensorModelName = sensorModelName;
+        this._modelPath = modelPath;
+        this._sensorTypeID = sensorTypeID;
     }
 
-    /**
-     * Validates the sensor type ID.
-     *
-     * @param sensorTypeID The sensor type ID to validate.
-     */
-    private void validateSensorTypeID(SensorTypeID sensorTypeID) {
-        if (sensorTypeID == null) {
-            throw new IllegalArgumentException("Please enter a valid sensor type ID.");
-        } else {
-            this._sensorTypeID = sensorTypeID;
-        }
-    }
 
-    /**
-     * Validates the sensor model name.
-     *
-     * @param sensorModelName The sensor model name to validate.
-     */
-    private void validateSensorModelName(SensorModelName sensorModelName) {
-        if (sensorModelName == null) {
-            throw new IllegalArgumentException("Please enter a valid sensor model name.");
-        } else {
-            this._sensorModelName = sensorModelName;
-        }
-    }
-
-    /**
-     * Validates the model path.
-     *
-     * @param modelPath The model path to validate.
-     */
-    private void validateModelPath(ModelPath modelPath) {
-        if (modelPath == null) {
-            throw new IllegalArgumentException("Please enter a valid model path.");
-        } else {
-            this._modelPath = modelPath;
-        }
-    }
 
     /**
      * Returns the sensor type ID.
