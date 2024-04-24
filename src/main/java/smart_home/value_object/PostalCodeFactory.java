@@ -3,7 +3,7 @@ package smart_home.value_object;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class PostalCodeFactory {
+public class PostalCodeFactory implements IPostalCodeFactory {
 
     /**
      * Creates a PostalCode object based on the given postal code and country code.
