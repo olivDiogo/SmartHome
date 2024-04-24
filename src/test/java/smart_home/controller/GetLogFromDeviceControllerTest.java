@@ -1,44 +1,57 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.device.DeviceFactoryImpl;
+import smart_home.domain.device.IDeviceFactory;
 import smart_home.domain.house.House;
 import smart_home.domain.house.HouseFactoryImpl;
+import smart_home.domain.house.IHouseFactory;
 import smart_home.domain.log.Log;
 import smart_home.domain.log.LogFactoryImpl;
+import smart_home.domain.repository.IDeviceRepository;
+import smart_home.domain.repository.IHouseRepository;
+import smart_home.domain.repository.ILogRepository;
+import smart_home.domain.repository.IRoomRepository;
+import smart_home.domain.room.IRoomFactory;
 import smart_home.domain.room.Room;
 import smart_home.domain.room.RoomFactoryImpl;
+import smart_home.domain.service.IDeviceService;
+import smart_home.domain.service.IHouseService;
+import smart_home.domain.service.ILogService;
+import smart_home.domain.service.IRoomService;
 import smart_home.dto.LogDTO;
 import smart_home.dto.LogDataDTO;
-import smart_home.mapper.DeviceAssembler;
 import smart_home.mapper.LogAssembler;
-import smart_home.mapper.RoomAssembler;
 import smart_home.persistence.mem.*;
 import smart_home.service.*;
 import smart_home.value_object.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class GetLogFromDeviceControllerTest {
-  LogRepository logRepository = new LogRepository();
-  LogServiceImpl logService = new LogServiceImpl(logRepository);
-  LogAssembler logAssembler = new LogAssembler();
-  DeviceRepository deviceRepository = new DeviceRepository();
-  DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-  RoomRepository roomRepository = new RoomRepository();
-  RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-  HouseRepository houseRepository = new HouseRepository();
-  HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-  HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-  RoomServiceImpl roomService =
+  ILogRepository logRepository = new LogRepository();
+  ILogService logService = new LogServiceImpl(logRepository);
+  IAssembler<Log, LogDTO> logAssembler = new LogAssembler();
+  IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+  IDeviceFactory deviceFactory = new DeviceFactoryImpl();
+  IRoomRepository roomRepository = mock(IRoomRepository.class);
+  IRoomFactory roomFactory = new RoomFactoryImpl();
+  IHouseRepository houseRepository = mock(IHouseRepository.class);
+  IHouseFactory houseFactory = new HouseFactoryImpl();
+  IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+  IRoomService roomService =
       new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-  DeviceServiceImpl deviceService =
+  IDeviceService deviceService =
       new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-  PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+  IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
 
   private House createHouse() {
     String street = "Rua Do Isep";
@@ -54,6 +67,7 @@ class GetLogFromDeviceControllerTest {
     GPS newGPS = new GPS(latitude, longitude);
 
     House house = houseServiceImpl.addHouse(newAddress, newGPS);
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
     return house;
   }
 
@@ -70,6 +84,7 @@ class GetLogFromDeviceControllerTest {
     RoomFloor roomFloor = new RoomFloor(floor);
 
     Room room = roomService.addRoom(id, roomName1, dimension, roomFloor);
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
     return room;
   }
 
@@ -80,6 +95,7 @@ class GetLogFromDeviceControllerTest {
     DeviceTypeID deviceTypeID = new DeviceTypeID("1");
 
     Device device = deviceService.addDevice(id, deviceName, deviceStatus, deviceTypeID);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
     return device;
   }
 
