@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class RoomSpringDataRepository implements IRoomRepository {
-    IRoomSpringDataRepository _repository;
-    EntityManagerFactory _factory;
-    IDataModelAssembler <RoomDataModel, Room> _assembler;
+    IRoomSpringDataRepository repository;
+    EntityManagerFactory factory;
+    IDataModelAssembler <RoomDataModel, Room> assembler;
 
     /**
      * Constructor of the RoomSpringDataRepository.
@@ -25,12 +25,12 @@ public class RoomSpringDataRepository implements IRoomRepository {
      * @param assembler is the room data model assembler.
      */
     public RoomSpringDataRepository (IRoomSpringDataRepository repository, IDataModelAssembler assembler) {
-        this._factory = Persistence.createEntityManagerFactory("smart_home");
+        this.factory = Persistence.createEntityManagerFactory("smart_home");
 
         Validator.validateNotNull(repository, "Room repository");
-        this._repository = repository;
+        this.repository = repository;
         Validator.validateNotNull(assembler, "Room data model assembler");
-        this._assembler = assembler;
+        this.assembler = assembler;
     }
 
     /**
@@ -38,7 +38,7 @@ public class RoomSpringDataRepository implements IRoomRepository {
      */
     private EntityManager getEntityManager() {
         try  {
-            EntityManager manager = _factory.createEntityManager();
+            EntityManager manager = factory.createEntityManager();
             return manager;
         } catch (Exception e) {
             throw new RuntimeException("Error creating the entity manager", e);
@@ -57,7 +57,7 @@ public class RoomSpringDataRepository implements IRoomRepository {
 
         RoomDataModel dataModel = new RoomDataModel(entity);
 
-        _repository.save(dataModel);
+        repository.save(dataModel);
         return entity;
     }
 
@@ -68,8 +68,8 @@ public class RoomSpringDataRepository implements IRoomRepository {
      */
     @Override
     public List<Room> findAll() {
-        List<RoomDataModel> listRoomDataModelSaved = _repository.findAll();
-        List<Room> listDomain = _assembler.toDomain(listRoomDataModelSaved);
+        List<RoomDataModel> listRoomDataModelSaved = repository.findAll();
+        List<Room> listDomain = assembler.toDomain(listRoomDataModelSaved);
         return listDomain;
     }
 
@@ -81,10 +81,10 @@ public class RoomSpringDataRepository implements IRoomRepository {
      */
     @Override
     public Optional<Room> ofIdentity(RoomID objectID) {
-        Optional<RoomDataModel> dataModelSaved = _repository.findById(objectID.getID());
+        Optional<RoomDataModel> dataModelSaved = repository.findById(objectID.getID());
 
         if(dataModelSaved.isPresent()){
-            Room domain = _assembler.toDomain(dataModelSaved.get());
+            Room domain = assembler.toDomain(dataModelSaved.get());
             return Optional.of(domain);
         } else {
             return Optional.empty();
@@ -99,7 +99,7 @@ public class RoomSpringDataRepository implements IRoomRepository {
      */
     @Override
     public boolean containsOfIdentity(RoomID objectID) {
-        return _repository.existsById(objectID.getID());
+        return repository.existsById(objectID.getID());
     }
 
     /**
@@ -116,7 +116,7 @@ public class RoomSpringDataRepository implements IRoomRepository {
            boolean isUpdated = roomDataModel.updateFromDomain(room);
 
            if(isUpdated) {
-               _repository.save(roomDataModel);
+               repository.save(roomDataModel);
 
                return room;
            } else {

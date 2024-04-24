@@ -46,7 +46,7 @@ class DeviceServiceImplTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = mock(RoomRepository.class);
 
-        String expectedMessage = "DeviceRepository cannot be null.";
+        String expectedMessage = "Device repository is required";
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -69,7 +69,7 @@ class DeviceServiceImplTest {
         IDeviceFactory deviceFactory = null;
         RoomRepository roomRepository = mock(RoomRepository.class);
 
-        String expectedMessage = "DeviceFactory cannot be null.";
+        String expectedMessage = "Device factory is required";
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -92,7 +92,7 @@ class DeviceServiceImplTest {
         IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
         RoomRepository roomRepository = null;
 
-        String expectedMessage = "RoomRepository cannot be null.";
+        String expectedMessage = "Room repository is required";
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {

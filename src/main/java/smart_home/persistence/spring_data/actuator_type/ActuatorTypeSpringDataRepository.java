@@ -11,9 +11,9 @@ import smart_home.value_object.ActuatorTypeID;
 
 public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository {
 
-  private final IActuatorTypeSpringDataRepository _repository;
+  private final IActuatorTypeSpringDataRepository repository;
 
-  private final IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> _dataModelAssembler;
+  private final IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler;
 
 
     /**
@@ -25,8 +25,8 @@ public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository
     public ActuatorTypeSpringDataRepository(IActuatorTypeSpringDataRepository repository, IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler) {
         Validator.validateNotNull(dataModelAssembler, "Data model assembler");
         Validator.validateNotNull(repository, "Repository");
-        _dataModelAssembler = dataModelAssembler;
-        _repository = repository;
+        this.dataModelAssembler = dataModelAssembler;
+        this.repository = repository;
     }
 
     /**
@@ -40,7 +40,7 @@ public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository
     public ActuatorType save(ActuatorType entity) {
         Validator.validateNotNull(entity, "Actuator type");
         ActuatorTypeDataModel actuatorTypeDataModel = new ActuatorTypeDataModel(entity);
-        _repository.save(actuatorTypeDataModel);
+        repository.save(actuatorTypeDataModel);
         return entity;
     }
 
@@ -51,8 +51,8 @@ public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository
      */
     @Override
     public List<ActuatorType> findAll() {
-        List<ActuatorTypeDataModel> actuatorTypeDataModels = _repository.findAll();
-        return _dataModelAssembler.toDomain(actuatorTypeDataModels);
+        List<ActuatorTypeDataModel> actuatorTypeDataModels = repository.findAll();
+        return dataModelAssembler.toDomain(actuatorTypeDataModels);
     }
 
     /**
@@ -63,10 +63,10 @@ public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository
      */
     @Override
     public Optional<ActuatorType> ofIdentity(ActuatorTypeID objectID) {
-        Optional<ActuatorTypeDataModel> actuatorTypeDataModel = _repository.findById(objectID.getID());
+        Optional<ActuatorTypeDataModel> actuatorTypeDataModel = repository.findById(objectID.getID());
 
         if (actuatorTypeDataModel.isPresent()) {
-            ActuatorType domain = _dataModelAssembler.toDomain(actuatorTypeDataModel.get());
+            ActuatorType domain = dataModelAssembler.toDomain(actuatorTypeDataModel.get());
             return Optional.of(domain);
         } else {
             return Optional.empty();
@@ -81,6 +81,6 @@ public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository
      */
     @Override
     public boolean containsOfIdentity(ActuatorTypeID objectID) {
-      return this._repository.existsById(objectID.getID());
+      return this.repository.existsById(objectID.getID());
     }
 }

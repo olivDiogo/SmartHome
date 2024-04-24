@@ -12,18 +12,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class RoomRepositoryJPAImpl implements IRoomRepository {
-    private EntityManagerFactory _factory;
-    private IDataModelAssembler<RoomDataModel, Room> _dataModelConverter;
+    private EntityManagerFactory factory;
+    private IDataModelAssembler<RoomDataModel, Room> dataModelConverter;
 
     /**
      * RepositoryRoomJPAImpl constructor
-     * @param dataModelConverter
+     * @param dataModelConverter is the data model assembler.
      */
     public RoomRepositoryJPAImpl(IDataModelAssembler<RoomDataModel, Room> dataModelConverter) {
         Validator.validateNotNull(dataModelConverter, "Data model assembler");
 
-        _dataModelConverter = dataModelConverter;
-        _factory = Persistence.createEntityManagerFactory("smart_home");
+        this.dataModelConverter = dataModelConverter;
+        factory = Persistence.createEntityManagerFactory("smart_home");
     }
 
     /**
@@ -31,7 +31,7 @@ public class RoomRepositoryJPAImpl implements IRoomRepository {
      * @return EntityManager
      */
     private EntityManager getEntityManager() {
-        EntityManager manager = _factory.createEntityManager();
+        EntityManager manager = factory.createEntityManager();
         return manager;
     }
 
@@ -80,7 +80,7 @@ public class RoomRepositoryJPAImpl implements IRoomRepository {
 
             List<RoomDataModel> listDataModel = query.getResultList();
 
-            List<Room> listDomain = _dataModelConverter.toDomain(listDataModel);
+            List<Room> listDomain = dataModelConverter.toDomain(listDataModel);
 
             return listDomain;
         } finally {
@@ -105,7 +105,7 @@ public class RoomRepositoryJPAImpl implements IRoomRepository {
                 return Optional.empty();
             }
 
-            Room room = _dataModelConverter.toDomain(roomDataModel);
+            Room room = dataModelConverter.toDomain(roomDataModel);
 
             return Optional.of(room);
         } finally {

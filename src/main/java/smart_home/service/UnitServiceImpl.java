@@ -13,8 +13,8 @@ import java.util.Optional;
 
 public class UnitServiceImpl implements IUnitService {
 
-    private IRepository<UnitID, Unit> _unitRepository;
-    private IUnitFactory _UnitFactory;
+    private IRepository<UnitID, Unit> unitRepository;
+    private IUnitFactory unitFactory;
 
     /**
      * Constructor for MeasurementTypeService.
@@ -36,7 +36,7 @@ public class UnitServiceImpl implements IUnitService {
         if (unitRepository == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type repository.");
         } else {
-            this._unitRepository = unitRepository;
+            this.unitRepository = unitRepository;
         }
     }
 
@@ -49,7 +49,7 @@ public class UnitServiceImpl implements IUnitService {
         if (unitFactory == null) {
             throw new IllegalArgumentException("Please enter a valid measurement type factory.");
         } else {
-            this._UnitFactory = unitFactory;
+            this.unitFactory = unitFactory;
         }
     }
 
@@ -65,8 +65,8 @@ public class UnitServiceImpl implements IUnitService {
         validateDescription(description);
         validateUnit(unit);
 
-        Unit measurementUnit = _UnitFactory.createUnit(description, unit);
-        return _unitRepository.save(measurementUnit);
+        Unit measurementUnit = unitFactory.createUnit(description, unit);
+        return unitRepository.save(measurementUnit);
     }
 
     /**
@@ -104,7 +104,7 @@ public class UnitServiceImpl implements IUnitService {
         if (unitID == null) {
             throw new IllegalArgumentException("Please enter a valid sensor type ID.");
         }
-        return _unitRepository.ofIdentity(unitID);
+        return unitRepository.ofIdentity(unitID);
     }
 
     /**
@@ -114,7 +114,7 @@ public class UnitServiceImpl implements IUnitService {
      */
     @Override
     public List<Unit> getAllMeasurementTypes() {
-        return _unitRepository.findAll();
+        return unitRepository.findAll();
     }
 
 }

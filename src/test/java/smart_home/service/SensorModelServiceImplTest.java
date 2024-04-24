@@ -40,7 +40,7 @@ class SensorModelServiceImplTest {
         ISensorModelFactory sensorModelFactory = null;
         SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
 
-        String expectedMessage = "Please enter a valid sensor model factory.";
+        String expectedMessage = "Sensor model factory is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory));
         //Assert
@@ -56,7 +56,7 @@ class SensorModelServiceImplTest {
         ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
         SensorModelRepository sensorModelRepository = null;
 
-        String expectedMessage = "Please enter a valid sensor model repository.";
+        String expectedMessage = "Sensor model repository is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory));
         //Assert

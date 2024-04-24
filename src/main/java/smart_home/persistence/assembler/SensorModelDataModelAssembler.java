@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SensorModelDataModelAssembler implements IDataModelAssembler<SensorModelDataModel, SensorModel> {
 
-    private ISensorModelFactory _sensorModelFactory;
+    private ISensorModelFactory sensorModelFactory;
 
     /**
      * SensorModelDataModelConverter constructor to initialize the sensorModelFactory
@@ -22,7 +22,7 @@ public class SensorModelDataModelAssembler implements IDataModelAssembler<Sensor
      */
     public SensorModelDataModelAssembler(ISensorModelFactory sensorModelFactory) {
         Validator.validateNotNull(sensorModelFactory, "Sensor Model Factory");
-        this._sensorModelFactory = sensorModelFactory;
+        this.sensorModelFactory = sensorModelFactory;
     }
 
     /**
@@ -39,7 +39,7 @@ public class SensorModelDataModelAssembler implements IDataModelAssembler<Sensor
         SensorModelName sensorModelName = new SensorModelName(sensorModelDataModel.getSensorModelName());
         SensorTypeID sensorTypeID = new SensorTypeID(sensorModelDataModel.getSensorTypeID());
 
-        SensorModel sensorModel = _sensorModelFactory.createSensorModel(sensorModelName, modelPath, sensorTypeID);
+        SensorModel sensorModel = sensorModelFactory.createSensorModel(sensorModelName, modelPath, sensorTypeID);
 
         return sensorModel;
     }

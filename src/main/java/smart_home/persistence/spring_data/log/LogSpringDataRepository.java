@@ -13,23 +13,24 @@ import smart_home.value_object.DeviceID;
 import smart_home.value_object.LogID;
 
 public class LogSpringDataRepository implements ILogRepository {
-  ILogSpringDataRepository _repository;
-  EntityManagerFactory _factory;
-  IDataModelAssembler<LogDataModel, Log> _assembler;
+
+  ILogSpringDataRepository repository;
+  EntityManagerFactory factory;
+  IDataModelAssembler<LogDataModel, Log> assembler;
 
   /**
    * LogSpringDataRepository constructor
    *
-   * @param repository
-   * @param assembler
+   * @param repository ILogSpringDataRepository object
+   * @param assembler  IDataModelAssembler object
    */
   public LogSpringDataRepository(
       ILogSpringDataRepository repository, IDataModelAssembler<LogDataModel, Log> assembler) {
 
     Validator.validateNotNull(repository, "Log repository");
-    this._repository = repository;
+    this.repository = repository;
     Validator.validateNotNull(assembler, "Log data model assembler");
-    this._assembler = assembler;
+    this.assembler = assembler;
   }
 
 
@@ -45,7 +46,7 @@ public class LogSpringDataRepository implements ILogRepository {
 
     LogDataModel dataModel = new LogDataModel(entity);
 
-    _repository.save(dataModel);
+    repository.save(dataModel);
     return entity;
   }
 
@@ -56,8 +57,8 @@ public class LogSpringDataRepository implements ILogRepository {
    */
   @Override
   public List<Log> findAll() {
-    List<LogDataModel> listDataModelSaved = _repository.findAll();
-    return _assembler.toDomain(listDataModelSaved);
+    List<LogDataModel> listDataModelSaved = repository.findAll();
+    return assembler.toDomain(listDataModelSaved);
   }
 
   /**
@@ -68,9 +69,9 @@ public class LogSpringDataRepository implements ILogRepository {
    */
   @Override
   public Optional<Log> ofIdentity(LogID objectID) {
-    Optional<LogDataModel> dataModelSaved = _repository.findById(objectID.getID());
+    Optional<LogDataModel> dataModelSaved = repository.findById(objectID.getID());
     if (dataModelSaved.isPresent()) {
-      Log domain = _assembler.toDomain(dataModelSaved.get());
+      Log domain = assembler.toDomain(dataModelSaved.get());
       return Optional.of(domain);
     } else {
       return Optional.empty();
@@ -85,21 +86,21 @@ public class LogSpringDataRepository implements ILogRepository {
    */
   @Override
   public boolean containsOfIdentity(LogID objectID) {
-    return _repository.existsById(objectID.getID());
+    return repository.existsById(objectID.getID());
   }
 
   /**
    * Method to find logs by device ID and time period
    *
    * @param deviceID DeviceID object
-   * @param period object which contains a LocalDateTime start and end
+   * @param period   object which contains a LocalDateTime start and end
    * @return List of Log
    */
   @Override
   public List<Log> findByDeviceIDAndDatePeriodBetween(DeviceID deviceID, DatePeriod period) {
     List<LogDataModel> models =
-        _repository.findByDeviceIDAndTimestampBetween(
+        repository.findByDeviceIDAndTimestampBetween(
             deviceID, period.getStartDate(), period.getEndDate());
-    return _assembler.toDomain(models);
+    return assembler.toDomain(models);
   }
 }

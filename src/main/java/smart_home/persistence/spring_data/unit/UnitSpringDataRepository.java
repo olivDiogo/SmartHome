@@ -13,11 +13,11 @@ import smart_home.value_object.UnitID;
 
 public class UnitSpringDataRepository implements IUnitRepository {
 
-    IUnitSpringDataRepository _repository;
+    IUnitSpringDataRepository repository;
 
-    EntityManagerFactory _factory;
+    EntityManagerFactory factory;
 
-    IDataModelAssembler<UnitDataModel, Unit> _assembler;
+    IDataModelAssembler<UnitDataModel, Unit> assembler;
 
     /**
      * Constructs a new repository instance with the specified repository and data model assembler.
@@ -27,13 +27,13 @@ public class UnitSpringDataRepository implements IUnitRepository {
      */
     public UnitSpringDataRepository(IUnitSpringDataRepository repository,
         IDataModelAssembler<UnitDataModel, Unit> assembler) {
-        this._factory = Persistence.createEntityManagerFactory("smart_home");
+        this.factory = Persistence.createEntityManagerFactory("smart_home");
 
         Validator.validateNotNull(repository, "Unit repository");
-        this._repository = repository;
+        this.repository = repository;
 
         Validator.validateNotNull(assembler, "Unit data model assembler");
-        this._assembler = assembler;
+        this.assembler = assembler;
     }
 
     /**
@@ -49,7 +49,7 @@ public class UnitSpringDataRepository implements IUnitRepository {
 
         UnitDataModel dataModel = new UnitDataModel(entity);
 
-        _repository.save(dataModel);
+        repository.save(dataModel);
 
         return entity;
     }
@@ -61,8 +61,8 @@ public class UnitSpringDataRepository implements IUnitRepository {
      */
     @Override
     public List<Unit> findAll() {
-        List<UnitDataModel> unitDataModels = _repository.findAll();
-        List<Unit> units = _assembler.toDomain(unitDataModels);
+        List<UnitDataModel> unitDataModels = repository.findAll();
+        List<Unit> units = assembler.toDomain(unitDataModels);
         return units;
     }
 
@@ -75,10 +75,10 @@ public class UnitSpringDataRepository implements IUnitRepository {
      */
     @Override
     public Optional<Unit> ofIdentity(UnitID id) {
-        Optional<UnitDataModel> unitDataModel = _repository.findById(id.getID());
+        Optional<UnitDataModel> unitDataModel = repository.findById(id.getID());
 
         if (unitDataModel.isPresent()) {
-            Unit domain = _assembler.toDomain(unitDataModel.get());
+            Unit domain = assembler.toDomain(unitDataModel.get());
             return Optional.of(domain);
         } else {
             return Optional.empty();
@@ -93,7 +93,7 @@ public class UnitSpringDataRepository implements IUnitRepository {
      */
     @Override
     public boolean containsOfIdentity(UnitID id) {
-        return _repository.existsById(id.getID());
+        return repository.existsById(id.getID());
     }
 
 }

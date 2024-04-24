@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class DeviceDataModelAssembler implements IDataModelAssembler<DeviceDataModel, Device> {
 
-    private IDeviceFactory _deviceFactory;
+    private IDeviceFactory deviceFactory;
 
     /**
      * Constructs a DeviceDataModelConverter with a specific {@link IDeviceFactory}.
@@ -27,7 +27,7 @@ public class DeviceDataModelAssembler implements IDataModelAssembler<DeviceDataM
      */
     public DeviceDataModelAssembler(IDeviceFactory deviceFactory) {
         Validator.validateNotNull(deviceFactory, "Device Factory");
-        _deviceFactory = deviceFactory;
+        this.deviceFactory = deviceFactory;
     }
 
     /**
@@ -46,7 +46,7 @@ public class DeviceDataModelAssembler implements IDataModelAssembler<DeviceDataM
         DeviceStatus deviceStatus = new DeviceStatus(deviceDataModel.getDeviceStatus());
         DeviceID deviceID = new DeviceID(deviceDataModel.getDeviceID());
 
-        Device device = _deviceFactory.createDevice(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
+        Device device = deviceFactory.createDevice(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
         return device;
     }
 

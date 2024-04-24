@@ -33,7 +33,7 @@ class ActuatorTypeRepositoryJPAImplTest {
         //Arrange
         IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler = null;
 
-        String expectedMessage = "The data model converter must not be null.";
+        String expectedMessage = "The data model assembler must not be null.";
 
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorTypeRepositoryJPAImpl(dataModelAssembler));

@@ -18,8 +18,8 @@ import java.util.Optional;
  */
 public class DeviceRepositoryJPAImpl implements IDeviceRepository {
 
-    private EntityManagerFactory _factory;
-    private IDataModelAssembler<DeviceDataModel, Device> _dataModelConverter;
+    private EntityManagerFactory factory;
+    private IDataModelAssembler<DeviceDataModel, Device> dataModelAssembler;
 
     /**
      * Constructs a new RepositoryDeviceJPAImpl.
@@ -28,15 +28,15 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
      */
 
     public DeviceRepositoryJPAImpl(IDataModelAssembler<DeviceDataModel, Device> dataModelConverter) {
-        validateDataModelConverter(dataModelConverter);
-        _factory = Persistence.createEntityManagerFactory("smart_home");
-        _dataModelConverter = dataModelConverter;
+        validateDataModelAssembler(dataModelConverter);
+        factory = Persistence.createEntityManagerFactory("smart_home");
+        dataModelAssembler = dataModelConverter;
     }
 
     /**
-     * Validates the data model converter.
+     * Validates the data model assembler.
      */
-    private void validateDataModelConverter(IDataModelAssembler<DeviceDataModel, Device> dataModelConverter) {
+    private void validateDataModelAssembler(IDataModelAssembler<DeviceDataModel, Device> dataModelConverter) {
         if (dataModelConverter == null) {
             throw new IllegalArgumentException("The data model converter must not be null.");
         }
@@ -48,7 +48,7 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
      * @return EntityManager to be used for database operations.
      */
     private EntityManager getEntityManager() {
-        return _factory.createEntityManager();
+        return factory.createEntityManager();
     }
 
     /**
@@ -94,7 +94,7 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
         try {
             Query query = em.createQuery("SELECT e FROM DeviceDataModel e");
             List<DeviceDataModel> listDataModel = query.getResultList();
-            return _dataModelConverter.toDomain(listDataModel);
+            return dataModelAssembler.toDomain(listDataModel);
         } finally {
             em.close();
         }
@@ -114,7 +114,7 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
             if (deviceDataModel == null) {
                 return Optional.empty();
             } else {
-                Device device = _dataModelConverter.toDomain(deviceDataModel);
+                Device device = dataModelAssembler.toDomain(deviceDataModel);
                 return Optional.of(device);
             }
         } finally {
@@ -150,7 +150,7 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
             Query query = em.createQuery("SELECT e FROM DeviceDataModel e WHERE e.roomID = :roomId");
             query.setParameter("roomId", roomId.getID());
             List<DeviceDataModel> listDataModel = query.getResultList();
-            return _dataModelConverter.toDomain(listDataModel);
+            return dataModelAssembler.toDomain(listDataModel);
         } finally {
             em.close();
         }

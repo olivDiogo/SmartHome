@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SensorTypeDataModelAssembler implements IDataModelAssembler<SensorTypeDataModel, SensorType> {
-    private ISensorTypeFactory _sensorTypeFactory;
+    private ISensorTypeFactory sensorTypeFactory;
 
     /**
      * Constructor of SensorTypeDataModelConverter
@@ -20,7 +20,7 @@ public class SensorTypeDataModelAssembler implements IDataModelAssembler<SensorT
      */
     public SensorTypeDataModelAssembler(ISensorTypeFactory sensorTypeFactory) {
         Validator.validateNotNull(sensorTypeFactory, "Sensor Type Factory");
-        this._sensorTypeFactory = sensorTypeFactory;
+        this.sensorTypeFactory = sensorTypeFactory;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SensorTypeDataModelAssembler implements IDataModelAssembler<SensorT
         TypeDescription typeDescription = new TypeDescription(sensorTypeDataModel.getTypeDescription());
         UnitID unitID = new UnitID(sensorTypeDataModel.getUnitID());
 
-        return _sensorTypeFactory.createSensorType(sensorTypeID, typeDescription, unitID);
+        return sensorTypeFactory.createSensorType(sensorTypeID, typeDescription, unitID);
     }
 
     @Override

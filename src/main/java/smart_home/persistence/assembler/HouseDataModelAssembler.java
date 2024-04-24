@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HouseDataModelAssembler implements IDataModelAssembler<HouseDataModel, House>{
-    private IHouseFactory _houseFactory;
+    private IHouseFactory houseFactory;
 
     public HouseDataModelAssembler(IHouseFactory houseFactory) {
     }
@@ -22,7 +22,7 @@ public class HouseDataModelAssembler implements IDataModelAssembler<HouseDataMod
         Address address = new Address(houseDataModel.getStreet(), houseDataModel.getDoorNumber(), houseDataModel.getPostalCode(), houseDataModel.getCountryCode(), new PostalCodeFactory());
         HouseID houseID = new HouseID(houseDataModel.getHouseID());
 
-        House house = _houseFactory.createHouse(houseID, address, gps);
+        House house = houseFactory.createHouse(houseID, address, gps);
         return house;    }
 
     @Override

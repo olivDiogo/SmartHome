@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceTypeDataModelAssembler implements IDataModelAssembler<DeviceTypeDataModel, DeviceType> {
-    private IDeviceTypeFactory _deviceTypeFactory;
+    private IDeviceTypeFactory deviceTypeFactory;
 
     /**
      * Constructor of DeviceTypeDataModelAssembler
@@ -20,7 +20,7 @@ public class DeviceTypeDataModelAssembler implements IDataModelAssembler<DeviceT
      */
     public DeviceTypeDataModelAssembler(IDeviceTypeFactory deviceTypeFactory) {
         Validator.validateNotNull(deviceTypeFactory, "Device Type Factory");
-        this._deviceTypeFactory = deviceTypeFactory;
+        this.deviceTypeFactory = deviceTypeFactory;
     }
 
 
@@ -30,7 +30,7 @@ public class DeviceTypeDataModelAssembler implements IDataModelAssembler<DeviceT
 
         DeviceTypeID deviceTypeID = new DeviceTypeID(deviceTypeDataModel.getDeviceTypeID());
         TypeDescription typeDescription = new TypeDescription(deviceTypeDataModel.getDeviceTypeDescription());
-        return _deviceTypeFactory.createDeviceType(deviceTypeID, typeDescription);
+        return deviceTypeFactory.createDeviceType(deviceTypeID, typeDescription);
     }
 
     @Override

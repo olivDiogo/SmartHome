@@ -13,19 +13,19 @@ import java.util.List;
 import java.util.Optional;
 
 public class LogRepositoryJPAImpl implements ILogRepository {
-  private EntityManagerFactory _factory;
-  private IDataModelAssembler<LogDataModel, Log> _dataModelAssembler;
+  private EntityManagerFactory factory;
+  private IDataModelAssembler<LogDataModel, Log> dataModelAssembler;
 
   /**
    * LogRepositoryJPAImpl constructor
    *
-   * @param dataModelAssembler
+   * @param dataModelAssembler IDataModelAssembler object
    */
   public LogRepositoryJPAImpl(IDataModelAssembler<LogDataModel, Log> dataModelAssembler) {
     Validator.validateNotNull(dataModelAssembler, "Data model assembler");
 
-    _dataModelAssembler = dataModelAssembler;
-    _factory = Persistence.createEntityManagerFactory("smart_home");
+    this.dataModelAssembler = dataModelAssembler;
+    factory = Persistence.createEntityManagerFactory("smart_home");
   }
 
   /**
@@ -34,7 +34,7 @@ public class LogRepositoryJPAImpl implements ILogRepository {
    * @return EntityManager
    */
   private EntityManager getEntityManager() {
-    EntityManager manager = _factory.createEntityManager();
+    EntityManager manager = factory.createEntityManager();
     return manager;
   }
 
@@ -81,7 +81,7 @@ public class LogRepositoryJPAImpl implements ILogRepository {
       Query query = em.createQuery("SELECT e FROM LogDataModel e");
 
       List<LogDataModel> logDataModels = query.getResultList();
-      List<Log> logs = _dataModelAssembler.toDomain(logDataModels);
+      List<Log> logs = dataModelAssembler.toDomain(logDataModels);
 
       return logs;
     } finally {
@@ -92,7 +92,7 @@ public class LogRepositoryJPAImpl implements ILogRepository {
   /**
    * Method to find log by ID
    *
-   * @param logID
+   * @param logID LogID object
    * @return Optional<Log>
    */
   @Override
@@ -103,7 +103,7 @@ public class LogRepositoryJPAImpl implements ILogRepository {
       if (logDataModel == null) {
         return Optional.empty();
       }
-      Log log = _dataModelAssembler.toDomain(logDataModel);
+      Log log = dataModelAssembler.toDomain(logDataModel);
       return Optional.of(log);
     } finally {
       em.close();
@@ -113,7 +113,7 @@ public class LogRepositoryJPAImpl implements ILogRepository {
   /**
    * Method to check if log exists by identity
    *
-   * @param logID
+   * @param logID LogID object
    * @return boolean
    */
   @Override
@@ -127,7 +127,7 @@ public class LogRepositoryJPAImpl implements ILogRepository {
    *
    * @param deviceID DeviceID object
    * @param period DatePeriod object
-   * @return
+   * @return List<Log>
    */
   @Override
   public List<Log> findByDeviceIDAndDatePeriodBetween(DeviceID deviceID, DatePeriod period) {
@@ -141,7 +141,7 @@ public class LogRepositoryJPAImpl implements ILogRepository {
       query.setParameter("end", period.getEndDate());
 
       List<LogDataModel> logDataModels = query.getResultList();
-      List<Log> logs = _dataModelAssembler.toDomain(logDataModels);
+      List<Log> logs = dataModelAssembler.toDomain(logDataModels);
 
       return logs;
     } finally {

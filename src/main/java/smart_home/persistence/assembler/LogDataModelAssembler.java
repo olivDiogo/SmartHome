@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogDataModelAssembler implements IDataModelAssembler<LogDataModel, Log> {
-  private ILogFactory _logFactory;
+  private ILogFactory logFactory;
 
   /**
    * Class constructor
@@ -24,7 +24,7 @@ public class LogDataModelAssembler implements IDataModelAssembler<LogDataModel, 
    */
   public LogDataModelAssembler(ILogFactory logFactory) {
     Validator.validateNotNull(logFactory, "Log Factory");
-    _logFactory = logFactory;
+    this.logFactory = logFactory;
   }
 
   /**
@@ -46,7 +46,7 @@ public class LogDataModelAssembler implements IDataModelAssembler<LogDataModel, 
     UnitID unit = new UnitID(logDataModel.getUnit());
 
     Log log =
-        _logFactory.createLog(
+        logFactory.createLog(
             logID, deviceID, sensorID, timeStamp, readingValue, description, unit);
 
     return log;

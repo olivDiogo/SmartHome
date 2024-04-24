@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class HouseRepositoryJPAImpl implements IHouseRepository {
-        private IDataModelAssembler<HouseDataModel, House> _dataModelConverter;
-        private EntityManagerFactory _factory;
+        private IDataModelAssembler<HouseDataModel, House> dataModelAssembler;
+        private EntityManagerFactory factory;
 
         /**
          * HouseRepositoryJPAImpl constructor
@@ -20,9 +20,9 @@ public class HouseRepositoryJPAImpl implements IHouseRepository {
          */
 
         public HouseRepositoryJPAImpl(IDataModelAssembler<HouseDataModel, House> dataModelAssembler) {
-            validateDataModelConverter(dataModelAssembler);
-            _dataModelConverter = dataModelAssembler;
-            _factory = Persistence.createEntityManagerFactory("smart_home");
+            validateDataModelAssembler(dataModelAssembler);
+            this.dataModelAssembler = dataModelAssembler;
+            factory = Persistence.createEntityManagerFactory("smart_home");
         }
 
         /**
@@ -30,7 +30,7 @@ public class HouseRepositoryJPAImpl implements IHouseRepository {
          * @param dataModelAssembler the data model converter to validate
          * @throws IllegalArgumentException if the data model converter is null
          */
-        private void validateDataModelConverter(IDataModelAssembler<HouseDataModel, House> dataModelAssembler) {
+        private void validateDataModelAssembler(IDataModelAssembler<HouseDataModel, House> dataModelAssembler) {
             if (dataModelAssembler == null) {
                 throw new IllegalArgumentException("Data model assembler cannot be null.");
             }
@@ -41,7 +41,7 @@ public class HouseRepositoryJPAImpl implements IHouseRepository {
          * @return EntityManager
          */
         private EntityManager getEntityManager() {
-            EntityManager manager = _factory.createEntityManager();
+            EntityManager manager = factory.createEntityManager();
             return manager;
         }
 
@@ -74,7 +74,7 @@ public class HouseRepositoryJPAImpl implements IHouseRepository {
             Query query = getEntityManager().createQuery(
                     "SELECT e FROM HouseDataModel e");
             List<HouseDataModel> listDataModel = query.getResultList();
-            List<House> listDomain = _dataModelConverter.toDomain(listDataModel);
+            List<House> listDomain = dataModelAssembler.toDomain(listDataModel);
             return listDomain;
         }
 
@@ -90,7 +90,7 @@ public class HouseRepositoryJPAImpl implements IHouseRepository {
                 return Optional.empty();
             }
             else {
-                House house = _dataModelConverter.toDomain(houseDataModel);
+                House house = dataModelAssembler.toDomain(houseDataModel);
                 return Optional.of(house);
             }
         }

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class UnitRepository implements IRepository<UnitID, Unit> {
-    private final Map<UnitID, Unit> _measurementTypeData = new LinkedHashMap<>();
+    private final Map<UnitID, Unit> DATA = new LinkedHashMap<>();
 
     /**
      * Save a MeasurementType. If the MeasurementType is null, throw an IllegalArgumentException.
@@ -27,7 +27,7 @@ public class UnitRepository implements IRepository<UnitID, Unit> {
         if (containsOfIdentity(entity.getID())) {
             throw new IllegalArgumentException("MeasurementType already exists.");
         } else {
-            _measurementTypeData.put(entity.getID(), entity);
+            DATA.put(entity.getID(), entity);
         }
         return entity;
     }
@@ -39,7 +39,7 @@ public class UnitRepository implements IRepository<UnitID, Unit> {
      */
     @Override
     public List<Unit> findAll() {
-        List<Unit> allUnits = _measurementTypeData.values().stream().toList();
+        List<Unit> allUnits = DATA.values().stream().toList();
         return allUnits;
     }
 
@@ -51,7 +51,7 @@ public class UnitRepository implements IRepository<UnitID, Unit> {
      */
     @Override
     public Optional<Unit> ofIdentity(UnitID objectID) {
-        Optional<Unit> measurementType = Optional.ofNullable(_measurementTypeData.get(objectID));
+        Optional<Unit> measurementType = Optional.ofNullable(DATA.get(objectID));
         return measurementType;
     }
 
@@ -63,6 +63,6 @@ public class UnitRepository implements IRepository<UnitID, Unit> {
      */
     @Override
     public boolean containsOfIdentity(UnitID objectID) {
-        return _measurementTypeData.containsKey(objectID);
+        return DATA.containsKey(objectID);
     }
 }

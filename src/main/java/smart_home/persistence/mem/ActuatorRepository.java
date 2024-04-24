@@ -16,7 +16,7 @@ public class ActuatorRepository implements IRepository<ActuatorID, IActuator> {
     /**
      * Map to store the Actuator data.
      */
-    private final Map<ActuatorID, IActuator> _ActuatorData = new LinkedHashMap<>();
+    private final Map<ActuatorID, IActuator> DATA = new LinkedHashMap<>();
 
     /**
      * Method to save a domain actuator.
@@ -31,7 +31,7 @@ public class ActuatorRepository implements IRepository<ActuatorID, IActuator> {
         if (containsOfIdentity(actuator.getID())) {
             throw new IllegalArgumentException("Actuator already exists.");
         } else {
-            _ActuatorData.put(actuator.getID(), actuator);
+            DATA.put(actuator.getID(), actuator);
         }
         return actuator;
     }
@@ -43,7 +43,7 @@ public class ActuatorRepository implements IRepository<ActuatorID, IActuator> {
      */
     @Override
     public List<IActuator> findAll() {
-        List<IActuator> allActuators = _ActuatorData.values().stream().toList();
+        List<IActuator> allActuators = DATA.values().stream().toList();
         return allActuators;
     }
 
@@ -55,7 +55,7 @@ public class ActuatorRepository implements IRepository<ActuatorID, IActuator> {
      */
     @Override
     public Optional<IActuator> ofIdentity(ActuatorID actuatorID) {
-        Optional<IActuator> actuator = Optional.ofNullable(_ActuatorData.get(actuatorID));
+        Optional<IActuator> actuator = Optional.ofNullable(DATA.get(actuatorID));
         return actuator;
     }
 
@@ -67,7 +67,7 @@ public class ActuatorRepository implements IRepository<ActuatorID, IActuator> {
      */
     @Override
     public boolean containsOfIdentity(ActuatorID actuatorID) {
-        return _ActuatorData.containsKey(actuatorID);
+        return DATA.containsKey(actuatorID);
     }
 
     /**
@@ -77,7 +77,7 @@ public class ActuatorRepository implements IRepository<ActuatorID, IActuator> {
      * @return the list of actuators in the device.
      */
     public List<IActuator> findByDeviceID(DeviceID deviceID) {
-        List<IActuator> actuators = _ActuatorData.values().stream().filter(actuator -> actuator.getDeviceID().equals(deviceID)).toList();
+        List<IActuator> actuators = DATA.values().stream().filter(actuator -> actuator.getDeviceID().equals(deviceID)).toList();
         return actuators;
     }
 }

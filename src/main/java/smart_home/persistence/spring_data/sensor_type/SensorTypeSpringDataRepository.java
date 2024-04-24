@@ -1,9 +1,5 @@
 package smart_home.persistence.spring_data.sensor_type;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
 import smart_home.domain.repository.ISensorTypeRepository;
 import smart_home.domain.sensor_type.SensorType;
 import smart_home.persistence.assembler.IDataModelAssembler;
@@ -17,8 +13,8 @@ import java.util.Optional;
 
 public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
 
-    ISensorTypeSpringDataRepository _repository;
-    IDataModelAssembler<SensorTypeDataModel, SensorType> _assembler;
+    ISensorTypeSpringDataRepository repository;
+    IDataModelAssembler<SensorTypeDataModel, SensorType> assembler;
 
     /**
      * Constructor for SensorTypeSpringDataRepository
@@ -30,8 +26,8 @@ public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
         Validator.validateNotNull(repository, "Sensor type spring data repository");
         Validator.validateNotNull(assembler, "Data model assembler");
 
-        this._repository = repository;
-        this._assembler = assembler;
+        this.repository = repository;
+        this.assembler = assembler;
     }
 
 
@@ -47,7 +43,7 @@ public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
 
         SensorTypeDataModel dataModel = new SensorTypeDataModel(sensorType);
 
-        _repository.save(dataModel);
+        repository.save(dataModel);
 
         return sensorType;
     }
@@ -59,9 +55,9 @@ public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
      */
     @Override
     public List<SensorType> findAll() {
-        List<SensorTypeDataModel> listSensorTypeDataModelSaved = _repository.findAll();
+        List<SensorTypeDataModel> listSensorTypeDataModelSaved = repository.findAll();
 
-        return _assembler.toDomain(listSensorTypeDataModelSaved);
+        return assembler.toDomain(listSensorTypeDataModelSaved);
     }
 
     /**
@@ -72,10 +68,10 @@ public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
      */
     @Override
     public Optional<SensorType> ofIdentity(SensorTypeID sensorTypeID) {
-        Optional<SensorTypeDataModel> sensorTypeDataModel = _repository.findById(sensorTypeID.getID());
+        Optional<SensorTypeDataModel> sensorTypeDataModel = repository.findById(sensorTypeID.getID());
 
         if (sensorTypeDataModel.isPresent()) {
-            SensorType domain = _assembler.toDomain(sensorTypeDataModel.get());
+            SensorType domain = assembler.toDomain(sensorTypeDataModel.get());
             return Optional.of(domain);
         } else {
             return Optional.empty();
@@ -90,6 +86,6 @@ public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
      */
     @Override
     public boolean containsOfIdentity(SensorTypeID sensorTypeID) {
-        return this._repository.existsById(sensorTypeID.getID());
+        return this.repository.existsById(sensorTypeID.getID());
     }
 }

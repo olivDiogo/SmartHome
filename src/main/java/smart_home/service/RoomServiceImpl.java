@@ -1,34 +1,32 @@
 package smart_home.service;
 
-import smart_home.ddd.IAssembler;
 import smart_home.ddd.IRepository;
 import smart_home.domain.house.House;
 import smart_home.domain.room.IRoomFactory;
 import smart_home.domain.room.Room;
 import smart_home.domain.service.IRoomService;
-import smart_home.dto.RoomDTO;
 import smart_home.value_object.*;
 
 import java.util.List;
 import java.util.Optional;
 
 public class RoomServiceImpl implements IRoomService {
-    private final IRepository<RoomID, Room> _roomRepository;
-    private final IRoomFactory _roomFactory;
-    private final IRepository<HouseID, House> _houseRepository;
+    private final IRepository<RoomID, Room> roomRepository;
+    private final IRoomFactory roomFactory;
+    private final IRepository<HouseID, House> houseRepository;
 
     /**
      * Constructor for RoomService.
      *
-     * @param roomRepository
-     * @param roomFactory
-     * @param houseRepository
+     * @param roomRepository The repository for rooms.
+     * @param roomFactory The factory for creating rooms.
+     * @param houseRepository The repository for houses.
      */
     public RoomServiceImpl(IRepository<RoomID, Room> roomRepository, IRoomFactory roomFactory,
         IRepository<HouseID, House> houseRepository) {
-        _roomRepository = roomRepository;
-        _roomFactory = roomFactory;
-        _houseRepository = houseRepository;
+        this.roomRepository = roomRepository;
+        this.roomFactory = roomFactory;
+        this.houseRepository = houseRepository;
     }
 
     /**
@@ -42,13 +40,13 @@ public class RoomServiceImpl implements IRoomService {
      */
     @Override
     public Room addRoom(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor) {
-        Optional<House> houseOptional = _houseRepository.ofIdentity(houseID);
+        Optional<House> houseOptional = houseRepository.ofIdentity(houseID);
         if (houseOptional.isEmpty()) {
             throw new IllegalArgumentException("House with ID " + houseID + " not found.");
         }
 
-        Room room = _roomFactory.createRoom(houseID, roomName, dimension, roomFloor);
-        _roomRepository.save(room);
+        Room room = roomFactory.createRoom(houseID, roomName, dimension, roomFloor);
+        roomRepository.save(room);
         return room;
     }
 
@@ -59,7 +57,7 @@ public class RoomServiceImpl implements IRoomService {
      */
     @Override
     public List<Room> getAllRooms() {
-        return _roomRepository.findAll();
+        return roomRepository.findAll();
     }
 
     /**
@@ -70,7 +68,7 @@ public class RoomServiceImpl implements IRoomService {
      */
     @Override
     public Optional<Room> getRoomById(RoomID roomID) {
-        return _roomRepository.ofIdentity(roomID);
+        return roomRepository.ofIdentity(roomID);
     }
 
 }

@@ -36,7 +36,7 @@ class SensorTypeServiceImplTest {
         SensorTypeRepository sensorTypeRepository = null;
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
-        String expectedMessage = "Please enter a valid sensor type repository.";
+        String expectedMessage = "Sensor type repository is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository));
         //Assert
@@ -48,7 +48,7 @@ class SensorTypeServiceImplTest {
         SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
         SensorTypeFactoryImpl sensorTypeFactory = null;
         UnitRepository unitRepository = mock(UnitRepository.class);
-        String expectedMessage = "Please enter a valid sensor type factory.";
+        String expectedMessage = "Sensor type factory is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository));
         //Assert
@@ -60,7 +60,7 @@ class SensorTypeServiceImplTest {
         SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = null;
-        String expectedMessage = "Please enter a valid measurement type repository.";
+        String expectedMessage = "Unit repository is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository));
         //Assert

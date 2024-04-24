@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class ActuatorTypeRepositoryJPAImpl implements IActuatorTypeRepository {
-    private EntityManagerFactory _factory;
-    private IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> _dataModelConverter;
+    private EntityManagerFactory factory;
+    private IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler;
 
     /**
      * Constructs a new repository instance with the specified entity manager factory and data model converter.
@@ -22,19 +22,19 @@ public class ActuatorTypeRepositoryJPAImpl implements IActuatorTypeRepository {
      */
     public ActuatorTypeRepositoryJPAImpl(IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler) {
         validateDataModelAssembler(dataModelAssembler);
-        _factory = Persistence.createEntityManagerFactory("smart_home");
-        _dataModelConverter = dataModelAssembler;
+        factory = Persistence.createEntityManagerFactory("smart_home");
+        this.dataModelAssembler = dataModelAssembler;
     }
 
     /**
-     * Validates the data model converter.
+     * Validates the data model assembler.
      *
-     * @param dataModelAssembler the data model converter to validate
-     * @throws IllegalArgumentException if the data model converter is null
+     * @param dataModelAssembler the data model assembler to validate
+     * @throws IllegalArgumentException if the data model assembler is null
      */
     private void validateDataModelAssembler(IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler) {
         if (dataModelAssembler == null) {
-            throw new IllegalArgumentException("The data model converter must not be null.");
+            throw new IllegalArgumentException("The data model assembler must not be null.");
         }
     }
 
@@ -79,7 +79,7 @@ public class ActuatorTypeRepositoryJPAImpl implements IActuatorTypeRepository {
         try {
             Query query = em.createQuery("SELECT e FROM ActuatorTypeDataModel e");
             List<ActuatorTypeDataModel> listDataModel = query.getResultList();
-            return _dataModelConverter.toDomain(listDataModel);
+            return dataModelAssembler.toDomain(listDataModel);
         } finally {
             em.close();
         }
@@ -99,7 +99,7 @@ public class ActuatorTypeRepositoryJPAImpl implements IActuatorTypeRepository {
             if (actuatorTypeDataModel == null) {
                 return Optional.empty();
             }
-            ActuatorType actuatorType = _dataModelConverter.toDomain(actuatorTypeDataModel);
+            ActuatorType actuatorType = dataModelAssembler.toDomain(actuatorTypeDataModel);
             return Optional.of(actuatorType);
         } finally {
             em.close();
@@ -123,6 +123,6 @@ public class ActuatorTypeRepositoryJPAImpl implements IActuatorTypeRepository {
      * @return a new EntityManager instance
      */
     private EntityManager getEntityManager() {
-        return _factory.createEntityManager();
+        return factory.createEntityManager();
     }
 }

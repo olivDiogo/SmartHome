@@ -12,25 +12,25 @@ import smart_home.value_object.ModelPath;
 
 public class RepositoryActuatorModelSpringData implements IActuatorModelRepository {
 
-  IRepositoryActuatorModelSpringData _repositoryActuatorModelSpringData;
+  IRepositoryActuatorModelSpringData repositoryActuatorModelSpringData;
 
-  IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> _dataModelAssembler;
+  IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelAssembler;
 
   /**
    * Constructor for RepositoryActuatorModelSpringData
    *
-   * @param dataModelAssembler data model assembler
+   * @param dataModelAssembler                data model assembler
    * @param repositoryActuatorModelSpringData repository actuator model spring data
    */
   public RepositoryActuatorModelSpringData(
       IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelAssembler,
       IRepositoryActuatorModelSpringData repositoryActuatorModelSpringData) {
     validateDataModelAssembler(dataModelAssembler);
-    this._dataModelAssembler = dataModelAssembler;
+    this.dataModelAssembler = dataModelAssembler;
 
     Validator.validateNotNull(repositoryActuatorModelSpringData,
         "Repository actuator model spring data");
-    this._repositoryActuatorModelSpringData = repositoryActuatorModelSpringData;
+    this.repositoryActuatorModelSpringData = repositoryActuatorModelSpringData;
   }
 
   /**
@@ -55,7 +55,7 @@ public class RepositoryActuatorModelSpringData implements IActuatorModelReposito
 
     ActuatorModelDataModel actuatorModelDataModel = new ActuatorModelDataModel(actuatorModel);
 
-    this._repositoryActuatorModelSpringData.save(actuatorModelDataModel);
+    this.repositoryActuatorModelSpringData.save(actuatorModelDataModel);
 
     return actuatorModel;
   }
@@ -68,9 +68,9 @@ public class RepositoryActuatorModelSpringData implements IActuatorModelReposito
   @Override
   public List<ActuatorModel> findAll() {
     List<ActuatorModelDataModel> actuatorModelDataModels =
-        this._repositoryActuatorModelSpringData.findAll();
+        this.repositoryActuatorModelSpringData.findAll();
 
-    return _dataModelAssembler.toDomain(actuatorModelDataModels);
+    return dataModelAssembler.toDomain(actuatorModelDataModels);
   }
 
   /**
@@ -82,10 +82,10 @@ public class RepositoryActuatorModelSpringData implements IActuatorModelReposito
   @Override
   public Optional<ActuatorModel> ofIdentity(ModelPath modelID) {
     Optional<ActuatorModelDataModel> actuatorModelDataModel =
-        this._repositoryActuatorModelSpringData.findById(modelID.toString());
+        this.repositoryActuatorModelSpringData.findById(modelID.toString());
 
     if (actuatorModelDataModel.isPresent()) {
-      return Optional.of(_dataModelAssembler.toDomain(actuatorModelDataModel.get()));
+      return Optional.of(dataModelAssembler.toDomain(actuatorModelDataModel.get()));
     } else {
       return Optional.empty();
     }
@@ -100,7 +100,7 @@ public class RepositoryActuatorModelSpringData implements IActuatorModelReposito
   @Override
   public boolean containsOfIdentity(ModelPath modelID) {
 
-    return this._repositoryActuatorModelSpringData.existsById(modelID.getID());
+    return this.repositoryActuatorModelSpringData.existsById(modelID.getID());
   }
 
   /**
@@ -112,8 +112,8 @@ public class RepositoryActuatorModelSpringData implements IActuatorModelReposito
   @Override
   public List<ActuatorModel> findBy_actuatorTypeID(ActuatorTypeID actuatorModelID) {
     List<ActuatorModelDataModel> actuatorModelDataModels =
-        this._repositoryActuatorModelSpringData.findBy_actuatorTypeID(actuatorModelID.getID());
+        this.repositoryActuatorModelSpringData.findBy_actuatorTypeID(actuatorModelID.getID());
 
-    return _dataModelAssembler.toDomain(actuatorModelDataModels);
+    return dataModelAssembler.toDomain(actuatorModelDataModels);
   }
 }

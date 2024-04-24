@@ -17,17 +17,17 @@ import smart_home.value_object.SensorTypeID;
 
 public class SensorDataModelAssembler implements IDataModelAssembler<SensorDataModel, ISensor> {
 
-  private final ISensorFactory _sensorFactory;
-  private final List<Object> _parameters = new ArrayList<>();
+  private final ISensorFactory sensorFactory;
+  private final List<Object> parameters = new ArrayList<>();
 
     public SensorDataModelAssembler(ISensorFactory sensorFactory) {
         Validator.validateNotNull(sensorFactory, "Sensor factory");
-        this._sensorFactory = sensorFactory;
+        this.sensorFactory = sensorFactory;
     }
 
     public ISensor toDomain(SensorDataModel sensorDataModel) {
         Validator.validateNotNull(sensorDataModel, "Sensor data model");
-        _parameters.clear();
+        parameters.clear();
         getDeviceID(sensorDataModel);
         getModelPath(sensorDataModel);
         getSensorTypeID(sensorDataModel);
@@ -35,7 +35,7 @@ public class SensorDataModelAssembler implements IDataModelAssembler<SensorDataM
         getGPS(sensorDataModel);
         getDatePeriod(sensorDataModel);
         getSensorID(sensorDataModel);
-        return _sensorFactory.create(_parameters.toArray());
+        return sensorFactory.create(parameters.toArray());
     }
 
     public List<ISensor> toDomain(List<SensorDataModel> sensorDataModels) {
@@ -49,25 +49,25 @@ public class SensorDataModelAssembler implements IDataModelAssembler<SensorDataM
 
   private boolean getDeviceID(SensorDataModel sensorDataModel) {
         DeviceID deviceID = new DeviceID(sensorDataModel.getDeviceID());
-        _parameters.add(deviceID);
+        parameters.add(deviceID);
         return true;
     }
 
   private boolean getModelPath(SensorDataModel sensorDataModel) {
         ModelPath modelPath = new ModelPath(sensorDataModel.getModelPath());
-        _parameters.add(modelPath);
+        parameters.add(modelPath);
         return true;
     }
 
   private boolean getSensorTypeID(SensorDataModel sensorDataModel) {
         SensorTypeID sensorTypeID = new SensorTypeID(sensorDataModel.getSensorTypeID());
-        _parameters.add(sensorTypeID);
+        parameters.add(sensorTypeID);
         return true;
     }
 
   private boolean getSensorName(SensorDataModel sensorDataModel) {
         SensorName sensorName = new SensorName(sensorDataModel.getSensorName());
-        _parameters.add(sensorName);
+        parameters.add(sensorName);
         return true;
     }
 
@@ -76,7 +76,7 @@ public class SensorDataModelAssembler implements IDataModelAssembler<SensorDataM
             double latitude = Double.parseDouble(sensorDataModel.getLatitude());
             double longitude = Double.parseDouble(sensorDataModel.getLongitude());
             GPS gps = new GPS(latitude, longitude);
-            _parameters.add(gps);
+            parameters.add(gps);
             return true;
         }
         return false;
@@ -87,7 +87,7 @@ public class SensorDataModelAssembler implements IDataModelAssembler<SensorDataM
             LocalDateTime startDate = LocalDateTime.parse(sensorDataModel.getStartDate());
             LocalDateTime endDate = LocalDateTime.parse(sensorDataModel.getEndDate());
             DatePeriod datePeriod = new DatePeriod(startDate, endDate);
-            _parameters.add(datePeriod);
+            parameters.add(datePeriod);
             return true;
         }
         return false;
@@ -95,7 +95,7 @@ public class SensorDataModelAssembler implements IDataModelAssembler<SensorDataM
 
   private boolean getSensorID(SensorDataModel sensorDataModel) {
         SensorID sensorID = new SensorID(sensorDataModel.getSensorID());
-        _parameters.add(sensorID);
+        parameters.add(sensorID);
         return true;
     }
 }

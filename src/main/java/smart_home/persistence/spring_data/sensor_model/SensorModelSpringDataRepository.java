@@ -16,9 +16,9 @@ import java.util.Optional;
 
 public class SensorModelSpringDataRepository implements ISensorModelRepository {
 
-    private ISensorModelSpringDataRepository _repository;
-    private EntityManagerFactory _factory;
-    private IDataModelAssembler<SensorModelDataModel, SensorModel> _assembler;
+    private ISensorModelSpringDataRepository repository;
+    private EntityManagerFactory factory;
+    private IDataModelAssembler<SensorModelDataModel, SensorModel> assembler;
 
     /**
      * Constructor of the class.
@@ -31,9 +31,9 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
         Validator.validateNotNull(repository, "Sensor Model Spring Data Repository");
         Validator.validateNotNull(assembler, "Data Model Assembler");
 
-        this._factory = Persistence.createEntityManagerFactory("smart_home");
-        this._repository = repository;
-        this._assembler = assembler;
+        this.factory = Persistence.createEntityManagerFactory("smart_home");
+        this.repository = repository;
+        this.assembler = assembler;
     }
 
 
@@ -45,7 +45,7 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
 
     private EntityManager getEntityManager() {
 
-        EntityManager manager = _factory.createEntityManager();
+        EntityManager manager = factory.createEntityManager();
         return manager;
     }
 
@@ -61,7 +61,7 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
 
         SensorModelDataModel dataModel = new SensorModelDataModel(sensorModel);
 
-        _repository.save(dataModel);
+        repository.save(dataModel);
 
         return sensorModel;
     }
@@ -74,8 +74,8 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
      */
     @Override
     public List<SensorModel> findAll() {
-        List<SensorModelDataModel> listSensorModelDataModelSaved = _repository.findAll();
-        List<SensorModel> listDomain = _assembler.toDomain(listSensorModelDataModelSaved);
+        List<SensorModelDataModel> listSensorModelDataModelSaved = repository.findAll();
+        List<SensorModel> listDomain = assembler.toDomain(listSensorModelDataModelSaved);
 
         return listDomain;
     }
@@ -90,10 +90,10 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
     @Override
     public Optional<SensorModel> ofIdentity(ModelPath objectID) {
 
-        Optional<SensorModelDataModel> sensorModelDataModel = _repository.findById(objectID.getID());
+        Optional<SensorModelDataModel> sensorModelDataModel = repository.findById(objectID.getID());
 
         if (sensorModelDataModel.isPresent()) {
-            SensorModel domain = _assembler.toDomain(sensorModelDataModel.get());
+            SensorModel domain = assembler.toDomain(sensorModelDataModel.get());
             return Optional.of(domain);
         } else {
             return Optional.empty();
@@ -109,7 +109,7 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
      */
     @Override
     public boolean containsOfIdentity(ModelPath objectID) {
-        return _repository.existsById(objectID.getID());
+        return repository.existsById(objectID.getID());
     }
 
     /**
@@ -122,9 +122,9 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
     @Override
     public List<SensorModel> findBySensorTypeId(SensorTypeID sensorTypeID) {
 
-        List<SensorModelDataModel> listDataModel = _repository.findBy_sensorTypeID(sensorTypeID.getID());
+        List<SensorModelDataModel> listDataModel = repository.findBy_sensorTypeID(sensorTypeID.getID());
 
-        return _assembler.toDomain(listDataModel);
+        return assembler.toDomain(listDataModel);
 
     }
 }

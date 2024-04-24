@@ -14,7 +14,7 @@ import smart_home.domain.log.Log;
 
 public class LogRepository implements ILogRepository {
 
-    private final Map<LogID, Log> logData = new LinkedHashMap<>();
+    private final Map<LogID, Log> DATA = new LinkedHashMap<>();
 
 
     /**
@@ -30,7 +30,7 @@ public class LogRepository implements ILogRepository {
         if (containsOfIdentity(log.getID())) {
             throw new IllegalArgumentException("Log already exists.");
         } else {
-            logData.put(log.getID(), log);
+            DATA.put(log.getID(), log);
         }
         return log;
     }
@@ -43,7 +43,7 @@ public class LogRepository implements ILogRepository {
      */
     @Override
     public List<Log> findAll() {
-        return List.copyOf(logData.values().stream().toList());
+        return List.copyOf(DATA.values().stream().toList());
     }
 
 
@@ -55,7 +55,7 @@ public class LogRepository implements ILogRepository {
      */
     @Override
     public Optional<Log> ofIdentity(LogID logID) {
-        return Optional.ofNullable(logData.get(logID));
+        return Optional.ofNullable(DATA.get(logID));
     }
 
 
@@ -67,7 +67,7 @@ public class LogRepository implements ILogRepository {
      */
     @Override
     public boolean containsOfIdentity(LogID logID) {
-        return logData.containsKey(logID);
+        return DATA.containsKey(logID);
     }
 
 
@@ -80,7 +80,7 @@ public class LogRepository implements ILogRepository {
      */
     @Override
     public List<Log> findByDeviceIDAndDatePeriodBetween(DeviceID deviceID, DatePeriod period) {
-      return logData.values().stream()
+      return DATA.values().stream()
           .filter(log -> log.getDeviceID().getID().equals(deviceID.getID()))
           .filter(log -> log.getTimeStamp().isAfter(period.getStartDate()))
           .filter(log -> log.getTimeStamp().isBefore(period.getEndDate()))

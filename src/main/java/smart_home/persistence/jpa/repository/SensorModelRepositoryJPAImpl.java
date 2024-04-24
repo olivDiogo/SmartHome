@@ -13,8 +13,8 @@ import java.util.Optional;
 
 public class SensorModelRepositoryJPAImpl implements ISensorModelRepository {
 
-    private EntityManagerFactory _factory;
-    private IDataModelAssembler<SensorModelDataModel, SensorModel> _dataModelConverter;
+    private EntityManagerFactory factory;
+    private IDataModelAssembler<SensorModelDataModel, SensorModel> dataModelConverter;
 
     /**
      * RepositorySensorModelJPAImpl constructor
@@ -23,8 +23,8 @@ public class SensorModelRepositoryJPAImpl implements ISensorModelRepository {
      */
     public SensorModelRepositoryJPAImpl(IDataModelAssembler<SensorModelDataModel, SensorModel> dataModelConverter) {
         validateDataModelConverter(dataModelConverter);
-        this._dataModelConverter = dataModelConverter;
-        _factory = Persistence.createEntityManagerFactory("smart_home");
+        this.dataModelConverter = dataModelConverter;
+        factory = Persistence.createEntityManagerFactory("smart_home");
     }
 
 
@@ -46,7 +46,7 @@ public class SensorModelRepositoryJPAImpl implements ISensorModelRepository {
      * @return EntityManager
      */
     private EntityManager getEntityManager() {
-        EntityManager manager = _factory.createEntityManager();
+        EntityManager manager = factory.createEntityManager();
         return manager;
     }
 
@@ -95,7 +95,7 @@ public class SensorModelRepositoryJPAImpl implements ISensorModelRepository {
             Query query = entityManager.createQuery(
                     "SELECT e FROM SensorModelDataModel e");
             List<SensorModelDataModel> listDataModel = query.getResultList();
-            List<SensorModel> listDomain = _dataModelConverter.toDomain(listDataModel);
+            List<SensorModel> listDomain = dataModelConverter.toDomain(listDataModel);
             return listDomain;
         } finally {
             entityManager.close();
@@ -119,7 +119,7 @@ public class SensorModelRepositoryJPAImpl implements ISensorModelRepository {
             if (sensorModelDataModel != null) {
                 return Optional.empty();
             } else {
-                SensorModel sensorModel = _dataModelConverter.toDomain(sensorModelDataModel);
+                SensorModel sensorModel = dataModelConverter.toDomain(sensorModelDataModel);
                 return Optional.of(sensorModel);
             }
         } finally {
@@ -158,7 +158,7 @@ public class SensorModelRepositoryJPAImpl implements ISensorModelRepository {
                     "SELECT e FROM SensorModelDataModel e WHERE e._sensorTypeID = :sensorTypeID");
             query.setParameter("sensorTypeID", sensorTypeID);
             List<SensorModelDataModel> listDataModel = query.getResultList();
-            List<SensorModel> listDomain = _dataModelConverter.toDomain(listDataModel);
+            List<SensorModel> listDomain = dataModelConverter.toDomain(listDataModel);
             return listDomain;
         } finally {
             entityManager.close();

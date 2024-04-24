@@ -20,111 +20,127 @@ import static org.mockito.Mockito.when;
 
 class SensorServiceImplTest {
 
-    /* test the constructor with mock objects */
-    @Test
-    void shouldInstantiateSensorService_whenGivenValidParameters() {
-        // Arrange
-        SensorServiceImpl sensorServiceImpl;
-        SensorRepository sensorRepository = mock(SensorRepository.class);
-        ISensorFactory sensorFactory = mock(ISensorFactory.class);
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
+  /**
+   * Test method shouldInstantiateSensorService_whenGivenValidParameters
+   */
+  @Test
+  void shouldInstantiateSensorService_whenGivenValidParameters() {
+    // Arrange
+    SensorServiceImpl sensorServiceImpl;
+    SensorRepository sensorRepository = mock(SensorRepository.class);
+    ISensorFactory sensorFactory = mock(ISensorFactory.class);
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-        // Act
-        sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
+    // Act
+    sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
 
-        // Assert
-        assertNotNull(sensorServiceImpl);
-    }
-
-
-    /* test the constructor with null sensor repository */
-    @Test
-    void shouldThrowIllegalArgumentException_whenGivenNullSensorRepository() {
-        // Arrange
-        SensorRepository sensorRepository = null;
-        ISensorFactory sensorFactory = mock(ISensorFactory.class);
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-
-        // Act Assert
-        assertThrows(IllegalArgumentException.class, () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository));
-    }
-
-    /* test the constructor with null sensor factory */
-    @Test
-    void shouldThrowIllegalArgumentException_whenGivenNullSensorFactory() {
-        // Arrange
-        SensorRepository sensorRepository = mock(SensorRepository.class);
-        ISensorFactory sensorFactory = null;
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-
-        // Act Assert
-        assertThrows(IllegalArgumentException.class, () -> new SensorServiceImpl(sensorRepository, sensorFactory , deviceRepository));
-    }
-
-    /* test the constructor with null device repository */
-
-    @Test
-    void shouldThrowIllegalArgumentException_whenGivenNullDeviceRepository() {
-        // Arrange
-        SensorRepository sensorRepository = mock(SensorRepository.class);
-        ISensorFactory sensorFactory = mock(ISensorFactory.class);
-        DeviceRepository deviceRepository = null;
-
-        // Act Assert
-        assertThrows(IllegalArgumentException.class, () -> new SensorServiceImpl(sensorRepository, sensorFactory , deviceRepository));
-    }
+    // Assert
+    assertNotNull(sensorServiceImpl);
+  }
 
 
+  /**
+   * Should throw an exception when the sensor repository is null.
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenGivenNullSensorRepository() {
+    // Arrange
+    SensorRepository sensorRepository = null;
+    ISensorFactory sensorFactory = mock(ISensorFactory.class);
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-    @Test
-    void testAddSensor_DeviceFound_Success() {
-        // Arrange
-        SensorRepository sensorRepository = mock(SensorRepository.class);
-        ISensorFactory sensorFactory = mock(ISensorFactory.class);
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    // Act Assert
+    assertThrows(IllegalArgumentException.class,
+        () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository));
+  }
 
-        SensorServiceImpl sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
+  /**
+   * Should throw an exception when the sensor factory is null.
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenGivenNullSensorFactory() {
+    // Arrange
+    SensorRepository sensorRepository = mock(SensorRepository.class);
+    ISensorFactory sensorFactory = null;
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-        DeviceID deviceID = new DeviceID("deviceID");
-        ModelPath modelPath = new ModelPath("modelPath");
-        SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
-        SensorName sensorName = new SensorName("sensorName");
-        Device mockDevice = mock(Device.class);
+    // Act Assert
+    assertThrows(IllegalArgumentException.class,
+        () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository));
+  }
 
+  /**
+   * Should throw an exception when the device repository is null.
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenGivenNullDeviceRepository() {
+    // Arrange
+    SensorRepository sensorRepository = mock(SensorRepository.class);
+    ISensorFactory sensorFactory = mock(ISensorFactory.class);
+    DeviceRepository deviceRepository = null;
 
-        when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
+    // Act Assert
+    assertThrows(IllegalArgumentException.class,
+        () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository));
+  }
 
-        ISensor mockSensor = mock(ISensor.class);
+  /**
+   * should add sensor when device is found
+   */
+  @Test
+  void shouldAddSensor_whenDeviceIsFound() {
+    // Arrange
+    SensorRepository sensorRepository = mock(SensorRepository.class);
+    ISensorFactory sensorFactory = mock(ISensorFactory.class);
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
-        when(sensorFactory.create(deviceID, modelPath, sensorTypeID, sensorName)).thenReturn(mockSensor);
+    SensorServiceImpl sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory,
+        deviceRepository);
 
-        // Act
-        ISensor actualSensor = sensorServiceImpl.addSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    DeviceID deviceID = new DeviceID("deviceID");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+    SensorName sensorName = new SensorName("sensorName");
+    Device mockDevice = mock(Device.class);
 
-        // Assert
-        assertNotNull(actualSensor);
-        assertEquals(mockSensor, actualSensor);
-    }
-    /**
-     * Test method addSensor To trow exception when device not found
-     */
-    @Test
-    void testAddSensor_DeviceNotFound_ThrowException() {
-        // Arrange
-        SensorRepository sensorRepository = mock(SensorRepository.class);
-        ISensorFactory sensorFactory = mock(ISensorFactory.class);
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
 
-        SensorServiceImpl sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
+    ISensor mockSensor = mock(ISensor.class);
 
-        DeviceID deviceID = new DeviceID("deviceID");
-        ModelPath modelPath = new ModelPath("modelPath");
-        SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
-        SensorName sensorName = new SensorName("sensorName");
+    when(sensorFactory.create(deviceID, modelPath, sensorTypeID, sensorName)).thenReturn(
+        mockSensor);
 
-        when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
+    // Act
+    ISensor actualSensor = sensorServiceImpl.addSensor(deviceID, modelPath, sensorTypeID,
+        sensorName);
 
-        // Act Assert
-        assertThrows(IllegalArgumentException.class, () -> sensorServiceImpl.addSensor(deviceID, modelPath, sensorTypeID, sensorName));
-    }
+    // Assert
+    assertNotNull(actualSensor);
+    assertEquals(mockSensor, actualSensor);
+  }
+
+  /**
+   * Test method addSensor To trow exception when device not found
+   */
+  @Test
+  void shouldThrowException_whenDeviceNotFound() {
+    // Arrange
+    SensorRepository sensorRepository = mock(SensorRepository.class);
+    ISensorFactory sensorFactory = mock(ISensorFactory.class);
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+
+    SensorServiceImpl sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory,
+        deviceRepository);
+
+    DeviceID deviceID = new DeviceID("deviceID");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+    SensorName sensorName = new SensorName("sensorName");
+
+    when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
+
+    // Act Assert
+    assertThrows(IllegalArgumentException.class,
+        () -> sensorServiceImpl.addSensor(deviceID, modelPath, sensorTypeID, sensorName));
+  }
 }

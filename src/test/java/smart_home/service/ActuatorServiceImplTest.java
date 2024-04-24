@@ -46,11 +46,13 @@ class ActuatorServiceImplTest {
         IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
+        String expectedMessage = "Actuator repository is required";
+
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorServiceImpl(null, actuatorFactory, deviceRepository));
 
         //Assert
-        assertEquals("Actuator repository cannot be null.", exception.getMessage());
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -62,11 +64,13 @@ class ActuatorServiceImplTest {
         ActuatorRepository actuatorRepository = mock(ActuatorRepository.class);
         DeviceRepository deviceRepository = mock(DeviceRepository.class);
 
+        String expectedMessage = "Actuator factory is required";
+
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorServiceImpl(actuatorRepository, null, deviceRepository));
 
         //Assert
-        assertEquals("Actuator factory cannot be null.", exception.getMessage());
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -78,11 +82,13 @@ class ActuatorServiceImplTest {
         ActuatorRepository actuatorRepository = mock(ActuatorRepository.class);
         IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
 
+        String expectedMessage = "Device repository is required";
+
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorServiceImpl(actuatorRepository, actuatorFactory, null));
 
         //Assert
-        assertEquals("Device repository cannot be null.", exception.getMessage());
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**

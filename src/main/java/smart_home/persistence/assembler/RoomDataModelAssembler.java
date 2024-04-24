@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomDataModelAssembler implements IDataModelAssembler<RoomDataModel, Room> {
-    private IRoomFactory _roomFactory;
+    private IRoomFactory roomFactory;
 
     /**
      * Class constructor
@@ -19,7 +19,7 @@ public class RoomDataModelAssembler implements IDataModelAssembler<RoomDataModel
      */
     public RoomDataModelAssembler(IRoomFactory roomFactory) {
         Validator.validateNotNull(roomFactory, "Room Factory");
-        _roomFactory = roomFactory;
+        this.roomFactory = roomFactory;
     }
 
 
@@ -39,7 +39,7 @@ public class RoomDataModelAssembler implements IDataModelAssembler<RoomDataModel
         RoomName roomName = new RoomName(roomDataModel.getRoomName());
         Dimension dimension = new Dimension(roomDataModel.getWidth(), roomDataModel.getDepth(), roomDataModel.getHeight());
 
-        Room room = _roomFactory.createRoom(houseID, roomName, dimension, roomFloor, roomID);
+        Room room = roomFactory.createRoom(houseID, roomName, dimension, roomFloor, roomID);
 
         return room;
     }

@@ -17,18 +17,18 @@ import smart_home.value_object.ModelPath;
 public class ActuatorDataModelAssembler implements
     IDataModelAssembler<ActuatorDataModel, IActuator> {
 
-  private final List<Object> _parameters = new ArrayList<>();
-  private final IActuatorFactory _actuatorFactory;
+  private final List<Object> parameters = new ArrayList<>();
+  private final IActuatorFactory actuatorFactory;
 
   public ActuatorDataModelAssembler(IActuatorFactory actuatorFactory) {
     Validator.validateNotNull(actuatorFactory, "Actuator factory");
-    this._actuatorFactory = actuatorFactory;
+    this.actuatorFactory = actuatorFactory;
   }
 
   @Override
   public IActuator toDomain(ActuatorDataModel domainEntity) {
     Validator.validateNotNull(domainEntity, "Actuator data model");
-    _parameters.clear();
+    parameters.clear();
     getDeviceID(domainEntity);
     getModelPath(domainEntity);
     getActuatorTypeID(domainEntity);
@@ -37,7 +37,7 @@ public class ActuatorDataModelAssembler implements
     getDecimalLimits(domainEntity);
     getActuatorID(domainEntity);
 
-    return _actuatorFactory.createActuator(_parameters.toArray());
+    return actuatorFactory.createActuator(parameters.toArray());
   }
 
   @Override
@@ -47,25 +47,25 @@ public class ActuatorDataModelAssembler implements
 
   private boolean getDeviceID(ActuatorDataModel actuatorDataModel) {
     DeviceID deviceID = new DeviceID(actuatorDataModel.getDeviceID());
-    _parameters.add(deviceID);
+    parameters.add(deviceID);
     return true;
   }
 
   private boolean getModelPath(ActuatorDataModel actuatorDataModel) {
     ModelPath modelPath = new ModelPath(actuatorDataModel.getModelPath());
-    _parameters.add(modelPath);
+    parameters.add(modelPath);
     return true;
   }
 
   private boolean getActuatorTypeID(ActuatorDataModel actuatorDataModel) {
     ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataModel.getActuatorTypeID());
-    _parameters.add(actuatorTypeID);
+    parameters.add(actuatorTypeID);
     return true;
   }
 
   private boolean getActuatorName(ActuatorDataModel actuatorDataModel) {
     ActuatorName actuatorName = new ActuatorName(actuatorDataModel.getActuatorName());
-    _parameters.add(actuatorName);
+    parameters.add(actuatorName);
     return true;
   }
 
@@ -75,7 +75,7 @@ public class ActuatorDataModelAssembler implements
       int integerLowerBond = Integer.parseInt(actuatorDataModel.getIntegerLowerBond());
       int integerUpperBond = Integer.parseInt(actuatorDataModel.getIntegerUpperBond());
       IntegerLimits integerLimits = new IntegerLimits(integerLowerBond, integerUpperBond);
-      _parameters.add(integerLimits);
+      parameters.add(integerLimits);
       return true;
     }
     return false;
@@ -87,7 +87,7 @@ public class ActuatorDataModelAssembler implements
       double decimalLowerBond = Double.parseDouble(actuatorDataModel.getDecimalLowerBond());
       double decimalUpperBond = Double.parseDouble(actuatorDataModel.getDecimalUpperBond());
       DecimalLimits decimalLimits = new DecimalLimits(decimalLowerBond, decimalUpperBond);
-      _parameters.add(decimalLimits);
+      parameters.add(decimalLimits);
       return true;
     }
     return false;
@@ -95,7 +95,7 @@ public class ActuatorDataModelAssembler implements
 
   private boolean getActuatorID(ActuatorDataModel actuatorDataModel) {
     ActuatorID actuatorID = new ActuatorID(actuatorDataModel.getActuatorID());
-    _parameters.add(actuatorID);
+    parameters.add(actuatorID);
     return true;
   }
 }

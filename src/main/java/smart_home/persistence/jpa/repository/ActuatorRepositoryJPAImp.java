@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class ActuatorRepositoryJPAImp implements IActuatorRepository {
-    private EntityManagerFactory _factory;
-    private IDataModelAssembler<ActuatorDataModel, IActuator> _dataModelAssembler;
-    private IActuatorVisitorForDataModel _actuatorVisitorForDataModel;
+    private EntityManagerFactory factory;
+    private IDataModelAssembler<ActuatorDataModel, IActuator> dataModelAssembler;
+    private IActuatorVisitorForDataModel actuatorVisitorForDataModel;
 
     /**
      * Constructor for RepositoryActuatorJPAImp
@@ -23,10 +23,10 @@ public class ActuatorRepositoryJPAImp implements IActuatorRepository {
      */
     public ActuatorRepositoryJPAImp(IDataModelAssembler<ActuatorDataModel, IActuator> dataModelAssembler, IActuatorVisitorForDataModel actuatorVisitorForDataModel) {
         validateDataModelAssembler(dataModelAssembler);
-        _dataModelAssembler = dataModelAssembler;
-        _factory = Persistence.createEntityManagerFactory("smart_home");
+        this.dataModelAssembler = dataModelAssembler;
+        factory = Persistence.createEntityManagerFactory("smart_home");
         validateActuatorVisitorForDataModel(actuatorVisitorForDataModel);
-        _actuatorVisitorForDataModel = actuatorVisitorForDataModel;
+        this.actuatorVisitorForDataModel = actuatorVisitorForDataModel;
     }
 
     /**
@@ -61,8 +61,8 @@ public class ActuatorRepositoryJPAImp implements IActuatorRepository {
         if (entity == null) {
             throw new IllegalArgumentException("The provided entity must not be null.");
         }
-        entity.accept(_actuatorVisitorForDataModel);
-        ActuatorDataModel actuatorDataModel = _actuatorVisitorForDataModel.getActuatorDataModel();
+        entity.accept(actuatorVisitorForDataModel);
+        ActuatorDataModel actuatorDataModel = actuatorVisitorForDataModel.getActuatorDataModel();
         EntityManager em = getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -91,7 +91,7 @@ public class ActuatorRepositoryJPAImp implements IActuatorRepository {
         try {
             Query query = em.createQuery("SELECT e FROM ActuatorDataModel e");
             List<ActuatorDataModel> listDataModel = query.getResultList();
-            return _dataModelAssembler.toDomain(listDataModel);
+            return dataModelAssembler.toDomain(listDataModel);
         } finally {
             em.close();
         }
@@ -111,7 +111,7 @@ public class ActuatorRepositoryJPAImp implements IActuatorRepository {
             if (actuatorDataModel == null) {
                 return Optional.empty();
             }
-            IActuator actuator = _dataModelAssembler.toDomain(actuatorDataModel);
+            IActuator actuator = dataModelAssembler.toDomain(actuatorDataModel);
             return Optional.of(actuator);
         } finally {
             em.close();
@@ -135,6 +135,6 @@ public class ActuatorRepositoryJPAImp implements IActuatorRepository {
      * @return a new EntityManager instance
      */
     private EntityManager getEntityManager() {
-        return _factory.createEntityManager();
+        return factory.createEntityManager();
     }
 }

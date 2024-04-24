@@ -17,7 +17,7 @@ public class DeviceRepository implements IDeviceRepository {
     /**
      * Map to store the device data.
      */
-    private final Map<DeviceID, Device> _deviceData = new LinkedHashMap<>();
+    private final Map<DeviceID, Device> DATA = new LinkedHashMap<>();
 
     /**
      * Method to save a domain entity.
@@ -32,7 +32,7 @@ public class DeviceRepository implements IDeviceRepository {
         if (containsOfIdentity(device.getID())) {
             throw new IllegalArgumentException("Device already exists.");
         } else {
-            _deviceData.put(device.getID(), device);
+            DATA.put(device.getID(), device);
         }
         return device;
     }
@@ -44,7 +44,7 @@ public class DeviceRepository implements IDeviceRepository {
      */
     @Override
     public List<Device> findAll() {
-        List<Device> allDevices = _deviceData.values().stream().toList();
+        List<Device> allDevices = DATA.values().stream().toList();
         return allDevices;
     }
 
@@ -56,7 +56,7 @@ public class DeviceRepository implements IDeviceRepository {
      */
     @Override
     public Optional<Device> ofIdentity(DeviceID deviceID) {
-        Optional<Device> device = Optional.ofNullable(_deviceData.get(deviceID));
+        Optional<Device> device = Optional.ofNullable(DATA.get(deviceID));
         return device;
     }
 
@@ -68,7 +68,7 @@ public class DeviceRepository implements IDeviceRepository {
      */
     @Override
     public boolean containsOfIdentity(DeviceID deviceID) {
-        return _deviceData.containsKey(deviceID);
+        return DATA.containsKey(deviceID);
     }
 
     /**
@@ -80,7 +80,7 @@ public class DeviceRepository implements IDeviceRepository {
 
     @Override
     public List<Device> findBy_roomID(RoomID roomId) {
-        List<Device> devices = _deviceData.values().stream().filter(device -> device.getRoomID().equals(roomId)).toList();
+        List<Device> devices = DATA.values().stream().filter(device -> device.getRoomID().equals(roomId)).toList();
         return devices;
     }
     /**
@@ -90,7 +90,7 @@ public class DeviceRepository implements IDeviceRepository {
     public Device update(Device device) {
         Validate.notNull(device, "Device");
         if (containsOfIdentity(device.getID())) {
-            _deviceData.put(device.getID(), device);
+            DATA.put(device.getID(), device);
         } else {
             throw new IllegalArgumentException("Device does not exist.");
         }

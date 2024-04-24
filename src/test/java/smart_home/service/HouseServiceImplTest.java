@@ -37,7 +37,7 @@ class HouseServiceImplTest {
         // Arrange
         IHouseFactory houseFactory = null;
         HouseRepository houseRepository = mock(HouseRepository.class);
-        String expectedMessage = "HouseFactory cannot be null.";
+        String expectedMessage = "House factory is required";
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HouseServiceImpl(houseFactory, houseRepository));
         // Assert
@@ -52,7 +52,7 @@ class HouseServiceImplTest {
         // Arrange
         IHouseFactory houseFactory = mock(IHouseFactory.class);
         HouseRepository houseRepository = null;
-        String expectedMessage = "HouseRepository cannot be null.";
+        String expectedMessage = "House repository is required";
         // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HouseServiceImpl(houseFactory, houseRepository));
         // Assert

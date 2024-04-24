@@ -12,19 +12,19 @@ import java.util.List;
 import java.util.Optional;
 
 public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository {
-  private EntityManagerFactory _factory;
-  private IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> _dataModelConverter;
+  private EntityManagerFactory factory;
+  private IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelAssembler;
 
   /**
    * RepositoryActuatorModelJPAImpl constructor
    *
-   * @param dataModelConverter
+   * @param dataModelAssembler IDataModelAssembler<ActuatorModelDataModel, ActuatorModel>
    */
   public ActuatorModelRepositoryJPAImpl(
-      IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelConverter) {
-    validateDataModelConverter(dataModelConverter);
-    _factory = Persistence.createEntityManagerFactory("smart_home");
-    _dataModelConverter = dataModelConverter;
+      IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelAssembler) {
+    validateDataModelConverter(dataModelAssembler);
+    factory = Persistence.createEntityManagerFactory("smart_home");
+    this.dataModelAssembler = dataModelAssembler;
   }
 
   /**
@@ -45,7 +45,7 @@ public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository 
    * @return EntityManager
    */
   private EntityManager getEntityManager() {
-    EntityManager manager = _factory.createEntityManager();
+    EntityManager manager = factory.createEntityManager();
     return manager;
   }
 
@@ -91,7 +91,7 @@ public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository 
           entityManager.createQuery(
               "SELECT ACTUATOR_MODEL FROM ActuatorModelDataModel ACTUATOR_MODEL");
       List<ActuatorModelDataModel> listDataModel = query.getResultList();
-      List<ActuatorModel> listDomain = _dataModelConverter.toDomain(listDataModel);
+      List<ActuatorModel> listDomain = dataModelAssembler.toDomain(listDataModel);
       return listDomain;
     } finally {
       entityManager.close();
@@ -113,7 +113,7 @@ public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository 
       if (actuatorModelDataModel == null) {
         return Optional.empty();
       } else {
-        ActuatorModel actuatorModel = _dataModelConverter.toDomain(actuatorModelDataModel);
+        ActuatorModel actuatorModel = dataModelAssembler.toDomain(actuatorModelDataModel);
         return Optional.of(actuatorModel);
       }
     } finally {
@@ -148,7 +148,7 @@ public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository 
               "SELECT ACTUATOR_MODEL FROM ActuatorModelDataModel ACTUATOR_MODEL WHERE ACTUATOR_MODEL._actuatorTypeID = :actuatorTypeID");
       query.setParameter("actuatorTypeID", actuatorTypeID.getID());
       List<ActuatorModelDataModel> listDataModel = query.getResultList();
-      return _dataModelConverter.toDomain(listDataModel);
+      return dataModelAssembler.toDomain(listDataModel);
     } finally {
       entityManager.close();
     }

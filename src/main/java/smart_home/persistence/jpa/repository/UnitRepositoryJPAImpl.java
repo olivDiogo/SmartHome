@@ -12,18 +12,18 @@ import java.util.Optional;
 
 public class UnitRepositoryJPAImpl implements IUnitRepository {
 
-    private IDataModelAssembler<UnitDataModel, Unit> _dataModelConverter;
+    private IDataModelAssembler<UnitDataModel, Unit> dataModelConverter;
 
-    private EntityManagerFactory _factory;
+    private EntityManagerFactory factory;
 
     /**
      * RepositoryUninJPAImpl constructor
-     * @param dataModelAssembler
+     * @param dataModelAssembler IDataModelAssembler<UnitDataModel, Unit>
      */
     public UnitRepositoryJPAImpl(IDataModelAssembler<UnitDataModel, Unit> dataModelAssembler){
         validateDataModelConverter(dataModelAssembler);
-        _dataModelConverter = dataModelAssembler;
-        _factory = Persistence.createEntityManagerFactory("smart_home");
+        dataModelConverter = dataModelAssembler;
+        factory = Persistence.createEntityManagerFactory("smart_home");
     }
 
     /**
@@ -41,7 +41,7 @@ public class UnitRepositoryJPAImpl implements IUnitRepository {
      * @return EntityManager
      */
     private EntityManager getEntityManager(){
-        EntityManager manager = _factory.createEntityManager();
+        EntityManager manager = factory.createEntityManager();
         return manager;
     }
 
@@ -86,7 +86,7 @@ public class UnitRepositoryJPAImpl implements IUnitRepository {
             Query query = entityManager.createQuery(
                     "SELECT e FROM UnitDataModel e");
             List<UnitDataModel> listDataModel = query.getResultList();
-            List<Unit> listDomain = _dataModelConverter.toDomain(listDataModel);
+            List<Unit> listDomain = dataModelConverter.toDomain(listDataModel);
             return listDomain;
         } finally {
             entityManager.close();
@@ -106,7 +106,7 @@ public class UnitRepositoryJPAImpl implements IUnitRepository {
             if (unitDataModel == null) {
                 return Optional.empty();
             } else {
-                Unit unit = _dataModelConverter.toDomain(unitDataModel);
+                Unit unit = dataModelConverter.toDomain(unitDataModel);
                 return Optional.of(unit);
             }
         } finally {

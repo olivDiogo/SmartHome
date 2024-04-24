@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class ActuatorTypeRepository implements IRepository<ActuatorTypeID, ActuatorType> {
 
-    private final Map<ActuatorTypeID, ActuatorType> _actuatorTypeData = new LinkedHashMap<>();
+    private final Map<ActuatorTypeID, ActuatorType> DATA = new LinkedHashMap<>();
 
     /**
      * Save an ActuatorType. If the ActuatorType is null, throw an IllegalArgumentException.
@@ -28,7 +28,7 @@ public class ActuatorTypeRepository implements IRepository<ActuatorTypeID, Actua
         if (containsOfIdentity(actuatorType.getID())) {
             throw new IllegalArgumentException("ActuatorType already exists.");
         } else {
-            _actuatorTypeData.put(actuatorType.getID(), actuatorType);
+            DATA.put(actuatorType.getID(), actuatorType);
         }
         return actuatorType;
     }
@@ -40,7 +40,7 @@ public class ActuatorTypeRepository implements IRepository<ActuatorTypeID, Actua
      */
     @Override
     public List<ActuatorType> findAll() {
-        List<ActuatorType> allActuatorTypes = _actuatorTypeData.values().stream().toList();
+        List<ActuatorType> allActuatorTypes = DATA.values().stream().toList();
         return allActuatorTypes;
     }
 
@@ -52,7 +52,7 @@ public class ActuatorTypeRepository implements IRepository<ActuatorTypeID, Actua
      */
     @Override
     public Optional<ActuatorType> ofIdentity(ActuatorTypeID actuatorTypeID) {
-        Optional<ActuatorType> actuatorType = Optional.ofNullable(_actuatorTypeData.get(actuatorTypeID));
+        Optional<ActuatorType> actuatorType = Optional.ofNullable(DATA.get(actuatorTypeID));
 
         return actuatorType;
     }
@@ -64,7 +64,7 @@ public class ActuatorTypeRepository implements IRepository<ActuatorTypeID, Actua
      * @return true if the ActuatorType exists, otherwise false.
      */
     public boolean existsOfName(TypeDescription actuatorTypeName) {
-        return _actuatorTypeData.values().stream().anyMatch(actuatorType -> actuatorType.getActuatorTypeName().equals(actuatorTypeName));
+        return DATA.values().stream().anyMatch(actuatorType -> actuatorType.getActuatorTypeName().equals(actuatorTypeName));
     }
 
     /**
@@ -75,6 +75,6 @@ public class ActuatorTypeRepository implements IRepository<ActuatorTypeID, Actua
      */
     @Override
     public boolean containsOfIdentity(ActuatorTypeID actuatorTypeID) {
-        return _actuatorTypeData.containsKey(actuatorTypeID);
+        return DATA.containsKey(actuatorTypeID);
     }
 }

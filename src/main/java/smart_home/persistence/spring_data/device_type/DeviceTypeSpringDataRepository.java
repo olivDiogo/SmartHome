@@ -39,7 +39,7 @@ public class DeviceTypeSpringDataRepository implements IDeviceTypeRepository {
     /**
      * Method to find all domain entities.
      *
-     * @return
+     * @return a list of all domain entities.
      */
     @Override
     public List<DeviceType> findAll() {

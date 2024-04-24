@@ -41,7 +41,7 @@ class DeviceTypeServiceImplTest {
         //Arrange
         DeviceTypeRepository deviceTypeRepository = null;
         IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
-        String expectedMessage = "Please enter a valid device type repository.";
+        String expectedMessage = "Device type repository is required";
 
         //Act
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
@@ -60,7 +60,7 @@ class DeviceTypeServiceImplTest {
         //Arrange
         DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
         IDeviceTypeFactory deviceTypeFactory = null;
-        String expectedMessage = "Please enter a valid device type factory.";
+        String expectedMessage = "Device type factory is required";
 
         //Act
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
@@ -105,7 +105,7 @@ class DeviceTypeServiceImplTest {
         IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
         DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
         TypeDescription typeDescription = null;
-        String expectedMessage = "Please enter a valid device type.";
+        String expectedMessage = "Device type is required";
 
         //Act
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {

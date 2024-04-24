@@ -12,9 +12,9 @@ import java.util.Optional;
 
 public class SensorSpringDataRepository implements ISensorRepository {
 
-    private ISensorSpringDataRepository _repository;
+    private ISensorSpringDataRepository repository;
 
-    private IDataModelAssembler<SensorDataModel, ISensor> _assembler;
+    private IDataModelAssembler<SensorDataModel, ISensor> assembler;
 
     /**
      * Constructs a new repository instance with the specified entity manager factory and data model assembler.
@@ -24,9 +24,9 @@ public class SensorSpringDataRepository implements ISensorRepository {
      */
     public SensorSpringDataRepository(ISensorSpringDataRepository repository, IDataModelAssembler<SensorDataModel, ISensor> dataModelAssembler) {
         Validator.validateNotNull(dataModelAssembler, "Data model assembler");
-        _assembler = dataModelAssembler;
+        assembler = dataModelAssembler;
         Validator.validateNotNull(repository, "Repository");
-        _repository = repository;
+        this.repository = repository;
     }
 
     /**
@@ -40,7 +40,7 @@ public class SensorSpringDataRepository implements ISensorRepository {
     public ISensor save(ISensor sensor) {
         Validator.validateNotNull(sensor, "Sensor");
         SensorDataModel sensorDataModel = new SensorDataModel(sensor);
-        _repository.save(sensorDataModel);
+        repository.save(sensorDataModel);
         return sensor;
     }
 
@@ -51,8 +51,8 @@ public class SensorSpringDataRepository implements ISensorRepository {
      */
     @Override
     public List<ISensor> findAll() {
-        List<SensorDataModel> sensorDataModels = this._repository.findAll();
-        List<ISensor> sensors = _assembler.toDomain(sensorDataModels);
+        List<SensorDataModel> sensorDataModels = this.repository.findAll();
+        List<ISensor> sensors = assembler.toDomain(sensorDataModels);
         return sensors;
     }
 
@@ -64,10 +64,10 @@ public class SensorSpringDataRepository implements ISensorRepository {
      */
     @Override
     public Optional<ISensor> ofIdentity(SensorID objectID) {
-        Optional<SensorDataModel> sensorDataModel = this._repository.findById(objectID.getID());
+        Optional<SensorDataModel> sensorDataModel = this.repository.findById(objectID.getID());
         if (sensorDataModel.isPresent()) {
             SensorDataModel sensorDataModel1 = sensorDataModel.get();
-            ISensor sensor = (ISensor) _assembler.toDomain(sensorDataModel1);
+            ISensor sensor = (ISensor) assembler.toDomain(sensorDataModel1);
             return Optional.of(sensor);
         } else {
             return Optional.empty();
@@ -82,7 +82,7 @@ public class SensorSpringDataRepository implements ISensorRepository {
      */
     @Override
     public boolean containsOfIdentity(SensorID objectID) {
-        return this._repository.existsById(objectID.getID());
+        return this.repository.existsById(objectID.getID());
     }
 
 

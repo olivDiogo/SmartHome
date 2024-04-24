@@ -15,16 +15,16 @@ import java.util.List;
 public class ActuatorModelDataModelAssembler
         implements IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> {
 
-    private IActuatorModelFactory _actuatorModelFactory;
+    private IActuatorModelFactory actuatorModelFactory;
 
     /**
      * Class constructor
      *
-     * @param _actuatorModelFactory is the factory used to create ActuatorModel instances.
+     * @param actuatorModelFactory is the factory used to create ActuatorModel instances.
      */
-    public ActuatorModelDataModelAssembler(IActuatorModelFactory _actuatorModelFactory) {
-        Validator.validateNotNull(_actuatorModelFactory, "Actuator Model Factory");
-        this._actuatorModelFactory = _actuatorModelFactory;
+    public ActuatorModelDataModelAssembler(IActuatorModelFactory actuatorModelFactory) {
+        Validator.validateNotNull(actuatorModelFactory, "Actuator Model Factory");
+        this.actuatorModelFactory = actuatorModelFactory;
     }
 
 
@@ -44,7 +44,7 @@ public class ActuatorModelDataModelAssembler
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorModelDataModel.get_actuatorTypeID());
 
         ActuatorModel actuatorModel =
-                _actuatorModelFactory.createActuatorModel(
+                actuatorModelFactory.createActuatorModel(
                         actuatorModelID, actuatorModelName, modelPath, actuatorTypeID);
 
         return actuatorModel;

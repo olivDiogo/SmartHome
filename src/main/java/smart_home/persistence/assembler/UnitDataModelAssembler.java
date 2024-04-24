@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnitDataModelAssembler implements IDataModelAssembler<UnitDataModel, Unit>{
-    private IUnitFactory _unitFactory;
+    private IUnitFactory unitFactory;
 
     /**
      * Class constructor
@@ -21,7 +21,7 @@ public class UnitDataModelAssembler implements IDataModelAssembler<UnitDataModel
      */
     public UnitDataModelAssembler(IUnitFactory unitFactory) {
        Validator.validateNotNull(unitFactory, "Unit Factory");
-        _unitFactory = unitFactory;
+        this.unitFactory = unitFactory;
     }
 
 
@@ -40,7 +40,7 @@ public class UnitDataModelAssembler implements IDataModelAssembler<UnitDataModel
         UnitSymbol unitSymbol = new UnitSymbol(unitDataModel.getUnitSymbol());
         UnitDescription unitDescription = new UnitDescription(unitDataModel.getUnitDescription());
 
-        Unit unit = _unitFactory.createUnit(unitDescription, unitSymbol, unitID);
+        Unit unit = unitFactory.createUnit(unitDescription, unitSymbol, unitID);
 
         return unit;
     }

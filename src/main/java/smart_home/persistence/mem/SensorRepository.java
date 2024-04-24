@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class SensorRepository implements IRepository<SensorID, ISensor> {
-    private final Map<SensorID, ISensor> _SensorData = new LinkedHashMap<>();
+    private final Map<SensorID, ISensor> DATA = new LinkedHashMap<>();
 
     /**
      * Method to save a domain entity.
@@ -27,7 +27,7 @@ public class SensorRepository implements IRepository<SensorID, ISensor> {
         if (containsOfIdentity(Sensor.getID())) {
             throw new IllegalArgumentException("Sensor already exists.");
         } else {
-            _SensorData.put(Sensor.getID(), Sensor);
+            DATA.put(Sensor.getID(), Sensor);
         }
         return Sensor;
     }
@@ -39,7 +39,7 @@ public class SensorRepository implements IRepository<SensorID, ISensor> {
      */
     @Override
     public List<ISensor> findAll() {
-        List<ISensor> allSensors = _SensorData.values().stream().toList();
+        List<ISensor> allSensors = DATA.values().stream().toList();
         return allSensors;
     }
 
@@ -51,7 +51,7 @@ public class SensorRepository implements IRepository<SensorID, ISensor> {
      */
     @Override
     public Optional<ISensor> ofIdentity(SensorID SensorID) {
-        Optional<ISensor> Sensor = Optional.ofNullable(_SensorData.get(SensorID));
+        Optional<ISensor> Sensor = Optional.ofNullable(DATA.get(SensorID));
         return Sensor;
     }
 
@@ -63,7 +63,7 @@ public class SensorRepository implements IRepository<SensorID, ISensor> {
      */
     @Override
     public boolean containsOfIdentity(SensorID SensorID) {
-        return _SensorData.containsKey(SensorID);
+        return DATA.containsKey(SensorID);
     }
 
     /**
@@ -73,7 +73,7 @@ public class SensorRepository implements IRepository<SensorID, ISensor> {
      * @return a list of Sensors in the device.
      */
     public List<ISensor> findByDeviceId(DeviceID deviceID) {
-        List<ISensor> Sensors = _SensorData.values().stream().filter(Sensor -> Sensor.getDeviceID().equals(deviceID)).toList();
+        List<ISensor> Sensors = DATA.values().stream().filter(Sensor -> Sensor.getDeviceID().equals(deviceID)).toList();
         return Sensors;
     }
 

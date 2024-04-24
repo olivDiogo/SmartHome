@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class SensorTypeRepository implements IRepository<SensorTypeID, SensorType> {
 
-    private final Map<SensorTypeID, SensorType> _sensorTypeData = new LinkedHashMap<>();
+    private final Map<SensorTypeID, SensorType> DATA = new LinkedHashMap<>();
 
 
     /**
@@ -30,7 +30,7 @@ public class SensorTypeRepository implements IRepository<SensorTypeID, SensorTyp
         if (containsOfIdentity(sensorType.getID())) {
             throw new IllegalArgumentException("SensorType already exists.");
         } else {
-            _sensorTypeData.put(sensorType.getID(), sensorType);
+            DATA.put(sensorType.getID(), sensorType);
         }
         return sensorType;
     }
@@ -42,7 +42,7 @@ public class SensorTypeRepository implements IRepository<SensorTypeID, SensorTyp
      */
     @Override
     public List<SensorType> findAll() {
-        List<SensorType> allSensorTypes = _sensorTypeData.values().stream().toList();
+        List<SensorType> allSensorTypes = DATA.values().stream().toList();
         return allSensorTypes;
     }
 
@@ -54,7 +54,7 @@ public class SensorTypeRepository implements IRepository<SensorTypeID, SensorTyp
      */
     @Override
     public Optional<SensorType> ofIdentity(SensorTypeID sensorTypeID) {
-        Optional<SensorType> sensorType = Optional.ofNullable(_sensorTypeData.get(sensorTypeID));
+        Optional<SensorType> sensorType = Optional.ofNullable(DATA.get(sensorTypeID));
         return sensorType;
     }
 
@@ -66,7 +66,7 @@ public class SensorTypeRepository implements IRepository<SensorTypeID, SensorTyp
      */
     @Override
     public boolean containsOfIdentity(SensorTypeID sensorTypeID) {
-        return _sensorTypeData.containsKey(sensorTypeID);
+        return DATA.containsKey(sensorTypeID);
     }
 
 }

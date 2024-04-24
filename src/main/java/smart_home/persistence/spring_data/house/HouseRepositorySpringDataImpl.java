@@ -11,45 +11,78 @@ import smart_home.value_object.HouseID;
 
 public class HouseRepositorySpringDataImpl implements IHouseRepository {
 
-  private final IHouseSpringDataRepository _repository;
-  private final IDataModelAssembler<HouseDataModel, House> _assembler;
+  private final IHouseSpringDataRepository repository;
+  private final IDataModelAssembler<HouseDataModel, House> assembler;
 
+  /**
+   * Constructs a new repository instance with the specified repository and data model assembler.
+   *
+   * @param repository the repository to use
+   * @param assembler the converter to transform data models to domain models and vice versa
+   */
   public HouseRepositorySpringDataImpl(IHouseSpringDataRepository repository, IDataModelAssembler<HouseDataModel, House> assembler) {
     Validator.validateNotNull(repository, "House repository");
-    this._repository = repository;
+    this.repository = repository;
     Validator.validateNotNull(assembler, "House data model assembler");
-    this._assembler = assembler;
+    this.assembler = assembler;
   }
 
+  /**
+   * Saves the specified house entity to the database.
+   *
+   * @param house the house entity to save
+   * @return the saved house entity
+   * @throws IllegalArgumentException if the entity is null
+   */
   @Override
   public House save(House house) {
     Validator.validateNotNull(house, "House");
     HouseDataModel dataModel = new HouseDataModel(house);
-    _repository.save(dataModel);
+    repository.save(dataModel);
     return house;  }
 
 
+  /**
+   * Finds all house entities in the database.
+   *
+   * @return a list of all house entities
+   */
   @Override
   public List<House> findAll() {
-    List<HouseDataModel> houseDataModels = this._repository.findAll();
-    List<House> houses = _assembler.toDomain(houseDataModels);
+    List<HouseDataModel> houseDataModels = this.repository.findAll();
+    List<House> houses = assembler.toDomain(houseDataModels);
     return houses;
   }
 
+  /**
+   * Finds the house entity with the specified identity.
+   *
+   * @param objectID the identity of the house entity to find
+   * @return an optional containing the house entity with the specified identity, or an empty optional
+   * if no house entity with the specified identity was found
+   * @throws IllegalArgumentException if the identity is null
+   */
   @Override
   public Optional<House> ofIdentity(HouseID objectID) {
-    Optional<HouseDataModel> houseDataModel = this._repository.findById(objectID.toString());
+    Optional<HouseDataModel> houseDataModel = this.repository.findById(objectID.toString());
     if (houseDataModel.isPresent()) {
       HouseDataModel houseDataModel1 = houseDataModel.get();
-      House house = _assembler.toDomain(houseDataModel1);
+      House house = assembler.toDomain(houseDataModel1);
       return Optional.of(house);
     } else {
       return Optional.empty();
     }
   }
 
+  /**
+   * Checks if a house entity with the specified identity exists in the database.
+   *
+   * @param objectID the identity of the house entity to check
+   * @return true if a house entity with the specified identity exists in the database, false otherwise
+   * @throws IllegalArgumentException if the identity is null
+   */
   @Override
   public boolean containsOfIdentity(HouseID objectID) {
-    return this._repository.existsById(objectID.toString());
+    return this.repository.existsById(objectID.toString());
   }
 }

@@ -1,6 +1,5 @@
 package smart_home.persistence.assembler;
 
-import org.apache.commons.lang3.Validate;
 import smart_home.domain.actuator_type.ActuatorType;
 import smart_home.domain.actuator_type.IActuatorTypeFactory;
 import smart_home.persistence.jpa.data_model.ActuatorTypeDataModel;
@@ -13,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActuatorTypeDataModelAssembler implements IDataModelAssembler<ActuatorTypeDataModel, ActuatorType>{
-    private IActuatorTypeFactory _actuatorTypeFactory;
+    private IActuatorTypeFactory actuatorTypeFactory;
 
 public ActuatorTypeDataModelAssembler(IActuatorTypeFactory actuatorTypeFactory) {
     Validator.validateNotNull(actuatorTypeFactory, "Actuator Type Factory");
-        _actuatorTypeFactory = actuatorTypeFactory;
+        this.actuatorTypeFactory = actuatorTypeFactory;
     }
 
 
@@ -32,7 +31,7 @@ public ActuatorTypeDataModelAssembler(IActuatorTypeFactory actuatorTypeFactory) 
         TypeDescription actuatorTypeName = new TypeDescription(domainEntity.getActuatorTypeName());
         UnitID unitID = new UnitID(domainEntity.getUnitID());
 
-        ActuatorType actuatorType = _actuatorTypeFactory.createActuatorType(actuatorTypeName, unitID, actuatorTypeID);
+        ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(actuatorTypeName, unitID, actuatorTypeID);
 
         return actuatorType;
     }

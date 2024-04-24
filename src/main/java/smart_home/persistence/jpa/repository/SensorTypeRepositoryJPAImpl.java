@@ -11,19 +11,19 @@ import java.util.List;
 import java.util.Optional;
 
 public class SensorTypeRepositoryJPAImpl implements ISensorTypeRepository {
-    private IDataModelAssembler<SensorTypeDataModel, SensorType> _dataModelConverter;
-    private EntityManagerFactory _factory;
+    private IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter;
+    private EntityManagerFactory factory;
 
     /**
      * Creates an instance of {@link SensorTypeRepositoryJPAImpl} with the provided data model converter.
      *
-     * @param dataModelConverter
+     * @param dataModelConverter the data model converter
      */
     public SensorTypeRepositoryJPAImpl(IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter) {
         validateDataModelConverter(dataModelConverter);
 
-        this._dataModelConverter = dataModelConverter;
-        this._factory = Persistence.createEntityManagerFactory("smart_home");
+        this.dataModelConverter = dataModelConverter;
+        this.factory = Persistence.createEntityManagerFactory("smart_home");
     }
 
     /**
@@ -43,7 +43,7 @@ public class SensorTypeRepositoryJPAImpl implements ISensorTypeRepository {
      * @return the entity manager
      */
     private EntityManager getEntityManager() {
-        EntityManager manager = this._factory.createEntityManager();
+        EntityManager manager = this.factory.createEntityManager();
 
         return manager;
     }
@@ -92,7 +92,7 @@ public class SensorTypeRepositoryJPAImpl implements ISensorTypeRepository {
 
             List<SensorTypeDataModel> listDataModel = query.getResultList();
 
-            List<SensorType> listDomain = _dataModelConverter.toDomain(listDataModel);
+            List<SensorType> listDomain = dataModelConverter.toDomain(listDataModel);
 
             return listDomain;
         } finally {
@@ -117,7 +117,7 @@ public class SensorTypeRepositoryJPAImpl implements ISensorTypeRepository {
                 return Optional.empty();
             }
 
-            SensorType sensorType = _dataModelConverter.toDomain(sensorTypeDataModel);
+            SensorType sensorType = dataModelConverter.toDomain(sensorTypeDataModel);
 
             return Optional.of(sensorType);
         } finally {

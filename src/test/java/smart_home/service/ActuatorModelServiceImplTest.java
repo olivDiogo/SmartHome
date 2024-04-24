@@ -42,7 +42,7 @@ class ActuatorModelServiceImplTest {
         IActuatorModelFactory actuatorModelFactory = null;
         ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
 
-        String expectedMessage = "Please enter a valid actuator model factory.";
+        String expectedMessage = "Actuator model factory is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory));
@@ -60,7 +60,7 @@ class ActuatorModelServiceImplTest {
         IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
         ActuatorModelRepository actuatorModelRepository = null;
 
-        String expectedMessage = "Please enter a valid actuator model repository.";
+        String expectedMessage = "Actuator model repository is required";
 
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory));

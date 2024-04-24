@@ -11,7 +11,7 @@ import java.util.*;
 public class DeviceTypeRepository implements IRepository<DeviceTypeID, DeviceType> {
 
     // Data structure to store device types
-    private final Map<DeviceTypeID, DeviceType> _deviceTypeData = new LinkedHashMap<>();
+    private final Map<DeviceTypeID, DeviceType> DATA = new LinkedHashMap<>();
 
     /**
      * Saves a device type to the repository.
@@ -27,7 +27,7 @@ public class DeviceTypeRepository implements IRepository<DeviceTypeID, DeviceTyp
         if (containsOfIdentity(deviceType.getID())) {
             throw new IllegalArgumentException("DeviceType already exists.");
         } else {
-            _deviceTypeData.put(deviceType.getID(), deviceType);
+            DATA.put(deviceType.getID(), deviceType);
         }
         return deviceType;
     }
@@ -39,7 +39,7 @@ public class DeviceTypeRepository implements IRepository<DeviceTypeID, DeviceTyp
      */
     @Override
     public List<DeviceType> findAll() {
-        List<DeviceType> allDeviceTypes = new ArrayList<>(_deviceTypeData.values());
+        List<DeviceType> allDeviceTypes = new ArrayList<>(DATA.values());
         return allDeviceTypes;
     }
 
@@ -51,7 +51,7 @@ public class DeviceTypeRepository implements IRepository<DeviceTypeID, DeviceTyp
      */
     @Override
     public Optional<DeviceType> ofIdentity(DeviceTypeID deviceTypeID) {
-        return Optional.ofNullable(_deviceTypeData.get(deviceTypeID));
+        return Optional.ofNullable(DATA.get(deviceTypeID));
     }
 
     /**
@@ -62,7 +62,7 @@ public class DeviceTypeRepository implements IRepository<DeviceTypeID, DeviceTyp
      */
     @Override
     public boolean containsOfIdentity(DeviceTypeID deviceTypeID) {
-        return _deviceTypeData.containsKey(deviceTypeID);
+        return DATA.containsKey(deviceTypeID);
     }
 }
 

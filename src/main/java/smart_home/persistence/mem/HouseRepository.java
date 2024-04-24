@@ -1,8 +1,6 @@
 package smart_home.persistence.mem;
 
-import smart_home.ddd.IRepository;
 import smart_home.domain.house.House;
-import smart_home.domain.house.IHouseFactory;
 import smart_home.domain.repository.IHouseRepository;
 import smart_home.utils.Validator;
 import smart_home.value_object.HouseID;
@@ -10,7 +8,7 @@ import smart_home.value_object.HouseID;
 import java.util.*;
 
 public class HouseRepository implements IHouseRepository {
-    private final Map<HouseID, House> _houseData = new LinkedHashMap<>();
+    private final Map<HouseID, House> DATA = new LinkedHashMap<>();
 
     /**
      * Saves a house in the repository.
@@ -26,7 +24,7 @@ public class HouseRepository implements IHouseRepository {
         if (containsOfIdentity(house.getID())) {
             throw new IllegalArgumentException("House already exists.");
         } else {
-            _houseData.put(house.getID(), house);
+            DATA.put(house.getID(), house);
         }
         return house;
     }
@@ -38,7 +36,7 @@ public class HouseRepository implements IHouseRepository {
      */
     @Override
     public List<House> findAll() {
-        return new ArrayList<>(_houseData.values());
+        return new ArrayList<>(DATA.values());
     }
 
     /**
@@ -49,7 +47,7 @@ public class HouseRepository implements IHouseRepository {
      */
     @Override
     public Optional<House> ofIdentity(HouseID houseID) {
-        return Optional.ofNullable(_houseData.get(houseID));
+        return Optional.ofNullable(DATA.get(houseID));
     }
 
     /**
@@ -60,6 +58,6 @@ public class HouseRepository implements IHouseRepository {
      */
     @Override
     public boolean containsOfIdentity(HouseID houseID) {
-        return _houseData.containsKey(houseID);
+        return DATA.containsKey(houseID);
     }
 }

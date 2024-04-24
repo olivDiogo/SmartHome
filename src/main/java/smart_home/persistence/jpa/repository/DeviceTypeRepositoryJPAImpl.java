@@ -15,8 +15,8 @@ import java.util.Optional;
 
 public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
 
-  private IDataModelAssembler<DeviceTypeDataModel, DeviceType> _dataModelAssembler;
-  private EntityManagerFactory _factory;
+  private IDataModelAssembler<DeviceTypeDataModel, DeviceType> dataModelAssembler;
+  private EntityManagerFactory factory;
 
   /**
    * Creates an instance of {@link DeviceTypeRepositoryJPAImpl} with the provided data model
@@ -25,8 +25,8 @@ public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
   public DeviceTypeRepositoryJPAImpl(
       IDataModelAssembler<DeviceTypeDataModel, DeviceType> dataModelAssembler) {
     validateDataModelAssembler(dataModelAssembler);
-    this._dataModelAssembler = dataModelAssembler;
-    this._factory = Persistence.createEntityManagerFactory("smart_home");
+    this.dataModelAssembler = dataModelAssembler;
+    this.factory = Persistence.createEntityManagerFactory("smart_home");
   }
 
   /**
@@ -47,7 +47,7 @@ public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
    * @return the entity manager
    */
   private EntityManager getEntityManager() {
-    EntityManager manager = this._factory.createEntityManager();
+    EntityManager manager = this.factory.createEntityManager();
     return manager;
   }
 
@@ -94,7 +94,7 @@ public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
       List<DeviceTypeDataModel> deviceTypeDataModels =
           em.createQuery("SELECT d FROM DeviceTypeDataModel d", DeviceTypeDataModel.class)
               .getResultList();
-      return _dataModelAssembler.toDomain(deviceTypeDataModels);
+      return dataModelAssembler.toDomain(deviceTypeDataModels);
     } finally {
       em.close();
     }
@@ -114,7 +114,7 @@ public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
       if (deviceTypeDataModel == null) {
         return Optional.empty();
       }
-      return Optional.of(_dataModelAssembler.toDomain(deviceTypeDataModel));
+      return Optional.of(dataModelAssembler.toDomain(deviceTypeDataModel));
     } finally {
       em.close();
     }
