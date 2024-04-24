@@ -2,6 +2,18 @@ package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import smart_home.ddd.IAggregateRoot;
+import smart_home.ddd.IAssembler;
+import smart_home.domain.device.IDeviceFactory;
+import smart_home.domain.house.IHouseFactory;
+import smart_home.domain.repository.IDeviceRepository;
+import smart_home.domain.repository.IHouseRepository;
+import smart_home.domain.repository.IRoomRepository;
+import smart_home.domain.room.IRoomFactory;
+import smart_home.domain.service.IDeviceService;
+import smart_home.domain.service.IHouseService;
+import smart_home.domain.service.IRoomService;
 import smart_home.mapper.DeviceAssembler;
 import smart_home.mapper.RoomAssembler;
 import smart_home.domain.device.Device;
@@ -25,341 +37,378 @@ import java.util.List;
 
 class AddDeviceToRoomControllerTest {
 
-    /**
-     * Test to verify if the AddDeviceToRoomController is being instantiated correctly.
-     */
-    @Test
-    void shouldInstantiateAddDeviceToRoomController_WhenParametersAreValid() {
-        // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+  /** Test to verify if the AddDeviceToRoomController is being instantiated correctly. */
+  @Test
+  void shouldInstantiateAddDeviceToRoomController_WhenParametersAreValid() {
+    // Arrange
+    IRoomRepository roomRepository = new RoomRepository();
+    IRoomFactory roomFactory = new RoomFactoryImpl();
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+    IHouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+    IRoomService roomServiceImpl =
+        new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+    IDeviceRepository deviceRepository = new DeviceRepository();
+    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
 
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    IDeviceService deviceServiceImpl =
+        new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
+    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-        // Act
-        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
+    // Act
+    AddDeviceToRoomController addDeviceToRoomController =
+        new AddDeviceToRoomController(
+            roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
-        // Assert
-        assertNotNull(addDeviceToRoomController);
-    }
-    /**
-     * Test to verify if an exception is thrown when the RoomService is null.
-     */
-    @Test
-    void shouldThrowException_WhenRoomServiceIsNull() {
-        // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        RoomServiceImpl roomServiceImpl = null;
+    // Assert
+    assertNotNull(addDeviceToRoomController);
+  }
 
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+  /** Test to verify if an exception is thrown when the RoomService is null. */
+  @Test
+  void shouldThrowException_WhenRoomServiceIsNull() {
+    // Arrange
+    IRoomRepository roomRepository = new RoomRepository();
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+    IRoomService roomServiceImpl = null;
 
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    IDeviceRepository deviceRepository = new DeviceRepository();
+    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
 
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
+    IDeviceService deviceServiceImpl =
+        new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-        String expectedMessage = "Please enter a valid room service.";
+    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-        // Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
+    String expectedMessage = "Please enter a valid room service.";
 
-        // Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
+    // Act
+    Throwable exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddDeviceToRoomController(
+                    roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
 
-    /**
-     * Test to verify if an exception is thrown when the RoomAssembler is null.
-     */
-    @Test
-    void shouldThrowException_WhenRoomAssemblerIsNull() {
-        // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, new RoomFactoryImpl(), new HouseRepository());
-        RoomAssembler roomAssembler = null;
+    // Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+  /** Test to verify if an exception is thrown when the RoomAssembler is null. */
+  @Test
+  void shouldThrowException_WhenRoomAssemblerIsNull() {
+    // Arrange
+    IRoomRepository roomRepository = new RoomRepository();
+    IRoomService roomServiceImpl =
+        new RoomServiceImpl(roomRepository, new RoomFactoryImpl(), new HouseRepository());
+    IAssembler<Room, RoomDTO> roomAssembler = null;
 
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    IDeviceRepository deviceRepository = new DeviceRepository();
+    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
 
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
+    IDeviceService deviceServiceImpl =
+        new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-        String expectedMessage = "Please enter a valid room assembler.";
+    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-        // Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
+    String expectedMessage = "Please enter a valid room assembler.";
 
-        // Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
+    // Act
+    Throwable exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddDeviceToRoomController(
+                    roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
 
-    /**
-     * Test to verify if an exception is thrown when the DeviceService is null.
-     */
-    @Test
-    void shouldThrowException_WhenDeviceServiceIsNull() {
-        // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, new RoomFactoryImpl(), new HouseRepository());
-        RoomAssembler roomAssembler = new RoomAssembler();
-        DeviceServiceImpl deviceServiceImpl = null;
+    // Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
+  /** Test to verify if an exception is thrown when the DeviceService is null. */
+  @Test
+  void shouldThrowException_WhenDeviceServiceIsNull() {
+    // Arrange
+    IRoomRepository roomRepository = new RoomRepository();
+    IRoomService roomServiceImpl =
+        new RoomServiceImpl(roomRepository, new RoomFactoryImpl(), new HouseRepository());
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+    IDeviceService deviceServiceImpl = null;
 
-        String expectedMessage = "Please enter a valid device service.";
+    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-        // Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
+    String expectedMessage = "Please enter a valid device service.";
 
-        // Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
+    // Act
+    Throwable exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddDeviceToRoomController(
+                    roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
 
-    /**
-     * Test to verify if an exception is thrown when the DeviceAssembler is null.
-     */
-    @Test
-    void shouldThrowException_WhenDeviceAssemblerIsNull() {
-        // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, new RoomFactoryImpl(), new HouseRepository());
-        RoomAssembler roomAssembler = new RoomAssembler();
+    // Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+  /** Test to verify if an exception is thrown when the DeviceAssembler is null. */
+  @Test
+  void shouldThrowException_WhenDeviceAssemblerIsNull() {
+    // Arrange
+    IRoomRepository roomRepository = new RoomRepository();
+    IRoomService roomServiceImpl =
+        new RoomServiceImpl(roomRepository, new RoomFactoryImpl(), new HouseRepository());
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
 
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        DeviceAssembler deviceAssembler = null;
+    IDeviceRepository deviceRepository = new DeviceRepository();
+    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
 
-        String expectedMessage = "Please enter a valid device assembler.";
+    IDeviceService deviceServiceImpl =
+        new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    IAssembler<Device, DeviceDTO> deviceAssembler = null;
 
-        // Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
+    String expectedMessage = "Please enter a valid device assembler.";
 
-        // Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
+    // Act
+    Throwable exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddDeviceToRoomController(
+                    roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler));
 
-    /**
-     * Tests retrieving a list of RoomDTOs, checking if the returned data matches the expected.
-     */
-    @Test
-    void shouldReturnListOfRoomDTOs_WhenGetAllRoomsIsCalled() {
-        // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+    // Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+  /** Tests retrieving a list of RoomDTOs, checking if the returned data matches the expected. */
+  @Test
+  void shouldReturnListOfRoomDTOs_WhenGetAllRoomsIsCalled() {
+    // Arrange
+    IRoomRepository roomRepository = new RoomRepository();
+    IRoomFactory roomFactory = new RoomFactoryImpl();
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+    IHouseRepository houseRepository = new HouseRepository();
 
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+    IRoomService roomServiceImpl =
+        new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    IDeviceRepository deviceRepository = new DeviceRepository();
+    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
 
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
+    IDeviceService deviceServiceImpl =
+        new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
+    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+    AddDeviceToRoomController addDeviceToRoomController =
+        new AddDeviceToRoomController(
+            roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
-        String street = "Rua Do Isep";
-        String doorNumber = "122A";
-        String countryCode = "PT";
-        String postalCode = "4000-007";
+    IHouseFactory houseFactory = new HouseFactoryImpl();
+    IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-        Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
 
-        double latitude = 41.178;
-        double longitude = -8.608;
-        GPS newGPS = new GPS(latitude, longitude);
+    Address newAddress =
+        new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
 
-        House house = houseServiceImpl.addHouse(newAddress, newGPS);
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
 
-        HouseID houseID = house.getID();
+    House house = houseServiceImpl.addHouse(newAddress, newGPS);
 
-        RoomName roomName = new RoomName("Living Room");
+    HouseID houseID = house.getID();
 
-        int width = 10;
-        int length = 10;
-        int height = 10;
+    RoomName roomName = new RoomName("Living Room");
 
-        Dimension dimension = new Dimension(width, length, height);
+    int width = 10;
+    int length = 10;
+    int height = 10;
 
-        int floor = 1;
-        RoomFloor roomFloor = new RoomFloor(floor);
+    Dimension dimension = new Dimension(width, length, height);
 
-        roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    int floor = 1;
+    RoomFloor roomFloor = new RoomFloor(floor);
 
-        List<Room> rooms = roomRepository.findAll();
+    roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
 
-        List<RoomDTO> expectedRoomDTOs = roomAssembler.domainToDTO(rooms);
-        String expectedRoomName = expectedRoomDTOs.get(0).roomName;
-        String expectedRoomID = expectedRoomDTOs.get(0).roomId;
+    List<Room> rooms = roomRepository.findAll();
 
-        List<String> expectedList = List.of(expectedRoomName, expectedRoomID);
+    List<RoomDTO> expectedRoomDTOs = roomAssembler.domainToDTO(rooms);
+    String expectedRoomName = expectedRoomDTOs.get(0).roomName;
+    String expectedRoomID = expectedRoomDTOs.get(0).roomId;
 
-        // Act
-        List<RoomDTO> roomDTOs = addDeviceToRoomController.getAllRooms();
+    List<String> expectedList = List.of(expectedRoomName, expectedRoomID);
 
-        // Assert
-        String actualRoomName = roomDTOs.get(0).roomName;
-        String actualRoomID = roomDTOs.get(0).roomId;
-        List<String> actualList = List.of(actualRoomName, actualRoomID);
+    // Act
+    List<RoomDTO> roomDTOs = addDeviceToRoomController.getAllRooms();
 
-        assertEquals(expectedList, actualList);
-    }
+    // Assert
+    String actualRoomName = roomDTOs.get(0).roomName;
+    String actualRoomID = roomDTOs.get(0).roomId;
+    List<String> actualList = List.of(actualRoomName, actualRoomID);
 
-    /**
-     * Asserts that an exception is thrown when the list of rooms is empty.
-     */
-    @Test
-    void shouldThrowException_WhenListOfRoomsIsEmpty(){
-        // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+    assertEquals(expectedList, actualList);
+  }
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+  /** Asserts that an exception is thrown when the list of rooms is empty. */
+  @Test
+  void shouldThrowException_WhenListOfRoomsIsEmpty() {
+    // Arrange
+    IRoomRepository roomRepository = new RoomRepository();
+    IRoomFactory roomFactory = new RoomFactoryImpl();
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+    IHouseRepository houseRepository = new HouseRepository();
 
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+    IRoomService roomServiceImpl =
+        new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    IDeviceRepository deviceRepository = new DeviceRepository();
+    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
 
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
+    IDeviceService deviceServiceImpl =
+        new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
+    IAssembler<Device,DeviceDTO> deviceAssembler= new DeviceAssembler();
 
-        // Act + Assert
-        assertThrows(IllegalArgumentException.class, () -> {addDeviceToRoomController.getAllRooms();
+    AddDeviceToRoomController addDeviceToRoomController =
+        new AddDeviceToRoomController(
+            roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
+
+    // Act + Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          addDeviceToRoomController.getAllRooms();
         });
+  }
 
-    }
-    /**
-     * Confirms that a DeviceDTO is returned correctly when a device is added to a room.
-     */
-    @Test
-    void shouldReturnDeviceDTO_WhenAddDeviceToRoomIsCalled() {
-        // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+  /** Confirms that a DeviceDTO is returned correctly when a device is added to a room. */
+  @Test
+  void shouldReturnDeviceDTO_WhenAddDeviceToRoomIsCalled() {
+    // Arrange
+    IRoomRepository roomRepository = new RoomRepository();
+    IRoomFactory roomFactory = new RoomFactoryImpl();
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+    IHouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+    IRoomService roomServiceImpl =
+        new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
-        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+    IHouseFactory houseFactory = new HouseFactoryImpl();
+    IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-        //Room
-        String street = "Rua Do Isep";
-        String doorNumber = "122A";
-        String countryCode = "PT";
-        String postalCode = "4000-007";
+    // Room
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
 
-        Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+    Address newAddress =
+        new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
 
-        double latitude = 41.178;
-        double longitude = -8.608;
-        GPS newGPS = new GPS(latitude, longitude);
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
 
-        House house = houseServiceImpl.addHouse(newAddress, newGPS);
+    IAggregateRoot<HouseID> house = houseServiceImpl.addHouse(newAddress, newGPS);
 
-        HouseID houseID = house.getID();
+    HouseID houseID = house.getID();
 
-        RoomName roomName = new RoomName("Living Room");
+    RoomName roomName = new RoomName("Living Room");
 
-        int width = 10;
-        int length = 10;
-        int height = 10;
+    int width = 10;
+    int length = 10;
+    int height = 10;
 
-        Dimension dimension = new Dimension(width, length, height);
+    Dimension dimension = new Dimension(width, length, height);
 
-        int floor = 1;
-        RoomFloor roomFloor = new RoomFloor(floor);
+    int floor = 1;
+    RoomFloor roomFloor = new RoomFloor(floor);
 
-        roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
 
-        List<Room> rooms = roomRepository.findAll();
+    List<Room> rooms = roomRepository.findAll();
 
-        RoomDTO roomDTO = roomAssembler.domainToDTO(rooms).get(0);
+    RoomDTO roomDTO = roomAssembler.domainToDTO(rooms).get(0);
 
-                               //VOs
-        String roomID = roomDTO.roomId;
-        String deviceName = "Lamp";
-        boolean deviceStatus = true;
-        String deviceTypeID = "1";
+    // VOs
+    String roomID = roomDTO.roomId;
+    String deviceName = "Lamp";
+    boolean deviceStatus = true;
+    String deviceTypeID = "1";
 
-        RoomID roomIdVO = new RoomID(roomID);
-        DeviceName deviceNameVO = new DeviceName(deviceName);
-        DeviceStatus deviceStatusVO = new DeviceStatus(deviceStatus);
-        DeviceTypeID deviceTypeIDVO = new DeviceTypeID(deviceTypeID);
+    RoomID roomIdVO = new RoomID(roomID);
+    DeviceName deviceNameVO = new DeviceName(deviceName);
+    DeviceStatus deviceStatusVO = new DeviceStatus(deviceStatus);
+    DeviceTypeID deviceTypeIDVO = new DeviceTypeID(deviceTypeID);
 
-                               //Device
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    // Device
+    IDeviceRepository deviceRepository = new DeviceRepository();
+    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
+    IDeviceService deviceServiceImpl =
+        new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-        Device device = deviceServiceImpl.addDevice(roomIdVO, deviceNameVO, deviceStatusVO, deviceTypeIDVO);
+    Device device =
+        deviceServiceImpl.addDevice(roomIdVO, deviceNameVO, deviceStatusVO, deviceTypeIDVO);
 
-                               //DeviceDTO
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
-        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
+    // DeviceDTO
+    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
+    AddDeviceToRoomController addDeviceToRoomController =
+        new AddDeviceToRoomController(
+            roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
-        DeviceDTO expectedDeviceDTO = deviceAssembler.domainToDTO(device);
+    DeviceDTO expectedDeviceDTO = deviceAssembler.domainToDTO(device);
 
-        DeviceDataDTO deviceDataDTO = new DeviceDataDTO(deviceTypeID, deviceName, deviceStatus, roomID);
+    DeviceDataDTO deviceDataDTO = new DeviceDataDTO(deviceTypeID, deviceName, deviceStatus, roomID);
 
-        // Act
-        DeviceDTO deviceDTO = addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
+    // Act
+    DeviceDTO deviceDTO = addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
 
-        // Assert
-        assertEquals(expectedDeviceDTO.deviceName, deviceDTO.deviceName);
-    }
-    /**
-     * Ensures that an exception is thrown when the specified room does not exist.
-     */
-    @Test
-    void shouldThrowException_WhenRoomDoesNotExist(){
-        // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+    // Assert
+    assertEquals(expectedDeviceDTO.deviceName, deviceDTO.deviceName);
+  }
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+  /** Ensures that an exception is thrown when the specified room does not exist. */
+  @Test
+  void shouldThrowException_WhenRoomDoesNotExist() {
+    // Arrange
+    IRoomRepository roomRepository = new RoomRepository();
+    IRoomFactory roomFactory = new RoomFactoryImpl();
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+    IHouseRepository houseRepository = new HouseRepository();
 
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
+    IRoomService roomServiceImpl =
+        new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    IDeviceRepository deviceRepository = new DeviceRepository();
+    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
 
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
+    IDeviceService deviceServiceImpl =
+        new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-        AddDeviceToRoomController addDeviceToRoomController = new AddDeviceToRoomController(roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
+    IAssembler<Device,DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-        DeviceDataDTO deviceDataDTO = new DeviceDataDTO("1", "Lamp", true, "1");
+    AddDeviceToRoomController addDeviceToRoomController =
+        new AddDeviceToRoomController(
+            roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
-        // Act + Assert
-        assertThrows(IllegalArgumentException.class, () -> {addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
+    DeviceDataDTO deviceDataDTO = new DeviceDataDTO("1", "Lamp", true, "1");
+
+    // Act + Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
         });
-    }
-
-
+  }
 }

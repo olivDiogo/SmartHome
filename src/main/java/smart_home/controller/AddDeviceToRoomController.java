@@ -9,7 +9,6 @@ import smart_home.domain.service.IRoomService;
 import smart_home.dto.DeviceDTO;
 import smart_home.dto.DeviceDataDTO;
 import smart_home.dto.RoomDTO;
-import smart_home.service.DeviceServiceImpl;
 import smart_home.value_object.DeviceName;
 import smart_home.value_object.DeviceStatus;
 import smart_home.value_object.DeviceTypeID;
@@ -26,7 +25,7 @@ public class AddDeviceToRoomController {
     private IRoomService _roomService;
     private IAssembler<Room, RoomDTO> _roomAssembler;
     private IDeviceService _deviceService;
-    private DeviceAssembler _deviceAssembler;
+    private IAssembler<Device,DeviceDTO> _deviceAssembler;
 
     /**
      * Constructs a new AddDeviceToRoomController with necessary service and assembler dependencies.
@@ -37,7 +36,7 @@ public class AddDeviceToRoomController {
      * @param deviceServiceImpl   Service for managing device-related operations.
      * @param deviceAssembler Assembler for converting device entities to DTOs.
      */
-    public AddDeviceToRoomController(IRoomService roomService, IAssembler<Room, RoomDTO> roomAssembler, DeviceServiceImpl deviceServiceImpl, DeviceAssembler deviceAssembler) {
+    public AddDeviceToRoomController(IRoomService roomService, IAssembler<Room, RoomDTO> roomAssembler, IDeviceService deviceServiceImpl, IAssembler<Device,DeviceDTO> deviceAssembler) {
         validateRoomService(roomService);
         validateRoomAssembler(roomAssembler);
         validateDeviceService(deviceServiceImpl);
@@ -88,7 +87,7 @@ public class AddDeviceToRoomController {
      *
      * @param deviceAssembler
      */
-    private void validateDeviceAssembler(DeviceAssembler deviceAssembler) {
+    private void validateDeviceAssembler(IAssembler<Device,DeviceDTO> deviceAssembler) {
         if (deviceAssembler == null) {
             throw new IllegalArgumentException("Please enter a valid device assembler.");
         } else {
