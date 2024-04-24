@@ -11,7 +11,7 @@ public class Address implements IValueObject {
     private final String countryCode; // ISO 3166-1 alpha-2 country code
     private final IPostalCode postalCode;
 
-    public Address(String street, String doorNumber, String postalCode, String countryCode, PostalCodeFactory factory) {
+    public Address(String street, String doorNumber, String postalCode, String countryCode, IPostalCodeFactory factory) {
         validateStreet(street);
         validateDoorNumber(doorNumber);
         validateCountryCode(countryCode);
