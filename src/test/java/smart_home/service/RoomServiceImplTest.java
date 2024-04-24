@@ -98,12 +98,13 @@ class RoomServiceImplTest {
         Room mockRoom = mock(Room.class);
         when(roomRepository.findAll()).thenReturn(List.of(mockRoom));
 
+        int expected = 1;
+
         // Act
         List<Room> rooms = roomServiceImpl.getAllRooms();
 
         // Assert
-        assertNotNull(rooms);
-        assertEquals(1, rooms.size());
+        assertEquals(expected, rooms.size());
     }
     /**
      * Test the getRooms method of the RoomService class when there are no rooms.
@@ -118,12 +119,13 @@ class RoomServiceImplTest {
         roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         when(roomRepository.findAll()).thenReturn(List.of());
 
+        int expected = 0;
+
         // Act
         List<Room> rooms = roomServiceImpl.getAllRooms();
 
         // Assert
-        assertNotNull(rooms);
-        assertEquals(0, rooms.size());
+        assertEquals(expected, rooms.size());
     }
     /**
      * Test the getRooms method of the RoomService class when there are multiple rooms.
@@ -140,12 +142,13 @@ class RoomServiceImplTest {
         Room mockRoom2 = mock(Room.class);
         when(roomRepository.findAll()).thenReturn(List.of(mockRoom1, mockRoom2));
 
+        int expected = 2;
+
         // Act
         List<Room> rooms = roomServiceImpl.getAllRooms();
 
         // Assert
-        assertNotNull(rooms);
-        assertEquals(2, rooms.size());
+        assertEquals(expected, rooms.size());
     }
 
     /**
@@ -167,8 +170,6 @@ class RoomServiceImplTest {
         Optional<Room> room = roomServiceImpl.getRoomById(roomID);
 
         // Assert
-        assertNotNull(room);
-        assertTrue(room.isPresent());
         assertEquals(mockRoom, room.get());
     }
 
@@ -190,7 +191,50 @@ class RoomServiceImplTest {
         Optional<Room> room = roomServiceImpl.getRoomById(roomID);
 
         // Assert
-        assertNotNull(room);
         assertTrue(room.isEmpty());
     }
+  /**
+   * Should throw an exception when the roomRepository is null.
+   */
+  @Test
+  void shouldThrowException_whenRoomRepositoryIsNull() {
+    // Arrange
+    RoomRepository roomRepository = null;
+    IRoomFactory roomFactory = mock(IRoomFactory.class);
+    HouseRepository houseRepository = mock(HouseRepository.class);
+
+    // Act+Assert
+    Throwable exception = assertThrows(IllegalArgumentException.class, () -> new RoomServiceImpl(roomRepository, roomFactory, houseRepository));
+    assertEquals("Room repository is required", exception.getMessage());
+  }
+
+  /**
+   * Should throw an exception when the roomFactory is null.
+   */
+  @Test
+  void shouldThrowException_whenRoomFactoryIsNull() {
+    // Arrange
+    RoomRepository roomRepository = mock(RoomRepository.class);
+    IRoomFactory roomFactory = null;
+    HouseRepository houseRepository = mock(HouseRepository.class);
+
+    // Act+Assert
+    Throwable exception = assertThrows(IllegalArgumentException.class, () -> new RoomServiceImpl(roomRepository, roomFactory, houseRepository));
+    assertEquals("Room factory is required", exception.getMessage());
+  }
+
+  /**
+   * Should throw an exception when the houseRepository is null.
+   */
+  @Test
+  void shouldThrowException_whenHouseRepositoryIsNull() {
+    // Arrange
+    RoomRepository roomRepository = mock(RoomRepository.class);
+    IRoomFactory roomFactory = mock(IRoomFactory.class);
+    HouseRepository houseRepository = null;
+
+    // Act+Assert
+    Throwable exception = assertThrows(IllegalArgumentException.class, () -> new RoomServiceImpl(roomRepository, roomFactory, houseRepository));
+    assertEquals("House repository is required", exception.getMessage());
+  }
 }

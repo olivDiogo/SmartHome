@@ -43,7 +43,7 @@ class UnitServiceImplTest {
         UnitRepository unitRepositoryDouble = null;
         IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
-        String expectedMessage = "Please enter a valid measurement type repository.";
+        String expectedMessage = "MeasurementType repository is required";
 
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble));
@@ -61,7 +61,7 @@ class UnitServiceImplTest {
         UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
         IUnitFactory unitFactoryDouble = null;
 
-        String expectedMessage = "Please enter a valid measurement type factory.";
+        String expectedMessage = "MeasurementType factory is required";
 
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble));

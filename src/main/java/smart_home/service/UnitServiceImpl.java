@@ -4,6 +4,7 @@ import smart_home.ddd.IRepository;
 import smart_home.domain.service.IUnitService;
 import smart_home.domain.unit.IUnitFactory;
 import smart_home.domain.unit.Unit;
+import smart_home.utils.Validator;
 import smart_home.value_object.UnitDescription;
 import smart_home.value_object.UnitID;
 import smart_home.value_object.UnitSymbol;
@@ -23,35 +24,13 @@ public class UnitServiceImpl implements IUnitService {
      * @param unitFactory   The factory for the measurement type.
      */
     public UnitServiceImpl(IRepository<UnitID, Unit> unitRepository, IUnitFactory unitFactory) {
-        validateMeasurementTypeRepository(unitRepository);
-        validateMeasurementTypeFactory(unitFactory);
+      Validator.validateNotNull(unitRepository, "MeasurementType repository");
+      Validator.validateNotNull(unitFactory, "MeasurementType factory");
+
+      this.unitRepository = unitRepository;
+      this.unitFactory = unitFactory;
     }
 
-    /**
-     * Validates the MeasurementTypeRepository.
-     *
-     * @param unitRepository The MeasurementTypeRepository to validate.
-     */
-    private void validateMeasurementTypeRepository(IRepository<UnitID, Unit> unitRepository) {
-        if (unitRepository == null) {
-            throw new IllegalArgumentException("Please enter a valid measurement type repository.");
-        } else {
-            this.unitRepository = unitRepository;
-        }
-    }
-
-    /**
-     * Validates the MeasurementTypeFactory.
-     *
-     * @param unitFactory The MeasurementTypeFactory to validate.
-     */
-    private void validateMeasurementTypeFactory(IUnitFactory unitFactory) {
-        if (unitFactory == null) {
-            throw new IllegalArgumentException("Please enter a valid measurement type factory.");
-        } else {
-            this.unitFactory = unitFactory;
-        }
-    }
 
     /**
      * Creates a new MeasurementType and saves it in the repository.
