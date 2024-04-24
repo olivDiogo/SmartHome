@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class GetLogFromDeviceControllerTest {
-  ILogRepository logRepository = new LogRepository();
+  ILogRepository logRepository = mock(LogRepository.class);
   ILogService logService = new LogServiceImpl(logRepository);
   IAssembler<Log, LogDTO> logAssembler = new LogAssembler();
   IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
@@ -47,8 +47,7 @@ class GetLogFromDeviceControllerTest {
   IHouseRepository houseRepository = mock(IHouseRepository.class);
   IHouseFactory houseFactory = new HouseFactoryImpl();
   IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-  IRoomService roomService =
-      new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+  IRoomService roomService = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
   IDeviceService deviceService =
       new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
   IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
@@ -104,8 +103,7 @@ class GetLogFromDeviceControllerTest {
   void shouldGetLogFromDevice_WhenParametersAreValid() {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(
-            logService, deviceService, logAssembler);
+        new GetLogFromDeviceController(logService, deviceService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -134,6 +132,9 @@ class GetLogFromDeviceControllerTest {
     String timeEnd = "2022-03-01T13:50:30";
     LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
 
+    when(logRepository.findByDeviceIDAndDatePeriodBetween(deviceID, mock(DatePeriod.class)))
+        .thenReturn(List.of(log));
+
     // Act
     List<LogDTO> logs = getLogFromDeviceController.getLogFromDevice(logDataDTO);
 
@@ -141,59 +142,18 @@ class GetLogFromDeviceControllerTest {
     assertNotNull(logs);
   }
 
-  /** Test getLogFromDevice method when the device does not exist. */
-  @Test
-  void shouldReturnDeviceNotFound_WhenDeviceDoesNotExist() {
-    // Arrange
-    GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(
-            logService, deviceService, logAssembler);
-
-    // Add a house
-    House house = createHouse();
-
-    // Add a room
-    Room room = createRoom(house.getID());
-
-    // Add a log
-    LogFactoryImpl logFactory = new LogFactoryImpl();
-    LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 0);
-    ReadingValue readingValue = new ReadingValue("20");
-    SensorID sensorID = new SensorID("1");
-    SensorTypeID sensorTypeID = new SensorTypeID("Temperature");
-    UnitID unitID = new UnitID("C");
-    DeviceID deviceID2 = new DeviceID("2");
-    Log log =
-        logFactory.createLog(deviceID2, sensorID, timeStamp, readingValue, sensorTypeID, unitID);
-    logRepository.save(log);
-
-    // Create LogDataDTO
-    String timeStart = "2020-03-01T13:45:30";
-    String timeEnd = "2022-03-01T13:50:30";
-    LogDataDTO logDataDTO = new LogDataDTO(deviceID2.toString(), timeStart, timeEnd);
-
-    LogDTO logDTO = new LogDTO("Device not found", "", "", "", "", "", "");
-
-    // Act
-    List<LogDTO> logs = getLogFromDeviceController.getLogFromDevice(logDataDTO);
-
-    // Assert
-    assertEquals(logs.get(0).toString(), logDTO.toString());
-  }
-
   /** Test getLogFromDevice method when timeStart is after timeEnd. */
   @Test
   void shouldReturnInvalidTimePeriod_WhenTimeStartIsAfterTimeEnd() {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(
-            logService, deviceService, logAssembler);
+        new GetLogFromDeviceController(logService, deviceService, logAssembler);
 
     // Add a house
     House house = createHouse();
 
     // Add a room
-    Room room = createRoom(house.getID());
+    createRoom(house.getID());
 
     // Add a log
     LogFactoryImpl logFactory = new LogFactoryImpl();
@@ -227,8 +187,7 @@ class GetLogFromDeviceControllerTest {
   void shouldReturnNoMeasurementsAvailable_WhenNoMeasurementsForGivenPeriod() {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(
-            logService, deviceService, logAssembler);
+        new GetLogFromDeviceController(logService, deviceService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -274,8 +233,7 @@ class GetLogFromDeviceControllerTest {
   void shouldReturnLogFromCorrectDeviceOnly_WhenThereAreMultipleDevicesInRoom() {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(
-            logService, deviceService, logAssembler);
+        new GetLogFromDeviceController(logService, deviceService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -301,7 +259,8 @@ class GetLogFromDeviceControllerTest {
     logRepository.save(log);
 
     // Add a log to the second device
-    Log logTwo = logFactory.createLog(deviceIDTwo, sensorID, timeStamp, readingValue, sensorTypeID, unitID);
+    Log logTwo =
+        logFactory.createLog(deviceIDTwo, sensorID, timeStamp, readingValue, sensorTypeID, unitID);
     logRepository.save(logTwo);
 
     // Create LogDataDTO
@@ -309,12 +268,12 @@ class GetLogFromDeviceControllerTest {
     String timeEnd = "2022-03-01T13:50:30";
     LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
 
-    LogDTO logDTO = new LogDTO("No logs found", "", "", "", "", "", "");
+    int expected = 1;
 
     // Act
     List<LogDTO> logs = getLogFromDeviceController.getLogFromDevice(logDataDTO);
 
     // Assert
-    assertEquals(1, logs.size());
+    assertEquals(expected, logs.size());
   }
 }

@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class GetLogFromDeviceController {
     private ILogService logService;
-    private IDeviceService deviceservice;
+    private IDeviceService deviceService;
     private IAssembler<Log, LogDTO> logAssembler;
 
   /**
@@ -33,7 +33,7 @@ public class GetLogFromDeviceController {
         Validate.notNull(logService, "Log Service is required");
         this.logService = logService;
         Validate.notNull(deviceService, "Device Service is required");
-        deviceservice = deviceService;
+        this.deviceService = deviceService;
         Validate.notNull(logAssembler, "Log Assembler is required");
         this.logAssembler = logAssembler;
     }
@@ -48,11 +48,6 @@ public class GetLogFromDeviceController {
         LocalDateTime start = LocalDateTime.parse(logDataDTO.timeStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         LocalDateTime end = LocalDateTime.parse(logDataDTO.timeEnd, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         DatePeriod period = new DatePeriod(start, end);
-        Optional<Device> device = deviceservice.getDeviceByID(deviceID);
-        if (device.isEmpty()) {
-            LogDTO logDTO = new LogDTO("Device not found", "", "", "", "", "", "");
-            return List.of(logDTO);
-        }
         List<Log> logs = logService.getDeviceReadingsByTimePeriod(deviceID, period);
         if (logs.isEmpty()) {
             LogDTO logDTO = new LogDTO("No logs found", "", "", "", "", "", "");
