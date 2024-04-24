@@ -1,0 +1,15 @@
+@startuml
+!pragma layout smetana
+actor "RO, PU or Admin" as User
+participant System
+
+User -> System: I want to get the maximum instantaneous temperature difference between a device in the room and the outside, in a given period.
+
+System --> User: In which room?
+
+User -> System: Room!
+
+System --> User: Which device with temperature reading functionality?
+
+User -> System: Device!
+@enduml

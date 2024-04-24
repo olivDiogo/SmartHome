@@ -22,4 +22,6 @@
 
 [uc11](uc11_toGetLogFromDevice/uc11_readme.md) - To Get Log from Device
 
-[uc12](uc12_toGetMaxInstTempDifBetweenDeviceAndOutside/uc12_readme.md) - To Get Max Instantaneous Temperature Difference Between Device and Outside
+[uc12](uc12_toGetDevicesByRoomAndTemperatureFunctionality/uc12_readme.md) - To Get Devices in a Room with Temperature Functionality
+
+[uc13](uc13_toGetMaxInstTempDifBetweenDeviceAndOutside/uc13_readme.md) - To Get the Maximum Instantaneous Temperature Difference Between Device and Outside
