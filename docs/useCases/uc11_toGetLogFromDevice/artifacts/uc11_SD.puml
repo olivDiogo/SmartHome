@@ -4,15 +4,14 @@
 participant " " as User
 participant ":GetListOfAllMeasurementsOfOneDeviceController" as Controller
 
-participant ":DeviceID" as DeviceID
+participant "period:DatePeriod" as DatePeriod
+participant "deviceID:DeviceID" as DeviceID
 participant ":DeviceService" as DeviceService
 participant ":DeviceRepository" as DeviceRepository
-participant ":MeasurementsService" as MeasurementsService
-participant ":DatePeriod" as DatePeriod
-participant ":TimeStamp" as TimeStamp
-participant ":MeasurementRepository" as Repository
-participant ":MeasurementAssembler" as Assembler
-participant ":MeasurementDTO" as DTO
+participant ":LogService" as LogService
+participant ":LogRepository" as Repository
+participant ":LogAssembler" as Assembler
+participant "logDTO:LogDTO" as DTO
 
 autonumber
 
@@ -25,92 +24,62 @@ end note
 
 
 
-User o-> Controller: getMeasurementsOfOneDeviceInGivenPeriod(measurementsDataDTO)
+User o-> Controller: getLogFromDevice(logDataDTO)
 
 activate Controller
 'DatePeriod and DeviceID are created
 create DatePeriod
-Controller -> DatePeriod: DatePeriod (startDate, endDate)
+Controller -> DatePeriod: DatePeriod (start, end)
 activate DatePeriod
-DatePeriod --> Controller: datePeriod
-
+DatePeriod --> Controller: period
 deactivate DatePeriod
 
-
 create DeviceID
-Controller -> DeviceID: DeviceID(deviceID)
+Controller -> DeviceID: DeviceID (deviceID)
 activate DeviceID
 DeviceID --> Controller: deviceID
 deactivate DeviceID
-
 
 'getDeviceById -> if device is not present, return empty optional
 Controller -> DeviceService: getDeviceById(deviceID)
 activate DeviceService
 DeviceService -> DeviceRepository: getDeviceById(deviceID)
 activate DeviceRepository
-DeviceRepository --> DeviceService: device
+DeviceRepository --> DeviceService: optionalDevice
 deactivate DeviceRepository
-DeviceService --> Controller: device
+DeviceService --> Controller: optionalDevice
 deactivate DeviceService
 
-
 'getAllMeasurementsOfDeviceInGivenPeriod -> getStartDate, getEndDate
-Controller -> MeasurementsService: getAllMeasurementsOfDeviceInGivenPeriod(deviceID, datePeriod)
-
+Controller -> LogService: getDeviceReadingsByTimePeriod (deviceID, period)
 
 'getStartDate -> localDateTimeStart
-activate MeasurementsService
-
-MeasurementsService -> DatePeriod: getStartDate()
-activate DatePeriod
-DatePeriod --> MeasurementsService: localDateTimeStart
-deactivate DatePeriod
-
-'getEndDate -> localDateTimeEnd
-MeasurementsService -> DatePeriod: getEndDate()
-activate DatePeriod
-DatePeriod --> MeasurementsService: localDateTimeEnd
-deactivate DatePeriod
-
-'create TimeStamp -> timeStampStart
-create TimeStamp
-MeasurementsService -> TimeStamp: TimeStamp(localDateTimeStart)
-activate TimeStamp
-TimeStamp --> MeasurementsService: timeStampStart
-deactivate TimeStamp
-
-'create TimeStamp -> timeStampEnd
-create TimeStamp
-MeasurementsService -> TimeStamp: TimeStamp(localDateTimeEnd)
-activate TimeStamp
-TimeStamp --> MeasurementsService: timeStampEnd
-deactivate TimeStamp
+activate LogService
 
 'findByDeviceIdAndTimeStampBetween -> look in all measurement repositories
-MeasurementsService -> Repository: findByDeviceIdAndTimeStampBetween(deviceID, timeStampStart, timeStampEnd)
+LogService -> Repository: findByDeviceIdAndDatePeriodBetween(deviceID, period)
 
 activate Repository
-Repository --> MeasurementsService: list of measurements
+Repository --> LogService: logList
 
 deactivate Repository
-MeasurementsService --> Controller: iterable of measurements
+LogService --> Controller: logList
 
 
-deactivate MeasurementsService
-Controller -> Assembler: domainToDTO(measurementList)
+deactivate LogService
+Controller -> Assembler: domainToDTO(logList)
 
 activate Assembler
 create DTO
-Assembler -> DTO: MeasurementDTO (measurement)
+Assembler -> DTO: LogDTO (log)
 activate DTO
-DTO --> Assembler: measurementDTO
+DTO --> Assembler: logDTO
 
 deactivate DTO
-Assembler --> Controller: listMeasurementDTO
+Assembler --> Controller: logListDTO
 
 deactivate Assembler
-Controller --> User: listMeasurementDTO
+Controller --> User: logListDTO
 deactivate Controller
 
 
