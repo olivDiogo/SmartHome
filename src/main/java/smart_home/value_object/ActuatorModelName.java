@@ -4,7 +4,7 @@ import smart_home.ddd.IValueObject;
 
 public class ActuatorModelName implements IValueObject{
 
-    private final String _name;
+    private final String name;
 
     /**
      * Class constructor.
@@ -13,13 +13,13 @@ public class ActuatorModelName implements IValueObject{
      */
     public ActuatorModelName(String name) {
         validateActuatorModelName(name);
-        this._name = name.trim();
+        this.name = name.trim();
     }
 
     /**
      * Validates the sensor model name.
      *
-     * @param name
+     * @param name The sensor model name to validate.
      */
     private void validateActuatorModelName(String name) {
         if (name == null || name.isBlank()) {
@@ -34,17 +34,17 @@ public class ActuatorModelName implements IValueObject{
     /**
      * Gets the sensor model name.
      *
-     * @return
+     * @return The sensor model name.
      */
     public String getActuatorModelName() {
-        return _name;
+        return name;
     }
 
     /**
      * Compares this instance with another instance.
      *
-     * @param o
-     * @return
+     * @param object The object to compare with.
+     * @return True if the objects are equal, false otherwise.
      */
     public boolean equals(Object object) {
         if (this == object) {
@@ -53,7 +53,7 @@ public class ActuatorModelName implements IValueObject{
 
         if (object instanceof ActuatorModelName actuatorModelName) {
 
-            return this._name.equals(actuatorModelName._name);
+            return this.name.equals(actuatorModelName.name);
         }
         return false;
     }
@@ -63,7 +63,7 @@ public class ActuatorModelName implements IValueObject{
      */
     @Override
     public int hashCode() {
-        return _name.hashCode();
+        return name.hashCode();
     }
 
 }

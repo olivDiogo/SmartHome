@@ -3,7 +3,7 @@ package smart_home.value_object;
 import smart_home.ddd.IValueObject;
 
 public class RoomName implements IValueObject {
-    private final String _name;
+    private final String name;
 
     /**
      * Class constructor.
@@ -12,7 +12,7 @@ public class RoomName implements IValueObject {
      */
     public RoomName(String name) {
         validateRoomName(name);
-        _name = name.trim();
+        this.name = name.trim();
     }
 
     /**
@@ -36,7 +36,7 @@ public class RoomName implements IValueObject {
      * @return The room name.
      */
     public String getRoomName() {
-        return _name;
+        return name;
     }
     /*
     /The method getRoomName should be replaced by a generic method in the ValueObject interface
@@ -53,7 +53,7 @@ public class RoomName implements IValueObject {
         if (this == o) return true;
 
         if (o instanceof RoomName roomName) {
-            return this._name.equals(roomName._name);
+            return this.name.equals(roomName.name);
         }
         return false;
     }
@@ -63,7 +63,7 @@ public class RoomName implements IValueObject {
      */
     @Override
     public int hashCode() {
-        return _name.hashCode();
+        return name.hashCode();
     }
 
     /**
@@ -73,6 +73,6 @@ public class RoomName implements IValueObject {
      */
     @Override
     public String toString() {
-        return this._name;
+        return this.name;
     }
 }

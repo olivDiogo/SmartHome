@@ -3,7 +3,7 @@ package smart_home.value_object;
 import smart_home.ddd.IValueObject;
 
 public class DeviceName implements IValueObject {
-    private final String _name;
+    private final String name;
 
     /**
      * Constructor of the DeviceName class.
@@ -12,7 +12,7 @@ public class DeviceName implements IValueObject {
      */
     public DeviceName(String name) {
         validateDeviceName(name);
-        this._name = name.trim();
+        this.name = name.trim();
     }
 
     /**
@@ -36,7 +36,7 @@ public class DeviceName implements IValueObject {
      * @return The name of the device.
      */
     public String getName() {
-        return _name;
+        return name;
     }
 
     /**
@@ -50,7 +50,7 @@ public class DeviceName implements IValueObject {
         if (this == o) return true;
 
         if (o instanceof DeviceName deviceName) {
-            return this._name.equals(deviceName._name);
+            return this.name.equals(deviceName.name);
         }
         return false;
     }
@@ -62,7 +62,7 @@ public class DeviceName implements IValueObject {
      */
     @Override
     public int hashCode() {
-        return _name.hashCode();
+        return name.hashCode();
     }
 
     /**
@@ -72,6 +72,6 @@ public class DeviceName implements IValueObject {
      */
     @Override
     public String toString() {
-        return "Device name: " + _name;
+        return "Device name: " + name;
     }
 }

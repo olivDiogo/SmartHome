@@ -3,26 +3,26 @@ package smart_home.value_object;
 import smart_home.ddd.IValueObject;
 
 public class IntegerLimits implements IValueObject {
-    private final int _lowerLimit;
-    private final int _upperLimit;
+    private final int lowerLimit;
+    private final int upperLimit;
 
     /**
      * Constructor for SetIntegerActuatorLimits
      *
-     * @param lowerLimit
-     * @param upperLimit
+     * @param lowerLimit lower limit
+     * @param upperLimit upper limit
      */
     public IntegerLimits(int lowerLimit, int upperLimit) {
         validateLimits(lowerLimit, upperLimit);
-        this._lowerLimit = lowerLimit;
-        this._upperLimit = upperLimit;
+        this.lowerLimit = lowerLimit;
+        this.upperLimit = upperLimit;
     }
 
     /**
      * Validates the limits
      *
-     * @param lowerLimit
-     * @param upperLimit
+     * @param lowerLimit lower limit
+     * @param upperLimit upper limit
      */
     private void validateLimits(int lowerLimit, int upperLimit) {
         if (lowerLimit > upperLimit) {
@@ -33,37 +33,42 @@ public class IntegerLimits implements IValueObject {
     /**
      * Gets the lower limit
      *
-     * @return
+     * @return lower limit
      */
     public int getLowerLimit() {
-        return _lowerLimit;
+        return lowerLimit;
     }
 
     /**
      * Gets the upper limit
      *
-     * @return
+     * @return upper limit
      */
     public int getUpperLimit() {
-        return _upperLimit;
+        return upperLimit;
     }
 
     /**
      * Checks if the object is equal to this
      *
-     * @param o
-     * @return
+     * @param o object to compare
+     * @return true if the object is equal to this, false otherwise
      */
     @Override
     public boolean equals(Object o) {
         if (o instanceof IntegerLimits that){
-            return _lowerLimit == that._lowerLimit && _upperLimit == that._upperLimit;
+            return lowerLimit == that.lowerLimit && upperLimit == that.upperLimit;
         }
         return false;
     }
 
+    /**
+     * Gets the hash code of the object
+     *
+     * @return hash code
+     */
     @Override
     public int hashCode() {
-        return Integer.hashCode(_lowerLimit) + Integer.hashCode(_upperLimit);
+        return Integer.hashCode(lowerLimit) + Integer.hashCode(upperLimit);
     }
 }

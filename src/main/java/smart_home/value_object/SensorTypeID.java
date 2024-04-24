@@ -4,7 +4,7 @@ import smart_home.ddd.IDomainID;
 
 public class SensorTypeID implements IDomainID {
 
-    private final String _id;
+    private final String id;
 
     /**
      * Constructor of the class SensorTypeID.
@@ -13,9 +13,14 @@ public class SensorTypeID implements IDomainID {
      */
     public SensorTypeID(String sensorTypeID) {
         validateId(sensorTypeID);
-        this._id = sensorTypeID;
+        this.id = sensorTypeID;
     }
 
+    /**
+     * Method to validate the ID.
+     *
+     * @param sensorTypeID is the ID of the sensor type.
+     */
     private void validateId(String sensorTypeID) {
         if (sensorTypeID == null || sensorTypeID.isBlank())
             throw new IllegalArgumentException("'sensorTypeID' must be a non-empty string.");
@@ -34,7 +39,7 @@ public class SensorTypeID implements IDomainID {
 
         if (object instanceof SensorTypeID sensorTypeID) {
 
-            return this._id.equals(sensorTypeID._id);
+            return this.id.equals(sensorTypeID.id);
         }
         return false;
     }
@@ -46,7 +51,7 @@ public class SensorTypeID implements IDomainID {
      */
     @Override
     public String getID() {
-        return this._id;
+        return this.id;
     }
 
     /**
@@ -55,7 +60,7 @@ public class SensorTypeID implements IDomainID {
      * @return the hashcode as an int.
      */
     public int hashCode() {
-        return this._id.hashCode();
+        return this.id.hashCode();
     }
 
     /**
@@ -65,6 +70,6 @@ public class SensorTypeID implements IDomainID {
      */
     @Override
     public String toString() {
-        return this._id;
+        return this.id;
     }
 }

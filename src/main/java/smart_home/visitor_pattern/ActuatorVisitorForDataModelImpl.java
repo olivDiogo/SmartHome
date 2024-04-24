@@ -10,11 +10,11 @@ import smart_home.utils.Validator;
 
 public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataModel {
 
-    private ActuatorDataModel _actuatorDataModel;
+    private ActuatorDataModel actuatorDataModel;
 
     public ActuatorVisitorForDataModelImpl(ActuatorDataModel actuatorDataModel) {
         Validator.validateNotNull(actuatorDataModel, "Actuator Data Model");
-        this._actuatorDataModel = actuatorDataModel;
+        this.actuatorDataModel = actuatorDataModel;
     }
 
 
@@ -26,7 +26,7 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
      */
     @Override
     public ActuatorDataModel getActuatorDataModel() {
-        return _actuatorDataModel;
+        return actuatorDataModel;
     }
 
 
@@ -40,9 +40,9 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
         setGenericModelData(setIntegerActuator);
          int min = setIntegerActuator.getLimits().getLowerLimit();
         int max = setIntegerActuator.getLimits().getUpperLimit();
-        this._actuatorDataModel.setIntegerLowerBond(min);
-        this._actuatorDataModel.setIntegerUpperBond(max);
-        return _actuatorDataModel.toString();
+        this.actuatorDataModel.setIntegerLowerBond(min);
+        this.actuatorDataModel.setIntegerUpperBond(max);
+        return actuatorDataModel.toString();
     }
 
     /**
@@ -55,9 +55,9 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
         setGenericModelData(setDecimalActuator);
         double min = setDecimalActuator.getLimits().getLowerLimit();
         double max = setDecimalActuator.getLimits().getUpperLimit();
-        this._actuatorDataModel.setDecimalLowerBond(min);
-        this._actuatorDataModel.setDecimalUpperBond(max);
-        return _actuatorDataModel.toString();
+        this.actuatorDataModel.setDecimalLowerBond(min);
+        this.actuatorDataModel.setDecimalUpperBond(max);
+        return actuatorDataModel.toString();
     }
 
     /**
@@ -68,7 +68,7 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
     @Override
     public String visitorSwitchActuator(SwitchActuator setBooleanActuator) {
         setGenericModelData(setBooleanActuator);
-        return _actuatorDataModel.toString();
+        return actuatorDataModel.toString();
     }
 
     /**
@@ -79,7 +79,7 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
     @Override
     public String visitorBlindRollerActuator(BlindRollerActuator blindRollerActuator) {
         setGenericModelData(blindRollerActuator);
-        return _actuatorDataModel.toString();
+        return actuatorDataModel.toString();
     }
 
     /**
@@ -88,6 +88,6 @@ public class ActuatorVisitorForDataModelImpl implements IActuatorVisitorForDataM
      * @param actuator the actuator
      */
     private void setGenericModelData(IActuator actuator) {
-        this._actuatorDataModel.setGenericActuatorParameters(actuator);
+        this.actuatorDataModel.setGenericActuatorParameters(actuator);
     }
 }

@@ -3,7 +3,7 @@ package smart_home.value_object;
 import smart_home.ddd.IValueObject;
 
 public class SensorName implements IValueObject {
-    private final String _name;
+    private final String name;
 
     /**
      * Class constructor
@@ -12,7 +12,7 @@ public class SensorName implements IValueObject {
      */
     public SensorName(String name) {
         validateSensorName(name);
-        _name = name.trim();
+        this.name = name.trim();
     }
 
     /**
@@ -36,7 +36,7 @@ public class SensorName implements IValueObject {
      * @return The sensor name.
      */
     public String getSensorName() {
-        return _name;
+        return name;
     }
 
     /**
@@ -53,7 +53,7 @@ public class SensorName implements IValueObject {
 
         if (object instanceof SensorName sensorName) {
 
-            return this._name.equals(sensorName._name);
+            return this.name.equals(sensorName.name);
         }
         return false;
     }
@@ -63,15 +63,14 @@ public class SensorName implements IValueObject {
      */
     @Override
     public int hashCode() {
-        return _name.hashCode();
+        return name.hashCode();
     }
 
     /**
      * @return The string representation of the sensor name.
      */
     public String toString() {
-        return "SensorName{" +
-                "_name='" + _name + '\'' +
-                '}';
+        return "SensorName:" +
+                " name=" + name;
     }
 }

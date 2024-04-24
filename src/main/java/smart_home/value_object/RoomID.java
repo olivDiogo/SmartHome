@@ -3,7 +3,7 @@ package smart_home.value_object;
 import smart_home.ddd.IDomainID;
 
 public class RoomID implements IDomainID {
-    private final String _id;
+    private final String id;
 
     /**
      * Constructor of the class RoomID.
@@ -12,7 +12,7 @@ public class RoomID implements IDomainID {
      */
     public RoomID(String roomID) {
         validateRoomID(roomID);
-        this._id = roomID;
+        this.id = roomID;
     }
 
     /**
@@ -38,7 +38,7 @@ public class RoomID implements IDomainID {
 
         if (object instanceof RoomID roomID) {
 
-            return this._id.equals(roomID._id);
+            return this.id.equals(roomID.id);
         }
         return false;
     }
@@ -50,7 +50,7 @@ public class RoomID implements IDomainID {
      */
     @Override
     public String getID() {
-        return _id;
+        return id;
     }
 
     /**
@@ -59,7 +59,7 @@ public class RoomID implements IDomainID {
      * @return the hashcode as an int.
      */
     public int hashCode() {
-        return _id.hashCode();
+        return id.hashCode();
     }
 
     /**
@@ -68,6 +68,6 @@ public class RoomID implements IDomainID {
      * @return the ID of the room.
      */
     public String toString() {
-        return _id;
+        return id;
     }
 }

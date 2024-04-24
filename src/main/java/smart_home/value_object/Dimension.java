@@ -3,9 +3,9 @@ package smart_home.value_object;
 import smart_home.ddd.IValueObject;
 
 public class Dimension implements IValueObject {
-    private final int _width;
-    private final int _height;
-    private final int _depth;
+    private final int width;
+    private final int height;
+    private final int depth;
 
     /**
      * Constructor of the class Dimension.
@@ -18,9 +18,9 @@ public class Dimension implements IValueObject {
         validateWidth(width);
         validateHeight(height);
         validateDepth(depth);
-        this._width = width;
-        this._height = height;
-        this._depth = depth;
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
 
     }
 
@@ -28,7 +28,6 @@ public class Dimension implements IValueObject {
      * Method to set the width of the room and verifies if the value is positive.
      *
      * @param width is the width of the room.
-     * @return the width of the room.
      */
     private void validateWidth(int width) {
         if (width <= 0)
@@ -39,7 +38,6 @@ public class Dimension implements IValueObject {
      * Method to set the height of the room and verifies if the value is positive.
      *
      * @param height is the height of the room.
-     * @return the height of the room.
      */
     private void validateHeight(int height) {
         if (height <= 0)
@@ -50,7 +48,6 @@ public class Dimension implements IValueObject {
      * Method to set the depth of the room and verifies if the value is positive.
      *
      * @param depth is the depth of the room.
-     * @return the depth of the room.
      */
     private void validateDepth(int depth) {
         if (depth <= 0)
@@ -70,7 +67,8 @@ public class Dimension implements IValueObject {
 
         if (object instanceof Dimension dimension) {
 
-            return this._width == dimension._width && this._height == dimension._height && this._depth == dimension._depth;
+            return this.width == dimension.width
+                && this.height == dimension.height && this.depth == dimension.depth;
         }
         return false;
     }
@@ -80,7 +78,7 @@ public class Dimension implements IValueObject {
      */
     @Override
     public int hashCode() {
-        return Integer.hashCode(this._width) + Integer.hashCode(this._height) + Integer.hashCode(this._depth);
+        return Integer.hashCode(this.width) + Integer.hashCode(this.height) + Integer.hashCode(this.depth);
     }
 
     /**
@@ -90,30 +88,30 @@ public class Dimension implements IValueObject {
      */
     @Override
     public String toString() {
-        return "Width: " + this._width + ", Height: " + this._height + ", Depth: " + this._depth;
+        return "Width: " + this.width + ", Height: " + this.height + ", Depth: " + this.depth;
     }
 
     /**
      * Method to return the width of the room.
-     * @return
+     * @return the width of the room.
      */
     public int getWidth() {
-        return _width;
+        return width;
     }
 
     /**
      * Method to return the height of the room.
-     * @return
+     * @return the height of the room.
      */
     public int getHeight() {
-        return _height;
+        return height;
     }
 
     /**
      * Method to return the depth of the room.
-     * @return
+     * @return the depth of the room.
      */
     public int getDepth() {
-        return _depth;
+        return depth;
     }
 }

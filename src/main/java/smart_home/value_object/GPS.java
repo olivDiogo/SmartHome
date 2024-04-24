@@ -9,9 +9,9 @@ import smart_home.ddd.IValueObject;
 
 public class GPS implements IValueObject {
 
-    private final double _latitude;
+    private final double latitude;
 
-    private final double _longitude;
+    private final double longitude;
 
     /**
      * Constructs a GPS object with specified latitude and longitude after validating them.
@@ -23,8 +23,8 @@ public class GPS implements IValueObject {
     public GPS(double latitude, double longitude) {
         validationLatitude(latitude);
         validationLongitude(longitude);
-        this._latitude = latitude;
-        this._longitude = longitude;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     /**
@@ -87,7 +87,7 @@ public class GPS implements IValueObject {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object instanceof GPS gps) {
-            return this._latitude == gps._latitude && this._longitude == gps._longitude;
+            return this.latitude == gps.latitude && this.longitude == gps.longitude;
         }
         return false;
     }
@@ -97,7 +97,7 @@ public class GPS implements IValueObject {
      */
     @Override
     public int hashCode() {
-        return Double.hashCode(this._latitude) + Double.hashCode(this._longitude);
+        return Double.hashCode(this.latitude) + Double.hashCode(this.longitude);
     }
 
     /**
@@ -106,7 +106,7 @@ public class GPS implements IValueObject {
      * @return the latitude value.
      */
     public double getLatitude() {
-        return _latitude;
+        return latitude;
     }
 
     /**
@@ -115,7 +115,7 @@ public class GPS implements IValueObject {
      * @return the longitude value.
      */
     public double getLongitude() {
-        return _longitude;
+        return longitude;
     }
 
     /**
@@ -125,9 +125,8 @@ public class GPS implements IValueObject {
      */
     @Override
     public String toString() {
-        return "GPS{" +
-                "latitude=" + _latitude +
-                ", longitude=" + _longitude +
-                '}';
+        return "GPS:" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude;
     }
 }

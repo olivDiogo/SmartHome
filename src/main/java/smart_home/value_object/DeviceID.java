@@ -3,16 +3,16 @@ package smart_home.value_object;
 import smart_home.ddd.IDomainID;
 
 public class DeviceID implements IDomainID {
-    private final String _id;
+    private final String id;
 
     /**
      * Constructor for DeviceID
      *
-     * @param deviceID
+     * @param deviceID String
      */
     public DeviceID(String deviceID) {
         validateDeviceID(deviceID);
-        this._id = deviceID.trim();
+        this.id = deviceID.trim();
     }
 
     /**
@@ -31,7 +31,7 @@ public class DeviceID implements IDomainID {
      * @return id
      */
     public String getID() {
-        return _id;
+        return id;
     }
 
     /**
@@ -47,7 +47,7 @@ public class DeviceID implements IDomainID {
 
         if (o instanceof DeviceID objectDeviceID) {
 
-            return this._id.equals(objectDeviceID._id);
+            return this.id.equals(objectDeviceID.id);
         }
         return false;
     }
@@ -58,7 +58,7 @@ public class DeviceID implements IDomainID {
      * @return the hashcode as an int
      */
     public int hashCode() {
-        return _id.hashCode();
+        return id.hashCode();
     }
 
     /**
@@ -68,6 +68,6 @@ public class DeviceID implements IDomainID {
      */
     @Override
     public String toString() {
-        return _id;
+        return id;
     }
 }

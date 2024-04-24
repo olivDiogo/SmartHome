@@ -228,7 +228,7 @@ class DatePeriodTest {
     LocalDateTime startDate = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
     LocalDateTime endDate = LocalDateTime.now().plusMinutes(1).truncatedTo(ChronoUnit.MINUTES);
     DatePeriod datePeriod = new DatePeriod(startDate, endDate);
-    String expected = "DatePeriod{startDate=" + startDate + ", endDate=" + endDate + "}";
+    String expected = "DatePeriod:startDate=" + startDate + ", endDate=" + endDate;
     // Act
     String result = datePeriod.toString();
     // Assert

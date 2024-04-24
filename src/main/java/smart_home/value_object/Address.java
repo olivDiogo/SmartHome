@@ -6,19 +6,19 @@ public class Address implements IValueObject {
 
     private static final int COUNTRY_CODE_LENGTH = 2;
 
-    private final String _street;
-    private final String _doorNumber;
-    private final String _countryCode; // ISO 3166-1 alpha-2 country code
-    private final IPostalCode _postalCode;
+    private final String street;
+    private final String doorNumber;
+    private final String countryCode; // ISO 3166-1 alpha-2 country code
+    private final IPostalCode postalCode;
 
     public Address(String street, String doorNumber, String postalCode, String countryCode, PostalCodeFactory factory) {
         validateStreet(street);
         validateDoorNumber(doorNumber);
         validateCountryCode(countryCode);
-        this._street = street;
-        this._doorNumber = doorNumber;
-        this._countryCode = countryCode;
-        this._postalCode = factory.createPostalCode(postalCode, countryCode);
+        this.street = street;
+        this.doorNumber = doorNumber;
+        this.countryCode = countryCode;
+        this.postalCode = factory.createPostalCode(postalCode, countryCode);
     }
 
     /**
@@ -69,10 +69,10 @@ public class Address implements IValueObject {
 
         if (object instanceof Address address) {
 
-            return this._street.equals(address._street) &&
-                    this._doorNumber.equals(address._doorNumber) &&
-                    this._countryCode.equals(address._countryCode) &&
-                    this._postalCode.equals(address._postalCode);
+            return this.street.equals(address.street) &&
+                    this.doorNumber.equals(address.doorNumber) &&
+                    this.countryCode.equals(address.countryCode) &&
+                    this.postalCode.equals(address.postalCode);
         }
         return false;
     }
@@ -81,7 +81,7 @@ public class Address implements IValueObject {
      * hashCode method for Address.
      */
     public int hashCode() {
-        return this._street.hashCode() + this._doorNumber.hashCode() + this._countryCode.hashCode() + this._postalCode.hashCode();
+        return this.street.hashCode() + this.doorNumber.hashCode() + this.countryCode.hashCode() + this.postalCode.hashCode();
     }
 
     /**
@@ -90,7 +90,7 @@ public class Address implements IValueObject {
      * @return _street.
      */
     public String getStreet() {
-        return this._street;
+        return this.street;
     }
 
     /**
@@ -99,7 +99,7 @@ public class Address implements IValueObject {
      * @return _doorNumber.
      */
     public String getDoorNumber() {
-        return this._doorNumber;
+        return this.doorNumber;
     }
 
     /**
@@ -108,7 +108,7 @@ public class Address implements IValueObject {
      * @return _countryCode.
      */
     public String getCountryCode() {
-        return this._countryCode;
+        return this.countryCode;
     }
 
     /**
@@ -117,7 +117,7 @@ public class Address implements IValueObject {
      * @return _postalCode.
      */
     public IPostalCode getPostalCode() {
-        return this._postalCode;
+        return this.postalCode;
     }
 
     /**
@@ -126,7 +126,7 @@ public class Address implements IValueObject {
      * @return String
      */
     public String toString() {
-        return this._street + ", " + this._doorNumber;
+        return this.street + ", " + this.doorNumber;
     }
 
 

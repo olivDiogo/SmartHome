@@ -2,7 +2,7 @@ package smart_home.value_object;
 
 public class SensorModelName {
 
-    private final String _name;
+    private final String name;
 
     /**
      * Class constructor.
@@ -11,13 +11,13 @@ public class SensorModelName {
      */
     public SensorModelName(String name) {
         validateSensorModelName(name);
-        this._name = name.trim();
+        this.name = name.trim();
     }
 
     /**
      * Validates the sensor model name.
      *
-     * @param name
+     * @param name The sensor model name to validate.
      */
     private void validateSensorModelName(String name) {
         if (name == null || name.isBlank()) {
@@ -32,17 +32,17 @@ public class SensorModelName {
     /**
      * Gets the sensor model name.
      *
-     * @return
+     * @return The sensor model name.
      */
     public String getSensorModelName() {
-        return _name;
+        return name;
     }
 
     /**
      * Compares this instance with another instance.
      *
-     * @param object
-     * @return
+     * @param object The other instance to compare with.
+     * @return true if the instances are equal, false otherwise.
      */
     public boolean equals(Object object) {
         if (this == object){
@@ -51,7 +51,7 @@ public class SensorModelName {
 
         if (object instanceof SensorModelName sensorModelName) {
 
-            return this._name.equals(sensorModelName._name);
+            return this.name.equals(sensorModelName.name);
         }
         return false;
     }
@@ -61,7 +61,7 @@ public class SensorModelName {
      */
     @Override
     public int hashCode() {
-        return _name.hashCode();
+        return name.hashCode();
     }
 
 }

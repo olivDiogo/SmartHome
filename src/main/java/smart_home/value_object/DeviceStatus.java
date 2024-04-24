@@ -4,7 +4,7 @@ import smart_home.ddd.IValueObject;
 
 public class DeviceStatus implements IValueObject {
 
-    private final boolean _status;
+    private final boolean status;
 
     /**
      * Constructor of the class DeviceStatus.
@@ -12,7 +12,7 @@ public class DeviceStatus implements IValueObject {
      * @param status is the status of the device.
      */
     public DeviceStatus(boolean status) {
-        this._status = status;
+        this.status = status;
     }
 
     /**
@@ -27,7 +27,7 @@ public class DeviceStatus implements IValueObject {
             return true;
 
         if (object instanceof DeviceStatus deviceStatus) {
-            return this._status == deviceStatus._status;
+            return this.status == deviceStatus.status;
         }
         return false;
     }
@@ -38,7 +38,7 @@ public class DeviceStatus implements IValueObject {
      * @return _status.
      */
     public boolean getStatus() {
-        return _status;
+        return status;
     }
 
     /**
@@ -47,11 +47,11 @@ public class DeviceStatus implements IValueObject {
      * @return the hashcode as an int.
      */
     public int hashCode() {
-        return Boolean.hashCode(_status);
+        return Boolean.hashCode(status);
     }
 
     @Override
     public String toString() {
-        return _status ? "ON" : "OFF";
+        return status ? "ON" : "OFF";
     }
 }

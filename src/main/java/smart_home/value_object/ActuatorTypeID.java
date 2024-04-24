@@ -4,7 +4,7 @@ import smart_home.ddd.IDomainID;
 
 public class ActuatorTypeID implements IDomainID {
 
-    private final String _id;
+    private final String id;
 
     /**
      * Constructor for the ActuatorTypeID class.
@@ -13,7 +13,7 @@ public class ActuatorTypeID implements IDomainID {
      */
     public ActuatorTypeID(String actuatorTypeID) throws IllegalArgumentException {
         validationActuatorTypeID(actuatorTypeID);
-        this._id = actuatorTypeID.trim();
+        this.id = actuatorTypeID.trim();
 
     }
 
@@ -40,7 +40,7 @@ public class ActuatorTypeID implements IDomainID {
 
         if (object instanceof ActuatorTypeID actuatorTypeID) {
 
-            return this._id.equals(actuatorTypeID._id);
+            return this.id.equals(actuatorTypeID.id);
         }
         return false;
     }
@@ -52,7 +52,7 @@ public class ActuatorTypeID implements IDomainID {
      */
     @Override
     public String getID() {
-        return this._id;
+        return this.id;
     }
 
     /**
@@ -61,7 +61,7 @@ public class ActuatorTypeID implements IDomainID {
      * @return
      */
     public int hashCode() {
-        return this._id.hashCode();
+        return this.id.hashCode();
     }
 
     /**
@@ -71,7 +71,7 @@ public class ActuatorTypeID implements IDomainID {
      */
     @Override
     public String toString() {
-        return _id;
+        return id;
     }
 
 }

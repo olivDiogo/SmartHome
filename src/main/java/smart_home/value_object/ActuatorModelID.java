@@ -3,11 +3,11 @@ package smart_home.value_object;
 import smart_home.ddd.IDomainID;
 
 public class ActuatorModelID implements IDomainID {
-    private final String _actuatorModelId;
+    private final String actuatorModelId;
 
     public ActuatorModelID(String actuatorModelId) throws IllegalArgumentException {
         validationActuatorModelID(actuatorModelId);
-        this._actuatorModelId = actuatorModelId;
+        this.actuatorModelId = actuatorModelId;
     }
 
     private void validationActuatorModelID(String actuatorModelID) {
@@ -18,7 +18,7 @@ public class ActuatorModelID implements IDomainID {
 
     @Override
     public String getID() {
-        return _actuatorModelId;
+        return actuatorModelId;
     }
 
     @Override
@@ -29,13 +29,13 @@ public class ActuatorModelID implements IDomainID {
 
         if (object instanceof ActuatorModelID actuatorModelID) {
 
-            return this._actuatorModelId.equals(actuatorModelID._actuatorModelId);
+            return this.actuatorModelId.equals(actuatorModelID.actuatorModelId);
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return _actuatorModelId.hashCode();
+        return actuatorModelId.hashCode();
     }
 }

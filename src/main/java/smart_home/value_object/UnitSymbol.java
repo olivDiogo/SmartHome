@@ -4,48 +4,82 @@ import smart_home.ddd.IValueObject;
 
 public class UnitSymbol implements IValueObject {
 
-    private final String _unit;
+    private final String unit;
 
-    public UnitSymbol(String unit) {
+  /**
+   * Constructs a new UnitSymbol instance after validating the provided unit.
+   * @param unit The string representation of the unit. It must not be null, empty, or blank.
+   */
+  public UnitSymbol(String unit) {
         unitValidation(unit);
-        this._unit = unit;
+        this.unit = unit;
     }
 
+    /**
+     * Validates the given unit.
+     *
+     * @param unit The unit to validate.
+     * @throws IllegalArgumentException if the unit is null, empty, or blank.
+     */
     private void unitValidation(String unit) {
         if (unit == null || unit.trim().isEmpty() || unit.length() > 5) {
             throw new IllegalArgumentException("Invalid unit");
         }
     }
 
+    /**
+     * Retrieves the unit.
+     *
+     * @return The unit as a string.
+     */
     public String getSymbol() {
-        return _unit;
+        return unit;
     }
 
+    /**
+     * Checks if this UnitSymbol is equal to another object. Two UnitSymbol instances are
+     * considered equal if their units are equal.
+     *
+     * @param object The object to compare this instance against.
+     * @return true if the given object is an instance of UnitSymbol and has an equal unit; false
+     * otherwise.
+     */
     public boolean equals(Object object) {
         if (this == object) {
             return true;
         }
         if (object instanceof UnitSymbol unit) {
 
-            return this._unit.equals(unit._unit);
+            return this.unit.equals(unit.unit);
         }
         return false;
     }
 
-    @Override
+  /**
+   * Returns the hash code of the unit.
+   * @return The hash code of the unit.
+   */
+  @Override
     public int hashCode() {
-        return _unit.hashCode();
+        return unit.hashCode();
     }
 
-    public String getUnit() {
-        return _unit;
+  /**
+   * Getter for the unit
+   * @return The unit as a string.
+   */
+  public String getUnit() {
+        return unit;
     }
 
+    /**
+     * Returns the string representation of the unit.
+     * @return The string representation of the unit.
+     */
     @Override
     public String toString() {
-        return "Unit{" +
-                "_unit='" + _unit +
-                '}';
+        return "Unit:" +
+                " unit=" + unit;
     }
 
 }

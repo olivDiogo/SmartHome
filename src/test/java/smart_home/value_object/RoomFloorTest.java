@@ -84,7 +84,7 @@ class RoomFloorTest {
         // Arrange
         int floor = 0;
         RoomFloor roomFloor = new RoomFloor(floor);
-        String expected = "RoomFloor{_floor=0}";
+        String expected = "RoomFloor: floor=0";
         // Act
         String result = roomFloor.toString();
         // Assert

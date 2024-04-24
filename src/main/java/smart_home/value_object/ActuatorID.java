@@ -3,7 +3,7 @@ package smart_home.value_object;
 import smart_home.ddd.IDomainID;
 
 public class ActuatorID implements IDomainID {
-    private final String _id;
+    private final String id;
 
 
     /**
@@ -13,7 +13,7 @@ public class ActuatorID implements IDomainID {
      */
     public ActuatorID(String actuatorID) {
         validateId(actuatorID);
-        this._id = actuatorID;
+        this.id = actuatorID;
     }
 
     /**
@@ -40,7 +40,7 @@ public class ActuatorID implements IDomainID {
 
         if (object instanceof ActuatorID actuatorID) {
 
-            return this._id.equals(actuatorID._id);
+            return this.id.equals(actuatorID.id);
         }
         return false;
     }
@@ -52,7 +52,7 @@ public class ActuatorID implements IDomainID {
      */
     @Override
     public String getID() {
-        return this._id;
+        return this.id;
     }
 
     /**
@@ -61,7 +61,7 @@ public class ActuatorID implements IDomainID {
      * @return int.
      */
     public int hashCode() {
-        return this._id.hashCode();
+        return this.id.hashCode();
     }
 
     /**
@@ -71,6 +71,6 @@ public class ActuatorID implements IDomainID {
      */
     @Override
     public String toString() {
-        return "ActuatorID: " + this._id;
+        return "ActuatorID: " + this.id;
     }
 }

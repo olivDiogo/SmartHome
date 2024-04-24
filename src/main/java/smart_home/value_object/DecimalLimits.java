@@ -7,9 +7,9 @@ import smart_home.ddd.IValueObject;
  */
 public class DecimalLimits implements IValueObject {
 
-    private final double _lowerLimit;
+    private final double lowerLimit;
 
-    private final double _upperLimit;
+    private final double upperLimit;
 
     /**
      * Constructs a SetDecimalActuatorLimits object with the specified lower and upper limits.
@@ -20,8 +20,8 @@ public class DecimalLimits implements IValueObject {
      */
     public DecimalLimits(double lowerLimit, double upperLimit) {
         validateLimits(lowerLimit, upperLimit);
-        this._lowerLimit = lowerLimit;
-        this._upperLimit = upperLimit;
+        this.lowerLimit = lowerLimit;
+        this.upperLimit = upperLimit;
     }
 
     /**
@@ -42,7 +42,7 @@ public class DecimalLimits implements IValueObject {
      * @return The lower limit for the actuator.
      */
     public double getLowerLimit() {
-        return _lowerLimit;
+        return lowerLimit;
     }
 
     /**
@@ -51,7 +51,7 @@ public class DecimalLimits implements IValueObject {
      * @return The upper limit for the actuator.
      */
     public double getUpperLimit() {
-        return _upperLimit;
+        return upperLimit;
     }
 
     /**
@@ -61,8 +61,8 @@ public class DecimalLimits implements IValueObject {
     public boolean equals(Object o) {
         if (o instanceof DecimalLimits decimalLimits) {
             double epsilon = 0.001;
-            double value = Math.abs(_lowerLimit - decimalLimits._lowerLimit);
-            double value2 = Math.abs(_upperLimit - decimalLimits._upperLimit);
+            double value = Math.abs(lowerLimit - decimalLimits.lowerLimit);
+            double value2 = Math.abs(upperLimit - decimalLimits.upperLimit);
             return Math.min(value, epsilon) == value && Math.min(value2, epsilon) == value2;
 
         }
@@ -70,14 +70,14 @@ public class DecimalLimits implements IValueObject {
     }
     @Override
     public int hashCode() {
-        return Double.hashCode(_lowerLimit) + Double.hashCode(_upperLimit);
+        return Double.hashCode(lowerLimit) + Double.hashCode(upperLimit);
     }
 
     /**
      * Overrides the toString method to return a string representation of the SetDecimalActuatorLimits object.
      */
     public String toString() {
-        return "Lower limit: " + this._lowerLimit + ", Upper limit: " + this._upperLimit;
+        return "Lower limit: " + this.lowerLimit + ", Upper limit: " + this.upperLimit;
     }
 }
 

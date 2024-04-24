@@ -4,7 +4,7 @@ import smart_home.ddd.IDomainID;
 
 public class LogID implements IDomainID {
 
-    private  String _logID;
+    private  String logID;
 
     /**
      * Constructor for LogID
@@ -12,9 +12,13 @@ public class LogID implements IDomainID {
      */
     public LogID(String logID) {
         validateLogID(logID);
-        this._logID = logID.trim();
+        this.logID = logID.trim();
     }
 
+    /**
+     * Method to validate the LogID
+     * @param logID String
+     */
     private void validateLogID(String logID) {
         if (logID == null || logID.isBlank()) {
             throw new IllegalArgumentException("The value of 'logID' should not null, blank, or empty.");
@@ -27,7 +31,7 @@ public class LogID implements IDomainID {
      */
     @Override
     public String getID() {
-        return _logID;
+        return logID;
     }
 
     /**
@@ -43,7 +47,7 @@ public class LogID implements IDomainID {
 
         if (o instanceof LogID objectLogID) {
 
-            return this._logID.equals(objectLogID._logID);
+            return this.logID.equals(objectLogID.logID);
         }
         return false;
     }
@@ -54,7 +58,7 @@ public class LogID implements IDomainID {
      */
     @Override
     public int hashCode() {
-        return _logID.hashCode();
+        return logID.hashCode();
     }
 
     /**
@@ -63,7 +67,7 @@ public class LogID implements IDomainID {
      */
     @Override
     public String toString() {
-        return _logID;
+        return logID;
     }
 
 }
