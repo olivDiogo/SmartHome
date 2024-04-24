@@ -3,7 +3,7 @@ package smart_home.domain.actuator.blind_roller_actuator;
 import smart_home.ddd.IValueObject;
 
 public class BlindRollerValue implements IValueObject {
-    private final int _value;
+    private final int value;
 
     /**
      * Constructor for BlindRollerValue
@@ -12,13 +12,13 @@ public class BlindRollerValue implements IValueObject {
      */
     public BlindRollerValue(int value) {
         validateValue(value);
-        this._value = value;
+        this.value = value;
     }
 
     /**
      * Validates the value of the blind roller.
      *
-     * @param value
+     * @param value The value to be validated.
      */
     private void validateValue(int value) {
         if (value < 0 || value > 100) {
@@ -29,10 +29,10 @@ public class BlindRollerValue implements IValueObject {
     /**
      * Gets the value of the blind roller.
      *
-     * @return
+     * @return The value of the blind roller.
      */
     public String toString() {
-        return this._value + "";
+        return this.value + "";
     }
 
 }

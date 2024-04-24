@@ -17,12 +17,12 @@ import smart_home.visitor_pattern.IActuatorVisitor;
  */
 public class BlindRollerActuator implements IActuator {
 
-  private ActuatorID _actuatorID;
-  private final DeviceID _deviceID;
-  private final ModelPath _modelPath;
-  private final ActuatorTypeID _actuatorTypeID;
-  private final ActuatorName _actuatorName;
-  private BlindRollerValue _value;
+  private ActuatorID actuatorID;
+  private final DeviceID deviceID;
+  private final ModelPath modelPath;
+  private final ActuatorTypeID actuatorTypeID;
+  private final ActuatorName actuatorName;
+  private BlindRollerValue value;
 
   /**
    * Constructs a new BlindRollerActuator with the specified parameters.
@@ -43,10 +43,10 @@ public class BlindRollerActuator implements IActuator {
     Validator.validateNotNull(modelPath, "ModelPath");
 
     generateActuatorID();
-    this._actuatorTypeID = actuatorTypeID;
-    this._actuatorName = actuatorName;
-    this._modelPath = modelPath;
-    this._deviceID = deviceID;
+    this.actuatorTypeID = actuatorTypeID;
+    this.actuatorName = actuatorName;
+    this.modelPath = modelPath;
+    this.deviceID = deviceID;
   }
 
   /**
@@ -67,11 +67,11 @@ public class BlindRollerActuator implements IActuator {
     Validator.validateNotNull(modelPath, "ModelPath");
     Validator.validateNotNull(actuatorID, "ActuatorID");
 
-    this._deviceID = deviceID;
-    this._actuatorID = actuatorID;
-    this._actuatorTypeID = actuatorTypeID;
-    this._actuatorName = actuatorName;
-    this._modelPath = modelPath;
+    this.deviceID = deviceID;
+    this.actuatorID = actuatorID;
+    this.actuatorTypeID = actuatorTypeID;
+    this.actuatorName = actuatorName;
+    this.modelPath = modelPath;
   }
 
   /**
@@ -91,7 +91,7 @@ public class BlindRollerActuator implements IActuator {
    * Generates a unique actuator ID.
    */
   private void generateActuatorID() {
-    this._actuatorID = new ActuatorID(UUID.randomUUID().toString());
+    this.actuatorID = new ActuatorID(UUID.randomUUID().toString());
   }
 
   /**
@@ -101,7 +101,7 @@ public class BlindRollerActuator implements IActuator {
    */
   @Override
   public ActuatorID getID() {
-    return _actuatorID;
+    return actuatorID;
   }
 
   /**
@@ -111,7 +111,7 @@ public class BlindRollerActuator implements IActuator {
    */
   @Override
   public ActuatorName getName() {
-    return _actuatorName;
+    return actuatorName;
   }
 
   /**
@@ -121,7 +121,7 @@ public class BlindRollerActuator implements IActuator {
    */
   @Override
   public ModelPath getModelPath() {
-    return _modelPath;
+    return modelPath;
   }
 
   /**
@@ -131,7 +131,7 @@ public class BlindRollerActuator implements IActuator {
    */
   @Override
   public ActuatorTypeID getActuatorTypeID() {
-    return _actuatorTypeID;
+    return actuatorTypeID;
   }
 
   /**
@@ -141,7 +141,7 @@ public class BlindRollerActuator implements IActuator {
    */
   @Override
   public DeviceID getDeviceID() {
-    return _deviceID;
+    return deviceID;
   }
 
   /**
@@ -153,7 +153,7 @@ public class BlindRollerActuator implements IActuator {
   @Override
   public BlindRollerValue setValue(IValueObject value) {
     if (value instanceof BlindRollerValue newValue) {
-      this._value = newValue;
+      this.value = newValue;
       return newValue;
     } else {
       return null;
@@ -169,7 +169,7 @@ public class BlindRollerActuator implements IActuator {
   @Override
   public boolean equals(Object object) {
     if (object instanceof BlindRollerActuator actuator) {
-      return _actuatorID.equals(actuator._actuatorID);
+      return actuatorID.equals(actuator.actuatorID);
     }
     return false;
   }
@@ -179,7 +179,7 @@ public class BlindRollerActuator implements IActuator {
    */
   @Override
   public int hashCode() {
-    return _actuatorID.hashCode();
+    return actuatorID.hashCode();
   }
 
   /**
@@ -189,15 +189,11 @@ public class BlindRollerActuator implements IActuator {
    */
   @Override
   public String toString() {
-    return _actuatorID
-        + " "
-        + _deviceID
-        + " "
-        + _modelPath
-        + " "
-        + _actuatorTypeID
-        + " "
-        + _actuatorName;
+    return "BlindRollerActuator:" + "actuatorID=" + actuatorID
+        + ", deviceID=" + deviceID
+        + ", modelPath=" + modelPath
+        + ", actuatorTypeID=" + actuatorTypeID
+        + ", actuatorName=" + actuatorName;
   }
 
   /**

@@ -5,7 +5,7 @@ import smart_home.ddd.IValueObject;
 public class SwitchActuatorValue implements IValueObject {
 
 
-    private boolean _value;
+    private boolean value;
 
     /**
      * Instantiates a new Switch actuator value.
@@ -14,7 +14,7 @@ public class SwitchActuatorValue implements IValueObject {
      */
 
     public SwitchActuatorValue(boolean value) {
-        this._value = value;
+        this.value = value;
     }
 
 
@@ -24,8 +24,8 @@ public class SwitchActuatorValue implements IValueObject {
      * @return the boolean
      */
     public boolean performAction() {
-        _value = !_value;
-        return _value;
+        value = !value;
+        return value;
     }
 
 
@@ -37,7 +37,7 @@ public class SwitchActuatorValue implements IValueObject {
 
     @Override
     public String toString() {
-        return _value ? "On" : "Off";
+        return value ? "On" : "Off";
     }
 
     /**
@@ -48,7 +48,7 @@ public class SwitchActuatorValue implements IValueObject {
     @Override
     public boolean equals (Object o ) {
         if (o instanceof SwitchActuatorValue switchActuatorValue) {
-            return switchActuatorValue._value == this._value;
+            return switchActuatorValue.value == this.value;
         }
         return false;
     }
@@ -60,7 +60,7 @@ public class SwitchActuatorValue implements IValueObject {
     @Override
     public int hashCode() {
 
-        return Boolean.hashCode(this._value);
+        return Boolean.hashCode(this.value);
     }
 
 }

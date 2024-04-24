@@ -13,12 +13,12 @@ import smart_home.visitor_pattern.IActuatorVisitor;
 
 public class SwitchActuator implements IActuator {
 
-  private final DeviceID _deviceID;
-  private final ActuatorName _actuatorName;
-  private final ModelPath _modelPath;
-  private final ActuatorTypeID _actuatorTypeID;
-    private ActuatorID _actuatorID;
-    private SwitchActuatorValue _value;
+  private final DeviceID deviceID;
+  private final ActuatorName actuatorName;
+  private final ModelPath modelPath;
+  private final ActuatorTypeID actuatorTypeID;
+    private ActuatorID actuatorID;
+    private SwitchActuatorValue value;
 
     /**
      * Instantiates a new Switch actuator.
@@ -36,10 +36,10 @@ public class SwitchActuator implements IActuator {
         validateActuatorTypeID(actuatorTypeID);
 
         generateActuatorID();
-        this._actuatorTypeID = actuatorTypeID;
-        this._actuatorName = actuatorName;
-        this._modelPath = modelPath;
-        this._deviceID = deviceID;
+        this.actuatorTypeID = actuatorTypeID;
+        this.actuatorName = actuatorName;
+        this.modelPath = modelPath;
+        this.deviceID = deviceID;
     }
 
     /**
@@ -59,18 +59,18 @@ public class SwitchActuator implements IActuator {
         validateActuatorTypeID(actuatorTypeID);
         Validator.validateNotNull(actuatorID, "ActuatorID");
 
-        this._actuatorTypeID = actuatorTypeID;
-        this._actuatorName = actuatorName;
-        this._modelPath = modelPath;
-        this._deviceID = deviceID;
-        this._actuatorID = actuatorID;
+        this.actuatorTypeID = actuatorTypeID;
+        this.actuatorName = actuatorName;
+        this.modelPath = modelPath;
+        this.deviceID = deviceID;
+        this.actuatorID = actuatorID;
     }
 
     /**
      * generate actuator id
      */
     private void generateActuatorID() {
-        this._actuatorID = new ActuatorID(UUID.randomUUID().toString());
+        this.actuatorID = new ActuatorID(UUID.randomUUID().toString());
     }
 
 
@@ -94,7 +94,7 @@ public class SwitchActuator implements IActuator {
      */
     @Override
     public ActuatorID getID() {
-        return _actuatorID;
+        return actuatorID;
     }
 
     /**
@@ -105,7 +105,7 @@ public class SwitchActuator implements IActuator {
 
     @Override
     public ActuatorName getName() {
-        return _actuatorName;
+        return actuatorName;
     }
 
     /**
@@ -116,7 +116,7 @@ public class SwitchActuator implements IActuator {
 
     @Override
     public ModelPath getModelPath() {
-        return _modelPath;
+        return modelPath;
     }
 
     /**
@@ -126,7 +126,7 @@ public class SwitchActuator implements IActuator {
      */
     @Override
     public ActuatorTypeID getActuatorTypeID() {
-        return _actuatorTypeID;
+        return actuatorTypeID;
     }
 
     /**
@@ -136,7 +136,7 @@ public class SwitchActuator implements IActuator {
      */
     @Override
     public DeviceID getDeviceID() {
-        return _deviceID;
+        return deviceID;
     }
 
     /**
@@ -150,7 +150,7 @@ public class SwitchActuator implements IActuator {
         if (value == null)
             throw new IllegalArgumentException("The value of 'value' should not be null.");
         else if (value instanceof SwitchActuatorValue) {
-            this._value = (SwitchActuatorValue) value;
+            this.value = (SwitchActuatorValue) value;
             return value;
         }
         return null;
@@ -163,7 +163,8 @@ public class SwitchActuator implements IActuator {
      */
     @Override
     public String toString() {
-        return "SwitchActuator: DeviceID=" + _deviceID + ", ActuatorName=" + _actuatorName + ", ModelPath=" + _modelPath + ", ActuatorTypeID=" + _actuatorTypeID + ", ActuatorID=" + _actuatorID + ", Value=" + _value;
+        return "SwitchActuator: DeviceID=" + deviceID + ", ActuatorName=" + actuatorName + ", ModelPath=" + modelPath
+            + ", ActuatorTypeID=" + actuatorTypeID + ", ActuatorID=" + actuatorID + ", Value=" + value;
     }
 
     /**
@@ -175,7 +176,7 @@ public class SwitchActuator implements IActuator {
     @Override
     public boolean equals(Object object) {
         if (object instanceof SwitchActuator switchActuator) {
-          return switchActuator._deviceID.equals(this._deviceID);
+          return switchActuator.deviceID.equals(this.deviceID);
         }
         return false;
     }
@@ -187,7 +188,7 @@ public class SwitchActuator implements IActuator {
      */
     @Override
     public int hashCode() {
-        return this._actuatorID.hashCode();
+        return this.actuatorID.hashCode();
     }
 
     /**

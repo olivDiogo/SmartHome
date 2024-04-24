@@ -3,7 +3,7 @@ package smart_home.domain.actuator.set_integer_actuator;
 import smart_home.ddd.IValueObject;
 
 public class SetIntegerValue implements IValueObject {
-    private final int _value;
+    private final int value;
 
     /**
      * Constructor for SetIntegerValue
@@ -11,7 +11,7 @@ public class SetIntegerValue implements IValueObject {
      * @param value
      */
     public SetIntegerValue(int value) {
-        this._value = value;
+        this.value = value;
     }
 
     /**
@@ -22,22 +22,22 @@ public class SetIntegerValue implements IValueObject {
     @Override
     public boolean equals(Object o) {
         if (o instanceof SetIntegerValue objectSetIntegerValue) {
-            return _value == objectSetIntegerValue._value;
+            return value == objectSetIntegerValue.value;
         }
         return false;
     }
     @Override
     public int hashCode() {
-        return Integer.hashCode(_value);
+        return Integer.hashCode(value);
     }
 
     /**
      * Returns the value of the integer actuator as a string.
      *
-     * @return
+     * @return the value of the integer actuator as a string
      */
     @Override
     public String toString() {
-        return _value + "";
+        return value + "";
     }
 }

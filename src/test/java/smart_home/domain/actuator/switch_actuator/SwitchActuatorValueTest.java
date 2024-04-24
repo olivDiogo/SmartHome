@@ -143,4 +143,5 @@ class SwitchActuatorValueTest {
         // Assert
         assertEquals(hashCode1, hashCode2);
     }
+
 }

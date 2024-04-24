@@ -517,7 +517,7 @@ class BlindRollerActuatorTest {
             BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceID, modelPath, actuatorTypeID, actuatorName);
             blindRollerActuator.setValue(switchActuatorValue);
 
-            String expectedString = "123 123 modelPath BlindRoller BlindRoller Actuator";
+            String expectedString = "BlindRollerActuator:actuatorID=123, deviceID=123, modelPath=modelPath, actuatorTypeID=BlindRoller, actuatorName=BlindRoller Actuator";
 
             //Act
             String result = blindRollerActuator.toString();

@@ -11,12 +11,12 @@ import java.util.UUID;
 
 public class TemperatureSensor implements ISensor {
 
-    private ModelPath _modelPath;
-    private SensorName _sensorName;
-    private SensorID _sensorID;
-    private SensorTypeID _sensorTypeID;
-    private TemperatureSensorValue _temperatureValue;
-    private DeviceID _deviceID;
+    private ModelPath modelPath;
+    private SensorName sensorName;
+    private SensorID sensorID;
+    private SensorTypeID sensorTypeID;
+    private TemperatureSensorValue temperatureSensorValue;
+    private DeviceID deviceID;
 
     /**
      * Constructor of the class.
@@ -28,13 +28,13 @@ public class TemperatureSensor implements ISensor {
      */
     public TemperatureSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         Validator.validateNotNull(modelPath, "ModelPath");
-        this._modelPath = modelPath;
+        this.modelPath = modelPath;
         Validator.validateNotNull(sensorName, "SensorName");
-        this._sensorName = sensorName;
+        this.sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
+        this.sensorTypeID = sensorTypeID;
         Validator.validateNotNull(deviceID, "DeviceID");
-        this._deviceID = deviceID;
+        this.deviceID = deviceID;
 
         generateTemperatureID();
     }
@@ -50,22 +50,22 @@ public class TemperatureSensor implements ISensor {
      */
     public TemperatureSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
         Validator.validateNotNull(modelPath, "ModelPath");
-        this._modelPath = modelPath;
+        this.modelPath = modelPath;
         Validator.validateNotNull(sensorName, "SensorName");
-        this._sensorName = sensorName;
+        this.sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
+        this.sensorTypeID = sensorTypeID;
         Validator.validateNotNull(deviceID, "DeviceID");
-        this._deviceID = deviceID;
+        this.deviceID = deviceID;
         Validator.validateNotNull(sensorID, "SensorID");
-        this._sensorID = sensorID;
+        this.sensorID = sensorID;
     }
 
     /**
      * Generates a new TemperatureID.
      */
     private void generateTemperatureID() {
-        this._sensorID = new SensorID(UUID.randomUUID().toString());
+        this.sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
 
@@ -91,7 +91,7 @@ public class TemperatureSensor implements ISensor {
      */
     @Override
     public SensorID getID() {
-        return _sensorID;
+        return sensorID;
     }
 
     /**
@@ -101,7 +101,7 @@ public class TemperatureSensor implements ISensor {
      */
     @Override
     public SensorName getName() {
-        return _sensorName;
+        return sensorName;
     }
 
     /**
@@ -111,7 +111,7 @@ public class TemperatureSensor implements ISensor {
      */
     @Override
     public ModelPath getModelPath() {
-        return _modelPath;
+        return modelPath;
     }
 
     /**
@@ -121,7 +121,7 @@ public class TemperatureSensor implements ISensor {
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return _sensorTypeID;
+        return sensorTypeID;
     }
 
     /**
@@ -133,9 +133,9 @@ public class TemperatureSensor implements ISensor {
     public TemperatureSensorValue getValue() {
         // Generate a random temperature as a simulation of hardware behavior
         double temperatureReading = ValueSimulator.generateRandomValue(-50.0, 50.0);
-        this._temperatureValue = new TemperatureSensorValue(temperatureReading);
+        this.temperatureSensorValue = new TemperatureSensorValue(temperatureReading);
 
-        return _temperatureValue;
+        return temperatureSensorValue;
     }
 
     /**
@@ -145,47 +145,47 @@ public class TemperatureSensor implements ISensor {
      */
     @Override
     public DeviceID getDeviceID() {
-        return _deviceID;
+        return deviceID;
     }
 
     /**
      * Checks if the object is equal to the current instance.
      *
      * @param o is the object to be compared.
-     * @return
+     * @return true if the object is equal to the current instance, false otherwise.
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TemperatureSensor)) return false;
         TemperatureSensor that = (TemperatureSensor) o;
-        return Objects.equals(_sensorID, that._sensorID);
+        return Objects.equals(sensorID, that.sensorID);
     }
 
     /**
      * Returns the hash code of the sensor ID.
      *
-     * @return
+     * @return The hash code of the sensor ID.
      */
     @Override
     public int hashCode() {
-        return _sensorID.hashCode();
+        return sensorID.hashCode();
     }
 
     /**
      * Returns the string representation of the sensor.
      *
-     * @return
+     * @return The string representation of the sensor.
      */
     @Override
     public String toString() {
         return "TemperatureSensor:" +
-                " modelPath=" + _modelPath +
-                ", sensorName=" + _sensorName +
-                ", sensorID=" + _sensorID +
-                ", sensorTypeID=" + _sensorTypeID +
-                ", temperatureValue=" + _temperatureValue +
-                ", deviceID=" + _deviceID;
+                " modelPath=" + modelPath +
+                ", sensorName=" + sensorName +
+                ", sensorID=" + sensorID +
+                ", sensorTypeID=" + sensorTypeID +
+                ", temperatureValue=" + temperatureSensorValue +
+                ", deviceID=" + deviceID;
     }
     public String accept(ISensorVisitor visitor) {
         visitor.visitTemperatureSensor(this);

@@ -648,7 +648,7 @@ class BlindRollerActuatorAggregateTest {
 
         BlindRollerActuator blindRollerActuator = new BlindRollerActuator(deviceIDObject, modelPathObject, actuatorTypeIDObject, actuatorNameObject);
 
-        String expected = blindRollerActuator.getID() + " " + blindRollerActuator.getDeviceID() + " " + blindRollerActuator.getModelPath() + " " + blindRollerActuator.getActuatorTypeID() + " " + blindRollerActuator.getName();
+        String expected = "BlindRollerActuator:" + "actuatorID=" + blindRollerActuator.getID() + ", deviceID=" + blindRollerActuator.getDeviceID() + ", modelPath=" + blindRollerActuator.getModelPath() + ", actuatorTypeID=" + blindRollerActuator.getActuatorTypeID() + ", actuatorName=" + blindRollerActuator.getName();
 
         //Act
         String result = blindRollerActuator.toString();

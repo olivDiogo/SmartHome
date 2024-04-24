@@ -7,7 +7,7 @@ import smart_home.ddd.IValueObject;
  */
 public class SetDecimalValue implements IValueObject {
 
-    private final double _value;
+    private final double value;
 
     /**
      * Constructs a SetDecimalValue object with the specified decimal value.
@@ -15,7 +15,7 @@ public class SetDecimalValue implements IValueObject {
      * @param value The decimal value to be set.
      */
     public SetDecimalValue(double value) {
-        this._value = value;
+        this.value = value;
     }
 
     /**
@@ -24,7 +24,7 @@ public class SetDecimalValue implements IValueObject {
      * @return The decimal value.
      */
     public double getValue() {
-        return _value;
+        return value;
     }
 
     /**
@@ -34,7 +34,7 @@ public class SetDecimalValue implements IValueObject {
      */
     @Override
     public String toString() {
-        return Double.toString(_value);
+        return Double.toString(value);
     }
 
     /**
@@ -44,7 +44,7 @@ public class SetDecimalValue implements IValueObject {
     public boolean equals(Object o) {
         if (o instanceof SetDecimalValue setDecimalValue) {
             double epsilon = 0.001;
-            return Math.abs(_value - setDecimalValue._value) < epsilon;
+            return Math.abs(value - setDecimalValue.value) < epsilon;
         }
         return false;
     }
@@ -54,7 +54,7 @@ public class SetDecimalValue implements IValueObject {
      */
     @Override
     public int hashCode() {
-        return Double.hashCode(_value);
+        return Double.hashCode(value);
     }
 }
 

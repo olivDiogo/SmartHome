@@ -3,36 +3,36 @@ package smart_home.domain.sensor.wind_sensor;
 import smart_home.ddd.IValueObject;
 
 public class WindSensorValue implements IValueObject {
-    private final double _speed;
-    private final double _direction;
+    private final double speed;
+    private final double direction;
 
     /**
      * Constructor of the class.
      *
-     * @param speed
-     * @param direction
+     * @param speed The speed of the wind.
+     * @param direction The direction of the wind.
      */
     public WindSensorValue(double speed, double direction) {
-        this._speed = speed;
-        this._direction = direction;
+        this.speed = speed;
+        this.direction = direction;
     }
 
     /**
      * Method to get the value of the speed.
      *
-     * @return
+     * @return The speed of the wind.
      */
     public double getSpeed() {
-        return this._speed;
+        return this.speed;
     }
 
     /**
      * Method to get the value of the direction.
      *
-     * @return
+     * @return The direction of the wind.
      */
     public double getDirection() {
-        return this._direction;
+        return this.direction;
     }
 
     /**
@@ -45,13 +45,13 @@ public class WindSensorValue implements IValueObject {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof WindSensorValue other) {
-            return this._speed == other._speed && this._direction == other._direction;
+            return this.speed == other.speed && this.direction == other.direction;
         }
         return false;
     }
     @Override
     public int hashCode() {
-        return Double.hashCode(_speed) + Double.hashCode(_direction);
+        return Double.hashCode(speed) + Double.hashCode(direction);
     }
 
 }

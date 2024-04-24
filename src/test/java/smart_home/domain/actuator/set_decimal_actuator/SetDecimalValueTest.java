@@ -79,8 +79,8 @@ class SetDecimalValueTest {
     @Test
     void shouldReturnFalseWhenComparingDifferentSetDecimalValueObjects() {
         // Arrange
-        double value1 = 1.5;
-        double value2 = 2.5;
+        double value1 = 0.001;
+        double value2 = 0.002;
         SetDecimalValue setDecimalValue1 = new SetDecimalValue(value1);
         SetDecimalValue setDecimalValue2 = new SetDecimalValue(value2);
 

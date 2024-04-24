@@ -10,12 +10,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class WindSensor implements ISensor {
-    private ModelPath _modelPath;
-    private SensorName _sensorName;
-    private SensorID _sensorID;
-    private SensorTypeID _sensorTypeID;
-    private WindSensorValue _windSensorValue;
-    private DeviceID _deviceID;
+    private ModelPath modelPath;
+    private SensorName sensorName;
+    private SensorID sensorID;
+    private SensorTypeID sensorTypeID;
+    private WindSensorValue windSensorValue;
+    private DeviceID deviceID;
 
     public WindSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         Validator.validateNotNull(deviceID, "DeviceID");
@@ -25,10 +25,10 @@ public class WindSensor implements ISensor {
 
         generateWindID();
 
-        this._modelPath = modelPath;
-        this._sensorName = sensorName;
-        this._sensorTypeID = sensorTypeID;
-        this._deviceID = deviceID;
+        this.modelPath = modelPath;
+        this.sensorName = sensorName;
+        this.sensorTypeID = sensorTypeID;
+        this.deviceID = deviceID;
     }
 
     /**
@@ -47,11 +47,11 @@ public class WindSensor implements ISensor {
         validateSensorTypeID(sensorTypeID);
         Validator.validateNotNull(sensorID, "SensorID");
 
-        this._modelPath = modelPath;
-        this._sensorName = sensorName;
-        this._sensorTypeID = sensorTypeID;
-        this._deviceID = deviceID;
-        this._sensorID = sensorID;
+        this.modelPath = modelPath;
+        this.sensorName = sensorName;
+        this.sensorTypeID = sensorTypeID;
+        this.deviceID = deviceID;
+        this.sensorID = sensorID;
     }
 
 
@@ -59,7 +59,7 @@ public class WindSensor implements ISensor {
      * Generates a new sensor id.
      */
     private void generateWindID() {
-        this._sensorID = new SensorID(UUID.randomUUID().toString());
+        this.sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
     /**
@@ -84,7 +84,7 @@ public class WindSensor implements ISensor {
      */
     @Override
     public SensorID getID() {
-        return this._sensorID;
+        return this.sensorID;
     }
 
     /**
@@ -94,7 +94,7 @@ public class WindSensor implements ISensor {
      */
     @Override
     public SensorName getName() {
-        return this._sensorName;
+        return this.sensorName;
     }
 
     /**
@@ -104,7 +104,7 @@ public class WindSensor implements ISensor {
      */
     @Override
     public ModelPath getModelPath() {
-        return this._modelPath;
+        return this.modelPath;
     }
 
     /**
@@ -114,7 +114,7 @@ public class WindSensor implements ISensor {
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return this._sensorTypeID;
+        return this.sensorTypeID;
     }
 
     /**
@@ -124,7 +124,7 @@ public class WindSensor implements ISensor {
      */
     @Override
     public DeviceID getDeviceID() {
-        return _deviceID;
+        return deviceID;
     }
 
     /**
@@ -136,8 +136,8 @@ public class WindSensor implements ISensor {
     public WindSensorValue getValue() {
         int speed = ValueSimulator.generateRandomValue(0, 408);
         double direction = ValueSimulator.generateRandomValue(0.0, 2 * Math.PI);
-        this._windSensorValue = new WindSensorValue(speed, direction);
-        return _windSensorValue;
+        this.windSensorValue = new WindSensorValue(speed, direction);
+        return windSensorValue;
     }
 
     /**
@@ -149,7 +149,7 @@ public class WindSensor implements ISensor {
     @Override
     public boolean equals(Object o) {
         if (o instanceof WindSensor windSensor) {
-            return _sensorID.equals(windSensor._sensorID);
+            return sensorID.equals(windSensor.sensorID);
         }
         return false;
     }
@@ -161,7 +161,7 @@ public class WindSensor implements ISensor {
      */
     @Override
     public int hashCode() {
-        return _sensorID.hashCode();
+        return sensorID.hashCode();
     }
 
     /**
@@ -171,7 +171,7 @@ public class WindSensor implements ISensor {
      */
     @Override
     public String toString() {
-        return "WindSensor: DeviceID= " + _deviceID.getID() + " ModelPath= " + _modelPath.getID() + " SensorTypeID= " + _sensorTypeID.getID() + " SensorName= " + _sensorName.getSensorName() + " SensorID= " + _sensorID.getID();
+        return "WindSensor: DeviceID= " + deviceID.getID() + " ModelPath= " + modelPath.getID() + " SensorTypeID= " + sensorTypeID.getID() + " SensorName= " + sensorName.getSensorName() + " SensorID= " + sensorID.getID();
     }
 
     /**
