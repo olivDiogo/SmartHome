@@ -643,12 +643,13 @@ class LogAggregateTest {
     SensorTypeID description = new SensorTypeID("temperature");
     UnitID unit = new UnitID("C");
     Log log = new Log(logID, deviceID, sensorID, localDateTime, value, description, unit);
+    int expected = logID.hashCode();
 
     // Act
     int result = log.hashCode();
 
     // Assert
-    assertNotNull(result);
+    assertEquals(expected, result);
   }
 
   /**

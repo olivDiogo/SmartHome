@@ -26,22 +26,17 @@ import java.util.Optional;
 public class GetLogFromDeviceController {
     private ILogService _logService;
     private IDeviceService _deviceService;
-    private ILogRepository _logRepository;
-    private IDeviceRepository _deviceRepository;
     private IAssembler<Log, LogDTO> _logAssembler;
     private IRoomService _roomService;
     private IAssembler<Room, RoomDTO> _roomAssembler;
     private IAssembler<Device, DeviceDTO> _deviceAssembler;
 
-    public GetLogFromDeviceController(ILogService logService, IDeviceService deviceService, ILogRepository logRepository, IDeviceRepository deviceRepository, IAssembler<Log, LogDTO> logAssembler, IRoomService roomService, IAssembler<Room, RoomDTO> roomAssembler, IAssembler<Device, DeviceDTO> deviceAssembler) {
+    public GetLogFromDeviceController(ILogService logService, IDeviceService deviceService,
+        IAssembler<Log, LogDTO> logAssembler, IRoomService roomService, IAssembler<Room, RoomDTO> roomAssembler, IAssembler<Device, DeviceDTO> deviceAssembler) {
         Validate.notNull(logService, "Log Service is required");
         _logService = logService;
         Validate.notNull(deviceService, "Device Service is required");
         _deviceService = deviceService;
-        Validate.notNull(logRepository, "Log Repository is required");
-        _logRepository = logRepository;
-        Validate.notNull(deviceRepository, "Device Repository is required");
-        _deviceRepository = deviceRepository;
         Validate.notNull(logAssembler, "Log Assembler is required");
         _logAssembler = logAssembler;
         Validate.notNull(roomService, "Room Service is required");
@@ -50,39 +45,6 @@ public class GetLogFromDeviceController {
         _roomAssembler = roomAssembler;
         Validate.notNull(deviceAssembler, "Device Assembler is required");
         _deviceAssembler = deviceAssembler;
-    }
-
-    /**
-     * Gets all rooms.
-     *
-     * @return a list of rooms.
-     */
-    public List<RoomDTO> getRooms() {
-        List<Room> rooms = _roomService.getAllRooms();
-
-        List<RoomDTO> roomDTOList = _roomAssembler.domainToDTO(rooms);
-
-        return List.copyOf(roomDTOList);
-    }
-
-    /**
-     * Gets all devices from a room.
-     *
-     * @param roomDTO is the room to get the devices from.
-     * @return a list of devices.
-     */
-    public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
-        RoomID roomID = new RoomID(roomDTO.roomId);
-
-        if (!_roomService.getRoomById(roomID).isPresent()) {
-            throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
-        }
-
-        List<Device> devices = _deviceService.getDevicesByRoomId(roomID);
-
-        List<DeviceDTO> deviceDTOList = _deviceAssembler.domainToDTO(devices);
-
-        return List.copyOf(deviceDTOList);
     }
 
     public List<LogDTO> getLogFromDevice(LogDataDTO logDataDTO) {
