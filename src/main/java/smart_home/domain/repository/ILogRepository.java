@@ -30,6 +30,6 @@ public interface ILogRepository extends IRepository<LogID, Log> {
    * @param period DatePeriod object
    * @return List of Log
    */
-  List<Log> findByDeviceIDAndSensorTypeAndDatePeriod(DeviceID deviceID, SensorTypeID sensorTypeID, DatePeriod period);
+  List<Log> findByDeviceIDAndSensorTypeAndDatePeriodBetween(DeviceID deviceID, SensorTypeID sensorTypeID, DatePeriod period);
 
 }

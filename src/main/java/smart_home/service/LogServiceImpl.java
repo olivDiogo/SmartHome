@@ -51,7 +51,7 @@ public class LogServiceImpl implements ILogService {
   @Override
   public List<Log> getDeviceReadingsBySensorTypeAndTimePeriod(DeviceID deviceID,
       SensorTypeID sensorTypeID, DatePeriod period) {
-    return logRepository.findByDeviceIDAndSensorTypeAndDatePeriod(deviceID, sensorTypeID, period);
+    return logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID, period);
   }
 
 }

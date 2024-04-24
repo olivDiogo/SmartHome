@@ -114,7 +114,7 @@ class LogServiceImplTest {
     List<Log> expectedLogs = List.of(log, log2);
 
     ILogRepository logRepository = mock(ILogRepository.class);
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriod(deviceID, sensorTypeID, period))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID, period))
         .thenReturn(expectedLogs);
 
     LogServiceImpl logService = new LogServiceImpl(logRepository);

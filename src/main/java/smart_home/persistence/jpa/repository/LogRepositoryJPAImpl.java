@@ -124,7 +124,7 @@ public class LogRepositoryJPAImpl implements ILogRepository {
   }
 
   /**
-   * Method to find logs by device ID
+   * Method to find logs by device ID and time period
    *
    * @param deviceID DeviceID object
    * @param period DatePeriod object
@@ -150,9 +150,33 @@ public class LogRepositoryJPAImpl implements ILogRepository {
     }
   }
 
+  /**
+   * Method to find logs by device ID, sensor type and time period
+   *
+   * @param deviceID DeviceID object
+   * @param sensorTypeID SensorTypeID object
+   * @param period DatePeriod object
+   * @return List<Log>
+   */
   @Override
-  public List<Log> findByDeviceIDAndSensorTypeAndDatePeriod(DeviceID deviceID,
+  public List<Log> findByDeviceIDAndSensorTypeAndDatePeriodBetween(DeviceID deviceID,
       SensorTypeID sensorTypeID, DatePeriod period) {
-    return null;
+    EntityManager em = getEntityManager();
+    try {
+      Query query =
+          em.createQuery(
+              "SELECT e FROM LogDataModel e WHERE e._deviceID = :deviceID AND e._description = :sensorTypeID AND e._timestamp BETWEEN :start AND :end");
+      query.setParameter("deviceID", deviceID.getID());
+      query.setParameter("sensorTypeID", sensorTypeID.getID());
+      query.setParameter("start", period.getStartDate());
+      query.setParameter("end", period.getEndDate());
+
+      List<LogDataModel> logDataModels = query.getResultList();
+      List<Log> logs = dataModelAssembler.toDomain(logDataModels);
+
+      return logs;
+    } finally {
+      em.close();
+    }
   }
 }

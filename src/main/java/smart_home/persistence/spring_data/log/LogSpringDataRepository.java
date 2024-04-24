@@ -16,7 +16,6 @@ import smart_home.value_object.SensorTypeID;
 public class LogSpringDataRepository implements ILogRepository {
 
   ILogSpringDataRepository repository;
-  EntityManagerFactory factory;
   IDataModelAssembler<LogDataModel, Log> assembler;
 
   /**
@@ -105,9 +104,20 @@ public class LogSpringDataRepository implements ILogRepository {
     return assembler.toDomain(models);
   }
 
+  /**
+   * Method to find logs by device ID, sensor type and time period
+   *
+   * @param deviceID DeviceID object
+   * @param sensorTypeID SensorTypeID object
+   * @param period DatePeriod object
+   * @return List of Log
+   */
   @Override
-  public List<Log> findByDeviceIDAndSensorTypeAndDatePeriod(DeviceID deviceID,
+  public List<Log> findByDeviceIDAndSensorTypeAndDatePeriodBetween(DeviceID deviceID,
       SensorTypeID sensorTypeID, DatePeriod period) {
-    return null;
+    List<LogDataModel> models =
+        repository.findByDeviceIDAndSensorTypeIDAndTimestampBetween(
+            deviceID, sensorTypeID, period.getStartDate(), period.getEndDate());
+    return assembler.toDomain(models);
   }
 }

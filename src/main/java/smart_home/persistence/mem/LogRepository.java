@@ -97,7 +97,7 @@ public class LogRepository implements ILogRepository {
    * @return List of Log
    */
   @Override
-    public List<Log> findByDeviceIDAndSensorTypeAndDatePeriod(DeviceID deviceID, SensorTypeID sensorTypeID, DatePeriod period) {
+    public List<Log> findByDeviceIDAndSensorTypeAndDatePeriodBetween(DeviceID deviceID, SensorTypeID sensorTypeID, DatePeriod period) {
       return DATA.values().stream()
           .filter(log -> log.getDeviceID().getID().equals(deviceID.getID()))
           .filter(log -> log.getDescription().getID().equals(sensorTypeID.getID()))

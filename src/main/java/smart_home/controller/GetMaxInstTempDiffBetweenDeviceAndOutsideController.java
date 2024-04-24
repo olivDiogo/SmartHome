@@ -78,8 +78,8 @@ public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
 
         if (diffInMinutes < 5) {
           int temperatureDifference =
-              Math.abs(Integer.valueOf(insideReadings.get(i).getReadingValue().getReadingValue())
-                  - Integer.valueOf(outsideReadings.get(j).getReadingValue().getReadingValue()));
+              Math.abs(Integer.parseInt(insideReadings.get(i).getReadingValue().getReadingValue())
+                  - Integer.parseInt(outsideReadings.get(j).getReadingValue().getReadingValue()));
           temperatureDifferences.add(temperatureDifference);
         }
       }
