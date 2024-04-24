@@ -52,7 +52,7 @@ class ActuatorModelTest {
     ModelPath modelPath = mock(ModelPath.class);
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
-    String expectedMessage = "Please enter a valid actuator model name.";
+    String expectedMessage = "ActuatorModelName is required";
     // Act
     IllegalArgumentException exception =
         assertThrows(
@@ -69,7 +69,7 @@ class ActuatorModelTest {
     ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
     ModelPath modelPath = null;
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
-    String expectedMessage = "Please enter a valid model path.";
+    String expectedMessage = "ModelPath is required";
     // Act
     IllegalArgumentException exception =
         assertThrows(
@@ -86,7 +86,7 @@ class ActuatorModelTest {
     ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
     ModelPath modelPath = mock(ModelPath.class);
     ActuatorTypeID actuatorTypeID = null;
-    String expectedMessage = "Please enter a valid actuator type ID.";
+    String expectedMessage = "ActuatorTypeID is required";
     IllegalArgumentException exception =
         assertThrows(
             IllegalArgumentException.class,
@@ -104,7 +104,7 @@ class ActuatorModelTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
     ActuatorModelID actuatorModelID = null;
 
-    String expectedMessage = "Please enter a valid actuator model ID.";
+    String expectedMessage = "ActuatorModelID is required";
     // Act
     IllegalArgumentException exception =
         assertThrows(

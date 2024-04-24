@@ -60,7 +60,7 @@ class DeviceTypeTest {
         // Arrange
         TypeDescription deviceTypeDescription = null;
 
-        String expectedMessage = "Device type description cannot be null.";
+        String expectedMessage = "DeviceTypeDescription is required";
 
         try (MockedConstruction<DeviceTypeID> deviceTypeIdMocked = mockConstruction(DeviceTypeID.class, (mock, context) -> {
             when(mock.getID()).thenReturn("123");

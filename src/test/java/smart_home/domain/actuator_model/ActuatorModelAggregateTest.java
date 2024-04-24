@@ -35,7 +35,7 @@ class ActuatorModelAggregateTest {
         ModelPath modelPath = new ModelPath("SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator");
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
 
-        String expectedMessage = "Please enter a valid actuator model name.";
+        String expectedMessage = "ActuatorModelName is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID));
         //Assert
@@ -51,7 +51,7 @@ class ActuatorModelAggregateTest {
         ActuatorModelName actuatorModelName = new ActuatorModelName("Blind Roller");
         ModelPath modelPath = null;
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID("BlindRoller");
-        String expectedMessage = "Please enter a valid model path.";
+        String expectedMessage = "ModelPath is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID));
         //Assert
