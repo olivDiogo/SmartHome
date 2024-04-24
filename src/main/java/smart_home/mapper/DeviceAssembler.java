@@ -36,7 +36,7 @@ public class DeviceAssembler implements IAssembler<Device, DeviceDTO> {
      */
     @Override
     public List<DeviceDTO> domainToDTO(List<Device> domainEntities) {
-        if (domainEntities == null || domainEntities.isEmpty() || domainEntities.contains(null)) {
+        if (domainEntities == null || domainEntities.isEmpty()) {
             throw new IllegalArgumentException("The list of Devices cannot be null or empty.");
         }
         return domainEntities.stream().map(this::domainToDTO).toList();

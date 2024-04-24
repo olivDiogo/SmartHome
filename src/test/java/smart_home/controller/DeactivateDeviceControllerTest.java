@@ -1,6 +1,16 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+import smart_home.ddd.IAssembler;
+import smart_home.domain.device.IDeviceFactory;
+import smart_home.domain.house.IHouseFactory;
+import smart_home.domain.repository.IDeviceRepository;
+import smart_home.domain.repository.IHouseRepository;
+import smart_home.domain.repository.IRoomRepository;
+import smart_home.domain.room.IRoomFactory;
+import smart_home.domain.service.IDeviceService;
+import smart_home.domain.service.IRoomService;
+import smart_home.dto.RoomDTO;
 import smart_home.mapper.DeviceAssembler;
 import smart_home.mapper.RoomAssembler;
 import smart_home.domain.device.Device;
@@ -32,12 +42,11 @@ class DeactivateDeviceControllerTest {
     @Test
     void shouldReturnNotNull_WhenUS08DeactivateDeviceIsConstructed() {
         // Arrange
-        DeactivateDeviceController deactivateDeviceController;
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-        RoomRepository roomRepository = new RoomRepository();
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
+        IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+        IDeviceFactory deviceFactory = new DeviceFactoryImpl();
+        IRoomRepository roomRepository = mock(IRoomRepository.class);
+        IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+        IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
         // Act
         DeactivateDeviceController result = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
@@ -52,12 +61,7 @@ class DeactivateDeviceControllerTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenUS08DeactivateDeviceIsConstructedAndDeviceServiceIsNull() {
         // Arrange
-        DeactivateDeviceController deactivateDeviceController;
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-        RoomRepository roomRepository = new RoomRepository();
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
+      IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
         // Act
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -74,12 +78,10 @@ class DeactivateDeviceControllerTest {
     @Test
     void shouldThrowIllegalArgumentException_WhenUS08DeactivateDeviceIsConstructedAndDeviceAssemblerIsNull() {
         // Arrange
-        DeactivateDeviceController deactivateDeviceController;
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-        RoomRepository roomRepository = new RoomRepository();
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
+      IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+      IDeviceFactory deviceFactory = new DeviceFactoryImpl();
+      IRoomRepository roomRepository = mock(IRoomRepository.class);
+      IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         // Act
         IllegalArgumentException exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -96,17 +98,17 @@ class DeactivateDeviceControllerTest {
     @Test
     void shouldReturnAllDevices_WhenRequestAllDevicesIsCalled() {
         // Arrange
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
-        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+        IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+        IDeviceFactory deviceFactory = new DeviceFactoryImpl();
+        IRoomRepository roomRepository = mock(IRoomRepository.class);
+        IRoomFactory roomFactory = new RoomFactoryImpl();
+        IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+        IHouseRepository houseRepository = mock(IHouseRepository.class);
+        IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+        IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+        IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
+        IHouseFactory houseFactory = new HouseFactoryImpl();
+        IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
 
         // Add a house
@@ -117,6 +119,7 @@ class DeactivateDeviceControllerTest {
         Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
         GPS gps = new GPS(41.5514, -8.4221);
         House house = houseFactory.createHouse(address, gps);
+        when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
         houseRepository.save(house);
 
 
@@ -126,12 +129,15 @@ class DeactivateDeviceControllerTest {
         Dimension dimension = new Dimension(10, 10, 10);
         RoomFloor roomFloor = new RoomFloor(1);
         Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+        when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+
 
         // Add a device
         DeviceName deviceName = new DeviceName("Light bulb");
         DeviceStatus deviceStatus = new DeviceStatus(false);
         DeviceTypeID deviceTypeID = new DeviceTypeID("1");
         Device device = deviceServiceImpl.addDevice(room.getID(), deviceName, deviceStatus, deviceTypeID);
+        when(deviceRepository.findAll()).thenReturn(List.of(device));
 
         // Act
         List<DeviceDTO> devices = deactivateDeviceController.requestAllDevices();

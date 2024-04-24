@@ -150,26 +150,4 @@ class DeviceAssemblerTest {
         String result = exception.getMessage();
         assertEquals(expectedMessage, result);
     }
-
-    /**
-     * Test if the domainToDTO method throws an IllegalArgumentException when the list of devices contains null.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_WhenGivenDeviceListWithNull() {
-        //Arrange
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
-        Device device = mock(Device.class);
-        List<Device> devices = new ArrayList<>();
-        devices.add(device);
-        devices.add(null);
-
-        String expectedMessage = "The list of Devices cannot be null or empty.";
-
-        //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> deviceAssembler.domainToDTO(devices));
-
-        //Assert
-        String result = exception.getMessage();
-        assertEquals(expectedMessage, result);
-    }
 }
