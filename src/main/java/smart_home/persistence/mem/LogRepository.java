@@ -10,6 +10,7 @@ import smart_home.value_object.LogID;
 import java.util.*;
 
 import smart_home.domain.log.Log;
+import smart_home.value_object.SensorTypeID;
 
 
 public class LogRepository implements ILogRepository {
@@ -84,6 +85,24 @@ public class LogRepository implements ILogRepository {
           .filter(log -> log.getDeviceID().getID().equals(deviceID.getID()))
           .filter(log -> log.getTimeStamp().isAfter(period.getStartDate()))
           .filter(log -> log.getTimeStamp().isBefore(period.getEndDate()))
+          .toList();
+    }
+
+  /**
+   * Method to find logs by device ID, sensor type and time period
+   *
+   * @param deviceID DeviceID object
+   * @param sensorTypeID SensorTypeID object
+   * @param period DatePeriod object
+   * @return List of Log
+   */
+  @Override
+    public List<Log> findByDeviceIDAndSensorTypeAndDatePeriod(DeviceID deviceID, SensorTypeID sensorTypeID, DatePeriod period) {
+      return DATA.values().stream()
+          .filter(log -> log.getDeviceID().getID().equals(deviceID.getID()))
+          .filter(log -> log.getDescription().getID().equals(sensorTypeID.getID()))
+          .filter(log -> log.getTimeStamp().isAfter(period.getStartDate().minusSeconds(1)))
+          .filter(log -> log.getTimeStamp().isBefore(period.getEndDate().plusSeconds(1)))
           .toList();
     }
 }

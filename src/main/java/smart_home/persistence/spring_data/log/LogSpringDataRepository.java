@@ -11,6 +11,7 @@ import smart_home.utils.Validator;
 import smart_home.value_object.DatePeriod;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.LogID;
+import smart_home.value_object.SensorTypeID;
 
 public class LogSpringDataRepository implements ILogRepository {
 
@@ -102,5 +103,11 @@ public class LogSpringDataRepository implements ILogRepository {
         repository.findByDeviceIDAndTimestampBetween(
             deviceID, period.getStartDate(), period.getEndDate());
     return assembler.toDomain(models);
+  }
+
+  @Override
+  public List<Log> findByDeviceIDAndSensorTypeAndDatePeriod(DeviceID deviceID,
+      SensorTypeID sensorTypeID, DatePeriod period) {
+    return null;
   }
 }

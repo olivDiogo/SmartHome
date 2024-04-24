@@ -1,80 +1,91 @@
 package smart_home.controller;
-//
-import smart_home.domain.device_type.DeviceType;
-import smart_home.dto.DeviceDTO;
-import smart_home.dto.RoomDTO;
-import smart_home.persistence.mem.LogRepository;
-import smart_home.service.LogServiceImpl;
-import smart_home.utils.Validator;
-import smart_home.value_object.DeviceID;
 
+import smart_home.domain.log.Log;
+import smart_home.domain.service.ILogService;
+import smart_home.dto.DeviceDataDTO;
+import smart_home.utils.Validator;
+import smart_home.value_object.DatePeriod;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.SensorTypeID;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
 
-    private LogServiceImpl _logService;
-    private LogRepository _logRepository;
+  private ILogService logService;
 
-    /**
-     * Constructor for GetMaxInstTempDiffBetweenDeviceAndOutsideController.
-     *
-     * @param logService The log service.
-     * @param logRepository The log repository.
-     */
-    public GetMaxInstTempDiffBetweenDeviceAndOutsideController(LogServiceImpl logService, LogRepository logRepository) {
-        Validator.validateNotNull(logService, "Log Service");
-        Validator.validateNotNull(logRepository, "Log Repository");
+  /**
+   * Constructor for GetMaxInstTempDiffBetweenDeviceAndOutsideController.
+   *
+   * @param logService The log service.
+   */
+  public GetMaxInstTempDiffBetweenDeviceAndOutsideController(ILogService logService) {
+    Validator.validateNotNull(logService, "Log Service");
+    this.logService = logService;
+  }
 
-        this._logService = logService;
-        this._logRepository = logRepository;
+  /**
+   * Get the maximum instantaneous temperature difference between a device and the outside.
+   *
+   * @param outsideDeviceDTO is the outside device.
+   * @param insideDeviceDTO  is the inside device.
+   * @param initialTime      is the initial time.
+   * @param finalTime        is the final time.
+   * @return the maximum instantaneous temperature difference.
+   */
+  public int getMaxInstTempDiffBetweenDeviceAndOutside(DeviceDataDTO outsideDeviceDTO,
+      DeviceDataDTO insideDeviceDTO, LocalDateTime initialTime, LocalDateTime finalTime) {
+    DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
+    DeviceID insideDeviceID = new DeviceID(insideDeviceDTO.deviceID);
+    DeviceID outsideDeviceID = new DeviceID(outsideDeviceDTO.deviceID);
+
+    SensorTypeID sensorTypeID = new SensorTypeID("Temperature");
+
+    List<Log> insideReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(insideDeviceID,
+        sensorTypeID, datePeriod);
+    List<Log> outsideReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(
+        outsideDeviceID, sensorTypeID,
+        datePeriod);
+
+    if (insideReadings.isEmpty() || outsideReadings.isEmpty()) {
+      throw new IllegalArgumentException("No readings found for the given time period");
     }
 
-    public List<DeviceDTO> getDevicesByTypeDescription (Map<DeviceType, List<DeviceDTO>> map, RoomDTO roomDTO){
-        List<DeviceDTO> devicesWithTemperatureSensor = getDevicesByTypeDescription(map);
+    List<Integer> temperatureDifferences = getTemperatureDifference(insideReadings,
+        outsideReadings);
 
-        return getDevicesFromRoom(devicesWithTemperatureSensor, roomDTO);
+    return temperatureDifferences.stream().mapToInt(Integer::intValue).max().orElse(0);
+  }
 
-    }
+  /**
+   * Get the temperature difference between the inside and outside readings.
+   *
+   * @param insideReadings  is the list of inside readings.
+   * @param outsideReadings is the list of outside readings.
+   * @return the list of temperature differences.
+   */
+  private List<Integer> getTemperatureDifference(List<Log> insideReadings,
+      List<Log> outsideReadings) {
+    List<Integer> temperatureDifferences = new ArrayList<>();
 
-    /**
-     * Get devices grouped by  temperature functionality.
-     * @param map The map of all devices grouped by functionality.
-     * @return The list of devices grouped by temperature functionality.
-     */
-    private List<DeviceDTO> getDevicesByTypeDescription(Map<DeviceType, List<DeviceDTO>> map) {
+    for (int i = 0; i < insideReadings.size(); i++) {
+      for (int j = 0; j < outsideReadings.size(); j++) {
+        int diffInMinutes = (int) ChronoUnit.MINUTES.between(insideReadings.get(i).getTimeStamp(),
+            outsideReadings.get(j).getTimeStamp());
 
-        List<DeviceDTO> devicesByTypeDescription = new ArrayList<>();
-
-        for (Map.Entry<DeviceType, List<DeviceDTO>> entry : map.entrySet()) {
-
-            DeviceType deviceType = entry.getKey();
-            if (deviceType.getDescription().toString().equals("Temperature")) {
-                List<DeviceDTO> deviceDTOList = entry.getValue();
-                devicesByTypeDescription.addAll(deviceDTOList);
-            }
+        if (diffInMinutes < 5) {
+          int temperatureDifference =
+              Math.abs(Integer.valueOf(insideReadings.get(i).getReadingValue().getReadingValue())
+                  - Integer.valueOf(outsideReadings.get(j).getReadingValue().getReadingValue()));
+          temperatureDifferences.add(temperatureDifference);
         }
-        return devicesByTypeDescription;
+      }
     }
 
-    /**
-     * Get temperature devices from a specific room.
-     * @param temperatureDevicesDTO The list of temperature devices.
-     * @param roomDTO The room to get the devices from.
-     * @return The list of temperature devices from the room.
-     */
-    private List<DeviceDTO> getDevicesFromRoom(List<DeviceDTO> temperatureDevicesDTO, RoomDTO roomDTO) {
-
-        List<DeviceDTO> devicesFromRoom = new ArrayList<>();
-
-        for (DeviceDTO deviceDTO : temperatureDevicesDTO) {
-            if (deviceDTO.roomID.equals(roomDTO.roomId)) {
-                devicesFromRoom.add(deviceDTO);
-            }
-        }
-        return devicesFromRoom;
-    }
-
+    return temperatureDifferences;
+  }
 
 }

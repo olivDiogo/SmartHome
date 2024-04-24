@@ -1,257 +1,261 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
-import smart_home.domain.device.Device;
-import smart_home.domain.device.DeviceFactoryImpl;
-import smart_home.domain.device_type.DeviceType;
-import smart_home.domain.device_type.DeviceTypeFactoryImpl;
-import smart_home.domain.device_type.IDeviceTypeFactory;
-import smart_home.domain.house.House;
-import smart_home.domain.house.HouseFactoryImpl;
-import smart_home.domain.room.Room;
-import smart_home.domain.room.RoomFactoryImpl;
-import smart_home.dto.DeviceDTO;
-import smart_home.dto.RoomDTO;
-import smart_home.mapper.DeviceAssembler;
-import smart_home.mapper.RoomAssembler;
+import smart_home.domain.log.ILogFactory;
+import smart_home.domain.log.Log;
+import smart_home.domain.log.LogFactoryImpl;
+import smart_home.domain.repository.ILogRepository;
+import smart_home.domain.service.ILogService;
+import smart_home.dto.DeviceDataDTO;
 import smart_home.persistence.mem.*;
 import smart_home.service.*;
-import smart_home.value_object.*;
+import smart_home.value_object.DeviceID;
+import smart_home.value_object.ReadingValue;
+import smart_home.value_object.SensorID;
+import smart_home.value_object.SensorTypeID;
+import smart_home.value_object.UnitID;
 
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
 
-    /**
-     * Test to check if the constructor of the GetMaxInstTempDiffBetweenDeviceAndOutsideController class is instantiated correctly.
-     */
-    @Test
-    void shouldInstantiateGetMaxInstTempDiffBetweenDeviceAndOutsideController() {
-        //Arrange
-        LogRepository logRepository = new LogRepository();
-        LogServiceImpl logService = new LogServiceImpl(logRepository);
+  /**
+   * Test to check if the constructor of the GetMaxInstTempDiffBetweenDeviceAndOutsideController
+   * class is instantiated correctly.
+   */
+  @Test
+  void shouldInstantiateGetMaxInstTempDiffBetweenDeviceAndOutsideController() {
+    //Arrange
+    ILogRepository logRepository = new LogRepository();
+    ILogService logService = new LogServiceImpl(logRepository);
 
-        //Act
-        GetMaxInstTempDiffBetweenDeviceAndOutsideController getMaxInstTempDiffBetweenDeviceAndOutsideController = new GetMaxInstTempDiffBetweenDeviceAndOutsideController(logService, logRepository);
+    //Act
+    GetMaxInstTempDiffBetweenDeviceAndOutsideController getMaxInstTempDiffBetweenDeviceAndOutsideController = new GetMaxInstTempDiffBetweenDeviceAndOutsideController(
+        logService);
 
-        //Assert
-        assertNotNull(getMaxInstTempDiffBetweenDeviceAndOutsideController);
-    }
+    //Assert
+    assertNotNull(getMaxInstTempDiffBetweenDeviceAndOutsideController);
+  }
 
-    /**
-     * Test to check if the constructor of the GetMaxInstTempDiffBetweenDeviceAndOutsideController class throws an exception when the log service is null.
-     */
-    @Test
-    void shouldThrowException_WhenLogServiceIsNull () {
-        //Arrange
-        LogServiceImpl logService = null;
-        LogRepository logRepository = new LogRepository();
+  /**
+   * Test to check if the constructor of the GetMaxInstTempDiffBetweenDeviceAndOutsideController
+   * class throws an exception when the log service is null.
+   */
+  @Test
+  void shouldThrowException_WhenLogServiceIsNull() {
+    //Arrange
+    ILogService logService = null;
 
-        String expectedMessage = "Log Service is required";
+    String expectedMessage = "Log Service is required";
 
-        //Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetMaxInstTempDiffBetweenDeviceAndOutsideController(logService, logRepository));
+    //Act + Assert
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> new GetMaxInstTempDiffBetweenDeviceAndOutsideController(logService));
 
-        String result = exception.getMessage();
+    String result = exception.getMessage();
 
-        assertEquals(expectedMessage, result);
-    }
+    assertEquals(expectedMessage, result);
+  }
 
 
-//    @Test
-//    void shouldReturnEmptyDeviceListByTypeDescription_WhenGetDevicesByTypeDescriptionIsCalledWithZeroTempDevices() {
-//        //Arrange
-//        DeviceRepository deviceRepository = new DeviceRepository();
-//        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-//        RoomRepository roomRepository = new RoomRepository();
-//        DeviceServiceImpl deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-//        DeviceAssembler deviceAssembler = new DeviceAssembler();
-//
-//        LogRepository logRepository = new LogRepository();
-//        LogServiceImpl logService = new LogServiceImpl(logRepository);
-//
-//        HouseRepository houseRepository = new HouseRepository();
-//        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-//        RoomAssembler roomAssembler = new RoomAssembler();
-//
-//        RoomServiceImpl roomService = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
-//
-//        DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
-//        IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-//        DeviceTypeServiceImpl deviceTypeService = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
-//
-//        DeviceTypeFactoryImpl impDeviceTypeFactory = new DeviceTypeFactoryImpl();
-//        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-//        HouseServiceImpl houseService = new HouseServiceImpl (houseFactory, houseRepository);
-//        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-//
-//        GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceService, deviceAssembler, deviceTypeService);
-//        GetMaxInstTempDiffBetweenDeviceAndOutsideController getMaxInstTempDiffBetweenDeviceAndOutsideController = new GetMaxInstTempDiffBetweenDeviceAndOutsideController(logService, logRepository);
-//
-//        /* Create a house */
-//        String street = "Rua Do Isep";
-//        String doorNumber = "122A";
-//        String countryCode = "PT";
-//        String postalCode = "4000-007";
-//
-//        Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-//
-//        double latitude = 41.178;
-//        double longitude = -8.608;
-//        GPS newGPS = new GPS(latitude, longitude);
-//
-//        House house = houseService.addHouse(newAddress, newGPS);
-//
-//        /* Create a room */
-//        String strRoomName = "Bedroom";
-//        RoomName roomName = new RoomName(strRoomName);
-//        Dimension dimension = new Dimension(2, 2, 2);
-//        RoomFloor roomFloor = new RoomFloor(1);
-//        HouseID houseID = house.getID();
-//
-//        Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
-//
-//        /* Create and save devices */
-//        RoomID roomID = room.getID();
-//
-//        String name1 = "Light1";
-//        String name2 = "Light2";
-//        DeviceName deviceName1 = new DeviceName(name1);
-//        DeviceName deviceName2 = new DeviceName(name2);
-//        DeviceStatus deviceStatus = new DeviceStatus(true);
-//        String strDeviceTypeID = "Bedroom Light";
-//        TypeDescription deviceTypeDescription = new TypeDescription(strDeviceTypeID);
-//
-//        String strDeviceTypeID2 = "Humidty";
-//        TypeDescription deviceTypeDescription2 = new TypeDescription(strDeviceTypeID2);
-//
-//        DeviceType deviceType = impDeviceTypeFactory.createDeviceType(deviceTypeDescription);
-//        DeviceType deviceType2 = impDeviceTypeFactory.createDeviceType(deviceTypeDescription2);
-//
-//        deviceTypeRepository.save(deviceType);
-//        deviceTypeRepository.save(deviceType2);
-//
-//        Device device1 = deviceService.addDevice(roomID, deviceName1, deviceStatus, deviceType.getID());
-//        Device device2 = deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceType2.getID());
-//
-//
-//
-//        /* Get map of devices grouped by functionality */
-//        Map<DeviceType, List<DeviceDTO>> map = getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality();
-//
-//        /*Get list of devices of temperature */
-//        List<DeviceDTO> devicesTemperature = getMaxInstTempDiffBetweenDeviceAndOutsideController.getDevicesByTypeDescription(map);
-//
-//        int expectedListSize = 0;
-//
-//        //Act
-//        int result = devicesTemperature.size();
-//
-//        //
-//        assertEquals(expectedListSize,result);
-//
-//    }
+  /**
+   * Test to check if the method getMaxInstTempDiffBetweenDeviceAndOutside returns the correct
+   * value.
+   */
+  @Test
+  void shouldReturnCorrectValue_whenGetMaxInstTempDiffBetweenDeviceAndOutsideIsCalled() {
+    //Arrange
+    ILogRepository logRepository = new LogRepository();
+    ILogService logService = new LogServiceImpl(logRepository);
 
-    @Test
-    void shouldReturnSpecificTemperatureDevicesFromARoom_WhenGetDevicesByTypeDescriptionIsCalled () {
-        //Arrange
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-        RoomRepository roomRepository = new RoomRepository();
-        DeviceServiceImpl deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
-        LogRepository logRepository = new LogRepository();
-        LogServiceImpl logService = new LogServiceImpl(logRepository);
+    ILogFactory logFactory = new LogFactoryImpl();
 
-        DeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
-        IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-        DeviceTypeServiceImpl deviceTypeService = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
+    GetMaxInstTempDiffBetweenDeviceAndOutsideController getMaxInstTempDiffBetweenDeviceAndOutsideController = new GetMaxInstTempDiffBetweenDeviceAndOutsideController(
+        logService);
 
-        HouseRepository houseRepository = new HouseRepository();
+    /* Create DevicesDataDTO */
+    String strDeviceName1 = "Outside Device";
+    String strDeviceName2 = "Inside Device";
+    String strDeviceType = "Temperature";
+    String strDeviceID1 = "1";
+    String strDeviceID2 = "2";
+    String strRoomID1 = "1";
+    String strRoomID2 = "Out";
+    boolean deviceStatus = true;
 
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        RoomServiceImpl roomService = new RoomServiceImpl(roomRepository, roomFactory,
-            houseRepository);
+    DeviceDataDTO outsideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName1, deviceStatus,
+        strRoomID1, strDeviceID1);
+    DeviceDataDTO insideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName2, deviceStatus,
+        strRoomID2, strDeviceID2);
 
-        DeviceTypeFactoryImpl impDeviceTypeFactory = new DeviceTypeFactoryImpl();
-        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-        HouseServiceImpl houseService = new HouseServiceImpl (houseFactory, houseRepository);
-        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    LocalDateTime initialTime = LocalDateTime.of(2021, 1, 1, 0, 0);
+    LocalDateTime finalTime = LocalDateTime.of(2021, 1, 1, 1, 0);
 
-        GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService, roomAssembler);
-        GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceService, deviceAssembler, deviceTypeService);
-        GetMaxInstTempDiffBetweenDeviceAndOutsideController getMaxInstTempDiffBetweenDeviceAndOutsideController = new GetMaxInstTempDiffBetweenDeviceAndOutsideController(logService, logRepository);
+    /* Create and save log data for outside device */
+    DeviceID deviceID1 = new DeviceID(strDeviceID1);
+    SensorID sensorID1 = new SensorID("1");
+    LocalDateTime timeStamp1 = LocalDateTime.of(2021, 1, 1, 0, 10);
+    LocalDateTime timeStamp2 = LocalDateTime.of(2021, 1, 1, 0, 15);
+    ReadingValue readingValue1 = new ReadingValue("10");
+    ReadingValue readingValue2 = new ReadingValue("15");
+    SensorTypeID description = new SensorTypeID("Temperature");
+    UnitID unit = new UnitID("Celsius");
 
-        /* Create a house */
-        String street = "Rua Do Isep";
-        String doorNumber = "122A";
-        String countryCode = "PT";
-        String postalCode = "4000-007";
+    Log log1 = logFactory.createLog(deviceID1, sensorID1, timeStamp1, readingValue1, description,
+        unit);
+    logRepository.save(log1);
+    Log log2 = logFactory.createLog(deviceID1, sensorID1, timeStamp2, readingValue2, description,
+        unit);
+    logRepository.save(log2);
 
-        Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+    /* Create and save log data for inside device */
+    DeviceID deviceID2 = new DeviceID(strDeviceID2);
+    SensorID sensorID2 = new SensorID("2");
+    LocalDateTime timeStamp3 = LocalDateTime.of(2021, 1, 1, 0, 4);
+    LocalDateTime timeStamp4 = LocalDateTime.of(2021, 1, 1, 0, 6);
+    ReadingValue readingValue3 = new ReadingValue("5");
+    ReadingValue readingValue4 = new ReadingValue("1");
 
-        double latitude = 41.178;
-        double longitude = -8.608;
-        GPS newGPS = new GPS(latitude, longitude);
+    Log log3 = logFactory.createLog(deviceID2, sensorID2, timeStamp3, readingValue3, description,
+        unit);
+    logRepository.save(log3);
+    Log log4 = logFactory.createLog(deviceID2, sensorID2, timeStamp4, readingValue4, description,
+        unit);
+    logRepository.save(log4);
 
-        House house = houseService.addHouse(newAddress, newGPS);
+    int expected = 9;
 
-        /* Create a room */
-        String strRoomName = "Bedroom";
-        RoomName roomName = new RoomName(strRoomName);
-        Dimension dimension = new Dimension(2, 2, 2);
-        RoomFloor roomFloor = new RoomFloor(1);
-        HouseID houseID = house.getID();
+    // Act
+    int result = getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
+        outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime);
 
-        Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+    // Assert
+    assertEquals(expected, result);
+  }
 
-        /* Create and save devices */
-        RoomID roomID = room.getID();
+  /**
+   * Test to check if the method getMaxInstTempDiffBetweenDeviceAndOutside returns the correct value
+   * when the inside device has no readings.
+   */
+  @Test
+  void shouldReturnCorrectValue_WhenInsideDeviceHasNoReadings() {
+    //Arrange
+    ILogRepository logRepository = new LogRepository();
+    ILogService logService = new LogServiceImpl(logRepository);
 
-        String name1 = "Light1";
-        String name2 = "Light2";
-        DeviceName deviceName1 = new DeviceName(name1);
-        DeviceName deviceName2 = new DeviceName(name2);
-        DeviceStatus deviceStatus = new DeviceStatus(true);
-        String strDeviceTypeID = "Bedroom Light";
-        TypeDescription deviceTypeDescription = new TypeDescription(strDeviceTypeID);
+    ILogFactory logFactory = new LogFactoryImpl();
 
-        String strDeviceTypeID2 = "Temperature";
-        TypeDescription deviceTypeDescription2 = new TypeDescription(strDeviceTypeID2);
+    GetMaxInstTempDiffBetweenDeviceAndOutsideController getMaxInstTempDiffBetweenDeviceAndOutsideController = new GetMaxInstTempDiffBetweenDeviceAndOutsideController(
+        logService);
 
-        DeviceType deviceType = impDeviceTypeFactory.createDeviceType(deviceTypeDescription);
-        DeviceType deviceType2 = impDeviceTypeFactory.createDeviceType(deviceTypeDescription2);
+    /* Create DevicesDataDTO */
+    String strDeviceName1 = "Outside Device";
+    String strDeviceName2 = "Inside Device";
+    String strDeviceType = "Temperature";
+    String strDeviceID1 = "1";
+    String strDeviceID2 = "2";
+    String strRoomID1 = "1";
+    String strRoomID2 = "Out";
+    boolean deviceStatus = true;
 
-        deviceTypeRepository.save(deviceType);
-        deviceTypeRepository.save(deviceType2);
+    DeviceDataDTO outsideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName1,
+        deviceStatus, strRoomID1, strDeviceID1);
+    DeviceDataDTO insideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName2, deviceStatus,
+        strRoomID2, strDeviceID2);
 
-        Device device1 = deviceService.addDevice(roomID, deviceName1, deviceStatus, deviceType.getID());
-        Device device2 = deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceType2.getID());
-        Device device3 = deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceType2.getID());
+    LocalDateTime initialTime = LocalDateTime.of(2021, 1, 1, 0, 0);
+    LocalDateTime finalTime = LocalDateTime.of(2021, 1, 1, 1, 0);
 
-        /* Get list of Rooms */
-        List<RoomDTO> rooms = getListOfRoomsController.getRooms();
+    /* Create and save log data for outside device */
+    DeviceID deviceID1 = new DeviceID(strDeviceID1);
+    SensorID sensorID1 = new SensorID("1");
+    LocalDateTime timeStamp1 = LocalDateTime.of(2021, 1, 1, 0, 10);
+    LocalDateTime timeStamp2 = LocalDateTime.of(2021, 1, 1, 0, 15);
+    ReadingValue readingValue1 = new ReadingValue("10");
+    ReadingValue readingValue2 = new ReadingValue("15");
+    SensorTypeID description = new SensorTypeID("Temperature");
+    UnitID unit = new UnitID("Celsius");
 
-        /* Get map of devices grouped by functionality */
-        Map<DeviceType, List<DeviceDTO>> map = getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality();
+    Log log1 = logFactory.createLog(deviceID1, sensorID1, timeStamp1, readingValue1, description,
+        unit);
+    logRepository.save(log1);
+    Log log2 = logFactory.createLog(deviceID1, sensorID1, timeStamp2, readingValue2, description,
+        unit);
+    logRepository.save(log2);
 
-        int expectedListSize = 2;
+    String expected = "No readings found for the given time period";
 
-        /* get list from a room */
-        RoomDTO roomDTO = rooms.get(0);
+    // Act
+    Exception result = assertThrows(IllegalArgumentException.class,
+        () -> getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
+            outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime));
 
-        List<DeviceDTO> devicesTemperature = getMaxInstTempDiffBetweenDeviceAndOutsideController.getDevicesByTypeDescription(map, roomDTO);
+    // Assert
+    String resultMessage = result.getMessage();
+    assertEquals(expected, resultMessage);
+  }
 
-        //Act
-        int result = devicesTemperature.size();
+  /**
+   * Test to check if the method getMaxInstTempDiffBetweenDeviceAndOutside returns the correct value
+   * when the outside device has no readings.
+   */
+  @Test
+  void shouldReturnCorrectValue_WhenOutsideDeviceHasNoReadings() {
+    //Arrange
+    ILogRepository logRepository = new LogRepository();
+    ILogService logService = new LogServiceImpl(logRepository);
 
-        //Assert
-        assertEquals(expectedListSize,result);
+    ILogFactory logFactory = new LogFactoryImpl();
 
-    }
+    GetMaxInstTempDiffBetweenDeviceAndOutsideController getMaxInstTempDiffBetweenDeviceAndOutsideController = new GetMaxInstTempDiffBetweenDeviceAndOutsideController(
+        logService);
 
+    /* Create DevicesDataDTO */
+    String strDeviceName1 = "Outside Device";
+    String strDeviceName2 = "Inside Device";
+    String strDeviceType = "Temperature";
+    String strDeviceID1 = "1";
+    String strDeviceID2 = "2";
+    String strRoomID1 = "1";
+    String strRoomID2 = "Out";
+    boolean deviceStatus = true;
+
+    DeviceDataDTO outsideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName1,
+        deviceStatus, strRoomID1, strDeviceID1);
+    DeviceDataDTO insideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName2, deviceStatus,
+        strRoomID2, strDeviceID2);
+
+    LocalDateTime initialTime = LocalDateTime.of(2021, 1, 1, 0, 0);
+    LocalDateTime finalTime = LocalDateTime.of(2021, 1, 1, 1, 0);
+
+    /* Create and save log data for inside device */
+    DeviceID deviceID2 = new DeviceID(strDeviceID2);
+    SensorID sensorID2 = new SensorID("2");
+    LocalDateTime timeStamp3 = LocalDateTime.of(2021, 1, 1, 0, 4);
+    LocalDateTime timeStamp4 = LocalDateTime.of(2021, 1, 1, 0, 6);
+    ReadingValue readingValue3 = new ReadingValue("5");
+    ReadingValue readingValue4 = new ReadingValue("1");
+
+    Log log3 = logFactory.createLog(deviceID2, sensorID2, timeStamp3, readingValue3,
+        new SensorTypeID("Temperature"),
+        new UnitID("Celsius"));
+    logRepository.save(log3);
+    Log log4 = logFactory.createLog(deviceID2, sensorID2, timeStamp4, readingValue4,
+        new SensorTypeID("Temperature"),
+        new UnitID("Celsius"));
+    logRepository.save(log4);
+
+    String expected = "No readings found for the given time period";
+
+    // Act
+    Exception result = assertThrows(IllegalArgumentException.class,
+        () -> getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
+            outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime));
+
+    // Assert
+    String resultMessage = result.getMessage();
+    assertEquals(expected, resultMessage);
+  }
 }

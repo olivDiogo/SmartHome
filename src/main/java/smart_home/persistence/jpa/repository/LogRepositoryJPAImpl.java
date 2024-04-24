@@ -9,6 +9,7 @@ import smart_home.utils.Validator;
 import smart_home.value_object.DatePeriod;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.LogID;
+import smart_home.value_object.SensorTypeID;
 import java.util.List;
 import java.util.Optional;
 
@@ -147,5 +148,11 @@ public class LogRepositoryJPAImpl implements ILogRepository {
     } finally {
       em.close();
     }
+  }
+
+  @Override
+  public List<Log> findByDeviceIDAndSensorTypeAndDatePeriod(DeviceID deviceID,
+      SensorTypeID sensorTypeID, DatePeriod period) {
+    return null;
   }
 }
