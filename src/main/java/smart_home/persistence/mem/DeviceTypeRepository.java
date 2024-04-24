@@ -2,13 +2,14 @@ package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.device_type.DeviceType;
+import smart_home.domain.repository.IDeviceTypeRepository;
 import smart_home.utils.Validator;
 import smart_home.value_object.DeviceTypeID;
 
 import java.util.*;
 
 
-public class DeviceTypeRepository implements IRepository<DeviceTypeID, DeviceType> {
+public class DeviceTypeRepository implements IDeviceTypeRepository {
 
     // Data structure to store device types
     private final Map<DeviceTypeID, DeviceType> DATA = new LinkedHashMap<>();

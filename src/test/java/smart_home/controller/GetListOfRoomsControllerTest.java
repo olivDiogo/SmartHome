@@ -1,7 +1,16 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import smart_home.ddd.IAssembler;
+import smart_home.domain.repository.IHouseRepository;
+import smart_home.domain.repository.IRoomRepository;
+import smart_home.domain.room.IRoomFactory;
+import smart_home.domain.service.IRoomService;
 import smart_home.mapper.RoomAssembler;
 import smart_home.domain.room.Room;
 import smart_home.domain.room.RoomFactoryImpl;
@@ -19,125 +28,135 @@ import java.util.List;
 
 class GetListOfRoomsControllerTest {
 
-    /**
-     * Test to check if the GetListOfRoomsController is being created correctly.
-     */
-    @Test
-    void shouldCreateGetListOfRoomsController() {
-        //Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+  /**
+   * Test to check if the GetListOfRoomsController is being created correctly.
+   */
+  @Test
+  void shouldCreateGetListOfRoomsController() {
+    //Arrange
+    IRoomRepository roomRepository = mock(IRoomRepository.class);
+    IRoomFactory roomFactory = new RoomFactoryImpl();
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+    IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory,
+        houseRepository);
 
-        //Act
-        GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
+    //Act
+    GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(
+        roomServiceImpl, roomAssembler);
 
-        //Assert
-        assertNotNull(getListOfRoomsController);
+    //Assert
+    assertNotNull(getListOfRoomsController);
+  }
+
+
+  /**
+   * Test to check if the GetListOfRoomsController is returning null when the RoomService is null.
+   */
+  @Test
+  void shouldReturnNull_whenRoomServiceIsNull() {
+    //Arrange
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+
+    IRoomService roomServiceImpl = null;
+
+    //Act
+    try {
+      GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(
+          roomServiceImpl, roomAssembler);
+    } catch (IllegalArgumentException e) {
+      assertEquals("Please enter a valid room service.", e.getMessage());
     }
+  }
 
+  /**
+   * Test to check if the GetListOfRoomsController is returning null when the RoomAssembler is
+   * null.
+   */
+  @Test
+  void shouldReturnNull_whenRoomAssemblerIsNull() {
+    //Arrange
+    IRoomRepository roomRepository = mock(IRoomRepository.class);
+    IRoomFactory roomFactory = new RoomFactoryImpl();
+    IAssembler<Room, RoomDTO> roomAssembler = null;
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
 
-    /**
-     * Test to check if the GetListOfRoomsController is returning null when the RoomService is null.
-     */
-    @Test
-    void shouldReturnNull_whenRoomServiceIsNull() {
-        //Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+    IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory,
+        houseRepository);
 
-        RoomServiceImpl roomServiceImpl = null;
-
-        //Act
-        try {
-            GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
-        } catch (IllegalArgumentException e) {
-            assertEquals("Please enter a valid room service.", e.getMessage());
-        }
+    //Act
+    try {
+      GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(
+          roomServiceImpl, roomAssembler);
+    } catch (IllegalArgumentException e) {
+      assertEquals("Please enter a valid room assembler.", e.getMessage());
     }
+  }
 
-    /**
-     * Test to check if the GetListOfRoomsController is returning null when the RoomAssembler is null.
-     */
-    @Test
-    void shouldReturnNull_whenRoomAssemblerIsNull() {
-        //Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = null;
-        HouseRepository houseRepository = new HouseRepository();
+  /**
+   * Test to check if the GetListOfRoomsController is returning an empty list when there are no
+   * rooms.
+   */
+  @Test
+  void shouldReturnEmptyList_whenThereAreNoRooms() {
+    //Arrange
+    IRoomRepository roomRepository = mock(IRoomRepository.class);
+    IRoomFactory roomFactory = new RoomFactoryImpl();
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+    IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory,
+        houseRepository);
 
-        //Act
-        try {
-            GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
-        } catch (IllegalArgumentException e) {
-            assertEquals("Please enter a valid room assembler.", e.getMessage());
-        }
-    }
+    GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(
+        roomServiceImpl, roomAssembler);
 
-    /**
-     * Test to check if the GetListOfRoomsController is returning an empty list when there are no rooms.
-     */
-    @Test
-    void shouldReturnEmptyList_whenThereAreNoRooms() {
-        //Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+    //Act
+    List<RoomDTO> roomDTOList = getListOfRoomsController.getRooms();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+    //Assert
+    assertTrue(roomDTOList.isEmpty());
 
-        GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
-
-        //Act
-        List<RoomDTO> roomDTOList = getListOfRoomsController.getRooms();
-
-        //Assert
-        assertTrue(roomDTOList.isEmpty());
-
-    }
+  }
 
 
-    /**
-     * Test to check if the GetListOfRoomsController is returning a list of rooms when there are rooms.
-     */
-    @Test
-    void shouldReturnListOfRooms_WhenGetRoomsIsCalled() {
-        //Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+  /**
+   * Test to check if the GetListOfRoomsController is returning a list of rooms when there are
+   * rooms.
+   */
+  @Test
+  void shouldReturnListOfRooms_WhenGetRoomsIsCalled() {
+    //Arrange
+    IRoomRepository roomRepository = new RoomRepository();
+    IRoomFactory roomFactory = new RoomFactoryImpl();
+    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+    IHouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+    IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory,
+        houseRepository);
 
-        GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
+    GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(
+        roomServiceImpl, roomAssembler);
 
-        HouseID houseID = new HouseID("1");
-        RoomName roomName = new RoomName("Living Room");
-        Dimension dimension = new Dimension(10, 10, 10);
-        RoomFloor roomFloor = new RoomFloor(1);
+    HouseID houseID = new HouseID("1");
+    RoomName roomName = new RoomName("Living Room");
+    Dimension dimension = new Dimension(10, 10, 10);
+    RoomFloor roomFloor = new RoomFloor(1);
 
-        Room room = roomFactory.createRoom(houseID, roomName, dimension, roomFloor);
-        roomRepository.save(room);
+    Room room = roomFactory.createRoom(houseID, roomName, dimension, roomFloor);
+    roomRepository.save(room);
 
-        List<RoomDTO> expectedRoomDTOList = new ArrayList<>();
-        expectedRoomDTOList.add(roomAssembler.domainToDTO(room));
-        
-        //Act
-        List<RoomDTO> roomDTOList = getListOfRoomsController.getRooms();
+    List<RoomDTO> expectedRoomDTOList = new ArrayList<>();
 
-        //Assert
-        assertEquals(expectedRoomDTOList.get(0).roomId, roomDTOList.get(0).roomId);
+    expectedRoomDTOList.add(roomAssembler.domainToDTO(room));
 
-    }
+    //Act
+    List<RoomDTO> roomDTOList = getListOfRoomsController.getRooms();
+
+    //Assert
+    assertEquals(expectedRoomDTOList.get(0).roomId, roomDTOList.get(0).roomId);
+
+  }
 
 }

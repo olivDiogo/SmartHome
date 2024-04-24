@@ -1,6 +1,7 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+import smart_home.domain.repository.IRoomRepository;
 import smart_home.mapper.DeviceAssembler;
 import smart_home.mapper.RoomAssembler;
 import smart_home.domain.device.Device;
