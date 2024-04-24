@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant " " as User
+participant Controller as ":GetDevicesByRoomAndTemperatureFunctionalityCTRL"
+
+
+autonumber
+
+ref over User, Controller: getRooms
+
+ref over User, Controller: getAllDevicesGroupedByFunctionality
+
+User o-> Controller: getDevicesByRoomAndTemperatureFunctionality(map, roomDTO)
+
+activate Controller
+
+Controller -> Controller: getDevicesWithTemperatureSensor (map)
+
+Controller -> Controller: getDevicesFromRoom (temperatureDevicesDTO, roomDTO)
+
+Controller --> User: temperatureDevicesDTOInRoom
+
+deactivate Controller
+
+@enduml

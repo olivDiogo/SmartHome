@@ -1,7 +1,7 @@
 @startuml
 !pragma layout smetana
 
-participant User
+participant " " as User
 participant Controller as ":GetMaxInstantaneousTempDifBetweenRoomAndOutsideCTRL"
 
 participant "logService : LogService" as LogService
@@ -9,23 +9,9 @@ participant "logRepository : LogRepository" as LogRepository
 
 autonumber
 
-ref over User, Controller: getRooms
+ref over User, Controller: getDevicesByRoomAndTemperatureFunctionality
 
-ref over User, Controller: getAllDevicesGroupedByFunctionality
-
-User o-> Controller: getDevicesByTypeDescription(map, roomDTO)
-
-activate Controller
-
-Controller -> Controller: getDevicesWithTemperatureSensor (map)
-
-Controller -> Controller: getDevicesFromRoom (temperatureDevicesDTO, roomDTO)
-
-Controller --> User: temperatureDevicesDTOInRoom
-
-deactivate Controller
-
-User -> Controller: getMaxInstTempDiffBetweenDeviceAndOutside (deviceDTO, initialTime, endTime)
+User -> Controller: getMaxInstTempDiffBetweenDeviceAndOutside (outsideDeviceDTO, insideDeviceDTO, initialTime, endTime)
 
 activate Controller
 
@@ -45,13 +31,11 @@ LogService --> Controller: outsideTemperatureReadings
 
 deactivate LogService
 
-Controller -> Controller: toDomain (deviceDTO)
-
-Controller -> LogService: getTDeviceReadingsByTimePeriod (deviceID, sensorTypeID, datePeriod)
+Controller -> LogService: getDeviceReadingsByTimePeriod (insideDeviceID, sensorTypeID, datePeriod)
 
 activate LogService
 
-LogService -> LogRepository: findByDeviceIDAndTimePeriod (deviceID, sensorTypeID, datePeriod)
+LogService -> LogRepository: findByDeviceIDAndSensorTypeAndTimePeriod (insideDeviceID, sensorTypeID, datePeriod)
 
 activate LogRepository
 
