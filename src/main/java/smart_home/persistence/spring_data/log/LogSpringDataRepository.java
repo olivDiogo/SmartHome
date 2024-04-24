@@ -1,8 +1,8 @@
 package smart_home.persistence.spring_data.log;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import java.util.List;
+import java.util.Optional;
 import smart_home.domain.log.Log;
 import smart_home.domain.repository.ILogRepository;
 import smart_home.persistence.assembler.IDataModelAssembler;
@@ -11,8 +11,6 @@ import smart_home.utils.Validator;
 import smart_home.value_object.DatePeriod;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.LogID;
-import java.util.List;
-import java.util.Optional;
 
 public class LogSpringDataRepository implements ILogRepository {
   ILogSpringDataRepository _repository;
@@ -26,8 +24,7 @@ public class LogSpringDataRepository implements ILogRepository {
    * @param assembler
    */
   public LogSpringDataRepository(
-      ILogSpringDataRepository repository, IDataModelAssembler assembler) {
-    this._factory = Persistence.createEntityManagerFactory("smart_home");
+      ILogSpringDataRepository repository, IDataModelAssembler<LogDataModel, Log> assembler) {
 
     Validator.validateNotNull(repository, "Log repository");
     this._repository = repository;
@@ -35,15 +32,6 @@ public class LogSpringDataRepository implements ILogRepository {
     this._assembler = assembler;
   }
 
-  /** Method to get the Entity Manager. */
-  private EntityManager getEntityManager() {
-    try {
-      EntityManager manager = _factory.createEntityManager();
-      return manager;
-    } catch (Exception e) {
-      throw new RuntimeException("Error creating the entity manager", e);
-    }
-  }
 
   /**
    * Method to save a domain entity.
@@ -68,7 +56,8 @@ public class LogSpringDataRepository implements ILogRepository {
    */
   @Override
   public List<Log> findAll() {
-    return _assembler.toDomain(_repository.findAll());
+    List<LogDataModel> listDataModelSaved = _repository.findAll();
+    return _assembler.toDomain(listDataModelSaved);
   }
 
   /**

@@ -27,6 +27,9 @@ public class RepositoryActuatorModelSpringData implements IActuatorModelReposito
       IRepositoryActuatorModelSpringData repositoryActuatorModelSpringData) {
     validateDataModelAssembler(dataModelAssembler);
     this._dataModelAssembler = dataModelAssembler;
+
+    Validator.validateNotNull(repositoryActuatorModelSpringData,
+        "Repository actuator model spring data");
     this._repositoryActuatorModelSpringData = repositoryActuatorModelSpringData;
   }
 

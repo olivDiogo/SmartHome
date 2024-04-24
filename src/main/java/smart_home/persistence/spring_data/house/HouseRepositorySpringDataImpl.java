@@ -10,8 +10,9 @@ import smart_home.utils.Validator;
 import smart_home.value_object.HouseID;
 
 public class HouseRepositorySpringDataImpl implements IHouseRepository {
-  private IHouseSpringDataRepository _repository;
-  private IDataModelAssembler<HouseDataModel, House> _assembler;
+
+  private final IHouseSpringDataRepository _repository;
+  private final IDataModelAssembler<HouseDataModel, House> _assembler;
 
   public HouseRepositorySpringDataImpl(IHouseSpringDataRepository repository, IDataModelAssembler<HouseDataModel, House> assembler) {
     Validator.validateNotNull(repository, "House repository");
@@ -40,7 +41,7 @@ public class HouseRepositorySpringDataImpl implements IHouseRepository {
     Optional<HouseDataModel> houseDataModel = this._repository.findById(objectID.toString());
     if (houseDataModel.isPresent()) {
       HouseDataModel houseDataModel1 = houseDataModel.get();
-      House house = (House) _assembler.toDomain(houseDataModel1);
+      House house = _assembler.toDomain(houseDataModel1);
       return Optional.of(house);
     } else {
       return Optional.empty();

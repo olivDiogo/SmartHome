@@ -1,8 +1,7 @@
 package smart_home.persistence.spring_data.device_type;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import java.util.List;
+import java.util.Optional;
 import smart_home.domain.device_type.DeviceType;
 import smart_home.domain.repository.IDeviceTypeRepository;
 import smart_home.persistence.assembler.IDataModelAssembler;
@@ -10,29 +9,16 @@ import smart_home.persistence.jpa.data_model.DeviceTypeDataModel;
 import smart_home.utils.Validator;
 import smart_home.value_object.DeviceTypeID;
 
-import java.util.List;
-import java.util.Optional;
-
 public class DeviceTypeSpringDataRepository implements IDeviceTypeRepository {
     IDeviceTypeSpringDataRepository repository;
-    EntityManagerFactory factory;
     IDataModelAssembler <DeviceTypeDataModel, DeviceType> assembler;
 
-    public DeviceTypeSpringDataRepository (IDeviceTypeSpringDataRepository repository, IDataModelAssembler assembler) {
-        this.factory = Persistence.createEntityManagerFactory("smart_home");
+  public DeviceTypeSpringDataRepository(IDeviceTypeSpringDataRepository repository,
+      IDataModelAssembler<DeviceTypeDataModel, DeviceType> assembler) {
         Validator.validateNotNull(repository, "Repository");
         this.repository = repository;
         Validator.validateNotNull(assembler, "Assembler");
         this.assembler = assembler;
-    }
-
-    private EntityManager getEntityManager() {
-        try {
-            EntityManager manager = factory.createEntityManager();
-            return manager;
-        } catch (Exception e) {
-            throw new RuntimeException("Error creating the entity manager", e);
-        }
     }
 
     /**
@@ -43,13 +29,10 @@ public class DeviceTypeSpringDataRepository implements IDeviceTypeRepository {
      */
     @Override
     public DeviceType save(DeviceType entity) {
-        if (entity == null){
-            throw new IllegalArgumentException();
-        };
+      Validator.validateNotNull(entity, "DeviceType");
 
         DeviceTypeDataModel dataModel = new DeviceTypeDataModel(entity);
-
-        DeviceTypeDataModel dataModelSaved = repository.save(dataModel);
+      repository.save(dataModel);
         return entity;
     }
 

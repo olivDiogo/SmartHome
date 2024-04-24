@@ -2,7 +2,8 @@ package smart_home.persistence.spring_data.device;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import java.util.List;
+import java.util.Optional;
 import smart_home.domain.device.Device;
 import smart_home.domain.repository.IDeviceRepository;
 import smart_home.persistence.assembler.IDataModelAssembler;
@@ -11,9 +12,6 @@ import smart_home.utils.Validator;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.RoomID;
 
-import java.util.List;
-import java.util.Optional;
-
 
 /**
  * Implements the device repository using Spring Data JPA.
@@ -21,9 +19,9 @@ import java.util.Optional;
  */
 public class DeviceSpringDataRepository implements IDeviceRepository {
 
-    private IDeviceSpringDataRepository _repository;
+  private final IDeviceSpringDataRepository _repository;
     private EntityManagerFactory _factory;
-    private IDataModelAssembler<DeviceDataModel, Device> _assembler;
+  private final IDataModelAssembler<DeviceDataModel, Device> _assembler;
 
     /**
      * Constructs a new DeviceSpringDataRepository with necessary dependencies.
@@ -31,8 +29,8 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
      * @param repository the Spring Data repository handling Device data models.
      * @param assembler the assembler to convert between Device domain objects and data models.
      */
-    public DeviceSpringDataRepository(IDeviceSpringDataRepository repository, IDataModelAssembler assembler) {
-        this._factory = Persistence.createEntityManagerFactory("smart_home");
+    public DeviceSpringDataRepository(IDeviceSpringDataRepository repository,
+        IDataModelAssembler<DeviceDataModel, Device> assembler) {
         Validator.validateNotNull(repository, "Device repository");
         this._repository = repository;
         Validator.validateNotNull(assembler, "Device data model assembler");
@@ -46,12 +44,8 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
      * @throws RuntimeException if the EntityManager cannot be created.
      */
     private EntityManager getEntityManager() {
-        try {
             EntityManager manager = _factory.createEntityManager();
             return manager;
-        } catch (Exception e) {
-            throw new RuntimeException("Error creating the entity manager", e);
-        }
     }
 
     /**

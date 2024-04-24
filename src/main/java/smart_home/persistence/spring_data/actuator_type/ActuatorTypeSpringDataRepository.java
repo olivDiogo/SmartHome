@@ -1,8 +1,7 @@
 package smart_home.persistence.spring_data.actuator_type;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import java.util.List;
+import java.util.Optional;
 import smart_home.domain.actuator_type.ActuatorType;
 import smart_home.domain.repository.IActuatorTypeRepository;
 import smart_home.persistence.assembler.IDataModelAssembler;
@@ -10,14 +9,11 @@ import smart_home.persistence.jpa.data_model.ActuatorTypeDataModel;
 import smart_home.utils.Validator;
 import smart_home.value_object.ActuatorTypeID;
 
-import java.util.List;
-import java.util.Optional;
-
 public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository {
 
-    private IActuatorTypeSpringDataRepository _repository;
+  private final IActuatorTypeSpringDataRepository _repository;
 
-    private IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> _dataModelAssembler;
+  private final IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> _dataModelAssembler;
 
 
     /**
@@ -85,6 +81,6 @@ public class ActuatorTypeSpringDataRepository implements IActuatorTypeRepository
      */
     @Override
     public boolean containsOfIdentity(ActuatorTypeID objectID) {
-        return ofIdentity(objectID).isPresent();
+      return this._repository.existsById(objectID.getID());
     }
 }
