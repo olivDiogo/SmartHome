@@ -3,6 +3,7 @@ package smart_home.persistence.assembler;
 import smart_home.domain.house.House;
 import smart_home.domain.house.IHouseFactory;
 import smart_home.persistence.jpa.data_model.HouseDataModel;
+import smart_home.utils.Validator;
 import smart_home.value_object.Address;
 import smart_home.value_object.GPS;
 import smart_home.value_object.HouseID;
@@ -15,6 +16,9 @@ public class HouseDataModelAssembler implements IDataModelAssembler<HouseDataMod
     private IHouseFactory houseFactory;
 
     public HouseDataModelAssembler(IHouseFactory houseFactory) {
+      Validator.validateNotNull(houseFactory, "House Factory");
+
+      this.houseFactory = houseFactory;
     }
     @Override
     public House toDomain(HouseDataModel houseDataModel) {
@@ -22,8 +26,7 @@ public class HouseDataModelAssembler implements IDataModelAssembler<HouseDataMod
         Address address = new Address(houseDataModel.getStreet(), houseDataModel.getDoorNumber(), houseDataModel.getPostalCode(), houseDataModel.getCountryCode(), new PostalCodeFactory());
         HouseID houseID = new HouseID(houseDataModel.getHouseID());
 
-        House house = houseFactory.createHouse(houseID, address, gps);
-        return house;    }
+      return houseFactory.createHouse(houseID, address, gps);    }
 
     @Override
     public List<House> toDomain(List<HouseDataModel> houseDataModels) {
