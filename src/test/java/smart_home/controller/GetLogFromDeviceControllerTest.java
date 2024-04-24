@@ -31,7 +31,6 @@ class GetLogFromDeviceControllerTest {
   DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
   RoomRepository roomRepository = new RoomRepository();
   RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-  RoomAssembler roomAssembler = new RoomAssembler();
   HouseRepository houseRepository = new HouseRepository();
   HouseFactoryImpl houseFactory = new HouseFactoryImpl();
   HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
@@ -39,7 +38,6 @@ class GetLogFromDeviceControllerTest {
       new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
   DeviceServiceImpl deviceService =
       new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-  DeviceAssembler deviceAssembler = new DeviceAssembler();
   PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
 
   private House createHouse() {
@@ -91,7 +89,7 @@ class GetLogFromDeviceControllerTest {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
         new GetLogFromDeviceController(
-            logService, deviceService, logAssembler, roomService, roomAssembler, deviceAssembler);
+            logService, deviceService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -133,7 +131,7 @@ class GetLogFromDeviceControllerTest {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
         new GetLogFromDeviceController(
-            logService, deviceService, logAssembler, roomService, roomAssembler, deviceAssembler);
+            logService, deviceService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -173,7 +171,7 @@ class GetLogFromDeviceControllerTest {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
         new GetLogFromDeviceController(
-            logService, deviceService, logAssembler, roomService, roomAssembler, deviceAssembler);
+            logService, deviceService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -214,7 +212,7 @@ class GetLogFromDeviceControllerTest {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
         new GetLogFromDeviceController(
-            logService, deviceService, logAssembler, roomService, roomAssembler, deviceAssembler);
+            logService, deviceService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -261,7 +259,7 @@ class GetLogFromDeviceControllerTest {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
         new GetLogFromDeviceController(
-            logService, deviceService, logAssembler, roomService, roomAssembler, deviceAssembler);
+            logService, deviceService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -301,6 +299,6 @@ class GetLogFromDeviceControllerTest {
     List<LogDTO> logs = getLogFromDeviceController.getLogFromDevice(logDataDTO);
 
     // Assert
-    assertTrue(logs.size() == 1);
+    assertEquals(1, logs.size());
   }
 }
