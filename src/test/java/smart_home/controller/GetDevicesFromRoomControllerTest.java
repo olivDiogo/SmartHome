@@ -36,7 +36,7 @@ class GetDevicesFromRoomControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -90,7 +90,7 @@ class GetDevicesFromRoomControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         DeviceServiceImpl deviceServiceImpl = null;
 
@@ -116,7 +116,7 @@ class GetDevicesFromRoomControllerTest {
         RoomAssembler roomAssembler = null;
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -144,7 +144,7 @@ class GetDevicesFromRoomControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -175,7 +175,7 @@ class GetDevicesFromRoomControllerTest {
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
 
         HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -254,7 +254,7 @@ class GetDevicesFromRoomControllerTest {
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
         HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
@@ -297,7 +297,7 @@ class GetDevicesFromRoomControllerTest {
         DeviceRepository deviceRepository = new DeviceRepository();
         DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
         PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
         GetDevicesFromRoomController getDevicesFromRoomController = new GetDevicesFromRoomController(roomServiceImpl, deviceServiceImpl, roomAssembler, deviceAssembler);

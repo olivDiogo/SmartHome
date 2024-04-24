@@ -49,7 +49,7 @@ class AddActuatorToDeviceControllerTest {
   DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
   ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
   RoomServiceImpl roomServiceImpl =
-      new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+      new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
   ActuatorModelServiceImpl actuatorModelServiceImpl =
       new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory);
   ActuatorTypeServiceImpl ActuatorTypeServiceImpl =

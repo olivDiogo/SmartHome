@@ -167,7 +167,7 @@ import static org.mockito.Mockito.when;
         /* Create a room */
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         String strRoomName = "Bedroom";
         RoomName roomName = new RoomName(strRoomName);
@@ -245,7 +245,7 @@ import static org.mockito.Mockito.when;
         /* Create a room */
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         String strRoomName = "Bedroom";
         RoomName roomName = new RoomName(strRoomName);
@@ -322,7 +322,7 @@ import static org.mockito.Mockito.when;
         /* Create a room */
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         String strRoomName = "Bedroom";
         RoomName roomName = new RoomName(strRoomName);

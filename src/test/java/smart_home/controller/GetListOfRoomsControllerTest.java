@@ -30,7 +30,7 @@ class GetListOfRoomsControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         //Act
         GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
@@ -72,7 +72,7 @@ class GetListOfRoomsControllerTest {
         RoomAssembler roomAssembler = null;
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         //Act
         try {
@@ -93,7 +93,7 @@ class GetListOfRoomsControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
 
@@ -117,7 +117,7 @@ class GetListOfRoomsControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomServiceImpl, roomAssembler);
 

@@ -102,7 +102,7 @@ class DeactivateDeviceControllerTest {
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
@@ -152,7 +152,7 @@ class DeactivateDeviceControllerTest {
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
@@ -188,7 +188,7 @@ class DeactivateDeviceControllerTest {
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();
@@ -241,7 +241,7 @@ class DeactivateDeviceControllerTest {
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
         DeviceAssembler deviceAssembler = new DeviceAssembler();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();

@@ -31,7 +31,7 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         //Act
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
@@ -52,7 +52,7 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
@@ -103,7 +103,7 @@ class AddRoomToHouseControllerTest {
         RoomFloor roomFloor = new RoomFloor(floor);
         Dimension dimension = new Dimension(width, length, height);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         Room room = roomServiceImpl.addRoom(houseID1, roomName, dimension, roomFloor);
@@ -128,7 +128,7 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
@@ -147,7 +147,7 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
@@ -165,7 +165,7 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
@@ -183,7 +183,7 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
@@ -201,7 +201,7 @@ class AddRoomToHouseControllerTest {
         RoomAssembler roomAssembler = new RoomAssembler();
         HouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act

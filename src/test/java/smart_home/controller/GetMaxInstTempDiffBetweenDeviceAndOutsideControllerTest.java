@@ -174,7 +174,8 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
 
         RoomFactoryImpl roomFactory = new RoomFactoryImpl();
         RoomAssembler roomAssembler = new RoomAssembler();
-        RoomServiceImpl roomService = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        RoomServiceImpl roomService = new RoomServiceImpl(roomRepository, roomFactory,
+            houseRepository);
 
         DeviceTypeFactoryImpl impDeviceTypeFactory = new DeviceTypeFactoryImpl();
         HouseFactoryImpl houseFactory = new HouseFactoryImpl();

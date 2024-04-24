@@ -38,7 +38,7 @@ class GetLogFromDeviceControllerTest {
   HouseFactoryImpl houseFactory = new HouseFactoryImpl();
   HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
   RoomServiceImpl roomService =
-      new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+      new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
   DeviceServiceImpl deviceService =
       new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
   DeviceAssembler deviceAssembler = new DeviceAssembler();

@@ -15,7 +15,6 @@ import java.util.Optional;
 public class RoomServiceImpl implements IRoomService {
     private final IRepository<RoomID, Room> _roomRepository;
     private final IRoomFactory _roomFactory;
-    private final IAssembler<Room, RoomDTO> _roomAssembler;
     private final IRepository<HouseID, House> _houseRepository;
 
     /**
@@ -23,13 +22,12 @@ public class RoomServiceImpl implements IRoomService {
      *
      * @param roomRepository
      * @param roomFactory
-     * @param roomAssembler
      * @param houseRepository
      */
-    public RoomServiceImpl(IRepository<RoomID, Room> roomRepository, IRoomFactory roomFactory, IAssembler<Room, RoomDTO> roomAssembler, IRepository<HouseID, House> houseRepository) {
+    public RoomServiceImpl(IRepository<RoomID, Room> roomRepository, IRoomFactory roomFactory,
+        IRepository<HouseID, House> houseRepository) {
         _roomRepository = roomRepository;
         _roomFactory = roomFactory;
-        _roomAssembler = roomAssembler;
         _houseRepository = houseRepository;
     }
 

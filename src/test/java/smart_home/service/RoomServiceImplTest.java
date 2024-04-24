@@ -28,11 +28,10 @@ class RoomServiceImplTest {
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
-        RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
 
         // Act
-        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         // Assert
         assertNotNull(roomServiceImpl);
@@ -47,9 +46,8 @@ class RoomServiceImplTest {
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
-        RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
         Dimension dimension = mock(Dimension.class);
@@ -74,9 +72,8 @@ class RoomServiceImplTest {
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
-        RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         HouseID houseID = mock(HouseID.class);
         RoomName roomName = mock(RoomName.class);
         Dimension dimension = mock(Dimension.class);
@@ -96,9 +93,8 @@ class RoomServiceImplTest {
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
-        RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         Room mockRoom = mock(Room.class);
         when(roomRepository.findAll()).thenReturn(List.of(mockRoom));
 
@@ -118,9 +114,8 @@ class RoomServiceImplTest {
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
-        RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         when(roomRepository.findAll()).thenReturn(List.of());
 
         // Act
@@ -139,9 +134,8 @@ class RoomServiceImplTest {
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
-        RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         Room mockRoom1 = mock(Room.class);
         Room mockRoom2 = mock(Room.class);
         when(roomRepository.findAll()).thenReturn(List.of(mockRoom1, mockRoom2));
@@ -163,9 +157,8 @@ class RoomServiceImplTest {
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
-        RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         RoomID roomID = mock(RoomID.class);
         Room mockRoom = mock(Room.class);
         when(roomRepository.ofIdentity(any(RoomID.class))).thenReturn(Optional.of(mockRoom));
@@ -188,9 +181,8 @@ class RoomServiceImplTest {
         RoomServiceImpl roomServiceImpl;
         RoomRepository roomRepository = mock(RoomRepository.class);
         IRoomFactory roomFactory = mock(IRoomFactory.class);
-        RoomAssembler roomAssembler = mock(RoomAssembler.class);
         HouseRepository houseRepository = mock(HouseRepository.class);
-        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, roomAssembler, houseRepository);
+        roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         RoomID roomID = mock(RoomID.class);
         when(roomRepository.ofIdentity(any(RoomID.class))).thenReturn(Optional.empty());
 
