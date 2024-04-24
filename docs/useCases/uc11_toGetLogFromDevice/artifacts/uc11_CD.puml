@@ -51,11 +51,11 @@ class LogDTO {
 }
 
 
-GetLogFromDeviceController "1" -down-> "1" LogServiceImpl
-GetLogFromDeviceController "1" -down-> "1" DeviceServiceImpl
-LogServiceImpl "1" -down-> "1" LogRepository
-DeviceServiceImpl "1" -down-> "1" DeviceRepository
-LogServiceImpl "1" -down-> "1" LogAssembler
-LogAssembler "1" -down-> "*" LogDTO
+GetLogFromDeviceController "1" -down-> "1" LogServiceImpl : uses
+GetLogFromDeviceController "1" -down-> "1" DeviceServiceImpl : uses
+LogServiceImpl "1" -down-> "1" LogRepository : uses
+DeviceServiceImpl "1" -down-> "1" DeviceRepository : uses
+LogServiceImpl "1" -down-> "1" LogAssembler : uses
+LogAssembler "1" -down-> "*" LogDTO : creates
 
 @enduml
