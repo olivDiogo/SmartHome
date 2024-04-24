@@ -1,6 +1,8 @@
 package smart_home.domain.actuator_type;
 
+import org.apache.commons.lang3.Validate;
 import smart_home.ddd.IAggregateRoot;
+import smart_home.utils.Validator;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.TypeDescription;
 import smart_home.value_object.UnitID;
@@ -20,60 +22,34 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
      * @param unit the unit of the actuator type, must not be null
      */
     public ActuatorType(TypeDescription name, UnitID unit) {
-        validateActuatorTypeName(name);
-        validateUnit(unit);
+      Validator.validateNotNull(name, "Type Description");
+      Validator.validateNotNull(unit, "Unit ID");
         generateID(name);
+
+        this._actuatorTypeName = name;
+        this._unit = unit;
     }
 
     /**
      * Creates a new {@link ActuatorType} instance using the provided actuator type name, unit and actuator type ID.
-     * @param name
-     * @param unit
-     * @param actuatorTypeID
+     * @param name the actuator type name, must not be null
+     * @param unit the unit of the actuator type, must not be null
+     * @param actuatorTypeID the actuator type ID, must not be null
      */
     public ActuatorType(TypeDescription name, UnitID unit, ActuatorTypeID actuatorTypeID) {
-        validateActuatorTypeName(name);
-        validateUnit(unit);
-        validateID(actuatorTypeID);
+       Validator.validateNotNull(name, "Type Description");
+        Validator.validateNotNull(unit, "Unit ID");
+        Validator.validateNotNull(actuatorTypeID, "Actuator Type ID");
+
+        this._actuatorTypeName = name;
+        this._unit = unit;
+        this._id = actuatorTypeID;
     }
 
     private void generateID(TypeDescription name) {
         _id = new ActuatorTypeID(name.toString());
     }
 
-    /**
-     * Validates the actuator type name and sets it.
-     *
-     * @param actuatorTypeName the actuator type name, must not be null
-     */
-    private void validateActuatorTypeName(TypeDescription actuatorTypeName) {
-        if (actuatorTypeName == null) {
-            throw new IllegalArgumentException("Actuator type name must not be null.");
-        }
-        this._actuatorTypeName = actuatorTypeName;
-    }
-
-    /**
-     * Validates the unit and sets it.
-     *
-     * @param unit the unit of the sensor type, must not be null
-     */
-    private void validateUnit(UnitID unit) {
-        if (unit == null) throw new IllegalArgumentException("Unit must not be null.");
-        this._unit = unit;
-    }
-
-    /**
-     * Validates the actuator type ID and sets it.
-     *
-     * @param actuatorTypeID the actuator type ID, must not be null
-     */
-    private void validateID(ActuatorTypeID actuatorTypeID) {
-        if (actuatorTypeID == null) {
-            throw new IllegalArgumentException("Actuator type ID must not be null.");
-        }
-        this._id = actuatorTypeID;
-    }
 
     /**
      * Gets the actuator type name.
@@ -94,12 +70,7 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
         return _actuatorTypeName;
     }
 
-    /**
-     * Compares this instance with another instance.
-     *
-     * @param o the other instance to compare with
-     * @return true if the instances are equal, false otherwise
-     */
+
 
     /**
      * Method to get unit
@@ -113,7 +84,7 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
     /**
      * Method to compare two instances
      *
-     * @param object
+     * @param object the object to compare
      * @return true if the instances are equal, false otherwise
      */
 
