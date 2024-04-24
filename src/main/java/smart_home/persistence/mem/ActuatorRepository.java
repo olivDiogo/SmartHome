@@ -2,6 +2,7 @@ package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.actuator.IActuator;
+import smart_home.domain.repository.IActuatorRepository;
 import smart_home.utils.Validator;
 import smart_home.value_object.ActuatorID;
 import smart_home.value_object.DeviceID;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ActuatorRepository implements IRepository<ActuatorID, IActuator> {
+public class ActuatorRepository implements IActuatorRepository {
 
     /**
      * Map to store the Actuator data.

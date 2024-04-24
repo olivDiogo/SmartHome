@@ -5,6 +5,7 @@ import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import smart_home.domain.repository.IActuatorModelRepository;
 import smart_home.domain.repository.ISensorModelRepository;
+import smart_home.domain.repository.IUnitRepository;
 import smart_home.domain.sensor_model.ISensorModelFactory;
 import smart_home.domain.sensor_model.SensorModel;
 import smart_home.domain.actuator_model.IActuatorModelFactory;
@@ -20,13 +21,13 @@ import java.io.File;
 
 public class LoadModelsAndUnit {
 
-    private UnitRepository unitRepository;
+    private IUnitRepository unitRepository;
     private IUnitFactory unitFactory;
 
     public LoadModelsAndUnit(
             ISensorModelRepository sensorModelRepository,
             IActuatorModelRepository actuatorModelRepository,
-            UnitRepository unitRepository,
+            IUnitRepository unitRepository,
             ISensorModelFactory sensorModelFactory,
             IActuatorModelFactory actuatorModelFactory,
             IUnitFactory unitFactory) throws InstantiationException {

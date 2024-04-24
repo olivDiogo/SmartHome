@@ -1,7 +1,30 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+import smart_home.ddd.IAssembler;
+import smart_home.domain.actuator.IActuator;
+import smart_home.domain.actuator.IActuatorFactory;
+import smart_home.domain.actuator_model.IActuatorModelFactory;
+import smart_home.domain.actuator_type.IActuatorTypeFactory;
+import smart_home.domain.device.IDeviceFactory;
+import smart_home.domain.house.IHouseFactory;
+import smart_home.domain.repository.IActuatorModelRepository;
+import smart_home.domain.repository.IActuatorRepository;
+import smart_home.domain.repository.IActuatorTypeRepository;
+import smart_home.domain.repository.IDeviceRepository;
+import smart_home.domain.repository.IHouseRepository;
+import smart_home.domain.repository.IRoomRepository;
+import smart_home.domain.repository.ISensorModelRepository;
+import smart_home.domain.repository.IUnitRepository;
+import smart_home.domain.room.IRoomFactory;
+import smart_home.domain.sensor_model.ISensorModelFactory;
 import smart_home.domain.sensor_model.SensorModelFactoryImpl;
+import smart_home.domain.service.IActuatorModelService;
+import smart_home.domain.service.IActuatorTypeService;
+import smart_home.domain.service.IDeviceService;
+import smart_home.domain.service.IHouseService;
+import smart_home.domain.service.IRoomService;
+import smart_home.domain.unit.IUnitFactory;
 import smart_home.dto.actuator_data_dto.ActuatorDataGenericDTOImp;
 import smart_home.dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
 import smart_home.dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
@@ -31,39 +54,39 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddActuatorToDeviceControllerTest {
-  SensorModelRepository sensorModelRepository = new SensorModelRepository();
-  SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-  RoomRepository roomRepository = new RoomRepository();
-  RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-  RoomAssembler roomAssembler = new RoomAssembler();
-  HouseRepository houseRepository = new HouseRepository();
-  UnitRepository unitRepository = new UnitRepository();
-  UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-  ActuatorRepository actuatorRepository = new ActuatorRepository();
-  ActuatorFactoryImpl actuatorFactory = new ActuatorFactoryImpl();
-  ActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
-  ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
-  ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-  ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-  DeviceRepository deviceRepository = new DeviceRepository();
-  DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-  ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
-  RoomServiceImpl roomServiceImpl =
+  ISensorModelRepository sensorModelRepository = new SensorModelRepository();
+  ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
+  IRoomRepository roomRepository = new RoomRepository();
+  IRoomFactory roomFactory = new RoomFactoryImpl();
+  IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+  IHouseRepository houseRepository = new HouseRepository();
+  IUnitRepository unitRepository = new UnitRepository();
+  IUnitFactory unitFactory = new UnitFactoryImpl();
+  IActuatorRepository actuatorRepository = new ActuatorRepository();
+  IActuatorFactory actuatorFactory = new ActuatorFactoryImpl();
+  IActuatorTypeRepository actuatorTypeRepository = new ActuatorTypeRepository();
+  IActuatorTypeFactory actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+  IActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
+  IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
+  IDeviceRepository deviceRepository = new DeviceRepository();
+  IDeviceFactory deviceFactory = new DeviceFactoryImpl();
+  IAssembler<ActuatorModel, ActuatorModelDTO> actuatorModelAssembler = new ActuatorModelAssembler();
+  IRoomService roomServiceImpl =
       new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-  ActuatorModelServiceImpl actuatorModelServiceImpl =
+  IActuatorModelService actuatorModelServiceImpl =
       new ActuatorModelServiceImpl(actuatorModelRepository, actuatorModelFactory);
-  ActuatorTypeServiceImpl ActuatorTypeServiceImpl =
+  IActuatorTypeService ActuatorTypeServiceImpl =
       new ActuatorTypeServiceImpl(actuatorTypeRepository, actuatorTypeFactory, unitRepository);
-  ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
-  ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
+  IAssembler<ActuatorType, ActuatorTypeDTO> actuatorTypeAssembler = new ActuatorTypeAssembler();
+  IAssembler<IActuator, ActuatorDTO> actuatorAssembler = new ActuatorAssembler();
   IActuatorService actuatorService =
       new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
-  DeviceServiceImpl deviceServiceImpl =
+  IDeviceService deviceServiceImpl =
       new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-  DeviceAssembler deviceAssembler = new DeviceAssembler();
-  PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-  HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-  HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+  IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
+  IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+  IHouseFactory houseFactory = new HouseFactoryImpl();
+  IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
   private void loadHouseAndRoom() {
     String street = "Rua Do Isep";

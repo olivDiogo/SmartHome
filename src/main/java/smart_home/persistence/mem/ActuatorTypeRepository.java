@@ -2,6 +2,7 @@ package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
 import smart_home.domain.actuator_type.ActuatorType;
+import smart_home.domain.repository.IActuatorTypeRepository;
 import smart_home.utils.Validator;
 import smart_home.value_object.ActuatorTypeID;
 import smart_home.value_object.TypeDescription;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ActuatorTypeRepository implements IRepository<ActuatorTypeID, ActuatorType> {
+public class ActuatorTypeRepository implements IActuatorTypeRepository {
 
     private final Map<ActuatorTypeID, ActuatorType> DATA = new LinkedHashMap<>();
 
