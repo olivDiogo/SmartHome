@@ -1,20 +1,20 @@
 package smart_home.persistence.spring_data.actuator;
 
+import java.util.List;
+import java.util.Optional;
 import smart_home.domain.actuator.IActuator;
 import smart_home.domain.repository.IActuatorRepository;
 import smart_home.persistence.assembler.IDataModelAssembler;
 import smart_home.persistence.jpa.data_model.ActuatorDataModel;
 import smart_home.utils.Validator;
 import smart_home.value_object.ActuatorID;
-
-import java.util.List;
-import java.util.Optional;
+import smart_home.visitor_pattern.IActuatorVisitorForDataModel;
 
 public class ActuatorSpringDataRepository implements IActuatorRepository {
 
-    private IActuatorSpringDataRepository _repository;
-
-    private IDataModelAssembler<ActuatorDataModel, IActuator> _assembler;
+  private final IActuatorSpringDataRepository _repository;
+  private final IDataModelAssembler<ActuatorDataModel, IActuator> _assembler;
+  private final IActuatorVisitorForDataModel _actuatorVisitorForDataModel;
 
     /**
      * Constructs a new repository instance with the specified entity manager factory and data model assembler.
@@ -22,11 +22,15 @@ public class ActuatorSpringDataRepository implements IActuatorRepository {
      * @param repository the repository to use
      * @param dataModelAssembler the converter to transform data models to domain models and vice versa
      */
-    public ActuatorSpringDataRepository(IActuatorSpringDataRepository repository, IDataModelAssembler<ActuatorDataModel, IActuator> dataModelAssembler) {
+    public ActuatorSpringDataRepository(IActuatorSpringDataRepository repository,
+        IDataModelAssembler<ActuatorDataModel, IActuator> dataModelAssembler,
+        IActuatorVisitorForDataModel actuatorVisitorForDataModel) {
         Validator.validateNotNull(dataModelAssembler, "Data model assembler");
         _assembler = dataModelAssembler;
         Validator.validateNotNull(repository, "Repository");
         _repository = repository;
+      Validator.validateNotNull(actuatorVisitorForDataModel, "Actuator visitor for data model");
+      _actuatorVisitorForDataModel = actuatorVisitorForDataModel;
     }
 
     /**
@@ -39,7 +43,8 @@ public class ActuatorSpringDataRepository implements IActuatorRepository {
     @Override
     public IActuator save(IActuator actuator) {
         Validator.validateNotNull(actuator, "Actuator");
-        ActuatorDataModel actuatorDataModel = new ActuatorDataModel(actuator);
+      actuator.accept(_actuatorVisitorForDataModel);
+      ActuatorDataModel actuatorDataModel = _actuatorVisitorForDataModel.getActuatorDataModel();
         _repository.save(actuatorDataModel);
         return actuator;
     }
@@ -67,8 +72,8 @@ public class ActuatorSpringDataRepository implements IActuatorRepository {
     public Optional<IActuator> ofIdentity(ActuatorID objectID) {
         Optional<ActuatorDataModel> actuatorDataModel = _repository.findById(objectID.getID());
         if(actuatorDataModel.isPresent()) {
-            ActuatorDataModel actuatorDataModel1 = actuatorDataModel.get();
-            IActuator actuator = _assembler.toDomain(actuatorDataModel.get());
+          ActuatorDataModel actualActuatorDataModel = actuatorDataModel.get();
+          IActuator actuator = _assembler.toDomain(actualActuatorDataModel);
             return Optional.of(actuator);
         } else {
             return Optional.empty();

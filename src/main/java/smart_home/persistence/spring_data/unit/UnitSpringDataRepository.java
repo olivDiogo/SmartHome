@@ -1,17 +1,15 @@
 package smart_home.persistence.spring_data.unit;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import java.util.List;
+import java.util.Optional;
 import smart_home.domain.repository.IUnitRepository;
 import smart_home.domain.unit.Unit;
 import smart_home.persistence.assembler.IDataModelAssembler;
 import smart_home.persistence.jpa.data_model.UnitDataModel;
 import smart_home.utils.Validator;
 import smart_home.value_object.UnitID;
-
-import java.util.List;
-import java.util.Optional;
 
 public class UnitSpringDataRepository implements IUnitRepository {
 
@@ -27,7 +25,8 @@ public class UnitSpringDataRepository implements IUnitRepository {
      * @param repository the repository to use
      * @param assembler the converter to transform data models to domain models and vice versa
      */
-    public UnitSpringDataRepository(IUnitSpringDataRepository repository, IDataModelAssembler assembler) {
+    public UnitSpringDataRepository(IUnitSpringDataRepository repository,
+        IDataModelAssembler<UnitDataModel, Unit> assembler) {
         this._factory = Persistence.createEntityManagerFactory("smart_home");
 
         Validator.validateNotNull(repository, "Unit repository");
