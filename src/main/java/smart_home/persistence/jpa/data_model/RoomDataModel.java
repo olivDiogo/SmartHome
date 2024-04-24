@@ -3,6 +3,7 @@ package smart_home.persistence.jpa.data_model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 import smart_home.domain.room.Room;
 import smart_home.utils.Validator;
 
@@ -15,6 +16,8 @@ public class RoomDataModel {
   @Column private int _depth;
   @Column private int _height;
   @Column private int _floor;
+  @Version
+  private long version;
 
   /** Empty class constructor */
   public RoomDataModel() {}

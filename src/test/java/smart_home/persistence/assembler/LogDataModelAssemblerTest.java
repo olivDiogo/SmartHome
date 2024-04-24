@@ -112,12 +112,15 @@ class LogDataModelAssemblerTest {
     // Arrange
     LogDataModel logDataModel = null;
     String expectedMessage = "Log Data Model is required";
-
+    ILogFactory logFactoryDouble = mock(ILogFactory.class);
+    LogDataModelAssembler logDataModelAssembler = new LogDataModelAssembler(logFactoryDouble);
     // Act
     IllegalArgumentException exception =
         assertThrows(
             IllegalArgumentException.class,
-            () -> new LogDataModelAssembler(mock(ILogFactory.class)).toDomain(logDataModel));
+            () -> {
+              logDataModelAssembler.toDomain(logDataModel);
+            });
     String actualMessage = exception.getMessage();
 
     // Assert
@@ -178,7 +181,6 @@ class LogDataModelAssemblerTest {
     List<Log> log = logDataModelAssembler.toDomain(logDataModels);
 
     // Assert
-    System.out.println(expected);
     assertEquals(expected, log.get(0));
   }
 }

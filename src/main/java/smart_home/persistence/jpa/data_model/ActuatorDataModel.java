@@ -26,6 +26,8 @@ public class ActuatorDataModel {
     private String _decimalLowerBond;
     @Column (name = "decimalUpperBond")
     private String _decimalUpperBond;
+    @Version
+    private long version;
 
 
     public ActuatorDataModel() {

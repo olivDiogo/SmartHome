@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import smart_home.domain.sensor_model.SensorModel;
 import smart_home.utils.Validator;
 
@@ -18,6 +19,8 @@ public class SensorModelDataModel {
     private String _sensorModelName;
     @Column (name = "sensor_type_id")
     private String _sensorTypeID;
+    @Version
+    private long version;
 
 
     /**

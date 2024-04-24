@@ -3,6 +3,7 @@ package smart_home.persistence.jpa.data_model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 import smart_home.domain.house.House;
 import smart_home.utils.Validator;
 
@@ -27,6 +28,8 @@ public class HouseDataModel {
     private String _countryCode;
     @Column(name = "postalCode")
     private String _postalCode;
+    @Version
+    private long version;
 
     /**
      * Empty constructor so that JPA can instantiate the class

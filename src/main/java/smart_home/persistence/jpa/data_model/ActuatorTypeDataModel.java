@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import smart_home.domain.actuator_type.ActuatorType;
 import smart_home.utils.Validator;
 
@@ -16,6 +17,9 @@ public class ActuatorTypeDataModel {
     private String _actuatorTypeName;
     @Column(name = "unitID")
     private String _unitID;
+
+    @Version
+    private long version;
 
     /**
      * Default constructor.

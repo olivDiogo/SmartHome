@@ -4,6 +4,7 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import smart_home.domain.sensor.ISensor;
 import smart_home.utils.Validator;
 
@@ -24,6 +25,8 @@ public class SensorDataModel {
     private String startDate;
     @Nullable
     private String endDate;
+    @Version
+    private long version;
 
     public SensorDataModel() {
 

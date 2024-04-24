@@ -145,8 +145,6 @@ class SensorDataModelAssemblerTest {
     //Act
 
     List<ISensor> result = sensorDataModelAssembler.toDomain(sensorDataModels);
-    System.out.println(result);
-    System.out.println(expected);
 
     //Assert
     assertEquals(expected, result);

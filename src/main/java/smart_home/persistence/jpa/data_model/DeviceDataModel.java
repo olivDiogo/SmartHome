@@ -26,6 +26,8 @@ public class DeviceDataModel {
     private String deviceTypeID;
     @Column(name = "Device Status")
     private boolean deviceStatus;
+    @Version
+    private long version;
 
     /**
      * Default constructor for JPA.

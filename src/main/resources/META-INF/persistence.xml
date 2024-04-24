@@ -5,7 +5,18 @@
     <persistence-unit name="smart_home">
 
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>smart_home.persistence.jpa.data_model.SensorTypeDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.ActuatorDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.ActuatorModelDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.ActuatorTypeDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.DeviceDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.DeviceTypeDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.HouseDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.LogDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.RoomDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.SensorDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.SensorModelDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.SensorTypeDataModel</class>
+      <class>smart_home.persistence.jpa.data_model.UnitDataModel</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./src/main/resources/META-INF/test.mv"/>

@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import org.apache.commons.lang3.Validate;
 import smart_home.domain.unit.Unit;
 import smart_home.utils.Validator;
@@ -22,6 +23,9 @@ public class UnitDataModel {
 
     @Column(name = "UnitDescription")
     private String _unitDescription;
+
+    @Version
+    private long version;
 
     /**
      * Default constructor.

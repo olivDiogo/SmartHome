@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import smart_home.domain.device_type.DeviceType;
 import smart_home.utils.Validator;
 
@@ -14,6 +15,8 @@ public class DeviceTypeDataModel {
 
   @Column(name = "TypeDescription")
   private String _deviceTypeDescription;
+  @Version
+  private long version;
 
   /** Default constructor */
   public DeviceTypeDataModel() {}

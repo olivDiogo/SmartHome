@@ -3,6 +3,7 @@ package smart_home.persistence.jpa.data_model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 import smart_home.domain.log.Log;
 import java.time.LocalDateTime;
 
@@ -15,6 +16,9 @@ public class LogDataModel {
   @Column private String _readingValue;
   @Column private String _description;
   @Column private String _unit;
+  @Version
+  private long version;
+
 
   /** Empty class constructor */
   public LogDataModel() {}
