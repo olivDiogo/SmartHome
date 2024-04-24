@@ -9,9 +9,8 @@ public class ElectricConsumptionWhValue implements IValueObject {
     /**
      * Constructs a new ElectricConsumptionWhValue with the given parameters.
      *
-     * @param value the value of electric consumption in watt-hours
      */
-    private int _value;
+    private int value;
 
     /**
      * Constructs a new ElectricConsumptionWhValue with the given parameters.
@@ -26,13 +25,12 @@ public class ElectricConsumptionWhValue implements IValueObject {
     /**
      * Returns the value of electric consumption in watt-hours.
      *
-     * @return the value of electric consumption in watt-hours
      */
 
     private void setValue(int value) {
         if (value < 0)
             throw new IllegalArgumentException("Consumption cannot be negative.");
-        else _value = value;
+        else this.value = value;
     }
 
     /**
@@ -40,7 +38,7 @@ public class ElectricConsumptionWhValue implements IValueObject {
      */
     @Override
     public String toString() {
-        return "ElectricConsumptionWh{" + +_value +
+        return "ElectricConsumptionWh{" + +value +
                 '}';
     }
 
@@ -50,7 +48,7 @@ public class ElectricConsumptionWhValue implements IValueObject {
     @Override
     public boolean equals(Object o) {
         if (o instanceof ElectricConsumptionWhValue objectElectricConsumptionWhValue) {
-            return _value == objectElectricConsumptionWhValue._value;
+            return value == objectElectricConsumptionWhValue.value;
         }
         return false;
     }
@@ -60,6 +58,6 @@ public class ElectricConsumptionWhValue implements IValueObject {
      */
     @Override
     public int hashCode() {
-        return Integer.hashCode(_value);
+        return Integer.hashCode(value);
     }
 }

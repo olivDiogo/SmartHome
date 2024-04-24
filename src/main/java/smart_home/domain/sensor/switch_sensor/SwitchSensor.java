@@ -10,12 +10,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class SwitchSensor implements ISensor {
-    private ModelPath _modelPath;
-    private SensorName _sensorName;
-    private SensorID _sensorID;
-    private SensorTypeID _sensorTypeID;
+    private ModelPath modelPath;
+    private SensorName sensorName;
+    private SensorID sensorID;
+    private SensorTypeID sensorTypeID;
     private SwitchSensorValue switchSensorValue;
-    private DeviceID _deviceID;
+    private DeviceID deviceID;
 
     /**
      * @param deviceID     The device ID.
@@ -31,10 +31,10 @@ public class SwitchSensor implements ISensor {
         generateSwitchSensorID();
 
         switchSensorValue = new SwitchSensorValue(false);
-        this._modelPath = modelPath;
-        this._sensorName = sensorName;
-        this._sensorTypeID = sensorTypeID;
-        this._deviceID = deviceID;
+        this.modelPath = modelPath;
+        this.sensorName = sensorName;
+        this.sensorTypeID = sensorTypeID;
+        this.deviceID = deviceID;
 
     }
 
@@ -53,10 +53,10 @@ public class SwitchSensor implements ISensor {
         Validator.validateNotNull(sensorID, "SensorID");
 
         switchSensorValue = new SwitchSensorValue(false);
-        this._modelPath = modelPath;
-        this._sensorName = sensorName;
-        this._sensorTypeID = sensorTypeID;
-        this._deviceID = deviceID;
+        this.modelPath = modelPath;
+        this.sensorName = sensorName;
+        this.sensorTypeID = sensorTypeID;
+        this.deviceID = deviceID;
 
     }
 
@@ -66,7 +66,7 @@ public class SwitchSensor implements ISensor {
      * generates a new HumidityID
      */
     private void generateSwitchSensorID() {
-        this._sensorID = new SensorID(UUID.randomUUID().toString());
+        this.sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
     /**
@@ -89,7 +89,7 @@ public class SwitchSensor implements ISensor {
      */
     @Override
     public SensorID getID() {
-        return this._sensorID;
+        return this.sensorID;
     }
 
     /**
@@ -99,7 +99,7 @@ public class SwitchSensor implements ISensor {
      */
     @Override
     public SensorName getName() {
-        return this._sensorName;
+        return this.sensorName;
     }
 
     /**
@@ -109,7 +109,7 @@ public class SwitchSensor implements ISensor {
      */
     @Override
     public ModelPath getModelPath() {
-        return this._modelPath;
+        return this.modelPath;
     }
 
     /**
@@ -119,7 +119,7 @@ public class SwitchSensor implements ISensor {
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return this._sensorTypeID;
+        return this.sensorTypeID;
     }
 
     /**
@@ -142,7 +142,7 @@ public class SwitchSensor implements ISensor {
      */
     @Override
     public DeviceID getDeviceID() {
-        return this._deviceID;
+        return this.deviceID;
     }
 
     /**
@@ -154,7 +154,7 @@ public class SwitchSensor implements ISensor {
     @Override
     public boolean equals(Object o) {
         if (o instanceof SwitchSensor switchSensor) {
-            return this._sensorID.equals(switchSensor.getID());
+            return this.sensorID.equals(switchSensor.getID());
         }
         return false;
     }
@@ -166,12 +166,12 @@ public class SwitchSensor implements ISensor {
      */
     @Override
     public int hashCode() {
-        return this._sensorID.hashCode();
+        return this.sensorID.hashCode();
     }
 
     @Override
     public String toString() {
-        return "SwitchSensor: DeviceID= " + _deviceID.getID() + " ModelPath= " + _modelPath.getID() + " SensorTypeID= " + _sensorTypeID.getID() + " SensorName= " + _sensorName.getSensorName() + " SensorID= " + _sensorID.getID();
+        return "SwitchSensor: DeviceID= " + deviceID.getID() + " ModelPath= " + modelPath.getID() + " SensorTypeID= " + sensorTypeID.getID() + " SensorName= " + sensorName.getSensorName() + " SensorID= " + sensorID.getID();
     }
     public String accept(ISensorVisitor visitor) {
          visitor.visitSwitchSensor(this);

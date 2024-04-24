@@ -3,7 +3,7 @@ package smart_home.domain.sensor.instant_power_consumption_sensor;
 import smart_home.ddd.IValueObject;
 
 public class InstantPowerConsumptionValue implements IValueObject {
-    private final double _instantPowerConsumptionValue;
+    private final double instantPowerConsumptionValue;
 
     /**
      * Constructor of the class.
@@ -13,7 +13,7 @@ public class InstantPowerConsumptionValue implements IValueObject {
     public InstantPowerConsumptionValue(double instantPowerConsumptionValue) {
         if (instantPowerConsumptionValue < 0)
             throw new IllegalArgumentException("The value of the instant power consumption cannot be lower than 0.");
-        this._instantPowerConsumptionValue = instantPowerConsumptionValue;
+        this.instantPowerConsumptionValue = instantPowerConsumptionValue;
     }
 
     /**
@@ -22,6 +22,6 @@ public class InstantPowerConsumptionValue implements IValueObject {
      * @return The value of the instant power consumption.
      */
     public String toString() {
-        return this._instantPowerConsumptionValue + "";
+        return this.instantPowerConsumptionValue + "";
     }
 }

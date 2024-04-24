@@ -58,7 +58,7 @@ public class ActuatorTypeID implements IDomainID {
     /**
      * HashCode method for ActuatorTypeID.
      *
-     * @return
+     * @return the hashcode as an int.
      */
     public int hashCode() {
         return this.id.hashCode();

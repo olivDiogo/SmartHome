@@ -13,12 +13,12 @@ import java.util.UUID;
  * Represents a humidity sensor.
  */
 public class HumiditySensor implements ISensor {
-    private ModelPath _modelPath;
-    private SensorName _sensorName;
-    private SensorID _sensorID;
-    private final SensorTypeID _sensorTypeID;
-    private HumiditySensorValue _humiditySensorValue;
-    private final DeviceID _deviceID;
+    private ModelPath modelPath;
+    private SensorName sensorName;
+    private SensorID sensorID;
+    private final SensorTypeID sensorTypeID;
+    private HumiditySensorValue humiditySensorValue;
+    private final DeviceID deviceID;
 
     /**
      * Constructs a new HumiditySensor.
@@ -35,10 +35,10 @@ public class HumiditySensor implements ISensor {
         validateSensorTypeID(sensorTypeID);
         generateHumidityID();
 
-        this._deviceID = deviceID;
-        this._sensorTypeID = sensorTypeID;
-        this._modelPath = modelPath;
-        this._sensorName = sensorName;
+        this.deviceID = deviceID;
+        this.sensorTypeID = sensorTypeID;
+        this.modelPath = modelPath;
+        this.sensorName = sensorName;
     }
 
     /**
@@ -57,18 +57,18 @@ public class HumiditySensor implements ISensor {
         validateSensorTypeID(sensorTypeID);
         Validator.validateNotNull(sensorID, "SensorID");
 
-        this._deviceID = deviceID;
-        this._sensorTypeID = sensorTypeID;
-        this._modelPath = modelPath;
-        this._sensorName = sensorName;
-        this._sensorID = sensorID;
+        this.deviceID = deviceID;
+        this.sensorTypeID = sensorTypeID;
+        this.modelPath = modelPath;
+        this.sensorName = sensorName;
+        this.sensorID = sensorID;
     }
 
     /**
      * Generates a random SensorID for the humidity sensor.
      */
     private void generateHumidityID() {
-        this._sensorID = new SensorID(UUID.randomUUID().toString());
+        this.sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
     /**
@@ -93,7 +93,7 @@ public class HumiditySensor implements ISensor {
      */
     @Override
     public SensorID getID() {
-        return _sensorID;
+        return sensorID;
     }
 
     /**
@@ -103,7 +103,7 @@ public class HumiditySensor implements ISensor {
      */
     @Override
     public SensorName getName() {
-        return _sensorName;
+        return sensorName;
     }
 
     /**
@@ -113,7 +113,7 @@ public class HumiditySensor implements ISensor {
      */
     @Override
     public ModelPath getModelPath() {
-        return _modelPath;
+        return modelPath;
     }
 
     /**
@@ -123,7 +123,7 @@ public class HumiditySensor implements ISensor {
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return _sensorTypeID;
+        return sensorTypeID;
     }
 
     /**
@@ -134,8 +134,8 @@ public class HumiditySensor implements ISensor {
     @Override
     public HumiditySensorValue getValue() {
         int humidityReadingReading = ValueSimulator.generateRandomValue(0, 100);
-        _humiditySensorValue = new HumiditySensorValue(humidityReadingReading);
-        return _humiditySensorValue;
+        humiditySensorValue = new HumiditySensorValue(humidityReadingReading);
+        return humiditySensorValue;
     }
 
     /**
@@ -145,7 +145,7 @@ public class HumiditySensor implements ISensor {
      */
     @Override
     public DeviceID getDeviceID() {
-        return _deviceID;
+        return deviceID;
     }
 
     /**
@@ -157,7 +157,7 @@ public class HumiditySensor implements ISensor {
     @Override
     public boolean equals(Object o) {
         if (o instanceof HumiditySensor humiditySensor) {
-            return this._sensorID.equals(humiditySensor.getID());
+            return this.sensorID.equals(humiditySensor.getID());
         }
         return false;
     }
@@ -169,7 +169,7 @@ public class HumiditySensor implements ISensor {
      */
     @Override
     public int hashCode() {
-        return this._sensorID.hashCode();
+        return this.sensorID.hashCode();
     }
     /**
      * Should accept a visitor.
@@ -182,11 +182,11 @@ public class HumiditySensor implements ISensor {
     @Override
     public String toString() {
         return "HumiditySensor{" +
-                "_modelPath=" + _modelPath +
-                ", _sensorName=" + _sensorName +
-                ", _sensorID=" + _sensorID +
-                ", _sensorTypeID=" + _sensorTypeID +
-                ", _deviceID=" + _deviceID +
+                "_modelPath=" + modelPath +
+                ", _sensorName=" + sensorName +
+                ", _sensorID=" + sensorID +
+                ", _sensorTypeID=" + sensorTypeID +
+                ", _deviceID=" + deviceID +
                 '}';
     }
 }

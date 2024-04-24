@@ -4,7 +4,7 @@ package smart_home.domain.sensor.average_power_consumption_sensor;
 import smart_home.ddd.IValueObject;
 
 public class AveragePowerConsumptionSensorValue implements IValueObject {
-    public double _dValue;
+    public double dValue;
 
     /**
      * Creates a new PowerConsumptionSensorValue with a given value.
@@ -22,7 +22,7 @@ public class AveragePowerConsumptionSensorValue implements IValueObject {
      * @return the value of the PowerConsumptionSensorValue.
      */
     public double getValue() {
-        return this._dValue;
+        return this.dValue;
     }
 
     /**
@@ -34,11 +34,11 @@ public class AveragePowerConsumptionSensorValue implements IValueObject {
     private void validateValue(double dValue) {
         if (dValue < 0)
             throw new IllegalArgumentException("Value must be positive");
-        this._dValue = dValue;
+        this.dValue = dValue;
     }
 
     public String toString() {
-        return this._dValue + "";
+        return this.dValue + "";
     }
 
     /**
@@ -48,13 +48,13 @@ public class AveragePowerConsumptionSensorValue implements IValueObject {
     public boolean equals(Object o) {
         if (o instanceof AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue) {
             double epsilon = 0.001;
-            double a = Math.abs(_dValue - averagePowerConsumptionSensorValue._dValue);
+            double a = Math.abs(dValue - averagePowerConsumptionSensorValue.dValue);
             return Math.min(a, epsilon) == a;
         }
         return false;
     }
     @Override
     public int hashCode() {
-        return Double.hashCode(_dValue);
+        return Double.hashCode(dValue);
     }
 }

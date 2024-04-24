@@ -12,12 +12,12 @@ import java.util.Objects;
 
 public class SunriseTimeSensor implements ISensor {
 
-    private SunriseTimeSensorValue _sunriseTimeValue;
-    private SensorTypeID _sensorTypeID;
-    private SensorID _sensorID;
-    private SensorName _sensorName;
-    private DeviceID _deviceID;
-    private ModelPath _modelPath;
+    private SunriseTimeSensorValue sunriseTimeSensorValue;
+    private SensorTypeID sensorTypeID;
+    private SensorID sensorID;
+    private SensorName sensorName;
+    private DeviceID deviceID;
+    private ModelPath modelPath;
     private GPS gps;
 
     /**
@@ -32,10 +32,10 @@ public class SunriseTimeSensor implements ISensor {
         Validator.validateNotNull(gps, "GPS");
 
         generateSensorID();
-        this._deviceID = deviceID;
-        this._sensorTypeID = sensorTypeID;
-        this._modelPath = modelPath;
-        this._sensorName = sensorName;
+        this.deviceID = deviceID;
+        this.sensorTypeID = sensorTypeID;
+        this.modelPath = modelPath;
+        this.sensorName = sensorName;
         this.gps = gps;
     }
 
@@ -51,12 +51,12 @@ public class SunriseTimeSensor implements ISensor {
         Validator.validateNotNull(gps, "GPS");
         Validator.validateNotNull(sensorID, "SensorID");
 
-        this._deviceID = deviceID;
-        this._sensorTypeID = sensorTypeID;
-        this._modelPath = modelPath;
-        this._sensorName = sensorName;
+        this.deviceID = deviceID;
+        this.sensorTypeID = sensorTypeID;
+        this.modelPath = modelPath;
+        this.sensorName = sensorName;
         this.gps = gps;
-        this._sensorID = sensorID;
+        this.sensorID = sensorID;
     }
 
 
@@ -70,7 +70,7 @@ public class SunriseTimeSensor implements ISensor {
 
 
     private void generateSensorID() {
-        _sensorID = new SensorID(java.util.UUID.randomUUID().toString());
+        sensorID = new SensorID(java.util.UUID.randomUUID().toString());
     }
 
 
@@ -89,27 +89,27 @@ public class SunriseTimeSensor implements ISensor {
 
     @Override
     public SensorID getID() {
-        return _sensorID;
+        return sensorID;
     }
 
     @Override
     public SensorName getName() {
-        return _sensorName;
+        return sensorName;
     }
 
     @Override
     public ModelPath getModelPath() {
-        return _modelPath;
+        return modelPath;
     }
 
     @Override
     public SensorTypeID getSensorTypeID() {
-        return _sensorTypeID;
+        return sensorTypeID;
     }
 
     @Override
     public DeviceID getDeviceID() {
-        return _deviceID;
+        return deviceID;
     }
 
     /**
@@ -120,8 +120,8 @@ public class SunriseTimeSensor implements ISensor {
     @Override
     public SunriseTimeSensorValue getValue() {
         LocalTime sunrise = getSunriseTime(LocalDate.now());
-        this._sunriseTimeValue = new SunriseTimeSensorValue(sunrise);
-        return this._sunriseTimeValue;
+        this.sunriseTimeSensorValue = new SunriseTimeSensorValue(sunrise);
+        return this.sunriseTimeSensorValue;
     }
     /**
      * Gets the GPS configuration of the sensor.
@@ -138,8 +138,8 @@ public class SunriseTimeSensor implements ISensor {
      */
     public SunriseTimeSensorValue getValue(LocalDate date) {
         LocalTime sunrise = getSunriseTime(date);
-        this._sunriseTimeValue = new SunriseTimeSensorValue(sunrise);
-        return this._sunriseTimeValue;
+        this.sunriseTimeSensorValue = new SunriseTimeSensorValue(sunrise);
+        return this.sunriseTimeSensorValue;
     }
 
     /**
@@ -148,7 +148,7 @@ public class SunriseTimeSensor implements ISensor {
     @Override
     public boolean equals(Object o) {
         if (o instanceof SunriseTimeSensor sunriseTimeObject) {
-            return _sensorID.equals(sunriseTimeObject._sensorID);
+            return sensorID.equals(sunriseTimeObject.sensorID);
         }
         return false;
     }
@@ -158,7 +158,7 @@ public class SunriseTimeSensor implements ISensor {
      */
     @Override
     public int hashCode() {
-        return _sensorID.hashCode();
+        return sensorID.hashCode();
     }
 
     /**
@@ -167,11 +167,11 @@ public class SunriseTimeSensor implements ISensor {
     @Override
     public String toString() {
         return "SunriseTimeSensor:" +
-                ", sensorID=" + _sensorID +
-                ", sensorName=" + _sensorName +
-                ", modelPath=" + _modelPath +
-                ", sensorTypeID=" + _sensorTypeID +
-                ", deviceID=" + _deviceID +
+                ", sensorID=" + sensorID +
+                ", sensorName=" + sensorName +
+                ", modelPath=" + modelPath +
+                ", sensorTypeID=" + sensorTypeID +
+                ", deviceID=" + deviceID +
                 ", gps=" + gps;
     }
     public String accept(ISensorVisitor visitor) {

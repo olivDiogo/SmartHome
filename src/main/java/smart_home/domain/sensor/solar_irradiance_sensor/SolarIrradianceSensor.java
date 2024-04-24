@@ -9,12 +9,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class SolarIrradianceSensor implements ISensor {
-    private SensorID _sensorID;
-    private SensorName _sensorName;
-    private ModelPath _modelPath;
-    private SensorTypeID _sensorTypeID;
-    private DeviceID _deviceID;
-    private SolarIrradianceValue _value;
+    private SensorID sensorID;
+    private SensorName sensorName;
+    private ModelPath modelPath;
+    private SensorTypeID sensorTypeID;
+    private DeviceID deviceID;
+    private SolarIrradianceValue value;
 
     /**
      * Constructor for SolarIrradianceSensor
@@ -30,10 +30,10 @@ public class SolarIrradianceSensor implements ISensor {
         Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
         generateSensorID();
-        this._deviceID = deviceID;
-        this._modelPath = modelPath;
-        this._sensorTypeID = sensorTypeID;
-        this._sensorName = sensorName;
+        this.deviceID = deviceID;
+        this.modelPath = modelPath;
+        this.sensorTypeID = sensorTypeID;
+        this.sensorName = sensorName;
     }
 
     /**
@@ -51,18 +51,18 @@ public class SolarIrradianceSensor implements ISensor {
         Validator.validateNotNull(sensorName, "SensorName");
         validateSensorTypeID(sensorTypeID);
         Validator.validateNotNull(sensorID, "SensorID");
-        this._sensorID = sensorID;
-        this._deviceID = deviceID;
-        this._modelPath = modelPath;
-        this._sensorTypeID = sensorTypeID;
-        this._sensorName = sensorName;
+        this.sensorID = sensorID;
+        this.deviceID = deviceID;
+        this.modelPath = modelPath;
+        this.sensorTypeID = sensorTypeID;
+        this.sensorName = sensorName;
     }
 
     /**
      * Generates sensorID
      */
     private void generateSensorID() {
-        this._sensorID = new SensorID(UUID.randomUUID().toString());
+        this.sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
 
@@ -87,7 +87,7 @@ public class SolarIrradianceSensor implements ISensor {
      */
     @Override
     public SensorID getID() {
-        return this._sensorID;
+        return this.sensorID;
     }
 
     /**
@@ -97,7 +97,7 @@ public class SolarIrradianceSensor implements ISensor {
      */
     @Override
     public SensorName getName() {
-        return this._sensorName;
+        return this.sensorName;
     }
 
     /**
@@ -107,7 +107,7 @@ public class SolarIrradianceSensor implements ISensor {
      */
     @Override
     public ModelPath getModelPath() {
-        return this._modelPath;
+        return this.modelPath;
     }
 
     /**
@@ -117,7 +117,7 @@ public class SolarIrradianceSensor implements ISensor {
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return this._sensorTypeID;
+        return this.sensorTypeID;
     }
 
     /**
@@ -127,8 +127,8 @@ public class SolarIrradianceSensor implements ISensor {
      */
     @Override
     public SolarIrradianceValue getValue() {
-        this._value = new SolarIrradianceValue(4500);
-        return this._value;
+        this.value = new SolarIrradianceValue(4500);
+        return this.value;
     }
 
     /**
@@ -138,20 +138,20 @@ public class SolarIrradianceSensor implements ISensor {
      */
     @Override
     public DeviceID getDeviceID() {
-        return this._deviceID;
+        return this.deviceID;
     }
 
     @Override
     public boolean equals(Object object) {
         if (object instanceof SolarIrradianceSensor sensor) {
-            return this._sensorID.equals(sensor._sensorID);
+            return this.sensorID.equals(sensor.sensorID);
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return this._sensorID.hashCode();
+        return this.sensorID.hashCode();
     }
 
     /**

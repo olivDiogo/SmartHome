@@ -3,7 +3,7 @@ package smart_home.domain.sensor.dew_point_sensor;
 import smart_home.ddd.IValueObject;
 
 public class DewPointValue implements IValueObject {
-    private final int _DewPointValue;
+    private final int dewPointValue;
 
     /**
      * Constructor of the class.
@@ -13,7 +13,7 @@ public class DewPointValue implements IValueObject {
     public DewPointValue(int dewPointValue) {
         if (dewPointValue < -70)
             throw new IllegalArgumentException("The value of the dew point cannot be lower than -70.");
-        this._DewPointValue = dewPointValue;
+        this.dewPointValue = dewPointValue;
     }
 
     /**
@@ -22,7 +22,7 @@ public class DewPointValue implements IValueObject {
      * @return The value of the dew point.
      */
     public String toString() {
-        return this._DewPointValue + "";
+        return this.dewPointValue + "";
     }
 
 
@@ -32,7 +32,7 @@ public class DewPointValue implements IValueObject {
      */
     public boolean equals(Object obj) {
         if (obj instanceof DewPointValue dewPointValue) {
-            return this._DewPointValue == dewPointValue._DewPointValue;
+            return this.dewPointValue == dewPointValue.dewPointValue;
         }
         return false;
 
@@ -44,7 +44,7 @@ public class DewPointValue implements IValueObject {
      */
 
     public int hashCode() {
-        return Integer.hashCode(_DewPointValue);
+        return Integer.hashCode(dewPointValue);
     }
 
 }

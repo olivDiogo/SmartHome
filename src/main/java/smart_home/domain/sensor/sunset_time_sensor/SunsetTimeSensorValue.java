@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 public class SunsetTimeSensorValue implements IValueObject {
 
-    private LocalTime _value;
+    private LocalTime value;
 
     /**
      * Creates a new SunsetTimeValue with a given value.
@@ -17,7 +17,7 @@ public class SunsetTimeSensorValue implements IValueObject {
 
     public SunsetTimeSensorValue(LocalTime value) {
         validateValue(value);
-        this._value = value;
+        this.value = value;
     }
 
     /**
@@ -33,9 +33,9 @@ public class SunsetTimeSensorValue implements IValueObject {
      */
     @Override
     public String toString() {
-        int hours = this._value.getHour();
-        int minutes = this._value.getMinute();
-        int seconds = this._value.getSecond();
+        int hours = this.value.getHour();
+        int minutes = this.value.getMinute();
+        int seconds = this.value.getSecond();
         return String.format("Sunset Time: %02d:%02d:%02d", hours, minutes, seconds);
     }
 

@@ -10,12 +10,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class DewPointSensor implements ISensor {
-    private ModelPath _modelPath;
-    private SensorName _sensorName;
-    private SensorID _sensorID;
-    private SensorTypeID _sensorTypeID;
-    private DewPointValue _dewPointValue;
-    private DeviceID _deviceID;
+    private ModelPath modelPath;
+    private SensorName sensorName;
+    private SensorID sensorID;
+    private SensorTypeID sensorTypeID;
+    private DewPointValue dewPointValue;
+    private DeviceID deviceID;
 
     /**
      * Constructor of the class.
@@ -27,34 +27,34 @@ public class DewPointSensor implements ISensor {
      */
     public DewPointSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         Validator.validateNotNull(deviceID, "DeviceID");
-        this._deviceID = deviceID;
+        this.deviceID = deviceID;
         Validator.validateNotNull(modelPath, "ModelPath");
-        this._modelPath = modelPath;
+        this.modelPath = modelPath;
         Validator.validateNotNull(sensorName, "SensorName");
-        this._sensorName = sensorName;
+        this.sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
+        this.sensorTypeID = sensorTypeID;
         generateDewPointID();
     }
 
     public DewPointSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
         Validator.validateNotNull(deviceID, "DeviceID");
-        this._deviceID = deviceID;
+        this.deviceID = deviceID;
         Validator.validateNotNull(modelPath, "ModelPath");
-        this._modelPath = modelPath;
+        this.modelPath = modelPath;
         Validator.validateNotNull(sensorName, "SensorName");
-        this._sensorName = sensorName;
+        this.sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
+        this.sensorTypeID = sensorTypeID;
         Validator.validateNotNull(sensorID, "SensorID");
-        this._sensorID = sensorID;
+        this.sensorID = sensorID;
     }
 
     /**
      * Generates a new DewPointID.
      */
     private void generateDewPointID() {
-        this._sensorID = new SensorID(UUID.randomUUID().toString());
+        this.sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
 
@@ -78,7 +78,7 @@ public class DewPointSensor implements ISensor {
      */
     @Override
     public SensorID getID() {
-        return this._sensorID;
+        return this.sensorID;
     }
 
     /**
@@ -88,7 +88,7 @@ public class DewPointSensor implements ISensor {
      */
     @Override
     public SensorName getName() {
-        return this._sensorName;
+        return this.sensorName;
     }
 
     /**
@@ -98,7 +98,7 @@ public class DewPointSensor implements ISensor {
      */
     @Override
     public ModelPath getModelPath() {
-        return this._modelPath;
+        return this.modelPath;
     }
 
     /**
@@ -108,7 +108,7 @@ public class DewPointSensor implements ISensor {
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return this._sensorTypeID;
+        return this.sensorTypeID;
     }
 
     /**
@@ -119,9 +119,9 @@ public class DewPointSensor implements ISensor {
     @Override
     public DewPointValue getValue() {
         int dewPointValue = ValueSimulator.generateRandomValue(-70, 70);
-        this._dewPointValue = new DewPointValue(dewPointValue);
+        this.dewPointValue = new DewPointValue(dewPointValue);
 
-        return _dewPointValue;
+        return this.dewPointValue;
     }
 
     /**
@@ -131,7 +131,7 @@ public class DewPointSensor implements ISensor {
      */
     @Override
     public DeviceID getDeviceID() {
-        return this._deviceID;
+        return this.deviceID;
     }
 
     /**
@@ -143,7 +143,7 @@ public class DewPointSensor implements ISensor {
     public boolean equals(Object object) {
         if (object instanceof DewPointSensor dewPointSensor) {
 
-            return this._sensorID.equals(dewPointSensor._sensorID);
+            return this.sensorID.equals(dewPointSensor.sensorID);
         }
         return false;
     }
@@ -156,7 +156,7 @@ public class DewPointSensor implements ISensor {
      */
     @Override
     public int hashCode(){
-        return this._sensorID.hashCode();
+        return this.sensorID.hashCode();
     }
 
     /**
@@ -167,12 +167,12 @@ public class DewPointSensor implements ISensor {
     @Override
     public String toString() {
         return "DewPointSensor:" +
-                " modelPath=" + _modelPath +
-                ", sensorName=" + _sensorName +
-                ", sensorID=" + _sensorID +
-                ", sensorTypeID=" + _sensorTypeID +
-                ", dewPointValue=" + _dewPointValue +
-                ", deviceID=" + _deviceID;
+                " modelPath=" + modelPath +
+                ", sensorName=" + sensorName +
+                ", sensorID=" + sensorID +
+                ", sensorTypeID=" + sensorTypeID +
+                ", dewPointValue=" + dewPointValue +
+                ", deviceID=" + deviceID;
     }
 
     /**

@@ -18,16 +18,13 @@ public class AveragePowerConsumptionSensor implements ISensor {
      * It implements the ISensor interface with SensorID as its identifier.
      */
 
-    private final HashMap<LocalDateTime, Double> _powerConsumptions;
-    private AveragePowerConsumptionSensorValue _averagePowerConsumptionSensorValue;
-    private SensorTypeID _sensorTypeID;
-    private SensorID _sensorID;
-
-    private SensorName _sensorName;
-
-    private DeviceID _deviceID;
-
-    private ModelPath _modelPath;
+    private final HashMap<LocalDateTime, Double> powerConsumptions;
+    private AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue;
+    private SensorTypeID sensorTypeID;
+    private SensorID sensorID;
+    private SensorName sensorName;
+    private DeviceID deviceID;
+    private ModelPath modelPath;
 
     /**
      * @param deviceID     The device ID.
@@ -45,13 +42,13 @@ public class AveragePowerConsumptionSensor implements ISensor {
 
         generateSensorID();
 
-        this._deviceID = deviceID;
-        this._sensorTypeID = sensorTypeID;
-        this._modelPath = modelPath;
-        this._sensorName = sensorName;
+        this.deviceID = deviceID;
+        this.sensorTypeID = sensorTypeID;
+        this.modelPath = modelPath;
+        this.sensorName = sensorName;
 
-        _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(0);
-        _powerConsumptions = new HashMap<>();
+        averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(0);
+        powerConsumptions = new HashMap<>();
     }
 
     /**
@@ -69,14 +66,14 @@ public class AveragePowerConsumptionSensor implements ISensor {
         Validator.validateNotNull(sensorID, "SensorID");
         validateSensorTypeID(sensorTypeID);
 
-        _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(0);
-        _powerConsumptions = new HashMap<>();
+        averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(0);
+        powerConsumptions = new HashMap<>();
 
-        this._sensorID = sensorID;
-        this._deviceID = deviceID;
-        this._sensorTypeID = sensorTypeID;
-        this._modelPath = modelPath;
-        this._sensorName = sensorName;
+        this.sensorID = sensorID;
+        this.deviceID = deviceID;
+        this.sensorTypeID = sensorTypeID;
+        this.modelPath = modelPath;
+        this.sensorName = sensorName;
     }
 
     private void validateSensorTypeID(SensorTypeID sensorTypeID) {
@@ -88,7 +85,7 @@ public class AveragePowerConsumptionSensor implements ISensor {
     }
 
     private void generateSensorID() {
-        _sensorID = new SensorID(UUID.randomUUID().toString());
+        sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
     /**
@@ -100,10 +97,10 @@ public class AveragePowerConsumptionSensor implements ISensor {
      * @throws IllegalArgumentException if there is already a reading for this time.
      */
     protected double addReading(LocalDateTime readTime, double reading) {
-        if (_powerConsumptions.containsKey(readTime))
+        if (powerConsumptions.containsKey(readTime))
             throw new IllegalArgumentException("There is already a reading for this time");
 
-        this._powerConsumptions.put(readTime, reading);
+        this.powerConsumptions.put(readTime, reading);
         return reading;
 
     }
@@ -141,7 +138,7 @@ public class AveragePowerConsumptionSensor implements ISensor {
             LocalDateTime initialTime, LocalDateTime finalTime) {
         // Filter the powerConsumptions map to only include entries within the specified time range
         Map<LocalDateTime, Double> filteredPowerConsumptions =
-                _powerConsumptions.entrySet().stream()
+                powerConsumptions.entrySet().stream()
                         .filter(
                                 entry ->
                                         !entry.getKey().isBefore(initialTime) && !entry.getKey().isAfter(finalTime))
@@ -152,27 +149,27 @@ public class AveragePowerConsumptionSensor implements ISensor {
 
     @Override
     public SensorID getID() {
-        return _sensorID;
+        return sensorID;
     }
 
     @Override
     public SensorName getName() {
-        return _sensorName;
+        return sensorName;
     }
 
     @Override
     public ModelPath getModelPath() {
-        return _modelPath;
+        return modelPath;
     }
 
     @Override
     public SensorTypeID getSensorTypeID() {
-        return _sensorTypeID;
+        return sensorTypeID;
     }
 
     @Override
     public DeviceID getDeviceID() {
-        return _deviceID;
+        return deviceID;
     }
 
     /**
@@ -186,7 +183,7 @@ public class AveragePowerConsumptionSensor implements ISensor {
     @Override
     public boolean equals(Object o) {
         if (o instanceof AveragePowerConsumptionSensor averagePowerConsumptionSensor) {
-            return _sensorID.equals(averagePowerConsumptionSensor._sensorID);
+            return sensorID.equals(averagePowerConsumptionSensor.sensorID);
         }
         return false;
     }
@@ -197,7 +194,7 @@ public class AveragePowerConsumptionSensor implements ISensor {
      */
     @Override
     public int hashCode() {
-        return _sensorID.hashCode();
+        return sensorID.hashCode();
     }
 
     /**
@@ -209,15 +206,15 @@ public class AveragePowerConsumptionSensor implements ISensor {
     public String toString() {
         return "PowerConsumptionSensor:"
                 + " sensorID= "
-                + _sensorID
+                + sensorID
                 + ",  sensorName="
-                + _sensorName
+                + sensorName
                 + ",  deviceID="
-                + _deviceID
+                + deviceID
                 + ", modelPath="
-                + _modelPath
+                + modelPath
                 + ", sensorTypeID="
-                + _sensorTypeID;
+                + sensorTypeID;
     }
 
     /**
@@ -226,7 +223,7 @@ public class AveragePowerConsumptionSensor implements ISensor {
      * @return the value of the PowerConsumptionSensor.
      */
     public AveragePowerConsumptionSensorValue getValue() {
-        return this._averagePowerConsumptionSensorValue;
+        return this.averagePowerConsumptionSensorValue;
     }
 
     /**
@@ -238,8 +235,8 @@ public class AveragePowerConsumptionSensor implements ISensor {
      */
     public AveragePowerConsumptionSensorValue getValue(LocalDateTime initialTime, LocalDateTime finalTime) {
         double averageValue = getAverageValue(initialTime, finalTime);
-        _averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(averageValue);
-        return _averagePowerConsumptionSensorValue;
+        averagePowerConsumptionSensorValue = new AveragePowerConsumptionSensorValue(averageValue);
+        return averagePowerConsumptionSensorValue;
     }
     /**
      * Accept method for the visitor pattern.

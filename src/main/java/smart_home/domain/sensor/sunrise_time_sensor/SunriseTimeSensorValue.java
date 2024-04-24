@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 public class SunriseTimeSensorValue implements IValueObject {
 
-    private LocalTime _value;
+    private LocalTime value;
 
     /**
      * Creates a new SunriseTimeValue with a given value.
@@ -28,7 +28,7 @@ public class SunriseTimeSensorValue implements IValueObject {
         if (value == null) {
             throw new IllegalArgumentException("Time is required");
         }
-        else{ this._value = value;
+        else{ this.value = value;
         }
     }
 
@@ -38,9 +38,9 @@ public class SunriseTimeSensorValue implements IValueObject {
      * @return a new SunriseTimeValue with the same value.
      */
     public String toString() {
-        int hours = this._value.getHour();
-        int minutes = this._value.getMinute();
-        int seconds = this._value.getSecond();
+        int hours = this.value.getHour();
+        int minutes = this.value.getMinute();
+        int seconds = this.value.getSecond();
         return String.format("Sunrise Time: %02d:%02d:%02d", hours, minutes, seconds);
     }
 
@@ -49,7 +49,7 @@ public class SunriseTimeSensorValue implements IValueObject {
      */
     public boolean equals(Object obj) {
         if (obj instanceof SunriseTimeSensorValue sunriseTimeSensorValue) {
-            return this._value.equals(sunriseTimeSensorValue._value);
+            return this.value.equals(sunriseTimeSensorValue.value);
         }
         return false;
     }
@@ -58,7 +58,7 @@ public class SunriseTimeSensorValue implements IValueObject {
      * HashCode method for SunriseTimeValue.
      */
     public int hashCode() {
-        return _value.hashCode();
+        return value.hashCode();
     }
 
 }

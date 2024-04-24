@@ -10,12 +10,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class InstantPowerConsumptionSensor implements ISensor {
-    private ModelPath _modelPath;
-    private SensorName _sensorName;
-    private SensorID _sensorID;
-    private SensorTypeID _sensorTypeID;
-    private InstantPowerConsumptionValue _instantPowerConsumptionValue;
-    private DeviceID _deviceID;
+    private ModelPath modelPath;
+    private SensorName sensorName;
+    private SensorID sensorID;
+    private SensorTypeID sensorTypeID;
+    private InstantPowerConsumptionValue instantPowerConsumptionValue;
+    private DeviceID deviceID;
 
     /**
      * Constructor of the class.
@@ -28,13 +28,13 @@ public class InstantPowerConsumptionSensor implements ISensor {
     public InstantPowerConsumptionSensor(
             DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName) {
         Validator.validateNotNull(modelPath, "ModelPath");
-        this._modelPath = modelPath;
+        this.modelPath = modelPath;
         Validator.validateNotNull(sensorName, "SensorName");
-        this._sensorName = sensorName;
+        this.sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
+        this.sensorTypeID = sensorTypeID;
         Validator.validateNotNull(deviceID, "DeviceID");
-        this._deviceID = deviceID;
+        this.deviceID = deviceID;
 
         generateInstantPowerConsumptionID();
     }
@@ -52,22 +52,22 @@ public class InstantPowerConsumptionSensor implements ISensor {
             DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, SensorID sensorID) {
 
         Validator.validateNotNull(modelPath, "ModelPath");
-        this._modelPath = modelPath;
+        this.modelPath = modelPath;
         Validator.validateNotNull(sensorName, "SensorName");
-        this._sensorName = sensorName;
+        this.sensorName = sensorName;
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
+        this.sensorTypeID = sensorTypeID;
         Validator.validateNotNull(deviceID, "DeviceID");
-        this._deviceID = deviceID;
+        this.deviceID = deviceID;
         Validator.validateNotNull(sensorID, "SensorID");
-        this._sensorID = sensorID;
+        this.sensorID = sensorID;
     }
 
     /**
      * Generates a new InstantPowerConsumptionID.
      */
     private void generateInstantPowerConsumptionID() {
-        this._sensorID = new SensorID(UUID.randomUUID().toString());
+        this.sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
 
@@ -92,7 +92,7 @@ public class InstantPowerConsumptionSensor implements ISensor {
      */
     @Override
     public SensorID getID() {
-        return this._sensorID;
+        return this.sensorID;
     }
 
     /**
@@ -102,7 +102,7 @@ public class InstantPowerConsumptionSensor implements ISensor {
      */
     @Override
     public SensorName getName() {
-        return this._sensorName;
+        return this.sensorName;
     }
 
     /**
@@ -112,7 +112,7 @@ public class InstantPowerConsumptionSensor implements ISensor {
      */
     @Override
     public ModelPath getModelPath() {
-        return this._modelPath;
+        return this.modelPath;
     }
 
     /**
@@ -122,7 +122,7 @@ public class InstantPowerConsumptionSensor implements ISensor {
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return this._sensorTypeID;
+        return this.sensorTypeID;
     }
 
     /**
@@ -131,10 +131,10 @@ public class InstantPowerConsumptionSensor implements ISensor {
     @Override
     public InstantPowerConsumptionValue getValue() {
         double instantPowerConsumptionValue = ValueSimulator.generateRandomValue(0.0, 100);
-        this._instantPowerConsumptionValue =
+        this.instantPowerConsumptionValue =
                 new InstantPowerConsumptionValue(instantPowerConsumptionValue);
 
-        return _instantPowerConsumptionValue;
+        return this.instantPowerConsumptionValue;
     }
 
     /**
@@ -144,7 +144,7 @@ public class InstantPowerConsumptionSensor implements ISensor {
      */
     @Override
     public DeviceID getDeviceID() {
-        return this._deviceID;
+        return this.deviceID;
     }
 
     /**
@@ -156,7 +156,7 @@ public class InstantPowerConsumptionSensor implements ISensor {
     @Override
     public boolean equals(Object o) {
         if (o instanceof InstantPowerConsumptionSensor sensor) {
-            return this._sensorID.equals(sensor.getID());
+            return this.sensorID.equals(sensor.getID());
         }
         return false;
     }
@@ -168,7 +168,7 @@ public class InstantPowerConsumptionSensor implements ISensor {
      */
     @Override
     public int hashCode() {
-        return this._sensorID.hashCode();
+        return this.sensorID.hashCode();
     }
 
     /**
@@ -177,11 +177,11 @@ public class InstantPowerConsumptionSensor implements ISensor {
     @Override
     public String toString() {
         return "InstantPowerConsumptionSensor: " +
-                "modelPath=" + _modelPath +
-                ", sensorName=" + _sensorName +
-                ", sensorID=" + _sensorID +
-                ", sensorTypeID=" + _sensorTypeID +
-                ", deviceID=" + _deviceID;
+                "modelPath=" + modelPath +
+                ", sensorName=" + sensorName +
+                ", sensorID=" + sensorID +
+                ", sensorTypeID=" + sensorTypeID +
+                ", deviceID=" + deviceID;
     }
     /**
      * Accepts a visitor.

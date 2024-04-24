@@ -13,12 +13,12 @@ import java.util.UUID;
  */
 public class PercentagePositionSensor implements ISensor {
 
-  private ModelPath _modelPath;
-  private SensorName _sensorName;
-  private SensorID _sensorID;
-  private SensorTypeID _sensorTypeID;
-  private PercentagePositionSensorValue _percentagePositionSensorValue;
-  private DeviceID _deviceID;
+  private ModelPath modelPath;
+  private SensorName sensorName;
+  private SensorID sensorID;
+  private SensorTypeID sensorTypeID;
+  private PercentagePositionSensorValue percentagePositionSensorValue;
+  private DeviceID deviceID;
 
   /**
    * Constructs a PercentagePositionSensor with the given parameters.
@@ -36,10 +36,10 @@ public class PercentagePositionSensor implements ISensor {
     validateSensorTypeID(sensorTypeID);
     Validator.validateNotNull(deviceID, "DeviceID");
     generatePercentageID();
-    this._modelPath = modelPath;
-    this._sensorName = sensorName;
-    this._sensorTypeID = sensorTypeID;
-    this._deviceID = deviceID;
+    this.modelPath = modelPath;
+    this.sensorName = sensorName;
+    this.sensorTypeID = sensorTypeID;
+    this.deviceID = deviceID;
   }
 
   /**
@@ -64,16 +64,16 @@ public class PercentagePositionSensor implements ISensor {
     Validator.validateNotNull(deviceID, "DeviceID");
     Validator.validateNotNull(sensorID, "SensorID");
 
-    this._modelPath = modelPath;
-    this._sensorName = sensorName;
-    this._sensorTypeID = sensorTypeID;
-    this._deviceID = deviceID;
-    this._sensorID = sensorID;
+    this.modelPath = modelPath;
+    this.sensorName = sensorName;
+    this.sensorTypeID = sensorTypeID;
+    this.deviceID = deviceID;
+    this.sensorID = sensorID;
   }
 
   /** Generates a unique ID for the sensor. */
   private void generatePercentageID() {
-    this._sensorID = new SensorID(UUID.randomUUID().toString());
+    this.sensorID = new SensorID(UUID.randomUUID().toString());
   }
 
   /**
@@ -97,7 +97,7 @@ public class PercentagePositionSensor implements ISensor {
    */
   @Override
   public SensorID getID() {
-    return _sensorID;
+    return sensorID;
   }
 
   /**
@@ -107,7 +107,7 @@ public class PercentagePositionSensor implements ISensor {
    */
   @Override
   public SensorName getName() {
-    return _sensorName;
+    return sensorName;
   }
 
   /**
@@ -117,7 +117,7 @@ public class PercentagePositionSensor implements ISensor {
    */
   @Override
   public ModelPath getModelPath() {
-    return _modelPath;
+    return modelPath;
   }
 
   /**
@@ -127,7 +127,7 @@ public class PercentagePositionSensor implements ISensor {
    */
   @Override
   public SensorTypeID getSensorTypeID() {
-    return _sensorTypeID;
+    return sensorTypeID;
   }
 
   /**
@@ -137,7 +137,7 @@ public class PercentagePositionSensor implements ISensor {
    */
   @Override
   public DeviceID getDeviceID() {
-    return _deviceID;
+    return deviceID;
   }
 
   /**
@@ -149,9 +149,9 @@ public class PercentagePositionSensor implements ISensor {
   public PercentagePositionSensorValue getValue() {
     int randomInt = 14;
 
-    this._percentagePositionSensorValue = new PercentagePositionSensorValue(randomInt);
+    this.percentagePositionSensorValue = new PercentagePositionSensorValue(randomInt);
 
-    return this._percentagePositionSensorValue;
+    return this.percentagePositionSensorValue;
   }
 
   /**
@@ -163,7 +163,7 @@ public class PercentagePositionSensor implements ISensor {
   @Override
   public boolean equals(Object o) {
     if (o instanceof PercentagePositionSensor percentagePositionSensorObject) {
-      return _sensorID.equals(percentagePositionSensorObject._sensorID);
+      return sensorID.equals(percentagePositionSensorObject.sensorID);
     }
     return false;
   }
@@ -175,7 +175,7 @@ public class PercentagePositionSensor implements ISensor {
    */
   @Override
   public int hashCode() {
-    return _sensorID.hashCode();
+    return sensorID.hashCode();
   }
 
   /**
@@ -186,15 +186,15 @@ public class PercentagePositionSensor implements ISensor {
   @Override
   public String toString() {
     return "PercentagePositionSensor: DeviceID= "
-        + _deviceID.getID()
+        + deviceID.getID()
         + " ModelPath= "
-        + _modelPath.getID()
+        + modelPath.getID()
         + " SensorTypeID= "
-        + _sensorTypeID.getID()
+        + sensorTypeID.getID()
         + " SensorName= "
-        + _sensorName.getSensorName()
+        + sensorName.getSensorName()
         + " SensorID= "
-        + _sensorID.getID();
+        + sensorID.getID();
   }
 
   /**

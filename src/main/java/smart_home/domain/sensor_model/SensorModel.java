@@ -7,9 +7,9 @@ import smart_home.value_object.SensorModelName;
 import smart_home.value_object.SensorTypeID;
 
 public class SensorModel implements IAggregateRoot<ModelPath> {
-    private SensorModelName _sensorModelName;
-    private ModelPath _modelPath;
-    private SensorTypeID _sensorTypeID;
+    private SensorModelName sensorModelName;
+    private ModelPath modelPath;
+    private SensorTypeID sensorTypeID;
 
     /**
      * Creates a new sensor model with the given sensor model name, model path, and sensor type ID.
@@ -23,9 +23,9 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
       Validator.validateNotNull(sensorModelName, "SensorModelName");
       Validator.validateNotNull(modelPath, "ModelPath");
       Validator.validateNotNull(sensorTypeID, "SensorTypeID");
-        this._sensorModelName = sensorModelName;
-        this._modelPath = modelPath;
-        this._sensorTypeID = sensorTypeID;
+        this.sensorModelName = sensorModelName;
+        this.modelPath = modelPath;
+        this.sensorTypeID = sensorTypeID;
     }
 
 
@@ -36,7 +36,7 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
      * @return The sensor type ID.
      */
     public SensorTypeID getSensorTypeID() {
-        return _sensorTypeID;
+        return sensorTypeID;
     }
 
     /**
@@ -45,7 +45,7 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
      * @return The sensor model name.
      */
     public SensorModelName getSensorModelName() {
-        return _sensorModelName;
+        return sensorModelName;
     }
 
     /**
@@ -54,7 +54,7 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
      * @return The model path.
      */
     public ModelPath getModelPath() {
-        return _modelPath;
+        return modelPath;
     }
 
     /**
@@ -64,7 +64,7 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
      */
     @Override
     public ModelPath getID() {
-        return _modelPath;
+        return modelPath;
     }
 
     /**
@@ -76,7 +76,7 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
     @Override
     public boolean equals(Object object) {
         if (object instanceof SensorModel sensorModel) {
-            return _modelPath.equals(sensorModel._modelPath);
+            return modelPath.equals(sensorModel.modelPath);
         }
         return false;
     }
@@ -88,7 +88,7 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
      */
     @Override
     public int hashCode() {
-        return _modelPath.hashCode();
+        return modelPath.hashCode();
     }
 
     /**
@@ -99,10 +99,10 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
     @Override
     public String toString() {
         return "SensorModel: sensorModelName="
-                + _sensorModelName
+                + sensorModelName
                 + ", modelPath="
-                + _modelPath
+                + modelPath
                 + ", sensorTypeID="
-                + _sensorTypeID;
+                + sensorTypeID;
     }
 }

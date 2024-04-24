@@ -38,7 +38,7 @@ class ActuatorModelTest {
 
     // Act
     ActuatorModel actuatorModel =
-        new ActuatorModel(actuatorModelID, actuatorModelName, modelPath, actuatorTypeID);
+        new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
     // Assert
     assertNotNull(actuatorModel);
@@ -95,24 +95,6 @@ class ActuatorModelTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test of class ActuatorModel constructor with null ActuatorModelID */
-  @Test
-  void shouldThrowIllegalArgumentException_WhenGivenNullActuatorModelID() {
-    // Arrange
-    ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
-    ModelPath modelPath = mock(ModelPath.class);
-    ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
-    ActuatorModelID actuatorModelID = null;
-
-    String expectedMessage = "ActuatorModelID is required";
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new ActuatorModel(actuatorModelID, actuatorModelName, modelPath, actuatorTypeID));
-    // Assert
-    assertEquals(expectedMessage, exception.getMessage());
-  }
 
   /** Test of class ActuatorModel equals method with same object */
   @Test

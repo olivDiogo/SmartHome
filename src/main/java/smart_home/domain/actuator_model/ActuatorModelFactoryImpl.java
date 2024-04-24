@@ -12,9 +12,5 @@ public class ActuatorModelFactoryImpl implements IActuatorModelFactory {
         return new ActuatorModel(actuatorModelName, modelPath, typeID);
     }
 
-    @Override
-    public ActuatorModel createActuatorModel(ActuatorModelID actuatorModelID, ActuatorModelName actuatorModelName, ModelPath modelPath, ActuatorTypeID typeID) {
-        return new ActuatorModel(actuatorModelID, actuatorModelName, modelPath, typeID);
-    }
 
 }

@@ -14,7 +14,7 @@ public class UnitDescription implements IValueObject {
   /**
    * Validates the description
    *
-   * @param description
+   * @param description The description to validate.
    */
   private void validate(String description) {
     if (description == null || description.isBlank()) {

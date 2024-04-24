@@ -30,20 +30,6 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
     this._actuatorTypeID = actuatorTypeID;
   }
 
-  public ActuatorModel(
-      ActuatorModelID actuatorModelID, ActuatorModelName actuatorModelName, ModelPath modelPath,
-      ActuatorTypeID actuatorTypeID) {
-    Validator.validateNotNull(actuatorModelID, "ActuatorModelID");
-    Validator.validateNotNull(actuatorModelName, "ActuatorModelName");
-    Validator.validateNotNull(modelPath, "ModelPath");
-    Validator.validateNotNull(actuatorTypeID, "ActuatorTypeID");
-    this._actuatorModelID = actuatorModelID;
-    this._actuatorModelName = actuatorModelName;
-    this._modelPath = modelPath;
-    this._actuatorTypeID = actuatorTypeID;
-
-  }
-
 
   /**
    * Equals method for actuator model

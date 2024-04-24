@@ -34,7 +34,7 @@ import static org.mockito.Mockito.when;
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
     ActuatorModel actuatorModel =
-        new ActuatorModel(actuatorModelID, actuatorModelName, modelPath, actuatorTypeID);
+        new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
     // Act
     ActuatorModelDataModel actuatorModelDataModel = new ActuatorModelDataModel(actuatorModel);
     // Assert

@@ -21,13 +21,13 @@ public class ElectricConsumptionWhSensor implements ISensor {
      * @param sensorName the name of the sensor
      * @param datePeriod the period during which the sensor measures consumption
      */
-    private DeviceID _deviceID;
-    private ModelPath _modelPath;
-    private SensorTypeID _sensorTypeID;
-    private ElectricConsumptionWhValue _electricConsumptionWhValue;
-    private SensorName _sensorName;
-    private SensorID _sensorID;
-    private DatePeriod _datePeriod;
+    private DeviceID deviceID;
+    private ModelPath modelPath;
+    private SensorTypeID sensorTypeID;
+    private ElectricConsumptionWhValue electricConsumptionWhValue;
+    private SensorName sensorName;
+    private SensorID sensorID;
+    private DatePeriod datePeriod;
 
     /**
      * Constructs a new ElectricConsumptionWhSensor with the given parameters.
@@ -41,32 +41,32 @@ public class ElectricConsumptionWhSensor implements ISensor {
 
     public ElectricConsumptionWhSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, DatePeriod datePeriod) {
         Validator.validateNotNull(deviceID, "DeviceID");
-        this._deviceID = deviceID;
+        this.deviceID = deviceID;
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
+        this.sensorTypeID = sensorTypeID;
         Validator.validateNotNull(modelPath, "ModelPath");
-        this._modelPath = modelPath;
+        this.modelPath = modelPath;
         Validator.validateNotNull(sensorName, "SensorName");
-        this._sensorName = sensorName;
+        this.sensorName = sensorName;
         Validator.validateNotNull(datePeriod, "DatePeriod");
-        this._datePeriod = datePeriod;
+        this.datePeriod = datePeriod;
 
         generateElectricConsumptionWhID();
     }
 
     public ElectricConsumptionWhSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, DatePeriod datePeriod, SensorID sensorID) {
         Validator.validateNotNull(deviceID, "DeviceID");
-        this._deviceID = deviceID;
+        this.deviceID = deviceID;
         validateSensorTypeID(sensorTypeID);
-        this._sensorTypeID = sensorTypeID;
+        this.sensorTypeID = sensorTypeID;
         Validator.validateNotNull(modelPath, "ModelPath");
-        this._modelPath = modelPath;
+        this.modelPath = modelPath;
         Validator.validateNotNull(sensorName, "SensorName");
-        this._sensorName = sensorName;
+        this.sensorName = sensorName;
         Validator.validateNotNull(datePeriod, "DatePeriod");
-        this._datePeriod = datePeriod;
+        this.datePeriod = datePeriod;
         Validator.validateNotNull(sensorID, "SensorID");
-        this._sensorID = sensorID;
+        this.sensorID = sensorID;
     }
 
     /**
@@ -74,7 +74,7 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
 
     private void generateElectricConsumptionWhID() {
-        this._sensorID = new SensorID(UUID.randomUUID().toString());
+        this.sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
     /**
@@ -98,7 +98,7 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
     @Override
     public SensorID getID() {
-        return _sensorID;
+        return sensorID;
     }
 
     /**
@@ -108,7 +108,7 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
     @Override
     public SensorName getName() {
-        return _sensorName;
+        return sensorName;
     }
 
     /**
@@ -118,7 +118,7 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
     @Override
     public ModelPath getModelPath() {
-        return _modelPath;
+        return modelPath;
     }
 
     /**
@@ -128,7 +128,7 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return _sensorTypeID;
+        return sensorTypeID;
     }
 
     /**
@@ -138,7 +138,7 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
     @Override
     public DeviceID getDeviceID() {
-        return _deviceID;
+        return deviceID;
     }
 
     /**
@@ -148,18 +148,17 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
 
     public DatePeriod getDatePeriod() {
-        return _datePeriod;
+        return datePeriod;
     }
 
     /**
      * Returns the value of the sensor.
-     * @return
      */
     @Override
     public ElectricConsumptionWhValue getValue() {
         int consumptionInWh = getConsumptionInWhForGivenPeriod();
-        _electricConsumptionWhValue = new ElectricConsumptionWhValue(consumptionInWh);
-        return _electricConsumptionWhValue;
+        electricConsumptionWhValue = new ElectricConsumptionWhValue(consumptionInWh);
+        return electricConsumptionWhValue;
     }
 
     /**
@@ -168,19 +167,19 @@ public class ElectricConsumptionWhSensor implements ISensor {
      * @return the consumption in watt-hours for the given period
      */
     private int getConsumptionInWhForGivenPeriod() {
-        return _datePeriod.getDurationInMinutes() * 5;
+        return datePeriod.getDurationInMinutes() * 5;
     }
 
     /**
      * Method to compare two instances
      *
-     * @param object
-     * @return
+     * @param object the object to compare
+     * @return true if the instances are equal, false otherwise
      */
     @Override
     public boolean equals(Object object) {
         if (object instanceof ElectricConsumptionWhSensor electricConsumptionWhSensor) {
-            return this._sensorID.equals(electricConsumptionWhSensor._sensorID);
+            return this.sensorID.equals(electricConsumptionWhSensor.sensorID);
         }
         return false;
     }
@@ -188,11 +187,11 @@ public class ElectricConsumptionWhSensor implements ISensor {
     /**
      * Method to get hash code
      *
-     * @return
+     * @return the hash code
      */
     @Override
     public int hashCode() {
-        return _sensorID.hashCode();
+        return sensorID.hashCode();
     }
 
     /**
@@ -202,7 +201,8 @@ public class ElectricConsumptionWhSensor implements ISensor {
      */
     @Override
     public String toString() {
-        return _deviceID + " " + _modelPath + " " + _sensorTypeID + " " + _electricConsumptionWhValue + " " + _sensorName + " " + _sensorID + " " + _datePeriod;
+        return deviceID + " " + modelPath + " " + sensorTypeID + " " + electricConsumptionWhValue + " " + sensorName
+            + " " + sensorID + " " + datePeriod;
     }
     /**
      * Accept method for the visitor pattern.

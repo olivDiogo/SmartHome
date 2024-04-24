@@ -13,13 +13,13 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class SunsetTimeSensor implements ISensor {
-    private SunsetTimeSensorValue _sunsetTimeValue;
-    private SensorTypeID _sensorTypeID;
-    private SensorID _sensorID;
-    private SensorName _sensorName;
-    private DeviceID _deviceID;
-    private ModelPath _modelPath;
-    private GPS _gps;
+    private SunsetTimeSensorValue sunsetTimeSensorValue;
+    private SensorTypeID sensorTypeID;
+    private SensorID sensorID;
+    private SensorName sensorName;
+    private DeviceID deviceID;
+    private ModelPath modelPath;
+    private GPS gps;
 
     /**
      * Constructor for SunsetTimeSensor
@@ -31,15 +31,15 @@ public class SunsetTimeSensor implements ISensor {
      */
     public SunsetTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps) {
         Validator.validateNotNull(deviceID, "DeviceID");
-        _deviceID = deviceID;
+        this.deviceID = deviceID;
         validateSensorTypeID(sensorTypeID);
-        _sensorTypeID = sensorTypeID;
+        this.sensorTypeID = sensorTypeID;
         Validator.validateNotNull(modelPath, "ModelPath");
-        _modelPath = modelPath;
+        this.modelPath = modelPath;
         Validator.validateNotNull(sensorName, "SensorName");
-        _sensorName = sensorName;
+        this.sensorName = sensorName;
         Validator.validateNotNull(gps, "GPS");
-        _gps = gps;
+        this.gps = gps;
 
         generateSensorID();
     }
@@ -56,17 +56,17 @@ public class SunsetTimeSensor implements ISensor {
      */
     public SunsetTimeSensor(DeviceID deviceID, ModelPath modelPath, SensorTypeID sensorTypeID, SensorName sensorName, GPS gps, SensorID sensorID) {
         Validator.validateNotNull(deviceID, "DeviceID");
-        _deviceID = deviceID;
+        this.deviceID = deviceID;
         validateSensorTypeID(sensorTypeID);
-        _sensorTypeID = sensorTypeID;
+        this.sensorTypeID = sensorTypeID;
         Validator.validateNotNull(modelPath, "ModelPath");
-        _modelPath = modelPath;
+        this.modelPath = modelPath;
         Validator.validateNotNull(sensorName, "SensorName");
-        _sensorName = sensorName;
+        this.sensorName = sensorName;
         Validator.validateNotNull(gps, "GPS");
-        _gps = gps;
+        this.gps = gps;
         Validator.validateNotNull(sensorID, "SensorID");
-        _sensorID = sensorID;
+        this.sensorID = sensorID;
     }
 
     /**
@@ -86,52 +86,47 @@ public class SunsetTimeSensor implements ISensor {
      * Generate SensorID
      */
     private void generateSensorID() {
-        _sensorID = new SensorID(UUID.randomUUID().toString());
+        sensorID = new SensorID(UUID.randomUUID().toString());
     }
 
     /**
      * Get SensorID
-     * @return
      */
     @Override
     public SensorID getID() {
-        return _sensorID;
+        return sensorID;
     }
 
     /**
      * Get SensorName
-     * @return
      */
     @Override
     public SensorName getName() {
-        return _sensorName;
+        return sensorName;
     }
 
     /**
      * Get ModelPath
-     * @return
      */
     @Override
     public ModelPath getModelPath() {
-        return _modelPath;
+        return modelPath;
     }
 
     /**
      * Get DeviceID
-     * @return
      */
     @Override
     public DeviceID getDeviceID() {
-        return _deviceID;
+        return deviceID;
     }
 
     /**
      * Get SensorTypeID
-     * @return
      */
     @Override
     public SensorTypeID getSensorTypeID() {
-        return _sensorTypeID;
+        return sensorTypeID;
     }
 
     /**
@@ -141,8 +136,8 @@ public class SunsetTimeSensor implements ISensor {
     @Override
     public SunsetTimeSensorValue getValue() {
         LocalTime sunrise = getSunsetTime(LocalDate.now());
-        this._sunsetTimeValue = new SunsetTimeSensorValue(sunrise);
-        return this._sunsetTimeValue;
+        this.sunsetTimeSensorValue = new SunsetTimeSensorValue(sunrise);
+        return this.sunsetTimeSensorValue;
     }
 
     /**
@@ -152,23 +147,23 @@ public class SunsetTimeSensor implements ISensor {
      */
     public SunsetTimeSensorValue getValue(LocalDate date) {
         LocalTime sunrise = getSunsetTime(date);
-        this._sunsetTimeValue = new SunsetTimeSensorValue(sunrise);
-        return this._sunsetTimeValue;
+        this.sunsetTimeSensorValue = new SunsetTimeSensorValue(sunrise);
+        return this.sunsetTimeSensorValue;
     }
     /**
      * Get GPS
      */
     public GPS getGPS() {
-        return _gps;
+        return gps;
     }
 
     /**
      * Returns the sunset time for the given date
-     * @param date
-     * @return
+     * @param date The date for which the sunset time is to be calculated
+     * @return The sunset time
      */
     private LocalTime getSunsetTime(LocalDate date) {
-        SunTimes time = SunTimes.compute().on(date).at(_gps.getLatitude(), _gps.getLongitude()).execute();
+        SunTimes time = SunTimes.compute().on(date).at(gps.getLatitude(), gps.getLongitude()).execute();
         LocalTime sunset = Objects.requireNonNull(time.getSet()).toLocalTime().truncatedTo(ChronoUnit.SECONDS);
         return sunset;
     }
@@ -176,40 +171,46 @@ public class SunsetTimeSensor implements ISensor {
     /**
      * Indicates whether some other object is "equal to" this one.
      * @param object is the object to be compared.
-     * @return
+     * @return true if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object object) {
         if (object instanceof SunsetTimeSensor sunsetTimeSensor) {
-            return this._sensorID.equals(sunsetTimeSensor._sensorID);
+            return this.sensorID.equals(sunsetTimeSensor.sensorID);
         }
         return false;
     }
 
     /**
      * Returns a hash code value for the object.
-     * @return
+     * @return The hash code value.
      */
     @Override
     public int hashCode() {
-        return _sensorID.hashCode();
+        return sensorID.hashCode();
     }
 
     /**
      * Returns a string representation of the SunsetTimeSensor
-     * @return
+     * @return The string representation of the SunsetTimeSensor
      */
     @Override
     public String toString() {
         return "SunsetTimeSensor:" +
-                " sunriseTimeValue=" + _sunsetTimeValue +
-                ", sensorTypeID=" + _sensorTypeID +
-                ", sensorID=" + _sensorID +
-                ", sensorName=" + _sensorName +
-                ", deviceID=" + _deviceID +
-                ", modelPath=" + _modelPath +
-                ", gps=" + _gps;
+                " sunriseTimeValue=" + sunsetTimeSensorValue +
+                ", sensorTypeID=" + sensorTypeID +
+                ", sensorID=" + sensorID +
+                ", sensorName=" + sensorName +
+                ", deviceID=" + deviceID +
+                ", modelPath=" + modelPath +
+                ", gps=" + gps;
     }
+
+    /**
+     * Accept method for the visitor pattern
+     * @param visitor The visitor
+     * @return The string representation of the SunsetTimeSensor
+     */
     public String accept(ISensorVisitor visitor) {
         visitor.visitSunsetTimeSensor(this);
         return this.toString();

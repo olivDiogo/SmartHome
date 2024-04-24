@@ -43,9 +43,7 @@ public class ActuatorModelDataModelAssembler
         ModelPath modelPath = new ModelPath(actuatorModelDataModel.get_modelPath());
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorModelDataModel.get_actuatorTypeID());
 
-        ActuatorModel actuatorModel =
-                actuatorModelFactory.createActuatorModel(
-                        actuatorModelID, actuatorModelName, modelPath, actuatorTypeID);
+        ActuatorModel actuatorModel = actuatorModelFactory.createActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
         return actuatorModel;
     }

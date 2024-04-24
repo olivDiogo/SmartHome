@@ -16,8 +16,8 @@ public class PostalCodeCAImpl implements IPostalCode {
     /**
      * Validate Canadian postal code format
      *
-     * @param postalCode
-     * @return
+     * @param postalCode is the postal code.
+     * @return true if the postal code is valid, false otherwise.
      */
     @Override
     public boolean validate(String postalCode) {

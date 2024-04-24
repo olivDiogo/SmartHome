@@ -3,7 +3,7 @@ package smart_home.domain.sensor.switch_sensor;
 import smart_home.ddd.IValueObject;
 
 public class SwitchSensorValue implements IValueObject {
-    private final boolean _bValue;
+    private final boolean bValue;
 
     /**
      * Constructs a SwitchSensorValue with a specified state.
@@ -11,7 +11,7 @@ public class SwitchSensorValue implements IValueObject {
      * @param bValue The state of the switch sensor.
      */
     public SwitchSensorValue(boolean bValue) {
-        this._bValue = bValue;
+        this.bValue = bValue;
     }
 
     /**
@@ -20,7 +20,7 @@ public class SwitchSensorValue implements IValueObject {
      * @return The switch sensor value as a string.
      */
     public String toString() {
-        return this._bValue ? "On" : "Off";
+        return this.bValue ? "On" : "Off";
     }
 
     /**
@@ -28,7 +28,7 @@ public class SwitchSensorValue implements IValueObject {
      */
     public boolean equals(Object o) {
         if (o instanceof SwitchSensorValue switchSensorValue) {
-            return this._bValue == switchSensorValue._bValue;
+            return this.bValue == switchSensorValue.bValue;
         }
         return false;
     }
@@ -37,6 +37,6 @@ public class SwitchSensorValue implements IValueObject {
      * Method to generate a hash code for the switch sensor value.
      */
     public int hashCode() {
-        return Boolean.hashCode(this._bValue);
+        return Boolean.hashCode(this.bValue);
     }
 }

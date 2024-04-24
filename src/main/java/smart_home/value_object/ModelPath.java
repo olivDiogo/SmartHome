@@ -6,10 +6,20 @@ import smart_home.ddd.IValueObject;
 public class ModelPath implements IValueObject, IDomainID {
     private String path;
 
+    /**
+     * Class constructor.
+     *
+     * @param path The path to set.
+     */
     public ModelPath(String path) {
         validatePath(path);
     }
 
+    /**
+     * Validates the path.
+     *
+     * @param path The path to validate.
+     */
     private void validatePath(String path) throws IllegalArgumentException {
         if (path == null || path.trim().isEmpty()) {
             throw new IllegalArgumentException("Please enter a valid path.");
@@ -18,16 +28,33 @@ public class ModelPath implements IValueObject, IDomainID {
         }
     }
 
+    /**
+     * Gets the path.
+     *
+     * @return The path.
+     */
     @Override
     public String toString() {
         return path;
     }
 
+    /**
+     * Gets the path.
+     *
+     * @return The path.
+     */
     @Override
     public String getID() {
         return this.path;
     }
 
+
+    /**
+     * Compares the current object with another object of the same type.
+     *
+     * @param o The object to compare with.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
