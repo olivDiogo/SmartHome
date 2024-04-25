@@ -9,6 +9,7 @@ import smart_home.domain.device.IDeviceFactory;
 import smart_home.domain.house.House;
 import smart_home.domain.house.HouseFactoryImpl;
 import smart_home.domain.house.IHouseFactory;
+import smart_home.domain.log.ILogFactory;
 import smart_home.domain.log.Log;
 import smart_home.domain.log.LogFactoryImpl;
 import smart_home.domain.repository.IDeviceRepository;
@@ -142,7 +143,7 @@ class GetLogFromDeviceControllerTest {
     DeviceID deviceID = device.getID();
 
     // Add a log
-    LogFactoryImpl logFactory = new LogFactoryImpl();
+    ILogFactory logFactory = new LogFactoryImpl();
     LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 0);
     ReadingValue readingValue = new ReadingValue("20");
     SensorID sensorID = new SensorID("1");
@@ -182,7 +183,7 @@ class GetLogFromDeviceControllerTest {
     createRoom(house.getID());
 
     // Add a log
-    LogFactoryImpl logFactory = new LogFactoryImpl();
+    ILogFactory logFactory = new LogFactoryImpl();
     LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 0);
     ReadingValue readingValue = new ReadingValue("20");
     SensorID sensorID = new SensorID("1");
@@ -226,7 +227,7 @@ class GetLogFromDeviceControllerTest {
     DeviceID deviceID = device.getID();
 
     // Add a log
-    LogFactoryImpl logFactory = new LogFactoryImpl();
+    ILogFactory logFactory = new LogFactoryImpl();
     LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 0);
     ReadingValue readingValue = new ReadingValue("20");
     SensorID sensorID = new SensorID("1");
@@ -274,7 +275,7 @@ class GetLogFromDeviceControllerTest {
     DeviceID deviceIDTwo = deviceTwo.getID();
 
     // Add a log
-    LogFactoryImpl logFactory = new LogFactoryImpl();
+    ILogFactory logFactory = new LogFactoryImpl();
     LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 0);
     ReadingValue readingValue = new ReadingValue("20");
     SensorID sensorID = new SensorID("1");
