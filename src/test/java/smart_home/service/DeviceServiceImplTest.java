@@ -3,12 +3,20 @@ package smart_home.service;
 import org.junit.jupiter.api.Test;
 import smart_home.domain.device.Device;
 import smart_home.domain.device.IDeviceFactory;
+import smart_home.domain.device_type.DeviceType;
+import smart_home.domain.repository.IDeviceRepository;
+import smart_home.domain.repository.IRoomRepository;
 import smart_home.domain.room.Room;
+import smart_home.domain.service.IDeviceService;
+import smart_home.dto.DeviceDTO;
 import smart_home.persistence.mem.DeviceRepository;
 import smart_home.persistence.mem.RoomRepository;
 import smart_home.value_object.*;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,341 +26,549 @@ import static org.mockito.Mockito.when;
 
 class DeviceServiceImplTest {
 
-    /**
-     * Test the constructor of the DeviceService class.
-     */
-    @Test
-    void shouldInstantiateDeviceService_WhenGivenValidParameters() {
-        // Arrange
-        DeviceServiceImpl deviceServiceImpl;
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
-
-        // Act
-        DeviceServiceImpl result = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-
-        // Assert
-        assertNotNull(result);
-    }
-
-    /**
-     * Test the constructor of the DeviceService class with a null DeviceRepository.
-     */
-    @Test
-    void shouldThrowException_WhenGivenNullDeviceRepository() {
-        // Arrange
-        DeviceRepository deviceRepository = null;
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
-
-        String expectedMessage = "Device repository is required";
-
-        // Act & Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        });
-
-        String actualMessage = exception.getMessage();
-
-        // Assert
-        assertEquals(expectedMessage, actualMessage);
-    }
-
-    /**
-     * Test the constructor of the DeviceService class with a null DeviceFactory.
-     */
-    @Test
-    void shouldThrowException_WhenGivenNullDeviceFactory() {
-        // Arrange
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = null;
-        RoomRepository roomRepository = mock(RoomRepository.class);
-
-        String expectedMessage = "Device factory is required";
-
-        // Act & Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        });
-
-        String actualMessage = exception.getMessage();
-
-        // Assert
-        assertEquals(expectedMessage, actualMessage);
-    }
-
-    /**
-     * Test the constructor of the DeviceService class with a null RoomRepository.
-     */
-    @Test
-    void shouldThrowException_WhenGivenNullRoomRepository() {
-        // Arrange
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = null;
-
-        String expectedMessage = "Room repository is required";
-
-        // Act & Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        });
-
-        String actualMessage = exception.getMessage();
-
-        // Assert
-        assertEquals(expectedMessage, actualMessage);
-    }
-
-    /**
-     * Test the addDevice method of the DeviceService class with a valid roomID, deviceName and deviceStatus.
-     */
-    @Test
-    void shouldAddADevice_WhenGivenValidParameters() {
-        // Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
-
-
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
+  /**
+   * Test the constructor of the DeviceService class.
+   */
+  @Test
+  void shouldInstantiateDeviceService_WhenGivenValidParameters() {
+    // Arrange
+    IDeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    IRoomRepository roomRepository = mock(RoomRepository.class);
+
+    // Act
+    IDeviceService result = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    // Assert
+    assertNotNull(result);
+  }
+
+  /**
+   * Test the constructor of the DeviceService class with a null DeviceRepository.
+   */
+  @Test
+  void shouldThrowException_WhenGivenNullDeviceRepository() {
+    // Arrange
+    IDeviceRepository deviceRepository = null;
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    IRoomRepository roomRepository = mock(RoomRepository.class);
+
+    String expectedMessage = "Device repository is required";
+
+    // Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    });
+
+    String actualMessage = exception.getMessage();
+
+    // Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  /**
+   * Test the constructor of the DeviceService class with a null DeviceFactory.
+   */
+  @Test
+  void shouldThrowException_WhenGivenNullDeviceFactory() {
+    // Arrange
+    IDeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = null;
+    IRoomRepository roomRepository = mock(RoomRepository.class);
+
+    String expectedMessage = "Device factory is required";
+
+    // Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    });
+
+    String actualMessage = exception.getMessage();
+
+    // Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  /**
+   * Test the constructor of the DeviceService class with a null RoomRepository.
+   */
+  @Test
+  void shouldThrowException_WhenGivenNullRoomRepository() {
+    // Arrange
+    IDeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    IRoomRepository roomRepository = null;
+
+    String expectedMessage = "Room repository is required";
+
+    // Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    });
+
+    String actualMessage = exception.getMessage();
+
+    // Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  /**
+   * Test the addDevice method of the DeviceService class with a valid roomID, deviceName and
+   * deviceStatus.
+   */
+  @Test
+  void shouldAddADevice_WhenGivenValidParameters() {
+    // Arrange
+    RoomID roomID = mock(RoomID.class);
+    DeviceName deviceName = mock(DeviceName.class);
+    DeviceStatus deviceStatus = mock(DeviceStatus.class);
+    DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    RoomRepository roomRepository = mock(RoomRepository.class);
 
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
 
-        Room mockRoom = mock(Room.class);
-        Device mockDevice = mock(Device.class);
+    Room mockRoom = mock(Room.class);
+    Device mockDevice = mock(Device.class);
 
-        when(roomRepository.ofIdentity(roomID)).thenReturn(Optional.of(mockRoom));
-        when(deviceFactory.createDevice(any(RoomID.class), any(DeviceName.class), any(DeviceStatus.class), any(DeviceTypeID.class))).thenReturn(mockDevice);
+    when(roomRepository.ofIdentity(roomID)).thenReturn(Optional.of(mockRoom));
+    when(deviceFactory.createDevice(any(RoomID.class), any(DeviceName.class),
+        any(DeviceStatus.class), any(DeviceTypeID.class))).thenReturn(mockDevice);
 
-        //Act
-        Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    //Act
+    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
 
-        //Assert
-        assertNotNull(device);
-    }
+    //Assert
+    assertNotNull(device);
+  }
+
+  /**
+   * Test the addDevice method of the DeviceService class with an invalid roomID.
+   */
+  @Test
+  void shouldThrowException_WhenGivenInvalidRoomID() {
+    // Arrange
+    RoomID roomID = mock(RoomID.class);
+    DeviceName deviceName = mock(DeviceName.class);
+    DeviceStatus deviceStatus = mock(DeviceStatus.class);
+    DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
-    /**
-     * Test the addDevice method of the DeviceService class with an invalid roomID.
-     */
-    @Test
-    void shouldThrowException_WhenGivenInvalidRoomID() {
-        // Arrange
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    RoomRepository roomRepository = mock(RoomRepository.class);
 
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    when(roomRepository.ofIdentity(roomID)).thenReturn(Optional.empty());
 
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    String expectedMessage = "Room with ID " + roomID + " not found.";
+
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      //Act
+      deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    });
+
+    String actualMessage = exception.getMessage();
+
+    //Assert
+    assertEquals(expectedMessage, actualMessage);
+
+  }
+
+  /**
+   * Test the getAllDevices method of the DeviceService class with a valid
+   */
+  @Test
+  void shouldReturnAllDevices_WhenDevicesExist() {
+    // Arrange
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    RoomRepository roomRepository = mock(RoomRepository.class);
 
-        when(roomRepository.ofIdentity(roomID)).thenReturn(Optional.empty());
+    RoomID roomID = mock(RoomID.class);
+    DeviceName deviceName = mock(DeviceName.class);
+    DeviceStatus deviceStatus = mock(DeviceStatus.class);
+
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    Device mockDevice = mock(Device.class);
+    Device mockDevice2 = mock(Device.class);
+    when(deviceRepository.findAll()).thenReturn(List.of(mockDevice, mockDevice2));
+
+    int expectedSize = 2;
+
+    // Act
+    List<Device> deviceList = deviceServiceImpl.getAllDevices();
+    int result = deviceList.size();
+
+    // Assert
+    assertEquals(expectedSize, result);
+
+  }
+
+  /**
+   * Test the getDevices method when there are no devices.
+   */
+  @Test
+  void shouldReturnEmptyList_WhenNoDevicesExist() {
+    // Arrange
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    RoomRepository roomRepository = mock(RoomRepository.class);
+
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    when(deviceRepository.findAll()).thenReturn(List.of());
+
+    int expectedSize = 0;
+
+    // Act
+    List<Device> deviceList = deviceServiceImpl.getAllDevices();
+    int result = deviceList.size();
+
+    // Assert
+    assertEquals(expectedSize, result);
+  }
+
+  /**
+   * Test the getDeviceById method of the DeviceService class with a valid deviceID.
+   */
+  @Test
+  void shouldReturnDevice_WhenGetDeviceByIdIsCalledWithValidDeviceID() {
+    // Arrange
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    RoomRepository roomRepository = mock(RoomRepository.class);
+
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    DeviceID deviceID = mock(DeviceID.class);
+    Device mockDevice = mock(Device.class);
+
+    when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
+
+    // Act
+    Optional<Device> device = deviceServiceImpl.getDeviceByID(deviceID);
+
+    // Assert
+    assertNotNull(device);
+    assertTrue(device.isPresent());
+    assertEquals(mockDevice, device.get());
+  }
+
+  /**
+   * Test the getDeviceById method of the DeviceService class with an invalid deviceID.
+   */
+  @Test
+  void shouldReturnEmptyOptional_WhenGetDeviceByIdIsCalledWithInvalidDeviceID() {
+    // Arrange
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    RoomRepository roomRepository = mock(RoomRepository.class);
 
-        String expectedMessage = "Room with ID " + roomID + " not found.";
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            //Act
-            deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
-        });
+    DeviceID deviceID = mock(DeviceID.class);
 
-        String actualMessage = exception.getMessage();
+    when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
+
+    // Act
+    Optional<Device> device = deviceServiceImpl.getDeviceByID(deviceID);
+
+    // Assert
+    assertNotNull(device);
+    assertTrue(device.isEmpty());
+  }
+
+  /**
+   * Test the getDeviceListByRoomId method of the DeviceService class with a valid roomID.
+   */
+  @Test
+  void shouldGetDeviceListByRoomId_WhenGivenValidRoomId() {
+    // Arrange
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    RoomRepository roomRepository = mock(RoomRepository.class);
+
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    Room room = mock(Room.class);
+    RoomID roomID = room.getID();
+
+    Device mockDevice = mock(Device.class);
+    Device mockDevice2 = mock(Device.class);
+
+    when(deviceRepository.findBy_roomID(roomID)).thenReturn(List.of(mockDevice, mockDevice2));
+
+    // Act
+    List<Device> deviceList = deviceServiceImpl.getDevicesByRoomId(roomID);
+
+    // Assert
+    assertNotNull(deviceList);
+    assertEquals(2, deviceList.size());
+  }
+
+  /**
+   * Tests deactivateDeviceByID method of the DeviceService class with a valid deviceID.
+   */
+  @Test
+  void shouldDeactivateDevice_WhenGivenValidDeviceID() {
+    // Arrange
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    RoomRepository roomRepository = mock(RoomRepository.class);
+
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    DeviceID deviceIdDouble = mock(DeviceID.class);
+    Device deviceDouble = mock(Device.class);
+
+    when(deviceRepository.ofIdentity(deviceIdDouble)).thenReturn(Optional.of(deviceDouble));
+
+    // Act
+    Device device = deviceServiceImpl.deactivateDeviceByID(deviceIdDouble);
+
+    // Assert
+    assertEquals(deviceDouble, device);
+  }
+
+  /**
+   * Tests deactivateDeviceByID method of the DeviceService class with an invalid deviceID.
+   */
+  @Test
+  void shouldThrowException_WhenGivenInvalidDeviceID() {
+    // Arrange
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    RoomRepository roomRepository = mock(RoomRepository.class);
+
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    DeviceID deviceIdDouble = mock(DeviceID.class);
+
+    when(deviceRepository.ofIdentity(deviceIdDouble)).thenReturn(Optional.empty());
+
+    String expectedMessage = "Device with ID " + deviceIdDouble + " not found.";
+
+    // Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+
+      deviceServiceImpl.deactivateDeviceByID(deviceIdDouble);
+    });
+
+    String actualMessage = exception.getMessage();
+
+    // Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  /**
+   * Test the getDevicesByTypeDescriptionFromMap method of the DeviceService class with a valid
+   * deviceMap and typeDescription.
+   */
+  @Test
+  void shouldReturnDevicesByTypeDescription_WhenGivenValidParameters() {
+    // Arrange
+    IDeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    IRoomRepository roomRepository = mock(RoomRepository.class);
+
+    IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    String strTypeDescriptionTemp = "Temperature";
+    TypeDescription typeDescriptionTemp = mock(TypeDescription.class);
+    when(typeDescriptionTemp.toString()).thenReturn(strTypeDescriptionTemp);
+    DeviceType deviceTypeTemp = mock(DeviceType.class);
+    when(deviceTypeTemp.getDescription()).thenReturn(typeDescriptionTemp);
+
+    String strTypeDescriptionLight = "Light";
+    TypeDescription typeDescriptionLight = mock(TypeDescription.class);
+    when(typeDescriptionLight.toString()).thenReturn(strTypeDescriptionLight);
+    DeviceType deviceTypeLight = mock(DeviceType.class);
+    when(deviceTypeLight.getDescription()).thenReturn(typeDescriptionLight);
+
+    DeviceDTO deviceDTOTemp = mock(DeviceDTO.class);
+    DeviceDTO deviceDTOLight = mock(DeviceDTO.class);
+
+    List<DeviceDTO> deviceDTOTempList = new ArrayList<>();
+    deviceDTOTempList.add(deviceDTOTemp);
+
+    List<DeviceDTO> deviceDTOLightList = new ArrayList<>();
+    deviceDTOLightList.add(deviceDTOLight);
+
+    Map<DeviceType, List<DeviceDTO>> deviceMap = new LinkedHashMap<>();
+    deviceMap.put(deviceTypeTemp, deviceDTOTempList);
+    deviceMap.put(deviceTypeLight, deviceDTOLightList);
+
+    // Act
+    List<DeviceDTO> result = deviceServiceImpl.getDevicesByTypeDescriptionFromMap(deviceMap,
+        strTypeDescriptionTemp);
+
+    // Assert
+    assertEquals(deviceDTOTemp, result.get(0));
+  }
+
+  /**
+   * Test the getDevicesByTypeDescriptionFromMap method of the DeviceService class with a null
+   * deviceMap.
+   */
+  @Test
+  void shouldThrowException_WhenGivenNullDeviceMap() {
+    // Arrange
+    IDeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    IRoomRepository roomRepository = mock(RoomRepository.class);
+
+    IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    Map<DeviceType, List<DeviceDTO>> deviceMap = null;
+    String typeDescription = "Temperature";
+
+    String expectedMessage = "Device map is required";
+
+    // Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      deviceServiceImpl.getDevicesByTypeDescriptionFromMap(deviceMap, typeDescription);
+    });
+
+    String actualMessage = exception.getMessage();
+
+    // Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  /**
+   * Test the getDevicesByTypeDescriptionFromMap method of the DeviceService class with a null
+   * typeDescription.
+   */
+  @Test
+  void shouldThrowException_WhenGivenNullTypeDescription() {
+    // Arrange
+    IDeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    IRoomRepository roomRepository = mock(RoomRepository.class);
+
+    IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    Map<DeviceType, List<DeviceDTO>> deviceMap = new LinkedHashMap<>();
+    String typeDescription = null;
+
+    String expectedMessage = "Type description is required";
+
+    // Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      deviceServiceImpl.getDevicesByTypeDescriptionFromMap(deviceMap, typeDescription);
+    });
+
+    String actualMessage = exception.getMessage();
+
+    // Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  /**
+   * Test the getDevicesFromListByRoomId method of the DeviceService class when given valid parameters.
+   */
+  @Test
+  void shouldReturnDevicesInRoom_WhenGivenValidParameters() {
+    // Arrange
+    IDeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    IRoomRepository roomRepository = mock(RoomRepository.class);
+
+    IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    String strRoomID = "RoomID";
+    RoomID roomID = mock(RoomID.class);
+    when(roomID.getID()).thenReturn(strRoomID);
+
+    DeviceDTO deviceDTO = new DeviceDTO("DeviceID", strRoomID, "DeviceName", "DeviceStatus");
+    DeviceDTO deviceDTO2 = new DeviceDTO("DeviceID2", "RoomID2", "DeviceName2", "DeviceStatus2");
+
+    List<DeviceDTO> deviceDTOList = new ArrayList<>();
+    deviceDTOList.add(deviceDTO);
+    deviceDTOList.add(deviceDTO2);
+
+    int expectedSize = 1;
+
+    // Act
+    List<DeviceDTO> result = deviceServiceImpl.getDevicesFromListByRoomId(deviceDTOList, roomID);
+
+    // Assert
+    assertEquals(deviceDTO, result.get(0));
+    assertEquals(expectedSize, result.size());
+  }
+
+  /**
+   * Test the getDevicesFromListByRoomId method of the DeviceService class when given a null list of devices.
+   */
+  @Test
+  void shouldThrowException_WhenGivenNullListOfDevices() {
+    // Arrange
+    IDeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    IRoomRepository roomRepository = mock(RoomRepository.class);
+
+    IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    List<DeviceDTO> deviceDTOList = null;
+    RoomID roomID = mock(RoomID.class);
+
+    String expectedMessage = "List of DevicesDTO is required";
+
+    // Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      deviceServiceImpl.getDevicesFromListByRoomId(deviceDTOList, roomID);
+    });
+
+    // Assert
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  /**
+   * Test the getDevicesFromListByRoomId method of the DeviceService class when given a null roomID.
+   */
+  @Test
+  void shouldThrowException_WhenGivenNullRoomID() {
+    // Arrange
+    IDeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    IRoomRepository roomRepository = mock(RoomRepository.class);
+
+    IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    List<DeviceDTO> deviceDTOList = new ArrayList<>();
+    RoomID roomID = null;
+
+    String expectedMessage = "A Room ID is required";
+
+    // Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      deviceServiceImpl.getDevicesFromListByRoomId(deviceDTOList, roomID);
+    });
+
+    // Assert
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
 
-        //Assert
-        assertEquals(expectedMessage, actualMessage);
-
-    }
-
-    /**
-     * Test the getAllDevices method of the DeviceService class with a valid
-     */
-    @Test
-    void shouldReturnAllDevices_WhenDevicesExist() {
-        // Arrange
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
-
-        RoomID roomID = mock(RoomID.class);
-        DeviceName deviceName = mock(DeviceName.class);
-        DeviceStatus deviceStatus = mock(DeviceStatus.class);
-
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-
-        Device mockDevice = mock(Device.class);
-        Device mockDevice2 = mock(Device.class);
-        when(deviceRepository.findAll()).thenReturn(List.of(mockDevice, mockDevice2));
-
-        int expectedSize = 2;
-
-        // Act
-        List<Device> deviceList = deviceServiceImpl.getAllDevices();
-        int result = deviceList.size();
-
-        // Assert
-        assertEquals(expectedSize, result);
-
-    }
-
-    /**
-     * Test the getDevices method when there are no devices.
-     */
-    @Test
-    void shouldReturnEmptyList_WhenNoDevicesExist() {
-        // Arrange
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
-
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-
-        when(deviceRepository.findAll()).thenReturn(List.of());
-
-        int expectedSize = 0;
-
-        // Act
-        List<Device> deviceList = deviceServiceImpl.getAllDevices();
-        int result = deviceList.size();
-
-        // Assert
-        assertEquals(expectedSize, result);
-    }
-
-/**
-     * Test the getDeviceById method of the DeviceService class with a valid deviceID.
-     */
-    @Test
-    void shouldReturnDevice_WhenGetDeviceByIdIsCalledWithValidDeviceID() {
-        // Arrange
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
-
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-
-        DeviceID deviceID = mock(DeviceID.class);
-        Device mockDevice = mock(Device.class);
-
-        when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
-
-        // Act
-        Optional<Device> device = deviceServiceImpl.getDeviceByID(deviceID);
-
-        // Assert
-        assertNotNull(device);
-        assertTrue(device.isPresent());
-        assertEquals(mockDevice, device.get());
-    }
-
-    /**
-     * Test the getDeviceById method of the DeviceService class with an invalid deviceID.
-     */
-    @Test
-    void shouldReturnEmptyOptional_WhenGetDeviceByIdIsCalledWithInvalidDeviceID() {
-        // Arrange
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
-
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-
-        DeviceID deviceID = mock(DeviceID.class);
-
-        when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
-
-        // Act
-        Optional<Device> device = deviceServiceImpl.getDeviceByID(deviceID);
-
-        // Assert
-        assertNotNull(device);
-        assertTrue(device.isEmpty());
-    }
-
-    /**
-     * Test the getDeviceListByRoomId method of the DeviceService class with a valid roomID.
-     */
-    @Test
-    void shouldGetDeviceListByRoomId_WhenGivenValidRoomId() {
-        // Arrange
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
-
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-
-        Room room = mock(Room.class);
-        RoomID roomID = room.getID();
-
-        Device mockDevice = mock(Device.class);
-        Device mockDevice2 = mock(Device.class);
-
-        when(deviceRepository.findBy_roomID(roomID)).thenReturn(List.of(mockDevice, mockDevice2));
-
-        // Act
-        List<Device> deviceList = deviceServiceImpl.getDevicesByRoomId(roomID);
-
-        // Assert
-        assertNotNull(deviceList);
-        assertEquals(2, deviceList.size());
-    }
-
-    /**
-     * Tests deactivateDeviceByID method of the DeviceService class with a valid deviceID.
-     */
-    @Test
-    void shouldDeactivateDevice_WhenGivenValidDeviceID() {
-        // Arrange
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
-
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-
-        DeviceID deviceIdDouble = mock(DeviceID.class);
-        Device deviceDouble = mock(Device.class);
-
-        when(deviceRepository.ofIdentity(deviceIdDouble)).thenReturn(Optional.of(deviceDouble));
-
-        // Act
-        Device device = deviceServiceImpl.deactivateDeviceByID(deviceIdDouble);
-
-        // Assert
-        assertEquals(deviceDouble, device);
-    }
-
-    /**
-     * Tests deactivateDeviceByID method of the DeviceService class with an invalid deviceID.
-     */
-    @Test
-    void shouldThrowException_WhenGivenInvalidDeviceID() {
-        // Arrange
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        RoomRepository roomRepository = mock(RoomRepository.class);
-
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-
-        DeviceID deviceIdDouble = mock(DeviceID.class);
-
-        when(deviceRepository.ofIdentity(deviceIdDouble)).thenReturn(Optional.empty());
-
-        String expectedMessage = "Device with ID " + deviceIdDouble + " not found.";
-
-        // Act & Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-
-            deviceServiceImpl.deactivateDeviceByID(deviceIdDouble);
-        });
-
-        String actualMessage = exception.getMessage();
-
-        // Assert
-        assertEquals(expectedMessage, actualMessage);
-    }
 }

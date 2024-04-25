@@ -3,7 +3,7 @@
 
 participant " " as User
 participant Controller as ":GetDevicesByRoomAndTemperatureFunctionalityCTRL"
-
+participant Service as ":DeviceService"
 
 autonumber
 
@@ -15,9 +15,21 @@ User o-> Controller: getDevicesByRoomAndTemperatureFunctionality(map, roomDTO)
 
 activate Controller
 
-Controller -> Controller: getDevicesWithTemperatureSensor (map)
+Controller -> Service: getDevicesByDescriptionFromMap (map, typeDescription)
 
-Controller -> Controller: getDevicesFromRoom (temperatureDevicesDTO, roomDTO)
+activate Service
+
+Service --> Controller: temperatureDevicesDTO
+
+deactivate Service
+
+Controller -> Service: getDevicesFromListByRoomId (temperatureDevicesDTO, roomDTO)
+
+activate Service
+
+Service --> Controller: temperatureDevicesDTOInRoom
+
+deactivate Service
 
 Controller --> User: temperatureDevicesDTOInRoom
 

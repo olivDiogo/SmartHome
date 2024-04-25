@@ -37,7 +37,6 @@ import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.Address;
 import smart_home.value_object.DeviceName;
 import smart_home.value_object.DeviceStatus;
-import smart_home.value_object.DeviceTypeID;
 import smart_home.value_object.Dimension;
 import smart_home.value_object.GPS;
 import smart_home.value_object.HouseID;
@@ -52,14 +51,50 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
 
 public class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
+
+  /**
+   * Test to check if the class is instantiated given valid parameters to the constructor
+   */
+  @Test
+  void shouldInstantiateConstructor_whenParametersAreValid(){
+    //Arrange
+    IDeviceService deviceService = new DeviceServiceImpl(new DeviceRepository(), new DeviceFactoryImpl(), new RoomRepository());
+
+    //Act
+    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService);
+
+    //Assert
+    assertNotNull(getDevicesByRoomAndTemperatureFunctionalityController);
+  }
+
+  /**
+   * Test to check if exception is thrown when the constructor receives a null parameter
+   */
+  @Test
+  void shouldThrowException_whenDeviceServiceIsNull(){
+    //Arrange
+    IDeviceService deviceService = null;
+
+    String expectedMessage = "Device service is required";
+
+    //Act
+    Exception e = assertThrows(IllegalArgumentException.class, () -> new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService));
+
+    //Assert
+    String actualMessage = e.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+    }
 
   /**
    * Test to get devices with temperature functionality from a room
    */
   @Test
-  void shouldReturnDevicesWithTemperatureFunctionalityFromARoom_WhenGetDevicesByRoomAndTypeDescriptionIsCalled() {
+  void shouldReturnDevicesWithTemperatureFunctionalityFromARoom_WhenGetDevicesByRoomAndTemperatureFunctionalityIsCalled() {
     //Arrange
     IDeviceRepository deviceRepository = new DeviceRepository();
     IDeviceFactory deviceFactory = new DeviceFactoryImpl();
@@ -84,7 +119,7 @@ public class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
 
     GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService, roomAssembler);
     GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceService, deviceAssembler, deviceTypeService);
-    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController();
+    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService);
 
     /* Create a house */
     String street = "Rua Do Isep";
@@ -150,7 +185,7 @@ public class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
     expected.add(deviceDTO2);
 
     //Act
-    List<DeviceDTO> devicesTemperature = getDevicesByRoomAndTemperatureFunctionalityController.getDevicesByRoomAndTypeDescription(map, roomDTO, "Temperature");
+    List<DeviceDTO> devicesTemperature = getDevicesByRoomAndTemperatureFunctionalityController.getDevicesByRoomAndTemperatureFunctionality(map, roomDTO);
 
     //Assert
     assertEquals(expected.toString(), devicesTemperature.toString());
@@ -184,7 +219,7 @@ public class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
     IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
 
     GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceService, deviceAssembler, deviceTypeService);
-    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureController = new GetDevicesByRoomAndTemperatureFunctionalityController();
+    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureController = new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService);
 
     /* Create a house */
     String street = "Rua Do Isep";
@@ -241,11 +276,55 @@ public class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
     int expectedListSize = 0;
 
     //Act
-    List<DeviceDTO> devicesTemperature = getDevicesByRoomAndTemperatureController.getDevicesByRoomAndTypeDescription(map, roomDTO, "Temperature");
+    List<DeviceDTO> devicesTemperature = getDevicesByRoomAndTemperatureController.getDevicesByRoomAndTemperatureFunctionality(map, roomDTO);
 
     //
     assertEquals(expectedListSize, devicesTemperature.size());
 
+  }
+
+  /**
+   * Test to get devices by room and temperature when the provided map is null
+   */
+  @Test
+  void shouldThrowException_whenMapIsNull() {
+    //Arrange
+    IDeviceService deviceService = new DeviceServiceImpl(new DeviceRepository(), new DeviceFactoryImpl(), new RoomRepository());
+
+    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService);
+
+    RoomDTO roomDTO = mock(RoomDTO.class);
+
+    String expectedMessage = "A Map is required";
+
+    //Act
+    Exception e = assertThrows(IllegalArgumentException.class, () -> getDevicesByRoomAndTemperatureFunctionalityController.getDevicesByRoomAndTemperatureFunctionality(null, roomDTO));
+
+    //Assert
+    String actualMessage = e.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  /**
+   * Test to get devices by room and temperature when the provided roomDTO is null
+   */
+  @Test
+  void shouldThrowException_whenRoomDTOIsNull() {
+    //Arrange
+    IDeviceService deviceService = new DeviceServiceImpl(new DeviceRepository(), new DeviceFactoryImpl(), new RoomRepository());
+
+    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService);
+
+    Map<DeviceType, List<DeviceDTO>> map = mock(Map.class);
+
+    String expectedMessage = "Room DTO is required";
+
+    //Act
+    Exception e = assertThrows(IllegalArgumentException.class, () -> getDevicesByRoomAndTemperatureFunctionalityController.getDevicesByRoomAndTemperatureFunctionality(map, null));
+
+    //Assert
+    String actualMessage = e.getMessage();
+    assertEquals(expectedMessage, actualMessage);
   }
 
 
