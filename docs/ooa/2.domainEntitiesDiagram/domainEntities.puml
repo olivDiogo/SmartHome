@@ -15,7 +15,7 @@ class SensorModel<<Entity>><<root>>{}
 class Unit<<Entity>><<Root>>{}
 class Log<<Entity>><<Root>>{}
 
-note "Cada agregado está interligado pelo seu ID e não via Root." as note
+note "Each aggregate is only known to the outside via their ID's." as note
 
 
 
