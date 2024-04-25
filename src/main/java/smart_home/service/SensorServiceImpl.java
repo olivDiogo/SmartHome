@@ -14,9 +14,9 @@ import java.util.Optional;
 
 public class SensorServiceImpl implements ISensorService {
 
-  private IRepository<SensorID, ISensor> sensorRepository;
-  private ISensorFactory sensorFactory;
-  private IDeviceRepository deviceRepository;
+  private final IRepository<SensorID, ISensor> sensorRepository;
+  private final ISensorFactory sensorFactory;
+  private final IDeviceRepository deviceRepository;
 
   /**
    * Constructor for SensorService.

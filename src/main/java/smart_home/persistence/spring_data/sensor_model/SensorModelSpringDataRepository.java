@@ -36,19 +36,6 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
         this.assembler = assembler;
     }
 
-
-    /**
-     * Method to get the entity manager.
-     *
-     * @return the entity manager.
-     */
-
-    private EntityManager getEntityManager() {
-
-        EntityManager manager = factory.createEntityManager();
-        return manager;
-    }
-
     /**
      * Method to save a domain entity.
      *

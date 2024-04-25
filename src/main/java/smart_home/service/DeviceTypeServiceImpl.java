@@ -13,8 +13,8 @@ import java.util.Optional;
 
 public class DeviceTypeServiceImpl implements IDeviceTypeService {
 
-  private IRepository<DeviceTypeID, DeviceType> deviceTypeRepository;
-  private IDeviceTypeFactory deviceTypeFactory;
+  private final IRepository<DeviceTypeID, DeviceType> deviceTypeRepository;
+  private final IDeviceTypeFactory deviceTypeFactory;
 
   /**
    * Constructor for the DeviceTypeService class.

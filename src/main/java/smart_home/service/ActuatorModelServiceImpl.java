@@ -17,8 +17,7 @@ import java.util.Optional;
  */
 public class ActuatorModelServiceImpl implements IActuatorModelService {
 
-  private IActuatorModelRepository actuatorModelRepository;
-  private IActuatorModelFactory factoryActuatorModel;
+  private final IActuatorModelRepository actuatorModelRepository;
 
   /**
    * Constructs an ActuatorModelService with a specified repository and factory. Also attempts to
@@ -33,7 +32,6 @@ public class ActuatorModelServiceImpl implements IActuatorModelService {
     Validator.validateNotNull(factoryActuatorModel, "Actuator model factory");
     this.actuatorModelRepository = actuatorModelRepository;
     Validator.validateNotNull(actuatorModelRepository, "Actuator model repository");
-    this.factoryActuatorModel = factoryActuatorModel;
   }
 
 
