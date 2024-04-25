@@ -2,6 +2,7 @@ package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
 import smart_home.domain.actuator_model.ActuatorModelFactoryImpl;
+import smart_home.domain.repository.ISensorTypeRepository;
 import smart_home.mapper.*;
 import smart_home.domain.device.Device;
 import smart_home.domain.device.DeviceFactoryImpl;
@@ -40,7 +41,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -104,7 +105,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -168,7 +169,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -233,7 +234,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -297,7 +298,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -362,7 +363,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -430,7 +431,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -495,7 +496,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -612,7 +613,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -677,7 +678,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -740,7 +741,7 @@ class AddSensorToDeviceControllerTest {
     HouseRepository houseRepository = new HouseRepository();
     UnitRepository unitRepository = new UnitRepository();
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -804,7 +805,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -868,7 +869,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -986,7 +987,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -1063,7 +1064,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -1192,7 +1193,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -1271,7 +1272,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -1345,7 +1346,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorModelRepository sensorModelRepository = new SensorModelRepository();
     SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
@@ -1412,7 +1413,7 @@ class AddSensorToDeviceControllerTest {
     UnitFactoryImpl unitFactory = new UnitFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -1480,7 +1481,7 @@ class AddSensorToDeviceControllerTest {
     UnitRepository unitRepository = new UnitRepository();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -1563,7 +1564,7 @@ class AddSensorToDeviceControllerTest {
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -1681,7 +1682,7 @@ class AddSensorToDeviceControllerTest {
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -1799,7 +1800,7 @@ class AddSensorToDeviceControllerTest {
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -1917,7 +1918,7 @@ class AddSensorToDeviceControllerTest {
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -2035,7 +2036,7 @@ class AddSensorToDeviceControllerTest {
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -2153,7 +2154,7 @@ class AddSensorToDeviceControllerTest {
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -2271,7 +2272,7 @@ class AddSensorToDeviceControllerTest {
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -2389,7 +2390,7 @@ class AddSensorToDeviceControllerTest {
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -2507,7 +2508,7 @@ class AddSensorToDeviceControllerTest {
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -2624,7 +2625,7 @@ class AddSensorToDeviceControllerTest {
     HouseFactoryImpl houseFactory = new HouseFactoryImpl();
     SensorRepository sensorRepository = new SensorRepository();
     SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
+    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorTypeServiceImpl sensorTypeServiceImpl =
             new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
@@ -2723,6 +2724,6 @@ class AddSensorToDeviceControllerTest {
                     () -> addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp));
 
     // Assert
-    assertEquals(exception.getMessage(), "Please enter a valid sensor data DTO.");
+    assertEquals("Please enter a valid sensor data DTO.", exception.getMessage());
   }
 }

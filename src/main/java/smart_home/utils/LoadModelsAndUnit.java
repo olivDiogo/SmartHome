@@ -70,10 +70,10 @@ public class LoadModelsAndUnit {
                 ModelPath path = new ModelPath(pathStr);
                 if (type.equals("sensor")) {
                     SensorModel model = ((ISensorModelFactory) factory).createSensorModel(new SensorModelName(modelName), path, new SensorTypeID(typeIdStr));
-                    ((SensorModelRepository) repository).save(model);
+                    ((ISensorModelRepository) repository).save(model);
                 } else if (type.equals("actuator")) {
                     ActuatorModel model = ((IActuatorModelFactory) factory).createActuatorModel(new ActuatorModelName(modelName), path, new ActuatorTypeID(typeIdStr));
-                    ((ActuatorModelRepository) repository).save(model);
+                    ((IActuatorModelRepository) repository).save(model);
                 }
             }
         } catch (ConfigurationException e) {

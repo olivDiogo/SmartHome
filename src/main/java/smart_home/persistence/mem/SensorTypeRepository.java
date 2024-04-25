@@ -2,6 +2,7 @@ package smart_home.persistence.mem;
 
 
 import smart_home.ddd.IRepository;
+import smart_home.domain.repository.ISensorTypeRepository;
 import smart_home.domain.sensor_type.SensorType;
 import smart_home.utils.Validator;
 import smart_home.value_object.SensorTypeID;
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 
 
-public class SensorTypeRepository implements IRepository<SensorTypeID, SensorType> {
+public class SensorTypeRepository implements ISensorTypeRepository {
 
     private final Map<SensorTypeID, SensorType> DATA = new LinkedHashMap<>();
 

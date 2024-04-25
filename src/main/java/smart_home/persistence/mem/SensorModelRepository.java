@@ -13,7 +13,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public class SensorModelRepository implements ISensorModelRepository {
-    final private Map<ModelPath, SensorModel> DATA = new LinkedHashMap<>();
+
+  private final Map<ModelPath, SensorModel> DATA = new LinkedHashMap<>();
 
     @Override
     public SensorModel save(SensorModel entity) {

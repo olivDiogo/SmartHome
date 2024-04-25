@@ -1,6 +1,7 @@
 package smart_home.service;
 
 import org.junit.jupiter.api.Test;
+import smart_home.domain.repository.ISensorTypeRepository;
 import smart_home.domain.sensor_type.SensorType;
 import smart_home.domain.sensor_type.SensorTypeFactoryImpl;
 import smart_home.persistence.mem.SensorTypeRepository;
@@ -20,7 +21,7 @@ class SensorTypeServiceImplTest {
     @Test
     void shouldInstantiateSensorTypeServiceWhenGivenValidParameters() {
         //Arrange
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+        ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
 
@@ -33,7 +34,7 @@ class SensorTypeServiceImplTest {
     @Test
     void shouldThrowExceptionWhenSensorTypeRepositoryIsNull() {
         //Arrange
-        SensorTypeRepository sensorTypeRepository = null;
+        ISensorTypeRepository sensorTypeRepository = null;
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
         String expectedMessage = "Sensor type repository is required";
@@ -45,7 +46,7 @@ class SensorTypeServiceImplTest {
     @Test
     void shouldThrowExceptionWhenSensorTypeFactoryIsNull() {
         //Arrange
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+        ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         SensorTypeFactoryImpl sensorTypeFactory = null;
         UnitRepository unitRepository = mock(UnitRepository.class);
         String expectedMessage = "Sensor type factory is required";
@@ -57,7 +58,7 @@ class SensorTypeServiceImplTest {
     @Test
     void shouldThrowExceptionWhenMeasurementTypeRepositoryIsNull() {
         //Arrange
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+      ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = null;
         String expectedMessage = "Unit repository is required";
@@ -77,7 +78,7 @@ class SensorTypeServiceImplTest {
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         when(sensorTypeFactory.createSensorType(typeDescription, unitID)).thenReturn(sensorType);
 
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+        ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
         when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
 
@@ -97,7 +98,7 @@ class SensorTypeServiceImplTest {
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         when(sensorTypeFactory.createSensorType(typeDescription, unitID)).thenReturn(sensorType);
 
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+      ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
         when(unitRepository.containsOfIdentity(unitID)).thenReturn(false);
 
@@ -112,7 +113,7 @@ class SensorTypeServiceImplTest {
     void shouldSaveSensorTypeWhenGivenValidParameters() {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+      ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         when(sensorTypeRepository.save(sensorType)).thenReturn(sensorType);
 
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
@@ -128,7 +129,7 @@ class SensorTypeServiceImplTest {
     void shouldThrowExceptionWhenSavingNullSensorType() {
         //Arrange
         SensorType sensorType = null;
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+      ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
 
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
@@ -145,7 +146,7 @@ class SensorTypeServiceImplTest {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+      ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         when(sensorTypeRepository.ofIdentity(sensorTypeID)).thenReturn(Optional.of(sensorType));
 
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
@@ -161,7 +162,7 @@ class SensorTypeServiceImplTest {
     void shouldThrowExceptionWhenFindingSensorTypeByNullID() {
         //Arrange
         SensorTypeID sensorTypeID = null;
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+      ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
 
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
         UnitRepository unitRepository = mock(UnitRepository.class);
@@ -177,7 +178,7 @@ class SensorTypeServiceImplTest {
     void shouldReturnOptionalEmptyWhenFindingSensorTypeByNonExistentID() {
         //Arrange
         SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+      ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         when(sensorTypeRepository.ofIdentity(sensorTypeID)).thenReturn(Optional.empty());
 
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
@@ -193,7 +194,7 @@ class SensorTypeServiceImplTest {
     void shouldReturnAllSensorTypesWhenFindingAllSensorTypes() {
         //Arrange
         SensorType sensorType = mock(SensorType.class);
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+      ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         when(sensorTypeRepository.findAll()).thenReturn(List.of(sensorType));
 
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
@@ -209,7 +210,7 @@ class SensorTypeServiceImplTest {
     @Test
     void shouldReturnEmptyListWhenNoSensorTypesExist() {
         //Arrange
-        SensorTypeRepository sensorTypeRepository = mock(SensorTypeRepository.class);
+      ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         when(sensorTypeRepository.findAll()).thenReturn(List.of());
 
         SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);

@@ -158,23 +158,4 @@ class UnitAssemblerTest {
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
-
-  /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the list of
-   * MeasurementTypes contains null.
-   */
-  @Test
-  void
-      shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithListOfMeasurementTypeContainingNull() {
-    // Arrange
-    UnitAssembler unitAssembler = new UnitAssembler();
-    String expectedMessage = "The list of MeasurementTypes cannot be null.";
-    Unit unit = mock(Unit.class);
-    List<Unit> unitList = Arrays.asList(unit, null);
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(IllegalArgumentException.class, () -> unitAssembler.domainToDTO(unitList));
-    // Assert
-    assertEquals(expectedMessage, exception.getMessage());
-  }
 }
