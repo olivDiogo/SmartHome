@@ -1,8 +1,32 @@
 package smart_home.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import smart_home.ddd.IAssembler;
 import smart_home.domain.actuator_model.ActuatorModelFactoryImpl;
+import smart_home.domain.actuator_model.IActuatorModelFactory;
+import smart_home.domain.device.IDeviceFactory;
+import smart_home.domain.house.IHouseFactory;
+import smart_home.domain.repository.IActuatorModelRepository;
+import smart_home.domain.repository.IDeviceRepository;
+import smart_home.domain.repository.IHouseRepository;
+import smart_home.domain.repository.IRoomRepository;
+import smart_home.domain.repository.ISensorModelRepository;
+import smart_home.domain.repository.ISensorRepository;
 import smart_home.domain.repository.ISensorTypeRepository;
+import smart_home.domain.repository.IUnitRepository;
+import smart_home.domain.room.IRoomFactory;
+import smart_home.domain.sensor.ISensor;
+import smart_home.domain.sensor.ISensorFactory;
+import smart_home.domain.sensor_model.ISensorModelFactory;
+import smart_home.domain.sensor_type.ISensorTypeFactory;
+import smart_home.domain.service.IDeviceService;
+import smart_home.domain.service.IHouseService;
+import smart_home.domain.service.IRoomService;
+import smart_home.domain.service.ISensorModelService;
+import smart_home.domain.service.ISensorService;
+import smart_home.domain.service.ISensorTypeService;
+import smart_home.domain.unit.IUnitFactory;
 import smart_home.mapper.*;
 import smart_home.domain.device.Device;
 import smart_home.domain.device.DeviceFactoryImpl;
@@ -26,55 +50,132 @@ import smart_home.value_object.*;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class AddSensorToDeviceControllerTest {
+  private IHouseRepository houseRepository;
+  private IHouseService houseServiceImpl;
+  private IHouseFactory houseFactory;
+  private IPostalCodeFactory postalCodeFactory;
+  private IRoomRepository roomRepository;
+  private IRoomFactory roomFactory;
+  private IRoomService roomServiceImpl;
+  private IAssembler<Room, RoomDTO> roomAssembler;
+  private IDeviceRepository deviceRepository;
+  private IDeviceFactory deviceFactory;
+  private IDeviceService deviceServiceImpl;
+  private IAssembler<Device, DeviceDTO> deviceAssembler;
+  private IUnitRepository unitRepository;
+  private IUnitFactory unitFactory;
+  private ISensorRepository sensorRepository;
+  private ISensorFactory sensorFactory;
+  private IAssembler<ISensor, SensorDTO> sensorAssembler;
+  private ISensorService sensorServiceImpl;
+  private ISensorTypeRepository sensorTypeRepository;
+  private ISensorTypeFactory sensorTypeFactory;
+  private ISensorTypeService sensorTypeServiceImpl;
+  private IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler;
+  private ISensorModelRepository sensorModelRepository;
+  private ISensorModelFactory sensorModelFactory;
+  private IAssembler<SensorModel, SensorModelDTO> sensorModelAssembler;
+  private ISensorModelService sensorModelServiceImpl;
+  private IActuatorModelRepository actuatorModelRepository;
+  private IActuatorModelFactory actuatorModelFactory;
+
+  @BeforeEach
+  void setUp() {
+    houseRepository = new HouseRepository();
+    houseFactory = new HouseFactoryImpl();
+    houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+    postalCodeFactory = new PostalCodeFactory();
+    roomRepository = new RoomRepository();
+    roomFactory = new RoomFactoryImpl();
+    roomAssembler = new RoomAssembler();
+    roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+
+    deviceRepository = new DeviceRepository();
+    deviceFactory = new DeviceFactoryImpl();
+    deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    deviceAssembler = new DeviceAssembler();
+
+    unitRepository = new UnitRepository();
+    unitFactory = new UnitFactoryImpl();
+
+    sensorRepository = new SensorRepository();
+    sensorFactory = new SensorFactoryImpl();
+    sensorAssembler = new SensorAssembler();
+    sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
+
+    sensorTypeRepository = new SensorTypeRepository();
+    sensorTypeFactory = new SensorTypeFactoryImpl();
+    sensorTypeAssembler = new SensorTypeAssembler();
+    sensorTypeServiceImpl =
+        new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
+
+    sensorModelRepository = new SensorModelRepository();
+    sensorModelFactory = new SensorModelFactoryImpl();
+    sensorModelAssembler = new SensorModelAssembler();
+    sensorModelServiceImpl = new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
+
+    actuatorModelRepository = new ActuatorModelRepository();
+    actuatorModelFactory = new ActuatorModelFactoryImpl();
+  }
+
+  private House loadHouse() {
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
+    Address newAddress =
+        new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+    return houseServiceImpl.addHouse(newAddress, newGPS);
+  }
+
+  private Room loadRoom(HouseID houseID) {
+    String name = "Quarto da Maria";
+    int width = 10;
+    int length = 10;
+    int height = 10;
+    int floor = 2;
+    RoomName roomName1 = new RoomName(name);
+    Dimension dimension = new Dimension(width, length, height);
+    RoomFloor roomFloor = new RoomFloor(floor);
+    return roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
+  }
+
+  private Device loadDevice(RoomID roomID) {
+    String name1 = "Lampada";
+    String nameDevice = "Ar Condicionado";
+    DeviceName deviceName = new DeviceName(name1);
+    DeviceName deviceName2 = new DeviceName(nameDevice);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+    deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    deviceServiceImpl.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
+    List<Device> devices = deviceServiceImpl.getDevicesByRoomId(roomID);
+    return devices.get(0);
+  }
+
+  private void loadModelsAndUnit() throws InstantiationException {
+    LoadModelsAndUnit loadModelsAndUnit =
+        new LoadModelsAndUnit(
+            sensorModelRepository,
+            actuatorModelRepository,
+            unitRepository,
+            sensorModelFactory,
+            actuatorModelFactory,
+            unitFactory);
+  }
 
   /** Test to check if the AddSensorToDeviceController is being created correctly. */
   @Test
   void shouldCreateAddSensorToDeviceController() throws InstantiationException {
-    // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
     // Act
-    AddSensorToDeviceController addSensorToDeviceController = new AddSensorToDeviceController(
+    AddSensorToDeviceController addSensorToDeviceController =
+        new AddSensorToDeviceController(
             roomServiceImpl,
             roomAssembler,
             deviceServiceImpl,
@@ -97,61 +198,26 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenRoomServiceIsNull() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
     RoomServiceImpl roomServiceImpl = null;
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-                new LoadModelsAndUnit(
-                        sensorModelRepository,
-                        actuatorModelRepository,
-                        unitRepository,
-                        sensorModelFactory,
-                        actuatorModelFactory,
-                        unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
+    String message = "Room service is required";
     // Act
-    try {
-      new AddSensorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              sensorModelServiceImpl,
-              sensorModelAssembler,
-              sensorTypeServiceImpl,
-              sensorTypeAssembler,
-              sensorAssembler,
-              sensorServiceImpl);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid room service.", e.getMessage());
-    }
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddSensorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    sensorModelServiceImpl,
+                    sensorModelAssembler,
+                    sensorTypeServiceImpl,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorServiceImpl));
+    // Assert
+    assertEquals(message, exception.getMessage());
   }
 
   /**
@@ -161,62 +227,27 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenRoomAssemblerIsNull() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
     RoomAssembler roomAssembler = null;
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    String message = "Room assembler is required";
 
     // Act
-    try {
-      new AddSensorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              sensorModelServiceImpl,
-              sensorModelAssembler,
-              sensorTypeServiceImpl,
-              sensorTypeAssembler,
-              sensorAssembler,
-              sensorServiceImpl);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid room assembler.", e.getMessage());
-    }
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddSensorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    sensorModelServiceImpl,
+                    sensorModelAssembler,
+                    sensorTypeServiceImpl,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorServiceImpl));
+    // Assert
+    assertEquals(message, exception.getMessage());
   }
 
   /**
@@ -226,61 +257,27 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenDeviceServiceIsNull() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
     DeviceServiceImpl deviceServiceImpl = null;
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    String message = "Device service is required";
 
     // Act
-    try {
-      new AddSensorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              sensorModelServiceImpl,
-              sensorModelAssembler,
-              sensorTypeServiceImpl,
-              sensorTypeAssembler,
-              sensorAssembler,
-              sensorServiceImpl);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid device service.", e.getMessage());
-    }
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddSensorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    sensorModelServiceImpl,
+                    sensorModelAssembler,
+                    sensorTypeServiceImpl,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorServiceImpl));
+    // Assert
+    assertEquals(message, exception.getMessage());
   }
 
   /**
@@ -290,62 +287,26 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenDeviceAssemblerIsNull() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
     DeviceAssembler deviceAssembler = null;
-
+    String message = "Device assembler is required";
     // Act
-    try {
-      new AddSensorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              sensorModelServiceImpl,
-              sensorModelAssembler,
-              sensorTypeServiceImpl,
-              sensorTypeAssembler,
-              sensorAssembler,
-              sensorServiceImpl);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid device assembler.", e.getMessage());
-    }
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddSensorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    sensorModelServiceImpl,
+                    sensorModelAssembler,
+                    sensorTypeServiceImpl,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorServiceImpl));
+    // Assert
+    assertEquals(message, exception.getMessage());
   }
 
   /**
@@ -353,66 +314,25 @@ class AddSensorToDeviceControllerTest {
    * is null.
    */
   @Test
-  void shouldThrowException_whenSensorModelServiceIsNull() throws InstantiationException {
-    // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
+  void shouldThrowException_whenSensorModelServiceIsNull() {
     // Act
-    String expectedMessage = "Please enter a valid sensor model service.";
+    String expectedMessage = "Sensor model service is required";
 
-    Exception exception =
-            assertThrows(
-                    IllegalArgumentException.class,
-                    () ->
-                            new AddSensorToDeviceController(
-                                    roomServiceImpl,
-                                    roomAssembler,
-                                    deviceServiceImpl,
-                                    deviceAssembler,
-                                    null,
-                                    sensorModelAssembler,
-                                    sensorTypeServiceImpl,
-                                    sensorTypeAssembler,
-                                    sensorAssembler,
-                                    sensorServiceImpl));
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddSensorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    null,
+                    sensorModelAssembler,
+                    sensorTypeServiceImpl,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorServiceImpl));
     assertEquals(expectedMessage, exception.getMessage());
   }
 
@@ -423,117 +343,26 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenSensorModelAssemblerIsNull() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
     SensorModelAssembler sensorModelAssembler = null;
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
+    String message = "Sensor model assembler is required";
     // Act
-    try {
-      new AddSensorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              sensorModelServiceImpl,
-              sensorModelAssembler,
-              sensorTypeServiceImpl,
-              sensorTypeAssembler,
-              sensorAssembler,
-              sensorServiceImpl);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid sensor model assembler.", e.getMessage());
-    }
-  }
-
-  /**
-   * Test to check if the AddSensorToDeviceController is returning null when the
-   * ConfigurationService is null.
-   */
-  @Test
-  void shouldThrowException_whenConfigurationServiceIsNull() {
-    // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
-    // Act
-    try {
-      new AddSensorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              sensorModelServiceImpl,
-              sensorModelAssembler,
-              sensorTypeServiceImpl,
-              sensorTypeAssembler,
-              sensorAssembler,
-              sensorServiceImpl);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid configuration service.", e.getMessage());
-    }
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddSensorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    sensorModelServiceImpl,
+                    sensorModelAssembler,
+                    sensorTypeServiceImpl,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorServiceImpl));
+    // Assert
+    assertEquals(message, exception.getMessage());
   }
 
   /**
@@ -543,59 +372,26 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenSensorTypeServiceIsNull() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
     SensorTypeServiceImpl sensorTypeServiceImpl = null;
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
 
     // Act
-    try {
-      new AddSensorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              sensorModelServiceImpl,
-              sensorModelAssembler,
-              sensorTypeServiceImpl,
-              sensorTypeAssembler,
-              sensorAssembler,
-              sensorServiceImpl);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid sensor type service.", e.getMessage());
-    }
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddSensorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    sensorModelServiceImpl,
+                    sensorModelAssembler,
+                    sensorTypeServiceImpl,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorServiceImpl));
+    // Assert
+    assertEquals("Sensor type service is required", exception.getMessage());
   }
 
   /**
@@ -605,62 +401,26 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenSensorTypeAssemblerIsNull() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
     SensorTypeAssembler sensorTypeAssembler = null;
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
+    String message = "Sensor type assembler is required";
     // Act
-    try {
-      new AddSensorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              sensorModelServiceImpl,
-              sensorModelAssembler,
-              sensorTypeServiceImpl,
-              sensorTypeAssembler,
-              sensorAssembler,
-              sensorServiceImpl);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid sensor type assembler.", e.getMessage());
-    }
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddSensorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    sensorModelServiceImpl,
+                    sensorModelAssembler,
+                    sensorTypeServiceImpl,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorServiceImpl));
+    // Assert
+    assertEquals(message, exception.getMessage());
   }
 
   /**
@@ -670,62 +430,27 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenSensorAssemblerIsNull() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
     SensorAssembler sensorAssembler = null;
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    String message = "Sensor assembler is required";
 
     // Act
-    try {
-      new AddSensorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              sensorModelServiceImpl,
-              sensorModelAssembler,
-              sensorTypeServiceImpl,
-              sensorTypeAssembler,
-              sensorAssembler,
-              sensorServiceImpl);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid sensor assembler.", e.getMessage());
-    }
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddSensorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    sensorModelServiceImpl,
+                    sensorModelAssembler,
+                    sensorTypeServiceImpl,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorServiceImpl));
+    // Assert
+    assertEquals(message, exception.getMessage());
   }
 
   /**
@@ -735,499 +460,36 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenSensorServiceIsNull() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
     SensorServiceImpl sensorServiceImpl = null;
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
+    String message = "Sensor service is required";
 
     // Act
-    try {
-      new AddSensorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              sensorModelServiceImpl,
-              sensorModelAssembler,
-              sensorTypeServiceImpl,
-              sensorTypeAssembler,
-              sensorAssembler,
-              sensorServiceImpl);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid sensor service.", e.getMessage());
-    }
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddSensorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    sensorModelServiceImpl,
+                    sensorModelAssembler,
+                    sensorTypeServiceImpl,
+                    sensorTypeAssembler,
+                    sensorAssembler,
+                    sensorServiceImpl));
+    // Assert
+    assertEquals(message, exception.getMessage());
   }
 
   /**
-   * Test to check if the AddSensorToDeviceController is returning an empty list when there are no
-   * rooms.
+   * Test to get available sensor models list when the sensor model repository is not empty.
    */
-  @Test
-  void shouldReturnEmptyList_whenThereAreNoRooms() throws InstantiationException {
-    // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
-    AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
-
-    // Act
-    List<RoomDTO> roomDTOList = addSensorToDeviceController.getRooms();
-
-    // Assert
-    assertTrue(roomDTOList.isEmpty());
-  }
-
-  /** Test to get rooms from a house. */
-  @Test
-  void shouldGetRoomsFromHouse_WhenGivenValidHouseID() throws InstantiationException {
-    // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
-    AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-    String name2 = "Quarto da Maria";
-    RoomName roomName2 = new RoomName(name2);
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-    roomServiceImpl.addRoom(houseID, roomName2, dimension, roomFloor);
-
-    List<Room> rooms = roomRepository.findAll();
-
-    List<RoomDTO> expectedRoomsDTOList = roomAssembler.domainToDTO(rooms);
-    String expectedRoomDTOName1 = expectedRoomsDTOList.get(0).roomName;
-    String expectedRoomDTOID1 = expectedRoomsDTOList.get(0).roomId;
-    String expectedRoomDTOName2 = expectedRoomsDTOList.get(1).roomName;
-    String expectedRoomDTOID2 = expectedRoomsDTOList.get(1).roomId;
-
-    List<String> expectedList =
-            List.of(expectedRoomDTOName1, expectedRoomDTOID1, expectedRoomDTOName2, expectedRoomDTOID2);
-
-    // Act
-    List<RoomDTO> roomsDTOList = addSensorToDeviceController.getRooms();
-
-    String actualRoomDTOName1 = roomsDTOList.get(0).roomName;
-    String actualRoomDTOID1 = roomsDTOList.get(0).roomId;
-    String actualRoomDTOName2 = roomsDTOList.get(1).roomName;
-    String actualRoomDTOID2 = roomsDTOList.get(1).roomId;
-
-    List<String> actualList =
-            List.of(actualRoomDTOName1, actualRoomDTOID1, actualRoomDTOName2, actualRoomDTOID2);
-
-    // Assert
-    assertEquals(expectedList, actualList);
-  }
-
-  /** Throws exception when the room ID does not exist in the repository. */
-  @Test
-  void shouldThrowException_WhenRoomIDDoesNotExistInRepository()
-          throws InstantiationException {
-    // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
-    AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
-
-    String roomID = "123";
-    RoomID nonExistentRoomID = new RoomID(roomID);
-
-    String roomName = "Quarto da Maria";
-    String dimension = "10x10x10";
-    String floor = "2";
-    RoomDTO roomDTO = new RoomDTO(roomName, dimension, floor, nonExistentRoomID.toString());
-
-    String expectedMessage = "Room with ID " + nonExistentRoomID + " not found.";
-
-    // Act & Assert
-    Exception exception =
-            assertThrows(
-                    IllegalArgumentException.class,
-                    () -> addSensorToDeviceController.getDevicesFromRoom(roomDTO));
-
-    assertEquals(expectedMessage, exception.getMessage());
-  }
-
-  /** Test to get devices from a room. */
-  @Test
-  void shouldGetDevicesFromRoom_WhenParametersAreValid() throws InstantiationException {
-    // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
-    AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-    String name2 = "Quarto da Maria";
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    int floor = 2;
-
-    RoomName roomName2 = new RoomName(name2);
-    RoomFloor roomFloor = new RoomFloor(floor);
-    Dimension dimension = new Dimension(width, length, height);
-
-    Room room2 = roomServiceImpl.addRoom(houseID, roomName2, dimension, roomFloor);
-
-    RoomID roomID = room2.getID();
-    String name1 = "Lampada";
-    String nameDevice = "Ar Condicionado";
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceName deviceName2 = new DeviceName(nameDevice);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-
-    deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
-    deviceServiceImpl.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
-
-    List<RoomDTO> roomsDTOList = addSensorToDeviceController.getRooms();
-    RoomDTO roomDTO = roomsDTOList.get(0);
-
-    List<Device> devices = deviceServiceImpl.getDevicesByRoomId(roomID);
-    List<DeviceDTO> deviceDTOListExpected = deviceAssembler.domainToDTO(devices);
-
-    String expectedDeviceDTOID = deviceDTOListExpected.get(0).deviceID;
-    String expectedDeviceDTOName = deviceDTOListExpected.get(0).deviceName;
-    String expectedDeviceDTOID2 = deviceDTOListExpected.get(1).deviceID;
-    String expectedDeviceDTOName2 = deviceDTOListExpected.get(1).deviceName;
-
-    List<String> expectedDeviceDTOList =
-            List.of(
-                    expectedDeviceDTOID,
-                    expectedDeviceDTOName,
-                    expectedDeviceDTOID2,
-                    expectedDeviceDTOName2);
-
-    // Act
-    List<DeviceDTO> devicesDTOList = addSensorToDeviceController.getDevicesFromRoom(roomDTO);
-
-    String actualDeviceDTOID = devicesDTOList.get(0).deviceID;
-    String actualDeviceDTOName = devicesDTOList.get(0).deviceName;
-    String actualDeviceDTOID2 = devicesDTOList.get(1).deviceID;
-    String actualDeviceDTOName2 = devicesDTOList.get(1).deviceName;
-
-    List<String> actualDeviceDTOList =
-            List.of(actualDeviceDTOID, actualDeviceDTOName, actualDeviceDTOID2, actualDeviceDTOName2);
-
-    // Assert
-    assertEquals(expectedDeviceDTOList, actualDeviceDTOList);
-  }
-
   @Test
   void shouldGetAvailableSensorModelsList() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
+    loadModelsAndUnit();
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unit = new UnitID("Celsius");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
@@ -1235,68 +497,35 @@ class AddSensorToDeviceControllerTest {
 
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     SensorTypeDTO sensorTypeDTO = sensorTypeAssembler.domainToDTO(sensorType);
 
     List<SensorModelDTO> sensorModelDTOList =
-            addSensorToDeviceController.getSensorModels(sensorTypeDTO);
+        addSensorToDeviceController.getSensorModels(sensorTypeDTO);
 
     List<SensorModel> sensorModels = sensorModelRepository.findAll();
     List<SensorModelDTO> expectedSensorModelDTOList =
-            sensorModelAssembler.domainToDTO(sensorModels);
+        sensorModelAssembler.domainToDTO(sensorModels);
 
     // Assert
     assertEquals(
-            expectedSensorModelDTOList.get(0).sensorModelID, sensorModelDTOList.get(0).sensorModelID);
+        expectedSensorModelDTOList.get(0).sensorModelID, sensorModelDTOList.get(0).sensorModelID);
   }
 
   @Test
   void shouldThrowExceptionWhenSensorModelRepositoryIsEmpty() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitDescription unitDescription = new UnitDescription("Celsius");
     UnitID unitID = new UnitID("Celsius");
@@ -1308,23 +537,23 @@ class AddSensorToDeviceControllerTest {
 
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
     SensorTypeDTO sensorTypeDTO = sensorTypeAssembler.domainToDTO(sensorType);
 
     IllegalArgumentException exception =
-            assertThrows(
-                    IllegalArgumentException.class,
-                    () -> addSensorToDeviceController.getSensorModels(sensorTypeDTO));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> addSensorToDeviceController.getSensorModels(sensorTypeDTO));
 
     // Assert
     assertEquals("No sensor models found.", exception.getMessage());
@@ -1337,64 +566,23 @@ class AddSensorToDeviceControllerTest {
    */
   @Test
   void shouldThrowExceptionWhenSensorTypeRepositoryIsEmpty() throws InstantiationException {
-    // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     IllegalArgumentException exception =
-            assertThrows(
-                    IllegalArgumentException.class, () -> addSensorToDeviceController.getSensorTypes());
+        assertThrows(
+            IllegalArgumentException.class, () -> addSensorToDeviceController.getSensorTypes());
 
     // Assert
     assertEquals("No sensor types found.", exception.getMessage());
@@ -1403,45 +591,9 @@ class AddSensorToDeviceControllerTest {
   /** Test to check if the AddSensorToDeviceController is returning a list of sensor types. */
   @Test
   void shouldReturnListOfSensorTypes_whenSensorTypeRepositoryIsNotEmpty()
-          throws InstantiationException {
+      throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
+    loadModelsAndUnit();
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unit = new UnitID("Celsius");
@@ -1450,21 +602,21 @@ class AddSensorToDeviceControllerTest {
 
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    new DeviceAssembler(),
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     List<SensorTypeDTO> sensorTypeDTOList = addSensorToDeviceController.getSensorTypes();
     List<SensorTypeDTO> sensorTypeDTO =
-            sensorTypeAssembler.domainToDTO(sensorTypeRepository.findAll());
+        sensorTypeAssembler.domainToDTO(sensorTypeRepository.findAll());
 
     // Assert
     assertEquals(sensorTypeDTO.get(0).sensorTypeID, sensorTypeDTOList.get(0).sensorTypeID);
@@ -1473,46 +625,7 @@ class AddSensorToDeviceControllerTest {
   /** Test if exception is thrown when the sensor type doesn't exist in the repository. */
   @Test
   void shouldReturnEmptyList_whenThereAreNoSensorTypes() throws InstantiationException {
-    // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-
+   loadModelsAndUnit();
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unit = new UnitID("Celsius");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
@@ -1521,124 +634,49 @@ class AddSensorToDeviceControllerTest {
     TypeDescription nonExistintTypeDescription = new TypeDescription("Humidity");
     UnitID unitID = new UnitID("Percent");
     SensorType nonExistintSensorType =
-            sensorTypeServiceImpl.createSensorType(nonExistintTypeDescription, unitID);
+        sensorTypeServiceImpl.createSensorType(nonExistintTypeDescription, unitID);
 
     SensorTypeDTO sensorTypeDTO = sensorTypeAssembler.domainToDTO(nonExistintSensorType);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
 
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     IllegalArgumentException exception =
-            assertThrows(
-                    IllegalArgumentException.class,
-                    () -> addSensorToDeviceController.getSensorModels(sensorTypeDTO));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> addSensorToDeviceController.getSensorModels(sensorTypeDTO));
 
     // Assert
     assertEquals(
-            "Sensor type with ID " + nonExistintTypeDescription + " not found.",
-            exception.getMessage());
+        "Sensor type with ID " + nonExistintTypeDescription + " not found.",
+        exception.getMessage());
   }
 
   /** Test addSensorToDevice method with valid parameters. Adding temperature sensor. */
   @Test
-  void shouldAddSensorToDevice_whenParametersAreValidForTemperatureSensor() throws InstantiationException {
+  void shouldAddSensorToDevice_whenParametersAreValidForTemperatureSensor()
+      throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-
-    RoomID roomID = room.getID();
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unit = new UnitID("Celsius");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);
-
 
     String modelPath = "smart_home.domain.sensor.temperature_sensor.TemperatureSensor";
     String sensorName = "Sensor";
@@ -1646,21 +684,21 @@ class AddSensorToDeviceControllerTest {
     sensorTypeAssembler.domainToDTO(sensorType);
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
-            new SensorDataGenericDTOImp(
-                    device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+        new SensorDataGenericDTOImp(
+            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -1671,92 +709,18 @@ class AddSensorToDeviceControllerTest {
 
   /** Test addSensorToDevice method with valid parameters. Adding HumiditySensor sensor. */
   @Test
-  void shouldAddSensorToDevice_whenParametersAreValidForHumiditySensor() throws InstantiationException {
+  void shouldAddSensorToDevice_whenParametersAreValidForHumiditySensor()
+      throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-
-    RoomID roomID = room.getID();
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Humidity");
     UnitID unit = new UnitID("Percent");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);
-
 
     String modelPath = "smart_home.domain.sensor.humidity_sensor.HumiditySensor";
     String sensorName = "Sensor";
@@ -1764,21 +728,21 @@ class AddSensorToDeviceControllerTest {
     sensorTypeAssembler.domainToDTO(sensorType);
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
-            new SensorDataGenericDTOImp(
-                    device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+        new SensorDataGenericDTOImp(
+            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -1787,116 +751,46 @@ class AddSensorToDeviceControllerTest {
     assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
-  /** Test addSensorToDevice method with valid parameters. Adding AveragePowerConsumptionSensor sensor. */
+  /**
+   * Test addSensorToDevice method with valid parameters. Adding AveragePowerConsumptionSensor
+   * sensor.
+   */
   @Test
-  void shouldAddSensorToDevice_whenParametersAreValidForAveragePowerConsumptionSensor() throws InstantiationException {
+  void shouldAddSensorToDevice_whenParametersAreValidForAveragePowerConsumptionSensor()
+      throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-
-    RoomID roomID = room.getID();
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+     loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("AveragePowerConsumption");
     UnitID unit = new UnitID("Watt");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
-
-    String modelPath = "smart_home.domain.sensor.average_power_consumption_sensor.AveragePowerConsumptionSensor";
+    String modelPath =
+        "smart_home.domain.sensor.average_power_consumption_sensor.AveragePowerConsumptionSensor";
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
-            new SensorDataGenericDTOImp(
-                    device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+        new SensorDataGenericDTOImp(
+            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -1907,92 +801,18 @@ class AddSensorToDeviceControllerTest {
 
   /** Test addSensorToDevice method with valid parameters. Adding Switch sensor. */
   @Test
-  void shouldAddSensorToDevice_whenParametersAreValidForSwitchSensor() throws InstantiationException {
+  void shouldAddSensorToDevice_whenParametersAreValidForSwitchSensor()
+      throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-
-    RoomID roomID = room.getID();
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+     loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Switch");
     UnitID unit = new UnitID("Watt");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);
-
 
     String modelPath = "smart_home.domain.sensor.switch_sensor.SwitchSensor";
     String sensorName = "Sensor";
@@ -2000,21 +820,21 @@ class AddSensorToDeviceControllerTest {
     sensorTypeAssembler.domainToDTO(sensorType);
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
-            new SensorDataGenericDTOImp(
-                    device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+        new SensorDataGenericDTOImp(
+            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -2025,92 +845,18 @@ class AddSensorToDeviceControllerTest {
 
   /** Test addSensorToDevice method with valid parameters. Adding DewPointSensor sensor. */
   @Test
-  void shouldAddSensorToDevice_whenParametersAreValidForDewPointSensor() throws InstantiationException {
+  void shouldAddSensorToDevice_whenParametersAreValidForDewPointSensor()
+      throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-
-    RoomID roomID = room.getID();
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+     loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("DewPoint");
     UnitID unit = new UnitID("Celsius");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);
-
 
     String modelPath = "smart_home.domain.sensor.dew_point_sensor.DewPointSensor";
     String sensorName = "Sensor";
@@ -2118,21 +864,21 @@ class AddSensorToDeviceControllerTest {
     sensorTypeAssembler.domainToDTO(sensorType);
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
-            new SensorDataGenericDTOImp(
-                    device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+        new SensorDataGenericDTOImp(
+            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -2143,92 +889,18 @@ class AddSensorToDeviceControllerTest {
 
   /** Test addSensorToDevice method with valid parameters. Adding Solar Irradiance sensor. */
   @Test
-  void shouldAddSensorToDevice_whenParametersAreValidForSolarIrradianceSensor() throws InstantiationException {
+  void shouldAddSensorToDevice_whenParametersAreValidForSolarIrradianceSensor()
+      throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-
-    RoomID roomID = room.getID();
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+     loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("SolarIrradiance");
     UnitID unit = new UnitID("WattBySquareMeter");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);
-
 
     String modelPath = "smart_home.domain.sensor.solar_irradiance_sensor.SolarIrradianceSensor";
     String sensorName = "Sensor";
@@ -2236,21 +908,21 @@ class AddSensorToDeviceControllerTest {
     sensorTypeAssembler.domainToDTO(sensorType);
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
-            new SensorDataGenericDTOImp(
-                    device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+        new SensorDataGenericDTOImp(
+            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -2259,116 +931,45 @@ class AddSensorToDeviceControllerTest {
     assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
-  /** Test addSensorToDevice method with valid parameters. Adding PercentagePositionSensor sensor. */
+  /**
+   * Test addSensorToDevice method with valid parameters. Adding PercentagePositionSensor sensor.
+   */
   @Test
-  void shouldAddSensorToDevice_whenParametersAreValidForPercentagePositionSensor() throws InstantiationException {
+  void shouldAddSensorToDevice_whenParametersAreValidForPercentagePositionSensor()
+      throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-
-    RoomID roomID = room.getID();
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("PercentPosition");
-
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+     loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("PercentagePosition");
     UnitID unit = new UnitID("Percent");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
-
-    String modelPath = "smart_home.domain.sensor.percentage_position_sensor.PercentagePositionSensor";
+    String modelPath =
+        "smart_home.domain.sensor.percentage_position_sensor.PercentagePositionSensor";
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
-            new SensorDataGenericDTOImp(
-                    device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+        new SensorDataGenericDTOImp(
+            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -2377,116 +978,45 @@ class AddSensorToDeviceControllerTest {
     assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
-  /** Test addSensorToDevice method with valid parameters. Adding Instance Power Consumption sensor. */
+  /**
+   * Test addSensorToDevice method with valid parameters. Adding Instance Power Consumption sensor.
+   */
   @Test
-  void shouldAddSensorToDevice_whenParametersAreValidForInstantPowerConsumptionSensor() throws InstantiationException {
+  void shouldAddSensorToDevice_whenParametersAreValidForInstantPowerConsumptionSensor()
+      throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-
-    RoomID roomID = room.getID();
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+     loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("InstantPowerConsumption");
     UnitID unit = new UnitID("Watt");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
-
-    String modelPath = "smart_home.domain.sensor.instant_power_consumption_sensor.InstantPowerConsumptionSensor";
+    String modelPath =
+        "smart_home.domain.sensor.instant_power_consumption_sensor.InstantPowerConsumptionSensor";
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
-            new SensorDataGenericDTOImp(
-                    device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+        new SensorDataGenericDTOImp(
+            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -2497,114 +1027,41 @@ class AddSensorToDeviceControllerTest {
 
   /** Test addSensorToDevice method with valid parameters. Adding Percentage Position Sensor. */
   @Test
-  void shouldAddSensorToDevice_whenParametersAreValidForInstantElectricConsumptionSensor () throws InstantiationException {
+  void shouldAddSensorToDevice_whenParametersAreValidForInstantElectricConsumptionSensor()
+      throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-
-    RoomID roomID = room.getID();
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("PercentPosition");
-
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+     loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("PercentagePosition");
     UnitID unit = new UnitID("Percent");
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
-
-    String modelPath = "smart_home.domain.sensor.percentage_position_sensor.PercentagePositionSensor";
+    String modelPath =
+        "smart_home.domain.sensor.percentage_position_sensor.PercentagePositionSensor";
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
-            new SensorDataGenericDTOImp(
-                    device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+        new SensorDataGenericDTOImp(
+            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
 
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -2612,88 +1069,15 @@ class AddSensorToDeviceControllerTest {
     // Assert
     assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
+
   /** Test addSensorToDevice method with invalid parameters. */
   @Test
   void shouldThrowException_whenParametersAreInvalid() throws InstantiationException {
     // Arrange
-    RoomRepository roomRepository = new RoomRepository();
-    RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-    RoomAssembler roomAssembler = new RoomAssembler();
-    HouseRepository houseRepository = new HouseRepository();
-    UnitRepository unitRepository = new UnitRepository();
-    PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-    HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-    SensorRepository sensorRepository = new SensorRepository();
-    SensorFactoryImpl sensorFactory = new SensorFactoryImpl();
-    ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorTypeServiceImpl sensorTypeServiceImpl =
-            new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-    SensorModelRepository sensorModelRepository = new SensorModelRepository();
-    SensorModelFactoryImpl sensorModelFactory = new SensorModelFactoryImpl();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    SensorModelServiceImpl sensorModelServiceImpl =
-            new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-    DeviceRepository deviceRepository = new DeviceRepository();
-    DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    DeviceServiceImpl deviceServiceImpl =
-            new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    SensorAssembler sensorAssembler = new SensorAssembler();
-    SensorServiceImpl sensorServiceImpl =
-            new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
-    RoomServiceImpl roomServiceImpl =
-            new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    ActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
-    ActuatorModelFactoryImpl actuatorModelFactory = new ActuatorModelFactoryImpl();
-    LoadModelsAndUnit loadModelsAndUnit =
-            new LoadModelsAndUnit(
-                    sensorModelRepository,
-                    actuatorModelRepository,
-                    unitRepository,
-                    sensorModelFactory,
-                    actuatorModelFactory,
-                    unitFactory);
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
-
-    Address newAddress =
-            new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-
-    HouseID houseID = house.getID();
-
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
-
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
-
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
-
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-
-    RoomID roomID = room.getID();
-    DeviceName deviceName = new DeviceName(name1);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-
-    deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+     loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unit = new UnitID("Celsius");
@@ -2705,25 +1089,25 @@ class AddSensorToDeviceControllerTest {
     SensorDataGenericDTOImp sensorDataGenericDTOImp = null;
 
     AddSensorToDeviceController addSensorToDeviceController =
-            new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl);
+        new AddSensorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
 
     // Act
     IllegalArgumentException exception =
-            assertThrows(
-                    IllegalArgumentException.class,
-                    () -> addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp));
 
     // Assert
-    assertEquals("Please enter a valid sensor data DTO.", exception.getMessage());
+    assertEquals(exception.getMessage(), "Sensor data DTO is required");
   }
 }

@@ -1,6 +1,7 @@
 package smart_home.persistence.mem;
 
 import smart_home.ddd.IRepository;
+import smart_home.domain.repository.ISensorRepository;
 import smart_home.domain.sensor.ISensor;
 import smart_home.utils.Validator;
 import smart_home.value_object.DeviceID;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class SensorRepository implements IRepository<SensorID, ISensor> {
+public class SensorRepository implements ISensorRepository {
     private final Map<SensorID, ISensor> DATA = new LinkedHashMap<>();
 
     /**
