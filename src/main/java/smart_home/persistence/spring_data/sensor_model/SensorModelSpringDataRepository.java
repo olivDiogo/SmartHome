@@ -17,7 +17,6 @@ import java.util.Optional;
 public class SensorModelSpringDataRepository implements ISensorModelRepository {
 
     private ISensorModelSpringDataRepository repository;
-    private EntityManagerFactory factory;
     private IDataModelAssembler<SensorModelDataModel, SensorModel> assembler;
 
     /**
@@ -31,7 +30,6 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
         Validator.validateNotNull(repository, "Sensor Model Spring Data Repository");
         Validator.validateNotNull(assembler, "Data Model Assembler");
 
-        this.factory = Persistence.createEntityManagerFactory("smart_home");
         this.repository = repository;
         this.assembler = assembler;
     }

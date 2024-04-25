@@ -24,7 +24,7 @@ public class RoomSpringDataRepository implements IRoomRepository {
      * @param repository is the room spring repository.
      * @param assembler is the room data model assembler.
      */
-    public RoomSpringDataRepository (IRoomSpringDataRepository repository, IDataModelAssembler assembler) {
+    public RoomSpringDataRepository (IRoomSpringDataRepository repository, IDataModelAssembler<RoomDataModel, Room> assembler) {
         this.factory = Persistence.createEntityManagerFactory("smart_home");
 
         Validator.validateNotNull(repository, "Room repository");
@@ -38,8 +38,7 @@ public class RoomSpringDataRepository implements IRoomRepository {
      */
     private EntityManager getEntityManager() {
         try  {
-            EntityManager manager = factory.createEntityManager();
-            return manager;
+          return factory.createEntityManager();
         } catch (Exception e) {
             throw new RuntimeException("Error creating the entity manager", e);
         }

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.util.List;
 import java.util.Optional;
+import jakarta.persistence.Persistence;
 import smart_home.domain.device.Device;
 import smart_home.domain.repository.IDeviceRepository;
 import smart_home.persistence.assembler.IDataModelAssembler;
@@ -20,7 +21,7 @@ import smart_home.value_object.RoomID;
 public class DeviceSpringDataRepository implements IDeviceRepository {
 
   private final IDeviceSpringDataRepository repository;
-  private EntityManagerFactory factory;
+  private final EntityManagerFactory factory ;
   private final IDataModelAssembler<DeviceDataModel, Device> assembler;
 
   /**
@@ -31,6 +32,7 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
    */
   public DeviceSpringDataRepository(IDeviceSpringDataRepository repository,
       IDataModelAssembler<DeviceDataModel, Device> assembler) {
+    this.factory = Persistence.createEntityManagerFactory("smart_home");
     Validator.validateNotNull(repository, "Device repository");
     this.repository = repository;
     Validator.validateNotNull(assembler, "Device data model assembler");
@@ -44,8 +46,11 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
    * @throws RuntimeException if the EntityManager cannot be created.
    */
   private EntityManager getEntityManager() {
-    EntityManager manager = factory.createEntityManager();
-    return manager;
+    try  {
+      return factory.createEntityManager();
+    } catch (Exception e) {
+      throw new RuntimeException("Error creating the entity manager", e);
+    }
   }
 
   /**
