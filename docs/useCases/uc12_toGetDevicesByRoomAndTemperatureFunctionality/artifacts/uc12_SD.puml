@@ -23,7 +23,7 @@ Service --> Controller: temperatureDevicesDTO
 
 deactivate Service
 
-Controller -> Service: getDevicesFromListByRoomId (temperatureDevicesDTO, roomDTO)
+Controller -> Service: getDevicesFromListByRoomId (temperatureDevicesDTO, roomID)
 
 activate Service
 
