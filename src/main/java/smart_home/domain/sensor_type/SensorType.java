@@ -7,9 +7,9 @@ import smart_home.value_object.TypeDescription;
 import smart_home.value_object.UnitID;
 
 public class SensorType implements IAggregateRoot<SensorTypeID> {
-    private final TypeDescription _name;
-    private final UnitID _unit;
-    private SensorTypeID _id;
+    private final TypeDescription name;
+    private final UnitID unit;
+    private SensorTypeID id;
 
     /**
      * Creates a new {@link SensorType} instance using the provided sensor type name and unit.
@@ -19,10 +19,10 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
      */
     SensorType(TypeDescription name, UnitID unit) {
         Validator.validateNotNull(name, "Name");
-        this._name = name;
+        this.name = name;
 
         Validator.validateNotNull(unit, "Unit");
-        this._unit = unit;
+        this.unit = unit;
 
         generateID(name);
     }
@@ -39,8 +39,8 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
         Validator.validateNotNull(name, "Name");
         Validator.validateNotNull(unitID, "Unit");
 
-        this._name = name;
-        this._unit = unitID;
+        this.name = name;
+        this.unit = unitID;
 
     }
 
@@ -50,7 +50,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
      * Creates a new {@link SensorTypeID} instance.
      */
     private void generateID(TypeDescription name) {
-        _id = new SensorTypeID(name.toString());
+        id = new SensorTypeID(name.toString());
     }
 
     /**
@@ -60,7 +60,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
      */
     @Override
     public SensorTypeID getID() {
-        return _id;
+        return id;
     }
 
     /**
@@ -69,7 +69,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
      * @return the name of the sensor type
      */
     public TypeDescription getName() {
-        return _name;
+        return name;
     }
 
     /**
@@ -78,7 +78,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
      * @return the unit of the sensor type
      */
     public UnitID getUnit() {
-        return _unit;
+        return unit;
     }
 
     /**
@@ -90,7 +90,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
     @Override
     public boolean equals(Object object) {
         if (object instanceof SensorType sensorTypeObject) {
-            return _id.equals(sensorTypeObject._id);
+            return id.equals(sensorTypeObject.id);
         }
         return false;
 
@@ -101,7 +101,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
      */
     @Override
     public int hashCode() {
-        return _id.hashCode();
+        return id.hashCode();
     }
 
     /**
@@ -112,9 +112,9 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
     @Override
     public String toString() {
         return "SensorType:" +
-                "id=" + _id +
-                ", name=" + _name +
-                ", unit=" + _unit;
+                "id=" + id +
+                ", name=" + name +
+                ", unit=" + unit;
 
     }
 }

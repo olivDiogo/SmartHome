@@ -14,30 +14,30 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Log implements IAggregateRoot<LogID> {
-    private LogID _logID;
-    private DeviceID _deviceID;
-    private SensorID _sensorID;
-    private LocalDateTime _localDateTime;
-    private ReadingValue _reading;
-    private SensorTypeID _description;
-    private UnitID _unit;
+    private LogID logID;
+    private DeviceID deviceID;
+    private SensorID sensorID;
+    private LocalDateTime localDateTime;
+    private ReadingValue reading;
+    private SensorTypeID description;
+    private UnitID unitID;
 
     /**
      * Constructs a new Log instance with the specified device ID, sensor ID, timestamp, and value.
      */
     Log(DeviceID deviceID, SensorID sensorID, LocalDateTime localDateTime, ReadingValue value, SensorTypeID description, UnitID unit) {
         Validator.validateNotNull(deviceID, "Device ID");
-        this._deviceID = deviceID;
+        this.deviceID = deviceID;
         Validator.validateNotNull(sensorID, "Sensor ID");
-        this._sensorID = sensorID;
+        this.sensorID = sensorID;
         Validator.validateNotNull(localDateTime, "Timestamp");
-        this._localDateTime = localDateTime;
+        this.localDateTime = localDateTime;
         Validator.validateNotNull(value, "Value");
-        this._reading = value;
+        this.reading = value;
         Validator.validateNotNull(description, "Description");
-        this._description = description;
+        this.description = description;
         Validator.validateNotNull(unit, "Unit");
-        this._unit = unit;
+        this.unitID = unit;
         generateLogID();
     }
 
@@ -46,26 +46,26 @@ public class Log implements IAggregateRoot<LogID> {
      */
     Log(LogID logID, DeviceID deviceID, SensorID sensorID, LocalDateTime localDateTime, ReadingValue value, SensorTypeID description, UnitID unit) {
         Validator.validateNotNull(logID, "Log ID");
-        this._logID = logID;
+        this.logID = logID;
         Validator.validateNotNull(deviceID, "Device ID");
-        this._deviceID = deviceID;
+        this.deviceID = deviceID;
         Validator.validateNotNull(sensorID, "Sensor ID");
-        this._sensorID = sensorID;
+        this.sensorID = sensorID;
         Validator.validateNotNull(localDateTime, "Timestamp");
-        this._localDateTime = localDateTime;
+        this.localDateTime = localDateTime;
         Validator.validateNotNull(value, "Value");
-        this._reading = value;
+        this.reading = value;
         Validator.validateNotNull(description, "Description");
-        this._description = description;
+        this.description = description;
         Validator.validateNotNull(unit, "Unit");
-        this._unit = unit;
+        this.unitID = unit;
     }
 
     /**
      * Generate a new LogID object.
      */
     private void generateLogID() {
-        _logID = new LogID(UUID.randomUUID().toString());
+        logID = new LogID(UUID.randomUUID().toString());
     }
 
     /**
@@ -73,49 +73,49 @@ public class Log implements IAggregateRoot<LogID> {
      */
     @Override
     public LogID getID() {
-        return _logID;
+        return logID;
     }
 
     /**
      * @return the _deviceID
      */
     public DeviceID getDeviceID() {
-        return _deviceID;
+        return deviceID;
     }
 
     /**
      * @return the _sensorID
      */
     public SensorID getSensorID() {
-        return _sensorID;
+        return sensorID;
     }
 
     /**
      * @return the _timeStamp
      */
     public LocalDateTime getTimeStamp() {
-        return _localDateTime;
+        return localDateTime;
     }
 
     /**
      * @return the _value
      */
     public ReadingValue getReadingValue() {
-        return _reading;
+        return reading;
     }
 
     /**
      * @return the _description
      */
     public SensorTypeID getDescription() {
-        return _description;
+        return description;
     }
 
     /**
      * @return the _unit
      */
     public UnitID getUnit() {
-        return _unit;
+        return unitID;
     }
 
     /**
@@ -126,7 +126,7 @@ public class Log implements IAggregateRoot<LogID> {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Log log) {
-            return this._logID.equals(log.getID());
+            return this.logID.equals(log.getID());
         }
         return false;
     }
@@ -137,7 +137,7 @@ public class Log implements IAggregateRoot<LogID> {
      */
     @Override
     public int hashCode() {
-        return _logID.hashCode();
+        return logID.hashCode();
     }
 
     /**
@@ -146,6 +146,7 @@ public class Log implements IAggregateRoot<LogID> {
      */
     @Override
     public String toString() {
-        return _logID + " " + _deviceID + " " + _sensorID + " " + _localDateTime + " " + _reading + " " + _description + " " + _unit;
+        return logID + " " + deviceID + " " + sensorID + " " + localDateTime + " " + reading + " " + description
+            + " " + unitID;
     }
 }

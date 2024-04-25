@@ -1,6 +1,7 @@
 @startuml
 !pragma layout smetana
 
+
 class House<<Entity>><<Root>>{}
 class Room<<Entity>><<Root>>{}
 class Device<<Entity>><<Root>>{}
@@ -11,7 +12,12 @@ class ActuatorType<<Entity>><<Root>>{}
 class ActuatorModel<<Entity>><<Root>>{}
 class SensorType<<Entity>><<Root>>{}
 class SensorModel<<Entity>><<root>>{}
-class Measurement<<Entity>><<Root>>{}
+class Unit<<Entity>><<Root>>{}
+class Log<<Entity>><<Root>>{}
+
+note "Cada agregado está interligado pelo seu ID e não via Root." as note
+
+
 
 House "1" <-- "0..*" Room : is in >
 Room "1" <-- "0..*" Device : is in >
@@ -19,11 +25,15 @@ DeviceType "1" <-- "*" Device : has >
 Device "1" <-- "0..*" Sensor : is in >
 Device "1" <-- "0..*" Actuator : is in >
 SensorType "1" <-- "1..*" Sensor : has >
-SensorType "*" --> "1" Measurement : has >
+SensorType "*" --> "1" Unit : has >
 Sensor "*" --> "1" SensorModel : has >
 SensorType "1" <-- "*" SensorModel : has >
 ActuatorType "1" <-- "1..*" Actuator : has >
 ActuatorType "1" <-- "*" ActuatorModel : has  >
 Actuator "*" --> "1" ActuatorModel : has >
+Device "1" <-- "*" Log : has >
+Sensor "1" <-- "*" Log : has >
+Unit "1" <-- "*" Log : has >
+SensorType "1" <-- "*" Log : has >
 
 @enduml
