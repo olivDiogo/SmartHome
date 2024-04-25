@@ -20,9 +20,6 @@ import smart_home.domain.house.HouseFactoryImpl;
 import smart_home.domain.room.Room;
 import smart_home.domain.room.RoomFactoryImpl;
 import smart_home.dto.DeviceDTO;
-import smart_home.persistence.mem.DeviceRepository;
-import smart_home.persistence.mem.HouseRepository;
-import smart_home.persistence.mem.RoomRepository;
 import smart_home.service.DeviceServiceImpl;
 import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.*;
@@ -102,7 +99,6 @@ class DeactivateDeviceControllerTest {
         IDeviceFactory deviceFactory = new DeviceFactoryImpl();
         IRoomRepository roomRepository = mock(IRoomRepository.class);
         IRoomFactory roomFactory = new RoomFactoryImpl();
-        IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
         IHouseRepository houseRepository = mock(IHouseRepository.class);
         IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
@@ -155,10 +151,7 @@ class DeactivateDeviceControllerTest {
       IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
       IDeviceFactory deviceFactory = new DeviceFactoryImpl();
       IRoomRepository roomRepository = mock(IRoomRepository.class);
-      IRoomFactory roomFactory = new RoomFactoryImpl();
-      IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
       IHouseRepository houseRepository = mock(IHouseRepository.class);
-      IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
       IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
       IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
       IHouseFactory houseFactory = new HouseFactoryImpl();
@@ -193,7 +186,6 @@ class DeactivateDeviceControllerTest {
       IDeviceFactory deviceFactory = new DeviceFactoryImpl();
       IRoomRepository roomRepository = mock(IRoomRepository.class);
       IRoomFactory roomFactory = new RoomFactoryImpl();
-      IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
       IHouseRepository houseRepository = mock(IHouseRepository.class);
       IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
       IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
@@ -248,7 +240,6 @@ class DeactivateDeviceControllerTest {
       IDeviceFactory deviceFactory = new DeviceFactoryImpl();
       IRoomRepository roomRepository = mock(IRoomRepository.class);
       IRoomFactory roomFactory = new RoomFactoryImpl();
-      IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
       IHouseRepository houseRepository = mock(IHouseRepository.class);
       IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
       IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);

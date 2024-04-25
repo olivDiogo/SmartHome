@@ -1,5 +1,6 @@
 package smart_home.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
@@ -37,66 +38,91 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class GetLogFromDeviceControllerTest {
-  ILogRepository logRepository = mock(LogRepository.class);
-  ILogService logService = new LogServiceImpl(logRepository);
-  IAssembler<Log, LogDTO> logAssembler = new LogAssembler();
-  IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
-  IDeviceFactory deviceFactory = new DeviceFactoryImpl();
-  IRoomRepository roomRepository = mock(IRoomRepository.class);
-  IRoomFactory roomFactory = new RoomFactoryImpl();
-  IHouseRepository houseRepository = mock(IHouseRepository.class);
-  IHouseFactory houseFactory = new HouseFactoryImpl();
-  IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
-  IRoomService roomService = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-  IDeviceService deviceService =
-      new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-  IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+  private ILogRepository logRepository;
+  private ILogService logService;
+  private IAssembler<Log, LogDTO> logAssembler;
+  private IDeviceRepository deviceRepository;
+  private IDeviceFactory deviceFactory;
+  private IRoomRepository roomRepository;
+  private IRoomFactory roomFactory;
+  private IHouseRepository houseRepository;
+  private IHouseFactory houseFactory;
+  private IHouseService houseServiceImpl;
+  private IRoomService roomService;
+  private IDeviceService deviceService;
+  private IPostalCodeFactory postalCodeFactory;
+  private GetLogFromDeviceController getLogFromDeviceController;
 
-  private House createHouse() {
-    String street = "Rua Do Isep";
-    String doorNumber = "122A";
-    String countryCode = "PT";
-    String postalCode = "4000-007";
+  /**
+   * These changes ensure that each test has access to the necessary instances
+   * that are reinitialized before each test, maintaining isolation between tests and ensuring
+   * that the state of one test does not affect another.
+   */
 
-    Address newAddress =
-        new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-
-    double latitude = 41.178;
-    double longitude = -8.608;
-    GPS newGPS = new GPS(latitude, longitude);
-
-    House house = houseServiceImpl.addHouse(newAddress, newGPS);
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
-    return house;
+  @BeforeEach
+  void setup() {
+    logRepository = mock(LogRepository.class);
+    logService = new LogServiceImpl(logRepository);
+    logAssembler = new LogAssembler();
+    deviceRepository = mock(IDeviceRepository.class);
+    deviceFactory = new DeviceFactoryImpl();
+    roomRepository = mock(IRoomRepository.class);
+    roomFactory = new RoomFactoryImpl();
+    houseRepository = mock(IHouseRepository.class);
+    houseFactory = new HouseFactoryImpl();
+    houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+    roomService = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+    deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    postalCodeFactory = new PostalCodeFactory();
+    getLogFromDeviceController = new GetLogFromDeviceController(logService, deviceService, logAssembler);
   }
 
-  private Room createRoom(HouseID id) {
-    String name1 = "Quarto do Joao";
-    RoomName roomName1 = new RoomName(name1);
+    private House createHouse () {
+      String street = "Rua Do Isep";
+      String doorNumber = "122A";
+      String countryCode = "PT";
+      String postalCode = "4000-007";
 
-    int width = 10;
-    int length = 10;
-    int height = 10;
-    Dimension dimension = new Dimension(width, length, height);
+      Address newAddress =
+          new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
 
-    int floor = 2;
-    RoomFloor roomFloor = new RoomFloor(floor);
+      double latitude = 41.178;
+      double longitude = -8.608;
+      GPS newGPS = new GPS(latitude, longitude);
 
-    Room room = roomService.addRoom(id, roomName1, dimension, roomFloor);
-    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
-    return room;
-  }
+      House house = houseServiceImpl.addHouse(newAddress, newGPS);
+      when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+      return house;
+    }
 
-  private Device createDevice(RoomID id) {
-    String name = "Lampada";
-    DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+    private Room createRoom (HouseID id){
+      String name1 = "Quarto do Joao";
+      RoomName roomName1 = new RoomName(name1);
 
-    Device device = deviceService.addDevice(id, deviceName, deviceStatus, deviceTypeID);
-    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
-    return device;
-  }
+      int width = 10;
+      int length = 10;
+      int height = 10;
+      Dimension dimension = new Dimension(width, length, height);
+
+      int floor = 2;
+      RoomFloor roomFloor = new RoomFloor(floor);
+
+      Room room = roomService.addRoom(id, roomName1, dimension, roomFloor);
+      when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+      return room;
+    }
+
+    private Device createDevice (RoomID id){
+      String name = "Lampada";
+      DeviceName deviceName = new DeviceName(name);
+      DeviceStatus deviceStatus = new DeviceStatus(true);
+      DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+
+      Device device = deviceService.addDevice(id, deviceName, deviceStatus, deviceTypeID);
+      when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+      return device;
+    }
+
 
   /** Test getLogFromDevice method. */
   @Test
