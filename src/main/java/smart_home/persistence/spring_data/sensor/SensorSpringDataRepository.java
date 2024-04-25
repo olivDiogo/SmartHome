@@ -12,9 +12,9 @@ import java.util.Optional;
 
 public class SensorSpringDataRepository implements ISensorRepository {
 
-    private ISensorSpringDataRepository repository;
+    private final ISensorSpringDataRepository repository;
 
-    private IDataModelAssembler<SensorDataModel, ISensor> assembler;
+    private final IDataModelAssembler<SensorDataModel, ISensor> assembler;
 
     /**
      * Constructs a new repository instance with the specified entity manager factory and data model assembler.
@@ -65,9 +65,10 @@ public class SensorSpringDataRepository implements ISensorRepository {
     @Override
     public Optional<ISensor> ofIdentity(SensorID objectID) {
         Optional<SensorDataModel> sensorDataModel = this.repository.findById(objectID.getID());
+
         if (sensorDataModel.isPresent()) {
             SensorDataModel sensorDataModel1 = sensorDataModel.get();
-            ISensor sensor = (ISensor) assembler.toDomain(sensorDataModel1);
+            ISensor sensor =  assembler.toDomain(sensorDataModel1);
             return Optional.of(sensor);
         } else {
             return Optional.empty();

@@ -15,8 +15,6 @@ public class UnitSpringDataRepository implements IUnitRepository {
 
     IUnitSpringDataRepository repository;
 
-    EntityManagerFactory factory;
-
     IDataModelAssembler<UnitDataModel, Unit> assembler;
 
     /**
@@ -27,8 +25,6 @@ public class UnitSpringDataRepository implements IUnitRepository {
      */
     public UnitSpringDataRepository(IUnitSpringDataRepository repository,
         IDataModelAssembler<UnitDataModel, Unit> assembler) {
-        this.factory = Persistence.createEntityManagerFactory("smart_home");
-
         Validator.validateNotNull(repository, "Unit repository");
         this.repository = repository;
 
@@ -62,8 +58,8 @@ public class UnitSpringDataRepository implements IUnitRepository {
     @Override
     public List<Unit> findAll() {
         List<UnitDataModel> unitDataModels = repository.findAll();
-        List<Unit> units = assembler.toDomain(unitDataModels);
-        return units;
+
+        return assembler.toDomain(unitDataModels);
     }
 
     /**
