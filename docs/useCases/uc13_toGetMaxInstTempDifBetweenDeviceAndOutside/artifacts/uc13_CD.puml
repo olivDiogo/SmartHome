@@ -13,12 +13,13 @@ class GetMaxInstantaneousTempDifBetweenRoomAndOutsideCTRL {
 + getMaxInstTempDiffBetweenDeviceAndOutside(DeviceDTO, DatePeriod) : int
 }
 
-class LogService {
+class LogServiceImpl {
 'Atributes'
-- LogRepository: logRepository
+- ILogRepository: logRepository
 
 'Methods'
-+ getDeviceReadingsByTimePeriod (DeviceID, DatePeriod) : List<Log>
++ getDeviceReadingsBySensorTypeAndTimePeriod(deviceID : DeviceID, sensorTypeID : SensorTypeID, period : DatePeriod): List<Log>
++ getDifferenceBetweenReadings(readings1 : List<Log>, readings2 : List<Log>): List<Integer>
 }
 
 class LogRepository {
@@ -26,12 +27,11 @@ class LogRepository {
 - Map<LogID, Log>: logData
 
 'Methods'
-+ findByDeviceIDAndTimePeriod (DeviceID, DatePeriod) : List<Log>
-
++ findByDeviceIDAndSensorTypeAndDatePeriodBetween (deviceID : DeviceID, sensorTypeID : SensorTypeID, period : DatePeriod): List<Log>
 }
 
-GetMaxInstantaneousTempDifBetweenRoomAndOutsideCTRL "1" ..> "1" LogService : Uses
-LogService "1" ..> "1" LogRepository : Uses
+GetMaxInstantaneousTempDifBetweenRoomAndOutsideCTRL "1" ..> "1" LogServiceImpl : Uses
+LogServiceImpl "1" ..> "1" LogRepository : Uses
 
 
 @enduml
