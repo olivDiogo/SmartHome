@@ -18,22 +18,17 @@ import java.util.Optional;
 
 public class GetLogFromDeviceController {
     private ILogService logService;
-    private IDeviceService deviceService;
     private IAssembler<Log, LogDTO> logAssembler;
 
   /**
    * Constructor for GetLogFromDeviceController
    *
    * @param logService    is the log service
-   * @param deviceService is the device service
    * @param logAssembler  is the log assembler
    */
-    public GetLogFromDeviceController(ILogService logService, IDeviceService deviceService,
-        IAssembler<Log, LogDTO> logAssembler) {
+    public GetLogFromDeviceController(ILogService logService, IAssembler<Log, LogDTO> logAssembler) {
         Validate.notNull(logService, "Log Service is required");
         this.logService = logService;
-        Validate.notNull(deviceService, "Device Service is required");
-        this.deviceService = deviceService;
         Validate.notNull(logAssembler, "Log Assembler is required");
         this.logAssembler = logAssembler;
     }

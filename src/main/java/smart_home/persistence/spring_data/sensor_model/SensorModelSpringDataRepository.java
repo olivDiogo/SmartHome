@@ -26,7 +26,7 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
      * @param assembler  is the data model assembler.
      */
 
-    public SensorModelSpringDataRepository(ISensorModelSpringDataRepository repository, IDataModelAssembler assembler) {
+    public SensorModelSpringDataRepository(ISensorModelSpringDataRepository repository, IDataModelAssembler<SensorModelDataModel, SensorModel> assembler) {
         Validator.validateNotNull(repository, "Sensor Model Spring Data Repository");
         Validator.validateNotNull(assembler, "Data Model Assembler");
 

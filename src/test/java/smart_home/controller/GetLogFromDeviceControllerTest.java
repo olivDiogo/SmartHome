@@ -75,7 +75,7 @@ class GetLogFromDeviceControllerTest {
     roomService = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
     deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
     postalCodeFactory = new PostalCodeFactory();
-    getLogFromDeviceController = new GetLogFromDeviceController(logService, deviceService, logAssembler);
+    getLogFromDeviceController = new GetLogFromDeviceController(logService, logAssembler);
   }
 
     private House createHouse () {
@@ -130,7 +130,7 @@ class GetLogFromDeviceControllerTest {
   void shouldGetLogFromDevice_WhenParametersAreValid() {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(logService, deviceService, logAssembler);
+        new GetLogFromDeviceController(logService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -174,7 +174,7 @@ class GetLogFromDeviceControllerTest {
   void shouldReturnInvalidTimePeriod_WhenTimeStartIsAfterTimeEnd() {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(logService, deviceService, logAssembler);
+        new GetLogFromDeviceController(logService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -214,7 +214,7 @@ class GetLogFromDeviceControllerTest {
   void shouldReturnNoMeasurementsAvailable_WhenNoMeasurementsForGivenPeriod() {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(logService, deviceService, logAssembler);
+        new GetLogFromDeviceController(logService, logAssembler);
 
     // Add a house
     House house = createHouse();
@@ -260,7 +260,7 @@ class GetLogFromDeviceControllerTest {
   void shouldReturnLogFromCorrectDeviceOnly_WhenThereAreMultipleDevicesInRoom() {
     // Arrange
     GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(logService, deviceService, logAssembler);
+        new GetLogFromDeviceController(logService, logAssembler);
 
     // Add a house
     House house = createHouse();
