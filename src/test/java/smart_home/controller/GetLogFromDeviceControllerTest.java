@@ -40,14 +40,9 @@ import static org.mockito.Mockito.when;
 
 class GetLogFromDeviceControllerTest {
   private ILogRepository logRepository;
-  private ILogService logService;
-  private IAssembler<Log, LogDTO> logAssembler;
   private IDeviceRepository deviceRepository;
-  private IDeviceFactory deviceFactory;
   private IRoomRepository roomRepository;
-  private IRoomFactory roomFactory;
   private IHouseRepository houseRepository;
-  private IHouseFactory houseFactory;
   private IHouseService houseServiceImpl;
   private IRoomService roomService;
   private IDeviceService deviceService;
@@ -63,14 +58,14 @@ class GetLogFromDeviceControllerTest {
   @BeforeEach
   void setup() {
     logRepository = mock(LogRepository.class);
-    logService = new LogServiceImpl(logRepository);
-    logAssembler = new LogAssembler();
+    ILogService logService = new LogServiceImpl(logRepository);
+    IAssembler<Log, LogDTO> logAssembler = new LogAssembler();
     deviceRepository = mock(IDeviceRepository.class);
-    deviceFactory = new DeviceFactoryImpl();
+    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
     roomRepository = mock(IRoomRepository.class);
-    roomFactory = new RoomFactoryImpl();
+    IRoomFactory roomFactory = new RoomFactoryImpl();
     houseRepository = mock(IHouseRepository.class);
-    houseFactory = new HouseFactoryImpl();
+    IHouseFactory houseFactory = new HouseFactoryImpl();
     houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
     roomService = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
     deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
@@ -129,9 +124,6 @@ class GetLogFromDeviceControllerTest {
   @Test
   void shouldGetLogFromDevice_WhenParametersAreValid() {
     // Arrange
-    GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(logService, logAssembler);
-
     // Add a house
     House house = createHouse();
 
@@ -173,9 +165,6 @@ class GetLogFromDeviceControllerTest {
   @Test
   void shouldReturnInvalidTimePeriod_WhenTimeStartIsAfterTimeEnd() {
     // Arrange
-    GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(logService, logAssembler);
-
     // Add a house
     House house = createHouse();
 
@@ -213,9 +202,6 @@ class GetLogFromDeviceControllerTest {
   @Test
   void shouldReturnNoMeasurementsAvailable_WhenNoMeasurementsForGivenPeriod() {
     // Arrange
-    GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(logService, logAssembler);
-
     // Add a house
     House house = createHouse();
 
@@ -259,10 +245,7 @@ class GetLogFromDeviceControllerTest {
   @Test
   void shouldReturnLogFromCorrectDeviceOnly_WhenThereAreMultipleDevicesInRoom() {
     // Arrange
-    GetLogFromDeviceController getLogFromDeviceController =
-        new GetLogFromDeviceController(logService, logAssembler);
-
-    // Add a house
+       // Add a house
     House house = createHouse();
 
     // Add a room
