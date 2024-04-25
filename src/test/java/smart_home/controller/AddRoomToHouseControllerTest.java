@@ -1,6 +1,13 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+import smart_home.ddd.IAssembler;
+import smart_home.domain.house.IHouseFactory;
+import smart_home.domain.repository.IHouseRepository;
+import smart_home.domain.repository.IRoomRepository;
+import smart_home.domain.room.IRoomFactory;
+import smart_home.domain.service.IHouseService;
+import smart_home.domain.service.IRoomService;
 import smart_home.mapper.RoomAssembler;
 import smart_home.domain.house.House;
 import smart_home.domain.house.HouseFactoryImpl;
@@ -13,7 +20,11 @@ import smart_home.service.HouseServiceImpl;
 import smart_home.service.RoomServiceImpl;
 import smart_home.value_object.*;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for the AddRoomToHouseController class.
@@ -26,12 +37,12 @@ class AddRoomToHouseControllerTest {
     @Test
     void shouldInstantiateAddRoomToHouseController_WhenParametersAreValid() {
         // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+        IRoomRepository roomRepository = mock(IRoomRepository.class);
+        IRoomFactory roomFactory = new RoomFactoryImpl();
+        IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+        IHouseRepository houseRepository = mock(IHouseRepository.class);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+        IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
         //Act
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
@@ -47,12 +58,12 @@ class AddRoomToHouseControllerTest {
     @Test
     void shouldThrowException_WhenHouseIsNotFound() {
         // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+        IRoomRepository roomRepository = mock(IRoomRepository.class);
+        IRoomFactory roomFactory = new RoomFactoryImpl();
+        IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+        IHouseRepository houseRepository = mock(IHouseRepository.class);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+        IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
@@ -66,13 +77,13 @@ class AddRoomToHouseControllerTest {
     @Test
     void shouldReturnRoomDTO_WhenRoomIsAdded() {
         // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+      IRoomRepository roomRepository = mock(IRoomRepository.class);
+      IRoomFactory roomFactory = new RoomFactoryImpl();
+      IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+      IHouseRepository houseRepository = mock(IHouseRepository.class);
 
-        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-        HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+        IHouseFactory houseFactory = new HouseFactoryImpl();
+        IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
 
         String street = "Rua Isep";
@@ -88,6 +99,7 @@ class AddRoomToHouseControllerTest {
         GPS newGPS = new GPS(latitude, longitude);
 
         House house = houseServiceImpl.addHouse(newAddress, newGPS);
+        when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
 
         HouseID houseID = house.getID();
 
@@ -103,10 +115,11 @@ class AddRoomToHouseControllerTest {
         RoomFloor roomFloor = new RoomFloor(floor);
         Dimension dimension = new Dimension(width, length, height);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+        IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         Room room = roomServiceImpl.addRoom(houseID1, roomName, dimension, roomFloor);
+        when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
 
         RoomDTO expectedRoomDTO = roomAssembler.domainToDTO(room);
 
@@ -123,12 +136,12 @@ class AddRoomToHouseControllerTest {
     @Test
     void shouldThrowException_WhenRoomNameIsNotProvided() {
         // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+      IRoomRepository roomRepository = mock(IRoomRepository.class);
+      IRoomFactory roomFactory = new RoomFactoryImpl();
+      IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+      IHouseRepository houseRepository = mock(IHouseRepository.class);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+        IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
@@ -142,12 +155,12 @@ class AddRoomToHouseControllerTest {
     @Test
     void shouldThrowException_WhenRoomFloorIsNotValid() {
         // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+      IRoomRepository roomRepository = mock(IRoomRepository.class);
+      IRoomFactory roomFactory = new RoomFactoryImpl();
+      IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+      IHouseRepository houseRepository = mock(IHouseRepository.class);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+        IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
@@ -160,12 +173,12 @@ class AddRoomToHouseControllerTest {
     @Test
     void shouldThrowException_WhenRoomWidthIsNotValid() {
         // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+      IRoomRepository roomRepository = mock(IRoomRepository.class);
+      IRoomFactory roomFactory = new RoomFactoryImpl();
+      IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+      IHouseRepository houseRepository = mock(IHouseRepository.class);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+        IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
@@ -178,12 +191,12 @@ class AddRoomToHouseControllerTest {
     @Test
     void shouldThrowException_WhenRoomLengthIsNotValid() {
         // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+       IRoomRepository roomRepository = new RoomRepository();
+       IRoomFactory roomFactory = new RoomFactoryImpl();
+       IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+       IHouseRepository houseRepository = new HouseRepository();
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+        IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
@@ -196,16 +209,15 @@ class AddRoomToHouseControllerTest {
     @Test
     void shouldThrowException_WhenRoomHeightIsNotValid() {
         // Arrange
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
+        IRoomRepository roomRepository = mock(IRoomRepository.class);
+        IRoomFactory roomFactory = new RoomFactoryImpl();
+        IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+        IHouseRepository houseRepository = mock(IHouseRepository.class);
 
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+        IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
         AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(roomServiceImpl, roomAssembler);
 
         // Act
         assertThrows(IllegalArgumentException.class, () -> {addRoomToHouseController.addRoom("1", "Living Room", 1, 10, 10, -1000);});
     }
-
 }
