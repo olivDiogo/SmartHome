@@ -15,11 +15,11 @@ User -> Controller: getMaxInstTempDiffBetweenDeviceAndOutside (outsideDeviceDTO,
 
 activate Controller
 
-Controller -> LogService: getDeviceReadingsByTimePeriod (outsideDeviceID, datePeriod)
+Controller -> LogService: getDeviceReadingsBySensorTypeAndTimePeriod (outsideDeviceID, sensorTypeID, datePeriod)
 
 activate LogService
 
-LogService -> LogRepository: findByDeviceIDAndTimePeriod (outsideDeviceID, datePeriod)
+LogService -> LogRepository: findByDeviceIDAndSensorTypeAndDatePeriodBetween (outsideDeviceID, sensorTypeID, datePeriod)
 
 activate LogRepository
 
@@ -31,11 +31,11 @@ LogService --> Controller: outsideTemperatureReadings
 
 deactivate LogService
 
-Controller -> LogService: getDeviceReadingsByTimePeriod (insideDeviceID, sensorTypeID, datePeriod)
+Controller -> LogService: getDeviceReadingsBySensorTypeAndTimePeriod (insideDeviceID, sensorTypeID, datePeriod)
 
 activate LogService
 
-LogService -> LogRepository: findByDeviceIDAndSensorTypeAndTimePeriod (insideDeviceID, sensorTypeID, datePeriod)
+LogService -> LogRepository: findByDeviceIDAndSensorTypeAndDatePeriodBetween (insideDeviceID, sensorTypeID, datePeriod)
 
 activate LogRepository
 
@@ -47,7 +47,13 @@ LogService --> Controller: deviceTemperatureReadings
 
 deactivate LogService
 
-Controller -> Controller: getTempDiffBetweenDeviceAndOutside (outsideTemperatureReadings, deviceTemperatureReadings)
+Controller -> LogService: getDifferenceBetweenReadings (outsideTemperatureReadings, deviceTemperatureReadings)
+
+activate LogService
+
+LogService --> Controller: temperatureDifferences
+
+deactivate LogService
 
 Controller --> User: maxInstantaneousTempDiff
 

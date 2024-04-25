@@ -8,6 +8,8 @@ import smart_home.value_object.DatePeriod;
 import smart_home.value_object.DeviceID;
 import smart_home.value_object.SensorTypeID;
 
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LogServiceImpl implements ILogService {
@@ -51,7 +53,38 @@ public class LogServiceImpl implements ILogService {
   @Override
   public List<Log> getDeviceReadingsBySensorTypeAndTimePeriod(DeviceID deviceID,
       SensorTypeID sensorTypeID, DatePeriod period) {
-    return logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID, period);
+    List<Log> deviceReadings = logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID, period);
+
+    if (deviceReadings.isEmpty()) {
+      throw new IllegalArgumentException("No readings found for the given time period");
+    }
+
+    return deviceReadings;
+  }
+
+  /**
+   * Method to get the difference between the reading values of two lists, when the readings are within an interval of 5 minutes.
+   *
+   * @param readings1  is one list of readings.
+   * @param readings2 is another list of readings.
+   * @return the list of the differences between the values, as Integers.
+   */
+  @Override
+  public List<Integer> getDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2) {
+    List<Integer> valueDifferences = new ArrayList<>();
+
+    for (int i = 0; i < readings1.size(); i++) {
+      for (int j = 0; j < readings2.size(); j++) {
+        int diffInMinutes = (int) ChronoUnit.MINUTES.between(readings1.get(i).getTimeStamp(), readings2.get(j).getTimeStamp());
+
+        if (diffInMinutes < 5) {
+          int temperatureDifference = Math.abs(Integer.parseInt(readings1.get(i).getReadingValue().getReadingValue()) - Integer.parseInt(readings2.get(j).getReadingValue().getReadingValue()));
+          valueDifferences.add(temperatureDifference);
+        }
+      }
+    }
+
+    return valueDifferences;
   }
 
 }

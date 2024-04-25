@@ -116,6 +116,7 @@ public class DeviceServiceImpl implements IDeviceService {
    * @param deviceMap The map of all devices grouped by functionality.
    * @return The list of devices grouped by temperature functionality.
    */
+  @Override
   public List<DeviceDTO> getDevicesByTypeDescriptionFromMap(Map<DeviceType, List<DeviceDTO>> deviceMap, String typeDescription) {
     Validator.validateNotNull(deviceMap, "Device map");
     Validator.validateNotNull(typeDescription, "Type description");
@@ -141,6 +142,7 @@ public class DeviceServiceImpl implements IDeviceService {
    * @param roomID The room to filter by.
    * @return The list of devices in the room.
    */
+  @Override
   public List<DeviceDTO> getDevicesFromListByRoomId(List<DeviceDTO> devicesDTO, RoomID roomID){
     Validator.validateNotNull(devicesDTO, "List of DevicesDTO");
     Validator.validateNotNull(roomID, "A Room ID");

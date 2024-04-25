@@ -36,56 +36,21 @@ public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
    * @param finalTime        is the final time.
    * @return the maximum instantaneous temperature difference.
    */
-  public int getMaxInstTempDiffBetweenDeviceAndOutside(DeviceDataDTO outsideDeviceDTO,
-      DeviceDataDTO insideDeviceDTO, LocalDateTime initialTime, LocalDateTime finalTime) {
+  public int getMaxInstTempDiffBetweenDeviceAndOutside(DeviceDataDTO outsideDeviceDTO, DeviceDataDTO insideDeviceDTO, LocalDateTime initialTime, LocalDateTime finalTime) {
     DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
     DeviceID insideDeviceID = new DeviceID(insideDeviceDTO.deviceID);
     DeviceID outsideDeviceID = new DeviceID(outsideDeviceDTO.deviceID);
-
     SensorTypeID sensorTypeID = new SensorTypeID("Temperature");
 
-    List<Log> insideReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(insideDeviceID,
-        sensorTypeID, datePeriod);
-    List<Log> outsideReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(
-        outsideDeviceID, sensorTypeID,
-        datePeriod);
+    /* Get readings for the inside and outside devices */
+    List<Log> insideReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(insideDeviceID, sensorTypeID, datePeriod);
+    List<Log> outsideReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(outsideDeviceID, sensorTypeID, datePeriod);
 
-    if (insideReadings.isEmpty() || outsideReadings.isEmpty()) {
-      throw new IllegalArgumentException("No readings found for the given time period");
-    }
+    /* Get the temperature differences between the inside and outside readings */
+    List<Integer> temperatureDifferences = logService.getDifferenceBetweenReadings(insideReadings, outsideReadings);
 
-    List<Integer> temperatureDifferences = getTemperatureDifference(insideReadings,
-        outsideReadings);
-
+    /* Get the maximum temperature difference from list */
     return temperatureDifferences.stream().mapToInt(Integer::intValue).max().orElse(0);
-  }
-
-  /**
-   * Get the temperature difference between the inside and outside readings.
-   *
-   * @param insideReadings  is the list of inside readings.
-   * @param outsideReadings is the list of outside readings.
-   * @return the list of temperature differences.
-   */
-  private List<Integer> getTemperatureDifference(List<Log> insideReadings,
-      List<Log> outsideReadings) {
-    List<Integer> temperatureDifferences = new ArrayList<>();
-
-    for (int i = 0; i < insideReadings.size(); i++) {
-      for (int j = 0; j < outsideReadings.size(); j++) {
-        int diffInMinutes = (int) ChronoUnit.MINUTES.between(insideReadings.get(i).getTimeStamp(),
-            outsideReadings.get(j).getTimeStamp());
-
-        if (diffInMinutes < 5) {
-          int temperatureDifference =
-              Math.abs(Integer.parseInt(insideReadings.get(i).getReadingValue().getReadingValue())
-                  - Integer.parseInt(outsideReadings.get(j).getReadingValue().getReadingValue()));
-          temperatureDifferences.add(temperatureDifference);
-        }
-      }
-    }
-
-    return temperatureDifferences;
   }
 
 }
