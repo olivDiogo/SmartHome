@@ -14,8 +14,8 @@ import java.util.Optional;
 
 public class UnitServiceImpl implements IUnitService {
 
-    private IRepository<UnitID, Unit> unitRepository;
-    private IUnitFactory unitFactory;
+    private final IRepository<UnitID, Unit> unitRepository;
+    private final IUnitFactory unitFactory;
 
     /**
      * Constructor for MeasurementTypeService.

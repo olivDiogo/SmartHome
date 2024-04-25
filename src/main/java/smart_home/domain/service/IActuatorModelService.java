@@ -18,14 +18,14 @@ public interface IActuatorModelService extends IService {
 
     /**
      * Get an actuator model by its model path.
-     * @param modelPath
+     * @param modelPath the path of the actuator model.
      * @return the actuator model with the provided model path.
      */
     Optional<ActuatorModel> getActuatorModel(ModelPath modelPath);
 
     /**
      * Get all actuator models of a specific actuator type.
-     * @param actuatorTypeID
+     * @param actuatorTypeID the ID of the actuator type.
      * @return a list of all actuator models of the specified actuator type.
      */
     List<ActuatorModel> getActuatorModelsByActuatorTypeId(ActuatorTypeID actuatorTypeID);

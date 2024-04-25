@@ -14,8 +14,8 @@ import java.util.Optional;
 
 public class SensorModelServiceImpl implements ISensorModelService {
 
-  private ISensorModelRepository sensorModelRepository;
-  private ISensorModelFactory factorySensorModel;
+  private final ISensorModelRepository sensorModelRepository;
+  private final ISensorModelFactory factorySensorModel;
 
   /**
    * Constructor for SensorModelService.

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class LogServiceImpl implements ILogService {
 
-  private ILogRepository logRepository;
+  private final ILogRepository logRepository;
 
 
   /**
