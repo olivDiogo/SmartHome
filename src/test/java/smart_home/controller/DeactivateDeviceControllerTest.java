@@ -152,18 +152,18 @@ class DeactivateDeviceControllerTest {
     @Test
     void shouldReturnNoDevices_WhenRequestAllDevicesIsCalled() {
         // Arrange
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
-        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
+      IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+      IDeviceFactory deviceFactory = new DeviceFactoryImpl();
+      IRoomRepository roomRepository = mock(IRoomRepository.class);
+      IRoomFactory roomFactory = new RoomFactoryImpl();
+      IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+      IHouseRepository houseRepository = mock(IHouseRepository.class);
+      IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+      IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+      IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
+      IHouseFactory houseFactory = new HouseFactoryImpl();
+      IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+      DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
 
         // Add a house
         String street = "Rua Do Isep";
@@ -173,6 +173,7 @@ class DeactivateDeviceControllerTest {
         Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
         GPS gps = new GPS(41.5514, -8.4221);
         House house = houseFactory.createHouse(address, gps);
+        when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
         houseRepository.save(house);
 
         // Act
@@ -188,18 +189,18 @@ class DeactivateDeviceControllerTest {
     @Test
     void shouldReturnDeactivatedDevice_WhenRequestDeactivateDeviceIsCalled() {
         // Arrange
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
-        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
+      IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+      IDeviceFactory deviceFactory = new DeviceFactoryImpl();
+      IRoomRepository roomRepository = mock(IRoomRepository.class);
+      IRoomFactory roomFactory = new RoomFactoryImpl();
+      IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+      IHouseRepository houseRepository = mock(IHouseRepository.class);
+      IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+      IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+      IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
+      IHouseFactory houseFactory = new HouseFactoryImpl();
+      IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+      DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
 
         // Add a house
         String street = "Rua Do Isep";
@@ -209,6 +210,7 @@ class DeactivateDeviceControllerTest {
         Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
         GPS gps = new GPS(41.5514, -8.4221);
         House house = houseFactory.createHouse(address, gps);
+        when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
         houseRepository.save(house);
 
         // Add a room
@@ -217,6 +219,7 @@ class DeactivateDeviceControllerTest {
         Dimension dimension = new Dimension(10, 10, 10);
         RoomFloor roomFloor = new RoomFloor(1);
         Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+        when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
 
         // Add a device
         DeviceName deviceName = new DeviceName("Lightbulb");
@@ -241,18 +244,18 @@ class DeactivateDeviceControllerTest {
     @Test
     void shouldReturnDeviceNotFound_WhenRequestDeactivateDeviceIsCalledAndDeviceIsNotFound() {
         // Arrange
-        DeviceRepository deviceRepository = new DeviceRepository();
-        DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-        RoomRepository roomRepository = new RoomRepository();
-        RoomFactoryImpl roomFactory = new RoomFactoryImpl();
-        RoomAssembler roomAssembler = new RoomAssembler();
-        HouseRepository houseRepository = new HouseRepository();
-        RoomServiceImpl roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-        DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-        DeviceAssembler deviceAssembler = new DeviceAssembler();
-        HouseFactoryImpl houseFactory = new HouseFactoryImpl();
-        PostalCodeFactory postalCodeFactory = new PostalCodeFactory();
-        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
+      IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+      IDeviceFactory deviceFactory = new DeviceFactoryImpl();
+      IRoomRepository roomRepository = mock(IRoomRepository.class);
+      IRoomFactory roomFactory = new RoomFactoryImpl();
+      IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
+      IHouseRepository houseRepository = mock(IHouseRepository.class);
+      IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+      IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+      IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
+      IHouseFactory houseFactory = new HouseFactoryImpl();
+      IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+      DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(deviceServiceImpl, deviceAssembler);
 
         // Add a house
         String street = "Rua Do Isep";
@@ -262,6 +265,7 @@ class DeactivateDeviceControllerTest {
         Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
         GPS gps = new GPS(41.5514, -8.4221);
         House house = houseFactory.createHouse(address, gps);
+        when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
         houseRepository.save(house);
 
         // Add a room
@@ -270,6 +274,7 @@ class DeactivateDeviceControllerTest {
         Dimension dimension = new Dimension(10, 10, 10);
         RoomFloor roomFloor = new RoomFloor(1);
         Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+        when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
 
 
         DeviceDTO deviceDTO = new DeviceDTO("does_not_exist", room.getID().toString(), "Lightbulb", "OFF");
