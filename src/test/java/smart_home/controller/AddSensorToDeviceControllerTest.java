@@ -42,15 +42,16 @@ import smart_home.domain.sensor_type.SensorTypeFactoryImpl;
 import smart_home.domain.unit.UnitFactoryImpl;
 import smart_home.dto.*;
 import smart_home.dto.sensor_data_dto.SensorDataGenericDTOImp;
-import smart_home.persistence.mem.*;
 import smart_home.service.*;
 import smart_home.utils.LoadModelsAndUnit;
 import smart_home.value_object.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class AddSensorToDeviceControllerTest {
   private IHouseRepository houseRepository;
@@ -84,40 +85,41 @@ class AddSensorToDeviceControllerTest {
 
   @BeforeEach
   void setUp() {
-    houseRepository = new HouseRepository();
+    houseRepository = mock(IHouseRepository.class);
     houseFactory = new HouseFactoryImpl();
     houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
     postalCodeFactory = new PostalCodeFactory();
-    roomRepository = new RoomRepository();
+
+    roomRepository = mock(IRoomRepository.class);
     roomFactory = new RoomFactoryImpl();
     roomAssembler = new RoomAssembler();
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
-    deviceRepository = new DeviceRepository();
+    deviceRepository = mock(IDeviceRepository.class);
     deviceFactory = new DeviceFactoryImpl();
     deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
     deviceAssembler = new DeviceAssembler();
 
-    unitRepository = new UnitRepository();
+    unitRepository = mock(IUnitRepository.class);
     unitFactory = new UnitFactoryImpl();
 
-    sensorRepository = new SensorRepository();
+    sensorRepository = mock(ISensorRepository.class);
     sensorFactory = new SensorFactoryImpl();
     sensorAssembler = new SensorAssembler();
     sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
 
-    sensorTypeRepository = new SensorTypeRepository();
+    sensorTypeRepository = mock(ISensorTypeRepository.class);
     sensorTypeFactory = new SensorTypeFactoryImpl();
     sensorTypeAssembler = new SensorTypeAssembler();
     sensorTypeServiceImpl =
         new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
 
-    sensorModelRepository = new SensorModelRepository();
+    sensorModelRepository = mock(ISensorModelRepository.class);
     sensorModelFactory = new SensorModelFactoryImpl();
     sensorModelAssembler = new SensorModelAssembler();
     sensorModelServiceImpl = new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
 
-    actuatorModelRepository = new ActuatorModelRepository();
+    actuatorModelRepository = mock(IActuatorModelRepository.class);
     actuatorModelFactory = new ActuatorModelFactoryImpl();
   }
 
@@ -131,7 +133,9 @@ class AddSensorToDeviceControllerTest {
     GPS newGPS = new GPS(latitude, longitude);
     Address newAddress =
         new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
-    return houseServiceImpl.addHouse(newAddress, newGPS);
+    House house = houseServiceImpl.addHouse(newAddress, newGPS);
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    return house;
   }
 
   private Room loadRoom(HouseID houseID) {
@@ -143,7 +147,9 @@ class AddSensorToDeviceControllerTest {
     RoomName roomName1 = new RoomName(name);
     Dimension dimension = new Dimension(width, length, height);
     RoomFloor roomFloor = new RoomFloor(floor);
-    return roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
+    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    return room;
   }
 
   private Device loadDevice(RoomID roomID) {
@@ -153,9 +159,13 @@ class AddSensorToDeviceControllerTest {
     DeviceName deviceName2 = new DeviceName(nameDevice);
     DeviceStatus deviceStatus = new DeviceStatus(true);
     DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-    deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
-    deviceServiceImpl.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
+    Device device1 = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device2 = deviceServiceImpl.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
+    when(deviceRepository.ofIdentity(device1.getID())).thenReturn(Optional.of(device1));
+    when(deviceRepository.findBy_roomID(roomID)).thenReturn(List.of(device1));
     List<Device> devices = deviceServiceImpl.getDevicesByRoomId(roomID);
+
+
     return devices.get(0);
   }
 
@@ -491,9 +501,19 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     TypeDescription typeDescription = new TypeDescription("Temperature");
-    UnitID unit = new UnitID("Celsius");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Celsius");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);    
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
+    SensorModel sensorModel =
+        sensorModelServiceImpl.createSensorModel(
+            new SensorModelName("TemperatureSensor"),
+            new ModelPath("smart_home.domain.sensor.temperature_sensor.TemperatureSensor"),
+            sensorType.getID());
+    when(sensorModelRepository.findBySensorTypeId(sensorType.getID())).thenReturn(List.of(sensorModel));
+    when(sensorModelRepository.findAll()).thenReturn(List.of(sensorModel));
 
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
@@ -529,11 +549,14 @@ class AddSensorToDeviceControllerTest {
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitDescription unitDescription = new UnitDescription("Celsius");
     UnitID unitID = new UnitID("Celsius");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);    
     UnitSymbol unitSymbol = new UnitSymbol("C");
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
     unitServiceImpl.addMeasurementType(unitDescription, unitSymbol);
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
 
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
@@ -596,11 +619,14 @@ class AddSensorToDeviceControllerTest {
     loadModelsAndUnit();
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
-    UnitID unit = new UnitID("Celsius");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Celsius");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+    when(sensorTypeRepository.findAll()).thenReturn(List.of(sensorType));
 
-    // Act
+    //Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
             roomServiceImpl,
@@ -627,14 +653,17 @@ class AddSensorToDeviceControllerTest {
   void shouldReturnEmptyList_whenThereAreNoSensorTypes() throws InstantiationException {
    loadModelsAndUnit();
     TypeDescription typeDescription = new TypeDescription("Temperature");
-    UnitID unit = new UnitID("Celsius");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Celsius");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     TypeDescription nonExistintTypeDescription = new TypeDescription("Humidity");
-    UnitID unitID = new UnitID("Percent");
+    UnitID unitID2 = new UnitID("Percent");
+    when(unitRepository.containsOfIdentity(unitID2)).thenReturn(true);
+
     SensorType nonExistintSensorType =
-        sensorTypeServiceImpl.createSensorType(nonExistintTypeDescription, unitID);
+        sensorTypeServiceImpl.createSensorType(nonExistintTypeDescription, unitID2);
 
     SensorTypeDTO sensorTypeDTO = sensorTypeAssembler.domainToDTO(nonExistintSensorType);
 
@@ -674,8 +703,9 @@ class AddSensorToDeviceControllerTest {
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
-    UnitID unit = new UnitID("Celsius");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Celsius");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smart_home.domain.sensor.temperature_sensor.TemperatureSensor";
@@ -718,8 +748,9 @@ class AddSensorToDeviceControllerTest {
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Humidity");
-    UnitID unit = new UnitID("Percent");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Percent");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smart_home.domain.sensor.humidity_sensor.HumiditySensor";
@@ -765,8 +796,10 @@ class AddSensorToDeviceControllerTest {
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("AveragePowerConsumption");
-    UnitID unit = new UnitID("Watt");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Watt");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath =
@@ -810,8 +843,10 @@ class AddSensorToDeviceControllerTest {
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Switch");
-    UnitID unit = new UnitID("Watt");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Watt");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smart_home.domain.sensor.switch_sensor.SwitchSensor";
@@ -854,8 +889,10 @@ class AddSensorToDeviceControllerTest {
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("DewPoint");
-    UnitID unit = new UnitID("Celsius");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Celsius");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smart_home.domain.sensor.dew_point_sensor.DewPointSensor";
@@ -898,8 +935,10 @@ class AddSensorToDeviceControllerTest {
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("SolarIrradiance");
-    UnitID unit = new UnitID("WattBySquareMeter");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("WattBySquareMeter");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smart_home.domain.sensor.solar_irradiance_sensor.SolarIrradianceSensor";
@@ -944,8 +983,10 @@ class AddSensorToDeviceControllerTest {
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("PercentagePosition");
-    UnitID unit = new UnitID("Percent");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Percent");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath =
@@ -991,8 +1032,10 @@ class AddSensorToDeviceControllerTest {
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("InstantPowerConsumption");
-    UnitID unit = new UnitID("Watt");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Watt");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath =
@@ -1036,8 +1079,10 @@ class AddSensorToDeviceControllerTest {
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("PercentagePosition");
-    UnitID unit = new UnitID("Percent");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Percent");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath =
@@ -1080,8 +1125,10 @@ class AddSensorToDeviceControllerTest {
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
-    UnitID unit = new UnitID("Celsius");
-    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unit);
+    UnitID unitID = new UnitID("Celsius");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     sensorTypeAssembler.domainToDTO(sensorType);
