@@ -1,10 +1,10 @@
 ## US26 
 
 ## 0. Description
-_As a Product Owner, I want the system to have a type of sensor that gives the electric energy consumption over a period (Wh)._
+As a Product Owner, I want the system to have a type of sensor that gives the electric energy consumption over a period (Wh).
 
 ## 1. Analysis
-_A sensor model (with a corresponding type) capable of measuring electric energy consumption over a specified period will be included in the system._
+A sensor model (with a corresponding type) capable of measuring electric energy consumption over a specified period will be included in the system.
 
 ### 1.1. Created/Affected Use Cases
 N/A
@@ -15,5 +15,3 @@ N/A
 ### 1.3 Customer Specifications and Clarifications
 N/A
 
-### 1.4 Class Diagram
-![ClassDiagram](./artifacts/us26_CD_v2.svg)

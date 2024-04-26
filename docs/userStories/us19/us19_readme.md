@@ -1,10 +1,10 @@
 ## US019 
 
 ## 0. Description
-_As a Product Owner, I want the system to have a type of sensor that gives the wind speed (km/h) and direction using angles in radians (trigonometric circle starting at east)._
+As a Product Owner, I want the system to have a type of sensor that gives the wind speed (km/h) and direction using angles in radians (trigonometric circle starting at east).
 
 ## 1. Analysis
-_A sensor model (with a corresponding type) that can measure wind speed and direction as specified will be included in the system._
+A sensor model (with a corresponding type) that can measure wind speed and direction as specified will be included in the system.
 
 ### 1.1. Created/Affected Use Cases
 N/A
@@ -22,6 +22,3 @@ N/A
 - Question 3
   - Q. A direção do vento deve ser representada por pontos cardeais ou ângulos?
   - A. Não tinha pensado nisso, mas ângulos em radianos torna a coisa mais flexível. O círculo trignométrico começa a leste. Assim, Norte = Pi/2.
-
-### 1.4 Class Diagram
-![ClassDiagram](artifacts/us19_CD_v2.svg)

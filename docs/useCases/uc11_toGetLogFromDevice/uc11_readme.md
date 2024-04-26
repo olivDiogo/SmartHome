@@ -5,7 +5,8 @@
 To get a log of all measurements of a device in a room, in a given period.
 
 ## 1. Analysis
-TBD
+A device will be selected, as well as a time frame.
+The system will then return a list of all measurements recorded by the selected device during the specified period.
 
 ### 1.1. Use Case Description
 

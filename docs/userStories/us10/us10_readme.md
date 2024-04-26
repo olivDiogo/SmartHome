@@ -20,7 +20,3 @@ N/A
 ### 1.3 Customer Specifications and Clarifications
 
 N/A
-
-### 1.4 Class Diagram
-
-![ClassDiagram](artifacts/us10_CD_v2.svg)

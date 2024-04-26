@@ -1,10 +1,10 @@
 ## US13 
 
 ## 0. Description
-_As Product Owner, I want the system to have a type of actuator that switches a load ON/OFF._
+As Product Owner, I want the system to have a type of actuator that switches a load ON/OFF.
 
 ## 1. Analysis
-_An actuator model (with a corresponding type) capable of switching a load ON/OFF will be included in the system._
+An actuator model (with a corresponding type) capable of switching a load ON/OFF will be included in the system.
 
 ### 1.1. Created/Affected Use Cases
 N/A
@@ -15,5 +15,3 @@ N/A
 ### 1.3 Customer Specifications and Clarifications
 N/A
 
-### 1.4 Class Diagram
-![ClassDiagram](artifacts/us13_CD_v2.svg)

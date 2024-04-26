@@ -13,7 +13,8 @@ in the selected time frame.
 
 ### 1.1. Created/Affected Use Cases
 
-* Creates: Use Case 12 - To get the maximum instantaneous temperature difference between a device and the outside, in a given period.
+* Creates: Use Case 12 - To get Devices By Room And Temperature Functionality [UC12](../../useCases/uc12_toGetDevicesByRoomAndTemperatureFunctionality/uc12_readme.md)
+* Creates: Use Case 13 - To get the maximum instantaneous temperature difference between a device and the outside, in a given period. [UC13](../../useCases/uc13_toGetMaxInstTempDifBetweenDeviceAndOutside/uc13_readme.md)
 
 ### 1.2. Acceptance Criteria
 
