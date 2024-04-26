@@ -9,10 +9,9 @@ import smarthome.utils.Validator;
 
 public class ActuatorModel implements IAggregateRoot<ModelPath> {
 
-  private final ActuatorModelName _actuatorModelName;
-  private final ModelPath _modelPath;
-  private final ActuatorTypeID _actuatorTypeID;
-  private ActuatorModelID _actuatorModelID;
+  private final ActuatorModelName actuatorModelName;
+  private final ModelPath modelPath;
+  private final ActuatorTypeID actuatorTypeID;
 
   /**
    * ActuatorModel constructor
@@ -25,9 +24,9 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
     Validator.validateNotNull(actuatorModelName, "ActuatorModelName");
     Validator.validateNotNull(modelPath, "ModelPath");
     Validator.validateNotNull(actuatorTypeID, "ActuatorTypeID");
-    this._actuatorModelName = actuatorModelName;
-    this._modelPath = modelPath;
-    this._actuatorTypeID = actuatorTypeID;
+    this.actuatorModelName = actuatorModelName;
+    this.modelPath = modelPath;
+    this.actuatorTypeID = actuatorTypeID;
   }
 
 
@@ -46,7 +45,7 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
       return false;
     }
     ActuatorModel actuatorModel = (ActuatorModel) object;
-    return _modelPath.equals(actuatorModel._modelPath);
+    return modelPath.equals(actuatorModel.modelPath);
   }
 
   /**
@@ -54,7 +53,7 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
    */
   @Override
   public int hashCode() {
-    return _modelPath.hashCode();
+    return modelPath.hashCode();
   }
 
   /**
@@ -64,7 +63,7 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
    */
   @Override
   public ModelPath getID() {
-    return _modelPath;
+    return modelPath;
   }
 
   /**
@@ -73,14 +72,14 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
    * @return ActuatorModelName
    */
   public ActuatorModelName getActuatorModelName() {
-    return _actuatorModelName;
+    return actuatorModelName;
   }
 
   /**
    * method to get sensor type id
    */
   public ActuatorTypeID getActuatorTypeID() {
-    return _actuatorTypeID;
+    return actuatorTypeID;
   }
 
   /**
@@ -90,6 +89,6 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
    */
   @Override
   public String toString() {
-    return _actuatorModelName + " " + _modelPath + " " + _actuatorTypeID;
+    return actuatorModelName + " " + modelPath + " " + actuatorTypeID;
   }
 }

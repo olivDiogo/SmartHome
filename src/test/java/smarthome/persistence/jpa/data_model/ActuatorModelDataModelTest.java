@@ -90,7 +90,7 @@ class ActuatorModelDataModelTest {
 
     ActuatorModelDataModel actuatorModelDataModel = new ActuatorModelDataModel(actuatorModelDouble);
     // Act
-    String result = actuatorModelDataModel.get_actuatorModelID();
+    String result = actuatorModelDataModel.getActuatorModelID();
     // Assert
     assertEquals(strModelPath, result);
   }
@@ -120,7 +120,7 @@ class ActuatorModelDataModelTest {
 
     ActuatorModelDataModel actuatorModelDataModel = new ActuatorModelDataModel(actuatorModelDouble);
     // Act
-    String result = actuatorModelDataModel.get_actuatorModelName();
+    String result = actuatorModelDataModel.getActuatorModelName();
     // Assert
     assertEquals(strActuatorModelName, result);
   }
@@ -150,7 +150,7 @@ class ActuatorModelDataModelTest {
 
     ActuatorModelDataModel actuatorModelDataModel = new ActuatorModelDataModel(actuatorModelDouble);
     // Act
-    String result = actuatorModelDataModel.get_actuatorTypeID();
+    String result = actuatorModelDataModel.getActuatorTypeID();
     // Assert
     assertEquals(strActuatorTypeID, result);
   }
@@ -180,7 +180,7 @@ class ActuatorModelDataModelTest {
 
     ActuatorModelDataModel actuatorModelDataModel = new ActuatorModelDataModel(actuatorModelDouble);
     // Act
-    String result = actuatorModelDataModel.get_modelPath();
+    String result = actuatorModelDataModel.getModelPath();
     // Assert
     assertEquals(strModelPath, result);
   }

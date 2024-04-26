@@ -15,16 +15,16 @@ public class ActuatorModelDataModel {
 
   @Id
   @Column(name = "Actuator Model ID")
-  private String _actuatorModelID;
+  private String actuatorModelID;
 
   @Column(name = "Actuator Model Name")
-  private String _actuatorModelName;
+  private String actuatorModelName;
 
   @Column(name = "Model Path")
-  private String _modelPath;
+  private String modelPath;
 
   @Column(name = "Actuator Type ID")
-  private String _actuatorTypeID;
+  private String actuatorTypeID;
 
   @Version
   private long version;
@@ -37,10 +37,10 @@ public class ActuatorModelDataModel {
 
   public ActuatorModelDataModel(ActuatorModel actuatorModel) {
     Validator.validateNotNull(actuatorModel, "Actuator Model");
-    this._actuatorModelID = actuatorModel.getID().getID();
-    this._actuatorModelName = actuatorModel.getActuatorModelName().getActuatorModelName();
-    this._modelPath = actuatorModel.getID().getID();
-    this._actuatorTypeID = actuatorModel.getActuatorTypeID().getID();
+    this.actuatorModelID = actuatorModel.getID().getID();
+    this.actuatorModelName = actuatorModel.getActuatorModelName().getActuatorModelName();
+    this.modelPath = actuatorModel.getID().getID();
+    this.actuatorTypeID = actuatorModel.getActuatorTypeID().getID();
   }
 
   /**
@@ -48,35 +48,35 @@ public class ActuatorModelDataModel {
    *
    * @return
    */
-  public String get_actuatorModelID() {
-    return this._actuatorModelID;
+  public String getActuatorModelID() {
+    return this.actuatorModelID;
   }
 
   /**
    * Method to return the actuator model name.
    *
-   * @return
+   * @return actuatorModelName
    */
-  public String get_actuatorModelName() {
-    return this._actuatorModelName;
+  public String getActuatorModelName() {
+    return this.actuatorModelName;
   }
 
   /**
    * Method to return the model path.
    *
-   * @return
+   * @return modelPath
    */
-  public String get_modelPath() {
-    return this._modelPath;
+  public String getModelPath() {
+    return this.modelPath;
   }
 
   /**
    * Method to return the actuator type ID.
    *
-   * @return
+   * @return actuatorTypeID
    */
-  public String get_actuatorTypeID() {
-    return this._actuatorTypeID;
+  public String getActuatorTypeID() {
+    return this.actuatorTypeID;
   }
 }
 

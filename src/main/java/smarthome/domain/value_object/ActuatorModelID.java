@@ -4,11 +4,11 @@ import smarthome.ddd.IDomainID;
 
 public class ActuatorModelID implements IDomainID {
 
-  private final String actuatorModelId;
+  private final String actuatorModelID;
 
-  public ActuatorModelID(String actuatorModelId) throws IllegalArgumentException {
-    validationActuatorModelID(actuatorModelId);
-    this.actuatorModelId = actuatorModelId;
+  public ActuatorModelID(String actuatorModelID) throws IllegalArgumentException {
+    validationActuatorModelID(actuatorModelID);
+    this.actuatorModelID = actuatorModelID;
   }
 
   private void validationActuatorModelID(String actuatorModelID) {
@@ -20,7 +20,7 @@ public class ActuatorModelID implements IDomainID {
 
   @Override
   public String getID() {
-    return actuatorModelId;
+    return actuatorModelID;
   }
 
   @Override
@@ -31,13 +31,13 @@ public class ActuatorModelID implements IDomainID {
 
     if (object instanceof ActuatorModelID actuatorModelID) {
 
-      return this.actuatorModelId.equals(actuatorModelID.actuatorModelId);
+      return this.actuatorModelID.equals(actuatorModelID.actuatorModelID);
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    return actuatorModelId.hashCode();
+    return actuatorModelID.hashCode();
   }
 }

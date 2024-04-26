@@ -17,7 +17,7 @@ import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
 
-public class ActuatorModelDataModelAssemblerTest {
+class ActuatorModelDataModelAssemblerTest {
 
   /**
    * Test to check if the ActuatorModelDataModelAssembler is instantiated when the
@@ -69,9 +69,9 @@ public class ActuatorModelDataModelAssemblerTest {
     ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
 
     ActuatorModelDataModel actuatorModelDataModelDouble = mock(ActuatorModelDataModel.class);
-    when(actuatorModelDataModelDouble.get_modelPath()).thenReturn("modelPath");
-    when(actuatorModelDataModelDouble.get_actuatorModelName()).thenReturn("actuatorModelName");
-    when(actuatorModelDataModelDouble.get_actuatorTypeID()).thenReturn("actuatorTypeID");
+    when(actuatorModelDataModelDouble.getModelPath()).thenReturn("modelPath");
+    when(actuatorModelDataModelDouble.getActuatorModelName()).thenReturn("actuatorModelName");
+    when(actuatorModelDataModelDouble.getActuatorTypeID()).thenReturn("actuatorTypeID");
 
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
 
@@ -121,9 +121,9 @@ public class ActuatorModelDataModelAssemblerTest {
     ActuatorTypeID actuatorTypeIDDouble = mock(ActuatorTypeID.class);
 
     ActuatorModelDataModel actuatorModelDataModelDouble = mock(ActuatorModelDataModel.class);
-    when(actuatorModelDataModelDouble.get_modelPath()).thenReturn("modelPath");
-    when(actuatorModelDataModelDouble.get_actuatorModelName()).thenReturn("actuatorModelName");
-    when(actuatorModelDataModelDouble.get_actuatorTypeID()).thenReturn("actuatorTypeID");
+    when(actuatorModelDataModelDouble.getModelPath()).thenReturn("modelPath");
+    when(actuatorModelDataModelDouble.getActuatorModelName()).thenReturn("actuatorModelName");
+    when(actuatorModelDataModelDouble.getActuatorTypeID()).thenReturn("actuatorTypeID");
 
     //ActuatorModel 2
     ModelPath modelPathDouble2 = mock(ModelPath.class);
@@ -131,9 +131,9 @@ public class ActuatorModelDataModelAssemblerTest {
     ActuatorTypeID actuatorTypeIDDouble2 = mock(ActuatorTypeID.class);
 
     ActuatorModelDataModel actuatorModelDataModelDouble2 = mock(ActuatorModelDataModel.class);
-    when(actuatorModelDataModelDouble2.get_modelPath()).thenReturn("modelPath2");
-    when(actuatorModelDataModelDouble2.get_actuatorModelName()).thenReturn("actuatorModelName2");
-    when(actuatorModelDataModelDouble2.get_actuatorTypeID()).thenReturn("actuatorTypeID2");
+    when(actuatorModelDataModelDouble2.getModelPath()).thenReturn("modelPath2");
+    when(actuatorModelDataModelDouble2.getActuatorModelName()).thenReturn("actuatorModelName2");
+    when(actuatorModelDataModelDouble2.getActuatorTypeID()).thenReturn("actuatorTypeID2");
 
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
 

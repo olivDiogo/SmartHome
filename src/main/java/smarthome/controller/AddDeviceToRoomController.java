@@ -21,10 +21,10 @@ import smarthome.utils.dto.RoomDTO;
  */
 public class AddDeviceToRoomController {
 
-  private final IRoomService _roomService;
-  private final IAssembler<Room, RoomDTO> _roomAssembler;
-  private final IDeviceService _deviceService;
-  private final IAssembler<Device, DeviceDTO> _deviceAssembler;
+  private final IRoomService roomService;
+  private final IAssembler<Room, RoomDTO> roomAssembler;
+  private final IDeviceService deviceService;
+  private final IAssembler<Device, DeviceDTO> deviceAssembler;
 
   /**
    * Constructs a new AddDeviceToRoomController with necessary service and assembler dependencies.
@@ -43,10 +43,10 @@ public class AddDeviceToRoomController {
     Validator.validateNotNull(deviceServiceImpl, "Device service");
     Validator.validateNotNull(deviceAssembler, "Device assembler");
 
-    this._roomService = roomService;
-    this._roomAssembler = roomAssembler;
-    this._deviceService = deviceServiceImpl;
-    this._deviceAssembler = deviceAssembler;
+    this.roomService = roomService;
+    this.roomAssembler = roomAssembler;
+    this.deviceService = deviceServiceImpl;
+    this.deviceAssembler = deviceAssembler;
   }
 
 
@@ -56,8 +56,8 @@ public class AddDeviceToRoomController {
    * @return a list of RoomDTOs.
    */
   public List<RoomDTO> getAllRooms() {
-    List<Room> rooms = _roomService.getAllRooms();
-    return _roomAssembler.domainToDTO(rooms);
+    List<Room> rooms = roomService.getAllRooms();
+    return roomAssembler.domainToDTO(rooms);
   }
 
   /**
@@ -74,14 +74,14 @@ public class AddDeviceToRoomController {
     DeviceStatus deviceStatusVO = new DeviceStatus(deviceDataDTO.deviceStatus);
     DeviceTypeID deviceTypeIDVO = new DeviceTypeID(deviceDataDTO.deviceTypeID);
 
-    Optional<Room> roomOptional = _roomService.getRoomById(roomIdVO);
+    Optional<Room> roomOptional = roomService.getRoomById(roomIdVO);
     if (roomOptional.isEmpty()) {
       throw new IllegalArgumentException("Room with ID " + roomIdVO + " not found.");
     }
 
-    Device device = _deviceService.addDevice(roomIdVO, deviceNameVO, deviceStatusVO,
+    Device device = deviceService.addDevice(roomIdVO, deviceNameVO, deviceStatusVO,
         deviceTypeIDVO);
 
-    return _deviceAssembler.domainToDTO(device);
+    return deviceAssembler.domainToDTO(device);
   }
 }

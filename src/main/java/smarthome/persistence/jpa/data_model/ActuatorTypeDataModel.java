@@ -13,11 +13,11 @@ import smarthome.utils.Validator;
 public class ActuatorTypeDataModel {
 
   @Id
-  private String _actuatorTypeID;
+  private String actuatorTypeID;
   @Column(name = "actuatorTypeName")
-  private String _actuatorTypeName;
+  private String actuatorTypeName;
   @Column(name = "unitID")
-  private String _unitID;
+  private String unitID;
 
   @Version
   private long version;
@@ -35,9 +35,9 @@ public class ActuatorTypeDataModel {
    */
   public ActuatorTypeDataModel(ActuatorType actuatorType) {
     Validator.validateNotNull(actuatorType, "Actuator Type");
-    this._actuatorTypeID = actuatorType.getID().getID();
-    this._actuatorTypeName = actuatorType.getActuatorTypeName().toString();
-    this._unitID = actuatorType.getUnit().getID();
+    this.actuatorTypeID = actuatorType.getID().getID();
+    this.actuatorTypeName = actuatorType.getActuatorTypeName().toString();
+    this.unitID = actuatorType.getUnit().getID();
   }
 
 
@@ -47,7 +47,7 @@ public class ActuatorTypeDataModel {
    * @return the actuator type ID.
    */
   public String getActuatorTypeID() {
-    return this._actuatorTypeID;
+    return this.actuatorTypeID;
   }
 
   /**
@@ -56,7 +56,7 @@ public class ActuatorTypeDataModel {
    * @return the actuator type name.
    */
   public String getActuatorTypeName() {
-    return this._actuatorTypeName;
+    return this.actuatorTypeName;
   }
 
   /**
@@ -65,7 +65,7 @@ public class ActuatorTypeDataModel {
    * @return the unit ID.
    */
   public String getUnitID() {
-    return this._unitID;
+    return this.unitID;
   }
 }
 

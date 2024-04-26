@@ -37,9 +37,9 @@ public class ActuatorModelDataModelAssembler
     validateNotNull(actuatorModelDataModel, "Actuator Model Data Model");
 
     ActuatorModelName actuatorModelName =
-        new ActuatorModelName(actuatorModelDataModel.get_actuatorModelName());
-    ModelPath modelPath = new ModelPath(actuatorModelDataModel.get_modelPath());
-    ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorModelDataModel.get_actuatorTypeID());
+        new ActuatorModelName(actuatorModelDataModel.getActuatorModelName());
+    ModelPath modelPath = new ModelPath(actuatorModelDataModel.getModelPath());
+    ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorModelDataModel.getActuatorTypeID());
 
     ActuatorModel actuatorModel =
         actuatorModelFactory.createActuatorModel(actuatorModelName, modelPath, actuatorTypeID);

@@ -16,8 +16,8 @@ import smarthome.utils.dto.RoomDTO;
  */
 public class AddRoomToHouseController {
 
-  private final IRoomService _roomService;
-  private final IAssembler<Room, RoomDTO> _roomAssembler;
+  private final IRoomService roomService;
+  private final IAssembler<Room, RoomDTO> roomAssembler;
 
   /**
    * Constructs an AddRoomToHouseController with the specified services.
@@ -30,8 +30,8 @@ public class AddRoomToHouseController {
     Validator.validateNotNull(roomService, "Room service");
     Validator.validateNotNull(roomAssembler, "Room assembler");
 
-    this._roomService = roomService;
-    this._roomAssembler = roomAssembler;
+    this.roomService = roomService;
+    this.roomAssembler = roomAssembler;
 
   }
 
@@ -53,9 +53,9 @@ public class AddRoomToHouseController {
     RoomFloor roomFloor = new RoomFloor(floor);
     Dimension dimension = new Dimension(width, length, height);
 
-    Room room = _roomService.addRoom(houseID1, roomName, dimension, roomFloor);
+    Room room = roomService.addRoom(houseID1, roomName, dimension, roomFloor);
 
-    return _roomAssembler.domainToDTO(room);
+    return roomAssembler.domainToDTO(room);
   }
 }
 

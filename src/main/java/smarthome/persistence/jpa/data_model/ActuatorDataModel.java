@@ -13,23 +13,23 @@ import smarthome.utils.Validator;
 public class ActuatorDataModel {
 
   @Id
-  private String _actuatorID;
+  private String actuatorID;
   @Column(name = "deviceID")
-  private String _deviceID;
+  private String deviceid;
   @Column(name = "modelPath")
-  private String _modelPath;
+  private String modelPath;
   @Column(name = "actuatorTypeID")
-  private String _actuatorTypeID;
+  private String actuatorTypeID;
   @Column(name = "actuatorName")
-  private String _actuatorName;
+  private String actuatorName;
   @Column(name = "integerLowerBond")
-  private String _integerLowerBond;
+  private String integerLowerBond;
   @Column(name = "integerUpperBond")
-  private String _integerUpperBond;
+  private String integerUpperBond;
   @Column(name = "decimalLowerBond")
-  private String _decimalLowerBond;
+  private String decimalLowerBond;
   @Column(name = "decimalUpperBond")
-  private String _decimalUpperBond;
+  private String decimalUpperBond;
   @Version
   private long version;
 
@@ -53,18 +53,18 @@ public class ActuatorDataModel {
    */
   //Setters
   public void setGenericActuatorParameters(IActuator actuator) {
-    this._actuatorID = actuator.getID().getID();
-    this._deviceID = actuator.getDeviceID().getID();
-    this._modelPath = actuator.getModelPath().getID();
-    this._actuatorTypeID = actuator.getActuatorTypeID().getID();
-    this._actuatorName = actuator.getName().getActuatorName();
+    this.actuatorID = actuator.getID().getID();
+    this.deviceid = actuator.getDeviceID().getID();
+    this.modelPath = actuator.getModelPath().getID();
+    this.actuatorTypeID = actuator.getActuatorTypeID().getID();
+    this.actuatorName = actuator.getName().getActuatorName();
   }
 
   /**
    * Method to return the integer lower bond
    */
   public String getIntegerLowerBond() {
-    return this._integerLowerBond;
+    return this.integerLowerBond;
   }
 
   /**
@@ -74,14 +74,14 @@ public class ActuatorDataModel {
    */
 
   public void setIntegerLowerBond(int integerLowerBond) {
-    this._integerLowerBond = String.valueOf(integerLowerBond);
+    this.integerLowerBond = String.valueOf(integerLowerBond);
   }
 
   /**
    * Method to return the integer upper bond
    */
   public String getIntegerUpperBond() {
-    return this._integerUpperBond;
+    return this.integerUpperBond;
   }
 
   /**
@@ -90,7 +90,7 @@ public class ActuatorDataModel {
    * @param integerUpperBond
    */
   public void setIntegerUpperBond(int integerUpperBond) {
-    this._integerUpperBond = String.valueOf(integerUpperBond);
+    this.integerUpperBond = String.valueOf(integerUpperBond);
   }
   // This section is for getter methods
 
@@ -98,7 +98,7 @@ public class ActuatorDataModel {
    * Method to return the decimal lower bond
    */
   public String getDecimalLowerBond() {
-    return this._decimalLowerBond;
+    return this.decimalLowerBond;
   }
 
   /**
@@ -107,14 +107,14 @@ public class ActuatorDataModel {
    * @param decimalLowerBond
    */
   public void setDecimalLowerBond(double decimalLowerBond) {
-    this._decimalLowerBond = String.valueOf(decimalLowerBond);
+    this.decimalLowerBond = String.valueOf(decimalLowerBond);
   }
 
   /**
    * Method to return the decimal upper bond
    */
   public String getDecimalUpperBond() {
-    return this._decimalUpperBond;
+    return this.decimalUpperBond;
   }
 
   /**
@@ -123,7 +123,7 @@ public class ActuatorDataModel {
    * @param decimalUpperBond
    */
   public void setDecimalUpperBond(double decimalUpperBond) {
-    this._decimalUpperBond = String.valueOf(decimalUpperBond);
+    this.decimalUpperBond = String.valueOf(decimalUpperBond);
   }
 
   /**
@@ -132,7 +132,7 @@ public class ActuatorDataModel {
    * @return the actuator ID
    */
   public String getActuatorID() {
-    return this._actuatorID;
+    return this.actuatorID;
   }
 
   /**
@@ -141,7 +141,7 @@ public class ActuatorDataModel {
    * @return the device ID
    */
   public String getDeviceID() {
-    return this._deviceID;
+    return this.deviceid;
   }
 
   /**
@@ -150,7 +150,7 @@ public class ActuatorDataModel {
    * @return the model path
    */
   public String getModelPath() {
-    return this._modelPath;
+    return this.modelPath;
   }
 
   /**
@@ -159,7 +159,7 @@ public class ActuatorDataModel {
    * @return the actuator type ID
    */
   public String getActuatorTypeID() {
-    return this._actuatorTypeID;
+    return this.actuatorTypeID;
   }
 
   /**
@@ -168,21 +168,21 @@ public class ActuatorDataModel {
    * @return the actuator name
    */
   public String getActuatorName() {
-    return this._actuatorName;
+    return this.actuatorName;
   }
 
   @Override
   public String toString() {
     return "ActuatorDataModel{" +
-        "actuatorID='" + _actuatorID + '\'' +
-        ", deviceID='" + _deviceID + '\'' +
-        ", modelPath='" + _modelPath + '\'' +
-        ", actuatorTypeID='" + _actuatorTypeID + '\'' +
-        ", actuatorName='" + _actuatorName + '\'' +
-        ", integerLowerBond='" + _integerLowerBond + '\'' +
-        ", integerUpperBond='" + _integerUpperBond + '\'' +
-        ", decimalLowerBond='" + _decimalLowerBond + '\'' +
-        ", decimalUpperBond='" + _decimalUpperBond + '\'' +
+        "actuatorID='" + actuatorID + '\'' +
+        ", deviceID='" + deviceid + '\'' +
+        ", modelPath='" + modelPath + '\'' +
+        ", actuatorTypeID='" + actuatorTypeID + '\'' +
+        ", actuatorName='" + actuatorName + '\'' +
+        ", integerLowerBond='" + integerLowerBond + '\'' +
+        ", integerUpperBond='" + integerUpperBond + '\'' +
+        ", decimalLowerBond='" + decimalLowerBond + '\'' +
+        ", decimalUpperBond='" + decimalUpperBond + '\'' +
         '}';
   }
 

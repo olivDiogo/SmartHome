@@ -12,7 +12,7 @@ import smarthome.utils.Validator;
 
 public class ActuatorModelRepository implements IActuatorModelRepository {
 
-  final private Map<ModelPath, ActuatorModel> DATA = new LinkedHashMap<>();
+  private final Map<ModelPath, ActuatorModel> DATA = new LinkedHashMap<>();
 
   /**
    * Save an ActuatorModel. If the ActuatorModel is null, throw an IllegalArgumentException.

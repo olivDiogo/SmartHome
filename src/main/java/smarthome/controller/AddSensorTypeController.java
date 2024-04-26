@@ -15,10 +15,10 @@ import smarthome.utils.dto.UnitDTO;
 
 public class AddSensorTypeController {
 
-  private final ISensorTypeService _sensorTypeService;
-  private final IUnitService _unitService;
-  private final IAssembler<SensorType, SensorTypeDTO> _sensorTypeAssembler;
-  private final IAssembler<Unit, UnitDTO> _unitAssembler;
+  private final ISensorTypeService sensorTypeService;
+  private final IUnitService unitService;
+  private final IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler;
+  private final IAssembler<Unit, UnitDTO> unitAssembler;
 
   /**
    * Constructs an AddSensorTypeController with the specified services and assemblers.
@@ -36,10 +36,10 @@ public class AddSensorTypeController {
     Validator.validateNotNull(unitService, "Unit service");
     Validator.validateNotNull(unitAssembler, "Unit assembler");
 
-    this._sensorTypeService = sensorTypeService;
-    this._sensorTypeAssembler = sensorTypeAssembler;
-    this._unitService = unitService;
-    this._unitAssembler = unitAssembler;
+    this.sensorTypeService = sensorTypeService;
+    this.sensorTypeAssembler = sensorTypeAssembler;
+    this.unitService = unitService;
+    this.unitAssembler = unitAssembler;
 
   }
 
@@ -49,8 +49,8 @@ public class AddSensorTypeController {
    * @return The list of supported units.
    */
   public List<UnitDTO> getSupportedUnits() {
-    List<Unit> units = _unitService.getAllMeasurementTypes();
-    return _unitAssembler.domainToDTO(units);
+    List<Unit> units = unitService.getAllMeasurementTypes();
+    return unitAssembler.domainToDTO(units);
   }
 
   /**
@@ -64,9 +64,9 @@ public class AddSensorTypeController {
       TypeDescription typeDescription = new TypeDescription(
           sensorTypeDataDTO.sensorTypeDescription);
       UnitID unitID = new UnitID(sensorTypeDataDTO.unitID);
-      SensorType sensorType = _sensorTypeService.createSensorType(typeDescription, unitID);
-      SensorType savedSensorType = _sensorTypeService.addSensorType(sensorType);
-      return _sensorTypeAssembler.domainToDTO(savedSensorType);
+      SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unitID);
+      SensorType savedSensorType = sensorTypeService.addSensorType(sensorType);
+      return sensorTypeAssembler.domainToDTO(savedSensorType);
     } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("Invalid sensor type data.");
     }

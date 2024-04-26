@@ -27,16 +27,16 @@ import smarthome.utils.dto.actuator_data_dto.IActuatorDataDTO;
 
 public class AddActuatorToDeviceController {
 
-  private final IRoomService _roomService;
-  private final IAssembler<Room, RoomDTO> _roomAssembler;
-  private final IDeviceService _deviceService;
-  private final IAssembler<Device, DeviceDTO> _deviceAssembler;
-  private final IActuatorModelService _actuatorModelService;
-  private final IAssembler<ActuatorModel, ActuatorModelDTO> _actuatorModelAssembler;
-  private final IActuatorTypeService _actuatorTypeService;
-  private final IAssembler<ActuatorType, ActuatorTypeDTO> _actuatorTypeAssembler;
-  private final IAssembler<IActuator, ActuatorDTO> _actuatorAssembler;
-  private final IActuatorService _actuatorService;
+  private final IRoomService roomService;
+  private final IAssembler<Room, RoomDTO> roomAssembler;
+  private final IDeviceService deviceService;
+  private final IAssembler<Device, DeviceDTO> deviceAssembler;
+  private final IActuatorModelService actuatorModelService;
+  private final IAssembler<ActuatorModel, ActuatorModelDTO> actuatorModelAssembler;
+  private final IActuatorTypeService actuatorTypeService;
+  private final IAssembler<ActuatorType, ActuatorTypeDTO> actuatorTypeAssembler;
+  private final IAssembler<IActuator, ActuatorDTO> actuatorAssembler;
+  private final IActuatorService actuatorService;
 
 
   /**
@@ -70,16 +70,16 @@ public class AddActuatorToDeviceController {
     Validator.validateNotNull(actuatorAssembler, "Actuator assembler");
     Validator.validateNotNull(actuatorService, "Actuator service");
 
-    this._roomService = roomService;
-    this._roomAssembler = roomAssembler;
-    this._deviceService = deviceService;
-    this._deviceAssembler = deviceAssembler;
-    this._actuatorModelService = actuatorModelService;
-    this._actuatorModelAssembler = actuatorModelAssembler;
-    this._actuatorTypeService = actuatorTypeService;
-    this._actuatorTypeAssembler = actuatorTypeAssembler;
-    this._actuatorAssembler = actuatorAssembler;
-    this._actuatorService = actuatorService;
+    this.roomService = roomService;
+    this.roomAssembler = roomAssembler;
+    this.deviceService = deviceService;
+    this.deviceAssembler = deviceAssembler;
+    this.actuatorModelService = actuatorModelService;
+    this.actuatorModelAssembler = actuatorModelAssembler;
+    this.actuatorTypeService = actuatorTypeService;
+    this.actuatorTypeAssembler = actuatorTypeAssembler;
+    this.actuatorAssembler = actuatorAssembler;
+    this.actuatorService = actuatorService;
 
   }
 
@@ -90,11 +90,11 @@ public class AddActuatorToDeviceController {
    */
   public List<RoomDTO> getRooms() {
 
-    List<Room> listOfRooms = _roomService.getAllRooms();
+    List<Room> listOfRooms = roomService.getAllRooms();
     if (listOfRooms == null || listOfRooms.isEmpty()) {
       return Collections.emptyList();
     }
-    List<RoomDTO> listOfRoomsDTO = _roomAssembler.domainToDTO(listOfRooms);
+    List<RoomDTO> listOfRoomsDTO = roomAssembler.domainToDTO(listOfRooms);
 
     return List.copyOf(listOfRoomsDTO);
   }
@@ -108,13 +108,13 @@ public class AddActuatorToDeviceController {
   public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
     RoomID roomID = new RoomID(roomDTO.roomId);
 
-    if (_roomService.getRoomById(roomID).isEmpty()) {
+    if (roomService.getRoomById(roomID).isEmpty()) {
       throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
     }
 
-    List<Device> devices = _deviceService.getDevicesByRoomId(roomID);
+    List<Device> devices = deviceService.getDevicesByRoomId(roomID);
 
-    List<DeviceDTO> deviceDTOList = _deviceAssembler.domainToDTO(devices);
+    List<DeviceDTO> deviceDTOList = deviceAssembler.domainToDTO(devices);
 
     return List.copyOf(deviceDTOList);
   }
@@ -126,11 +126,11 @@ public class AddActuatorToDeviceController {
    * @return a list of actuator types.
    */
   public List<ActuatorTypeDTO> getActuatorTypes() {
-    List<ActuatorType> actuatorTypeList = _actuatorTypeService.getAllActuatorTypes();
+    List<ActuatorType> actuatorTypeList = actuatorTypeService.getAllActuatorTypes();
     if (actuatorTypeList.isEmpty()) {
       throw new IllegalArgumentException("No actuator types found.");
     }
-    List<ActuatorTypeDTO> actuatorTypeDTOList = _actuatorTypeAssembler.domainToDTO(
+    List<ActuatorTypeDTO> actuatorTypeDTOList = actuatorTypeAssembler.domainToDTO(
         actuatorTypeList);
     return List.copyOf(actuatorTypeDTOList);
   }
@@ -143,16 +143,16 @@ public class AddActuatorToDeviceController {
 
   public List<ActuatorModelDTO> getActuatorModels(ActuatorTypeDTO actuatorTypeDTO) {
     ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeDTO.actuatorTypeID);
-    if (_actuatorTypeService.getActuatorTypeByID(actuatorTypeID).isEmpty()) {
+    if (actuatorTypeService.getActuatorTypeByID(actuatorTypeID).isEmpty()) {
       throw new IllegalArgumentException("Actuator type with ID " + actuatorTypeID + " not found.");
     }
 
-    List<ActuatorModel> actuatorModels = _actuatorModelService.getActuatorModelsByActuatorTypeId(
+    List<ActuatorModel> actuatorModels = actuatorModelService.getActuatorModelsByActuatorTypeId(
         actuatorTypeID);
     if (actuatorModels == null || actuatorModels.isEmpty()) {
       throw new IllegalArgumentException("No actuator models found.");
     }
-    List<ActuatorModelDTO> actuatorModelDTOList = _actuatorModelAssembler.domainToDTO(
+    List<ActuatorModelDTO> actuatorModelDTOList = actuatorModelAssembler.domainToDTO(
         actuatorModels);
 
     return List.copyOf(actuatorModelDTOList);
@@ -171,9 +171,9 @@ public class AddActuatorToDeviceController {
     IActuatorVOAssembler actuatorVOAssembler = new ActuatorVOAssemblerImpl();
     Object[] actuatorParameters = actuatorVOAssembler.getActuatorParameters(actuatorDataDTOImp);
 
-    IActuator actuator = _actuatorService.addActuator(actuatorParameters);
+    IActuator actuator = actuatorService.addActuator(actuatorParameters);
 
-    return _actuatorAssembler.domainToDTO(actuator);
+    return actuatorAssembler.domainToDTO(actuator);
   }
 
 

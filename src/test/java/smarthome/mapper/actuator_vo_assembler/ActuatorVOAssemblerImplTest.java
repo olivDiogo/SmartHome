@@ -16,7 +16,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ActuatorVOAssemblerImplTest {
+class ActuatorVOAssemblerImplTest {
 
   /**
    * Tests if the object is instantiated when the attributes are null.

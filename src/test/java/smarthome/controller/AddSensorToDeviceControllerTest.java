@@ -1032,7 +1032,7 @@ class AddSensorToDeviceControllerTest {
             () -> addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp));
 
     // Assert
-    assertEquals(exception.getMessage(), "Sensor data DTO is required");
+    assertEquals("Sensor data DTO is required", exception.getMessage());
   }
 
   /**
