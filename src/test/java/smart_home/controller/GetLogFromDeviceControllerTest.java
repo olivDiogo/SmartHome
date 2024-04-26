@@ -31,6 +31,7 @@ import smart_home.service.*;
 import smart_home.value_object.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -150,15 +151,16 @@ class GetLogFromDeviceControllerTest {
     String timeStart = "2020-03-01T13:45:30";
     String timeEnd = "2022-03-01T13:50:30";
     LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
+    DatePeriod datePeriod = new DatePeriod(LocalDateTime.parse(timeStart), LocalDateTime.parse(timeEnd));
 
-    when(logRepository.findByDeviceIDAndDatePeriodBetween(deviceID, mock(DatePeriod.class)))
-        .thenReturn(List.of(log));
+    when(logRepository.findByDeviceIDAndDatePeriodBetween(deviceID, datePeriod)).thenReturn(List.of(log));
 
     // Act
     List<LogDTO> logs = getLogFromDeviceController.getLogFromDevice(logDataDTO);
 
     // Assert
-    assertNotNull(logs);
+    assertEquals(1, logs.size());
+    assertEquals(log.getID().getID(), logs.get(0).logID);
   }
 
   /** Test getLogFromDevice method when timeStart is after timeEnd. */
@@ -229,13 +231,12 @@ class GetLogFromDeviceControllerTest {
     String timeEnd = "2022-03-01T13:50:30";
     LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
 
-    LogDTO logDTO = new LogDTO("No logs found", "", "", "", "", "", "");
-
     // Act
     List<LogDTO> logs = getLogFromDeviceController.getLogFromDevice(logDataDTO);
 
     // Assert
-    assertEquals(logs.get(0).toString(), logDTO.toString());
+    assertEquals(1, logs.size());
+    assertEquals("No logs found", logs.get(0).logID);
   }
 
   /**

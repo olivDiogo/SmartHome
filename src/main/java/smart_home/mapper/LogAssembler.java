@@ -34,7 +34,7 @@ public class LogAssembler implements IAssembler<Log, LogDTO> {
 
     @Override
     public List<LogDTO> domainToDTO(List<Log> domainEntities) {
-        if (domainEntities == null || domainEntities.isEmpty() || domainEntities.contains(null)) {
+        if (domainEntities == null || domainEntities.isEmpty()) {
             throw new IllegalArgumentException("The list of Logs cannot be null or empty.");
         }
         return domainEntities.stream().map(this::domainToDTO).toList();

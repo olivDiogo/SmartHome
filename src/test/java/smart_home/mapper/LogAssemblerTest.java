@@ -208,50 +208,6 @@ class LogAssemblerTest {
         //Assert
         assertEquals(expected.toString(), result.toString());
     }
-
-    /**
-     * Test if the domainToDTO method throws an IllegalArgumentException when the list contains null object.
-     */
-    @Test
-    void shouldThrowAnIllegalArgumentException_WhenGivenAListOfLogsContainingNull() {
-        //Arrange
-        Log log = mock(Log.class);
-        ReadingValue readingValue = mock(ReadingValue.class);
-
-        when(log.getID()).thenReturn(mock(LogID.class));
-        when(log.getID().toString()).thenReturn("1");
-
-        when(log.getDeviceID()).thenReturn(mock(DeviceID.class));
-        when(log.getDeviceID().toString()).thenReturn("1");
-
-        when(log.getSensorID()).thenReturn(mock(SensorID.class));
-        when(log.getSensorID().toString()).thenReturn("1");
-
-        when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
-        when(log.getDescription().toString()).thenReturn("1");
-
-        when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
-        when(log.getReadingValue().toString()).thenReturn("20");
-
-        when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
-        when(log.getTimeStamp().toString()).thenReturn("2021-10-10 10:10:10");
-
-        when(log.getUnit()).thenReturn(mock(UnitID.class));
-        when(log.getUnit().toString()).thenReturn("1");
-
-        List<Log> logs = new ArrayList<>();
-        logs.add(log);
-        logs.add(null);
-
-        LogAssembler logAssembler = new LogAssembler();
-
-        //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> logAssembler.domainToDTO(logs));
-
-        assertEquals("The list of Logs cannot be null or empty.", exception.getMessage());
-    }
-
-
 }
 
 
