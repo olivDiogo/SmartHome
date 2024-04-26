@@ -3,13 +3,6 @@
 
 package log {
     class Log <<Entity>> <<Root>> {
-    - _id : LogID
-    - _deviceID : DeviceID
-    - _sensorID : SensorID
-    - _localDateTime : LocalDateTime
-    - _reading : ReadingValue
-    - _description : SensorTypeID
-    - _unit : UnitID
 
     }
     class LogID <<ValueObject>> <<ID>> {
@@ -21,26 +14,27 @@ package log {
     class SensorID <<ValueObject>> <<ID>> {
         - _sensorID : SensorID
     }
+    class LocalDateTime <<ValueObject>>{
+        - _localDateTime : LocalDateTime
+    }
     class ReadingValue <<ValueObject>>{
         - _reading : ReadingValue
     }
-
     class SensorTypeID <<ValueObject>> <<ID>>{
         - _description : SensorTypeID
     }
-
     class UnitID <<ValueObject>> <<ID>>{
         - _unit : UnitID
     }
-
-
 }
-Log "1" -- "1" LogID : has
-Log "1" -- "1" DeviceID : has
-Log "1" -- "1" SensorID : has
-Log "1" -- "1" ReadingValue : has
-Log "1" -- "1" SensorTypeID : has
-Log "1" -- "1" UnitID : has
+
+Log -- "1" LogID : has
+Log -- "1" DeviceID : has
+Log -- "1" SensorID : has
+Log -- "1" ReadingValue : has
+Log -- "1" SensorTypeID : has
+Log -- "1" UnitID : has
+Log -- "1" LocalDateTime : has
 
 
 @enduml
