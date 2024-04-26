@@ -7,15 +7,16 @@ import smart_home.domain.service.IDeviceService;
 import smart_home.domain.service.IRoomService;
 import smart_home.dto.DeviceDTO;
 import smart_home.dto.RoomDTO;
+import smart_home.utils.Validator;
 import smart_home.value_object.RoomID;
 
 import java.util.List;
 
 public class GetDevicesFromRoomController {
-    private IRoomService _roomService;
-    private IDeviceService _deviceService;
-    private IAssembler<Room, RoomDTO> _roomAssembler;
-    private IAssembler<Device, DeviceDTO> _deviceAssembler;
+    private final IRoomService _roomService;
+    private final IDeviceService _deviceService;
+    private final IAssembler<Room, RoomDTO> _roomAssembler;
+    private final IAssembler<Device, DeviceDTO> _deviceAssembler;
 
     /**
      * Constructor for GetDevicesFromRoomController.
@@ -26,62 +27,16 @@ public class GetDevicesFromRoomController {
      * @param deviceAssembler is the assembler for the device.
      */
     public GetDevicesFromRoomController(IRoomService roomService, IDeviceService deviceService, IAssembler<Room, RoomDTO> roomAssembler, IAssembler<Device, DeviceDTO> deviceAssembler) {
-        validateRoomService(roomService);
-        validateDeviceService(deviceService);
-        validateRoomAssembler(roomAssembler);
-        validateDeviceAssembler(deviceAssembler);
-    }
+      Validator.validateNotNull(roomService, "Room service");
+      Validator.validateNotNull(deviceService, "Device service");
+      Validator.validateNotNull(roomAssembler, "Room assembler");
+      Validator.validateNotNull(deviceAssembler, "Device assembler");
 
-    /**
-     * Validates the room service.
-     *
-     * @param roomService is the room service.
-     */
-    private void validateRoomService(IRoomService roomService) {
-        if (roomService == null) {
-            throw new IllegalArgumentException("RoomService is required");
-        } else {
-            this._roomService = roomService;
-        }
-    }
+      this._deviceAssembler = deviceAssembler;
+      this._deviceService = deviceService;
+      this._roomAssembler = roomAssembler;
+      this._roomService = roomService;
 
-    /**
-     * Validates the device service.
-     *
-     * @param deviceService is the device service.
-     */
-    private void validateDeviceService(IDeviceService deviceService) {
-        if (deviceService == null) {
-            throw new IllegalArgumentException("DeviceService is required");
-        } else {
-            this._deviceService = deviceService;
-        }
-    }
-
-    /**
-     * Validates the room assembler.
-     *
-     * @param roomAssembler is the room assembler.
-     */
-    private void validateRoomAssembler(IAssembler<Room, RoomDTO> roomAssembler) {
-        if (roomAssembler == null) {
-            throw new IllegalArgumentException("RoomAssembler is required");
-        } else {
-            this._roomAssembler = roomAssembler;
-        }
-    }
-
-    /**
-     * Validates the device assembler.
-     *
-     * @param deviceAssembler is the device assembler.
-     */
-    private void validateDeviceAssembler(IAssembler<Device, DeviceDTO> deviceAssembler) {
-        if (deviceAssembler == null) {
-            throw new IllegalArgumentException("DeviceAssembler is required");
-        } else {
-            this._deviceAssembler = deviceAssembler;
-        }
     }
 
     /**
@@ -106,7 +61,7 @@ public class GetDevicesFromRoomController {
     public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
         RoomID roomID = new RoomID(roomDTO.roomId);
 
-        if (!_roomService.getRoomById(roomID).isPresent()) {
+        if (_roomService.getRoomById(roomID).isEmpty()) {
             throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
         }
 

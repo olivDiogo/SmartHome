@@ -3,14 +3,13 @@ package smart_home.controller;
 import smart_home.mapper.sensor_vo_assembler.ISensorVOAssembler;
 import smart_home.mapper.sensor_vo_assembler.SensorVOAssemblerImpl;
 import smart_home.ddd.IAssembler;
-import smart_home.domain.device.Device;
-import smart_home.domain.room.Room;
 import smart_home.domain.sensor.ISensor;
 import smart_home.domain.sensor_model.SensorModel;
 import smart_home.domain.sensor_type.SensorType;
 import smart_home.domain.service.*;
 import smart_home.dto.*;
 import smart_home.dto.sensor_data_dto.ISensorDataDTO;
+import smart_home.utils.Validator;
 import smart_home.value_object.SensorTypeID;
 import java.util.List;
 
@@ -18,48 +17,42 @@ import static smart_home.utils.Validator.validateNotNull;
 
 
 public class AddSensorToDeviceController {
-    private IRoomService roomService;
-    private IAssembler<Room, RoomDTO> roomAssembler;
-    private IDeviceService deviceService;
-    private IAssembler<Device, DeviceDTO> deviceAssembler;
-    private ISensorModelService sensorModelService;
-    private IAssembler<SensorModel, SensorModelDTO> sensorModelAssembler;
-    private ISensorTypeService sensorTypeService;
-    private IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler;
-    private IAssembler<ISensor, SensorDTO> sensorAssembler;
-    private ISensorService sensorService;
+
+    private final ISensorModelService sensorModelService;
+    private final IAssembler<SensorModel, SensorModelDTO> sensorModelAssembler;
+    private final ISensorTypeService sensorTypeService;
+    private final IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler;
+    private final IAssembler<ISensor, SensorDTO> sensorAssembler;
+    private final ISensorService sensorService;
 
     /**
-     * Constructor for the GetListOfRoomsController class.
+     * Constructor.
      *
-     * @param roomService   The room service.
-     * @param roomAssembler The room assembler.
+     * @param sensorModelService is the sensor model service.
+     * @param sensorModelAssembler is the sensor model assembler.
+     * @param sensorTypeService is the sensor type service.
+     * @param sensorTypeAssembler is the sensor type assembler.
+     * @param sensorAssembler is the sensor assembler.
+     * @param sensorService is the sensor service.
      */
     public AddSensorToDeviceController(
-            IRoomService roomService,
-            IAssembler<Room, RoomDTO> roomAssembler,
-            IDeviceService deviceService,
-            IAssembler<Device, DeviceDTO> deviceAssembler,
+
             ISensorModelService sensorModelService,
             IAssembler<SensorModel, SensorModelDTO> sensorModelAssembler,
             ISensorTypeService sensorTypeService,
             IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler,
             IAssembler<ISensor, SensorDTO> sensorAssembler,
             ISensorService sensorService) {
-      validateNotNull(roomService, "Room service");
-      validateNotNull(roomAssembler, "Room assembler");
-      validateNotNull(deviceService, "Device service");
-      validateNotNull(deviceAssembler, "Device assembler");
-      validateNotNull(sensorModelService, "Sensor model service");
-      validateNotNull(sensorModelAssembler, "Sensor model assembler");
-      validateNotNull(sensorTypeService, "Sensor type service");
-      validateNotNull(sensorTypeAssembler, "Sensor type assembler");
-      validateNotNull(sensorAssembler, "Sensor assembler");
-      validateNotNull(sensorService, "Sensor service");
-      this.roomService = roomService;
-      this.roomAssembler = roomAssembler;
-      this.deviceService = deviceService;
-      this.deviceAssembler = deviceAssembler;
+
+
+      Validator.validateNotNull(sensorModelService, "Sensor model service");
+      Validator.validateNotNull(sensorModelAssembler, "Sensor model assembler");
+      Validator.validateNotNull(sensorTypeService, "Sensor type service");
+      Validator.validateNotNull(sensorTypeAssembler, "Sensor type assembler");
+      Validator.validateNotNull(sensorAssembler, "Sensor assembler");
+      Validator.validateNotNull(sensorService, "Sensor service");
+
+
       this.sensorModelService = sensorModelService;
       this.sensorModelAssembler = sensorModelAssembler;
       this.sensorTypeService = sensorTypeService;
@@ -90,7 +83,7 @@ public class AddSensorToDeviceController {
     public List<SensorModelDTO> getSensorModels(SensorTypeDTO sensorTypeDTO) {
         SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeDTO.sensorTypeID);
 
-        if (!sensorTypeService.getSensorTypeByID(sensorTypeID).isPresent()) {
+        if (sensorTypeService.getSensorTypeByID(sensorTypeID).isEmpty()) {
             throw new IllegalArgumentException("Sensor type with ID " + sensorTypeID + " not found.");
         }
 

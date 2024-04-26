@@ -61,13 +61,18 @@ class GetListOfRoomsControllerTest {
 
     IRoomService roomServiceImpl = null;
 
-    //Act
-    try {
+    String expectedMessage = "Room service is required";
+
+    //Act + Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(
           roomServiceImpl, roomAssembler);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid room service.", e.getMessage());
-    }
+    });
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
+
   }
 
   /**
@@ -85,13 +90,17 @@ class GetListOfRoomsControllerTest {
     IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory,
         houseRepository);
 
+    String expectedMessage = "Room assembler is required";
+
     //Act
-    try {
+   Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(
           roomServiceImpl, roomAssembler);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid room assembler.", e.getMessage());
-    }
+    });
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**

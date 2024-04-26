@@ -6,14 +6,15 @@ import smart_home.domain.device_type.DeviceType;
 import smart_home.domain.service.IDeviceService;
 import smart_home.domain.service.IDeviceTypeService;
 import smart_home.dto.DeviceDTO;
+import smart_home.utils.Validator;
 
 
 import java.util.*;
 
 public class GetListOfAllDevicesGroupedByFunctionalityController {
-    private IDeviceService _deviceService;
-    private IDeviceTypeService _deviceTypeService;
-    private IAssembler<Device, DeviceDTO> _deviceAssembler;
+    private final IDeviceService _deviceService;
+    private final IDeviceTypeService _deviceTypeService;
+    private final IAssembler<Device, DeviceDTO> _deviceAssembler;
 
 
     /**
@@ -24,45 +25,13 @@ public class GetListOfAllDevicesGroupedByFunctionalityController {
      * @param deviceTypeService is the service for the device type.
      */
     public GetListOfAllDevicesGroupedByFunctionalityController(IDeviceService deviceService, IAssembler<Device, DeviceDTO> deviceAssembler, IDeviceTypeService deviceTypeService) {
-        validateDeviceService(deviceService);
-        validateDeviceAssembler(deviceAssembler);
-        validateDeviceTypeService(deviceTypeService);
-    }
+      Validator.validateNotNull(deviceService, "Device service");
+      Validator.validateNotNull(deviceAssembler, "Device assembler");
+      Validator.validateNotNull(deviceTypeService, "Device type service");
 
-    /**
-     * Validate the DeviceService.
-     *
-     * @param deviceService The DeviceService to validate.
-     */
-    private void validateDeviceService(IDeviceService deviceService) {
-        if (deviceService == null) {
-            throw new IllegalArgumentException("DeviceService cannot be null.");
-        }
-        _deviceService = deviceService;
-    }
-
-    /**
-     * Validate the DeviceAssembler.
-     *
-     * @param deviceAssembler The DeviceAssembler to validate.
-     */
-    private void validateDeviceAssembler(IAssembler<Device, DeviceDTO> deviceAssembler) {
-        if (deviceAssembler == null) {
-            throw new IllegalArgumentException("DeviceAssembler cannot be null.");
-        }
-        _deviceAssembler = deviceAssembler;
-    }
-
-    /**
-     * Validate the DeviceTypeRepository.
-     *
-     * @param deviceTypeService The DeviceTypeRepository to validate.
-     */
-    private void validateDeviceTypeService(IDeviceTypeService deviceTypeService) {
-        if (deviceTypeService == null) {
-            throw new IllegalArgumentException("DeviceTypeService cannot be null.");
-        }
-        _deviceTypeService = deviceTypeService;
+      this._deviceAssembler = deviceAssembler;
+      this._deviceService = deviceService;
+      this._deviceTypeService = deviceTypeService;
     }
 
 

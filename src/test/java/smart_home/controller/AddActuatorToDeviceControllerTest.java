@@ -126,7 +126,7 @@ class AddActuatorToDeviceControllerTest {
 
   /** Test to check if the AddActuatorToDeviceController is being created correctly. */
   @Test
-  void shouldCreateAddActuatorToDeviceController() throws InstantiationException {
+  void shouldThrowExceptionWhenRoomServiceIsNull() throws InstantiationException {
     // Assert
     LoadModelsAndUnit loadModelsAndUnit =
         new LoadModelsAndUnit(
@@ -137,22 +137,28 @@ class AddActuatorToDeviceControllerTest {
             actuatorModelFactory,
             unitFactory);
 
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          null,
-          roomAssembler,
-          deviceServiceImpl,
-          deviceAssembler,
-          actuatorModelServiceImpl,
-          actuatorModelAssembler,
-          ActuatorTypeServiceImpl,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid room service.", e.getMessage());
-    }
+    String expectedMessage = "Room service is required";
+
+    // Act + Assert
+    Exception exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddActuatorToDeviceController(
+                    null,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    actuatorModelServiceImpl,
+                    actuatorModelAssembler,
+                    ActuatorTypeServiceImpl,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -171,22 +177,29 @@ class AddActuatorToDeviceControllerTest {
             sensorModelFactory,
             actuatorModelFactory,
             unitFactory);
+
+    String expectedMessage = "Room assembler is required";
+
     // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomServiceImpl,
-          null,
-          deviceServiceImpl,
-          deviceAssembler,
-          actuatorModelServiceImpl,
-          actuatorModelAssembler,
-          ActuatorTypeServiceImpl,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid room assembler.", e.getMessage());
-    }
+    Exception exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddActuatorToDeviceController(
+                    roomServiceImpl,
+                    null,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    actuatorModelServiceImpl,
+                    actuatorModelAssembler,
+                    ActuatorTypeServiceImpl,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -205,22 +218,28 @@ class AddActuatorToDeviceControllerTest {
             sensorModelFactory,
             actuatorModelFactory,
             unitFactory);
+
+    String expectedMessage = "Device service is required";
     // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomServiceImpl,
-          roomAssembler,
-          null,
-          deviceAssembler,
-          actuatorModelServiceImpl,
-          actuatorModelAssembler,
-          ActuatorTypeServiceImpl,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid device service.", e.getMessage());
-    }
+    Exception exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddActuatorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    null,
+                    deviceAssembler,
+                    actuatorModelServiceImpl,
+                    actuatorModelAssembler,
+                    ActuatorTypeServiceImpl,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -239,22 +258,28 @@ class AddActuatorToDeviceControllerTest {
             sensorModelFactory,
             actuatorModelFactory,
             unitFactory);
+
+    String expectedMessage = "Device assembler is required";
     // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomServiceImpl,
-          roomAssembler,
-          deviceServiceImpl,
-          null,
-          actuatorModelServiceImpl,
-          actuatorModelAssembler,
-          ActuatorTypeServiceImpl,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid device assembler.", e.getMessage());
-    }
+    Exception exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddActuatorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    null,
+                    actuatorModelServiceImpl,
+                    actuatorModelAssembler,
+                    ActuatorTypeServiceImpl,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -273,26 +298,28 @@ class AddActuatorToDeviceControllerTest {
             sensorModelFactory,
             actuatorModelFactory,
             unitFactory);
-    //        ActuatorConfigurationService configurationService =
-    //                new ActuatorConfigurationService(
-    //                        actuatorModelRepository, unitRepository, actuatorModelFactory,
-    // unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomServiceImpl,
-          roomAssembler,
-          deviceServiceImpl,
-          deviceAssembler,
-          null,
-          actuatorModelAssembler,
-          ActuatorTypeServiceImpl,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator model service.", e.getMessage());
-    }
+
+    String expectedMessage = "Actuator model service is required";
+     //Act + Assert
+    Exception exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddActuatorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    null,
+                    actuatorModelAssembler,
+                    ActuatorTypeServiceImpl,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -311,25 +338,36 @@ class AddActuatorToDeviceControllerTest {
             sensorModelFactory,
             actuatorModelFactory,
             unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomServiceImpl,
-          roomAssembler,
-          deviceServiceImpl,
-          deviceAssembler,
-          actuatorModelServiceImpl,
-          null,
-          ActuatorTypeServiceImpl,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator model assembler.", e.getMessage());
-    }
+
+    String expectedMessage = "Actuator model assembler is required";
+
+    // Act + Assert
+    Exception exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddActuatorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    actuatorModelServiceImpl,
+                    null,
+                    ActuatorTypeServiceImpl,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
+
   }
 
-  /** Should throw exception when actuator configuration service is null. */
+
+  /**
+   * Should throw exception when actuator type service is null.
+   */
   @Test
   void shouldThrowException_whenConfigurationServiceIsNull() {
     // Act
@@ -366,22 +404,29 @@ class AddActuatorToDeviceControllerTest {
             sensorModelFactory,
             actuatorModelFactory,
             unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomServiceImpl,
-          roomAssembler,
-          deviceServiceImpl,
-          deviceAssembler,
-          actuatorModelServiceImpl,
-          actuatorModelAssembler,
-          null,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator type service.", e.getMessage());
-    }
+
+    String expectedMessage = "Actuator type service is required";
+
+    // Act + Assert
+    Exception exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddActuatorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    actuatorModelServiceImpl,
+                    actuatorModelAssembler,
+                    null,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    actuatorService));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -400,22 +445,28 @@ class AddActuatorToDeviceControllerTest {
             sensorModelFactory,
             actuatorModelFactory,
             unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomServiceImpl,
-          roomAssembler,
-          deviceServiceImpl,
-          deviceAssembler,
-          actuatorModelServiceImpl,
-          actuatorModelAssembler,
-          ActuatorTypeServiceImpl,
-          null,
-          actuatorAssembler,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator type assembler.", e.getMessage());
-    }
+
+    String expectedMessage = "Actuator type assembler is required";
+    // Act + Assert
+    Exception exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddActuatorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    actuatorModelServiceImpl,
+                    actuatorModelAssembler,
+                    ActuatorTypeServiceImpl,
+                    null,
+                    actuatorAssembler,
+                    actuatorService));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -434,22 +485,28 @@ class AddActuatorToDeviceControllerTest {
             sensorModelFactory,
             actuatorModelFactory,
             unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomServiceImpl,
-          roomAssembler,
-          deviceServiceImpl,
-          deviceAssembler,
-          actuatorModelServiceImpl,
-          actuatorModelAssembler,
-          ActuatorTypeServiceImpl,
-          actuatorTypeAssembler,
-          null,
-          actuatorService);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator assembler.", e.getMessage());
-    }
+
+    String expectedMessage = "Actuator assembler is required";
+    // Act + Assert
+    Exception exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddActuatorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    actuatorModelServiceImpl,
+                    actuatorModelAssembler,
+                    ActuatorTypeServiceImpl,
+                    actuatorTypeAssembler,
+                    null,
+                    actuatorService));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -468,22 +525,28 @@ class AddActuatorToDeviceControllerTest {
             sensorModelFactory,
             actuatorModelFactory,
             unitFactory);
-    // Act
-    try {
-      new AddActuatorToDeviceController(
-          roomServiceImpl,
-          roomAssembler,
-          deviceServiceImpl,
-          deviceAssembler,
-          actuatorModelServiceImpl,
-          actuatorModelAssembler,
-          ActuatorTypeServiceImpl,
-          actuatorTypeAssembler,
-          actuatorAssembler,
-          null);
-    } catch (IllegalArgumentException e) {
-      assertEquals("Please enter a valid actuator service.", e.getMessage());
-    }
+
+    String expectedMessage = "Actuator service is required";
+    // Act + Assert
+   Exception exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new AddActuatorToDeviceController(
+                    roomServiceImpl,
+                    roomAssembler,
+                    deviceServiceImpl,
+                    deviceAssembler,
+                    actuatorModelServiceImpl,
+                    actuatorModelAssembler,
+                    ActuatorTypeServiceImpl,
+                    actuatorTypeAssembler,
+                    actuatorAssembler,
+                    null));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -554,7 +617,6 @@ class AddActuatorToDeviceControllerTest {
   /**
    * Should throw exception when room ID does not exist in repository.
    *
-   * @throws InstantiationException
    */
   @Test
   void shouldThrowException_WhenRoomIDDoesNotExistInRepository() throws InstantiationException {
@@ -1115,7 +1177,7 @@ class AddActuatorToDeviceControllerTest {
     loadHouseAndRoom();
     List<Room> rooms = roomRepository.findAll();
     RoomID roomID = rooms.get(0).getID();
-    Device device = loadDevice(roomID);
+    loadDevice(roomID);
 
     TypeDescription typeDescription = new TypeDescription("Switch");
     UnitID unit = new UnitID("Percent");
@@ -1137,12 +1199,14 @@ class AddActuatorToDeviceControllerTest {
             actuatorTypeAssembler,
             actuatorAssembler,
             actuatorService);
+
+    String expectedMessage = "Actuator data DTO is required";
     // Act
     IllegalArgumentException exception =
         assertThrows(
             IllegalArgumentException.class, () -> controller.addActuatorToDevice(actuatorDataDTO));
 
     // Assert
-    assertEquals("Please enter a valid actuator data DTO.", exception.getMessage());
+    assertEquals(expectedMessage, exception.getMessage());
   }
 }

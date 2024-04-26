@@ -286,4 +286,30 @@ class GetLogFromDeviceControllerTest {
     // Assert
     assertEquals(expected, logs.size());
   }
+
+  /**
+   * Should throw a IllegalArgumentException when the log service is null.
+   */
+  @Test
+  void shouldThrowExceptionWhenLogServiceIsNull() {
+    String expected = "Log Service is required";
+
+    //Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetLogFromDeviceController(null, mock(IAssembler.class)));
+
+    assertEquals(expected, exception.getMessage());
+  }
+
+  /**
+   * Should throw a IllegalArgumentException when the log assembler is null.
+   */
+  @Test
+  void shouldThrowExceptionWhenLogAssemblerIsNull() {
+    String expected = "Log Assembler is required";
+
+    //Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetLogFromDeviceController(mock(ILogService.class), null));
+
+    assertEquals(expected, exception.getMessage());
+  }
 }

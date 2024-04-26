@@ -55,7 +55,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-public class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
+ class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
 
   /**
    * Test to check if the class is instantiated given valid parameters to the constructor

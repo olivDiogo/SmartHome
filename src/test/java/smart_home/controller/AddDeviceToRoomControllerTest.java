@@ -1,6 +1,7 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import smart_home.ddd.IAggregateRoot;
@@ -37,7 +38,9 @@ import java.util.List;
 
 class AddDeviceToRoomControllerTest {
 
-  /** Test to verify if the AddDeviceToRoomController is being instantiated correctly. */
+  /**
+   * Test to verify if the AddDeviceToRoomController is being instantiated correctly.
+   */
   @Test
   void shouldInstantiateAddDeviceToRoomController_WhenParametersAreValid() {
     // Arrange
@@ -66,7 +69,9 @@ class AddDeviceToRoomControllerTest {
     assertNotNull(addDeviceToRoomController);
   }
 
-  /** Test to verify if an exception is thrown when the RoomService is null. */
+  /**
+   * Test to verify if an exception is thrown when the RoomService is null.
+   */
   @Test
   void shouldThrowException_WhenRoomServiceIsNull() {
     // Arrange
@@ -82,7 +87,7 @@ class AddDeviceToRoomControllerTest {
 
     IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-    String expectedMessage = "Please enter a valid room service.";
+    String expectedMessage = "Room service is required";
 
     // Act
     Throwable exception =
@@ -96,7 +101,9 @@ class AddDeviceToRoomControllerTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test to verify if an exception is thrown when the RoomAssembler is null. */
+  /**
+   * Test to verify if an exception is thrown when the RoomAssembler is null.
+   */
   @Test
   void shouldThrowException_WhenRoomAssemblerIsNull() {
     // Arrange
@@ -113,7 +120,7 @@ class AddDeviceToRoomControllerTest {
 
     IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-    String expectedMessage = "Please enter a valid room assembler.";
+    String expectedMessage = "Room assembler is required";
 
     // Act
     Throwable exception =
@@ -127,7 +134,9 @@ class AddDeviceToRoomControllerTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test to verify if an exception is thrown when the DeviceService is null. */
+  /**
+   * Test to verify if an exception is thrown when the DeviceService is null.
+   */
   @Test
   void shouldThrowException_WhenDeviceServiceIsNull() {
     // Arrange
@@ -139,7 +148,7 @@ class AddDeviceToRoomControllerTest {
 
     IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-    String expectedMessage = "Please enter a valid device service.";
+    String expectedMessage = "Device service is required";
 
     // Act
     Throwable exception =
@@ -153,7 +162,9 @@ class AddDeviceToRoomControllerTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test to verify if an exception is thrown when the DeviceAssembler is null. */
+  /**
+   * Test to verify if an exception is thrown when the DeviceAssembler is null.
+   */
   @Test
   void shouldThrowException_WhenDeviceAssemblerIsNull() {
     // Arrange
@@ -169,7 +180,7 @@ class AddDeviceToRoomControllerTest {
         new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
     IAssembler<Device, DeviceDTO> deviceAssembler = null;
 
-    String expectedMessage = "Please enter a valid device assembler.";
+    String expectedMessage = "Device assembler is required";
 
     // Act
     Throwable exception =
@@ -183,7 +194,9 @@ class AddDeviceToRoomControllerTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Tests retrieving a list of RoomDTOs, checking if the returned data matches the expected. */
+  /**
+   * Tests retrieving a list of RoomDTOs, checking if the returned data matches the expected.
+   */
   @Test
   void shouldReturnListOfRoomDTOs_WhenGetAllRoomsIsCalled() {
     // Arrange
@@ -259,7 +272,9 @@ class AddDeviceToRoomControllerTest {
     assertEquals(expectedList, actualList);
   }
 
-  /** Asserts that an exception is thrown when the list of rooms is empty. */
+  /**
+   * Asserts that an exception is thrown when the list of rooms is empty.
+   */
   @Test
   void shouldThrowException_WhenListOfRoomsIsEmpty() {
     // Arrange
@@ -277,7 +292,7 @@ class AddDeviceToRoomControllerTest {
     IDeviceService deviceServiceImpl =
         new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-    IAssembler<Device,DeviceDTO> deviceAssembler= new DeviceAssembler();
+    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
     AddDeviceToRoomController addDeviceToRoomController =
         new AddDeviceToRoomController(
@@ -286,12 +301,12 @@ class AddDeviceToRoomControllerTest {
     // Act + Assert
     assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          addDeviceToRoomController.getAllRooms();
-        });
+        addDeviceToRoomController::getAllRooms);
   }
 
-  /** Confirms that a DeviceDTO is returned correctly when a device is added to a room. */
+  /**
+   * Confirms that a DeviceDTO is returned correctly when a device is added to a room.
+   */
   @Test
   void shouldReturnDeviceDTO_WhenAddDeviceToRoomIsCalled() {
     // Arrange
@@ -378,7 +393,9 @@ class AddDeviceToRoomControllerTest {
     assertEquals(expectedDeviceDTO.deviceName, deviceDTO.deviceName);
   }
 
-  /** Ensures that an exception is thrown when the specified room does not exist. */
+  /**
+   * Ensures that an exception is thrown when the specified room does not exist.
+   */
   @Test
   void shouldThrowException_WhenRoomDoesNotExist() {
     // Arrange
@@ -396,7 +413,7 @@ class AddDeviceToRoomControllerTest {
     IDeviceService deviceServiceImpl =
         new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-    IAssembler<Device,DeviceDTO> deviceAssembler = new DeviceAssembler();
+    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
     AddDeviceToRoomController addDeviceToRoomController =
         new AddDeviceToRoomController(

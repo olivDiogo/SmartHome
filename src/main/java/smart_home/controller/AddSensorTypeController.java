@@ -8,16 +8,17 @@ import smart_home.domain.unit.Unit;
 import smart_home.dto.SensorTypeDTO;
 import smart_home.dto.SensorTypeDataDTO;
 import smart_home.dto.UnitDTO;
+import smart_home.utils.Validator;
 import smart_home.value_object.TypeDescription;
 import smart_home.value_object.UnitID;
 
 import java.util.List;
 
 public class AddSensorTypeController {
-    private ISensorTypeService _sensorTypeService;
-    private IUnitService _unitService;
-    private IAssembler<SensorType, SensorTypeDTO> _sensorTypeAssembler;
-    private IAssembler<Unit, UnitDTO> _unitAssembler;
+    private final ISensorTypeService _sensorTypeService;
+    private final IUnitService _unitService;
+    private final IAssembler<SensorType, SensorTypeDTO> _sensorTypeAssembler;
+    private final IAssembler<Unit, UnitDTO> _unitAssembler;
 
     /**
      * Constructs an AddSensorTypeController with the specified services and assemblers.
@@ -29,58 +30,16 @@ public class AddSensorTypeController {
      */
     public AddSensorTypeController(ISensorTypeService sensorTypeService, IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler,
                                    IUnitService unitService, IAssembler<Unit, UnitDTO> unitAssembler) {
-        validateSensorTypeService(sensorTypeService);
-        validateUnitService(unitService);
-        validateSensorTypeAssembler(sensorTypeAssembler);
-        validateUnitAssembler(unitAssembler);
-    }
+      Validator.validateNotNull(sensorTypeService, "Sensor type service");
+      Validator.validateNotNull(sensorTypeAssembler, "Sensor type assembler");
+      Validator.validateNotNull(unitService, "Unit service");
+      Validator.validateNotNull(unitAssembler, "Unit assembler");
 
-    /**
-     * Validates the sensor type service.
-     *
-     * @param sensorTypeService The sensor type service to validate.
-     */
-    private void validateSensorTypeService(ISensorTypeService sensorTypeService) {
-        if (sensorTypeService == null) {
-            throw new IllegalArgumentException("Valid SensorTypeService is required");
-        }
-        _sensorTypeService = sensorTypeService;
-    }
+      this._sensorTypeService = sensorTypeService;
+      this._sensorTypeAssembler = sensorTypeAssembler;
+      this._unitService = unitService;
+      this._unitAssembler = unitAssembler;
 
-    /**
-     * Validates the unit service.
-     *
-     * @param unitService The unit service to validate.
-     */
-    private void validateUnitService(IUnitService unitService) {
-        if (unitService == null) {
-            throw new IllegalArgumentException("Valid UnitService is required");
-        }
-        _unitService = unitService;
-    }
-
-    /**
-     * Validates the sensor type assembler.
-     *
-     * @param sensorTypeAssembler The sensor type assembler to validate.
-     */
-    private void validateSensorTypeAssembler(IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler) {
-        if (sensorTypeAssembler == null) {
-            throw new IllegalArgumentException("Valid SensorTypeAssembler is required");
-        }
-        _sensorTypeAssembler = sensorTypeAssembler;
-    }
-
-    /**
-     * Validates the unit assembler.
-     *
-     * @param unitAssembler The unit assembler to validate.
-     */
-    private void validateUnitAssembler(IAssembler<Unit, UnitDTO> unitAssembler) {
-        if (unitAssembler == null) {
-            throw new IllegalArgumentException("Valid UnitAssembler is required");
-        }
-        _unitAssembler = unitAssembler;
     }
 
     /**

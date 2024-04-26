@@ -5,6 +5,7 @@ import smart_home.domain.house.House;
 import smart_home.domain.service.IHouseService;
 import smart_home.dto.HouseDTO;
 import smart_home.dto.HouseDataDTO;
+import smart_home.utils.Validator;
 import smart_home.value_object.Address;
 import smart_home.value_object.GPS;
 import smart_home.value_object.PostalCodeFactory;
@@ -13,8 +14,8 @@ import smart_home.value_object.PostalCodeFactory;
  * Controller responsible for configuring the location of a house.
  */
 public class ConfigureHouseLocationController {
-    private IHouseService _houseService;
-    private IAssembler<House, HouseDTO> _houseAssembler;
+    private final IHouseService _houseService;
+    private final IAssembler<House, HouseDTO> _houseAssembler;
 
     /**
      * Constructs a new instance of US01ConfigureHouseLocationController with the provided dependencies.
@@ -24,35 +25,14 @@ public class ConfigureHouseLocationController {
      * @throws IllegalArgumentException If either houseService or houseAssembler is null.
      */
     public ConfigureHouseLocationController(IHouseService houseService, IAssembler<House, HouseDTO> houseAssembler) {
-        validateHouseService(houseService);
-        validateHouseAssembler(houseAssembler);
+      Validator.validateNotNull(houseService, "House service");
+      Validator.validateNotNull(houseAssembler, "House assembler");
+
+      this._houseAssembler = houseAssembler;
+      this._houseService = houseService;
     }
 
-    /**
-     * Validates the provided houseService parameter.
-     *
-     * @param houseService The house service to validate.
-     * @throws IllegalArgumentException If houseService is null.
-     */
-    private void validateHouseService(IHouseService houseService) {
-        if (houseService == null) {
-            throw new IllegalArgumentException("HouseService cannot be null.");
-        }
-        this._houseService = houseService;
-    }
 
-    /**
-     * Validates the provided houseAssembler parameter.
-     *
-     * @param houseAssembler The house assembler to validate.
-     * @throws IllegalArgumentException If houseAssembler is null.
-     */
-    private void validateHouseAssembler(IAssembler<House, HouseDTO> houseAssembler) {
-        if (houseAssembler == null) {
-            throw new IllegalArgumentException("HouseAssembler cannot be null.");
-        }
-        this._houseAssembler = houseAssembler;
-    }
 
     /**
      * Configures the location of a house based on the provided house data DTO.
@@ -65,8 +45,7 @@ public class ConfigureHouseLocationController {
         GPS gps = new GPS(houseDataDTO.latitude, houseDataDTO.longitude);
 
         House house = _houseService.addHouse(address, gps);
-        HouseDTO houseDTO = _houseAssembler.domainToDTO(house);
 
-        return houseDTO;
+      return _houseAssembler.domainToDTO(house);
     }
 }

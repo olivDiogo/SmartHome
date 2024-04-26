@@ -1,6 +1,7 @@
 package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
@@ -15,7 +16,6 @@ import smart_home.dto.HouseDTO;
 import smart_home.dto.HouseDataDTO;
 import smart_home.service.HouseServiceImpl;
 
-/** Tests for the US01ConfigureHouseLocationController class. */
 class ConfigureHouseLocationControllerTest {
 
   /**
@@ -31,43 +31,51 @@ class ConfigureHouseLocationControllerTest {
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
     // Act
-    ConfigureHouseLocationController result =
-        new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
+    ConfigureHouseLocationController result = new ConfigureHouseLocationController(houseServiceImpl,
+        houseAssembler);
 
     // Assert
     assertNotNull(result);
   }
 
-  /** Verifies that an exception is thrown when the houseAssembler parameter is null. */
+  /**
+   * Verifies that an exception is thrown when the houseAssembler parameter is null.
+   */
   @Test
   void shouldThrowException_whenHouseAssemblerIsNull() {
-    // Arrange: Initialize required components
+    // Arrange
     IHouseRepository houseRepository = mock(IHouseRepository.class);
     IHouseFactory houseFactory = new HouseFactoryImpl();
     IAssembler<House, HouseDTO> houseAssembler = null;
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
+    String expectedMessage = "House assembler is required";
+
     // Act & Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
-        });
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
+    });
+
+    assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Verifies that an exception is thrown when the houseService parameter is null. */
+  /**
+   * Verifies that an exception is thrown when the houseService parameter is null.
+   */
   @Test
   void shouldThrowException_whenHouseServiceIsNull() {
     // Arrange: Initialize required components
-   IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
+    IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
     IHouseService houseServiceImpl = null;
 
+    String expectedMessage = "House service is required";
+
     // Act & Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
-        });
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
+    });
+
+    assertEquals(expectedMessage, exception.getMessage());
   }
 
   /**
@@ -81,8 +89,8 @@ class ConfigureHouseLocationControllerTest {
     IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-    ConfigureHouseLocationController configureHouseLocationController =
-        new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
+    ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(
+        houseServiceImpl, houseAssembler);
 
     String street = "Rua do Ouro";
     String doorNumber = "123";
@@ -90,8 +98,8 @@ class ConfigureHouseLocationControllerTest {
     String countryCode = "PT";
     double latitude = 41.14961;
     double longitude = -8.61099;
-    HouseDataDTO houseDataDTO =
-        new HouseDataDTO(street, doorNumber, postalCode, countryCode, latitude, longitude);
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
 
     // Act
     HouseDTO result = configureHouseLocationController.configureHouseLocation(houseDataDTO);
@@ -100,7 +108,9 @@ class ConfigureHouseLocationControllerTest {
     assertNotNull(result);
   }
 
-  /** Verify that House is correctly configured when postal code is Spanish */
+  /**
+   * Verify that House is correctly configured when postal code is Spanish
+   */
   @Test
   void shouldReturnHouseDTO_whenHouseIsConfiguredWithSpanishPostalCode() {
     // Arrange
@@ -109,8 +119,8 @@ class ConfigureHouseLocationControllerTest {
     IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-    ConfigureHouseLocationController configureHouseLocationController =
-        new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
+    ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(
+        houseServiceImpl, houseAssembler);
 
     String street = "Calle de la Paz";
     String doorNumber = "123";
@@ -118,8 +128,8 @@ class ConfigureHouseLocationControllerTest {
     String countryCode = "ES";
     double latitude = 40.41536;
     double longitude = -3.70739;
-    HouseDataDTO houseDataDTO =
-        new HouseDataDTO(street, doorNumber, postalCode, countryCode, latitude, longitude);
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
 
     // Act
     HouseDTO result = configureHouseLocationController.configureHouseLocation(houseDataDTO);
@@ -128,7 +138,9 @@ class ConfigureHouseLocationControllerTest {
     assertNotNull(result);
   }
 
-  /** Verify that House is correctly configured when postal code is Canadian */
+  /**
+   * Verify that House is correctly configured when postal code is Canadian
+   */
   @Test
   void shouldReturnHouseDTO_whenHouseIsConfiguredWithCanadianPostalCode() {
     // Arrange
@@ -137,8 +149,8 @@ class ConfigureHouseLocationControllerTest {
     IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-    ConfigureHouseLocationController configureHouseLocationController =
-        new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
+    ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(
+        houseServiceImpl, houseAssembler);
 
     String street = "123 Main St";
     String doorNumber = "123";
@@ -146,8 +158,8 @@ class ConfigureHouseLocationControllerTest {
     String countryCode = "CA";
     double latitude = 45.42153;
     double longitude = -75.69719;
-    HouseDataDTO houseDataDTO =
-        new HouseDataDTO(street, doorNumber, postalCode, countryCode, latitude, longitude);
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
 
     // Act
     HouseDTO result = configureHouseLocationController.configureHouseLocation(houseDataDTO);
@@ -156,7 +168,9 @@ class ConfigureHouseLocationControllerTest {
     assertNotNull(result);
   }
 
-  /** Verify that House is correctly configured when postal code is American */
+  /**
+   * Verify that House is correctly configured when postal code is American
+   */
   @Test
   void shouldReturnHouseDTO_whenHouseIsConfiguredWithAmericanPostalCode() {
     // Arrange
@@ -165,8 +179,8 @@ class ConfigureHouseLocationControllerTest {
     IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
 
-    ConfigureHouseLocationController configureHouseLocationController =
-        new ConfigureHouseLocationController(houseServiceImpl, houseAssembler);
+    ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(
+        houseServiceImpl, houseAssembler);
 
     String street = "1600 Amphitheatre Parkway";
     String doorNumber = "123";
@@ -174,8 +188,8 @@ class ConfigureHouseLocationControllerTest {
     String countryCode = "US";
     double latitude = 37.4220;
     double longitude = -122.0841;
-    HouseDataDTO houseDataDTO =
-        new HouseDataDTO(street, doorNumber, postalCode, countryCode, latitude, longitude);
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
 
     // Act
     HouseDTO result = configureHouseLocationController.configureHouseLocation(houseDataDTO);

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GetDevicesByRoomAndTemperatureFunctionalityController {
-  private IDeviceService deviceService;
+  private final IDeviceService deviceService;
 
   /**
    * Constructor for GetDevicesByRoomAndTemperatureFunctionalityController.
@@ -34,8 +34,7 @@ public class GetDevicesByRoomAndTemperatureFunctionalityController {
     Validator.validateNotNull(roomDTO, "Room DTO");
 
     List<DeviceDTO> temperatureDevicesDTO = deviceService.getDevicesByTypeDescriptionFromMap(map, "Temperature");
-    List<DeviceDTO> temperatureDevicesInRoomDTO =  deviceService.getDevicesFromListByRoomId(temperatureDevicesDTO, new RoomID(roomDTO.roomId));
 
-    return temperatureDevicesInRoomDTO;
+    return deviceService.getDevicesFromListByRoomId(temperatureDevicesDTO, new RoomID(roomDTO.roomId));
   }
 }

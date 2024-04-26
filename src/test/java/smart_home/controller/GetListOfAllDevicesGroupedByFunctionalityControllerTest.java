@@ -88,10 +88,16 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     IDeviceTypeService deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository,
         deviceTypeFactory);
 
+    String expectedMessage = "Device service is required";
+
     //Act & Assert
-    assertThrows(IllegalArgumentException.class,
+    Exception exception = assertThrows(IllegalArgumentException.class,
         () -> new GetListOfAllDevicesGroupedByFunctionalityController(null, deviceAssembler,
-            deviceTypeServiceImpl), "DeviceService cannot be null.");
+            deviceTypeServiceImpl));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -112,10 +118,16 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     IDeviceTypeService deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository,
         deviceTypeFactory);
 
+    String expectedMessage = "Device assembler is required";
+
     //Act & Assert
-    assertThrows(IllegalArgumentException.class,
+    Exception exception = assertThrows(IllegalArgumentException.class,
         () -> new GetListOfAllDevicesGroupedByFunctionalityController(deviceServiceImpl, null,
-            deviceTypeServiceImpl), "DeviceAssembler cannot be null.");
+            deviceTypeServiceImpl));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   /**
@@ -132,10 +144,16 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
         roomRepository);
     IAssembler<Device, DeviceDTO>  deviceAssembler = new DeviceAssembler();
 
+    String expectedMessage = "Device type service is required";
+
     //Act & Assert
-    assertThrows(IllegalArgumentException.class,
+    Exception exception = assertThrows(IllegalArgumentException.class,
         () -> new GetListOfAllDevicesGroupedByFunctionalityController(deviceServiceImpl,
-            deviceAssembler, null), "DeviceTypeService cannot be null.");
+            deviceAssembler, null));
+
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   @Test
@@ -160,7 +178,7 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
 
     //Act & Assert
     assertThrows(IllegalArgumentException.class,
-        () -> getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality(),
+        getListOfAllDevicesGroupedByFunctionality::getDevicesDTOGroupedByFunctionality,
         "No devices found.");
   }
 
@@ -413,7 +431,7 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
 
     // Act & Assert
     Exception e = assertThrows(IllegalArgumentException.class,
-        () -> getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality());
+        getListOfAllDevicesGroupedByFunctionality::getDevicesDTOGroupedByFunctionality);
 
     // Assert
     String actualMessage = e.getMessage();

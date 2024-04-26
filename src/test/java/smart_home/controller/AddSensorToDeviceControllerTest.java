@@ -61,11 +61,9 @@ class AddSensorToDeviceControllerTest {
   private IRoomRepository roomRepository;
   private IRoomFactory roomFactory;
   private IRoomService roomServiceImpl;
-  private IAssembler<Room, RoomDTO> roomAssembler;
   private IDeviceRepository deviceRepository;
   private IDeviceFactory deviceFactory;
   private IDeviceService deviceServiceImpl;
-  private IAssembler<Device, DeviceDTO> deviceAssembler;
   private IUnitRepository unitRepository;
   private IUnitFactory unitFactory;
   private ISensorRepository sensorRepository;
@@ -92,13 +90,11 @@ class AddSensorToDeviceControllerTest {
 
     roomRepository = mock(IRoomRepository.class);
     roomFactory = new RoomFactoryImpl();
-    roomAssembler = new RoomAssembler();
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
     deviceRepository = mock(IDeviceRepository.class);
     deviceFactory = new DeviceFactoryImpl();
     deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-    deviceAssembler = new DeviceAssembler();
 
     unitRepository = mock(IUnitRepository.class);
     unitFactory = new UnitFactoryImpl();
@@ -186,10 +182,7 @@ class AddSensorToDeviceControllerTest {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -201,123 +194,111 @@ class AddSensorToDeviceControllerTest {
     assertNotNull(addSensorToDeviceController);
   }
 
-  /**
-   * Test to check if the AddSensorToDeviceController is returning null when the RoomService is
-   * null.
-   */
-  @Test
-  void shouldThrowException_whenRoomServiceIsNull() throws InstantiationException {
-    // Arrange
-    RoomServiceImpl roomServiceImpl = null;
-    String message = "Room service is required";
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () ->
-                new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl));
-    // Assert
-    assertEquals(message, exception.getMessage());
-  }
-
-  /**
-   * Test to check if the AddSensorToDeviceController is returning null when the RoomAssembler is
-   * null.
-   */
-  @Test
-  void shouldThrowException_whenRoomAssemblerIsNull() throws InstantiationException {
-    // Arrange
-    RoomAssembler roomAssembler = null;
-    String message = "Room assembler is required";
-
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () ->
-                new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl));
-    // Assert
-    assertEquals(message, exception.getMessage());
-  }
-
-  /**
-   * Test to check if the AddSensorToDeviceController is returning null when the DeviceService is
-   * null.
-   */
-  @Test
-  void shouldThrowException_whenDeviceServiceIsNull() throws InstantiationException {
-    // Arrange
-    DeviceServiceImpl deviceServiceImpl = null;
-    String message = "Device service is required";
-
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () ->
-                new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl));
-    // Assert
-    assertEquals(message, exception.getMessage());
-  }
-
-  /**
-   * Test to check if the AddSensorToDeviceController is returning null when the DeviceAssembler is
-   * null.
-   */
-  @Test
-  void shouldThrowException_whenDeviceAssemblerIsNull() throws InstantiationException {
-    // Arrange
-    DeviceAssembler deviceAssembler = null;
-    String message = "Device assembler is required";
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () ->
-                new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
-                    sensorModelServiceImpl,
-                    sensorModelAssembler,
-                    sensorTypeServiceImpl,
-                    sensorTypeAssembler,
-                    sensorAssembler,
-                    sensorServiceImpl));
-    // Assert
-    assertEquals(message, exception.getMessage());
-  }
+//  /**
+//   * Test to check if the AddSensorToDeviceController is returning null when the RoomService is
+//   * null.
+//   */
+//  @Test
+//  void shouldThrowException_whenRoomServiceIsNull() throws InstantiationException {
+//    // Arrange
+//    RoomServiceImpl roomServiceImpl = null;
+//    String message = "Room service is required";
+//    // Act
+//    IllegalArgumentException exception =
+//        assertThrows(
+//            IllegalArgumentException.class,
+//            () ->
+//                new AddSensorToDeviceController(
+//
+//                    sensorModelServiceImpl,
+//                    sensorModelAssembler,
+//                    sensorTypeServiceImpl,
+//                    sensorTypeAssembler,
+//                    sensorAssembler,
+//                    sensorServiceImpl));
+//    // Assert
+//    assertEquals(message, exception.getMessage());
+//  }
+//
+//  /**
+//   * Test to check if the AddSensorToDeviceController is returning null when the RoomAssembler is
+//   * null.
+//   */
+//  @Test
+//  void shouldThrowException_whenRoomAssemblerIsNull() throws InstantiationException {
+//    // Arrange
+//    RoomAssembler roomAssembler = null;
+//    String message = "Room assembler is required";
+//
+//    // Act
+//    IllegalArgumentException exception =
+//        assertThrows(
+//            IllegalArgumentException.class,
+//            () ->
+//                new AddSensorToDeviceController(
+//
+//                    sensorModelServiceImpl,
+//                    sensorModelAssembler,
+//                    sensorTypeServiceImpl,
+//                    sensorTypeAssembler,
+//                    sensorAssembler,
+//                    sensorServiceImpl));
+//    // Assert
+//    assertEquals(message, exception.getMessage());
+//  }
+//
+//  /**
+//   * Test to check if the AddSensorToDeviceController is returning null when the DeviceService is
+//   * null.
+//   */
+//  @Test
+//  void shouldThrowException_whenDeviceServiceIsNull() throws InstantiationException {
+//    // Arrange
+//    DeviceServiceImpl deviceServiceImpl = null;
+//    String message = "Device service is required";
+//
+//    // Act
+//    IllegalArgumentException exception =
+//        assertThrows(
+//            IllegalArgumentException.class,
+//            () ->
+//                new AddSensorToDeviceController(
+//
+//                    sensorModelServiceImpl,
+//                    sensorModelAssembler,
+//                    sensorTypeServiceImpl,
+//                    sensorTypeAssembler,
+//                    sensorAssembler,
+//                    sensorServiceImpl));
+//    // Assert
+//    assertEquals(message, exception.getMessage());
+//  }
+//
+//  /**
+//   * Test to check if the AddSensorToDeviceController is returning null when the DeviceAssembler is
+//   * null.
+//   */
+//  @Test
+//  void shouldThrowException_whenDeviceAssemblerIsNull() throws InstantiationException {
+//    // Arrange
+//    DeviceAssembler deviceAssembler = null;
+//    String message = "Device assembler is required";
+//    // Act
+//    IllegalArgumentException exception =
+//        assertThrows(
+//            IllegalArgumentException.class,
+//            () ->
+//                new AddSensorToDeviceController(
+//
+//                    sensorModelServiceImpl,
+//                    sensorModelAssembler,
+//                    sensorTypeServiceImpl,
+//                    sensorTypeAssembler,
+//                    sensorAssembler,
+//                    sensorServiceImpl));
+//    // Assert
+//    assertEquals(message, exception.getMessage());
+//  }
 
   /**
    * Test to check if the AddSensorToDeviceController is returning null when the SensorModelService
@@ -333,10 +314,7 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
+
                     null,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -361,10 +339,7 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
+
                     sensorModelServiceImpl,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -390,10 +365,7 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
+
                     sensorModelServiceImpl,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -419,10 +391,7 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
+
                     sensorModelServiceImpl,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -449,10 +418,7 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
+
                     sensorModelServiceImpl,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -479,10 +445,7 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-                    roomServiceImpl,
-                    roomAssembler,
-                    deviceServiceImpl,
-                    deviceAssembler,
+
                     sensorModelServiceImpl,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -518,10 +481,7 @@ class AddSensorToDeviceControllerTest {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -561,10 +521,7 @@ class AddSensorToDeviceControllerTest {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -592,10 +549,7 @@ class AddSensorToDeviceControllerTest {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -629,10 +583,7 @@ class AddSensorToDeviceControllerTest {
     //Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -670,10 +621,7 @@ class AddSensorToDeviceControllerTest {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -719,10 +667,7 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -764,10 +709,7 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -814,10 +756,7 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -860,10 +799,7 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -906,10 +842,7 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -952,10 +885,7 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -1001,10 +931,7 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -1050,10 +977,7 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -1097,10 +1021,7 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -1137,10 +1058,7 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-            roomServiceImpl,
-            roomAssembler,
-            deviceServiceImpl,
-            deviceAssembler,
+
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,

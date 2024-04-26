@@ -15,7 +15,7 @@ import java.util.List;
 
 public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
 
-  private ILogService logService;
+  private final ILogService logService;
 
   /**
    * Constructor for GetMaxInstTempDiffBetweenDeviceAndOutsideController.

@@ -8,6 +8,7 @@ import smart_home.domain.service.IDeviceService;
 import smart_home.domain.service.ILogService;
 import smart_home.dto.LogDTO;
 import smart_home.dto.LogDataDTO;
+import smart_home.utils.Validator;
 import smart_home.value_object.DatePeriod;
 import smart_home.value_object.DeviceID;
 
@@ -17,8 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class GetLogFromDeviceController {
-    private ILogService logService;
-    private IAssembler<Log, LogDTO> logAssembler;
+    private final ILogService logService;
+    private final IAssembler<Log, LogDTO> logAssembler;
 
   /**
    * Constructor for GetLogFromDeviceController
@@ -27,9 +28,9 @@ public class GetLogFromDeviceController {
    * @param logAssembler  is the log assembler
    */
     public GetLogFromDeviceController(ILogService logService, IAssembler<Log, LogDTO> logAssembler) {
-        Validate.notNull(logService, "Log Service is required");
+      Validator.validateNotNull(logService, "Log Service");
         this.logService = logService;
-        Validate.notNull(logAssembler, "Log Assembler is required");
+        Validator.validateNotNull(logAssembler, "Log Assembler");
         this.logAssembler = logAssembler;
     }
 

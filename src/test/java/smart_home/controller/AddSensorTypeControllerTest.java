@@ -27,13 +27,11 @@ import smart_home.dto.UnitDTO;
 import smart_home.persistence.mem.ActuatorModelRepository;
 import smart_home.persistence.mem.SensorModelRepository;
 import smart_home.persistence.mem.SensorTypeRepository;
-import smart_home.persistence.mem.UnitRepository;
 import smart_home.service.SensorTypeServiceImpl;
 import smart_home.service.UnitServiceImpl;
 import smart_home.utils.LoadModelsAndUnit;
 import smart_home.value_object.ModelPath;
 import smart_home.value_object.SensorModelName;
-import smart_home.value_object.SensorName;
 import smart_home.value_object.SensorTypeID;
 import smart_home.value_object.TypeDescription;
 import smart_home.value_object.UnitDescription;
@@ -41,20 +39,20 @@ import smart_home.value_object.UnitID;
 import smart_home.value_object.UnitSymbol;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.any;
+
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class AddSensorTypeControllerTest {
-    @Test
+
+  /**
+   * Test if the constructor of AddSensorTypeController throws an exception when the sensorTypeService is null.
+   */
+  @Test
     void shouldThrowExceptionWhenSensorTypeServiceIsNull() {
         //Arrange
         ISensorTypeService sensorTypeServiceImpl = null;
@@ -63,14 +61,20 @@ class AddSensorTypeControllerTest {
         IUnitFactory unitFactory = new UnitFactoryImpl();
         IUnitService unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
         IAssembler<Unit, UnitDTO> unitAssembler = new UnitAssembler();
-        String expectedMessage = "Valid SensorTypeService is required";
+
+        String expectedMessage = "Sensor type service is required";
+
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
-    @Test
-    void shouldThrowExceptionWhenUnitServiceIsNull() {
+
+  /**
+   * Test if the constructor of AddSensorTypeController throws an exception when the unitService is null.
+   */
+  @Test
+    void shouldThrowException_WhenUnitServiceIsNull() {
         //Arrange
         ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
         ISensorTypeFactory sensorTypeFactory = new SensorTypeFactoryImpl();
@@ -79,14 +83,19 @@ class AddSensorTypeControllerTest {
       IAssembler<SensorType, SensorTypeDTO> sensorTypeAssembler = new SensorTypeAssembler();
       IUnitService unitServiceImpl = null;
       IAssembler<Unit, UnitDTO> unitAssembler = new UnitAssembler();
-        String expectedMessage = "Valid UnitService is required";
+
+        String expectedMessage = "Unit service is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
-    @Test
-    void shouldThrowExceptionWhenSensorTypeAssemblerIsNull() {
+
+  /**
+   * Test if the constructor of AddSensorTypeController throws an exception when the sensorTypeAssembler is null.
+   */
+  @Test
+  void shouldThrowExceptionWhenSensorTypeAssemblerIsNull() {
         //Arrange
       ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
       ISensorTypeFactory sensorTypeFactory = new SensorTypeFactoryImpl();
@@ -95,14 +104,19 @@ class AddSensorTypeControllerTest {
         IUnitFactory unitFactory = new UnitFactoryImpl();
       IUnitService unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
       IAssembler<Unit, UnitDTO> unitAssembler = new UnitAssembler();
-        String expectedMessage = "Valid SensorTypeAssembler is required";
+
+        String expectedMessage = "Sensor type assembler is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
-    @Test
-    void shouldThrowExceptionWhenUnitAssemblerIsNull() {
+
+  /**
+   * Test if the constructor of AddSensorTypeController throws an exception when the unitAssembler is null.
+   */
+  @Test
+  void shouldThrowExceptionWhenUnitAssemblerIsNull() {
         //Arrange
       ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
       ISensorTypeFactory sensorTypeFactory = new SensorTypeFactoryImpl();
@@ -111,14 +125,19 @@ class AddSensorTypeControllerTest {
       IUnitFactory unitFactory = new UnitFactoryImpl();
       IUnitService unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
       IAssembler<Unit, UnitDTO> unitAssembler = null;
-        String expectedMessage = "Valid UnitAssembler is required";
+
+        String expectedMessage = "Unit assembler is required";
         //Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new AddSensorTypeController(sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler));
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
 
-    @Test
+  /**
+   * Test if the getSupportedUnits method returns a list of units.
+   * @throws InstantiationException if an instantiation error occurs.
+   */
+  @Test
     void shouldReturnListOfUnitsWhenUnitsLoaded() throws InstantiationException {
         //Arrange
       ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
@@ -160,6 +179,10 @@ class AddSensorTypeControllerTest {
 
     }
 
+  /**
+   * Test if the addAndSaveSensorType method returns a SensorTypeDTO when a sensor type is added.
+   * @throws InstantiationException if an instantiation error occurs.
+   */
   @Test
   void shouldReturnSensorTypeDTOWhenSensorTypeAdded() throws InstantiationException {
     //Arrange
@@ -190,7 +213,7 @@ class AddSensorTypeControllerTest {
     IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
     IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
 
-    LoadModelsAndUnit loadModelsAndUnit = new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
+    new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unitID = unit.getID();
@@ -211,6 +234,10 @@ class AddSensorTypeControllerTest {
   }
 
 
+  /**
+   * Test if the addAndSaveSensorType method throws an exception when the sensor type already exists.
+   * @throws InstantiationException   if an instantiation error occurs.
+   */
   @Test
     void shouldThrowExceptionWhenSensorTypeAlreadyExists() throws InstantiationException {
         //Arrange
@@ -241,7 +268,7 @@ class AddSensorTypeControllerTest {
     IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
     IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
 
-    LoadModelsAndUnit loadModelsAndUnit = new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
+    new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unitID = unit.getID();
@@ -262,7 +289,12 @@ class AddSensorTypeControllerTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
-    @Test
+
+  /**
+   * Test if the addAndSaveSensorType method throws an exception when the sensor type data is invalid.
+   * @throws InstantiationException if an instantiation error occurs.
+   */
+  @Test
     void shouldThrowExceptionWhenAddingSensorTypeOfUnsupportedUnit() throws InstantiationException {
         //Arrange
       ISensorTypeRepository sensorTypeRepository = new SensorTypeRepository();
@@ -298,7 +330,12 @@ class AddSensorTypeControllerTest {
         //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
-    @Test
+
+  /**
+   * Test if the addAndSaveSensorType method throws an exception when the sensor has the same description but different unit.
+   * @throws InstantiationException if an instantiation error occurs.
+   */
+  @Test
     void shouldThrowExceptionWhenAddingSensorWithSameDescriptionButDifferentUnit() throws InstantiationException {
         //Arrange
       ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
@@ -327,7 +364,7 @@ class AddSensorTypeControllerTest {
       IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
       IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
 
-      LoadModelsAndUnit loadModelsAndUnit = new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
+      new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory, unitFactory);
 
       TypeDescription typeDescription = new TypeDescription("Temperature");
       UnitID unitID = unit.getID();

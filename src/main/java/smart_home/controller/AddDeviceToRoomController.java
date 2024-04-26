@@ -1,6 +1,5 @@
 package smart_home.controller;
 
-import smart_home.mapper.DeviceAssembler;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.device.Device;
 import smart_home.domain.room.Room;
@@ -9,6 +8,7 @@ import smart_home.domain.service.IRoomService;
 import smart_home.dto.DeviceDTO;
 import smart_home.dto.DeviceDataDTO;
 import smart_home.dto.RoomDTO;
+import smart_home.utils.Validator;
 import smart_home.value_object.DeviceName;
 import smart_home.value_object.DeviceStatus;
 import smart_home.value_object.DeviceTypeID;
@@ -22,10 +22,10 @@ import java.util.Optional;
  */
 public class AddDeviceToRoomController {
 
-    private IRoomService _roomService;
-    private IAssembler<Room, RoomDTO> _roomAssembler;
-    private IDeviceService _deviceService;
-    private IAssembler<Device,DeviceDTO> _deviceAssembler;
+    private final IRoomService _roomService;
+    private final IAssembler<Room, RoomDTO> _roomAssembler;
+    private final IDeviceService _deviceService;
+    private final IAssembler<Device,DeviceDTO> _deviceAssembler;
 
     /**
      * Constructs a new AddDeviceToRoomController with necessary service and assembler dependencies.
@@ -37,63 +37,17 @@ public class AddDeviceToRoomController {
      * @param deviceAssembler Assembler for converting device entities to DTOs.
      */
     public AddDeviceToRoomController(IRoomService roomService, IAssembler<Room, RoomDTO> roomAssembler, IDeviceService deviceServiceImpl, IAssembler<Device,DeviceDTO> deviceAssembler) {
-        validateRoomService(roomService);
-        validateRoomAssembler(roomAssembler);
-        validateDeviceService(deviceServiceImpl);
-        validateDeviceAssembler(deviceAssembler);
+      Validator.validateNotNull(roomService, "Room service");
+      Validator.validateNotNull(roomAssembler, "Room assembler");
+      Validator.validateNotNull(deviceServiceImpl, "Device service");
+      Validator.validateNotNull(deviceAssembler, "Device assembler");
+
+      this._roomService = roomService;
+      this._roomAssembler = roomAssembler;
+      this._deviceService = deviceServiceImpl;
+      this._deviceAssembler = deviceAssembler;
     }
 
-    /**
-     * Validates the room service.
-     *
-     * @param roomService The room service to validate.
-     */
-    private void validateRoomService(IRoomService roomService) {
-        if (roomService == null) {
-            throw new IllegalArgumentException("Please enter a valid room service.");
-        } else {
-            this._roomService = roomService;
-        }
-    }
-
-    /**
-     * Validates the room assembler.
-     *
-     * @param roomAssembler The room assembler to validate.
-     */
-    private void validateRoomAssembler(IAssembler<Room, RoomDTO> roomAssembler) {
-        if (roomAssembler == null) {
-            throw new IllegalArgumentException("Please enter a valid room assembler.");
-        } else {
-            this._roomAssembler = roomAssembler;
-        }
-    }
-
-    /**
-     * Validates the device service.
-     *
-     * @param deviceService The device service to validate.
-     */
-    private void validateDeviceService(IDeviceService deviceService) {
-        if (deviceService == null) {
-            throw new IllegalArgumentException("Please enter a valid device service.");
-        } else {
-            this._deviceService = deviceService;
-        }
-    }
-
-    /**
-     * Validates the device assembler.
-     *
-     * @param deviceAssembler
-     */
-    private void validateDeviceAssembler(IAssembler<Device,DeviceDTO> deviceAssembler) {
-        if (deviceAssembler == null) {
-            throw new IllegalArgumentException("Please enter a valid device assembler.");
-        } else {
-            this._deviceAssembler = deviceAssembler;
-        }
-    }
 
     /**
      * Retrieves all rooms as a list of RoomDTOs.

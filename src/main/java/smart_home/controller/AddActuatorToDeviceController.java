@@ -11,22 +11,23 @@ import smart_home.dto.*;
 import smart_home.dto.actuator_data_dto.IActuatorDataDTO;
 import smart_home.mapper.actuator_vo_assembler.ActuatorVOAssemblerImpl;
 import smart_home.mapper.actuator_vo_assembler.IActuatorVOAssembler;
+import smart_home.utils.Validator;
 import smart_home.value_object.*;
 
 import java.util.Collections;
 import java.util.List;
 
 public class AddActuatorToDeviceController {
-    private IRoomService _roomService;
-    private IAssembler<Room, RoomDTO> _roomAssembler;
-    private IDeviceService _deviceService;
-    private IAssembler<Device, DeviceDTO> _deviceAssembler;
-    private IActuatorModelService _actuatorModelService;
-    private IAssembler<ActuatorModel, ActuatorModelDTO> _actuatorModelAssembler;
-    private IActuatorTypeService _actuatorTypeService;
-    private IAssembler<ActuatorType, ActuatorTypeDTO> _actuatorTypeAssembler;
-    private IAssembler<IActuator, ActuatorDTO> _actuatorAssembler;
-    private IActuatorService _actuatorService;
+    private final IRoomService _roomService;
+    private final IAssembler<Room, RoomDTO> _roomAssembler;
+    private final IDeviceService _deviceService;
+    private final IAssembler<Device, DeviceDTO> _deviceAssembler;
+    private final IActuatorModelService _actuatorModelService;
+    private final IAssembler<ActuatorModel, ActuatorModelDTO> _actuatorModelAssembler;
+    private final IActuatorTypeService _actuatorTypeService;
+    private final IAssembler<ActuatorType, ActuatorTypeDTO> _actuatorTypeAssembler;
+    private final IAssembler<IActuator, ActuatorDTO> _actuatorAssembler;
+    private final IActuatorService _actuatorService;
 
 
     /**
@@ -49,141 +50,28 @@ public class AddActuatorToDeviceController {
                                          IAssembler<ActuatorType, ActuatorTypeDTO> actuatorTypeAssembler,
                                          IAssembler<IActuator, ActuatorDTO> actuatorAssembler,
                                          IActuatorService actuatorService) {
-        validateRoomService(roomService);
-        validateRoomAssembler(roomAssembler);
-        validateDeviceService(deviceService);
-        validateDeviceAssembler(deviceAssembler);
-        validateActuatorModelService(actuatorModelService);
-        validateActuatorModelAssembler(actuatorModelAssembler);
-        validateActuatorTypeService(actuatorTypeService);
-        validateActuatorTypeAssembler(actuatorTypeAssembler);
-        validateActuatorAssembler(actuatorAssembler);
-        validateActuatorService(actuatorService);
-    }
+      Validator.validateNotNull(roomService, "Room service");
+      Validator.validateNotNull(roomAssembler, "Room assembler");
+      Validator.validateNotNull(deviceService, "Device service");
+      Validator.validateNotNull(deviceAssembler, "Device assembler");
+      Validator.validateNotNull(actuatorModelService, "Actuator model service");
+      Validator.validateNotNull(actuatorModelAssembler, "Actuator model assembler");
+      Validator.validateNotNull(actuatorTypeService, "Actuator type service");
+      Validator.validateNotNull(actuatorTypeAssembler, "Actuator type assembler");
+      Validator.validateNotNull(actuatorAssembler, "Actuator assembler");
+      Validator.validateNotNull(actuatorService, "Actuator service");
 
-    /**
-     * Validates the room service.
-     *
-     * @param roomService The room service.
-     */
-    private void validateRoomService(IRoomService roomService) {
-        if (roomService == null) {
-            throw new IllegalArgumentException("Please enter a valid room service.");
-        } else {
-            this._roomService = roomService;
-        }
-    }
+      this._roomService = roomService;
+      this._roomAssembler = roomAssembler;
+      this._deviceService = deviceService;
+      this._deviceAssembler = deviceAssembler;
+      this._actuatorModelService = actuatorModelService;
+      this._actuatorModelAssembler = actuatorModelAssembler;
+      this._actuatorTypeService = actuatorTypeService;
+      this._actuatorTypeAssembler = actuatorTypeAssembler;
+      this._actuatorAssembler = actuatorAssembler;
+      this._actuatorService = actuatorService;
 
-    /**
-     * Validates the room assembler.
-     *
-     * @param roomAssembler The room assembler.
-     */
-    private void validateRoomAssembler(IAssembler<Room, RoomDTO> roomAssembler) {
-        if (roomAssembler == null) {
-            throw new IllegalArgumentException("Please enter a valid room assembler.");
-        } else {
-            this._roomAssembler = roomAssembler;
-        }
-    }
-
-    /**
-     * Validates the device service.
-     *
-     * @param deviceService The device service.
-     */
-    private void validateDeviceService(IDeviceService deviceService) {
-        if (deviceService == null) {
-            throw new IllegalArgumentException("Please enter a valid device service.");
-        } else {
-            this._deviceService = deviceService;
-        }
-    }
-
-    /**
-     * Validates the device assembler.
-     *
-     * @param deviceAssembler The device assembler.
-     */
-    private void validateDeviceAssembler(IAssembler<Device, DeviceDTO> deviceAssembler) {
-        if (deviceAssembler == null) {
-            throw new IllegalArgumentException("Please enter a valid device assembler.");
-        } else {
-            this._deviceAssembler = deviceAssembler;
-        }
-    }
-
-    /**
-     * Validates the actuator model service.
-     *
-     * @param actuatorModelServiceImpl The actuator model service.
-     */
-    private void validateActuatorModelService(IActuatorModelService actuatorModelServiceImpl) {
-        if (actuatorModelServiceImpl == null) {
-            throw new IllegalArgumentException("Please enter a valid actuator model service.");
-        } else {
-            this._actuatorModelService = actuatorModelServiceImpl;
-        }
-    }
-
-    /**
-     * Validates the actuator model assembler.
-     *
-     * @param actuatorModelAssembler The actuator model assembler.
-     */
-    private void validateActuatorModelAssembler(IAssembler<ActuatorModel, ActuatorModelDTO> actuatorModelAssembler) {
-        if (actuatorModelAssembler == null) {
-            throw new IllegalArgumentException("Please enter a valid actuator model assembler.");
-        } else {
-            this._actuatorModelAssembler = actuatorModelAssembler;
-        }
-    }
-
-    /**
-     * Validates the actuator type service.
-     *
-     * @param actuatorTypeService The actuator type service.
-     */
-    private void validateActuatorTypeService(IActuatorTypeService actuatorTypeService) {
-        if (actuatorTypeService == null) {
-            throw new IllegalArgumentException("Please enter a valid actuator type service.");
-        } else {
-            this._actuatorTypeService = actuatorTypeService;
-        }
-    }
-
-    /**
-     * Validates the actuator type assembler.
-     *
-     * @param actuatorTypeAssembler The actuator type assembler.
-     */
-    private void validateActuatorTypeAssembler(IAssembler<ActuatorType, ActuatorTypeDTO> actuatorTypeAssembler) {
-        if (actuatorTypeAssembler == null) {
-            throw new IllegalArgumentException("Please enter a valid actuator type assembler.");
-        } else {
-            this._actuatorTypeAssembler = actuatorTypeAssembler;
-        }
-    }
-
-    private void validateActuatorAssembler(IAssembler<IActuator, ActuatorDTO> actuatorAssembler) {
-        if (actuatorAssembler == null) {
-            throw new IllegalArgumentException("Please enter a valid actuator assembler.");
-        } else {
-            this._actuatorAssembler = actuatorAssembler;
-        }
-    }
-
-    /**
-     * Validates the actuator service.
-     *
-     * @param actuatorService The actuator service.
-     */
-    private void validateActuatorService(IActuatorService actuatorService) {
-        if (actuatorService == null) {
-            throw new IllegalArgumentException("Please enter a valid actuator service.");
-        } else {
-            this._actuatorService = actuatorService;
-        }
     }
 
     /**
@@ -195,7 +83,7 @@ public class AddActuatorToDeviceController {
 
         List<Room> listOfRooms = _roomService.getAllRooms();
         if (listOfRooms == null || listOfRooms.isEmpty()) {
-            return Collections.emptyList(); // Return an empty list if there are no devices.
+            return Collections.emptyList();
         }
         List<RoomDTO> listOfRoomsDTO = _roomAssembler.domainToDTO(listOfRooms);
 
@@ -211,7 +99,7 @@ public class AddActuatorToDeviceController {
     public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
         RoomID roomID = new RoomID(roomDTO.roomId);
 
-        if (!_roomService.getRoomById(roomID).isPresent()) {
+        if (_roomService.getRoomById(roomID).isEmpty()) {
             throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
         }
 
@@ -245,7 +133,7 @@ public class AddActuatorToDeviceController {
 
     public List<ActuatorModelDTO> getActuatorModels(ActuatorTypeDTO actuatorTypeDTO) {
         ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeDTO.actuatorTypeID);
-        if (!_actuatorTypeService.getActuatorTypeByID(actuatorTypeID).isPresent()) {
+        if (_actuatorTypeService.getActuatorTypeByID(actuatorTypeID).isEmpty()) {
             throw new IllegalArgumentException("Actuator type with ID " + actuatorTypeID + " not found.");
         }
 
@@ -266,25 +154,16 @@ public class AddActuatorToDeviceController {
      * @return the actuator DTO.
      */
     public ActuatorDTO addActuatorToDevice(IActuatorDataDTO actuatorDataDTOImp) {
-        validateActuatorDataDTO(actuatorDataDTOImp);
+      Validator.validateNotNull(actuatorDataDTOImp, "Actuator data DTO");
 
         IActuatorVOAssembler actuatorVOAssembler = new ActuatorVOAssemblerImpl();
         Object[] actuatorParameters = actuatorVOAssembler.getActuatorParameters(actuatorDataDTOImp);
 
         IActuator actuator = _actuatorService.addActuator(actuatorParameters);
 
-        return (ActuatorDTO) _actuatorAssembler.domainToDTO(actuator);
+        return  _actuatorAssembler.domainToDTO(actuator);
     }
 
 
-    /**
-     * Validates the actuator data DTO.
-     *
-     * @param actuatorDataDTO is the actuator data DTO.
-     */
-    private void validateActuatorDataDTO(IActuatorDataDTO actuatorDataDTO) {
-        if (actuatorDataDTO == null) {
-            throw new IllegalArgumentException("Please enter a valid actuator data DTO.");
-        }
-    }
+
 }

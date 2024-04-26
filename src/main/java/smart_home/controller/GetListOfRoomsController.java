@@ -4,14 +4,15 @@ import smart_home.ddd.IAssembler;
 import smart_home.domain.room.Room;
 import smart_home.domain.service.IRoomService;
 import smart_home.dto.RoomDTO;
+import smart_home.utils.Validator;
 
 import java.util.Collections;
 import java.util.List;
 
 public class GetListOfRoomsController {
 
-    private IRoomService _roomService;
-    private IAssembler<Room, RoomDTO> _roomAssembler;
+    private final IRoomService _roomService;
+    private final IAssembler<Room, RoomDTO> _roomAssembler;
 
 
     /**
@@ -21,34 +22,11 @@ public class GetListOfRoomsController {
      * @param roomAssembler The room assembler.
      */
     public GetListOfRoomsController(IRoomService roomService, IAssembler<Room, RoomDTO> roomAssembler) {
-        validateRoomService(roomService);
-        validateRoomAssembler(roomAssembler);
-    }
+      Validator.validateNotNull(roomService, "Room service");
+      Validator.validateNotNull(roomAssembler, "Room assembler");
 
-    /**
-     * Validates the room service.
-     *
-     * @param roomService The room service.
-     */
-    private void validateRoomService(IRoomService roomService) {
-        if (roomService == null) {
-            throw new IllegalArgumentException("Please enter a valid room service.");
-        } else {
-            this._roomService = roomService;
-        }
-    }
-
-    /**
-     * Validates the room assembler.
-     *
-     * @param roomAssembler The room assembler.
-     */
-    private void validateRoomAssembler(IAssembler<Room, RoomDTO> roomAssembler) {
-        if (roomAssembler == null) {
-            throw new IllegalArgumentException("Please enter a valid room assembler.");
-        } else {
-            this._roomAssembler = roomAssembler;
-        }
+      this._roomAssembler = roomAssembler;
+      this._roomService = roomService;
     }
 
     /**
@@ -60,7 +38,7 @@ public class GetListOfRoomsController {
 
         List<Room> listOfRooms = _roomService.getAllRooms();
         if (listOfRooms == null || listOfRooms.isEmpty()) {
-            return Collections.emptyList(); // Return an empty list if there are no devices.
+            return Collections.emptyList();
         }
         List<RoomDTO> listOfRoomsDTO = _roomAssembler.domainToDTO(listOfRooms);
 

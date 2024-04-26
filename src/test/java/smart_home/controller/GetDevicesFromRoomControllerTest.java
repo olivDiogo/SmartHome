@@ -86,7 +86,7 @@ class GetDevicesFromRoomControllerTest {
 
     IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-    String expectedMessage = "RoomService is required";
+    String expectedMessage = "Room service is required";
 
     // Act
     Exception exception =
@@ -119,7 +119,7 @@ class GetDevicesFromRoomControllerTest {
 
     IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-    String expectedMessage = "DeviceService is required";
+    String expectedMessage = "Device service is required";
 
     // Act
     Exception exception =
@@ -145,7 +145,8 @@ class GetDevicesFromRoomControllerTest {
     IAssembler<Room, RoomDTO> roomAssembler = null;
     IHouseRepository houseRepository = new HouseRepository();
 
-    IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
+    IRoomService roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory,
+        houseRepository);
 
     IDeviceRepository deviceRepository = new DeviceRepository();
     IDeviceFactory deviceFactory = new DeviceFactoryImpl();
@@ -154,7 +155,7 @@ class GetDevicesFromRoomControllerTest {
 
     IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
-    String expectedMessage = "RoomAssembler is required";
+    String expectedMessage = "Room assembler is required";
 
     // Act
     Exception exception =
@@ -188,9 +189,9 @@ class GetDevicesFromRoomControllerTest {
     IDeviceService deviceServiceImpl =
         new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
-    IAssembler<Device,DeviceDTO> deviceAssembler = null;
+    IAssembler<Device, DeviceDTO> deviceAssembler = null;
 
-    String expectedMessage = "DeviceAssembler is required";
+    String expectedMessage = "Device assembler is required";
 
     // Act
     Exception exception =
@@ -204,7 +205,9 @@ class GetDevicesFromRoomControllerTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test to get rooms from a house. */
+  /**
+   * Test to get rooms from a house.
+   */
   @Test
   void shouldGetRoomsFromHouse_WhenGivenValidHouseID() {
     // Arrange
@@ -287,7 +290,9 @@ class GetDevicesFromRoomControllerTest {
     assertEquals(expectedList, actualList);
   }
 
-  /** Test to throw an exception when the room ID does not exist in the repository. */
+  /**
+   * Test to throw an exception when the room ID does not exist in the repository.
+   */
   @Test
   void shouldThrowException_WhenRoomIDDoesNotExistInRepository() {
     // Arrange
@@ -297,13 +302,13 @@ class GetDevicesFromRoomControllerTest {
     IHouseRepository houseRepository = new HouseRepository();
     IHouseFactory houseFactory = new HouseFactoryImpl();
 
-    IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+   new HouseServiceImpl(houseFactory, houseRepository);
     IRoomService roomServiceImpl =
         new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
 
     IDeviceRepository deviceRepository = new DeviceRepository();
     IDeviceFactory deviceFactory = new DeviceFactoryImpl();
-    IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
+    new PostalCodeFactory();
 
     IDeviceService deviceServiceImpl =
         new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
@@ -332,7 +337,9 @@ class GetDevicesFromRoomControllerTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test to get devices from a room. */
+  /**
+   * Test to get devices from a room.
+   */
   @Test
   void shouldGetDevicesFromRoom_WhenParametersAreValid() {
     // Arrange
