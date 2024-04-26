@@ -78,7 +78,7 @@ public class DeviceRepository implements IDeviceRepository {
    */
 
   @Override
-  public List<Device> findBy_roomID(RoomID roomId) {
+  public List<Device> findByRoomID(RoomID roomId) {
     List<Device> devices = DATA.values().stream()
         .filter(device -> device.getRoomID().equals(roomId)).toList();
     return devices;

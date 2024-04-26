@@ -1,22 +1,23 @@
 package smarthome.controller;
 
-import smarthome.mapper.sensor_vo_assembler.ISensorVOAssembler;
-import smarthome.mapper.sensor_vo_assembler.SensorVOAssemblerImpl;
+import static smarthome.utils.Validator.validateNotNull;
+
+import java.util.List;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.domain.sensor_type.SensorType;
-import smarthome.domain.service.*;
-import smarthome.utils.dto.*;
+import smarthome.domain.service.ISensorModelService;
+import smarthome.domain.service.ISensorService;
+import smarthome.domain.service.ISensorTypeService;
+import smarthome.domain.value_object.SensorTypeID;
+import smarthome.mapper.sensor_vo_assembler.ISensorVOAssembler;
+import smarthome.mapper.sensor_vo_assembler.SensorVOAssemblerImpl;
+import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorDTO;
 import smarthome.utils.dto.SensorModelDTO;
 import smarthome.utils.dto.SensorTypeDTO;
 import smarthome.utils.dto.sensor_data_dto.ISensorDataDTO;
-import smarthome.utils.Validator;
-import smarthome.domain.value_object.SensorTypeID;
-import java.util.List;
-
-import static smarthome.utils.Validator.validateNotNull;
 
 
 public class AddSensorToDeviceController {

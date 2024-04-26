@@ -1,8 +1,6 @@
 package smarthome.persistence.spring_data.device;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+
 import java.util.List;
 import java.util.Optional;
 import smarthome.domain.device.Device;
@@ -21,7 +19,6 @@ import smarthome.utils.Validator;
 public class DeviceSpringDataRepository implements IDeviceRepository {
 
   private final IDeviceSpringDataRepository repository;
-  private final EntityManagerFactory factory;
   private final IDataModelAssembler<DeviceDataModel, Device> assembler;
 
   /**
@@ -32,25 +29,10 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
    */
   public DeviceSpringDataRepository(IDeviceSpringDataRepository repository,
       IDataModelAssembler<DeviceDataModel, Device> assembler) {
-    this.factory = Persistence.createEntityManagerFactory("smarthome");
     Validator.validateNotNull(repository, "Device repository");
     this.repository = repository;
     Validator.validateNotNull(assembler, "Device data model assembler");
     this.assembler = assembler;
-  }
-
-  /**
-   * Provides an EntityManager for JPA operations.
-   *
-   * @return the EntityManager instance.
-   * @throws RuntimeException if the EntityManager cannot be created.
-   */
-  private EntityManager getEntityManager() {
-    try {
-      return factory.createEntityManager();
-    } catch (Exception e) {
-      throw new RuntimeException("Error creating the entity manager", e);
-    }
   }
 
   /**
@@ -60,34 +42,12 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
    * @return a list of Device domain objects.
    */
   @Override
-  public List<Device> findBy_roomID(RoomID roomId) {
+  public List<Device> findByRoomID(RoomID roomId) {
     List<DeviceDataModel> deviceDataModels = this.repository.findBy_roomID(roomId.toString());
     return assembler.toDomain(deviceDataModels);
   }
 
-  /**
-   * Updates an existing device entity in the database.
-   *
-   * @param device the Device domain object to update.
-   * @return the updated Device domain object, or null if update was not successful.
-   */
-  @Override
-  public Device update(Device device) {
-    DeviceDataModel deviceDataModel = getEntityManager().find(DeviceDataModel.class,
-        device.getID().getID());
 
-    if (deviceDataModel != null) {
-      boolean isUpdated = deviceDataModel.updateFromDomain(device);
-      if (isUpdated) {
-        repository.save(deviceDataModel);
-        return device;
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
 
   /**
    * Saves a new device entity to the database.
@@ -101,6 +61,27 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
     DeviceDataModel dataModel = new DeviceDataModel(entity);
     repository.save(dataModel);
     return entity;
+  }
+
+  /**
+   * Updates an existing device entity in the database.
+   *
+   * @param entity the Device domain object to update.
+   * @return the updated Device domain object, or null if update was not successful.
+   */
+  @Override
+  public Device update(Device entity) {
+    Optional<DeviceDataModel> optionalDeviceDataModel = repository.findById(entity.getID().getID());
+
+    if (optionalDeviceDataModel.isEmpty()) {
+      return null;
+    }
+
+    DeviceDataModel deviceDataModel = optionalDeviceDataModel.get();
+    deviceDataModel.updateFromDomain(entity);
+
+    DeviceDataModel savedDeviceDataModel = repository.save(deviceDataModel);
+    return assembler.toDomain(savedDeviceDataModel);
   }
 
   /**

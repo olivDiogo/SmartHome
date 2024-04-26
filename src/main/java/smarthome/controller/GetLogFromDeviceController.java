@@ -1,17 +1,16 @@
 package smarthome.controller;
 
-import smarthome.ddd.IAssembler;
-import smarthome.domain.log.Log;
-import smarthome.domain.service.ILogService;
-import smarthome.utils.dto.LogDTO;
-import smarthome.utils.dto.LogDataDTO;
-import smarthome.utils.Validator;
-import smarthome.domain.value_object.DatePeriod;
-import smarthome.domain.value_object.DeviceID;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import smarthome.ddd.IAssembler;
+import smarthome.domain.log.Log;
+import smarthome.domain.service.ILogService;
+import smarthome.domain.value_object.DatePeriod;
+import smarthome.domain.value_object.DeviceID;
+import smarthome.utils.Validator;
+import smarthome.utils.dto.LogDTO;
+import smarthome.utils.dto.LogDataDTO;
 
 public class GetLogFromDeviceController {
 

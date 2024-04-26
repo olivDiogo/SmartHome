@@ -74,7 +74,7 @@ public class DeviceServiceImpl implements IDeviceService {
     if (deviceOptional.isPresent()) {
       Device device = deviceOptional.get();
       device.deactivateDevice();
-      deviceRepository.save(device);
+      deviceRepository.update(device);
       return device;
     } else {
       throw new IllegalArgumentException("Device with ID " + deviceID + " not found.");
@@ -110,7 +110,7 @@ public class DeviceServiceImpl implements IDeviceService {
    */
   @Override
   public List<Device> getDevicesByRoomId(RoomID roomId) {
-    return deviceRepository.findBy_roomID(roomId);
+    return deviceRepository.findByRoomID(roomId);
   }
 
   /**

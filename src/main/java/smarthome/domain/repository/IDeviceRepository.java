@@ -11,7 +11,7 @@ import smarthome.domain.value_object.RoomID;
  */
 public interface IDeviceRepository extends IRepository<DeviceID, Device> {
 
-  List<Device> findBy_roomID(RoomID roomId);
+  List<Device> findByRoomID(RoomID roomId);
 
   Device update(Device device);
 }

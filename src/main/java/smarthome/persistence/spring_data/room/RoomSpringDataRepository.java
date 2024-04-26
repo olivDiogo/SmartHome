@@ -1,8 +1,5 @@
 package smarthome.persistence.spring_data.room;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import java.util.List;
 import java.util.Optional;
 import smarthome.domain.repository.IRoomRepository;
@@ -15,7 +12,6 @@ import smarthome.utils.Validator;
 public class RoomSpringDataRepository implements IRoomRepository {
 
   IRoomSpringDataRepository repository;
-  EntityManagerFactory factory;
   IDataModelAssembler<RoomDataModel, Room> assembler;
 
   /**
@@ -26,23 +22,10 @@ public class RoomSpringDataRepository implements IRoomRepository {
    */
   public RoomSpringDataRepository(IRoomSpringDataRepository repository,
       IDataModelAssembler<RoomDataModel, Room> assembler) {
-    this.factory = Persistence.createEntityManagerFactory("smarthome");
-
     Validator.validateNotNull(repository, "Room repository");
     this.repository = repository;
     Validator.validateNotNull(assembler, "Room data model assembler");
     this.assembler = assembler;
-  }
-
-  /**
-   * Method to get the Entity Manager.
-   */
-  private EntityManager getEntityManager() {
-    try {
-      return factory.createEntityManager();
-    } catch (Exception e) {
-      throw new RuntimeException("Error creating the entity manager", e);
-    }
   }
 
   /**
@@ -110,21 +93,20 @@ public class RoomSpringDataRepository implements IRoomRepository {
    */
   @Override
   public Room update(Room room) {
-    RoomDataModel roomDataModel = getEntityManager().find(RoomDataModel.class,
-        room.getID().getID());
+    Optional<RoomDataModel> optionalRoomDataModel = repository.findById(room.getID().getID());
 
-    if (roomDataModel != null) {
-      boolean isUpdated = roomDataModel.updateFromDomain(room);
-
-      if (isUpdated) {
-        repository.save(roomDataModel);
-
-        return room;
-      } else {
-        return null;
-      }
-    } else {
+    if (optionalRoomDataModel.isEmpty()) {
       return null;
     }
+
+    RoomDataModel roomDataModel = optionalRoomDataModel.get();
+    boolean isUpdated = roomDataModel.updateFromDomain(room);
+
+    if (!isUpdated) {
+      return null;
+    }
+
+    RoomDataModel savedRoomDataModel = repository.save(roomDataModel);
+    return assembler.toDomain(savedRoomDataModel);
   }
 }

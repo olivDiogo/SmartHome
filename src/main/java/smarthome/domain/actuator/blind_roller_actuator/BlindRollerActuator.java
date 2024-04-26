@@ -3,12 +3,12 @@ package smarthome.domain.actuator.blind_roller_actuator;
 import java.util.UUID;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.IActuator;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.utils.Validator;
 import smarthome.utils.visitor_pattern.IActuatorVisitor;
 
 /**
