@@ -203,15 +203,15 @@
                 <configuration>
                     <targetClasses>
                         <!-- Example: <param>lapr.project.model.*</param> -->
-                        <param>smart_home.*</param>
+                        <param>smarthome.*</param>
                     </targetClasses>
                     <excludedClasses>
-                        <param>smart_home.ddd.*</param>
-                        <param>smart_home.persistence.*</param>
+                        <param>smarthome.ddd.*</param>
+                        <param>smarthome.persistence.*</param>
                     </excludedClasses>
                     <targetTests>
                         <!-- Example: <param>lapr.project.utils.*</param> -->
-                        <param>smart_home.*</param>
+                        <param>smarthome.*</param>
                     </targetTests>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
