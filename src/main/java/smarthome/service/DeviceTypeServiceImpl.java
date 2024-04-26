@@ -1,15 +1,14 @@
 package smarthome.service;
 
+import java.util.List;
+import java.util.Optional;
 import smarthome.ddd.IRepository;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.IDeviceTypeFactory;
 import smarthome.domain.service.IDeviceTypeService;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
-
-import java.util.List;
-import java.util.Optional;
+import smarthome.utils.Validator;
 
 public class DeviceTypeServiceImpl implements IDeviceTypeService {
 

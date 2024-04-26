@@ -17,11 +17,11 @@ import smarthome.utils.visitor_pattern.IActuatorVisitor;
  */
 public class BlindRollerActuator implements IActuator {
 
-  private ActuatorID actuatorID;
   private final DeviceID deviceID;
   private final ModelPath modelPath;
   private final ActuatorTypeID actuatorTypeID;
   private final ActuatorName actuatorName;
+  private ActuatorID actuatorID;
   private BlindRollerValue value;
 
   /**

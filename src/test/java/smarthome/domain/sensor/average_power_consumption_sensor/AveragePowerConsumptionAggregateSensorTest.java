@@ -1,8 +1,13 @@
 package smarthome.domain.sensor.average_power_consumption_sensor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -11,14 +16,13 @@ import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.visitor_pattern.ISensorVisitor;
 
-import java.time.LocalDateTime;
-import static org.mockito.Mockito.mock;
-
 class AveragePowerConsumptionAggregateSensorTest {
 
-  /** See if the constructor works. */
+  /**
+   * See if the constructor works.
+   */
   @Test
-  void shouldInstantiateAveragePowerConsumptionSensor()  {
+  void shouldInstantiateAveragePowerConsumptionSensor() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -31,13 +35,16 @@ class AveragePowerConsumptionAggregateSensorTest {
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
     // Act
-    AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(
+        deviceID, modelPath, sensorTypeID, sensorName);
     // Assert
     Assertions.assertNotNull(averagePowerConsumptionSensor);
 
   }
 
-  /** tests if Exception is thrown for null Sensor type. */
+  /**
+   * tests if Exception is thrown for null Sensor type.
+   */
   @Test
   void shouldThrowExceptionForNullSensorTypeOfPowerConsumptionSensor() {
     // Arrange
@@ -51,7 +58,7 @@ class AveragePowerConsumptionAggregateSensorTest {
     SensorTypeID sensorTypeID = null;
 
     // Act + Assert
-    Exception e =Assertions.assertThrows(
+    Exception e = Assertions.assertThrows(
         IllegalArgumentException.class,
         () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName));
 
@@ -74,15 +81,18 @@ class AveragePowerConsumptionAggregateSensorTest {
     SensorID sensorID = new SensorID(sensorIDValue);
 
     // Act + Assert
-    Exception e =Assertions.assertThrows(
-            IllegalArgumentException.class,
-            () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));
+    Exception e = Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,
+            sensorID));
 
     // Assert
     Assertions.assertEquals("SensorTypeID is required", e.getMessage());
   }
 
-  /** tests if Exception is thrown when sensorType is different */
+  /**
+   * tests if Exception is thrown when sensorType is different
+   */
   @Test
   void shouldThrowExceptionForDifferentSensorTypeOfPowerConsumptionSensor() {
     // Arrange
@@ -105,7 +115,9 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals("SensorTypeID must be 'AveragePowerConsumption'.", e.getMessage());
   }
 
-  /** tests if Exception is thrown for null DeviceID. */
+  /**
+   * tests if Exception is thrown for null DeviceID.
+   */
   @Test
   void shouldThrowExceptionForNullDeviceIDOfPowerConsumptionSensor() {
     // Arrange
@@ -116,7 +128,7 @@ class AveragePowerConsumptionAggregateSensorTest {
     DeviceID deviceID = null;
     ModelPath modelPath = new ModelPath(modelPathValue);
     SensorName sensorName = new SensorName(sensorNameValue);
-    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);;
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
     // Act + Assert
     Exception e = Assertions.assertThrows(
@@ -127,7 +139,9 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals("DeviceID is required", e.getMessage());
   }
 
-  /** tests if Exception is thrown for null ModelPath. */
+  /**
+   * tests if Exception is thrown for null ModelPath.
+   */
   @Test
   void shouldThrowExceptionForNullModelPathOfPowerConsumptionSensor() {
     // Arrange
@@ -149,7 +163,9 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals("ModelPath is required", e.getMessage());
   }
 
-  /** tests if Exception is thrown for null SensorName. */
+  /**
+   * tests if Exception is thrown for null SensorName.
+   */
   @Test
   void shouldThrowExceptionForNullSensorNameOfPowerConsumptionSensor() {
     // Arrange
@@ -171,9 +187,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals("SensorName is required", e.getMessage());
   }
 
-  /** See if the getAverageValue method works. */
+  /**
+   * See if the getAverageValue method works.
+   */
   @Test
-  void shouldReturnAveragePowerConsumptionForAGivenPeriod()  {
+  void shouldReturnAveragePowerConsumptionForAGivenPeriod() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -203,7 +221,9 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals(value, Double.parseDouble(average.toString()), 0.01);
   }
 
-  /** See if the getAverageValue method works with another time. */
+  /**
+   * See if the getAverageValue method works with another time.
+   */
   @Test
   void shouldReturnAveragePowerConsumptionForAGivenPeriodOnADiferenteFormat() {
     // Arrange
@@ -235,7 +255,9 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals(value, Double.parseDouble(average.toString()), 0.01);
   }
 
-  /** See if the getAverageValue method works with more values than the initial and final time. */
+  /**
+   * See if the getAverageValue method works with more values than the initial and final time.
+   */
   @Test
   void shouldReturnAveragePowerConsumptionForAGivenPeriodWithThreeReadings() {
     // Arrange
@@ -310,7 +332,9 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals(value, Double.parseDouble(average.toString()), 0.01);
   }
 
-  /** See if the getAverageValue method works with non-sequential readings. */
+  /**
+   * See if the getAverageValue method works with non-sequential readings.
+   */
   @Test
   void shouldReturnAveragePowerConsumptionForAGivenPeriodWithNonSequentialReadings()
       throws InstantiationException {
@@ -348,7 +372,9 @@ class AveragePowerConsumptionAggregateSensorTest {
     assertEquals(value, Double.parseDouble(average.toString()), 0.01);
   }
 
-  /** Tests if Exception is thrown for initial time after final time. */
+  /**
+   * Tests if Exception is thrown for initial time after final time.
+   */
   @Test
   void shouldThrowExceptionWhenInitialTimeAfterFinalTime() throws InstantiationException {
     // Arrange
@@ -380,9 +406,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertTrue(actualMessage.contains(expectedMessage));
   }
 
-  /** Tests if Exception is thrown for initial time equals to final time. */
+  /**
+   * Tests if Exception is thrown for initial time equals to final time.
+   */
   @Test
-  void shouldReturnAverageValueWhenInitialEqualsToFinalTime()  {
+  void shouldReturnAverageValueWhenInitialEqualsToFinalTime() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -413,9 +441,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertTrue(actualMessage.contains(expectedMessage));
   }
 
-  /** See if the getValue method works but value is not a dummy, for this instance. */
+  /**
+   * See if the getValue method works but value is not a dummy, for this instance.
+   */
   @Test
-  void shouldReturnAverageValueForThisInstant()  {
+  void shouldReturnAverageValueForThisInstant() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -437,9 +467,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals(expectedAverage, Double.parseDouble(averageValue.toString()), 0.01);
   }
 
-  /** See if the addReading method works. */
+  /**
+   * See if the addReading method works.
+   */
   @Test
-  void shouldReturnReading()  {
+  void shouldReturnReading() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -465,8 +497,7 @@ class AveragePowerConsumptionAggregateSensorTest {
    * is instantiated.
    */
   @Test
-  void shouldGenerateSensorID_WhenAveragePowerConsumptionSensorIsInstantiated()
-  {
+  void shouldGenerateSensorID_WhenAveragePowerConsumptionSensorIsInstantiated() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -485,10 +516,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertTrue(averagePowerConsumptionSensor.toString().contains(result.toString()));
   }
 
-  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns the sensor name. */
+  /**
+   * Test to verify that the {@link AveragePowerConsumptionSensor} returns the sensor name.
+   */
   @Test
-  void shouldGetSensorName_WhenAveragePowerConsumptionSensorIsInstantiated()
-       {
+  void shouldGetSensorName_WhenAveragePowerConsumptionSensorIsInstantiated() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -510,10 +542,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals(sensorName.toString(), result.toString());
   }
 
-  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns the model path. */
+  /**
+   * Test to verify that the {@link AveragePowerConsumptionSensor} returns the model path.
+   */
   @Test
-  void shouldGetModelPath_WhenAveragePowerConsumptionSensorIsInstantiated()
-       {
+  void shouldGetModelPath_WhenAveragePowerConsumptionSensorIsInstantiated() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -531,10 +564,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals(modelPath.toString(), result.toString());
   }
 
-  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns the device ID. */
+  /**
+   * Test to verify that the {@link AveragePowerConsumptionSensor} returns the device ID.
+   */
   @Test
-  void shouldGetDeviceID_WhenAveragePowerConsumptionSensorIsInstantiated()
-       {
+  void shouldGetDeviceID_WhenAveragePowerConsumptionSensorIsInstantiated() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -552,10 +586,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     Assertions.assertEquals(deviceID.toString(), result.toString());
   }
 
-  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns the sensor type ID. */
+  /**
+   * Test to verify that the {@link AveragePowerConsumptionSensor} returns the sensor type ID.
+   */
   @Test
-  void shouldGetSensorTypeID_WhenAveragePowerConsumptionSensorIsInstantiated()
-       {
+  void shouldGetSensorTypeID_WhenAveragePowerConsumptionSensorIsInstantiated() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -573,7 +608,11 @@ class AveragePowerConsumptionAggregateSensorTest {
 
     Assertions.assertEquals(sensorTypeID.toString(), result.toString());
   }
-  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns true when comparing the same sensor. */
+
+  /**
+   * Test to verify that the {@link AveragePowerConsumptionSensor} returns true when comparing the
+   * same sensor.
+   */
   @Test
   void shouldReturnTrueWhenComparingSameAveragePowerConsumptionSensors() {
     // Arrange
@@ -587,7 +626,6 @@ class AveragePowerConsumptionAggregateSensorTest {
     SensorName sensorName1 = new SensorName(sensorNameValue);
     SensorTypeID sensorTypeID1 = new SensorTypeID(sensorTypeIDValue);
 
-
     AveragePowerConsumptionSensor averagePowerConsumptionSensor =
         new AveragePowerConsumptionSensor(deviceID1, modelPath1, sensorTypeID1, sensorName1);
     // Act
@@ -596,7 +634,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     // Assert
     assertTrue(result);
   }
-  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns false when comparing different sensors. */
+
+  /**
+   * Test to verify that the {@link AveragePowerConsumptionSensor} returns false when comparing
+   * different sensors.
+   */
   @Test
   void shouldReturnFalseWhenComparingDifferentAveragePowerConsumptionSensors() {
     // Arrange
@@ -630,7 +672,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     // Assert
     Assertions.assertFalse(result);
   }
-  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns false when comparing with null. */
+
+  /**
+   * Test to verify that the {@link AveragePowerConsumptionSensor} returns false when comparing with
+   * null.
+   */
   @Test
   void shouldReturnFalseWhenComparingWithNull() {
     // Arrange
@@ -652,7 +698,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     // Assert
     Assertions.assertFalse(result);
   }
-  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns false when comparing with different type. */
+
+  /**
+   * Test to verify that the {@link AveragePowerConsumptionSensor} returns false when comparing with
+   * different type.
+   */
   @Test
   void shouldReturnFalseWhenComparingWithDifferentType() {
     // Arrange
@@ -674,7 +724,11 @@ class AveragePowerConsumptionAggregateSensorTest {
     // Assert
     Assertions.assertFalse(result);
   }
-  /** Test to verify that the {@link AveragePowerConsumptionSensor} returns the same hash code for the same sensor. */
+
+  /**
+   * Test to verify that the {@link AveragePowerConsumptionSensor} returns the same hash code for
+   * the same sensor.
+   */
   @Test
   void hashCodeShouldBeDerivedFromSensorID() {
     // Arrange
@@ -702,7 +756,7 @@ class AveragePowerConsumptionAggregateSensorTest {
    * Should instantiate average power consumption sensor.
    */
   @Test
-  void shouldReturnAveragePowerConsumptionSensor_WithValidParametersIncludingSensorID () {
+  void shouldReturnAveragePowerConsumptionSensor_WithValidParametersIncludingSensorID() {
     //Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -717,7 +771,8 @@ class AveragePowerConsumptionAggregateSensorTest {
     SensorID sensorID = new SensorID(sensorIDValue);
 
     //Act
-    AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID);
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(
+        deviceID, modelPath, sensorTypeID, sensorName, sensorID);
 
     //Assert
     assertNotNull(averagePowerConsumptionSensor);
@@ -727,7 +782,7 @@ class AveragePowerConsumptionAggregateSensorTest {
    * Should throw exception when sensorID null.
    */
   @Test
-  void shouldThrowException_WhenSensorIDIsNull () {
+  void shouldThrowException_WhenSensorIDIsNull() {
     //Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -745,7 +800,8 @@ class AveragePowerConsumptionAggregateSensorTest {
     //Act + Assert
     Exception e = Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+        () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,
+            sensorID));
 
     String actualMessage = e.getMessage();
 
@@ -756,123 +812,129 @@ class AveragePowerConsumptionAggregateSensorTest {
   /**
    * Should throw exception when model path null.
    */
-    @Test
-    void shouldThrowException_WhenModelPathIsNull () {
-      //Arrange
-      String deviceIDValue = "deviceID";
-      String sensorNameValue = "sensorName";
-      String sensorTypeIDValue = "AveragePowerConsumption";
-      String sensorIDValue = "sensorID";
+  @Test
+  void shouldThrowException_WhenModelPathIsNull() {
+    //Arrange
+    String deviceIDValue = "deviceID";
+    String sensorNameValue = "sensorName";
+    String sensorTypeIDValue = "AveragePowerConsumption";
+    String sensorIDValue = "sensorID";
 
-      DeviceID deviceID = new DeviceID(deviceIDValue);
-      ModelPath modelPath = null;
-      SensorName sensorName = new SensorName(sensorNameValue);
-      SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-      SensorID sensorID = new SensorID(sensorIDValue);
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = null;
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+    SensorID sensorID = new SensorID(sensorIDValue);
 
-      String expectedMessage = "ModelPath is required";
+    String expectedMessage = "ModelPath is required";
 
-      //Act + Assert
-      Exception e = Assertions.assertThrows(
-          IllegalArgumentException.class,
-          () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+    //Act + Assert
+    Exception e = Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,
+            sensorID));
 
-      String actualMessage = e.getMessage();
+    String actualMessage = e.getMessage();
 
-      //Assert
-      assertEquals(expectedMessage, actualMessage);
-    }
+    //Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
 
   /**
    * Should throw exception when sensor name null.
    */
-    @Test
-    void shouldThrowException_WhenSensorNameIsNull () {
-      //Arrange
-      String deviceIDValue = "deviceID";
-      String modelPathValue = "modelPath";
-      String sensorTypeIDValue = "AveragePowerConsumption";
-      String sensorIDValue = "sensorID";
+  @Test
+  void shouldThrowException_WhenSensorNameIsNull() {
+    //Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "modelPath";
+    String sensorTypeIDValue = "AveragePowerConsumption";
+    String sensorIDValue = "sensorID";
 
-      DeviceID deviceID = new DeviceID(deviceIDValue);
-      ModelPath modelPath = new ModelPath(modelPathValue);
-      SensorName sensorName = null;
-      SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-      SensorID sensorID = new SensorID(sensorIDValue);
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = null;
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+    SensorID sensorID = new SensorID(sensorIDValue);
 
-      String expectedMessage = "SensorName is required";
+    String expectedMessage = "SensorName is required";
 
-      //Act + Assert
-      Exception e = Assertions.assertThrows(
-          IllegalArgumentException.class,
-          () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+    //Act + Assert
+    Exception e = Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,
+            sensorID));
 
-      String actualMessage = e.getMessage();
+    String actualMessage = e.getMessage();
 
-      //Assert
-      assertEquals(expectedMessage, actualMessage);
-    }
+    //Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
 
   /**
    * Should throw exception when sensor type ID null.
    */
-    @Test
-    void shouldThrowException_WhenSensorTypeIDIsNull () {
-      //Arrange
-      String deviceIDValue = "deviceID";
-      String modelPathValue = "modelPath";
-      String sensorNameValue = "sensorName";
-      String sensorIDValue = "sensorID";
+  @Test
+  void shouldThrowException_WhenSensorTypeIDIsNull() {
+    //Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "modelPath";
+    String sensorNameValue = "sensorName";
+    String sensorIDValue = "sensorID";
 
-      DeviceID deviceID = new DeviceID(deviceIDValue);
-      ModelPath modelPath = new ModelPath(modelPathValue);
-      SensorName sensorName = new SensorName(sensorNameValue);
-      SensorTypeID sensorTypeID = null;
-      SensorID sensorID = new SensorID(sensorIDValue);
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = null;
+    SensorID sensorID = new SensorID(sensorIDValue);
 
-      String expectedMessage = "SensorTypeID is required";
+    String expectedMessage = "SensorTypeID is required";
 
-      //Act + Assert
-      Exception e = Assertions.assertThrows(
-          IllegalArgumentException.class,
-          () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
+    //Act + Assert
+    Exception e = Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,
+            sensorID));
 
-      String actualMessage = e.getMessage();
+    String actualMessage = e.getMessage();
 
-      //Assert
-      assertEquals(expectedMessage, actualMessage);
-    }
+    //Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
+
   /**
    * Should throw exception when device ID null.
    */
-    @Test
-    void shouldThrowException_WhenDeviceIDIsNull () {
-      //Arrange
-      String modelPathValue = "modelPath";
-      String sensorNameValue = "sensorName";
-      String sensorTypeIDValue = "AveragePowerConsumption";
-      String sensorIDValue = "sensorID";
-
-      DeviceID deviceID = null;
-      ModelPath modelPath = new ModelPath(modelPathValue);
-      SensorName sensorName = new SensorName(sensorNameValue);
-      SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-      SensorID sensorID = new SensorID(sensorIDValue);
-
-      String expectedMessage = "DeviceID is required";
-
-      //Act + Assert
-      Exception e = Assertions.assertThrows(
-          IllegalArgumentException.class,
-          () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,sensorID));
-
-      String actualMessage = e.getMessage();
-
-      //Assert
-      assertEquals(expectedMessage, actualMessage);
-    }
   @Test
-  void shouldAcceptVisitorAndReturnInstanceOfObjectInString()  {
+  void shouldThrowException_WhenDeviceIDIsNull() {
+    //Arrange
+    String modelPathValue = "modelPath";
+    String sensorNameValue = "sensorName";
+    String sensorTypeIDValue = "AveragePowerConsumption";
+    String sensorIDValue = "sensorID";
+
+    DeviceID deviceID = null;
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+    SensorID sensorID = new SensorID(sensorIDValue);
+
+    String expectedMessage = "DeviceID is required";
+
+    //Act + Assert
+    Exception e = Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName,
+            sensorID));
+
+    String actualMessage = e.getMessage();
+
+    //Assert
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
     // Arrange
     String deviceIDValue = "deviceID";
     String modelPathValue = "modelPath";
@@ -883,7 +945,8 @@ class AveragePowerConsumptionAggregateSensorTest {
     ModelPath modelPath = new ModelPath(modelPathValue);
     SensorName sensorName = new SensorName(sensorNameValue);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-    AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    AveragePowerConsumptionSensor averagePowerConsumptionSensor = new AveragePowerConsumptionSensor(
+        deviceID, modelPath, sensorTypeID, sensorName);
     ISensorVisitor visitor = mock(ISensorVisitor.class);
     String expected = averagePowerConsumptionSensor.toString();
     // Act

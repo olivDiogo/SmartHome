@@ -1,5 +1,12 @@
 package smarthome.persistence.jpa.data_model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device.Device;
 import smarthome.domain.value_object.DeviceID;
@@ -8,325 +15,321 @@ import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 class DeviceDataModelTest {
 
-    /**
-     * Test to check if the DeviceDataModel is instantiated
-     */
-    @Test
-    void shouldInstantiateDeviceDataModel_WhenAsNoArguments() {
-        // Act
-        DeviceDataModel deviceModel = new DeviceDataModel();
-        // Assert
-        assertNotNull(deviceModel);
-    }
+  /**
+   * Test to check if the DeviceDataModel is instantiated
+   */
+  @Test
+  void shouldInstantiateDeviceDataModel_WhenAsNoArguments() {
+    // Act
+    DeviceDataModel deviceModel = new DeviceDataModel();
+    // Assert
+    assertNotNull(deviceModel);
+  }
 
 
-    /**
-     * Test constructor with null parameter.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_WhenDeviceIsNull(){
-        //Arrange
-        Device device = null;
-        String expectedMessage = "Device is required";
+  /**
+   * Test constructor with null parameter.
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_WhenDeviceIsNull() {
+    //Arrange
+    Device device = null;
+    String expectedMessage = "Device is required";
 
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new DeviceDataModel(device));
+    //Act
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> new DeviceDataModel(device));
 
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
-    /**
-     * Test constructor with valid parameter.
-     */
-    @Test
-    void shouldCreateDeviceDataModel_WhenDeviceIsNotNull(){
-        //Arrange
-        String strRoomID = "1";
-        String strDeviceName = "Light";
-        String strDeviceTypeID = "1";
-        boolean deviceStatus = true;
-        String strDeviceID = "1";
+    //Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        RoomID roomIDDouble = mock(RoomID.class);
-        DeviceName deviceNameDouble = mock(DeviceName.class);
-        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
-        DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
+  /**
+   * Test constructor with valid parameter.
+   */
+  @Test
+  void shouldCreateDeviceDataModel_WhenDeviceIsNotNull() {
+    //Arrange
+    String strRoomID = "1";
+    String strDeviceName = "Light";
+    String strDeviceTypeID = "1";
+    boolean deviceStatus = true;
+    String strDeviceID = "1";
 
-        when(deviceIDDouble.getID()).thenReturn(strDeviceID);
-        when(roomIDDouble.getID()).thenReturn(strRoomID);
-        when(deviceNameDouble.getName()).thenReturn(strDeviceName);
-        when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
-        when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    RoomID roomIDDouble = mock(RoomID.class);
+    DeviceName deviceNameDouble = mock(DeviceName.class);
+    DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+    DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
 
-        Device deviceDouble = mock(Device.class);
+    when(deviceIDDouble.getID()).thenReturn(strDeviceID);
+    when(roomIDDouble.getID()).thenReturn(strRoomID);
+    when(deviceNameDouble.getName()).thenReturn(strDeviceName);
+    when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
+    when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
 
-        when(deviceDouble.getID()).thenReturn(deviceIDDouble);
-        when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-        when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
-        when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
-        when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
+    Device deviceDouble = mock(Device.class);
 
-        //Act
-        DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
+    when(deviceDouble.getID()).thenReturn(deviceIDDouble);
+    when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
+    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
+    when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
-        //Assert
-        assertNotNull(deviceDataModel);
-    }
+    //Act
+    DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
 
-    /**
-     * Test getDeviceID method.
-     */
-    @Test
-    void shouldReturnDeviceID_WhenGetDeviceID(){
-        //Arrange
-        String strRoomID = "1";
-        String strDeviceName = "Light";
-        String strDeviceTypeID = "1";
-        boolean deviceStatus = true;
-        String strDeviceID = "1";
+    //Assert
+    assertNotNull(deviceDataModel);
+  }
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        RoomID roomIDDouble = mock(RoomID.class);
-        DeviceName deviceNameDouble = mock(DeviceName.class);
-        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
-        DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
+  /**
+   * Test getDeviceID method.
+   */
+  @Test
+  void shouldReturnDeviceID_WhenGetDeviceID() {
+    //Arrange
+    String strRoomID = "1";
+    String strDeviceName = "Light";
+    String strDeviceTypeID = "1";
+    boolean deviceStatus = true;
+    String strDeviceID = "1";
 
-        when(deviceIDDouble.getID()).thenReturn(strDeviceID);
-        when(roomIDDouble.getID()).thenReturn(strRoomID);
-        when(deviceNameDouble.getName()).thenReturn(strDeviceName);
-        when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
-        when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    RoomID roomIDDouble = mock(RoomID.class);
+    DeviceName deviceNameDouble = mock(DeviceName.class);
+    DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+    DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
 
-        Device deviceDouble = mock(Device.class);
+    when(deviceIDDouble.getID()).thenReturn(strDeviceID);
+    when(roomIDDouble.getID()).thenReturn(strRoomID);
+    when(deviceNameDouble.getName()).thenReturn(strDeviceName);
+    when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
+    when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
 
-        when(deviceDouble.getID()).thenReturn(deviceIDDouble);
-        when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-        when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
-        when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
-        when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
+    Device deviceDouble = mock(Device.class);
 
-        DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
+    when(deviceDouble.getID()).thenReturn(deviceIDDouble);
+    when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
+    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
+    when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
-        //Act
-        String result = deviceDataModel.getDeviceID();
+    DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
 
-        //Assert
-        assertEquals(strDeviceID, result);
-    }
+    //Act
+    String result = deviceDataModel.getDeviceID();
 
-    /**
-     * Test getRoomID method.
-     */
-    @Test
-    void shouldReturnRoomID_WhenGetRoomID(){
-        //Arrange
-        String strRoomID = "1";
-        String strDeviceName = "Light";
-        String strDeviceTypeID = "1";
-        boolean deviceStatus = true;
-        String strDeviceID = "1";
+    //Assert
+    assertEquals(strDeviceID, result);
+  }
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        RoomID roomIDDouble = mock(RoomID.class);
-        DeviceName deviceNameDouble = mock(DeviceName.class);
-        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
-        DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
+  /**
+   * Test getRoomID method.
+   */
+  @Test
+  void shouldReturnRoomID_WhenGetRoomID() {
+    //Arrange
+    String strRoomID = "1";
+    String strDeviceName = "Light";
+    String strDeviceTypeID = "1";
+    boolean deviceStatus = true;
+    String strDeviceID = "1";
 
-        when(deviceIDDouble.getID()).thenReturn(strDeviceID);
-        when(roomIDDouble.getID()).thenReturn(strRoomID);
-        when(deviceNameDouble.getName()).thenReturn(strDeviceName);
-        when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
-        when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    RoomID roomIDDouble = mock(RoomID.class);
+    DeviceName deviceNameDouble = mock(DeviceName.class);
+    DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+    DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
 
-        Device deviceDouble = mock(Device.class);
+    when(deviceIDDouble.getID()).thenReturn(strDeviceID);
+    when(roomIDDouble.getID()).thenReturn(strRoomID);
+    when(deviceNameDouble.getName()).thenReturn(strDeviceName);
+    when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
+    when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
 
-        when(deviceDouble.getID()).thenReturn(deviceIDDouble);
-        when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-        when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
-        when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
-        when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
+    Device deviceDouble = mock(Device.class);
 
-        DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
+    when(deviceDouble.getID()).thenReturn(deviceIDDouble);
+    when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
+    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
+    when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
-        //Act
-        String result = deviceDataModel.getRoomID();
+    DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
 
-        //Assert
-        assertEquals(strRoomID, result);
-    }
+    //Act
+    String result = deviceDataModel.getRoomID();
 
-    /**
-     * Test getDeviceName method.
-     */
-    @Test
-    void shouldReturnDeviceName_WhenGetDeviceName(){
-        //Arrange
-        String strRoomID = "1";
-        String strDeviceName = "Light";
-        String strDeviceTypeID = "1";
-        boolean deviceStatus = true;
-        String strDeviceID = "1";
+    //Assert
+    assertEquals(strRoomID, result);
+  }
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        RoomID roomIDDouble = mock(RoomID.class);
-        DeviceName deviceNameDouble = mock(DeviceName.class);
-        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
-        DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
+  /**
+   * Test getDeviceName method.
+   */
+  @Test
+  void shouldReturnDeviceName_WhenGetDeviceName() {
+    //Arrange
+    String strRoomID = "1";
+    String strDeviceName = "Light";
+    String strDeviceTypeID = "1";
+    boolean deviceStatus = true;
+    String strDeviceID = "1";
 
-        when(deviceIDDouble.getID()).thenReturn(strDeviceID);
-        when(roomIDDouble.getID()).thenReturn(strRoomID);
-        when(deviceNameDouble.getName()).thenReturn(strDeviceName);
-        when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
-        when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    RoomID roomIDDouble = mock(RoomID.class);
+    DeviceName deviceNameDouble = mock(DeviceName.class);
+    DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+    DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
 
-        Device deviceDouble = mock(Device.class);
+    when(deviceIDDouble.getID()).thenReturn(strDeviceID);
+    when(roomIDDouble.getID()).thenReturn(strRoomID);
+    when(deviceNameDouble.getName()).thenReturn(strDeviceName);
+    when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
+    when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
 
-        when(deviceDouble.getID()).thenReturn(deviceIDDouble);
-        when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-        when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
-        when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
-        when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
+    Device deviceDouble = mock(Device.class);
 
-        DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
+    when(deviceDouble.getID()).thenReturn(deviceIDDouble);
+    when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
+    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
+    when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
-        //Act
-        String result = deviceDataModel.getDeviceName();
+    DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
 
-        //Assert
-        assertEquals(strDeviceName, result);
-    }
+    //Act
+    String result = deviceDataModel.getDeviceName();
 
-    /**
-     * Test getDeviceTypeID method.
-     */
-    @Test
-    void shouldReturnDeviceTypeID_WhenGetDeviceTypeID(){
-        //Arrange
-        String strRoomID = "1";
-        String strDeviceName = "Light";
-        String strDeviceTypeID = "1";
-        boolean deviceStatus = true;
-        String strDeviceID = "1";
+    //Assert
+    assertEquals(strDeviceName, result);
+  }
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        RoomID roomIDDouble = mock(RoomID.class);
-        DeviceName deviceNameDouble = mock(DeviceName.class);
-        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
-        DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
+  /**
+   * Test getDeviceTypeID method.
+   */
+  @Test
+  void shouldReturnDeviceTypeID_WhenGetDeviceTypeID() {
+    //Arrange
+    String strRoomID = "1";
+    String strDeviceName = "Light";
+    String strDeviceTypeID = "1";
+    boolean deviceStatus = true;
+    String strDeviceID = "1";
 
-        when(deviceIDDouble.getID()).thenReturn(strDeviceID);
-        when(roomIDDouble.getID()).thenReturn(strRoomID);
-        when(deviceNameDouble.getName()).thenReturn(strDeviceName);
-        when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
-        when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    RoomID roomIDDouble = mock(RoomID.class);
+    DeviceName deviceNameDouble = mock(DeviceName.class);
+    DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+    DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
 
-        Device deviceDouble = mock(Device.class);
+    when(deviceIDDouble.getID()).thenReturn(strDeviceID);
+    when(roomIDDouble.getID()).thenReturn(strRoomID);
+    when(deviceNameDouble.getName()).thenReturn(strDeviceName);
+    when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
+    when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
 
-        when(deviceDouble.getID()).thenReturn(deviceIDDouble);
-        when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-        when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
-        when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
-        when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
+    Device deviceDouble = mock(Device.class);
 
-        DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
+    when(deviceDouble.getID()).thenReturn(deviceIDDouble);
+    when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
+    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
+    when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
-        //Act
-        String result = deviceDataModel.getDeviceTypeID();
+    DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
 
-        //Assert
-        assertEquals(strDeviceTypeID, result);
-    }
+    //Act
+    String result = deviceDataModel.getDeviceTypeID();
 
-    /**
-     * Test getDeviceStatus method.
-     */
-    @Test
-    void shouldReturnDeviceStatus_WhenGetDeviceStatus(){
-        //Arrange
-        String strRoomID = "1";
-        String strDeviceName = "Light";
-        String strDeviceTypeID = "1";
-        boolean deviceStatus = true;
-        String strDeviceID = "1";
+    //Assert
+    assertEquals(strDeviceTypeID, result);
+  }
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        RoomID roomIDDouble = mock(RoomID.class);
-        DeviceName deviceNameDouble = mock(DeviceName.class);
-        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
-        DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
+  /**
+   * Test getDeviceStatus method.
+   */
+  @Test
+  void shouldReturnDeviceStatus_WhenGetDeviceStatus() {
+    //Arrange
+    String strRoomID = "1";
+    String strDeviceName = "Light";
+    String strDeviceTypeID = "1";
+    boolean deviceStatus = true;
+    String strDeviceID = "1";
 
-        when(deviceIDDouble.getID()).thenReturn(strDeviceID);
-        when(roomIDDouble.getID()).thenReturn(strRoomID);
-        when(deviceNameDouble.getName()).thenReturn(strDeviceName);
-        when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
-        when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    RoomID roomIDDouble = mock(RoomID.class);
+    DeviceName deviceNameDouble = mock(DeviceName.class);
+    DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+    DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
 
-        Device deviceDouble = mock(Device.class);
+    when(deviceIDDouble.getID()).thenReturn(strDeviceID);
+    when(roomIDDouble.getID()).thenReturn(strRoomID);
+    when(deviceNameDouble.getName()).thenReturn(strDeviceName);
+    when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
+    when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
 
-        when(deviceDouble.getID()).thenReturn(deviceIDDouble);
-        when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-        when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
-        when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
-        when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
+    Device deviceDouble = mock(Device.class);
 
-        DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
+    when(deviceDouble.getID()).thenReturn(deviceIDDouble);
+    when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
+    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
+    when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
-        //Act
-        boolean result = deviceDataModel.getDeviceStatus();
+    DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
 
-        //Assert
-        assertEquals(deviceStatus, result);
-    }
-    /**
-     * Test to update the device data model from the domain.
-     */
-    @Test
-    void shouldUpdateDeviceDataModel_WhenUpdateFromDomain(){
-        //Arrange
-        String strRoomID = "1";
-        String strDeviceName = "Light";
-        String strDeviceTypeID = "1";
-        boolean deviceStatus = true;
-        String strDeviceID = "1";
+    //Act
+    boolean result = deviceDataModel.getDeviceStatus();
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        RoomID roomIDDouble = mock(RoomID.class);
-        DeviceName deviceNameDouble = mock(DeviceName.class);
-        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
-        DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
+    //Assert
+    assertEquals(deviceStatus, result);
+  }
 
-        when(deviceIDDouble.getID()).thenReturn(strDeviceID);
-        when(roomIDDouble.getID()).thenReturn(strRoomID);
-        when(deviceNameDouble.getName()).thenReturn(strDeviceName);
-        when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
-        when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
+  /**
+   * Test to update the device data model from the domain.
+   */
+  @Test
+  void shouldUpdateDeviceDataModel_WhenUpdateFromDomain() {
+    //Arrange
+    String strRoomID = "1";
+    String strDeviceName = "Light";
+    String strDeviceTypeID = "1";
+    boolean deviceStatus = true;
+    String strDeviceID = "1";
 
-        Device deviceDouble = mock(Device.class);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    RoomID roomIDDouble = mock(RoomID.class);
+    DeviceName deviceNameDouble = mock(DeviceName.class);
+    DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+    DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
 
-        when(deviceDouble.getID()).thenReturn(deviceIDDouble);
-        when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-        when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
-        when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
-        when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
+    when(deviceIDDouble.getID()).thenReturn(strDeviceID);
+    when(roomIDDouble.getID()).thenReturn(strRoomID);
+    when(deviceNameDouble.getName()).thenReturn(strDeviceName);
+    when(deviceTypeIDDouble.getID()).thenReturn(strDeviceTypeID);
+    when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
 
-        DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
+    Device deviceDouble = mock(Device.class);
 
-        //Act
-        boolean result = deviceDataModel.updateFromDomain(deviceDouble);
+    when(deviceDouble.getID()).thenReturn(deviceIDDouble);
+    when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
+    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
+    when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
-        //Assert
-        assertTrue(result);
-    }
+    DeviceDataModel deviceDataModel = new DeviceDataModel(deviceDouble);
 
+    //Act
+    boolean result = deviceDataModel.updateFromDomain(deviceDouble);
 
+    //Assert
+    assertTrue(result);
+  }
 
 
 }

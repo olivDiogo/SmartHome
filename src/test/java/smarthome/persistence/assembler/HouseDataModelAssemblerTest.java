@@ -1,23 +1,24 @@
 package smarthome.persistence.assembler;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
-import smarthome.persistence.jpa.data_model.HouseDataModel;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.IPostalCodeFactory;
 import smarthome.domain.value_object.PostalCodeFactory;
 import smarthome.domain.value_object.PostalCodePTImpl;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import smarthome.persistence.jpa.data_model.HouseDataModel;
 
 class HouseDataModelAssemblerTest {
 
@@ -52,7 +53,8 @@ class HouseDataModelAssemblerTest {
   void shouldReturnHouse_whenGivenValidHouseDataModel() {
     // Arrange
     HouseFactoryImpl houseFactoryDouble = mock(HouseFactoryImpl.class);
-    when(houseFactoryDouble.createHouse(any(Address.class), any(GPS.class))).thenReturn(mock(House.class));
+    when(houseFactoryDouble.createHouse(any(Address.class), any(GPS.class))).thenReturn(
+        mock(House.class));
 
     HouseDataModelAssembler houseDataModelAssembler = new HouseDataModelAssembler(
         houseFactoryDouble);
@@ -84,7 +86,6 @@ class HouseDataModelAssemblerTest {
 
     House expected = houseFactoryDouble.createHouse(houseIDDouble, addressDouble, gpsDouble);
 
-
     // Act
     House actual = houseDataModelAssembler.toDomain(houseDataModelDouble);
 
@@ -93,10 +94,11 @@ class HouseDataModelAssemblerTest {
   }
 
   @Test
-  void shouldReturnListOfHouses_WhenGivenListOfHousesDataModels () {
+  void shouldReturnListOfHouses_WhenGivenListOfHousesDataModels() {
     // Arrange
     HouseFactoryImpl houseFactoryDouble = mock(HouseFactoryImpl.class);
-    when(houseFactoryDouble.createHouse(any(Address.class), any(GPS.class))).thenReturn(mock(House.class));
+    when(houseFactoryDouble.createHouse(any(Address.class), any(GPS.class))).thenReturn(
+        mock(House.class));
 
     HouseDataModelAssembler houseDataModelAssembler = new HouseDataModelAssembler(
         houseFactoryDouble);

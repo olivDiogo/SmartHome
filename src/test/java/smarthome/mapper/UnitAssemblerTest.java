@@ -1,7 +1,9 @@
 package smarthome.mapper;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 import smarthome.domain.unit.Unit;
 import smarthome.utils.dto.UnitDTO;
 import smarthome.domain.value_object.UnitDescription;
@@ -18,7 +20,9 @@ import static org.mockito.Mockito.when;
 
 class UnitAssemblerTest {
 
-  /** Test if the constructor of the UnitAssembler class can be called. */
+  /**
+   * Test if the constructor of the UnitAssembler class can be called.
+   */
   @Test
   void shouldInstantiateANewUnitAssembler() {
     // Arrange
@@ -28,7 +32,9 @@ class UnitAssemblerTest {
     assertNotNull(unitAssembler);
   }
 
-  /** Test if the domainToDTO method returns a UnitDTO object when the unit is valid. */
+  /**
+   * Test if the domainToDTO method returns a UnitDTO object when the unit is valid.
+   */
   @Test
   void shouldReturnMeasurementTypeDTO_WhenDomainToDTOIsCalledWithMeasurementType() {
     // Arrange
@@ -71,7 +77,9 @@ class UnitAssemblerTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test if the domainToDTO method returns a UnitDTO object when the unit is valid. */
+  /**
+   * Test if the domainToDTO method returns a UnitDTO object when the unit is valid.
+   */
   @Test
   void shouldReturnMeasurementTypeDTOList_WhenDomainToDTOIsCalledWithListOfMeasurementType() {
     // Arrange

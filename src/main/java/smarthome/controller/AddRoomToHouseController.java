@@ -3,12 +3,12 @@ package smarthome.controller;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IRoomService;
-import smarthome.utils.dto.RoomDTO;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomName;
+import smarthome.utils.Validator;
+import smarthome.utils.dto.RoomDTO;
 
 
 /**

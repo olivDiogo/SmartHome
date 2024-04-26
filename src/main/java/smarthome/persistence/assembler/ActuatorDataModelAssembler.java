@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.IActuatorFactory;
-import smarthome.persistence.jpa.data_model.ActuatorDataModel;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
@@ -13,6 +11,8 @@ import smarthome.domain.value_object.DecimalLimits;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.persistence.jpa.data_model.ActuatorDataModel;
+import smarthome.utils.Validator;
 
 public class ActuatorDataModelAssembler implements
     IDataModelAssembler<ActuatorDataModel, IActuator> {

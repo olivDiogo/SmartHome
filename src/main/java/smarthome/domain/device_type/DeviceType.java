@@ -1,13 +1,13 @@
 package smarthome.domain.device_type;
 
+import java.util.UUID;
 import smarthome.ddd.IAggregateRoot;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
-
-import java.util.UUID;
+import smarthome.utils.Validator;
 
 public class DeviceType implements IAggregateRoot<DeviceTypeID> {
+
   private final TypeDescription _deviceTypeDescription;
   private DeviceTypeID _deviceTypeID;
 
@@ -31,7 +31,9 @@ public class DeviceType implements IAggregateRoot<DeviceTypeID> {
   }
 
 
-  /** Generates a new device type ID. */
+  /**
+   * Generates a new device type ID.
+   */
   private void generateDeviceTypeID() {
     this._deviceTypeID = new DeviceTypeID(UUID.randomUUID().toString());
   }

@@ -14,17 +14,30 @@ import smarthome.domain.sensor.temperature_sensor.TemperatureSensor;
 import smarthome.domain.sensor.wind_sensor.WindSensor;
 
 public interface ISensorVisitor {
-    String visitTemperatureSensor(TemperatureSensor temperatureSensor);
-    String visitHumiditySensor(HumiditySensor humiditySensor);
-    String visitSunsetTimeSensor(SunsetTimeSensor sunsetTimeSensor);
-    String visitWindSensor(WindSensor windSensor);
-    String visitSwitchSensor(SwitchSensor switchSensor);
-    String visitSunriseTimeSensor(SunriseTimeSensor sunriseTimeSensor);
-    String visitSolarIrradianceSensor(SolarIrradianceSensor solarIrradianceSensor);
-    String visitPercentageSensor(PercentagePositionSensor percentagePositionSensor);
-    String visitInstantPowerSensor(InstantPowerConsumptionSensor instantPowerConsumptionSensor);
-    String visitDewPointSensor(DewPointSensor dewPointSensor);
-    String visitAveragePowerConsumptionSensor(AveragePowerConsumptionSensor averagePowerConsumptionSensor);
-    String visitElectricConsumptionWhSensor(ElectricConsumptionWhSensor electricConsumptionWhSensor);
+
+  String visitTemperatureSensor(TemperatureSensor temperatureSensor);
+
+  String visitHumiditySensor(HumiditySensor humiditySensor);
+
+  String visitSunsetTimeSensor(SunsetTimeSensor sunsetTimeSensor);
+
+  String visitWindSensor(WindSensor windSensor);
+
+  String visitSwitchSensor(SwitchSensor switchSensor);
+
+  String visitSunriseTimeSensor(SunriseTimeSensor sunriseTimeSensor);
+
+  String visitSolarIrradianceSensor(SolarIrradianceSensor solarIrradianceSensor);
+
+  String visitPercentageSensor(PercentagePositionSensor percentagePositionSensor);
+
+  String visitInstantPowerSensor(InstantPowerConsumptionSensor instantPowerConsumptionSensor);
+
+  String visitDewPointSensor(DewPointSensor dewPointSensor);
+
+  String visitAveragePowerConsumptionSensor(
+      AveragePowerConsumptionSensor averagePowerConsumptionSensor);
+
+  String visitElectricConsumptionWhSensor(ElectricConsumptionWhSensor electricConsumptionWhSensor);
 
 }

@@ -1,23 +1,24 @@
 package smarthome.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.log.ILogFactory;
 import smarthome.domain.log.Log;
 import smarthome.domain.log.LogFactoryImpl;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.service.ILogService;
-import smarthome.utils.dto.DeviceDataDTO;
-import smarthome.persistence.mem.*;
-import smarthome.service.*;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ReadingValue;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
+import smarthome.persistence.mem.LogRepository;
+import smarthome.service.LogServiceImpl;
+import smarthome.utils.dto.DeviceDataDTO;
 
 class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
 

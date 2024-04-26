@@ -1,190 +1,196 @@
 package smarthome.persistence.jpa.repository;
 
-import jakarta.persistence.*;
-import smarthome.domain.device.Device;
-import smarthome.domain.repository.IDeviceRepository;
-import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.DeviceDataModel;
-import smarthome.domain.value_object.DeviceID;
-import smarthome.domain.value_object.RoomID;
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
+import smarthome.domain.device.Device;
+import smarthome.domain.repository.IDeviceRepository;
+import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.RoomID;
+import smarthome.persistence.assembler.IDataModelAssembler;
+import smarthome.persistence.jpa.data_model.DeviceDataModel;
 
 /**
- * A JPA repository implementation for Device entities, using the Jakarta Persistence API.
- * This repository is responsible for performing database operations on Device entities
- * using a JPA EntityManager.
+ * A JPA repository implementation for Device entities, using the Jakarta Persistence API. This
+ * repository is responsible for performing database operations on Device entities using a JPA
+ * EntityManager.
  */
 public class DeviceRepositoryJPAImpl implements IDeviceRepository {
 
-    private EntityManagerFactory factory;
-    private IDataModelAssembler<DeviceDataModel, Device> dataModelAssembler;
+  private final EntityManagerFactory factory;
+  private final IDataModelAssembler<DeviceDataModel, Device> dataModelAssembler;
 
-    /**
-     * Constructs a new RepositoryDeviceJPAImpl.
-     *
-     * @param dataModelConverter A converter to transform DeviceDataModel objects to Device domain objects.
-     */
+  /**
+   * Constructs a new RepositoryDeviceJPAImpl.
+   *
+   * @param dataModelConverter A converter to transform DeviceDataModel objects to Device domain
+   *                           objects.
+   */
 
-    public DeviceRepositoryJPAImpl(IDataModelAssembler<DeviceDataModel, Device> dataModelConverter) {
-        validateDataModelAssembler(dataModelConverter);
-        factory = Persistence.createEntityManagerFactory("smarthome");
-        dataModelAssembler = dataModelConverter;
+  public DeviceRepositoryJPAImpl(IDataModelAssembler<DeviceDataModel, Device> dataModelConverter) {
+    validateDataModelAssembler(dataModelConverter);
+    factory = Persistence.createEntityManagerFactory("smarthome");
+    dataModelAssembler = dataModelConverter;
+  }
+
+  /**
+   * Validates the data model assembler.
+   */
+  private void validateDataModelAssembler(
+      IDataModelAssembler<DeviceDataModel, Device> dataModelConverter) {
+    if (dataModelConverter == null) {
+      throw new IllegalArgumentException("The data model converter must not be null.");
+    }
+  }
+
+  /**
+   * Retrieves an EntityManager instance from the EntityManagerFactory.
+   *
+   * @return EntityManager to be used for database operations.
+   */
+  private EntityManager getEntityManager() {
+    return factory.createEntityManager();
+  }
+
+  /**
+   * Saves a Device entity into the database.
+   *
+   * @param device The Device entity to be saved.
+   * @return The saved Device entity.
+   * @throws IllegalArgumentException if the device parameter is null.
+   */
+  @Override
+  public Device save(Device device) {
+    if (device == null) {
+      throw new IllegalArgumentException("The provided entity must not be null.");
+    }
+    DeviceDataModel deviceDataModel = new DeviceDataModel(device);
+    EntityManager em = getEntityManager();
+    EntityTransaction tx = em.getTransaction();
+
+    try {
+      tx.begin();
+      em.persist(deviceDataModel);
+      tx.commit();
+    } catch (RuntimeException e) {
+      if (tx.isActive()) {
+        tx.rollback();
+      }
+      throw e;
+    } finally {
+      em.close();
+    }
+    return device;
+  }
+
+  /**
+   * Retrieves all Device entities from the database.
+   *
+   * @return A list of Device domain objects.
+   */
+
+  @Override
+  public List<Device> findAll() {
+    EntityManager em = getEntityManager();
+    try {
+      Query query = em.createQuery("SELECT e FROM DeviceDataModel e");
+      List<DeviceDataModel> listDataModel = query.getResultList();
+      return dataModelAssembler.toDomain(listDataModel);
+    } finally {
+      em.close();
+    }
+  }
+
+  /**
+   * Retrieves a Device entity from the database by its unique identifier.
+   *
+   * @param deviceID is the unique identifier of the domain entity.
+   * @return An Optional containing the found Device, or an empty Optional if no device is found.
+   */
+  @Override
+  public Optional<Device> ofIdentity(DeviceID deviceID) {
+    EntityManager em = getEntityManager();
+    try {
+      DeviceDataModel deviceDataModel = em.find(DeviceDataModel.class, deviceID.getID());
+      if (deviceDataModel == null) {
+        return Optional.empty();
+      } else {
+        Device device = dataModelAssembler.toDomain(deviceDataModel);
+        return Optional.of(device);
+      }
+    } finally {
+      em.close();
+
     }
 
-    /**
-     * Validates the data model assembler.
-     */
-    private void validateDataModelAssembler(IDataModelAssembler<DeviceDataModel, Device> dataModelConverter) {
-        if (dataModelConverter == null) {
-            throw new IllegalArgumentException("The data model converter must not be null.");
-        }
+  }
+
+  /**
+   * Checks if a Device with a specific identity exists in the database.
+   *
+   * @param objectID The unique identifier of the Device.
+   * @return true if a Device with the specified identifier exists, false otherwise.
+   */
+
+  @Override
+  public boolean containsOfIdentity(DeviceID objectID) {
+    return ofIdentity(objectID).isPresent();
+  }
+
+  /**
+   * Retrieves devices associated with a specific room.
+   *
+   * @param roomId The identifier of the room.
+   * @return A list of Device domain objects located in the specified room.
+   */
+
+  @Override
+  public List<Device> findBy_roomID(RoomID roomId) {
+    EntityManager em = getEntityManager();
+    try {
+      Query query = em.createQuery("SELECT e FROM DeviceDataModel e WHERE e.roomID = :roomId");
+      query.setParameter("roomId", roomId.getID());
+      List<DeviceDataModel> listDataModel = query.getResultList();
+      return dataModelAssembler.toDomain(listDataModel);
+    } finally {
+      em.close();
     }
 
-    /**
-     * Retrieves an EntityManager instance from the EntityManagerFactory.
-     *
-     * @return EntityManager to be used for database operations.
-     */
-    private EntityManager getEntityManager() {
-        return factory.createEntityManager();
-    }
+  }
 
-    /**
-     * Saves a Device entity into the database.
-     *
-     * @param device The Device entity to be saved.
-     * @return The saved Device entity.
-     * @throws IllegalArgumentException if the device parameter is null.
-     */
-    @Override
-    public Device save(Device device) {
-        if (device == null) {
-            throw new IllegalArgumentException("The provided entity must not be null.");
-        }
-        DeviceDataModel deviceDataModel = new DeviceDataModel(device);
+  @Override
+  public Device update(Device device) {
+    DeviceDataModel deviceDataModel = getEntityManager().find(DeviceDataModel.class,
+        device.getID().getID());
+
+    if (deviceDataModel != null) {
+      boolean isUpdated = deviceDataModel.updateFromDomain(device);
+
+      if (isUpdated) {
         EntityManager em = getEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         try {
-            tx.begin();
-            em.persist(deviceDataModel);
-            tx.commit();
+          tx.begin();
+          em.merge(deviceDataModel);
+          tx.commit();
         } catch (RuntimeException e) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw e;
+          if (tx.isActive()) {
+            tx.rollback();
+          }
+          throw e;
         } finally {
-            em.close();
+          em.close();
         }
         return device;
-    }
-
-    /**
-     * Retrieves all Device entities from the database.
-     *
-     * @return A list of Device domain objects.
-     */
-
-    @Override
-    public List<Device> findAll() {
-        EntityManager em = getEntityManager();
-        try {
-            Query query = em.createQuery("SELECT e FROM DeviceDataModel e");
-            List<DeviceDataModel> listDataModel = query.getResultList();
-            return dataModelAssembler.toDomain(listDataModel);
-        } finally {
-            em.close();
-        }
-    }
-
-    /**
-     * Retrieves a Device entity from the database by its unique identifier.
-     *
-     * @param deviceID is the unique identifier of the domain entity.
-     * @return An Optional containing the found Device, or an empty Optional if no device is found.
-     */
-    @Override
-    public Optional<Device> ofIdentity(DeviceID deviceID) {
-        EntityManager em = getEntityManager();
-        try {
-            DeviceDataModel deviceDataModel = em.find(DeviceDataModel.class, deviceID.getID());
-            if (deviceDataModel == null) {
-                return Optional.empty();
-            } else {
-                Device device = dataModelAssembler.toDomain(deviceDataModel);
-                return Optional.of(device);
-            }
-        } finally {
-            em.close();
-
-        }
-
-    }
-
-    /**
-     * Checks if a Device with a specific identity exists in the database.
-     *
-     * @param objectID The unique identifier of the Device.
-     * @return true if a Device with the specified identifier exists, false otherwise.
-     */
-
-    @Override
-    public boolean containsOfIdentity(DeviceID objectID) {
-        return ofIdentity(objectID).isPresent();
-    }
-
-    /**
-     * Retrieves devices associated with a specific room.
-     *
-     * @param roomId The identifier of the room.
-     * @return A list of Device domain objects located in the specified room.
-     */
-
-    @Override
-    public List<Device> findBy_roomID(RoomID roomId) {
-        EntityManager em = getEntityManager();
-        try {
-            Query query = em.createQuery("SELECT e FROM DeviceDataModel e WHERE e.roomID = :roomId");
-            query.setParameter("roomId", roomId.getID());
-            List<DeviceDataModel> listDataModel = query.getResultList();
-            return dataModelAssembler.toDomain(listDataModel);
-        } finally {
-            em.close();
-        }
-
-    }
-
-    @Override
-    public Device update(Device device) {
-        DeviceDataModel deviceDataModel = getEntityManager().find(DeviceDataModel.class, device.getID().getID());
-
-        if (deviceDataModel != null) {
-            boolean isUpdated = deviceDataModel.updateFromDomain(device);
-
-            if (isUpdated) {
-                EntityManager em = getEntityManager();
-                EntityTransaction tx = em.getTransaction();
-
-                try {
-                    tx.begin();
-                    em.merge(deviceDataModel);
-                    tx.commit();
-                } catch (RuntimeException e) {
-                    if (tx.isActive()) {
-                        tx.rollback();
-                    }
-                    throw e;
-                } finally {
-                    em.close();
-                }
-                return device;
-            } else {
-                return null;
-            }
-        }
+      } else {
         return null;
+      }
     }
+    return null;
+  }
 }

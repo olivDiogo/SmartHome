@@ -1,22 +1,23 @@
 package smarthome.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device.Device;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.sensor.ISensorFactory;
-import smarthome.persistence.mem.DeviceRepository;
-import smarthome.persistence.mem.SensorRepository;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import smarthome.persistence.mem.DeviceRepository;
+import smarthome.persistence.mem.SensorRepository;
 
 
 class SensorServiceImplTest {

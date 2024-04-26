@@ -1,16 +1,15 @@
 package smarthome.service;
 
+import java.util.List;
+import java.util.Optional;
 import smarthome.ddd.IRepository;
 import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.actuator_type.IActuatorTypeFactory;
 import smarthome.domain.unit.Unit;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
-
-import java.util.List;
-import java.util.Optional;
+import smarthome.utils.Validator;
 
 public class ActuatorTypeServiceImpl implements smarthome.domain.service.IActuatorTypeService {
 

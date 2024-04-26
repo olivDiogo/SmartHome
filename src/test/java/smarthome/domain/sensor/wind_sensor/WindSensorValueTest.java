@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WindSensorValueTest {
 
-  /** Test if the constructor is properly created. */
+  /**
+   * Test if the constructor is properly created.
+   */
   @Test
   void shouldInstantiateWindSensorValue() {
     // Arrange
@@ -20,7 +22,9 @@ class WindSensorValueTest {
     assertNotNull(result);
   }
 
-  /** Test if the getSpeed method returns the correct speed. */
+  /**
+   * Test if the getSpeed method returns the correct speed.
+   */
   @Test
   void shouldReturnSpeed() {
     // Arrange
@@ -36,7 +40,9 @@ class WindSensorValueTest {
     assertEquals(speed, result);
   }
 
-  /** Test if the getDirection method returns the correct direction. */
+  /**
+   * Test if the getDirection method returns the correct direction.
+   */
   @Test
   void shouldReturnDirection() {
     // Arrange
@@ -52,7 +58,9 @@ class WindSensorValueTest {
     assertEquals(direction, result);
   }
 
-  /** Test if the equals method returns true when the objects are equal. */
+  /**
+   * Test if the equals method returns true when the objects are equal.
+   */
   @Test
   void shouldReturnTrue_whenObjectsAreEqual() {
     // Arrange
@@ -66,10 +74,12 @@ class WindSensorValueTest {
     boolean result = windSensorValue1.equals(windSensorValue2);
 
     // Assert
-    assertEquals(true, result);
+    assertTrue(result);
   }
 
-  /** Test if the equals method returns false when the objects are not equal. */
+  /**
+   * Test if the equals method returns false when the objects are not equal.
+   */
   @Test
   void shouldReturnFalse_whenObjectsAreNotEqual() {
     // Arrange
@@ -83,10 +93,12 @@ class WindSensorValueTest {
     boolean result = windSensorValue.equals(other);
 
     // Assert
-    assertEquals(false, result);
+    assertFalse(result);
   }
 
-  /** Test if the equals method returns false when the object is not a WindSensorValue. */
+  /**
+   * Test if the equals method returns false when the object is not a WindSensorValue.
+   */
   @Test
   void shouldReturnFalse_whenObjectsAreNotWindSensorValue() {
     // Arrange
@@ -102,7 +114,9 @@ class WindSensorValueTest {
     assertFalse(result);
   }
 
-  /** Test if the hashCodes of two different objects are the same. */
+  /**
+   * Test if the hashCodes of two different objects are the same.
+   */
   @Test
   void equalsObjectsShouldReturnTheSameHash() {
     // Arrange
@@ -121,9 +135,9 @@ class WindSensorValueTest {
     assertEquals(expected, result);
   }
 
-    /**
-     * Test if the hashCodes of two equal objects are equal.
-     */
+  /**
+   * Test if the hashCodes of two equal objects are equal.
+   */
   @Test
   void shouldReturnHashCode_WhenHashCodeIsCalled() {
     // Arrange
@@ -141,9 +155,9 @@ class WindSensorValueTest {
     assertEquals(result, result2);
   }
 
-    /**
-     * Test if the hashCodes of two different objects are different.
-     */
+  /**
+   * Test if the hashCodes of two different objects are different.
+   */
   @Test
   void shouldReturnNotEquals_WhenHashCodeCalledIsDifferent() {
     // Arrange
@@ -156,7 +170,9 @@ class WindSensorValueTest {
     assertNotEquals(expected, result);
   }
 
-  /** Test if the hashCodes of two different objects are different, when one is zero. */
+  /**
+   * Test if the hashCodes of two different objects are different, when one is zero.
+   */
   @Test
   void shouldNotReturnZero_WhenValuesAreNonZero() {
     // Arrange

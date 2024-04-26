@@ -1,16 +1,15 @@
 package smarthome.service;
 
+import java.util.Optional;
 import smarthome.ddd.IRepository;
 import smarthome.domain.device.Device;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.sensor.ISensorFactory;
 import smarthome.domain.service.ISensorService;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorID;
-
-import java.util.Optional;
+import smarthome.utils.Validator;
 
 public class SensorServiceImpl implements ISensorService {
 

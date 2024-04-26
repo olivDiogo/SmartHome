@@ -11,13 +11,13 @@ import smarthome.domain.sensor.SensorFactoryImpl;
 import smarthome.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhSensor;
 import smarthome.domain.sensor.sunrise_time_sensor.SunriseTimeSensor;
 import smarthome.domain.sensor.temperature_sensor.TemperatureSensor;
-import smarthome.persistence.jpa.data_model.SensorDataModel;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.persistence.jpa.data_model.SensorDataModel;
 
 class SensorDataModelAssemblerTest {
 
@@ -47,45 +47,49 @@ class SensorDataModelAssemblerTest {
   }
 
   @Test
-  void shouldInstantiateSensorWithGPS(){
-  // Arrange
-  String deviceIDValue = "deviceID";
-  String modelPathValue = "smarthome.domain.sensor.sunrise_time_sensor.SunriseTimeSensor";
-  String sensorNameValue = "sensorName";
-  String sensorTypeIDValue = "SunriseTime";
-  double GPSLatitude = 90.0;
-  double GPSLongitude = 180.0;
+  void shouldInstantiateSensorWithGPS() {
+    // Arrange
+    String deviceIDValue = "deviceID";
+    String modelPathValue = "smarthome.domain.sensor.sunrise_time_sensor.SunriseTimeSensor";
+    String sensorNameValue = "sensorName";
+    String sensorTypeIDValue = "SunriseTime";
+    double GPSLatitude = 90.0;
+    double GPSLongitude = 180.0;
 
-  DeviceID deviceID = new DeviceID(deviceIDValue);
-  ModelPath modelPath = new ModelPath(modelPathValue);
-  SensorName sensorName = new SensorName(sensorNameValue);
-  SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-  GPS gps = new GPS(GPSLatitude, GPSLongitude);
+    DeviceID deviceID = new DeviceID(deviceIDValue);
+    ModelPath modelPath = new ModelPath(modelPathValue);
+    SensorName sensorName = new SensorName(sensorNameValue);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
+    GPS gps = new GPS(GPSLatitude, GPSLongitude);
 
-  // Act
-  SunriseTimeSensor result = new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName, gps);
-  SensorDataModel sensorDataModel = new SensorDataModel(result);
-  sensorDataModel.setLatitude(String.valueOf(GPSLatitude));
-  sensorDataModel.setLongitude(String.valueOf(GPSLongitude));
+    // Act
+    SunriseTimeSensor result = new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName,
+        gps);
+    SensorDataModel sensorDataModel = new SensorDataModel(result);
+    sensorDataModel.setLatitude(String.valueOf(GPSLatitude));
+    sensorDataModel.setLongitude(String.valueOf(GPSLongitude));
 
-  ISensorFactory sensorFactory = new SensorFactoryImpl();
-  SensorDataModelAssembler sensorDataModelAssembler = new SensorDataModelAssembler(sensorFactory);
-  ISensor sensor = sensorDataModelAssembler.toDomain(sensorDataModel);
+    ISensorFactory sensorFactory = new SensorFactoryImpl();
+    SensorDataModelAssembler sensorDataModelAssembler = new SensorDataModelAssembler(sensorFactory);
+    ISensor sensor = sensorDataModelAssembler.toDomain(sensorDataModel);
 
-  // Assert
-  assertEquals(result, sensor);
+    // Assert
+    assertEquals(result, sensor);
   }
+
   @Test
-  void shouldInstantiateSensorWithDatePeriod(){
+  void shouldInstantiateSensorWithDatePeriod() {
     //Arrange
-    ModelPath modelPath = new ModelPath("smarthome.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhSensor");
+    ModelPath modelPath = new ModelPath(
+        "smarthome.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhSensor");
     DeviceID deviceID = new DeviceID("deviceID");
     SensorTypeID sensorTypeID = new SensorTypeID("ElectricConsumptionWh");
     SensorName sensorName = new SensorName("sensorName");
     LocalDateTime startDate = LocalDateTime.now().minusDays(1);
     LocalDateTime endDate = LocalDateTime.now();
     DatePeriod datePeriod = new DatePeriod(startDate, endDate);
-    ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(deviceID, modelPath, sensorTypeID, sensorName, datePeriod);
+    ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(
+        deviceID, modelPath, sensorTypeID, sensorName, datePeriod);
 
     SensorDataModel sensorDataModel = new SensorDataModel(electricConsumptionWhSensor);
     sensorDataModel.setStartDate(startDate.toString());
@@ -102,7 +106,7 @@ class SensorDataModelAssemblerTest {
   }
 
   @Test
-  void shouldReturnListOfSensorsOfDifferentSubClasses(){
+  void shouldReturnListOfSensorsOfDifferentSubClasses() {
     //Arrange
     //Sensor Temp
     String deviceIDTemp = "some-device-id";
@@ -114,7 +118,8 @@ class SensorDataModelAssemblerTest {
     SensorName sensorName = new SensorName(sensorNameTemp);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDTemp);
 
-    TemperatureSensor temperatureSensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
+    TemperatureSensor temperatureSensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID,
+        sensorName);
     SensorDataModel tempatureSensorDataModel = new SensorDataModel(temperatureSensor);
 
     //Sensor Sunrise
@@ -131,12 +136,14 @@ class SensorDataModelAssemblerTest {
     SensorTypeID sunrSensorTypeID = new SensorTypeID(sensorTypeIDSunr);
     GPS gps = new GPS(GPSLatitude, GPSLongitude);
 
-    SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(sunrDeviceID, sunrModelPath, sunrSensorTypeID, sunrSensorName, gps);
+    SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(sunrDeviceID, sunrModelPath,
+        sunrSensorTypeID, sunrSensorName, gps);
     SensorDataModel sunriseSensorDataModel = new SensorDataModel(sunriseTimeSensor);
     sunriseSensorDataModel.setLatitude(String.valueOf(GPSLatitude));
     sunriseSensorDataModel.setLongitude(String.valueOf(GPSLongitude));
 
-    List<SensorDataModel> sensorDataModels = List.of(tempatureSensorDataModel, sunriseSensorDataModel);
+    List<SensorDataModel> sensorDataModels = List.of(tempatureSensorDataModel,
+        sunriseSensorDataModel);
     List<ISensor> expected = List.of(temperatureSensor, sunriseTimeSensor);
 
     ISensorFactory sensorFactory = new SensorFactoryImpl();

@@ -1,5 +1,11 @@
 package smarthome.persistence.jpa.data_model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.value_object.ActuatorModelID;
@@ -7,12 +13,11 @@ import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
- class ActuatorModelDataModelTest {
+class ActuatorModelDataModelTest {
 
-  /** Test to ensure that an ActuatorModelDataModel can be instantiated successfully */
+  /**
+   * Test to ensure that an ActuatorModelDataModel can be instantiated successfully
+   */
   @Test
   void shouldInstantiateActuatorModelDataModelWithDefaultConstructor() {
     // Act

@@ -4,57 +4,60 @@ package smarthome.domain.sensor.average_power_consumption_sensor;
 import smarthome.ddd.IValueObject;
 
 public class AveragePowerConsumptionSensorValue implements IValueObject {
-    public double dValue;
 
-    /**
-     * Creates a new PowerConsumptionSensorValue with a given value.
-     *
-     * @param dValue the value to be set.
-     */
+  public double dValue;
 
-    public AveragePowerConsumptionSensorValue(double dValue) {
-        validateValue(dValue);
+  /**
+   * Creates a new PowerConsumptionSensorValue with a given value.
+   *
+   * @param dValue the value to be set.
+   */
+
+  public AveragePowerConsumptionSensorValue(double dValue) {
+    validateValue(dValue);
+  }
+
+  /**
+   * Gets the value of the PowerConsumptionSensorValue.
+   *
+   * @return the value of the PowerConsumptionSensorValue.
+   */
+  public double getValue() {
+    return this.dValue;
+  }
+
+  /**
+   * Gets the value of the PowerConsumptionSensorValue.
+   *
+   * @return the value of the PowerConsumptionSensorValue.
+   */
+
+  private void validateValue(double dValue) {
+    if (dValue < 0) {
+      throw new IllegalArgumentException("Value must be positive");
     }
+    this.dValue = dValue;
+  }
 
-    /**
-     * Gets the value of the PowerConsumptionSensorValue.
-     *
-     * @return the value of the PowerConsumptionSensorValue.
-     */
-    public double getValue() {
-        return this.dValue;
-    }
+  public String toString() {
+    return this.dValue + "";
+  }
 
-    /**
-     * Gets the value of the PowerConsumptionSensorValue.
-     *
-     * @return the value of the PowerConsumptionSensorValue.
-     */
+  /**
+   * Overrides the equals method to compare two PowerConsumptionSensorValue objects.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue) {
+      double epsilon = 0.001;
+      double a = Math.abs(dValue - averagePowerConsumptionSensorValue.dValue);
+      return Math.min(a, epsilon) == a;
+    }
+    return false;
+  }
 
-    private void validateValue(double dValue) {
-        if (dValue < 0)
-            throw new IllegalArgumentException("Value must be positive");
-        this.dValue = dValue;
-    }
-
-    public String toString() {
-        return this.dValue + "";
-    }
-
-    /**
-     * Overrides the equals method to compare two PowerConsumptionSensorValue objects.
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue) {
-            double epsilon = 0.001;
-            double a = Math.abs(dValue - averagePowerConsumptionSensorValue.dValue);
-            return Math.min(a, epsilon) == a;
-        }
-        return false;
-    }
-    @Override
-    public int hashCode() {
-        return Double.hashCode(dValue);
-    }
+  @Override
+  public int hashCode() {
+    return Double.hashCode(dValue);
+  }
 }

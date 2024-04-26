@@ -1,5 +1,13 @@
 package smarthome.domain.sensor.percentage_position_sensor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import smarthome.domain.value_object.DeviceID;
@@ -8,10 +16,9 @@ import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-/** Test cases for the PercentagePositionSensor class. */
+/**
+ * Test cases for the PercentagePositionSensor class.
+ */
 class PercentagePositionSensorTest {
 
   /**
@@ -38,7 +45,9 @@ class PercentagePositionSensorTest {
     }
   }
 
-  /** Test to verify with mock that an IllegalArgumentException is thrown when ModelPath is null. */
+  /**
+   * Test to verify with mock that an IllegalArgumentException is thrown when ModelPath is null.
+   */
   @Test
   void shouldThrowIllegalArgumentException_whenModelPathIsNull() {
     // Arrange
@@ -106,7 +115,9 @@ class PercentagePositionSensorTest {
     }
   }
 
-  /** Test to verify with mock that an IllegalArgumentException is thrown when DeviceID is null. */
+  /**
+   * Test to verify with mock that an IllegalArgumentException is thrown when DeviceID is null.
+   */
   @Test
   void shouldThrowIllegalArgumentException_whenDeviceIDIsNull() {
     // Arrange
@@ -129,7 +140,9 @@ class PercentagePositionSensorTest {
     }
   }
 
-  /** Test to verify that the correct value is returned when getValue is called. */
+  /**
+   * Test to verify that the correct value is returned when getValue is called.
+   */
   @Test
   void shouldReturnSensorValue_whenGetValueIsCalled() {
     // Arrange
@@ -155,7 +168,9 @@ class PercentagePositionSensorTest {
     }
   }
 
-  /** Test to verify with mock that the correct ID is returned when getID is called. */
+  /**
+   * Test to verify with mock that the correct ID is returned when getID is called.
+   */
   @Test
   void shouldReturnSensorID_whenGetIDIsCalled() {
     DeviceID deviceID = mock(DeviceID.class);
@@ -180,7 +195,9 @@ class PercentagePositionSensorTest {
     }
   }
 
-  /** Test to verify that the correct SensorTypeID is returned when getSensorTypeID is called. */
+  /**
+   * Test to verify that the correct SensorTypeID is returned when getSensorTypeID is called.
+   */
   @Test
   void shouldReturnSensorTypeID_whenGetSensorTypeIDIsCalled() {
     // Arrange
@@ -205,7 +222,9 @@ class PercentagePositionSensorTest {
     }
   }
 
-  /** Test to verify that the correct DeviceID is returned when getDeviceID is called. */
+  /**
+   * Test to verify that the correct DeviceID is returned when getDeviceID is called.
+   */
   @Test
   void shouldReturnDeviceID_whenGetDeviceIDIsCalled() {
     // Arrange
@@ -257,7 +276,9 @@ class PercentagePositionSensorTest {
     }
   }
 
-  /** Test to verify with mock that the correct SensorName is returned when getName is called. */
+  /**
+   * Test to verify with mock that the correct SensorName is returned when getName is called.
+   */
   @Test
   void shouldReturnSensorName_whenGetNameIsCalled() {
     // Arrange
@@ -282,7 +303,9 @@ class PercentagePositionSensorTest {
     }
   }
 
-  /** Test to verify that the correct SensorID is returned when getID is called. */
+  /**
+   * Test to verify that the correct SensorID is returned when getID is called.
+   */
   @Test
   void shouldReturnFalse_WhenInstancesAreNotEqual() {
     // Arrange
@@ -312,7 +335,9 @@ class PercentagePositionSensorTest {
     assertFalse(result);
   }
 
-  /** Test to verify that the correct SensorID is returned when getID is called. */
+  /**
+   * Test to verify that the correct SensorID is returned when getID is called.
+   */
   @Test
   void shouldReturnPercentagePositionSensorHashCode_WhenHashCodeMethodIsCalled() {
     // Arrange
@@ -337,7 +362,9 @@ class PercentagePositionSensorTest {
     }
   }
 
-  /** Test to verify that the correct SensorID is returned when getID is called. */
+  /**
+   * Test to verify that the correct SensorID is returned when getID is called.
+   */
   @Test
   void shouldReturnPercentagePositionSensorInString_WhenToStringMethodIsCalled() {
     // Arrange
@@ -358,7 +385,9 @@ class PercentagePositionSensorTest {
     assertNotNull(result);
   }
 
-  /** Instantiates a sensor when sensor ID is valid */
+  /**
+   * Instantiates a sensor when sensor ID is valid
+   */
   @Test
   void shouldInstantiatePercentagePositionSensor_WhenValidateSensorIDIsValid() {
     // Arrange
@@ -379,7 +408,9 @@ class PercentagePositionSensorTest {
     assertNotNull(percentagePositionSensor);
   }
 
-  /** Should return false when comparing with a null object */
+  /**
+   * Should return false when comparing with a null object
+   */
   @Test
   void shouldReturnFalse_WhenComparingObjectWithNull() {
     // Arrange
@@ -401,7 +432,9 @@ class PercentagePositionSensorTest {
     assertFalse(result);
   }
 
-  /** Should throw an exception when sensor ID is null */
+  /**
+   * Should throw an exception when sensor ID is null
+   */
   @Test
   void shouldThrowIllegalArgumentException_whenValidateSensorIDIsNull() {
     // Arrange
@@ -424,24 +457,25 @@ class PercentagePositionSensorTest {
   }
 
   /**
-   * Test to check if IllegalArgumentException is thrown when SensorTypeID is not equal to PercentagePosition
+   * Test to check if IllegalArgumentException is thrown when SensorTypeID is not equal to
+   * PercentagePosition
    */
   @Test
-    void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNotPercentagePosition() {
-        // Arrange
-        DeviceID deviceID = mock(DeviceID.class);
-        ModelPath modelPath = mock(ModelPath.class);
-        SensorName sensorName = mock(SensorName.class);
-        SensorTypeID sensorTypeID = mock(SensorTypeID.class);
-        when(sensorTypeID.getID()).thenReturn("Temperature");
+  void shouldThrowIllegalArgumentException_whenSensorTypeIDIsNotPercentagePosition() {
+    // Arrange
+    DeviceID deviceID = mock(DeviceID.class);
+    ModelPath modelPath = mock(ModelPath.class);
+    SensorName sensorName = mock(SensorName.class);
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    when(sensorTypeID.getID()).thenReturn("Temperature");
 
-        String expectedMessage = "SensorTypeID must be 'PercentagePosition'";
+    String expectedMessage = "SensorTypeID must be 'PercentagePosition'";
 
-        // Act & Assert
-        IllegalArgumentException thrown =
-            assertThrows(
-                IllegalArgumentException.class,
-                () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
-        assertEquals(expectedMessage, thrown.getMessage());
-    }
+    // Act & Assert
+    IllegalArgumentException thrown =
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName));
+    assertEquals(expectedMessage, thrown.getMessage());
+  }
 }

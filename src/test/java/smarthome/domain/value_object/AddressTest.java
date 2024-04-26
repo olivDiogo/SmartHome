@@ -1,21 +1,21 @@
 package smarthome.domain.value_object;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import smarthome.domain.value_object.Address;
-import smarthome.domain.value_object.IPostalCode;
-import smarthome.domain.value_object.PostalCodeFactory;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 class AddressTest {
 
-  /** Tests the correct instantiation of an Address */
+  /**
+   * Tests the correct instantiation of an Address
+   */
   @Test
   void shouldReturnExpectedAddressWhenGivenValidParameters() {
     // Arrange
@@ -32,7 +32,9 @@ class AddressTest {
     Assertions.assertNotNull(address);
   }
 
-  /** Tests if the exception is thrown with a null street. */
+  /**
+   * Tests if the exception is thrown with a null street.
+   */
   @Test
   void shouldThrowExceptionWhenStreetIsNull() {
     // Arrange
@@ -51,7 +53,9 @@ class AddressTest {
     assertEquals("Invalid street", exception.getMessage());
   }
 
-  /** Tests if the exception is thrown with an empty street. */
+  /**
+   * Tests if the exception is thrown with an empty street.
+   */
   @Test
   void shouldThrowExceptionWhenStreetIsEmpty() {
     // Arrange
@@ -70,7 +74,9 @@ class AddressTest {
     assertEquals("Invalid street", exception.getMessage());
   }
 
-  /** Tests if the exception is thrown with an invalid street. */
+  /**
+   * Tests if the exception is thrown with an invalid street.
+   */
   @Test
   void shouldThrowExceptionWhenStreetIsInvalid() {
     // Arrange
@@ -89,7 +95,9 @@ class AddressTest {
     assertEquals("Invalid street", exception.getMessage());
   }
 
-  /** Tests if the exception is thrown with a street that contains a new line. */
+  /**
+   * Tests if the exception is thrown with a street that contains a new line.
+   */
   @Test
   void shouldThrowExceptionWhenStreetHasNewLine() {
     // Arrange
@@ -108,7 +116,9 @@ class AddressTest {
     assertEquals("Invalid street", exception.getMessage());
   }
 
-  /** Tests if the exception is thrown with a street that contains a tab. */
+  /**
+   * Tests if the exception is thrown with a street that contains a tab.
+   */
   @Test
   void shouldThrowExceptionWhenStreetHasTab() {
     // Arrange
@@ -127,7 +137,9 @@ class AddressTest {
     assertEquals("Invalid street", exception.getMessage());
   }
 
-  /** Tests if the exception is thrown with a null door number. */
+  /**
+   * Tests if the exception is thrown with a null door number.
+   */
   @Test
   void shouldThrowExceptionWhenDoorNumberIsNull() {
     // Arrange
@@ -146,7 +158,9 @@ class AddressTest {
     assertEquals("Invalid door number", exception.getMessage());
   }
 
-  /** Tests if the exception is thrown with an empty door number. */
+  /**
+   * Tests if the exception is thrown with an empty door number.
+   */
   @Test
   void shouldThrowExceptionWhenDoorNumberIsEmpty() {
     // Arrange
@@ -165,7 +179,9 @@ class AddressTest {
     assertEquals("Invalid door number", exception.getMessage());
   }
 
-  /** Tests if the exception is thrown with an invalid door number. */
+  /**
+   * Tests if the exception is thrown with an invalid door number.
+   */
   @Test
   void shouldThrowExceptionWhenDoorNumberIsInvalid() {
     // Arrange
@@ -184,7 +200,9 @@ class AddressTest {
     assertEquals("Invalid door number", exception.getMessage());
   }
 
-  /** Tests if the exception is thrown with a door number that contains a new line. */
+  /**
+   * Tests if the exception is thrown with a door number that contains a new line.
+   */
   @Test
   void shouldThrowExceptionWhenDoorNumberHasNewLine() {
     // Arrange
@@ -203,7 +221,9 @@ class AddressTest {
     assertEquals("Invalid door number", exception.getMessage());
   }
 
-  /** Tests if the exception is thrown with a door number that contains a tab. */
+  /**
+   * Tests if the exception is thrown with a door number that contains a tab.
+   */
   @Test
   void shouldThrowExceptionWhenDoorNumberHasTab() {
     // Arrange
@@ -222,7 +242,9 @@ class AddressTest {
     assertEquals("Invalid door number", exception.getMessage());
   }
 
-  /** Tests if the exception is thrown with an empty country code. */
+  /**
+   * Tests if the exception is thrown with an empty country code.
+   */
   @Test
   void shouldThrowExceptionWhenCountryCodeIsEmpty() {
     // Arrange
@@ -240,7 +262,9 @@ class AddressTest {
                     street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
   }
 
-  /** Tests if the exception is thrown with a country code with more than 2 characters. */
+  /**
+   * Tests if the exception is thrown with a country code with more than 2 characters.
+   */
   @Test
   void shouldThrowExceptionWhenCountryCodeHasMoreThanTwoCharacters() {
     // Arrange
@@ -258,7 +282,9 @@ class AddressTest {
                     street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
   }
 
-  /** Tests if the exception is thrown with a country code with less than 2 characters. */
+  /**
+   * Tests if the exception is thrown with a country code with less than 2 characters.
+   */
   @Test
   void shouldThrowExceptionWhenCountryCodeHasLessThanTwoCharacters() {
     // Arrange
@@ -276,7 +302,9 @@ class AddressTest {
                     street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
   }
 
-  /** Tests if the exception is thrown with a country code that contains a number. */
+  /**
+   * Tests if the exception is thrown with a country code that contains a number.
+   */
   @Test
   void shouldThrowExceptionWhenCountryCodeContainsNumber() {
     // Arrange
@@ -294,7 +322,9 @@ class AddressTest {
                     street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
   }
 
-  /** Tests if the exception is thrown when country code does not respect regex */
+  /**
+   * Tests if the exception is thrown when country code does not respect regex
+   */
   @Test
   void shouldThrowExceptionWhenCountryCodeDoesNotRespectRegex() {
     // Arrange
@@ -312,7 +342,9 @@ class AddressTest {
                     street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
   }
 
-  /** Tests if the exception is thrown with a country code with special characters. */
+  /**
+   * Tests if the exception is thrown with a country code with special characters.
+   */
   @Test
   void shouldThrowExceptionWhenCountryCodeContainsSpecialCharacters() {
     // Arrange
@@ -330,7 +362,9 @@ class AddressTest {
                     street, doorNumber, countryCode, postalCode, mock(PostalCodeFactory.class)));
   }
 
-  /** Tests if throws IllegalArgumentException when Country Code is null */
+  /**
+   * Tests if throws IllegalArgumentException when Country Code is null
+   */
   @Test
   void shouldThrowIllegalArgumentExceptionWhenCountryCodeIsNull() {
     // Arrange
@@ -347,7 +381,9 @@ class AddressTest {
             () -> new Address(street, doorNumber, postalCode, countryCode, factory));
   }
 
-  /** Tests if Address is equal to itself. */
+  /**
+   * Tests if Address is equal to itself.
+   */
   @Test
   void shouldReturnTrueEqualsWithSameObject() {
     // Arrange
@@ -366,7 +402,9 @@ class AddressTest {
     assertTrue(isEquals);
   }
 
-  /** Tests if Address is not equal to null. */
+  /**
+   * Tests if Address is not equal to null.
+   */
   @Test
   void shouldReturnFalseEqualsWithNull() {
     // Arrange
@@ -384,7 +422,9 @@ class AddressTest {
     assertFalse(isEquals);
   }
 
-  /** Tests if Address is equal to another Address with same street. */
+  /**
+   * Tests if Address is equal to another Address with same street.
+   */
   @Test
   void shouldReturnTrueEqualsWithSameStreet() {
     // Arrange
@@ -406,7 +446,9 @@ class AddressTest {
     assertTrue(isEquals);
   }
 
-  /** Tests if Address is not equal to another Address with different street. */
+  /**
+   * Tests if Address is not equal to another Address with different street.
+   */
   @Test
   void shouldReturnFalseWithDifferentStreet() {
     // Arrange
@@ -426,7 +468,9 @@ class AddressTest {
     assertFalse(isEquals);
   }
 
-  /** Tests if Address is equal to another Address with same door number. */
+  /**
+   * Tests if Address is equal to another Address with same door number.
+   */
   @Test
   void shouldReturnTrueEqualsWithSameDoorNumber() {
     // Arrange
@@ -447,7 +491,9 @@ class AddressTest {
     assertTrue(isEquals);
   }
 
-  /** Tests if Address is not equal to another Address with different door number. */
+  /**
+   * Tests if Address is not equal to another Address with different door number.
+   */
   @Test
   void shouldReturnFalseWithDifferentDoorNumber() {
     // Arrange
@@ -467,7 +513,9 @@ class AddressTest {
     assertFalse(isEquals);
   }
 
-  /** Tests if Address is equal to another Address with same postal code. */
+  /**
+   * Tests if Address is equal to another Address with same postal code.
+   */
   @Test
   void shouldReturnTrueEqualsWithSamePostalCode() {
     // Arrange
@@ -488,7 +536,9 @@ class AddressTest {
     assertTrue(isEquals);
   }
 
-  /** Tests if Address is not equal to another Address with different postal code. */
+  /**
+   * Tests if Address is not equal to another Address with different postal code.
+   */
   @Test
   void shouldReturnFalseWithDifferentPostalCode() {
     // Arrange
@@ -510,7 +560,9 @@ class AddressTest {
     assertFalse(isEquals);
   }
 
-  /** Tests if Address is equal to another Address with same country code. */
+  /**
+   * Tests if Address is equal to another Address with same country code.
+   */
   @Test
   void shouldReturnTrueEqualsWithSameCountryCode() {
     // Arrange
@@ -531,7 +583,9 @@ class AddressTest {
     assertTrue(isEquals);
   }
 
-  /** Tests if Address is not equal to another Address with different country code. */
+  /**
+   * Tests if Address is not equal to another Address with different country code.
+   */
   @Test
   void shouldReturnFalseWithDifferentCountryCode() {
     // Arrange
@@ -551,7 +605,9 @@ class AddressTest {
     assertFalse(isEquals);
   }
 
-  /** Tests if the street is returned correctly. */
+  /**
+   * Tests if the street is returned correctly.
+   */
   @Test
   void shouldReturnStreet() {
     // Arrange
@@ -569,7 +625,9 @@ class AddressTest {
     assertEquals(street, actualStreet);
   }
 
-  /** Tests if the door number is returned correctly. */
+  /**
+   * Tests if the door number is returned correctly.
+   */
   @Test
   void shouldReturnDoorNumber() {
     // Arrange
@@ -587,7 +645,9 @@ class AddressTest {
     assertEquals(doorNumber, actualDoorNumber);
   }
 
-  /** Tests if the address is returned correctly. */
+  /**
+   * Tests if the address is returned correctly.
+   */
   @Test
   void shouldReturnAddressToString() {
     // Arrange
@@ -607,7 +667,9 @@ class AddressTest {
     assertEquals(street + ", " + doorNumber, actualAddress);
   }
 
-  /** Test hashCode method */
+  /**
+   * Test hashCode method
+   */
   @Test
   void shouldReturnHashCode_whenCallingHashCode() {
     // Arrange

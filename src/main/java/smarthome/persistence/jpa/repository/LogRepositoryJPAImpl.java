@@ -1,21 +1,26 @@
 package smarthome.persistence.jpa.repository;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
+import java.util.List;
+import java.util.Optional;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
-import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.LogDataModel;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.LogID;
 import smarthome.domain.value_object.SensorTypeID;
-import java.util.List;
-import java.util.Optional;
+import smarthome.persistence.assembler.IDataModelAssembler;
+import smarthome.persistence.jpa.data_model.LogDataModel;
+import smarthome.utils.Validator;
 
 public class LogRepositoryJPAImpl implements ILogRepository {
-  private EntityManagerFactory factory;
-  private IDataModelAssembler<LogDataModel, Log> dataModelAssembler;
+
+  private final EntityManagerFactory factory;
+  private final IDataModelAssembler<LogDataModel, Log> dataModelAssembler;
 
   /**
    * LogRepositoryJPAImpl constructor
@@ -127,7 +132,7 @@ public class LogRepositoryJPAImpl implements ILogRepository {
    * Method to find logs by device ID and time period
    *
    * @param deviceID DeviceID object
-   * @param period DatePeriod object
+   * @param period   DatePeriod object
    * @return List<Log>
    */
   @Override
@@ -153,9 +158,9 @@ public class LogRepositoryJPAImpl implements ILogRepository {
   /**
    * Method to find logs by device ID, sensor type and time period
    *
-   * @param deviceID DeviceID object
+   * @param deviceID     DeviceID object
    * @param sensorTypeID SensorTypeID object
-   * @param period DatePeriod object
+   * @param period       DatePeriod object
    * @return List<Log>
    */
   @Override

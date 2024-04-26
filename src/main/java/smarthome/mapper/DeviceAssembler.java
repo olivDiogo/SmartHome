@@ -3,8 +3,8 @@ package smarthome.mapper;
 import java.util.List;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
-import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.Validator;
+import smarthome.utils.dto.DeviceDTO;
 
 public class DeviceAssembler implements IAssembler<Device, DeviceDTO> {
 

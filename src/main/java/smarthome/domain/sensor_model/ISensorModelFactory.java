@@ -5,5 +5,7 @@ import smarthome.domain.value_object.SensorModelName;
 import smarthome.domain.value_object.SensorTypeID;
 
 public interface ISensorModelFactory {
-    SensorModel createSensorModel(SensorModelName sensorModelName, ModelPath modelPath, SensorTypeID sensorTypeID);
+
+  SensorModel createSensorModel(SensorModelName sensorModelName, ModelPath modelPath,
+      SensorTypeID sensorTypeID);
 }

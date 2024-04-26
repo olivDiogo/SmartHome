@@ -1,13 +1,27 @@
 package smarthome.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.device.Device;
+import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
+import smarthome.domain.house.House;
+import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
+import smarthome.domain.room.Room;
+import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Address;
@@ -23,22 +37,9 @@ import smarthome.domain.value_object.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomName;
 import smarthome.mapper.DeviceAssembler;
-import smarthome.domain.device.Device;
-import smarthome.domain.device.DeviceFactoryImpl;
-import smarthome.domain.house.House;
-import smarthome.domain.house.HouseFactoryImpl;
-import smarthome.domain.room.Room;
-import smarthome.domain.room.RoomFactoryImpl;
-import smarthome.utils.dto.DeviceDTO;
 import smarthome.service.DeviceServiceImpl;
 import smarthome.service.RoomServiceImpl;
-
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import smarthome.utils.dto.DeviceDTO;
 
 class DeactivateDeviceControllerTest {
 

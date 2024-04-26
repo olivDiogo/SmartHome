@@ -4,10 +4,10 @@ import smarthome.ddd.IRepository;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.service.IHouseService;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
+import smarthome.utils.Validator;
 
 public class HouseServiceImpl implements IHouseService {
 

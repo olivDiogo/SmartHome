@@ -1,47 +1,53 @@
 package smarthome.persistence.jpa.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.Test;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.SensorTypeDataModel;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-
 class SensorTypeRepositoryJPAImplTest {
 
-    /**
-     * Test to verify if the RepositorySensorTypeJPAImpl is instantiated correctly
-     */
-    @Test
-    void shouldInstantiateRepositorySensorTypeJPAImpl() {
-        //Arrange
-        IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter = mock(IDataModelAssembler.class);
+  /**
+   * Test to verify if the RepositorySensorTypeJPAImpl is instantiated correctly
+   */
+  @Test
+  void shouldInstantiateRepositorySensorTypeJPAImpl() {
+    //Arrange
+    IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter = mock(
+        IDataModelAssembler.class);
 
-        //Act
-        SensorTypeRepositoryJPAImpl repositorySensorTypeJPA = new SensorTypeRepositoryJPAImpl(dataModelConverter);
+    //Act
+    SensorTypeRepositoryJPAImpl repositorySensorTypeJPA = new SensorTypeRepositoryJPAImpl(
+        dataModelConverter);
 
-        //Assert
-        assertNotNull(repositorySensorTypeJPA);
-    }
+    //Assert
+    assertNotNull(repositorySensorTypeJPA);
+  }
 
-    /**
-     * Test to verify if the RepositorySensorTypeJPAImpl throws an IllegalArgumentException when given a null data model converter
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenGivenNullDataModelConverter() {
-        //Arrange
-        IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter = null;
+  /**
+   * Test to verify if the RepositorySensorTypeJPAImpl throws an IllegalArgumentException when given
+   * a null data model converter
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenGivenNullDataModelConverter() {
+    //Arrange
+    IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter = null;
 
-        String expectedMessage = "Data model converter cannot be null.";
+    String expectedMessage = "Data model converter cannot be null.";
 
-        //Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeRepositoryJPAImpl( dataModelConverter));
+    //Act + Assert
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> new SensorTypeRepositoryJPAImpl(dataModelConverter));
 
-        String actualMessage = exception.getMessage();
+    String actualMessage = exception.getMessage();
 
-        assertEquals(expectedMessage, actualMessage);
-    }
+    assertEquals(expectedMessage, actualMessage);
+  }
 
 //    @Test
 //    void shouldSaveSensorType_whenGivenValidSensorType() {

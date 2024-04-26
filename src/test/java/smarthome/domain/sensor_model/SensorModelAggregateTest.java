@@ -1,11 +1,15 @@
 package smarthome.domain.sensor_model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorModelName;
 import smarthome.domain.value_object.SensorTypeID;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for the {@link SensorModel} class, ensuring that sensor models are created correctly under
@@ -14,7 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SensorModelAggregateTest {
 
-  /** The method should return a valid sensor model when given valid parameters. */
+  /**
+   * The method should return a valid sensor model when given valid parameters.
+   */
   @Test
   void shouldReturnValidSensorModel_WhenGivenValidParameters() {
     // Arrange
@@ -27,7 +33,9 @@ class SensorModelAggregateTest {
     assertNotNull(sensorModel);
   }
 
-  /** The method should throw an IllegalArgumentException when given a null sensor model name. */
+  /**
+   * The method should throw an IllegalArgumentException when given a null sensor model name.
+   */
   @Test
   void shouldThrowIllegalArgumentException_WhenGivenNullSensorModelName() {
     // Arrange
@@ -46,7 +54,9 @@ class SensorModelAggregateTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** The method should throw an IllegalArgumentException when given a null model path. */
+  /**
+   * The method should throw an IllegalArgumentException when given a null model path.
+   */
   @Test
   void shouldThrowIllegalArgumentException_WhenGivenNullModelPath() {
     // Arrange
@@ -65,7 +75,9 @@ class SensorModelAggregateTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** The method should return true when given the same object. */
+  /**
+   * The method should return true when given the same object.
+   */
   @Test
   void shouldReturnTrue_WhenGivenSameObject() {
     // Arrange
@@ -83,11 +95,11 @@ class SensorModelAggregateTest {
 
   /**
    * The method should return false when the objects are not the same.
-    */
+   */
   @Test
   void shouldReturnFalse_WhenObjectIsNotTheSame() {
     // Arrange
-   String sensorModelValue = "sensorModelName";
+    String sensorModelValue = "sensorModelName";
     SensorModelName sensorModelName = new SensorModelName(sensorModelValue);
     ModelPath modelPath = new ModelPath("modelPath");
     ModelPath modelPath1 = new ModelPath("modelPath1");
@@ -105,36 +117,38 @@ class SensorModelAggregateTest {
    * The method should return false when the object is not an instance of SensorModel.
    */
   @Test
-    void shouldReturnFalse_WhenObjectIsNotInstanceOfSensorModel() {
-        // Arrange
-        SensorModelName sensorModelName = new SensorModelName("sensorModelName");
-        ModelPath modelPath = new ModelPath("modelPath");
-        SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+  void shouldReturnFalse_WhenObjectIsNotInstanceOfSensorModel() {
+    // Arrange
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
 
-        SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
-        // Act
-        boolean result = sensorModel.equals(new Object());
-        // Assert
-        assertFalse(result);
-    }
+    SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
+    // Act
+    boolean result = sensorModel.equals(new Object());
+    // Assert
+    assertFalse(result);
+  }
 
-    @Test
-    void shouldReturnHashCode_WhenHashCodeIsCalled () {
-        // Arrange
-        SensorModelName sensorModelName = new SensorModelName("sensorModelName");
-        ModelPath modelPath = new ModelPath("modelPath");
-        SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+  @Test
+  void shouldReturnHashCode_WhenHashCodeIsCalled() {
+    // Arrange
+    SensorModelName sensorModelName = new SensorModelName("sensorModelName");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
 
-        SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
+    SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
 
-        int expected = modelPath.hashCode();
-        // Act
-        int result = sensorModel.hashCode();
-        // Assert
-        assertEquals(expected, result);
-    }
+    int expected = modelPath.hashCode();
+    // Act
+    int result = sensorModel.hashCode();
+    // Assert
+    assertEquals(expected, result);
+  }
 
-  /** The method should sensor model id when get id is called. */
+  /**
+   * The method should sensor model id when get id is called.
+   */
   @Test
   void shouldReturnSensorModelID_WhenGetIDIsCalled() {
     // Arrange
@@ -149,7 +163,9 @@ class SensorModelAggregateTest {
     assertTrue(sensorModel.toString().contains(sensorModelID.toString()));
   }
 
-  /** The method should return object in string format when to string is called. */
+  /**
+   * The method should return object in string format when to string is called.
+   */
   @Test
   void shouldReturnObjectInStringFormat_WhenToStringIsCalled() {
     // Arrange
@@ -172,7 +188,9 @@ class SensorModelAggregateTest {
     assertTrue(result.contains(expected));
   }
 
-  /** The method should return sensor model name when get sensor model name is called. */
+  /**
+   * The method should return sensor model name when get sensor model name is called.
+   */
   @Test
   void shouldReturnSensorModelName_WhenGetSensorModelNameIsCalled() {
     // Arrange
@@ -187,7 +205,9 @@ class SensorModelAggregateTest {
     assertEquals(sensorModelName, result);
   }
 
-  /** The method should return model path when get model path is called. */
+  /**
+   * The method should return model path when get model path is called.
+   */
   @Test
   void shouldReturnModelPath_WhenGetModelPathIsCalled() {
     // Arrange
@@ -203,7 +223,9 @@ class SensorModelAggregateTest {
     assertEquals(modelPath, result);
   }
 
-  /** should throw an IllegalArgumentException when given a null sensor type ID. */
+  /**
+   * should throw an IllegalArgumentException when given a null sensor type ID.
+   */
   @Test
   void shouldThrownIllegalArgumentException_WhenGivenNullSensorTypeID() {
     // Arrange
@@ -221,7 +243,9 @@ class SensorModelAggregateTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** should return sensor type id when get sensor type id is called. */
+  /**
+   * should return sensor type id when get sensor type id is called.
+   */
   @Test
   void shouldReturnSensorTypeID_WhenGetSensorTypeIDIsCalled() {
     // Arrange
@@ -236,7 +260,9 @@ class SensorModelAggregateTest {
     assertEquals(sensorTypeID, result);
   }
 
-  /** should return the same hash code when given the same object. */
+  /**
+   * should return the same hash code when given the same object.
+   */
   @Test
   void shouldReturnSameHashCode_WhenGivenSameObject() {
     // Arrange

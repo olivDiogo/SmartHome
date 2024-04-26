@@ -1,17 +1,22 @@
 package smarthome.persistence.jpa.data_model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 class DeviceTypeDataModelTest {
 
-  /** Test to check if the DeviceTypeDataModel is instantiated */
+  /**
+   * Test to check if the DeviceTypeDataModel is instantiated
+   */
   @Test
   void shouldInstantiateDeviceTypeDataModelNoArguments() {
     // Act
@@ -20,7 +25,9 @@ class DeviceTypeDataModelTest {
     assertNotNull(thisModel);
   }
 
-  /** Test to check if the DeviceTypeDataModel is instantiated */
+  /**
+   * Test to check if the DeviceTypeDataModel is instantiated
+   */
   @Test
   void shouldInstantiateDeviceTypeDataModel() {
     // Arrange
@@ -44,7 +51,9 @@ class DeviceTypeDataModelTest {
     assertNotNull(deviceTypeDataModel);
   }
 
-  /** Test to check if IllegalArgumentException is thrown when DeviceType is null */
+  /**
+   * Test to check if IllegalArgumentException is thrown when DeviceType is null
+   */
   @Test
   void shouldThrowIllegalArgumentExceptionWhenDeviceTypeIsNull() {
     // Arrange
@@ -62,7 +71,9 @@ class DeviceTypeDataModelTest {
     assertTrue(actualMessage.contains(expectedMessage));
   }
 
-  /** Test to check if the DeviceTypeID is returned when getDeviceTypeID is called */
+  /**
+   * Test to check if the DeviceTypeID is returned when getDeviceTypeID is called
+   */
   @Test
   void shouldReturnDeviceTypeID_WhenGetDeviceTypeID() {
     // Arrange

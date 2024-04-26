@@ -1,23 +1,22 @@
 package smarthome.service;
 
+import static java.util.Collections.emptyList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.Test;
-
-
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ReadingValue;
 import smarthome.domain.value_object.SensorTypeID;
-
-
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static java.util.Collections.emptyList;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class LogServiceImplTest {
 
@@ -119,7 +118,8 @@ class LogServiceImplTest {
     List<Log> expectedLogs = List.of(log, log2);
 
     ILogRepository logRepository = mock(ILogRepository.class);
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID, period))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID,
+        period))
         .thenReturn(expectedLogs);
 
     LogServiceImpl logService = new LogServiceImpl(logRepository);
@@ -145,7 +145,8 @@ class LogServiceImplTest {
     List<Log> emptyLogs = emptyList();
 
     ILogRepository logRepository = mock(ILogRepository.class);
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID, period))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID,
+        period))
         .thenReturn(emptyLogs);
 
     LogServiceImpl logService = new LogServiceImpl(logRepository);
@@ -154,7 +155,8 @@ class LogServiceImplTest {
 
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> logService.getDeviceReadingsBySensorTypeAndTimePeriod(deviceID, sensorTypeID, period));
+        () -> logService.getDeviceReadingsBySensorTypeAndTimePeriod(deviceID, sensorTypeID,
+            period));
 
     // Assert
     String actualMessage = exception.getMessage();
@@ -162,7 +164,8 @@ class LogServiceImplTest {
   }
 
   /**
-   * Test for method getDifferenceBetweenReadings when the readings are within an interval of 5 minutes.
+   * Test for method getDifferenceBetweenReadings when the readings are within an interval of 5
+   * minutes.
    */
   @Test
   void shouldReturnDifferenceBetweenReadings_whenGetDifferenceBetweenReadingsIsCalledAndReadingsAreWithin5MinutesInterval() {
@@ -185,7 +188,6 @@ class LogServiceImplTest {
 
     List<Log> list2 = List.of(log2);
 
-
     ILogRepository logRepository = mock(ILogRepository.class);
     LogServiceImpl logService = new LogServiceImpl(logRepository);
 
@@ -199,7 +201,8 @@ class LogServiceImplTest {
   }
 
   /**
-   * Test for method getDifferenceBetweenReadings when multiple readings are within an interval of 5 minutes.
+   * Test for method getDifferenceBetweenReadings when multiple readings are within an interval of 5
+   * minutes.
    */
   @Test
   void shouldReturnDifferenceBetweenReadings_whenGetDifferenceBetweenReadingsIsCalledAndMultipleReadingsAreWithin5MinutesInterval() {
@@ -244,7 +247,8 @@ class LogServiceImplTest {
 
 
   /**
-   * Test for method getDifferenceBetweenReadings when the readings are not within an interval of 5 minutes.
+   * Test for method getDifferenceBetweenReadings when the readings are not within an interval of 5
+   * minutes.
    */
   @Test
   void shouldReturnEmptyList_whenGetDifferenceBetweenReadingsIsCalledAndReadingsAreNotWithin5MinutesInterval() {

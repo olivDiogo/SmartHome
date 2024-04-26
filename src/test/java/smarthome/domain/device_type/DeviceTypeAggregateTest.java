@@ -1,15 +1,20 @@
 package smarthome.domain.device_type;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.Test;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-
 class DeviceTypeAggregateTest {
 
-  /** Should create an instance of {@link DeviceType} when the constructor attributes are valid. */
+  /**
+   * Should create an instance of {@link DeviceType} when the constructor attributes are valid.
+   */
   @Test
   void shouldCreateInstanceOfDeviceType_whenConstructorAttributesAreValid() {
     // Arrange
@@ -41,7 +46,9 @@ class DeviceTypeAggregateTest {
     assertNotNull(deviceType);
   }
 
-  /** Should return the device type ID. */
+  /**
+   * Should return the device type ID.
+   */
   @Test
   void shouldReturnDeviceTypeID_whenGetIdIsCalled() {
     // Arrange
@@ -56,7 +63,9 @@ class DeviceTypeAggregateTest {
     assertNotNull(result);
   }
 
-  /** Should return true when the instances are the same object. */
+  /**
+   * Should return true when the instances are the same object.
+   */
   @Test
   void shouldReturnTrue_whenInstancesAreSameObject() {
     // Arrange
@@ -72,7 +81,9 @@ class DeviceTypeAggregateTest {
     assertTrue(result);
   }
 
-  /** Should return false when the objects are not the same. */
+  /**
+   * Should return false when the objects are not the same.
+   */
   @Test
   void shouldReturnFalse_whenObjectIsNotTheSame() {
     // Arrange
@@ -91,13 +102,14 @@ class DeviceTypeAggregateTest {
     assertFalse(result);
   }
 
-  /** Should return false when the object is not an instance of DeviceType. */
+  /**
+   * Should return false when the object is not an instance of DeviceType.
+   */
   @Test
   void shouldReturnFalse_whenObjectIsNotInstanceOfDeviceType() {
     // Arrange
     String description = "Device Type Description";
     TypeDescription deviceTypeDescription = new TypeDescription(description);
-
 
     DeviceType deviceType = new DeviceType(deviceTypeDescription);
 
@@ -108,7 +120,9 @@ class DeviceTypeAggregateTest {
     assertFalse(result);
   }
 
-  /** Test case to verify the behavior of getDescription method in DeviceType class. */
+  /**
+   * Test case to verify the behavior of getDescription method in DeviceType class.
+   */
   @Test
   void shouldReturnDeviceTypeDescription_whenGetDescriptionIsCalled() {
     // Arrange
@@ -123,7 +137,9 @@ class DeviceTypeAggregateTest {
     assertEquals(description, result.toString());
   }
 
-  /** Test case to verify the behavior of hashCode method in DeviceType class. */
+  /**
+   * Test case to verify the behavior of hashCode method in DeviceType class.
+   */
   @Test
   void shouldReturnHashCode_whenHashCodeIsCalled() {
     // Arrange
@@ -143,7 +159,9 @@ class DeviceTypeAggregateTest {
     assertEquals(expected, result);
   }
 
-  /** Test case to verify the behavior of toString method in DeviceType class. */
+  /**
+   * Test case to verify the behavior of toString method in DeviceType class.
+   */
   @Test
   void shouldReturnStringRepresentation_whenToStringIsCalled() {
     // Arrange

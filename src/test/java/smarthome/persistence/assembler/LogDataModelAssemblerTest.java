@@ -1,27 +1,30 @@
 package smarthome.persistence.assembler;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.log.ILogFactory;
 import smarthome.domain.log.Log;
-import smarthome.persistence.jpa.data_model.LogDataModel;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.LogID;
 import smarthome.domain.value_object.ReadingValue;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import smarthome.persistence.jpa.data_model.LogDataModel;
 
 class LogDataModelAssemblerTest {
 
-  /** Test of LogDataModelAssembler constructor. */
+  /**
+   * Test of LogDataModelAssembler constructor.
+   */
   @Test
   void shouldInstantiateLogDataModelAssembler_whenLogFactoryIsValid() {
     // Arrange
@@ -34,7 +37,9 @@ class LogDataModelAssemblerTest {
     assertNotNull(logDataModelAssembler);
   }
 
-  /** Test of LogDataModelAssembler constructor when LogFactory is null. */
+  /**
+   * Test of LogDataModelAssembler constructor when LogFactory is null.
+   */
   @Test
   void shouldThrowIllegalArgumentException_whenLogFactoryIsNull() {
     // Arrange
@@ -50,19 +55,21 @@ class LogDataModelAssemblerTest {
     assertNotNull(expectedMessage, actualMessage);
   }
 
-  /** Test of toDomain method when given valid LogDataModel. */
+  /**
+   * Test of toDomain method when given valid LogDataModel.
+   */
   @Test
   void shouldReturnLog_whenGivenValidLogDataModel() {
     // Arrange
     ILogFactory logFactoryDouble = mock(ILogFactory.class);
     when(logFactoryDouble.createLog(
-            any(LogID.class),
-            any(DeviceID.class),
-            any(SensorID.class),
-            any(LocalDateTime.class),
-            any(ReadingValue.class),
-            any(SensorTypeID.class),
-            any(UnitID.class)))
+        any(LogID.class),
+        any(DeviceID.class),
+        any(SensorID.class),
+        any(LocalDateTime.class),
+        any(ReadingValue.class),
+        any(SensorTypeID.class),
+        any(UnitID.class)))
         .thenReturn(mock(Log.class));
     LogDataModelAssembler logDataModelAssembler = new LogDataModelAssembler(logFactoryDouble);
     LogID logIDDouble = mock(LogID.class);
@@ -105,7 +112,9 @@ class LogDataModelAssemblerTest {
     assertEquals(expected, log);
   }
 
-  /** Test of toDomain method when given null LogDataModel. */
+  /**
+   * Test of toDomain method when given null LogDataModel.
+   */
   @Test
   void shouldThrowIllegalArgumentException_whenLogDataModelIsNull() {
     // Arrange
@@ -126,19 +135,21 @@ class LogDataModelAssemblerTest {
     assertEquals(expectedMessage, actualMessage);
   }
 
-  /** Test of toDomain method when given valid list of LogDataModels. */
+  /**
+   * Test of toDomain method when given valid list of LogDataModels.
+   */
   @Test
   void shouldReturnListOfLogs_whenGivenValidListOfLogDataModels() {
     // Arrange
     ILogFactory logFactoryDouble = mock(ILogFactory.class);
     when(logFactoryDouble.createLog(
-            any(LogID.class),
-            any(DeviceID.class),
-            any(SensorID.class),
-            any(LocalDateTime.class),
-            any(ReadingValue.class),
-            any(SensorTypeID.class),
-            any(UnitID.class)))
+        any(LogID.class),
+        any(DeviceID.class),
+        any(SensorID.class),
+        any(LocalDateTime.class),
+        any(ReadingValue.class),
+        any(SensorTypeID.class),
+        any(UnitID.class)))
         .thenReturn(mock(Log.class));
     LogDataModelAssembler logDataModelAssembler = new LogDataModelAssembler(logFactoryDouble);
     LogID logIDDouble = mock(LogID.class);

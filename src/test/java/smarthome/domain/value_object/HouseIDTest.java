@@ -1,15 +1,18 @@
 package smarthome.domain.value_object;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.value_object.HouseID;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 class HouseIDTest {
 
-  /** Tests the correct instantiation of a HouseID */
+  /**
+   * Tests the correct instantiation of a HouseID
+   */
   @Test
   void shouldGetValidObject_whenUsingValidStringInConstructor() {
     // Arrange
@@ -22,7 +25,9 @@ class HouseIDTest {
     assertNotNull(result);
   }
 
-  /** Tests if the exception is thrown with a null houseID */
+  /**
+   * Tests if the exception is thrown with a null houseID
+   */
   @Test
   void shouldThrowException_whenHouseIdIsNull() {
     // Arrange
@@ -38,7 +43,9 @@ class HouseIDTest {
     assertTrue(actualMessage.contains(expectedMessage));
   }
 
-  /** Tests if the exception is thrown with a blank houseID */
+  /**
+   * Tests if the exception is thrown with a blank houseID
+   */
   @Test
   void shouldThrowException_whenHouseIdIsBlank() {
     // Arrange
@@ -54,7 +61,9 @@ class HouseIDTest {
     assertTrue(actualMessage.contains(expectedMessage));
   }
 
-  /** Tests the ID getter */
+  /**
+   * Tests the ID getter
+   */
   @Test
   void shouldGetHouseID() {
     // Arrange
@@ -70,7 +79,9 @@ class HouseIDTest {
     assertEquals(expected, result);
   }
 
-  /** Tests if a houseID is equal to itself */
+  /**
+   * Tests if a houseID is equal to itself
+   */
   @Test
   void shouldReturnTrue_whenHouseIdIsEqualToItself() {
     // Arrange
@@ -84,7 +95,9 @@ class HouseIDTest {
     assertTrue(result);
   }
 
-  /** Tests if a houseID1 is equal to a houseID2 if the ID of both is the same */
+  /**
+   * Tests if a houseID1 is equal to a houseID2 if the ID of both is the same
+   */
   @Test
   void shouldReturnTrue_whenHouseIdIsEqualToOtherHouseId() {
     // Arrange
@@ -99,7 +112,9 @@ class HouseIDTest {
     assertTrue(result);
   }
 
-  /** Tests if a houseID1 is not equal to a houseID2 */
+  /**
+   * Tests if a houseID1 is not equal to a houseID2
+   */
   @Test
   void shouldReturnTrue_whenHouseIdIsNotEqualToAnotherHouseId() {
     // Arrange
@@ -116,7 +131,9 @@ class HouseIDTest {
     assertFalse(result);
   }
 
-  /** Tests if the houseID is returned as an hashCode */
+  /**
+   * Tests if the houseID is returned as an hashCode
+   */
   @Test
   void shouldReturnHashCode() {
     // Arrange
@@ -132,7 +149,9 @@ class HouseIDTest {
     assertEquals(expected, result);
   }
 
-  /** Tests if the houseID is returned as a string */
+  /**
+   * Tests if the houseID is returned as a string
+   */
   @Test
   void shouldReturnHouseIDAsString() {
     // Arrange
@@ -148,7 +167,9 @@ class HouseIDTest {
     assertEquals(expected, result);
   }
 
-  /** Tests if equals method returns false when the object is not an instance of HouseID */
+  /**
+   * Tests if equals method returns false when the object is not an instance of HouseID
+   */
   @Test
   void shouldReturnFalse_whenObjectIsNotInstanceOfHouseID() {
     // Arrange

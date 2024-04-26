@@ -1,14 +1,17 @@
 package smarthome.domain.value_object;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.value_object.DatePeriod;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class DatePeriodTest {
+
   /**
    * Validates construction with valid arguments.
    */
@@ -25,9 +28,9 @@ class DatePeriodTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-    /**
-     * Expects IllegalArgumentException for null endDate.
-     */
+  /**
+   * Expects IllegalArgumentException for null endDate.
+   */
   @Test
   void shouldThrowExceptionWhenEndDateIsNull() {
     // Arrange
@@ -189,8 +192,8 @@ class DatePeriodTest {
   }
 
   /**
-   * Tests equals method should return false when comparing two datePeriods with different
-   * startDate and endDate.
+   * Tests equals method should return false when comparing two datePeriods with different startDate
+   * and endDate.
    */
   @Test
   void shouldReturnFalseWhenEqualsIsCalledWithDifferentDatePeriod() {
@@ -205,9 +208,9 @@ class DatePeriodTest {
     assertFalse(result);
   }
 
-    /**
-     * Tests equals method should return false when comparing with different object.
-     */
+  /**
+   * Tests equals method should return false when comparing with different object.
+   */
   @Test
   void shouldReturnFalseWhenEqualsIsCalledWithDifferentObject() {
     // Arrange
@@ -220,9 +223,9 @@ class DatePeriodTest {
     assertFalse(result);
   }
 
-    /**
-     * Tests to String method should return string when called.
-     */
+  /**
+   * Tests to String method should return string when called.
+   */
   @Test
   void shouldReturnStringWhenToStringIsCalled() {
     // Arrange

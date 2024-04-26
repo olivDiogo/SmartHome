@@ -1,158 +1,158 @@
 package smarthome.persistence.jpa.data_model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 class SensorTypeDataModelTest {
 
-    @Test
-    void shouldInstantiateSensorTypeDataModel() {
-        //Arrange
-        String strSensorTypeID = "123";
-        String strTypeDescription = "DewPoint";
-        String strUnitID = "Celsius";
+  @Test
+  void shouldInstantiateSensorTypeDataModel() {
+    //Arrange
+    String strSensorTypeID = "123";
+    String strTypeDescription = "DewPoint";
+    String strUnitID = "Celsius";
 
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitIDDouble = mock(UnitID.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
+    SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+    TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+    UnitID unitIDDouble = mock(UnitID.class);
+    SensorType sensorTypeDouble = mock(SensorType.class);
 
+    when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
+    when(typeDescriptionDouble.getID()).thenReturn(strTypeDescription);
+    when(unitIDDouble.getID()).thenReturn(strUnitID);
 
-        when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
-        when(typeDescriptionDouble.getID()).thenReturn(strTypeDescription);
-        when(unitIDDouble.getID()).thenReturn(strUnitID);
+    when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
+    when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
+    when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
 
-        when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
-        when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
-        when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
+    //Act
+    SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
 
-        //Act
-        SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
+    //Assert
+    assertNotNull(sensorTypeDataModel);
+  }
 
-        //Assert
-        assertNotNull(sensorTypeDataModel);
-    }
+  @Test
+  void shouldThrowIllegalArgumentExceptionWhenSensorTypeIsNull() {
+    //Arrange
+    SensorType sensorTypeDouble = null;
 
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenSensorTypeIsNull() {
-        //Arrange
-        SensorType sensorTypeDouble = null;
+    String expectedMessage = "Sensor Type is required";
 
-        String expectedMessage = "Sensor Type is required";
+    //Act + Assert
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> new SensorTypeDataModel(sensorTypeDouble));
 
-        //Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorTypeDataModel(sensorTypeDouble));
+    String actualMessage = exception.getMessage();
 
-        String actualMessage = exception.getMessage();
+    assertTrue(actualMessage.contains(expectedMessage));
 
-        assertTrue(actualMessage.contains(expectedMessage));
+  }
 
-    }
+  @Test
+  void shouldReturnSensorTypeID_WhenGetSensorTypeID() {
+    //Arrange
+    String strSensorTypeID = "123";
+    String strTypeDescription = "DewPoint";
+    String strUnitID = "Celsius";
 
-    @Test
-    void shouldReturnSensorTypeID_WhenGetSensorTypeID() {
-        //Arrange
-        String strSensorTypeID = "123";
-        String strTypeDescription = "DewPoint";
-        String strUnitID = "Celsius";
+    SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+    TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+    UnitID unitIDDouble = mock(UnitID.class);
+    SensorType sensorTypeDouble = mock(SensorType.class);
 
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitIDDouble = mock(UnitID.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
+    when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
+    when(typeDescriptionDouble.getID()).thenReturn(strTypeDescription);
+    when(unitIDDouble.getID()).thenReturn(strUnitID);
 
+    when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
+    when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
+    when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
 
-        when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
-        when(typeDescriptionDouble.getID()).thenReturn(strTypeDescription);
-        when(unitIDDouble.getID()).thenReturn(strUnitID);
+    SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
 
-        when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
-        when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
-        when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
+    //Act
+    String result = sensorTypeDataModel.getSensorTypeID();
 
-        SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
+    //Assert
+    assertEquals(strSensorTypeID, result);
 
-        //Act
-        String result = sensorTypeDataModel.getSensorTypeID();
+  }
 
-        //Assert
-        assertEquals(strSensorTypeID, result);
+  @Test
+  void shouldReturnTypeDescription_WhenGetTypeDescription() {
+    //Arrange
+    String strSensorTypeID = "123";
+    String strTypeDescription = "DewPoint";
+    String strUnitID = "Celsius";
 
-    }
+    SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+    TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+    UnitID unitIDDouble = mock(UnitID.class);
+    SensorType sensorTypeDouble = mock(SensorType.class);
 
-    @Test
-    void shouldReturnTypeDescription_WhenGetTypeDescription() {
-        //Arrange
-        String strSensorTypeID = "123";
-        String strTypeDescription = "DewPoint";
-        String strUnitID = "Celsius";
+    when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
+    when(typeDescriptionDouble.getID()).thenReturn(strTypeDescription);
+    when(unitIDDouble.getID()).thenReturn(strUnitID);
 
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitIDDouble = mock(UnitID.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
+    when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
+    when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
+    when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
 
+    SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
 
-        when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
-        when(typeDescriptionDouble.getID()).thenReturn(strTypeDescription);
-        when(unitIDDouble.getID()).thenReturn(strUnitID);
+    //Act
+    String result = sensorTypeDataModel.getTypeDescription();
 
-        when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
-        when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
-        when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
+    //Assert
+    assertEquals(strTypeDescription, result);
+  }
 
-        SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
+  @Test
+  void shouldReturnUnitID_WhenGetUnitID() {
+    //Arrange
+    String strSensorTypeID = "123";
+    String strTypeDescription = "DewPoint";
+    String strUnitID = "Celsius";
 
-        //Act
-        String result = sensorTypeDataModel.getTypeDescription();
+    SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
+    TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+    UnitID unitIDDouble = mock(UnitID.class);
+    SensorType sensorTypeDouble = mock(SensorType.class);
 
-        //Assert
-        assertEquals(strTypeDescription, result);
-    }
+    when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
+    when(typeDescriptionDouble.getID()).thenReturn(strTypeDescription);
+    when(unitIDDouble.getID()).thenReturn(strUnitID);
 
-    @Test
-    void shouldReturnUnitID_WhenGetUnitID() {
-        //Arrange
-        String strSensorTypeID = "123";
-        String strTypeDescription = "DewPoint";
-        String strUnitID = "Celsius";
+    when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
+    when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
+    when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
 
-        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-        UnitID unitIDDouble = mock(UnitID.class);
-        SensorType sensorTypeDouble = mock(SensorType.class);
+    SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
 
+    //Act
+    String result = sensorTypeDataModel.getUnitID();
 
-        when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
-        when(typeDescriptionDouble.getID()).thenReturn(strTypeDescription);
-        when(unitIDDouble.getID()).thenReturn(strUnitID);
+    //Assert
+    assertEquals(strUnitID, result);
+  }
 
-        when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
-        when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
-        when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
+  @Test
+  void shouldInstantiateSensorTypeDataModelWithDefaultConstructor() {
+    //Act
+    SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel();
 
-        SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
-
-        //Act
-        String result = sensorTypeDataModel.getUnitID();
-
-        //Assert
-        assertEquals(strUnitID, result);
-    }
-
-    @Test
-    void shouldInstantiateSensorTypeDataModelWithDefaultConstructor() {
-        //Act
-        SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel();
-
-        //Act
-        assertNotNull(sensorTypeDataModel);
-    }
+    //Act
+    assertNotNull(sensorTypeDataModel);
+  }
 }

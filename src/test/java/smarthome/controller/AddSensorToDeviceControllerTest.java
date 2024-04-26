@@ -1,11 +1,23 @@
 package smarthome.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator_model.ActuatorModelFactoryImpl;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
+import smarthome.domain.device.Device;
+import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
+import smarthome.domain.house.House;
+import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IActuatorModelRepository;
 import smarthome.domain.repository.IDeviceRepository;
@@ -16,10 +28,17 @@ import smarthome.domain.repository.ISensorRepository;
 import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.room.IRoomFactory;
+import smarthome.domain.room.Room;
+import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.sensor.ISensorFactory;
+import smarthome.domain.sensor.SensorFactoryImpl;
 import smarthome.domain.sensor_model.ISensorModelFactory;
+import smarthome.domain.sensor_model.SensorModel;
+import smarthome.domain.sensor_model.SensorModelFactoryImpl;
 import smarthome.domain.sensor_type.ISensorTypeFactory;
+import smarthome.domain.sensor_type.SensorType;
+import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IHouseService;
 import smarthome.domain.service.IRoomService;
@@ -27,6 +46,7 @@ import smarthome.domain.service.ISensorModelService;
 import smarthome.domain.service.ISensorService;
 import smarthome.domain.service.ISensorTypeService;
 import smarthome.domain.unit.IUnitFactory;
+import smarthome.domain.unit.UnitFactoryImpl;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
@@ -45,35 +65,24 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
-import smarthome.mapper.*;
-import smarthome.domain.device.Device;
-import smarthome.domain.device.DeviceFactoryImpl;
-import smarthome.domain.house.House;
-import smarthome.domain.house.HouseFactoryImpl;
-import smarthome.domain.room.Room;
-import smarthome.domain.room.RoomFactoryImpl;
-import smarthome.domain.sensor.SensorFactoryImpl;
-import smarthome.domain.sensor_model.SensorModel;
-import smarthome.domain.sensor_model.SensorModelFactoryImpl;
-import smarthome.domain.sensor_type.SensorType;
-import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
-import smarthome.domain.unit.UnitFactoryImpl;
-import smarthome.utils.dto.*;
+import smarthome.mapper.SensorAssembler;
+import smarthome.mapper.SensorModelAssembler;
+import smarthome.mapper.SensorTypeAssembler;
+import smarthome.service.DeviceServiceImpl;
+import smarthome.service.HouseServiceImpl;
+import smarthome.service.RoomServiceImpl;
+import smarthome.service.SensorModelServiceImpl;
+import smarthome.service.SensorServiceImpl;
+import smarthome.service.SensorTypeServiceImpl;
+import smarthome.service.UnitServiceImpl;
+import smarthome.utils.LoadModelsAndUnit;
 import smarthome.utils.dto.SensorDTO;
 import smarthome.utils.dto.SensorModelDTO;
 import smarthome.utils.dto.SensorTypeDTO;
 import smarthome.utils.dto.sensor_data_dto.SensorDataGenericDTOImp;
-import smarthome.service.*;
-import smarthome.utils.LoadModelsAndUnit;
-
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class AddSensorToDeviceControllerTest {
+
   private IHouseRepository houseRepository;
   private IHouseService houseServiceImpl;
   private IHouseFactory houseFactory;
@@ -181,7 +190,6 @@ class AddSensorToDeviceControllerTest {
     when(deviceRepository.findBy_roomID(roomID)).thenReturn(List.of(device1));
     List<Device> devices = deviceServiceImpl.getDevicesByRoomId(roomID);
 
-
     return devices.get(0);
   }
 
@@ -196,7 +204,9 @@ class AddSensorToDeviceControllerTest {
             unitFactory);
   }
 
-  /** Test to check if the AddSensorToDeviceController is being created correctly. */
+  /**
+   * Test to check if the AddSensorToDeviceController is being created correctly.
+   */
   @Test
   void shouldCreateAddSensorToDeviceController() throws InstantiationException {
     // Act
@@ -372,7 +382,7 @@ class AddSensorToDeviceControllerTest {
     loadModelsAndUnit();
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unitID = new UnitID("Celsius");
-    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);    
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
@@ -382,7 +392,8 @@ class AddSensorToDeviceControllerTest {
             new SensorModelName("TemperatureSensor"),
             new ModelPath("smart_home.domain.sensor.temperature_sensor.TemperatureSensor"),
             sensorType.getID());
-    when(sensorModelRepository.findBySensorTypeId(sensorType.getID())).thenReturn(List.of(sensorModel));
+    when(sensorModelRepository.findBySensorTypeId(sensorType.getID())).thenReturn(
+        List.of(sensorModel));
     when(sensorModelRepository.findAll()).thenReturn(List.of(sensorModel));
 
     // Act
@@ -415,14 +426,13 @@ class AddSensorToDeviceControllerTest {
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitDescription unitDescription = new UnitDescription("Celsius");
     UnitID unitID = new UnitID("Celsius");
-    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);    
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
     UnitSymbol unitSymbol = new UnitSymbol("C");
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
     unitServiceImpl.addMeasurementType(unitDescription, unitSymbol);
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
-
 
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
@@ -449,7 +459,7 @@ class AddSensorToDeviceControllerTest {
    * sensor model list is null.
    */
   @Test
-void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationException {
+  void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationException {
     // Arrange
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitDescription unitDescription = new UnitDescription("Celsius");
@@ -481,7 +491,7 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
 
     // Assert
     assertEquals("No sensor models found.", exception.getMessage());
-}
+  }
 
   /**
    * Test if exception is thrown when there are no sensor types in the repository.
@@ -508,7 +518,9 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
     assertEquals("No sensor types found.", exception.getMessage());
   }
 
-  /** Test to check if the AddSensorToDeviceController is returning a list of sensor types. */
+  /**
+   * Test to check if the AddSensorToDeviceController is returning a list of sensor types.
+   */
   @Test
   void shouldReturnListOfSensorTypes_whenSensorTypeRepositoryIsNotEmpty()
       throws InstantiationException {
@@ -541,10 +553,12 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
     assertEquals(sensorTypeDTO.get(0).sensorTypeID, sensorTypeDTOList.get(0).sensorTypeID);
   }
 
-  /** Test if exception is thrown when the sensor type doesn't exist in the repository. */
+  /**
+   * Test if exception is thrown when the sensor type doesn't exist in the repository.
+   */
   @Test
   void shouldReturnEmptyList_whenThereAreNoSensorTypes() throws InstantiationException {
-   loadModelsAndUnit();
+    loadModelsAndUnit();
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unitID = new UnitID("Celsius");
     when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
@@ -581,7 +595,9 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
         exception.getMessage());
   }
 
-  /** Test addSensorToDevice method with valid parameters. Adding temperature sensor. */
+  /**
+   * Test addSensorToDevice method with valid parameters. Adding temperature sensor.
+   */
   @Test
   void shouldAddSensorToDevice_whenParametersAreValidForTemperatureSensor()
       throws InstantiationException {
@@ -622,7 +638,9 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
     assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
-  /** Test addSensorToDevice method with valid parameters. Adding HumiditySensor sensor. */
+  /**
+   * Test addSensorToDevice method with valid parameters. Adding HumiditySensor sensor.
+   */
   @Test
   void shouldAddSensorToDevice_whenParametersAreValidForHumiditySensor()
       throws InstantiationException {
@@ -671,7 +689,7 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
   void shouldAddSensorToDevice_whenParametersAreValidForAveragePowerConsumptionSensor()
       throws InstantiationException {
     // Arrange
-     loadModelsAndUnit();
+    loadModelsAndUnit();
     House house = loadHouse();
     Room room = loadRoom(house.getID());
     Device device = loadDevice(room.getID());
@@ -709,12 +727,14 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
     assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
-  /** Test addSensorToDevice method with valid parameters. Adding Switch sensor. */
+  /**
+   * Test addSensorToDevice method with valid parameters. Adding Switch sensor.
+   */
   @Test
   void shouldAddSensorToDevice_whenParametersAreValidForSwitchSensor()
       throws InstantiationException {
     // Arrange
-     loadModelsAndUnit();
+    loadModelsAndUnit();
     House house = loadHouse();
     Room room = loadRoom(house.getID());
     Device device = loadDevice(room.getID());
@@ -751,12 +771,14 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
     assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
-  /** Test addSensorToDevice method with valid parameters. Adding DewPointSensor sensor. */
+  /**
+   * Test addSensorToDevice method with valid parameters. Adding DewPointSensor sensor.
+   */
   @Test
   void shouldAddSensorToDevice_whenParametersAreValidForDewPointSensor()
       throws InstantiationException {
     // Arrange
-     loadModelsAndUnit();
+    loadModelsAndUnit();
     House house = loadHouse();
     Room room = loadRoom(house.getID());
     Device device = loadDevice(room.getID());
@@ -793,12 +815,14 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
     assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
-  /** Test addSensorToDevice method with valid parameters. Adding Solar Irradiance sensor. */
+  /**
+   * Test addSensorToDevice method with valid parameters. Adding Solar Irradiance sensor.
+   */
   @Test
   void shouldAddSensorToDevice_whenParametersAreValidForSolarIrradianceSensor()
       throws InstantiationException {
     // Arrange
-     loadModelsAndUnit();
+    loadModelsAndUnit();
     House house = loadHouse();
     Room room = loadRoom(house.getID());
     Device device = loadDevice(room.getID());
@@ -842,7 +866,7 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
   void shouldAddSensorToDevice_whenParametersAreValidForPercentagePositionSensor()
       throws InstantiationException {
     // Arrange
-     loadModelsAndUnit();
+    loadModelsAndUnit();
     House house = loadHouse();
     Room room = loadRoom(house.getID());
     Device device = loadDevice(room.getID());
@@ -887,7 +911,7 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
   void shouldAddSensorToDevice_whenParametersAreValidForInstantPowerConsumptionSensor()
       throws InstantiationException {
     // Arrange
-     loadModelsAndUnit();
+    loadModelsAndUnit();
     House house = loadHouse();
     Room room = loadRoom(house.getID());
     Device device = loadDevice(room.getID());
@@ -925,12 +949,14 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
     assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
-  /** Test addSensorToDevice method with valid parameters. Adding Percentage Position Sensor. */
+  /**
+   * Test addSensorToDevice method with valid parameters. Adding Percentage Position Sensor.
+   */
   @Test
   void shouldAddSensorToDevice_whenParametersAreValidForInstantElectricConsumptionSensor()
       throws InstantiationException {
     // Arrange
-     loadModelsAndUnit();
+    loadModelsAndUnit();
     House house = loadHouse();
     Room room = loadRoom(house.getID());
     Device device = loadDevice(room.getID());
@@ -968,11 +994,13 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
     assertEquals(sensorDataGenericDTOImp.deviceID, sensorDTO.deviceID);
   }
 
-  /** Test addSensorToDevice method with invalid parameters. */
+  /**
+   * Test addSensorToDevice method with invalid parameters.
+   */
   @Test
   void shouldThrowException_whenParametersAreInvalid() throws InstantiationException {
     // Arrange
-     loadModelsAndUnit();
+    loadModelsAndUnit();
     House house = loadHouse();
     Room room = loadRoom(house.getID());
     Device device = loadDevice(room.getID());
@@ -1007,11 +1035,13 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
     assertEquals(exception.getMessage(), "Sensor data DTO is required");
   }
 
-  /** Test addSensorToDevice method with device status is deactivated */
+  /**
+   * Test addSensorToDevice method with device status is deactivated
+   */
   @Test
   void shouldThrowException_whenDeviceStatusIsOff() throws InstantiationException {
     // Arrange
-     loadModelsAndUnit();
+    loadModelsAndUnit();
     House house = loadHouse();
     Room room = loadRoom(house.getID());
     Device device = loadDevice(room.getID());
@@ -1050,6 +1080,6 @@ void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationExcepti
             () -> addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp));
 
     // Assert
-    assertEquals("Device with ID "  + device.getID() +  " is deactivated.", exception.getMessage());
+    assertEquals("Device with ID " + device.getID() + " is deactivated.", exception.getMessage());
   }
 }

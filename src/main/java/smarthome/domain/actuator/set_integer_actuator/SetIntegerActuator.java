@@ -14,13 +14,13 @@ import smarthome.utils.visitor_pattern.IActuatorVisitor;
 
 public class SetIntegerActuator implements IActuator {
 
-  private ActuatorID actuatorID;
   private final ActuatorName actuatorName;
   private final ModelPath modelPath;
   private final ActuatorTypeID actuatorTypeID;
   private final DeviceID deviceID;
-  private SetIntegerValue value;
   private final IntegerLimits limits;
+  private ActuatorID actuatorID;
+  private SetIntegerValue value;
 
   /**
    * Constructor for SetIntegerActuator
@@ -223,7 +223,8 @@ public class SetIntegerActuator implements IActuator {
    */
   @Override
   public String toString() {
-    return "SetIntegerActuator:" + "ActuatorID:" + actuatorID + ", ActuatorName:" + actuatorName + ", ModelPath:" + modelPath + ", ActuatorTypeID:" + actuatorTypeID + ", DeviceID="
+    return "SetIntegerActuator:" + "ActuatorID:" + actuatorID + ", ActuatorName:" + actuatorName
+        + ", ModelPath:" + modelPath + ", ActuatorTypeID:" + actuatorTypeID + ", DeviceID="
         + deviceID + ", Value:" + value + ", Limits:" + limits;
   }
 }

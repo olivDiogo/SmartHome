@@ -3,126 +3,128 @@ package smarthome.persistence.spring_data.room;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import java.util.List;
+import java.util.Optional;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.Room;
+import smarthome.domain.value_object.RoomID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.RoomDataModel;
 import smarthome.utils.Validator;
-import smarthome.domain.value_object.RoomID;
-
-import java.util.List;
-import java.util.Optional;
 
 public class RoomSpringDataRepository implements IRoomRepository {
-    IRoomSpringDataRepository repository;
-    EntityManagerFactory factory;
-    IDataModelAssembler <RoomDataModel, Room> assembler;
 
-    /**
-     * Constructor of the RoomSpringDataRepository.
-     *
-     * @param repository is the room spring repository.
-     * @param assembler is the room data model assembler.
-     */
-    public RoomSpringDataRepository (IRoomSpringDataRepository repository, IDataModelAssembler<RoomDataModel, Room> assembler) {
-        this.factory = Persistence.createEntityManagerFactory("smarthome");
+  IRoomSpringDataRepository repository;
+  EntityManagerFactory factory;
+  IDataModelAssembler<RoomDataModel, Room> assembler;
 
-        Validator.validateNotNull(repository, "Room repository");
-        this.repository = repository;
-        Validator.validateNotNull(assembler, "Room data model assembler");
-        this.assembler = assembler;
+  /**
+   * Constructor of the RoomSpringDataRepository.
+   *
+   * @param repository is the room spring repository.
+   * @param assembler  is the room data model assembler.
+   */
+  public RoomSpringDataRepository(IRoomSpringDataRepository repository,
+      IDataModelAssembler<RoomDataModel, Room> assembler) {
+    this.factory = Persistence.createEntityManagerFactory("smarthome");
+
+    Validator.validateNotNull(repository, "Room repository");
+    this.repository = repository;
+    Validator.validateNotNull(assembler, "Room data model assembler");
+    this.assembler = assembler;
+  }
+
+  /**
+   * Method to get the Entity Manager.
+   */
+  private EntityManager getEntityManager() {
+    try {
+      return factory.createEntityManager();
+    } catch (Exception e) {
+      throw new RuntimeException("Error creating the entity manager", e);
     }
+  }
 
-    /**
-     * Method to get the Entity Manager.
-     */
-    private EntityManager getEntityManager() {
-        try  {
-          return factory.createEntityManager();
-        } catch (Exception e) {
-            throw new RuntimeException("Error creating the entity manager", e);
-        }
+  /**
+   * Method to save a domain entity.
+   *
+   * @param entity is the domain entity to be saved.
+   * @return the saved domain entity.
+   */
+  @Override
+  public Room save(Room entity) {
+    Validator.validateNotNull(entity, "Room");
+
+    RoomDataModel dataModel = new RoomDataModel(entity);
+
+    repository.save(dataModel);
+    return entity;
+  }
+
+  /**
+   * Method to find all domain entities.
+   *
+   * @return a list with all domain entities.
+   */
+  @Override
+  public List<Room> findAll() {
+    List<RoomDataModel> listRoomDataModelSaved = repository.findAll();
+    List<Room> listDomain = assembler.toDomain(listRoomDataModelSaved);
+    return listDomain;
+  }
+
+  /**
+   * Method to find a domain entity by its unique identifier.
+   *
+   * @param objectID is the unique identifier of the domain entity.
+   * @return the domain entity.
+   */
+  @Override
+  public Optional<Room> ofIdentity(RoomID objectID) {
+    Optional<RoomDataModel> dataModelSaved = repository.findById(objectID.getID());
+
+    if (dataModelSaved.isPresent()) {
+      Room domain = assembler.toDomain(dataModelSaved.get());
+      return Optional.of(domain);
+    } else {
+      return Optional.empty();
     }
+  }
 
-    /**
-     * Method to save a domain entity.
-     *
-     * @param entity is the domain entity to be saved.
-     * @return the saved domain entity.
-     */
-    @Override
-    public Room save(Room entity) {
-        Validator.validateNotNull(entity, "Room");
+  /**
+   * Method to check if a domain entity exists by its unique identifier.
+   *
+   * @param objectID is the unique identifier of the domain entity.
+   * @return true if the domain entity exists, false otherwise.
+   */
+  @Override
+  public boolean containsOfIdentity(RoomID objectID) {
+    return repository.existsById(objectID.getID());
+  }
 
-        RoomDataModel dataModel = new RoomDataModel(entity);
+  /**
+   * Method to update a domain entity.
+   *
+   * @param room is the room to be updated.
+   * @return the updated room.
+   */
+  @Override
+  public Room update(Room room) {
+    RoomDataModel roomDataModel = getEntityManager().find(RoomDataModel.class,
+        room.getID().getID());
 
-        repository.save(dataModel);
-        return entity;
+    if (roomDataModel != null) {
+      boolean isUpdated = roomDataModel.updateFromDomain(room);
+
+      if (isUpdated) {
+        repository.save(roomDataModel);
+
+        return room;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
     }
-
-    /**
-     * Method to find all domain entities.
-     *
-     * @return a list with all domain entities.
-     */
-    @Override
-    public List<Room> findAll() {
-        List<RoomDataModel> listRoomDataModelSaved = repository.findAll();
-        List<Room> listDomain = assembler.toDomain(listRoomDataModelSaved);
-        return listDomain;
-    }
-
-    /**
-     * Method to find a domain entity by its unique identifier.
-     *
-     * @param objectID is the unique identifier of the domain entity.
-     * @return the domain entity.
-     */
-    @Override
-    public Optional<Room> ofIdentity(RoomID objectID) {
-        Optional<RoomDataModel> dataModelSaved = repository.findById(objectID.getID());
-
-        if(dataModelSaved.isPresent()){
-            Room domain = assembler.toDomain(dataModelSaved.get());
-            return Optional.of(domain);
-        } else {
-            return Optional.empty();
-        }
-    }
-
-    /**
-     * Method to check if a domain entity exists by its unique identifier.
-     *
-     * @param objectID is the unique identifier of the domain entity.
-     * @return true if the domain entity exists, false otherwise.
-     */
-    @Override
-    public boolean containsOfIdentity(RoomID objectID) {
-        return repository.existsById(objectID.getID());
-    }
-
-    /**
-     * Method to update a domain entity.
-     *
-     * @param room is the room to be updated.
-     * @return the updated room.
-     */
-    @Override
-    public Room update(Room room) {
-        RoomDataModel roomDataModel = getEntityManager().find(RoomDataModel.class, room.getID().getID());
-
-        if(roomDataModel != null) {
-           boolean isUpdated = roomDataModel.updateFromDomain(room);
-
-           if(isUpdated) {
-               repository.save(roomDataModel);
-
-               return room;
-           } else {
-               return null;
-           }
-        } else {
-            return null;
-        }
-    }
+  }
 }

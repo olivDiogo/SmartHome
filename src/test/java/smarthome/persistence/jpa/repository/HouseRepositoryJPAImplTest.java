@@ -1,42 +1,47 @@
 package smarthome.persistence.jpa.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.Test;
 import smarthome.persistence.assembler.IDataModelAssembler;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-
 class HouseRepositoryJPAImplTest {
-    /**
-     * Test to verify if the HouseRepositoryJPAImplTest is instantiated correctly
-     */
-    @Test
-    void shouldInstantiateHouseRepositoryJPAImpl_whenAttributesAreValid() {
-        //Arrange
-        IDataModelAssembler dataModelAssembler = mock(IDataModelAssembler.class);
 
-        //Act
-        HouseRepositoryJPAImpl houseRepositoryJPA = new HouseRepositoryJPAImpl(dataModelAssembler);
+  /**
+   * Test to verify if the HouseRepositoryJPAImplTest is instantiated correctly
+   */
+  @Test
+  void shouldInstantiateHouseRepositoryJPAImpl_whenAttributesAreValid() {
+    //Arrange
+    IDataModelAssembler dataModelAssembler = mock(IDataModelAssembler.class);
 
-        //Assert
-        assertNotNull(houseRepositoryJPA);
-    }
+    //Act
+    HouseRepositoryJPAImpl houseRepositoryJPA = new HouseRepositoryJPAImpl(dataModelAssembler);
 
-    /**
-     * Test to verify if the HouseRepositoryJPAImplTest throws an IllegalArgumentException when given a null data model assembler
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenGivenNullDataModelAssembler() {
-        //Arrange
-        IDataModelAssembler dataModelAssembler = null;
+    //Assert
+    assertNotNull(houseRepositoryJPA);
+  }
 
-        String expectedMessage = "Data model assembler cannot be null.";
+  /**
+   * Test to verify if the HouseRepositoryJPAImplTest throws an IllegalArgumentException when given
+   * a null data model assembler
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenGivenNullDataModelAssembler() {
+    //Arrange
+    IDataModelAssembler dataModelAssembler = null;
 
-        //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new HouseRepositoryJPAImpl(dataModelAssembler));
-        String actualMessage = exception.getMessage();
+    String expectedMessage = "Data model assembler cannot be null.";
 
-        assertEquals(expectedMessage, actualMessage);
-    }
+    //Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> new HouseRepositoryJPAImpl(dataModelAssembler));
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
+  }
 
 }

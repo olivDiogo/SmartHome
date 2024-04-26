@@ -1,7 +1,9 @@
 package smarthome.mapper;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 import smarthome.domain.house.House;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.domain.value_object.Address;
@@ -15,7 +17,9 @@ import static org.mockito.Mockito.when;
 
 class HouseAssemblerTest {
 
-  /** Test that the HouseAssembler class can convert a House object to a HouseDTO object. */
+  /**
+   * Test that the HouseAssembler class can convert a House object to a HouseDTO object.
+   */
   @Test
   void shouldReturnAHouseDTOWhenGivenAHouse() {
     // Arrange

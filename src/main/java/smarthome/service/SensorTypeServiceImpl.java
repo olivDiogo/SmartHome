@@ -1,17 +1,16 @@
 package smarthome.service;
 
+import java.util.List;
+import java.util.Optional;
 import smarthome.ddd.IRepository;
 import smarthome.domain.sensor_type.ISensorTypeFactory;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.service.ISensorTypeService;
 import smarthome.domain.unit.Unit;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
-
-import java.util.List;
-import java.util.Optional;
+import smarthome.utils.Validator;
 
 public class SensorTypeServiceImpl implements ISensorTypeService {
 
@@ -37,7 +36,7 @@ public class SensorTypeServiceImpl implements ISensorTypeService {
 
   }
 
-  
+
   /**
    * Creates a new SensorType.
    *

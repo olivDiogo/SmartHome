@@ -1,20 +1,21 @@
 package smarthome.controller;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
+import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.house.House;
+import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.service.IHouseService;
 import smarthome.mapper.HouseAssembler;
-import smarthome.domain.house.HouseFactoryImpl;
+import smarthome.service.HouseServiceImpl;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.utils.dto.HouseDataDTO;
-import smarthome.service.HouseServiceImpl;
 
 class ConfigureHouseLocationControllerTest {
 

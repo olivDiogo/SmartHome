@@ -9,13 +9,13 @@ import smarthome.domain.actuator.IActuatorFactory;
 import smarthome.domain.actuator.set_decimal_actuator.SetDecimalActuator;
 import smarthome.domain.actuator.set_integer_actuator.SetIntegerActuator;
 import smarthome.domain.actuator.switch_actuator.SwitchActuator;
-import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DecimalLimits;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 
 class ActuatorDataModelAssemblerTest {
 

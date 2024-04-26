@@ -1,12 +1,27 @@
 package smarthome.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.actuator.ActuatorFactoryImpl;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.IActuatorFactory;
+import smarthome.domain.actuator_model.ActuatorModel;
+import smarthome.domain.actuator_model.ActuatorModelFactoryImpl;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
+import smarthome.domain.actuator_type.ActuatorType;
+import smarthome.domain.actuator_type.ActuatorTypeFactoryImpl;
 import smarthome.domain.actuator_type.IActuatorTypeFactory;
+import smarthome.domain.device.Device;
+import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
+import smarthome.domain.house.House;
+import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IActuatorModelRepository;
 import smarthome.domain.repository.IActuatorRepository;
@@ -17,14 +32,18 @@ import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.repository.ISensorModelRepository;
 import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.room.IRoomFactory;
+import smarthome.domain.room.Room;
+import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.domain.sensor_model.ISensorModelFactory;
 import smarthome.domain.sensor_model.SensorModelFactoryImpl;
 import smarthome.domain.service.IActuatorModelService;
+import smarthome.domain.service.IActuatorService;
 import smarthome.domain.service.IActuatorTypeService;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IHouseService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.unit.IUnitFactory;
+import smarthome.domain.unit.UnitFactoryImpl;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
@@ -41,6 +60,27 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
+import smarthome.mapper.ActuatorAssembler;
+import smarthome.mapper.ActuatorModelAssembler;
+import smarthome.mapper.ActuatorTypeAssembler;
+import smarthome.mapper.DeviceAssembler;
+import smarthome.mapper.RoomAssembler;
+import smarthome.persistence.mem.ActuatorModelRepository;
+import smarthome.persistence.mem.ActuatorRepository;
+import smarthome.persistence.mem.ActuatorTypeRepository;
+import smarthome.persistence.mem.DeviceRepository;
+import smarthome.persistence.mem.HouseRepository;
+import smarthome.persistence.mem.RoomRepository;
+import smarthome.persistence.mem.SensorModelRepository;
+import smarthome.persistence.mem.UnitRepository;
+import smarthome.service.ActuatorModelServiceImpl;
+import smarthome.service.ActuatorServiceImpl;
+import smarthome.service.ActuatorTypeServiceImpl;
+import smarthome.service.DeviceServiceImpl;
+import smarthome.service.HouseServiceImpl;
+import smarthome.service.RoomServiceImpl;
+import smarthome.service.UnitServiceImpl;
+import smarthome.utils.LoadModelsAndUnit;
 import smarthome.utils.dto.ActuatorDTO;
 import smarthome.utils.dto.ActuatorModelDTO;
 import smarthome.utils.dto.ActuatorTypeDTO;
@@ -50,30 +90,9 @@ import smarthome.utils.dto.actuator_data_dto.ActuatorDataGenericDTOImp;
 import smarthome.utils.dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
 import smarthome.utils.dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
 import smarthome.utils.dto.actuator_data_dto.IActuatorDataDTO;
-import smarthome.mapper.*;
-import smarthome.domain.actuator.ActuatorFactoryImpl;
-import smarthome.domain.actuator_model.ActuatorModel;
-import smarthome.domain.actuator_model.ActuatorModelFactoryImpl;
-import smarthome.domain.actuator_type.ActuatorType;
-import smarthome.domain.actuator_type.ActuatorTypeFactoryImpl;
-import smarthome.domain.device.Device;
-import smarthome.domain.device.DeviceFactoryImpl;
-import smarthome.domain.house.House;
-import smarthome.domain.house.HouseFactoryImpl;
-import smarthome.domain.room.Room;
-import smarthome.domain.room.RoomFactoryImpl;
-import smarthome.domain.service.IActuatorService;
-import smarthome.domain.unit.UnitFactoryImpl;
-import smarthome.utils.dto.*;
-import smarthome.persistence.mem.*;
-import smarthome.service.*;
-import smarthome.utils.LoadModelsAndUnit;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class AddActuatorToDeviceControllerTest {
+
   ISensorModelRepository sensorModelRepository = new SensorModelRepository();
   ISensorModelFactory sensorModelFactory = new SensorModelFactoryImpl();
   IRoomRepository roomRepository = new RoomRepository();
@@ -144,7 +163,9 @@ class AddActuatorToDeviceControllerTest {
     return devices.get(0);
   }
 
-  /** Test to check if the AddActuatorToDeviceController is being created correctly. */
+  /**
+   * Test to check if the AddActuatorToDeviceController is being created correctly.
+   */
   @Test
   void shouldThrowExceptionWhenRoomServiceIsNull() throws InstantiationException {
     // Assert
@@ -320,7 +341,7 @@ class AddActuatorToDeviceControllerTest {
             unitFactory);
 
     String expectedMessage = "Actuator model service is required";
-     //Act + Assert
+    //Act + Assert
     Exception exception =
         assertThrows(
             IllegalArgumentException.class,
@@ -548,7 +569,7 @@ class AddActuatorToDeviceControllerTest {
 
     String expectedMessage = "Actuator service is required";
     // Act + Assert
-   Exception exception =
+    Exception exception =
         assertThrows(
             IllegalArgumentException.class,
             () ->
@@ -636,7 +657,6 @@ class AddActuatorToDeviceControllerTest {
 
   /**
    * Should throw exception when room ID does not exist in repository.
-   *
    */
   @Test
   void shouldThrowException_WhenRoomIDDoesNotExistInRepository() throws InstantiationException {
@@ -1026,14 +1046,14 @@ class AddActuatorToDeviceControllerTest {
     String modelPath = "smarthome.domain.actuator.set_integer_actuator.SetIntegerActuator";
     String actuatorName = "Actuator";
 
-
     int expected = 1;
 
     actuatorTypeAssembler.domainToDTO(actuatorType);
 
     IActuatorDataDTO actuatorDataDTO =
         new ActuatorDataWithIntegerLimitsDTOImp(
-            device.getID().toString(), modelPath, actuatorName, actuatorType.getID().getID(), lowerLimit, upperLimit);
+            device.getID().toString(), modelPath, actuatorName, actuatorType.getID().getID(),
+            lowerLimit, upperLimit);
     AddActuatorToDeviceController controller =
         new AddActuatorToDeviceController(
             roomServiceImpl,
@@ -1061,61 +1081,62 @@ class AddActuatorToDeviceControllerTest {
    * @throws InstantiationException exception
    */
 
-    @Test
-    void shouldAddActuatorToDevice_whenParametersAreValidSetDecimalActuator()
-        throws InstantiationException {
-      // Arrange
-      String lowerLimit = "1.1";
-      String upperLimit = "99.8";
-      LoadModelsAndUnit loadModelsAndUnit =
-          new LoadModelsAndUnit(
-              sensorModelRepository,
-              actuatorModelRepository,
-              unitRepository,
-              sensorModelFactory,
-              actuatorModelFactory,
-              unitFactory);
+  @Test
+  void shouldAddActuatorToDevice_whenParametersAreValidSetDecimalActuator()
+      throws InstantiationException {
+    // Arrange
+    String lowerLimit = "1.1";
+    String upperLimit = "99.8";
+    LoadModelsAndUnit loadModelsAndUnit =
+        new LoadModelsAndUnit(
+            sensorModelRepository,
+            actuatorModelRepository,
+            unitRepository,
+            sensorModelFactory,
+            actuatorModelFactory,
+            unitFactory);
 
-      loadHouseAndRoom();
-      List<Room> rooms = roomRepository.findAll();
-      RoomID roomID = rooms.get(0).getID();
-      Device device = loadDevice(roomID);
+    loadHouseAndRoom();
+    List<Room> rooms = roomRepository.findAll();
+    RoomID roomID = rooms.get(0).getID();
+    Device device = loadDevice(roomID);
 
-      TypeDescription typeDescription = new TypeDescription("SetDecimal");
-      UnitID unit = new UnitID("Percent");
-      ActuatorType actuatorType = ActuatorTypeServiceImpl.createActuatorType(typeDescription, unit);
-      ActuatorTypeServiceImpl.addActuatorType(actuatorType);
+    TypeDescription typeDescription = new TypeDescription("SetDecimal");
+    UnitID unit = new UnitID("Percent");
+    ActuatorType actuatorType = ActuatorTypeServiceImpl.createActuatorType(typeDescription, unit);
+    ActuatorTypeServiceImpl.addActuatorType(actuatorType);
 
-      String modelPath = "smarthome.domain.actuator.set_decimal_actuator.SetDecimalActuator";
-      String actuatorName = "Actuator";
+    String modelPath = "smarthome.domain.actuator.set_decimal_actuator.SetDecimalActuator";
+    String actuatorName = "Actuator";
 
-      int expected = 1;
+    int expected = 1;
 
-      actuatorTypeAssembler.domainToDTO(actuatorType);
+    actuatorTypeAssembler.domainToDTO(actuatorType);
 
-      IActuatorDataDTO actuatorDataDTO =
-          new ActuatorDataWithDecimalLimitsDTOImp(
-              device.getID().toString(), modelPath, actuatorName, actuatorType.getID().getID(), lowerLimit, upperLimit);
-      AddActuatorToDeviceController controller =
-          new AddActuatorToDeviceController(
-              roomServiceImpl,
-              roomAssembler,
-              deviceServiceImpl,
-              deviceAssembler,
-              actuatorModelServiceImpl,
-              actuatorModelAssembler,
-              ActuatorTypeServiceImpl,
-              actuatorTypeAssembler,
-              actuatorAssembler,
-              actuatorService);
-      // Act
-      ActuatorDTO actuatorDTO = controller.addActuatorToDevice(actuatorDataDTO);
-      int result = actuatorRepository.findAll().size();
+    IActuatorDataDTO actuatorDataDTO =
+        new ActuatorDataWithDecimalLimitsDTOImp(
+            device.getID().toString(), modelPath, actuatorName, actuatorType.getID().getID(),
+            lowerLimit, upperLimit);
+    AddActuatorToDeviceController controller =
+        new AddActuatorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            actuatorModelServiceImpl,
+            actuatorModelAssembler,
+            ActuatorTypeServiceImpl,
+            actuatorTypeAssembler,
+            actuatorAssembler,
+            actuatorService);
+    // Act
+    ActuatorDTO actuatorDTO = controller.addActuatorToDevice(actuatorDataDTO);
+    int result = actuatorRepository.findAll().size();
 
-      // Assert
-      assertNotNull(actuatorDTO);
-      assertEquals(expected, result);
-    }
+    // Assert
+    assertNotNull(actuatorDTO);
+    assertEquals(expected, result);
+  }
 
   /**
    * Should add set integer actuator to device when parameters are valid.

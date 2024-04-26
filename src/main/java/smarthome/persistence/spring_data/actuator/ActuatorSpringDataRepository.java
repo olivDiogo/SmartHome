@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.repository.IActuatorRepository;
+import smarthome.domain.value_object.ActuatorID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 import smarthome.utils.Validator;
-import smarthome.domain.value_object.ActuatorID;
 import smarthome.utils.visitor_pattern.IActuatorVisitorForDataModel;
 
 public class ActuatorSpringDataRepository implements IActuatorRepository {

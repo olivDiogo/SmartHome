@@ -13,65 +13,70 @@ import smarthome.utils.Validator;
 @Table(name = "ACTUATOR_MODEL")
 public class ActuatorModelDataModel {
 
-    @Id
-    @Column(name = "Actuator Model ID")
-    private String _actuatorModelID;
+  @Id
+  @Column(name = "Actuator Model ID")
+  private String _actuatorModelID;
 
-    @Column(name = "Actuator Model Name")
-    private String _actuatorModelName;
+  @Column(name = "Actuator Model Name")
+  private String _actuatorModelName;
 
-    @Column(name = "Model Path")
-    private String _modelPath;
+  @Column(name = "Model Path")
+  private String _modelPath;
 
-    @Column(name = "Actuator Type ID")
-    private String _actuatorTypeID;
+  @Column(name = "Actuator Type ID")
+  private String _actuatorTypeID;
 
-    @Version
-    private long version;
+  @Version
+  private long version;
 
-    /**
-     * Class constructor
-     */
-    public ActuatorModelDataModel() {}
+  /**
+   * Class constructor
+   */
+  public ActuatorModelDataModel() {
+  }
 
-    public ActuatorModelDataModel(ActuatorModel actuatorModel) {
-        Validator.validateNotNull(actuatorModel, "Actuator Model");
-        this._actuatorModelID = actuatorModel.getID().getID();
-        this._actuatorModelName = actuatorModel.getActuatorModelName().getActuatorModelName();
-        this._modelPath = actuatorModel.getID().getID();
-        this._actuatorTypeID = actuatorModel.getActuatorTypeID().getID();
-    }
+  public ActuatorModelDataModel(ActuatorModel actuatorModel) {
+    Validator.validateNotNull(actuatorModel, "Actuator Model");
+    this._actuatorModelID = actuatorModel.getID().getID();
+    this._actuatorModelName = actuatorModel.getActuatorModelName().getActuatorModelName();
+    this._modelPath = actuatorModel.getID().getID();
+    this._actuatorTypeID = actuatorModel.getActuatorTypeID().getID();
+  }
 
-    /**
-     * Method to return the actuator model ID.
-     * @return
-     */
-    public String get_actuatorModelID() {
-        return this._actuatorModelID;
-    }
+  /**
+   * Method to return the actuator model ID.
+   *
+   * @return
+   */
+  public String get_actuatorModelID() {
+    return this._actuatorModelID;
+  }
 
-    /**
-     * Method to return the actuator model name.
-     * @return
-     */
-    public String get_actuatorModelName() {
-        return this._actuatorModelName;
-    }
+  /**
+   * Method to return the actuator model name.
+   *
+   * @return
+   */
+  public String get_actuatorModelName() {
+    return this._actuatorModelName;
+  }
 
-    /**
-     * Method to return the model path.
-     * @return
-     */
-    public String get_modelPath() {
-        return this._modelPath;
-    }
+  /**
+   * Method to return the model path.
+   *
+   * @return
+   */
+  public String get_modelPath() {
+    return this._modelPath;
+  }
 
-    /**
-     * Method to return the actuator type ID.
-     * @return
-     */
-    public String get_actuatorTypeID() {
-        return this._actuatorTypeID;
-    }
+  /**
+   * Method to return the actuator type ID.
+   *
+   * @return
+   */
+  public String get_actuatorTypeID() {
+    return this._actuatorTypeID;
+  }
 }
 

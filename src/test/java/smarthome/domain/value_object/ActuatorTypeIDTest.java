@@ -1,14 +1,17 @@
 package smarthome.domain.value_object;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.value_object.ActuatorTypeID;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ActuatorTypeIDTest {
 
-  /** Tests the correct instantiation of a ActuatorTypeID. */
+  /**
+   * Tests the correct instantiation of a ActuatorTypeID.
+   */
   @Test
   void shouldGetValidObject_whenUsingValidStringInConstructor() {
     // Arrange
@@ -38,7 +41,9 @@ class ActuatorTypeIDTest {
     Assertions.assertTrue(actualMessage.contains(expectedMessage));
   }
 
-  /** Tests if the exception is thrown with a blank actuatorTypeID. */
+  /**
+   * Tests if the exception is thrown with a blank actuatorTypeID.
+   */
   @Test
   void shouldThrowException_whenActuatorTypeIDIsBlank() {
     // Arrange
@@ -56,7 +61,9 @@ class ActuatorTypeIDTest {
     assertTrue(actualMessage.contains(expectedMessage));
   }
 
-  /** Tests if the ActuatorTypeID is correctly returned. */
+  /**
+   * Tests if the ActuatorTypeID is correctly returned.
+   */
   @Test
   void shouldReturnActuatorTypeID() {
     // Arrange
@@ -72,7 +79,9 @@ class ActuatorTypeIDTest {
     Assertions.assertEquals(expected, actuatorIDReturned);
   }
 
-  /** Tests if the equals method returns true when the ActuatorTypeID is compared to itself. */
+  /**
+   * Tests if the equals method returns true when the ActuatorTypeID is compared to itself.
+   */
   @Test
   void shouldReturnTrue_WhenActuatorTypeIDIsEqualToItself() {
     // Arrange
@@ -124,7 +133,9 @@ class ActuatorTypeIDTest {
     Assertions.assertFalse(result);
   }
 
-  /** Tests if the hashCode method returns the same value for two ActuatorID with the same ID. */
+  /**
+   * Tests if the hashCode method returns the same value for two ActuatorID with the same ID.
+   */
   @Test
   void shouldReturnHashCode() {
     // Arrange
@@ -140,7 +151,9 @@ class ActuatorTypeIDTest {
     Assertions.assertEquals(expected, result);
   }
 
-  /** Should return false when an object is null. */
+  /**
+   * Should return false when an object is null.
+   */
   @Test
   void shouldReturnFalse_WhenOneObjectIsNull() {
     // Arrange

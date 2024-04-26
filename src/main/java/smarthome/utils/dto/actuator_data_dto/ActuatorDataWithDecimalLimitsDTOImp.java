@@ -1,7 +1,10 @@
 package smarthome.utils.dto.actuator_data_dto;
 
-public class ActuatorDataWithDecimalLimitsDTOImp implements IActuatorDataDTO{
-  /** The data needed to create a actuator. */
+public class ActuatorDataWithDecimalLimitsDTOImp implements IActuatorDataDTO {
+
+  /**
+   * The data needed to create a actuator.
+   */
   public final String deviceID;
   public final String actuatorModelPath;
   public final String actuatorName;
@@ -12,12 +15,12 @@ public class ActuatorDataWithDecimalLimitsDTOImp implements IActuatorDataDTO{
   /**
    * Constructs a new ActuatorDataDTO object with the specified actuator details.
    *
-   * @param deviceID The unique identifier of the device.
+   * @param deviceID          The unique identifier of the device.
    * @param actuatorModelPath The file path to the actuator model's data.
-   * @param actuatorName The name of the actuator.
-   * @param actuatorTypeID The unique identifier of the actuator type.
-   * @param minLimit The minimum limit of the actuator.
-   * @param maxLimit The maximum limit of the actuator.
+   * @param actuatorName      The name of the actuator.
+   * @param actuatorTypeID    The unique identifier of the actuator type.
+   * @param minLimit          The minimum limit of the actuator.
+   * @param maxLimit          The maximum limit of the actuator.
    */
   public ActuatorDataWithDecimalLimitsDTOImp(
       String deviceID,

@@ -1,17 +1,16 @@
 package smarthome.mapper;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.sensor_model.SensorModel;
-import smarthome.utils.dto.SensorModelDTO;
-import smarthome.domain.value_object.ModelPath;
-import smarthome.domain.value_object.SensorModelName;
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import smarthome.domain.sensor_model.SensorModel;
+import smarthome.domain.value_object.ModelPath;
+import smarthome.domain.value_object.SensorModelName;
+import smarthome.utils.dto.SensorModelDTO;
 
 class SensorModelAssemblerTest {
 
@@ -50,7 +49,8 @@ class SensorModelAssemblerTest {
   }
 
   /**
-   * Test that the method domainToDTO throws an IllegalArgumentException when the SensorModel is null.
+   * Test that the method domainToDTO throws an IllegalArgumentException when the SensorModel is
+   * null.
    */
   @Test
   void shouldThrowException_whenSensorModelIsNull() {
@@ -128,7 +128,8 @@ class SensorModelAssemblerTest {
   }
 
   /**
-   * Test that the method domainToDTO throws an IllegalArgumentException when the list of SensorModel is null
+   * Test that the method domainToDTO throws an IllegalArgumentException when the list of
+   * SensorModel is null
    */
   @Test
   void shouldThrowException_whenSensorModelListIsNull() {
@@ -147,7 +148,8 @@ class SensorModelAssemblerTest {
   }
 
   /**
-   * Test that the method domainToDTO throws an IllegalArgumentException when the list of SensorModel is empty
+   * Test that the method domainToDTO throws an IllegalArgumentException when the list of
+   * SensorModel is empty
    */
   @Test
   void shouldThrowException_whenSensorModelListIsEmpty() {
@@ -166,5 +168,5 @@ class SensorModelAssemblerTest {
             });
     String result = exception.getMessage();
     assertEquals(expected, result);
-    }
+  }
 }

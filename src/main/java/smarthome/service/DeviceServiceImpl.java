@@ -1,5 +1,9 @@
 package smarthome.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import smarthome.ddd.IRepository;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.IDeviceFactory;
@@ -12,14 +16,8 @@ import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
-import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.Validator;
-import smarthome.domain.value_object.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import smarthome.utils.dto.DeviceDTO;
 
 public class DeviceServiceImpl implements IDeviceService {
 
@@ -122,7 +120,8 @@ public class DeviceServiceImpl implements IDeviceService {
    * @return The list of devices grouped by temperature functionality.
    */
   @Override
-  public List<DeviceDTO> getDevicesByTypeDescriptionFromMap(Map<DeviceType, List<DeviceDTO>> deviceMap, String typeDescription) {
+  public List<DeviceDTO> getDevicesByTypeDescriptionFromMap(
+      Map<DeviceType, List<DeviceDTO>> deviceMap, String typeDescription) {
     Validator.validateNotNull(deviceMap, "Device map");
     Validator.validateNotNull(typeDescription, "Type description");
 
@@ -144,11 +143,11 @@ public class DeviceServiceImpl implements IDeviceService {
    * Filters the devices in a list by their room location.
    *
    * @param devicesDTO The list of devices to filter.
-   * @param roomID The room to filter by.
+   * @param roomID     The room to filter by.
    * @return The list of devices in the room.
    */
   @Override
-  public List<DeviceDTO> getDevicesFromListByRoomId(List<DeviceDTO> devicesDTO, RoomID roomID){
+  public List<DeviceDTO> getDevicesFromListByRoomId(List<DeviceDTO> devicesDTO, RoomID roomID) {
     Validator.validateNotNull(devicesDTO, "List of DevicesDTO");
     Validator.validateNotNull(roomID, "A Room ID");
 

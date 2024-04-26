@@ -1,14 +1,21 @@
 package smarthome.domain.value_object;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import smarthome.domain.value_object.DecimalLimits;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-/** Test cases for the SetDecimalActuatorLimits class. */
+/**
+ * Test cases for the SetDecimalActuatorLimits class.
+ */
 class DecimalLimitsTest {
 
-  /** Verifies that SetDecimalActuatorLimits is correctly instantiated when limits are valid. */
+  /**
+   * Verifies that SetDecimalActuatorLimits is correctly instantiated when limits are valid.
+   */
   @Test
   void shouldInstantiateSetDecimalActuatorLimits_whenLimitsAreValid() {
     // Arrange
@@ -57,7 +64,9 @@ class DecimalLimitsTest {
     assertNotNull(decimalLimits);
   }
 
-  /** Verifies that getLowerLimit method returns the lower limit. */
+  /**
+   * Verifies that getLowerLimit method returns the lower limit.
+   */
   @Test
   void shouldReturnLowerLimit_whenGetLowerLimitIsCalled() {
     // Arrange
@@ -72,7 +81,9 @@ class DecimalLimitsTest {
     assertEquals(lowerLimit, result);
   }
 
-  /** Verifies that getUpperLimit method returns the upper limit. */
+  /**
+   * Verifies that getUpperLimit method returns the upper limit.
+   */
   @Test
   void shouldReturnUpperLimit_whenGetUpperLimitIsCalled() {
     // Arrange
@@ -87,7 +98,9 @@ class DecimalLimitsTest {
     assertEquals(upperLimit, result);
   }
 
-  /** Verifies that the equals method returns true when called with the same object. */
+  /**
+   * Verifies that the equals method returns true when called with the same object.
+   */
   @Test
   void shouldReturnTrue_whenEqualsIsCalledWithSameObject() {
     // Arrange
@@ -102,7 +115,9 @@ class DecimalLimitsTest {
     assertTrue(result);
   }
 
-  /** Verifies that the equals method returns false when called with a different object. */
+  /**
+   * Verifies that the equals method returns false when called with a different object.
+   */
   @Test
   void shouldReturnFalse_whenEqualsIsCalledWithDifferentObject() {
     // Arrange
@@ -117,7 +132,9 @@ class DecimalLimitsTest {
     assertFalse(result);
   }
 
-  /** Verifies that the equals method returns false when called with a different set of limits. */
+  /**
+   * Verifies that the equals method returns false when called with a different set of limits.
+   */
   @Test
   void shouldReturnFalse_whenEqualsIsCalledWithDifferentLimits() {
     // Arrange
@@ -190,7 +207,9 @@ class DecimalLimitsTest {
     assertFalse(result);
   }
 
-  /** Test if the toString method returns the expected string. */
+  /**
+   * Test if the toString method returns the expected string.
+   */
   @Test
   void shouldReturnToString_whenToStringIsCalled() {
     // Arrange

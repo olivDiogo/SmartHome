@@ -1,52 +1,59 @@
 package smarthome.persistence.jpa.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.Test;
 import smarthome.domain.sensor_model.ISensorModelFactory;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.SensorModelDataModel;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-
 
 class SensorModelRepositoryJPAImplTest {
 
-    /**
-     * Test to check if the RepositorySensorModelTypeJPAImpl is instantiated when the SensorModelFactory and DataModelConverter are valid
-     */
-    @Test
-    void shouldInstantiateRepositorySensorModelTypeJPAImpl() {
-        //Arrange
-        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
-        IDataModelAssembler<SensorModelDataModel, SensorModel> dataModelConverter = mock(IDataModelAssembler.class);
+  /**
+   * Test to check if the RepositorySensorModelTypeJPAImpl is instantiated when the
+   * SensorModelFactory and DataModelConverter are valid
+   */
+  @Test
+  void shouldInstantiateRepositorySensorModelTypeJPAImpl() {
+    //Arrange
+    ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
+    IDataModelAssembler<SensorModelDataModel, SensorModel> dataModelConverter = mock(
+        IDataModelAssembler.class);
 
-        //Act
-        SensorModelRepositoryJPAImpl repositorySensorModelTypeJPA = new SensorModelRepositoryJPAImpl(dataModelConverter);
+    //Act
+    SensorModelRepositoryJPAImpl repositorySensorModelTypeJPA = new SensorModelRepositoryJPAImpl(
+        dataModelConverter);
 
-        //Assert
-        assertNotNull(repositorySensorModelTypeJPA);
-    }
+    //Assert
+    assertNotNull(repositorySensorModelTypeJPA);
+  }
 
 
-    /**
-     * Test to check if the RepositorySensorModelTypeJPAImpl throws an IllegalArgumentException when the DataModelConverter is null
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenGivenNullDataModelConverter() {
-        //Arrange
-        ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
-        IDataModelAssembler<SensorModelDataModel, SensorModel> dataModelConverter = null;
+  /**
+   * Test to check if the RepositorySensorModelTypeJPAImpl throws an IllegalArgumentException when
+   * the DataModelConverter is null
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenGivenNullDataModelConverter() {
+    //Arrange
+    ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
+    IDataModelAssembler<SensorModelDataModel, SensorModel> dataModelConverter = null;
 
-        String expectedMessage = "Data Model Converter cannot be null.";
+    String expectedMessage = "Data Model Converter cannot be null.";
 
-        //Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorModelRepositoryJPAImpl(dataModelConverter));
+    //Act + Assert
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> new SensorModelRepositoryJPAImpl(dataModelConverter));
 
-        String actualMessage = exception.getMessage();
+    String actualMessage = exception.getMessage();
 
-        assertEquals(expectedMessage, actualMessage);
-    }
+    assertEquals(expectedMessage, actualMessage);
+  }
 
 
 }

@@ -1,20 +1,21 @@
 package smarthome.service;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.actuator_type.ActuatorType;
-import smarthome.domain.actuator_type.ActuatorTypeFactoryImpl;
-import smarthome.persistence.mem.ActuatorTypeRepository;
-import smarthome.persistence.mem.UnitRepository;
-import smarthome.domain.value_object.ActuatorTypeID;
-import smarthome.domain.value_object.TypeDescription;
-import smarthome.domain.value_object.UnitID;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.Test;
+import smarthome.domain.actuator_type.ActuatorType;
+import smarthome.domain.actuator_type.ActuatorTypeFactoryImpl;
+import smarthome.domain.value_object.ActuatorTypeID;
+import smarthome.domain.value_object.TypeDescription;
+import smarthome.domain.value_object.UnitID;
+import smarthome.persistence.mem.ActuatorTypeRepository;
+import smarthome.persistence.mem.UnitRepository;
 
 class ActuatorTypeServiceImplTest {
 

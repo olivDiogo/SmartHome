@@ -18,7 +18,9 @@ import static org.mockito.Mockito.when;
 
 class SensorAssemblerTest {
 
-  /** Test that the method domainToDTO converts a Sensor to a SensorDTO. */
+  /**
+   * Test that the method domainToDTO converts a Sensor to a SensorDTO.
+   */
   @Test
   void shouldConvertSensorToSensorDTO_WhenSensorIsValid() {
     // Arrange
@@ -61,7 +63,9 @@ class SensorAssemblerTest {
     assertEquals(expected, sensorDTO.toString());
   }
 
-  /** Test that the method domainToDTO throws an exception when the Sensor is null. */
+  /**
+   * Test that the method domainToDTO throws an exception when the Sensor is null.
+   */
   @Test
   void shouldThrowException_WhenSensorIsNull() {
     // Arrange
@@ -85,7 +89,9 @@ class SensorAssemblerTest {
     assertEquals(expected, result);
   }
 
-  /** Test that the method domainToDTO throws an exception when the list of Sensors is null. */
+  /**
+   * Test that the method domainToDTO throws an exception when the list of Sensors is null.
+   */
   @Test
   void shouldConvertSensorListToListOfSensorsDTOList() {
     // Arrange
@@ -152,8 +158,9 @@ class SensorAssemblerTest {
     List<ISensor> sensors = List.of(sensorDouble, sensorDouble2);
 
     SensorDTO sensorDTO1 = new SensorDTO(deviceID, modelPath, sensorTypeID, sensorID, sensorName);
-    SensorDTO sensorDTO2 = new SensorDTO(deviceID2, modelPath2, sensorTypeID2, sensorID2, sensorName2);
-    List <SensorDTO> expected = List.of(sensorDTO1, sensorDTO2);
+    SensorDTO sensorDTO2 = new SensorDTO(deviceID2, modelPath2, sensorTypeID2, sensorID2,
+        sensorName2);
+    List<SensorDTO> expected = List.of(sensorDTO1, sensorDTO2);
 
     // Act
     List<SensorDTO> sensorsDTO = sensorAssembler.domainToDTO(sensors);
@@ -162,7 +169,9 @@ class SensorAssemblerTest {
     assertEquals(expected.toString(), sensorsDTO.toString());
   }
 
-  /** Test that the method domainToDTO throws an exception when the list of Sensors is null. */
+  /**
+   * Test that the method domainToDTO throws an exception when the list of Sensors is null.
+   */
   @Test
   void shouldThrowException_WhenListOfSensorsIsNull() {
     // Arrange
@@ -186,7 +195,9 @@ class SensorAssemblerTest {
     assertEquals(expected, result);
   }
 
-  /** Test that the method domainToDTO throws an exception when the list of Sensors is empty. */
+  /**
+   * Test that the method domainToDTO throws an exception when the list of Sensors is empty.
+   */
   @Test
   void shouldThrowException_WhenListOfSensorsIsEmpty() {
     // Arrange

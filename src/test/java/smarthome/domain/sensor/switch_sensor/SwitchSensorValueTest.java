@@ -1,10 +1,15 @@
 package smarthome.domain.sensor.switch_sensor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SwitchSensorValueTest {
+
   /**
    * Tests the instantiation of SwitchSensorValue when the constructor arguments are valid. The
    * value is true.
@@ -37,7 +42,9 @@ class SwitchSensorValueTest {
     assertNotNull(result);
   }
 
-  /** Tests the toString method of SwitchSensorValue when the value is true. */
+  /**
+   * Tests the toString method of SwitchSensorValue when the value is true.
+   */
   @Test
   void shouldReturnOn_whenValueIsTrue() {
     // Arrange
@@ -51,7 +58,9 @@ class SwitchSensorValueTest {
     assertEquals("On", result);
   }
 
-  /** Tests the toString method of SwitchSensorValue when the value is false. */
+  /**
+   * Tests the toString method of SwitchSensorValue when the value is false.
+   */
   @Test
   void shouldReturnOff_whenValueIsFalse() {
     // Arrange
@@ -65,7 +74,9 @@ class SwitchSensorValueTest {
     assertEquals("Off", result);
   }
 
-  /** Tests the equals method of SwitchSensorValue when is the same object. */
+  /**
+   * Tests the equals method of SwitchSensorValue when is the same object.
+   */
   @Test
   void shouldReturnTrue_whenEqualsIsTheSameObject() {
     // Arrange
@@ -79,7 +90,9 @@ class SwitchSensorValueTest {
     assertTrue(result);
   }
 
-  /** Tests the equals method of SwitchSensorValue when the objects are not equal. */
+  /**
+   * Tests the equals method of SwitchSensorValue when the objects are not equal.
+   */
   @Test
   void shouldReturnFalse_whenObjectsAreNotEqual() {
     // Arrange
@@ -110,7 +123,9 @@ class SwitchSensorValueTest {
     assertFalse(result);
   }
 
-  /** Should return the hashCode */
+  /**
+   * Should return the hashCode
+   */
   @Test
   void shouldReturnHashCode() {
     // Arrange
@@ -125,7 +140,9 @@ class SwitchSensorValueTest {
     assertEquals(result, result1);
   }
 
-  /** Should return different hashCode */
+  /**
+   * Should return different hashCode
+   */
   @Test
   void shouldReturnDifferentHashCode() {
     // Arrange

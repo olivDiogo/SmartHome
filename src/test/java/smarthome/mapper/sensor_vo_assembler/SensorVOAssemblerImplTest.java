@@ -1,5 +1,10 @@
 package smarthome.mapper.sensor_vo_assembler;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
@@ -12,14 +17,11 @@ import smarthome.utils.dto.sensor_data_dto.SensorDataGenericDTOImp;
 import smarthome.utils.dto.sensor_data_dto.SensorDataWithDateDTOImp;
 import smarthome.utils.dto.sensor_data_dto.SensorDataWithGPSDTOImp;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 class SensorVOAssemblerImplTest {
-  /** Tests if the object is instantiated when the attributes are null. */
+
+  /**
+   * Tests if the object is instantiated when the attributes are null.
+   */
   @Test
   void shouldThrowIllegalArgumentExceptionWhenUnsupportedSensorDataDTO() {
     // Arrange
@@ -34,9 +36,10 @@ class SensorVOAssemblerImplTest {
     // Assert
     assertEquals(message, exception.getMessage());
   }
-  ;
 
-  /** Tests if the object is instantiated when the SensorDataDTO is with gps attribute. */
+  /**
+   * Tests if the object is instantiated when the SensorDataDTO is with gps attribute.
+   */
   @Test
   void shouldReturnArrayOfObjectsWhenSensorDataDTOIsSensorWithGPSDataDTO() {
     // Arrange
@@ -64,7 +67,9 @@ class SensorVOAssemblerImplTest {
     assertEquals(Arrays.stream(expected).toList(), Arrays.stream(result).toList());
   }
 
-  /** Tests if the object is instantiated when the SensorDataDTO is generic. */
+  /**
+   * Tests if the object is instantiated when the SensorDataDTO is generic.
+   */
   @Test
   void shouldReturnArrayOfObjectsWhenSensorDataDTOIsSensorGenericDataDTOImp() {
     // Arrange
@@ -88,7 +93,9 @@ class SensorVOAssemblerImplTest {
     assertEquals(Arrays.stream(expected).toList(), Arrays.stream(result).toList());
   }
 
-  /** Tests if the object is instantiated when the SensorDataDTO is with date attribute. */
+  /**
+   * Tests if the object is instantiated when the SensorDataDTO is with date attribute.
+   */
   @Test
   void shouldReturnArrayOfObjectsWhenSensorDataDTOIsSensorDataWithDateDTOImp() {
     // Arrange

@@ -1,17 +1,20 @@
 package smarthome.domain.sensor_model;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorModelName;
 import smarthome.domain.value_object.SensorTypeID;
 
-import static org.mockito.Mockito.mock;
 /**
- * Tests for the {@link SensorModelFactoryImpl} class, ensuring that sensor models are created correctly.
+ * Tests for the {@link SensorModelFactoryImpl} class, ensuring that sensor models are created
+ * correctly.
  */
 
 class SensorModelFactoryImpTest {
+
   /**
    * Test to ensure that a sensor model can be created successfully when given valid parameters.
    */

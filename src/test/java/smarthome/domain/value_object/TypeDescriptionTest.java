@@ -1,230 +1,238 @@
 package smarthome.domain.value_object;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.value_object.TypeDescription;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class TypeDescriptionTest {
-    /**
-     * Test the constructor
-     */
-    @Test
-    void shouldInstantiateTypeDescriptionWhenGivenValidDescription() {
-        //Arrange
-        String description = "This is a valid description";
-        //Act
-        TypeDescription typeDescription = new TypeDescription(description);
-        //Assert
-        assertNotNull(typeDescription);
-    }
 
-    /**
-     * Should throw IllegalArgumentException when given null.
-     */
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenGivenNullDescription() {
-        //Arrange
-        String description = null;
-        String expectedMessage = "The value of 'description' should not null, blank, or empty.";
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new TypeDescription(description));
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
+  /**
+   * Test the constructor
+   */
+  @Test
+  void shouldInstantiateTypeDescriptionWhenGivenValidDescription() {
+    //Arrange
+    String description = "This is a valid description";
+    //Act
+    TypeDescription typeDescription = new TypeDescription(description);
+    //Assert
+    assertNotNull(typeDescription);
+  }
 
-    /**
-     * Should throw IllegalArgumentException when given blank.
-     */
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenGivenBlankDescription() {
-        //Arrange
-        String description = " ";
-        String expectedMessage = "The value of 'description' should not null, blank, or empty.";
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new TypeDescription(description));
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
+  /**
+   * Should throw IllegalArgumentException when given null.
+   */
+  @Test
+  void shouldThrowIllegalArgumentExceptionWhenGivenNullDescription() {
+    //Arrange
+    String description = null;
+    String expectedMessage = "The value of 'description' should not null, blank, or empty.";
+    //Act
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> new TypeDescription(description));
+    //Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 
-    /**
-     * Should throw IllegalArgumentException when given description with more than 50 characters.
-     */
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenGivenDescriptionWithMoreThan50Characters() {
-        //Arrange
-        String description = "This is a description with more than 50 characters. This is a description with more than 50 characters. This is a description with more than 50 characters.";
-        String expectedMessage = "The description cannot have more than 50 characters.";
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new TypeDescription(description));
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
+  /**
+   * Should throw IllegalArgumentException when given blank.
+   */
+  @Test
+  void shouldThrowIllegalArgumentExceptionWhenGivenBlankDescription() {
+    //Arrange
+    String description = " ";
+    String expectedMessage = "The value of 'description' should not null, blank, or empty.";
+    //Act
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> new TypeDescription(description));
+    //Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 
-    /**
-     * Should instantiate type description with given description with 50 characters.
-     */
-    @Test
-    void shouldInstantiateTypeDescriptionWhenGivenDescriptionWith50Characters() {
-        //Arrange
-        String description = "This is a description with exactly 50 characters..";
-        //Act
-        TypeDescription typeDescription = new TypeDescription(description);
-        //Assert
-        assertNotNull(typeDescription);
-    }
+  /**
+   * Should throw IllegalArgumentException when given description with more than 50 characters.
+   */
+  @Test
+  void shouldThrowIllegalArgumentExceptionWhenGivenDescriptionWithMoreThan50Characters() {
+    //Arrange
+    String description = "This is a description with more than 50 characters. This is a description with more than 50 characters. This is a description with more than 50 characters.";
+    String expectedMessage = "The description cannot have more than 50 characters.";
+    //Act
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> new TypeDescription(description));
+    //Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 
-    /**
-     * Test the getDescription method.
-     */
-    @Test
-    void shouldReturnDescriptionWhenGivenValidDescription() {
-        //Arrange
-        String description = "This is a valid description";
-        TypeDescription typeDescription = new TypeDescription(description);
-        //Act
-        String result = typeDescription.getDescription();
-        //Assert
-        assertEquals(description, result);
-    }
+  /**
+   * Should instantiate type description with given description with 50 characters.
+   */
+  @Test
+  void shouldInstantiateTypeDescriptionWhenGivenDescriptionWith50Characters() {
+    //Arrange
+    String description = "This is a description with exactly 50 characters..";
+    //Act
+    TypeDescription typeDescription = new TypeDescription(description);
+    //Assert
+    assertNotNull(typeDescription);
+  }
 
-    /**
-     * Test the equals method when two objects have the same type description.
-     */
-    @Test
-    void shouldReturnTrueWhenGivenSameTypeDescription() {
-        //Arrange
-        String description = "This is a valid description";
-        TypeDescription typeDescription = new TypeDescription(description);
-        TypeDescription sameTypeDescription = new TypeDescription(description);
-        //Act
-        boolean result = typeDescription.equals(sameTypeDescription);
-        //Assert
-        assertTrue(result);
-    }
+  /**
+   * Test the getDescription method.
+   */
+  @Test
+  void shouldReturnDescriptionWhenGivenValidDescription() {
+    //Arrange
+    String description = "This is a valid description";
+    TypeDescription typeDescription = new TypeDescription(description);
+    //Act
+    String result = typeDescription.getDescription();
+    //Assert
+    assertEquals(description, result);
+  }
 
-    /**
-     * Tests if the TypeDescription is returned when description have special characters.
-     */
-    @Test
-    void shouldInstantiateTypeDescriptionWhenGivenDescriptionWithNumbersAndSpecialCharacters() {
-        //Arrange
-        String description = "Description with numbers 123 and characters !@#";
-        //Act
-        TypeDescription typeDescription = new TypeDescription(description);
-        //Assert
-        assertNotNull(typeDescription);
-    }
+  /**
+   * Test the equals method when two objects have the same type description.
+   */
+  @Test
+  void shouldReturnTrueWhenGivenSameTypeDescription() {
+    //Arrange
+    String description = "This is a valid description";
+    TypeDescription typeDescription = new TypeDescription(description);
+    TypeDescription sameTypeDescription = new TypeDescription(description);
+    //Act
+    boolean result = typeDescription.equals(sameTypeDescription);
+    //Assert
+    assertTrue(result);
+  }
 
-    /**
-     * Test the getId method
-     */
-    @Test
-    void shouldReturnTheIdAsAsString_whenGetIDIsCalled() {
-        //Arrange
-        String description = "This is a valid description";
-        TypeDescription typeDescription = new TypeDescription(description);
+  /**
+   * Tests if the TypeDescription is returned when description have special characters.
+   */
+  @Test
+  void shouldInstantiateTypeDescriptionWhenGivenDescriptionWithNumbersAndSpecialCharacters() {
+    //Arrange
+    String description = "Description with numbers 123 and characters !@#";
+    //Act
+    TypeDescription typeDescription = new TypeDescription(description);
+    //Assert
+    assertNotNull(typeDescription);
+  }
 
-        //Act
-        String result = typeDescription.getID();
+  /**
+   * Test the getId method
+   */
+  @Test
+  void shouldReturnTheIdAsAsString_whenGetIDIsCalled() {
+    //Arrange
+    String description = "This is a valid description";
+    TypeDescription typeDescription = new TypeDescription(description);
 
-        //Assert
-        assertEquals(description, result);
-    }
+    //Act
+    String result = typeDescription.getID();
 
-    /**
-     * Test the hashCode method
-     */
-    @Test
-    void shouldReturnTheHashCodeOfTheDescription_whenHashCodeIsCalled() {
-        //Arrange
-        String description = "This is a valid description";
-        TypeDescription typeDescription = new TypeDescription(description);
+    //Assert
+    assertEquals(description, result);
+  }
 
-        //Act
-        int result = typeDescription.hashCode();
+  /**
+   * Test the hashCode method
+   */
+  @Test
+  void shouldReturnTheHashCodeOfTheDescription_whenHashCodeIsCalled() {
+    //Arrange
+    String description = "This is a valid description";
+    TypeDescription typeDescription = new TypeDescription(description);
 
-        //Assert
-        assertEquals(description.hashCode(), result);
-    }
+    //Act
+    int result = typeDescription.hashCode();
 
-    /**
-     * Test the toString method
-     */
-    @Test
-     void shouldReturnTheDescription_whenToStringIsCalled() {
-        //Arrange
-        String description = "123";
-        TypeDescription typeDescription = new TypeDescription(description);
+    //Assert
+    assertEquals(description.hashCode(), result);
+  }
 
-        //Act
-        String result = typeDescription.toString();
+  /**
+   * Test the toString method
+   */
+  @Test
+  void shouldReturnTheDescription_whenToStringIsCalled() {
+    //Arrange
+    String description = "123";
+    TypeDescription typeDescription = new TypeDescription(description);
 
-        //Assert
-        assertEquals(description, result);
-    }
+    //Act
+    String result = typeDescription.toString();
 
-    @Test
-    void shouldReturnFalse_WhenGivenDifferentTypeDescription() {
-        //Arrange
-        String description = "This is a valid description";
-        String differentDescription = "This is a different description";
+    //Assert
+    assertEquals(description, result);
+  }
 
-        TypeDescription typeDescription = new TypeDescription(description);
-        TypeDescription differentTypeDescription = new TypeDescription(differentDescription);
+  @Test
+  void shouldReturnFalse_WhenGivenDifferentTypeDescription() {
+    //Arrange
+    String description = "This is a valid description";
+    String differentDescription = "This is a different description";
 
-        //Act
-        boolean result = typeDescription.equals(differentTypeDescription);
+    TypeDescription typeDescription = new TypeDescription(description);
+    TypeDescription differentTypeDescription = new TypeDescription(differentDescription);
 
-        //Assert
-        assertFalse(result);
-    }
+    //Act
+    boolean result = typeDescription.equals(differentTypeDescription);
 
-    @Test
-    void shouldReturnTrue_WhenComparingTheSameObjects () {
-        //Arrange
-        String description = "This is a valid description";
-        TypeDescription typeDescription = new TypeDescription(description);
+    //Assert
+    assertFalse(result);
+  }
 
-        //Act
-        boolean result = typeDescription.equals(typeDescription);
+  @Test
+  void shouldReturnTrue_WhenComparingTheSameObjects() {
+    //Arrange
+    String description = "This is a valid description";
+    TypeDescription typeDescription = new TypeDescription(description);
 
-        //Assert
-        assertTrue(result);
-    }
+    //Act
+    boolean result = typeDescription.equals(typeDescription);
 
-    /**
-     * Tests if the equals method returns false when the type description is compared to another type description with a different ID.
-     */
-    @Test
-    void shouldReturnFalse_WhenTypeDescriptionIsDifferentFromOtherTypeDescription () {
-        //Arrange
-        String description = "This is a valid description";
-        String differentDescription = "This is a different description";
+    //Assert
+    assertTrue(result);
+  }
 
-        TypeDescription typeDescription = new TypeDescription(description);
-        TypeDescription differentTypeDescription = new TypeDescription(differentDescription);
+  /**
+   * Tests if the equals method returns false when the type description is compared to another type
+   * description with a different ID.
+   */
+  @Test
+  void shouldReturnFalse_WhenTypeDescriptionIsDifferentFromOtherTypeDescription() {
+    //Arrange
+    String description = "This is a valid description";
+    String differentDescription = "This is a different description";
 
-        //Act
-        boolean result = typeDescription.equals(differentTypeDescription);
+    TypeDescription typeDescription = new TypeDescription(description);
+    TypeDescription differentTypeDescription = new TypeDescription(differentDescription);
 
-        //Assert
-        assertFalse(result);
-    }
+    //Act
+    boolean result = typeDescription.equals(differentTypeDescription);
 
-    /**
-     * Tests if the equals method returns false when the object is not an instance of TypeDescription
-     */
-    @Test
-    void shouldReturnFalse_WhenObjectIsNotInstanceOfTypeDescription() {
-        //Arrange
-        String description = "This is a valid description";
-        TypeDescription typeDescription = new TypeDescription(description);
+    //Assert
+    assertFalse(result);
+  }
 
-        //Act
-        boolean result = typeDescription.equals(new Object());
+  /**
+   * Tests if the equals method returns false when the object is not an instance of TypeDescription
+   */
+  @Test
+  void shouldReturnFalse_WhenObjectIsNotInstanceOfTypeDescription() {
+    //Arrange
+    String description = "This is a valid description";
+    TypeDescription typeDescription = new TypeDescription(description);
 
-        //Assert
-        assertFalse(result);
-    }
+    //Act
+    boolean result = typeDescription.equals(new Object());
+
+    //Assert
+    assertFalse(result);
+  }
 }

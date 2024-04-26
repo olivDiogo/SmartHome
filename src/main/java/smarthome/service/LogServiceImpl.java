@@ -1,16 +1,15 @@
 package smarthome.service;
 
-import smarthome.domain.log.Log;
-import smarthome.domain.repository.ILogRepository;
-import smarthome.domain.service.ILogService;
-import smarthome.utils.Validator;
-import smarthome.domain.value_object.DatePeriod;
-import smarthome.domain.value_object.DeviceID;
-import smarthome.domain.value_object.SensorTypeID;
-
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import smarthome.domain.log.Log;
+import smarthome.domain.repository.ILogRepository;
+import smarthome.domain.service.ILogService;
+import smarthome.domain.value_object.DatePeriod;
+import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.SensorTypeID;
+import smarthome.utils.Validator;
 
 public class LogServiceImpl implements ILogService {
 
@@ -53,7 +52,8 @@ public class LogServiceImpl implements ILogService {
   @Override
   public List<Log> getDeviceReadingsBySensorTypeAndTimePeriod(DeviceID deviceID,
       SensorTypeID sensorTypeID, DatePeriod period) {
-    List<Log> deviceReadings = logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID, period);
+    List<Log> deviceReadings = logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+        deviceID, sensorTypeID, period);
 
     if (deviceReadings.isEmpty()) {
       throw new IllegalArgumentException("No readings found for the given time period");
@@ -63,9 +63,10 @@ public class LogServiceImpl implements ILogService {
   }
 
   /**
-   * Method to get the difference between the reading values of two lists, when the readings are within an interval of 5 minutes.
+   * Method to get the difference between the reading values of two lists, when the readings are
+   * within an interval of 5 minutes.
    *
-   * @param readings1  is one list of readings.
+   * @param readings1 is one list of readings.
    * @param readings2 is another list of readings.
    * @return the list of the differences between the values, as Integers.
    */
@@ -75,10 +76,13 @@ public class LogServiceImpl implements ILogService {
 
     for (int i = 0; i < readings1.size(); i++) {
       for (int j = 0; j < readings2.size(); j++) {
-        int diffInMinutes = (int) ChronoUnit.MINUTES.between(readings1.get(i).getTimeStamp(), readings2.get(j).getTimeStamp());
+        int diffInMinutes = (int) ChronoUnit.MINUTES.between(readings1.get(i).getTimeStamp(),
+            readings2.get(j).getTimeStamp());
 
         if (diffInMinutes < 5) {
-          int temperatureDifference = Math.abs(Integer.parseInt(readings1.get(i).getReadingValue().getReadingValue()) - Integer.parseInt(readings2.get(j).getReadingValue().getReadingValue()));
+          int temperatureDifference = Math.abs(
+              Integer.parseInt(readings1.get(i).getReadingValue().getReadingValue())
+                  - Integer.parseInt(readings2.get(j).getReadingValue().getReadingValue()));
           valueDifferences.add(temperatureDifference);
         }
       }

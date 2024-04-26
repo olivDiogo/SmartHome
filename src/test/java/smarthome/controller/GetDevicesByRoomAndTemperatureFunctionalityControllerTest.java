@@ -1,5 +1,13 @@
 package smarthome.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
@@ -22,18 +30,6 @@ import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IDeviceTypeService;
 import smarthome.domain.service.IHouseService;
 import smarthome.domain.service.IRoomService;
-import smarthome.utils.dto.DeviceDTO;
-import smarthome.utils.dto.RoomDTO;
-import smarthome.mapper.DeviceAssembler;
-import smarthome.mapper.RoomAssembler;
-import smarthome.persistence.mem.DeviceRepository;
-import smarthome.persistence.mem.DeviceTypeRepository;
-import smarthome.persistence.mem.HouseRepository;
-import smarthome.persistence.mem.RoomRepository;
-import smarthome.service.DeviceServiceImpl;
-import smarthome.service.DeviceTypeServiceImpl;
-import smarthome.service.HouseServiceImpl;
-import smarthome.service.RoomServiceImpl;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
@@ -46,27 +42,33 @@ import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.TypeDescription;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import smarthome.mapper.DeviceAssembler;
+import smarthome.mapper.RoomAssembler;
+import smarthome.persistence.mem.DeviceRepository;
+import smarthome.persistence.mem.DeviceTypeRepository;
+import smarthome.persistence.mem.HouseRepository;
+import smarthome.persistence.mem.RoomRepository;
+import smarthome.service.DeviceServiceImpl;
+import smarthome.service.DeviceTypeServiceImpl;
+import smarthome.service.HouseServiceImpl;
+import smarthome.service.RoomServiceImpl;
+import smarthome.utils.dto.DeviceDTO;
+import smarthome.utils.dto.RoomDTO;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-
- class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
+class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
 
   /**
    * Test to check if the class is instantiated given valid parameters to the constructor
    */
   @Test
-  void shouldInstantiateConstructor_whenParametersAreValid(){
+  void shouldInstantiateConstructor_whenParametersAreValid() {
     //Arrange
-    IDeviceService deviceService = new DeviceServiceImpl(new DeviceRepository(), new DeviceFactoryImpl(), new RoomRepository());
+    IDeviceService deviceService = new DeviceServiceImpl(new DeviceRepository(),
+        new DeviceFactoryImpl(), new RoomRepository());
 
     //Act
-    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService);
+    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(
+        deviceService);
 
     //Assert
     assertNotNull(getDevicesByRoomAndTemperatureFunctionalityController);
@@ -76,19 +78,20 @@ import static org.mockito.Mockito.mock;
    * Test to check if exception is thrown when the constructor receives a null parameter
    */
   @Test
-  void shouldThrowException_whenDeviceServiceIsNull(){
+  void shouldThrowException_whenDeviceServiceIsNull() {
     //Arrange
     IDeviceService deviceService = null;
 
     String expectedMessage = "Device service is required";
 
     //Act
-    Exception e = assertThrows(IllegalArgumentException.class, () -> new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService));
+    Exception e = assertThrows(IllegalArgumentException.class,
+        () -> new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService));
 
     //Assert
     String actualMessage = e.getMessage();
     assertEquals(expectedMessage, actualMessage);
-    }
+  }
 
   /**
    * Test to get devices with temperature functionality from a room
@@ -99,12 +102,14 @@ import static org.mockito.Mockito.mock;
     IDeviceRepository deviceRepository = new DeviceRepository();
     IDeviceFactory deviceFactory = new DeviceFactoryImpl();
     IRoomRepository roomRepository = new RoomRepository();
-    IDeviceService deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    IDeviceService deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
     IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
     IDeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
     IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-    IDeviceTypeService deviceTypeService = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
+    IDeviceTypeService deviceTypeService = new DeviceTypeServiceImpl(deviceTypeRepository,
+        deviceTypeFactory);
 
     IHouseRepository houseRepository = new HouseRepository();
 
@@ -114,12 +119,15 @@ import static org.mockito.Mockito.mock;
 
     IDeviceTypeFactory impDeviceTypeFactory = new DeviceTypeFactoryImpl();
     IHouseFactory houseFactory = new HouseFactoryImpl();
-    IHouseService houseService = new HouseServiceImpl (houseFactory, houseRepository);
+    IHouseService houseService = new HouseServiceImpl(houseFactory, houseRepository);
     IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
 
-    GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService, roomAssembler);
-    GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceService, deviceAssembler, deviceTypeService);
-    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService);
+    GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(roomService,
+        roomAssembler);
+    GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(
+        deviceService, deviceAssembler, deviceTypeService);
+    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(
+        deviceService);
 
     /* Create a house */
     String street = "Rua Do Isep";
@@ -127,7 +135,8 @@ import static org.mockito.Mockito.mock;
     String countryCode = "PT";
     String postalCode = "4000-007";
 
-    Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+    Address newAddress = new Address(street, doorNumber, postalCode, countryCode,
+        postalCodeFactory);
 
     double latitude = 41.178;
     double longitude = -8.608;
@@ -165,8 +174,10 @@ import static org.mockito.Mockito.mock;
     deviceTypeRepository.save(deviceType2);
 
     deviceService.addDevice(roomID, deviceName1, deviceStatus, deviceType.getID());
-    Device device1 = deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceType2.getID());
-    Device device2 = deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceType2.getID());
+    Device device1 = deviceService.addDevice(roomID, deviceName2, deviceStatus,
+        deviceType2.getID());
+    Device device2 = deviceService.addDevice(roomID, deviceName2, deviceStatus,
+        deviceType2.getID());
 
     /* Get list of Rooms */
     List<RoomDTO> rooms = getListOfRoomsController.getRooms();
@@ -177,7 +188,6 @@ import static org.mockito.Mockito.mock;
     /* get list from a room */
     RoomDTO roomDTO = rooms.get(0);
 
-
     DeviceDTO deviceDTO1 = deviceAssembler.domainToDTO(device1);
     DeviceDTO deviceDTO2 = deviceAssembler.domainToDTO(device2);
     List<DeviceDTO> expected = new ArrayList<>();
@@ -185,7 +195,8 @@ import static org.mockito.Mockito.mock;
     expected.add(deviceDTO2);
 
     //Act
-    List<DeviceDTO> devicesTemperature = getDevicesByRoomAndTemperatureFunctionalityController.getDevicesByRoomAndTemperatureFunctionality(map, roomDTO);
+    List<DeviceDTO> devicesTemperature = getDevicesByRoomAndTemperatureFunctionalityController.getDevicesByRoomAndTemperatureFunctionality(
+        map, roomDTO);
 
     //Assert
     assertEquals(expected.toString(), devicesTemperature.toString());
@@ -200,12 +211,14 @@ import static org.mockito.Mockito.mock;
     IDeviceRepository deviceRepository = new DeviceRepository();
     IDeviceFactory deviceFactory = new DeviceFactoryImpl();
     IRoomRepository roomRepository = new RoomRepository();
-    IDeviceService deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
+    IDeviceService deviceService = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
     IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
     IDeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
     IDeviceTypeFactory deviceTypeFactory = new DeviceTypeFactoryImpl();
-    IDeviceTypeService deviceTypeService = new DeviceTypeServiceImpl(deviceTypeRepository, deviceTypeFactory);
+    IDeviceTypeService deviceTypeService = new DeviceTypeServiceImpl(deviceTypeRepository,
+        deviceTypeFactory);
 
     IHouseRepository houseRepository = new HouseRepository();
 
@@ -215,11 +228,13 @@ import static org.mockito.Mockito.mock;
 
     IDeviceTypeFactory impDeviceTypeFactory = new DeviceTypeFactoryImpl();
     IHouseFactory houseFactory = new HouseFactoryImpl();
-    IHouseService houseService = new HouseServiceImpl (houseFactory, houseRepository);
+    IHouseService houseService = new HouseServiceImpl(houseFactory, houseRepository);
     IPostalCodeFactory postalCodeFactory = new PostalCodeFactory();
 
-    GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(deviceService, deviceAssembler, deviceTypeService);
-    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureController = new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService);
+    GetListOfAllDevicesGroupedByFunctionalityController getListOfAllDevicesGroupedByFunctionality = new GetListOfAllDevicesGroupedByFunctionalityController(
+        deviceService, deviceAssembler, deviceTypeService);
+    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureController = new GetDevicesByRoomAndTemperatureFunctionalityController(
+        deviceService);
 
     /* Create a house */
     String street = "Rua Do Isep";
@@ -227,7 +242,8 @@ import static org.mockito.Mockito.mock;
     String countryCode = "PT";
     String postalCode = "4000-007";
 
-    Address newAddress = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+    Address newAddress = new Address(street, doorNumber, postalCode, countryCode,
+        postalCodeFactory);
 
     double latitude = 41.178;
     double longitude = -8.608;
@@ -276,7 +292,8 @@ import static org.mockito.Mockito.mock;
     int expectedListSize = 0;
 
     //Act
-    List<DeviceDTO> devicesTemperature = getDevicesByRoomAndTemperatureController.getDevicesByRoomAndTemperatureFunctionality(map, roomDTO);
+    List<DeviceDTO> devicesTemperature = getDevicesByRoomAndTemperatureController.getDevicesByRoomAndTemperatureFunctionality(
+        map, roomDTO);
 
     //
     assertEquals(expectedListSize, devicesTemperature.size());
@@ -289,16 +306,20 @@ import static org.mockito.Mockito.mock;
   @Test
   void shouldThrowException_whenMapIsNull() {
     //Arrange
-    IDeviceService deviceService = new DeviceServiceImpl(new DeviceRepository(), new DeviceFactoryImpl(), new RoomRepository());
+    IDeviceService deviceService = new DeviceServiceImpl(new DeviceRepository(),
+        new DeviceFactoryImpl(), new RoomRepository());
 
-    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService);
+    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(
+        deviceService);
 
     RoomDTO roomDTO = mock(RoomDTO.class);
 
     String expectedMessage = "A Map is required";
 
     //Act
-    Exception e = assertThrows(IllegalArgumentException.class, () -> getDevicesByRoomAndTemperatureFunctionalityController.getDevicesByRoomAndTemperatureFunctionality(null, roomDTO));
+    Exception e = assertThrows(IllegalArgumentException.class,
+        () -> getDevicesByRoomAndTemperatureFunctionalityController.getDevicesByRoomAndTemperatureFunctionality(
+            null, roomDTO));
 
     //Assert
     String actualMessage = e.getMessage();
@@ -311,16 +332,20 @@ import static org.mockito.Mockito.mock;
   @Test
   void shouldThrowException_whenRoomDTOIsNull() {
     //Arrange
-    IDeviceService deviceService = new DeviceServiceImpl(new DeviceRepository(), new DeviceFactoryImpl(), new RoomRepository());
+    IDeviceService deviceService = new DeviceServiceImpl(new DeviceRepository(),
+        new DeviceFactoryImpl(), new RoomRepository());
 
-    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(deviceService);
+    GetDevicesByRoomAndTemperatureFunctionalityController getDevicesByRoomAndTemperatureFunctionalityController = new GetDevicesByRoomAndTemperatureFunctionalityController(
+        deviceService);
 
     Map<DeviceType, List<DeviceDTO>> map = mock(Map.class);
 
     String expectedMessage = "Room DTO is required";
 
     //Act
-    Exception e = assertThrows(IllegalArgumentException.class, () -> getDevicesByRoomAndTemperatureFunctionalityController.getDevicesByRoomAndTemperatureFunctionality(map, null));
+    Exception e = assertThrows(IllegalArgumentException.class,
+        () -> getDevicesByRoomAndTemperatureFunctionalityController.getDevicesByRoomAndTemperatureFunctionality(
+            map, null));
 
     //Assert
     String actualMessage = e.getMessage();

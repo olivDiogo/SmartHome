@@ -1,19 +1,25 @@
 package smarthome.domain.actuator_model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockConstruction;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.MockedConstruction;
 import smarthome.domain.value_object.ActuatorModelID;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockConstruction;
-
 class ActuatorModelTest {
 
-  /** Test of class ActuatorModel constructor with valid parameters */
+  /**
+   * Test of class ActuatorModel constructor with valid parameters
+   */
   @Test
   void shouldReturnValidActuatorModel_WhenGivenValidParameters() {
     // Arrange
@@ -44,7 +50,9 @@ class ActuatorModelTest {
     assertNotNull(actuatorModel);
   }
 
-  /** Test of class ActuatorModel constructor with null ActuatorModelName */
+  /**
+   * Test of class ActuatorModel constructor with null ActuatorModelName
+   */
   @Test
   void shouldThrowIllegalArgumentException_WhenGivenNullActuatorModelName() {
     // Arrange
@@ -62,7 +70,9 @@ class ActuatorModelTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test of class ActuatorModel constructor with null ModelPath */
+  /**
+   * Test of class ActuatorModel constructor with null ModelPath
+   */
   @Test
   void shouldThrowIllegalArgumentException_WhenGivenNullModelPath() {
     // Arrange
@@ -79,7 +89,9 @@ class ActuatorModelTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test of class ActuatorModel constructor with valid parameters and null ActuatorTypeID */
+  /**
+   * Test of class ActuatorModel constructor with valid parameters and null ActuatorTypeID
+   */
   @Test
   void shouldReturnValidActuatorModel_WhenGivenValidParametersAndNullActuatorTypeID() {
     // Arrange
@@ -96,7 +108,9 @@ class ActuatorModelTest {
   }
 
 
-  /** Test of class ActuatorModel equals method with same object */
+  /**
+   * Test of class ActuatorModel equals method with same object
+   */
   @Test
   void shouldReturnTrue_WhenGivenSameObject() {
     // Arrange
@@ -105,7 +119,8 @@ class ActuatorModelTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
     try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked =
-        mockConstruction(ActuatorModelID.class, (mock, context) -> {})) {
+        mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        })) {
 
       ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
@@ -117,7 +132,9 @@ class ActuatorModelTest {
     }
   }
 
-  /** Test of class ActuatorModel equals method with different object */
+  /**
+   * Test of class ActuatorModel equals method with different object
+   */
   @Test
   void shouldReturnFalse_WhenGivenDifferentObjectWithSamePath() {
     // Arrange
@@ -127,7 +144,8 @@ class ActuatorModelTest {
     ModelPath modelPath2 = mock(ModelPath.class);
 
     try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked =
-        mockConstruction(ActuatorModelID.class, (mock, context) -> {})) {
+        mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        })) {
 
       ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
       ActuatorModel actuatorModel2 =
@@ -141,7 +159,9 @@ class ActuatorModelTest {
     }
   }
 
-  /** Test of class ActuatorModel equals method with null object */
+  /**
+   * Test of class ActuatorModel equals method with null object
+   */
   @Test
   void shouldReturnFalse_WhenGivenNull() {
     // Arrange
@@ -150,7 +170,8 @@ class ActuatorModelTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
     try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked =
-        mockConstruction(ActuatorModelID.class, (mock, context) -> {})) {
+        mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        })) {
 
       ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
@@ -162,7 +183,9 @@ class ActuatorModelTest {
     }
   }
 
-  /** Test of class ActuatorModel getID method */
+  /**
+   * Test of class ActuatorModel getID method
+   */
   @Test
   void shouldReturnActuatorModelID_WhenGetIDIsCalled() {
     // Arrange
@@ -171,7 +194,8 @@ class ActuatorModelTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
     try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked =
-        mockConstruction(ActuatorModelID.class, (mock, context) -> {})) {
+        mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        })) {
 
       ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
@@ -183,7 +207,9 @@ class ActuatorModelTest {
     }
   }
 
-  /** Test of class ActuatorModel toString method */
+  /**
+   * Test of class ActuatorModel toString method
+   */
   @Test
   void shouldReturnObjectInStringFormat_WhenToStringIsCalled() {
     // Arrange
@@ -192,7 +218,8 @@ class ActuatorModelTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
     try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked =
-        mockConstruction(ActuatorModelID.class, (mock, context) -> {})) {
+        mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        })) {
 
       ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
@@ -206,7 +233,9 @@ class ActuatorModelTest {
     }
   }
 
-  /** Test of class ActuatorModel getActuatorModelName method */
+  /**
+   * Test of class ActuatorModel getActuatorModelName method
+   */
   @Test
   void shouldReturnActuatorModelName_WhenGetActuatorModelNameIsCalled() {
     // Arrange
@@ -215,7 +244,8 @@ class ActuatorModelTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
     try (MockedConstruction<ActuatorModelID> actuatorModelIdMocked =
-        mockConstruction(ActuatorModelID.class, (mock, context) -> {})) {
+        mockConstruction(ActuatorModelID.class, (mock, context) -> {
+        })) {
 
       ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 

@@ -1,5 +1,13 @@
 package smarthome.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
@@ -41,21 +49,17 @@ import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
+import smarthome.mapper.LogAssembler;
+import smarthome.persistence.mem.LogRepository;
+import smarthome.service.DeviceServiceImpl;
+import smarthome.service.HouseServiceImpl;
+import smarthome.service.LogServiceImpl;
+import smarthome.service.RoomServiceImpl;
 import smarthome.utils.dto.LogDTO;
 import smarthome.utils.dto.LogDataDTO;
-import smarthome.mapper.LogAssembler;
-import smarthome.persistence.mem.*;
-import smarthome.service.*;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class GetLogFromDeviceControllerTest {
+
   private ILogRepository logRepository;
   private IDeviceRepository deviceRepository;
   private IRoomRepository roomRepository;
@@ -67,9 +71,9 @@ class GetLogFromDeviceControllerTest {
   private GetLogFromDeviceController getLogFromDeviceController;
 
   /**
-   * These changes ensure that each test has access to the necessary instances
-   * that are reinitialized before each test, maintaining isolation between tests and ensuring
-   * that the state of one test does not affect another.
+   * These changes ensure that each test has access to the necessary instances that are
+   * reinitialized before each test, maintaining isolation between tests and ensuring that the state
+   * of one test does not affect another.
    */
 
   @BeforeEach
@@ -90,54 +94,56 @@ class GetLogFromDeviceControllerTest {
     getLogFromDeviceController = new GetLogFromDeviceController(logService, logAssembler);
   }
 
-    private House createHouse () {
-      String street = "Rua Do Isep";
-      String doorNumber = "122A";
-      String countryCode = "PT";
-      String postalCode = "4000-007";
+  private House createHouse() {
+    String street = "Rua Do Isep";
+    String doorNumber = "122A";
+    String countryCode = "PT";
+    String postalCode = "4000-007";
 
-      Address newAddress =
-          new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
+    Address newAddress =
+        new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
 
-      double latitude = 41.178;
-      double longitude = -8.608;
-      GPS newGPS = new GPS(latitude, longitude);
+    double latitude = 41.178;
+    double longitude = -8.608;
+    GPS newGPS = new GPS(latitude, longitude);
 
-      House house = houseServiceImpl.addHouse(newAddress, newGPS);
-      when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
-      return house;
-    }
+    House house = houseServiceImpl.addHouse(newAddress, newGPS);
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    return house;
+  }
 
-    private Room createRoom (HouseID id){
-      String name1 = "Quarto do Joao";
-      RoomName roomName1 = new RoomName(name1);
+  private Room createRoom(HouseID id) {
+    String name1 = "Quarto do Joao";
+    RoomName roomName1 = new RoomName(name1);
 
-      int width = 10;
-      int length = 10;
-      int height = 10;
-      Dimension dimension = new Dimension(width, length, height);
+    int width = 10;
+    int length = 10;
+    int height = 10;
+    Dimension dimension = new Dimension(width, length, height);
 
-      int floor = 2;
-      RoomFloor roomFloor = new RoomFloor(floor);
+    int floor = 2;
+    RoomFloor roomFloor = new RoomFloor(floor);
 
-      Room room = roomService.addRoom(id, roomName1, dimension, roomFloor);
-      when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
-      return room;
-    }
+    Room room = roomService.addRoom(id, roomName1, dimension, roomFloor);
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    return room;
+  }
 
-    private Device createDevice (RoomID id){
-      String name = "Lampada";
-      DeviceName deviceName = new DeviceName(name);
-      DeviceStatus deviceStatus = new DeviceStatus(true);
-      DeviceTypeID deviceTypeID = new DeviceTypeID("1");
+  private Device createDevice(RoomID id) {
+    String name = "Lampada";
+    DeviceName deviceName = new DeviceName(name);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+    DeviceTypeID deviceTypeID = new DeviceTypeID("1");
 
-      Device device = deviceService.addDevice(id, deviceName, deviceStatus, deviceTypeID);
-      when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
-      return device;
-    }
+    Device device = deviceService.addDevice(id, deviceName, deviceStatus, deviceTypeID);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    return device;
+  }
 
 
-  /** Test getLogFromDevice method. */
+  /**
+   * Test getLogFromDevice method.
+   */
   @Test
   void shouldGetLogFromDevice_WhenParametersAreValid() {
     // Arrange
@@ -167,9 +173,11 @@ class GetLogFromDeviceControllerTest {
     String timeStart = "2020-03-01T13:45:30";
     String timeEnd = "2022-03-01T13:50:30";
     LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
-    DatePeriod datePeriod = new DatePeriod(LocalDateTime.parse(timeStart), LocalDateTime.parse(timeEnd));
+    DatePeriod datePeriod = new DatePeriod(LocalDateTime.parse(timeStart),
+        LocalDateTime.parse(timeEnd));
 
-    when(logRepository.findByDeviceIDAndDatePeriodBetween(deviceID, datePeriod)).thenReturn(List.of(log));
+    when(logRepository.findByDeviceIDAndDatePeriodBetween(deviceID, datePeriod)).thenReturn(
+        List.of(log));
 
     // Act
     List<LogDTO> logs = getLogFromDeviceController.getLogFromDevice(logDataDTO);
@@ -179,7 +187,9 @@ class GetLogFromDeviceControllerTest {
     assertEquals(log.getID().getID(), logs.get(0).logID);
   }
 
-  /** Test getLogFromDevice method when timeStart is after timeEnd. */
+  /**
+   * Test getLogFromDevice method when timeStart is after timeEnd.
+   */
   @Test
   void shouldReturnInvalidTimePeriod_WhenTimeStartIsAfterTimeEnd() {
     // Arrange
@@ -216,7 +226,9 @@ class GetLogFromDeviceControllerTest {
     assertEquals(expected, exception.getMessage());
   }
 
-  /** Test when no measurements are available for the given period. */
+  /**
+   * Test when no measurements are available for the given period.
+   */
   @Test
   void shouldReturnNoMeasurementsAvailable_WhenNoMeasurementsForGivenPeriod() {
     // Arrange
@@ -262,7 +274,7 @@ class GetLogFromDeviceControllerTest {
   @Test
   void shouldReturnLogFromCorrectDeviceOnly_WhenThereAreMultipleDevicesInRoom() {
     // Arrange
-       // Add a house
+    // Add a house
     House house = createHouse();
 
     // Add a room
@@ -312,7 +324,8 @@ class GetLogFromDeviceControllerTest {
     String expected = "Log Service is required";
 
     //Act & Assert
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetLogFromDeviceController(null, mock(IAssembler.class)));
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> new GetLogFromDeviceController(null, mock(IAssembler.class)));
 
     assertEquals(expected, exception.getMessage());
   }
@@ -325,7 +338,8 @@ class GetLogFromDeviceControllerTest {
     String expected = "Log Assembler is required";
 
     //Act & Assert
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetLogFromDeviceController(mock(ILogService.class), null));
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> new GetLogFromDeviceController(mock(ILogService.class), null));
 
     assertEquals(expected, exception.getMessage());
   }

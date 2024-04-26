@@ -1,21 +1,20 @@
 package smarthome.persistence.assembler;
 
-import smarthome.domain.actuator_model.ActuatorModel;
-import smarthome.domain.actuator_model.IActuatorModelFactory;
-import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
-import smarthome.domain.value_object.ActuatorModelName;
-import smarthome.domain.value_object.ActuatorTypeID;
-import smarthome.domain.value_object.ModelPath;
+import static smarthome.utils.Validator.validateNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static smarthome.utils.Validator.validateNotNull;
+import smarthome.domain.actuator_model.ActuatorModel;
+import smarthome.domain.actuator_model.IActuatorModelFactory;
+import smarthome.domain.value_object.ActuatorModelName;
+import smarthome.domain.value_object.ActuatorTypeID;
+import smarthome.domain.value_object.ModelPath;
+import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
 
 public class ActuatorModelDataModelAssembler
     implements IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> {
 
-  private IActuatorModelFactory actuatorModelFactory;
+  private final IActuatorModelFactory actuatorModelFactory;
 
   /**
    * Class constructor

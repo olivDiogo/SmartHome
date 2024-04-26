@@ -5,4 +5,5 @@ import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.value_object.DeviceTypeID;
 
 public interface IDeviceTypeRepository extends IRepository<DeviceTypeID, DeviceType> {
+
 }

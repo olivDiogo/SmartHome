@@ -16,7 +16,9 @@ import static org.mockito.Mockito.when;
 
 class SensorTypeAssemblerTest {
 
-  /** Tests the conversion of a sensor type to a sensor type DTO. */
+  /**
+   * Tests the conversion of a sensor type to a sensor type DTO.
+   */
   @Test
   void shouldConvertSensorTypeToSensorTypeDTO_whenSensorTypeIsValid() {
     // Arrange
@@ -48,7 +50,9 @@ class SensorTypeAssemblerTest {
     assertEquals(expected, sensorTypeDTO.toString());
   }
 
-  /** Tests the conversion of a sensor type to a sensor type DTO when the sensor type is null. */
+  /**
+   * Tests the conversion of a sensor type to a sensor type DTO when the sensor type is null.
+   */
   @Test
   void shouldThrowException_whenSensorTypeIsNull() {
     // Arrange
@@ -70,7 +74,9 @@ class SensorTypeAssemblerTest {
     assertEquals(expected, result);
   }
 
-  /** Tests the conversion of a list of sensor types to a list of sensor type DTOs. */
+  /**
+   * Tests the conversion of a list of sensor types to a list of sensor type DTOs.
+   */
   @Test
   void shouldConvertListOfSensorTypesToListOfSensorTypeDTOs_whenSensorTypesAreValid() {
     // Arrange

@@ -1,11 +1,22 @@
 package smarthome.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.house.House;
+import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
+import smarthome.domain.room.Room;
+import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.domain.service.IHouseService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Address;
@@ -16,21 +27,11 @@ import smarthome.domain.value_object.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomName;
 import smarthome.mapper.RoomAssembler;
-import smarthome.domain.house.House;
-import smarthome.domain.house.HouseFactoryImpl;
-import smarthome.domain.room.Room;
-import smarthome.domain.room.RoomFactoryImpl;
-import smarthome.utils.dto.RoomDTO;
 import smarthome.persistence.mem.HouseRepository;
 import smarthome.persistence.mem.RoomRepository;
 import smarthome.service.HouseServiceImpl;
 import smarthome.service.RoomServiceImpl;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import smarthome.utils.dto.RoomDTO;
 
 /**
  * Test class for the AddRoomToHouseController class.
@@ -259,7 +260,7 @@ class AddRoomToHouseControllerTest {
    * Tests throwing an exception when room service is null.
    */
   @Test
-  void shouldThrowException_WhenRoomServiceIsNull () {
+  void shouldThrowException_WhenRoomServiceIsNull() {
     //Arrange
     IRoomService roomService = null;
     IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
@@ -280,11 +281,12 @@ class AddRoomToHouseControllerTest {
    * Tests throwing an exception when room assembler is null.
    */
   @Test
-  void shouldThrowException_WhenRoomAssemblerIsNull () {
+  void shouldThrowException_WhenRoomAssemblerIsNull() {
     //Arrange
     IRoomRepository roomRepository = mock(IRoomRepository.class);
     IRoomFactory roomFactory = new RoomFactoryImpl();
-    IRoomService roomService = new RoomServiceImpl(roomRepository, roomFactory, mock(IHouseRepository.class));
+    IRoomService roomService = new RoomServiceImpl(roomRepository, roomFactory,
+        mock(IHouseRepository.class));
     IAssembler<Room, RoomDTO> roomAssembler = null;
 
     String expectedMessage = "Room assembler is required";

@@ -1,5 +1,11 @@
 package smarthome.domain.log;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.LogID;
@@ -8,12 +14,8 @@ import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
 
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 class LogAggregateTest {
+
   /**
    * Test the constructor of the Log class. The constructor should create a new Log instance with
    * the specified device ID, sensor ID, timestamp, and value.
@@ -141,7 +143,7 @@ class LogAggregateTest {
    */
   @Test
   void
-      shouldThrowIllegalArgumentException_WhenNullLocalDateTimeIsProvidedForTheSecondConstructor() {
+  shouldThrowIllegalArgumentException_WhenNullLocalDateTimeIsProvidedForTheSecondConstructor() {
     // Arrange
     LogID logID = new LogID("logID");
     DeviceID deviceID = new DeviceID("deviceID");
@@ -433,7 +435,9 @@ class LogAggregateTest {
     assertEquals(logID, result);
   }
 
-  /** Test the getDeviceID method of the Log class. */
+  /**
+   * Test the getDeviceID method of the Log class.
+   */
   @Test
   void shouldReturnDeviceID_WhenGetDeviceIDIsCalled() {
     // Arrange
@@ -452,7 +456,9 @@ class LogAggregateTest {
     assertEquals(deviceID, result);
   }
 
-  /** Test the getSensorID method of the Log class. */
+  /**
+   * Test the getSensorID method of the Log class.
+   */
   @Test
   void shouldReturnSensorID_WhenGetSensorIDIsCalled() {
     // Arrange
@@ -471,7 +477,9 @@ class LogAggregateTest {
     assertEquals(sensorID, result);
   }
 
-  /** Test the getTimeStamp method of the Log class. */
+  /**
+   * Test the getTimeStamp method of the Log class.
+   */
   @Test
   void shouldReturnTimeStamp_WhenGetTimeStampIsCalled() {
     // Arrange
@@ -490,7 +498,9 @@ class LogAggregateTest {
     assertEquals(localDateTime, result);
   }
 
-  /** Test the getValue method of the Log Class. */
+  /**
+   * Test the getValue method of the Log Class.
+   */
   @Test
   void shouldReturnValue_WhenGetReadingValueIsCalled() {
     // Arrange
@@ -509,7 +519,9 @@ class LogAggregateTest {
     assertEquals(value, result);
   }
 
-  /** Test the getDescription method of the Log class. */
+  /**
+   * Test the getDescription method of the Log class.
+   */
   @Test
   void shouldReturnDescription_WhenGetDescriptionIsCalled() {
     // Arrange
@@ -528,7 +540,9 @@ class LogAggregateTest {
     assertEquals(description, result);
   }
 
-  /** Test the getUnit method of the Log class. */
+  /**
+   * Test the getUnit method of the Log class.
+   */
   @Test
   void shouldReturnUnit_WhenGetUnitIsCalled() {
     // Arrange
@@ -565,7 +579,7 @@ class LogAggregateTest {
     boolean result = log.equals(log);
 
     // Assert
-    assertEquals(true, result);
+    assertTrue(result);
   }
 
   /**
@@ -589,8 +603,8 @@ class LogAggregateTest {
     boolean result2 = log2.equals(log1);
 
     // Assert
-    assertEquals(true, result1);
-    assertEquals(true, result2);
+    assertTrue(result1);
+    assertTrue(result2);
   }
 
   /**
@@ -611,10 +625,12 @@ class LogAggregateTest {
     boolean result = log.equals(null);
 
     // Assert
-    assertEquals(false, result);
+    assertFalse(result);
   }
 
-  /** Test the equals method of the Log class when two Log instances are not equal. */
+  /**
+   * Test the equals method of the Log class when two Log instances are not equal.
+   */
   @Test
   void shouldReturnFalse_WhenTwoLogInstancesAreNotEqual() {
     // Arrange
@@ -624,14 +640,13 @@ class LogAggregateTest {
     ReadingValue value = new ReadingValue("20");
     SensorTypeID description = new SensorTypeID("temperature");
     UnitID unit = new UnitID("C");
-    ;
     Log log = new Log(deviceID, sensorID, localDateTime, value, description, unit);
 
     // Act
     boolean result = log.equals(new Object());
 
     // Assert
-    assertEquals(false, result);
+    assertFalse(result);
   }
 
   /**
@@ -671,7 +686,9 @@ class LogAggregateTest {
     SensorTypeID description = new SensorTypeID("temperature");
     UnitID unit = new UnitID("C");
     Log log = new Log(logID, deviceID, sensorID, localDateTime, value, description, unit);
-    String expected = logID + " " + deviceID + " " + sensorID + " " + localDateTime + " " + value + " " + description + " " + unit;
+    String expected =
+        logID + " " + deviceID + " " + sensorID + " " + localDateTime + " " + value + " "
+            + description + " " + unit;
 
     // Act
     String result = log.toString();

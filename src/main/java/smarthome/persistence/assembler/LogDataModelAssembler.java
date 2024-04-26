@@ -1,21 +1,22 @@
 package smarthome.persistence.assembler;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import smarthome.domain.log.ILogFactory;
 import smarthome.domain.log.Log;
-import smarthome.persistence.jpa.data_model.LogDataModel;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.LogID;
 import smarthome.domain.value_object.ReadingValue;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import smarthome.persistence.jpa.data_model.LogDataModel;
+import smarthome.utils.Validator;
 
 public class LogDataModelAssembler implements IDataModelAssembler<LogDataModel, Log> {
-  private ILogFactory logFactory;
+
+  private final ILogFactory logFactory;
 
   /**
    * Class constructor

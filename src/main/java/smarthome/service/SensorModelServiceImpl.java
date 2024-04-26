@@ -1,16 +1,15 @@
 package smarthome.service;
 
+import java.util.List;
+import java.util.Optional;
 import smarthome.domain.repository.ISensorModelRepository;
 import smarthome.domain.sensor_model.ISensorModelFactory;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.domain.service.ISensorModelService;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorModelName;
 import smarthome.domain.value_object.SensorTypeID;
-
-import java.util.List;
-import java.util.Optional;
+import smarthome.utils.Validator;
 
 public class SensorModelServiceImpl implements ISensorModelService {
 

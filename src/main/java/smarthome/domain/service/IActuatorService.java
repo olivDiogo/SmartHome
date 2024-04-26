@@ -1,14 +1,13 @@
 package smarthome.domain.service;
 
+import java.util.List;
+import java.util.Optional;
 import smarthome.ddd.IService;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.value_object.ActuatorID;
-import smarthome.domain.value_object.*;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface IActuatorService extends IService {
+
   /**
    * Adds a new actuator to the repository.
    *

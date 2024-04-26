@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Optional;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
-import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.LogDataModel;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.LogID;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.persistence.assembler.IDataModelAssembler;
+import smarthome.persistence.jpa.data_model.LogDataModel;
+import smarthome.utils.Validator;
 
 public class LogSpringDataRepository implements ILogRepository {
 
@@ -106,9 +106,9 @@ public class LogSpringDataRepository implements ILogRepository {
   /**
    * Method to find logs by device ID, sensor type and time period
    *
-   * @param deviceID DeviceID object
+   * @param deviceID     DeviceID object
    * @param sensorTypeID SensorTypeID object
-   * @param period DatePeriod object
+   * @param period       DatePeriod object
    * @return List of Log
    */
   @Override

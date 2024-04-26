@@ -1,5 +1,7 @@
 package smarthome.service;
 
+import java.util.List;
+import java.util.Optional;
 import smarthome.ddd.IRepository;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.IActuatorFactory;
@@ -8,10 +10,6 @@ import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.utils.Validator;
-import smarthome.domain.value_object.*;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * This class represents a service for managing actuators.

@@ -52,12 +52,15 @@ class DeviceTypeAssemblerTest {
     String expectedMessage = "DeviceType is required";
 
     // Act & Assert
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> {deviceTypeAssembler.domainToDTO(deviceType);});
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      deviceTypeAssembler.domainToDTO(deviceType);
+    });
     assertEquals(expectedMessage, exception.getMessage());
   }
 
   /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the list of DeviceTypes is null.
+   * Test if the domainToDTO method throws an IllegalArgumentException when the list of DeviceTypes
+   * is null.
    */
   @Test
   void shouldThrowIllegalArgumentException_WhenDeviceTypeListIsNull() {
@@ -68,13 +71,16 @@ class DeviceTypeAssemblerTest {
     String expectedMessage = "The list of DeviceTypes cannot be null, empty";
 
     // Act & Assert
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {deviceTypeAssembler.domainToDTO(deviceTypes);});
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+      deviceTypeAssembler.domainToDTO(deviceTypes);
+    });
     assertEquals(expectedMessage, exception.getMessage());
 
   }
 
   /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the list of DeviceTypes is empty.
+   * Test if the domainToDTO method throws an IllegalArgumentException when the list of DeviceTypes
+   * is empty.
    */
   @Test
   void shouldThrowIllegalArgumentException_WhenDeviceTypeListIsEmpty() {
@@ -92,7 +98,8 @@ class DeviceTypeAssemblerTest {
   }
 
   /**
-   * Test if the domainToDTO method returns a list of DeviceTypeDTO objects when the list of device types is valid.
+   * Test if the domainToDTO method returns a list of DeviceTypeDTO objects when the list of device
+   * types is valid.
    */
   @Test
   void shouldReturnDeviceTypeAssemblerDTO_WhenDeviceTypeListIsValid() {
@@ -107,7 +114,7 @@ class DeviceTypeAssemblerTest {
     when(deviceType.getDescription().toString()).thenReturn(deviceTypeDescription);
 
     DeviceTypeAssembler deviceTypeAssembler = new DeviceTypeAssembler();
-    List<DeviceType> deviceTypes = Arrays.asList(deviceType);
+    List<DeviceType> deviceTypes = List.of(deviceType);
     DeviceTypeDTO expectedDeviceType = new DeviceTypeDTO(deviceTypeID, deviceTypeDescription);
     List<DeviceTypeDTO> expected = List.of(expectedDeviceType);
 

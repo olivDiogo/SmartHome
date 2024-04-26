@@ -1,222 +1,228 @@
 package smarthome.persistence.mem;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 class ActuatorRepositoryTest {
-    /**
-     * Test the constructor of the ActuatorRepository class.
-     */
-    @Test
-    void shouldInstantiateActuatorRepository() {
-        //Act
-        ActuatorRepository actuatorRepository = new ActuatorRepository();
 
-        //Assert
-        assertNotNull(actuatorRepository);
-    }
+  /**
+   * Test the constructor of the ActuatorRepository class.
+   */
+  @Test
+  void shouldInstantiateActuatorRepository() {
+    //Act
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
 
-    /**
-     * Test the save method of the ActuatorRepository class with a valid Actuator.
-     */
-    @Test
-    void shouldSaveActuator_WhenGivenValidActuator() {
-        //Arrange
-        IActuator actuator = mock(IActuator.class);
-        ActuatorID actuatorID = mock(ActuatorID.class);
+    //Assert
+    assertNotNull(actuatorRepository);
+  }
 
-        when(actuator.getID()).thenReturn(actuatorID);
+  /**
+   * Test the save method of the ActuatorRepository class with a valid Actuator.
+   */
+  @Test
+  void shouldSaveActuator_WhenGivenValidActuator() {
+    //Arrange
+    IActuator actuator = mock(IActuator.class);
+    ActuatorID actuatorID = mock(ActuatorID.class);
 
-        ActuatorRepository actuatorRepository = new ActuatorRepository();
+    when(actuator.getID()).thenReturn(actuatorID);
 
-        //Act
-        IActuator savedActuator = actuatorRepository.save(actuator);
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
 
-        //Assert
-        assertEquals(actuator, savedActuator);
-    }
+    //Act
+    IActuator savedActuator = actuatorRepository.save(actuator);
 
-    /**
-     * Test the save method of the ActuatorRepository class with a null Actuator.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_WhenGivenNullActuator() {
-        //Arrange
-        IActuator actuator = null;
-        ActuatorRepository actuatorRepository = new ActuatorRepository();
-        String expectedMessage = "Actuator is required";
+    //Assert
+    assertEquals(actuator, savedActuator);
+  }
 
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> actuatorRepository.save(actuator));
+  /**
+   * Test the save method of the ActuatorRepository class with a null Actuator.
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_WhenGivenNullActuator() {
+    //Arrange
+    IActuator actuator = null;
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
+    String expectedMessage = "Actuator is required";
 
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
+    //Act
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> actuatorRepository.save(actuator));
 
-    /**
-     * Test the save method of the ActuatorRepository class with an already existing Actuator.
-     */
-    @Test
-    void shouldThrowException_WhenActuatorAlreadyExists() {
-        //Arrange
-        IActuator actuator = mock(IActuator.class);
-        ActuatorID actuatorID = mock(ActuatorID.class);
+    //Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 
-        when(actuator.getID()).thenReturn(actuatorID);
+  /**
+   * Test the save method of the ActuatorRepository class with an already existing Actuator.
+   */
+  @Test
+  void shouldThrowException_WhenActuatorAlreadyExists() {
+    //Arrange
+    IActuator actuator = mock(IActuator.class);
+    ActuatorID actuatorID = mock(ActuatorID.class);
 
-        ActuatorRepository actuatorRepository = new ActuatorRepository();
-        String expectedMessage = "Actuator already exists.";
+    when(actuator.getID()).thenReturn(actuatorID);
 
-        //Act
-        actuatorRepository.save(actuator);
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
+    String expectedMessage = "Actuator already exists.";
 
-        //Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> actuatorRepository.save(actuator));
+    //Act
+    actuatorRepository.save(actuator);
 
-        //Assert
-        assertEquals(expectedMessage, exception.getMessage());
-    }
+    //Act
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> actuatorRepository.save(actuator));
 
-    /**
-     * Test the findAll method of the ActuatorRepository class.
-     */
-    @Test
-    void shouldFindAllActuators_WhenFindAllIsCalled() {
-        //Arrange
-        IActuator actuator = mock(IActuator.class);
-        ActuatorID actuatorID = mock(ActuatorID.class);
+    //Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 
-        when(actuator.getID()).thenReturn(actuatorID);
+  /**
+   * Test the findAll method of the ActuatorRepository class.
+   */
+  @Test
+  void shouldFindAllActuators_WhenFindAllIsCalled() {
+    //Arrange
+    IActuator actuator = mock(IActuator.class);
+    ActuatorID actuatorID = mock(ActuatorID.class);
 
-        ActuatorRepository actuatorRepository = new ActuatorRepository();
-        actuatorRepository.save(actuator);
+    when(actuator.getID()).thenReturn(actuatorID);
 
-        int expectedSize = List.of(actuator).size();
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
+    actuatorRepository.save(actuator);
 
-        //Act
-        List<IActuator> actuators = actuatorRepository.findAll();
+    int expectedSize = List.of(actuator).size();
 
-        //Assert
-        assertEquals(expectedSize, actuators.size());
-    }
+    //Act
+    List<IActuator> actuators = actuatorRepository.findAll();
 
-    /**
-     * Test the ofIdentity method of the ActuatorRepository with a valid ActuatorID.
-     */
-    @Test
-    void shouldReturnActuator_WhenGivenValidActuatorID() {
-        //Arrange
-        IActuator actuator = mock(IActuator.class);
-        ActuatorID actuatorID = mock(ActuatorID.class);
+    //Assert
+    assertEquals(expectedSize, actuators.size());
+  }
 
-        when(actuator.getID()).thenReturn(actuatorID);
+  /**
+   * Test the ofIdentity method of the ActuatorRepository with a valid ActuatorID.
+   */
+  @Test
+  void shouldReturnActuator_WhenGivenValidActuatorID() {
+    //Arrange
+    IActuator actuator = mock(IActuator.class);
+    ActuatorID actuatorID = mock(ActuatorID.class);
 
-        ActuatorRepository actuatorRepository = new ActuatorRepository();
-        actuatorRepository.save(actuator);
+    when(actuator.getID()).thenReturn(actuatorID);
 
-        //Act
-        Optional<IActuator> foundActuator = actuatorRepository.ofIdentity(actuatorID);
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
+    actuatorRepository.save(actuator);
 
-        //Assert
-        assertTrue(foundActuator.isPresent());
-    }
+    //Act
+    Optional<IActuator> foundActuator = actuatorRepository.ofIdentity(actuatorID);
 
-    /**
-     * Test the ofIdentity method of the ActuatorRepository with an invalid ActuatorID.
-     */
-    @Test
-    void shouldReturnEmptyOptional_WhenGivenInvalidActuatorID() {
-        //Arrange
-        IActuator actuator = mock(IActuator.class);
-        ActuatorID actuatorID = mock(ActuatorID.class);
-        ActuatorID invalidActuatorID = mock(ActuatorID.class);
+    //Assert
+    assertTrue(foundActuator.isPresent());
+  }
 
-        when(actuator.getID()).thenReturn(actuatorID);
+  /**
+   * Test the ofIdentity method of the ActuatorRepository with an invalid ActuatorID.
+   */
+  @Test
+  void shouldReturnEmptyOptional_WhenGivenInvalidActuatorID() {
+    //Arrange
+    IActuator actuator = mock(IActuator.class);
+    ActuatorID actuatorID = mock(ActuatorID.class);
+    ActuatorID invalidActuatorID = mock(ActuatorID.class);
 
-        ActuatorRepository actuatorRepository = new ActuatorRepository();
-        actuatorRepository.save(actuator);
+    when(actuator.getID()).thenReturn(actuatorID);
 
-        //Act
-        Optional<IActuator> foundActuator = actuatorRepository.ofIdentity(invalidActuatorID);
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
+    actuatorRepository.save(actuator);
 
-        //Assert
-        assertTrue(foundActuator.isEmpty());
-    }
+    //Act
+    Optional<IActuator> foundActuator = actuatorRepository.ofIdentity(invalidActuatorID);
 
-    /**
-     * Test the containsOfIdentity method of the ActuatorRepository with a valid ActuatorID.
-     */
-    @Test
-    void shouldReturnTrue_WhenGivenValidActuatorID() {
-        //Arrange
-        IActuator actuator = mock(IActuator.class);
-        ActuatorID actuatorID = mock(ActuatorID.class);
+    //Assert
+    assertTrue(foundActuator.isEmpty());
+  }
 
-        when(actuator.getID()).thenReturn(actuatorID);
+  /**
+   * Test the containsOfIdentity method of the ActuatorRepository with a valid ActuatorID.
+   */
+  @Test
+  void shouldReturnTrue_WhenGivenValidActuatorID() {
+    //Arrange
+    IActuator actuator = mock(IActuator.class);
+    ActuatorID actuatorID = mock(ActuatorID.class);
 
-        ActuatorRepository actuatorRepository = new ActuatorRepository();
-        actuatorRepository.save(actuator);
+    when(actuator.getID()).thenReturn(actuatorID);
 
-        //Act
-        boolean containsActuator = actuatorRepository.containsOfIdentity(actuatorID);
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
+    actuatorRepository.save(actuator);
 
-        //Assert
-        assertTrue(containsActuator);
-    }
+    //Act
+    boolean containsActuator = actuatorRepository.containsOfIdentity(actuatorID);
 
-    /**
-     * Test the containsOfIdentity method of the ActuatorRepository with an invalid ActuatorID.
-     */
-    @Test
-    void shouldReturnFalse_WhenGivenInvalidActuatorID() {
-        //Arrange
-        IActuator actuator = mock(IActuator.class);
-        ActuatorID actuatorID = mock(ActuatorID.class);
-        ActuatorID invalidActuatorID = mock(ActuatorID.class);
+    //Assert
+    assertTrue(containsActuator);
+  }
 
-        when(actuator.getID()).thenReturn(actuatorID);
+  /**
+   * Test the containsOfIdentity method of the ActuatorRepository with an invalid ActuatorID.
+   */
+  @Test
+  void shouldReturnFalse_WhenGivenInvalidActuatorID() {
+    //Arrange
+    IActuator actuator = mock(IActuator.class);
+    ActuatorID actuatorID = mock(ActuatorID.class);
+    ActuatorID invalidActuatorID = mock(ActuatorID.class);
 
-        ActuatorRepository actuatorRepository = new ActuatorRepository();
-        actuatorRepository.save(actuator);
+    when(actuator.getID()).thenReturn(actuatorID);
 
-        //Act
-        boolean containsActuator = actuatorRepository.containsOfIdentity(invalidActuatorID);
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
+    actuatorRepository.save(actuator);
 
-        //Assert
-        assertFalse(containsActuator);
-    }
+    //Act
+    boolean containsActuator = actuatorRepository.containsOfIdentity(invalidActuatorID);
 
-    /**
-     * Test the findByDeviceId method of the ActuatorRepository with a valid DeviceID.
-     */
-    @Test
-    void shouldReturnActuatorsList_WhenGivenValidDeviceID() {
-        //Arrange
-        IActuator actuator = mock(IActuator.class);
-        ActuatorID actuatorID = mock(ActuatorID.class);
-        DeviceID deviceID = mock(DeviceID.class);
+    //Assert
+    assertFalse(containsActuator);
+  }
 
-        when(actuator.getID()).thenReturn(actuatorID);
-        when(actuator.getDeviceID()).thenReturn(deviceID);
+  /**
+   * Test the findByDeviceId method of the ActuatorRepository with a valid DeviceID.
+   */
+  @Test
+  void shouldReturnActuatorsList_WhenGivenValidDeviceID() {
+    //Arrange
+    IActuator actuator = mock(IActuator.class);
+    ActuatorID actuatorID = mock(ActuatorID.class);
+    DeviceID deviceID = mock(DeviceID.class);
 
-        ActuatorRepository actuatorRepository = new ActuatorRepository();
-        actuatorRepository.save(actuator);
+    when(actuator.getID()).thenReturn(actuatorID);
+    when(actuator.getDeviceID()).thenReturn(deviceID);
 
-        int expectedSize = List.of(actuator).size();
+    ActuatorRepository actuatorRepository = new ActuatorRepository();
+    actuatorRepository.save(actuator);
 
-        //Act
-        List<IActuator> actuators = actuatorRepository.findByDeviceID(deviceID);
+    int expectedSize = List.of(actuator).size();
 
-        //Assert
-        assertEquals(expectedSize, actuators.size());
-    }
+    //Act
+    List<IActuator> actuators = actuatorRepository.findByDeviceID(deviceID);
+
+    //Assert
+    assertEquals(expectedSize, actuators.size());
+  }
 }

@@ -1,5 +1,8 @@
 package smarthome.domain.service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import smarthome.ddd.IService;
 import smarthome.domain.device.Device;
 import smarthome.domain.device_type.DeviceType;
@@ -9,11 +12,6 @@ import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.utils.dto.DeviceDTO;
-import smarthome.domain.value_object.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public interface IDeviceService extends IService {
 
@@ -66,13 +64,14 @@ public interface IDeviceService extends IService {
    * @param deviceMap The map of all devices grouped by functionality.
    * @return The list of devices grouped by temperature functionality.
    */
-  List<DeviceDTO> getDevicesByTypeDescriptionFromMap(Map<DeviceType, List<DeviceDTO>> deviceMap, String typeDescription);
+  List<DeviceDTO> getDevicesByTypeDescriptionFromMap(Map<DeviceType, List<DeviceDTO>> deviceMap,
+      String typeDescription);
 
   /**
    * Filters the devices in a list by their room location.
    *
    * @param devicesDTO The list of devices to filter.
-   * @param roomID The room to filter by.
+   * @param roomID     The room to filter by.
    * @return The list of devices in the room.
    */
   List<DeviceDTO> getDevicesFromListByRoomId(List<DeviceDTO> devicesDTO, RoomID roomID);

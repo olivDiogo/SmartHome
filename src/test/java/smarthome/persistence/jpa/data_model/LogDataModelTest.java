@@ -1,5 +1,11 @@
 package smarthome.persistence.jpa.data_model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DeviceID;
@@ -9,268 +15,263 @@ import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
 
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 class LogDataModelTest {
-    /**
-     * Test for the empty constructor of the LogDataModel class.
-     */
-    @Test
-    void shouldInstantiateLogDataModel_whenEmptyConstructorIsCalled(){
-        // Arrange
-        LogDataModel logDataModel = new LogDataModel();
 
-        // Act
-        assertNotNull(logDataModel);
-    }
+  /**
+   * Test for the empty constructor of the LogDataModel class.
+   */
+  @Test
+  void shouldInstantiateLogDataModel_whenEmptyConstructorIsCalled() {
+    // Arrange
+    LogDataModel logDataModel = new LogDataModel();
 
-    /**
-     * Test for the constructor of the LogDataModel class.
-     */
-    @Test
-    void shouldInstantiateLogDataModel_whenLogIsValid(){
-        // Arrange
-        Log logDouble = mock(Log.class);
-        when(logDouble.getID()).thenReturn(mock(LogID.class));
-        when(logDouble.getDeviceID()).thenReturn(mock(DeviceID.class));
-        when(logDouble.getSensorID()).thenReturn(mock(SensorID.class));
-        when(logDouble.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
-        when(logDouble.getReadingValue()).thenReturn(mock(ReadingValue.class));
-        when(logDouble.getDescription()).thenReturn(mock(SensorTypeID.class));
-        when(logDouble.getUnit()).thenReturn(mock(UnitID.class));
+    // Act
+    assertNotNull(logDataModel);
+  }
 
-        // Act
-        LogDataModel logDataModel = new LogDataModel(logDouble);
+  /**
+   * Test for the constructor of the LogDataModel class.
+   */
+  @Test
+  void shouldInstantiateLogDataModel_whenLogIsValid() {
+    // Arrange
+    Log logDouble = mock(Log.class);
+    when(logDouble.getID()).thenReturn(mock(LogID.class));
+    when(logDouble.getDeviceID()).thenReturn(mock(DeviceID.class));
+    when(logDouble.getSensorID()).thenReturn(mock(SensorID.class));
+    when(logDouble.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
+    when(logDouble.getReadingValue()).thenReturn(mock(ReadingValue.class));
+    when(logDouble.getDescription()).thenReturn(mock(SensorTypeID.class));
+    when(logDouble.getUnit()).thenReturn(mock(UnitID.class));
 
-        // Assert
-        assertNotNull(logDataModel);
-    }
+    // Act
+    LogDataModel logDataModel = new LogDataModel(logDouble);
 
-    /**
-     * Test for the getLogID method of the LogDataModel class.
-     */
-    @Test
-    void shouldReturnLogID_whenGetLogIDIsCalled(){
-        // Arrange
-        LogID logIDDouble = mock(LogID.class);
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        SensorID sensorIDDouble = mock(SensorID.class);
-        LocalDateTime timestampDouble = mock(LocalDateTime.class);
-        ReadingValue readingValueDouble = mock(ReadingValue.class);
-        SensorTypeID descriptionDouble = mock(SensorTypeID.class);
-        UnitID unitDouble = mock(UnitID.class);
+    // Assert
+    assertNotNull(logDataModel);
+  }
 
-        Log logDouble = mock(Log.class);
-        when(logDouble.getID()).thenReturn(logIDDouble);
-        when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
-        when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
-        when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
-        when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
-        when(logDouble.getDescription()).thenReturn(descriptionDouble);
-        when(logDouble.getUnit()).thenReturn(unitDouble);
+  /**
+   * Test for the getLogID method of the LogDataModel class.
+   */
+  @Test
+  void shouldReturnLogID_whenGetLogIDIsCalled() {
+    // Arrange
+    LogID logIDDouble = mock(LogID.class);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    SensorID sensorIDDouble = mock(SensorID.class);
+    LocalDateTime timestampDouble = mock(LocalDateTime.class);
+    ReadingValue readingValueDouble = mock(ReadingValue.class);
+    SensorTypeID descriptionDouble = mock(SensorTypeID.class);
+    UnitID unitDouble = mock(UnitID.class);
 
-        LogDataModel logDataModel = new LogDataModel(logDouble);
+    Log logDouble = mock(Log.class);
+    when(logDouble.getID()).thenReturn(logIDDouble);
+    when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
+    when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
+    when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
+    when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
+    when(logDouble.getDescription()).thenReturn(descriptionDouble);
+    when(logDouble.getUnit()).thenReturn(unitDouble);
 
-        //Act
-        String logID = logDataModel.getLogID();
+    LogDataModel logDataModel = new LogDataModel(logDouble);
 
-        //Assert
-        assertEquals(logIDDouble.getID(), logID);
-    }
+    //Act
+    String logID = logDataModel.getLogID();
 
-    /**
-     * Test for the getDeviceID method of the LogDataModel class.
-     */
-    @Test
-    void shouldReturnDeviceID_whenGetDeviceIDIsCalled(){
-        // Arrange
-        LogID logIDDouble = mock(LogID.class);
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        SensorID sensorIDDouble = mock(SensorID.class);
-        LocalDateTime timestampDouble = mock(LocalDateTime.class);
-        ReadingValue readingValueDouble = mock(ReadingValue.class);
-        SensorTypeID descriptionDouble = mock(SensorTypeID.class);
-        UnitID unitDouble = mock(UnitID.class);
+    //Assert
+    assertEquals(logIDDouble.getID(), logID);
+  }
 
-        Log logDouble = mock(Log.class);
-        when(logDouble.getID()).thenReturn(logIDDouble);
-        when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
-        when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
-        when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
-        when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
-        when(logDouble.getDescription()).thenReturn(descriptionDouble);
-        when(logDouble.getUnit()).thenReturn(unitDouble);
+  /**
+   * Test for the getDeviceID method of the LogDataModel class.
+   */
+  @Test
+  void shouldReturnDeviceID_whenGetDeviceIDIsCalled() {
+    // Arrange
+    LogID logIDDouble = mock(LogID.class);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    SensorID sensorIDDouble = mock(SensorID.class);
+    LocalDateTime timestampDouble = mock(LocalDateTime.class);
+    ReadingValue readingValueDouble = mock(ReadingValue.class);
+    SensorTypeID descriptionDouble = mock(SensorTypeID.class);
+    UnitID unitDouble = mock(UnitID.class);
 
-        LogDataModel logDataModel = new LogDataModel(logDouble);
+    Log logDouble = mock(Log.class);
+    when(logDouble.getID()).thenReturn(logIDDouble);
+    when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
+    when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
+    when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
+    when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
+    when(logDouble.getDescription()).thenReturn(descriptionDouble);
+    when(logDouble.getUnit()).thenReturn(unitDouble);
 
-        //Act
-        String deviceID = logDataModel.getDeviceID();
+    LogDataModel logDataModel = new LogDataModel(logDouble);
 
-        //Assert
-        assertEquals(deviceIDDouble.getID(), deviceID);
-    }
+    //Act
+    String deviceID = logDataModel.getDeviceID();
 
-    /**
-     * Test for the getSensorID method of the LogDataModel class.
-     */
-    @Test
-    void shouldReturnSensorID_whenGetSensorIDIsCalled(){
-        // Arrange
-        LogID logIDDouble = mock(LogID.class);
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        SensorID sensorIDDouble = mock(SensorID.class);
-        LocalDateTime timestampDouble = mock(LocalDateTime.class);
-        ReadingValue readingValueDouble = mock(ReadingValue.class);
-        SensorTypeID descriptionDouble = mock(SensorTypeID.class);
-        UnitID unitDouble = mock(UnitID.class);
+    //Assert
+    assertEquals(deviceIDDouble.getID(), deviceID);
+  }
 
-        Log logDouble = mock(Log.class);
-        when(logDouble.getID()).thenReturn(logIDDouble);
-        when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
-        when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
-        when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
-        when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
-        when(logDouble.getDescription()).thenReturn(descriptionDouble);
-        when(logDouble.getUnit()).thenReturn(unitDouble);
+  /**
+   * Test for the getSensorID method of the LogDataModel class.
+   */
+  @Test
+  void shouldReturnSensorID_whenGetSensorIDIsCalled() {
+    // Arrange
+    LogID logIDDouble = mock(LogID.class);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    SensorID sensorIDDouble = mock(SensorID.class);
+    LocalDateTime timestampDouble = mock(LocalDateTime.class);
+    ReadingValue readingValueDouble = mock(ReadingValue.class);
+    SensorTypeID descriptionDouble = mock(SensorTypeID.class);
+    UnitID unitDouble = mock(UnitID.class);
 
-        LogDataModel logDataModel = new LogDataModel(logDouble);
+    Log logDouble = mock(Log.class);
+    when(logDouble.getID()).thenReturn(logIDDouble);
+    when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
+    when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
+    when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
+    when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
+    when(logDouble.getDescription()).thenReturn(descriptionDouble);
+    when(logDouble.getUnit()).thenReturn(unitDouble);
 
-        //Act
-        String sensorID = logDataModel.getSensorID();
+    LogDataModel logDataModel = new LogDataModel(logDouble);
 
-        //Assert
-        assertEquals(sensorIDDouble.getID(), sensorID);
-    }
+    //Act
+    String sensorID = logDataModel.getSensorID();
 
-    /**
-     * Test for the getTimestamp method of the LogDataModel class.
-     */
-    @Test
-    void shouldReturnTimestamp_whenGetTimestampIsCalled(){
-        // Arrange
-        LogID logIDDouble = mock(LogID.class);
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        SensorID sensorIDDouble = mock(SensorID.class);
-        LocalDateTime timestampDouble = mock(LocalDateTime.class);
-        ReadingValue readingValueDouble = mock(ReadingValue.class);
-        SensorTypeID descriptionDouble = mock(SensorTypeID.class);
-        UnitID unitDouble = mock(UnitID.class);
+    //Assert
+    assertEquals(sensorIDDouble.getID(), sensorID);
+  }
 
-        Log logDouble = mock(Log.class);
-        when(logDouble.getID()).thenReturn(logIDDouble);
-        when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
-        when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
-        when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
-        when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
-        when(logDouble.getDescription()).thenReturn(descriptionDouble);
-        when(logDouble.getUnit()).thenReturn(unitDouble);
+  /**
+   * Test for the getTimestamp method of the LogDataModel class.
+   */
+  @Test
+  void shouldReturnTimestamp_whenGetTimestampIsCalled() {
+    // Arrange
+    LogID logIDDouble = mock(LogID.class);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    SensorID sensorIDDouble = mock(SensorID.class);
+    LocalDateTime timestampDouble = mock(LocalDateTime.class);
+    ReadingValue readingValueDouble = mock(ReadingValue.class);
+    SensorTypeID descriptionDouble = mock(SensorTypeID.class);
+    UnitID unitDouble = mock(UnitID.class);
 
-        LogDataModel logDataModel = new LogDataModel(logDouble);
+    Log logDouble = mock(Log.class);
+    when(logDouble.getID()).thenReturn(logIDDouble);
+    when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
+    when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
+    when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
+    when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
+    when(logDouble.getDescription()).thenReturn(descriptionDouble);
+    when(logDouble.getUnit()).thenReturn(unitDouble);
 
-        //Act
-        LocalDateTime timestamp = logDataModel.getTimestamp();
+    LogDataModel logDataModel = new LogDataModel(logDouble);
 
-        //Assert
-        assertEquals(timestampDouble, timestamp);
-    }
+    //Act
+    LocalDateTime timestamp = logDataModel.getTimestamp();
 
-    /**
-     * Test for the getReadingValue method of the LogDataModel class.
-     */
-    @Test
-    void shouldReturnReadingValue_whenGetReadingValueIsCalled(){
-        // Arrange
-        LogID logIDDouble = mock(LogID.class);
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        SensorID sensorIDDouble = mock(SensorID.class);
-        LocalDateTime timestampDouble = mock(LocalDateTime.class);
-        ReadingValue readingValueDouble = mock(ReadingValue.class);
-        SensorTypeID descriptionDouble = mock(SensorTypeID.class);
-        UnitID unitDouble = mock(UnitID.class);
+    //Assert
+    assertEquals(timestampDouble, timestamp);
+  }
 
-        Log logDouble = mock(Log.class);
-        when(logDouble.getID()).thenReturn(logIDDouble);
-        when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
-        when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
-        when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
-        when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
-        when(logDouble.getDescription()).thenReturn(descriptionDouble);
-        when(logDouble.getUnit()).thenReturn(unitDouble);
+  /**
+   * Test for the getReadingValue method of the LogDataModel class.
+   */
+  @Test
+  void shouldReturnReadingValue_whenGetReadingValueIsCalled() {
+    // Arrange
+    LogID logIDDouble = mock(LogID.class);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    SensorID sensorIDDouble = mock(SensorID.class);
+    LocalDateTime timestampDouble = mock(LocalDateTime.class);
+    ReadingValue readingValueDouble = mock(ReadingValue.class);
+    SensorTypeID descriptionDouble = mock(SensorTypeID.class);
+    UnitID unitDouble = mock(UnitID.class);
 
-        LogDataModel logDataModel = new LogDataModel(logDouble);
+    Log logDouble = mock(Log.class);
+    when(logDouble.getID()).thenReturn(logIDDouble);
+    when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
+    when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
+    when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
+    when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
+    when(logDouble.getDescription()).thenReturn(descriptionDouble);
+    when(logDouble.getUnit()).thenReturn(unitDouble);
 
-        //Act
-        String readingValue = logDataModel.getReadingValue();
+    LogDataModel logDataModel = new LogDataModel(logDouble);
 
-        //Assert
-        assertEquals(readingValueDouble.getReadingValue(), readingValue);
-    }
+    //Act
+    String readingValue = logDataModel.getReadingValue();
 
-    /**
-     * Test for the getDescription method of the LogDataModel class.
-     */
-    @Test
-    void shouldReturnDescription_whenGetDescriptionIsCalled(){
-        // Arrange
-        LogID logIDDouble = mock(LogID.class);
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        SensorID sensorIDDouble = mock(SensorID.class);
-        LocalDateTime timestampDouble = mock(LocalDateTime.class);
-        ReadingValue readingValueDouble = mock(ReadingValue.class);
-        SensorTypeID descriptionDouble = mock(SensorTypeID.class);
-        UnitID unitDouble = mock(UnitID.class);
+    //Assert
+    assertEquals(readingValueDouble.getReadingValue(), readingValue);
+  }
 
-        Log logDouble = mock(Log.class);
-        when(logDouble.getID()).thenReturn(logIDDouble);
-        when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
-        when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
-        when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
-        when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
-        when(logDouble.getDescription()).thenReturn(descriptionDouble);
-        when(logDouble.getUnit()).thenReturn(unitDouble);
+  /**
+   * Test for the getDescription method of the LogDataModel class.
+   */
+  @Test
+  void shouldReturnDescription_whenGetDescriptionIsCalled() {
+    // Arrange
+    LogID logIDDouble = mock(LogID.class);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    SensorID sensorIDDouble = mock(SensorID.class);
+    LocalDateTime timestampDouble = mock(LocalDateTime.class);
+    ReadingValue readingValueDouble = mock(ReadingValue.class);
+    SensorTypeID descriptionDouble = mock(SensorTypeID.class);
+    UnitID unitDouble = mock(UnitID.class);
 
-        LogDataModel logDataModel = new LogDataModel(logDouble);
+    Log logDouble = mock(Log.class);
+    when(logDouble.getID()).thenReturn(logIDDouble);
+    when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
+    when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
+    when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
+    when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
+    when(logDouble.getDescription()).thenReturn(descriptionDouble);
+    when(logDouble.getUnit()).thenReturn(unitDouble);
 
-        //Act
-        String description = logDataModel.getDescription();
+    LogDataModel logDataModel = new LogDataModel(logDouble);
 
-        //Assert
-        assertEquals(descriptionDouble.getID(), description);
-    }
+    //Act
+    String description = logDataModel.getDescription();
 
-    /**
-     * Test for the getUnit method of the LogDataModel class.
-     */
-    @Test
-    void shouldReturnUnit_whenGetUnitIsCalled(){
-        // Arrange
-        LogID logIDDouble = mock(LogID.class);
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        SensorID sensorIDDouble = mock(SensorID.class);
-        LocalDateTime timestampDouble = mock(LocalDateTime.class);
-        ReadingValue readingValueDouble = mock(ReadingValue.class);
-        SensorTypeID descriptionDouble = mock(SensorTypeID.class);
-        UnitID unitDouble = mock(UnitID.class);
+    //Assert
+    assertEquals(descriptionDouble.getID(), description);
+  }
 
-        Log logDouble = mock(Log.class);
-        when(logDouble.getID()).thenReturn(logIDDouble);
-        when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
-        when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
-        when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
-        when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
-        when(logDouble.getDescription()).thenReturn(descriptionDouble);
-        when(logDouble.getUnit()).thenReturn(unitDouble);
+  /**
+   * Test for the getUnit method of the LogDataModel class.
+   */
+  @Test
+  void shouldReturnUnit_whenGetUnitIsCalled() {
+    // Arrange
+    LogID logIDDouble = mock(LogID.class);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    SensorID sensorIDDouble = mock(SensorID.class);
+    LocalDateTime timestampDouble = mock(LocalDateTime.class);
+    ReadingValue readingValueDouble = mock(ReadingValue.class);
+    SensorTypeID descriptionDouble = mock(SensorTypeID.class);
+    UnitID unitDouble = mock(UnitID.class);
 
-        LogDataModel logDataModel = new LogDataModel(logDouble);
+    Log logDouble = mock(Log.class);
+    when(logDouble.getID()).thenReturn(logIDDouble);
+    when(logDouble.getDeviceID()).thenReturn(deviceIDDouble);
+    when(logDouble.getSensorID()).thenReturn(sensorIDDouble);
+    when(logDouble.getTimeStamp()).thenReturn(timestampDouble);
+    when(logDouble.getReadingValue()).thenReturn(readingValueDouble);
+    when(logDouble.getDescription()).thenReturn(descriptionDouble);
+    when(logDouble.getUnit()).thenReturn(unitDouble);
 
-        //Act
-        String unit = logDataModel.getUnit();
+    LogDataModel logDataModel = new LogDataModel(logDouble);
 
-        //Assert
-        assertEquals(unitDouble.getID(), unit);
-    }
+    //Act
+    String unit = logDataModel.getUnit();
+
+    //Assert
+    assertEquals(unitDouble.getID(), unit);
+  }
 }

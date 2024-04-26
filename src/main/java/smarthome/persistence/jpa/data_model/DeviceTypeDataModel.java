@@ -11,15 +11,20 @@ import smarthome.utils.Validator;
 @Entity
 @Table(name = "DeviceType")
 public class DeviceTypeDataModel {
-  @Id private String _deviceTypeID;
+
+  @Id
+  private String _deviceTypeID;
 
   @Column(name = "TypeDescription")
   private String _deviceTypeDescription;
   @Version
   private long version;
 
-  /** Default constructor */
-  public DeviceTypeDataModel() {}
+  /**
+   * Default constructor
+   */
+  public DeviceTypeDataModel() {
+  }
 
   /**
    * Constructor of the device type data model

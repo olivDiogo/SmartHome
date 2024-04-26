@@ -1,12 +1,11 @@
 package smarthome.domain.service;
 
+import java.util.List;
 import smarthome.ddd.IService;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
-
-import java.util.List;
 
 public interface ILogService extends IService {
 
@@ -35,10 +34,10 @@ public interface ILogService extends IService {
   /**
    * Method to get the difference between the reading values of two lists.
    *
-   * @param readings1  is one list of readings.
+   * @param readings1 is one list of readings.
    * @param readings2 is another list of readings.
    * @return the list of the differences between the values.
    */
-  List<Integer> getDifferenceBetweenReadings (List<Log> readings1, List<Log> readings2);
+  List<Integer> getDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2);
 
 }

@@ -1,8 +1,11 @@
 package smarthome.domain.actuator.set_integer_actuator;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class SetIntegerValueTest {
 
@@ -52,7 +55,7 @@ class SetIntegerValueTest {
     boolean result = setIntegerValue.equals(setIntegerValue);
 
     // Assert
-    assertEquals(true, result);
+    assertTrue(result);
   }
 
   /**
@@ -70,7 +73,7 @@ class SetIntegerValueTest {
     boolean result = setIntegerValue1.equals(setIntegerValue2);
 
     // Assert
-    assertEquals(false, result);
+    assertFalse(result);
   }
 
   /**
@@ -86,7 +89,7 @@ class SetIntegerValueTest {
     boolean result = setIntegerValue.equals(new Object());
 
     // Assert
-    assertEquals(false, result);
+    assertFalse(result);
   }
 
   /**

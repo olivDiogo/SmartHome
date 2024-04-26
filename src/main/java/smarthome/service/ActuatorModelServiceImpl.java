@@ -1,15 +1,14 @@
 package smarthome.service;
 
+import java.util.List;
+import java.util.Optional;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
 import smarthome.domain.repository.IActuatorModelRepository;
 import smarthome.domain.service.IActuatorModelService;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
-
-import java.util.List;
-import java.util.Optional;
+import smarthome.utils.Validator;
 
 /**
  * Service class for managing actuator models within the smart home domain. This includes loading

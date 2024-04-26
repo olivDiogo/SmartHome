@@ -9,18 +9,29 @@ import smarthome.utils.Validator;
 
 @Entity
 public class RoomDataModel {
-  @Id private String _roomID;
-  @Column private String _houseID;
-  @Column private String _roomName;
-  @Column private int _width;
-  @Column private int _depth;
-  @Column private int _height;
-  @Column private int _floor;
+
+  @Id
+  private String _roomID;
+  @Column
+  private String _houseID;
+  @Column
+  private String _roomName;
+  @Column
+  private int _width;
+  @Column
+  private int _depth;
+  @Column
+  private int _height;
+  @Column
+  private int _floor;
   @Version
   private long version;
 
-  /** Empty class constructor */
-  public RoomDataModel() {}
+  /**
+   * Empty class constructor
+   */
+  public RoomDataModel() {
+  }
 
   /**
    * Class constructor with parameter room
@@ -65,7 +76,9 @@ public class RoomDataModel {
     return this._roomName;
   }
 
-  /** Method to return the room width. */
+  /**
+   * Method to return the room width.
+   */
   public int getWidth() {
     return this._width;
   }

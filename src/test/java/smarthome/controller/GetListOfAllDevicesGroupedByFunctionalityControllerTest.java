@@ -1,16 +1,31 @@
 package smarthome.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.device.Device;
+import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
+import smarthome.domain.device_type.DeviceType;
+import smarthome.domain.device_type.DeviceTypeFactoryImpl;
+import smarthome.domain.device_type.IDeviceTypeFactory;
+import smarthome.domain.house.House;
+import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.repository.IDeviceTypeRepository;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
+import smarthome.domain.room.Room;
+import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IDeviceTypeService;
 import smarthome.domain.service.IHouseService;
@@ -28,19 +43,8 @@ import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.TypeDescription;
-import smarthome.utils.dto.RoomDTO;
 import smarthome.mapper.DeviceAssembler;
 import smarthome.mapper.RoomAssembler;
-import smarthome.domain.device.Device;
-import smarthome.domain.device.DeviceFactoryImpl;
-import smarthome.domain.device_type.DeviceType;
-import smarthome.domain.device_type.DeviceTypeFactoryImpl;
-import smarthome.domain.device_type.IDeviceTypeFactory;
-import smarthome.domain.house.House;
-import smarthome.domain.house.HouseFactoryImpl;
-import smarthome.domain.room.Room;
-import smarthome.domain.room.RoomFactoryImpl;
-import smarthome.utils.dto.DeviceDTO;
 import smarthome.persistence.mem.DeviceRepository;
 import smarthome.persistence.mem.DeviceTypeRepository;
 import smarthome.persistence.mem.HouseRepository;
@@ -49,13 +53,8 @@ import smarthome.service.DeviceServiceImpl;
 import smarthome.service.DeviceTypeServiceImpl;
 import smarthome.service.HouseServiceImpl;
 import smarthome.service.RoomServiceImpl;
-
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import smarthome.utils.dto.DeviceDTO;
+import smarthome.utils.dto.RoomDTO;
 
 class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
 
@@ -154,7 +153,7 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     IRoomRepository roomRepository = new RoomRepository();
     IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
         roomRepository);
-    IAssembler<Device, DeviceDTO>  deviceAssembler = new DeviceAssembler();
+    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
     String expectedMessage = "Device type service is required";
 
@@ -177,7 +176,7 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     IDeviceService deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
         roomRepository);
 
-    IAssembler<Device, DeviceDTO>  deviceAssembler = new DeviceAssembler();
+    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
 
     IDeviceTypeRepository deviceTypeRepository = new DeviceTypeRepository();
 
@@ -277,8 +276,8 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     Map<DeviceType, List<DeviceDTO>> result = getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality();
 
     //Assert
-    assertEquals(result.get(deviceType1).get(0).deviceID.toString(), device1.getID().getID());
-    assertEquals(result.get(deviceType2).get(0).deviceID.toString(), device2.getID().getID());
+    assertEquals(result.get(deviceType1).get(0).deviceID, device1.getID().getID());
+    assertEquals(result.get(deviceType2).get(0).deviceID, device2.getID().getID());
   }
 
   /**
@@ -362,8 +361,8 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     Map<DeviceType, List<DeviceDTO>> result = getListOfAllDevicesGroupedByFunctionality.getDevicesDTOGroupedByFunctionality();
 
     //Assert
-    assertEquals(result.get(deviceType).get(0).deviceID.toString(), device1.getID().getID());
-    assertEquals(result.get(deviceType).get(1).deviceID.toString(), device2.getID().getID());
+    assertEquals(result.get(deviceType).get(0).deviceID, device1.getID().getID());
+    assertEquals(result.get(deviceType).get(1).deviceID, device2.getID().getID());
 
   }
 

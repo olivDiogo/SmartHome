@@ -1,20 +1,19 @@
 package smarthome.mapper;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.actuator_type.ActuatorType;
-import smarthome.utils.dto.ActuatorTypeDTO;
-import smarthome.domain.value_object.ActuatorTypeID;
-import smarthome.domain.value_object.TypeDescription;
-import smarthome.domain.value_object.UnitID;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import smarthome.domain.actuator_type.ActuatorType;
+import smarthome.domain.value_object.ActuatorTypeID;
+import smarthome.domain.value_object.TypeDescription;
+import smarthome.domain.value_object.UnitID;
+import smarthome.utils.dto.ActuatorTypeDTO;
 
 class ActuatorTypeAssemblerTest {
 

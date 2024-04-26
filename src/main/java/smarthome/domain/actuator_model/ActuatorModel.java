@@ -1,24 +1,24 @@
 package smarthome.domain.actuator_model;
 
 import smarthome.ddd.IAggregateRoot;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.ActuatorModelID;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.utils.Validator;
 
 public class ActuatorModel implements IAggregateRoot<ModelPath> {
 
-  private ActuatorModelName _actuatorModelName;
-  private ModelPath _modelPath;
-  private ActuatorTypeID _actuatorTypeID;
+  private final ActuatorModelName _actuatorModelName;
+  private final ModelPath _modelPath;
+  private final ActuatorTypeID _actuatorTypeID;
   private ActuatorModelID _actuatorModelID;
 
   /**
    * ActuatorModel constructor
    *
    * @param actuatorModelName The name of the actuator model
-   * @param modelPath The path to the model
+   * @param modelPath         The path to the model
    */
   ActuatorModel(
       ActuatorModelName actuatorModelName, ModelPath modelPath, ActuatorTypeID actuatorTypeID) {

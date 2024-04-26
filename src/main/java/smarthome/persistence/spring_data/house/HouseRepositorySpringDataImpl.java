@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import smarthome.domain.house.House;
 import smarthome.domain.repository.IHouseRepository;
+import smarthome.domain.value_object.HouseID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.HouseDataModel;
 import smarthome.utils.Validator;
-import smarthome.domain.value_object.HouseID;
 
 public class HouseRepositorySpringDataImpl implements IHouseRepository {
 
@@ -18,9 +18,10 @@ public class HouseRepositorySpringDataImpl implements IHouseRepository {
    * Constructs a new repository instance with the specified repository and data model assembler.
    *
    * @param repository the repository to use
-   * @param assembler the converter to transform data models to domain models and vice versa
+   * @param assembler  the converter to transform data models to domain models and vice versa
    */
-  public HouseRepositorySpringDataImpl(IHouseSpringDataRepository repository, IDataModelAssembler<HouseDataModel, House> assembler) {
+  public HouseRepositorySpringDataImpl(IHouseSpringDataRepository repository,
+      IDataModelAssembler<HouseDataModel, House> assembler) {
     Validator.validateNotNull(repository, "House repository");
     this.repository = repository;
     Validator.validateNotNull(assembler, "House data model assembler");
@@ -39,7 +40,8 @@ public class HouseRepositorySpringDataImpl implements IHouseRepository {
     Validator.validateNotNull(house, "House");
     HouseDataModel dataModel = new HouseDataModel(house);
     repository.save(dataModel);
-    return house;  }
+    return house;
+  }
 
 
   /**
@@ -58,8 +60,8 @@ public class HouseRepositorySpringDataImpl implements IHouseRepository {
    * Finds the house entity with the specified identity.
    *
    * @param objectID the identity of the house entity to find
-   * @return an optional containing the house entity with the specified identity, or an empty optional
-   * if no house entity with the specified identity was found
+   * @return an optional containing the house entity with the specified identity, or an empty
+   * optional if no house entity with the specified identity was found
    * @throws IllegalArgumentException if the identity is null
    */
   @Override
@@ -78,7 +80,8 @@ public class HouseRepositorySpringDataImpl implements IHouseRepository {
    * Checks if a house entity with the specified identity exists in the database.
    *
    * @param objectID the identity of the house entity to check
-   * @return true if a house entity with the specified identity exists in the database, false otherwise
+   * @return true if a house entity with the specified identity exists in the database, false
+   * otherwise
    * @throws IllegalArgumentException if the identity is null
    */
   @Override

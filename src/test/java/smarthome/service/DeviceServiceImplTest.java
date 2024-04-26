@@ -1,5 +1,18 @@
 package smarthome.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.IDeviceFactory;
@@ -14,20 +27,9 @@ import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.TypeDescription;
-import smarthome.utils.dto.DeviceDTO;
 import smarthome.persistence.mem.DeviceRepository;
 import smarthome.persistence.mem.RoomRepository;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import smarthome.utils.dto.DeviceDTO;
 
 class DeviceServiceImplTest {
 
@@ -487,7 +489,8 @@ class DeviceServiceImplTest {
   }
 
   /**
-   * Test the getDevicesFromListByRoomId method of the DeviceService class when given valid parameters.
+   * Test the getDevicesFromListByRoomId method of the DeviceService class when given valid
+   * parameters.
    */
   @Test
   void shouldReturnDevicesInRoom_WhenGivenValidParameters() {
@@ -521,7 +524,8 @@ class DeviceServiceImplTest {
   }
 
   /**
-   * Test the getDevicesFromListByRoomId method of the DeviceService class when given a null list of devices.
+   * Test the getDevicesFromListByRoomId method of the DeviceService class when given a null list of
+   * devices.
    */
   @Test
   void shouldThrowException_WhenGivenNullListOfDevices() {
@@ -549,7 +553,8 @@ class DeviceServiceImplTest {
   }
 
   /**
-   * Test the getDevicesFromListByRoomId method of the DeviceService class when given a null roomID.
+   * Test the getDevicesFromListByRoomId method of the DeviceService class when given a null
+   * roomID.
    */
   @Test
   void shouldThrowException_WhenGivenNullRoomID() {

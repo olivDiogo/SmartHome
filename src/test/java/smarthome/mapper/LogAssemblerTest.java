@@ -1,4 +1,5 @@
 package smarthome.mapper;
+
 import org.junit.jupiter.api.Test;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DeviceID;
@@ -20,198 +21,210 @@ import static org.mockito.Mockito.*;
 
 class LogAssemblerTest {
 
-    /**
-     * Test if the domainToDTO method returns a LogDTO object when the log is valid.
-     */
-    @Test
-    void shouldReturnALogDTO_WhenGivenALog() {
-        //Arrange
-        String logID = "1";
-        String deviceID = "1";
-        String sensorID = "1";
-        String sensorTypeID = "1";
-        String reading = "1";
-        String timestamp = "2021-10-10 10:10:10";
-        String unitID = "1";
+  /**
+   * Test if the domainToDTO method returns a LogDTO object when the log is valid.
+   */
+  @Test
+  void shouldReturnALogDTO_WhenGivenALog() {
+    //Arrange
+    String logID = "1";
+    String deviceID = "1";
+    String sensorID = "1";
+    String sensorTypeID = "1";
+    String reading = "1";
+    String timestamp = "2021-10-10 10:10:10";
+    String unitID = "1";
 
-        Log log = mock(Log.class);
+    Log log = mock(Log.class);
 
-        when(log.getID()).thenReturn(mock(LogID.class));
-        when(log.getID().toString()).thenReturn(logID);
+    when(log.getID()).thenReturn(mock(LogID.class));
+    when(log.getID().toString()).thenReturn(logID);
 
-        when(log.getDeviceID()).thenReturn(mock(DeviceID.class));
-        when(log.getDeviceID().toString()).thenReturn(deviceID);
+    when(log.getDeviceID()).thenReturn(mock(DeviceID.class));
+    when(log.getDeviceID().toString()).thenReturn(deviceID);
 
-        when(log.getSensorID()).thenReturn(mock(SensorID.class));
-        when(log.getSensorID().toString()).thenReturn(sensorID);
+    when(log.getSensorID()).thenReturn(mock(SensorID.class));
+    when(log.getSensorID().toString()).thenReturn(sensorID);
 
-        when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
-        when(log.getDescription().toString()).thenReturn(sensorTypeID);
+    when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
+    when(log.getDescription().toString()).thenReturn(sensorTypeID);
 
-        when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
-        when(log.getReadingValue().toString()).thenReturn(reading);
+    when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
+    when(log.getReadingValue().toString()).thenReturn(reading);
 
-        when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
-        when(log.getTimeStamp().toString()).thenReturn(timestamp);
+    when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
+    when(log.getTimeStamp().toString()).thenReturn(timestamp);
 
-        when(log.getUnit()).thenReturn(mock(UnitID.class));
-        when(log.getUnit().toString()).thenReturn(unitID);
+    when(log.getUnit()).thenReturn(mock(UnitID.class));
+    when(log.getUnit().toString()).thenReturn(unitID);
 
-        LogAssembler logAssembler = new LogAssembler();
+    LogAssembler logAssembler = new LogAssembler();
 
-        String expected = logID + " " + deviceID + " " + sensorID + " " + sensorTypeID + " " + reading + " " + timestamp + " " + unitID;
+    String expected =
+        logID + " " + deviceID + " " + sensorID + " " + sensorTypeID + " " + reading + " "
+            + timestamp + " " + unitID;
 
-        //Act
-        LogDTO logDTO = logAssembler.domainToDTO(log);
+    //Act
+    LogDTO logDTO = logAssembler.domainToDTO(log);
 
-        //Assert
-        assertEquals(expected, logDTO.toString());
-    }
+    //Assert
+    assertEquals(expected, logDTO.toString());
+  }
 
-    /**
-     * Test if the domainToDTO method throws an IllegalArgumentException when the log is null.
-     */
-    @Test
-    void shouldThrowAnIllegalArgumentException_WhenGivenANullLog() {
-        //Arrange
-        Log log = null;
-        LogAssembler logAssembler = new LogAssembler();
+  /**
+   * Test if the domainToDTO method throws an IllegalArgumentException when the log is null.
+   */
+  @Test
+  void shouldThrowAnIllegalArgumentException_WhenGivenANullLog() {
+    //Arrange
+    Log log = null;
+    LogAssembler logAssembler = new LogAssembler();
 
-        //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> logAssembler.domainToDTO(log));
+    //Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> logAssembler.domainToDTO(log));
 
-        assertEquals("Log is required", exception.getMessage());
-    }
-    /**
-     * Test if the domainToDTO method returns a list of LogDTO objects when the list of logs is valid.
-     */
-    @Test
-    void shouldReturnAListOfLogDTO_WhenGivenAListOfLogs() {
-        //Arrange
-        String logID = "1";
-        String deviceID = "1";
-        String sensorID = "1";
-        String sensorTypeID = "1";
-        String reading = "1";
-        String timestamp = "2021-10-10 10:10:10";
-        String unitID = "1";
+    assertEquals("Log is required", exception.getMessage());
+  }
 
-        Log log = mock(Log.class);
-        ReadingValue readingValue = mock(ReadingValue.class);
+  /**
+   * Test if the domainToDTO method returns a list of LogDTO objects when the list of logs is
+   * valid.
+   */
+  @Test
+  void shouldReturnAListOfLogDTO_WhenGivenAListOfLogs() {
+    //Arrange
+    String logID = "1";
+    String deviceID = "1";
+    String sensorID = "1";
+    String sensorTypeID = "1";
+    String reading = "1";
+    String timestamp = "2021-10-10 10:10:10";
+    String unitID = "1";
 
-        when(log.getID()).thenReturn(mock(LogID.class));
-        when(log.getID().toString()).thenReturn(logID);
+    Log log = mock(Log.class);
+    ReadingValue readingValue = mock(ReadingValue.class);
 
-        when(log.getDeviceID()).thenReturn(mock(DeviceID.class));
-        when(log.getDeviceID().toString()).thenReturn(deviceID);
+    when(log.getID()).thenReturn(mock(LogID.class));
+    when(log.getID().toString()).thenReturn(logID);
 
-        when(log.getSensorID()).thenReturn(mock(SensorID.class));
-        when(log.getSensorID().toString()).thenReturn(sensorID);
+    when(log.getDeviceID()).thenReturn(mock(DeviceID.class));
+    when(log.getDeviceID().toString()).thenReturn(deviceID);
 
-        when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
-        when(log.getDescription().toString()).thenReturn(sensorTypeID);
+    when(log.getSensorID()).thenReturn(mock(SensorID.class));
+    when(log.getSensorID().toString()).thenReturn(sensorID);
 
-        when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
-        when(log.getReadingValue().toString()).thenReturn(reading);
+    when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
+    when(log.getDescription().toString()).thenReturn(sensorTypeID);
 
-        when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
-        when(log.getTimeStamp().toString()).thenReturn(timestamp);
+    when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
+    when(log.getReadingValue().toString()).thenReturn(reading);
 
-        when(log.getUnit()).thenReturn(mock(UnitID.class));
-        when(log.getUnit().toString()).thenReturn(unitID);
+    when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
+    when(log.getTimeStamp().toString()).thenReturn(timestamp);
 
-        LogAssembler logAssembler = new LogAssembler();
+    when(log.getUnit()).thenReturn(mock(UnitID.class));
+    when(log.getUnit().toString()).thenReturn(unitID);
 
-        String expected = logID + " " + deviceID + " " + sensorID + " " + sensorTypeID + " " + reading + " " + timestamp + " " + unitID;
+    LogAssembler logAssembler = new LogAssembler();
 
-        //Act
-        LogDTO logDTO = logAssembler.domainToDTO(log);
+    String expected =
+        logID + " " + deviceID + " " + sensorID + " " + sensorTypeID + " " + reading + " "
+            + timestamp + " " + unitID;
 
-        //Assert
-        assertEquals(expected, logDTO.toString());
-    }
-    /**
-     * Test if the domainToDTO method throws an IllegalArgumentException when the list of logs is null.
-     */
-    @Test
-    void shouldThrowAnIllegalArgumentException_WhenGivenANullListOfLogs() {
-        //Arrange
-        List<Log> logs = null;
-        LogAssembler logAssembler = new LogAssembler();
+    //Act
+    LogDTO logDTO = logAssembler.domainToDTO(log);
 
-        //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> logAssembler.domainToDTO(logs));
+    //Assert
+    assertEquals(expected, logDTO.toString());
+  }
 
-        assertEquals("The list of Logs cannot be null or empty.", exception.getMessage());
-    }
+  /**
+   * Test if the domainToDTO method throws an IllegalArgumentException when the list of logs is
+   * null.
+   */
+  @Test
+  void shouldThrowAnIllegalArgumentException_WhenGivenANullListOfLogs() {
+    //Arrange
+    List<Log> logs = null;
+    LogAssembler logAssembler = new LogAssembler();
 
-    /**
-     * Test if the domainToDTO method throws an IllegalArgumentException when the list of logs is empty.
-     */
-    @Test
-    void shouldThrowAnIllegalArgumentException_WhenGivenAnEmptyListOfLogs() {
-        //Arrange
-        List<Log> logs = List.of();
-        LogAssembler logAssembler = new LogAssembler();
+    //Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> logAssembler.domainToDTO(logs));
 
-        //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> logAssembler.domainToDTO(logs));
+    assertEquals("The list of Logs cannot be null or empty.", exception.getMessage());
+  }
 
-        assertEquals("The list of Logs cannot be null or empty.", exception.getMessage());
-    }
+  /**
+   * Test if the domainToDTO method throws an IllegalArgumentException when the list of logs is
+   * empty.
+   */
+  @Test
+  void shouldThrowAnIllegalArgumentException_WhenGivenAnEmptyListOfLogs() {
+    //Arrange
+    List<Log> logs = List.of();
+    LogAssembler logAssembler = new LogAssembler();
 
-    /**
-     * Test when the list of logs contains objects.
-     */
-    @Test
-    void shouldReturnANewLogDTOList_whenGivenALogList() {
-        //Arrange
-        String logID = "1";
-        String deviceID = "1";
-        String sensorID = "1";
-        String sensorTypeID = "1";
-        String reading = "1";
-        String timestamp = "2021-10-10 10:10:10";
-        String unitID = "1";
+    //Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> logAssembler.domainToDTO(logs));
 
-        Log log = mock(Log.class);
-        ReadingValue readingValue = mock(ReadingValue.class);
+    assertEquals("The list of Logs cannot be null or empty.", exception.getMessage());
+  }
 
-        when(log.getID()).thenReturn(mock(LogID.class));
-        when(log.getID().toString()).thenReturn(logID);
+  /**
+   * Test when the list of logs contains objects.
+   */
+  @Test
+  void shouldReturnANewLogDTOList_whenGivenALogList() {
+    //Arrange
+    String logID = "1";
+    String deviceID = "1";
+    String sensorID = "1";
+    String sensorTypeID = "1";
+    String reading = "1";
+    String timestamp = "2021-10-10 10:10:10";
+    String unitID = "1";
 
-        when(log.getDeviceID()).thenReturn(mock(DeviceID.class));
-        when(log.getDeviceID().toString()).thenReturn(deviceID);
+    Log log = mock(Log.class);
+    ReadingValue readingValue = mock(ReadingValue.class);
 
-        when(log.getSensorID()).thenReturn(mock(SensorID.class));
-        when(log.getSensorID().toString()).thenReturn(sensorID);
+    when(log.getID()).thenReturn(mock(LogID.class));
+    when(log.getID().toString()).thenReturn(logID);
 
-        when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
-        when(log.getDescription().toString()).thenReturn(sensorTypeID);
+    when(log.getDeviceID()).thenReturn(mock(DeviceID.class));
+    when(log.getDeviceID().toString()).thenReturn(deviceID);
 
-        when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
-        when(log.getReadingValue().toString()).thenReturn(reading);
+    when(log.getSensorID()).thenReturn(mock(SensorID.class));
+    when(log.getSensorID().toString()).thenReturn(sensorID);
 
-        when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
-        when(log.getTimeStamp().toString()).thenReturn(timestamp);
+    when(log.getDescription()).thenReturn(mock(SensorTypeID.class));
+    when(log.getDescription().toString()).thenReturn(sensorTypeID);
 
-        when(log.getUnit()).thenReturn(mock(UnitID.class));
-        when(log.getUnit().toString()).thenReturn(unitID);
+    when(log.getReadingValue()).thenReturn(mock(ReadingValue.class));
+    when(log.getReadingValue().toString()).thenReturn(reading);
 
-        List<Log> logs = Arrays.asList(log);
+    when(log.getTimeStamp()).thenReturn(mock(LocalDateTime.class));
+    when(log.getTimeStamp().toString()).thenReturn(timestamp);
 
-        LogAssembler logAssembler = new LogAssembler();
+    when(log.getUnit()).thenReturn(mock(UnitID.class));
+    when(log.getUnit().toString()).thenReturn(unitID);
 
-        LogDTO logDTO = new LogDTO(logID, deviceID, sensorID, sensorTypeID, reading, timestamp, unitID);
+    List<Log> logs = List.of(log);
 
-        List<LogDTO> expected = List.of(logDTO);
+    LogAssembler logAssembler = new LogAssembler();
 
-        //Act
-        List<LogDTO> result = logAssembler.domainToDTO(logs);
+    LogDTO logDTO = new LogDTO(logID, deviceID, sensorID, sensorTypeID, reading, timestamp, unitID);
 
-        //Assert
-        assertEquals(expected.toString(), result.toString());
-    }
+    List<LogDTO> expected = List.of(logDTO);
+
+    //Act
+    List<LogDTO> result = logAssembler.domainToDTO(logs);
+
+    //Assert
+    assertEquals(expected.toString(), result.toString());
+  }
 
 
 }

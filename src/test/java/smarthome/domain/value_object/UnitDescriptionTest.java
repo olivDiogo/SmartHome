@@ -1,13 +1,19 @@
 package smarthome.domain.value_object;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.value_object.UnitDescription;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class UnitDescriptionTest {
 
-  /** Validates construction with valid arguments. */
+  /**
+   * Validates construction with valid arguments.
+   */
   @Test
   void shouldInstantiateUnitDescriptionWhenGivenValidDescription() {
     // Arrange
@@ -20,7 +26,9 @@ class UnitDescriptionTest {
     assertNotNull(unitDescription);
   }
 
-  /** Expects IllegalArgumentException for null description. */
+  /**
+   * Expects IllegalArgumentException for null description.
+   */
   @Test
   void shouldThrowIllegalArgumentExceptionWhenGivenNullDescription() {
     // Arrange
@@ -37,7 +45,9 @@ class UnitDescriptionTest {
     assertEquals(expectedMessage, actualMessage);
   }
 
-  /** Expects IllegalArgumentException for blank description. */
+  /**
+   * Expects IllegalArgumentException for blank description.
+   */
   @Test
   void shouldThrowIllegalArgumentExceptionWhenGivenBlankDescription() {
     // Arrange
@@ -54,7 +64,9 @@ class UnitDescriptionTest {
     assertEquals(expectedMessage, actualMessage);
   }
 
-  /** Expects IllegalArgumentException for description with more than 50 characters. */
+  /**
+   * Expects IllegalArgumentException for description with more than 50 characters.
+   */
   @Test
   void shouldThrowIllegalArgumentExceptionWhenGivenDescriptionWithMoreThan50Characters() {
     // Arrange
@@ -71,7 +83,9 @@ class UnitDescriptionTest {
     assertEquals(expectedMessage, actualMessage);
   }
 
-  /** Instantiates Unit description with 50 characters. */
+  /**
+   * Instantiates Unit description with 50 characters.
+   */
   @Test
   void shouldInstantiateUnitDescription_WhenDescriptionHas50Characters() {
     // Arrange
@@ -83,7 +97,9 @@ class UnitDescriptionTest {
     assertNotNull(unitDescription);
   }
 
-  /** Should return true when two objects have the same description. */
+  /**
+   * Should return true when two objects have the same description.
+   */
   @Test
   void shouldReturnTrue_WhenTwoObjectsHaveSameDescription() {
     // Arrange
@@ -98,7 +114,9 @@ class UnitDescriptionTest {
     assertTrue(result);
   }
 
-  /** Should return false when two objects have different description. */
+  /**
+   * Should return false when two objects have different description.
+   */
   @Test
   void shouldReturnFalse_WhenTwoObjectsHaveDifferentDescription() {
     // Arrange
@@ -115,7 +133,9 @@ class UnitDescriptionTest {
     assertFalse(result);
   }
 
-  /** Should return true when comparing object with itself. */
+  /**
+   * Should return true when comparing object with itself.
+   */
   @Test
   void shouldReturnTrue_WhenComparingObjectWithItself() {
     // Arrange
@@ -129,7 +149,9 @@ class UnitDescriptionTest {
     assertTrue(result);
   }
 
-  /** Description with same description should have same hash code. */
+  /**
+   * Description with same description should have same hash code.
+   */
   @Test
   void descriptionWithSameDescriptionShouldHaveSameHashCode() {
     // Arrange
@@ -143,7 +165,9 @@ class UnitDescriptionTest {
     assertEquals(hashCode1, hashCode2);
   }
 
-  /** Description with different description should have different hash code. */
+  /**
+   * Description with different description should have different hash code.
+   */
   @Test
   void ShouldHaveDifferentHashCode_WhenOneIsZero() {
     // Arrange
@@ -155,7 +179,9 @@ class UnitDescriptionTest {
     assertNotEquals(0, hashCode2);
   }
 
-  /** Description with different description should have different hash code. */
+  /**
+   * Description with different description should have different hash code.
+   */
   @Test
   void shouldReturnDescription_WhenToStringIsCalled() {
     // Arrange
@@ -182,7 +208,9 @@ class UnitDescriptionTest {
     assertEquals(description, result);
   }
 
-  /** Tests if equals method returns false when the object is not an instance of UnitDescription */
+  /**
+   * Tests if equals method returns false when the object is not an instance of UnitDescription
+   */
   @Test
   void shouldReturnFalseWhenComparingUnitDescriptionWithNull() {
     // Arrange

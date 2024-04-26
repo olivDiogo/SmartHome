@@ -1,16 +1,22 @@
 package smarthome.domain.sensor_model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.Test;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorModelName;
 import smarthome.domain.value_object.SensorTypeID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-
 class SensorModelTest {
 
-  /** Test of class SensorModel constructor with valid parameters */
+  /**
+   * Test of class SensorModel constructor with valid parameters
+   */
   @Test
   void shouldReturnValidSensorModel_WhenGivenValidParameters() {
     // Arrange
@@ -24,7 +30,9 @@ class SensorModelTest {
     assertNotNull(sensorModel);
   }
 
-  /** Test of class SensorModel constructor with null SensorModelName */
+  /**
+   * Test of class SensorModel constructor with null SensorModelName
+   */
   @Test
   void shouldThrowIllegalArgumentException_WhenGivenNullSensorModelName() {
     // Arrange
@@ -41,7 +49,9 @@ class SensorModelTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test of class SensorModel constructor with null ModelPath */
+  /**
+   * Test of class SensorModel constructor with null ModelPath
+   */
   @Test
   void shouldThrowIllegalArgumentException_WhenGivenNullModelPath() {
     // Arrange
@@ -58,7 +68,9 @@ class SensorModelTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test of class SensorModel constructor with null SensorTypeID */
+  /**
+   * Test of class SensorModel constructor with null SensorTypeID
+   */
   @Test
   void shouldReturnTrue_WhenGivenSameObject() {
     // Arrange
@@ -72,7 +84,9 @@ class SensorModelTest {
     assertTrue(result);
   }
 
-  /** Test of class SensorModel equals method with null */
+  /**
+   * Test of class SensorModel equals method with null
+   */
   @Test
   void shouldReturnFalse_WhenGivenNull() {
     // Arrange
@@ -86,7 +100,9 @@ class SensorModelTest {
     assertFalse(result);
   }
 
-  /** Test of class SensorModel to get the expected ID */
+  /**
+   * Test of class SensorModel to get the expected ID
+   */
   @Test
   void shouldReturnSensorModelID_WhenGetIDIsCalled() {
     // Arrange
@@ -100,7 +116,9 @@ class SensorModelTest {
     assertTrue(sensorModel.toString().contains(sensorModelID.toString()));
   }
 
-  /** Test of class SensorModel to get it in string format. */
+  /**
+   * Test of class SensorModel to get it in string format.
+   */
   @Test
   void shouldReturnObjectInStringFormat_WhenToStringIsCalled() {
     // Arrange
@@ -122,7 +140,9 @@ class SensorModelTest {
     assertTrue(result.contains(expected));
   }
 
-  /** Test of class SensorModel to get sensor model name. */
+  /**
+   * Test of class SensorModel to get sensor model name.
+   */
   @Test
   void shouldReturnSensorModelName_WhenGetSensorModelNameIsCalled() {
     // Arrange
@@ -137,7 +157,9 @@ class SensorModelTest {
     assertEquals(sensorModelName, result);
   }
 
-  /** Test of class SensorModel to get model path. */
+  /**
+   * Test of class SensorModel to get model path.
+   */
   @Test
   void shouldReturnModelPath_WhenGetModelPathIsCalled() {
     // Arrange
@@ -152,7 +174,9 @@ class SensorModelTest {
     assertEquals(modelPath, result);
   }
 
-  /** Test of class SensorModel throws exception when given null sensor type ID. */
+  /**
+   * Test of class SensorModel throws exception when given null sensor type ID.
+   */
   @Test
   void shouldThrownIllegalArgumentException_WhenGivenNullSensorTypeID() {
     // Arrange
@@ -169,7 +193,9 @@ class SensorModelTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  /** Test of class SensorModel to get sensor type ID. */
+  /**
+   * Test of class SensorModel to get sensor type ID.
+   */
   @Test
   void shouldReturnSensorTypeID_WhenGetSensorTypeIDIsCalled() {
     // Arrange
@@ -184,7 +210,9 @@ class SensorModelTest {
     assertEquals(sensorTypeID, result);
   }
 
-  /** Test of class SensorModel to check if two objects have the same hashCode. */
+  /**
+   * Test of class SensorModel to check if two objects have the same hashCode.
+   */
   @Test
   void shouldReturnTheHashCode_WhenHashCodeIsCalled() {
     // Arrange

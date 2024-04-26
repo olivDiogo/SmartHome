@@ -1,7 +1,15 @@
 package smarthome.persistence.assembler;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
@@ -12,197 +20,203 @@ import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.persistence.jpa.data_model.DeviceDataModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 class DeviceDataModelAssemblerTest {
 
-    /**
-     * Test to verify if the DeviceDataModelConverter is instantiated correctly
-     */
-    @Test
-    void shouldInstantiateDeviceDataModelConverter_whenDeviceFactoryIsValid() {
-        //Arrange
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+  /**
+   * Test to verify if the DeviceDataModelConverter is instantiated correctly
+   */
+  @Test
+  void shouldInstantiateDeviceDataModelConverter_whenDeviceFactoryIsValid() {
+    //Arrange
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
 
-        //Act
-        DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
+    //Act
+    DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
 
-        //Assert
-        assertNotNull(deviceDataModelAssembler);
-    }
+    //Assert
+    assertNotNull(deviceDataModelAssembler);
+  }
 
-    /**
-     * Test to verify if the DeviceDataModelConverter throws an IllegalArgumentException when given a null device factory
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenDeviceFactoryIsNull() {
-        //Arrange
-        IDeviceFactory deviceFactory = null;
+  /**
+   * Test to verify if the DeviceDataModelConverter throws an IllegalArgumentException when given a
+   * null device factory
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenDeviceFactoryIsNull() {
+    //Arrange
+    IDeviceFactory deviceFactory = null;
 
-        String expectedMessage = "Device Factory is required";
+    String expectedMessage = "Device Factory is required";
 
-        //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new DeviceDataModelAssembler(deviceFactory));
-        String actualMessage = exception.getMessage();
+    //Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> new DeviceDataModelAssembler(deviceFactory));
+    String actualMessage = exception.getMessage();
 
-        assertEquals(expectedMessage, actualMessage);
-    }
+    assertEquals(expectedMessage, actualMessage);
+  }
 
-    /**
-     * Test to verify if the DeviceDataModelConverter converts a DeviceDataModel to a Device domain object
-     */
-    @Test
-    void shouldConvertDeviceDataModelToDomain_whenDeviceDataModelIsValid() {
-        //Arrange
-        String deviceID = "1";
-        String roomID = "123";
-        String deviceName = "Light";
-        boolean deviceStatus = true;
-        String deviceTypeID = "1";
+  /**
+   * Test to verify if the DeviceDataModelConverter converts a DeviceDataModel to a Device domain
+   * object
+   */
+  @Test
+  void shouldConvertDeviceDataModelToDomain_whenDeviceDataModelIsValid() {
+    //Arrange
+    String deviceID = "1";
+    String roomID = "123";
+    String deviceName = "Light";
+    boolean deviceStatus = true;
+    String deviceTypeID = "1";
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        RoomID roomIDDouble = mock(RoomID.class);
-        DeviceName deviceNameDouble = mock(DeviceName.class);
-        DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
-        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    RoomID roomIDDouble = mock(RoomID.class);
+    DeviceName deviceNameDouble = mock(DeviceName.class);
+    DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
+    DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
 
-        DeviceDataModel deviceDataModelDouble = mock(DeviceDataModel.class);
+    DeviceDataModel deviceDataModelDouble = mock(DeviceDataModel.class);
 
-        when(deviceDataModelDouble.getDeviceID()).thenReturn(deviceID);
-        when(deviceDataModelDouble.getRoomID()).thenReturn(roomID);
-        when(deviceDataModelDouble.getDeviceName()).thenReturn(deviceName);
-        when(deviceDataModelDouble.getDeviceStatus()).thenReturn(deviceStatus);
-        when(deviceDataModelDouble.getDeviceTypeID()).thenReturn(deviceTypeID);
+    when(deviceDataModelDouble.getDeviceID()).thenReturn(deviceID);
+    when(deviceDataModelDouble.getRoomID()).thenReturn(roomID);
+    when(deviceDataModelDouble.getDeviceName()).thenReturn(deviceName);
+    when(deviceDataModelDouble.getDeviceStatus()).thenReturn(deviceStatus);
+    when(deviceDataModelDouble.getDeviceTypeID()).thenReturn(deviceTypeID);
 
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
 
-        Device expected = deviceFactory.createDevice(deviceIDDouble,roomIDDouble, deviceNameDouble, deviceStatusDouble, deviceTypeIDDouble);
+    Device expected = deviceFactory.createDevice(deviceIDDouble, roomIDDouble, deviceNameDouble,
+        deviceStatusDouble, deviceTypeIDDouble);
 
-        //Act
-        Device result = deviceDataModelAssembler.toDomain(deviceDataModelDouble);
+    //Act
+    Device result = deviceDataModelAssembler.toDomain(deviceDataModelDouble);
 
-        //Assert
-        assertEquals(expected, result);
-    }
-    /**
-     * Test to verify if the DeviceDataModelConverter throws an IllegalArgumentException when given a null DeviceDataModel
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenDeviceDataModelIsNull() {
-        //Arrange
-        DeviceDataModel deviceDataModel = null;
+    //Assert
+    assertEquals(expected, result);
+  }
 
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
+  /**
+   * Test to verify if the DeviceDataModelConverter throws an IllegalArgumentException when given a
+   * null DeviceDataModel
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenDeviceDataModelIsNull() {
+    //Arrange
+    DeviceDataModel deviceDataModel = null;
 
-        String expectedMessage = "Device Data Model is required";
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
 
-        //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> deviceDataModelAssembler.toDomain(deviceDataModel));
-        String actualMessage = exception.getMessage();
+    String expectedMessage = "Device Data Model is required";
 
-        assertEquals(expectedMessage, actualMessage);
-    }
+    //Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> deviceDataModelAssembler.toDomain(deviceDataModel));
+    String actualMessage = exception.getMessage();
 
-    /**
-     * Test to verify if the DeviceDataModelConverter converts a list of DeviceDataModel to a list of Device domain objects
-     */
-    @Test
-    void shouldConvertListOfDeviceDataModelToDomain_whenDeviceDataModelListIsValid() {
-        //Arrange
-        String deviceID = "1";
-        String roomID = "123";
-        String deviceName = "Light";
-        boolean deviceStatus = true;
-        String deviceTypeID = "1";
+    assertEquals(expectedMessage, actualMessage);
+  }
 
-        DeviceID deviceIDDouble = mock(DeviceID.class);
-        when(deviceIDDouble.getID()).thenReturn(deviceID);
+  /**
+   * Test to verify if the DeviceDataModelConverter converts a list of DeviceDataModel to a list of
+   * Device domain objects
+   */
+  @Test
+  void shouldConvertListOfDeviceDataModelToDomain_whenDeviceDataModelListIsValid() {
+    //Arrange
+    String deviceID = "1";
+    String roomID = "123";
+    String deviceName = "Light";
+    boolean deviceStatus = true;
+    String deviceTypeID = "1";
 
-        RoomID roomIDDouble = mock(RoomID.class);
-        when(roomIDDouble.toString()).thenReturn(roomID);
+    DeviceID deviceIDDouble = mock(DeviceID.class);
+    when(deviceIDDouble.getID()).thenReturn(deviceID);
 
-        DeviceName deviceNameDouble = mock(DeviceName.class);
-        when(deviceNameDouble.getName()).thenReturn(deviceName);
+    RoomID roomIDDouble = mock(RoomID.class);
+    when(roomIDDouble.toString()).thenReturn(roomID);
 
-        DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
-        when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
+    DeviceName deviceNameDouble = mock(DeviceName.class);
+    when(deviceNameDouble.getName()).thenReturn(deviceName);
 
-        DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
-        when(deviceTypeIDDouble.getID()).thenReturn(deviceTypeID);
+    DeviceStatus deviceStatusDouble = mock(DeviceStatus.class);
+    when(deviceStatusDouble.getStatus()).thenReturn(deviceStatus);
 
-        DeviceDataModel deviceDataModelDouble = mock(DeviceDataModel.class);
+    DeviceTypeID deviceTypeIDDouble = mock(DeviceTypeID.class);
+    when(deviceTypeIDDouble.getID()).thenReturn(deviceTypeID);
 
-        when(deviceDataModelDouble.getDeviceID()).thenReturn(deviceID);
-        when(deviceDataModelDouble.getRoomID()).thenReturn(roomID);
-        when(deviceDataModelDouble.getDeviceName()).thenReturn(deviceName);
-        when(deviceDataModelDouble.getDeviceStatus()).thenReturn(deviceStatus);
-        when(deviceDataModelDouble.getDeviceTypeID()).thenReturn(deviceTypeID);
+    DeviceDataModel deviceDataModelDouble = mock(DeviceDataModel.class);
 
-        DeviceFactoryImpl deviceFactory = mock(DeviceFactoryImpl.class);
+    when(deviceDataModelDouble.getDeviceID()).thenReturn(deviceID);
+    when(deviceDataModelDouble.getRoomID()).thenReturn(roomID);
+    when(deviceDataModelDouble.getDeviceName()).thenReturn(deviceName);
+    when(deviceDataModelDouble.getDeviceStatus()).thenReturn(deviceStatus);
+    when(deviceDataModelDouble.getDeviceTypeID()).thenReturn(deviceTypeID);
 
-        DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
+    DeviceFactoryImpl deviceFactory = mock(DeviceFactoryImpl.class);
 
-        List<DeviceDataModel> deviceDataModelList = new ArrayList<>();
-        deviceDataModelList.add(deviceDataModelDouble);
+    DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
 
-        //Expected
-        Device expected = mock(Device.class);
+    List<DeviceDataModel> deviceDataModelList = new ArrayList<>();
+    deviceDataModelList.add(deviceDataModelDouble);
 
-        when(deviceFactory.createDevice(any(DeviceID.class), any(RoomID.class), any(DeviceName.class), any(DeviceStatus.class), any(DeviceTypeID.class))).thenReturn(expected);
+    //Expected
+    Device expected = mock(Device.class);
 
-        List<Device> expectedList = List.of(expected);
+    when(deviceFactory.createDevice(any(DeviceID.class), any(RoomID.class), any(DeviceName.class),
+        any(DeviceStatus.class), any(DeviceTypeID.class))).thenReturn(expected);
 
-        //Act
-        List<Device> result = deviceDataModelAssembler.toDomain(List.of(deviceDataModelDouble));
+    List<Device> expectedList = List.of(expected);
 
-        //Assert
-        assertEquals(expectedList, result);
-    }
+    //Act
+    List<Device> result = deviceDataModelAssembler.toDomain(List.of(deviceDataModelDouble));
 
-    /**
-     * Test to verify if the DeviceDataModelConverter throws an IllegalArgumentException when given a null list of DeviceDataModel
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenDeviceDataModelListIsNull() {
-        //Arrange
-        List<DeviceDataModel> deviceDataModelList = null;
+    //Assert
+    assertEquals(expectedList, result);
+  }
 
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
+  /**
+   * Test to verify if the DeviceDataModelConverter throws an IllegalArgumentException when given a
+   * null list of DeviceDataModel
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenDeviceDataModelListIsNull() {
+    //Arrange
+    List<DeviceDataModel> deviceDataModelList = null;
 
-        String expectedMessage = "The list of devices cannot be null or empty.";
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
 
-        //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> deviceDataModelAssembler.toDomain(deviceDataModelList));
-        String actualMessage = exception.getMessage();
+    String expectedMessage = "The list of devices cannot be null or empty.";
 
-        assertEquals(expectedMessage, actualMessage);
-    }
+    //Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> deviceDataModelAssembler.toDomain(deviceDataModelList));
+    String actualMessage = exception.getMessage();
 
-    /**
-     * Test to verify if the DeviceDataModelConverter throws an IllegalArgumentException when given an empty list of DeviceDataModel
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenDeviceDataModelListIsEmpty() {
-        //Arrange
-        List<DeviceDataModel> deviceDataModelList = new ArrayList<>();
+    assertEquals(expectedMessage, actualMessage);
+  }
 
-        IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-        DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
+  /**
+   * Test to verify if the DeviceDataModelConverter throws an IllegalArgumentException when given an
+   * empty list of DeviceDataModel
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenDeviceDataModelListIsEmpty() {
+    //Arrange
+    List<DeviceDataModel> deviceDataModelList = new ArrayList<>();
 
-        String expectedMessage = "The list of devices cannot be null or empty.";
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
 
-        //Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> deviceDataModelAssembler.toDomain(deviceDataModelList));
-        String actualMessage = exception.getMessage();
+    String expectedMessage = "The list of devices cannot be null or empty.";
 
-        assertEquals(expectedMessage, actualMessage);
-    }
+    //Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> deviceDataModelAssembler.toDomain(deviceDataModelList));
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
+  }
 }

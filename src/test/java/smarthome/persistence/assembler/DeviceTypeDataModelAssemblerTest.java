@@ -1,14 +1,18 @@
 package smarthome.persistence.assembler;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device_type.IDeviceTypeFactory;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-
 class DeviceTypeDataModelAssemblerTest {
 
-  /** Test to check if the constructor throws an exception when the device type factory is null */
+  /**
+   * Test to check if the constructor throws an exception when the device type factory is null
+   */
   @Test
   void shouldThrowException_whenDeviceTypeFactoryIsNull() {
     // Arrange
@@ -29,7 +33,8 @@ class DeviceTypeDataModelAssemblerTest {
   }
 
   /**
-   * Test to check if the constructor instantiates the DeviceTypeDataModelAssembler when the device type factory is valid
+   * Test to check if the constructor instantiates the DeviceTypeDataModelAssembler when the device
+   * type factory is valid
    */
   @Test
   void shouldInstantiateDeviceTypeDataModelAssembler_whenDeviceTypeFactoryIsValid() {

@@ -1,220 +1,224 @@
 package smarthome.domain.value_object;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.value_object.RoomName;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class RoomNameTest {
-    /**
-     * Tests the RoomName constructor with a valid room name.
-     */
-    @Test
-    void shouldGetValidObject_whenUsingValidRoomName(){
-        // Arrange
-        String validRoomName = "Living Room 2";
 
-        // Act
-        RoomName roomName = new RoomName(validRoomName);
+  /**
+   * Tests the RoomName constructor with a valid room name.
+   */
+  @Test
+  void shouldGetValidObject_whenUsingValidRoomName() {
+    // Arrange
+    String validRoomName = "Living Room 2";
 
-        // Assert
-        assertNotNull(roomName);
-    }
+    // Act
+    RoomName roomName = new RoomName(validRoomName);
 
-    /**
-     * Tests the RoomName constructor with a null room name.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenRoomNameNull(){
-        // Arrange
-        String nullRoomName = null;
-        String expectedMessage = "The room name cannot be null, blank, or empty.";
+    // Assert
+    assertNotNull(roomName);
+  }
 
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new RoomName(nullRoomName)
-        );
+  /**
+   * Tests the RoomName constructor with a null room name.
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenRoomNameNull() {
+    // Arrange
+    String nullRoomName = null;
+    String expectedMessage = "The room name cannot be null, blank, or empty.";
 
-        // Assert
-        String exceptionMessage = exception.getMessage();
+    // Act
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+        new RoomName(nullRoomName)
+    );
 
-        assertTrue(exceptionMessage.contains(expectedMessage));
-    }
+    // Assert
+    String exceptionMessage = exception.getMessage();
 
-    /**
-     * Tests the RoomName constructor with a blank room name.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenRoomNameBlank(){
-        // Arrange
-        String blankRoomName = " ";
-        String expectedMessage = "The room name cannot be null, blank, or empty.";
+    assertTrue(exceptionMessage.contains(expectedMessage));
+  }
 
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new RoomName(blankRoomName)
-        );
+  /**
+   * Tests the RoomName constructor with a blank room name.
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenRoomNameBlank() {
+    // Arrange
+    String blankRoomName = " ";
+    String expectedMessage = "The room name cannot be null, blank, or empty.";
 
-        // Assert
-        String exceptionMessage = exception.getMessage();
+    // Act
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+        new RoomName(blankRoomName)
+    );
 
-        assertTrue(exceptionMessage.contains(expectedMessage));
-    }
+    // Assert
+    String exceptionMessage = exception.getMessage();
 
-    /**
-     * Tests the RoomName constructor with an empty room name.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenRoomNameEmpty(){
-        // Arrange
-        String emptyRoomName = "";
-        String expectedMessage = "The room name cannot be null, blank, or empty.";
+    assertTrue(exceptionMessage.contains(expectedMessage));
+  }
 
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new RoomName(emptyRoomName)
-        );
+  /**
+   * Tests the RoomName constructor with an empty room name.
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenRoomNameEmpty() {
+    // Arrange
+    String emptyRoomName = "";
+    String expectedMessage = "The room name cannot be null, blank, or empty.";
 
-        // Assert
-        String exceptionMessage = exception.getMessage();
+    // Act
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+        new RoomName(emptyRoomName)
+    );
 
-        assertTrue(exceptionMessage.contains(expectedMessage));
-    }
+    // Assert
+    String exceptionMessage = exception.getMessage();
 
-    /**
-     * Tests the RoomName constructor with a room name containing special characters.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_whenRoomNameContainsSpecialCharacters(){
-        // Arrange
-        String roomNameWithSpecialCharacters = "Living Room 2!";
-        String expectedMessage = "The room name can only contain letters and numbers.";
+    assertTrue(exceptionMessage.contains(expectedMessage));
+  }
 
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new RoomName(roomNameWithSpecialCharacters)
-        );
+  /**
+   * Tests the RoomName constructor with a room name containing special characters.
+   */
+  @Test
+  void shouldThrowIllegalArgumentException_whenRoomNameContainsSpecialCharacters() {
+    // Arrange
+    String roomNameWithSpecialCharacters = "Living Room 2!";
+    String expectedMessage = "The room name can only contain letters and numbers.";
 
-        // Assert
-        String exceptionMessage = exception.getMessage();
+    // Act
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+        new RoomName(roomNameWithSpecialCharacters)
+    );
 
-        assertTrue(exceptionMessage.contains(expectedMessage));
-    }
+    // Assert
+    String exceptionMessage = exception.getMessage();
 
-    /**
-     * Tests the getRoomName method.
-     */
-    @Test
-    void shouldGetRoomName_whenCallingGetRoomName(){
-        // Arrange
-        String roomName = "Kitchen 1";
-        RoomName roomNameObject = new RoomName(roomName);
+    assertTrue(exceptionMessage.contains(expectedMessage));
+  }
 
-        // Act
-        String actualRoomName = roomNameObject.getRoomName();
+  /**
+   * Tests the getRoomName method.
+   */
+  @Test
+  void shouldGetRoomName_whenCallingGetRoomName() {
+    // Arrange
+    String roomName = "Kitchen 1";
+    RoomName roomNameObject = new RoomName(roomName);
 
-        // Assert
-        assertTrue(actualRoomName.equals(roomName));
-    }
+    // Act
+    String actualRoomName = roomNameObject.getRoomName();
 
-    /**
-     * Tests the equals method with the same object.
-     */
-    @Test
-    void shouldReturnTrue_whenComparingSameObject(){
-        // Arrange
-        String roomName = "Kitchen 1";
-        RoomName roomNameObject = new RoomName(roomName);
+    // Assert
+    assertEquals(actualRoomName, roomName);
+  }
 
-        // Act
-        boolean result = roomNameObject.equals(roomNameObject);
+  /**
+   * Tests the equals method with the same object.
+   */
+  @Test
+  void shouldReturnTrue_whenComparingSameObject() {
+    // Arrange
+    String roomName = "Kitchen 1";
+    RoomName roomNameObject = new RoomName(roomName);
 
-        // Assert
-        assertTrue(result);
-    }
+    // Act
+    boolean result = roomNameObject.equals(roomNameObject);
 
-    /**
-     * Tests the equals method with a different object with the same name.
-     */
-    @Test
-    void shouldReturnTrue_whenComparingDifferentObjectWithSameName() {
-        // Arrange
-        String roomName = "Kitchen 1";
-        RoomName roomNameObject = new RoomName(roomName);
-        RoomName roomNameObject2 = new RoomName(roomName);
+    // Assert
+    assertTrue(result);
+  }
 
-        // Act
-        boolean result = roomNameObject.equals(roomNameObject2);
+  /**
+   * Tests the equals method with a different object with the same name.
+   */
+  @Test
+  void shouldReturnTrue_whenComparingDifferentObjectWithSameName() {
+    // Arrange
+    String roomName = "Kitchen 1";
+    RoomName roomNameObject = new RoomName(roomName);
+    RoomName roomNameObject2 = new RoomName(roomName);
 
-        // Assert
-        assertTrue(result);
-    }
+    // Act
+    boolean result = roomNameObject.equals(roomNameObject2);
 
-    /**
-     * Tests the equals method with a different object.
-     */
-    @Test
-    void shouldReturnFalse_whenComparingDifferentObject(){
-        // Arrange
-        String roomName = "Kitchen 1";
-        RoomName roomNameObject = new RoomName(roomName);
-        RoomName roomNameObject2 = new RoomName("Living Room 2");
+    // Assert
+    assertTrue(result);
+  }
 
-        // Act
-        boolean result = roomNameObject.equals(roomNameObject2);
+  /**
+   * Tests the equals method with a different object.
+   */
+  @Test
+  void shouldReturnFalse_whenComparingDifferentObject() {
+    // Arrange
+    String roomName = "Kitchen 1";
+    RoomName roomNameObject = new RoomName(roomName);
+    RoomName roomNameObject2 = new RoomName("Living Room 2");
 
-        // Assert
-        assertTrue(!result);
-    }
+    // Act
+    boolean result = roomNameObject.equals(roomNameObject2);
 
-    /**
-     * Tests the toString method.
-     */
-    @Test
-    void shouldReturnRoomName_whenCallingToString(){
-        // Arrange
-        String roomName = "Kitchen 1";
-        RoomName roomNameObject = new RoomName(roomName);
+    // Assert
+    assertFalse(result);
+  }
 
-        // Act
-        String actualRoomName = roomNameObject.toString();
+  /**
+   * Tests the toString method.
+   */
+  @Test
+  void shouldReturnRoomName_whenCallingToString() {
+    // Arrange
+    String roomName = "Kitchen 1";
+    RoomName roomNameObject = new RoomName(roomName);
 
-        // Assert
-        assertTrue(actualRoomName.equals(roomName));
-    }
+    // Act
+    String actualRoomName = roomNameObject.toString();
 
-    /**
-     * Tests the hashCode method.
-     */
+    // Assert
+    assertEquals(actualRoomName, roomName);
+  }
 
-    @Test
-    void shouldReturnHashCode_whenCallingHashCode(){
-        // Arrange
-        String roomName = "Kitchen 1";
-        RoomName roomNameObject = new RoomName(roomName);
+  /**
+   * Tests the hashCode method.
+   */
 
-        int expectedHashCode = roomName.hashCode();
+  @Test
+  void shouldReturnHashCode_whenCallingHashCode() {
+    // Arrange
+    String roomName = "Kitchen 1";
+    RoomName roomNameObject = new RoomName(roomName);
 
-        // Act
-        int actualHashCode = roomNameObject.hashCode();
+    int expectedHashCode = roomName.hashCode();
 
-        // Assert
-        assertEquals(expectedHashCode, actualHashCode);
-    }
+    // Act
+    int actualHashCode = roomNameObject.hashCode();
 
-    /**
-     * Tests if equals method returns false when the object is not an instance of RoomName
-     */
-    @Test
-    void shouldReturnFalseWhenComparingRoomNameWithDifferentObject() {
-        // Arrange
-        String roomName = "Kitchen 1";
-        RoomName roomNameObject = new RoomName(roomName);
+    // Assert
+    assertEquals(expectedHashCode, actualHashCode);
+  }
 
-        // Act
-        boolean result = roomNameObject.equals(new Object());
+  /**
+   * Tests if equals method returns false when the object is not an instance of RoomName
+   */
+  @Test
+  void shouldReturnFalseWhenComparingRoomNameWithDifferentObject() {
+    // Arrange
+    String roomName = "Kitchen 1";
+    RoomName roomNameObject = new RoomName(roomName);
 
-        // Assert
-        assertFalse(result);
-    }
+    // Act
+    boolean result = roomNameObject.equals(new Object());
+
+    // Assert
+    assertFalse(result);
+  }
 }

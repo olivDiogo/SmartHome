@@ -1,186 +1,189 @@
 package smarthome.domain.value_object;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.value_object.DeviceID;
-import smarthome.domain.value_object.SensorID;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class SensorIDTest {
-    /**
-     * Tests the correct instantiation of a SensorID
-     */
-    @Test
-    void shouldGetValidObject_whenUsingValidStringInConstructor() {
-        // Arrange
-        String sensorID = "SensorXPTO";
 
-        // Act
-        DeviceID result = new DeviceID(sensorID);
+  /**
+   * Tests the correct instantiation of a SensorID
+   */
+  @Test
+  void shouldGetValidObject_whenUsingValidStringInConstructor() {
+    // Arrange
+    String sensorID = "SensorXPTO";
 
-        // Assert
-        assertNotNull(result);
-    }
+    // Act
+    DeviceID result = new DeviceID(sensorID);
 
-    /**
-     * Tests if the exception is thrown with a null sensorID
-     */
-    @Test
-    void shouldThrowException_whenSensorIdIsNull(){
-        // Arrange
-        String sensorID = null;
-        String expectedMessage = "The value of 'sensorID' should not null, blank, or empty.";
+    // Assert
+    assertNotNull(result);
+  }
 
-        // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new SensorID(sensorID)
-        );
+  /**
+   * Tests if the exception is thrown with a null sensorID
+   */
+  @Test
+  void shouldThrowException_whenSensorIdIsNull() {
+    // Arrange
+    String sensorID = null;
+    String expectedMessage = "The value of 'sensorID' should not null, blank, or empty.";
 
-        // Assert
-        String actualMessage = exception.getMessage();
+    // Act + Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+        new SensorID(sensorID)
+    );
 
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
+    // Assert
+    String actualMessage = exception.getMessage();
 
-    /**
-     * Tests if the exception is thrown with a blank sensorID
-     */
-    @Test
-    void shouldThrowException_whenSensorIdIsBlank(){
-        // Arrange
-        String sensorID = " ";
-        String expectedMessage = "The value of 'sensorID' should not null, blank, or empty.";
+    assertTrue(actualMessage.contains(expectedMessage));
+  }
 
-        // Act + Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                new SensorID(sensorID)
-        );
+  /**
+   * Tests if the exception is thrown with a blank sensorID
+   */
+  @Test
+  void shouldThrowException_whenSensorIdIsBlank() {
+    // Arrange
+    String sensorID = " ";
+    String expectedMessage = "The value of 'sensorID' should not null, blank, or empty.";
 
-        // Assert
-        String actualMessage = exception.getMessage();
+    // Act + Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+        new SensorID(sensorID)
+    );
 
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
+    // Assert
+    String actualMessage = exception.getMessage();
 
-    /**
-     * Tests the ID getter
-     */
-    @Test
-    void shouldGetSensorID(){
-        // Arrange
-        String idDescription = "HXPTO";
-        SensorID sensorID = new SensorID(idDescription);
+    assertTrue(actualMessage.contains(expectedMessage));
+  }
 
-        String expected = "HXPTO";
+  /**
+   * Tests the ID getter
+   */
+  @Test
+  void shouldGetSensorID() {
+    // Arrange
+    String idDescription = "HXPTO";
+    SensorID sensorID = new SensorID(idDescription);
 
-        // Act
-        String result = sensorID.getID();
+    String expected = "HXPTO";
 
-        // Assert
-        assertEquals(expected, result);
-    }
+    // Act
+    String result = sensorID.getID();
 
-    /**
-     * Tests if a sensorID is equal to itself
-     */
-    @Test
-    void shouldReturnTrue_whenSensorIdIsEqualToItself(){
-        // Arrange
-        String idDescription = "HXPTO";
-        SensorID sensorID = new SensorID(idDescription);
+    // Assert
+    assertEquals(expected, result);
+  }
 
-        // Act
-        boolean result = sensorID.equals(sensorID);
+  /**
+   * Tests if a sensorID is equal to itself
+   */
+  @Test
+  void shouldReturnTrue_whenSensorIdIsEqualToItself() {
+    // Arrange
+    String idDescription = "HXPTO";
+    SensorID sensorID = new SensorID(idDescription);
 
-        // Assert
-        assertTrue(result);
-    }
+    // Act
+    boolean result = sensorID.equals(sensorID);
 
-    /**
-     * Tests if a sensorID1 is equal to a sensorID2 if the ID of both is the same
-     */
-    @Test
-    void shouldReturnTrue_whenSensorIdIsEqualToOtherSensorId(){
-        // Arrange
-        String idDescription = "HXPTO";
-        SensorID sensorID1 = new SensorID(idDescription);
-        SensorID sensorID2 = new SensorID(idDescription);
+    // Assert
+    assertTrue(result);
+  }
 
-        // Act
-        boolean result = sensorID1.equals(sensorID2);
+  /**
+   * Tests if a sensorID1 is equal to a sensorID2 if the ID of both is the same
+   */
+  @Test
+  void shouldReturnTrue_whenSensorIdIsEqualToOtherSensorId() {
+    // Arrange
+    String idDescription = "HXPTO";
+    SensorID sensorID1 = new SensorID(idDescription);
+    SensorID sensorID2 = new SensorID(idDescription);
 
-        // Assert
-        assertTrue(result);
-    }
+    // Act
+    boolean result = sensorID1.equals(sensorID2);
 
-    /**
-     * Tests if a sensorID1 is not equal to a sensorID2
-     */
-    @Test
-    void shouldReturnTrue_whenSensorIdIsNotEqualToAnotherSensorId(){
-        // Arrange
-        String idDescription1 = "HXPTO";
-        SensorID sensorID1 = new SensorID(idDescription1);
+    // Assert
+    assertTrue(result);
+  }
 
-        String idDescription2 = "HRTHD";
-        SensorID sensorID2 = new SensorID(idDescription2);
+  /**
+   * Tests if a sensorID1 is not equal to a sensorID2
+   */
+  @Test
+  void shouldReturnTrue_whenSensorIdIsNotEqualToAnotherSensorId() {
+    // Arrange
+    String idDescription1 = "HXPTO";
+    SensorID sensorID1 = new SensorID(idDescription1);
 
-        // Act
-        boolean result = sensorID1.equals(sensorID2);
+    String idDescription2 = "HRTHD";
+    SensorID sensorID2 = new SensorID(idDescription2);
 
-        // Assert
-        assertFalse(result);
-    }
+    // Act
+    boolean result = sensorID1.equals(sensorID2);
 
-    /**
-     * Tests if the sensorID is returned as an hashCode
-     */
-    @Test
-    void shouldReturnHashCode(){
-        // Arrange
-        String idDescription = "HXPTO";
-        SensorID sensorID = new SensorID(idDescription);
+    // Assert
+    assertFalse(result);
+  }
 
-        int expected = idDescription.hashCode();
+  /**
+   * Tests if the sensorID is returned as an hashCode
+   */
+  @Test
+  void shouldReturnHashCode() {
+    // Arrange
+    String idDescription = "HXPTO";
+    SensorID sensorID = new SensorID(idDescription);
 
-        // Act
-        int result = sensorID.hashCode();
+    int expected = idDescription.hashCode();
 
-        // Assert
-        assertEquals(expected, result);
-    }
+    // Act
+    int result = sensorID.hashCode();
 
-    /**
-     * Tests if the sensorID is returned as a string
-     */
-    @Test
-    void shouldReturnSensorID(){
-        // Arrange
-        String idDescription = "HXPTO";
-        SensorID sensorID = new SensorID(idDescription);
+    // Assert
+    assertEquals(expected, result);
+  }
 
-        String expected = idDescription;
+  /**
+   * Tests if the sensorID is returned as a string
+   */
+  @Test
+  void shouldReturnSensorID() {
+    // Arrange
+    String idDescription = "HXPTO";
+    SensorID sensorID = new SensorID(idDescription);
 
-        // Act
-        String result = sensorID.toString();
+    String expected = idDescription;
 
-        // Assert
-        assertEquals(expected, result);
-    }
+    // Act
+    String result = sensorID.toString();
 
-    /**
-     * Tests if equals method returns false when the object is not an instance of SensorID
-     */
-    @Test
-    void shouldReturnFalseWhenComparingSensorIDWithDifferentObject() {
-        // Arrange
-        String sensorID = "HXPTO";
-        SensorID sensorIDObject = new SensorID(sensorID);
+    // Assert
+    assertEquals(expected, result);
+  }
 
-        // Act
-        boolean result = sensorIDObject.equals(new Object());
+  /**
+   * Tests if equals method returns false when the object is not an instance of SensorID
+   */
+  @Test
+  void shouldReturnFalseWhenComparingSensorIDWithDifferentObject() {
+    // Arrange
+    String sensorID = "HXPTO";
+    SensorID sensorIDObject = new SensorID(sensorID);
 
-        // Assert
-        assertFalse(result);
-    }
+    // Act
+    boolean result = sensorIDObject.equals(new Object());
+
+    // Assert
+    assertFalse(result);
+  }
 }

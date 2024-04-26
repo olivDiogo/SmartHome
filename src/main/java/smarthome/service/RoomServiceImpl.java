@@ -7,12 +7,12 @@ import smarthome.domain.house.House;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IRoomService;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
+import smarthome.utils.Validator;
 
 public class RoomServiceImpl implements IRoomService {
 

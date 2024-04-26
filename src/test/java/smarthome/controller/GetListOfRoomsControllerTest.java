@@ -1,29 +1,30 @@
 package smarthome.controller;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
-import smarthome.domain.service.IRoomService;
-import smarthome.mapper.RoomAssembler;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
-import smarthome.utils.dto.RoomDTO;
-import smarthome.persistence.mem.HouseRepository;
-import smarthome.persistence.mem.RoomRepository;
-import smarthome.service.RoomServiceImpl;
+import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomName;
-
-import java.util.ArrayList;
-import java.util.List;
+import smarthome.mapper.RoomAssembler;
+import smarthome.persistence.mem.HouseRepository;
+import smarthome.persistence.mem.RoomRepository;
+import smarthome.service.RoomServiceImpl;
+import smarthome.utils.dto.RoomDTO;
 
 class GetListOfRoomsControllerTest {
 
@@ -92,7 +93,7 @@ class GetListOfRoomsControllerTest {
     String expectedMessage = "Room assembler is required";
 
     //Act
-   Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       GetListOfRoomsController getListOfRoomsController = new GetListOfRoomsController(
           roomServiceImpl, roomAssembler);
     });

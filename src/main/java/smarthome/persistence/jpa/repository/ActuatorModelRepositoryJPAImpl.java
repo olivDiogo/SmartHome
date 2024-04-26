@@ -1,19 +1,23 @@
 package smarthome.persistence.jpa.repository;
 
-import jakarta.persistence.*;
-import smarthome.domain.actuator_model.ActuatorModel;
-import smarthome.domain.repository.IActuatorModelRepository;
-import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
-import smarthome.domain.value_object.ActuatorTypeID;
-import smarthome.domain.value_object.ModelPath;
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
+import smarthome.domain.actuator_model.ActuatorModel;
+import smarthome.domain.repository.IActuatorModelRepository;
+import smarthome.domain.value_object.ActuatorTypeID;
+import smarthome.domain.value_object.ModelPath;
+import smarthome.persistence.assembler.IDataModelAssembler;
+import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
 
 public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository {
-  private EntityManagerFactory factory;
-  private IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelAssembler;
+
+  private final EntityManagerFactory factory;
+  private final IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelAssembler;
 
   /**
    * RepositoryActuatorModelJPAImpl constructor

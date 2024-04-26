@@ -4,19 +4,18 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import smarthome.domain.device_type.DeviceType;
-import smarthome.domain.repository.IDeviceTypeRepository;
-import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.DeviceTypeDataModel;
-import smarthome.domain.value_object.DeviceTypeID;
-
 import java.util.List;
 import java.util.Optional;
+import smarthome.domain.device_type.DeviceType;
+import smarthome.domain.repository.IDeviceTypeRepository;
+import smarthome.domain.value_object.DeviceTypeID;
+import smarthome.persistence.assembler.IDataModelAssembler;
+import smarthome.persistence.jpa.data_model.DeviceTypeDataModel;
 
 public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
 
-  private IDataModelAssembler<DeviceTypeDataModel, DeviceType> dataModelAssembler;
-  private EntityManagerFactory factory;
+  private final IDataModelAssembler<DeviceTypeDataModel, DeviceType> dataModelAssembler;
+  private final EntityManagerFactory factory;
 
   /**
    * Creates an instance of {@link DeviceTypeRepositoryJPAImpl} with the provided data model
@@ -36,8 +35,8 @@ public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
    */
   private void validateDataModelAssembler(
       IDataModelAssembler<DeviceTypeDataModel, DeviceType> entity) {
-    if (entity == null){
-        throw new IllegalArgumentException("Data model assembler cannot be null.");
+    if (entity == null) {
+      throw new IllegalArgumentException("Data model assembler cannot be null.");
     }
   }
 

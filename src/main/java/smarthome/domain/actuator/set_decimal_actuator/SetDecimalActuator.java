@@ -3,13 +3,13 @@ package smarthome.domain.actuator.set_decimal_actuator;
 import java.util.UUID;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.IActuator;
-import smarthome.utils.Validator;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DecimalLimits;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.utils.Validator;
 import smarthome.utils.visitor_pattern.IActuatorVisitor;
 
 /**
@@ -17,19 +17,13 @@ import smarthome.utils.visitor_pattern.IActuatorVisitor;
  */
 public class SetDecimalActuator implements IActuator {
 
-  private ActuatorID actuatorID;
-
   private final ActuatorName actuatorName;
-
   private final ModelPath modelPath;
-
   private final ActuatorTypeID actuatorTypeID;
-
   private final DeviceID deviceID;
-
-  private SetDecimalValue value;
-
   private final DecimalLimits limits;
+  private ActuatorID actuatorID;
+  private SetDecimalValue value;
 
   /**
    * Constructs a SetDecimalActuator object with the provided parameters.
@@ -230,7 +224,7 @@ public class SetDecimalActuator implements IActuator {
    */
   @Override
   public String toString() {
-    return "SetDecimalActuator:"+ "ActuatorID: "
+    return "SetDecimalActuator:" + "ActuatorID: "
         + actuatorID
         + ", ActuatorName: "
         + actuatorName

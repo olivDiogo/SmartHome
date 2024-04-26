@@ -1,15 +1,5 @@
 package smarthome.persistence.assembler;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.actuator_model.IActuatorModelFactory;
-import smarthome.domain.actuator_model.ActuatorModel;
-import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
-import smarthome.domain.value_object.ModelPath;
-import smarthome.domain.value_object.ActuatorModelName;
-import smarthome.domain.value_object.ActuatorTypeID;
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -17,9 +7,21 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import smarthome.domain.actuator_model.ActuatorModel;
+import smarthome.domain.actuator_model.IActuatorModelFactory;
+import smarthome.domain.value_object.ActuatorModelName;
+import smarthome.domain.value_object.ActuatorTypeID;
+import smarthome.domain.value_object.ModelPath;
+import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
+
 public class ActuatorModelDataModelAssemblerTest {
+
   /**
-   * Test to check if the ActuatorModelDataModelAssembler is instantiated when the ActuatorModelFactory is valid
+   * Test to check if the ActuatorModelDataModelAssembler is instantiated when the
+   * ActuatorModelFactory is valid
    */
   @Test
   void shouldThrowException_whenActuatorModelFactoryIsNull() {
@@ -29,7 +31,8 @@ public class ActuatorModelDataModelAssemblerTest {
     String expected = "Actuator Model Factory is required";
 
     // Act
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> new ActuatorModelDataModelAssembler(actuatorModelFactory));
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> new ActuatorModelDataModelAssembler(actuatorModelFactory));
 
     // Assert
     String actual = exception.getMessage();
@@ -38,7 +41,8 @@ public class ActuatorModelDataModelAssemblerTest {
   }
 
   /**
-   * Test to check if the ActuatorModelDataModelAssembler is instantiated when the ActuatorModelFactory is valid
+   * Test to check if the ActuatorModelDataModelAssembler is instantiated when the
+   * ActuatorModelFactory is valid
    */
   @Test
   void shouldInstantiateActuatorModelDataModelAssembler_whenActuatorModelFactoryIsValid() {
@@ -46,14 +50,16 @@ public class ActuatorModelDataModelAssemblerTest {
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
 
     // Act
-    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(actuatorModelFactory);
+    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(
+        actuatorModelFactory);
 
     // Assert
     assertNotNull(actuatorModelDataModelAssembler);
   }
 
   /**
-   * Test to check if the ActuatorModelDataModelAssembler is instantiated when the ActuatorModelFactory is valid
+   * Test to check if the ActuatorModelDataModelAssembler is instantiated when the
+   * ActuatorModelFactory is valid
    */
   @Test
   void shouldConvertActuatorModelDataModelToDomain_WhenActuatorModelDataModelIsValid() {
@@ -69,9 +75,11 @@ public class ActuatorModelDataModelAssemblerTest {
 
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
 
-    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(actuatorModelFactory);
+    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(
+        actuatorModelFactory);
 
-    ActuatorModel expected = actuatorModelFactory.createActuatorModel(actuatorModelNameDouble, modelPathDouble, actuatorTypeIDDouble);
+    ActuatorModel expected = actuatorModelFactory.createActuatorModel(actuatorModelNameDouble,
+        modelPathDouble, actuatorTypeIDDouble);
 
     //Act
     ActuatorModel result = actuatorModelDataModelAssembler.toDomain(actuatorModelDataModelDouble);
@@ -81,7 +89,8 @@ public class ActuatorModelDataModelAssemblerTest {
   }
 
   /**
-   * Test to check if the ActuatorModelDataModelAssembler throws an exception when the ActuatorModelDataModel is null
+   * Test to check if the ActuatorModelDataModelAssembler throws an exception when the
+   * ActuatorModelDataModel is null
    */
   @Test
   void shouldThrowException_WhenActuatorDataModelisNull() {
@@ -89,12 +98,14 @@ public class ActuatorModelDataModelAssemblerTest {
     ActuatorModelDataModel actuatorModelDataModel = null;
 
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
-    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(actuatorModelFactory);
+    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(
+        actuatorModelFactory);
 
     String expected = "Actuator Model Data Model is required";
 
     //Act
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorModelDataModelAssembler.toDomain(actuatorModelDataModel));
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> actuatorModelDataModelAssembler.toDomain(actuatorModelDataModel));
 
     //Assert
     String actual = exception.getMessage();
@@ -126,7 +137,8 @@ public class ActuatorModelDataModelAssemblerTest {
 
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
 
-    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(actuatorModelFactory);
+    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(
+        actuatorModelFactory);
 
     List<ActuatorModelDataModel> actuatorModelDataModelList = new ArrayList<>();
     actuatorModelDataModelList.add(actuatorModelDataModelDouble);
@@ -136,20 +148,23 @@ public class ActuatorModelDataModelAssemblerTest {
     ActuatorModel expected1 = mock(ActuatorModel.class);
     ActuatorModel expected2 = mock(ActuatorModel.class);
 
-    when(actuatorModelFactory.createActuatorModel(any(ActuatorModelName.class), any(ModelPath.class), any(ActuatorTypeID.class))).thenReturn(expected1, expected2);
+    when(
+        actuatorModelFactory.createActuatorModel(any(ActuatorModelName.class), any(ModelPath.class),
+            any(ActuatorTypeID.class))).thenReturn(expected1, expected2);
 
     List<ActuatorModel> expectedList = List.of(expected1, expected2);
 
-
     //Act
-    List<ActuatorModel> resultList = actuatorModelDataModelAssembler.toDomain(actuatorModelDataModelList);
+    List<ActuatorModel> resultList = actuatorModelDataModelAssembler.toDomain(
+        actuatorModelDataModelList);
 
     //Assert
     assertEquals(expectedList, resultList);
   }
 
   /**
-   * Test to check if the ActuatorModelDataModelAssembler throws an exception when the list of ActuatorModelDataModel is null
+   * Test to check if the ActuatorModelDataModelAssembler throws an exception when the list of
+   * ActuatorModelDataModel is null
    */
   @Test
   void shouldThrowException_WhenListOfActuatorModelDataModelsIsNull() {
@@ -157,12 +172,14 @@ public class ActuatorModelDataModelAssemblerTest {
     List<ActuatorModelDataModel> actuatorModelDataModelList = null;
 
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
-    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(actuatorModelFactory);
+    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(
+        actuatorModelFactory);
 
     String expected = "The list of actuator models cannot be null or empty.";
 
     //Act
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorModelDataModelAssembler.toDomain(actuatorModelDataModelList));
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> actuatorModelDataModelAssembler.toDomain(actuatorModelDataModelList));
 
     //Assert
     String actual = exception.getMessage();
@@ -170,7 +187,8 @@ public class ActuatorModelDataModelAssemblerTest {
   }
 
   /**
-   * Test to check if the ActuatorModelDataModelAssembler throws an exception when the list of ActuatorModelDataModel is empty
+   * Test to check if the ActuatorModelDataModelAssembler throws an exception when the list of
+   * ActuatorModelDataModel is empty
    */
   @Test
   void shouldThrowException_WhenListOfActuatorModelDataModelsIsEmpty() {
@@ -178,12 +196,14 @@ public class ActuatorModelDataModelAssemblerTest {
     List<ActuatorModelDataModel> actuatorModelDataModelList = new ArrayList<>();
 
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
-    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(actuatorModelFactory);
+    ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(
+        actuatorModelFactory);
 
     String expected = "The list of actuator models cannot be null or empty.";
 
     //Act
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorModelDataModelAssembler.toDomain(actuatorModelDataModelList));
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> actuatorModelDataModelAssembler.toDomain(actuatorModelDataModelList));
 
     //Assert
     String actual = exception.getMessage();

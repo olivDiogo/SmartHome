@@ -1,5 +1,6 @@
 package smarthome.domain.sensor.percentage_position_sensor;
 
+import java.util.UUID;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -7,10 +8,7 @@ import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.Validator;
-import smarthome.domain.value_object.*;
 import smarthome.utils.visitor_pattern.ISensorVisitor;
-
-import java.util.UUID;
 
 /**
  * Represents a percentage position sensor. This sensor measures the percentage position of an
@@ -18,20 +16,20 @@ import java.util.UUID;
  */
 public class PercentagePositionSensor implements ISensor {
 
-  private ModelPath modelPath;
-  private SensorName sensorName;
+  private final ModelPath modelPath;
+  private final SensorName sensorName;
   private SensorID sensorID;
-  private SensorTypeID sensorTypeID;
+  private final SensorTypeID sensorTypeID;
   private PercentagePositionSensorValue percentagePositionSensorValue;
-  private DeviceID deviceID;
+  private final DeviceID deviceID;
 
   /**
    * Constructs a PercentagePositionSensor with the given parameters.
    *
-   * @param deviceID The ID of the device.
-   * @param modelPath The model path of the sensor.
+   * @param deviceID     The ID of the device.
+   * @param modelPath    The model path of the sensor.
    * @param sensorTypeID The type ID of the sensor.
-   * @param sensorName The name of the sensor.
+   * @param sensorName   The name of the sensor.
    * @throws IllegalArgumentException if any of the parameters are null.
    */
   public PercentagePositionSensor(
@@ -50,11 +48,11 @@ public class PercentagePositionSensor implements ISensor {
   /**
    * Constructs a PercentagePositionSensor with the given parameters.
    *
-   * @param deviceID The ID of the device.
-   * @param modelPath The model path of the sensor.
+   * @param deviceID     The ID of the device.
+   * @param modelPath    The model path of the sensor.
    * @param sensorTypeID The type ID of the sensor.
-   * @param sensorName The name of the sensor.
-   * @param sensorID The ID of the sensor.
+   * @param sensorName   The name of the sensor.
+   * @param sensorID     The ID of the sensor.
    * @throws IllegalArgumentException if any of the parameters are null.
    */
   public PercentagePositionSensor(
@@ -76,7 +74,9 @@ public class PercentagePositionSensor implements ISensor {
     this.sensorID = sensorID;
   }
 
-  /** Generates a unique ID for the sensor. */
+  /**
+   * Generates a unique ID for the sensor.
+   */
   private void generatePercentageID() {
     this.sensorID = new SensorID(UUID.randomUUID().toString());
   }

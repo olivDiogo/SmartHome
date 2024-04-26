@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.blind_roller_actuator.BlindRollerValue;
-import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 import smarthome.utils.visitor_pattern.ActuatorVisitorForDataModelImpl;
 import smarthome.utils.visitor_pattern.IActuatorVisitor;
 
