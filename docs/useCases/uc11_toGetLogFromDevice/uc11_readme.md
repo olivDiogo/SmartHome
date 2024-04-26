@@ -10,7 +10,27 @@ The system will then return a list of all measurements recorded by the selected 
 
 ### 1.1. Use Case Description
 
-TBD
+    Use Case Name: To get a log of all measurements of a device in a room, in a given period.
+
+    Actor: Room Owner [or Power User, or Administrator]
+
+    Goal: To provide to the user a list of measurements of a device in a room, in a given period.
+
+    Preconditions:
+    The user must have selected a room and a device.
+
+    Trigger: The user selects an option to get the measurements for a specific device
+
+    Basic Flow:
+    1. The user selects a room.
+    2. The user selects a device.
+    2. The system provides to the user a list measurements for that device.
+
+    Alternative Flows:
+    1. The user selects a room that does not exist.
+    2. The user selects a device that does not exist.
+    3. The user selects a device that has no measurements.
+    4. The user selects a device and a period that has no measurements.
 
 ### 1.2. Dependency of other use cases
 This use case depends on UC03 and UC06.
@@ -31,4 +51,9 @@ This use case depends on UC03 and UC06.
 
 
 ### 2.3 Applied Patterns
-TBD
+- All classes have only one and well-defined responsibility.
+- A controller receives and coordinates system operations connecting the UI layer to the App's logic layer.
+- The flow of this process is entirely made following this principle: for a particular responsibility, it is determined the information needed to fulfill it and where that information is stored.
+- Services that represent a concept outside the problem's domain, but they have set of responsibilities designed to achieve low coupling, high cohesion and the potential for reuse.
+- Dependencies between classes are at their lowest point possible. The use of Services classes reduced the dependency level between them.
+- Due to low coupling, the responsibilities of each class are highly focused, therefore cohesion's high.

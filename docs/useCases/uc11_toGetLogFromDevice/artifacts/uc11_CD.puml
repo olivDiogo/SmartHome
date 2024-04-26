@@ -1,4 +1,13 @@
 @startuml
+class MyClass {
+    -privateAttribute
+    +publicMethod()
+}
+
+note right of MyClass : This is a note\nto explain MyClass.
+@enduml
+
+@startuml
 !pragma layout smetana
 
 class GetLogFromDeviceController {
@@ -11,18 +20,15 @@ class GetLogFromDeviceController {
  + getLogsFromDevice(logDataDto : LogDataDTO): List<LogDTO>
 }
 
+note right of GetLogFromDeviceController: Ref UC06:  I want to get a list all devices in a room.
 
-class DeviceServiceImpl {
-- deviceRepository: IDeviceRepository
-
-'+DeviceServiceImpl(deviceRepository: IDeviceRepository, deviceFactory: IDeviceFactory, roomRepository: IRoomRepository)
-+getDevicesByID(deviceId: DeviceID): Optional<Device>
+class DatePeriod {
+ - startDate: LocalDateTime
+ - endDate: LocalDateTime
 }
 
-class DeviceRepository {
-- DATA: Map<DeviceID, Device>
-
-+ ofIdentity(deviceId: DeviceID): Optional<Device>
+class DeviceID {
+ - id: String
 }
 
 class LogServiceImpl {
@@ -52,9 +58,9 @@ class LogDTO {
 
 
 GetLogFromDeviceController "1" -down-> "1" LogServiceImpl : uses
-GetLogFromDeviceController "1" -down-> "1" DeviceServiceImpl : uses
+GetLogFromDeviceController "1" --> "1" DatePeriod : creates
+GetLogFromDeviceController "1" --> "1" DeviceID : creates
 LogServiceImpl "1" -down-> "1" LogRepository : uses
-DeviceServiceImpl "1" -down-> "1" DeviceRepository : uses
 LogServiceImpl "1" -down-> "1" LogAssembler : uses
 LogAssembler "1" -down-> "*" LogDTO : creates
 
