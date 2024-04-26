@@ -21,7 +21,7 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
      * @param name the actuator type name, must not be null
      * @param unit the unit of the actuator type, must not be null
      */
-    public ActuatorType(TypeDescription name, UnitID unit) {
+    ActuatorType(TypeDescription name, UnitID unit) {
       Validator.validateNotNull(name, "Type Description");
       Validator.validateNotNull(unit, "Unit ID");
         generateID(name);

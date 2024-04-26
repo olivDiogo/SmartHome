@@ -33,8 +33,11 @@ import static org.mockito.Mockito.when;
     ModelPath modelPath = mock(ModelPath.class);
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
-    ActuatorModel actuatorModel =
-        new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+    ActuatorModel actuatorModel = mock(ActuatorModel.class);
+
+    when(actuatorModel.getActuatorModelName()).thenReturn(actuatorModelName);
+    when(actuatorModel.getID()).thenReturn(modelPath);
+    when(actuatorModel.getActuatorTypeID()).thenReturn(actuatorTypeID);
     // Act
     ActuatorModelDataModel actuatorModelDataModel = new ActuatorModelDataModel(actuatorModel);
     // Assert

@@ -42,7 +42,7 @@ public class Unit implements IAggregateRoot<UnitID> {
      * @param unitID          The unique identifier for the measurement type, not null.
      * @throws IllegalArgumentException if either the unit description, measurement unit, or unit ID is null.
      */
-   public Unit(UnitDescription unitDescription, UnitSymbol unitSymbol, UnitID unitID) {
+   Unit(UnitDescription unitDescription, UnitSymbol unitSymbol, UnitID unitID) {
         Validator.validateNotNull(unitDescription, "UnitDescription");
         Validator.validateNotNull(unitSymbol, "UnitSymbol");
         Validator.validateNotNull(unitID, "UnitID");

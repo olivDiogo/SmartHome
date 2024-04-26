@@ -18,7 +18,7 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
      * @param modelPath       The path to the model.
      * @param sensorTypeID    The ID of the sensor type.
      */
-    public SensorModel(
+    SensorModel(
             SensorModelName sensorModelName, ModelPath modelPath, SensorTypeID sensorTypeID) {
       Validator.validateNotNull(sensorModelName, "SensorModelName");
       Validator.validateNotNull(modelPath, "ModelPath");

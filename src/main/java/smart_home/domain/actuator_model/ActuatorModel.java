@@ -20,7 +20,7 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
    * @param actuatorModelName The name of the actuator model
    * @param modelPath The path to the model
    */
-  public ActuatorModel(
+  ActuatorModel(
       ActuatorModelName actuatorModelName, ModelPath modelPath, ActuatorTypeID actuatorTypeID) {
     Validator.validateNotNull(actuatorModelName, "ActuatorModelName");
     Validator.validateNotNull(modelPath, "ModelPath");
