@@ -6,8 +6,6 @@ participant ":GetListOfAllMeasurementsOfOneDeviceController" as Controller
 
 participant "period:DatePeriod" as DatePeriod
 participant "deviceID:DeviceID" as DeviceID
-participant ":DeviceService" as DeviceService
-participant ":DeviceRepository" as DeviceRepository
 participant ":LogService" as LogService
 participant ":LogRepository" as Repository
 participant ":LogAssembler" as Assembler
@@ -40,15 +38,6 @@ activate DeviceID
 DeviceID --> Controller: deviceID
 deactivate DeviceID
 
-'getDeviceById -> if device is not present, return empty optional
-Controller -> DeviceService: getDeviceById(deviceID)
-activate DeviceService
-DeviceService -> DeviceRepository: getDeviceById(deviceID)
-activate DeviceRepository
-DeviceRepository --> DeviceService: optionalDevice
-deactivate DeviceRepository
-DeviceService --> Controller: optionalDevice
-deactivate DeviceService
 
 'getAllMeasurementsOfDeviceInGivenPeriod -> getStartDate, getEndDate
 Controller -> LogService: getDeviceReadingsByTimePeriod (deviceID, period)
