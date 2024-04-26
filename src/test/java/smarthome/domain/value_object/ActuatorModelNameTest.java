@@ -92,13 +92,17 @@ class ActuatorModelNameTest {
   @Test
   void shouldReturnTrue_whenComparingActuatorModelNameWithItself() {
     // Arrange
+    ActuatorModelName actuatorModelName;
     String name = "ActuatorModelName";
 
+
+    actuatorModelName = new ActuatorModelName(name);
+
     // Act
-    ActuatorModelName actuatorModelName = new ActuatorModelName(name);
+    boolean result = actuatorModelName.equals(actuatorModelName);
 
     // Assert
-    assertEquals(actuatorModelName, actuatorModelName);
+    assertTrue(result);
   }
 
   /**
@@ -144,14 +148,16 @@ class ActuatorModelNameTest {
   @Test
   void shouldReturnFalse_whenComparingActuatorModelNameWithDifferentObject() {
     // Arrange
-    ActuatorModelName ActuatorModelName;
+    ActuatorModelName actuatorModelName;
     String name = "ActuatorModelName";
 
+    actuatorModelName = new ActuatorModelName(name);
+
     // Act
-    ActuatorModelName = new ActuatorModelName(name);
+    boolean result = actuatorModelName.equals(new Object());
 
     // Assert
-    assertNotEquals(ActuatorModelName, name);
+    assertFalse(result);
   }
 
   /**

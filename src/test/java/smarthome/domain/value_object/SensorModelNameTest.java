@@ -93,12 +93,13 @@ class SensorModelNameTest {
     // Arrange
     SensorModelName sensorModelName;
     String name = "SensorModelName";
-
-    // Act
     sensorModelName = new SensorModelName(name);
 
+    // Act
+    boolean result = sensorModelName.equals(sensorModelName);
+
     // Assert
-    assertEquals(sensorModelName, sensorModelName);
+    assertTrue(result);
   }
 
   /**
@@ -146,12 +147,13 @@ class SensorModelNameTest {
     // Arrange
     SensorModelName sensorModelName;
     String name = "SensorModelName";
-
-    // Act
     sensorModelName = new SensorModelName(name);
 
+    // Act
+    boolean result = sensorModelName.equals(new Object());
+
     // Assert
-    assertNotEquals(sensorModelName, name);
+    assertFalse(result);
   }
 
   /**

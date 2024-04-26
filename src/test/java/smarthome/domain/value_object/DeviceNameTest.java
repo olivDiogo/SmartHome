@@ -149,12 +149,12 @@ class DeviceNameTest {
   void shouldReturnTrue_whenComparingTheSameDeviceName() {
     // Arrange
     String deviceName = "Living Room 2";
-
-    // Act
     DeviceName deviceNameObject = new DeviceName(deviceName);
+    // Act
+    boolean result = deviceNameObject.equals(deviceNameObject);
 
     // Assert
-    assertEquals(deviceNameObject, deviceNameObject);
+    assertTrue(result);
   }
 
   /**
