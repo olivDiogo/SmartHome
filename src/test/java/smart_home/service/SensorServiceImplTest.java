@@ -7,6 +7,7 @@ import smart_home.domain.sensor.ISensorFactory;
 import smart_home.persistence.mem.DeviceRepository;
 import smart_home.persistence.mem.SensorRepository;
 import smart_home.value_object.DeviceID;
+import smart_home.value_object.DeviceStatus;
 import smart_home.value_object.ModelPath;
 import smart_home.value_object.SensorName;
 import smart_home.value_object.SensorTypeID;
@@ -102,8 +103,11 @@ class SensorServiceImplTest {
     SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
     SensorName sensorName = new SensorName("sensorName");
     Device mockDevice = mock(Device.class);
+    DeviceStatus mockDeviceStatus = mock(DeviceStatus.class);
 
     when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
+    when(mockDevice.getDeviceStatus()).thenReturn(mockDeviceStatus);
+    when(mockDeviceStatus.getStatus()).thenReturn(true);
 
     ISensor mockSensor = mock(ISensor.class);
 
@@ -139,8 +143,45 @@ class SensorServiceImplTest {
 
     when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
 
+    String expectedMessage = "Device with ID " + deviceID + " not found.";
+
     // Act Assert
-    assertThrows(IllegalArgumentException.class,
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
         () -> sensorServiceImpl.addSensor(deviceID, modelPath, sensorTypeID, sensorName));
+
+    // Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
+
+  /**
+   * Test method addSensor To trow exception when device is deactivated
+   */
+  @Test
+  void shouldThrowException_whenDeviceIsOff() {
+    // Arrange
+    SensorRepository sensorRepository = mock(SensorRepository.class);
+    ISensorFactory sensorFactory = mock(ISensorFactory.class);
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+
+    SensorServiceImpl sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory,
+        deviceRepository);
+
+    DeviceID deviceID = new DeviceID("deviceID");
+    ModelPath modelPath = new ModelPath("modelPath");
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+    SensorName sensorName = new SensorName("sensorName");
+    Device mockDevice = mock(Device.class);
+    DeviceStatus mockDeviceStatus = mock(DeviceStatus.class);
+
+    when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
+    when(mockDevice.getDeviceStatus()).thenReturn(mockDeviceStatus);
+    when(mockDeviceStatus.getStatus()).thenReturn(false);
+
+    // Act Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> sensorServiceImpl.addSensor(deviceID, modelPath, sensorTypeID, sensorName));
+
+    // Assert
+    assertEquals("Device with ID " + deviceID + " is deactivated.", exception.getMessage());
   }
 }

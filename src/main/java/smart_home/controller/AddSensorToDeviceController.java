@@ -36,7 +36,6 @@ public class AddSensorToDeviceController {
      * @param sensorService is the sensor service.
      */
     public AddSensorToDeviceController(
-
             ISensorModelService sensorModelService,
             IAssembler<SensorModel, SensorModelDTO> sensorModelAssembler,
             ISensorTypeService sensorTypeService,
@@ -44,14 +43,12 @@ public class AddSensorToDeviceController {
             IAssembler<ISensor, SensorDTO> sensorAssembler,
             ISensorService sensorService) {
 
-
       Validator.validateNotNull(sensorModelService, "Sensor model service");
       Validator.validateNotNull(sensorModelAssembler, "Sensor model assembler");
       Validator.validateNotNull(sensorTypeService, "Sensor type service");
       Validator.validateNotNull(sensorTypeAssembler, "Sensor type assembler");
       Validator.validateNotNull(sensorAssembler, "Sensor assembler");
       Validator.validateNotNull(sensorService, "Sensor service");
-
 
       this.sensorModelService = sensorModelService;
       this.sensorModelAssembler = sensorModelAssembler;

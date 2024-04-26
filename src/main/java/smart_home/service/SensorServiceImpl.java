@@ -56,6 +56,9 @@ public class SensorServiceImpl implements ISensorService {
     if (deviceOptional.isEmpty()) {
       throw new IllegalArgumentException("Device with ID " + deviceID + " not found.");
     }
+    if (!deviceOptional.get().getDeviceStatus().getStatus()) {
+      throw new IllegalArgumentException("Device with ID " + deviceID + " is deactivated.");
+    }
 
     ISensor sensor = sensorFactory.create(parameters);
     sensorRepository.save(sensor);

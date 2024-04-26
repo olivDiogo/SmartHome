@@ -182,7 +182,6 @@ class AddSensorToDeviceControllerTest {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -193,112 +192,6 @@ class AddSensorToDeviceControllerTest {
     // Assert
     assertNotNull(addSensorToDeviceController);
   }
-
-//  /**
-//   * Test to check if the AddSensorToDeviceController is returning null when the RoomService is
-//   * null.
-//   */
-//  @Test
-//  void shouldThrowException_whenRoomServiceIsNull() throws InstantiationException {
-//    // Arrange
-//    RoomServiceImpl roomServiceImpl = null;
-//    String message = "Room service is required";
-//    // Act
-//    IllegalArgumentException exception =
-//        assertThrows(
-//            IllegalArgumentException.class,
-//            () ->
-//                new AddSensorToDeviceController(
-//
-//                    sensorModelServiceImpl,
-//                    sensorModelAssembler,
-//                    sensorTypeServiceImpl,
-//                    sensorTypeAssembler,
-//                    sensorAssembler,
-//                    sensorServiceImpl));
-//    // Assert
-//    assertEquals(message, exception.getMessage());
-//  }
-//
-//  /**
-//   * Test to check if the AddSensorToDeviceController is returning null when the RoomAssembler is
-//   * null.
-//   */
-//  @Test
-//  void shouldThrowException_whenRoomAssemblerIsNull() throws InstantiationException {
-//    // Arrange
-//    RoomAssembler roomAssembler = null;
-//    String message = "Room assembler is required";
-//
-//    // Act
-//    IllegalArgumentException exception =
-//        assertThrows(
-//            IllegalArgumentException.class,
-//            () ->
-//                new AddSensorToDeviceController(
-//
-//                    sensorModelServiceImpl,
-//                    sensorModelAssembler,
-//                    sensorTypeServiceImpl,
-//                    sensorTypeAssembler,
-//                    sensorAssembler,
-//                    sensorServiceImpl));
-//    // Assert
-//    assertEquals(message, exception.getMessage());
-//  }
-//
-//  /**
-//   * Test to check if the AddSensorToDeviceController is returning null when the DeviceService is
-//   * null.
-//   */
-//  @Test
-//  void shouldThrowException_whenDeviceServiceIsNull() throws InstantiationException {
-//    // Arrange
-//    DeviceServiceImpl deviceServiceImpl = null;
-//    String message = "Device service is required";
-//
-//    // Act
-//    IllegalArgumentException exception =
-//        assertThrows(
-//            IllegalArgumentException.class,
-//            () ->
-//                new AddSensorToDeviceController(
-//
-//                    sensorModelServiceImpl,
-//                    sensorModelAssembler,
-//                    sensorTypeServiceImpl,
-//                    sensorTypeAssembler,
-//                    sensorAssembler,
-//                    sensorServiceImpl));
-//    // Assert
-//    assertEquals(message, exception.getMessage());
-//  }
-//
-//  /**
-//   * Test to check if the AddSensorToDeviceController is returning null when the DeviceAssembler is
-//   * null.
-//   */
-//  @Test
-//  void shouldThrowException_whenDeviceAssemblerIsNull() throws InstantiationException {
-//    // Arrange
-//    DeviceAssembler deviceAssembler = null;
-//    String message = "Device assembler is required";
-//    // Act
-//    IllegalArgumentException exception =
-//        assertThrows(
-//            IllegalArgumentException.class,
-//            () ->
-//                new AddSensorToDeviceController(
-//
-//                    sensorModelServiceImpl,
-//                    sensorModelAssembler,
-//                    sensorTypeServiceImpl,
-//                    sensorTypeAssembler,
-//                    sensorAssembler,
-//                    sensorServiceImpl));
-//    // Assert
-//    assertEquals(message, exception.getMessage());
-//  }
 
   /**
    * Test to check if the AddSensorToDeviceController is returning null when the SensorModelService
@@ -314,7 +207,6 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-
                     null,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -339,7 +231,6 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-
                     sensorModelServiceImpl,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -365,7 +256,6 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-
                     sensorModelServiceImpl,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -391,7 +281,6 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-
                     sensorModelServiceImpl,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -418,7 +307,6 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-
                     sensorModelServiceImpl,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -445,7 +333,6 @@ class AddSensorToDeviceControllerTest {
             IllegalArgumentException.class,
             () ->
                 new AddSensorToDeviceController(
-
                     sensorModelServiceImpl,
                     sensorModelAssembler,
                     sensorTypeServiceImpl,
@@ -481,7 +368,6 @@ class AddSensorToDeviceControllerTest {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -521,7 +407,6 @@ class AddSensorToDeviceControllerTest {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -540,6 +425,45 @@ class AddSensorToDeviceControllerTest {
   }
 
   /**
+   * Test to check if the AddSensorToDeviceController is returning a list of sensor models when the
+   * sensor model list is null.
+   */
+  @Test
+void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationException {
+    // Arrange
+    TypeDescription typeDescription = new TypeDescription("Temperature");
+    UnitDescription unitDescription = new UnitDescription("Celsius");
+    UnitID unitID = new UnitID("Celsius");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+    UnitSymbol unitSymbol = new UnitSymbol("C");
+    UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
+    unitServiceImpl.addMeasurementType(unitDescription, unitSymbol);
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
+    sensorTypeServiceImpl.addSensorType(sensorType);
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+    when(sensorModelRepository.findBySensorTypeId(sensorType.getID())).thenReturn(null);
+
+    // Act
+    AddSensorToDeviceController addSensorToDeviceController =
+        new AddSensorToDeviceController(
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
+    SensorTypeDTO sensorTypeDTO = sensorTypeAssembler.domainToDTO(sensorType);
+
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> addSensorToDeviceController.getSensorModels(sensorTypeDTO));
+
+    // Assert
+    assertEquals("No sensor models found.", exception.getMessage());
+}
+
+  /**
    * Test if exception is thrown when there are no sensor types in the repository.
    *
    * @throws InstantiationException
@@ -549,7 +473,6 @@ class AddSensorToDeviceControllerTest {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -583,7 +506,6 @@ class AddSensorToDeviceControllerTest {
     //Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -621,7 +543,6 @@ class AddSensorToDeviceControllerTest {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -667,7 +588,6 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -709,7 +629,6 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -756,7 +675,6 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -799,7 +717,6 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -842,7 +759,6 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -885,7 +801,6 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -931,7 +846,6 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -977,7 +891,6 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -1021,7 +934,6 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -1058,7 +970,6 @@ class AddSensorToDeviceControllerTest {
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
-
             sensorModelServiceImpl,
             sensorModelAssembler,
             sensorTypeServiceImpl,
@@ -1074,5 +985,51 @@ class AddSensorToDeviceControllerTest {
 
     // Assert
     assertEquals(exception.getMessage(), "Sensor data DTO is required");
+  }
+
+  /** Test addSensorToDevice method with device status is deactivated */
+  @Test
+  void shouldThrowException_whenDeviceStatusIsOff() throws InstantiationException {
+    // Arrange
+     loadModelsAndUnit();
+    House house = loadHouse();
+    Room room = loadRoom(house.getID());
+    Device device = loadDevice(room.getID());
+
+    deviceServiceImpl.deactivateDeviceByID(device.getID());
+
+    TypeDescription typeDescription = new TypeDescription("Temperature");
+    UnitID unitID = new UnitID("Celsius");
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+
+    SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
+    sensorTypeServiceImpl.addSensorType(sensorType);
+
+    String modelPath = "smart_home.domain.sensor.temperature_sensor.TemperatureSensor";
+    String sensorName = "Sensor";
+
+    sensorTypeAssembler.domainToDTO(sensorType);
+
+    SensorDataGenericDTOImp sensorDataGenericDTOImp =
+        new SensorDataGenericDTOImp(
+            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+
+    AddSensorToDeviceController addSensorToDeviceController =
+        new AddSensorToDeviceController(
+            sensorModelServiceImpl,
+            sensorModelAssembler,
+            sensorTypeServiceImpl,
+            sensorTypeAssembler,
+            sensorAssembler,
+            sensorServiceImpl);
+
+    // Act
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp));
+
+    // Assert
+    assertEquals("Device with ID "  + device.getID() +  " is deactivated.", exception.getMessage());
   }
 }
