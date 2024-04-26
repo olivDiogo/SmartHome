@@ -65,7 +65,7 @@ class DeviceAssemblerTest {
         Device device = null;
         DeviceAssembler deviceAssembler = new DeviceAssembler();
 
-        String expectedMessage = "The Device cannot be null.";
+        String expectedMessage = "Device is required";
 
         //Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> deviceAssembler.domainToDTO(device));

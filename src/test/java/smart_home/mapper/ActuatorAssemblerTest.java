@@ -65,13 +65,12 @@ class ActuatorAssemblerTest {
         IActuator actuatorDouble = null;
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
 
-        //Act
-        try {
-            actuatorAssembler.domainToDTO(actuatorDouble);
-        } catch (IllegalArgumentException e) {
-            //Assert
-            assertEquals("The Actuator cannot be null.", e.getMessage());
-        }
+        String expectedMessage = "Actuator is required";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorAssembler.domainToDTO(actuatorDouble));
+        assertEquals(expectedMessage, exception.getMessage());
+
     }
 
     /**
@@ -145,13 +144,11 @@ class ActuatorAssemblerTest {
         List<IActuator> actuators = null;
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
 
-        //Act
-        try {
-            actuatorAssembler.domainToDTO(actuators);
-        } catch (IllegalArgumentException e) {
-            //Assert
-            assertEquals("The list of Actuators cannot be null or empty.", e.getMessage());
-        }
+        String expectedMessage = "The list of Actuators cannot be null or empty.";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorAssembler.domainToDTO(actuators));
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -163,12 +160,12 @@ class ActuatorAssemblerTest {
         List<IActuator> actuators = List.of();
         ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
 
-        //Act
-        try {
-            actuatorAssembler.domainToDTO(actuators);
-        } catch (IllegalArgumentException e) {
-            //Assert
-            assertEquals("The list of Actuators cannot be null or empty.", e.getMessage());
-        }
+        String expectedMessage = "The list of Actuators cannot be null or empty.";
+
+        //Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorAssembler.domainToDTO(actuators));
+        assertEquals(expectedMessage, exception.getMessage());
+
+
     }
 }

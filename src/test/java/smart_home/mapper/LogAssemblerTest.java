@@ -208,6 +208,8 @@ class LogAssemblerTest {
         //Assert
         assertEquals(expected.toString(), result.toString());
     }
+
+
 }
 
 

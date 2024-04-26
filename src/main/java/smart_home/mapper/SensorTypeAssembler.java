@@ -3,6 +3,7 @@ package smart_home.mapper;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.sensor_type.SensorType;
 import smart_home.dto.SensorTypeDTO;
+import smart_home.utils.Validator;
 
 import java.util.List;
 
@@ -15,8 +16,7 @@ public class SensorTypeAssembler implements IAssembler<SensorType, SensorTypeDTO
      * @return a {@link SensorTypeDTO} data transfer object.
      */
     public SensorTypeDTO domainToDTO(SensorType sensorType) {
-        if (sensorType == null)
-            throw new IllegalArgumentException("Sensor type cannot be null.");
+        Validator.validateNotNull(sensorType, "Sensor Type");
 
         String sensorTypeID = sensorType.getID().toString();
         String sensorTypeDescription = sensorType.getName().toString();

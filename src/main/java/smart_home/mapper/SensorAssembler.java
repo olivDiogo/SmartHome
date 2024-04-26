@@ -3,6 +3,7 @@ package smart_home.mapper;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.sensor.ISensor;
 import smart_home.dto.SensorDTO;
+import smart_home.utils.Validator;
 
 import java.util.List;
 
@@ -17,8 +18,7 @@ public class SensorAssembler implements IAssembler<ISensor, SensorDTO> {
      */
     @Override
     public SensorDTO domainToDTO(ISensor sensor) {
-        if (sensor == null)
-            throw new IllegalArgumentException("Sensor cannot be null.");
+        Validator.validateNotNull(sensor, "Sensor");
 
         String deviceID = sensor.getDeviceID().toString();
         String modelPath = sensor.getModelPath().toString();

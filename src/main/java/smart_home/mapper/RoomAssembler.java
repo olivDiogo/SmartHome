@@ -3,6 +3,7 @@ package smart_home.mapper;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.room.Room;
 import smart_home.dto.RoomDTO;
+import smart_home.utils.Validator;
 
 import java.util.List;
 
@@ -18,9 +19,7 @@ public class RoomAssembler implements IAssembler<Room, RoomDTO> {
     @Override
     public RoomDTO domainToDTO(Room room) {
 
-        if (room == null) {
-            throw new IllegalArgumentException("The Room cannot be null.");
-        }
+        Validator.validateNotNull(room, "Room");
 
         String roomName = room.getRoomName().toString();
         String dimension = room.getDimension().toString();
@@ -39,8 +38,8 @@ public class RoomAssembler implements IAssembler<Room, RoomDTO> {
      */
     @Override
     public List<RoomDTO> domainToDTO(List<Room> rooms) {
-        if (rooms == null || rooms.isEmpty() || rooms.contains(null)) {
-            throw new IllegalArgumentException("The list of Rooms cannot be null.");
+        if (rooms == null || rooms.isEmpty()) {
+            throw new IllegalArgumentException("The list of Rooms cannot be null or empty.");
         }
 
         List<RoomDTO> roomsDTO = rooms.stream().map(this::domainToDTO).toList();

@@ -59,9 +59,12 @@ class SensorModelAssemblerTest {
     SensorModel sensorModel = null;
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
 
+    String expected = "Sensor Model is required";
+
     // Act and Assert
-    assertThrows(
+    Exception exception = assertThrows(
         IllegalArgumentException.class, () -> sensorModelAssembler.domainToDTO(sensorModel));
+    assertEquals(expected, exception.getMessage());
   }
 
   /**
@@ -133,13 +136,12 @@ class SensorModelAssemblerTest {
     // Arrange
     List<SensorModel> sensorModels = null;
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+    String expected = "The list of Sensor Models cannot be null or empty.";
 
-    // Act
+    // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
       sensorModelAssembler.domainToDTO(sensorModels);
     });
-    //Assert
-    String expected = "The list of Sensor Models cannot be null or empty.";
     String result = exception.getMessage();
     assertEquals(expected, result);
   }
@@ -153,16 +155,15 @@ class SensorModelAssemblerTest {
     // Arrange
     List<SensorModel> sensorModels = List.of();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+    String expected = "The list of Sensor Models cannot be null or empty.";
 
-    // Act
+    // Act & Assert
     IllegalArgumentException exception =
         assertThrows(
             IllegalArgumentException.class,
             () -> {
               sensorModelAssembler.domainToDTO(sensorModels);
             });
-    // Assert
-    String expected = "The list of Sensor Models cannot be null or empty.";
     String result = exception.getMessage();
     assertEquals(expected, result);
     }

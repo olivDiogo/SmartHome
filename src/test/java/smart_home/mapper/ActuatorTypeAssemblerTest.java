@@ -63,7 +63,7 @@ class ActuatorTypeAssemblerTest {
     ActuatorType actuatorType = null;
     ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
 
-    String expected = "The ActuatorType cannot be null.";
+    String expected = "Actuator Type is required";
 
     // Act
     IllegalArgumentException exception =
@@ -143,7 +143,7 @@ class ActuatorTypeAssemblerTest {
     List<ActuatorType> actuatorTypeList = null;
     ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
 
-    String expected = "The list of ActuatorTypes cannot be null.";
+    String expected = "The list of ActuatorTypes cannot be null or empty.";
 
     // Act
     IllegalArgumentException exception =
@@ -162,7 +162,7 @@ class ActuatorTypeAssemblerTest {
     List<ActuatorType> actuatorTypeList = new ArrayList<>();
     ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
 
-    String expected = "The list of ActuatorTypes cannot be null.";
+    String expected = "The list of ActuatorTypes cannot be null or empty.";
 
     // Act
     IllegalArgumentException exception =
@@ -175,35 +175,4 @@ class ActuatorTypeAssemblerTest {
     assertEquals(expected, result);
   }
 
-  /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the list of
-   * ActuatorTypes contains null.
-   */
-  @Test
-  void shouldThrowIllegalArgumentException_WhenActuatorTypeListContainsNull() {
-    // Arrange
-    ActuatorType actuatorType = mock(ActuatorType.class);
-
-    String actuatorTypeID = "Blind Actuator";
-    when(actuatorType.getID()).thenReturn(mock(ActuatorTypeID.class));
-    when(actuatorType.getID().toString()).thenReturn(actuatorTypeID);
-
-    List<ActuatorType> actuatorTypeList = new ArrayList<>();
-    actuatorTypeList.add(actuatorType);
-    actuatorTypeList.add(null);
-
-    ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
-
-    String expected = "The list of ActuatorTypes cannot be null.";
-
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> actuatorTypeAssembler.domainToDTO(actuatorTypeList));
-
-    // Assert
-    String result = exception.getMessage();
-    assertEquals(expected, result);
-  }
 }

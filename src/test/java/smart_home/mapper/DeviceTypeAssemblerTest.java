@@ -14,9 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/** Test class for DeviceTypeAssembler. */
+
 class DeviceTypeAssemblerTest {
 
+  /**
+   * Test if the domainToDTO method returns a DeviceTypeDTO object when the device type is valid.
+   */
   @Test
   void shouldReturnDeviceTypeAssemblerDTO_WhenDeviceTypeIsValid() {
     // Arrange
@@ -37,58 +40,60 @@ class DeviceTypeAssemblerTest {
     assertEquals(expected, deviceTypeDTO.toString());
   }
 
+  /**
+   * Test if the domainToDTO method throws an IllegalArgumentException when the DeviceType is null.
+   */
   @Test
   void shouldThrowIllegalArgumentException_WhenDeviceTypeIsNull() {
     // Arrange
     DeviceType deviceType = null;
     DeviceTypeAssembler deviceTypeAssembler = new DeviceTypeAssembler();
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              deviceTypeAssembler.domainToDTO(deviceType);
-            });
-    // Assert
-    assertEquals("The DeviceType cannot be null.", exception.getMessage());
+
+    String expectedMessage = "DeviceType is required";
+
+    // Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {deviceTypeAssembler.domainToDTO(deviceType);});
+    assertEquals(expectedMessage, exception.getMessage());
   }
 
+  /**
+   * Test if the domainToDTO method throws an IllegalArgumentException when the list of DeviceTypes is null.
+   */
   @Test
   void shouldThrowIllegalArgumentException_WhenDeviceTypeListIsNull() {
     // Arrange
     List<DeviceType> deviceTypes = null;
     DeviceTypeAssembler deviceTypeAssembler = new DeviceTypeAssembler();
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              deviceTypeAssembler.domainToDTO(deviceTypes);
-            });
-    // Assert
-    assertEquals(
-        "The list of DeviceTypes cannot be null, empty, or contain null elements.",
-        exception.getMessage());
+
+    String expectedMessage = "The list of DeviceTypes cannot be null, empty";
+
+    // Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {deviceTypeAssembler.domainToDTO(deviceTypes);});
+    assertEquals(expectedMessage, exception.getMessage());
+
   }
 
+  /**
+   * Test if the domainToDTO method throws an IllegalArgumentException when the list of DeviceTypes is empty.
+   */
   @Test
   void shouldThrowIllegalArgumentException_WhenDeviceTypeListIsEmpty() {
     // Arrange
     List<DeviceType> deviceTypes = List.of();
     DeviceTypeAssembler deviceTypeAssembler = new DeviceTypeAssembler();
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              deviceTypeAssembler.domainToDTO(deviceTypes);
-            });
-    // Assert
-    assertEquals(
-        "The list of DeviceTypes cannot be null, empty, or contain null elements.",
-        exception.getMessage());
+
+    String expectedMessage = "The list of DeviceTypes cannot be null, empty";
+
+    // Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+      deviceTypeAssembler.domainToDTO(deviceTypes);
+    });
+    assertEquals(expectedMessage, exception.getMessage());
   }
 
+  /**
+   * Test if the domainToDTO method returns a list of DeviceTypeDTO objects when the list of device types is valid.
+   */
   @Test
   void shouldReturnDeviceTypeAssemblerDTO_WhenDeviceTypeListIsValid() {
     // Arrange

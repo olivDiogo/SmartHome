@@ -31,6 +31,11 @@ public class LogAssembler implements IAssembler<Log, LogDTO> {
         return new LogDTO(logID, deviceID, sensorID, sensorTypeID, reading, timestamp, unitID);
     }
 
+  /**
+   * Converts a list of Log objects to a list of LogDTO objects.
+   * @param domainEntities is the list of domain entities to be converted.
+   * @return the list of LogDTO objects.
+   */
 
     @Override
     public List<LogDTO> domainToDTO(List<Log> domainEntities) {

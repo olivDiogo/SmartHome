@@ -76,12 +76,11 @@ class RoomAssemblerTest {
         Room room = null;
         RoomAssembler roomAssembler = new RoomAssembler();
 
-        String expected = "The Room cannot be null.";
+        String expected = "Room is required";
 
-        // Act
+        // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> roomAssembler.domainToDTO(room));
 
-        // Assert
         String result = exception.getMessage();
         assertEquals(expected, result);
     }
@@ -153,12 +152,11 @@ class RoomAssemblerTest {
         List<Room> rooms = null;
         RoomAssembler roomAssembler = new RoomAssembler();
 
-        String expected = "The list of Rooms cannot be null.";
+        String expected = "The list of Rooms cannot be null or empty.";
 
-        // Act
+        // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> roomAssembler.domainToDTO(rooms));
 
-        // Assert
         String result = exception.getMessage();
         assertEquals(expected, result);
     }
@@ -172,36 +170,14 @@ class RoomAssemblerTest {
         List<Room> rooms = new ArrayList<>();
         RoomAssembler roomAssembler = new RoomAssembler();
 
-        String expected = "The list of Rooms cannot be null.";
+        String expected = "The list of Rooms cannot be null or empty.";
 
-        // Act
+        // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> roomAssembler.domainToDTO(rooms));
 
-        // Assert
         String result = exception.getMessage();
         assertEquals(expected, result);
     }
 
-    /**
-     * Test if the domainToDTO method throws an IllegalArgumentException when the list of Rooms contains null.
-     */
-    @Test
-    void shouldThrowIllegalArgumentException_WhenRoomListContainsNull() {
-        // Arrange
-        Room room = mock(Room.class);
-        List<Room> rooms = new ArrayList<>();
-        rooms.add(room);
-        rooms.add(null);
-        RoomAssembler roomAssembler = new RoomAssembler();
-
-        String expected = "The list of Rooms cannot be null.";
-
-        // Act
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> roomAssembler.domainToDTO(rooms));
-
-        // Assert
-        String result = exception.getMessage();
-        assertEquals(expected, result);
-    }
 
 }

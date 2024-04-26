@@ -3,6 +3,7 @@ package smart_home.mapper;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.unit.Unit;
 import smart_home.dto.UnitDTO;
+import smart_home.utils.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,8 @@ public class UnitAssembler implements IAssembler<Unit, UnitDTO> {
      */
     @Override
     public UnitDTO domainToDTO(Unit unit) {
-        if (unit == null) {
-            throw new IllegalArgumentException("The MeasurementType cannot be null.");
-        }
+        Validator.validateNotNull(unit, "Unit");
+
         String unitID = unit.getID().toString();
         String unitSymbol = unit.getUnitSymbol().toString();
         String unitDescription = unit.getUnitDescription().toString();
@@ -41,7 +41,7 @@ public class UnitAssembler implements IAssembler<Unit, UnitDTO> {
     @Override
     public List<UnitDTO> domainToDTO(List<Unit> units) {
         if (units == null || units.isEmpty()) {
-            throw new IllegalArgumentException("The list of MeasurementTypes cannot be null.");
+            throw new IllegalArgumentException("The list of Units cannot be null or empty.");
         }
         List<UnitDTO> unitDTOS = new ArrayList<>();
         for (Unit unit : units) {

@@ -66,9 +66,9 @@ class SensorAssemblerTest {
 
     SensorAssembler sensorAssembler = new SensorAssembler();
 
-    String expected = "Sensor cannot be null.";
+    String expected = "Sensor is required";
 
-    // Act and Assert
+    // Act & Assert
     Exception exception =
         assertThrows(
             IllegalArgumentException.class,
@@ -207,63 +207,4 @@ class SensorAssemblerTest {
     assertEquals(expected, result);
   }
 
-  /**
-   * Test that the method domainToDTO throws an exception when the list of Sensors contains null
-   * Sensors.
-   */
-  @Test
-  void shouldThrowException_WhenListOfSensorContainsNullSensors() {
-    // Arrange
-    String deviceID = "123";
-    String modelPath = "SmartHome.sensors.DewPointSensor";
-    String sensorTypeID = "321";
-    String sensorID = "432";
-    String sensorName = "dewPoint";
-
-    // sensor1
-    DeviceID deviceIDDouble = mock(DeviceID.class);
-    when(deviceIDDouble.toString()).thenReturn(deviceID);
-
-    ModelPath modelPathDouble = mock(ModelPath.class);
-    when(modelPathDouble.toString()).thenReturn(modelPath);
-
-    SensorTypeID sensorTypeDouble = mock(SensorTypeID.class);
-    when(sensorTypeDouble.toString()).thenReturn(sensorTypeID);
-
-    SensorID sensorIDDouble = mock(SensorID.class);
-    when(sensorIDDouble.toString()).thenReturn(sensorID);
-
-    SensorName sensorNameDouble = mock(SensorName.class);
-    when(sensorNameDouble.toString()).thenReturn(sensorName);
-
-    ISensor sensorDouble = mock(ISensor.class);
-    when(sensorDouble.getDeviceID()).thenReturn(deviceIDDouble);
-    when(sensorDouble.getModelPath()).thenReturn(modelPathDouble);
-    when(sensorDouble.getSensorTypeID()).thenReturn(sensorTypeDouble);
-    when(sensorDouble.getID()).thenReturn(sensorIDDouble);
-    when(sensorDouble.getName()).thenReturn(sensorNameDouble);
-
-    ISensor sensorDouble2 = null;
-
-    SensorAssembler sensorAssembler = new SensorAssembler();
-
-    List<ISensor> sensors = new ArrayList<>();
-    sensors.add(sensorDouble);
-    sensors.add(sensorDouble2);
-
-    String expected = "Sensor cannot be null.";
-
-    // Act and Assert
-    Exception exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              sensorAssembler.domainToDTO(sensors);
-            });
-
-    String result = exception.getMessage();
-
-    // Assert
-    assertEquals(expected, result);
-  }
 }

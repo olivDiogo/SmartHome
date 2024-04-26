@@ -62,7 +62,7 @@ class UnitAssemblerTest {
   void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithNullMeasurementType() {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
-    String expectedMessage = "The MeasurementType cannot be null.";
+    String expectedMessage = "Unit is required";
     Unit unit = null;
     // Act
     IllegalArgumentException exception =
@@ -133,7 +133,7 @@ class UnitAssemblerTest {
   void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithNullListOfMeasurementType() {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
-    String expectedMessage = "The list of MeasurementTypes cannot be null.";
+    String expectedMessage = "The list of Units cannot be null or empty.";
     List<Unit> unitList = null;
     // Act
     IllegalArgumentException exception =
@@ -150,7 +150,7 @@ class UnitAssemblerTest {
   void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithEmptyListOfMeasurementType() {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
-    String expectedMessage = "The list of MeasurementTypes cannot be null.";
+    String expectedMessage = "The list of Units cannot be null or empty.";
     List<Unit> unitList = List.of();
     // Act
     IllegalArgumentException exception =

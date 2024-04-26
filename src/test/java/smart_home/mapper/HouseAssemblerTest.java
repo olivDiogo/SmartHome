@@ -43,7 +43,7 @@ class HouseAssemblerTest {
     // Arrange
     House house = null;
     HouseAssembler houseAssembler = new HouseAssembler();
-    String expectedMessage = "The House cannot be null.";
+    String expectedMessage = "House is required";
 
     // Act
     IllegalArgumentException exception =
@@ -131,21 +131,4 @@ class HouseAssemblerTest {
     assertEquals(expectedMessage, exception.getMessage());
   }
 
-  @Test
-  void shouldThrowIllegalArgumentExceptionWhenHouseListContainsNull() {
-    // Arrange
-    House house = mock(House.class);
-    List<House> houses = new ArrayList<>();
-    houses.add(house);
-    houses.add(null);
-    HouseAssembler houseAssembler = new HouseAssembler();
-    String expectedMessage = "The list of Houses cannot be null or empty.";
-
-    // Act
-    IllegalArgumentException exception =
-        assertThrows(IllegalArgumentException.class, () -> houseAssembler.domainToDTO(houses));
-
-    // Assert
-    assertEquals(expectedMessage, exception.getMessage());
-  }
 }

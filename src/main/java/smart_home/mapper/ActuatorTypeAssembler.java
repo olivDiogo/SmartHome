@@ -3,6 +3,7 @@ package smart_home.mapper;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.actuator_type.ActuatorType;
 import smart_home.dto.ActuatorTypeDTO;
+import smart_home.utils.Validator;
 
 import java.util.List;
 
@@ -17,9 +18,7 @@ public class ActuatorTypeAssembler implements IAssembler<ActuatorType, ActuatorT
      */
     @Override
     public ActuatorTypeDTO domainToDTO(ActuatorType actuatorType) {
-        if (actuatorType == null) {
-            throw new IllegalArgumentException("The ActuatorType cannot be null.");
-        }
+      Validator.validateNotNull(actuatorType, "Actuator Type");
 
         String actuatorTypeID = actuatorType.getID().getID();
         String actuatorTypeDescription = actuatorType.getActuatorTypeName().toString();
@@ -38,8 +37,8 @@ public class ActuatorTypeAssembler implements IAssembler<ActuatorType, ActuatorT
      */
     @Override
     public List<ActuatorTypeDTO> domainToDTO(List<ActuatorType> actuatorTypes) {
-        if (actuatorTypes == null || actuatorTypes.isEmpty() || actuatorTypes.contains(null)) {
-            throw new IllegalArgumentException("The list of ActuatorTypes cannot be null.");
+        if (actuatorTypes == null || actuatorTypes.isEmpty()) {
+            throw new IllegalArgumentException("The list of ActuatorTypes cannot be null or empty.");
         }
         List<ActuatorTypeDTO> actuatorTypeDTOS = actuatorTypes.stream().map(this::domainToDTO).toList();
         return actuatorTypeDTOS;

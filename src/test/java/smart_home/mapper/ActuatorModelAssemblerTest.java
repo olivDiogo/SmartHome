@@ -56,9 +56,11 @@ class ActuatorModelAssemblerTest {
         // Arrange
         ActuatorModel actuatorModel = null;
         ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
+        String expectedMessage = "Actuator Model is required";
+        // Act & Assert
 
-        // Act and Assert
-        assertThrows(IllegalArgumentException.class, () -> actuatorModelAssembler.domainToDTO(actuatorModel));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorModelAssembler.domainToDTO(actuatorModel));
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -126,8 +128,12 @@ class ActuatorModelAssemblerTest {
         List<ActuatorModel> actuatorModels = null;
         ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
 
-        // Act and Assert
-        assertThrows(IllegalArgumentException.class, () -> actuatorModelAssembler.domainToDTO(actuatorModels));
+        String expectedMessage = "The list of Actuator Models cannot be null or empty.";
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorModelAssembler.domainToDTO(actuatorModels));
+        assertEquals(expectedMessage, exception.getMessage());
+
+
     }
 
     /**
@@ -139,7 +145,10 @@ class ActuatorModelAssemblerTest {
         List<ActuatorModel> actuatorModels = List.of();
         ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
 
+        String expectedMessage = "The list of Actuator Models cannot be null or empty.";
+
         // Act and Assert
-        assertThrows(IllegalArgumentException.class, () -> actuatorModelAssembler.domainToDTO(actuatorModels));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorModelAssembler.domainToDTO(actuatorModels));
+        assertEquals(expectedMessage, exception.getMessage());
     }
 }

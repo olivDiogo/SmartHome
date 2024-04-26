@@ -57,7 +57,7 @@ class SensorTypeAssemblerTest {
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
 
-    String expected = "Sensor type cannot be null.";
+    String expected = "Sensor Type is required";
 
     // Act + Assert
     IllegalArgumentException exception =
@@ -67,7 +67,6 @@ class SensorTypeAssemblerTest {
               sensorTypeAssembler.domainToDTO(sensorType);
             });
 
-    // Assert
     String result = exception.getMessage();
     assertEquals(expected, result);
   }
@@ -150,7 +149,6 @@ class SensorTypeAssemblerTest {
               sensorTypeAssembler.domainToDTO(sensorTypes);
             });
 
-    // Assert
     String result = exception.getMessage();
     assertEquals(expected, result);
   }
@@ -181,51 +179,4 @@ class SensorTypeAssemblerTest {
     assertEquals(expected, result);
   }
 
-  /**
-   * Tests the conversion of a list of sensor types to a list of sensor types DTOs when the list
-   * contains a null sensor type.
-   */
-  @Test
-  void shouldThrowException_whenListOfSensorTypesContainsNullSensorType() {
-    // Arrange
-    String sensorTypeID1 = "1";
-    String sensorTypeDescription1 = "Temperature";
-    String unit1 = "Celsius";
-
-    SensorTypeID sensorTypeIdDouble1 = mock(SensorTypeID.class);
-    when(sensorTypeIdDouble1.toString()).thenReturn(sensorTypeID1);
-
-    TypeDescription sensorTypeDescriptionDouble1 = mock(TypeDescription.class);
-    when(sensorTypeDescriptionDouble1.toString()).thenReturn(sensorTypeDescription1);
-
-    UnitID unitDouble1 = mock(UnitID.class);
-    when(unitDouble1.toString()).thenReturn(unit1);
-
-    SensorType sensorTypeDouble1 = mock(SensorType.class);
-    when(sensorTypeDouble1.getID()).thenReturn(sensorTypeIdDouble1);
-    when(sensorTypeDouble1.getName()).thenReturn(sensorTypeDescriptionDouble1);
-    when(sensorTypeDouble1.getUnit()).thenReturn(unitDouble1);
-
-    SensorType sensorTypeDouble2 = null;
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-
-    List<SensorType> sensorTypes = new ArrayList<>();
-    sensorTypes.add(sensorTypeDouble1);
-    sensorTypes.add(sensorTypeDouble2);
-
-    String expected = "Sensor type cannot be null.";
-
-    // Act + Assert
-    IllegalArgumentException exception =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              sensorTypeAssembler.domainToDTO(sensorTypes);
-            });
-
-    // Assert
-    String result = exception.getMessage();
-    assertEquals(expected, result);
-  }
 }

@@ -3,6 +3,7 @@ package smart_home.mapper;
 import smart_home.ddd.IAssembler;
 import smart_home.domain.actuator_model.ActuatorModel;
 import smart_home.dto.ActuatorModelDTO;
+import smart_home.utils.Validator;
 
 import java.util.List;
 
@@ -16,9 +17,7 @@ public class ActuatorModelAssembler implements IAssembler<ActuatorModel, Actuato
      */
     @Override
     public ActuatorModelDTO domainToDTO(ActuatorModel domainEntity) {
-        if (domainEntity == null) {
-            throw new IllegalArgumentException("The Actuator Model cannot be null.");
-        }
+      Validator.validateNotNull(domainEntity, "Actuator Model");
 
         String actuatorModelID = domainEntity.getID().toString();
         String actuatorModelName = domainEntity.getActuatorModelName().toString();
