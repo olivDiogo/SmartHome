@@ -1250,4 +1250,66 @@ class AddActuatorToDeviceControllerTest {
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
+
+  /**
+   * Should throw exception when device status is deactivated.
+   *
+   * @throws InstantiationException exception
+   */
+
+  @Test
+  void shouldThrowIllegalArgumentException_WhenDeviceStatusIsDeactivated()
+      throws InstantiationException {
+    // Arrange
+    LoadModelsAndUnit loadModelsAndUnit =
+        new LoadModelsAndUnit(
+            sensorModelRepository,
+            actuatorModelRepository,
+            unitRepository,
+            sensorModelFactory,
+            actuatorModelFactory,
+            unitFactory);
+
+    loadHouseAndRoom();
+    List<Room> rooms = roomRepository.findAll();
+    RoomID roomID = rooms.get(0).getID();
+    Device device = loadDevice(roomID);
+    deviceServiceImpl.deactivateDeviceByID(device.getID());
+    deviceRepository.update(device);
+
+    TypeDescription typeDescription = new TypeDescription("Switch");
+    UnitID unit = new UnitID("Percent");
+    ActuatorType actuatorType = ActuatorTypeServiceImpl.createActuatorType(typeDescription, unit);
+    ActuatorTypeServiceImpl.addActuatorType(actuatorType);
+
+    String modelPath = "smarthome.domain.actuator.switch_actuator.SwitchActuator";
+    String actuatorName = "Actuator";
+
+    actuatorTypeAssembler.domainToDTO(actuatorType);
+
+    IActuatorDataDTO actuatorDataDTO =
+        new ActuatorDataGenericDTOImp(
+            device.getID().toString(), modelPath, actuatorName, actuatorType.getID().getID());
+    AddActuatorToDeviceController controller =
+        new AddActuatorToDeviceController(
+            roomServiceImpl,
+            roomAssembler,
+            deviceServiceImpl,
+            deviceAssembler,
+            actuatorModelServiceImpl,
+            actuatorModelAssembler,
+            ActuatorTypeServiceImpl,
+            actuatorTypeAssembler,
+            actuatorAssembler,
+            actuatorService);
+
+    String expectedMessage = "Device with ID " + device.getID() + " is deactivated.";
+    // Act
+    IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class, () -> controller.addActuatorToDevice(actuatorDataDTO));
+
+    // Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
 }

@@ -11,9 +11,7 @@ import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.utils.Validator;
 
-/**
- * This class represents a service for managing actuators.
- */
+/** This class represents a service for managing actuators. */
 public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorService {
 
   private final IRepository<ActuatorID, IActuator> actuatorRepository;
@@ -24,8 +22,8 @@ public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorSe
    * Constructs an ActuatorService with the specified repositories and factory.
    *
    * @param actuatorRepository The repository for storing actuators.
-   * @param actuatorFactory    The factory for creating actuators.
-   * @param deviceRepository   The repository for accessing devices.
+   * @param actuatorFactory The factory for creating actuators.
+   * @param deviceRepository The repository for accessing devices.
    */
   public ActuatorServiceImpl(
       IRepository<ActuatorID, IActuator> actuatorRepository,
@@ -40,13 +38,12 @@ public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorSe
     this.deviceRepository = deviceRepository;
   }
 
-
   /**
    * Adds a new actuator to the repository and saves it.
    *
    * @param parameters The parameters needed to create the actuator.The first parameter should * be
-   *                   of type DeviceID. The rest of the parameters should be the required
-   *                   parameters to create * an actuator object.
+   *     of type DeviceID. The rest of the parameters should be the required parameters to create *
+   *     an actuator object.
    * @return The created and saved actuator object.
    */
   @Override
@@ -55,6 +52,9 @@ public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorSe
     Optional<Device> deviceOptional = deviceRepository.ofIdentity(deviceID);
     if (deviceOptional.isEmpty()) {
       throw new IllegalArgumentException("Device with ID " + deviceID + " not found.");
+    }
+    if (!deviceOptional.get().getDeviceStatus().getStatus()) {
+      throw new IllegalArgumentException("Device with ID " + deviceID + " is deactivated.");
     }
     IActuator actuator = actuatorFactory.createActuator(parameters);
     actuatorRepository.save(actuator);
