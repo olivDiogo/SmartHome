@@ -2,6 +2,7 @@ package smart_home.controller;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 import smart_home.ddd.IAssembler;
 import smart_home.domain.house.House;
@@ -12,7 +13,6 @@ import smart_home.mapper.HouseAssembler;
 import smart_home.domain.house.HouseFactoryImpl;
 import smart_home.dto.HouseDTO;
 import smart_home.dto.HouseDataDTO;
-import smart_home.persistence.mem.HouseRepository;
 import smart_home.service.HouseServiceImpl;
 
 /** Tests for the US01ConfigureHouseLocationController class. */
@@ -25,7 +25,7 @@ class ConfigureHouseLocationControllerTest {
   @Test
   void shouldInstantiateUS01ConfigureHouseLocationController_whenConstructorArgumentsAreValid() {
     // Arrange
-    IHouseRepository houseRepository = new HouseRepository();
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     IHouseFactory houseFactory = new HouseFactoryImpl();
     IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
@@ -42,7 +42,7 @@ class ConfigureHouseLocationControllerTest {
   @Test
   void shouldThrowException_whenHouseAssemblerIsNull() {
     // Arrange: Initialize required components
-    IHouseRepository houseRepository = new HouseRepository();
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     IHouseFactory houseFactory = new HouseFactoryImpl();
     IAssembler<House, HouseDTO> houseAssembler = null;
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
@@ -76,7 +76,7 @@ class ConfigureHouseLocationControllerTest {
   @Test
   void shouldReturnHouseDTO_whenHouseIsConfigured() {
     // Arrange: Initialize required components
-    IHouseRepository houseRepository = new HouseRepository();
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     IHouseFactory houseFactory = new HouseFactoryImpl();
     IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
@@ -104,7 +104,7 @@ class ConfigureHouseLocationControllerTest {
   @Test
   void shouldReturnHouseDTO_whenHouseIsConfiguredWithSpanishPostalCode() {
     // Arrange
-    IHouseRepository houseRepository = new HouseRepository();
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     IHouseFactory houseFactory = new HouseFactoryImpl();
     IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
@@ -132,7 +132,7 @@ class ConfigureHouseLocationControllerTest {
   @Test
   void shouldReturnHouseDTO_whenHouseIsConfiguredWithCanadianPostalCode() {
     // Arrange
-    IHouseRepository houseRepository = new HouseRepository();
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     IHouseFactory houseFactory = new HouseFactoryImpl();
     IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
@@ -160,7 +160,7 @@ class ConfigureHouseLocationControllerTest {
   @Test
   void shouldReturnHouseDTO_whenHouseIsConfiguredWithAmericanPostalCode() {
     // Arrange
-    IHouseRepository houseRepository = new HouseRepository();
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     IHouseFactory houseFactory = new HouseFactoryImpl();
     IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
     IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
