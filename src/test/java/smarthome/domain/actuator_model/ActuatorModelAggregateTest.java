@@ -228,6 +228,28 @@ class ActuatorModelAggregateTest {
   }
 
   /**
+   * Test for hashCode method
+   */
+  @Test
+  void shouldReturnHashCode_whenHashCodeIsCalled() {
+    // Arrange
+    ActuatorModelName actuatorModelName1 = new ActuatorModelName("Blind Roller");
+    ModelPath modelPath1 = new ModelPath(
+        "SmartHomeDDD.domain.Actuator.BlindRollerActuator.BlindRollerActuator");
+    ActuatorTypeID actuatorTypeID1 = new ActuatorTypeID("BlindRoller");
+    ActuatorModel actuatorModel1 = new ActuatorModel(actuatorModelName1, modelPath1,
+        actuatorTypeID1);
+
+    int expectedHashCode = modelPath1.hashCode();
+
+    // Act
+    int hashCode = actuatorModel1.hashCode();
+
+    // Assert
+   assertEquals(expectedHashCode, hashCode);
+  }
+
+  /**
    * Test of class ActuatorModel getID method
    */
   @Test
