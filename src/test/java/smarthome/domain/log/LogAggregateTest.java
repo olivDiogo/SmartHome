@@ -629,10 +629,10 @@ class LogAggregateTest {
   }
 
   /**
-   * Test the equals method of the Log class when two Log instances are not equal.
+   * Test the equals method of the Log class when one Log instance is compared with an object not from Loge type.
    */
   @Test
-  void shouldReturnFalse_WhenTwoLogInstancesAreNotEqual() {
+  void shouldReturnFalse_WhenLogInstancesIsNotEqualToObjectNotALogInstance() {
     // Arrange
     DeviceID deviceID = new DeviceID("deviceID");
     SensorID sensorID = new SensorID("sensorID");
@@ -644,6 +644,31 @@ class LogAggregateTest {
 
     // Act
     boolean result = log.equals(new Object());
+
+    // Assert
+    assertFalse(result);
+  }
+
+  /**
+   * Test the equals method of the Log class when two Log instances are not equal.
+   */
+  @Test
+  void shouldReturnFalse_WhenTwoLogInstancesAreNotEqual() {
+    // Arrange
+    LogID logID1 = new LogID("logID1");
+    LogID logID2 = new LogID("logID2");
+    DeviceID deviceID = new DeviceID("deviceID");
+    SensorID sensorID = new SensorID("sensorID");
+    LocalDateTime localDateTime = LocalDateTime.of(2021, 1, 1, 1, 1);
+    ReadingValue value = new ReadingValue("20");
+    SensorTypeID description = new SensorTypeID("temperature");
+    UnitID unit = new UnitID("C");
+
+    Log log1 = new Log(logID1, deviceID, sensorID, localDateTime, value, description, unit);
+    Log log2 = new Log(logID2, deviceID, sensorID, localDateTime, value, description, unit);
+
+    // Act
+    boolean result = log1.equals(log2);
 
     // Assert
     assertFalse(result);
