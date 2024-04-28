@@ -30,12 +30,9 @@ public class SensorFactoryImpl implements ISensorFactory {
         throw new InstantiationException("No matching constructor found for class: " + modelPath);
       }
 
-    } catch (ClassNotFoundException | InstantiationException | ClassCastException e) {
-//            e.printStackTrace(); // Handle or log the exception appropriately
-    } catch (IllegalAccessException | InvocationTargetException e) {
-//            e.printStackTrace(); // Handle or log the exception appropriately
+    } catch (ClassNotFoundException | InstantiationException | ClassCastException |
+             IllegalAccessException | InvocationTargetException ignored) {
     }
-
     return null;
   }
 

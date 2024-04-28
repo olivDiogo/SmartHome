@@ -13,10 +13,11 @@ import smarthome.domain.sensor.sunrise_time_sensor.SunriseTimeSensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
 
-class ImpSensorFactoryTest {
+class SensorFactoryImplTest {
 
   /*
    * Test for creating a SolarIrradianceSensor, which has a constructor with 4 parameters.
@@ -101,7 +102,7 @@ class ImpSensorFactoryTest {
     DeviceID deviceIdMock = mock(DeviceID.class);
     ModelPath modelPathMock = mock(ModelPath.class);
     when(modelPathMock.toString()).thenReturn(
-        "smarthome.domain.sensor.SunriseTimeSensor.SunriseTimeSensor");
+        "smarthome.domain.sensor.sunrise_time_sensor.SunriseTimeSensor");
 
     SensorTypeID sensorTypeIdMock = mock(SensorTypeID.class);
     SensorName sensorNameMock = mock(SensorName.class);
@@ -126,7 +127,7 @@ class ImpSensorFactoryTest {
     DeviceID deviceIdMock = mock(DeviceID.class);
     ModelPath modelPathMock = mock(ModelPath.class);
     when(modelPathMock.toString()).thenReturn(
-        "smarthome.domain.sensor.SunriseTimeSensor.SunriseTimeSensor");
+        "smarthome.domain.sensor.sunrise_time_sensor.SunriseTimeSensor");
 
     SensorName sensorNameMock = mock(SensorName.class);
 
@@ -142,6 +143,35 @@ class ImpSensorFactoryTest {
     // Assert
     String actualMessage = e.getMessage();
     assertTrue(actualMessage.contains(expectedMessage));
+  }
+
+  /**
+   * Test for providing parameters for constructor that does not exist, which should throw
+   * exception.
+   */
+  @Test
+  void shouldThrowException_whenNoMatchingConstructorFound() {
+    // Arrange
+    DeviceID deviceIdMock = mock(DeviceID.class);
+    ModelPath modelPathMock = mock(ModelPath.class);
+    when(modelPathMock.toString()).thenReturn(
+        "smarthome.domain.sensor.sunrise_time_sensor.SunriseTimeSensor");
+
+    SensorTypeID sensorTypeIdMock = mock(SensorTypeID.class);
+    SensorName sensorNameMock = mock(SensorName.class);
+    GPS gpsMock = mock(GPS.class);
+    RoomID roomIDMock = mock(RoomID.class);
+
+    SensorFactoryImpl impSensorFactory = new SensorFactoryImpl();
+
+    String expectedMessage = "No matching constructor found for class: smarthome.domain.sensor.SunriseTimeSensor.SunriseTimeSensor";
+
+    // Act
+    ISensor result = impSensorFactory.create(deviceIdMock, modelPathMock, sensorTypeIdMock, sensorNameMock, gpsMock,
+        roomIDMock);
+
+    //
+    assertNull(result);
   }
 
 }
