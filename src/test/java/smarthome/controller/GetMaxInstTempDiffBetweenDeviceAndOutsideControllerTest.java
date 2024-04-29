@@ -126,11 +126,13 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
         unit);
     logRepository.save(log4);
 
+    int timeDelta = 5;
+
     int expected = 9;
 
     // Act
     int result = getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
-        outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime);
+        outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime, timeDelta);
 
     // Assert
     assertEquals(expected, result);
@@ -141,7 +143,7 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
    * when the inside device has no readings.
    */
   @Test
-  void shouldReturnCorrectValue_WhenInsideDeviceHasNoReadings() {
+  void shouldThrowException_whenInsideDeviceHasNoReadings() {
     //Arrange
     ILogRepository logRepository = new LogRepository();
     ILogService logService = new LogServiceImpl(logRepository);
@@ -186,12 +188,14 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
         unit);
     logRepository.save(log2);
 
+    int timeDelta = 5;
+
     String expected = "No readings found for the given time period";
 
     // Act
     Exception result = assertThrows(IllegalArgumentException.class,
         () -> getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
-            outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime));
+            outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime, timeDelta));
 
     // Assert
     String resultMessage = result.getMessage();
@@ -203,7 +207,7 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
    * when the outside device has no readings.
    */
   @Test
-  void shouldReturnCorrectValue_WhenOutsideDeviceHasNoReadings() {
+  void shouldThrowException_whenOutsideDeviceHasNoReadings() {
     //Arrange
     ILogRepository logRepository = new LogRepository();
     ILogService logService = new LogServiceImpl(logRepository);
@@ -248,12 +252,14 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
         new UnitID("Celsius"));
     logRepository.save(log4);
 
+    int timeDelta = 5;
+
     String expected = "No readings found for the given time period";
 
     // Act
     Exception result = assertThrows(IllegalArgumentException.class,
         () -> getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
-            outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime));
+            outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime, timeDelta));
 
     // Assert
     String resultMessage = result.getMessage();

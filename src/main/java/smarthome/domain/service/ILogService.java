@@ -38,6 +38,6 @@ public interface ILogService extends IService {
    * @param readings2 is another list of readings.
    * @return the list of the differences between the values.
    */
-  List<Integer> getDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2);
+  int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, int timeDelta);
 
 }

@@ -34,7 +34,7 @@ public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
    * @return the maximum instantaneous temperature difference.
    */
   public int getMaxInstTempDiffBetweenDeviceAndOutside(DeviceDataDTO outsideDeviceDTO,
-      DeviceDataDTO insideDeviceDTO, LocalDateTime initialTime, LocalDateTime finalTime) {
+      DeviceDataDTO insideDeviceDTO, LocalDateTime initialTime, LocalDateTime finalTime, int timeDelta) {
     DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
     DeviceID insideDeviceID = new DeviceID(insideDeviceDTO.deviceID);
     DeviceID outsideDeviceID = new DeviceID(outsideDeviceDTO.deviceID);
@@ -46,12 +46,8 @@ public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
     List<Log> outsideReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(
         outsideDeviceID, sensorTypeID, datePeriod);
 
-    /* Get the temperature differences between the inside and outside readings */
-    List<Integer> temperatureDifferences = logService.getDifferenceBetweenReadings(insideReadings,
-        outsideReadings);
-
-    /* Get the maximum temperature difference from list */
-    return temperatureDifferences.stream().mapToInt(Integer::intValue).max().orElse(0);
+    /* Get the maximum temperature difference */
+    return logService.getMaxDifferenceBetweenReadings(insideReadings,
+        outsideReadings, timeDelta);
   }
-
 }

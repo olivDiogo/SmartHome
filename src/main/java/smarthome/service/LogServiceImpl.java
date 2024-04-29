@@ -2,7 +2,9 @@ package smarthome.service;
 
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.service.ILogService;
@@ -71,24 +73,27 @@ public class LogServiceImpl implements ILogService {
    * @return the list of the differences between the values, as Integers.
    */
   @Override
-  public List<Integer> getDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2) {
+  public int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, int timeDelta) {
     List<Integer> valueDifferences = new ArrayList<>();
 
-    for (int i = 0; i < readings1.size(); i++) {
-      for (int j = 0; j < readings2.size(); j++) {
-        int diffInMinutes = (int) ChronoUnit.MINUTES.between(readings1.get(i).getTimeStamp(),
-            readings2.get(j).getTimeStamp());
+    try {
+      for (int i = 0; i < readings1.size(); i++) {
+        for (int j = 0; j < readings2.size(); j++) {
+          int diffInMinutes = (int) ChronoUnit.MINUTES.between(readings1.get(i).getTimeStamp(),
+              readings2.get(j).getTimeStamp());
 
-        if (diffInMinutes < 5) {
-          int temperatureDifference = Math.abs(
-              Integer.parseInt(readings1.get(i).getReadingValue().getReadingValue())
-                  - Integer.parseInt(readings2.get(j).getReadingValue().getReadingValue()));
-          valueDifferences.add(temperatureDifference);
+          if (diffInMinutes < timeDelta) {
+            int temperatureDifference = Math.abs(
+                Integer.parseInt(readings1.get(i).getReadingValue().getReadingValue())
+                    - Integer.parseInt(readings2.get(j).getReadingValue().getReadingValue()));
+            valueDifferences.add(temperatureDifference);
+          }
         }
       }
+      return Collections.max(valueDifferences);
+
+    } catch (NoSuchElementException e) {
+      throw new NoSuchElementException("No readings found within the given time interval");
     }
-
-    return valueDifferences;
   }
-
 }

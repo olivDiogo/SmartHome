@@ -54,7 +54,7 @@ This use case depends on UC12.
 ![US013-CD](artifacts/uc13_CD.svg)
 
 ### 2.2. Sequence Diagram
-![US013-SD](artifacts/uc13_SD.svg)
+![US013-SD](artifacts/uc13_SD_v2.svg)
 
 #### Ref - Get devices by room and temperature functionality
 ![US013-SD-ref1](../uc12_toGetDevicesByRoomAndTemperatureFunctionality/artifacts/uc12_SD.svg)

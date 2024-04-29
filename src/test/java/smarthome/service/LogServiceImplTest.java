@@ -3,6 +3,7 @@ package smarthome.service;
 import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -164,11 +165,10 @@ class LogServiceImplTest {
   }
 
   /**
-   * Test for method getDifferenceBetweenReadings when the readings are within an interval of 5
-   * minutes.
+   * Test for method getDifferenceBetweenReadings when single readings are within an interval of 5 minutes.
    */
   @Test
-  void shouldReturnDifferenceBetweenReadings_whenGetDifferenceBetweenReadingsIsCalledAndReadingsAreWithin5MinutesInterval() {
+  void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndReadingsAreWithin5MinutesInterval() {
     // Arrange
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
@@ -191,21 +191,22 @@ class LogServiceImplTest {
     ILogRepository logRepository = mock(ILogRepository.class);
     LogServiceImpl logService = new LogServiceImpl(logRepository);
 
+    int timeDelta = 5;
+
     int expectedDifference = 9;
 
     // Act
-    List<Integer> actualDifference = logService.getDifferenceBetweenReadings(list1, list2);
+    int actualDifference = logService.getMaxDifferenceBetweenReadings(list1, list2, timeDelta);
 
     // Assert
-    assertEquals(expectedDifference, actualDifference.get(0));
+    assertEquals(expectedDifference, actualDifference);
   }
 
   /**
-   * Test for method getDifferenceBetweenReadings when multiple readings are within an interval of 5
-   * minutes.
+   * Test for method getDifferenceBetweenReadings when multiple readings are within an interval of 5 minutes.
    */
   @Test
-  void shouldReturnDifferenceBetweenReadings_whenGetDifferenceBetweenReadingsIsCalledAndMultipleReadingsAreWithin5MinutesInterval() {
+  void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndMultipleReadingsAreWithin5MinutesInterval() {
     // Arrange
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
@@ -235,14 +236,15 @@ class LogServiceImplTest {
     ILogRepository logRepository = mock(ILogRepository.class);
     LogServiceImpl logService = new LogServiceImpl(logRepository);
 
+    int timeDelta = 5;
+
     int expectedDifference = 15;
 
     // Act
-    List<Integer> actualDifference = logService.getDifferenceBetweenReadings(list1, list2);
+    int actualDifference = logService.getMaxDifferenceBetweenReadings(list1, list2, timeDelta);
 
     // Assert
-    assertEquals(expectedDifference, actualDifference.get(1));
-
+    assertEquals(expectedDifference, actualDifference);
   }
 
 
@@ -251,7 +253,7 @@ class LogServiceImplTest {
    * minutes.
    */
   @Test
-  void shouldReturnEmptyList_whenGetDifferenceBetweenReadingsIsCalledAndReadingsAreNotWithin5MinutesInterval() {
+  void shouldThrowException_whenGetMaxDifferenceBetweenReadingsIsCalledAndReadingsAreNotWithin5MinutesInterval() {
     // Arrange
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
@@ -274,10 +276,16 @@ class LogServiceImplTest {
     ILogRepository logRepository = mock(ILogRepository.class);
     LogServiceImpl logService = new LogServiceImpl(logRepository);
 
+    int timeDelta = 5;
+
+    String expectedMessage = "No readings found within the given time interval";
+
     // Act
-    List<Integer> actualDifference = logService.getDifferenceBetweenReadings(list1, list2);
+    Exception exception = assertThrows(Exception.class,
+        () -> logService.getMaxDifferenceBetweenReadings(list1, list2, timeDelta));
 
     // Assert
-    assertTrue(actualDifference.isEmpty());
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
   }
 }

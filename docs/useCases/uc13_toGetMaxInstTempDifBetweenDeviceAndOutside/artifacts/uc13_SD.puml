@@ -11,7 +11,7 @@ autonumber
 
 ref over User, Controller: getDevicesByRoomAndTemperatureFunctionality
 
-User -> Controller: getMaxInstTempDiffBetweenDeviceAndOutside (outsideDeviceDTO, insideDeviceDTO, initialTime, endTime)
+User -> Controller: getMaxInstTempDiffBetweenDeviceAndOutside (outsideDeviceDTO, insideDeviceDTO, initialTime, endTime, timeDelta)
 
 activate Controller
 
@@ -47,15 +47,15 @@ LogService --> Controller: deviceTemperatureReadings
 
 deactivate LogService
 
-Controller -> LogService: getDifferenceBetweenReadings (outsideTemperatureReadings, deviceTemperatureReadings)
+Controller -> LogService: getMaxDifferenceBetweenReadings (outsideTemperatureReadings, deviceTemperatureReadings, timeDelta)
 
 activate LogService
 
-LogService --> Controller: temperatureDifferences
+LogService --> Controller: maxTemperatureDifference
 
 deactivate LogService
 
-Controller --> User: maxInstantaneousTempDiff
+Controller --> User: maxTemperatureDifference
 
 deactivate Controller
 
