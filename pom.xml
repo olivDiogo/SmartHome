@@ -14,7 +14,7 @@
         <java.version>17</java.version>
 
         <!-- Maven Version Configuration -->
-        <maven-compiler-plugin>3.10.1</maven-compiler-plugin>
+        <maven-compiler-plugin>3.13.0</maven-compiler-plugin>
 
 
         <!-- Project Encoding Configuration -->
@@ -23,17 +23,17 @@
         <project.reporting.outputEncoding>${project.sourceEncoding}</project.reporting.outputEncoding>
 
         <!-- Junit Version Configuration -->
-        <junit-jupiter>5.9.2</junit-jupiter>
+        <junit-jupiter>5.10.2</junit-jupiter>
 
         <!-- Coverage configuration -->
-        <jacoco-maven-plugin>0.8.8</jacoco-maven-plugin>
+        <jacoco-maven-plugin>0.8.12</jacoco-maven-plugin>
 
         <!-- Pitest Version Configuration-->
-        <pitest-maven>1.11.0</pitest-maven>
-        <pitest-junit5-plugin>1.1.2</pitest-junit5-plugin>
+        <pitest-maven>1.16.0</pitest-maven>
+        <pitest-junit5-plugin>1.2.1</pitest-junit5-plugin>
 
         <!-- Surefire Version Configuration -->
-        <maven-surefire-plugin>3.0.0-M9</maven-surefire-plugin>
+        <maven-surefire-plugin>3.2.5</maven-surefire-plugin>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <spring-boot.version>3.2.4</spring-boot.version>
@@ -143,24 +143,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin}</version>
                 <configuration>
-                    <argLine>
-                        -XX:+EnableDynamicAgentLoading
-                        @{argLine} -Xshare:off
-                    </argLine>
-                    <includes>
-                        <include>**/Test*.java</include>
-                        <include>**/*Test.java</include>
-                        <include>**/*Tests.java</include>
-                        <include>**/*TestCase.java</include>
-                        <include>**/*IT.java</include>
-                    </includes>
                     <excludes>
-                        <exclude>smarthome/persistence/**/*</exclude>
-                        <exclude>smarthome/ddd/**/*</exclude>
+                        <exclude>**/persistence/**/*.java</exclude>
+                        <exclude>**/ddd/**/*.java</exclude>
                     </excludes>
-                    <!--                    <excludes>-->
-                    <!--                        <exclude>**Main**</exclude>-->
-                    <!--                    </excludes>-->
                 </configuration>
             </plugin>
 
@@ -171,9 +157,9 @@
                 <version>${jacoco-maven-plugin}</version>
                 <configuration>
                     <excludes>
-                        <exclude>smarthome/ui/**/*</exclude>
-                        <exclude>smarthome/ddd/**/*</exclude>
-                        <exclude>smarthome/persistence/**/*</exclude>
+                        <exclude>**/ui/**/*</exclude>
+                        <exclude>**/ddd/**/*</exclude>
+                        <exclude>**/persistence/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -205,18 +191,14 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <targetClasses>
-                        <!-- Example: <param>lapr.project.model.*</param> -->
-                        <param>smarthome.*</param>
-                    </targetClasses>
                     <excludedClasses>
-                        <param>smarthome.ddd.*</param>
-                        <param>smarthome.persistence.*</param>
+                        <param>**.ddd.**.*</param>
+                        <param>**.persistence.**.*</param>
                     </excludedClasses>
-                    <targetTests>
-                        <!-- Example: <param>lapr.project.utils.*</param> -->
-                        <param>smarthome.*</param>
-                    </targetTests>
+                    <excludedTestClasses>
+                        <param>**.ddd.**.*</param>
+                        <param>**.persistence.**.*</param>
+                    </excludedTestClasses>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>
