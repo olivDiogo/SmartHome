@@ -6,70 +6,120 @@ skinparam linetype ortho
 
 
 class House {
-    -_location: Location
-    -roomList: List<Room>
-}
-class HouseLocation{
-    -_address: Address
-    -_gpsLocation: GPS
-}
-class GPS{
-    -_latitude: double
-    -_longitude: double
+    -id: HouseID
+    -address: Address
+    -gps: GPS
 }
 class Address{
-    -_street: String
-    -_zipCode: String
-    -_doorNumber : int
+    -street: String
+    -doorNumber: String
+    -countryCode: String
+    -postalCode: IPostalCode
 }
+class GPS{
+    -latitude: double
+    -longitude: double
+}
+
 class Room {
-    -_dimension: Dimension
-    -_floor: int
-    -_roomId: UUID
-    -_name: String
-    -_devicesList: List<Device>
+    -houseID: HouseID
+    -floor: RoomFloor
+    -name: RoomName
+    -dimension: Dimension
+    -id: RoomID
 }
 
 class Dimensions {
-    -_width: double
-    -_length: double
-    -_height: double
+    -width: int
+    -length: int
+    -height: int
 }
 
 class Device {
-    -_deviceId: UUID
-    -_name: String
-    -_status: boolean
-    -_sensors: List<Sensor>
-    -_actuators: List<Actuator>
+    -roomID: RoomID
+    -name: DeviceName
+    -deviceTypeID: DeviceTypeID
+    -id: DeviceID
+    -status: DeviceStatus
 }
 
 class Sensor {
-
+    -id: SensorID
+    -name: SensorName
+    -path: ModelPath
+    -sensorTypeID: SensorTypeID
+    -deviceID: DeviceID
 }
 
 class SensorType {
-    -_strDescription: String
-    -_units: Unit
+    -name: TypeDescription
+    -unit: UnitID
+    -id: SensorTypeID
 }
-class Actuator {
 
+class SensorModel {
+    -name: SensorModelName
+    -modelPath: ModelPath
+    -sensorTypeID: SensorTypeID
+}
+
+class Actuator {
+    -id: SensorID
+    -name: ActuatorName
+    -path: ModelPath
+    -actuatorTypeID: ActuatorTypeID
+    -deviceID: DeviceID
 }
 
 class ActuatorType {
-    -_strDescription: String
+    -name: TypeDescription
+    -unit: UnitID
+    -id: ActuatorTypeID
 }
 
-House "1" --[#595959,plain] "1" HouseLocation : has >
-HouseLocation "1" --[#595959,plain] "1" GPS : has >
-HouseLocation "1" --[#595959,plain] "1" Address : has >
-House "1 " --[#595959,plain] "1..*" Room : contains >
-Room "1" --[#595959,plain] "0..*" Device : contains >
-Room "*" --[#595959,plain] "1" Dimensions : has >
-Device "1" --[#595959,plain] "0..*" Sensor : contains >
-Device "1" --[#595959,plain] "0..*" Actuator : has >
-Sensor "*" --[#595959,plain] "1" SensorType : has >
-Actuator "*" --[#595959,plain] "1" ActuatorType : has >
+class ActuatorModel {
+    -name: ActuatorModelName
+    -modelPath: ModelPath
+    -actuatorTypeID: ActuatorTypeID
+}
+
+class Unit {
+    -symbol: UnitSymbol
+    -description: UnitDescription
+    -id: UnitID
+}
+
+class Log {
+    -id: LogID
+    -deviceID: DeviceID
+    -sensorID: SensorID
+    -description: SensorTypeID
+    -unitID: UnitID
+    -reading: ReadingValue
+    -localDateTime: LocalDateTime
+}
+
+House -left-> "1" Address : has
+House -right-> "1" GPS : has
+House "1" <-- "1..*" Room : belongs to
+Room "1" <-- Device : belongs to
+Room "*" -right-> "1" Dimensions : has
+Device "1" <-- Sensor : knows
+Device "1" <-- Actuator : knows
+Sensor --> "1" SensorType : knows
+
+Actuator --> "1" ActuatorType : knows
+SensorType "1" <-- SensorModel: knows
+SensorType --> "1" Unit: knows
+ActuatorType "1" <-- ActuatorModel: knows
+ActuatorType --> "1" Unit: knows
+Sensor --> "1" SensorModel : knows
+Actuator --> "1" ActuatorModel : knows
+
+Log -up-> "1" Device : knows
+Log -left-> "1" Sensor : knows
+Log --> "1" SensorType : knows
+Log --> "1" Unit : knows
 
 @enduml
 
