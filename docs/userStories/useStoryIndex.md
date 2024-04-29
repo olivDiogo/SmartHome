@@ -8,7 +8,7 @@
 
 [US04](us04/us04_readme.md) - As an Administrator, I want to define a sensor type.
 
-[US05](us05/us05_readme.md) - As a Power User [or Administrator], I want to add a new device to a room, in order to configure it.
+[US05](us05/us05v2_readme.md) - As a Power User [or Administrator], I want to add a new device to a room, in order to configure it.
 
 [US06](us06/us06_readme.md) - As a Room Owner [or Power User, or Administrator], I want to get a list of all devices in a room, so that I can configure them.
 
@@ -60,4 +60,4 @@ US32 - As Product Owner, I want the system to support data persistence using Spr
 
 [US33](us33/us33_readme.md) - As a Room Owner [or Power User, or Administrator], I want to get a list of all measurement of a device in a room, in a given period.
 
-US34 - As a Room Owner [or Power User, or Administrator], I want to get the maximum instantaneous temperature difference between a device in the room and the outside, in a given period.
+[US34](us34/us34_readme.md) - As a Room Owner [or Power User, or Administrator], I want to get the maximum instantaneous temperature difference between a device in the room and the outside, in a given period.

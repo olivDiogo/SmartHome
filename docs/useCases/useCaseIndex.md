@@ -1,4 +1,4 @@
-# User Stories Index
+# Use Case Index
 
 [uc01](uc01_toConfigureLocation/uc01_readme.md) - To configure the location of the house.
 

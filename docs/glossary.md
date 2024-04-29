@@ -192,4 +192,4 @@ _The switch is a device that will toggle between an 'on' and 'off' state. It wil
 
 [log]: #log
 _The log stores the measurements (readings) of the sensors within a given device. Each log entry is identified by their
-logID, and it also identifies the device and sensor by their respective IDs
+logID, and it also identifies the device and sensor by their respective IDs_
