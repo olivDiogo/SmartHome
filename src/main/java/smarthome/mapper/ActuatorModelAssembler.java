@@ -19,7 +19,7 @@ public class ActuatorModelAssembler implements IAssembler<ActuatorModel, Actuato
     Validator.validateNotNull(domainEntity, "Actuator Model");
 
     String actuatorModelID = domainEntity.getID().toString();
-    String actuatorModelName = domainEntity.getActuatorModelName().toString();
+    String actuatorModelName = domainEntity.getName().toString();
     String actuatorModelPath = domainEntity.getID().toString();
 
     ActuatorModelDTO actuatorModelDTO = new ActuatorModelDTO(actuatorModelID, actuatorModelName,

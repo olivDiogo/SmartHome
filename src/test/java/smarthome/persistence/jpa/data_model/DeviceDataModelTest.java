@@ -74,7 +74,7 @@ class DeviceDataModelTest {
 
     when(deviceDouble.getID()).thenReturn(deviceIDDouble);
     when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getName()).thenReturn(deviceNameDouble);
     when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
     when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
@@ -113,7 +113,7 @@ class DeviceDataModelTest {
 
     when(deviceDouble.getID()).thenReturn(deviceIDDouble);
     when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getName()).thenReturn(deviceNameDouble);
     when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
     when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
@@ -154,7 +154,7 @@ class DeviceDataModelTest {
 
     when(deviceDouble.getID()).thenReturn(deviceIDDouble);
     when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getName()).thenReturn(deviceNameDouble);
     when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
     when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
@@ -195,7 +195,7 @@ class DeviceDataModelTest {
 
     when(deviceDouble.getID()).thenReturn(deviceIDDouble);
     when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getName()).thenReturn(deviceNameDouble);
     when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
     when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
@@ -236,7 +236,7 @@ class DeviceDataModelTest {
 
     when(deviceDouble.getID()).thenReturn(deviceIDDouble);
     when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getName()).thenReturn(deviceNameDouble);
     when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
     when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
@@ -277,7 +277,7 @@ class DeviceDataModelTest {
 
     when(deviceDouble.getID()).thenReturn(deviceIDDouble);
     when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getName()).thenReturn(deviceNameDouble);
     when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
     when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 
@@ -318,7 +318,7 @@ class DeviceDataModelTest {
 
     when(deviceDouble.getID()).thenReturn(deviceIDDouble);
     when(deviceDouble.getRoomID()).thenReturn(roomIDDouble);
-    when(deviceDouble.getDeviceName()).thenReturn(deviceNameDouble);
+    when(deviceDouble.getName()).thenReturn(deviceNameDouble);
     when(deviceDouble.getDeviceTypeID()).thenReturn(deviceTypeIDDouble);
     when(deviceDouble.getDeviceStatus()).thenReturn(deviceStatusDouble);
 

@@ -90,7 +90,7 @@ class ActuatorNameTest {
     String actuatorName = "Switch Actuator";
     ActuatorName actuatorNameVO = new ActuatorName(actuatorName);
 
-    String result = actuatorNameVO.getActuatorName();
+    String result = actuatorNameVO.getName();
 
     assertEquals(result, actuatorName);
   }

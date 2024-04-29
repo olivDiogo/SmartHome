@@ -9,21 +9,21 @@ import smarthome.utils.Validator;
 public class SensorType implements IAggregateRoot<SensorTypeID> {
 
   private final TypeDescription name;
-  private final UnitID unit;
+  private final UnitID unitID;
   private SensorTypeID id;
 
   /**
    * Creates a new {@link SensorType} instance using the provided sensor type name and unit.
    *
    * @param name the sensor type name, must not be null
-   * @param unit the unit of the sensor type, must not be null
+   * @param unitID the unit of the sensor type, must not be null
    */
-  SensorType(TypeDescription name, UnitID unit) {
+  SensorType(TypeDescription name, UnitID unitID) {
     Validator.validateNotNull(name, "Name");
     this.name = name;
 
-    Validator.validateNotNull(unit, "Unit");
-    this.unit = unit;
+    Validator.validateNotNull(unitID, "Unit");
+    this.unitID = unitID;
 
     generateID(name);
   }
@@ -41,7 +41,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
     Validator.validateNotNull(unitID, "Unit");
 
     this.name = name;
-    this.unit = unitID;
+    this.unitID = unitID;
 
   }
 
@@ -77,8 +77,8 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
    *
    * @return the unit of the sensor type
    */
-  public UnitID getUnit() {
-    return unit;
+  public UnitID getUnitID() {
+    return unitID;
   }
 
   /**
@@ -114,7 +114,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
     return "SensorType:" +
         "id=" + id +
         ", name=" + name +
-        ", unit=" + unit;
+        ", unit=" + unitID;
 
   }
 }

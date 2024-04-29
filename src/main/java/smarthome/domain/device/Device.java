@@ -11,30 +11,30 @@ import smarthome.utils.Validator;
 
 public class Device implements IAggregateRoot<DeviceID> {
 
-  private final RoomID _roomID;
-  private final DeviceName _deviceName;
-  private final DeviceTypeID _deviceTypeID;
-  private DeviceID _deviceID;
-  private DeviceStatus _deviceStatus;
+  private final RoomID roomID;
+  private final DeviceName name;
+  private final DeviceTypeID deviceTypeID;
+  private DeviceID id;
+  private DeviceStatus status;
 
 
   /**
    * Constructs a new Device instance with the specified room ID, device name, and device state.
    *
    * @param roomID       The room ID where the device is located. Must not be null.
-   * @param deviceName   The name of the device. Must not be null.
+   * @param name   The name of the device. Must not be null.
    * @param deviceStatus The state of the device. Must not be null.
    */
-  Device(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus,
+  Device(RoomID roomID, DeviceName name, DeviceStatus deviceStatus,
       DeviceTypeID deviceTypeID) {
     Validator.validateNotNull(roomID, "RoomID");
-    Validator.validateNotNull(deviceName, "DeviceName");
+    Validator.validateNotNull(name, "DeviceName");
     Validator.validateNotNull(deviceStatus, "DeviceStatus");
     Validator.validateNotNull(deviceTypeID, "DeviceTypeID");
-    this._roomID = roomID;
-    this._deviceName = deviceName;
-    this._deviceStatus = deviceStatus;
-    this._deviceTypeID = deviceTypeID;
+    this.roomID = roomID;
+    this.name = name;
+    this.status = deviceStatus;
+    this.deviceTypeID = deviceTypeID;
     generateDeviceID();
   }
 
@@ -44,30 +44,30 @@ public class Device implements IAggregateRoot<DeviceID> {
    *
    * @param deviceID     The device ID. Must not be null.
    * @param roomID       The room ID where the device is located. Must not be null.
-   * @param deviceName   The name of the device. Must not be null.
+   * @param name   The name of the device. Must not be null.
    * @param deviceStatus The state of the device. Must not be null.
    * @param deviceTypeID The device type ID. Must not be null.
    */
-  Device(DeviceID deviceID, RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus,
+  Device(DeviceID deviceID, RoomID roomID, DeviceName name, DeviceStatus deviceStatus,
       DeviceTypeID deviceTypeID) {
     Validator.validateNotNull(deviceID, "DeviceID");
     Validator.validateNotNull(roomID, "RoomID");
-    Validator.validateNotNull(deviceName, "DeviceName");
+    Validator.validateNotNull(name, "DeviceName");
     Validator.validateNotNull(deviceStatus, "DeviceStatus");
     Validator.validateNotNull(deviceTypeID, "DeviceTypeID");
 
-    this._deviceID = deviceID;
-    this._roomID = roomID;
-    this._deviceName = deviceName;
-    this._deviceStatus = deviceStatus;
-    this._deviceTypeID = deviceTypeID;
+    this.id = deviceID;
+    this.roomID = roomID;
+    this.name = name;
+    this.status = deviceStatus;
+    this.deviceTypeID = deviceTypeID;
   }
 
   /**
    * Generates a new DeviceID object.
    */
   private void generateDeviceID() {
-    _deviceID = new DeviceID(UUID.randomUUID().toString());
+    id = new DeviceID(UUID.randomUUID().toString());
   }
 
 
@@ -77,7 +77,7 @@ public class Device implements IAggregateRoot<DeviceID> {
    * @return _deviceID
    */
   public DeviceID getID() {
-    return _deviceID;
+    return id;
   }
 
   /**
@@ -86,7 +86,7 @@ public class Device implements IAggregateRoot<DeviceID> {
    * @return _roomID
    */
   public RoomID getRoomID() {
-    return _roomID;
+    return roomID;
   }
 
 
@@ -95,8 +95,8 @@ public class Device implements IAggregateRoot<DeviceID> {
    *
    * @return _deviceName
    */
-  public DeviceName getDeviceName() {
-    return _deviceName;
+  public DeviceName getName() {
+    return name;
   }
 
   /**
@@ -105,7 +105,7 @@ public class Device implements IAggregateRoot<DeviceID> {
    * @return _deviceStatus
    */
   public DeviceStatus getDeviceStatus() {
-    return _deviceStatus;
+    return status;
   }
 
   /**
@@ -114,7 +114,7 @@ public class Device implements IAggregateRoot<DeviceID> {
    * @return _deviceTypeID
    */
   public DeviceTypeID getDeviceTypeID() {
-    return _deviceTypeID;
+    return deviceTypeID;
   }
 
   /**
@@ -126,7 +126,7 @@ public class Device implements IAggregateRoot<DeviceID> {
   @Override
   public boolean equals(Object object) {
     if (object instanceof Device device) {
-      return _deviceID.equals(device.getID());
+      return id.equals(device.getID());
     }
     return false;
   }
@@ -139,10 +139,10 @@ public class Device implements IAggregateRoot<DeviceID> {
   @Override
   public String toString() {
     return "Device:" +
-        "roomID=" + _roomID +
-        ", deviceID=" + _deviceID +
-        ", deviceName=" + _deviceName +
-        ", deviceStatus=" + _deviceStatus;
+        "roomID=" + roomID +
+        ", deviceID=" + id +
+        ", deviceName=" + name +
+        ", deviceStatus=" + status;
   }
 
   /**
@@ -151,8 +151,8 @@ public class Device implements IAggregateRoot<DeviceID> {
    * @return the status of the device
    */
   public DeviceStatus deactivateDevice() {
-    _deviceStatus = new DeviceStatus(false);
-    return _deviceStatus;
+    status = new DeviceStatus(false);
+    return status;
   }
 
   /**
@@ -162,7 +162,7 @@ public class Device implements IAggregateRoot<DeviceID> {
    */
   @Override
   public int hashCode() {
-    return this._deviceID.hashCode();
+    return this.id.hashCode();
   }
 
 }

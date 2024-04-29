@@ -33,7 +33,7 @@ class SensorTypeDataModelTest {
 
     when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
     when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
-    when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
+    when(sensorTypeDouble.getUnitID()).thenReturn(unitIDDouble);
 
     //Act
     SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
@@ -77,7 +77,7 @@ class SensorTypeDataModelTest {
 
     when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
     when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
-    when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
+    when(sensorTypeDouble.getUnitID()).thenReturn(unitIDDouble);
 
     SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
 
@@ -107,7 +107,7 @@ class SensorTypeDataModelTest {
 
     when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
     when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
-    when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
+    when(sensorTypeDouble.getUnitID()).thenReturn(unitIDDouble);
 
     SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
 
@@ -136,7 +136,7 @@ class SensorTypeDataModelTest {
 
     when(sensorTypeDouble.getID()).thenReturn(sensorTypeIDDouble);
     when(sensorTypeDouble.getName()).thenReturn(typeDescriptionDouble);
-    when(sensorTypeDouble.getUnit()).thenReturn(unitIDDouble);
+    when(sensorTypeDouble.getUnitID()).thenReturn(unitIDDouble);
 
     SensorTypeDataModel sensorTypeDataModel = new SensorTypeDataModel(sensorTypeDouble);
 

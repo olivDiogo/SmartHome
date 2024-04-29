@@ -35,7 +35,7 @@ class ActuatorAssemblerTest {
 
     String actuatorName = "César";
     ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-    when(actuatorNameDouble.getActuatorName()).thenReturn(actuatorName);
+    when(actuatorNameDouble.getName()).thenReturn(actuatorName);
 
     String actuatorModelPath = "path";
     ModelPath modelPathDouble = mock(ModelPath.class);
@@ -102,11 +102,11 @@ class ActuatorAssemblerTest {
 
     String actuatorName1 = "César";
     ActuatorName actuatorNameDouble = mock(ActuatorName.class);
-    when(actuatorNameDouble.getActuatorName()).thenReturn(actuatorName1);
+    when(actuatorNameDouble.getName()).thenReturn(actuatorName1);
 
     String actuatorName2 = "Aquece";
     ActuatorName actuatorNameDouble2 = mock(ActuatorName.class);
-    when(actuatorNameDouble2.getActuatorName()).thenReturn(actuatorName2);
+    when(actuatorNameDouble2.getName()).thenReturn(actuatorName2);
 
     String actuatorModelPath = "path";
     ModelPath modelPathDouble = mock(ModelPath.class);

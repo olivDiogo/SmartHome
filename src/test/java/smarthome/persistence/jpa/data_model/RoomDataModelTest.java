@@ -42,8 +42,8 @@ class RoomDataModelTest {
 
     Room roomDouble = mock(Room.class);
     when(roomDouble.getID()).thenReturn(mock(RoomID.class));
-    when(roomDouble.getRoomName()).thenReturn(mock(RoomName.class));
-    when(roomDouble.getRoomFloor()).thenReturn(mock(RoomFloor.class));
+    when(roomDouble.getName()).thenReturn(mock(RoomName.class));
+    when(roomDouble.getFloor()).thenReturn(mock(RoomFloor.class));
     when(roomDouble.getHouseID()).thenReturn(mock(HouseID.class));
     when(roomDouble.getDimension()).thenReturn(dimension);
 
@@ -90,8 +90,8 @@ class RoomDataModelTest {
 
     Room roomDouble = mock(Room.class);
     when(roomDouble.getID()).thenReturn(roomID);
-    when(roomDouble.getRoomName()).thenReturn(mock(RoomName.class));
-    when(roomDouble.getRoomFloor()).thenReturn(mock(RoomFloor.class));
+    when(roomDouble.getName()).thenReturn(mock(RoomName.class));
+    when(roomDouble.getFloor()).thenReturn(mock(RoomFloor.class));
     when(roomDouble.getHouseID()).thenReturn(mock(HouseID.class));
     when(roomDouble.getDimension()).thenReturn(dimension);
 
@@ -120,8 +120,8 @@ class RoomDataModelTest {
 
     Room roomDouble = mock(Room.class);
     when(roomDouble.getID()).thenReturn(mock(RoomID.class));
-    when(roomDouble.getRoomName()).thenReturn(roomName);
-    when(roomDouble.getRoomFloor()).thenReturn(mock(RoomFloor.class));
+    when(roomDouble.getName()).thenReturn(roomName);
+    when(roomDouble.getFloor()).thenReturn(mock(RoomFloor.class));
     when(roomDouble.getHouseID()).thenReturn(mock(HouseID.class));
     when(roomDouble.getDimension()).thenReturn(dimension);
 
@@ -147,8 +147,8 @@ class RoomDataModelTest {
 
     Room roomDouble = mock(Room.class);
     when(roomDouble.getID()).thenReturn(mock(RoomID.class));
-    when(roomDouble.getRoomName()).thenReturn(mock(RoomName.class));
-    when(roomDouble.getRoomFloor()).thenReturn(mock(RoomFloor.class));
+    when(roomDouble.getName()).thenReturn(mock(RoomName.class));
+    when(roomDouble.getFloor()).thenReturn(mock(RoomFloor.class));
     when(roomDouble.getHouseID()).thenReturn(mock(HouseID.class));
     when(roomDouble.getDimension()).thenReturn(dimension);
 
@@ -174,8 +174,8 @@ class RoomDataModelTest {
 
     Room roomDouble = mock(Room.class);
     when(roomDouble.getID()).thenReturn(mock(RoomID.class));
-    when(roomDouble.getRoomName()).thenReturn(mock(RoomName.class));
-    when(roomDouble.getRoomFloor()).thenReturn(mock(RoomFloor.class));
+    when(roomDouble.getName()).thenReturn(mock(RoomName.class));
+    when(roomDouble.getFloor()).thenReturn(mock(RoomFloor.class));
     when(roomDouble.getHouseID()).thenReturn(mock(HouseID.class));
     when(roomDouble.getDimension()).thenReturn(dimension);
 
@@ -201,8 +201,8 @@ class RoomDataModelTest {
 
     Room roomDouble = mock(Room.class);
     when(roomDouble.getID()).thenReturn(mock(RoomID.class));
-    when(roomDouble.getRoomName()).thenReturn(mock(RoomName.class));
-    when(roomDouble.getRoomFloor()).thenReturn(mock(RoomFloor.class));
+    when(roomDouble.getName()).thenReturn(mock(RoomName.class));
+    when(roomDouble.getFloor()).thenReturn(mock(RoomFloor.class));
     when(roomDouble.getHouseID()).thenReturn(mock(HouseID.class));
     when(roomDouble.getDimension()).thenReturn(dimension);
 
@@ -231,8 +231,8 @@ class RoomDataModelTest {
 
     Room roomDouble = mock(Room.class);
     when(roomDouble.getID()).thenReturn(mock(RoomID.class));
-    when(roomDouble.getRoomName()).thenReturn(mock(RoomName.class));
-    when(roomDouble.getRoomFloor()).thenReturn(roomFloor);
+    when(roomDouble.getName()).thenReturn(mock(RoomName.class));
+    when(roomDouble.getFloor()).thenReturn(roomFloor);
     when(roomDouble.getHouseID()).thenReturn(mock(HouseID.class));
     when(roomDouble.getDimension()).thenReturn(dimension);
 
@@ -261,8 +261,8 @@ class RoomDataModelTest {
 
     Room roomDouble = mock(Room.class);
     when(roomDouble.getID()).thenReturn(mock(RoomID.class));
-    when(roomDouble.getRoomName()).thenReturn(mock(RoomName.class));
-    when(roomDouble.getRoomFloor()).thenReturn(mock(RoomFloor.class));
+    when(roomDouble.getName()).thenReturn(mock(RoomName.class));
+    when(roomDouble.getFloor()).thenReturn(mock(RoomFloor.class));
     when(roomDouble.getHouseID()).thenReturn(houseID);
     when(roomDouble.getDimension()).thenReturn(dimension);
 

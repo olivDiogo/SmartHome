@@ -20,7 +20,7 @@ public class DeviceAssembler implements IAssembler<Device, DeviceDTO> {
 
     String deviceID = domainEntity.getID().toString();
     String roomID = domainEntity.getRoomID().toString();
-    String deviceName = domainEntity.getDeviceName().toString();
+    String deviceName = domainEntity.getName().toString();
     String deviceStatus = domainEntity.getDeviceStatus().toString();
 
     return new DeviceDTO(deviceID, roomID, deviceName, deviceStatus);

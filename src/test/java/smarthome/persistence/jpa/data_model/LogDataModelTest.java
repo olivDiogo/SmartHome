@@ -208,7 +208,7 @@ class LogDataModelTest {
     String readingValue = logDataModel.getReadingValue();
 
     //Assert
-    assertEquals(readingValueDouble.getReadingValue(), readingValue);
+    assertEquals(readingValueDouble.getValue(), readingValue);
   }
 
   /**

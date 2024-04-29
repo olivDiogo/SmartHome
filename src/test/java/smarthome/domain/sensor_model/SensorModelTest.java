@@ -152,7 +152,7 @@ class SensorModelTest {
 
     SensorModel sensorModel = new SensorModel(sensorModelName, modelPath, sensorTypeID);
     // Act
-    SensorModelName result = sensorModel.getSensorModelName();
+    SensorModelName result = sensorModel.getName();
     // Assert
     assertEquals(sensorModelName, result);
   }

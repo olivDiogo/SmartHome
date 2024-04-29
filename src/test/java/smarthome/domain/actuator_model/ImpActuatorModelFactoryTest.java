@@ -26,7 +26,7 @@ class ImpActuatorModelFactoryTest {
         actuatorModelFactory.createActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
     // Assert
     assertNotNull(actuatorModel);
-    assertEquals(actuatorModelName, actuatorModel.getActuatorModelName());
+    assertEquals(actuatorModelName, actuatorModel.getName());
   }
 
   /**
@@ -44,6 +44,6 @@ class ImpActuatorModelFactoryTest {
         actuatorModelFactory.createActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
     // Assert
     assertNotNull(actuatorModel);
-    assertEquals(actuatorModelName, actuatorModel.getActuatorModelName());
+    assertEquals(actuatorModelName, actuatorModel.getName());
   }
 }

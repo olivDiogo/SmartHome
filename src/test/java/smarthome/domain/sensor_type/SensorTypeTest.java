@@ -142,7 +142,7 @@ class SensorTypeTest {
       SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
 
       // Act
-      UnitID unit = sensorType.getUnit();
+      UnitID unit = sensorType.getUnitID();
 
       // Assert
       assertEquals(unit, unitDouble);

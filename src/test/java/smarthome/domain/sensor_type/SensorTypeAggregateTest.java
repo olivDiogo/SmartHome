@@ -93,7 +93,7 @@ class SensorTypeAggregateTest {
     SensorType sensorType = new SensorType(typeDescriptionDouble, unitDouble);
 
     // Act
-    UnitID unit = sensorType.getUnit();
+    UnitID unit = sensorType.getUnitID();
 
     // Assert
     assertEquals(unit, unitDouble);
@@ -246,7 +246,7 @@ class SensorTypeAggregateTest {
     String expected = "SensorType:" +
         "id=" + sensorType.getID() +
         ", name=" + sensorType.getName() +
-        ", unit=" + sensorType.getUnit();
+        ", unit=" + sensorType.getUnitID();
 
     // Act
     String result = sensorType.toString();

@@ -395,7 +395,7 @@ class RoomAggregateTest {
     Room room = new Room(houseID, roomName, dimension, roomFloor);
 
     //Act
-    RoomName result = room.getRoomName();
+    RoomName result = room.getName();
 
     //Assert
     assertEquals(name, result.toString());
@@ -449,7 +449,7 @@ class RoomAggregateTest {
     Room room = new Room(houseID, roomName, dimension, roomFloor);
 
     //Act
-    RoomFloor result = room.getRoomFloor();
+    RoomFloor result = room.getFloor();
 
     //Assert
     assertEquals(roomFloor, result);

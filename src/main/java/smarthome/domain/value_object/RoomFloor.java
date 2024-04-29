@@ -4,7 +4,7 @@ import smarthome.ddd.IValueObject;
 
 public class RoomFloor implements IValueObject {
 
-  int floor;
+  private int floor;
 
   public RoomFloor(int floor) {
     validateFloor(floor);

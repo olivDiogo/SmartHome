@@ -80,7 +80,7 @@ class LogDataModelAssemblerTest {
     when(sensorIDDouble.getID()).thenReturn("1L");
     LocalDateTime timeStampDouble = mock(LocalDateTime.class);
     ReadingValue readingValueDouble = mock(ReadingValue.class);
-    when(readingValueDouble.getReadingValue()).thenReturn("1L");
+    when(readingValueDouble.getValue()).thenReturn("1L");
     SensorTypeID descriptionDouble = mock(SensorTypeID.class);
     when(descriptionDouble.getID()).thenReturn("1L");
     UnitID unitDouble = mock(UnitID.class);
@@ -160,7 +160,7 @@ class LogDataModelAssemblerTest {
     when(sensorIDDouble.getID()).thenReturn("1L");
     LocalDateTime timeStampDouble = mock(LocalDateTime.class);
     ReadingValue readingValueDouble = mock(ReadingValue.class);
-    when(readingValueDouble.getReadingValue()).thenReturn("1L");
+    when(readingValueDouble.getValue()).thenReturn("1L");
     SensorTypeID descriptionDouble = mock(SensorTypeID.class);
     when(descriptionDouble.getID()).thenReturn("1L");
     UnitID unitDouble = mock(UnitID.class);

@@ -38,7 +38,7 @@ public class ActuatorModelDataModel {
   public ActuatorModelDataModel(ActuatorModel actuatorModel) {
     Validator.validateNotNull(actuatorModel, "Actuator Model");
     this.actuatorModelID = actuatorModel.getID().getID();
-    this.actuatorModelName = actuatorModel.getActuatorModelName().getActuatorModelName();
+    this.actuatorModelName = actuatorModel.getName().getActuatorModelName();
     this.modelPath = actuatorModel.getID().getID();
     this.actuatorTypeID = actuatorModel.getActuatorTypeID().getID();
   }

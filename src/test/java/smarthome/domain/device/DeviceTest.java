@@ -361,7 +361,7 @@ class DeviceTest {
     try (MockedConstruction<DeviceID> deviceIDMocked = mockConstruction(DeviceID.class)) {
       Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
       //Act
-      DeviceName result = device.getDeviceName();
+      DeviceName result = device.getName();
       //Assert
       assertEquals(result, deviceName);
     }

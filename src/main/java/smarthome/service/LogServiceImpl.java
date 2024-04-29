@@ -84,8 +84,8 @@ public class LogServiceImpl implements ILogService {
 
           if (diffInMinutes < timeDelta) {
             int temperatureDifference = Math.abs(
-                Integer.parseInt(readings1.get(i).getReadingValue().getReadingValue())
-                    - Integer.parseInt(readings2.get(j).getReadingValue().getReadingValue()));
+                Integer.parseInt(readings1.get(i).getReadingValue().getValue())
+                    - Integer.parseInt(readings2.get(j).getReadingValue().getValue()));
             valueDifferences.add(temperatureDifference);
           }
         }

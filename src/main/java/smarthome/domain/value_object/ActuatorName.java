@@ -4,11 +4,11 @@ import smarthome.ddd.IValueObject;
 
 public class ActuatorName implements IValueObject {
 
-  private final String actuatorName;
+  private final String name;
 
-  public ActuatorName(String actuatorName) {
-    validateActuatorName(actuatorName);
-    this.actuatorName = actuatorName;
+  public ActuatorName(String name) {
+    validateActuatorName(name);
+    this.name = name;
   }
 
   private void validateActuatorName(String actuatorName) {
@@ -20,8 +20,8 @@ public class ActuatorName implements IValueObject {
     }
   }
 
-  public String getActuatorName() {
-    return actuatorName;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -32,7 +32,7 @@ public class ActuatorName implements IValueObject {
 
     if (object instanceof ActuatorName actuatorName) {
 
-      return this.actuatorName.equals(actuatorName.actuatorName);
+      return this.name.equals(actuatorName.name);
     }
     return false;
   }
@@ -42,6 +42,6 @@ public class ActuatorName implements IValueObject {
    */
   @Override
   public int hashCode() {
-    return actuatorName.hashCode();
+    return name.hashCode();
   }
 }

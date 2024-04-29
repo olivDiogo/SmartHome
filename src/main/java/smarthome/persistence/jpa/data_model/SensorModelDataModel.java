@@ -38,7 +38,7 @@ public class SensorModelDataModel {
 
     Validator.validateNotNull(sensorModel, "Sensor Model");
     this._modelPath = sensorModel.getModelPath().getID();
-    this._sensorModelName = sensorModel.getSensorModelName().getSensorModelName();
+    this._sensorModelName = sensorModel.getName().getSensorModelName();
     this._sensorTypeID = sensorModel.getSensorTypeID().getID();
   }
 

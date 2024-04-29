@@ -50,7 +50,7 @@ public class DeviceDataModel {
     Validator.validateNotNull(device, "Device");
     this.deviceID = device.getID().getID();
     this.roomID = device.getRoomID().getID();
-    this.deviceName = device.getDeviceName().getName();
+    this.deviceName = device.getName().getName();
     this.deviceTypeID = device.getDeviceTypeID().getID();
     this.deviceStatus = device.getDeviceStatus().getStatus();
   }
@@ -107,7 +107,7 @@ public class DeviceDataModel {
   public boolean updateFromDomain(Device device) {
     this.deviceID = device.getID().getID();
     this.roomID = device.getRoomID().getID();
-    this.deviceName = device.getDeviceName().getName();
+    this.deviceName = device.getName().getName();
     this.deviceTypeID = device.getDeviceTypeID().getID();
     this.deviceStatus = device.getDeviceStatus().getStatus();
     return true;

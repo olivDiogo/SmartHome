@@ -47,7 +47,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn("123");
     when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
     when(actuatorTypeID.getID()).thenReturn("Switch");
-    when(actuatorName.getActuatorName()).thenReturn("SwitchActuator");
+    when(actuatorName.getName()).thenReturn("SwitchActuator");
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
@@ -100,7 +100,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn("device1");
     when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
     when(actuatorTypeID.getID()).thenReturn("Switch");
-    when(actuatorName.getActuatorName()).thenReturn("Switch");
+    when(actuatorName.getName()).thenReturn("Switch");
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
@@ -138,7 +138,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn("device1");
     when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
     when(actuatorTypeID.getID()).thenReturn("Switch");
-    when(actuatorName.getActuatorName()).thenReturn("Switch");
+    when(actuatorName.getName()).thenReturn("Switch");
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
@@ -176,7 +176,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn("device1");
     when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
     when(actuatorTypeID.getID()).thenReturn("Switch");
-    when(actuatorName.getActuatorName()).thenReturn("Switch");
+    when(actuatorName.getName()).thenReturn("Switch");
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
@@ -215,7 +215,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn("device1");
     when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
     when(actuatorTypeID.getID()).thenReturn("Switch");
-    when(actuatorName.getActuatorName()).thenReturn("Switch");
+    when(actuatorName.getName()).thenReturn("Switch");
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
@@ -254,7 +254,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn("device1");
     when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
     when(actuatorTypeID.getID()).thenReturn("Switch");
-    when(actuatorName.getActuatorName()).thenReturn("Switch");
+    when(actuatorName.getName()).thenReturn("Switch");
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
@@ -289,7 +289,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn("device1");
     when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
     when(actuatorTypeID.getID()).thenReturn("Switch");
-    when(actuatorName.getActuatorName()).thenReturn("Switch");
+    when(actuatorName.getName()).thenReturn("Switch");
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
@@ -325,7 +325,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn("device1");
     when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
     when(actuatorTypeID.getID()).thenReturn("Switch");
-    when(actuatorName.getActuatorName()).thenReturn("Switch");
+    when(actuatorName.getName()).thenReturn("Switch");
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
@@ -361,7 +361,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn("device1");
     when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
     when(actuatorTypeID.getID()).thenReturn("Switch");
-    when(actuatorName.getActuatorName()).thenReturn("Switch");
+    when(actuatorName.getName()).thenReturn("Switch");
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
@@ -397,7 +397,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn("device1");
     when(modelPath.getID()).thenReturn("smart_home.domain.actuator.Switch.Switch");
     when(actuatorTypeID.getID()).thenReturn("Switch");
-    when(actuatorName.getActuatorName()).thenReturn("Switch");
+    when(actuatorName.getName()).thenReturn("Switch");
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);
@@ -438,7 +438,7 @@ class ActuatorDataModelTest {
     when(deviceID.getID()).thenReturn(_deviceID);
     when(modelPath.getID()).thenReturn(_modelPath);
     when(actuatorTypeID.getID()).thenReturn(_actuatorTypeID);
-    when(actuatorName.getActuatorName()).thenReturn(_actuatorName);
+    when(actuatorName.getName()).thenReturn(_actuatorName);
 
     when(actuatorDouble.getID()).thenReturn(actuatorIDDouble);
     when(actuatorDouble.getDeviceID()).thenReturn(deviceID);

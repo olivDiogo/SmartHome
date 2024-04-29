@@ -19,7 +19,7 @@ class ReadingValueTest {
     //Act
     ReadingValue readingValue1 = new ReadingValue(readingValue);
     //Assert
-    assertEquals(readingValue, readingValue1.getReadingValue());
+    assertEquals(readingValue, readingValue1.getValue());
   }
 
   /**
@@ -46,7 +46,7 @@ class ReadingValueTest {
     String readingValue = "20";
     ReadingValue readingValue1 = new ReadingValue(readingValue);
     //Act
-    String result = readingValue1.getReadingValue();
+    String result = readingValue1.getValue();
     //Assert
     assertEquals(readingValue, result);
   }

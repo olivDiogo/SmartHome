@@ -8,11 +8,9 @@ import smarthome.utils.Validator;
 
 public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
 
-  private ActuatorTypeID _id;
-
-  private final TypeDescription _actuatorTypeName;
-
-  private final UnitID _unit;
+  private final TypeDescription name;
+  private final UnitID unitID;
+  private ActuatorTypeID id;
 
   /**
    * Creates a new {@link ActuatorType} instance using the provided actuator type name and unit.
@@ -25,8 +23,8 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
     Validator.validateNotNull(unit, "Unit ID");
     generateID(name);
 
-    this._actuatorTypeName = name;
-    this._unit = unit;
+    this.name = name;
+    this.unitID = unit;
   }
 
   /**
@@ -42,13 +40,13 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
     Validator.validateNotNull(unit, "Unit ID");
     Validator.validateNotNull(actuatorTypeID, "Actuator Type ID");
 
-    this._actuatorTypeName = name;
-    this._unit = unit;
-    this._id = actuatorTypeID;
+    this.name = name;
+    this.unitID = unit;
+    this.id = actuatorTypeID;
   }
 
   private void generateID(TypeDescription name) {
-    _id = new ActuatorTypeID(name.toString());
+    id = new ActuatorTypeID(name.toString());
   }
 
 
@@ -59,7 +57,7 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
    */
   @Override
   public ActuatorTypeID getID() {
-    return _id;
+    return id;
   }
 
   /**
@@ -68,7 +66,7 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
    * @return the actuator type name
    */
   public TypeDescription getActuatorTypeName() {
-    return _actuatorTypeName;
+    return name;
   }
 
 
@@ -78,7 +76,7 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
    * @return unit
    */
   public UnitID getUnit() {
-    return _unit;
+    return unitID;
   }
 
   /**
@@ -91,7 +89,7 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
   @Override
   public boolean equals(Object object) {
     if (object instanceof ActuatorType actuatorType) {
-      return this._id.equals(actuatorType._id);
+      return this.id.equals(actuatorType.id);
     }
     return false;
   }
@@ -103,7 +101,7 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
    */
   @Override
   public int hashCode() {
-    return _id.hashCode();
+    return id.hashCode();
   }
 
   /**
@@ -113,6 +111,6 @@ public class ActuatorType implements IAggregateRoot<ActuatorTypeID> {
    */
   @Override
   public String toString() {
-    return _id + " " + _actuatorTypeName + " " + _unit;
+    return id + " " + name + " " + unitID;
   }
 }

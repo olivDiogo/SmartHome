@@ -8,23 +8,23 @@ import smarthome.utils.Validator;
 
 public class SensorModel implements IAggregateRoot<ModelPath> {
 
-  private final SensorModelName sensorModelName;
+  private final SensorModelName name;
   private final ModelPath modelPath;
   private final SensorTypeID sensorTypeID;
 
   /**
    * Creates a new sensor model with the given sensor model name, model path, and sensor type ID.
    *
-   * @param sensorModelName The name of the sensor model.
+   * @param name The name of the sensor model.
    * @param modelPath       The path to the model.
    * @param sensorTypeID    The ID of the sensor type.
    */
   SensorModel(
-      SensorModelName sensorModelName, ModelPath modelPath, SensorTypeID sensorTypeID) {
-    Validator.validateNotNull(sensorModelName, "SensorModelName");
+      SensorModelName name, ModelPath modelPath, SensorTypeID sensorTypeID) {
+    Validator.validateNotNull(name, "SensorModelName");
     Validator.validateNotNull(modelPath, "ModelPath");
     Validator.validateNotNull(sensorTypeID, "SensorTypeID");
-    this.sensorModelName = sensorModelName;
+    this.name = name;
     this.modelPath = modelPath;
     this.sensorTypeID = sensorTypeID;
   }
@@ -44,8 +44,8 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
    *
    * @return The sensor model name.
    */
-  public SensorModelName getSensorModelName() {
-    return sensorModelName;
+  public SensorModelName getName() {
+    return name;
   }
 
   /**
@@ -99,7 +99,7 @@ public class SensorModel implements IAggregateRoot<ModelPath> {
   @Override
   public String toString() {
     return "SensorModel: sensorModelName="
-        + sensorModelName
+        + name
         + ", modelPath="
         + modelPath
         + ", sensorTypeID="

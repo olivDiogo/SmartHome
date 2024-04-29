@@ -387,7 +387,7 @@ class BlindRollerActuatorAggregateTest {
     ActuatorName result = blindRollerActuator.getName();
 
     //Assert
-    assertEquals(actuatorName, result.getActuatorName());
+    assertEquals(actuatorName, result.getName());
   }
 
   /**

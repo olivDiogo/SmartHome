@@ -37,11 +37,11 @@ class SensorModelDataModelTest {
     when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
 
     when(sensorModelDouble.getModelPath()).thenReturn(modelPathDouble);
-    when(sensorModelDouble.getSensorModelName()).thenReturn(sensorNameDouble);
+    when(sensorModelDouble.getName()).thenReturn(sensorNameDouble);
     when(sensorModelDouble.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
 
     when(sensorModelDouble.getModelPath()).thenReturn(modelPathDouble);
-    when(sensorModelDouble.getSensorModelName()).thenReturn(sensorNameDouble);
+    when(sensorModelDouble.getName()).thenReturn(sensorNameDouble);
     when(sensorModelDouble.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
 
     //Act
@@ -92,7 +92,7 @@ class SensorModelDataModelTest {
     when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
 
     when(sensorModelDouble.getModelPath()).thenReturn(modelPathDouble);
-    when(sensorModelDouble.getSensorModelName()).thenReturn(sensorNameDouble);
+    when(sensorModelDouble.getName()).thenReturn(sensorNameDouble);
     when(sensorModelDouble.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
 
     SensorModelDataModel sensorModelDataModel = new SensorModelDataModel(sensorModelDouble);
@@ -125,7 +125,7 @@ class SensorModelDataModelTest {
     when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
 
     when(sensorModelDouble.getModelPath()).thenReturn(modelPathDouble);
-    when(sensorModelDouble.getSensorModelName()).thenReturn(sensorNameDouble);
+    when(sensorModelDouble.getName()).thenReturn(sensorNameDouble);
     when(sensorModelDouble.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
 
     SensorModelDataModel sensorModelDataModel = new SensorModelDataModel(sensorModelDouble);
@@ -158,7 +158,7 @@ class SensorModelDataModelTest {
     when(sensorTypeIDDouble.getID()).thenReturn(strSensorTypeID);
 
     when(sensorModelDouble.getModelPath()).thenReturn(modelPathDouble);
-    when(sensorModelDouble.getSensorModelName()).thenReturn(sensorNameDouble);
+    when(sensorModelDouble.getName()).thenReturn(sensorNameDouble);
     when(sensorModelDouble.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
 
     SensorModelDataModel sensorModelDataModel = new SensorModelDataModel(sensorModelDouble);

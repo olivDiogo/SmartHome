@@ -19,7 +19,7 @@ public class ActuatorAssembler implements IAssembler<IActuator, ActuatorDTO> {
     Validator.validateNotNull(actuator, "Actuator");
 
     String actuatorID = actuator.getID().getID();
-    String actuatorName = actuator.getName().getActuatorName();
+    String actuatorName = actuator.getName().getName();
     String modelPath = actuator.getModelPath().toString();
     String actuatorTypeID = actuator.getActuatorTypeID().getID();
     String deviceID = actuator.getDeviceID().getID();

@@ -4,16 +4,16 @@ import smarthome.ddd.IDomainID;
 
 public class LogID implements IDomainID {
 
-  private final String logID;
+  private final String id;
 
   /**
    * Constructor for LogID
    *
-   * @param logID String
+   * @param id String
    */
-  public LogID(String logID) {
-    validateLogID(logID);
-    this.logID = logID.trim();
+  public LogID(String id) {
+    validateLogID(id);
+    this.id = id.trim();
   }
 
   /**
@@ -34,7 +34,7 @@ public class LogID implements IDomainID {
    */
   @Override
   public String getID() {
-    return logID;
+    return id;
   }
 
   /**
@@ -51,7 +51,7 @@ public class LogID implements IDomainID {
 
     if (o instanceof LogID objectLogID) {
 
-      return this.logID.equals(objectLogID.logID);
+      return this.id.equals(objectLogID.id);
     }
     return false;
   }
@@ -63,7 +63,7 @@ public class LogID implements IDomainID {
    */
   @Override
   public int hashCode() {
-    return logID.hashCode();
+    return id.hashCode();
   }
 
   /**
@@ -73,7 +73,7 @@ public class LogID implements IDomainID {
    */
   @Override
   public String toString() {
-    return logID;
+    return id;
   }
 
 }

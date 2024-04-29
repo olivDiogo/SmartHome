@@ -99,7 +99,7 @@ class ActuatorVisitorForDataModelImplTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
     when(actuatorTypeID.getID()).thenReturn(_actuatorTypeID);
     ActuatorName actuatorName = mock(ActuatorName.class);
-    when(actuatorName.getActuatorName()).thenReturn(_actuatorName);
+    when(actuatorName.getName()).thenReturn(_actuatorName);
     ActuatorID actuatorID = mock(ActuatorID.class);
     when(actuatorID.getID()).thenReturn(_actuatorID);
 
@@ -149,7 +149,7 @@ class ActuatorVisitorForDataModelImplTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
     when(actuatorTypeID.getID()).thenReturn(_actuatorTypeID);
     ActuatorName actuatorName = mock(ActuatorName.class);
-    when(actuatorName.getActuatorName()).thenReturn(_actuatorName);
+    when(actuatorName.getName()).thenReturn(_actuatorName);
     ActuatorID actuatorID = mock(ActuatorID.class);
     when(actuatorID.getID()).thenReturn(_actuatorID);
     IntegerLimits limits = mock(IntegerLimits.class);
@@ -203,7 +203,7 @@ class ActuatorVisitorForDataModelImplTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
     when(actuatorTypeID.getID()).thenReturn(_actuatorTypeID);
     ActuatorName actuatorName = mock(ActuatorName.class);
-    when(actuatorName.getActuatorName()).thenReturn(_actuatorName);
+    when(actuatorName.getName()).thenReturn(_actuatorName);
     ActuatorID actuatorID = mock(ActuatorID.class);
     when(actuatorID.getID()).thenReturn(_actuatorID);
     DecimalLimits limits = mock(DecimalLimits.class);
@@ -255,7 +255,7 @@ class ActuatorVisitorForDataModelImplTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
     when(actuatorTypeID.getID()).thenReturn(_actuatorTypeID);
     ActuatorName actuatorName = mock(ActuatorName.class);
-    when(actuatorName.getActuatorName()).thenReturn(_actuatorName);
+    when(actuatorName.getName()).thenReturn(_actuatorName);
     ActuatorID actuatorID = mock(ActuatorID.class);
     when(actuatorID.getID()).thenReturn(_actuatorID);
 

@@ -42,7 +42,7 @@ public class LogDataModel {
     this._deviceID = log.getDeviceID().getID();
     this._sensorID = log.getSensorID().getID();
     this._timestamp = log.getTimeStamp();
-    this._readingValue = log.getReadingValue().getReadingValue();
+    this._readingValue = log.getReadingValue().getValue();
     this._description = log.getDescription().getID();
     this._unit = log.getUnit().getID();
   }

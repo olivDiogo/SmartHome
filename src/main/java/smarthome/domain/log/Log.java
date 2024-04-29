@@ -13,7 +13,7 @@ import smarthome.utils.Validator;
 
 public class Log implements IAggregateRoot<LogID> {
 
-  private LogID logID;
+  private LogID id;
   private final DeviceID deviceID;
   private final SensorID sensorID;
   private final LocalDateTime localDateTime;
@@ -45,10 +45,10 @@ public class Log implements IAggregateRoot<LogID> {
    * Constructs a new Log instance with the specified log ID, device ID, sensor ID, timestamp, and
    * value.
    */
-  Log(LogID logID, DeviceID deviceID, SensorID sensorID, LocalDateTime localDateTime,
+  Log(LogID id, DeviceID deviceID, SensorID sensorID, LocalDateTime localDateTime,
       ReadingValue value, SensorTypeID description, UnitID unit) {
-    Validator.validateNotNull(logID, "Log ID");
-    this.logID = logID;
+    Validator.validateNotNull(id, "Log ID");
+    this.id = id;
     Validator.validateNotNull(deviceID, "Device ID");
     this.deviceID = deviceID;
     Validator.validateNotNull(sensorID, "Sensor ID");
@@ -67,7 +67,7 @@ public class Log implements IAggregateRoot<LogID> {
    * Generate a new LogID object.
    */
   private void generateLogID() {
-    logID = new LogID(UUID.randomUUID().toString());
+    id = new LogID(UUID.randomUUID().toString());
   }
 
   /**
@@ -75,7 +75,7 @@ public class Log implements IAggregateRoot<LogID> {
    */
   @Override
   public LogID getID() {
-    return logID;
+    return id;
   }
 
   /**
@@ -129,7 +129,7 @@ public class Log implements IAggregateRoot<LogID> {
   @Override
   public boolean equals(Object obj) {
     if (obj instanceof Log log) {
-      return this.logID.equals(log.getID());
+      return this.id.equals(log.getID());
     }
     return false;
   }
@@ -141,7 +141,7 @@ public class Log implements IAggregateRoot<LogID> {
    */
   @Override
   public int hashCode() {
-    return logID.hashCode();
+    return id.hashCode();
   }
 
   /**
@@ -151,7 +151,7 @@ public class Log implements IAggregateRoot<LogID> {
    */
   @Override
   public String toString() {
-    return logID + " " + deviceID + " " + sensorID + " " + localDateTime + " " + reading + " "
+    return id + " " + deviceID + " " + sensorID + " " + localDateTime + " " + reading + " "
         + description
         + " " + unitID;
   }

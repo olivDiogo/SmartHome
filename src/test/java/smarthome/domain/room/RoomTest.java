@@ -198,7 +198,7 @@ class RoomTest {
     Room room = new Room(houseID, roomName, dimension, roomFloor);
 
     //Act
-    RoomName result = room.getRoomName();
+    RoomName result = room.getName();
 
     //Assert
     assertTrue(room.toString().contains(result.toString()));
@@ -238,7 +238,7 @@ class RoomTest {
     Room room = new Room(houseID, roomName, dimension, roomFloor);
 
     //Act
-    RoomFloor result = room.getRoomFloor();
+    RoomFloor result = room.getFloor();
 
     //Assert
     assertTrue(room.toString().contains(result.toString()));

@@ -45,14 +45,14 @@ class RoomAssemblerTest {
 
     Room room = mock(Room.class);
 
-    when(room.getRoomName()).thenReturn(mock(RoomName.class));
-    when(room.getRoomName().toString()).thenReturn(roomName);
+    when(room.getName()).thenReturn(mock(RoomName.class));
+    when(room.getName().toString()).thenReturn(roomName);
 
     when(room.getDimension()).thenReturn(mock(Dimension.class));
     when(room.getDimension().toString()).thenReturn(dimension);
 
-    when(room.getRoomFloor()).thenReturn(mock(RoomFloor.class));
-    when(room.getRoomFloor().toString()).thenReturn(roomfloor);
+    when(room.getFloor()).thenReturn(mock(RoomFloor.class));
+    when(room.getFloor().toString()).thenReturn(roomfloor);
 
     when(room.getID()).thenReturn(mock(RoomID.class));
     when(room.getID().toString()).thenReturn(roomID);
@@ -104,28 +104,28 @@ class RoomAssemblerTest {
 
     Room room = mock(Room.class);
 
-    when(room.getRoomName()).thenReturn(mock(RoomName.class));
-    when(room.getRoomName().toString()).thenReturn(roomName);
+    when(room.getName()).thenReturn(mock(RoomName.class));
+    when(room.getName().toString()).thenReturn(roomName);
 
     when(room.getDimension()).thenReturn(mock(Dimension.class));
     when(room.getDimension().toString()).thenReturn(dimension);
 
-    when(room.getRoomFloor()).thenReturn(mock(RoomFloor.class));
-    when(room.getRoomFloor().toString()).thenReturn(roomFloor);
+    when(room.getFloor()).thenReturn(mock(RoomFloor.class));
+    when(room.getFloor().toString()).thenReturn(roomFloor);
 
     when(room.getID()).thenReturn(mock(RoomID.class));
     when(room.getID().toString()).thenReturn(roomID);
 
     Room room2 = mock(Room.class);
 
-    when(room2.getRoomName()).thenReturn(mock(RoomName.class));
-    when(room2.getRoomName().toString()).thenReturn(roomName2);
+    when(room2.getName()).thenReturn(mock(RoomName.class));
+    when(room2.getName().toString()).thenReturn(roomName2);
 
     when(room2.getDimension()).thenReturn(mock(Dimension.class));
     when(room2.getDimension().toString()).thenReturn(dimension2);
 
-    when(room2.getRoomFloor()).thenReturn(mock(RoomFloor.class));
-    when(room2.getRoomFloor().toString()).thenReturn(roomFloor2);
+    when(room2.getFloor()).thenReturn(mock(RoomFloor.class));
+    when(room2.getFloor().toString()).thenReturn(roomFloor2);
 
     when(room2.getID()).thenReturn(mock(RoomID.class));
     when(room2.getID().toString()).thenReturn(roomID2);

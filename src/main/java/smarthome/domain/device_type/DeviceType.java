@@ -8,8 +8,8 @@ import smarthome.utils.Validator;
 
 public class DeviceType implements IAggregateRoot<DeviceTypeID> {
 
-  private final TypeDescription _deviceTypeDescription;
-  private DeviceTypeID _deviceTypeID;
+  private final TypeDescription description;
+  private DeviceTypeID id;
 
   /**
    * Creates a new instance of the {@link DeviceType} class.
@@ -19,15 +19,15 @@ public class DeviceType implements IAggregateRoot<DeviceTypeID> {
   DeviceType(TypeDescription deviceTypeDescription) {
     generateDeviceTypeID();
     Validator.validateNotNull(deviceTypeDescription, "DeviceTypeDescription");
-    this._deviceTypeDescription = deviceTypeDescription;
+    this.description = deviceTypeDescription;
   }
 
   /**
    * Creates a new instance of the {@link DeviceType} class, with the specified ID and description.
    */
   DeviceType(DeviceTypeID id, TypeDescription description) {
-    _deviceTypeID = id;
-    _deviceTypeDescription = description;
+    this.id = id;
+    this.description = description;
   }
 
 
@@ -35,7 +35,7 @@ public class DeviceType implements IAggregateRoot<DeviceTypeID> {
    * Generates a new device type ID.
    */
   private void generateDeviceTypeID() {
-    this._deviceTypeID = new DeviceTypeID(UUID.randomUUID().toString());
+    this.id = new DeviceTypeID(UUID.randomUUID().toString());
   }
 
   /**
@@ -45,7 +45,7 @@ public class DeviceType implements IAggregateRoot<DeviceTypeID> {
    */
   @Override
   public DeviceTypeID getID() {
-    return _deviceTypeID;
+    return id;
   }
 
   /**
@@ -54,7 +54,7 @@ public class DeviceType implements IAggregateRoot<DeviceTypeID> {
    * @return The description.
    */
   public TypeDescription getDescription() {
-    return _deviceTypeDescription;
+    return description;
   }
 
   /**
@@ -66,7 +66,7 @@ public class DeviceType implements IAggregateRoot<DeviceTypeID> {
   @Override
   public boolean equals(Object object) {
     if (object instanceof DeviceType deviceType) {
-      return this._deviceTypeID.equals(deviceType.getID());
+      return this.id.equals(deviceType.getID());
     }
     return false;
   }
@@ -78,7 +78,7 @@ public class DeviceType implements IAggregateRoot<DeviceTypeID> {
    */
   @Override
   public int hashCode() {
-    return this._deviceTypeID.hashCode();
+    return this.id.hashCode();
   }
 
   /**
@@ -88,8 +88,8 @@ public class DeviceType implements IAggregateRoot<DeviceTypeID> {
    */
   public String toString() {
     return "Device Type:  Device Description= "
-        + _deviceTypeDescription.getDescription()
+        + description.getDescription()
         + " ID= "
-        + _deviceTypeID.getID();
+        + id.getID();
   }
 }

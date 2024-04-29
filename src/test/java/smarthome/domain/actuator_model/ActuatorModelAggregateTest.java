@@ -305,7 +305,7 @@ class ActuatorModelAggregateTest {
     ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
 
     //Act
-    ActuatorModelName result = actuatorModel.getActuatorModelName();
+    ActuatorModelName result = actuatorModel.getName();
 
     //Assert
     assertEquals(actuatorModelName, result);

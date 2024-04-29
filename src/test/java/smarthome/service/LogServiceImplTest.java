@@ -172,7 +172,7 @@ class LogServiceImplTest {
     // Arrange
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
-    when(readingValue1.getReadingValue()).thenReturn("5");
+    when(readingValue1.getValue()).thenReturn("5");
     Log log1 = mock(Log.class);
     when(log1.getReadingValue()).thenReturn(readingValue1);
     when(log1.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 1));
@@ -181,7 +181,7 @@ class LogServiceImplTest {
 
     /* Mocking another log object and adding it to another list*/
     ReadingValue readingValue2 = mock(ReadingValue.class);
-    when(readingValue2.getReadingValue()).thenReturn("14");
+    when(readingValue2.getValue()).thenReturn("14");
     Log log2 = mock(Log.class);
     when(log2.getReadingValue()).thenReturn(readingValue2);
     when(log2.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 5));
@@ -210,21 +210,21 @@ class LogServiceImplTest {
     // Arrange
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
-    when(readingValue1.getReadingValue()).thenReturn("5");
+    when(readingValue1.getValue()).thenReturn("5");
     Log log1 = mock(Log.class);
     when(log1.getReadingValue()).thenReturn(readingValue1);
     when(log1.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 1));
 
     /* Mocking another log object and adding it to the second list*/
     ReadingValue readingValue2 = mock(ReadingValue.class);
-    when(readingValue2.getReadingValue()).thenReturn("14");
+    when(readingValue2.getValue()).thenReturn("14");
     Log log2 = mock(Log.class);
     when(log2.getReadingValue()).thenReturn(readingValue2);
     when(log2.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 2));
 
     /* Mocking another log object and adding it to the second list*/
     ReadingValue readingValue3 = mock(ReadingValue.class);
-    when(readingValue3.getReadingValue()).thenReturn("20");
+    when(readingValue3.getValue()).thenReturn("20");
     Log log3 = mock(Log.class);
     when(log3.getReadingValue()).thenReturn(readingValue3);
     when(log3.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 3));
@@ -257,7 +257,7 @@ class LogServiceImplTest {
     // Arrange
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
-    when(readingValue1.getReadingValue()).thenReturn("5");
+    when(readingValue1.getValue()).thenReturn("5");
     Log log1 = mock(Log.class);
     when(log1.getReadingValue()).thenReturn(readingValue1);
     when(log1.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 1));
@@ -266,7 +266,7 @@ class LogServiceImplTest {
 
     /* Mocking another log object and adding it to another list*/
     ReadingValue readingValue2 = mock(ReadingValue.class);
-    when(readingValue2.getReadingValue()).thenReturn("14");
+    when(readingValue2.getValue()).thenReturn("14");
     Log log2 = mock(Log.class);
     when(log2.getReadingValue()).thenReturn(readingValue2);
     when(log2.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 6));

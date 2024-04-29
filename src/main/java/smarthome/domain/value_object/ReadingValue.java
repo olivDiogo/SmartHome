@@ -5,16 +5,16 @@ import smarthome.utils.Validator;
 
 public class ReadingValue implements IValueObject {
 
-  private final String readingValue;
+  private final String value;
 
   /**
    * Constructor of the class ReadingValue.
    *
-   * @param readingValue is the value of the reading.
+   * @param value is the value of the reading.
    */
-  public ReadingValue(String readingValue) {
-    Validator.validateNotNull(readingValue, "Reading Value");
-    this.readingValue = readingValue;
+  public ReadingValue(String value) {
+    Validator.validateNotNull(value, "Reading Value");
+    this.value = value;
   }
 
   /**
@@ -22,8 +22,8 @@ public class ReadingValue implements IValueObject {
    *
    * @return readingValue.
    */
-  public String getReadingValue() {
-    return readingValue;
+  public String getValue() {
+    return value;
   }
 
   /**
@@ -38,7 +38,7 @@ public class ReadingValue implements IValueObject {
       return true;
     }
     if (o instanceof ReadingValue readingValue) {
-      return this.readingValue.equals(readingValue.readingValue);
+      return this.value.equals(readingValue.value);
     }
     return false;
   }
@@ -50,6 +50,6 @@ public class ReadingValue implements IValueObject {
    */
   @Override
   public int hashCode() {
-    return readingValue.hashCode();
+    return value.hashCode();
   }
 }

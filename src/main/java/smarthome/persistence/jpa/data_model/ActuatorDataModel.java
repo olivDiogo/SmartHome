@@ -57,7 +57,7 @@ public class ActuatorDataModel {
     this.deviceid = actuator.getDeviceID().getID();
     this.modelPath = actuator.getModelPath().getID();
     this.actuatorTypeID = actuator.getActuatorTypeID().getID();
-    this.actuatorName = actuator.getName().getActuatorName();
+    this.actuatorName = actuator.getName().getName();
   }
 
   /**

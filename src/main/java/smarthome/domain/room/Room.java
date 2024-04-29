@@ -11,31 +11,31 @@ import smarthome.utils.Validator;
 
 public class Room implements IAggregateRoot<RoomID> {
 
-  private final HouseID _houseID;
-  private final RoomFloor _roomFloor;
-  private final RoomName _roomName;
-  private final Dimension _dimension;
-  private RoomID _roomID;
+  private final HouseID houseID;
+  private final RoomFloor floor;
+  private final RoomName name;
+  private final Dimension dimension;
+  private RoomID id;
 
   /**
    * Constructs a new Room instance with the specified house ID, room name, dimension, and room
    * floor.
    *
    * @param houseID   The house ID where the room is located. Must not be null.
-   * @param roomName  The name of the room. Must not be null.
+   * @param name  The name of the room. Must not be null.
    * @param dimension The dimension of the room. Must not be null.
-   * @param roomFloor The floor where the room is located. Must not be null.
+   * @param floor The floor where the room is located. Must not be null.
    */
-  Room(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor) {
+  Room(HouseID houseID, RoomName name, Dimension dimension, RoomFloor floor) {
     Validator.validateNotNull(houseID, "HouseID");
-    Validator.validateNotNull(roomName, "RoomName");
+    Validator.validateNotNull(name, "RoomName");
     Validator.validateNotNull(dimension, "Dimension");
-    Validator.validateNotNull(roomFloor, "RoomFloor");
+    Validator.validateNotNull(floor, "RoomFloor");
     generateRoomID();
-    _houseID = houseID;
-    _roomFloor = roomFloor;
-    _roomName = roomName;
-    _dimension = dimension;
+    this.houseID = houseID;
+    this.floor = floor;
+    this.name = name;
+    this.dimension = dimension;
   }
 
   /**
@@ -43,30 +43,30 @@ public class Room implements IAggregateRoot<RoomID> {
    * and room ID.
    *
    * @param houseID   The house ID where the room is located.
-   * @param roomName  The name of the room.
+   * @param name  The name of the room.
    * @param dimension The dimension of the room.
-   * @param roomFloor The floor where the room is located.
+   * @param floor The floor where the room is located.
    * @param roomID    The room ID.
    */
-  Room(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor,
+  Room(HouseID houseID, RoomName name, Dimension dimension, RoomFloor floor,
       RoomID roomID) {
     Validator.validateNotNull(houseID, "HouseID");
-    Validator.validateNotNull(roomName, "RoomName");
+    Validator.validateNotNull(name, "RoomName");
     Validator.validateNotNull(dimension, "Dimension");
-    Validator.validateNotNull(roomFloor, "RoomFloor");
+    Validator.validateNotNull(floor, "RoomFloor");
     Validator.validateNotNull(roomID, "RoomID");
-    _roomID = roomID;
-    _houseID = houseID;
-    _roomFloor = roomFloor;
-    _roomName = roomName;
-    _dimension = dimension;
+    id = roomID;
+    this.houseID = houseID;
+    this.floor = floor;
+    this.name = name;
+    this.dimension = dimension;
   }
 
   /**
    * Generates a new RoomID object.
    */
   private void generateRoomID() {
-    _roomID = new RoomID(UUID.randomUUID().toString());
+    id = new RoomID(UUID.randomUUID().toString());
   }
 
 
@@ -77,7 +77,7 @@ public class Room implements IAggregateRoot<RoomID> {
    */
   @Override
   public RoomID getID() {
-    return _roomID;
+    return id;
   }
 
   /**
@@ -86,7 +86,7 @@ public class Room implements IAggregateRoot<RoomID> {
    * @return the house ID.
    */
   public HouseID getHouseID() {
-    return _houseID;
+    return houseID;
   }
 
   /**
@@ -94,8 +94,8 @@ public class Room implements IAggregateRoot<RoomID> {
    *
    * @return the room name.
    */
-  public RoomName getRoomName() {
-    return _roomName;
+  public RoomName getName() {
+    return name;
   }
 
   /**
@@ -104,7 +104,7 @@ public class Room implements IAggregateRoot<RoomID> {
    * @return the room dimension.
    */
   public Dimension getDimension() {
-    return _dimension;
+    return dimension;
   }
 
   /**
@@ -112,8 +112,8 @@ public class Room implements IAggregateRoot<RoomID> {
    *
    * @return the room floor.
    */
-  public RoomFloor getRoomFloor() {
-    return _roomFloor;
+  public RoomFloor getFloor() {
+    return floor;
   }
 
   /**
@@ -125,7 +125,7 @@ public class Room implements IAggregateRoot<RoomID> {
   @Override
   public boolean equals(Object object) {
     if (object instanceof Room room) {
-      return _roomID.equals(room._roomID);
+      return id.equals(room.id);
     }
     return false;
   }
@@ -137,8 +137,8 @@ public class Room implements IAggregateRoot<RoomID> {
    */
   @Override
   public String toString() {
-    return "Room:" + "houseID= " + _houseID + ", roomID= " + _roomID + ", roomName= " + _roomName
-        + ", dimension= " + _dimension + ", roomFloor= " + _roomFloor;
+    return "Room:" + "houseID= " + houseID + ", roomID= " + id + ", roomName= " + name
+        + ", dimension= " + dimension + ", roomFloor= " + floor;
   }
 
   /**
@@ -147,6 +147,6 @@ public class Room implements IAggregateRoot<RoomID> {
    * @return the hash code of the object.
    */
   public int hashCode() {
-    return _roomID.hashCode();
+    return id.hashCode();
   }
 }

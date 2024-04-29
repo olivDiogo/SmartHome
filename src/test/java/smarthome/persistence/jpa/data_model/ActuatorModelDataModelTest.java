@@ -40,7 +40,7 @@ class ActuatorModelDataModelTest {
 
     ActuatorModel actuatorModel = mock(ActuatorModel.class);
 
-    when(actuatorModel.getActuatorModelName()).thenReturn(actuatorModelName);
+    when(actuatorModel.getName()).thenReturn(actuatorModelName);
     when(actuatorModel.getID()).thenReturn(modelPath);
     when(actuatorModel.getActuatorTypeID()).thenReturn(actuatorTypeID);
     // Act
@@ -84,7 +84,7 @@ class ActuatorModelDataModelTest {
     when(modelPath.getID()).thenReturn(strModelPath);
     when(actuatorTypeID.getID()).thenReturn(strActuatorTypeID);
 
-    when(actuatorModelDouble.getActuatorModelName()).thenReturn(actuatorModelName);
+    when(actuatorModelDouble.getName()).thenReturn(actuatorModelName);
     when(actuatorModelDouble.getID()).thenReturn(modelPath);
     when(actuatorModelDouble.getActuatorTypeID()).thenReturn(actuatorTypeID);
 
@@ -114,7 +114,7 @@ class ActuatorModelDataModelTest {
     when(modelPath.getID()).thenReturn(strModelPath);
     when(actuatorTypeID.getID()).thenReturn(strActuatorTypeID);
 
-    when(actuatorModelDouble.getActuatorModelName()).thenReturn(actuatorModelName);
+    when(actuatorModelDouble.getName()).thenReturn(actuatorModelName);
     when(actuatorModelDouble.getID()).thenReturn(modelPath);
     when(actuatorModelDouble.getActuatorTypeID()).thenReturn(actuatorTypeID);
 
@@ -144,7 +144,7 @@ class ActuatorModelDataModelTest {
     when(modelPath.getID()).thenReturn(strModelPath);
     when(actuatorTypeID.getID()).thenReturn(strActuatorTypeID);
 
-    when(actuatorModelDouble.getActuatorModelName()).thenReturn(actuatorModelName);
+    when(actuatorModelDouble.getName()).thenReturn(actuatorModelName);
     when(actuatorModelDouble.getID()).thenReturn(modelPath);
     when(actuatorModelDouble.getActuatorTypeID()).thenReturn(actuatorTypeID);
 
@@ -174,7 +174,7 @@ class ActuatorModelDataModelTest {
     when(modelPath.getID()).thenReturn(strModelPath);
     when(actuatorTypeID.getID()).thenReturn(strActuatorTypeID);
 
-    when(actuatorModelDouble.getActuatorModelName()).thenReturn(actuatorModelName);
+    when(actuatorModelDouble.getName()).thenReturn(actuatorModelName);
     when(actuatorModelDouble.getID()).thenReturn(modelPath);
     when(actuatorModelDouble.getActuatorTypeID()).thenReturn(actuatorTypeID);
 

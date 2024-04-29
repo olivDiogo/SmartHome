@@ -14,9 +14,9 @@ import smarthome.utils.Validator;
  */
 public class House implements IAggregateRoot<HouseID> {
 
-  private HouseID _houseID;
-  private final Address _address;
-  private final GPS _gps;
+  private HouseID id;
+  private final Address address;
+  private final GPS gps;
 
   /**
    * Constructs a new House instance with the specified address, zip code, and GPS coordinates.
@@ -30,8 +30,8 @@ public class House implements IAggregateRoot<HouseID> {
     generateID();
     Validator.validateNotNull(address, "Address");
     Validator.validateNotNull(gps, "GPS");
-    this._address = address;
-    this._gps = gps;
+    this.address = address;
+    this.gps = gps;
 
   }
 
@@ -40,9 +40,9 @@ public class House implements IAggregateRoot<HouseID> {
     Validator.validateNotNull(address, "Address");
     Validator.validateNotNull(gps, "GPS");
 
-    this._houseID = houseID;
-    this._address = address;
-    this._gps = gps;
+    this.id = houseID;
+    this.address = address;
+    this.gps = gps;
   }
 
 
@@ -50,7 +50,7 @@ public class House implements IAggregateRoot<HouseID> {
    * Generates a unique identifier for the House instance.
    */
   private void generateID() {
-    _houseID = new HouseID(UUID.randomUUID().toString());
+    id = new HouseID(UUID.randomUUID().toString());
   }
 
 
@@ -61,7 +61,7 @@ public class House implements IAggregateRoot<HouseID> {
    */
   @Override
   public HouseID getID() {
-    return _houseID;
+    return id;
   }
 
   /**
@@ -70,7 +70,7 @@ public class House implements IAggregateRoot<HouseID> {
    * @return The Address of the house.
    */
   public Address getAddress() {
-    return _address;
+    return address;
   }
 
   /**
@@ -79,7 +79,7 @@ public class House implements IAggregateRoot<HouseID> {
    * @return The GPS coordinates of the house.
    */
   public GPS getGps() {
-    return _gps;
+    return gps;
   }
 
   /**
@@ -93,7 +93,7 @@ public class House implements IAggregateRoot<HouseID> {
    */
   public boolean equals(Object o) {
     if (o instanceof House houseObject) {
-      return _houseID.equals(houseObject._houseID);
+      return id.equals(houseObject.id);
     }
     return false;
   }
@@ -107,9 +107,9 @@ public class House implements IAggregateRoot<HouseID> {
    */
   public String toString() {
     return "House:" +
-        "houseID=" + _houseID +
-        ", address=" + _address +
-        ", gps=" + _gps;
+        "houseID=" + id +
+        ", address=" + address +
+        ", gps=" + gps;
   }
 
   /**
@@ -120,6 +120,6 @@ public class House implements IAggregateRoot<HouseID> {
    * @return a hash code value for this House instance
    */
   public int hashCode() {
-    return _houseID.hashCode();
+    return id.hashCode();
   }
 }

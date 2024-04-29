@@ -13,7 +13,7 @@ public class SensorModelAssembler implements IAssembler<SensorModel, SensorModel
     Validator.validateNotNull(domainEntity, "Sensor Model");
 
     String sensorModelID = domainEntity.getID().toString();
-    String sensorModelName = domainEntity.getSensorModelName().toString();
+    String sensorModelName = domainEntity.getName().toString();
     String sensorModelPath = domainEntity.getModelPath().toString();
 
     SensorModelDTO sensorModelDTO = new SensorModelDTO(sensorModelID, sensorModelName,

@@ -42,11 +42,11 @@ public class RoomDataModel {
     Validator.validateNotNull(room, "Room");
     this._roomID = room.getID().getID();
     this._houseID = room.getHouseID().getID();
-    this._roomName = room.getRoomName().getRoomName();
+    this._roomName = room.getName().getRoomName();
     this._width = room.getDimension().getWidth();
     this._depth = room.getDimension().getDepth();
     this._height = room.getDimension().getHeight();
-    this._floor = room.getRoomFloor().getFloor();
+    this._floor = room.getFloor().getFloor();
   }
 
   /**
@@ -119,11 +119,11 @@ public class RoomDataModel {
   public boolean updateFromDomain(Room room) {
     this._roomID = room.getID().getID();
     this._houseID = room.getHouseID().getID();
-    this._roomName = room.getRoomName().getRoomName();
+    this._roomName = room.getName().getRoomName();
     this._width = room.getDimension().getWidth();
     this._depth = room.getDimension().getDepth();
     this._height = room.getDimension().getHeight();
-    this._floor = room.getRoomFloor().getFloor();
+    this._floor = room.getFloor().getFloor();
 
     return true;
   }

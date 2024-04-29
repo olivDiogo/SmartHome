@@ -1,7 +1,6 @@
 package smarthome.domain.actuator_model;
 
 import smarthome.ddd.IAggregateRoot;
-import smarthome.domain.value_object.ActuatorModelID;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
@@ -9,22 +8,22 @@ import smarthome.utils.Validator;
 
 public class ActuatorModel implements IAggregateRoot<ModelPath> {
 
-  private final ActuatorModelName actuatorModelName;
+  private final ActuatorModelName name;
   private final ModelPath modelPath;
   private final ActuatorTypeID actuatorTypeID;
 
   /**
    * ActuatorModel constructor
    *
-   * @param actuatorModelName The name of the actuator model
+   * @param name The name of the actuator model
    * @param modelPath         The path to the model
    */
   ActuatorModel(
-      ActuatorModelName actuatorModelName, ModelPath modelPath, ActuatorTypeID actuatorTypeID) {
-    Validator.validateNotNull(actuatorModelName, "ActuatorModelName");
+      ActuatorModelName name, ModelPath modelPath, ActuatorTypeID actuatorTypeID) {
+    Validator.validateNotNull(name, "ActuatorModelName");
     Validator.validateNotNull(modelPath, "ModelPath");
     Validator.validateNotNull(actuatorTypeID, "ActuatorTypeID");
-    this.actuatorModelName = actuatorModelName;
+    this.name = name;
     this.modelPath = modelPath;
     this.actuatorTypeID = actuatorTypeID;
   }
@@ -71,8 +70,8 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
    *
    * @return ActuatorModelName
    */
-  public ActuatorModelName getActuatorModelName() {
-    return actuatorModelName;
+  public ActuatorModelName getName() {
+    return name;
   }
 
   /**
@@ -89,6 +88,6 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
    */
   @Override
   public String toString() {
-    return actuatorModelName + " " + modelPath + " " + actuatorTypeID;
+    return name + " " + modelPath + " " + actuatorTypeID;
   }
 }

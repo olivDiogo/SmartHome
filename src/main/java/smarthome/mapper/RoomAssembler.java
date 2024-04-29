@@ -20,9 +20,9 @@ public class RoomAssembler implements IAssembler<Room, RoomDTO> {
 
     Validator.validateNotNull(room, "Room");
 
-    String roomName = room.getRoomName().toString();
+    String roomName = room.getName().toString();
     String dimension = room.getDimension().toString();
-    String roomFloor = room.getRoomFloor().toString();
+    String roomFloor = room.getFloor().toString();
     String roomID = room.getID().toString();
     RoomDTO roomDTO = new RoomDTO(roomName, dimension, roomFloor, roomID);
 

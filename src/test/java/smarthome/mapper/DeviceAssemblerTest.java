@@ -9,7 +9,6 @@ import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.RoomID;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,8 +37,8 @@ class DeviceAssemblerTest {
     when(device.getRoomID()).thenReturn(mock(RoomID.class));
     when(device.getRoomID().toString()).thenReturn(roomID);
 
-    when(device.getDeviceName()).thenReturn(mock(DeviceName.class));
-    when(device.getDeviceName().toString()).thenReturn(deviceName);
+    when(device.getName()).thenReturn(mock(DeviceName.class));
+    when(device.getName().toString()).thenReturn(deviceName);
 
     when(device.getDeviceStatus()).thenReturn(mock(DeviceStatus.class));
     when(device.getDeviceStatus().toString()).thenReturn(deviceStatus);
@@ -95,8 +94,8 @@ class DeviceAssemblerTest {
     when(device.getRoomID()).thenReturn(mock(RoomID.class));
     when(device.getRoomID().toString()).thenReturn(roomID);
 
-    when(device.getDeviceName()).thenReturn(mock(DeviceName.class));
-    when(device.getDeviceName().toString()).thenReturn(deviceName);
+    when(device.getName()).thenReturn(mock(DeviceName.class));
+    when(device.getName().toString()).thenReturn(deviceName);
 
     when(device.getDeviceStatus()).thenReturn(mock(DeviceStatus.class));
     when(device.getDeviceStatus().toString()).thenReturn(deviceStatus);

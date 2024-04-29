@@ -400,7 +400,7 @@ class SwitchActuatorAggregateTest {
     ActuatorName result = switchActuator.getName();
 
     // Assert
-    assertEquals(actuatorNameString, result.getActuatorName());
+    assertEquals(actuatorNameString, result.getName());
   }
 
   /**

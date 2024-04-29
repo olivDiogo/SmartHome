@@ -35,7 +35,7 @@ class SensorModelAssemblerTest {
 
     SensorModel sensorModelDouble = mock(SensorModel.class);
     when(sensorModelDouble.getID()).thenReturn(sensorModelIDDouble);
-    when(sensorModelDouble.getSensorModelName()).thenReturn(sensorModelNameDouble);
+    when(sensorModelDouble.getName()).thenReturn(sensorModelNameDouble);
     when(sensorModelDouble.getModelPath()).thenReturn(sensorModelPathDouble);
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
@@ -89,7 +89,7 @@ class SensorModelAssemblerTest {
 
     SensorModel sensorModelDouble = mock(SensorModel.class);
     when(sensorModelDouble.getID()).thenReturn(sensorModelIDDouble);
-    when(sensorModelDouble.getSensorModelName()).thenReturn(sensorModelNameDouble);
+    when(sensorModelDouble.getName()).thenReturn(sensorModelNameDouble);
     when(sensorModelDouble.getModelPath()).thenReturn(sensorModelPathDouble);
 
     /* Sensor Model 2 */
@@ -107,7 +107,7 @@ class SensorModelAssemblerTest {
 
     SensorModel sensorModelDouble2 = mock(SensorModel.class);
     when(sensorModelDouble2.getID()).thenReturn(sensorModelIDDouble2);
-    when(sensorModelDouble2.getSensorModelName()).thenReturn(sensorModelNameDouble2);
+    when(sensorModelDouble2.getName()).thenReturn(sensorModelNameDouble2);
     when(sensorModelDouble2.getModelPath()).thenReturn(sensorModelPathDouble2);
 
     List sensorModels = List.of(sensorModelDouble, sensorModelDouble2);

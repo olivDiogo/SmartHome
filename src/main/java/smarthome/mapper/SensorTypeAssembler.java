@@ -19,7 +19,7 @@ public class SensorTypeAssembler implements IAssembler<SensorType, SensorTypeDTO
 
     String sensorTypeID = sensorType.getID().toString();
     String sensorTypeDescription = sensorType.getName().toString();
-    String unit = sensorType.getUnit().toString();
+    String unit = sensorType.getUnitID().toString();
 
     SensorTypeDTO sensorTypeDTO = new SensorTypeDTO(sensorTypeID, sensorTypeDescription, unit);
 

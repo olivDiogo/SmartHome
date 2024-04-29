@@ -107,7 +107,7 @@ class SetIntegerActuatorAggregateTest {
     ActuatorName result = setIntegerActuator.getName();
 
     //Assert
-    assertEquals(result.getActuatorName(), name);
+    assertEquals(result.getName(), name);
   }
 
   /**

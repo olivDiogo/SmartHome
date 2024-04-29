@@ -35,7 +35,7 @@ class ActuatorModelAssemblerTest {
 
     ActuatorModel actuatorModelDouble = mock(ActuatorModel.class);
     when(actuatorModelDouble.getID()).thenReturn(actuatorModelIDDouble);
-    when(actuatorModelDouble.getActuatorModelName()).thenReturn(actuatorModelNameDouble);
+    when(actuatorModelDouble.getName()).thenReturn(actuatorModelNameDouble);
     when(actuatorModelDouble.getID()).thenReturn(actuatorModelPathDouble);
 
     ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
@@ -87,7 +87,7 @@ class ActuatorModelAssemblerTest {
 
     ActuatorModel actuatorModelDouble1 = mock(ActuatorModel.class);
     when(actuatorModelDouble1.getID()).thenReturn(actuatorModelIDDouble1);
-    when(actuatorModelDouble1.getActuatorModelName()).thenReturn(actuatorModelNameDouble1);
+    when(actuatorModelDouble1.getName()).thenReturn(actuatorModelNameDouble1);
     when(actuatorModelDouble1.getID()).thenReturn(actuatorModelPathDouble1);
 
     /* ActuatorModel 2 */
@@ -105,7 +105,7 @@ class ActuatorModelAssemblerTest {
 
     ActuatorModel actuatorModelDouble2 = mock(ActuatorModel.class);
     when(actuatorModelDouble2.getID()).thenReturn(actuatorModelIDDouble2);
-    when(actuatorModelDouble2.getActuatorModelName()).thenReturn(actuatorModelNameDouble2);
+    when(actuatorModelDouble2.getName()).thenReturn(actuatorModelNameDouble2);
     when(actuatorModelDouble2.getID()).thenReturn(actuatorModelPathDouble2);
 
     List<ActuatorModel> actuatorModels = List.of(actuatorModelDouble1, actuatorModelDouble2);

@@ -137,7 +137,7 @@ class DeviceAggregateTest {
     String expected = "Device name: lamp";
 
     //Act
-    DeviceName result = device.getDeviceName();
+    DeviceName result = device.getName();
 
     //Assert
     assertEquals(result.toString(), expected);
