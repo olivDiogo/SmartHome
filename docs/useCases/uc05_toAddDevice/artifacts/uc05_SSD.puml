@@ -6,9 +6,15 @@
 actor Admin
 participant System
 
+activate Admin
 Admin -> System: I want to add a new device to a room
+activate System
 System --> Admin: Which room?
+deactivate System
 Admin -> System: room!
+activate System
 System --> Admin: The device has been added to the room
+deactivate System
+deactivate Admin
 
 @enduml

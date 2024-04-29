@@ -10,8 +10,14 @@ participant System
 'System --> User: List of Rooms
 'User -> System: Give me the list of devices in this room
 'System --> User: List of Devices
+activate User
 ref over User, System: uc6 - get devices in room
+activate System
+deactivate System
 User -> System: For this Device, I want the list of measurements
+activate System
 System --> User: List of measurements
+deactivate System
+deactivate User
 
 @enduml
