@@ -167,9 +167,9 @@
                 <version>${jacoco-maven-plugin}</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/ui/**/*</exclude>
-                        <exclude>**/ddd/**/*</exclude>
-                        <exclude>**/persistence/**/*</exclude>
+                        <exclude>smarthome/ui/**/*</exclude>
+                        <exclude>smarthome/ddd/**/*</exclude>
+                        <exclude>smarthome/persistence/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
