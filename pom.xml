@@ -154,6 +154,10 @@
                         <include>**/*TestCase.java</include>
                         <include>**/*IT.java</include>
                     </includes>
+                    <excludes>
+                        <exclude>smarthome/persistence/**/*</exclude>
+                        <exclude>smarthome/ddd/**/*</exclude>
+                    </excludes>
                     <!--                    <excludes>-->
                     <!--                        <exclude>**Main**</exclude>-->
                     <!--                    </excludes>-->
