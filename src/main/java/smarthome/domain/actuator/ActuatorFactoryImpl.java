@@ -31,10 +31,8 @@ public class ActuatorFactoryImpl implements IActuatorFactory {
         throw new InstantiationException("No matching constructor found for class: " + modelPath);
       }
 
-    } catch (ClassNotFoundException | InstantiationException | ClassCastException e) {
-//            e.printStackTrace(); // Log the exception
-    } catch (IllegalAccessException | InvocationTargetException e) {
-//            e.printStackTrace(); // Log the exception
+    } catch (ClassNotFoundException | InstantiationException | ClassCastException |
+             IllegalAccessException | InvocationTargetException ignored) {
     }
     return null;
   }
