@@ -15,8 +15,8 @@ import smarthome.utils.dto.HouseDataDTO;
  */
 public class ConfigureHouseLocationController {
 
-  private final IHouseService _houseService;
-  private final IAssembler<House, HouseDTO> _houseAssembler;
+  private final IHouseService houseService;
+  private final IAssembler<House, HouseDTO> houseAssembler;
 
   /**
    * Constructs a new instance of US01ConfigureHouseLocationController with the provided
@@ -31,8 +31,8 @@ public class ConfigureHouseLocationController {
     Validator.validateNotNull(houseService, "House service");
     Validator.validateNotNull(houseAssembler, "House assembler");
 
-    this._houseAssembler = houseAssembler;
-    this._houseService = houseService;
+    this.houseAssembler = houseAssembler;
+    this.houseService = houseService;
   }
 
 
@@ -47,8 +47,8 @@ public class ConfigureHouseLocationController {
         houseDataDTO.postalCode, houseDataDTO.countryCode, new PostalCodeFactory());
     GPS gps = new GPS(houseDataDTO.latitude, houseDataDTO.longitude);
 
-    House house = _houseService.addHouse(address, gps);
+    House house = houseService.addHouse(address, gps);
 
-    return _houseAssembler.domainToDTO(house);
+    return houseAssembler.domainToDTO(house);
   }
 }

@@ -11,8 +11,8 @@ import smarthome.utils.dto.DeviceDTO;
 
 public class DeactivateDeviceController {
 
-  private final IDeviceService _deviceService;
-  private final IAssembler<Device, DeviceDTO> _deviceAssembler;
+  private final IDeviceService deviceService;
+  private final IAssembler<Device, DeviceDTO> deviceAssembler;
 
   /**
    * Constructor for US08DeactivateDevice.
@@ -23,9 +23,9 @@ public class DeactivateDeviceController {
   public DeactivateDeviceController(IDeviceService deviceService,
       IAssembler<Device, DeviceDTO> deviceAssembler) {
     Validator.validateNotNull(deviceService, "Device service");
-    _deviceService = deviceService;
+    this.deviceService = deviceService;
     Validator.validateNotNull(deviceAssembler, "Device assembler");
-    _deviceAssembler = deviceAssembler;
+    this.deviceAssembler = deviceAssembler;
   }
 
 
@@ -35,19 +35,19 @@ public class DeactivateDeviceController {
    * @return a list of devices.
    */
   public List<DeviceDTO> requestAllDevices() {
-    List<Device> deviceList = _deviceService.getAllDevices();
+    List<Device> deviceList = deviceService.getAllDevices();
     if (deviceList.isEmpty()) {
       return Collections.emptyList();
     }
-    return List.copyOf(_deviceAssembler.domainToDTO(deviceList));
+    return List.copyOf(deviceAssembler.domainToDTO(deviceList));
   }
 
 
   public DeviceDTO requestDeactivateDevice(DeviceDTO deviceDTO) {
     try {
       DeviceID deviceID = new DeviceID(deviceDTO.deviceID);
-      Device device = _deviceService.deactivateDeviceByID(deviceID);
-      return _deviceAssembler.domainToDTO(device);
+      Device device = deviceService.deactivateDeviceByID(deviceID);
+      return deviceAssembler.domainToDTO(device);
     } catch (IllegalArgumentException e) {
       return new DeviceDTO("Device not found.", "", "", "");
     }

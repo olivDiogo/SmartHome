@@ -10,8 +10,8 @@ import smarthome.utils.dto.RoomDTO;
 
 public class GetListOfRoomsController {
 
-  private final IRoomService _roomService;
-  private final IAssembler<Room, RoomDTO> _roomAssembler;
+  private final IRoomService roomService;
+  private final IAssembler<Room, RoomDTO> roomAssembler;
 
 
   /**
@@ -25,8 +25,8 @@ public class GetListOfRoomsController {
     Validator.validateNotNull(roomService, "Room service");
     Validator.validateNotNull(roomAssembler, "Room assembler");
 
-    this._roomAssembler = roomAssembler;
-    this._roomService = roomService;
+    this.roomAssembler = roomAssembler;
+    this.roomService = roomService;
   }
 
   /**
@@ -36,11 +36,11 @@ public class GetListOfRoomsController {
    */
   public List<RoomDTO> getRooms() {
 
-    List<Room> listOfRooms = _roomService.getAllRooms();
+    List<Room> listOfRooms = roomService.getAllRooms();
     if (listOfRooms == null || listOfRooms.isEmpty()) {
       return Collections.emptyList();
     }
-    List<RoomDTO> listOfRoomsDTO = _roomAssembler.domainToDTO(listOfRooms);
+    List<RoomDTO> listOfRoomsDTO = roomAssembler.domainToDTO(listOfRooms);
 
     return List.copyOf(listOfRoomsDTO);
   }

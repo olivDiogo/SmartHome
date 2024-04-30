@@ -13,10 +13,10 @@ import smarthome.utils.dto.RoomDTO;
 
 public class GetDevicesFromRoomController {
 
-  private final IRoomService _roomService;
-  private final IDeviceService _deviceService;
-  private final IAssembler<Room, RoomDTO> _roomAssembler;
-  private final IAssembler<Device, DeviceDTO> _deviceAssembler;
+  private final IRoomService roomService;
+  private final IDeviceService deviceService;
+  private final IAssembler<Room, RoomDTO> roomAssembler;
+  private final IAssembler<Device, DeviceDTO> deviceAssembler;
 
   /**
    * Constructor for GetDevicesFromRoomController.
@@ -33,10 +33,10 @@ public class GetDevicesFromRoomController {
     Validator.validateNotNull(roomAssembler, "Room assembler");
     Validator.validateNotNull(deviceAssembler, "Device assembler");
 
-    this._deviceAssembler = deviceAssembler;
-    this._deviceService = deviceService;
-    this._roomAssembler = roomAssembler;
-    this._roomService = roomService;
+    this.deviceAssembler = deviceAssembler;
+    this.deviceService = deviceService;
+    this.roomAssembler = roomAssembler;
+    this.roomService = roomService;
 
   }
 
@@ -46,9 +46,9 @@ public class GetDevicesFromRoomController {
    * @return a list of rooms.
    */
   public List<RoomDTO> getRooms() {
-    List<Room> rooms = _roomService.getAllRooms();
+    List<Room> rooms = roomService.getAllRooms();
 
-    List<RoomDTO> roomDTOList = _roomAssembler.domainToDTO(rooms);
+    List<RoomDTO> roomDTOList = roomAssembler.domainToDTO(rooms);
 
     return List.copyOf(roomDTOList);
   }
@@ -62,13 +62,13 @@ public class GetDevicesFromRoomController {
   public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
     RoomID roomID = new RoomID(roomDTO.roomId);
 
-    if (_roomService.getRoomById(roomID).isEmpty()) {
+    if (roomService.getRoomById(roomID).isEmpty()) {
       throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
     }
 
-    List<Device> devices = _deviceService.getDevicesByRoomId(roomID);
+    List<Device> devices = deviceService.getDevicesByRoomId(roomID);
 
-    List<DeviceDTO> deviceDTOList = _deviceAssembler.domainToDTO(devices);
+    List<DeviceDTO> deviceDTOList = deviceAssembler.domainToDTO(devices);
 
     return List.copyOf(deviceDTOList);
   }

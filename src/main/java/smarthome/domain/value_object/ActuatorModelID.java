@@ -1,11 +1,17 @@
 package smarthome.domain.value_object;
 
 import smarthome.ddd.IDomainID;
+import smarthome.domain.sensor.temperature_sensor.TemperatureSensor;
 
 public class ActuatorModelID implements IDomainID {
 
   private final String id;
 
+  /**
+   * Constructor for the ActuatorModelID class.
+   * @param id is the ID of the actuator model.
+   * @throws IllegalArgumentException if the ID is null, blank, or empty.
+   */
   public ActuatorModelID(String id) throws IllegalArgumentException {
     validationActuatorModelID(id);
     this.id = id;
@@ -18,24 +24,32 @@ public class ActuatorModelID implements IDomainID {
     }
   }
 
+  /**
+   * Returns the ID of the actuator model.
+   * @return the ID of the actuator model.
+   */
   @Override
   public String getID() {
     return id;
   }
 
-  @Override
-  public boolean equals(Object object) {
-    if (this == object) {
-      return true;
-    }
-
-    if (object instanceof ActuatorModelID actuatorModelID) {
-
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   * @param o the reference object with which to compare.
+   * @return true if this object is the same as the obj argument; false otherwise.
+   */
+  public boolean equals(Object o) {
+    if (o instanceof ActuatorModelID actuatorModelID){
       return this.id.equals(actuatorModelID.id);
     }
     return false;
   }
 
+
+  /**
+   * Returns a hash code value for the object.
+   * @return a hash code value for this object.
+   */
   @Override
   public int hashCode() {
     return id.hashCode();

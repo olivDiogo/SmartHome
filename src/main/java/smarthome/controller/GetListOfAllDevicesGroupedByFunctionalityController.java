@@ -15,9 +15,9 @@ import smarthome.utils.dto.DeviceDTO;
 
 public class GetListOfAllDevicesGroupedByFunctionalityController {
 
-  private final IDeviceService _deviceService;
-  private final IDeviceTypeService _deviceTypeService;
-  private final IAssembler<Device, DeviceDTO> _deviceAssembler;
+  private final IDeviceService deviceService;
+  private final IDeviceTypeService deviceTypeService;
+  private final IAssembler<Device, DeviceDTO> deviceAssembler;
 
 
   /**
@@ -33,14 +33,14 @@ public class GetListOfAllDevicesGroupedByFunctionalityController {
     Validator.validateNotNull(deviceAssembler, "Device assembler");
     Validator.validateNotNull(deviceTypeService, "Device type service");
 
-    this._deviceAssembler = deviceAssembler;
-    this._deviceService = deviceService;
-    this._deviceTypeService = deviceTypeService;
+    this.deviceAssembler = deviceAssembler;
+    this.deviceService = deviceService;
+    this.deviceTypeService = deviceTypeService;
   }
 
 
   public Map<DeviceType, List<DeviceDTO>> getDevicesDTOGroupedByFunctionality() {
-    List<Device> devices = _deviceService.getAllDevices();
+    List<Device> devices = deviceService.getAllDevices();
 
     if (devices.isEmpty()) {
       throw new IllegalArgumentException("No devices found.");
@@ -50,7 +50,7 @@ public class GetListOfAllDevicesGroupedByFunctionalityController {
 
     for (Device device : devices) {
 
-      Optional<DeviceType> deviceType = _deviceTypeService.getDeviceTypeByID(
+      Optional<DeviceType> deviceType = deviceTypeService.getDeviceTypeByID(
           device.getDeviceTypeID());
 
       if (deviceType.isPresent()) {
@@ -58,10 +58,10 @@ public class GetListOfAllDevicesGroupedByFunctionalityController {
 
         if (devicesGroupedByFunctionality.containsKey(deviceTypeObj)) {
           devicesGroupedByFunctionality.get(deviceTypeObj)
-              .add(_deviceAssembler.domainToDTO(device));
+              .add(deviceAssembler.domainToDTO(device));
         } else {
           List<DeviceDTO> newDeviceList = new ArrayList<>();
-          newDeviceList.add(_deviceAssembler.domainToDTO(device));
+          newDeviceList.add(deviceAssembler.domainToDTO(device));
           devicesGroupedByFunctionality.put(deviceTypeObj, newDeviceList);
         }
       } else {
