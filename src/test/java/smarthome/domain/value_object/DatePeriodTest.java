@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import org.junit.jupiter.api.Test;
 
 class DatePeriodTest {
@@ -245,15 +246,21 @@ class DatePeriodTest {
   @Test
   void shouldReturnSameHashCodeWhenHashCodeIsCalledWithSameDatePeriod() {
     // Arrange
-    LocalDateTime startDate = LocalDateTime.now();
-    LocalDateTime endDate = LocalDateTime.now().plusMinutes(1);
+    LocalDateTime startDate = LocalDateTime.of(2022, 1, 1, 1, 1);
+    LocalDateTime endDate = LocalDateTime.of(2022, 1, 1, 1, 2);
+
     DatePeriod datePeriod = new DatePeriod(startDate, endDate);
-    DatePeriod datePeriod2 = new DatePeriod(startDate, endDate);
+
+    int startDateHashCode = startDate.hashCode();
+    int endDateHashCode = endDate.hashCode();
+
+    int expected = startDateHashCode + endDateHashCode;
+
     // Act
     int result = datePeriod.hashCode();
-    int result2 = datePeriod2.hashCode();
+
     // Assert
-    assertEquals(result, result2);
+    assertEquals(expected, result);
   }
 
 
