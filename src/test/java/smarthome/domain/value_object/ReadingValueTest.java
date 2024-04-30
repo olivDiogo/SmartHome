@@ -65,6 +65,22 @@ class ReadingValueTest {
     assertTrue(result);
   }
 
+  @Test
+  void shouldReturnFalse_WhenEqualsIsCalledWithDifferentObject () {
+    // Arrange
+    String readingValue1 = "21";
+    String readingValue2 = "22";
+
+    ReadingValue readingValueObject1 = new ReadingValue(readingValue1);
+    ReadingValue readingValueObject2 = new ReadingValue(readingValue2);
+
+    // Act
+    boolean result = readingValueObject1.equals(readingValueObject2);
+
+    // Assert
+    assertFalse(result);
+  }
+
   /**
    * Test if equals with Symmetry
    */
@@ -122,6 +138,19 @@ class ReadingValueTest {
     //Act
     boolean result = readingValue1.equals(null);
     //Assert
+    assertFalse(result);
+  }
+
+  @Test
+  void shouldReturnFalse_WhenComparingWithDifferentClass () {
+    // Arrange
+    String readingValue = "20";
+    ReadingValue readingValueObject = new ReadingValue(readingValue);
+
+    // Act
+    boolean result = readingValueObject.equals(new Object());
+
+    // Assert
     assertFalse(result);
   }
 

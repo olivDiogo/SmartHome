@@ -26,26 +26,44 @@ public class PostalCodeCAImpl implements IPostalCode {
     return Pattern.matches(pattern, postalCode);
   }
 
+  /**
+   * Get the postal code.
+   *
+   * @return the postal code.
+   */
   public String getCode() {
     return postalCode;
   }
 
+  /**
+   * Return the postal Code as a string.
+   *
+   * @return the postal code in string.
+   */
   @Override
   public String toString() {
     return postalCode;
   }
 
+  /**
+   * Compare two postal codes.
+   *
+   * @param obj is the object to compare.
+   * @return true if the postal codes are equal, false otherwise.
+   */
   @Override
   public boolean equals(Object obj) {
-    if (obj == this) {
-      return true;
+    if (obj instanceof PostalCodeCAImpl postalCodeCAImpl) {
+      return postalCode.equals(postalCodeCAImpl.postalCode);
     }
-    if (!(obj instanceof PostalCodeCAImpl postalCodeCA)) {
-      return false;
-    }
-    return postalCode.equals(postalCodeCA.getCode());
+    return false;
   }
 
+  /**
+   * Get the hash code of the postal code.
+   *
+   * @return the hash code.
+   */
   @Override
   public int hashCode() {
     return postalCode.hashCode();
