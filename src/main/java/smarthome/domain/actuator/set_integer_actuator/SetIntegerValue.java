@@ -9,16 +9,16 @@ public class SetIntegerValue implements IValueObject {
   /**
    * Constructor for SetIntegerValue
    *
-   * @param value
+   * @param value the value of the integer actuator
    */
   public SetIntegerValue(int value) {
     this.value = value;
   }
 
   /**
-   * Returns the value of the integer actuator as a string.
+   * Method to check if the value object is equal to another object.
    *
-   * @return
+   * @return true if the value object is equal to the other object, false otherwise
    */
   @Override
   public boolean equals(Object o) {
@@ -28,6 +28,11 @@ public class SetIntegerValue implements IValueObject {
     return false;
   }
 
+  /**
+   * Returns the hash code of the integer actuator.
+   *
+   * @return the hash code of the integer actuator
+   */
   @Override
   public int hashCode() {
     return Integer.hashCode(value);

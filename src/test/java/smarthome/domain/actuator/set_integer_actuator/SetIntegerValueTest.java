@@ -93,18 +93,18 @@ class SetIntegerValueTest {
   }
 
   /**
-   * Test if returns true when the instances are equal
+   * Tests return of hashcode
    */
   @Test
-  void shouldReturnTheSameHash_whenEqualsObjects() {
+  void shouldReturnTheSameHashCode_whenEqualsObjects() {
     // Arrange
     int value = 1;
     SetIntegerValue setIntegerValue = new SetIntegerValue(value);
-    SetIntegerValue setIntegerValue2 = new SetIntegerValue(value);
-    boolean expected = setIntegerValue.equals(setIntegerValue2);
+
+    int expected = Integer.hashCode(value);
 
     // Act
-    boolean result = setIntegerValue.hashCode() == setIntegerValue2.hashCode();
+    int result = setIntegerValue.hashCode();
 
     // Assert
     assertEquals(expected, result);
