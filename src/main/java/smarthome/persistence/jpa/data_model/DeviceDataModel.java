@@ -1,6 +1,5 @@
 package smarthome.persistence.jpa.data_model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -23,13 +22,9 @@ public class DeviceDataModel {
 
   @Id
   private String deviceID;
-  @Column(name = "Room ID")
   private String roomID;
-  @Column(name = "Device Name")
   private String deviceName;
-  @Column(name = "Device Type ID")
   private String deviceTypeID;
-  @Column(name = "Device Status")
   private boolean deviceStatus;
   @Version
   private long version;

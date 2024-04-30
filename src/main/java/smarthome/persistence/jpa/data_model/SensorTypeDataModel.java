@@ -1,6 +1,5 @@
 package smarthome.persistence.jpa.data_model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -9,15 +8,13 @@ import smarthome.domain.sensor_type.SensorType;
 import smarthome.utils.Validator;
 
 @Entity
-@Table(name = "SensorType")
+@Table(name = "Sensor_Type")
 public class SensorTypeDataModel {
 
   @Id
-  private String _sensorTypeID;
-  @Column(name = "TypeDescription")
-  private String _typeDescription;
-  @Column(name = "UnitID")
-  private String _unitID;
+  private String sensorTypeID;
+  private String typeDescription;
+  private String unitID;
   @Version
   private long version;
 
@@ -34,9 +31,9 @@ public class SensorTypeDataModel {
    */
   public SensorTypeDataModel(SensorType sensorType) {
     Validator.validateNotNull(sensorType, "Sensor Type");
-    this._sensorTypeID = sensorType.getID().getID();
-    this._typeDescription = sensorType.getName().getID();
-    this._unitID = sensorType.getUnitID().getID();
+    this.sensorTypeID = sensorType.getID().getID();
+    this.typeDescription = sensorType.getName().getID();
+    this.unitID = sensorType.getUnitID().getID();
   }
 
 
@@ -46,7 +43,7 @@ public class SensorTypeDataModel {
    * @return the sensor type ID
    */
   public String getSensorTypeID() {
-    return this._sensorTypeID;
+    return this.sensorTypeID;
   }
 
   /**
@@ -55,7 +52,7 @@ public class SensorTypeDataModel {
    * @return the type description
    */
   public String getTypeDescription() {
-    return this._typeDescription;
+    return this.typeDescription;
   }
 
   /**
@@ -64,7 +61,7 @@ public class SensorTypeDataModel {
    * @return the unit ID
    */
   public String getUnitID() {
-    return this._unitID;
+    return this.unitID;
   }
 
 

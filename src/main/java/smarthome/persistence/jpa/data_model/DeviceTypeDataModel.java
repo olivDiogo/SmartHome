@@ -1,6 +1,5 @@
 package smarthome.persistence.jpa.data_model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -9,14 +8,12 @@ import smarthome.domain.device_type.DeviceType;
 import smarthome.utils.Validator;
 
 @Entity
-@Table(name = "DeviceType")
+@Table(name = "Device_Type")
 public class DeviceTypeDataModel {
 
   @Id
-  private String _deviceTypeID;
-
-  @Column(name = "TypeDescription")
-  private String _deviceTypeDescription;
+  private String deviceTypeID;
+  private String deviceTypeDescription;
   @Version
   private long version;
 
@@ -33,8 +30,8 @@ public class DeviceTypeDataModel {
    */
   public DeviceTypeDataModel(DeviceType deviceType) {
     Validator.validateNotNull(deviceType, "Device Type");
-    this._deviceTypeID = deviceType.getID().getID();
-    this._deviceTypeDescription = deviceType.getDescription().getDescription();
+    this.deviceTypeID = deviceType.getID().getID();
+    this.deviceTypeDescription = deviceType.getDescription().getDescription();
   }
 
   /**
@@ -43,7 +40,7 @@ public class DeviceTypeDataModel {
    * @return the device type ID
    */
   public String getDeviceTypeID() {
-    return this._deviceTypeID;
+    return this.deviceTypeID;
   }
 
   /**
@@ -52,6 +49,6 @@ public class DeviceTypeDataModel {
    * @return the type description
    */
   public String getDeviceTypeDescription() {
-    return this._deviceTypeDescription;
+    return this.deviceTypeDescription;
   }
 }

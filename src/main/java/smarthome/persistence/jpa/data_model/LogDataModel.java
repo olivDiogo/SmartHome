@@ -1,29 +1,24 @@
 package smarthome.persistence.jpa.data_model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import java.time.LocalDateTime;
 import smarthome.domain.log.Log;
 
 @Entity
+@Table(name = "Logs")
 public class LogDataModel {
 
   @Id
-  private String _logID;
-  @Column
-  private String _deviceID;
-  @Column
-  private String _sensorID;
-  @Column
-  private LocalDateTime _timestamp;
-  @Column
-  private String _readingValue;
-  @Column
-  private String _description;
-  @Column
-  private String _unit;
+  private String logID;
+  private String deviceID;
+  private String sensorID;
+  private LocalDateTime timestamp;
+  private String readingValue;
+  private String description;
+  private String unit;
   @Version
   private long version;
 
@@ -38,61 +33,61 @@ public class LogDataModel {
    * Class constructor
    */
   public LogDataModel(Log log) {
-    this._logID = log.getID().getID();
-    this._deviceID = log.getDeviceID().getID();
-    this._sensorID = log.getSensorID().getID();
-    this._timestamp = log.getTimeStamp();
-    this._readingValue = log.getReadingValue().getValue();
-    this._description = log.getDescription().getID();
-    this._unit = log.getUnit().getID();
+    this.logID = log.getID().getID();
+    this.deviceID = log.getDeviceID().getID();
+    this.sensorID = log.getSensorID().getID();
+    this.timestamp = log.getTimeStamp();
+    this.readingValue = log.getReadingValue().getValue();
+    this.description = log.getDescription().getID();
+    this.unit = log.getUnit().getID();
   }
 
   /**
    * Method to return the log ID.
    */
   public String getLogID() {
-    return this._logID;
+    return this.logID;
   }
 
   /**
    * Method to return the device ID.
    */
   public String getDeviceID() {
-    return this._deviceID;
+    return this.deviceID;
   }
 
   /**
    * Method to return the sensor ID.
    */
   public String getSensorID() {
-    return this._sensorID;
+    return this.sensorID;
   }
 
   /**
    * Method to return the timestamp.
    */
   public LocalDateTime getTimestamp() {
-    return this._timestamp;
+    return this.timestamp;
   }
 
   /**
    * Method to return the reading value.
    */
   public String getReadingValue() {
-    return this._readingValue;
+    return this.readingValue;
   }
 
   /**
    * Method to return the description.
    */
   public String getDescription() {
-    return this._description;
+    return this.description;
   }
 
   /**
    * Method to return the unit.
    */
   public String getUnit() {
-    return this._unit;
+    return this.unit;
   }
 }

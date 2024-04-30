@@ -1,6 +1,5 @@
 package smarthome.persistence.jpa.data_model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,12 +12,9 @@ import smarthome.utils.Validator;
 public class SensorModelDataModel {
 
   @Id
-  @Column(name = "model_path")
-  private String _modelPath;
-  @Column(name = "sensor_model_name")
-  private String _sensorModelName;
-  @Column(name = "sensor_type_id")
-  private String _sensorTypeID;
+  private String modelPath;
+  private String sensorModelName;
+  private String sensorTypeID;
   @Version
   private long version;
 
@@ -37,9 +33,9 @@ public class SensorModelDataModel {
   public SensorModelDataModel(SensorModel sensorModel) {
 
     Validator.validateNotNull(sensorModel, "Sensor Model");
-    this._modelPath = sensorModel.getModelPath().getID();
-    this._sensorModelName = sensorModel.getName().getSensorModelName();
-    this._sensorTypeID = sensorModel.getSensorTypeID().getID();
+    this.modelPath = sensorModel.getModelPath().getID();
+    this.sensorModelName = sensorModel.getName().getSensorModelName();
+    this.sensorTypeID = sensorModel.getSensorTypeID().getID();
   }
 
 
@@ -49,7 +45,7 @@ public class SensorModelDataModel {
    * @return String
    */
   public String getModelPath() {
-    return this._modelPath;
+    return this.modelPath;
   }
 
   /**
@@ -58,7 +54,7 @@ public class SensorModelDataModel {
    * @return String
    */
   public String getSensorModelName() {
-    return this._sensorModelName;
+    return this.sensorModelName;
   }
 
   /**
@@ -67,7 +63,7 @@ public class SensorModelDataModel {
    * @return String
    */
   public String getSensorTypeID() {
-    return this._sensorTypeID;
+    return this.sensorTypeID;
   }
 
 

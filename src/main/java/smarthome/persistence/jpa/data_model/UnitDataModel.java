@@ -1,6 +1,5 @@
 package smarthome.persistence.jpa.data_model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -14,14 +13,9 @@ import smarthome.utils.Validator;
 public class UnitDataModel {
 
   @Id
-  @Column(name = "UnitID")
-  private String _unitID;
-
-  @Column(name = "UnitSymbol")
-  private String _unitSymbol;
-
-  @Column(name = "UnitDescription")
-  private String _unitDescription;
+  private String unitID;
+  private String unitSymbol;
+  private String unitDescription;
 
   @Version
   private long version;
@@ -40,9 +34,9 @@ public class UnitDataModel {
    */
   public UnitDataModel(Unit unit) {
     Validator.validateNotNull(unit, "Unit");
-    this._unitID = unit.getID().getID();
-    this._unitSymbol = unit.getUnitSymbol().getUnit();
-    this._unitDescription = unit.getUnitDescription().getDescription();
+    this.unitID = unit.getID().getID();
+    this.unitSymbol = unit.getUnitSymbol().getUnit();
+    this.unitDescription = unit.getUnitDescription().getDescription();
   }
 
   /**
@@ -51,7 +45,7 @@ public class UnitDataModel {
    * @return The unit ID.
    */
   public String getUnitID() {
-    return this._unitID;
+    return this.unitID;
   }
 
   /**
@@ -60,7 +54,7 @@ public class UnitDataModel {
    * @return The unit symbol.
    */
   public String getUnitSymbol() {
-    return this._unitSymbol;
+    return this.unitSymbol;
   }
 
   /**
@@ -69,7 +63,7 @@ public class UnitDataModel {
    * @return The unit description.
    */
   public String getUnitDescription() {
-    return this._unitDescription;
+    return this.unitDescription;
   }
 }
 

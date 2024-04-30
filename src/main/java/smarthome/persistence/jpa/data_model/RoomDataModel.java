@@ -1,29 +1,24 @@
 package smarthome.persistence.jpa.data_model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import smarthome.domain.room.Room;
 import smarthome.utils.Validator;
 
 @Entity
+@Table(name = "Room")
 public class RoomDataModel {
 
   @Id
-  private String _roomID;
-  @Column
-  private String _houseID;
-  @Column
-  private String _roomName;
-  @Column
-  private int _width;
-  @Column
-  private int _depth;
-  @Column
-  private int _height;
-  @Column
-  private int _floor;
+  private String roomID;
+  private String houseID;
+  private String roomName;
+  private int width;
+  private int depth;
+  private int height;
+  private int floor;
   @Version
   private long version;
 
@@ -40,13 +35,13 @@ public class RoomDataModel {
    */
   public RoomDataModel(Room room) {
     Validator.validateNotNull(room, "Room");
-    this._roomID = room.getID().getID();
-    this._houseID = room.getHouseID().getID();
-    this._roomName = room.getName().getRoomName();
-    this._width = room.getDimension().getWidth();
-    this._depth = room.getDimension().getDepth();
-    this._height = room.getDimension().getHeight();
-    this._floor = room.getFloor().getFloor();
+    this.roomID = room.getID().getID();
+    this.houseID = room.getHouseID().getID();
+    this.roomName = room.getName().getRoomName();
+    this.width = room.getDimension().getWidth();
+    this.depth = room.getDimension().getDepth();
+    this.height = room.getDimension().getHeight();
+    this.floor = room.getFloor().getFloor();
   }
 
   /**
@@ -55,7 +50,7 @@ public class RoomDataModel {
    * @return
    */
   public String getRoomID() {
-    return this._roomID;
+    return this.roomID;
   }
 
   /**
@@ -64,7 +59,7 @@ public class RoomDataModel {
    * @return
    */
   public String getHouseID() {
-    return this._houseID;
+    return this.houseID;
   }
 
   /**
@@ -73,14 +68,14 @@ public class RoomDataModel {
    * @return
    */
   public String getRoomName() {
-    return this._roomName;
+    return this.roomName;
   }
 
   /**
    * Method to return the room width.
    */
   public int getWidth() {
-    return this._width;
+    return this.width;
   }
 
   /**
@@ -89,7 +84,7 @@ public class RoomDataModel {
    * @return
    */
   public int getDepth() {
-    return this._depth;
+    return this.depth;
   }
 
   /**
@@ -98,7 +93,7 @@ public class RoomDataModel {
    * @return
    */
   public int getHeight() {
-    return this._height;
+    return this.height;
   }
 
   /**
@@ -107,7 +102,7 @@ public class RoomDataModel {
    * @return
    */
   public int getFloor() {
-    return this._floor;
+    return this.floor;
   }
 
   /**
@@ -117,13 +112,13 @@ public class RoomDataModel {
    * @return true if the room was updated, false if not.
    */
   public boolean updateFromDomain(Room room) {
-    this._roomID = room.getID().getID();
-    this._houseID = room.getHouseID().getID();
-    this._roomName = room.getName().getRoomName();
-    this._width = room.getDimension().getWidth();
-    this._depth = room.getDimension().getDepth();
-    this._height = room.getDimension().getHeight();
-    this._floor = room.getFloor().getFloor();
+    this.roomID = room.getID().getID();
+    this.houseID = room.getHouseID().getID();
+    this.roomName = room.getName().getRoomName();
+    this.width = room.getDimension().getWidth();
+    this.depth = room.getDimension().getDepth();
+    this.height = room.getDimension().getHeight();
+    this.floor = room.getFloor().getFloor();
 
     return true;
   }

@@ -1,6 +1,5 @@
 package smarthome.persistence.jpa.data_model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -9,16 +8,13 @@ import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.utils.Validator;
 
 @Entity
-@Table(name = "ActuatorType")
+@Table(name = "Actuator_Type")
 public class ActuatorTypeDataModel {
 
   @Id
   private String actuatorTypeID;
-  @Column(name = "actuatorTypeName")
   private String actuatorTypeName;
-  @Column(name = "unitID")
   private String unitID;
-
   @Version
   private long version;
 

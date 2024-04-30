@@ -1,6 +1,5 @@
 package smarthome.persistence.jpa.data_model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -14,21 +13,13 @@ public class ActuatorDataModel {
 
   @Id
   private String actuatorID;
-  @Column(name = "deviceID")
   private String deviceid;
-  @Column(name = "modelPath")
   private String modelPath;
-  @Column(name = "actuatorTypeID")
   private String actuatorTypeID;
-  @Column(name = "actuatorName")
   private String actuatorName;
-  @Column(name = "integerLowerBond")
   private String integerLowerBond;
-  @Column(name = "integerUpperBond")
   private String integerUpperBond;
-  @Column(name = "decimalLowerBond")
   private String decimalLowerBond;
-  @Column(name = "decimalUpperBond")
   private String decimalUpperBond;
   @Version
   private long version;

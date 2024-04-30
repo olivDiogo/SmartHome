@@ -1,9 +1,9 @@
 package smarthome.persistence.jpa.data_model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Version;
+import javax.persistence.Table;
 import smarthome.domain.house.House;
 import smarthome.utils.Validator;
 
@@ -11,23 +11,17 @@ import smarthome.utils.Validator;
  * Class to represent the house data model
  */
 @Entity
+@Table(name = "House")
 public class HouseDataModel {
 
   @Id
-  @Column(name = "houseID")
-  private String _houseID;
-  @Column(name = "latitude")
-  private double _latitude;
-  @Column(name = "longitude")
-  private double _longitude;
-  @Column(name = "street")
-  private String _street;
-  @Column(name = "doorNumber")
-  private String _doorNumber;
-  @Column(name = "countryCode")
-  private String _countryCode;
-  @Column(name = "postalCode")
-  private String _postalCode;
+  private String houseID;
+  private double latitude;
+  private double longitude;
+  private String street;
+  private String doorNumber;
+  private String countryCode;
+  private String postalCode;
   @Version
   private long version;
 
@@ -45,13 +39,13 @@ public class HouseDataModel {
    */
   public HouseDataModel(House house) {
     Validator.validateNotNull(house, "House");
-    this._houseID = house.getID().getID();
-    this._latitude = house.getGps().getLatitude();
-    this._longitude = house.getGps().getLongitude();
-    this._street = house.getAddress().getStreet();
-    this._doorNumber = house.getAddress().getDoorNumber();
-    this._countryCode = house.getAddress().getCountryCode();
-    this._postalCode = house.getAddress().getPostalCode().getCode();
+    this.houseID = house.getID().getID();
+    this.latitude = house.getGps().getLatitude();
+    this.longitude = house.getGps().getLongitude();
+    this.street = house.getAddress().getStreet();
+    this.doorNumber = house.getAddress().getDoorNumber();
+    this.countryCode = house.getAddress().getCountryCode();
+    this.postalCode = house.getAddress().getPostalCode().getCode();
   }
 
   /**
@@ -60,7 +54,7 @@ public class HouseDataModel {
    * @return
    */
   public String getHouseID() {
-    return this._houseID;
+    return this.houseID;
   }
 
   /**
@@ -69,7 +63,7 @@ public class HouseDataModel {
    * @return
    */
   public double getLatitude() {
-    return this._latitude;
+    return this.latitude;
   }
 
   /**
@@ -78,7 +72,7 @@ public class HouseDataModel {
    * @return
    */
   public double getLongitude() {
-    return this._longitude;
+    return this.longitude;
   }
 
   /**
@@ -87,7 +81,7 @@ public class HouseDataModel {
    * @return
    */
   public String getStreet() {
-    return this._street;
+    return this.street;
   }
 
   /**
@@ -96,7 +90,7 @@ public class HouseDataModel {
    * @return
    */
   public String getDoorNumber() {
-    return this._doorNumber;
+    return this.doorNumber;
   }
 
   /**
@@ -105,7 +99,7 @@ public class HouseDataModel {
    * @return
    */
   public String getCountryCode() {
-    return this._countryCode;
+    return this.countryCode;
   }
 
   /**
@@ -114,19 +108,19 @@ public class HouseDataModel {
    * @return
    */
   public String getPostalCode() {
-    return this._postalCode;
+    return this.postalCode;
   }
 
   @Override
   public String toString() {
     return "HouseDataModel: " +
-        "houseID='" + _houseID + '\'' +
-        ", latitude=" + _latitude +
-        ", longitude=" + _longitude +
-        ", street='" + _street + '\'' +
-        ", doorNumber='" + _doorNumber + '\'' +
-        ", countryCode='" + _countryCode + '\'' +
-        ", postalCode='" + _postalCode + '.';
+        "houseID='" + houseID + '\'' +
+        ", latitude=" + latitude +
+        ", longitude=" + longitude +
+        ", street='" + street + '\'' +
+        ", doorNumber='" + doorNumber + '\'' +
+        ", countryCode='" + countryCode + '\'' +
+        ", postalCode='" + postalCode + '.';
   }
 
 }
