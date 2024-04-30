@@ -137,15 +137,15 @@ class SwitchActuatorValueTest {
   @Test
   void shouldReturnSameHashCode_whenTwoSwitchActuatorValueObjectsAreEqual() {
     // Arrange
-    SwitchActuatorValue switchActuatorValue1 = new SwitchActuatorValue(true);
-    SwitchActuatorValue switchActuatorValue2 = new SwitchActuatorValue(true);
+    boolean value = true;
+    SwitchActuatorValue switchActuatorValue1 = new SwitchActuatorValue(value);
+
+    int expectedHashCode = Boolean.hashCode(value);
 
     // Act
-    int hashCode1 = switchActuatorValue1.hashCode();
-    int hashCode2 = switchActuatorValue2.hashCode();
+    int result = switchActuatorValue1.hashCode();
 
     // Assert
-    assertEquals(hashCode1, hashCode2);
+    assertEquals(expectedHashCode, result);
   }
-
 }

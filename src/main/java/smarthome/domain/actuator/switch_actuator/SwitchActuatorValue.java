@@ -61,7 +61,6 @@ public class SwitchActuatorValue implements IValueObject {
    */
   @Override
   public int hashCode() {
-
     return Boolean.hashCode(this.value);
   }
 
