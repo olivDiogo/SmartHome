@@ -7,5 +7,5 @@ import smarthome.persistence.jpa.data_model.SensorModelDataModel;
 public interface ISensorModelSpringDataRepository extends
     JpaRepository<SensorModelDataModel, String> {
 
-  List<SensorModelDataModel> findBy_sensorTypeID(String sensorTypeID);
+  List<SensorModelDataModel> findBySensorTypeID(String sensorTypeID);
 }

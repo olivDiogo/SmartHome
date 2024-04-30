@@ -112,7 +112,7 @@ public class RepositoryActuatorModelSpringData implements IActuatorModelReposito
   @Override
   public List<ActuatorModel> findBy_actuatorTypeID(ActuatorTypeID actuatorModelID) {
     List<ActuatorModelDataModel> actuatorModelDataModels =
-        this.repositoryActuatorModelSpringData.findBy_actuatorTypeID(actuatorModelID.getID());
+        this.repositoryActuatorModelSpringData.findByActuatorTypeID(actuatorModelID.getID());
 
     return dataModelAssembler.toDomain(actuatorModelDataModels);
   }

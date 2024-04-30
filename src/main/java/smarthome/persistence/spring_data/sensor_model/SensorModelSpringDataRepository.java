@@ -104,7 +104,7 @@ public class SensorModelSpringDataRepository implements ISensorModelRepository {
   @Override
   public List<SensorModel> findBySensorTypeId(SensorTypeID sensorTypeID) {
 
-    List<SensorModelDataModel> listDataModel = repository.findBy_sensorTypeID(sensorTypeID.getID());
+    List<SensorModelDataModel> listDataModel = repository.findBySensorTypeID(sensorTypeID.getID());
 
     return assembler.toDomain(listDataModel);
 

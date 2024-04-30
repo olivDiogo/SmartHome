@@ -6,5 +6,5 @@ import smarthome.persistence.jpa.data_model.DeviceDataModel;
 
 public interface IDeviceSpringDataRepository extends JpaRepository<DeviceDataModel, String> {
 
-  List<DeviceDataModel> findBy_roomID(String id);
+  List<DeviceDataModel> findByRoomID(String id);
 }

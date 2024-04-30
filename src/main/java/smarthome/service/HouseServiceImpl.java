@@ -42,5 +42,11 @@ public class HouseServiceImpl implements IHouseService {
     houseRepository.save(house);
     return house;
   }
+
+  public House addHouse(HouseID houseID, Address address, GPS gps) {
+    House house = houseFactory.createHouse(houseID, address, gps);
+    houseRepository.save(house);
+    return house;
+  }
 }
 

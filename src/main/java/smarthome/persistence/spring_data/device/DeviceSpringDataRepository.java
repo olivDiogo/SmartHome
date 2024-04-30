@@ -43,7 +43,7 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
    */
   @Override
   public List<Device> findByRoomID(RoomID roomId) {
-    List<DeviceDataModel> deviceDataModels = this.repository.findBy_roomID(roomId.toString());
+    List<DeviceDataModel> deviceDataModels = this.repository.findByRoomID(roomId.toString());
     return assembler.toDomain(deviceDataModels);
   }
 

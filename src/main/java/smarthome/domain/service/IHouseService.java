@@ -4,6 +4,7 @@ import smarthome.ddd.IService;
 import smarthome.domain.house.House;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
+import smarthome.domain.value_object.HouseID;
 
 public interface IHouseService extends IService {
 
@@ -15,4 +16,6 @@ public interface IHouseService extends IService {
    * @return the house that was added.
    */
   House addHouse(Address address, GPS gps);
+
+  House addHouse(HouseID houseID, Address address, GPS gps);
 }

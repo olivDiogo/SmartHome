@@ -12,6 +12,6 @@ public interface ILogSpringDataRepository extends JpaRepository<LogDataModel, St
   List<LogDataModel> findByDeviceIDAndTimestampBetween(
       DeviceID deviceID, LocalDateTime start, LocalDateTime end);
 
-  List<LogDataModel> findByDeviceIDAndSensorTypeIDAndTimestampBetween(
+  List<LogDataModel> findByDeviceIDAndSensorIDAndTimestampBetween(
       DeviceID deviceID, SensorTypeID sensorTypeID, LocalDateTime start, LocalDateTime end);
 }

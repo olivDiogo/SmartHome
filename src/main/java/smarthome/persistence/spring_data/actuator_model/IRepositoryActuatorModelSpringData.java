@@ -8,5 +8,5 @@ public interface IRepositoryActuatorModelSpringData extends
     JpaRepository<ActuatorModelDataModel, String> {
 
 
-  List<ActuatorModelDataModel> findBy_actuatorTypeID(String id);
+  List<ActuatorModelDataModel> findByActuatorTypeID(String id);
 }
