@@ -160,13 +160,10 @@ public class TemperatureSensor implements ISensor {
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof TemperatureSensor temperatureSensor){
+      return this.sensorID.equals(temperatureSensor.sensorID);
     }
-    if (!(o instanceof TemperatureSensor that)) {
-      return false;
-    }
-    return Objects.equals(sensorID, that.sensorID);
+    return false;
   }
 
   /**
