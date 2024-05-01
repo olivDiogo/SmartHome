@@ -37,7 +37,7 @@ public class ActuatorDataModelAssembler implements
     getDecimalLimits(domainEntity);
     getActuatorID(domainEntity);
 
-    return actuatorFactory.createActuator(parameters.toArray());
+    return actuatorFactory.create(parameters.toArray());
   }
 
   @Override

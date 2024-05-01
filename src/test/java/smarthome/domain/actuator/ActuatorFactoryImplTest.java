@@ -1,5 +1,6 @@
 package smarthome.domain.actuator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13,6 +14,7 @@ import smarthome.domain.actuator.switch_actuator.SwitchActuator;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
 
@@ -40,7 +42,7 @@ class ActuatorFactoryImplTest {
     ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
 
     // Act
-    SwitchActuator actuator = (SwitchActuator) impActuatorFactory.createActuator(deviceIdMock,
+    SwitchActuator actuator = (SwitchActuator) impActuatorFactory.create(deviceIdMock,
         modelPathMock, actuatorTypeIdMock, actuatorNameMock);
 
     // Assert
@@ -70,7 +72,7 @@ class ActuatorFactoryImplTest {
     ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
 
     // Act
-    SetIntegerActuator actuator = (SetIntegerActuator) impActuatorFactory.createActuator(
+    SetIntegerActuator actuator = (SetIntegerActuator) impActuatorFactory.create(
         deviceIdMock, modelPathMock, actuatorTypeIDMock, actuatorNameMock, integerLimitsMock);
 
     // Assert
@@ -81,7 +83,7 @@ class ActuatorFactoryImplTest {
    * Test for providing a wrong model path, which should return null.
    */
   @Test
-  void shouldBeNull_whenModelPathIsWrong() {
+  void shouldThrowExceptionWhenModelPathNotFound() {
     //Arrange
     // Arrange
     DeviceID deviceIdMock = mock(DeviceID.class);
@@ -93,12 +95,16 @@ class ActuatorFactoryImplTest {
 
     ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
 
+    String expectedMessage = "The model path is not valid.";
+
     // Act + Assert
-    IActuator result = impActuatorFactory.createActuator(deviceIdMock, modelPathMock,
-        actuatorTypeIDMock, actuatorNameMock);
+    Exception e = assertThrows(IllegalArgumentException.class, () -> {
+      impActuatorFactory.create(deviceIdMock, modelPathMock, actuatorTypeIDMock, actuatorNameMock);
+    });
 
     // Assert
-    assertNull(result);
+    String actualMessage = e.getMessage();
+    assertTrue(actualMessage.contains(expectedMessage));
   }
 
 
@@ -121,7 +127,7 @@ class ActuatorFactoryImplTest {
     ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
 
     // Act
-    IActuator result = impActuatorFactory.createActuator(deviceIdMock, modelPathMock,
+    IActuator result = impActuatorFactory.create(deviceIdMock, modelPathMock,
         actuatorTypeIdMock, actuatorNameMock, wrongObject);
 
     // Assert
@@ -147,12 +153,34 @@ class ActuatorFactoryImplTest {
 
     // Act + Assert
     Exception e = assertThrows(IllegalArgumentException.class, () -> {
-      impActuatorFactory.createActuator(deviceIdMock, modelPathMock, actuatorNameMock);
+      impActuatorFactory.create(deviceIdMock, modelPathMock, actuatorNameMock);
     });
 
     // Assert
     String actualMessage = e.getMessage();
     assertTrue(actualMessage.contains(expectedMessage));
+  }
+
+  @Test
+  void shouldThrowException_WhenModelPathNotPresentInParameters() {
+    // Arrange
+    DeviceID deviceIdMock = mock(DeviceID.class);
+    ActuatorTypeID actuatorTypeIdMock = mock(ActuatorTypeID.class);
+    ActuatorName actuatorNameMock = mock(ActuatorName.class);
+    GPS gpsMock = mock(GPS.class);
+
+    ActuatorFactoryImpl impActuatorFactory = new ActuatorFactoryImpl();
+
+    String expectedMessage = "Model path is required.";
+
+    // Act + Assert
+    Exception e = assertThrows(IllegalArgumentException.class, () -> {
+      impActuatorFactory.create(deviceIdMock, actuatorTypeIdMock, actuatorNameMock, gpsMock);
+    });
+
+    // Assert
+    String actualMessage = e.getMessage();
+    assertEquals(expectedMessage, actualMessage);
   }
 }
 

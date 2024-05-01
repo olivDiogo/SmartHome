@@ -56,7 +56,7 @@ public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorSe
     if (!deviceOptional.get().getDeviceStatus().getStatus()) {
       throw new IllegalArgumentException("Device with ID " + deviceID + " is deactivated.");
     }
-    IActuator actuator = actuatorFactory.createActuator(parameters);
+    IActuator actuator = actuatorFactory.create(parameters);
     actuatorRepository.save(actuator);
     return actuator;
   }

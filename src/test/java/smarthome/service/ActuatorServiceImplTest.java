@@ -123,7 +123,7 @@ class ActuatorServiceImplTest {
     IActuator mockActuator = mock(IActuator.class);
 
     when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
-    when(actuatorFactory.createActuator(deviceID, modelPath, actuatorTypeID, actuatorName))
+    when(actuatorFactory.create(deviceID, modelPath, actuatorTypeID, actuatorName))
         .thenReturn(mockActuator);
 
     // Act
