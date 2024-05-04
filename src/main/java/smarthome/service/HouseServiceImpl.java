@@ -1,5 +1,6 @@
 package smarthome.service;
 
+import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
@@ -9,6 +10,7 @@ import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.utils.Validator;
 
+@Service
 public class HouseServiceImpl implements IHouseService {
 
   final IHouseFactory houseFactory;

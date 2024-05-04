@@ -1,11 +1,13 @@
 package smarthome.mapper;
 
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.house.House;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.HouseDTO;
 
+@Component
 public class HouseAssembler implements IAssembler<House, HouseDTO> {
 
   /**

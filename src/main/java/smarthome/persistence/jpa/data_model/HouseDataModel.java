@@ -3,7 +3,7 @@ package smarthome.persistence.jpa.data_model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Version;
-import javax.persistence.Table;
+import jakarta.persistence.Table;
 import smarthome.domain.house.House;
 import smarthome.utils.Validator;
 

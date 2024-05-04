@@ -1,5 +1,8 @@
 package smarthome.utils.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
+
 /**
  * Data Transfer Object (DTO) representing information about a house.
  */
@@ -8,21 +11,25 @@ public class HouseDataDTO {
   /**
    * The street where the house is located.
    */
+  @NotBlank(message = "Street cannot be empty")
   public final String street;
 
   /**
    * The door number of the house.
    */
+  @NotBlank(message = "Door number cannot be empty")
   public final String doorNumber;
 
   /**
    * The postal code of the house.
    */
+  @NotBlank(message = "Postal code cannot be empty")
   public final String postalCode;
 
   /**
    * The country code of the house.
    */
+  @NotBlank(message = "Country code cannot be empty")
   public final String countryCode;
 
   /**

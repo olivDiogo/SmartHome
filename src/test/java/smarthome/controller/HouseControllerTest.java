@@ -17,7 +17,7 @@ import smarthome.service.HouseServiceImpl;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.utils.dto.HouseDataDTO;
 
-class ConfigureHouseLocationControllerTest {
+class HouseControllerTest {
 
   /**
    * Verifies that US01ConfigureHouseLocationController can be instantiated with valid constructor

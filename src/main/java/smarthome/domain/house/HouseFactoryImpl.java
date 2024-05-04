@@ -1,5 +1,6 @@
 package smarthome.domain.house;
 
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
@@ -10,6 +11,7 @@ import smarthome.domain.value_object.HouseID;
  * validations and initializations are performed before a {@link House} object is returned to the
  * caller.
  */
+@Component
 public class HouseFactoryImpl implements IHouseFactory {
 
   /**
