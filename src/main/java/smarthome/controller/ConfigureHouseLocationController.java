@@ -5,7 +5,7 @@ import smarthome.domain.house.House;
 import smarthome.domain.service.IHouseService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
-import smarthome.domain.value_object.PostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.utils.dto.HouseDataDTO;

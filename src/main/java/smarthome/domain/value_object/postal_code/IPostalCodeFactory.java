@@ -1,4 +1,4 @@
-package smarthome.domain.value_object;
+package smarthome.domain.value_object.postal_code;
 
 public interface IPostalCodeFactory {
 

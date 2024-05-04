@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.PostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 
 class HouseAggregateTest {
 

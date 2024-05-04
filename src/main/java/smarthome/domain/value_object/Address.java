@@ -1,6 +1,8 @@
 package smarthome.domain.value_object;
 
 import smarthome.ddd.IValueObject;
+import smarthome.domain.value_object.postal_code.IPostalCode;
+import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
 
 public class Address implements IValueObject {
 

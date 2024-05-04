@@ -15,9 +15,6 @@ import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.IPostalCodeFactory;
-import smarthome.domain.value_object.PostalCodeFactory;
-import smarthome.domain.value_object.PostalCodePTImpl;
 import smarthome.persistence.jpa.data_model.HouseDataModel;
 
 class HouseDataModelAssemblerTest {
@@ -62,11 +59,6 @@ class HouseDataModelAssemblerTest {
     HouseDataModel houseDataModelDouble = mock(HouseDataModel.class);
 
     HouseID houseIDDouble = mock(HouseID.class);
-    when(houseIDDouble.getID()).thenReturn("1L");
-
-    IPostalCodeFactory postalCodeFactoryDouble = mock(PostalCodeFactory.class);
-    when(postalCodeFactoryDouble.createPostalCode(any(String.class), any(String.class)))
-        .thenReturn(new PostalCodePTImpl("1234-599"));
 
     Address addressDouble = mock(Address.class);
     when(addressDouble.getStreet()).thenReturn("street");
@@ -107,10 +99,6 @@ class HouseDataModelAssemblerTest {
 
     HouseID houseIDDouble = mock(HouseID.class);
     when(houseIDDouble.getID()).thenReturn("1L");
-
-    IPostalCodeFactory postalCodeFactoryDouble = mock(PostalCodeFactory.class);
-    when(postalCodeFactoryDouble.createPostalCode(any(String.class), any(String.class)))
-        .thenReturn(new PostalCodePTImpl("1234-599"));
 
     Address addressDouble = mock(Address.class);
     when(addressDouble.getStreet()).thenReturn("street");

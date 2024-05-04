@@ -10,7 +10,7 @@ import smarthome.domain.house.House;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.IPostalCode;
+import smarthome.domain.value_object.postal_code.IPostalCode;
 
 class HouseDataModelTest {
 

@@ -198,4 +198,38 @@ class ConfigureHouseLocationControllerTest {
     // Assert
     assertNotNull(result);
   }
+
+  /**
+   * Verify the House throws an exception when the country code is correct but the postal code is incorrect
+   *
+   * Postal code for Portugal: PT
+   */
+  @Test
+  void shouldThrowException_whenPostalCodeIsIncorrectForSupportedCountryCode() {
+    // Arrange
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
+    IHouseFactory houseFactory = new HouseFactoryImpl();
+    IAssembler<House, HouseDTO> houseAssembler = new HouseAssembler();
+    IHouseService houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+
+    ConfigureHouseLocationController configureHouseLocationController = new ConfigureHouseLocationController(
+        houseServiceImpl, houseAssembler);
+
+    String street = "Rua do Ouro";
+    String doorNumber = "123";
+    String postalCode = "12345";
+    String countryCode = "PT";
+    double latitude = 41.14961;
+    double longitude = -8.61099;
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
+    String expected = "Invalid postal code format";
+
+    // Act
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> configureHouseLocationController.configureHouseLocation(houseDataDTO));
+
+    //Assert
+    assertEquals(expected, exception.getMessage());
+  }
 }

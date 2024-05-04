@@ -23,7 +23,7 @@ import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.PostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomName;
 import smarthome.mapper.RoomAssembler;

@@ -10,6 +10,8 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import smarthome.domain.value_object.postal_code.IPostalCode;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 
 class AddressTest {
 
