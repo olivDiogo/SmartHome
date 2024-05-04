@@ -8,6 +8,11 @@
     <artifactId>switch2023project_g1</artifactId>
     <name>switch-2023 switch-2023-g1</name>
     <version>1.0-SNAPSHOT</version>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.4</version>
+    </parent>
 
     <properties>
         <!-- Java Version Configuration -->
@@ -15,7 +20,6 @@
 
         <!-- Maven Version Configuration -->
         <maven-compiler-plugin>3.13.0</maven-compiler-plugin>
-
 
         <!-- Project Encoding Configuration -->
         <project.sourceEncoding>UTF-8</project.sourceEncoding>
@@ -36,11 +40,8 @@
         <maven-surefire-plugin>3.2.5</maven-surefire-plugin>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <spring-boot.version>3.2.4</spring-boot.version>
         <!-- Spring Data JPA version -->
         <spring-data-jpa.version>3.2.4</spring-data-jpa.version>
-        <!-- Hibernate version -->
-        <hibernate.version>5.6.4.Final</hibernate.version>
 
     </properties>
 
@@ -118,7 +119,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
         <dependency>
@@ -133,6 +133,23 @@
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--Jakarta Validation API-->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -213,7 +230,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
             </plugin>
 
         </plugins>
