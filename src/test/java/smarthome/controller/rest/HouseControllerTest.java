@@ -158,6 +158,99 @@ class HouseControllerTest {
     mockMvc.perform(post("/house/configure")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
-        .andExpect(status().isBadRequest());
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.message").value("Invalid street"));
+  }
+
+  /**
+   * Verify that House is NOT correctly configured when door number is blank
+   */
+  @Test
+  void shouldReturnBadRequest_whenHouseIsConfiguredWithBlankDoorNumber() throws Exception {
+    // Arrange
+    String street = "Rua de Sao Bento";
+    String doorNumber = "";
+    String postalCode = "1200-109";
+    String countryCode = "PT";
+    double latitude = 38.7143;
+    double longitude = -9.1459;
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
+
+    // Act & Assert
+    mockMvc.perform(post("/house/configure")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(houseDataDTO)))
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.message").value("Invalid door number"));
+  }
+
+  /**
+   * Verify that House is NOT correctly configured when country code is blank
+   */
+  @Test
+  void shouldReturnBadRequest_whenHouseIsConfiguredWithBlankCountryCode() throws Exception {
+    // Arrange
+    String street = "Rua de Sao Bento";
+    String doorNumber = "123";
+    String postalCode = "1200-109";
+    String countryCode = "";
+    double latitude = 38.7143;
+    double longitude = -9.1459;
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
+
+    // Act & Assert
+    mockMvc.perform(post("/house/configure")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(houseDataDTO)))
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.message").value("Invalid country code"));
+  }
+
+  /**
+   * Verify that House is NOT correctly configured when latitude is invalid
+   */
+  @Test
+  void shouldReturnBadRequest_whenHouseIsConfiguredWithInvalidLatitude() throws Exception {
+    // Arrange
+    String street = "Rua de Sao Bento";
+    String doorNumber = "123";
+    String postalCode = "1200-109";
+    String countryCode = "PT";
+    double latitude = 91.7143;
+    double longitude = -9.1459;
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
+
+    // Act & Assert
+    mockMvc.perform(post("/house/configure")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(houseDataDTO)))
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.message").value("Please enter a valid latitude."));
+  }
+
+  /**
+   * Verify that House is NOT correctly configured when longitude is invalid
+   */
+  @Test
+  void shouldReturnBadRequest_whenHouseIsConfiguredWithInvalidLongitude() throws Exception {
+    // Arrange
+    String street = "Rua de Sao Bento";
+    String doorNumber = "123";
+    String postalCode = "1200-109";
+    String countryCode = "PT";
+    double latitude = 38.7143;
+    double longitude = -181.1459;
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
+
+    // Act & Assert
+    mockMvc.perform(post("/house/configure")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(houseDataDTO)))
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.message").value("Please enter a valid longitude."));
   }
 }
