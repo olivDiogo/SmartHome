@@ -1,5 +1,6 @@
 package smarthome.domain.room;
 
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
@@ -12,6 +13,7 @@ import smarthome.domain.value_object.RoomName;
  * validations and initializations are performed before a {@link Room} object is returned to the
  * caller.
  */
+@Component
 public class RoomFactoryImpl implements IRoomFactory {
 
   /**

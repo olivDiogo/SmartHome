@@ -9,6 +9,7 @@ import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.utils.Validator;
 
+
 public class Room implements IAggregateRoot<RoomID> {
 
   private final HouseID houseID;

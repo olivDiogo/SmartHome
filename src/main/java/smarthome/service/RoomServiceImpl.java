@@ -2,6 +2,8 @@ package smarthome.service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.house.House;
 import smarthome.domain.room.IRoomFactory;
@@ -14,6 +16,7 @@ import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.utils.Validator;
 
+@Service
 public class RoomServiceImpl implements IRoomService {
 
   private final IRepository<RoomID, Room> roomRepository;
@@ -27,12 +30,9 @@ public class RoomServiceImpl implements IRoomService {
    * @param roomFactory     The factory for creating rooms.
    * @param houseRepository The repository for houses.
    */
+  @Autowired
   public RoomServiceImpl(IRepository<RoomID, Room> roomRepository, IRoomFactory roomFactory,
       IRepository<HouseID, House> houseRepository) {
-
-    Validator.validateNotNull(roomRepository, "Room repository");
-    Validator.validateNotNull(roomFactory, "Room factory");
-    Validator.validateNotNull(houseRepository, "House repository");
     this.roomRepository = roomRepository;
     this.roomFactory = roomFactory;
     this.houseRepository = houseRepository;

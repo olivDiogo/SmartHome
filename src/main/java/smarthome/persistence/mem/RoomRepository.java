@@ -4,11 +4,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.Room;
 import smarthome.domain.value_object.RoomID;
 import smarthome.utils.Validator;
 
+@Repository
 public class RoomRepository implements IRoomRepository {
 
   private final Map<RoomID, Room> DATA = new LinkedHashMap<RoomID, Room>();

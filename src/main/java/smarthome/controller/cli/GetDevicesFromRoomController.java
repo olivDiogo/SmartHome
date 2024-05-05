@@ -1,4 +1,4 @@
-package smarthome.controller;
+package smarthome.controller.cli;
 
 import java.util.List;
 import smarthome.ddd.IAssembler;

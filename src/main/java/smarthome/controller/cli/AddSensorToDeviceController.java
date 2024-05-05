@@ -1,4 +1,4 @@
-package smarthome.controller;
+package smarthome.controller.cli;
 
 import static smarthome.utils.Validator.validateNotNull;
 

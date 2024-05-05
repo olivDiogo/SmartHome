@@ -1,4 +1,4 @@
-package smarthome.controller;
+package smarthome.controller.cli;
 
 import smarthome.ddd.IAssembler;
 import smarthome.domain.house.House;
