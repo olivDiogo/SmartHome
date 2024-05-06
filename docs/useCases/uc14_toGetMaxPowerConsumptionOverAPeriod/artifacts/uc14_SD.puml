@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant " " as User
+participant Controller as ":GetMaxPowerConsumptionOverAPeriod"
+participant DeviceService as ":DeviceService"
+participant LogService as ":LogService"
+
+autonumber
+
+ref over User, Controller: getAllDevicesGroupedByFunctionality
+
+User o-> Controller: getMaxPowerConsumption(map, typeDescription initialTime, endTime)
+
+activate Controller
+
+Controller -> DeviceService: getDevicesByDescriptionFromMap (map, typeDescription)
+
+activate DeviceService
+
+DeviceService --> Controller: powerSourceDevicesDTOList
+
+deactivate DeviceService
+
+Controller -> LogService: getMaxPowerConsumption(DeviceIDList, SensorTypeList, DatePeriod)
+
+activate LogService
+
+LogService --> Controller: maxPowerConsumptionValue
+
+deactivate LogService
+
+Controller --> User: maxPowerConsumptionValue
+
+
+deactivate Controller
+
+@enduml
