@@ -1,5 +1,6 @@
 package smarthome.domain.sensor_type;
 
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
@@ -8,6 +9,7 @@ import smarthome.domain.value_object.UnitID;
  * Implementation of the {@link ISensorTypeFactory} interface, responsible for creating
  * {@link SensorType} instances.
  */
+@Component
 public class SensorTypeFactoryImpl implements ISensorTypeFactory {
 
   /**

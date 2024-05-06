@@ -2,6 +2,7 @@ package smarthome.service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.sensor_type.ISensorTypeFactory;
 import smarthome.domain.sensor_type.SensorType;
@@ -12,6 +13,7 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.utils.Validator;
 
+@Service
 public class SensorTypeServiceImpl implements ISensorTypeService {
 
   private final IRepository<SensorTypeID, SensorType> sensorTypeRepository;

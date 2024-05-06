@@ -18,7 +18,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
    * @param name the sensor type name, must not be null
    * @param unitID the unit of the sensor type, must not be null
    */
-  SensorType(TypeDescription name, UnitID unitID) {
+  public SensorType(TypeDescription name, UnitID unitID) {
     Validator.validateNotNull(name, "Name");
     this.name = name;
 

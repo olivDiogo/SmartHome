@@ -5,12 +5,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.Validator;
 
-
+@Repository
 public class SensorTypeRepository implements ISensorTypeRepository {
 
   private final Map<SensorTypeID, SensorType> DATA = new LinkedHashMap<>();

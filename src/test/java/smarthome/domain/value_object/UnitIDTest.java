@@ -31,7 +31,7 @@ class UnitIDTest {
     // Arrange
     String measurementID = null;
 
-    String expectedMessage = "The value of 'measurementID' should not null, blank, or empty.";
+    String expectedMessage = "The value of 'UnitID' should not null, blank, or empty.";
 
     // Act + Assert
     Exception exception = assertThrows(IllegalArgumentException.class,
@@ -52,7 +52,7 @@ class UnitIDTest {
     // Arrange
     String measurementID = " ";
 
-    String expectedMessage = "The value of 'measurementID' should not null, blank, or empty.";
+    String expectedMessage = "The value of 'UnitID' should not null, blank, or empty.";
 
     // Act + Assert
     Exception exception = assertThrows(IllegalArgumentException.class,
@@ -73,7 +73,7 @@ class UnitIDTest {
     // Arrange
     String measurementID = "";
 
-    String expectedMessage = "The value of 'measurementID' should not null, blank, or empty.";
+    String expectedMessage = "The value of 'UnitID' should not null, blank, or empty.";
 
     // Act + Assert
     Exception exception = assertThrows(IllegalArgumentException.class,

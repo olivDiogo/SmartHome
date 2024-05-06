@@ -1,11 +1,13 @@
 package smarthome.mapper;
 
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorTypeDTO;
 
+@Component
 public class SensorTypeAssembler implements IAssembler<SensorType, SensorTypeDTO> {
 
   /**

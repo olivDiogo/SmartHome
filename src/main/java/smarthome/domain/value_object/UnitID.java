@@ -8,30 +8,30 @@ import smarthome.ddd.IDomainID;
  */
 public class UnitID implements IDomainID {
 
-  private final String id;
+  private final String UnitID;
 
   /**
    * Constructs a new MeasurementID instance after validating the provided ID.
    *
-   * @param measurementID The string representation of the measurement ID. It must not be null,
-   *                      empty, or blank.
-   * @throws IllegalArgumentException if the measurementID is null, empty, or blank.
+   * @param UnitID The string representation of the measurement ID. It must not be null, empty, or
+   *               blank.
+   * @throws IllegalArgumentException if the UnitID is null, empty, or blank.
    */
-  public UnitID(String measurementID) {
-    validateID(measurementID);
-    this.id = measurementID.trim();
+  public UnitID(String UnitID) {
+    validateID(UnitID);
+    this.UnitID = UnitID.trim();
   }
 
   /**
    * Validates the given measurement ID.
    *
-   * @param measurementID The measurement ID to validate.
-   * @throws IllegalArgumentException if the measurementID is null, empty, or blank.
+   * @param UnitID The measurement ID to validate.
+   * @throws IllegalArgumentException if the UnitID is null, empty, or blank.
    */
-  private void validateID(String measurementID) {
-    if (measurementID == null || measurementID.isBlank()) {
+  private void validateID(String UnitID) {
+    if (UnitID == null || UnitID.isBlank()) {
       throw new IllegalArgumentException(
-          "The value of 'measurementID' should not null, blank, or empty.");
+          "The value of 'UnitID' should not null, blank, or empty.");
     }
   }
 
@@ -41,7 +41,7 @@ public class UnitID implements IDomainID {
    * @return The measurement ID as a string.
    */
   public String getID() {
-    return id;
+    return UnitID;
   }
 
   /**
@@ -59,7 +59,7 @@ public class UnitID implements IDomainID {
     }
 
     if (o instanceof UnitID objectUnitId) {
-      return this.id.equals(objectUnitId.id);
+      return this.UnitID.equals(objectUnitId.UnitID);
     }
     return false;
   }
@@ -71,6 +71,16 @@ public class UnitID implements IDomainID {
    */
   @Override
   public int hashCode() {
-    return id.hashCode();
+    return UnitID.hashCode();
+  }
+
+  /**
+   * Returns the string representation of the measurement ID.
+   *
+   * @return The measurement ID as a string.
+   */
+  @Override
+  public String toString() {
+    return UnitID;
   }
 }
