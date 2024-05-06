@@ -3,6 +3,7 @@ package smarthome.persistence.assembler;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.domain.log.ILogFactory;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DeviceID;
@@ -14,6 +15,7 @@ import smarthome.domain.value_object.UnitID;
 import smarthome.persistence.jpa.data_model.LogDataModel;
 import smarthome.utils.Validator;
 
+@Component
 public class LogDataModelAssembler implements IDataModelAssembler<LogDataModel, Log> {
 
   private final ILogFactory logFactory;

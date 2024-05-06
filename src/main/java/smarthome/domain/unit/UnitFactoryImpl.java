@@ -1,5 +1,6 @@
 package smarthome.domain.unit;
 
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
@@ -7,6 +8,7 @@ import smarthome.domain.value_object.UnitSymbol;
 /**
  * Factory implementation for creating {@link Unit} instances.
  */
+@Component
 public class UnitFactoryImpl implements IUnitFactory {
 
   /**

@@ -2,6 +2,7 @@ package smarthome.persistence.assembler;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.domain.sensor_model.ISensorModelFactory;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.domain.value_object.ModelPath;
@@ -10,6 +11,7 @@ import smarthome.domain.value_object.SensorTypeID;
 import smarthome.persistence.jpa.data_model.SensorModelDataModel;
 import smarthome.utils.Validator;
 
+@Component
 public class SensorModelDataModelAssembler implements
     IDataModelAssembler<SensorModelDataModel, SensorModel> {
 

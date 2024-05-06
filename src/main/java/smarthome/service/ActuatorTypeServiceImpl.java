@@ -2,20 +2,22 @@ package smarthome.service;
 
 import java.util.List;
 import java.util.Optional;
-import smarthome.ddd.IRepository;
+import org.springframework.stereotype.Service;
 import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.actuator_type.IActuatorTypeFactory;
-import smarthome.domain.unit.Unit;
+import smarthome.domain.repository.IActuatorTypeRepository;
+import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.utils.Validator;
 
+@Service
 public class ActuatorTypeServiceImpl implements smarthome.domain.service.IActuatorTypeService {
 
-  private final IRepository<ActuatorTypeID, ActuatorType> actuatorTypeRepository;
+  private final IActuatorTypeRepository actuatorTypeRepository;
   private final IActuatorTypeFactory actuatorTypeFactory;
-  private final IRepository<UnitID, Unit> unitRepository;
+  private final IUnitRepository unitRepository;
 
   /**
    * Constructor for ActuatorTypeService.
@@ -25,9 +27,9 @@ public class ActuatorTypeServiceImpl implements smarthome.domain.service.IActuat
    * @param unitRepository         is the repository for the unit.
    */
   public ActuatorTypeServiceImpl(
-      IRepository<ActuatorTypeID, ActuatorType> actuatorTypeRepository,
+      IActuatorTypeRepository actuatorTypeRepository,
       IActuatorTypeFactory actuatorTypeFactory,
-      IRepository<UnitID, Unit> unitRepository) {
+      IUnitRepository unitRepository) {
 
     Validator.validateNotNull(actuatorTypeRepository, "Actuator type repository");
     this.actuatorTypeRepository = actuatorTypeRepository;

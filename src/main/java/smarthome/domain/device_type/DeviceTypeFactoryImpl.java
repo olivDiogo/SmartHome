@@ -1,9 +1,10 @@
 package smarthome.domain.device_type;
 
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
 
-
+@Component
 public class DeviceTypeFactoryImpl implements IDeviceTypeFactory {
 
   /**

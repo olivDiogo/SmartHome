@@ -2,6 +2,7 @@ package smarthome.persistence.assembler;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.domain.unit.IUnitFactory;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitDescription;
@@ -10,6 +11,7 @@ import smarthome.domain.value_object.UnitSymbol;
 import smarthome.persistence.jpa.data_model.UnitDataModel;
 import smarthome.utils.Validator;
 
+@Component
 public class UnitDataModelAssembler implements IDataModelAssembler<UnitDataModel, Unit> {
 
   private final IUnitFactory unitFactory;

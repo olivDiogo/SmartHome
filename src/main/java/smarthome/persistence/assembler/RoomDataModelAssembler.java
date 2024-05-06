@@ -2,6 +2,7 @@ package smarthome.persistence.assembler;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
 import smarthome.domain.value_object.Dimension;
@@ -12,6 +13,7 @@ import smarthome.domain.value_object.RoomName;
 import smarthome.persistence.jpa.data_model.RoomDataModel;
 import smarthome.utils.Validator;
 
+@Component
 public class RoomDataModelAssembler implements IDataModelAssembler<RoomDataModel, Room> {
 
   private final IRoomFactory roomFactory;

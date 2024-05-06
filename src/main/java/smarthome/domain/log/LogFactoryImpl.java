@@ -1,6 +1,7 @@
 package smarthome.domain.log;
 
 import java.time.LocalDateTime;
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.LogID;
 import smarthome.domain.value_object.ReadingValue;
@@ -8,6 +9,7 @@ import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
 
+@Component
 public class LogFactoryImpl implements ILogFactory {
 
   /**

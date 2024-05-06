@@ -2,8 +2,10 @@ package smarthome.domain.sensor;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.ModelPath;
 
+@Component
 public class SensorFactoryImpl implements ISensorFactory {
 
   /**

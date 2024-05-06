@@ -1,5 +1,6 @@
 package smarthome.domain.sensor_model;
 
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorModelName;
 import smarthome.domain.value_object.SensorTypeID;
@@ -10,6 +11,7 @@ import smarthome.domain.value_object.SensorTypeID;
  * ensuring that all necessary validations and initializations are performed before a
  * {@link SensorModel} object is returned to the caller.
  */
+@Component
 public class SensorModelFactoryImpl implements ISensorModelFactory {
 
   /**

@@ -7,12 +7,14 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.UnitDataModel;
 
+@Repository
 public class UnitRepositoryJPAImpl implements IUnitRepository {
 
   private final IDataModelAssembler<UnitDataModel, Unit> dataModelConverter;

@@ -1,9 +1,11 @@
 package smarthome.domain.actuator_type;
 
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 
+@Component
 public class ActuatorTypeFactoryImpl implements IActuatorTypeFactory {
 
   /**

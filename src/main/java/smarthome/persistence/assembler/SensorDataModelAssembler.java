@@ -3,6 +3,7 @@ package smarthome.persistence.assembler;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.sensor.ISensorFactory;
 import smarthome.domain.value_object.DatePeriod;
@@ -15,6 +16,7 @@ import smarthome.domain.value_object.SensorTypeID;
 import smarthome.persistence.jpa.data_model.SensorDataModel;
 import smarthome.utils.Validator;
 
+@Component
 public class SensorDataModelAssembler implements IDataModelAssembler<SensorDataModel, ISensor> {
 
   private final ISensorFactory sensorFactory;

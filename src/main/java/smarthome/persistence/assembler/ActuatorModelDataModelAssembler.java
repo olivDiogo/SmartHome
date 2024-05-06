@@ -4,6 +4,7 @@ import static smarthome.utils.Validator.validateNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
 import smarthome.domain.value_object.ActuatorModelName;
@@ -11,6 +12,7 @@ import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
 
+@Component
 public class ActuatorModelDataModelAssembler
     implements IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> {
 

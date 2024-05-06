@@ -2,6 +2,7 @@ package smarthome.persistence.assembler;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.IDeviceTypeFactory;
 import smarthome.domain.value_object.DeviceTypeID;
@@ -9,6 +10,7 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.persistence.jpa.data_model.DeviceTypeDataModel;
 import smarthome.utils.Validator;
 
+@Component
 public class DeviceTypeDataModelAssembler implements
     IDataModelAssembler<DeviceTypeDataModel, DeviceType> {
 

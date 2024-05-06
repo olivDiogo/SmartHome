@@ -4,12 +4,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.repository.IActuatorTypeRepository;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.utils.Validator;
 
+@Repository
 public class ActuatorTypeRepository implements IActuatorTypeRepository {
 
   private final Map<ActuatorTypeID, ActuatorType> DATA = new LinkedHashMap<>();
