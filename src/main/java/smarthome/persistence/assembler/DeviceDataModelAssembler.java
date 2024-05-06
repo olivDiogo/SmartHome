@@ -3,6 +3,7 @@ package smarthome.persistence.assembler;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.value_object.DeviceID;
@@ -19,6 +20,7 @@ import smarthome.utils.Validator;
  * the data access layer and facilitates the transformation between persistence models and domain
  * models, enabling the separation of concerns.
  */
+@Component
 public class DeviceDataModelAssembler implements IDataModelAssembler<DeviceDataModel, Device> {
 
   private final IDeviceFactory deviceFactory;

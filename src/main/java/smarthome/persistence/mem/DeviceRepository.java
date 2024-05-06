@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.apache.commons.lang3.Validate;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.device.Device;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.utils.Validator;
 
+@Repository
 public class DeviceRepository implements IDeviceRepository {
 
   /**

@@ -4,8 +4,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Optional;
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.ModelPath;
 
+@Component
 public class ActuatorFactoryImpl implements IActuatorFactory {
 
   /**

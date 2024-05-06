@@ -1,11 +1,14 @@
 package smarthome.mapper;
 
 import java.util.List;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator.IActuator;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.ActuatorDTO;
 
+@Component
 public class ActuatorAssembler implements IAssembler<IActuator, ActuatorDTO> {
 
   /**

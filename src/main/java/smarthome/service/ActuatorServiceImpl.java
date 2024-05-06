@@ -2,6 +2,7 @@ package smarthome.service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.IActuatorFactory;
@@ -11,7 +12,7 @@ import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.utils.Validator;
 
-/** This class represents a service for managing actuators. */
+@Service
 public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorService {
 
   private final IRepository<ActuatorID, IActuator> actuatorRepository;

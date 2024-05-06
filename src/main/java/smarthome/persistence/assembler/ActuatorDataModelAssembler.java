@@ -2,6 +2,8 @@ package smarthome.persistence.assembler;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.IActuatorFactory;
 import smarthome.domain.value_object.ActuatorID;
@@ -14,6 +16,7 @@ import smarthome.domain.value_object.ModelPath;
 import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 import smarthome.utils.Validator;
 
+@Component
 public class ActuatorDataModelAssembler implements
     IDataModelAssembler<ActuatorDataModel, IActuator> {
 

@@ -2,6 +2,7 @@ package smarthome.persistence.spring_data.actuator;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.repository.IActuatorRepository;
 import smarthome.domain.value_object.ActuatorID;
@@ -10,6 +11,7 @@ import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 import smarthome.utils.Validator;
 import smarthome.utils.visitor_pattern.IActuatorVisitorForDataModel;
 
+@Repository
 public class ActuatorSpringDataRepository implements IActuatorRepository {
 
   private final IActuatorSpringDataRepository repository;

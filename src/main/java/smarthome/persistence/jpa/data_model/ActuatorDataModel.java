@@ -4,16 +4,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import org.springframework.stereotype.Component;
 import smarthome.domain.actuator.IActuator;
 import smarthome.utils.Validator;
 
+@Component
 @Entity
 @Table(name = "Actuator")
 public class ActuatorDataModel {
 
   @Id
   private String actuatorID;
-  private String deviceid;
+  private String deviceID;
   private String modelPath;
   private String actuatorTypeID;
   private String actuatorName;
@@ -45,7 +47,7 @@ public class ActuatorDataModel {
   //Setters
   public void setGenericActuatorParameters(IActuator actuator) {
     this.actuatorID = actuator.getID().getID();
-    this.deviceid = actuator.getDeviceID().getID();
+    this.deviceID = actuator.getDeviceID().getID();
     this.modelPath = actuator.getModelPath().getID();
     this.actuatorTypeID = actuator.getActuatorTypeID().getID();
     this.actuatorName = actuator.getName().getName();
@@ -132,7 +134,7 @@ public class ActuatorDataModel {
    * @return the device ID
    */
   public String getDeviceID() {
-    return this.deviceid;
+    return this.deviceID;
   }
 
   /**
@@ -166,7 +168,7 @@ public class ActuatorDataModel {
   public String toString() {
     return "ActuatorDataModel{" +
         "actuatorID='" + actuatorID + '\'' +
-        ", deviceID='" + deviceid + '\'' +
+        ", deviceID='" + deviceID + '\'' +
         ", modelPath='" + modelPath + '\'' +
         ", actuatorTypeID='" + actuatorTypeID + '\'' +
         ", actuatorName='" + actuatorName + '\'' +
