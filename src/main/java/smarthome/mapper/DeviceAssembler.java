@@ -1,11 +1,13 @@
 package smarthome.mapper;
 
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.DeviceDTO;
 
+@Component
 public class DeviceAssembler implements IAssembler<Device, DeviceDTO> {
 
   /**
@@ -20,7 +22,7 @@ public class DeviceAssembler implements IAssembler<Device, DeviceDTO> {
 
     String deviceID = domainEntity.getID().toString();
     String roomID = domainEntity.getRoomID().toString();
-    String deviceName = domainEntity.getName().toString();
+    String deviceName = domainEntity.getName().getName();
     String deviceStatus = domainEntity.getDeviceStatus().toString();
 
     return new DeviceDTO(deviceID, roomID, deviceName, deviceStatus);

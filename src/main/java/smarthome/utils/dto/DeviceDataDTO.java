@@ -15,6 +15,14 @@ public class DeviceDataDTO {
 
   public String deviceID;
 
+  public DeviceDataDTO() {
+    this.roomID = null;
+    this.deviceTypeID = null;
+    this.deviceName = null;
+    this.deviceStatus = false;
+
+  }
+
   /**
    * Constructs a new DeviceDataDTO object with the specified device details.
    *

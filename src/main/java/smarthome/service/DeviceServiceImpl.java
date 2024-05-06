@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.IDeviceFactory;
@@ -19,6 +20,7 @@ import smarthome.domain.value_object.RoomID;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.DeviceDTO;
 
+@Service
 public class DeviceServiceImpl implements IDeviceService {
 
   private final IDeviceRepository deviceRepository;
