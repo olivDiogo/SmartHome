@@ -2,6 +2,7 @@ package smarthome.persistence.spring_data.device_type;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.repository.IDeviceTypeRepository;
 import smarthome.domain.value_object.DeviceTypeID;

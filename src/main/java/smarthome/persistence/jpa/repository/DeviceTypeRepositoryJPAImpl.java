@@ -6,12 +6,13 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.repository.IDeviceTypeRepository;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.DeviceTypeDataModel;
-
+@Repository
 public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
 
   private final IDataModelAssembler<DeviceTypeDataModel, DeviceType> dataModelAssembler;

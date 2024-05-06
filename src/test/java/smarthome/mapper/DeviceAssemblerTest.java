@@ -38,7 +38,7 @@ class DeviceAssemblerTest {
     when(device.getRoomID().toString()).thenReturn(roomID);
 
     when(device.getName()).thenReturn(mock(DeviceName.class));
-    when(device.getName().toString()).thenReturn(deviceName);
+    when(device.getName().getName()).thenReturn(deviceName);
 
     when(device.getDeviceStatus()).thenReturn(mock(DeviceStatus.class));
     when(device.getDeviceStatus().toString()).thenReturn(deviceStatus);
@@ -95,7 +95,7 @@ class DeviceAssemblerTest {
     when(device.getRoomID().toString()).thenReturn(roomID);
 
     when(device.getName()).thenReturn(mock(DeviceName.class));
-    when(device.getName().toString()).thenReturn(deviceName);
+    when(device.getName().getName()).thenReturn(deviceName);
 
     when(device.getDeviceStatus()).thenReturn(mock(DeviceStatus.class));
     when(device.getDeviceStatus().toString()).thenReturn(deviceStatus);
