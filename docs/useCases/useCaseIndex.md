@@ -25,3 +25,5 @@
 [uc12](uc12_toGetDevicesByRoomAndTemperatureFunctionality/uc12_readme.md) - To Get Devices in a Room with Temperature Functionality
 
 [uc13](uc13_toGetMaxInstTempDifBetweenDeviceAndOutside/uc13_readme.md) - To Get the Maximum Instantaneous Temperature Difference Between Device and Outside
+
+[uc14](uc14_toGetMaxPowerConsumptionOverAPeriod/uc14_readme.md) - To Get the Maximum Power Consumption over a Period
