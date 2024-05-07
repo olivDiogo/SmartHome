@@ -8,8 +8,7 @@ activate System
 User -> System: I want to get the peak power consumption of the house, in a given period.
 System --> User: what period?
 User -> System: Period!
-System --> User: which devices?
-User -> System: this power sources!
+
 System --> User: Peak power consumption!
 
 @enduml

@@ -5,24 +5,87 @@ participant " " as User
 participant Controller as ":GetMaxPowerConsumptionOverAPeriod"
 participant DeviceService as ":DeviceService"
 participant LogService as ":LogService"
+participant DeviceRepository as ":DeviceRepository"
 
 autonumber
 
-ref over User, Controller: getAllDevicesGroupedByFunctionality
-
-User o-> Controller: getMaxPowerConsumption(map, typeDescription initialTime, endTime)
+User o-> Controller: getMaxPowerConsumption(initialTime, endTime)
 
 activate Controller
 
-Controller -> DeviceService: getDevicesByDescriptionFromMap (map, typeDescription)
+Controller -> DeviceService: getDevicesByDeviceType(DeviceType powerMeter)
 
 activate DeviceService
 
-DeviceService --> Controller: powerSourceDevicesDTOList
+DeviceService -> DeviceRepository: getDevicesByDeviceType(DeviceType powerMeter)
+
+activate DeviceRepository
+
+DeviceRepository --> DeviceService: DeviceList
+
+deactivate DeviceRepository
+
+DeviceService -> Controller: DeviceList
 
 deactivate DeviceService
 
-Controller -> LogService: getMaxPowerConsumption(DeviceIDList, SensorTypeList, DatePeriod)
+'--------------------------------------------'
+
+Controller -> DeviceService: getDevicesByDeviceType(DeviceType powerSource)
+
+activate DeviceService
+
+DeviceService -> DeviceRepository: getDevicesByDeviceType(DeviceType powerSource)
+
+activate DeviceRepository
+
+DeviceRepository --> DeviceService: DeviceList
+
+deactivate DeviceRepository
+
+DeviceService -> Controller: DeviceList
+
+deactivate DeviceService
+
+'--------------------------------------------'
+
+Controller -> LogService: getDeviceReadingsBySensorTypeAndTimePeriod (powerMeterDeviceID, sensorTypeID, datePeriod)
+
+activate LogService
+
+LogService -> LogRepository: findByDeviceIDAndSensorTypeAndDatePeriodBetween (powerMeterDeviceID, sensorTypeID, datePeriod)
+
+activate LogRepository
+
+LogRepository --> LogService: outsideTemperatureReadings
+
+deactivate LogRepository
+
+LogService --> Controller: outsideTemperatureReadings
+
+deactivate LogService
+
+Controller -> LogService: getDeviceReadingsBySensorTypeAndTimePeriod (powerSourceDeviceID, sensorTypeID, datePeriod)
+
+'--------------------------------------------'
+
+activate LogService
+
+LogService -> LogRepository: findByDeviceIDAndSensorTypeAndDatePeriodBetween (powerSourceDeviceID, sensorTypeID, datePeriod)
+
+activate LogRepository
+
+LogRepository --> LogService: deviceTemperatureReadings
+
+deactivate LogRepository
+
+LogService --> Controller: deviceTemperatureReadings
+
+deactivate LogService
+
+Controller -> LogService: getMaxPowerConsumption(powerMeterReadings, powerSourceReadings, timeDelta)
+
+'--------------------------------------------'
 
 activate LogService
 
