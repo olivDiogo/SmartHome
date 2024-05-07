@@ -15,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.actuator_type.ActuatorType;
-import smarthome.domain.actuator_type.ActuatorTypeFactoryImpl;
 import smarthome.domain.actuator_type.IActuatorTypeFactory;
 import smarthome.domain.service.IActuatorTypeService;
 import smarthome.domain.value_object.TypeDescription;
@@ -29,6 +28,9 @@ class ActuatorTypeControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
+
+  @Autowired
+  private IActuatorTypeFactory actuatorTypeFactory;
 
   @MockBean
   private IActuatorTypeService actuatorTypeService;
@@ -44,12 +46,15 @@ class ActuatorTypeControllerTest {
   @Test
   void shouldReturnActuatorTypes_WhenFound() throws Exception {
     // Arrange
-    ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO("actuatorTypeID",
-        "actuatorTypeDescription", "unit");
+    String actuatorTypeID = "actuatorTypeID";
+    String actuatorTypeDescription = "actuatorTypeDescription";
+    String unit = "unit";
+    String strUnitID = "unitID";
+    ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO(actuatorTypeID, actuatorTypeDescription,
+        unit);
     List<ActuatorTypeDTO> actuatorTypeDTOs = List.of(actuatorTypeDTO);
-    IActuatorTypeFactory actuatorTypeFactory = new ActuatorTypeFactoryImpl();
-    TypeDescription typeDescription = new TypeDescription("typeDescription");
-    UnitID unitID = new UnitID("unitID");
+    TypeDescription typeDescription = new TypeDescription(actuatorTypeDescription);
+    UnitID unitID = new UnitID(strUnitID);
     ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(typeDescription, unitID);
     when(actuatorTypeService.getAllActuatorTypes()).thenReturn(List.of(actuatorType));
     when(actuatorTypeAssembler.domainToDTO((List<ActuatorType>) any())).thenReturn(
