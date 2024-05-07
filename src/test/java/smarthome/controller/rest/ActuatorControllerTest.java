@@ -8,8 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.actuator_type.ActuatorTypeFactoryImpl;
 import smarthome.domain.device.Device;
@@ -107,7 +109,7 @@ public class ActuatorControllerTest {
   }
 
   /**
-   * Verify that an Actuator is correctly added to the Device
+   * Verify that a generic Actuator is correctly added to the Device
    */
   @Test
   void shouldReturnActuatorDTO_whenGenericActuatorIsAddedToDevice() throws Exception {
@@ -128,11 +130,13 @@ public class ActuatorControllerTest {
     /* Create ActuatorType */
     String strActuatorType = "Switch";
     ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
-    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(new TypeDescription(strActuatorType), actuatorUnit.getID());
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID);
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath,
+        actuatorName, actuatorTypeID);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
@@ -142,6 +146,11 @@ public class ActuatorControllerTest {
         .andExpect(status().isCreated());
   }
 
+  /**
+   * Verify that a SetIntegerActuator is correctly added to the Device
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void shouldReturnActuatorDTO_whenSetIntegerActuatorIsAddedToDevice() throws Exception {
     // Arrange
@@ -163,11 +172,13 @@ public class ActuatorControllerTest {
     /* Create ActuatorType */
     String strActuatorType = "SetInteger";
     ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
-    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(new TypeDescription(strActuatorType), actuatorUnit.getID());
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+        actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
@@ -175,5 +186,364 @@ public class ActuatorControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isCreated());
+  }
+
+  /**
+   * Verify that an Actuator is not added to the Device when the DeviceID is null
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnBadRequest_whenDeviceIDIsNull() throws Exception {
+    // Arrange
+    String actuatorModelPath = "smarthome.domain.actuator.switch_actuator.SwitchActuator";
+    String actuatorName = "Light";
+
+    /* Create Unit */
+    String unit = "On/Off";
+    UnitDescription unitDescription = new UnitDescription(unit);
+    UnitSymbol unitSymbol = new UnitSymbol("I/O");
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit actuatorUnit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    /* Create ActuatorType */
+    String strActuatorType = "Switch";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
+    String actuatorTypeID = actuatorType.getID().toString();
+
+    /* Create ActuatorDataDTO */
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(null, actuatorModelPath,
+        actuatorName, actuatorTypeID);
+
+    // Act & Assert
+    mockMvc.perform(post("/actuator/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(actuatorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Verify that an Actuator is not added to the Device when the ActuatorModelPath is null
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnBadRequest_whenActuatorModelPathIsNull() throws Exception {
+    // Arrange
+    Device device = setupDevice();
+
+    String deviceID = device.getID().getID();
+    String actuatorName = "Light";
+
+    /* Create Unit */
+    String unit = "On/Off";
+    UnitDescription unitDescription = new UnitDescription(unit);
+    UnitSymbol unitSymbol = new UnitSymbol("I/O");
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit actuatorUnit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    /* Create ActuatorType */
+    String strActuatorType = "Switch";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
+    String actuatorTypeID = actuatorType.getID().toString();
+
+    /* Create ActuatorDataDTO */
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, null, actuatorName,
+        actuatorTypeID);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/actuator/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(actuatorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Verify that an Actuator is not added to the Device when the ActuatorName is null
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnBadRequest_whenActuatorNameIsNull() throws Exception {
+    // Arrange
+    Device device = setupDevice();
+
+    String deviceID = device.getID().getID();
+    String actuatorModelPath = "smarthome.domain.actuator.switch_actuator.SwitchActuator";
+
+    /* Create Unit */
+    String unit = "On/Off";
+    UnitDescription unitDescription = new UnitDescription(unit);
+    UnitSymbol unitSymbol = new UnitSymbol("I/O");
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit actuatorUnit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    /* Create ActuatorType */
+    String strActuatorType = "Switch";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
+    String actuatorTypeID = actuatorType.getID().toString();
+
+    /* Create ActuatorDataDTO */
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath,
+        null, actuatorTypeID);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/actuator/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(actuatorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Verify that an Actuator is not added to the Device when the ActuatorTypeID is null
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnBadRequest_whenActuatorTypeIDIsNull() throws Exception {
+    // Arrange
+    Device device = setupDevice();
+
+    String deviceID = device.getID().getID();
+    String actuatorModelPath = "smarthome.domain.actuator.switch_actuator.SwitchActuator";
+    String actuatorName = "Light";
+
+    /* Create Unit */
+    String unit = "On/Off";
+    UnitDescription unitDescription = new UnitDescription(unit);
+    UnitSymbol unitSymbol = new UnitSymbol("I/O");
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit actuatorUnit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    /* Create ActuatorType */
+    String strActuatorType = "Switch";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
+
+    /* Create ActuatorDataDTO */
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath,
+        actuatorName, null);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/actuator/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(actuatorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Verify that an Actuator is not added to the Device when the ActuatorTypeID is invalid
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnBadRequest_whenActuatorTypeIDIsInvalid() throws Exception {
+    // Arrange
+    Device device = setupDevice();
+
+    String deviceID = device.getID().getID();
+    String actuatorModelPath = "smarthome.domain.actuator.switch_actuator.SwitchActuator";
+    String actuatorName = "Light";
+
+    /* Create Unit */
+    String unit = "On/Off";
+    UnitDescription unitDescription = new UnitDescription(unit);
+    UnitSymbol unitSymbol = new UnitSymbol("I/O");
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit actuatorUnit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    /* Create ActuatorType */
+    String strActuatorType = "Switch";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
+    String actuatorTypeID = actuatorType.getID().toString();
+
+    /* Create ActuatorDataDTO */
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath,
+        actuatorName, "InvalidActuatorTypeID");
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/actuator/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(actuatorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Verify that a Set Integer Actuator is not added to the Device when the lower limit is null
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnBadRequest_whenMinLimitIsNull() throws Exception {
+    // Arrange
+    Device device = setupDevice();
+
+    String deviceID = device.getID().getID();
+    String actuatorModelPath = "smarthome.domain.actuator.set_integer_actuator.SetIntegerActuator";
+    String actuatorName = "SetInteger";
+    String maxLimit = "100";
+
+    /* Create Unit */
+    String unit = "Integer";
+    UnitDescription unitDescription = new UnitDescription(unit);
+    UnitSymbol unitSymbol = new UnitSymbol("-");
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit actuatorUnit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    /* Create ActuatorType */
+    String strActuatorType = "SetInteger";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
+    String actuatorTypeID = actuatorType.getID().toString();
+
+    /* Create ActuatorDataDTO */
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+        actuatorModelPath, actuatorName, actuatorTypeID, null, maxLimit);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/actuator/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(actuatorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Verify that a Set Integer Actuator is not added to the Device when the upper limit is null
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnBadRequest_whenMaxLimitIsNull() throws Exception {
+    // Arrange
+    Device device = setupDevice();
+
+    String deviceID = device.getID().getID();
+    String actuatorModelPath = "smarthome.domain.actuator.set_integer_actuator.SetIntegerActuator";
+    String actuatorName = "SetInteger";
+    String minLimit = "0";
+
+    /* Create Unit */
+    String unit = "Integer";
+    UnitDescription unitDescription = new UnitDescription(unit);
+    UnitSymbol unitSymbol = new UnitSymbol("-");
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit actuatorUnit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    /* Create ActuatorType */
+    String strActuatorType = "SetInteger";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
+    String actuatorTypeID = actuatorType.getID().toString();
+
+    /* Create ActuatorDataDTO */
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+        actuatorModelPath, actuatorName, actuatorTypeID, minLimit, null);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/actuator/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(actuatorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Verify that a Set Integer Actuator is not added to the Device when the lower limit is invalid
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnBadRequest_whenMinLimitIsInvalid() throws Exception {
+    // Arrange
+    Device device = setupDevice();
+
+    String deviceID = device.getID().getID();
+    String actuatorModelPath = "smarthome.domain.actuator.set_integer_actuator.SetIntegerActuator";
+    String actuatorName = "SetInteger";
+    String minLimit = "Invalid";
+    String maxLimit = "100";
+
+    /* Create Unit */
+    String unit = "Integer";
+    UnitDescription unitDescription = new UnitDescription(unit);
+    UnitSymbol unitSymbol = new UnitSymbol("-");
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit actuatorUnit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    /* Create ActuatorType */
+    String strActuatorType = "SetInteger";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
+    String actuatorTypeID = actuatorType.getID().toString();
+
+    /* Create ActuatorDataDTO */
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+        actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/actuator/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(actuatorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Verify that a Set Integer Actuator is not added to the Device when the upper limit is invalid
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnBadRequest_whenMaxLimitIsInvalid() throws Exception {
+    // Arrange
+    Device device = setupDevice();
+
+    String deviceID = device.getID().getID();
+    String actuatorModelPath = "smarthome.domain.actuator.set_integer_actuator.SetIntegerActuator";
+    String actuatorName = "SetInteger";
+    String minLimit = "0";
+    String maxLimit = "Invalid";
+
+    /* Create Unit */
+    String unit = "Integer";
+    UnitDescription unitDescription = new UnitDescription(unit);
+    UnitSymbol unitSymbol = new UnitSymbol("-");
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit actuatorUnit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    /* Create ActuatorType */
+    String strActuatorType = "SetInteger";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType), actuatorUnit.getID());
+    String actuatorTypeID = actuatorType.getID().toString();
+
+    /* Create ActuatorDataDTO */
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+        actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/actuator/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(actuatorDataDTO)))
+        .andExpect(status().isBadRequest());
   }
 }
