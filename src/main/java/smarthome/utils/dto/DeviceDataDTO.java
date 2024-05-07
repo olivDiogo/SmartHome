@@ -1,5 +1,8 @@
 package smarthome.utils.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The data needed to create a device.
  */
@@ -15,13 +18,7 @@ public class DeviceDataDTO {
 
   public String deviceID;
 
-  public DeviceDataDTO() {
-    this.roomID = null;
-    this.deviceTypeID = null;
-    this.deviceName = null;
-    this.deviceStatus = false;
 
-  }
 
   /**
    * Constructs a new DeviceDataDTO object with the specified device details.
@@ -31,7 +28,8 @@ public class DeviceDataDTO {
    * @param deviceStatus The status of the device.
    * @param roomID       The unique identifier of the room.
    */
-  public DeviceDataDTO(String deviceTypeID, String deviceName, boolean deviceStatus,
+  @JsonCreator
+  public DeviceDataDTO(@JsonProperty String deviceTypeID, String deviceName, boolean deviceStatus,
       String roomID) {
     this.deviceTypeID = deviceTypeID;
     this.deviceName = deviceName;

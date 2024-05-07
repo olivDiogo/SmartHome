@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Optional;
@@ -16,13 +17,22 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
+import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.DeviceTypeFactoryImpl;
+import smarthome.domain.device_type.IDeviceTypeFactory;
 import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
+import smarthome.domain.house.IHouseFactory;
+import smarthome.domain.repository.IDeviceRepository;
+import smarthome.domain.repository.IDeviceTypeRepository;
+import smarthome.domain.repository.IHouseRepository;
+import smarthome.domain.repository.IRoomRepository;
+import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.domain.value_object.Address;
+import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
@@ -51,25 +61,28 @@ class DeviceControllerTest {
   private ObjectMapper objectMapper;
 
   @Autowired
-  private HouseFactoryImpl houseFactory;
+  private IHouseFactory houseFactory;
 
   @Autowired
-  private RoomFactoryImpl roomFactory;
+  private IRoomFactory roomFactory;
 
   @Autowired
-  private DeviceFactoryImpl deviceFactory;
+  private IDeviceFactory deviceFactory;
 
   @Autowired
-  private DeviceTypeFactoryImpl deviceTypeFactory;
+  private IDeviceTypeFactory deviceTypeFactory;
 
   @MockBean
-  private HouseRepository houseRepository;
+  private IDeviceRepository deviceRepository;
 
   @MockBean
-  private RoomRepository roomRepository;
+  private IHouseRepository houseRepository;
 
   @MockBean
-  private DeviceTypeRepository deviceTypeRepository;
+  private IRoomRepository roomRepository;
+
+  @MockBean
+  private IDeviceTypeRepository deviceTypeRepository;
 
 
   House setupHouse() {
@@ -137,10 +150,12 @@ class DeviceControllerTest {
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
+    Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
     when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    when(deviceRepository.save(device)).thenReturn(device);
 
     // Act & Assert
     mockMvc.perform(post("/device/add")
@@ -149,6 +164,137 @@ class DeviceControllerTest {
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.deviceName").value("Light"));
   }
+
+  /**
+   * Verify that a Device is correctly retrieved by its ID
+   */
+  @Test
+  void shouldReturnDeviceDTO_whenGetDeviceById() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    Room room = setupRoom(roomDataDTO);
+    DeviceType deviceType = setupDeviceType();
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
+    Device device = setupDevice(deviceDataDTO);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(get("/device/" + device.getID()))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.deviceName").value("Light"));
+  }
+
+  /**
+   * Verify that a Device is not added to the Room when the Room does not exist
+   */
+  @Test
+  void shouldReturnBadRequest_whenRoomDoesNotExist() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(roomRepository.ofIdentity(new RoomID(deviceDataDTO.roomID))).thenReturn(Optional.empty());
+
+    // Act & Assert
+    mockMvc.perform(post("/device/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(deviceDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Verify that a Device is not added to the Room when the DeviceType does not exist
+   */
+  @Test
+  void shouldReturnBadRequest_whenDeviceTypeDoesNotExist() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(new DeviceTypeID(deviceDataDTO.deviceTypeID)))
+        .thenReturn(Optional.empty());
+
+    // Act & Assert
+    mockMvc.perform(post("/device/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(deviceDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Verify that a Device is not added to the Room when the House does not exist
+   */
+  @Test
+  void shouldReturnBadRequest_whenHouseDoesNotExist() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+
+    when(houseRepository.ofIdentity(new HouseID(roomDataDTO.houseID))).thenReturn(Optional.empty());
+
+    // Act & Assert
+    mockMvc.perform(post("/device/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(deviceDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Test getDeviceID method when the device does not exist
+   */
+  @Test
+  void shouldReturnNotFound_whenDeviceDoesNotExist() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    Device device = setupDevice(deviceDataDTO);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(roomRepository.ofIdentity(setupRoom(roomDataDTO).getID())).thenReturn(Optional.of(setupRoom(roomDataDTO)));
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.empty());
+
+    // Act & Assert
+    mockMvc.perform(get("/device/" + device.getID()))
+        .andExpect(status().isNotFound());
+  }
+
+  /**
+   * Test getDeviceID when deviceType does not exist
+   */
+  @Test
+  void shouldReturnNotFound_whenDeviceTypeDoesNotExist() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    Device device = setupDevice(deviceDataDTO);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.empty());
+
+    // Act & Assert
+    mockMvc.perform(get("/device/" + device.getID()))
+        .andExpect(status().isNotFound());
+  }
+
 
 }
 
