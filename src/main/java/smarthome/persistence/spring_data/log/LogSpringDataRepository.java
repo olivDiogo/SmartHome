@@ -2,6 +2,7 @@ package smarthome.persistence.spring_data.log;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.value_object.DatePeriod;
@@ -12,6 +13,7 @@ import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.LogDataModel;
 import smarthome.utils.Validator;
 
+@Repository
 public class LogSpringDataRepository implements ILogRepository {
 
   ILogSpringDataRepository repository;

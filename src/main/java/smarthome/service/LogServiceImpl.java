@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.service.ILogService;
@@ -13,6 +15,7 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.Validator;
 
+@Service
 public class LogServiceImpl implements ILogService {
 
   private final ILogRepository logRepository;
@@ -24,6 +27,7 @@ public class LogServiceImpl implements ILogService {
    * @param logRepository ILogRepository object
    */
 
+  @Autowired
   public LogServiceImpl(ILogRepository logRepository) {
     Validator.validateNotNull(logRepository, "Log Repository");
     this.logRepository = logRepository;

@@ -2,11 +2,13 @@ package smarthome.mapper;
 
 
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.log.Log;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.LogDTO;
 
+@Component
 public class LogAssembler implements IAssembler<Log, LogDTO> {
 
   /**

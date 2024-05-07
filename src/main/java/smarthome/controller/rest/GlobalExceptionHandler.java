@@ -23,18 +23,4 @@ public class GlobalExceptionHandler {
 
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
-
-  /**
-   * Handle NoSuchElementException
-   * @param ex
-   * @return
-   */
-  @ExceptionHandler(NoSuchElementException.class)
-  public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex) {
-    ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-        HttpStatus.NOT_FOUND.value(),
-        ex.getMessage());
-
-    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-  }
 }

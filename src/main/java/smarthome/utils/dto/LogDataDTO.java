@@ -1,9 +1,14 @@
 package smarthome.utils.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class LogDataDTO {
 
+  @NotBlank
   public String deviceID;
+  @NotBlank
   public String timeStart;
+  @NotBlank
   public String timeEnd;
 
   /**
