@@ -21,8 +21,9 @@ public class HouseAssembler implements IAssembler<House, HouseDTO> {
     Validator.validateNotNull(house, "House");
     String address = house.getAddress().toString();
     String gps = house.getGps().toString();
+    String houseID = house.getID().toString();
 
-    HouseDTO houseDTO = new HouseDTO(address, gps);
+    HouseDTO houseDTO = new HouseDTO(address, gps, houseID);
     return houseDTO;
   }
 

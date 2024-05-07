@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import smarthome.domain.house.House;
+import smarthome.domain.value_object.HouseID;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
@@ -25,15 +26,18 @@ class HouseAssemblerTest {
     // Arrange
     String address = "Test Address, 1";
     String gps = "GPS{latitude=90.0, longitude=180.0}";
+    String houseID = "1";
 
     House house = mock(House.class);
     when(house.getAddress()).thenReturn(mock(Address.class));
     when(house.getAddress().toString()).thenReturn(address);
     when(house.getGps()).thenReturn(mock(GPS.class));
     when(house.getGps().toString()).thenReturn(gps);
+    when(house.getID()).thenReturn(mock(HouseID.class));
+    when(house.getID().toString()).thenReturn(houseID);
 
     HouseAssembler houseAssembler = new HouseAssembler();
-    String expected = address + " " + gps;
+    String expected = address + " " + gps + " " + houseID;
 
     // Act
     HouseDTO result = houseAssembler.domainToDTO(house);
@@ -65,35 +69,43 @@ class HouseAssemblerTest {
     // Arrange
     String address = "Test Address, 1";
     String gps = "GPS{latitude=90.0, longitude=180.0}";
+    String houseID = "1";
 
     String address2 = "Test Address2, 2";
     String gps2 = "GPS{latitude=90.0, longitude=170.0}";
+    String houseID2 = "2";
 
     House house = mock(House.class);
 
     Address addressMock = mock(Address.class);
     GPS gpsMock = mock(GPS.class);
+    HouseID houseIDMock = mock(HouseID.class);
 
     when(house.getAddress()).thenReturn(addressMock);
     when(addressMock.toString()).thenReturn(address);
     when(house.getGps()).thenReturn(gpsMock);
     when(gpsMock.toString()).thenReturn(gps);
+    when(house.getID()).thenReturn(houseIDMock);
+    when(houseIDMock.toString()).thenReturn(houseID);
 
     House house2 = mock(House.class);
     Address addressMock2 = mock(Address.class);
     GPS gpsMock2 = mock(GPS.class);
+    HouseID houseIDMock2 = mock(HouseID.class);
 
     when(house2.getAddress()).thenReturn(addressMock2);
     when(addressMock2.toString()).thenReturn(address2);
     when(house2.getGps()).thenReturn(gpsMock2);
     when(gpsMock2.toString()).thenReturn(gps2);
+    when(house2.getID()).thenReturn(houseIDMock2);
+    when(houseIDMock2.toString()).thenReturn(houseID2);
 
     ArrayList<House> houses = new ArrayList<>();
     houses.add(house);
     houses.add(house2);
 
-    HouseDTO houseDTO = new HouseDTO(address, gps);
-    HouseDTO houseDTO2 = new HouseDTO(address2, gps2);
+    HouseDTO houseDTO = new HouseDTO(address, gps, houseID);
+    HouseDTO houseDTO2 = new HouseDTO(address2, gps2, houseID2);
     List<HouseDTO> expected = List.of(houseDTO, houseDTO2);
 
     HouseAssembler houseAssembler = new HouseAssembler();
