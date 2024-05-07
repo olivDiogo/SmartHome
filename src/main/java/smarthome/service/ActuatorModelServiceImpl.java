@@ -2,6 +2,7 @@ package smarthome.service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
 import smarthome.domain.repository.IActuatorModelRepository;
@@ -14,6 +15,7 @@ import smarthome.utils.Validator;
  * Service class for managing actuator models within the smart home domain. This includes loading
  * default actuator models from a configuration file, as well as providing access to these models.
  */
+@Service
 public class ActuatorModelServiceImpl implements IActuatorModelService {
 
   private final IActuatorModelRepository actuatorModelRepository;
