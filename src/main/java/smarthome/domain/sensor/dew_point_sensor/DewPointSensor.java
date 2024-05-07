@@ -56,13 +56,6 @@ public class DewPointSensor implements ISensor {
     this.sensorID = sensorID;
   }
 
-  /**
-   * Generates a new DewPointID.
-   */
-  private void generateDewPointID() {
-    this.sensorID = new SensorID(UUID.randomUUID().toString());
-  }
-
 
   /**
    * Validates the sensor type ID for a DewPoint.
@@ -78,13 +71,10 @@ public class DewPointSensor implements ISensor {
   }
 
   /**
-   * Gets the sensor ID of the DewPointSensor.
-   *
-   * @return The sensor ID.
+   * Generates a new DewPointID.
    */
-  @Override
-  public SensorID getID() {
-    return this.sensorID;
+  private void generateDewPointID() {
+    this.sensorID = new SensorID(UUID.randomUUID().toString());
   }
 
   /**
@@ -108,6 +98,30 @@ public class DewPointSensor implements ISensor {
   }
 
   /**
+   * Gets the sensor ID of the DewPointSensor.
+   *
+   * @return The sensor ID.
+   */
+  @Override
+  public SensorID getID() {
+    return this.sensorID;
+  }
+
+  /**
+   * Method to get the dew point value object of the sensor.
+   *
+   * @return the value.
+   */
+
+  @Override
+  public DewPointValue getValue() {
+    int dewPointValue = ValueSimulator.generateRandomValue(-70, 70);
+    this.dewPointValue = new DewPointValue(dewPointValue);
+
+    return this.dewPointValue;
+  }
+
+  /**
    * Gets the sensor type ID for the Dew Point Sensor.
    *
    * @return The sensor type ID.
@@ -117,18 +131,7 @@ public class DewPointSensor implements ISensor {
     return this.sensorTypeID;
   }
 
-  /**
-   * Method to get the dew point value object of the sensor.
-   *
-   * @return the value.
-   */
-  @Override
-  public DewPointValue getValue() {
-    int dewPointValue = ValueSimulator.generateRandomValue(-70, 70);
-    this.dewPointValue = new DewPointValue(dewPointValue);
 
-    return this.dewPointValue;
-  }
 
   /**
    * Gets the device ID.
