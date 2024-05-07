@@ -65,7 +65,7 @@ public class DewPointSensor implements ISensor {
 
 
   /**
-   * Validates the sensor type ID.
+   * Validates the sensor type ID for a DewPoint.
    *
    * @param sensorTypeID The sensor type ID.
    */
@@ -78,7 +78,7 @@ public class DewPointSensor implements ISensor {
   }
 
   /**
-   * Gets the sensor ID.
+   * Gets the sensor ID of the DewPointSensor.
    *
    * @return The sensor ID.
    */
@@ -88,7 +88,7 @@ public class DewPointSensor implements ISensor {
   }
 
   /**
-   * Gets the sensor name.
+   * Gets the sensor name of the Dew Point Sensor.
    *
    * @return The sensor name.
    */
@@ -98,7 +98,7 @@ public class DewPointSensor implements ISensor {
   }
 
   /**
-   * Gets the model path.
+   * Gets the model path for the Dew Point Sensor.
    *
    * @return The model path.
    */
@@ -108,7 +108,7 @@ public class DewPointSensor implements ISensor {
   }
 
   /**
-   * Gets the sensor type ID.
+   * Gets the sensor type ID for the Dew Point Sensor.
    *
    * @return The sensor type ID.
    */
@@ -118,7 +118,7 @@ public class DewPointSensor implements ISensor {
   }
 
   /**
-   * Method to get the value object of the sensor.
+   * Method to get the dew point value object of the sensor.
    *
    * @return the value.
    */
