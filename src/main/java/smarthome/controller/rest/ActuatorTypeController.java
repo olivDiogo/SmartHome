@@ -1,5 +1,6 @@
 package smarthome.controller.rest;
 
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -17,8 +18,10 @@ import smarthome.utils.dto.ActuatorTypeDTO;
 @RequestMapping("/actuator-type")
 public class ActuatorTypeController {
 
+  @NotNull
   private final IActuatorTypeService actuatorTypeService;
 
+  @NotNull
   private final IAssembler<ActuatorType, ActuatorTypeDTO> actuatorTypeAssembler;
 
   /**

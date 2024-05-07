@@ -67,7 +67,7 @@ class ActuatorTypeControllerTest {
    * actuator types are available.
    */
   @Test
-  void shouldReturnNotFoundWhenNoActuatorTypesAvailable() throws Exception {
+  void shouldReturnNotFound_WhenNoActuatorTypesAvailable() throws Exception {
     // Arrange: Configure the service to return an empty list when called
     when(actuatorTypeService.getAllActuatorTypes()).thenReturn(List.of());
 

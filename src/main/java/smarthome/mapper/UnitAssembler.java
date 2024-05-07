@@ -2,6 +2,7 @@ package smarthome.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.unit.Unit;
 import smarthome.utils.Validator;
@@ -11,7 +12,7 @@ import smarthome.utils.dto.UnitDTO;
  * Assembler class for converting {@link Unit} domain entities to {@link UnitDTO} data transfer
  * objects.
  */
-
+@Component
 public class UnitAssembler implements IAssembler<Unit, UnitDTO> {
 
   /**
@@ -51,6 +52,4 @@ public class UnitAssembler implements IAssembler<Unit, UnitDTO> {
     }
     return List.copyOf(unitDTOS);
   }
-
-
 }

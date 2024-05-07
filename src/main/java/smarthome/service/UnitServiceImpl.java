@@ -2,6 +2,7 @@ package smarthome.service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.IUnitFactory;
@@ -11,6 +12,7 @@ import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.utils.Validator;
 
+@Service
 public class UnitServiceImpl implements IUnitService {
 
   private final IRepository<UnitID, Unit> unitRepository;
