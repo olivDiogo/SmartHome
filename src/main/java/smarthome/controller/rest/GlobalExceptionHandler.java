@@ -5,10 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import smarthome.utils.dto.ErrorResponseDTO;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+  /**
+   * Handle IllegalArgumentException
+   * @param ex
+   * @return
+   */
   @ExceptionHandler(IllegalArgumentException.class)
   public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex) {
     ErrorResponseDTO errorResponse = new ErrorResponseDTO(
@@ -16,5 +22,19 @@ public class GlobalExceptionHandler {
         ex.getMessage());
 
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
+
+  /**
+   * Handle NoSuchElementException
+   * @param ex
+   * @return
+   */
+  @ExceptionHandler(NoSuchElementException.class)
+  public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex) {
+    ErrorResponseDTO errorResponse = new ErrorResponseDTO(
+        HttpStatus.NOT_FOUND.value(),
+        ex.getMessage());
+
+    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
   }
 }

@@ -24,6 +24,9 @@ public class HouseController {
   private final IHouseService houseService;
   private final IAssembler<House, HouseDTO> houseAssembler;
 
+  /**
+   * Constructor for HouseController
+   */
   @Autowired
   public HouseController(IHouseService houseService,
       IAssembler<House, HouseDTO> houseAssembler) {
@@ -31,6 +34,12 @@ public class HouseController {
     this.houseService = houseService;
   }
 
+  /**
+   * Method to configure house location
+   *
+   * @param houseDataDTO
+   * @return
+   */
   @PostMapping("/configure")
   public ResponseEntity<HouseDTO> configureHouseLocation(@Valid @RequestBody HouseDataDTO houseDataDTO) {
     Address address = new Address(houseDataDTO.street, houseDataDTO.doorNumber,

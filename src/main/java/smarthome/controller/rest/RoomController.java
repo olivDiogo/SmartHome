@@ -66,7 +66,7 @@ public class RoomController {
   public ResponseEntity<List<RoomDTO>> getAllRooms() {
     List<Room> rooms = roomService.getAllRooms();
     List<RoomDTO> roomDTOs = roomAssembler.domainToDTO(rooms);
-    return ResponseEntity.status(HttpStatus.CREATED).body(roomDTOs);
+    return ResponseEntity.ok(roomDTOs);
   }
 
   /**
@@ -84,7 +84,7 @@ public class RoomController {
     }
     else {
       RoomDTO roomDTO = roomAssembler.domainToDTO(room.get());
-      return ResponseEntity.status(HttpStatus.CREATED).body(roomDTO);
+      return ResponseEntity.ok(roomDTO);
     }
   }
 }

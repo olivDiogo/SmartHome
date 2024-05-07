@@ -15,6 +15,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.house.House;
+import smarthome.domain.repository.IHouseRepository;
+import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.domain.value_object.Address;
@@ -24,8 +26,6 @@ import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.persistence.mem.HouseRepository;
-import smarthome.persistence.mem.RoomRepository;
 import smarthome.utils.dto.RoomDataDTO;
 import java.util.List;
 import java.util.Optional;
@@ -41,10 +41,10 @@ class RoomControllerTest {
   private ObjectMapper objectMapper;
 
   @MockBean
-  private HouseRepository houseRepository;
+  private IHouseRepository houseRepository;
 
   @MockBean
-  private RoomRepository roomRepository;
+  private IRoomRepository roomRepository;
 
   @Autowired
   private RoomFactoryImpl roomFactory;
@@ -142,7 +142,7 @@ class RoomControllerTest {
 
     //Act & Assert
     mockMvc.perform(get("/room/all"))
-        .andExpect(status().isCreated())
+        .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].roomName").value("Living Room"))
         .andExpect(jsonPath("$[1].roomName").value("Living Room"));
   }
@@ -164,7 +164,7 @@ class RoomControllerTest {
 
     // Act & Assert
     mockMvc.perform(get("/room/" + room.getID()))
-        .andExpect(status().isCreated())
+        .andExpect(status().isOk())
         .andExpect(jsonPath("$.roomName").value("Living Room"));
   }
 
