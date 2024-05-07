@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.IUnitFactory;
 import smarthome.domain.unit.Unit;
-import smarthome.domain.unit.UnitFactoryImpl;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.mapper.UnitAssembler;
@@ -29,6 +28,9 @@ class UnitControlllerTest {
 
   @Autowired
   private MockMvc mockMvc;
+
+  @Autowired
+  private IUnitFactory unitFactory;
 
   @MockBean
   private IUnitService unitService;
@@ -42,9 +44,10 @@ class UnitControlllerTest {
   @Test
   void shouldReturnUnits_WhenFound() throws Exception {
     // Arrange
-    IUnitFactory unitFactory = new UnitFactoryImpl();
-    UnitSymbol unitSymbol = new UnitSymbol("C");
-    UnitDescription description = new UnitDescription("Celsius");
+    String symbol = "C";
+    String strDescription = "Celsius";
+    UnitSymbol unitSymbol = new UnitSymbol(symbol);
+    UnitDescription description = new UnitDescription(strDescription);
     Unit unit = unitFactory.createUnit(description, unitSymbol);
     UnitDTO unitDTO = new UnitDTO(unit.getID().toString(), description.toString(),
         unitSymbol.toString());
