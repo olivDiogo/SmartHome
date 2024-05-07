@@ -1,5 +1,6 @@
 package smarthome.mapper.actuator_vo_assembler;
 
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DecimalLimits;
@@ -11,6 +12,7 @@ import smarthome.utils.dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp
 import smarthome.utils.dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
 import smarthome.utils.dto.actuator_data_dto.IActuatorDataDTO;
 
+@Component
 public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
 
   /**

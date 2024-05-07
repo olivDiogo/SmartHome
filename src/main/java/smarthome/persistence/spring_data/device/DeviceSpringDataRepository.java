@@ -17,7 +17,6 @@ import smarthome.utils.Validator;
  * Implements the device repository using Spring Data JPA. This class provides a concrete
  * implementation of the {@link IDeviceRepository} for device entity management.
  */
-@Repository
 public class DeviceSpringDataRepository implements IDeviceRepository {
 
   private final IDeviceSpringDataRepository repository;

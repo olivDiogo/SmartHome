@@ -12,7 +12,6 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.utils.Validator;
 
-@Repository
 public class DeviceRepository implements IDeviceRepository {
 
   /**
