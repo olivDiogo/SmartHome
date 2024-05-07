@@ -5,9 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import org.springframework.stereotype.Component;
 import smarthome.domain.sensor.ISensor;
 import smarthome.utils.Validator;
 
+@Component
 @Entity
 @Table(name = "sensor")
 public class SensorDataModel {

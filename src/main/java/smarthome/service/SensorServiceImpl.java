@@ -1,6 +1,7 @@
 package smarthome.service;
 
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.device.Device;
 import smarthome.domain.repository.IDeviceRepository;
@@ -11,6 +12,7 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorID;
 import smarthome.utils.Validator;
 
+@Service
 public class SensorServiceImpl implements ISensorService {
 
   private final IRepository<SensorID, ISensor> sensorRepository;
@@ -24,6 +26,7 @@ public class SensorServiceImpl implements ISensorService {
    * @param sensorFactory    is the factory for sensors.
    * @param deviceRepository is the repository for devices.
    */
+
   public SensorServiceImpl(
       IRepository<SensorID, ISensor> sensorRepository,
       ISensorFactory sensorFactory,

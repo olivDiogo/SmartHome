@@ -1,5 +1,6 @@
 package smarthome.utils.visitor_pattern;
 
+import org.springframework.stereotype.Component;
 import smarthome.domain.sensor.average_power_consumption_sensor.AveragePowerConsumptionSensor;
 import smarthome.domain.sensor.dew_point_sensor.DewPointSensor;
 import smarthome.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhSensor;
@@ -15,6 +16,7 @@ import smarthome.domain.sensor.wind_sensor.WindSensor;
 import smarthome.persistence.jpa.data_model.SensorDataModel;
 
 
+@Component
 public class SensorVisitorForDataModelImpl implements ISensorVisitorForDataModel {
 
   private final SensorDataModel sensorDataModel;

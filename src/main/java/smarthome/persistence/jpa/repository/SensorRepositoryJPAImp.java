@@ -7,6 +7,7 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.ISensorRepository;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.SensorID;
@@ -15,6 +16,7 @@ import smarthome.persistence.jpa.data_model.SensorDataModel;
 import smarthome.utils.Validator;
 import smarthome.utils.visitor_pattern.ISensorVisitorForDataModel;
 
+@Repository
 public class SensorRepositoryJPAImp implements ISensorRepository {
 
   private final EntityManagerFactory factory;
