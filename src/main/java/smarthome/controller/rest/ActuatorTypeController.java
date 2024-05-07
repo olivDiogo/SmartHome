@@ -21,6 +21,12 @@ public class ActuatorTypeController {
 
   private final IAssembler<ActuatorType, ActuatorTypeDTO> actuatorTypeAssembler;
 
+  /**
+   * Constructor for ActuatorTypeController
+   *
+   * @param actuatorTypeService   is the service for actuator type
+   * @param actuatorTypeAssembler is the assembler for actuator type
+   */
   @Autowired
   public ActuatorTypeController(IActuatorTypeService actuatorTypeService,
       IAssembler<ActuatorType, ActuatorTypeDTO> actuatorTypeAssembler) {
@@ -28,6 +34,10 @@ public class ActuatorTypeController {
     this.actuatorTypeAssembler = actuatorTypeAssembler;
   }
 
+  /**
+   * Get all actuator types
+   * @return ResponseEntity<CollectionModel < ActuatorTypeDTO>> is the response entity
+   */
   @GetMapping("/all")
   public ResponseEntity<CollectionModel<ActuatorTypeDTO>> getActuatorTypes() {
     List<ActuatorType> actuatorTypeList = actuatorTypeService.getAllActuatorTypes();

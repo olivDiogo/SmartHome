@@ -43,6 +43,7 @@ class ActuatorTypeControllerTest {
    */
   @Test
   void shouldReturnActuatorTypes_WhenFound() throws Exception {
+    // Arrange
     ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO("actuatorTypeID",
         "actuatorTypeDescription", "unit");
     List<ActuatorTypeDTO> actuatorTypeDTOs = List.of(actuatorTypeDTO);
@@ -54,6 +55,7 @@ class ActuatorTypeControllerTest {
     when(actuatorTypeAssembler.domainToDTO((List<ActuatorType>) any())).thenReturn(
         actuatorTypeDTOs);
 
+    // Act & Assert
     mockMvc.perform(get("/actuator-type/all")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -74,5 +76,4 @@ class ActuatorTypeControllerTest {
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
-
 }
