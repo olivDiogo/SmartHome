@@ -2,6 +2,8 @@ package smarthome.persistence.spring_data.house;
 
 import java.util.List;
 import java.util.Optional;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.house.House;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.value_object.HouseID;
@@ -9,6 +11,7 @@ import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.HouseDataModel;
 import smarthome.utils.Validator;
 
+@Repository
 public class HouseRepositorySpringDataImpl implements IHouseRepository {
 
   private final IHouseSpringDataRepository repository;
@@ -36,6 +39,7 @@ public class HouseRepositorySpringDataImpl implements IHouseRepository {
    * @throws IllegalArgumentException if the entity is null
    */
   @Override
+  @Transactional
   public House save(House house) {
     Validator.validateNotNull(house, "House");
     HouseDataModel dataModel = new HouseDataModel(house);

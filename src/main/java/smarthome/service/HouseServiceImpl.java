@@ -50,5 +50,9 @@ public class HouseServiceImpl implements IHouseService {
     houseRepository.save(house);
     return house;
   }
+
+  public boolean existsById(HouseID houseID) {
+    return houseRepository.containsOfIdentity(houseID);
+  }
 }
 

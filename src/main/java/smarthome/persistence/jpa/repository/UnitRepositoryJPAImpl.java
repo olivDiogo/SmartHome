@@ -7,14 +7,12 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.UnitDataModel;
 
-@Repository
 public class UnitRepositoryJPAImpl implements IUnitRepository {
 
   private final IDataModelAssembler<UnitDataModel, Unit> dataModelConverter;
@@ -49,8 +47,7 @@ public class UnitRepositoryJPAImpl implements IUnitRepository {
    * @return EntityManager
    */
   private EntityManager getEntityManager() {
-    EntityManager manager = factory.createEntityManager();
-    return manager;
+    return factory.createEntityManager();
   }
 
   /**
@@ -94,8 +91,7 @@ public class UnitRepositoryJPAImpl implements IUnitRepository {
       Query query = entityManager.createQuery(
           "SELECT e FROM UnitDataModel e");
       List<UnitDataModel> listDataModel = query.getResultList();
-      List<Unit> listDomain = dataModelConverter.toDomain(listDataModel);
-      return listDomain;
+      return dataModelConverter.toDomain(listDataModel);
     } finally {
       entityManager.close();
     }

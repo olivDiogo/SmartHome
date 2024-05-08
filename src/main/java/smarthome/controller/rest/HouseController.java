@@ -8,15 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.service.IHouseService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
+import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.utils.dto.HouseDataDTO;
@@ -41,8 +45,8 @@ public class HouseController {
   /**
    * Method to configure house location
    *
-   * @param houseDataDTO
-   * @return
+   * @param houseDataDTO is the house data DTO
+   * @return ResponseEntity<EntityModel<HouseDTO>> is the response entity
    */
   @PostMapping("/configure")
   public ResponseEntity<EntityModel<HouseDTO>> configureHouseLocation(
@@ -57,5 +61,19 @@ public class HouseController {
         linkTo(methodOn(HouseController.class).configureHouseLocation(houseDataDTO)).withSelfRel());
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
+  }
+
+  /**
+   * Method to check if house exists by ID
+   */
+  @GetMapping("/{id}")
+  public ResponseEntity<Boolean> getHouseById(@PathVariable String id)
+      throws EmptyReturnException {
+    HouseID theID = new HouseID(id);
+    boolean exists = houseService.existsById(theID);
+    if (!exists) {
+      throw new EmptyReturnException("House not found");
+    }
+    return ResponseEntity.ok(exists);
   }
 }

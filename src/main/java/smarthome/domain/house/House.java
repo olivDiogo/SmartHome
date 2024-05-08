@@ -35,7 +35,7 @@ public class House implements IAggregateRoot<HouseID> {
 
   }
 
-  House(HouseID houseID, Address address, GPS gps) {
+  public House(HouseID houseID, Address address, GPS gps) {
     Validator.validateNotNull(houseID, "HouseID");
     Validator.validateNotNull(address, "Address");
     Validator.validateNotNull(gps, "GPS");

@@ -50,8 +50,7 @@ public class HouseRepositoryJPAImpl implements IHouseRepository {
    * @return EntityManager
    */
   private EntityManager getEntityManager() {
-    EntityManager manager = factory.createEntityManager();
-    return manager;
+    return factory.createEntityManager();
   }
 
   /**
@@ -85,8 +84,7 @@ public class HouseRepositoryJPAImpl implements IHouseRepository {
     Query query = getEntityManager().createQuery(
         "SELECT e FROM HouseDataModel e");
     List<HouseDataModel> listDataModel = query.getResultList();
-    List<House> listDomain = dataModelAssembler.toDomain(listDataModel);
-    return listDomain;
+    return dataModelAssembler.toDomain(listDataModel);
   }
 
   /**

@@ -1,16 +1,31 @@
 package smarthome.controller.rest;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import smarthome.domain.house.House;
+import smarthome.domain.house.HouseFactoryImpl;
+import smarthome.domain.repository.IHouseRepository;
+import smarthome.domain.value_object.Address;
+import smarthome.domain.value_object.GPS;
+import smarthome.domain.value_object.HouseID;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
+import smarthome.persistence.assembler.IDataModelAssembler;
+import smarthome.persistence.jpa.data_model.HouseDataModel;
+import smarthome.persistence.jpa.repository.HouseRepositoryJPAImpl;
+import smarthome.persistence.spring_data.house.HouseRepositorySpringDataImpl;
 import smarthome.utils.dto.HouseDataDTO;
 
 @SpringBootTest
@@ -22,6 +37,23 @@ class HouseControllerTest {
 
   @Autowired
   private ObjectMapper objectMapper;
+
+  @Autowired
+  private HouseFactoryImpl houseFactory;
+
+  @MockBean
+  private IHouseRepository houseRepository;
+
+  @Autowired
+  private IDataModelAssembler<HouseDataModel, House> houseDataModelAssembler;
+
+
+  House setupHouse(HouseDataDTO houseDataDTO) {
+    Address address = new Address(houseDataDTO.street, houseDataDTO.doorNumber,
+        houseDataDTO.postalCode, houseDataDTO.countryCode, new PostalCodeFactory());
+    GPS gps = new GPS(houseDataDTO.latitude, houseDataDTO.longitude);
+    return houseFactory.createHouse(address, gps);
+  }
 
   /**
    * Verify the House is correctly configured when postal code is Portuguese
@@ -37,6 +69,9 @@ class HouseControllerTest {
     double longitude = -9.1459;
     HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
+
+    House house = setupHouse(houseDataDTO);
+    when(houseRepository.save(house)).thenReturn(house);
 
     // Act & Assert
     mockMvc.perform(post("/house/configure")
@@ -61,6 +96,9 @@ class HouseControllerTest {
     HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
+    House house = setupHouse(houseDataDTO);
+    when(houseRepository.save(house)).thenReturn(house);
+
     // Act & Assert
     mockMvc.perform(post("/house/configure")
             .contentType(MediaType.APPLICATION_JSON)
@@ -84,6 +122,9 @@ class HouseControllerTest {
     HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
+    House house = setupHouse(houseDataDTO);
+    when(houseRepository.save(house)).thenReturn(house);
+
     // Act & Assert
     mockMvc.perform(post("/house/configure")
             .contentType(MediaType.APPLICATION_JSON)
@@ -106,6 +147,9 @@ class HouseControllerTest {
     double longitude = -73.5796;
     HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
+
+    House house = setupHouse(houseDataDTO);
+    when(houseRepository.save(house)).thenReturn(house);
 
     // Act & Assert
     mockMvc.perform(post("/house/configure")
@@ -268,6 +312,9 @@ class HouseControllerTest {
     double longitude = -9.1459;
     HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
+
+    House house = setupHouse(houseDataDTO);
+    when(houseRepository.save(house)).thenReturn(house);
 
     // Act & Assert
     mockMvc.perform(post("/house/configure")

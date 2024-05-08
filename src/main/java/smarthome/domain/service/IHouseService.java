@@ -18,4 +18,6 @@ public interface IHouseService extends IService {
   House addHouse(Address address, GPS gps);
 
   House addHouse(HouseID houseID, Address address, GPS gps);
+
+  boolean existsById(HouseID houseID);
 }
