@@ -2,11 +2,13 @@ package smarthome.controller.rest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +23,9 @@ import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.DeviceDataDTO;
+import java.util.List;
 import java.util.Optional;
+import org.springframework.hateoas.CollectionModel;
 
 /**
  * Class representing a REST controller for operations related to devices in the smart home.
@@ -84,13 +88,34 @@ public class DeviceController {
     }
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(device.get());
 
-    var selfLink = WebMvcLinkBuilder.linkTo(
+    Link selfLink = WebMvcLinkBuilder.linkTo(
         WebMvcLinkBuilder.methodOn(DeviceController.class).getDevice(id)).withSelfRel();
 
-    var entityModel = EntityModel.of(deviceDTO, selfLink);
+    EntityModel<DeviceDTO> entityModel = EntityModel.of(deviceDTO, selfLink);
 
     return ResponseEntity.ok(entityModel);
   }
+
+  /**
+   * Handles HTTP GET requests for retrieving all devices.
+   */
+  @GetMapping("/all")
+  public ResponseEntity<CollectionModel<DeviceDTO>> getDevices() {
+    List<Device> devices = deviceService.getAllDevices();
+    if (devices.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
+    List<DeviceDTO> deviceDTOs = deviceAssembler.domainToDTO(devices);
+    CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
+        WebMvcLinkBuilder.linkTo(
+                WebMvcLinkBuilder.methodOn(DeviceController.class).getDevices())
+            .withSelfRel());
+    return ResponseEntity.ok(resource);
+  }
+
+
+
+
 
 
 

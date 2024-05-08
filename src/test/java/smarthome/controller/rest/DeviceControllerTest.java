@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -292,6 +293,56 @@ class DeviceControllerTest {
 
     // Act & Assert
     mockMvc.perform(get("/device/" + device.getID()))
+        .andExpect(status().isNotFound());
+  }
+
+  /**
+   * Test getAllDevice
+   */
+  @Test
+  void shouldReturnAllDevices_whenGetAllDevicesIsCalled() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+
+    Room room = setupRoom(roomDataDTO);
+    DeviceType deviceType = setupDeviceType();
+
+    DeviceDataDTO deviceDataDTO1 = setupDeviceDataDTO(room, deviceType);
+    DeviceDataDTO deviceDataDTO2 = setupDeviceDataDTO(room, deviceType);
+
+    Device device = setupDevice(deviceDataDTO1);
+    Device device2 = setupDevice(deviceDataDTO2);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+
+    when(deviceRepository.findAll()).thenReturn(List.of(device, device2));
+
+    // Act & Assert
+    mockMvc.perform(get("/device/all"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.deviceDTOList[0].deviceName").value("Light"))
+        .andExpect(jsonPath("$._embedded.deviceDTOList[1].deviceName").value("Light"));
+  }
+
+  /**
+   * Test getAllDevices when no devices are available
+   */
+  @Test
+  void shouldReturnNotFound_whenNoDevicesAvailable() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    Room room = setupRoom(roomDataDTO);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    when(deviceRepository.findAll()).thenReturn(List.of());
+
+    // Act & Assert
+    mockMvc.perform(get("/device/all"))
         .andExpect(status().isNotFound());
   }
 
