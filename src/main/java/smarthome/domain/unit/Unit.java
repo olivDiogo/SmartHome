@@ -13,9 +13,9 @@ import smarthome.utils.Validator;
  */
 public class Unit implements IAggregateRoot<UnitID> {
 
-  private final UnitSymbol symbol;
+  private final UnitSymbol unitSymbol;
   private final UnitDescription description;
-  private UnitID id;
+  private UnitID unitID;
 
   /**
    * Constructs a new instance of MeasurementType with the specified unit description and
@@ -29,7 +29,7 @@ public class Unit implements IAggregateRoot<UnitID> {
   public Unit(UnitDescription unitDescription, UnitSymbol unitSymbol) {
     Validator.validateNotNull(unitDescription, "UnitDescription");
     Validator.validateNotNull(unitSymbol, "UnitSymbol");
-    this.symbol = unitSymbol;
+    this.unitSymbol = unitSymbol;
     this.description = unitDescription;
     generateID(unitDescription);
 
@@ -50,9 +50,9 @@ public class Unit implements IAggregateRoot<UnitID> {
     Validator.validateNotNull(unitDescription, "UnitDescription");
     Validator.validateNotNull(unitSymbol, "UnitSymbol");
     Validator.validateNotNull(unitID, "UnitID");
-    this.symbol = unitSymbol;
+    this.unitSymbol = unitSymbol;
     this.description = unitDescription;
-    this.id = unitID;
+    this.unitID = unitID;
   }
 
 
@@ -62,7 +62,7 @@ public class Unit implements IAggregateRoot<UnitID> {
   private void
 
   generateID(UnitDescription unitDescription) {
-    id = new UnitID(unitDescription.toString());
+    unitID = new UnitID(unitDescription.toString());
   }
 
   /**
@@ -72,7 +72,7 @@ public class Unit implements IAggregateRoot<UnitID> {
    */
   @Override
   public UnitID getID() {
-    return id;
+    return unitID;
   }
 
   /**
@@ -90,7 +90,7 @@ public class Unit implements IAggregateRoot<UnitID> {
    * @return The unit of measurement.
    */
   public UnitSymbol getUnitSymbol() {
-    return symbol;
+    return unitSymbol;
   }
 
   /**
@@ -103,7 +103,7 @@ public class Unit implements IAggregateRoot<UnitID> {
   @Override
   public boolean equals(Object object) {
     if (object instanceof Unit unit) {
-      return this.id.equals(unit.id);
+      return this.unitID.equals(unit.unitID);
     }
     return false;
   }
@@ -115,7 +115,7 @@ public class Unit implements IAggregateRoot<UnitID> {
    */
   @Override
   public int hashCode() {
-    return id.hashCode();
+    return unitID.hashCode();
   }
 
   /**
@@ -126,9 +126,9 @@ public class Unit implements IAggregateRoot<UnitID> {
   @Override
   public String toString() {
     return "Unit:" +
-        "unitSymbol=" + symbol +
+        "unitSymbol=" + unitSymbol +
         ", unitDescription=" + description +
-        ", unitID=" + id;
+        ", unitID=" + unitID;
   }
 
 }

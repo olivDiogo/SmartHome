@@ -82,8 +82,7 @@ public class UnitSymbol implements IValueObject {
    */
   @Override
   public String toString() {
-    return "Unit:" +
-        " unit=" + unit;
+    return "Unit:" + unit;
   }
 
 }

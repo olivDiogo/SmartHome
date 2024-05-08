@@ -5,8 +5,11 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 
 import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,7 +23,10 @@ import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.mapper.UnitAssembler;
+import smarthome.persistence.mem.UnitRepository;
 import smarthome.utils.dto.UnitDTO;
+import smarthome.utils.dto.UnitDataDTO;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,11 +38,18 @@ class UnitControlllerTest {
   @Autowired
   private IUnitFactory unitFactory;
 
+  @Autowired
+  private ObjectMapper objectMapper;
+
   @MockBean
   private IUnitService unitService;
 
   @MockBean
   private UnitAssembler unitAssembler;
+
+  @MockBean
+  private UnitRepository unitRepository;
+
 
   /**
    * This test case verifies that the UnitController returns a list of units when they are found.
@@ -75,5 +88,34 @@ class UnitControlllerTest {
     mockMvc.perform(get("/unit/all")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
+  }
+
+  /**
+   * This test case verifies that the UnitController returns a 201 Created status when a unit is
+   * successfully created.
+   */
+  @Test
+  void shouldReturnUnitDataDTO_whenUnitIsCreated() throws Exception {
+    // Arrange
+    String symbol = "C";
+    String description = "Celsius";
+    UnitDataDTO unitDataDTO = new UnitDataDTO(description, symbol);
+
+    UnitSymbol unitSymbol = new UnitSymbol(symbol);
+    UnitDescription unitDescription = new UnitDescription(description);
+    Unit unit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    UnitDTO unitDTO = new UnitDTO(unit.getID().toString(), unitDescription.toString(),
+        unitSymbol.toString());
+    when(unitService.addMeasurementType(unitDescription, unitSymbol)).thenReturn(unit);
+    when(unitAssembler.domainToDTO(unit)).thenReturn(unitDTO);
+
+    // Act & Assert
+    mockMvc.perform(post("/unit/create")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(unitDataDTO)))
+        .andExpect(status().isCreated()) // Expecting 201 status code
+        .andExpect(jsonPath("$.description").value(description))
+        .andExpect(jsonPath("$.unitSymbol").value("Unit:" + symbol));
   }
 }
