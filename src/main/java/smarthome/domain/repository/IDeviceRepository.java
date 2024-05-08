@@ -4,6 +4,7 @@ import java.util.List;
 import smarthome.ddd.IRepository;
 import smarthome.domain.device.Device;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 
 /**
@@ -14,4 +15,7 @@ public interface IDeviceRepository extends IRepository<DeviceID, Device> {
   List<Device> findByRoomID(RoomID roomId);
 
   Device update(Device device);
+
+  List<Device> findByDeviceTypeID(DeviceTypeID deviceTypeID);
+
 }

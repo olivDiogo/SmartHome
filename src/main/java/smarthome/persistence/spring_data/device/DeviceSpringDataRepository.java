@@ -1,16 +1,15 @@
 package smarthome.persistence.spring_data.device;
 
-
 import java.util.List;
 import java.util.Optional;
 import smarthome.domain.device.Device;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.DeviceDataModel;
 import smarthome.utils.Validator;
-
 
 /**
  * Implements the device repository using Spring Data JPA. This class provides a concrete
@@ -25,9 +24,10 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
    * Constructs a new DeviceSpringDataRepository with necessary dependencies.
    *
    * @param repository the Spring Data repository handling Device data models.
-   * @param assembler  the assembler to convert between Device domain objects and data models.
+   * @param assembler the assembler to convert between Device domain objects and data models.
    */
-  public DeviceSpringDataRepository(IDeviceSpringDataRepository repository,
+  public DeviceSpringDataRepository(
+      IDeviceSpringDataRepository repository,
       IDataModelAssembler<DeviceDataModel, Device> assembler) {
     Validator.validateNotNull(repository, "Device repository");
     this.repository = repository;
@@ -47,7 +47,18 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
     return assembler.toDomain(deviceDataModels);
   }
 
+  /**
+   * Finds all devices associated with a specific device type.
+   *
+   * @param deviceTypeID the unique identifier of the device type.
+   * @return a list of Device domain objects.
+   */
 
+  @Override
+  public List<Device> findByDeviceTypeID(DeviceTypeID deviceTypeID) {
+    List<DeviceDataModel> deviceDataModels = repository.findByDeviceTypeID(deviceTypeID.toString());
+    return assembler.toDomain(deviceDataModels);
+  }
 
   /**
    * Saves a new device entity to the database.
@@ -55,6 +66,7 @@ public class DeviceSpringDataRepository implements IDeviceRepository {
    * @param entity the Device to save.
    * @return the saved Device domain object.
    */
+
   @Override
   public Device save(Device entity) {
     Validator.validateNotNull(entity, "Device");

@@ -581,4 +581,30 @@ class DeviceServiceImplTest {
     assertEquals(expectedMessage, actualMessage);
   }
 
+  /**
+   * Test the getDeviceByRoomID method of the DeviceService class when given a valid DeviceID
+   */
+  @Test
+  void shouldGetDeviceListByDeviceId_WhenGivenValidDeviceId() {
+    // Arrange
+    DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
+    RoomRepository roomRepository = mock(RoomRepository.class);
+
+    DeviceServiceImpl deviceServiceImpl = new DeviceServiceImpl(deviceRepository, deviceFactory,
+        roomRepository);
+
+    DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
+    Device mockDevice = mock(Device.class);
+
+    when(deviceRepository.findByDeviceTypeID(deviceTypeID)).thenReturn(List.of(mockDevice));
+
+    // Act
+    List<Device> deviceList = deviceServiceImpl.getDevicesByDeviceTypeID(deviceTypeID);
+
+    // Assert
+    assertNotNull(deviceList);
+    assertEquals(mockDevice, deviceList.get(0));
+    assertEquals(1, deviceList.size());
+  }
 }

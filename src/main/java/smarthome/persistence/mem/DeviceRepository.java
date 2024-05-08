@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import smarthome.domain.device.Device;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.utils.Validator;
 
@@ -97,5 +98,12 @@ public class DeviceRepository implements IDeviceRepository {
       throw new IllegalArgumentException("Device does not exist.");
     }
     return device;
+  }
+
+  @Override
+  public List<Device> findByDeviceTypeID(DeviceTypeID deviceTypeID) {
+    List<Device> devices = DATA.values().stream()
+        .filter(device -> device.getDeviceTypeID().equals(deviceTypeID)).toList();
+    return devices;
   }
 }

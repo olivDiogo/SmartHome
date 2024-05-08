@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import smarthome.domain.device.Device;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.DeviceDataModel;
@@ -164,6 +165,13 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
 
   }
 
+  /**
+   * Updates a Device entity in the database.
+   *
+   * @param device The Device entity to be updated.
+   * @return The updated Device entity.
+   * @throws IllegalArgumentException if the device parameter is null.
+   */
   @Override
   public Device update(Device device) {
     DeviceDataModel deviceDataModel = getEntityManager().find(DeviceDataModel.class,
@@ -194,5 +202,25 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
       }
     }
     return null;
+  }
+
+
+  /**
+   * Retrieves devices associated with a specific device type.
+   *
+   * @param deviceTypeID The identifier of the device type.
+   * @return A list of Device domain objects with the specified device type.
+   */
+  @Override
+  public List<Device> findByDeviceTypeID(DeviceTypeID deviceTypeID) {
+    EntityManager em = getEntityManager();
+    try {
+      Query query = em.createQuery("SELECT e FROM DeviceDataModel e WHERE e.deviceTypeID = :deviceTypeID");
+      query.setParameter("deviceTypeID", deviceTypeID.getID());
+      List<DeviceDataModel> listDataModel = query.getResultList();
+      return dataModelAssembler.toDomain(listDataModel);
+    } finally {
+      em.close();
+    }
   }
 }

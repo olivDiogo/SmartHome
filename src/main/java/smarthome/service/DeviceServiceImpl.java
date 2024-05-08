@@ -116,6 +116,16 @@ public class DeviceServiceImpl implements IDeviceService {
   }
 
   /**
+   * Returns the devices with the provided device type ID.
+   *
+   * @param deviceTypeID is the unique identifier of the device type.
+   * @return a list of devices with the provided device type ID.
+   */
+  public List<Device> getDevicesByDeviceTypeID(DeviceTypeID deviceTypeID) {
+    return deviceRepository.findByDeviceTypeID(deviceTypeID);
+  }
+
+  /**
    * Get devices grouped by temperature functionality from a Map.
    *
    * @param deviceMap The map of all devices grouped by functionality.
@@ -162,4 +172,5 @@ public class DeviceServiceImpl implements IDeviceService {
     }
     return devicesFromRoom;
   }
+
 }
