@@ -1,11 +1,13 @@
 package smarthome.controller.rest;
 
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
@@ -18,13 +20,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.device.Device;
-import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.device_type.DeviceType;
-import smarthome.domain.device_type.DeviceTypeFactoryImpl;
 import smarthome.domain.device_type.IDeviceTypeFactory;
 import smarthome.domain.house.House;
-import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.repository.IDeviceTypeRepository;
@@ -32,9 +31,7 @@ import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
-import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.domain.value_object.Address;
-import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
@@ -46,9 +43,6 @@ import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.persistence.mem.DeviceTypeRepository;
-import smarthome.persistence.mem.HouseRepository;
-import smarthome.persistence.mem.RoomRepository;
 import smarthome.utils.dto.DeviceDataDTO;
 import smarthome.utils.dto.RoomDataDTO;
 
@@ -164,7 +158,8 @@ class DeviceControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(deviceDataDTO)))
         .andExpect(status().isCreated())
-        .andExpect(jsonPath("$.deviceName").value("Light"));
+        .andExpect(jsonPath("$.deviceName").value("Light"))
+        .andExpect(jsonPath("$._links.self").exists());
   }
 
   /**
@@ -186,9 +181,11 @@ class DeviceControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(get("/device/" + device.getID()))
+    mockMvc.perform(get("/device/" + device.getID())
+         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.deviceName").value("Light"));
+        .andExpect(jsonPath("$.deviceID").value(device.getID().toString()))
+        .andExpect(jsonPath("$._links.self").exists());
   }
 
   /**
@@ -273,7 +270,8 @@ class DeviceControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(get("/device/" + device.getID()))
+    mockMvc.perform(get("/device/" + device.getID())
+        .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
 
@@ -293,12 +291,13 @@ class DeviceControllerTest {
     when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(get("/device/" + device.getID()))
+    mockMvc.perform(get("/device/" + device.getID())
+        .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
 
   /**
-   * Test getAllDevice
+   * Test getAllDevice when devices are available
    */
   @Test
   void shouldReturnAllDevices_whenGetAllDevicesIsCalled() throws Exception {
@@ -321,11 +320,15 @@ class DeviceControllerTest {
 
     when(deviceRepository.findAll()).thenReturn(List.of(device, device2));
 
+    int expectedSize = List.of(device, device2).size();
+
     // Act & Assert
-    mockMvc.perform(get("/device/all"))
+    mockMvc.perform(get("/device/all")
+        .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.deviceDTOList[0].deviceName").value("Light"))
-        .andExpect(jsonPath("$._embedded.deviceDTOList[1].deviceName").value("Light"));
+        .andExpect(jsonPath("$._embedded.deviceDTOList", hasSize(expectedSize)))
+        .andExpect(jsonPath("$._links.self").exists());
+
   }
 
   /**
@@ -343,12 +346,13 @@ class DeviceControllerTest {
     when(deviceRepository.findAll()).thenReturn(List.of());
 
     // Act & Assert
-    mockMvc.perform(get("/device/all"))
+    mockMvc.perform(get("/device/all")
+        .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
 
   /**
-   * Test deactivateDevice
+   * Test deactivateDevice when the device exists
    */
   @Test
   void shouldReturnDeviceDTO_whenDeactivateDevice() throws Exception {
@@ -356,19 +360,24 @@ class DeviceControllerTest {
     House house = setupHouse();
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     DeviceType deviceType = setupDeviceType();
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    Room room = setupRoom(roomDataDTO);
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
     when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
-    when(roomRepository.ofIdentity(setupRoom(roomDataDTO).getID())).thenReturn(Optional.of(setupRoom(roomDataDTO)));
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(put("/device/deactivate/" + device.getID()))
+    mockMvc.perform(put("/device/deactivate/" + device.getID())
+         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.deviceName").value("Light"));
+        .andExpect(jsonPath("$.deviceID").value(device.getID().toString()))
+        .andExpect(jsonPath("$.deviceStatus").value("OFF"))
+        .andExpect(jsonPath("$._links.self").exists());
   }
+
 
   /**
    * Test deactivateDevice when the device does not exist
@@ -388,17 +397,9 @@ class DeviceControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(put("/device/deactivate/" + device.getID()))
+    mockMvc.perform(put("/device/deactivate/" + device.getID())
+        .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
 
-
-
 }
-
-
-
-
-
-
-

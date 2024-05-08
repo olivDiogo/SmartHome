@@ -101,7 +101,7 @@ public class DeviceController {
    * Handles HTTP GET requests for retrieving all devices.
    */
   @GetMapping("/all")
-  public ResponseEntity<CollectionModel<DeviceDTO>> getDevices() throws EmptyReturnException {
+  public ResponseEntity<CollectionModel<DeviceDTO>> getAllDevices() throws EmptyReturnException {
     List<Device> devices = deviceService.getAllDevices();
     if (devices.isEmpty()) {
       return ResponseEntity.notFound().build();
@@ -109,7 +109,7 @@ public class DeviceController {
     List<DeviceDTO> deviceDTOs = deviceAssembler.domainToDTO(devices);
     CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
         WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(DeviceController.class).getDevices())
+                WebMvcLinkBuilder.methodOn(DeviceController.class).getAllDevices())
             .withSelfRel());
     return ResponseEntity.ok(resource);
   }
