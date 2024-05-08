@@ -2,6 +2,8 @@ package smarthome.controller.rest;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +47,7 @@ public class SensorController {
    * @return ResponseEntity with the sensor data
    */
   @PostMapping("/add")
-  public ResponseEntity<SensorDTO> addSensor(@RequestBody ISensorDataDTO sensorDataDTO) {
+  public ResponseEntity<EntityModel<SensorDTO>> addSensor(@RequestBody ISensorDataDTO sensorDataDTO) {
     ISensorVOAssembler sensorVOAssembler = new SensorVOAssemblerImpl();
     Object[] sensorParameters = sensorVOAssembler.getSensorParameters(sensorDataDTO);
 
@@ -53,7 +55,12 @@ public class SensorController {
 
     SensorDTO sensorDTO = sensorAssembler.domainToDTO(sensor);
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(sensorDTO);
+    WebMvcLinkBuilder linkToSelf = WebMvcLinkBuilder
+        .linkTo(WebMvcLinkBuilder.methodOn(SensorController.class).addSensor(sensorDataDTO));
+
+    EntityModel<SensorDTO> resource = EntityModel.of(sensorDTO, linkToSelf.withSelfRel());
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
 
 

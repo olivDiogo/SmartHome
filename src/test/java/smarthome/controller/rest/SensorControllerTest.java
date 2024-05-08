@@ -43,7 +43,6 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.persistence.jpa.repository.DeviceRepositoryJPAImpl;
-import smarthome.persistence.mem.DeviceRepository;
 
 import smarthome.utils.dto.sensor_data_dto.ISensorDataDTO;
 import smarthome.utils.dto.sensor_data_dto.SensorDataGenericDTOImp;
@@ -246,4 +245,136 @@ class SensorControllerTest {
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isCreated());
   }
+
+  @Test
+  void shouldReturnBadRequest_WhenDeviceIDIsNull() throws Exception {
+    //Arrange
+    String deviceID = null;
+
+    String sensorModelPath = "smarthome.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhSensor";
+    String sensorName = "ElectricConsumptionWh";
+
+    String strUnitDescription = "Wh";
+    UnitDescription unitDescription = new UnitDescription(strUnitDescription);
+    String strUnitSymbol = "Wh";
+    UnitSymbol unitSymbol = new UnitSymbol(strUnitSymbol);
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit unit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    String strSensorType = "ElectricConsumptionWh";
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType),
+        unit.getID());
+    String sensorTypeID = sensorType.getID().getID();
+
+    ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceID, sensorModelPath,
+        sensorName, sensorTypeID);
+
+    // Act & Assert
+    mockMvc.perform(post("/sensor/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(sensorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void shouldReturnBadRequest_WhenSensorModelPathIsNull() throws Exception {
+    //Arrange
+    Device device = setupDevice();
+    String deviceIDStr = device.getID().getID();
+
+    String sensorModelPath = null;
+    String sensorName = "ElectricConsumptionWh";
+
+    String strUnitDescription = "Wh";
+    UnitDescription unitDescription = new UnitDescription(strUnitDescription);
+    String strUnitSymbol = "Wh";
+    UnitSymbol unitSymbol = new UnitSymbol(strUnitSymbol);
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit unit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    String strSensorType = "ElectricConsumptionWh";
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType),
+        unit.getID());
+    String sensorTypeID = sensorType.getID().getID();
+
+    ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr, sensorModelPath,
+        sensorName, sensorTypeID);
+
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/sensor/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(sensorDataDTO)))
+        .andExpect(status().isBadRequest());
+
+  }
+
+  @Test
+  void shouldReturnBadRequest_WhenSensorTypeIDIsNull() throws Exception {
+    //Arrange
+    Device device = setupDevice();
+    String deviceIDStr = device.getID().getID();
+
+    String sensorModelPath = "smarthome.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhSensor";
+    String sensorName = "ElectricConsumptionWh";
+
+    String strUnitDescription = "Wh";
+    UnitDescription unitDescription = new UnitDescription(strUnitDescription);
+    String strUnitSymbol = "Wh";
+    UnitSymbol unitSymbol = new UnitSymbol(strUnitSymbol);
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit unit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    String sensorTypeID = null;
+
+    ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr, sensorModelPath,
+        sensorName, sensorTypeID);
+
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/sensor/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(sensorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void shouldReturnBadRequest_WhenSensorTypeIDIsInvalid() throws Exception {
+    //Arrange
+    Device device = setupDevice();
+    String deviceIDStr = device.getID().getID();
+
+    String sensorModelPath = "smarthome.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhSensor";
+    String sensorName = "ElectricConsumptionWh";
+
+    String strUnitDescription = "Wh";
+    UnitDescription unitDescription = new UnitDescription(strUnitDescription);
+    String strUnitSymbol = "Wh";
+    UnitSymbol unitSymbol = new UnitSymbol(strUnitSymbol);
+    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
+    Unit unit = unitFactory.createUnit(unitDescription, unitSymbol);
+
+    String strSensorType = "Electric";
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType),
+        unit.getID());
+    String sensorTypeID = sensorType.getID().getID();
+
+    ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr, sensorModelPath,
+        sensorName, sensorTypeID);
+
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(post("/sensor/add")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(sensorDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+
 }
