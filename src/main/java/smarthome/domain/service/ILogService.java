@@ -7,6 +7,7 @@ import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.domain.value_object.TimeDelta;
 
 public interface ILogService extends IService {
 
@@ -39,7 +40,7 @@ public interface ILogService extends IService {
    * @param readings2 is another list of readings.
    * @return the list of the differences between the values.
    */
-  int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, int timeDelta)
+  int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, TimeDelta timeDelta)
       throws EmptyReturnException;
 
 }

@@ -8,6 +8,7 @@ import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.domain.value_object.TimeDelta;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.DeviceDataDTO;
 
@@ -48,8 +49,9 @@ public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
     List<Log> outsideReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(
         outsideDeviceID, sensorTypeID, datePeriod);
 
+    TimeDelta timeDeltaObj = new TimeDelta(timeDelta);
     /* Get the maximum temperature difference */
     return logService.getMaxDifferenceBetweenReadings(insideReadings,
-        outsideReadings, timeDelta);
+        outsideReadings, timeDeltaObj);
   }
 }

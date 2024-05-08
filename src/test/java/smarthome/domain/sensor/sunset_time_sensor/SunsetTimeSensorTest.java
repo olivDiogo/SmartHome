@@ -293,7 +293,7 @@ class SunsetTimeSensorTest {
 
       LocalTime expectedSunsetTime = Objects.requireNonNull(
           SunTimes.compute().on(LocalDate.now()).at(gps.getLatitude(), gps.getLongitude()).execute()
-              .getSet()).toLocalTime().withSecond(0);
+              .getSet()).toLocalTime().truncatedTo(ChronoUnit.SECONDS);
 
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 

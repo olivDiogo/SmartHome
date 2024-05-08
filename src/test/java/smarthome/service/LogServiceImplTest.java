@@ -19,6 +19,7 @@ import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ReadingValue;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.domain.value_object.TimeDelta;
 
 class LogServiceImplTest {
 
@@ -194,7 +195,9 @@ class LogServiceImplTest {
     ILogRepository logRepository = mock(ILogRepository.class);
     LogServiceImpl logService = new LogServiceImpl(logRepository);
 
-    int timeDelta = 5;
+    TimeDelta timeDelta = mock(TimeDelta.class);
+    when(timeDelta.getMinutes()).thenReturn(5);
+
 
     int expectedDifference = 9;
 
@@ -240,7 +243,8 @@ class LogServiceImplTest {
     ILogRepository logRepository = mock(ILogRepository.class);
     LogServiceImpl logService = new LogServiceImpl(logRepository);
 
-    int timeDelta = 5;
+    TimeDelta timeDelta = mock(TimeDelta.class);
+    when(timeDelta.getMinutes()).thenReturn(5);
 
     int expectedDifference = 15;
 
@@ -280,7 +284,8 @@ class LogServiceImplTest {
     ILogRepository logRepository = mock(ILogRepository.class);
     LogServiceImpl logService = new LogServiceImpl(logRepository);
 
-    int timeDelta = 5;
+    TimeDelta timeDelta = mock(TimeDelta.class);
+    when(timeDelta.getMinutes()).thenReturn(5);
 
     String expectedMessage = "No readings found within the given time interval";
 
