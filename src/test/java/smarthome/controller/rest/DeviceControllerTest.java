@@ -2,6 +2,7 @@ package smarthome.controller.rest;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -346,8 +347,57 @@ class DeviceControllerTest {
         .andExpect(status().isNotFound());
   }
 
+  /**
+   * Test deactivateDevice
+   */
+  @Test
+  void shouldReturnDeviceDTO_whenDeactivateDevice() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    Device device = setupDevice(deviceDataDTO);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(roomRepository.ofIdentity(setupRoom(roomDataDTO).getID())).thenReturn(Optional.of(setupRoom(roomDataDTO)));
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+
+    // Act & Assert
+    mockMvc.perform(put("/device/deactivate/" + device.getID()))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.deviceName").value("Light"));
+  }
+
+  /**
+   * Test deactivateDevice when the device does not exist
+   */
+  @Test
+  void shouldReturnNotFound_whenDeactivateDeviceDoesNotExist() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    Device device = setupDevice(deviceDataDTO);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(roomRepository.ofIdentity(setupRoom(roomDataDTO).getID())).thenReturn(Optional.of(setupRoom(roomDataDTO)));
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.empty());
+
+    // Act & Assert
+    mockMvc.perform(put("/device/deactivate/" + device.getID()))
+        .andExpect(status().isNotFound());
+  }
+
+
 
 }
+
+
+
 
 
 

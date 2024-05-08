@@ -113,10 +113,28 @@ public class DeviceController {
     return ResponseEntity.ok(resource);
   }
 
+  /**
+   * Handles HTTP GET requests for deactivating a device.
+   */
+  @PutMapping("/deactivate/{id}")
+  public ResponseEntity<EntityModel<DeviceDTO>> deactivateDevice(@PathVariable String id) {
+    DeviceID deviceID = new DeviceID(id);
+    Optional<Device> device = deviceService.getDeviceByID(deviceID);
 
+    if (device.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
 
+    Device deactivatedDevice = deviceService.deactivateDeviceByID(deviceID);
 
+    DeviceDTO deviceDTO = deviceAssembler.domainToDTO(deactivatedDevice);
 
+    Link selfLink = WebMvcLinkBuilder.linkTo(
+        WebMvcLinkBuilder.methodOn(DeviceController.class).deactivateDevice(id)).withSelfRel();
 
+    EntityModel<DeviceDTO> entityModel = EntityModel.of(deviceDTO, selfLink);
+
+    return ResponseEntity.ok(entityModel);
+  }
 
 }
