@@ -16,20 +16,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.IUnitFactory;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.mapper.UnitAssembler;
-import smarthome.persistence.mem.UnitRepository;
 import smarthome.utils.dto.UnitDTO;
 import smarthome.utils.dto.UnitDataDTO;
 
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class UnitControlllerTest {
+class UnitControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
@@ -47,7 +47,7 @@ class UnitControlllerTest {
   private UnitAssembler unitAssembler;
 
   @MockBean
-  private UnitRepository unitRepository;
+  private IUnitRepository unitRepository;
 
 
   /**

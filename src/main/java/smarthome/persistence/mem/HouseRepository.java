@@ -5,13 +5,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import org.springframework.stereotype.Repository;
 import smarthome.domain.house.House;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.value_object.HouseID;
 import smarthome.utils.Validator;
 
-@Repository
+
 public class HouseRepository implements IHouseRepository {
 
   private final Map<HouseID, House> DATA = new LinkedHashMap<>();

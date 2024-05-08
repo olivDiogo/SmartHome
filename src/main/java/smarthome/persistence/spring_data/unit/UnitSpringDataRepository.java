@@ -2,6 +2,7 @@ package smarthome.persistence.spring_data.unit;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitID;
@@ -9,6 +10,7 @@ import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.UnitDataModel;
 import smarthome.utils.Validator;
 
+@Repository
 public class UnitSpringDataRepository implements IUnitRepository {
 
   IUnitSpringDataRepository repository;

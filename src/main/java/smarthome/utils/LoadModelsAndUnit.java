@@ -4,6 +4,8 @@ import java.io.File;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
 import smarthome.domain.repository.IActuatorModelRepository;
@@ -21,11 +23,13 @@ import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 
+@Component
 public class LoadModelsAndUnit {
 
   private final IUnitRepository unitRepository;
   private final IUnitFactory unitFactory;
 
+  @Autowired
   public LoadModelsAndUnit(
       ISensorModelRepository sensorModelRepository,
       IActuatorModelRepository actuatorModelRepository,
@@ -115,4 +119,32 @@ public class LoadModelsAndUnit {
           "something went wrong in reading the configuration: " + exception.getMessage());
     }
   }
+
+//  @Override
+//  public void run(String... args) throws Exception {
+//    Configurations configs = new Configurations();
+//    try {
+//      Configuration config = configs.properties(new File("configDDD.properties"));
+//      String[] arrayStringMeasurementTypes = config.getStringArray("measurement");
+//      for (String measurement : arrayStringMeasurementTypes) {
+//        String[] measurementTypes = measurement.split(";");
+//        String measurementTypeDescription = measurementTypes[0].split(":")[1];
+//        String measurementTypeUnit = measurementTypes[1].split(":")[1];
+//
+//        UnitDescription measurementDescription = new UnitDescription(measurementTypeDescription);
+//        UnitSymbol measurementTUnit = new UnitSymbol(measurementTypeUnit);
+//        Unit measurementType = unitFactory.createUnit(measurementDescription, measurementTUnit);
+//
+//        // Check if the measurement type already exists
+//        Optional<Unit> existing = unitRepository.ofIdentity(measurementType.getID());
+//        if (existing.isEmpty()) {
+//          unitRepository.save(measurementType);
+//        } else {
+//          System.out.println("Measurement type already exists: " + measurementDescription);
+//        }
+//      }
+//    } catch (ConfigurationException e) {
+//      throw new InstantiationException("Error in configuration: " + e.getMessage());
+//    }
+//  }
 }
