@@ -253,4 +253,26 @@ class HouseControllerTest {
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.message").value("Please enter a valid longitude."));
   }
+
+  /**
+   * Verify HATEOAS implementation for self link
+   */
+  @Test
+  void shouldReturnSelfLink_whenHouseIsConfigured() throws Exception {
+    // Arrange
+    String street = "Rua de Sao Bento";
+    String doorNumber = "123";
+    String postalCode = "1200-109";
+    String countryCode = "PT";
+    double latitude = 38.7143;
+    double longitude = -9.1459;
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
+
+    // Act & Assert
+    mockMvc.perform(post("/house/configure")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(houseDataDTO)))
+        .andExpect(jsonPath("$._links.self.href").exists());
+  }
 }

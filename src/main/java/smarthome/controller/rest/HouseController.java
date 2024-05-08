@@ -1,7 +1,11 @@
 package smarthome.controller.rest;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,14 +45,17 @@ public class HouseController {
    * @return
    */
   @PostMapping("/configure")
-  public ResponseEntity<HouseDTO> configureHouseLocation(@Valid @RequestBody HouseDataDTO houseDataDTO) {
+  public ResponseEntity<EntityModel<HouseDTO>> configureHouseLocation(
+      @Valid @RequestBody HouseDataDTO houseDataDTO) {
     Address address = new Address(houseDataDTO.street, houseDataDTO.doorNumber,
         houseDataDTO.postalCode, houseDataDTO.countryCode, new PostalCodeFactory());
     GPS gps = new GPS(houseDataDTO.latitude, houseDataDTO.longitude);
-
     House house = houseService.addHouse(address, gps);
-
     HouseDTO dto = houseAssembler.domainToDTO(house);
-    return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+
+    EntityModel<HouseDTO> resource = EntityModel.of(dto,
+        linkTo(methodOn(HouseController.class).configureHouseLocation(houseDataDTO)).withSelfRel());
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
 }
