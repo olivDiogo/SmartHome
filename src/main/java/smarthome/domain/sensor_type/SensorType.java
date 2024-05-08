@@ -8,39 +8,39 @@ import smarthome.utils.Validator;
 
 public class SensorType implements IAggregateRoot<SensorTypeID> {
 
-  private final TypeDescription name;
+  private final TypeDescription description;
   private final UnitID unitID;
   private SensorTypeID id;
 
   /**
    * Creates a new {@link SensorType} instance using the provided sensor type name and unit.
    *
-   * @param name the sensor type name, must not be null
+   * @param description the sensor type name, must not be null
    * @param unitID the unit of the sensor type, must not be null
    */
-  public SensorType(TypeDescription name, UnitID unitID) {
-    Validator.validateNotNull(name, "Name");
-    this.name = name;
+  public SensorType(TypeDescription description, UnitID unitID) {
+    Validator.validateNotNull(description, "Name");
+    this.description = description;
 
     Validator.validateNotNull(unitID, "Unit");
     this.unitID = unitID;
 
-    generateID(name);
+    generateID(description);
   }
 
   /**
    * Creates a new {@link SensorType} instance using the provided sensor type ID, name and unit.
    *
    * @param sensorTypeID the sensor type ID, must not be null
-   * @param name         the sensor type name, must not be null
+   * @param description         the sensor type name, must not be null
    * @param unitID       the unit of the sensor type, must not be null
    */
-  SensorType(SensorTypeID sensorTypeID, TypeDescription name, UnitID unitID) {
+  SensorType(SensorTypeID sensorTypeID, TypeDescription description, UnitID unitID) {
     Validator.validateNotNull(sensorTypeID, "SensorTypeID");
-    Validator.validateNotNull(name, "Name");
+    Validator.validateNotNull(description, "Name");
     Validator.validateNotNull(unitID, "Unit");
 
-    this.name = name;
+    this.description = description;
     this.unitID = unitID;
 
   }
@@ -68,8 +68,8 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
    *
    * @return the name of the sensor type
    */
-  public TypeDescription getName() {
-    return name;
+  public TypeDescription getDescription() {
+    return description;
   }
 
   /**
@@ -113,7 +113,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
   public String toString() {
     return "SensorType:" +
         "id=" + id +
-        ", name=" + name +
+        ", name=" + description +
         ", unit=" + unitID;
 
   }

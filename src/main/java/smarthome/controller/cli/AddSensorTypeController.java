@@ -62,7 +62,7 @@ public class AddSensorTypeController {
   public SensorTypeDTO addAndSaveSensorType(SensorTypeDataDTO sensorTypeDataDTO) {
     try {
       TypeDescription typeDescription = new TypeDescription(
-          sensorTypeDataDTO.sensorTypeDescription);
+          sensorTypeDataDTO.description);
       UnitID unitID = new UnitID(sensorTypeDataDTO.unitID);
       SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unitID);
       SensorType savedSensorType = sensorTypeService.addSensorType(sensorType);

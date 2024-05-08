@@ -20,7 +20,7 @@ public class SensorTypeAssembler implements IAssembler<SensorType, SensorTypeDTO
     Validator.validateNotNull(sensorType, "Sensor Type");
 
     String sensorTypeID = sensorType.getID().toString();
-    String sensorTypeDescription = sensorType.getName().toString();
+    String sensorTypeDescription = sensorType.getDescription().toString();
     String unit = sensorType.getUnitID().toString();
 
     SensorTypeDTO sensorTypeDTO = new SensorTypeDTO(sensorTypeID, sensorTypeDescription, unit);

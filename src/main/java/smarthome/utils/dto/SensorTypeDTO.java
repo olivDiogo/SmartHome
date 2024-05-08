@@ -8,23 +8,23 @@ import smarthome.ddd.IDTO;
 public class SensorTypeDTO implements IDTO {
 
   public final String sensorTypeID;
-  public final String sensorTypeDescription;
+  public final String description;
   public final String unitID;
 
   /**
    * Constructs a new SensorTypeDTO object.
    *
-   * @param sensorTypeDescription The description of the sensor type.
+   * @param description The description of the sensor type.
    * @param unitID                  The unit of measurement for the sensor type.
    */
-  public SensorTypeDTO(String sensorTypeID, String sensorTypeDescription, String unitID) {
+  public SensorTypeDTO(String sensorTypeID, String description, String unitID) {
     this.sensorTypeID = sensorTypeID;
-    this.sensorTypeDescription = sensorTypeDescription;
+    this.description = description;
     this.unitID = unitID;
   }
 
   @Override
   public String toString() {
-    return sensorTypeID + " " + sensorTypeDescription + " " + unitID;
+    return sensorTypeID + " " + description + " " + unitID;
   }
 }

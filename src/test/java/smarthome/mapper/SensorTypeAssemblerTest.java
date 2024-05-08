@@ -37,7 +37,7 @@ class SensorTypeAssemblerTest {
 
     SensorType sensorTypeDouble = mock(SensorType.class);
     when(sensorTypeDouble.getID()).thenReturn(sensorTypeIdDouble);
-    when(sensorTypeDouble.getName()).thenReturn(sensorTypeDescriptionDouble);
+    when(sensorTypeDouble.getDescription()).thenReturn(sensorTypeDescriptionDouble);
     when(sensorTypeDouble.getUnitID()).thenReturn(unitDouble);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
@@ -100,7 +100,7 @@ class SensorTypeAssemblerTest {
 
     SensorType sensorTypeDouble1 = mock(SensorType.class);
     when(sensorTypeDouble1.getID()).thenReturn(sensorTypeIdDouble1);
-    when(sensorTypeDouble1.getName()).thenReturn(sensorTypeDescriptionDouble1);
+    when(sensorTypeDouble1.getDescription()).thenReturn(sensorTypeDescriptionDouble1);
     when(sensorTypeDouble1.getUnitID()).thenReturn(unitDouble1);
 
     /* SensorType 2 */
@@ -115,7 +115,7 @@ class SensorTypeAssemblerTest {
 
     SensorType sensorTypeDouble2 = mock(SensorType.class);
     when(sensorTypeDouble2.getID()).thenReturn(sensorTypeIdDouble2);
-    when(sensorTypeDouble2.getName()).thenReturn(sensorTypeDescriptionDouble2);
+    when(sensorTypeDouble2.getDescription()).thenReturn(sensorTypeDescriptionDouble2);
     when(sensorTypeDouble2.getUnitID()).thenReturn(unitDouble2);
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();

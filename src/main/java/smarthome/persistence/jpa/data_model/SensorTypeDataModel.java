@@ -32,7 +32,7 @@ public class SensorTypeDataModel {
   public SensorTypeDataModel(SensorType sensorType) {
     Validator.validateNotNull(sensorType, "Sensor Type");
     this.sensorTypeID = sensorType.getID().getID();
-    this.typeDescription = sensorType.getName().getID();
+    this.typeDescription = sensorType.getDescription().getID();
     this.unitID = sensorType.getUnitID().getID();
   }
 

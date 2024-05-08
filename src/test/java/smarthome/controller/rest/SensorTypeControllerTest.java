@@ -56,7 +56,7 @@ class SensorTypeControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
         .andExpect(status().isCreated())
-        .andExpect(jsonPath("$.sensorTypeDescription").value(sensorTypeDescription))
+        .andExpect(jsonPath("$.description").value(sensorTypeDescription))
         .andExpect(jsonPath("$.unitID").value(unitID));
   }
 
