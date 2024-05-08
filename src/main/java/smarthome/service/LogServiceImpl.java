@@ -14,7 +14,6 @@ import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
-import smarthome.domain.value_object.TimeDelta;
 import smarthome.utils.Validator;
 
 @Service
@@ -79,10 +78,9 @@ public class LogServiceImpl implements ILogService {
    * @return the list of the differences between the values, as Integers.
    */
   @Override
-  public int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, TimeDelta timeDelta)
+  public int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, int timeDelta)
       throws EmptyReturnException {
     List<Integer> valueDifferences = new ArrayList<>();
-    int timeDeltaMinutes = timeDelta.getMinutes();
 
     try {
       for (int i = 0; i < readings1.size(); i++) {
@@ -90,7 +88,7 @@ public class LogServiceImpl implements ILogService {
           int diffInMinutes = (int) ChronoUnit.MINUTES.between(readings1.get(i).getTimeStamp(),
               readings2.get(j).getTimeStamp());
 
-          if (diffInMinutes < timeDeltaMinutes) {
+          if (diffInMinutes < timeDelta) {
             int temperatureDifference = Math.abs(
                 Integer.parseInt(readings1.get(i).getReadingValue().getValue())
                     - Integer.parseInt(readings2.get(j).getReadingValue().getValue()));
