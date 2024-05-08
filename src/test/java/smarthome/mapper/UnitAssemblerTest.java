@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.unit.Unit;
 import smarthome.utils.dto.UnitDTO;
 import smarthome.domain.value_object.UnitDescription;
@@ -81,7 +82,8 @@ class UnitAssemblerTest {
    * Test if the domainToDTO method returns a UnitDTO object when the unit is valid.
    */
   @Test
-  void shouldReturnMeasurementTypeDTOList_WhenDomainToDTOIsCalledWithListOfMeasurementType() {
+  void shouldReturnMeasurementTypeDTOList_WhenDomainToDTOIsCalledWithListOfMeasurementType()
+      throws EmptyReturnException {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
 
@@ -141,7 +143,7 @@ class UnitAssemblerTest {
   void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithNullListOfMeasurementType() {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
-    String expectedMessage = "The list of Units cannot be null or empty.";
+    String expectedMessage = "The list of Units cannot be null.";
     List<Unit> unitList = null;
     // Act
     IllegalArgumentException exception =
@@ -158,11 +160,11 @@ class UnitAssemblerTest {
   void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithEmptyListOfMeasurementType() {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
-    String expectedMessage = "The list of Units cannot be null or empty.";
+    String expectedMessage = "The list of Units is empty.";
     List<Unit> unitList = List.of();
     // Act
-    IllegalArgumentException exception =
-        assertThrows(IllegalArgumentException.class, () -> unitAssembler.domainToDTO(unitList));
+    EmptyReturnException exception =
+        assertThrows(EmptyReturnException.class, () -> unitAssembler.domainToDTO(unitList));
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }

@@ -21,7 +21,7 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
    * @param actuatorDataDTO The actuator data DTO.
    * @return An array of objects that are needed to create an actuator.
    */
-  private static Object[] getActuatorParameteres(ActuatorDataGenericDTOImp actuatorDataDTO) {
+  private static Object[] getActuatorParameters(ActuatorDataGenericDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
     ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
     ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
@@ -36,7 +36,7 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
    * @param actuatorDataDTO The actuator data DTO.
    * @return An array of objects that are needed to create an actuator.
    */
-  private static Object[] getActuatorParameteres(
+  private static Object[] getActuatorParameters(
       ActuatorDataWithDecimalLimitsDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
     ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
@@ -55,15 +55,15 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
    * @param actuatorDataDTO The actuator data DTO.
    * @return An array of objects that are needed to create an actuator.
    */
-  private static Object[] getActuatorParameteres(
+  private static Object[] getActuatorParameters(
       ActuatorDataWithIntegerLimitsDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
     ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
     ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
     ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataDTO.actuatorTypeID);
-    int minLimite = Integer.parseInt(actuatorDataDTO.minLimit);
-    int maxLimite = Integer.parseInt(actuatorDataDTO.maxLimit);
-    IntegerLimits limits = new IntegerLimits(minLimite, maxLimite);
+    int minLimit = Integer.parseInt(actuatorDataDTO.minLimit);
+    int maxLimit = Integer.parseInt(actuatorDataDTO.maxLimit);
+    IntegerLimits limits = new IntegerLimits(minLimit, maxLimit);
     return new Object[]{deviceID, modelPath, actuatorTypeID, actuatorName, limits};
   }
 
@@ -76,13 +76,13 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
   @Override
   public Object[] getActuatorParameters(IActuatorDataDTO actuatorDataDTO) {
     if (actuatorDataDTO instanceof ActuatorDataGenericDTOImp actuatorDataGenericDTOImp) {
-      return getActuatorParameteres(actuatorDataGenericDTOImp);
+      return getActuatorParameters(actuatorDataGenericDTOImp);
     } else if (actuatorDataDTO
         instanceof ActuatorDataWithDecimalLimitsDTOImp actuatorDataWithDecimalLimitsDTOImp) {
-      return getActuatorParameteres(actuatorDataWithDecimalLimitsDTOImp);
+      return getActuatorParameters(actuatorDataWithDecimalLimitsDTOImp);
     } else if (actuatorDataDTO
         instanceof ActuatorDataWithIntegerLimitsDTOImp actuatorDataWithIntegerLimitsDTOImp) {
-      return getActuatorParameteres(actuatorDataWithIntegerLimitsDTOImp);
+      return getActuatorParameters(actuatorDataWithIntegerLimitsDTOImp);
     } else {
       throw new IllegalArgumentException("Unsupported actuator data DTO");
     }

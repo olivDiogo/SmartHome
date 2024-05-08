@@ -2,6 +2,7 @@ package smarthome.mapper;
 
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device.Device;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
@@ -80,7 +81,7 @@ class DeviceAssemblerTest {
    * valid.
    */
   @Test
-  void shouldReturnListOfDeviceDTO_WhenGivenListOfDevices() {
+  void shouldReturnListOfDeviceDTO_WhenGivenListOfDevices() throws EmptyReturnException {
     //Arrange
     String deviceID = "1";
     String roomID = "1";
@@ -124,7 +125,7 @@ class DeviceAssemblerTest {
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     List<Device> devices = null;
 
-    String expectedMessage = "The list of Devices cannot be null or empty.";
+    String expectedMessage = "The list of Devices cannot be null.";
 
     //Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
@@ -145,10 +146,10 @@ class DeviceAssemblerTest {
     DeviceAssembler deviceAssembler = new DeviceAssembler();
     List<Device> devices = new ArrayList<>();
 
-    String expectedMessage = "The list of Devices cannot be null or empty.";
+    String expectedMessage = "The list of Devices is empty.";
 
     //Act & Assert
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+    EmptyReturnException exception = assertThrows(EmptyReturnException.class,
         () -> deviceAssembler.domainToDTO(devices));
 
     //Assert

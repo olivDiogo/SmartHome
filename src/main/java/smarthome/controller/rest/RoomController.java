@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Dimension;
@@ -63,7 +64,7 @@ public class RoomController {
    * @return a list of all rooms
    */
   @GetMapping("/all")
-  public ResponseEntity<List<RoomDTO>> getAllRooms() {
+  public ResponseEntity<List<RoomDTO>> getAllRooms() throws EmptyReturnException {
     List<Room> rooms = roomService.getAllRooms();
     List<RoomDTO> roomDTOs = roomAssembler.domainToDTO(rooms);
     return ResponseEntity.ok(roomDTOs);

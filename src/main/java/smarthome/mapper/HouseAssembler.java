@@ -3,6 +3,7 @@ package smarthome.mapper;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.HouseDTO;
@@ -23,8 +24,7 @@ public class HouseAssembler implements IAssembler<House, HouseDTO> {
     String gps = house.getGps().toString();
     String houseID = house.getID().toString();
 
-    HouseDTO houseDTO = new HouseDTO(address, gps, houseID);
-    return houseDTO;
+    return new HouseDTO(address, gps, houseID);
   }
 
   /**
@@ -34,13 +34,15 @@ public class HouseAssembler implements IAssembler<House, HouseDTO> {
    * @return the list of HouseDTOs.
    */
   @Override
-  public List<HouseDTO> domainToDTO(final List<House> houses) {
-    if (houses == null || houses.isEmpty()) {
-      throw new IllegalArgumentException("The list of Houses cannot be null or empty.");
+  public List<HouseDTO> domainToDTO(final List<House> houses) throws EmptyReturnException {
+    if (houses == null) {
+      throw new IllegalArgumentException("The list of Houses cannot be null.");
+    }
+    if (houses.isEmpty()) {
+      throw new EmptyReturnException("The list of Houses is empty.");
     }
 
-    List<HouseDTO> housesDTO = houses.stream().map(this::domainToDTO).toList();
-    return housesDTO;
+    return houses.stream().map(this::domainToDTO).toList();
   }
 
 }

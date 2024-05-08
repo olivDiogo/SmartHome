@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.value_object.HouseID;
 import smarthome.utils.dto.HouseDTO;
@@ -65,7 +66,7 @@ class HouseAssemblerTest {
    * Test that the HouseAssembler class can convert a House object list to a HouseDTO object list.
    */
   @Test
-  void shouldReturnANewHouseDTOListWhenGivenAListOfHouses() {
+  void shouldReturnANewHouseDTOListWhenGivenAListOfHouses() throws EmptyReturnException {
     // Arrange
     String address = "Test Address, 1";
     String gps = "GPS{latitude=90.0, longitude=180.0}";
@@ -122,7 +123,7 @@ class HouseAssemblerTest {
     // Arrange
     List<House> houses = null;
     HouseAssembler houseAssembler = new HouseAssembler();
-    String expectedMessage = "The list of Houses cannot be null or empty.";
+    String expectedMessage = "The list of Houses cannot be null.";
 
     // Act
     IllegalArgumentException exception =
@@ -137,11 +138,11 @@ class HouseAssemblerTest {
     // Arrange
     List<House> houses = new ArrayList<>();
     HouseAssembler houseAssembler = new HouseAssembler();
-    String expectedMessage = "The list of Houses cannot be null or empty.";
+    String expectedMessage = "The list of Houses is empty.";
 
     // Act
-    IllegalArgumentException exception =
-        assertThrows(IllegalArgumentException.class, () -> houseAssembler.domainToDTO(houses));
+    EmptyReturnException exception =
+        assertThrows(EmptyReturnException.class, () -> houseAssembler.domainToDTO(houses));
 
     // Assert
     assertEquals(expectedMessage, exception.getMessage());

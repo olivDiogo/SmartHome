@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor.ISensor;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorDTO;
@@ -28,9 +29,7 @@ public class SensorAssembler implements IAssembler<ISensor, SensorDTO> {
     String sensorID = sensor.getID().toString();
     String sensorName = sensor.getName().toString();
 
-    SensorDTO sensorDTO = new SensorDTO(deviceID, modelPath, sensorTypeID, sensorID, sensorName);
-
-    return sensorDTO;
+    return new SensorDTO(deviceID, modelPath, sensorTypeID, sensorID, sensorName);
   }
 
   /**
@@ -40,13 +39,13 @@ public class SensorAssembler implements IAssembler<ISensor, SensorDTO> {
    * @return the list of DTOs that was created.
    */
   @Override
-  public List<SensorDTO> domainToDTO(List<ISensor> sensors) {
-    if (sensors == null || sensors.isEmpty()) {
-      throw new IllegalArgumentException("The list of sensors cannot be null or empty");
+  public List<SensorDTO> domainToDTO(List<ISensor> sensors) throws EmptyReturnException {
+    if (sensors == null) {
+      throw new IllegalArgumentException("The list of sensors cannot be null.");
     }
-
-    List<SensorDTO> sensorDTOList = sensors.stream().map(this::domainToDTO).toList();
-
-    return sensorDTOList;
+    if (sensors.isEmpty()) {
+      throw new EmptyReturnException("The list of sensors is empty.");
+    }
+    return sensors.stream().map(this::domainToDTO).toList();
   }
 }

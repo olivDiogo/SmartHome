@@ -1,6 +1,7 @@
 package smarthome.mapper;
 
 import org.junit.jupiter.api.Test;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -93,7 +94,7 @@ class SensorAssemblerTest {
    * Test that the method domainToDTO throws an exception when the list of Sensors is null.
    */
   @Test
-  void shouldConvertSensorListToListOfSensorsDTOList() {
+  void shouldConvertSensorListToListOfSensorsDTOList() throws EmptyReturnException {
     // Arrange
     String deviceID = "123";
     String modelPath = "SmartHome.sensors.DewPointSensor";
@@ -187,7 +188,7 @@ class SensorAssemblerTest {
               sensorAssembler.domainToDTO(sensors);
             });
 
-    String expected = "The list of sensors cannot be null or empty";
+    String expected = "The list of sensors cannot be null.";
 
     String result = exception.getMessage();
 
@@ -208,12 +209,12 @@ class SensorAssemblerTest {
     // Act and Assert
     Exception exception =
         assertThrows(
-            IllegalArgumentException.class,
+            EmptyReturnException.class,
             () -> {
               sensorAssembler.domainToDTO(sensors);
             });
 
-    String expected = "The list of sensors cannot be null or empty";
+    String expected = "The list of sensors is empty.";
 
     String result = exception.getMessage();
 

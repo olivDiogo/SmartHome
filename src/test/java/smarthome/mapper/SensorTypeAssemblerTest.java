@@ -1,6 +1,7 @@
 package smarthome.mapper;
 
 import org.junit.jupiter.api.Test;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.utils.dto.SensorTypeDTO;
 import smarthome.domain.value_object.SensorTypeID;
@@ -78,7 +79,8 @@ class SensorTypeAssemblerTest {
    * Tests the conversion of a list of sensor types to a list of sensor type DTOs.
    */
   @Test
-  void shouldConvertListOfSensorTypesToListOfSensorTypeDTOs_whenSensorTypesAreValid() {
+  void shouldConvertListOfSensorTypesToListOfSensorTypeDTOs_whenSensorTypesAreValid()
+      throws EmptyReturnException {
     // Arrange
     String sensorTypeID1 = "1";
     String sensorTypeDescription1 = "Temperature";
@@ -144,7 +146,7 @@ class SensorTypeAssemblerTest {
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
 
-    String expected = "The list of sensor types cannot be null or empty.";
+    String expected = "The list of sensor types cannot be null.";
 
     // Act + Assert
     IllegalArgumentException exception =
@@ -169,12 +171,12 @@ class SensorTypeAssemblerTest {
 
     SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
 
-    String expected = "The list of sensor types cannot be null or empty.";
+    String expected = "The list of sensor types is empty.";
 
     // Act + Assert
-    IllegalArgumentException exception =
+    EmptyReturnException exception =
         assertThrows(
-            IllegalArgumentException.class,
+            EmptyReturnException.class,
             () -> {
               sensorTypeAssembler.domainToDTO(sensorTypes);
             });

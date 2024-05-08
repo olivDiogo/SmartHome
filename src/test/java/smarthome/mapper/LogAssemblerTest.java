@@ -1,6 +1,7 @@
 package smarthome.mapper;
 
 import org.junit.jupiter.api.Test;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.LogID;
@@ -141,23 +142,6 @@ class LogAssemblerTest {
 
   /**
    * Test if the domainToDTO method throws an IllegalArgumentException when the list of logs is
-   * null.
-   */
-  @Test
-  void shouldThrowAnIllegalArgumentException_WhenGivenANullListOfLogs() {
-    //Arrange
-    List<Log> logs = null;
-    LogAssembler logAssembler = new LogAssembler();
-
-    //Act & Assert
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> logAssembler.domainToDTO(logs));
-
-    assertEquals("The list of Logs cannot be null or empty.", exception.getMessage());
-  }
-
-  /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the list of logs is
    * empty.
    */
   @Test
@@ -167,17 +151,17 @@ class LogAssemblerTest {
     LogAssembler logAssembler = new LogAssembler();
 
     //Act & Assert
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+    EmptyReturnException exception = assertThrows(EmptyReturnException.class,
         () -> logAssembler.domainToDTO(logs));
 
-    assertEquals("The list of Logs cannot be null or empty.", exception.getMessage());
+    assertEquals("The list of Logs is empty.", exception.getMessage());
   }
 
   /**
    * Test when the list of logs contains objects.
    */
   @Test
-  void shouldReturnANewLogDTOList_whenGivenALogList() {
+  void shouldReturnANewLogDTOList_whenGivenALogList() throws EmptyReturnException {
     //Arrange
     String logID = "1";
     String deviceID = "1";

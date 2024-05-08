@@ -1,5 +1,6 @@
 package smarthome.ddd;
 
+import smarthome.domain.exceptions.EmptyReturnException;
 import java.util.List;
 
 public interface IAssembler<ID extends IAggregateRoot, T extends IDTO> {
@@ -19,5 +20,5 @@ public interface IAssembler<ID extends IAggregateRoot, T extends IDTO> {
    * @return the list of DTOs.
    */
 
-  List<T> domainToDTO(List<ID> domainEntities);
+  List<T> domainToDTO(List<ID> domainEntities) throws EmptyReturnException;
 }

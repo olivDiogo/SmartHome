@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator_model.ActuatorModel;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.service.IActuatorModelService;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
@@ -71,7 +72,7 @@ public class ActuatorModelController {
    */
   @GetMapping("/{actuatorTypeID}")
 public ResponseEntity<CollectionModel<ActuatorModelDTO>> getActuatorModelsByActuatorTypeId(
-    @PathVariable String actuatorTypeID) {
+    @PathVariable String actuatorTypeID) throws EmptyReturnException {
 
     ActuatorTypeID actuatorTypeIDObj = new ActuatorTypeID(actuatorTypeID);
 

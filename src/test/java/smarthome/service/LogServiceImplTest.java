@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.value_object.DatePeriod;
@@ -107,7 +108,8 @@ class LogServiceImplTest {
    * Test if the List of logs is returned not empty
    */
   @Test
-  void shouldReturnLogs_whenDeviceReadingsBySensorTypeAndTimePeriodIsCalled() {
+  void shouldReturnLogs_whenDeviceReadingsBySensorTypeAndTimePeriodIsCalled()
+      throws EmptyReturnException {
     // Arrange
     DeviceID deviceID = mock(DeviceID.class);
     SensorTypeID sensorTypeID = mock(SensorTypeID.class);
@@ -155,7 +157,7 @@ class LogServiceImplTest {
     String expectedMessage = "No readings found for the given time period";
 
     // Act
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+    EmptyReturnException exception = assertThrows(EmptyReturnException.class,
         () -> logService.getDeviceReadingsBySensorTypeAndTimePeriod(deviceID, sensorTypeID,
             period));
 
@@ -168,7 +170,8 @@ class LogServiceImplTest {
    * Test for method getDifferenceBetweenReadings when single readings are within an interval of 5 minutes.
    */
   @Test
-  void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndReadingsAreWithin5MinutesInterval() {
+  void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndReadingsAreWithin5MinutesInterval()
+      throws EmptyReturnException {
     // Arrange
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
@@ -206,7 +209,8 @@ class LogServiceImplTest {
    * Test for method getDifferenceBetweenReadings when multiple readings are within an interval of 5 minutes.
    */
   @Test
-  void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndMultipleReadingsAreWithin5MinutesInterval() {
+  void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndMultipleReadingsAreWithin5MinutesInterval()
+      throws EmptyReturnException {
     // Arrange
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);

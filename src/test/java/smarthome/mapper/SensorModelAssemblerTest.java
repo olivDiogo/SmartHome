@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorModelName;
@@ -71,7 +72,8 @@ class SensorModelAssemblerTest {
    * Test that the method domainToDTO converts a list of SensorModel to a list of SensorModelDTO.
    */
   @Test
-  void shouldConvertSensorModelListToSensorModelDTOList_whenSensorModelListIsValid() {
+  void shouldConvertSensorModelListToSensorModelDTOList_whenSensorModelListIsValid()
+      throws EmptyReturnException {
 
     // Arrange
     /* Sensor Model 1 */
@@ -137,7 +139,7 @@ class SensorModelAssemblerTest {
     // Arrange
     List<SensorModel> sensorModels = null;
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    String expected = "The list of Sensor Models cannot be null or empty.";
+    String expected = "The list of Sensor Models cannot be null.";
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -157,12 +159,12 @@ class SensorModelAssemblerTest {
     // Arrange
     List<SensorModel> sensorModels = List.of();
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    String expected = "The list of Sensor Models cannot be null or empty.";
+    String expected = "The list of Sensor Models is empty.";
 
     // Act & Assert
-    IllegalArgumentException exception =
+    EmptyReturnException exception =
         assertThrows(
-            IllegalArgumentException.class,
+            EmptyReturnException.class,
             () -> {
               sensorModelAssembler.domainToDTO(sensorModels);
             });

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.unit.Unit;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.UnitDTO;
@@ -41,9 +42,12 @@ public class UnitAssembler implements IAssembler<Unit, UnitDTO> {
    */
 
   @Override
-  public List<UnitDTO> domainToDTO(List<Unit> units) {
-    if (units == null || units.isEmpty()) {
-      throw new IllegalArgumentException("The list of Units cannot be null or empty.");
+  public List<UnitDTO> domainToDTO(List<Unit> units) throws EmptyReturnException {
+    if (units == null) {
+      throw new IllegalArgumentException("The list of Units cannot be null.");
+    }
+    if (units.isEmpty()) {
+      throw new EmptyReturnException("The list of Units is empty.");
     }
     List<UnitDTO> unitDTOS = new ArrayList<>();
     for (Unit unit : units) {

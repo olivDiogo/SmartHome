@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator_model.ActuatorModelFactoryImpl;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.repository.IActuatorModelRepository;
 import smarthome.domain.repository.ISensorModelRepository;
 import smarthome.domain.repository.ISensorTypeRepository;
@@ -154,7 +155,7 @@ class AddSensorTypeControllerTest {
    * @throws InstantiationException if an instantiation error occurs.
    */
   @Test
-  void shouldReturnListOfUnitsWhenUnitsLoaded() throws InstantiationException {
+  void shouldReturnListOfUnitsWhenUnitsLoaded() throws InstantiationException, EmptyReturnException {
     //Arrange
     ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
     ISensorTypeFactory sensorTypeFactory = new SensorTypeFactoryImpl();

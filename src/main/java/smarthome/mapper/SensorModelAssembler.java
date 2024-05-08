@@ -2,6 +2,7 @@ package smarthome.mapper;
 
 import java.util.List;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorModelDTO;
@@ -16,18 +17,20 @@ public class SensorModelAssembler implements IAssembler<SensorModel, SensorModel
     String sensorModelName = domainEntity.getName().toString();
     String sensorModelPath = domainEntity.getModelPath().toString();
 
-    SensorModelDTO sensorModelDTO = new SensorModelDTO(sensorModelID, sensorModelName,
+    return new SensorModelDTO(sensorModelID, sensorModelName,
         sensorModelPath);
-    return sensorModelDTO;
   }
 
   @Override
-  public List<SensorModelDTO> domainToDTO(List<SensorModel> domainEntities) {
-    if (domainEntities == null || domainEntities.isEmpty()) {
-      throw new IllegalArgumentException("The list of Sensor Models cannot be null or empty.");
+  public List<SensorModelDTO> domainToDTO(List<SensorModel> domainEntities)
+      throws EmptyReturnException {
+    if (domainEntities == null) {
+      throw new IllegalArgumentException("The list of Sensor Models cannot be null.");
     }
-    List<SensorModelDTO> sensorModelsDTO = domainEntities.stream().map(this::domainToDTO).toList();
-    return sensorModelsDTO;
+    if (domainEntities.isEmpty()) {
+      throw new EmptyReturnException("The list of Sensor Models is empty.");
+    }
+    return domainEntities.stream().map(this::domainToDTO).toList();
   }
 
 

@@ -2,6 +2,7 @@ package smarthome.mapper;
 
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device_type.DeviceType;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.utils.dto.DeviceTypeDTO;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
@@ -68,7 +69,7 @@ class DeviceTypeAssemblerTest {
     List<DeviceType> deviceTypes = null;
     DeviceTypeAssembler deviceTypeAssembler = new DeviceTypeAssembler();
 
-    String expectedMessage = "The list of DeviceTypes cannot be null, empty";
+    String expectedMessage = "The list of DeviceTypes cannot be null.";
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -88,10 +89,10 @@ class DeviceTypeAssemblerTest {
     List<DeviceType> deviceTypes = List.of();
     DeviceTypeAssembler deviceTypeAssembler = new DeviceTypeAssembler();
 
-    String expectedMessage = "The list of DeviceTypes cannot be null, empty";
+    String expectedMessage = "The list of DeviceTypes is empty.";
 
     // Act & Assert
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+    EmptyReturnException exception = assertThrows(EmptyReturnException.class, () -> {
       deviceTypeAssembler.domainToDTO(deviceTypes);
     });
     assertEquals(expectedMessage, exception.getMessage());
@@ -102,7 +103,7 @@ class DeviceTypeAssemblerTest {
    * types is valid.
    */
   @Test
-  void shouldReturnDeviceTypeAssemblerDTO_WhenDeviceTypeListIsValid() {
+  void shouldReturnDeviceTypeAssemblerDTO_WhenDeviceTypeListIsValid() throws EmptyReturnException {
     // Arrange
     String deviceTypeID = "Switch Device";
     String deviceTypeDescription = "Switch Device Description";

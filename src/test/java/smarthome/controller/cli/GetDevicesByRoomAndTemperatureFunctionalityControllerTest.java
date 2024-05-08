@@ -16,6 +16,7 @@ import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.DeviceTypeFactoryImpl;
 import smarthome.domain.device_type.IDeviceTypeFactory;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
@@ -97,7 +98,8 @@ class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
    * Test to get devices with temperature functionality from a room
    */
   @Test
-  void shouldReturnDevicesWithTemperatureFunctionalityFromARoom_WhenGetDevicesByRoomAndTemperatureFunctionalityIsCalled() {
+  void shouldReturnDevicesWithTemperatureFunctionalityFromARoom_WhenGetDevicesByRoomAndTemperatureFunctionalityIsCalled()
+      throws EmptyReturnException {
     //Arrange
     IDeviceRepository deviceRepository = new DeviceRepository();
     IDeviceFactory deviceFactory = new DeviceFactoryImpl();

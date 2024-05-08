@@ -20,7 +20,7 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
    * @param sensorDataDTO The sensor data DTO.
    * @return The parameters needed to create a sensor.
    */
-  private static Object[] getSensorParameteres(SensorDataGenericDTOImp sensorDataDTO) {
+  private static Object[] getSensorParameters(SensorDataGenericDTOImp sensorDataDTO) {
     DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
     ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
     SensorName sensorName = new SensorName(sensorDataDTO.sensorName);
@@ -34,7 +34,7 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
    * @param sensorDataDTO The sensor data DTO.
    * @return The parameters needed to create a sensor.
    */
-  private static Object[] getSensorParameteres(SensorDataWithGPSDTOImp sensorDataDTO) {
+  private static Object[] getSensorParameters(SensorDataWithGPSDTOImp sensorDataDTO) {
     DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
     ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
     SensorName sensorName = new SensorName(sensorDataDTO.sensorName);
@@ -51,7 +51,7 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
    * @param sensorDataDTO The sensor data DTO.
    * @return The parameters needed to create a sensor.
    */
-  private static Object[] getSensorParameteres(SensorDataWithDateDTOImp sensorDataDTO) {
+  private static Object[] getSensorParameters(SensorDataWithDateDTOImp sensorDataDTO) {
     DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
     ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
     SensorName sensorName = new SensorName(sensorDataDTO.sensorName);
@@ -71,11 +71,11 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
   @Override
   public Object[] getSensorParameters(ISensorDataDTO sensorDataDTO) {
     if (sensorDataDTO instanceof SensorDataGenericDTOImp sensorDataGenericDTOImp) {
-      return getSensorParameteres(sensorDataGenericDTOImp);
+      return getSensorParameters(sensorDataGenericDTOImp);
     } else if (sensorDataDTO instanceof SensorDataWithGPSDTOImp sensorWithGPSDataDTO) {
-      return getSensorParameteres(sensorWithGPSDataDTO);
+      return getSensorParameters(sensorWithGPSDataDTO);
     } else if (sensorDataDTO instanceof SensorDataWithDateDTOImp sensorDataWithDateDTO) {
-      return getSensorParameteres(sensorDataWithDateDTO);
+      return getSensorParameters(sensorDataWithDateDTO);
     } else {
       throw new IllegalArgumentException("Unsupported sensor data DTO");
     }

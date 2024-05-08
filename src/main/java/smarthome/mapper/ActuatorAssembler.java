@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator.IActuator;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.ActuatorDTO;
 
@@ -27,9 +28,8 @@ public class ActuatorAssembler implements IAssembler<IActuator, ActuatorDTO> {
     String actuatorTypeID = actuator.getActuatorTypeID().getID();
     String deviceID = actuator.getDeviceID().getID();
 
-    ActuatorDTO actuatorDTO = new ActuatorDTO(actuatorID, actuatorTypeID, actuatorName, modelPath,
+    return new ActuatorDTO(actuatorID, actuatorTypeID, actuatorName, modelPath,
         deviceID);
-    return actuatorDTO;
   }
 
   /**
@@ -39,12 +39,13 @@ public class ActuatorAssembler implements IAssembler<IActuator, ActuatorDTO> {
    * @return The list of ActuatorDTO data transfer objects.
    */
   @Override
-  public List<ActuatorDTO> domainToDTO(List<IActuator> actuators) {
-    if (actuators == null || actuators.isEmpty()) {
-      throw new IllegalArgumentException("The list of Actuators cannot be null or empty.");
+  public List<ActuatorDTO> domainToDTO(List<IActuator> actuators) throws EmptyReturnException {
+    if (actuators == null) {
+      throw new IllegalArgumentException("The list of Actuators cannot be null.");
     }
-
-    List<ActuatorDTO> actuatorDTOs = actuators.stream().map(this::domainToDTO).toList();
-    return actuatorDTOs;
+    if (actuators.isEmpty()) {
+      throw new EmptyReturnException("The list of Actuators is empty.");
+    }
+    return actuators.stream().map(this::domainToDTO).toList();
   }
 }

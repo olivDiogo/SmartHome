@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator_type.ActuatorType;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.service.IActuatorTypeService;
 import smarthome.utils.dto.ActuatorTypeDTO;
 
@@ -42,7 +43,8 @@ public class ActuatorTypeController {
    * @return ResponseEntity<CollectionModel < ActuatorTypeDTO>> is the response entity
    */
   @GetMapping("/all")
-  public ResponseEntity<CollectionModel<ActuatorTypeDTO>> getActuatorTypes() {
+  public ResponseEntity<CollectionModel<ActuatorTypeDTO>> getActuatorTypes()
+      throws EmptyReturnException {
     List<ActuatorType> actuatorTypeList = actuatorTypeService.getAllActuatorTypes();
     if (actuatorTypeList.isEmpty()) {
       return ResponseEntity.notFound().build();

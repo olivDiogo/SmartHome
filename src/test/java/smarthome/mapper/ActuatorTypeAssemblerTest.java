@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator_type.ActuatorType;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
@@ -79,7 +80,8 @@ class ActuatorTypeAssemblerTest {
    * type is valid.
    */
   @Test
-  void shouldReturnActuatorTypeAssemblerDTOList_WhenDescriptionTypeIsValid() {
+  void shouldReturnActuatorTypeAssemblerDTOList_WhenDescriptionTypeIsValid()
+      throws EmptyReturnException {
     // Arrange
     String actuatorTypeID1 = "BlindActuator";
     String typeDescription1 = "Blind Actuator";
@@ -142,7 +144,7 @@ class ActuatorTypeAssemblerTest {
     List<ActuatorType> actuatorTypeList = null;
     ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
 
-    String expected = "The list of ActuatorTypes cannot be null or empty.";
+    String expected = "The list of ActuatorTypes cannot be null.";
 
     // Act
     IllegalArgumentException exception =
@@ -161,12 +163,12 @@ class ActuatorTypeAssemblerTest {
     List<ActuatorType> actuatorTypeList = new ArrayList<>();
     ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
 
-    String expected = "The list of ActuatorTypes cannot be null or empty.";
+    String expected = "The list of ActuatorTypes is empty.";
 
     // Act
-    IllegalArgumentException exception =
+    EmptyReturnException exception =
         assertThrows(
-            IllegalArgumentException.class,
+            EmptyReturnException.class,
             () -> actuatorTypeAssembler.domainToDTO(actuatorTypeList));
 
     // Assert

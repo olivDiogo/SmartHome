@@ -4,6 +4,7 @@ package smarthome.mapper;
 import java.util.List;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device_type.DeviceType;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.DeviceTypeDTO;
 
@@ -27,8 +28,7 @@ public class DeviceTypeAssembler implements IAssembler<DeviceType, DeviceTypeDTO
     String deviceTypeID = domainEntity.getID().toString();
     String deviceTypeDescription = domainEntity.getDescription().toString();
 
-    DeviceTypeDTO deviceTypeDTO = new DeviceTypeDTO(deviceTypeID, deviceTypeDescription);
-    return deviceTypeDTO;
+    return new DeviceTypeDTO(deviceTypeID, deviceTypeDescription);
   }
 
   /**
@@ -40,12 +40,14 @@ public class DeviceTypeAssembler implements IAssembler<DeviceType, DeviceTypeDTO
    * @throws IllegalArgumentException if deviceTypes is null, empty, or contains null elements.
    */
   @Override
-  public List<DeviceTypeDTO> domainToDTO(List<DeviceType> deviceTypes) {
-    if (deviceTypes == null || deviceTypes.isEmpty()) {
-      throw new IllegalArgumentException("The list of DeviceTypes cannot be null, empty");
+  public List<DeviceTypeDTO> domainToDTO(List<DeviceType> deviceTypes) throws EmptyReturnException {
+    if (deviceTypes == null) {
+      throw new IllegalArgumentException("The list of DeviceTypes cannot be null.");
+    }
+    if (deviceTypes.isEmpty()) {
+      throw new EmptyReturnException("The list of DeviceTypes is empty.");
     }
     // Convert each DeviceType entity to DeviceTypeDTO using domainToDTO method
-    List<DeviceTypeDTO> deviceTypesDTOS = deviceTypes.stream().map(this::domainToDTO).toList();
-    return deviceTypesDTOS;
+    return deviceTypes.stream().map(this::domainToDTO).toList();
   }
 }

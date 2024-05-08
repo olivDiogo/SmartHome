@@ -7,6 +7,7 @@ import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.device.Device;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IActuatorModelService;
 import smarthome.domain.service.IActuatorService;
@@ -88,7 +89,7 @@ public class AddActuatorToDeviceController {
    *
    * @return The list of rooms.
    */
-  public List<RoomDTO> getRooms() {
+  public List<RoomDTO> getRooms() throws EmptyReturnException {
 
     List<Room> listOfRooms = roomService.getAllRooms();
     if (listOfRooms == null || listOfRooms.isEmpty()) {
@@ -105,7 +106,7 @@ public class AddActuatorToDeviceController {
    * @param roomDTO is the room to get the devices from.
    * @return a list of devices.
    */
-  public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
+  public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) throws EmptyReturnException {
     RoomID roomID = new RoomID(roomDTO.roomId);
 
     if (roomService.getRoomById(roomID).isEmpty()) {
@@ -125,7 +126,7 @@ public class AddActuatorToDeviceController {
    *
    * @return a list of actuator types.
    */
-  public List<ActuatorTypeDTO> getActuatorTypes() {
+  public List<ActuatorTypeDTO> getActuatorTypes() throws EmptyReturnException {
     List<ActuatorType> actuatorTypeList = actuatorTypeService.getAllActuatorTypes();
     if (actuatorTypeList.isEmpty()) {
       throw new IllegalArgumentException("No actuator types found.");
@@ -141,7 +142,8 @@ public class AddActuatorToDeviceController {
    * @return a list of actuator models.
    */
 
-  public List<ActuatorModelDTO> getActuatorModels(ActuatorTypeDTO actuatorTypeDTO) {
+  public List<ActuatorModelDTO> getActuatorModels(ActuatorTypeDTO actuatorTypeDTO)
+      throws EmptyReturnException {
     ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeDTO.actuatorTypeID);
     if (actuatorTypeService.getActuatorTypeByID(actuatorTypeID).isEmpty()) {
       throw new IllegalArgumentException("Actuator type with ID " + actuatorTypeID + " not found.");

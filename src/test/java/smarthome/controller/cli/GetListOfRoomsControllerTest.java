@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
@@ -108,7 +109,7 @@ class GetListOfRoomsControllerTest {
    * rooms.
    */
   @Test
-  void shouldReturnEmptyList_whenThereAreNoRooms() {
+  void shouldReturnEmptyList_whenThereAreNoRooms() throws EmptyReturnException {
     //Arrange
     IRoomRepository roomRepository = mock(IRoomRepository.class);
     IRoomFactory roomFactory = new RoomFactoryImpl();
@@ -135,7 +136,7 @@ class GetListOfRoomsControllerTest {
    * rooms.
    */
   @Test
-  void shouldReturnListOfRooms_WhenGetRoomsIsCalled() {
+  void shouldReturnListOfRooms_WhenGetRoomsIsCalled() throws EmptyReturnException {
     //Arrange
     IRoomRepository roomRepository = new RoomRepository();
     IRoomFactory roomFactory = new RoomFactoryImpl();

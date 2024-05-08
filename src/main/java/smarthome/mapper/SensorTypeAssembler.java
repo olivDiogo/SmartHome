@@ -3,6 +3,7 @@ package smarthome.mapper;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorTypeDTO;
@@ -23,9 +24,7 @@ public class SensorTypeAssembler implements IAssembler<SensorType, SensorTypeDTO
     String sensorTypeDescription = sensorType.getDescription().toString();
     String unit = sensorType.getUnitID().toString();
 
-    SensorTypeDTO sensorTypeDTO = new SensorTypeDTO(sensorTypeID, sensorTypeDescription, unit);
-
-    return sensorTypeDTO;
+    return new SensorTypeDTO(sensorTypeID, sensorTypeDescription, unit);
   }
 
   /**
@@ -35,14 +34,14 @@ public class SensorTypeAssembler implements IAssembler<SensorType, SensorTypeDTO
    * @param sensorTypes is the list of domain entities to be converted.
    * @return a list of {@link SensorTypeDTO} data transfer objects.
    */
-  public List<SensorTypeDTO> domainToDTO(List<SensorType> sensorTypes) {
-    if (sensorTypes == null || sensorTypes.isEmpty()) {
-      throw new IllegalArgumentException("The list of sensor types cannot be null or empty.");
+  public List<SensorTypeDTO> domainToDTO(List<SensorType> sensorTypes) throws EmptyReturnException {
+    if (sensorTypes == null) {
+      throw new IllegalArgumentException("The list of sensor types cannot be null.");
     }
-
-    List<SensorTypeDTO> sensorTypesDTO = sensorTypes.stream().map(this::domainToDTO).toList();
-
-    return sensorTypesDTO;
+    if (sensorTypes.isEmpty()) {
+      throw new EmptyReturnException("The list of sensor types is empty.");
+    }
+    return sensorTypes.stream().map(this::domainToDTO).toList();
   }
 
 }

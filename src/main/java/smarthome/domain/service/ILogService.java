@@ -2,6 +2,7 @@ package smarthome.domain.service;
 
 import java.util.List;
 import smarthome.ddd.IService;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
@@ -28,7 +29,7 @@ public interface ILogService extends IService {
    * @return List of Log
    */
   List<Log> getDeviceReadingsBySensorTypeAndTimePeriod(DeviceID deviceID, SensorTypeID sensorTypeID,
-      DatePeriod period);
+      DatePeriod period) throws EmptyReturnException;
 
 
   /**
@@ -38,6 +39,7 @@ public interface ILogService extends IService {
    * @param readings2 is another list of readings.
    * @return the list of the differences between the values.
    */
-  int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, int timeDelta);
+  int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, int timeDelta)
+      throws EmptyReturnException;
 
 }

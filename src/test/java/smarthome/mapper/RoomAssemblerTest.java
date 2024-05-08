@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.utils.dto.RoomDTO;
 import smarthome.domain.value_object.Dimension;
@@ -90,7 +91,7 @@ class RoomAssemblerTest {
 
 
   @Test
-  void shouldReturnANewRoomDTOList_whenGivenARoomList() {
+  void shouldReturnANewRoomDTOList_whenGivenARoomList() throws EmptyReturnException {
     // Arrange
     String roomName = "Test Room";
     String dimension = "Width: 10, Height: 10, Depth: 10 ";
@@ -156,7 +157,7 @@ class RoomAssemblerTest {
     List<Room> rooms = null;
     RoomAssembler roomAssembler = new RoomAssembler();
 
-    String expected = "The list of Rooms cannot be null or empty.";
+    String expected = "The list of Rooms cannot be null.";
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
@@ -176,10 +177,10 @@ class RoomAssemblerTest {
     List<Room> rooms = new ArrayList<>();
     RoomAssembler roomAssembler = new RoomAssembler();
 
-    String expected = "The list of Rooms cannot be null or empty.";
+    String expected = "The list of Rooms is empty.";
 
     // Act & Assert
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+    EmptyReturnException exception = assertThrows(EmptyReturnException.class,
         () -> roomAssembler.domainToDTO(rooms));
 
     String result = exception.getMessage();

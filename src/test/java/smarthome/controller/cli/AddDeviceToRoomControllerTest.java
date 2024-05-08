@@ -11,6 +11,7 @@ import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
@@ -209,7 +210,7 @@ class AddDeviceToRoomControllerTest {
    * Tests retrieving a list of RoomDTOs, checking if the returned data matches the expected.
    */
   @Test
-  void shouldReturnListOfRoomDTOs_WhenGetAllRoomsIsCalled() {
+  void shouldReturnListOfRoomDTOs_WhenGetAllRoomsIsCalled() throws EmptyReturnException {
     // Arrange
     IRoomRepository roomRepository = new RoomRepository();
     IRoomFactory roomFactory = new RoomFactoryImpl();
@@ -311,7 +312,7 @@ class AddDeviceToRoomControllerTest {
 
     // Act + Assert
     assertThrows(
-        IllegalArgumentException.class,
+        EmptyReturnException.class,
         addDeviceToRoomController::getAllRooms);
   }
 
@@ -319,7 +320,7 @@ class AddDeviceToRoomControllerTest {
    * Confirms that a DeviceDTO is returned correctly when a device is added to a room.
    */
   @Test
-  void shouldReturnDeviceDTO_WhenAddDeviceToRoomIsCalled() {
+  void shouldReturnDeviceDTO_WhenAddDeviceToRoomIsCalled() throws EmptyReturnException {
     // Arrange
     IRoomRepository roomRepository = new RoomRepository();
     IRoomFactory roomFactory = new RoomFactoryImpl();

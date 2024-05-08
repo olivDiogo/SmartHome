@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
 import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DatePeriod;
@@ -36,7 +37,7 @@ public class GetLogFromDeviceController {
    * @param logDataDTO LogDataDTO object
    * @return List of LogDTO
    */
-  public List<LogDTO> getLogFromDevice(LogDataDTO logDataDTO) {
+  public List<LogDTO> getLogFromDevice(LogDataDTO logDataDTO) throws EmptyReturnException {
     DeviceID deviceID = new DeviceID(logDataDTO.deviceID);
     LocalDateTime start = LocalDateTime.parse(logDataDTO.timeStart,
         DateTimeFormatter.ISO_LOCAL_DATE_TIME);

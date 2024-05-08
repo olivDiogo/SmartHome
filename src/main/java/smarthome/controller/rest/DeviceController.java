@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
@@ -100,7 +101,7 @@ public class DeviceController {
    * Handles HTTP GET requests for retrieving all devices.
    */
   @GetMapping("/all")
-  public ResponseEntity<CollectionModel<DeviceDTO>> getDevices() {
+  public ResponseEntity<CollectionModel<DeviceDTO>> getDevices() throws EmptyReturnException {
     List<Device> devices = deviceService.getAllDevices();
     if (devices.isEmpty()) {
       return ResponseEntity.notFound().build();

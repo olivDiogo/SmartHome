@@ -16,6 +16,7 @@ import smarthome.domain.actuator_model.IActuatorModelFactory;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
@@ -377,7 +378,7 @@ class AddSensorToDeviceControllerTest {
    * Test to get available sensor models list when the sensor model repository is not empty.
    */
   @Test
-  void shouldGetAvailableSensorModelsList() throws InstantiationException {
+  void shouldGetAvailableSensorModelsList() throws InstantiationException, EmptyReturnException {
     // Arrange
     loadModelsAndUnit();
     TypeDescription typeDescription = new TypeDescription("Temperature");
@@ -523,7 +524,7 @@ class AddSensorToDeviceControllerTest {
    */
   @Test
   void shouldReturnListOfSensorTypes_whenSensorTypeRepositoryIsNotEmpty()
-      throws InstantiationException {
+      throws InstantiationException, EmptyReturnException {
     // Arrange
     loadModelsAndUnit();
 

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import smarthome.domain.actuator.IActuator;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
@@ -86,7 +87,8 @@ class ActuatorAssemblerTest {
    * Should convert a list of Actuator to a list of ActuatorDTO when the list of Actuator is valid.
    */
   @Test
-  void shouldConvertListOfActuatorToListOfActuatorDTO_whenListOfActuatorIsValid() {
+  void shouldConvertListOfActuatorToListOfActuatorDTO_whenListOfActuatorIsValid()
+      throws EmptyReturnException {
     //Arrange
     String actuatorID1 = "1";
     ActuatorID actuatorIdDouble1 = mock(ActuatorID.class);
@@ -155,7 +157,7 @@ class ActuatorAssemblerTest {
     List<IActuator> actuators = null;
     ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
 
-    String expectedMessage = "The list of Actuators cannot be null or empty.";
+    String expectedMessage = "The list of Actuators cannot be null.";
 
     //Act & Assert
     Exception exception = assertThrows(IllegalArgumentException.class,
@@ -172,10 +174,10 @@ class ActuatorAssemblerTest {
     List<IActuator> actuators = List.of();
     ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
 
-    String expectedMessage = "The list of Actuators cannot be null or empty.";
+    String expectedMessage = "The list of Actuators is empty.";
 
     //Act & Assert
-    Exception exception = assertThrows(IllegalArgumentException.class,
+    Exception exception = assertThrows(EmptyReturnException.class,
         () -> actuatorAssembler.domainToDTO(actuators));
     assertEquals(expectedMessage, exception.getMessage());
 

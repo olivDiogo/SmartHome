@@ -114,8 +114,7 @@ class LogControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(logDataDTO)))
         .andExpect(
-            status().isBadRequest());
-    //TODO: this is wrong, it should be 200 ok. Exception needs revision
+            status().isNoContent());
   }
 
   /**
@@ -236,7 +235,7 @@ class LogControllerTest {
             .param("initialTime", initialTime.toString())
             .param("finalTime", finalTime.toString())
             .param("timeDelta", String.valueOf(timeDelta)))
-        .andExpect(status().isBadRequest()); //TODO: maybe isNoContent?
+        .andExpect(status().isNoContent());
   }
 
   /**
@@ -274,6 +273,6 @@ class LogControllerTest {
             .param("initialTime", initialTime.toString())
             .param("finalTime", finalTime.toString())
             .param("timeDelta", String.valueOf(timeDelta)))
-        .andExpect(status().isBadRequest()); //TODO: maybe isNoContent?
+        .andExpect(status().isNoContent());
   }
 }

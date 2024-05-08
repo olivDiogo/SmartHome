@@ -20,6 +20,7 @@ import smarthome.domain.actuator_type.IActuatorTypeFactory;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
@@ -596,7 +597,8 @@ class AddActuatorToDeviceControllerTest {
    * @throws InstantiationException exception
    */
   @Test
-  void shouldReturnEmptyList_whenThereAreNoRooms() throws InstantiationException {
+  void shouldReturnEmptyList_whenThereAreNoRooms()
+      throws InstantiationException, EmptyReturnException {
     // Arrange
     AddActuatorToDeviceController controller =
         new AddActuatorToDeviceController(
@@ -624,7 +626,8 @@ class AddActuatorToDeviceControllerTest {
    * @throws InstantiationException exception
    */
   @Test
-  void shouldGetRoomsFromHouse_WhenGivenValidHouseID() throws InstantiationException {
+  void shouldGetRoomsFromHouse_WhenGivenValidHouseID()
+      throws InstantiationException, EmptyReturnException {
     // Arrange
     AddActuatorToDeviceController controller =
         new AddActuatorToDeviceController(
@@ -706,7 +709,8 @@ class AddActuatorToDeviceControllerTest {
    * @throws InstantiationException exception
    */
   @Test
-  void shouldGetDevicesFromRoom_WhenParametersAreValid() throws InstantiationException {
+  void shouldGetDevicesFromRoom_WhenParametersAreValid()
+      throws InstantiationException, EmptyReturnException {
     // Arrange
     AddActuatorToDeviceController controller =
         new AddActuatorToDeviceController(
@@ -747,7 +751,7 @@ class AddActuatorToDeviceControllerTest {
    * @throws InstantiationException exception
    */
   @Test
-  void shouldGetAvailableActuatorTypesList() throws InstantiationException {
+  void shouldGetAvailableActuatorTypesList() throws InstantiationException, EmptyReturnException {
     // Arrange
     LoadModelsAndUnit loadModelsAndUnit =
         new LoadModelsAndUnit(
@@ -794,7 +798,7 @@ class AddActuatorToDeviceControllerTest {
    * @throws InstantiationException exception
    */
   @Test
-  void shouldGetAvailableActuatorModelsList() throws InstantiationException {
+  void shouldGetAvailableActuatorModelsList() throws InstantiationException, EmptyReturnException {
     // Arrange
     LoadModelsAndUnit loadModelsAndUnit =
         new LoadModelsAndUnit(

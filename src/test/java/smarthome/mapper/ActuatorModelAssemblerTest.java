@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator_model.ActuatorModel;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.utils.dto.ActuatorModelDTO;
@@ -70,7 +71,8 @@ class ActuatorModelAssemblerTest {
    * list of actuator models is valid.
    */
   @Test
-  void shouldConvertListOfActuatorModelsToListOfActuatorModelDTO_whenActuatorModelListIsValid() {
+  void shouldConvertListOfActuatorModelsToListOfActuatorModelDTO_whenActuatorModelListIsValid()
+      throws EmptyReturnException {
     // Arrange
     /* ActuatorModel 1 */
     String actuatorModelID1 = "path1";
@@ -134,7 +136,7 @@ class ActuatorModelAssemblerTest {
     List<ActuatorModel> actuatorModels = null;
     ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
 
-    String expectedMessage = "The list of Actuator Models cannot be null or empty.";
+    String expectedMessage = "The list of Actuator Models cannot be null.";
     // Act & Assert
     Exception exception = assertThrows(IllegalArgumentException.class,
         () -> actuatorModelAssembler.domainToDTO(actuatorModels));
@@ -153,10 +155,10 @@ class ActuatorModelAssemblerTest {
     List<ActuatorModel> actuatorModels = List.of();
     ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
 
-    String expectedMessage = "The list of Actuator Models cannot be null or empty.";
+    String expectedMessage = "The list of Actuator Models is empty.";
 
     // Act and Assert
-    Exception exception = assertThrows(IllegalArgumentException.class,
+    Exception exception = assertThrows(EmptyReturnException.class,
         () -> actuatorModelAssembler.domainToDTO(actuatorModels));
     assertEquals(expectedMessage, exception.getMessage());
   }

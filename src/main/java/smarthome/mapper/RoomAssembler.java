@@ -3,6 +3,7 @@ package smarthome.mapper;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.RoomDTO;
@@ -26,9 +27,8 @@ public class RoomAssembler implements IAssembler<Room, RoomDTO> {
     String dimension = room.getDimension().toString();
     String roomFloor = room.getFloor().toString();
     String roomID = room.getID().toString();
-    RoomDTO roomDTO = new RoomDTO(roomName, dimension, roomFloor, roomID);
 
-    return roomDTO;
+    return new RoomDTO(roomName, dimension, roomFloor, roomID);
   }
 
   /**
@@ -38,13 +38,15 @@ public class RoomAssembler implements IAssembler<Room, RoomDTO> {
    * @return the list of RoomDTOs.
    */
   @Override
-  public List<RoomDTO> domainToDTO(List<Room> rooms) {
-    if (rooms == null || rooms.isEmpty()) {
-      throw new IllegalArgumentException("The list of Rooms cannot be null or empty.");
+  public List<RoomDTO> domainToDTO(List<Room> rooms) throws EmptyReturnException {
+    if (rooms == null) {
+      throw new IllegalArgumentException("The list of Rooms cannot be null.");
+    }
+    if (rooms.isEmpty()) {
+      throw new EmptyReturnException("The list of Rooms is empty.");
     }
 
-    List<RoomDTO> roomsDTO = rooms.stream().map(this::domainToDTO).toList();
-    return roomsDTO;
+    return rooms.stream().map(this::domainToDTO).toList();
   }
 
 }

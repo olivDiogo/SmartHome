@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitDescription;
@@ -51,7 +52,7 @@ public class UnitControlller {
    * @return ResponseEntity<CollectionModel < UnitDTO>> is the response entity
    */
   @GetMapping("/all")
-  public ResponseEntity<CollectionModel<UnitDTO>> getUnits() {
+  public ResponseEntity<CollectionModel<UnitDTO>> getUnits() throws EmptyReturnException {
     List<Unit> unitList = unitService.getAllMeasurementTypes();
     if (unitList.isEmpty()) {
       return ResponseEntity.notFound().build();

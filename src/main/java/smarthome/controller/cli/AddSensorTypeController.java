@@ -2,6 +2,7 @@ package smarthome.controller.cli;
 
 import java.util.List;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.service.ISensorTypeService;
 import smarthome.domain.service.IUnitService;
@@ -48,7 +49,7 @@ public class AddSensorTypeController {
    *
    * @return The list of supported units.
    */
-  public List<UnitDTO> getSupportedUnits() {
+  public List<UnitDTO> getSupportedUnits() throws EmptyReturnException {
     List<Unit> units = unitService.getAllMeasurementTypes();
     return unitAssembler.domainToDTO(units);
   }
