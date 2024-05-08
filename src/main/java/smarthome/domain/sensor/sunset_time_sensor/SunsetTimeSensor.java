@@ -145,8 +145,8 @@ public class SunsetTimeSensor implements ISensor {
    */
   @Override
   public SunsetTimeSensorValue getValue() {
-    LocalTime sunrise = getSunsetTime(LocalDate.now());
-    this.sunsetTimeSensorValue = new SunsetTimeSensorValue(sunrise);
+    LocalTime sunset = getSunsetTime(LocalDate.now());
+    this.sunsetTimeSensorValue = new SunsetTimeSensorValue(sunset);
     return this.sunsetTimeSensorValue;
   }
 

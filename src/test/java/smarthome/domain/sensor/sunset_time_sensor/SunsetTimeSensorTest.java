@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import org.junit.jupiter.api.Test;
@@ -292,10 +293,12 @@ class SunsetTimeSensorTest {
 
       LocalTime expectedSunsetTime = Objects.requireNonNull(
           SunTimes.compute().on(LocalDate.now()).at(gps.getLatitude(), gps.getLongitude()).execute()
-              .getSet()).toLocalTime().truncatedTo(ChronoUnit.SECONDS);
+              .getSet()).toLocalTime().withSecond(0);
+
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
       SunsetTimeSensorValue expected = mock(SunsetTimeSensorValue.class);
-      when(expected.toString()).thenReturn(String.valueOf(expectedSunsetTime));
+      when(expected.toString()).thenReturn(expectedSunsetTime.format(formatter));
 
       //Act
       SunsetTimeSensorValue sunsetTime = sunsetTimeSensor.getValue();
@@ -330,8 +333,10 @@ class SunsetTimeSensorTest {
               SunTimes.compute().on(date).at(gps.getLatitude(), gps.getLongitude()).execute().getSet())
           .toLocalTime().truncatedTo(ChronoUnit.SECONDS);
 
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
       SunsetTimeSensorValue expected = mock(SunsetTimeSensorValue.class);
-      when(expected.toString()).thenReturn(String.valueOf(expectedSunsetTime));
+      when(expected.toString()).thenReturn(expectedSunsetTime.format(formatter));
 
       //Act
       SunsetTimeSensorValue sunsetTime = sunsetTimeSensor.getValue(date);
