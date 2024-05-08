@@ -1,6 +1,5 @@
 package smarthome.controller.rest;
 
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -18,13 +17,15 @@ import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.mapper.ActuatorModelAssembler;
+import smarthome.persistence.mem.ActuatorModelRepository;
 import smarthome.utils.dto.ActuatorModelDTO;
 import java.util.List;
+
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ActuatorModelTest {
+public class ActuatorModelControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
@@ -38,6 +39,14 @@ public class ActuatorModelTest {
   @Autowired
   private IActuatorModelFactory actuatorModelFactory;
 
+  @Autowired
+  private ActuatorModelRepository actuatorModelRepository;
+
+  /**
+   * Test for the ActuatorModelController class.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void shouldReturnActuatorModelDTO_whenActuatorModelExists() throws Exception {
     // Arrange
@@ -49,7 +58,6 @@ public class ActuatorModelTest {
     ActuatorTypeID typeID = new ActuatorTypeID(actuatorTypeID);
     ActuatorModelName actuatorName1 = new ActuatorModelName(actuatorName);
 
-    //IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
     ActuatorModel actuatorModel = actuatorModelFactory.createActuatorModel(actuatorName1, modelPath, typeID);
 
     ActuatorModelDTO actuatorModelDTO = new ActuatorModelDTO(actuatorModel.getActuatorTypeID().toString(),
@@ -67,4 +75,23 @@ public class ActuatorModelTest {
         .andExpect(jsonPath("$._embedded.actuatorModelDTOList[0].actuatorModelName").value("Thermostat"))
         .andExpect(jsonPath("$._links.self").exists());
   }
+
+/**
+   * Test for the ActuatorModelController class.
+   *
+   * @throws Exception if the test fails
+   */
+@Test
+void shouldReturnNotFound_WhenNoActuatorModelExists() throws Exception {
+  // Arrange
+  String actuatorTypeID = "1";
+  ActuatorTypeID typeID = new ActuatorTypeID(actuatorTypeID);
+
+  when(actuatorModelService.getActuatorModelsByActuatorTypeId(typeID)).thenReturn(List.of());
+  // Act & Assert
+  mockMvc.perform(get("/actuator-model/{actuatorTypeID}", actuatorTypeID)
+          .accept(MediaType.APPLICATION_JSON))
+      .andExpect(status().isNotFound());
+}
+
 }

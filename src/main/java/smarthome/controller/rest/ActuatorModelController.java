@@ -30,6 +30,12 @@ public class ActuatorModelController {
   private final IActuatorModelService actuatorModelService;
   private final IAssembler<ActuatorModel, ActuatorModelDTO> actuatorModelAssembler;
 
+  /**
+   * Instantiates a new Actuator model controller.
+   *
+   * @param actuatorModelService the actuator model service
+   * @param actuatorModelAssembler the actuator model assembler
+   */
   @Autowired
   public ActuatorModelController(
       IActuatorModelService actuatorModelService,
@@ -57,6 +63,12 @@ public class ActuatorModelController {
 //    return ResponseEntity.status(HttpStatus.OK).body(actuatorModelDTO);
 //  }
 
+  /**
+   * Get all actuator models by actuator type ID.
+   *
+   * @param actuatorTypeID the actuator type ID
+   * @return the actuator models by actuator type ID
+   */
   @GetMapping("/{actuatorTypeID}")
 public ResponseEntity<CollectionModel<ActuatorModelDTO>> getActuatorModelsByActuatorTypeId(
     @PathVariable String actuatorTypeID) {
@@ -65,10 +77,16 @@ public ResponseEntity<CollectionModel<ActuatorModelDTO>> getActuatorModelsByActu
 
     List<ActuatorModel> actuatorModels =
         actuatorModelService.getActuatorModelsByActuatorTypeId(actuatorTypeIDObj);
+
+    if (actuatorModels.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
+
     List<ActuatorModelDTO> actuatorModelDTOS = actuatorModelAssembler.domainToDTO(actuatorModels);
     CollectionModel<ActuatorModelDTO> resource = CollectionModel.of(actuatorModelDTOS, WebMvcLinkBuilder.linkTo(
             WebMvcLinkBuilder.methodOn(ActuatorModelController.class).getActuatorModelsByActuatorTypeId(actuatorTypeID))
         .withSelfRel());
     return ResponseEntity.ok(resource);
 }
+
 }
