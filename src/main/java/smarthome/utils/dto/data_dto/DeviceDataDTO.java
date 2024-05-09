@@ -1,3 +1,8 @@
+/**
+ * This class represents the data transfer object for the device data
+ * to be received from the client.
+ */
+
 package smarthome.utils.dto.data_dto;
 
 import jakarta.validation.constraints.NotBlank;

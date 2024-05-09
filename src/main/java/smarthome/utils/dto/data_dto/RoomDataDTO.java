@@ -1,36 +1,31 @@
+/**
+ * This class represents the data transfer object for the room data
+ * to be received from the client.
+ */
+
 package smarthome.utils.dto.data_dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class RoomDataDTO {
 
-  @NotBlank
+  @NotBlank (message = "HouseID cannot be empty")
   public final String houseID;
 
-  @NotBlank
+  @NotBlank (message = "Name cannot be empty")
   public final String name;
 
-  @NotBlank
+  @NotBlank (message = "Floor cannot be empty")
   public final int floor;
 
-  @NotBlank
+  @NotBlank (message = "Width cannot be empty")
   public final int width;
 
-  @NotBlank
+  @NotBlank (message = "Length cannot be empty")
   public final int length;
 
-  @NotBlank
+  @NotBlank (message = "Height cannot be empty")
   public final int height;
-
-  /**
-   * Constructor
-   */
-  public RoomDataDTO(String houseID, String name, int floor, int width, int length, int height) {
-    this.houseID = houseID;
-    this.name = name;
-    this.floor = floor;
-    this.width = width;
-    this.length = length;
-    this.height = height;
-  }
 }

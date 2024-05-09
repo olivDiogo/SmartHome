@@ -1,33 +1,31 @@
+/**
+ * This class represents the data transfer object for the Sensor data for a sensor with date info
+ * to be received from the client.
+ */
+
 package smarthome.utils.dto.data_dto.sensor_data_dto;
 
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class SensorDataWithDateDTOImp implements ISensorDataDTO {
 
-  /**
-   * The data needed to create a sensor.
-   */
+  @NotBlank(message = "DeviceID cannot be empty")
   public final String deviceID;
-  public final String sensorModelPath;
-  public final String sensorName;
-  public final String sensorTypeID;
-  public final String startDate;
-  public final String endDate;
 
-  /**
-   * Constructs a new SensorDataDTO object with the specified sensor details.
-   *
-   * @param deviceID        The unique identifier of the device.
-   * @param sensorModelPath The file path to the sensor model's data.
-   * @param sensorName      The name of the sensor.
-   * @param sensorTypeID    The unique identifier of the sensor type.
-   * @param date            The date of the sensor.
-   */
-  public SensorDataWithDateDTOImp(String deviceID, String sensorModelPath, String sensorName,
-      String sensorTypeID, String date, String endDate) {
-    this.deviceID = deviceID;
-    this.sensorModelPath = sensorModelPath;
-    this.sensorName = sensorName;
-    this.sensorTypeID = sensorTypeID;
-    this.startDate = date;
-    this.endDate = endDate;
-  }
+  @NotBlank(message = "SensorModelPath cannot be empty")
+  public final String sensorModelPath;
+
+  @NotBlank(message = "SensorName cannot be empty")
+  public final String sensorName;
+
+  @NotBlank(message = "SensorTypeID cannot be empty")
+  public final String sensorTypeID;
+
+  @NotBlank(message = "Start Date cannot be empty")
+  public final String startDate;
+
+  @NotBlank(message = "End Date cannot be empty")
+  public final String endDate;
 }

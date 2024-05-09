@@ -1,29 +1,26 @@
+/**
+ * This class represents the data transfer object for the Actuator data for a generic Actuator to be
+ * received from the client.
+ */
+
 package smarthome.utils.dto.data_dto.actuator_data_dto;
 
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class ActuatorDataGenericDTOImp implements IActuatorDataDTO {
 
-  /**
-   * The data needed to create a actuator.
-   */
+  @NotBlank(message = "DeviceID cannot be empty")
   public final String deviceID;
+
+  @NotBlank(message = "ActuatorModelPath cannot be empty")
   public final String actuatorModelPath;
+
+  @NotBlank(message = "ActuatorName cannot be empty")
   public final String actuatorName;
+
+  @NotBlank(message = "ActuatorTypeID cannot be empty")
   public final String actuatorTypeID;
-
-  /**
-   * Constructs a new ActuatorDataDTO object with the specified actuator details.
-   *
-   * @param deviceID          The unique identifier of the device.
-   * @param actuatorModelPath The file path to the actuator model's data.
-   * @param actuatorName      The name of the actuator.
-   * @param actuatorTypeID    The unique identifier of the actuator type.
-   */
-
-  public ActuatorDataGenericDTOImp(String deviceID, String actuatorModelPath, String actuatorName,
-      String actuatorTypeID) {
-    this.deviceID = deviceID;
-    this.actuatorModelPath = actuatorModelPath;
-    this.actuatorName = actuatorName;
-    this.actuatorTypeID = actuatorTypeID;
-  }
 }
+

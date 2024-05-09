@@ -1,26 +1,23 @@
+/**
+ * This class represents the data transfer object for the log data
+ * to be received from the client.
+ */
+
 package smarthome.utils.dto.data_dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class LogDataDTO {
 
-  @NotBlank
+  @NotBlank (message = "DeviceID cannot be empty")
   public String deviceID;
-  @NotBlank
+
+  @NotBlank (message = "LogTypeID cannot be empty")
   public String timeStart;
-  @NotBlank
+
+  @NotBlank (message = "LogTypeID cannot be empty")
   public String timeEnd;
 
-  /**
-   * Constructor of LogDataDTO
-   *
-   * @param deviceID  is the device ID
-   * @param timeStart is the start time
-   * @param timeEnd   is the end time
-   */
-  public LogDataDTO(String deviceID, String timeStart, String timeEnd) {
-    this.deviceID = deviceID;
-    this.timeStart = timeStart;
-    this.timeEnd = timeEnd;
-  }
 }
