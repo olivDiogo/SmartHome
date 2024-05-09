@@ -3,9 +3,7 @@ package smarthome.service;
 import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -296,4 +294,92 @@ class LogServiceImplTest {
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);
   }
+
+  @Test
+  void shouldReturnSumOfTwoReadingContainingInteger_WhenGetSumOfTwoIntegerReadingsCalled() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("5");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue);
+
+    int expected = 10;
+    // Act
+    int result = logService.getSumOfTwoIntegerReadings(log, log2);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void shouldThrowExeption_WhenGetSumOfTwoIntegerReadingsCalledOnNonIntengerReading() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("testes");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue);
+
+    String expected = "Reading values are not integers";
+
+    // Act
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> logService.getSumOfTwoIntegerReadings(log, log2));
+    // Assert
+    String actual = exception.getMessage();
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void shouldReturnDifferenceOfTwoReadingContainingInteger_WhenGetDifferenceBetweenReadingsCalled() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("5");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue);
+
+    int expected = 0;
+    // Act
+    int result = logService.getDifferenceBetweenReadings(log, log2);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void shouldThrowExeption_WWhenGetDifferenceBetweenReadingsCalledWithNonIntengerReading() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("testes");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue);
+
+    String expected = "Reading values are not integers";
+
+    // Act
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> logService.getDifferenceBetweenReadings(log, log2));
+    // Assert
+    String actual = exception.getMessage();
+    assertEquals(expected, actual);
+  }
+
+
 }

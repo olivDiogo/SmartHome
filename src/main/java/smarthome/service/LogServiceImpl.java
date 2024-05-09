@@ -93,9 +93,15 @@ public class LogServiceImpl implements ILogService {
     if (valueDifferences.isEmpty()) {
       throw new EmptyReturnException("No readings found within the given time interval");
     }else return Collections.max(valueDifferences);
+  }
 
-
-
+  public int getSumOfTwoIntegerReadings(Log reading1, Log reading2) {
+    try {
+      return Math.abs(Integer.parseInt(reading1.getReadingValue().getValue()) + Integer.parseInt(
+          reading2.getReadingValue().getValue()));
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException("Reading values are not integers");
+    }
   }
 
   private Map<Integer, Integer> getPositionsOfReadingsWithinTimeDelta (List<Log> readings1, List<Log> readings2, int timeDelta) {
@@ -111,8 +117,13 @@ public class LogServiceImpl implements ILogService {
     return positionMap;
   }
 
-  private int getDifferenceBetweenReadings(Log reading1, Log reading2) {
-    return Math.abs(Integer.parseInt(reading1.getReadingValue().getValue()) - Integer.parseInt(reading2.getReadingValue().getValue()));
+  public int getDifferenceBetweenReadings(Log reading1, Log reading2) {
+    try {
+      return Math.abs(Integer.parseInt(reading1.getReadingValue().getValue()) - Integer.parseInt(
+          reading2.getReadingValue().getValue()));
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException("Reading values are not integers");
+    }
   }
 
   private boolean shouldReturnTrueWhenReadingIsWithinTimeDelta(Log reading1, Log reading2, int timeDelta) {
