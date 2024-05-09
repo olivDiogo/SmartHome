@@ -2,6 +2,7 @@ package smarthome.persistence.spring_data.sensor_type;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.value_object.SensorTypeID;
@@ -9,7 +10,7 @@ import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.SensorTypeDataModel;
 import smarthome.utils.Validator;
 
-
+@Repository
 public class SensorTypeSpringDataRepository implements ISensorTypeRepository {
 
   ISensorTypeSpringDataRepository repository;

@@ -3,10 +3,10 @@ package smarthome.service;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
-import smarthome.ddd.IRepository;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.IActuatorFactory;
 import smarthome.domain.device.Device;
+import smarthome.domain.repository.IActuatorRepository;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
@@ -15,7 +15,7 @@ import smarthome.utils.Validator;
 @Service
 public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorService {
 
-  private final IRepository<ActuatorID, IActuator> actuatorRepository;
+  private final IActuatorRepository actuatorRepository;
   private final IActuatorFactory actuatorFactory;
   private final IDeviceRepository deviceRepository;
 
@@ -27,7 +27,7 @@ public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorSe
    * @param deviceRepository The repository for accessing devices.
    */
   public ActuatorServiceImpl(
-      IRepository<ActuatorID, IActuator> actuatorRepository,
+      IActuatorRepository actuatorRepository,
       IActuatorFactory actuatorFactory,
       IDeviceRepository deviceRepository) {
 

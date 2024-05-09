@@ -2,6 +2,7 @@ package smarthome.persistence.spring_data.room;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.Room;
 import smarthome.domain.value_object.RoomID;
@@ -9,6 +10,7 @@ import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.RoomDataModel;
 import smarthome.utils.Validator;
 
+@Repository
 public class RoomSpringDataRepository implements IRoomRepository {
 
   IRoomSpringDataRepository repository;

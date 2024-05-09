@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,29 +14,25 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import smarthome.domain.house.House;
-
-import smarthome.domain.value_object.Address;
-import smarthome.domain.value_object.DatePeriod;
-import smarthome.domain.value_object.GPS;
-import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import java.time.LocalDateTime;
-import java.util.Optional;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.DeviceTypeFactoryImpl;
+import smarthome.domain.house.House;
+import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.unit.UnitFactoryImpl;
-
+import smarthome.domain.value_object.Address;
+import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
+import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
@@ -42,8 +40,7 @@ import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
-import smarthome.persistence.jpa.repository.DeviceRepositoryJPAImpl;
-
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.utils.dto.sensor_data_dto.ISensorDataDTO;
 import smarthome.utils.dto.sensor_data_dto.SensorDataGenericDTOImp;
 import smarthome.utils.dto.sensor_data_dto.SensorDataWithDateDTOImp;
@@ -61,7 +58,7 @@ class SensorControllerTest {
   private ObjectMapper objectMapper;
 
   @MockBean
-  private DeviceRepositoryJPAImpl deviceRepository;
+  private IDeviceRepository deviceRepository;
 
   House setupHouse() {
     // Arrange

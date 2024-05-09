@@ -19,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import smarthome.ddd.IRepository;
 import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.IUnitFactory;
@@ -51,7 +50,7 @@ class UnitControllerTest {
   private UnitAssembler unitAssembler;
 
   @MockBean
-  private IRepository unitRepository;
+  private IUnitRepository unitRepository;
 
   @InjectMocks
   private UnitControlller unitController;

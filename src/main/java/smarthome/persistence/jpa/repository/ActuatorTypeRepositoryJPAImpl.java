@@ -7,14 +7,13 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Repository;
 import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.repository.IActuatorTypeRepository;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.ActuatorTypeDataModel;
 
-@Repository
+
 public class ActuatorTypeRepositoryJPAImpl implements IActuatorTypeRepository {
 
   private final EntityManagerFactory factory;

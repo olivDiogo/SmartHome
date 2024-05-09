@@ -1,8 +1,8 @@
 package smarthome.persistence.spring_data.house;
 
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import smarthome.domain.house.House;
 import smarthome.domain.repository.IHouseRepository;
@@ -90,6 +90,6 @@ public class HouseRepositorySpringDataImpl implements IHouseRepository {
    */
   @Override
   public boolean containsOfIdentity(HouseID objectID) {
-    return this.repository.existsById(objectID.toString());
+    return this.repository.existsById(objectID.getID());
   }
 }

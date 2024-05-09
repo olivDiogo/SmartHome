@@ -7,7 +7,6 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Repository;
 import smarthome.domain.device.Device;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.value_object.DeviceID;
@@ -21,7 +20,7 @@ import smarthome.persistence.jpa.data_model.DeviceDataModel;
  * repository is responsible for performing database operations on Device entities using a JPA
  * EntityManager.
  */
-@Repository
+
 public class DeviceRepositoryJPAImpl implements IDeviceRepository {
 
   private final EntityManagerFactory factory;
