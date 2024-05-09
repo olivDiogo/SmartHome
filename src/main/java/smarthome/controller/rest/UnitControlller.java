@@ -18,11 +18,9 @@ import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitDescription;
-import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
-import smarthome.persistence.jpa.data_model.UnitDataModel;
 import smarthome.utils.dto.UnitDTO;
-import smarthome.utils.dto.UnitDataDTO;
+import smarthome.utils.dto.data_dto.UnitDataDTO;
 
 @RestController
 @RequestMapping("/unit")

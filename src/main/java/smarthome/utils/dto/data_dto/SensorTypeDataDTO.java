@@ -1,4 +1,4 @@
-package smarthome.utils.dto;
+package smarthome.utils.dto.data_dto;
 
 import jakarta.validation.constraints.NotBlank;
 

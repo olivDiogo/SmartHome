@@ -24,7 +24,7 @@ import smarthome.utils.dto.ActuatorModelDTO;
 import smarthome.utils.dto.ActuatorTypeDTO;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.RoomDTO;
-import smarthome.utils.dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
 
 public class AddActuatorToDeviceController {
 

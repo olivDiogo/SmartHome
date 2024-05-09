@@ -1,6 +1,6 @@
 package smarthome.mapper.sensor_vo_assembler;
 
-import smarthome.utils.dto.sensor_data_dto.ISensorDataDTO;
+import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 
 public interface ISensorVOAssembler {
 

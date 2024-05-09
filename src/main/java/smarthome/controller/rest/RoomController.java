@@ -20,7 +20,7 @@ import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.utils.dto.RoomDTO;
-import smarthome.utils.dto.RoomDataDTO;
+import smarthome.utils.dto.data_dto.RoomDataDTO;
 import java.util.List;
 import java.util.Optional;
 

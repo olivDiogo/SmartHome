@@ -23,7 +23,7 @@ import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.utils.dto.HouseDTO;
-import smarthome.utils.dto.HouseDataDTO;
+import smarthome.utils.dto.data_dto.HouseDataDTO;
 
 @RestController
 @RequestMapping("/house")

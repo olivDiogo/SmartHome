@@ -12,10 +12,10 @@ import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
-import smarthome.utils.dto.sensor_data_dto.ISensorDataDTO;
-import smarthome.utils.dto.sensor_data_dto.SensorDataGenericDTOImp;
-import smarthome.utils.dto.sensor_data_dto.SensorDataWithDateDTOImp;
-import smarthome.utils.dto.sensor_data_dto.SensorDataWithGPSDTOImp;
+import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
+import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
+import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
+import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithGPSDTOImp;
 
 class SensorVOAssemblerImplTest {
 

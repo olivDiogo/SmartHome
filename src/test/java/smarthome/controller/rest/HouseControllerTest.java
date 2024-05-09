@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,13 +19,10 @@ import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
-import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.HouseDataModel;
-import smarthome.persistence.jpa.repository.HouseRepositoryJPAImpl;
-import smarthome.persistence.spring_data.house.HouseRepositorySpringDataImpl;
-import smarthome.utils.dto.HouseDataDTO;
+import smarthome.utils.dto.data_dto.HouseDataDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc

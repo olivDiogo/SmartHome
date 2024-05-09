@@ -45,7 +45,7 @@ import smarthome.service.DeviceServiceImpl;
 import smarthome.service.HouseServiceImpl;
 import smarthome.service.RoomServiceImpl;
 import smarthome.utils.dto.DeviceDTO;
-import smarthome.utils.dto.DeviceDataDTO;
+import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.RoomDTO;
 
 class AddDeviceToRoomControllerTest {

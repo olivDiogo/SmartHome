@@ -11,7 +11,7 @@ import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.LogDTO;
-import smarthome.utils.dto.LogDataDTO;
+import smarthome.utils.dto.data_dto.LogDataDTO;
 
 public class GetLogFromDeviceController {
 

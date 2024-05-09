@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.device_type.DeviceType;
-import smarthome.domain.device_type.DeviceTypeFactoryImpl;
 import smarthome.domain.device_type.IDeviceTypeFactory;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
@@ -44,8 +43,8 @@ import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.utils.dto.DeviceDataDTO;
-import smarthome.utils.dto.RoomDataDTO;
+import smarthome.utils.dto.data_dto.DeviceDataDTO;
+import smarthome.utils.dto.data_dto.RoomDataDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc

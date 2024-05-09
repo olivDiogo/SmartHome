@@ -8,7 +8,7 @@ import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.HouseDTO;
-import smarthome.utils.dto.HouseDataDTO;
+import smarthome.utils.dto.data_dto.HouseDataDTO;
 
 /**
  * Controller responsible for configuring the location of a house.

@@ -27,7 +27,7 @@ import smarthome.domain.value_object.ReadingValue;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
-import smarthome.utils.dto.LogDataDTO;
+import smarthome.utils.dto.data_dto.LogDataDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc

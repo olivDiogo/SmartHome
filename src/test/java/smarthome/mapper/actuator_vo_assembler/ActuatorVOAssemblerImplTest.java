@@ -7,10 +7,10 @@ import smarthome.domain.value_object.DecimalLimits;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
-import smarthome.utils.dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
-import smarthome.utils.dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
-import smarthome.utils.dto.actuator_data_dto.IActuatorDataDTO;
-import smarthome.utils.dto.actuator_data_dto.ActuatorDataGenericDTOImp;
+import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
+import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
+import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

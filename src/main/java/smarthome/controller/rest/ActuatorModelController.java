@@ -1,14 +1,11 @@
 package smarthome.controller.rest;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
@@ -16,10 +13,7 @@ import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.service.IActuatorModelService;
 import smarthome.domain.value_object.ActuatorTypeID;
-import smarthome.domain.value_object.ModelPath;
 import smarthome.utils.dto.ActuatorModelDTO;
-import smarthome.utils.dto.actuator_data_dto.ActuatorDataGenericDTOImp;
-import java.util.Collection;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.status;

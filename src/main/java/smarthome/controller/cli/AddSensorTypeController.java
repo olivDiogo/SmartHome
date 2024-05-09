@@ -11,7 +11,7 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorTypeDTO;
-import smarthome.utils.dto.SensorTypeDataDTO;
+import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 import smarthome.utils.dto.UnitDTO;
 
 public class AddSensorTypeController {

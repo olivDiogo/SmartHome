@@ -1,6 +1,5 @@
 package smarthome.controller.rest;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -16,7 +15,7 @@ import smarthome.domain.service.ISensorService;
 import smarthome.mapper.sensor_vo_assembler.ISensorVOAssembler;
 import smarthome.mapper.sensor_vo_assembler.SensorVOAssemblerImpl;
 import smarthome.utils.dto.SensorDTO;
-import smarthome.utils.dto.sensor_data_dto.ISensorDataDTO;
+import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 
 @RestController
 @RequestMapping("/sensor")

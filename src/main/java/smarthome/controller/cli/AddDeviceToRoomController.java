@@ -14,7 +14,7 @@ import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.DeviceDTO;
-import smarthome.utils.dto.DeviceDataDTO;
+import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.RoomDTO;
 
 /**

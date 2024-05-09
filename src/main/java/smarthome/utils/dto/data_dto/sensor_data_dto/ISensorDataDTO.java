@@ -1,4 +1,4 @@
-package smarthome.utils.dto.sensor_data_dto;
+package smarthome.utils.dto.data_dto.sensor_data_dto;
 
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;

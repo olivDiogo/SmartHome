@@ -18,7 +18,7 @@ import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorDTO;
 import smarthome.utils.dto.SensorModelDTO;
 import smarthome.utils.dto.SensorTypeDTO;
-import smarthome.utils.dto.sensor_data_dto.ISensorDataDTO;
+import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 
 
 public class AddSensorToDeviceController {

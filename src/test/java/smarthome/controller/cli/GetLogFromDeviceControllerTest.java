@@ -57,7 +57,7 @@ import smarthome.service.HouseServiceImpl;
 import smarthome.service.LogServiceImpl;
 import smarthome.service.RoomServiceImpl;
 import smarthome.utils.dto.LogDTO;
-import smarthome.utils.dto.LogDataDTO;
+import smarthome.utils.dto.data_dto.LogDataDTO;
 
 class GetLogFromDeviceControllerTest {
 

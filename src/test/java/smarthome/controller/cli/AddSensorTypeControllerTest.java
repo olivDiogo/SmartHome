@@ -43,7 +43,7 @@ import smarthome.service.SensorTypeServiceImpl;
 import smarthome.service.UnitServiceImpl;
 import smarthome.utils.LoadModelsAndUnit;
 import smarthome.utils.dto.SensorTypeDTO;
-import smarthome.utils.dto.SensorTypeDataDTO;
+import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 import smarthome.utils.dto.UnitDTO;
 
 class AddSensorTypeControllerTest {

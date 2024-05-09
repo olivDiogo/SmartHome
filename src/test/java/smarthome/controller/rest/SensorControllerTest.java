@@ -41,10 +41,10 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.utils.dto.sensor_data_dto.ISensorDataDTO;
-import smarthome.utils.dto.sensor_data_dto.SensorDataGenericDTOImp;
-import smarthome.utils.dto.sensor_data_dto.SensorDataWithDateDTOImp;
-import smarthome.utils.dto.sensor_data_dto.SensorDataWithGPSDTOImp;
+import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
+import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
+import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
+import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithGPSDTOImp;
 
 
 @SpringBootTest

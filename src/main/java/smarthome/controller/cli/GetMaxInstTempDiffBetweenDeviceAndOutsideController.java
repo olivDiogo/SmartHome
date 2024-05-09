@@ -10,7 +10,7 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
 import smarthome.utils.Validator;
-import smarthome.utils.dto.DeviceDataDTO;
+import smarthome.utils.dto.data_dto.DeviceDataDTO;
 
 public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
 
@@ -29,18 +29,18 @@ public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
   /**
    * Get the maximum instantaneous temperature difference between a device and the outside.
    *
-   * @param outsideDeviceDTO is the outside device.
-   * @param insideDeviceDTO  is the inside device.
+   * @param outsideDeviceIDStr is the outside device.
+   * @param insideDeviceIDStr  is the inside device.
    * @param initialTime      is the initial time.
    * @param finalTime        is the final time.
    * @return the maximum instantaneous temperature difference.
    */
-  public int getMaxInstTempDiffBetweenDeviceAndOutside(DeviceDataDTO outsideDeviceDTO,
-      DeviceDataDTO insideDeviceDTO, LocalDateTime initialTime, LocalDateTime finalTime, int timeDelta)
+  public int getMaxInstTempDiffBetweenDeviceAndOutside(String outsideDeviceIDStr,
+      String insideDeviceIDStr, LocalDateTime initialTime, LocalDateTime finalTime, int timeDelta)
       throws EmptyReturnException {
     DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
-    DeviceID insideDeviceID = new DeviceID(insideDeviceDTO.deviceID);
-    DeviceID outsideDeviceID = new DeviceID(outsideDeviceDTO.deviceID);
+    DeviceID insideDeviceID = new DeviceID(insideDeviceIDStr);
+    DeviceID outsideDeviceID = new DeviceID(outsideDeviceIDStr);
     SensorTypeID sensorTypeID = new SensorTypeID("Temperature");
 
     /* Get readings for the inside and outside devices */

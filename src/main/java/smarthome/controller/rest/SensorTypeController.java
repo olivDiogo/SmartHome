@@ -16,7 +16,7 @@ import smarthome.domain.service.ISensorTypeService;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.utils.dto.SensorTypeDTO;
-import smarthome.utils.dto.SensorTypeDataDTO;
+import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 
 
 @RestController

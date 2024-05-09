@@ -15,7 +15,7 @@ import smarthome.domain.service.IActuatorService;
 import smarthome.mapper.actuator_vo_assembler.ActuatorVOAssemblerImpl;
 import smarthome.mapper.actuator_vo_assembler.IActuatorVOAssembler;
 import smarthome.utils.dto.ActuatorDTO;
-import smarthome.utils.dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
 
 @RestController
 @RequestMapping("/actuator")

@@ -27,7 +27,7 @@ import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.mapper.UnitAssembler;
 import smarthome.utils.dto.UnitDTO;
-import smarthome.utils.dto.UnitDataDTO;
+import smarthome.utils.dto.data_dto.UnitDataDTO;
 
 
 @SpringBootTest

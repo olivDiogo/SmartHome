@@ -38,9 +38,9 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.utils.dto.actuator_data_dto.ActuatorDataGenericDTOImp;
-import smarthome.utils.dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
-import smarthome.utils.dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
+import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
+import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
 
 import java.util.Optional;
 

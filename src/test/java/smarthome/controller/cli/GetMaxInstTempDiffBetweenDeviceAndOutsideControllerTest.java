@@ -19,7 +19,7 @@ import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
 import smarthome.persistence.mem.LogRepository;
 import smarthome.service.LogServiceImpl;
-import smarthome.utils.dto.DeviceDataDTO;
+import smarthome.utils.dto.data_dto.DeviceDataDTO;
 
 class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
 
@@ -79,25 +79,14 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
         logService);
 
     /* Create DevicesDataDTO */
-    String strDeviceName1 = "Outside Device";
-    String strDeviceName2 = "Inside Device";
-    String strDeviceType = "Temperature";
-    String strDeviceID1 = "1";
-    String strDeviceID2 = "2";
-    String strRoomID1 = "1";
-    String strRoomID2 = "Out";
-    boolean deviceStatus = true;
-
-    DeviceDataDTO outsideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName1, deviceStatus,
-        strRoomID1, strDeviceID1);
-    DeviceDataDTO insideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName2, deviceStatus,
-        strRoomID2, strDeviceID2);
+    String outsideDeviceIDStr = "1";
+    String insideDeviceIDStr = "2";
 
     LocalDateTime initialTime = LocalDateTime.of(2021, 1, 1, 0, 0);
     LocalDateTime finalTime = LocalDateTime.of(2021, 1, 1, 1, 0);
 
     /* Create and save log data for outside device */
-    DeviceID deviceID1 = new DeviceID(strDeviceID1);
+    DeviceID deviceID1 = new DeviceID(outsideDeviceIDStr);
     SensorID sensorID1 = new SensorID("1");
     LocalDateTime timeStamp1 = LocalDateTime.of(2021, 1, 1, 0, 10);
     LocalDateTime timeStamp2 = LocalDateTime.of(2021, 1, 1, 0, 15);
@@ -114,7 +103,7 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
     logRepository.save(log2);
 
     /* Create and save log data for inside device */
-    DeviceID deviceID2 = new DeviceID(strDeviceID2);
+    DeviceID deviceID2 = new DeviceID(insideDeviceIDStr);
     SensorID sensorID2 = new SensorID("2");
     LocalDateTime timeStamp3 = LocalDateTime.of(2021, 1, 1, 0, 4);
     LocalDateTime timeStamp4 = LocalDateTime.of(2021, 1, 1, 0, 6);
@@ -134,7 +123,7 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
 
     // Act
     int result = getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
-        outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime, timeDelta);
+        outsideDeviceIDStr, insideDeviceIDStr, initialTime, finalTime, timeDelta);
 
     // Assert
     assertEquals(expected, result);
@@ -156,25 +145,14 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
         logService);
 
     /* Create DevicesDataDTO */
-    String strDeviceName1 = "Outside Device";
-    String strDeviceName2 = "Inside Device";
-    String strDeviceType = "Temperature";
-    String strDeviceID1 = "1";
-    String strDeviceID2 = "2";
-    String strRoomID1 = "1";
-    String strRoomID2 = "Out";
-    boolean deviceStatus = true;
-
-    DeviceDataDTO outsideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName1,
-        deviceStatus, strRoomID1, strDeviceID1);
-    DeviceDataDTO insideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName2, deviceStatus,
-        strRoomID2, strDeviceID2);
+    String outsideDeviceIDStr = "1";
+    String insideDeviceIDStr = "2";
 
     LocalDateTime initialTime = LocalDateTime.of(2021, 1, 1, 0, 0);
     LocalDateTime finalTime = LocalDateTime.of(2021, 1, 1, 1, 0);
 
     /* Create and save log data for outside device */
-    DeviceID deviceID1 = new DeviceID(strDeviceID1);
+    DeviceID deviceID1 = new DeviceID(outsideDeviceIDStr);
     SensorID sensorID1 = new SensorID("1");
     LocalDateTime timeStamp1 = LocalDateTime.of(2021, 1, 1, 0, 10);
     LocalDateTime timeStamp2 = LocalDateTime.of(2021, 1, 1, 0, 15);
@@ -197,7 +175,7 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
     // Act
     Exception result = assertThrows(EmptyReturnException.class,
         () -> getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
-            outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime, timeDelta));
+            outsideDeviceIDStr, insideDeviceIDStr, initialTime, finalTime, timeDelta));
 
     // Assert
     String resultMessage = result.getMessage();
@@ -220,25 +198,14 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
         logService);
 
     /* Create DevicesDataDTO */
-    String strDeviceName1 = "Outside Device";
-    String strDeviceName2 = "Inside Device";
-    String strDeviceType = "Temperature";
-    String strDeviceID1 = "1";
-    String strDeviceID2 = "2";
-    String strRoomID1 = "1";
-    String strRoomID2 = "Out";
-    boolean deviceStatus = true;
-
-    DeviceDataDTO outsideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName1,
-        deviceStatus, strRoomID1, strDeviceID1);
-    DeviceDataDTO insideDeviceDTO = new DeviceDataDTO(strDeviceType, strDeviceName2, deviceStatus,
-        strRoomID2, strDeviceID2);
+    String outsideDeviceIDStr = "1";
+    String insideDeviceIDStr = "2";
 
     LocalDateTime initialTime = LocalDateTime.of(2021, 1, 1, 0, 0);
     LocalDateTime finalTime = LocalDateTime.of(2021, 1, 1, 1, 0);
 
     /* Create and save log data for inside device */
-    DeviceID deviceID2 = new DeviceID(strDeviceID2);
+    DeviceID deviceID2 = new DeviceID(insideDeviceIDStr);
     SensorID sensorID2 = new SensorID("2");
     LocalDateTime timeStamp3 = LocalDateTime.of(2021, 1, 1, 0, 4);
     LocalDateTime timeStamp4 = LocalDateTime.of(2021, 1, 1, 0, 6);
@@ -261,7 +228,7 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
     // Act
     Exception result = assertThrows(EmptyReturnException.class,
         () -> getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
-            outsideDeviceDTO, insideDeviceDTO, initialTime, finalTime, timeDelta));
+            outsideDeviceIDStr, insideDeviceIDStr, initialTime, finalTime, timeDelta));
 
     // Assert
     String resultMessage = result.getMessage();

@@ -21,7 +21,7 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
 import smarthome.utils.dto.LogDTO;
-import smarthome.utils.dto.LogDataDTO;
+import smarthome.utils.dto.data_dto.LogDataDTO;
 
 @RestController
 @RequestMapping("/log")

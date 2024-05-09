@@ -1,4 +1,4 @@
-package smarthome.utils.dto.actuator_data_dto;
+package smarthome.utils.dto.data_dto.actuator_data_dto;
 
 public class ActuatorDataWithIntegerLimitsDTOImp implements IActuatorDataDTO {
 

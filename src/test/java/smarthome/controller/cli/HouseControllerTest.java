@@ -15,7 +15,7 @@ import smarthome.domain.service.IHouseService;
 import smarthome.mapper.HouseAssembler;
 import smarthome.service.HouseServiceImpl;
 import smarthome.utils.dto.HouseDTO;
-import smarthome.utils.dto.HouseDataDTO;
+import smarthome.utils.dto.data_dto.HouseDataDTO;
 
 class HouseControllerTest {
 
