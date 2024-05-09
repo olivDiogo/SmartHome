@@ -2,6 +2,7 @@ package smarthome.persistence.spring_data.sensor;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.ISensorRepository;
 import smarthome.domain.sensor.ISensor;
@@ -10,7 +11,7 @@ import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.SensorDataModel;
 import smarthome.utils.Validator;
 
-
+@Repository
 public class SensorSpringDataRepository implements ISensorRepository {
 
   private final ISensorSpringDataRepository repository;

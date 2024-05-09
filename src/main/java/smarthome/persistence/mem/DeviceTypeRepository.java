@@ -5,11 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.repository.IDeviceTypeRepository;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.utils.Validator;
-
 
 public class DeviceTypeRepository implements IDeviceTypeRepository {
 

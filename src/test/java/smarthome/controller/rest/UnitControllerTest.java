@@ -9,13 +9,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import smarthome.ddd.IRepository;
 import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.IUnitFactory;
@@ -47,8 +51,15 @@ class UnitControllerTest {
   private UnitAssembler unitAssembler;
 
   @MockBean
-  private IUnitRepository unitRepository;
+  private IRepository unitRepository;
 
+  @InjectMocks
+  private UnitControlller unitController;
+
+  @BeforeEach
+  public void setUp() throws Exception {
+    MockitoAnnotations.openMocks(this);
+  }
 
   /**
    * This test case verifies that the UnitController returns a list of units when they are found.

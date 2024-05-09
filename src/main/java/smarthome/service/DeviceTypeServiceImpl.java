@@ -2,6 +2,7 @@ package smarthome.service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.IDeviceTypeFactory;
@@ -10,6 +11,7 @@ import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.utils.Validator;
 
+@Service
 public class DeviceTypeServiceImpl implements IDeviceTypeService {
 
   private final IRepository<DeviceTypeID, DeviceType> deviceTypeRepository;

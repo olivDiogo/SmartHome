@@ -2,6 +2,7 @@ package smarthome.persistence.spring_data.device_type;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.repository.IDeviceTypeRepository;
@@ -10,6 +11,8 @@ import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.DeviceTypeDataModel;
 import smarthome.utils.Validator;
 
+@Repository
+@Primary
 public class DeviceTypeSpringDataRepository implements IDeviceTypeRepository {
 
   IDeviceTypeSpringDataRepository repository;

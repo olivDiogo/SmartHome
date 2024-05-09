@@ -16,7 +16,7 @@ import smarthome.persistence.jpa.data_model.SensorDataModel;
 import smarthome.utils.Validator;
 import smarthome.utils.visitor_pattern.ISensorVisitorForDataModel;
 
-@Repository
+
 public class SensorRepositoryJPAImp implements ISensorRepository {
 
   private final EntityManagerFactory factory;

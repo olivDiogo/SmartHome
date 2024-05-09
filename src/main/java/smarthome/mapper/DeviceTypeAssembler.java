@@ -2,6 +2,7 @@ package smarthome.mapper;
 
 
 import java.util.List;
+import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.exceptions.EmptyReturnException;
@@ -12,6 +13,7 @@ import smarthome.utils.dto.DeviceTypeDTO;
  * The DeviceTypeAssembler class is responsible for converting DeviceType domain entities to
  * DeviceTypeDTO data transfer objects.
  */
+@Component
 public class DeviceTypeAssembler implements IAssembler<DeviceType, DeviceTypeDTO> {
 
 

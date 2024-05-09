@@ -5,17 +5,17 @@ import smarthome.ddd.IDTO;
 public class DeviceTypeDTO implements IDTO {
 
   public final String deviceTypeID;
-  public final String deviceTypeDescription;
+  public final String description;
 
   /**
    * Constructs a new DeviceTypeDTO object.
    *
    * @param deviceTypeID          The description of the device type.
-   * @param deviceTypeDescription The description of the device type.
+   * @param description The description of the device type.
    */
-  public DeviceTypeDTO(String deviceTypeID, String deviceTypeDescription) {
+  public DeviceTypeDTO(String deviceTypeID, String description) {
     this.deviceTypeID = deviceTypeID;
-    this.deviceTypeDescription = deviceTypeDescription;
+    this.description = description;
   }
 
   /**
@@ -23,6 +23,6 @@ public class DeviceTypeDTO implements IDTO {
    */
   @Override
   public String toString() {
-    return deviceTypeID + " " + deviceTypeDescription;
+    return deviceTypeID + " " + description;
   }
 }
