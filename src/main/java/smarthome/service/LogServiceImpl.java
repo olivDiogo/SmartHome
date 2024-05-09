@@ -3,8 +3,9 @@ package smarthome.service;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import smarthome.domain.exceptions.EmptyReturnException;
@@ -14,6 +15,7 @@ import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.domain.value_object.TimeDelta;
 import smarthome.utils.Validator;
 
 @Service
@@ -78,28 +80,44 @@ public class LogServiceImpl implements ILogService {
    * @return the list of the differences between the values, as Integers.
    */
   @Override
-  public int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, int timeDelta)
+  public int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, TimeDelta timeDelta)
       throws EmptyReturnException {
     List<Integer> valueDifferences = new ArrayList<>();
+    int timeDeltaMinutes = timeDelta.getMinutes();
 
-    try {
-      for (int i = 0; i < readings1.size(); i++) {
-        for (int j = 0; j < readings2.size(); j++) {
-          int diffInMinutes = (int) ChronoUnit.MINUTES.between(readings1.get(i).getTimeStamp(),
-              readings2.get(j).getTimeStamp());
+    Map<Integer, Integer> positionMap = getPositionsOfReadingsWithinTimeDelta(readings1, readings2, timeDeltaMinutes);
+    for (Map.Entry<Integer, Integer> entry : positionMap.entrySet()) {
+      int difference = getDifferenceBetweenReadings(readings1.get(entry.getKey()), readings2.get(entry.getValue()));
+      valueDifferences.add(difference);
+    }
+    if (valueDifferences.isEmpty()) {
+      throw new EmptyReturnException("No readings found within the given time interval");
+    }else return Collections.max(valueDifferences);
 
-          if (diffInMinutes < timeDelta) {
-            int temperatureDifference = Math.abs(
-                Integer.parseInt(readings1.get(i).getReadingValue().getValue())
-                    - Integer.parseInt(readings2.get(j).getReadingValue().getValue()));
-            valueDifferences.add(temperatureDifference);
-          }
+
+
+  }
+
+  private Map<Integer, Integer> getPositionsOfReadingsWithinTimeDelta (List<Log> readings1, List<Log> readings2, int timeDelta) {
+    Map<Integer, Integer> positionMap = new HashMap<>();
+    for (int i = 0; i < readings1.size(); i++) {
+      for (int j = 0; j < readings2.size(); j++) {
+        boolean isWithinTimeDelta = shouldReturnTrueWhenReadingIsWithinTimeDelta(readings1.get(i), readings2.get(j), timeDelta);
+        if (isWithinTimeDelta) {
+          positionMap.put(i, j);
         }
       }
-      return Collections.max(valueDifferences);
-
-    } catch (NoSuchElementException e) {
-      throw new EmptyReturnException("No readings found within the given time interval");
     }
+    return positionMap;
+  }
+
+  private int getDifferenceBetweenReadings(Log reading1, Log reading2) {
+    return Math.abs(Integer.parseInt(reading1.getReadingValue().getValue()) - Integer.parseInt(reading2.getReadingValue().getValue()));
+  }
+
+  private boolean shouldReturnTrueWhenReadingIsWithinTimeDelta(Log reading1, Log reading2, int timeDelta) {
+    int diffInMinutes = (int) ChronoUnit.MINUTES.between(reading1.getTimeStamp(), reading2.getTimeStamp());
+    return diffInMinutes < timeDelta;
   }
 }
+

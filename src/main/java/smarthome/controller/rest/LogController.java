@@ -19,6 +19,7 @@ import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.domain.value_object.TimeDelta;
 import smarthome.utils.dto.LogDTO;
 import smarthome.utils.dto.LogDataDTO;
 
@@ -83,9 +84,10 @@ public class LogController {
         sensorTypeID, datePeriod);
     List<Log> outsideReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(
         outsideDeviceID, sensorTypeID, datePeriod);
+    TimeDelta timeDeltaObj = new TimeDelta(timeDelta);
 
     int maxDiff = logService.getMaxDifferenceBetweenReadings(insideReadings, outsideReadings,
-        timeDelta);
+        timeDeltaObj);
     return ResponseEntity.ok(maxDiff);
   }
 }
