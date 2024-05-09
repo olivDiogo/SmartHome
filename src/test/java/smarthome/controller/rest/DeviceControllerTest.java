@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.device_type.DeviceType;
+import smarthome.domain.device_type.DeviceTypeFactoryImpl;
 import smarthome.domain.device_type.IDeviceTypeFactory;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
@@ -401,5 +402,116 @@ class DeviceControllerTest {
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
+
+  /**
+   * Test getAllDevicesGroupedByFunctionality returns a map of devices grouped by
+   * functionality, when devices have different type.
+   */
+  @Test
+  void shouldReturnDevicesGroupedByFunctionality_whenDevicesHaveDifferentType() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    Room room = setupRoom(roomDataDTO);
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
+    Device device = setupDevice(deviceDataDTO);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    when(deviceRepository.findAll()).thenReturn(List.of(device));
+
+    int expectedSize = List.of(device).size();
+
+    String descriptionKey = "Device Type:  Device Description= " + deviceType.getDescription() + " ID= " + deviceType.getID();
+
+    // Act & Assert
+    mockMvc.perform(get("/device/all/grouped")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + descriptionKey + "']", hasSize(expectedSize)))
+        .andExpect(jsonPath("$._links.self").exists());
+  }
+
+  /**
+   * Test getAllDevicesGroupedByFunctionality when no devices are available
+   */
+  @Test
+  void shouldReturnNotFound_whenNoDevicesGroupedByFunctionality() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    Room room = setupRoom(roomDataDTO);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    when(deviceRepository.findAll()).thenReturn(List.of());
+
+    // Act & Assert
+    mockMvc.perform(get("/device/all/grouped")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNotFound());
+  }
+
+  /**
+   * Test getAllDevicesGroupedByFunctionality when there is a device with no device type
+   */
+  @Test
+  void shouldReturnBadRequest_whenThereIsNoDeviceType() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    Room room = setupRoom(roomDataDTO);
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
+    Device device = setupDevice(deviceDataDTO);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.empty());
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    when(deviceRepository.findAll()).thenReturn(List.of(device));
+
+    // Act & Assert
+    mockMvc.perform(get("/device/all/grouped")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest());
+  }
+
+  /**
+   *Test getAllDevicesGroupedByFunctionality returns a map of devices grouped by
+   * functionality, when devices have the same type.
+   */
+  @Test
+  void shouldReturnDevicesGroupedByFunctionality_whenDevicesHaveSameType() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    DeviceType deviceType = setupDeviceType();
+    Room room = setupRoom(roomDataDTO);
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
+    Device device = setupDevice(deviceDataDTO);
+    DeviceDataDTO deviceDataDTO2 = setupDeviceDataDTO(room, deviceType);
+    Device device2 = setupDevice(deviceDataDTO2);
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    when(deviceRepository.findAll()).thenReturn(List.of(device, device2));
+
+    int expectedSize = List.of(device, device2).size();
+
+    String descriptionKey = "Device Type:  Device Description= " + deviceType.getDescription() + " ID= " + deviceType.getID();
+
+    // Act & Assert
+    mockMvc.perform(get("/device/all/grouped")
+            .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + descriptionKey + "']", hasSize(expectedSize)))
+        .andExpect(jsonPath("$._links.self").exists());
+  }
+
 
 }
