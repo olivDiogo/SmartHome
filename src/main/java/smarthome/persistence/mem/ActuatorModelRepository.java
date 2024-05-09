@@ -11,7 +11,6 @@ import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.utils.Validator;
 
-@Repository
 public class ActuatorModelRepository implements IActuatorModelRepository {
 
   private final Map<ModelPath, ActuatorModel> DATA = new LinkedHashMap<>();

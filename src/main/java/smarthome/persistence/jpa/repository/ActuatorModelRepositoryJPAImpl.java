@@ -15,7 +15,6 @@ import smarthome.domain.value_object.ModelPath;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
 
-@Repository
 public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository {
 
   private final EntityManagerFactory factory;

@@ -11,7 +11,6 @@ import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.Validator;
 
-@Repository
 public class SensorModelRepository implements ISensorModelRepository {
 
   private final Map<ModelPath, SensorModel> DATA = new LinkedHashMap<>();

@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
+import smarthome.domain.repository.IActuatorModelRepository;
 import smarthome.domain.service.IActuatorModelService;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
@@ -40,7 +41,7 @@ public class ActuatorModelControllerTest {
   private IActuatorModelFactory actuatorModelFactory;
 
   @Autowired
-  private ActuatorModelRepository actuatorModelRepository;
+  private IActuatorModelRepository actuatorModelRepository;
 
   /**
    * Test for the ActuatorModelController class.
