@@ -26,7 +26,7 @@ public class House implements IAggregateRoot<HouseID> {
    * @param gps     The GPS coordinates of the house. Must not be null.
    * @throws IllegalArgumentException if any of the parameters are null.
    */
-  public House(Address address, GPS gps) {
+  House(Address address, GPS gps) {
     generateID();
     Validator.validateNotNull(address, "Address");
     Validator.validateNotNull(gps, "GPS");
@@ -35,7 +35,7 @@ public class House implements IAggregateRoot<HouseID> {
 
   }
 
-  public House(HouseID houseID, Address address, GPS gps) {
+  House(HouseID houseID, Address address, GPS gps) {
     Validator.validateNotNull(houseID, "HouseID");
     Validator.validateNotNull(address, "Address");
     Validator.validateNotNull(gps, "GPS");

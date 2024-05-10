@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,6 +22,7 @@ import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.house.House;
+import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
@@ -65,7 +67,7 @@ class RoomControllerTest {
   private IRoomFactory roomFactory;
 
   @Autowired
-  private IDeviceFactory deviceFactory;
+  private IHouseFactory houseFactory;
 
   House setupHouse() {
     // Arrange
@@ -78,7 +80,8 @@ class RoomControllerTest {
     Address address = new Address(street, doorNumber, postalCode, countryCode,
         new PostalCodeFactory());
     GPS gps = new GPS(latitude, longitude);
-    return new House(address, gps);
+    House house = houseFactory.createHouse(address, gps);
+    return house;
   }
 
   RoomDataDTO setupRoomDataDTO(House house) {
@@ -165,7 +168,18 @@ class RoomControllerTest {
         .andExpect(jsonPath("$[1].roomName").value("Living Room"));
   }
 
-  //TODO: test getAllRooms with no rooms. Should return an empty list or an error?
+  /**
+   * Test getAllRooms method in RoomController when no rooms are found
+   */
+  @Test
+  void shouldReturnNotFound_whenNoRoomsFound() throws Exception {
+    //Arrange
+    when(roomRepository.findAll()).thenReturn(List.of());
+
+    //Act & Assert
+    mockMvc.perform(get("/room/all"))
+        .andExpect(status().isNoContent());
+  }
 
   /**
    * Test getRoomById method in RoomController

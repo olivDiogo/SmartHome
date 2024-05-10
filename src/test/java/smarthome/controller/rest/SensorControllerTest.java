@@ -19,6 +19,7 @@ import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.DeviceTypeFactoryImpl;
 import smarthome.domain.house.House;
+import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
@@ -57,6 +58,9 @@ class SensorControllerTest {
   @Autowired
   private ObjectMapper objectMapper;
 
+  @Autowired
+  private IHouseFactory houseFactory;
+
   @MockBean
   private IDeviceRepository deviceRepository;
 
@@ -71,7 +75,8 @@ class SensorControllerTest {
     Address address = new Address(street, doorNumber, postalCode, countryCode,
         new PostalCodeFactory());
     GPS gps = new GPS(latitude, longitude);
-    return new House(address, gps);
+    House house = houseFactory.createHouse(address, gps);
+    return house;
   }
 
   Room setupRoom() {

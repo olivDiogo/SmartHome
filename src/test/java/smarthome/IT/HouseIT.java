@@ -15,7 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.house.House;
-import smarthome.domain.house.HouseFactoryImpl;
+import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
@@ -34,7 +34,7 @@ class HouseIT {
   private ObjectMapper objectMapper;
 
   @Autowired
-  private HouseFactoryImpl houseFactory;
+  private IHouseFactory houseFactory;
 
   @MockBean
   private IHouseRepository houseRepository;
