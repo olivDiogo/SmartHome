@@ -1,7 +1,13 @@
 package smarthome.controller.rest;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,18 +17,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.device.Device;
 import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
+import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
+import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/room")
@@ -30,15 +37,20 @@ public class RoomController {
 
   private final IRoomService roomService;
   private final IAssembler<Room, RoomDTO> roomAssembler;
+  private final IDeviceService deviceService;
+  private final IAssembler<Device, DeviceDTO> deviceAssembler;
 
   /**
    * Constructor
    */
   @Autowired
   public RoomController(IRoomService roomService,
-      IAssembler<Room, RoomDTO> roomAssembler) {
+      IAssembler<Room, RoomDTO> roomAssembler, IDeviceService deviceService,
+      IAssembler<Device, DeviceDTO> deviceAssembler) {
     this.roomAssembler = roomAssembler;
     this.roomService = roomService;
+    this.deviceService = deviceService;
+    this.deviceAssembler = deviceAssembler;
   }
 
   /**
@@ -86,6 +98,33 @@ public class RoomController {
     else {
       RoomDTO roomDTO = roomAssembler.domainToDTO(room.get());
       return ResponseEntity.ok(roomDTO);
+    }
+  }
+
+  /**
+   * Get all devices in a room
+   *
+   * @param idStr is the room ID
+   * @return a list of all devices in the room with the given ID
+   */
+  @GetMapping("/{id}/devices")
+  public ResponseEntity<CollectionModel<DeviceDTO>> getDevicesInAGivenRoom(
+      @PathVariable("id") String idStr)
+      throws EmptyReturnException {
+    RoomID id = new RoomID(idStr);
+    Optional<Room> room = roomService.getRoomById(id);
+    if (room.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    } else {
+      Optional<List<Device>> devices = Optional.ofNullable(deviceService.getDevicesByRoomId(id));
+      if (devices.isEmpty()) {
+        return ResponseEntity.notFound().build();
+      } else {
+        List<DeviceDTO> deviceDTOs = deviceAssembler.domainToDTO(devices.get());
+        CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
+            linkTo(methodOn(RoomController.class).getDevicesInAGivenRoom(idStr)).withSelfRel());
+        return ResponseEntity.ok(resource);
+      }
     }
   }
 }
