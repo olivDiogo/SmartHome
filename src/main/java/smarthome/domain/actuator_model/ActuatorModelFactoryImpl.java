@@ -9,9 +9,9 @@ import smarthome.domain.value_object.ModelPath;
 public class ActuatorModelFactoryImpl implements IActuatorModelFactory {
 
   @Override
-  public ActuatorModel createActuatorModel(ActuatorModelName actuatorModelName, ModelPath modelPath,
+  public ActuatorModel createActuatorModel(ModelPath modelPath, ActuatorModelName actuatorModelName,
       ActuatorTypeID typeID) {
-    return new ActuatorModel(actuatorModelName, modelPath, typeID);
+    return new ActuatorModel(modelPath, actuatorModelName, typeID);
   }
 
 

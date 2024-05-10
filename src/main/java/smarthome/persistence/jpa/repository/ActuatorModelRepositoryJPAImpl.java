@@ -7,7 +7,6 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Repository;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.repository.IActuatorModelRepository;
 import smarthome.domain.value_object.ActuatorTypeID;
@@ -150,7 +149,7 @@ public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository 
     try {
       Query query =
           entityManager.createQuery(
-              "SELECT ACTUATOR_MODEL FROM ActuatorModelDataModel ACTUATOR_MODEL WHERE ACTUATOR_MODEL._actuatorTypeID = :actuatorTypeID");
+              "SELECT ACTUATOR_MODEL FROM ActuatorModelDataModel ACTUATOR_MODEL WHERE ACTUATOR_MODEL.actuatorTypeID = :actuatorTypeID");
       query.setParameter("actuatorTypeID", actuatorTypeID.getID());
       List<ActuatorModelDataModel> listDataModel = query.getResultList();
       return dataModelAssembler.toDomain(listDataModel);

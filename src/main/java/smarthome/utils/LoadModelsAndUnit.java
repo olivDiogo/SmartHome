@@ -81,7 +81,7 @@ public class LoadModelsAndUnit {
           ((ISensorModelRepository) repository).save(model);
         } else if (type.equals("actuator")) {
           ActuatorModel model = ((IActuatorModelFactory) factory).createActuatorModel(
-              new ActuatorModelName(modelName), path, new ActuatorTypeID(typeIdStr));
+              path, new ActuatorModelName(modelName), new ActuatorTypeID(typeIdStr));
           ((IActuatorModelRepository) repository).save(model);
         }
       }

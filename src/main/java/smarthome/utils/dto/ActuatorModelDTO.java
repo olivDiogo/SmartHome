@@ -10,34 +10,25 @@ public class ActuatorModelDTO implements IDTO {
   /**
    * Attributes of class ActuatorModelDTO.
    */
-  public String actuatorModelID;
+  public String actuatorModelPath;
 
   /**
    * Attributes of class ActuatorModelDTO.
    */
   public String actuatorModelName;
 
-  /**
-   * Attributes of class ActuatorModelDTO.
-   */
-  public String actuatorModelPath;
+
 
   /**
    * Constructor of class ActuatorModelDTO.
-   *
-   * @param actuatorModelID
-   * @param actuatorModelName
-   * @param actuatorModelPath
    */
-  public ActuatorModelDTO(
-      String actuatorModelID, String actuatorModelName, String actuatorModelPath) {
-    this.actuatorModelID = actuatorModelID;
-    this.actuatorModelName = actuatorModelName;
+  public ActuatorModelDTO(String actuatorModelPath, String actuatorModelName) {
     this.actuatorModelPath = actuatorModelPath;
+    this.actuatorModelName = actuatorModelName;
   }
 
   @Override
   public String toString() {
-    return actuatorModelID + " " + actuatorModelName + " " + actuatorModelPath;
+    return actuatorModelPath + " " + actuatorModelName;
   }
 }

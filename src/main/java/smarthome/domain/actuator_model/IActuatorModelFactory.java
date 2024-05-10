@@ -6,6 +6,6 @@ import smarthome.domain.value_object.ModelPath;
 
 public interface IActuatorModelFactory {
 
-  ActuatorModel createActuatorModel(ActuatorModelName actuatorModelName, ModelPath modelPath,
+  ActuatorModel createActuatorModel(ModelPath modelPath, ActuatorModelName actuatorModelName,
       ActuatorTypeID typeID);
 }

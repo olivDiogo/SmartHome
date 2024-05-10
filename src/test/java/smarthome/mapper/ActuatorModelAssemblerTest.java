@@ -40,7 +40,7 @@ class ActuatorModelAssemblerTest {
     when(actuatorModelDouble.getID()).thenReturn(actuatorModelPathDouble);
 
     ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
-    String expected = actuatorModelID + " " + actuatorModelName + " " + actuatorModelPath;
+    String expected = actuatorModelPath + " " + actuatorModelName;
 
     // Act
     ActuatorModelDTO actuatorModelDTO = actuatorModelAssembler.domainToDTO(actuatorModelDouble);
@@ -113,10 +113,10 @@ class ActuatorModelAssemblerTest {
     List<ActuatorModel> actuatorModels = List.of(actuatorModelDouble1, actuatorModelDouble2);
 
     ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
-    ActuatorModelDTO actuatorModelDTO1 = new ActuatorModelDTO(actuatorModelID1, actuatorModelName1,
-        actuatorModelPath1);
-    ActuatorModelDTO actuatorModelDTO2 = new ActuatorModelDTO(actuatorModelID2, actuatorModelName2,
-        actuatorModelPath2);
+    ActuatorModelDTO actuatorModelDTO1 = new ActuatorModelDTO(actuatorModelPath1,
+        actuatorModelName1);
+    ActuatorModelDTO actuatorModelDTO2 = new ActuatorModelDTO(actuatorModelPath2,
+        actuatorModelName2);
     List<ActuatorModelDTO> expected = List.of(actuatorModelDTO1, actuatorModelDTO2);
 
     // Act

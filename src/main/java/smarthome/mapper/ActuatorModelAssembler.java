@@ -21,12 +21,10 @@ public class ActuatorModelAssembler implements IAssembler<ActuatorModel, Actuato
   public ActuatorModelDTO domainToDTO(ActuatorModel domainEntity) {
     Validator.validateNotNull(domainEntity, "Actuator Model");
 
-    String actuatorModelID = domainEntity.getID().toString();
     String actuatorModelName = domainEntity.getName().toString();
     String actuatorModelPath = domainEntity.getID().toString();
 
-    return new ActuatorModelDTO(actuatorModelID, actuatorModelName,
-        actuatorModelPath);
+    return new ActuatorModelDTO(actuatorModelPath, actuatorModelName);
   }
 
   /**

@@ -78,8 +78,9 @@ class ActuatorModelDataModelAssemblerTest {
     ActuatorModelDataModelAssembler actuatorModelDataModelAssembler = new ActuatorModelDataModelAssembler(
         actuatorModelFactory);
 
-    ActuatorModel expected = actuatorModelFactory.createActuatorModel(actuatorModelNameDouble,
-        modelPathDouble, actuatorTypeIDDouble);
+    ActuatorModel expected = actuatorModelFactory.createActuatorModel(modelPathDouble,
+        actuatorModelNameDouble,
+        actuatorTypeIDDouble);
 
     //Act
     ActuatorModel result = actuatorModelDataModelAssembler.toDomain(actuatorModelDataModelDouble);
@@ -149,7 +150,7 @@ class ActuatorModelDataModelAssemblerTest {
     ActuatorModel expected2 = mock(ActuatorModel.class);
 
     when(
-        actuatorModelFactory.createActuatorModel(any(ActuatorModelName.class), any(ModelPath.class),
+        actuatorModelFactory.createActuatorModel(any(ModelPath.class), any(ActuatorModelName.class),
             any(ActuatorTypeID.class))).thenReturn(expected1, expected2);
 
     List<ActuatorModel> expectedList = List.of(expected1, expected2);

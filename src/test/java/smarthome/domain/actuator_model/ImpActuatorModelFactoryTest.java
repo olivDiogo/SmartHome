@@ -23,7 +23,7 @@ class ImpActuatorModelFactoryTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
     // Act
     ActuatorModel actuatorModel =
-        actuatorModelFactory.createActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+        actuatorModelFactory.createActuatorModel(modelPath, actuatorModelName, actuatorTypeID);
     // Assert
     assertNotNull(actuatorModel);
     assertEquals(actuatorModelName, actuatorModel.getName());
@@ -41,7 +41,7 @@ class ImpActuatorModelFactoryTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
     // Act
     ActuatorModel actuatorModel =
-        actuatorModelFactory.createActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+        actuatorModelFactory.createActuatorModel(modelPath, actuatorModelName, actuatorTypeID);
     // Assert
     assertNotNull(actuatorModel);
     assertEquals(actuatorModelName, actuatorModel.getName());

@@ -52,8 +52,6 @@ import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
-import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
@@ -61,6 +59,8 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
+import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.mapper.ActuatorAssembler;
 import smarthome.mapper.ActuatorModelAssembler;
 import smarthome.mapper.ActuatorTypeAssembler;
@@ -836,8 +836,8 @@ class AddActuatorToDeviceControllerTest {
     // Assert
 
     assertEquals(
-        expectedActuatorModelDTOList.get(0).actuatorModelID,
-        ActuatorModelDTOList.get(0).actuatorModelID);
+        expectedActuatorModelDTOList.get(0).actuatorModelPath,
+        ActuatorModelDTOList.get(0).actuatorModelPath);
   }
 
   /**

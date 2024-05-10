@@ -8,23 +8,24 @@ import smarthome.utils.Validator;
 
 public class ActuatorModel implements IAggregateRoot<ModelPath> {
 
-  private final ActuatorModelName name;
+
   private final ModelPath modelPath;
+  private final ActuatorModelName name;
   private final ActuatorTypeID actuatorTypeID;
 
   /**
    * ActuatorModel constructor
    *
-   * @param name The name of the actuator model
-   * @param modelPath         The path to the model
+   * @param modelPath The path to the model
+   * @param name      The name of the actuator model
    */
   ActuatorModel(
-      ActuatorModelName name, ModelPath modelPath, ActuatorTypeID actuatorTypeID) {
+      ModelPath modelPath, ActuatorModelName name, ActuatorTypeID actuatorTypeID) {
     Validator.validateNotNull(name, "ActuatorModelName");
     Validator.validateNotNull(modelPath, "ModelPath");
     Validator.validateNotNull(actuatorTypeID, "ActuatorTypeID");
-    this.name = name;
     this.modelPath = modelPath;
+    this.name = name;
     this.actuatorTypeID = actuatorTypeID;
   }
 
@@ -88,6 +89,6 @@ public class ActuatorModel implements IAggregateRoot<ModelPath> {
    */
   @Override
   public String toString() {
-    return name + " " + modelPath + " " + actuatorTypeID;
+    return modelPath + " " + name + " " + actuatorTypeID;
   }
 }

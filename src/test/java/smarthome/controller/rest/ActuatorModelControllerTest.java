@@ -1,8 +1,11 @@
 package smarthome.controller.rest;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,11 +21,7 @@ import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.mapper.ActuatorModelAssembler;
-import smarthome.persistence.mem.ActuatorModelRepository;
 import smarthome.utils.dto.ActuatorModelDTO;
-import java.util.List;
-
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -59,10 +58,11 @@ public class ActuatorModelControllerTest {
     ActuatorTypeID typeID = new ActuatorTypeID(actuatorTypeID);
     ActuatorModelName actuatorName1 = new ActuatorModelName(actuatorName);
 
-    ActuatorModel actuatorModel = actuatorModelFactory.createActuatorModel(actuatorName1, modelPath, typeID);
+    ActuatorModel actuatorModel = actuatorModelFactory.createActuatorModel(modelPath, actuatorName1,
+        typeID);
 
-    ActuatorModelDTO actuatorModelDTO = new ActuatorModelDTO(actuatorModel.getActuatorTypeID().toString(),
-        actuatorName1.getActuatorModelName(), modelPath.getID());
+    ActuatorModelDTO actuatorModelDTO = new ActuatorModelDTO(modelPath.getID(),
+        actuatorName1.getActuatorModelName());
     List<ActuatorModelDTO> actuatorModelDTOs = List.of(actuatorModelDTO);
 
     // Set up mock to return the ActuatorModel object

@@ -90,7 +90,7 @@ class ActuatorModelDataModelTest {
 
     ActuatorModelDataModel actuatorModelDataModel = new ActuatorModelDataModel(actuatorModelDouble);
     // Act
-    String result = actuatorModelDataModel.getActuatorModelID();
+    String result = actuatorModelDataModel.getModelPath();
     // Assert
     assertEquals(strModelPath, result);
   }

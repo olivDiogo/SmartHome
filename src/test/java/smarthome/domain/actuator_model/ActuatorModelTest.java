@@ -28,7 +28,7 @@ class ActuatorModelTest {
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
     // Act
-    ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+    ActuatorModel actuatorModel = new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID);
 
     // Assert
     assertNotNull(actuatorModel);
@@ -44,7 +44,7 @@ class ActuatorModelTest {
 
     // Act
     ActuatorModel actuatorModel =
-        new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+        new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID);
 
     // Assert
     assertNotNull(actuatorModel);
@@ -65,7 +65,7 @@ class ActuatorModelTest {
     IllegalArgumentException exception =
         assertThrows(
             IllegalArgumentException.class,
-            () -> new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID));
+            () -> new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID));
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
@@ -84,7 +84,7 @@ class ActuatorModelTest {
     IllegalArgumentException exception =
         assertThrows(
             IllegalArgumentException.class,
-            () -> new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID));
+            () -> new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID));
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
@@ -102,7 +102,7 @@ class ActuatorModelTest {
     IllegalArgumentException exception =
         assertThrows(
             IllegalArgumentException.class,
-            () -> new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID));
+            () -> new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID));
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
@@ -122,7 +122,7 @@ class ActuatorModelTest {
         mockConstruction(ActuatorModelID.class, (mock, context) -> {
         })) {
 
-      ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+      ActuatorModel actuatorModel = new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID);
 
       // Act
       boolean result = actuatorModel.equals(actuatorModel);
@@ -147,9 +147,9 @@ class ActuatorModelTest {
         mockConstruction(ActuatorModelID.class, (mock, context) -> {
         })) {
 
-      ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+      ActuatorModel actuatorModel = new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID);
       ActuatorModel actuatorModel2 =
-          new ActuatorModel(actuatorModelName, modelPath2, actuatorTypeID);
+          new ActuatorModel(modelPath2, actuatorModelName, actuatorTypeID);
 
       // Act
       boolean result = actuatorModel.equals(actuatorModel2);
@@ -173,7 +173,7 @@ class ActuatorModelTest {
         mockConstruction(ActuatorModelID.class, (mock, context) -> {
         })) {
 
-      ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+      ActuatorModel actuatorModel = new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID);
 
       // Act
       boolean result = actuatorModel.equals(null);
@@ -197,7 +197,7 @@ class ActuatorModelTest {
         mockConstruction(ActuatorModelID.class, (mock, context) -> {
         })) {
 
-      ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+      ActuatorModel actuatorModel = new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID);
 
       // Act
       ModelPath result = actuatorModel.getID();
@@ -221,7 +221,7 @@ class ActuatorModelTest {
         mockConstruction(ActuatorModelID.class, (mock, context) -> {
         })) {
 
-      ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+      ActuatorModel actuatorModel = new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID);
 
       // Act
       String result = actuatorModel.toString();
@@ -247,7 +247,7 @@ class ActuatorModelTest {
         mockConstruction(ActuatorModelID.class, (mock, context) -> {
         })) {
 
-      ActuatorModel actuatorModel = new ActuatorModel(actuatorModelName, modelPath, actuatorTypeID);
+      ActuatorModel actuatorModel = new ActuatorModel(modelPath, actuatorModelName, actuatorTypeID);
 
       // Act
       ActuatorModelName result = actuatorModel.getName();
