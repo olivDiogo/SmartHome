@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "RestClient" as RC
+participant "SmartHome" as SH
+
+
+User -> RC : I want to add a device
+activate RC
+
+RC -> SH : addDevice(deviceDataDTO)
+activate SH
+
+SH --> RC : deviceDTO
+deactivate SH
+
+RC --> User : deviceDTO
+deactivate RC
+@enduml
