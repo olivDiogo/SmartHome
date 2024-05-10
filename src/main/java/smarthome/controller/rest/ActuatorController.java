@@ -1,5 +1,6 @@
 package smarthome.controller.rest;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -44,7 +45,7 @@ public class ActuatorController {
    * @return the Actuator data transfer object.
    */
   @PostMapping("/add")
-  public ResponseEntity<EntityModel<ActuatorDTO>> addActuator(@RequestBody IActuatorDataDTO actuatorDataDTO) {
+  public ResponseEntity<EntityModel<ActuatorDTO>> addActuator(@RequestBody @Valid IActuatorDataDTO actuatorDataDTO) {
     IActuatorVOAssembler actuatorVOAssembler = new ActuatorVOAssemblerImpl();
     Object[] actuatorParameters = actuatorVOAssembler.getActuatorParameters(actuatorDataDTO);
 
