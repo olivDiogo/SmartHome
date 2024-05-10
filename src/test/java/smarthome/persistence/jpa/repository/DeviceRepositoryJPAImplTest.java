@@ -7,6 +7,7 @@ import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device.Device;
+import smarthome.domain.repository.IDeviceRepository;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.DeviceDataModel;
 
@@ -22,7 +23,7 @@ class DeviceRepositoryJPAImplTest {
         IDataModelAssembler.class);
 
     //Act
-    DeviceRepositoryJPAImpl repositoryDeviceJPA = new DeviceRepositoryJPAImpl(dataModelAssembler);
+    IDeviceRepository repositoryDeviceJPA = new DeviceRepositoryJPAImpl(dataModelAssembler);
 
     //Assert
     assertNotNull(repositoryDeviceJPA);

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.Test;
+import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.SensorTypeDataModel;
@@ -22,7 +23,7 @@ class SensorTypeRepositoryJPAImplTest {
         IDataModelAssembler.class);
 
     //Act
-    SensorTypeRepositoryJPAImpl repositorySensorTypeJPA = new SensorTypeRepositoryJPAImpl(
+    ISensorTypeRepository repositorySensorTypeJPA = new SensorTypeRepositoryJPAImpl(
         dataModelConverter);
 
     //Assert

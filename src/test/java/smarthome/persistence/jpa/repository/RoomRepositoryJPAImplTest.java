@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.assembler.RoomDataModelAssembler;
@@ -21,7 +22,7 @@ class RoomRepositoryJPAImplTest {
     RoomDataModelAssembler dataModelAssembler = new RoomDataModelAssembler(new RoomFactoryImpl());
 
     //Act
-    RoomRepositoryJPAImpl repositoryRoomJPA = new RoomRepositoryJPAImpl(dataModelAssembler);
+    IRoomRepository repositoryRoomJPA = new RoomRepositoryJPAImpl(dataModelAssembler);
 
     //Assert
     assertNotNull(repositoryRoomJPA);

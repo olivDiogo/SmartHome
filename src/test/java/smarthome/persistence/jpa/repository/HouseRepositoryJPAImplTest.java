@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.Test;
+import smarthome.domain.repository.IHouseRepository;
 import smarthome.persistence.assembler.IDataModelAssembler;
 
 class HouseRepositoryJPAImplTest {
@@ -19,7 +20,7 @@ class HouseRepositoryJPAImplTest {
     IDataModelAssembler dataModelAssembler = mock(IDataModelAssembler.class);
 
     //Act
-    HouseRepositoryJPAImpl houseRepositoryJPA = new HouseRepositoryJPAImpl(dataModelAssembler);
+    IHouseRepository houseRepositoryJPA = new HouseRepositoryJPAImpl(dataModelAssembler);
 
     //Assert
     assertNotNull(houseRepositoryJPA);

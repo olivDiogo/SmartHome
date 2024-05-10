@@ -7,6 +7,7 @@ import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator_model.ActuatorModel;
+import smarthome.domain.repository.IActuatorModelRepository;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
 
@@ -22,7 +23,7 @@ class ActuatorModelRepositoryJPImplTest {
         IDataModelAssembler.class);
 
     //Act
-    ActuatorModelRepositoryJPAImpl repositoryActuatorModelJPA = new ActuatorModelRepositoryJPAImpl(
+    IActuatorModelRepository repositoryActuatorModelJPA = new ActuatorModelRepositoryJPAImpl(
         dataModelConverter);
 
     //Assert
