@@ -11,7 +11,7 @@ import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 
-class HouseTest {
+class HouseIT {
 
   /**
    * Validates construction with valid arguments.
