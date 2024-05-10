@@ -1,5 +1,6 @@
 package smarthome.controller.rest;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class UnitControlller {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<EntityModel<UnitDTO>> createUnit(@RequestBody UnitDataDTO unitDataDTO) {
+  public ResponseEntity<EntityModel<UnitDTO>> createUnit(@RequestBody @Valid UnitDataDTO unitDataDTO) {
 
     UnitSymbol unitSymbol = new UnitSymbol(unitDataDTO.unitSymbol);
     UnitDescription unitDescription = new UnitDescription(unitDataDTO.description);
