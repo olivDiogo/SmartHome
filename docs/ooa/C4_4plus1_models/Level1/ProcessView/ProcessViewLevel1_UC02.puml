@@ -9,18 +9,15 @@ participant "RestClient" as RC
 participant "SmartHome" as SH
 
 
-User -> RC : I want to configure the house location
+User -> RC : I want to add a Room
 activate RC
 
-RC -> SH : configureHouseLocation(houseDataDTO)
+RC -> SH : addRoom(roomDataDTO)
 activate SH
 
-SH --> RC : houseDTO
+SH --> RC : roomDTO
 deactivate SH
 
-RC --> User : houseDTO
+RC --> User : roomDTO
 deactivate RC
-
-
-
 @enduml
