@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+[SmartHome] as SmartHome <<system (C4)>> <<component>>
+
+CLI -down- SmartHome
+APIRest -down- SmartHome
+
+
+@enduml
