@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "RestClient" as RC
+participant "SmartHome" as SH
+
+
+User -> RC : I want to get the list of all devices in a room
+activate RC
+
+RC -> SH : getDevicesInAGivenRoom(idStr)
+activate SH
+
+SH --> RC : deviceDTOList
+deactivate SH
+
+RC --> User : deviceDTOList
+deactivate RC
+
+
+
+@enduml
