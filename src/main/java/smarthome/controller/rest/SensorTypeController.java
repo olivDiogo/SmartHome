@@ -1,5 +1,6 @@
 package smarthome.controller.rest;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -49,7 +50,7 @@ public class SensorTypeController {
    */
   @PostMapping("/create")
   public ResponseEntity<EntityModel<SensorTypeDTO>> createSensorType(
-      @RequestBody SensorTypeDataDTO sensorTypeDataDTO) {
+      @RequestBody @Valid SensorTypeDataDTO sensorTypeDataDTO) {
     TypeDescription typeDescription = new TypeDescription(sensorTypeDataDTO.description);
     UnitID unitID = new UnitID(sensorTypeDataDTO.unitID);
 
