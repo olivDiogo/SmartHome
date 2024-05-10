@@ -1,5 +1,6 @@
 package smarthome.controller.rest;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -46,7 +47,7 @@ public class SensorController {
    * @return ResponseEntity with the sensor data
    */
   @PostMapping("/add")
-  public ResponseEntity<EntityModel<SensorDTO>> addSensor(@RequestBody ISensorDataDTO sensorDataDTO) {
+  public ResponseEntity<EntityModel<SensorDTO>> addSensor(@RequestBody @Valid ISensorDataDTO sensorDataDTO) {
     ISensorVOAssembler sensorVOAssembler = new SensorVOAssemblerImpl();
     Object[] sensorParameters = sensorVOAssembler.getSensorParameters(sensorDataDTO);
 
