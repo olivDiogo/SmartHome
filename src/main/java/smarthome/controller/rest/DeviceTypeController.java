@@ -1,6 +1,7 @@
 package smarthome.controller.rest;
 
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -46,7 +47,7 @@ public class DeviceTypeController {
    */
   @PostMapping("/add")
   public ResponseEntity<EntityModel<DeviceTypeDTO>> addDeviceType(
-      @RequestBody String typeDescription) {
+      @RequestBody @Valid String typeDescription) {
 
     TypeDescription description = new TypeDescription(typeDescription);
 
