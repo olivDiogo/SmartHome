@@ -10,16 +10,16 @@ participant "RestClient" as RC
 participant "SmartHome" as SH
 
 
-User -> RC : I want to define a sensor type
+User -> RC : I want to add a sensor to a device
 activate RC
 
-RC -> SH : createSensorType(sensorTypeDataDTO)
+RC -> SH : addSensor(sensorDataDTO)
 activate SH
 
-SH --> RC : sensorTypeDTO
+SH --> RC : sensorDTO
 deactivate SH
 
-RC --> User : sensorTypeDTO
+RC --> User : sensorDTO
 deactivate RC
 
 @enduml
