@@ -95,7 +95,62 @@ public class LogServiceImpl implements ILogService {
     }else return Collections.max(valueDifferences);
   }
 
-  public int getSumOfTwoIntegerReadings(Log reading1, Log reading2) {
+  /**
+   * Method to get the peak power consumption of a device in a given time period.
+   *
+   * @param readings
+   * @param readings2
+   * @param timeDelta
+   * @return
+   */
+
+  public int getPeakPowerConsumption(List<Log> readings, List<Log> readings2, TimeDelta timeDelta) {
+
+    int maxListOne = getMaximumValueFromListOfIntegers(readings);
+    int maxListTwo = getMaximumValueFromListOfIntegers(readings2);
+    int maxWithinTimeDelta = getMaxValueFromTwoListsWithinTimeDelta(readings, readings2, timeDelta);
+
+    return Math.max(maxListOne, Math.max(maxListTwo, maxWithinTimeDelta));
+
+  }
+
+  /**
+   * Method to get the maximum value from two lists of readings, when the readings are within a time
+   * delta.
+   *
+   * @param readings1
+   * @param readings2
+   * @param timeDelta
+   * @return
+   */
+  protected int getMaxValueFromTwoListsWithinTimeDelta(List<Log> readings1, List<Log> readings2,
+      TimeDelta timeDelta) {
+    List<Integer> sumOfReadings = new ArrayList<>();
+    int timeDeltaMinutes = timeDelta.getMinutes();
+
+    Map<Integer, Integer> positionMap = getPositionsOfReadingsWithinTimeDelta(readings1, readings2,
+        timeDeltaMinutes);
+    for (Map.Entry<Integer, Integer> entry : positionMap.entrySet()) {
+      int sum = getSumOfTwoIntegerReadings(readings1.get(entry.getKey()),
+          readings2.get(entry.getValue()));
+      sumOfReadings.add(sum);
+    }
+    if (sumOfReadings.isEmpty()) {
+      return 0;
+    } else {
+      return Collections.max(sumOfReadings);
+    }
+  }
+
+  /**
+   * Method to get the sum of two integer readings.
+   *
+   * @param reading1
+   * @param reading2
+   * @return
+   */
+
+  protected int getSumOfTwoIntegerReadings(Log reading1, Log reading2) {
     try {
       return Math.abs(Integer.parseInt(reading1.getReadingValue().getValue()) + Integer.parseInt(
           reading2.getReadingValue().getValue()));
@@ -104,7 +159,48 @@ public class LogServiceImpl implements ILogService {
     }
   }
 
-  private Map<Integer, Integer> getPositionsOfReadingsWithinTimeDelta (List<Log> readings1, List<Log> readings2, int timeDelta) {
+  /**
+   * Method to get the difference between two integer readings.
+   *
+   * @param reading1
+   * @param reading2
+   * @return
+   */
+
+  protected int getDifferenceBetweenReadings(Log reading1, Log reading2) {
+    try {
+      return Math.abs(Integer.parseInt(reading1.getReadingValue().getValue()) - Integer.parseInt(
+          reading2.getReadingValue().getValue()));
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException("Reading values are not integers");
+    }
+  }
+
+  /**
+   * Method to get the maximum value from a list of integer readings.
+   *
+   * @param readings
+   * @return
+   */
+  protected int getMaximumValueFromListOfIntegers(List<Log> readings) {
+    List<Integer> values = new ArrayList<>();
+    for (Log reading : readings) {
+      values.add(Integer.parseInt(reading.getReadingValue().getValue()));
+    }
+    return Collections.max(values);
+  }
+
+  /**
+   * Method to get the positions of readings within a time delta.
+   *
+   * @param readings1
+   * @param readings2
+   * @param timeDelta
+   * @return a map of the positions of readings within the time delta.
+   */
+
+  protected Map<Integer, Integer> getPositionsOfReadingsWithinTimeDelta(List<Log> readings1,
+      List<Log> readings2, int timeDelta) {
     Map<Integer, Integer> positionMap = new HashMap<>();
     for (int i = 0; i < readings1.size(); i++) {
       for (int j = 0; j < readings2.size(); j++) {
@@ -117,18 +213,19 @@ public class LogServiceImpl implements ILogService {
     return positionMap;
   }
 
-  public int getDifferenceBetweenReadings(Log reading1, Log reading2) {
-    try {
-      return Math.abs(Integer.parseInt(reading1.getReadingValue().getValue()) - Integer.parseInt(
-          reading2.getReadingValue().getValue()));
-    } catch (NumberFormatException e) {
-      throw new IllegalArgumentException("Reading values are not integers");
-    }
-  }
+  /**
+   * Method to check if two readings are within a time delta.
+   *
+   * @param reading1
+   * @param reading2
+   * @param timeDelta
+   * @return
+   */
+  protected boolean shouldReturnTrueWhenReadingIsWithinTimeDelta(Log reading1, Log reading2, int timeDelta) {
+    int diffInMinutes = (int) ChronoUnit.MINUTES.between(reading1.getTimeStamp(),
+        reading2.getTimeStamp());
 
-  private boolean shouldReturnTrueWhenReadingIsWithinTimeDelta(Log reading1, Log reading2, int timeDelta) {
-    int diffInMinutes = (int) ChronoUnit.MINUTES.between(reading1.getTimeStamp(), reading2.getTimeStamp());
-    return diffInMinutes < timeDelta;
+    return Math.abs(diffInMinutes) < timeDelta;
   }
 }
 

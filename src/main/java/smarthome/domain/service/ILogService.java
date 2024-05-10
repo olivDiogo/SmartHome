@@ -38,9 +38,20 @@ public interface ILogService extends IService {
    *
    * @param readings1 is one list of readings.
    * @param readings2 is another list of readings.
-   * @return the list of the differences between the values.
+   * @return the Maximum difference between readings.
    */
   int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, TimeDelta timeDelta)
       throws EmptyReturnException;
+
+  /**
+   * Method to get the peak power consumption of a device in a given time period.
+   *
+   * @param readings
+   * @param readings2
+   * @param timeDelta
+   * @return
+   */
+
+  int getPeakPowerConsumption(List<Log> readings, List<Log> readings2, TimeDelta timeDelta);
 
 }

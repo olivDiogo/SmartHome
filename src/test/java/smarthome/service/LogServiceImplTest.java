@@ -8,7 +8,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
@@ -380,6 +382,294 @@ class LogServiceImplTest {
     String actual = exception.getMessage();
     assertEquals(expected, actual);
   }
+
+  @Test
+  void shouldReturnTheMaximumValueFromAListOfLogs_WhenGetMaximumValueFromListOfIntegersIsCalled() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("5");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+
+    ReadingValue readingValue2 = mock(ReadingValue.class);
+    when(readingValue2.getValue()).thenReturn("10");
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue2);
+
+    List<Log> logs = List.of(log, log2);
+
+    int expected = 10;
+    // Act
+    int result = logService.getMaximumValueFromListOfIntegers(logs);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void shouldReturnTheMaximumValueFromAListOfLogsWithNegativeAndZero_WhenGetMaximumValueFromListOfIntegersIsCalled() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("5");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+
+    ReadingValue readingValue2 = mock(ReadingValue.class);
+    when(readingValue2.getValue()).thenReturn("-10");
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue2);
+
+    ReadingValue readingValue3 = mock(ReadingValue.class);
+    when(readingValue3.getValue()).thenReturn("0");
+    Log log3 = mock(Log.class);
+    when(log3.getReadingValue()).thenReturn(readingValue3);
+
+    List<Log> logs = List.of(log, log2, log3);
+
+    int expected = 5;
+    // Act
+    int result = logService.getMaximumValueFromListOfIntegers(logs);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void shouldReturnMapWithAllPositionsOfTwoListsThatAreWithinTimeDelta_WhenGetPositionsOfReadingsWithinTimeDeltaIsCalled() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("5");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+    when(log.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 1));
+
+    ReadingValue readingValue2 = mock(ReadingValue.class);
+    when(readingValue2.getValue()).thenReturn("10");
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue2);
+    when(log2.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 2));
+
+    ReadingValue readingValue3 = mock(ReadingValue.class);
+    when(readingValue3.getValue()).thenReturn("10");
+    Log log3 = mock(Log.class);
+    when(log3.getReadingValue()).thenReturn(readingValue2);
+    when(log3.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 8));
+
+    List<Log> list1 = List.of(log);
+    List<Log> list2 = List.of(log2, log3);
+
+    int timeDelta = 5;
+
+    Map<Integer, Integer> expected = new HashMap<>();
+    expected.put(0, 0);
+
+    // Act
+    Map<Integer, Integer> result = logService.getPositionsOfReadingsWithinTimeDelta(list1, list2,
+        timeDelta);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void shouldReturnEmptyMapWhenNoReadingsAreWithinTimeDelta_WhenGetPositionsOfReadingsWithinTimeDeltaIsCalled() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("5");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+    when(log.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 1));
+
+    ReadingValue readingValue2 = mock(ReadingValue.class);
+    when(readingValue2.getValue()).thenReturn("10");
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue2);
+    when(log2.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 6));
+
+    List<Log> list1 = List.of(log);
+    List<Log> list2 = List.of(log2);
+
+    int timeDelta = 5;
+
+    Map<Integer, Integer> expected = new HashMap<>();
+
+    // Act
+    Map<Integer, Integer> result = logService.getPositionsOfReadingsWithinTimeDelta(list1, list2,
+        timeDelta);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void shouldReturnTrueWhenTwoLogsAreWithinTimeDelta_WheShouldReturnTrueWhenReadingIsWithinTimeDeltaIsCalled() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("5");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+    when(log.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 1));
+
+    ReadingValue readingValue2 = mock(ReadingValue.class);
+    when(readingValue2.getValue()).thenReturn("10");
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue2);
+    when(log2.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 2));
+
+    int timeDelta = 5;
+
+    boolean expected = true;
+
+    // Act
+    boolean result = logService.shouldReturnTrueWhenReadingIsWithinTimeDelta(log, log2, timeDelta);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void shouldReturnFalseWhenTwoLogsAreNotWithinTimeDelta_WheShouldReturnTrueWhenReadingIsWithinTimeDeltaIsCalled() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("5");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+    when(log.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 1));
+
+    ReadingValue readingValue2 = mock(ReadingValue.class);
+    when(readingValue2.getValue()).thenReturn("10");
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue2);
+    when(log2.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 6));
+
+    int timeDelta = 5;
+
+    boolean expected = false;
+
+    // Act
+    boolean result = logService.shouldReturnTrueWhenReadingIsWithinTimeDelta(log, log2, timeDelta);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void shouldReturnPeakPowerConsumptionWhenResultIsSumWithinDelta_WhenGetPeakPowerConsumptionIsCalled()
+      throws EmptyReturnException {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("5");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+    when(log.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 1));
+
+    ReadingValue readingValue2 = mock(ReadingValue.class);
+    when(readingValue2.getValue()).thenReturn("10");
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue2);
+    when(log2.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 2));
+
+    List<Log> list1 = List.of(log);
+    List<Log> list2 = List.of(log2);
+
+    TimeDelta timeDelta = mock(TimeDelta.class);
+    when(timeDelta.getMinutes()).thenReturn(5);
+
+    int expected = 15;
+
+    // Act
+    int result = logService.getPeakPowerConsumption(list1, list2, timeDelta);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void shouldReturnPeakPowerConsumptionWhenResultIsReadingFromFirstList_WhenGetPeakPowerConsumptionIsCalled()
+      throws EmptyReturnException {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("10");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+    when(log.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 1));
+
+    ReadingValue readingValue1 = mock(ReadingValue.class);
+    when(readingValue1.getValue()).thenReturn("2");
+    Log log1 = mock(Log.class);
+    when(log1.getReadingValue()).thenReturn(readingValue);
+    when(log1.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 4));
+
+    ReadingValue readingValue2 = mock(ReadingValue.class);
+    when(readingValue2.getValue()).thenReturn("5");
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue2);
+    when(log2.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 6));
+
+    List<Log> list1 = List.of(log);
+    List<Log> list2 = List.of(log2);
+
+    TimeDelta timeDelta = mock(TimeDelta.class);
+    when(timeDelta.getMinutes()).thenReturn(5);
+
+    int expected = 10;
+
+    // Act
+    int result = logService.getPeakPowerConsumption(list1, list2, timeDelta);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void shouldReturnPeakPowerConsumptionWhenResultIsReadingFromSecondList_WhenGetPeakPowerConsumptionIsCalled()
+      throws EmptyReturnException {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn("5");
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+    when(log.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 1));
+
+    ReadingValue readingValue2 = mock(ReadingValue.class);
+    when(readingValue2.getValue()).thenReturn("10");
+    Log log2 = mock(Log.class);
+    when(log2.getReadingValue()).thenReturn(readingValue2);
+    when(log2.getTimeStamp()).thenReturn(LocalDateTime.of(2024, 1, 1, 1, 8));
+
+    List<Log> list1 = List.of(log);
+    List<Log> list2 = List.of(log2);
+
+    TimeDelta timeDelta = mock(TimeDelta.class);
+    when(timeDelta.getMinutes()).thenReturn(5);
+
+    int expected = 10;
+
+    // Act
+    int result = logService.getPeakPowerConsumption(list2, list1, timeDelta);
+    // Assert
+    assertEquals(expected, result);
+  }
+
+
+
 
 
 }
