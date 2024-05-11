@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import smarthome.ddd.IAssembler;
@@ -36,6 +37,8 @@ import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
+import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 
 /**
  * Class representing a REST controller for operations related to devices in the smart home.
@@ -94,7 +97,7 @@ public class DeviceController {
    * @return The response entity (link HAETOS) with the retrieved device.
    */
   @GetMapping("/{id}")
-  public ResponseEntity<EntityModel<DeviceDTO>> getDevice(@PathVariable String id) {
+  public ResponseEntity<EntityModel<DeviceDTO>> getDevice(@PathVariable String id, @RequestParam(required = false) IActuatorDataDTO actuatorDataDTO, @RequestParam(required = false) ISensorDataDTO sensorDataDTO){
     DeviceID deviceID = new DeviceID(id);
     Optional<Device> device = deviceService.getDeviceByID(deviceID);
 
@@ -103,10 +106,17 @@ public class DeviceController {
     }
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(device.get());
 
+    // Link to self
     Link selfLink = linkTo(
-        methodOn(DeviceController.class).getDevice(id)).withSelfRel();
+        methodOn(DeviceController.class).getDevice(id, actuatorDataDTO, sensorDataDTO)).withSelfRel();
 
-    EntityModel<DeviceDTO> entityModel = EntityModel.of(deviceDTO, selfLink);
+    // Link to addActuator method in ActuatorController
+    Link addActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(actuatorDataDTO)).withRel("add-actuator");
+
+    // Link to addSensor method in SensorController
+    Link addSensorLink = linkTo(methodOn(SensorController.class).addSensor(sensorDataDTO)).withRel("add-sensor");
+
+    EntityModel<DeviceDTO> entityModel = EntityModel.of(deviceDTO, selfLink, addActuatorLink, addSensorLink);
 
     return ResponseEntity.ok(entityModel);
   }
