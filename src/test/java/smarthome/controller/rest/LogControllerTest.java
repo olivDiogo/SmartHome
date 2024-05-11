@@ -1,5 +1,6 @@
 package smarthome.controller.rest;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -37,9 +38,6 @@ class LogControllerTest {
   private MockMvc mockMvc;
 
   @Autowired
-  private ObjectMapper objectMapper;
-
-  @Autowired
   private ILogFactory logFactory;
 
   @MockBean
@@ -73,11 +71,9 @@ class LogControllerTest {
   @Test
   void shouldGetLogFromDevice_WhenParametersAreValid() throws Exception {
     // Arrange
-    // Create LogDataDTO
-    String deviceID = "123";
+    String deviceIDStr = "123";
     String timeStart = "2020-03-01T13:45:30";
     String timeEnd = "2022-03-01T13:50:30";
-    LogDataDTO logDataDTO = new LogDataDTO(deviceID, timeStart, timeEnd);
     Log log = setupLog();
     List<Log> logs = List.of(log);
 
@@ -86,10 +82,12 @@ class LogControllerTest {
         .thenReturn(logs);
 
     // Act & Assert
-    mockMvc.perform(get("/log/device")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(logDataDTO)))
-        .andExpect(status().isOk());
+    mockMvc.perform(get("/logs/")
+            .param("deviceID", deviceIDStr)
+            .param("timeStart", timeStart)
+            .param("timeEnd", timeEnd))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(1))); // Assuming the response is a list of logs
   }
 
   /**
@@ -98,11 +96,9 @@ class LogControllerTest {
   @Test
   void shouldReturnNotFound_WhenNoLogsFound() throws Exception {
     // Arrange
-    // Create LogDataDTO
-    String deviceID = "123";
+    String deviceIDStr = "123";
     String timeStart = "2020-03-01T13:45:30";
     String timeEnd = "2022-03-01T13:50:30";
-    LogDataDTO logDataDTO = new LogDataDTO(deviceID, timeStart, timeEnd);
     List<Log> logs = new ArrayList<>();
 
     when(logRepository.findByDeviceIDAndDatePeriodBetween(any(DeviceID.class),
@@ -110,9 +106,10 @@ class LogControllerTest {
         .thenReturn(logs);
 
     // Act & Assert
-    mockMvc.perform(get("/log/device")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(logDataDTO)))
+    mockMvc.perform(get("/logs/")
+            .param("deviceID", deviceIDStr)
+            .param("timeStart", timeStart)
+            .param("timeEnd", timeEnd))
         .andExpect(
             status().isNoContent());
   }
@@ -149,7 +146,7 @@ class LogControllerTest {
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/log/temperature-difference")
+    mockMvc.perform(get("/logs/temperature-difference")
             .contentType(MediaType.APPLICATION_JSON)
             .param("outsideDeviceIDStr", outsideDeviceIDStr)
             .param("insideDeviceIDStr", insideDeviceIDStr)
@@ -190,7 +187,7 @@ class LogControllerTest {
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/log/temperature-difference")
+    mockMvc.perform(get("/logs/temperature-difference")
             .contentType(MediaType.APPLICATION_JSON)
             .param("outsideDeviceIDStr", outsideDeviceIDStr)
             .param("insideDeviceIDStr", insideDeviceIDStr)
@@ -228,7 +225,7 @@ class LogControllerTest {
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/log/temperature-difference")
+    mockMvc.perform(get("/logs/temperature-difference")
             .contentType(MediaType.APPLICATION_JSON)
             .param("outsideDeviceIDStr", outsideDeviceIDStr)
             .param("insideDeviceIDStr", insideDeviceIDStr)
@@ -266,7 +263,7 @@ class LogControllerTest {
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/log/temperature-difference")
+    mockMvc.perform(get("/logs/temperature-difference")
             .contentType(MediaType.APPLICATION_JSON)
             .param("outsideDeviceIDStr", outsideDeviceIDStr)
             .param("insideDeviceIDStr", insideDeviceIDStr)

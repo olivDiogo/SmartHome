@@ -1,6 +1,5 @@
 package smarthome.controller.rest;
 
-import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,10 +19,9 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
 import smarthome.utils.dto.LogDTO;
-import smarthome.utils.dto.data_dto.LogDataDTO;
 
 @RestController
-@RequestMapping("/log")
+@RequestMapping("/logs")
 public class LogController {
 
   private final ILogService logService;
@@ -42,16 +39,16 @@ public class LogController {
   /**
    * Method to get Device Log (Readings) by Time Period
    */
-  @GetMapping("/device")
+  @GetMapping("/")
   public ResponseEntity<List<LogDTO>> getDeviceReadingsByTimePeriod(
-      @Valid @RequestBody LogDataDTO dto) throws EmptyReturnException {
-    DeviceID deviceID = new DeviceID(dto.deviceID);
-    LocalDateTime start = LocalDateTime.parse(dto.timeStart,
-        DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-    LocalDateTime end = LocalDateTime.parse(dto.timeEnd,
-        DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+      @RequestParam String deviceID,
+      @RequestParam String timeStart,
+      @RequestParam String timeEnd) throws EmptyReturnException {
+    DeviceID deviceIDObj = new DeviceID(deviceID);
+    LocalDateTime start = LocalDateTime.parse(timeStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+    LocalDateTime end = LocalDateTime.parse(timeEnd, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     DatePeriod period = new DatePeriod(start, end);
-    List<Log> logs = logService.getDeviceReadingsByTimePeriod(deviceID, period);
+    List<Log> logs = logService.getDeviceReadingsByTimePeriod(deviceIDObj, period);
     if (logs.isEmpty()) {
       ResponseEntity.notFound().build();
     }
