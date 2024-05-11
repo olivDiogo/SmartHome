@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator.ActuatorFactoryImpl;
@@ -694,11 +695,11 @@ class AddActuatorToDeviceControllerTest {
     String floor = "2";
     RoomDTO roomDTO = new RoomDTO(roomName, dimension, floor, nonExistentRoomID.toString());
 
-    String expectedMessage = "Room with ID " + nonExistentRoomID + " not found.";
+    String expectedMessage = "Room not found for ID: " + nonExistentRoomID;
 
     // Act & Assert
     Exception exception =
-        assertThrows(IllegalArgumentException.class, () -> controller.getDevicesFromRoom(roomDTO));
+        assertThrows(EntityNotFoundException.class, () -> controller.getDevicesFromRoom(roomDTO));
 
     assertEquals(expectedMessage, exception.getMessage());
   }

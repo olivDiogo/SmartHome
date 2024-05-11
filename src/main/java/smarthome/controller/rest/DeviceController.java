@@ -1,5 +1,8 @@
 package smarthome.controller.rest;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -10,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,12 +80,11 @@ public class DeviceController {
 
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(device);
 
-    var selfLink = WebMvcLinkBuilder.linkTo(
-        WebMvcLinkBuilder.methodOn(DeviceController.class).addDevice(data)).withSelfRel();
+    EntityModel<DeviceDTO> resource = EntityModel.of(deviceDTO,
+        linkTo(methodOn(DeviceController.class)
+            .addDevice(data)).withSelfRel());
 
-    var entityModel = EntityModel.of(deviceDTO, selfLink);
-
-    return ResponseEntity.status(HttpStatus.CREATED).body(entityModel);
+    return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
 
   /**
@@ -102,8 +103,8 @@ public class DeviceController {
     }
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(device.get());
 
-    Link selfLink = WebMvcLinkBuilder.linkTo(
-        WebMvcLinkBuilder.methodOn(DeviceController.class).getDevice(id)).withSelfRel();
+    Link selfLink = linkTo(
+        methodOn(DeviceController.class).getDevice(id)).withSelfRel();
 
     EntityModel<DeviceDTO> entityModel = EntityModel.of(deviceDTO, selfLink);
 
@@ -121,8 +122,8 @@ public class DeviceController {
     }
     List<DeviceDTO> deviceDTOs = deviceAssembler.domainToDTO(devices);
     CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
-        WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(DeviceController.class).getAllDevices())
+        linkTo(
+            methodOn(DeviceController.class).getAllDevices())
             .withSelfRel());
     return ResponseEntity.ok(resource);
   }
@@ -143,8 +144,8 @@ public class DeviceController {
 
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(deactivatedDevice);
 
-    Link selfLink = WebMvcLinkBuilder.linkTo(
-        WebMvcLinkBuilder.methodOn(DeviceController.class).deactivateDevice(id)).withSelfRel();
+    Link selfLink = linkTo(
+        methodOn(DeviceController.class).deactivateDevice(id)).withSelfRel();
 
     EntityModel<DeviceDTO> entityModel = EntityModel.of(deviceDTO, selfLink);
 
@@ -184,8 +185,8 @@ public class DeviceController {
     }
     CollectionModel<Map<DeviceType, List<DeviceDTO>>> resource = CollectionModel.of(
         List.of(devicesGroupedByFunctionality),
-        WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(DeviceController.class).getAllDevicesGroupedByFunctionality())
+        linkTo(
+            methodOn(DeviceController.class).getAllDevicesGroupedByFunctionality())
             .withSelfRel());
 
     return ResponseEntity.ok(resource);
