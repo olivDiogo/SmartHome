@@ -47,7 +47,7 @@ public class ActuatorTypeController {
       throws EmptyReturnException {
     List<ActuatorType> actuatorTypeList = actuatorTypeService.getAllActuatorTypes();
     if (actuatorTypeList.isEmpty()) {
-      return ResponseEntity.notFound().build();
+      return ResponseEntity.noContent().build();
     }
     List<ActuatorTypeDTO> actuatorTypeDTOList = actuatorTypeAssembler.domainToDTO(actuatorTypeList);
     CollectionModel<ActuatorTypeDTO> resource = CollectionModel.of(actuatorTypeDTOList,
