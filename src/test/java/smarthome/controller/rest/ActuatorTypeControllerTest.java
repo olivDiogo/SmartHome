@@ -19,6 +19,7 @@ import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.service.IActuatorTypeService;
 import smarthome.utils.dto.ActuatorTypeDTO;
 
+
 @WebMvcTest(ActuatorTypeController.class)
 class ActuatorTypeControllerTest {
 
@@ -61,6 +62,6 @@ class ActuatorTypeControllerTest {
 
     mockMvc.perform(get("/actuator-type/all")
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound());
+        .andExpect(status().isNoContent());
   }
 }
