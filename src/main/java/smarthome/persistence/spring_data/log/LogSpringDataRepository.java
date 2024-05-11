@@ -101,7 +101,7 @@ public class LogSpringDataRepository implements ILogRepository {
   public List<Log> findByDeviceIDAndDatePeriodBetween(DeviceID deviceID, DatePeriod period) {
     List<LogDataModel> models =
         repository.findByDeviceIDAndTimestampBetween(
-            deviceID, period.getStartDate(), period.getEndDate());
+            deviceID.getID(), period.getStartDate(), period.getEndDate());
     return assembler.toDomain(models);
   }
 
@@ -118,7 +118,7 @@ public class LogSpringDataRepository implements ILogRepository {
       SensorTypeID sensorTypeID, DatePeriod period) {
     List<LogDataModel> models =
         repository.findByDeviceIDAndSensorIDAndTimestampBetween(
-            deviceID, sensorTypeID, period.getStartDate(), period.getEndDate());
+            deviceID.getID(), sensorTypeID, period.getStartDate(), period.getEndDate());
     return assembler.toDomain(models);
   }
 }
