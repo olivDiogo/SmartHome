@@ -1,5 +1,6 @@
 package smarthome.domain.exceptions;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -35,5 +36,19 @@ public class GlobalExceptionHandler {
         ex.getMessage());
 
     return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
+  }
+
+  /**
+   * Handle {@link EntityNotFoundException}
+   * @param ex EntityNotFoundException
+   * @return ResponseEntity
+   */
+  @ExceptionHandler(EntityNotFoundException.class)
+  public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
+    ErrorResponseDTO errorResponse = new ErrorResponseDTO(
+        HttpStatus.NOT_FOUND.value(),
+        ex.getMessage());
+
+    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
   }
 }

@@ -183,25 +183,4 @@ class RoomServiceImplTest {
     // Assert
     assertEquals(mockRoom, room.get());
   }
-
-  /**
-   * Test the getRoomById method of the RoomService class with an invalid roomID.
-   */
-  @Test
-  void shouldReturnEmptyOptional_whenGetRoomByIdIsCalledWithInvalidRoomID() {
-    // Arrange
-    RoomServiceImpl roomServiceImpl;
-    RoomRepository roomRepository = mock(RoomRepository.class);
-    IRoomFactory roomFactory = mock(IRoomFactory.class);
-    HouseRepository houseRepository = mock(HouseRepository.class);
-    roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    RoomID roomID = mock(RoomID.class);
-    when(roomRepository.ofIdentity(any(RoomID.class))).thenReturn(Optional.empty());
-
-    // Act
-    Optional<Room> room = roomServiceImpl.getRoomById(roomID);
-
-    // Assert
-    assertTrue(room.isEmpty());
-  }
 }

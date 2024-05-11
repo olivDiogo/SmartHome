@@ -2,6 +2,7 @@ package smarthome.service;
 
 import java.util.List;
 import java.util.Optional;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
@@ -77,8 +78,12 @@ public class RoomServiceImpl implements IRoomService {
    * @return The room with the given ID.
    */
   @Override
-  public Optional<Room> getRoomById(RoomID roomID) {
-    return roomRepository.ofIdentity(roomID);
+  public Optional<Room> getRoomById(RoomID roomID) throws EntityNotFoundException {
+    Optional<Room> room = roomRepository.ofIdentity(roomID);
+    if (room.isEmpty()) {
+      throw new EntityNotFoundException("Room not found for ID: " + roomID);
+    }
+    return room;
   }
 
 }

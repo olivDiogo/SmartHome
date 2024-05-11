@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAggregateRoot;
 import smarthome.ddd.IAssembler;
@@ -435,7 +436,7 @@ class AddDeviceToRoomControllerTest {
 
     // Act + Assert
     assertThrows(
-        IllegalArgumentException.class,
+        EntityNotFoundException.class,
         () -> {
           addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
         });

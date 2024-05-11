@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
@@ -339,12 +340,12 @@ class GetDevicesFromRoomControllerTest {
     String floor = "2";
     RoomDTO roomDTO = new RoomDTO(roomName, dimension, floor, nonExistentRoomID.toString());
 
-    String expectedMessage = "Room with ID " + nonExistentRoomID + " not found.";
+    String expectedMessage = "Room not found for ID: " + nonExistentRoomID;
 
     // Act & Assert
     Exception exception =
         assertThrows(
-            IllegalArgumentException.class,
+            EntityNotFoundException.class,
             () -> getDevicesFromRoomController.getDevicesFromRoom(roomDTO));
 
     assertEquals(expectedMessage, exception.getMessage());

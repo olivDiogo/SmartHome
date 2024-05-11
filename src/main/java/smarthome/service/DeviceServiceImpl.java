@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.device.Device;
@@ -111,8 +112,12 @@ public class DeviceServiceImpl implements IDeviceService {
    * @return a list of devices in the room.
    */
   @Override
-  public List<Device> getDevicesByRoomId(RoomID roomId) {
-    return deviceRepository.findByRoomID(roomId);
+  public List<Device> getDevicesByRoomId(RoomID roomId) throws EntityNotFoundException {
+    List<Device> devices = deviceRepository.findByRoomID(roomId);
+    if (devices == null || devices.isEmpty()) {
+      throw new EntityNotFoundException("No devices found for room ID: " + roomId);
+    }
+    return devices;
   }
 
   /**

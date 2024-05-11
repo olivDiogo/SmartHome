@@ -60,7 +60,7 @@ public class RoomController {
    * @return The room that was added.
    */
   @PostMapping("/add")
-  public ResponseEntity<RoomDTO> addRoom(@Valid @RequestBody RoomDataDTO data){
+  public ResponseEntity<RoomDTO> addRoom(@Valid @RequestBody RoomDataDTO data) {
     HouseID houseID = new HouseID(data.houseID);
     RoomName name = new RoomName(data.name);
     RoomFloor floor = new RoomFloor(data.floor);
@@ -85,7 +85,7 @@ public class RoomController {
   /**
    * Get a room by ID
    *
-   * @param idStr
+   * @param idStr is the room ID
    * @return the room with the given ID
    */
   @GetMapping("/{id}")
@@ -94,8 +94,7 @@ public class RoomController {
     Optional<Room> room = roomService.getRoomById(id);
     if (room.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-    }
-    else {
+    } else {
       RoomDTO roomDTO = roomAssembler.domainToDTO(room.get());
       return ResponseEntity.ok(roomDTO);
     }
@@ -109,22 +108,15 @@ public class RoomController {
    */
   @GetMapping("/{id}/devices")
   public ResponseEntity<CollectionModel<DeviceDTO>> getDevicesInAGivenRoom(
-      @PathVariable("id") String idStr)
-      throws EmptyReturnException {
+      @PathVariable("id") String idStr) {
     RoomID id = new RoomID(idStr);
-    Optional<Room> room = roomService.getRoomById(id);
-    if (room.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-    } else {
-      Optional<List<Device>> devices = Optional.ofNullable(deviceService.getDevicesByRoomId(id));
-      if (devices.isEmpty()) {
-        return ResponseEntity.notFound().build();
-      } else {
-        List<DeviceDTO> deviceDTOs = deviceAssembler.domainToDTO(devices.get());
-        CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
-            linkTo(methodOn(RoomController.class).getDevicesInAGivenRoom(idStr)).withSelfRel());
-        return ResponseEntity.ok(resource);
-      }
-    }
+    roomService.getRoomById(id); // Check if room exists
+    List<DeviceDTO> deviceDTOs = deviceService.getDevicesByRoomId(id)
+        .stream()
+        .map(deviceAssembler::domainToDTO)
+        .toList();
+    CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
+        linkTo(methodOn(RoomController.class).getDevicesInAGivenRoom(idStr)).withSelfRel());
+    return ResponseEntity.ok(resource);
   }
 }
