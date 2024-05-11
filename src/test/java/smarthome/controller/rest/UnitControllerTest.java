@@ -61,6 +61,6 @@ class UnitControllerTest {
     // Act & Assert
     mockMvc.perform(get("/unit/all")
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound());
+        .andExpect(status().isNoContent());
   }
 }

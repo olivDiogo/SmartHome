@@ -46,7 +46,7 @@ public class UnitControlller {
   public ResponseEntity<CollectionModel<UnitDTO>> getUnits() throws EmptyReturnException {
     List<Unit> unitList = unitService.getAllMeasurementTypes();
     if (unitList.isEmpty()) {
-      return ResponseEntity.notFound().build();
+      return ResponseEntity.noContent().build();
     }
     List<UnitDTO> unitDTOList = unitAssembler.domainToDTO(unitList);
     CollectionModel<UnitDTO> resource = CollectionModel.of(unitDTOList,
