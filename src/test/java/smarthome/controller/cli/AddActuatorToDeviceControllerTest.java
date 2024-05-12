@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator.ActuatorFactoryImpl;
@@ -789,8 +789,8 @@ class AddActuatorToDeviceControllerTest {
     // Assert
 
     assertEquals(
-        expectedActuatorTypeDTOList.get(0).actuatorTypeID,
-        ActuatorTypeDTOList.get(0).actuatorTypeID);
+        expectedActuatorTypeDTOList.get(0).getActuatorTypeID(),
+        ActuatorTypeDTOList.get(0).getActuatorTypeID());
   }
 
   /**

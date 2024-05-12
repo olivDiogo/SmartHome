@@ -59,7 +59,7 @@ class ActuatorTypeIT {
     actuatorTypeService.addActuatorType(actuatorType);
 
     // Act & Assert
-    mockMvc.perform(get("/actuator-type/all")
+    mockMvc.perform(get("/actuator-types")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.actuatorTypeDTOList").exists())
@@ -75,7 +75,7 @@ class ActuatorTypeIT {
    */
   @Test
   void shouldReturnEmptyList_WhenNoActuatorTypesAvailable() throws Exception {
-    mockMvc.perform(get("/actuator-type/all")
+    mockMvc.perform(get("/actuator-types")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNoContent());
   }
