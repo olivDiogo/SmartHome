@@ -24,6 +24,7 @@ import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.utils.dto.ActuatorTypeDTO;
+import smarthome.utils.dto.data_dto.ActuatorTypeDataDTO;
 
 @RestController
 @RequestMapping("/actuator-types")
@@ -92,12 +93,12 @@ public class ActuatorTypeController {
    */
   @PostMapping("/add-actuator-type")
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<ActuatorTypeDTO> addActuatorType(
-      @Valid @RequestBody ActuatorTypeDTO actuatorTypeDTO)
+  public ResponseEntity<ActuatorTypeDTO> addActuatorType(@Valid
+  @RequestBody ActuatorTypeDataDTO actuatorTypeDataDTO)
       throws EmptyReturnException {
     TypeDescription typeDescription = new TypeDescription(
-        actuatorTypeDTO.getActuatorTypeDescription());
-    UnitID unitID = new UnitID(actuatorTypeDTO.getUnit());
+        actuatorTypeDataDTO.getActuatorTypeDescription());
+    UnitID unitID = new UnitID(actuatorTypeDataDTO.getUnit());
     ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unitID);
     actuatorTypeService.addActuatorType(actuatorType);
 
@@ -105,7 +106,8 @@ public class ActuatorTypeController {
 
     // HATEOAS Links
     dto.add(WebMvcLinkBuilder.linkTo(
-            WebMvcLinkBuilder.methodOn(ActuatorTypeController.class).addActuatorType(actuatorTypeDTO))
+            WebMvcLinkBuilder.methodOn(ActuatorTypeController.class).addActuatorType(
+                actuatorTypeDataDTO))
         .withSelfRel());
     dto.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ActuatorTypeController.class)
         .getActuatorTypes()).withRel("actuator-types"));
