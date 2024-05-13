@@ -108,6 +108,11 @@ class DeviceControllerTest {
     return deviceTypeFactory.createDeviceType(typeDescription);
   }
 
+  DeviceType setupDeviceTypeTwo() {
+    TypeDescription typeDescription = new TypeDescription("Fan");
+    return deviceTypeFactory.createDeviceType(typeDescription);
+  }
+
   DeviceDataDTO setupDeviceDataDTO(Room room, DeviceType deviceType) {
     String deviceTypeStr = deviceType.getID().toString();
     String deviceName = "Light";
@@ -402,36 +407,6 @@ class DeviceControllerTest {
         .andExpect(status().isNotFound());
   }
 
-  /**
-   * Test getAllDevicesGroupedByFunctionality returns a map of devices grouped by
-   * functionality, when devices have different type.
-   */
-  @Test
-  void shouldReturnDevicesGroupedByFunctionality_whenDevicesHaveDifferentType() throws Exception {
-    // Arrange
-    House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
-    DeviceType deviceType = setupDeviceType();
-    Room room = setupRoom(roomDataDTO);
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
-    Device device = setupDevice(deviceDataDTO);
-
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
-    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
-    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
-    when(deviceRepository.findAll()).thenReturn(List.of(device));
-
-    int expectedSize = List.of(device).size();
-
-    String descriptionKey = "Device Type:  Device Description= " + deviceType.getDescription() + " ID= " + deviceType.getID();
-
-    // Act & Assert
-    mockMvc.perform(get("/device/all/grouped")
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + descriptionKey + "']", hasSize(expectedSize)))
-        .andExpect(jsonPath("$._links.self").exists());
-  }
 
   /**
    * Test getAllDevicesGroupedByFunctionality when no devices are available
@@ -479,38 +454,48 @@ class DeviceControllerTest {
         .andExpect(status().isBadRequest());
   }
 
+
   /**
-   *Test getAllDevicesGroupedByFunctionality returns a map of devices grouped by
-   * functionality, when devices have the same type.
+   * Test getAllDevicesGroupedByFunctionality returns a map of devices grouped by
+   * functionality, when devices have different type.
    */
   @Test
-  void shouldReturnDevicesGroupedByFunctionality_whenDevicesHaveSameType() throws Exception {
+  void shouldReturnDevicesGroupedByFunctionality_whenDevicesHaveDifferentType() throws Exception {
     // Arrange
     House house = setupHouse();
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
-    DeviceType deviceType = setupDeviceType();
     Room room = setupRoom(roomDataDTO);
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
-    Device device = setupDevice(deviceDataDTO);
-    DeviceDataDTO deviceDataDTO2 = setupDeviceDataDTO(room, deviceType);
-    Device device2 = setupDevice(deviceDataDTO2);
+    DeviceType deviceType = setupDeviceType();
+    DeviceType deviceType2 = setupDeviceTypeTwo();
+
+    Device device = setupDevice(setupDeviceDataDTO(room, deviceType));
+    Device deviceTwo = setupDevice(setupDeviceDataDTO(room, deviceType2));
+    Device deviceThree = setupDevice(setupDeviceDataDTO(room, deviceType2));
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
     when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(deviceTypeRepository.ofIdentity(deviceType2.getID())).thenReturn(Optional.of(deviceType2));
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
-    when(deviceRepository.findAll()).thenReturn(List.of(device, device2));
+    when(deviceRepository.findAll()).thenReturn(List.of(device, deviceTwo, deviceThree));
 
-    int expectedSize = List.of(device, device2).size();
+    String keyTypeOne = deviceType.toString();
+    String keyTypeTwo = deviceType2.toString();
 
-    String descriptionKey = "Device Type:  Device Description= " + deviceType.getDescription() + " ID= " + deviceType.getID();
+    System.out.println(keyTypeOne);
+    System.out.println(keyTypeTwo);
 
     // Act & Assert
     mockMvc.perform(get("/device/all/grouped")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + descriptionKey + "']", hasSize(expectedSize)))
-        .andExpect(jsonPath("$._links.self").exists());
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeOne + "']", hasSize(1)))
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeOne + "'][0].deviceID").value(device.getID().getID()))
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeTwo + "']", hasSize(2)))
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeTwo + "'][0].deviceID").value(deviceTwo.getID().getID()))
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeTwo + "'][1].deviceID").value(deviceThree.getID().getID()));
   }
+
+
 
 
 }
