@@ -3,7 +3,7 @@
 
 [SmartHome] as SmartHome <<system (C4)>> <<component>>
 
-CLI -down- SmartHome
+CLIUI -down- SmartHome
 APIRest -down- SmartHome
 
 
