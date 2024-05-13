@@ -79,4 +79,42 @@ class ActuatorTypeIT {
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNoContent());
   }
+
+  /**
+   * This test case verifies that the ActuatorTypeController returns an actuator type when it is
+   * found.
+   */
+  @Test
+  void shouldReturnActuatorType_WhenFound() throws Exception {
+    // Arrange
+    TypeDescription typeDescription = new TypeDescription("Test");
+    IUnitFactory unitFactory = new UnitFactoryImpl();
+    UnitDescription unitDescription = new UnitDescription("unitDescription");
+    UnitSymbol unitSymbol = new UnitSymbol("C");
+    Unit unit = unitFactory.createUnit(unitDescription, unitSymbol);
+    UnitID unitID = unit.getID();
+    unitRepository.save(unit);
+    ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unitID);
+    actuatorTypeService.addActuatorType(actuatorType);
+
+    // Act & Assert
+    mockMvc.perform(get("/actuator-types/" + actuatorType.getID().getID())
+            .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.actuatorTypeID", is(actuatorType.getID().getID())))
+        .andExpect(jsonPath("$.actuatorTypeDescription", is("Test")))
+        .andExpect(jsonPath("$.unit", is("unitDescription")))
+        .andExpect(jsonPath("$._links.self.href").exists());
+  }
+
+  /**
+   * This test case verifies that the ActuatorTypeController returns a not found status when an
+   * actuator type is not found.
+   */
+  @Test
+  void shouldReturnNotFound_WhenActuatorTypeNotFound() throws Exception {
+    mockMvc.perform(get("/actuator-types/1")
+            .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNotFound());
+  }
 }
