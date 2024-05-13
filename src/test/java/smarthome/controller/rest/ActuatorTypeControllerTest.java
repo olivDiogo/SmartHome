@@ -143,6 +143,10 @@ class ActuatorTypeControllerTest {
         .andExpect(jsonPath("$._links.self.href").exists());
   }
 
+  /**
+   * This test case verifies that the ActuatorTypeController returns a bad request status when an
+   * invalid actuator type is added.
+   */
   @Test
   void shouldReturnBadRequest_WhenInvalidActuatorTypeAdded() throws Exception {
     // Act & Assert

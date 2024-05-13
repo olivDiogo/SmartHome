@@ -23,7 +23,7 @@ public class ActuatorTypeID implements IDomainID {
    * @param actuatorTypeID is the ID of the actuator type.
    */
   private void validationActuatorTypeID(String actuatorTypeID) {
-    if (actuatorTypeID == null || actuatorTypeID.isBlank()) {
+    if (actuatorTypeID == null || actuatorTypeID.trim().isBlank()) {
       throw new IllegalArgumentException(
           "The value of 'actuatorTypeID' should not null, blank, or empty.");
     }

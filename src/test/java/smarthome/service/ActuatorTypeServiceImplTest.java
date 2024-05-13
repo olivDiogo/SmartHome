@@ -298,7 +298,7 @@ class ActuatorTypeServiceImplTest {
 
     ActuatorTypeID actuatorTypeID = null;
 
-    String expectedMessage = "Please enter a valid sensor type ID.";
+    String expectedMessage = "Please enter a valid actuator type ID.";
 
     ActuatorTypeServiceImpl ActuatorTypeServiceImpl =
         new ActuatorTypeServiceImpl(
@@ -332,7 +332,7 @@ class ActuatorTypeServiceImplTest {
     ActuatorTypeRepository actuatorTypeRepositoryDouble = mock(ActuatorTypeRepository.class);
     UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
 
-    String expectedMessage = "Please enter a valid sensor type.";
+    String expectedMessage = "Please enter a valid actuator type.";
 
     ActuatorTypeServiceImpl ActuatorTypeServiceImpl =
         new ActuatorTypeServiceImpl(

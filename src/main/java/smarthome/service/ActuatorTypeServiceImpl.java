@@ -61,7 +61,7 @@ public class ActuatorTypeServiceImpl implements smarthome.domain.service.IActuat
   @Override
   public ActuatorType addActuatorType(ActuatorType type) {
     if (type == null) {
-      throw new IllegalArgumentException("Please enter a valid sensor type.");
+      throw new IllegalArgumentException("Please enter a valid actuator type.");
     }
     return actuatorTypeRepository.save(type);
   }
@@ -80,7 +80,7 @@ public class ActuatorTypeServiceImpl implements smarthome.domain.service.IActuat
   @Override
   public Optional<ActuatorType> getActuatorTypeByID(ActuatorTypeID typeId) {
     if (typeId == null) {
-      throw new IllegalArgumentException("Please enter a valid sensor type ID.");
+      throw new IllegalArgumentException("Please enter a valid actuator type ID.");
     }
     return actuatorTypeRepository.ofIdentity(typeId);
   }
