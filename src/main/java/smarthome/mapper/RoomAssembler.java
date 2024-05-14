@@ -25,7 +25,7 @@ public class RoomAssembler implements IAssembler<Room, RoomDTO> {
 
     String roomName = room.getName().toString();
     String dimension = room.getDimension().toString();
-    String roomFloor = room.getFloor().toString();
+    int roomFloor = room.getFloor().getFloor();
     String roomID = room.getID().toString();
 
     return new RoomDTO(roomName, dimension, roomFloor, roomID);

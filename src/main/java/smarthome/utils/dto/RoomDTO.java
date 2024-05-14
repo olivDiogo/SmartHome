@@ -7,24 +7,9 @@ import smarthome.ddd.IDTO;
  */
 public class RoomDTO implements IDTO {
 
-  /**
-   * The name of the room.
-   */
   public final String roomName;
-
-  /**
-   * The dimensions of the room.
-   */
   public final String dimensions;
-
-  /**
-   * The floor of the room.
-   */
-  public final String floor;
-
-  /**
-   * The unique identifier of the room.
-   */
+  public final int floor;
   public final String roomId;
 
   /**
@@ -35,7 +20,7 @@ public class RoomDTO implements IDTO {
    * @param roomFloor     The floor of the room.
    * @param roomID        The unique identifier of the room.
    */
-  public RoomDTO(String roomName, String roomDimension, String roomFloor, String roomID) {
+  public RoomDTO(String roomName, String roomDimension, int roomFloor, String roomID) {
     this.roomName = roomName;
     this.dimensions = roomDimension;
     this.floor = roomFloor;
