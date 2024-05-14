@@ -24,21 +24,17 @@ class DeviceTypeAssemblerTest {
   @Test
   void shouldReturnDeviceTypeAssemblerDTO_WhenDeviceTypeIsValid() {
     // Arrange
-    String deviceTypeID = "Switch Device";
     String deviceTypeDescription = "Switch Device Description";
-
     DeviceType deviceType = mock(DeviceType.class);
     when(deviceType.getID()).thenReturn(mock(DeviceTypeID.class));
-    when(deviceType.getID().toString()).thenReturn(deviceTypeID);
     when(deviceType.getDescription()).thenReturn(mock(TypeDescription.class));
     when(deviceType.getDescription().toString()).thenReturn(deviceTypeDescription);
 
     DeviceTypeAssembler deviceTypeAssembler = new DeviceTypeAssembler();
-    String expected = deviceTypeID + " " + deviceTypeDescription;
     // Act
     DeviceTypeDTO deviceTypeDTO = deviceTypeAssembler.domainToDTO(deviceType);
     // Assert
-    assertEquals(expected, deviceTypeDTO.toString());
+    assertEquals(deviceTypeDescription, deviceTypeDTO.toString());
   }
 
   /**
@@ -116,7 +112,7 @@ class DeviceTypeAssemblerTest {
 
     DeviceTypeAssembler deviceTypeAssembler = new DeviceTypeAssembler();
     List<DeviceType> deviceTypes = List.of(deviceType);
-    DeviceTypeDTO expectedDeviceType = new DeviceTypeDTO(deviceTypeID, deviceTypeDescription);
+    DeviceTypeDTO expectedDeviceType = new DeviceTypeDTO(deviceTypeDescription);
     List<DeviceTypeDTO> expected = List.of(expectedDeviceType);
 
     // Act

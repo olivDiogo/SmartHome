@@ -1,29 +1,25 @@
 package smarthome.utils.dto;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.RepresentationModel;
 import smarthome.ddd.IDTO;
 
+@EqualsAndHashCode
 public class DeviceTypeDTO extends RepresentationModel<DeviceTypeDTO> implements IDTO {
 
-  public final String deviceTypeID;
   public final String description;
 
   /**
    * Constructs a new DeviceTypeDTO object.
    *
-   * @param deviceTypeID          The description of the device type.
    * @param description The description of the device type.
    */
-  public DeviceTypeDTO(String deviceTypeID, String description) {
-    this.deviceTypeID = deviceTypeID;
+  public DeviceTypeDTO(String description) {
     this.description = description;
   }
 
-  /**
-   * Returns a string representation of the DeviceTypeDTO object.
-   */
   @Override
   public String toString() {
-    return deviceTypeID + " " + description;
+    return description;
   }
 }

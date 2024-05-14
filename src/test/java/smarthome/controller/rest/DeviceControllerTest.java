@@ -487,18 +487,15 @@ class DeviceControllerTest {
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
     when(deviceRepository.findAll()).thenReturn(List.of(device, deviceTwo, deviceThree));
 
-    String keyTypeOne = deviceType.toString();
-    String keyTypeTwo = deviceType2.toString();
-
     // Act & Assert
     mockMvc.perform(get("/devices/grouped")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeOne + "']", hasSize(1)))
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeOne + "'][0].deviceID").value(device.getID().getID()))
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeTwo + "']", hasSize(2)))
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeTwo + "'][0].deviceID").value(deviceTwo.getID().getID()))
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeTwo + "'][1].deviceID").value(deviceThree.getID().getID()));
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription + "']", hasSize(1)))
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription + "'][0].deviceID").value(device.getID().getID()))
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription2 + "']", hasSize(2)))
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription2 + "'][0].deviceID").value(deviceTwo.getID().getID()))
+        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription2 + "'][1].deviceID").value(deviceThree.getID().getID()));
   }
 
 }

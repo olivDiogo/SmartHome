@@ -27,10 +27,9 @@ public class DeviceTypeAssembler implements IAssembler<DeviceType, DeviceTypeDTO
   public DeviceTypeDTO domainToDTO(DeviceType domainEntity) {
     Validator.validateNotNull(domainEntity, "DeviceType");
 
-    String deviceTypeID = domainEntity.getID().toString();
     String deviceTypeDescription = domainEntity.getDescription().toString();
 
-    return new DeviceTypeDTO(deviceTypeID, deviceTypeDescription);
+    return new DeviceTypeDTO(deviceTypeDescription);
   }
 
   /**
