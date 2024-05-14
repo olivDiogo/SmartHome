@@ -7,6 +7,8 @@ component SmartHome <<system (C4)>> {
     component Backend {
         port p3
         port p4
+        component Database
+        component Server
     }
 
     component CLI{
@@ -17,11 +19,11 @@ component SmartHome <<system (C4)>> {
 
 CLIUI -down- p1
 p5 - p1
-
+p6 -(0- p4
 
 p3 - p2
 p2 -up- APIRest
 
-p6-(0- p4
+Database -(0- Server
 
 @enduml
