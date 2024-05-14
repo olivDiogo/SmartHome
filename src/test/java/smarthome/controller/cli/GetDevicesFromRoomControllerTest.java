@@ -337,7 +337,7 @@ class GetDevicesFromRoomControllerTest {
 
     String roomName = "Quarto da Maria";
     String dimension = "10x10x10";
-    String floor = "2";
+    int floor = 2;
     RoomDTO roomDTO = new RoomDTO(roomName, dimension, floor, nonExistentRoomID.toString());
 
     String expectedMessage = "Room not found for ID: " + nonExistentRoomID;

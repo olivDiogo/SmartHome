@@ -68,7 +68,7 @@ class RoomControllerTest {
     when(mockRoom.getFloor()).thenReturn(mockFloor);
     when(mockRoom.getDimension()).thenReturn(mockDimension);
     when(mockRoom.getID()).thenReturn(mockId);
-    RoomDTO roomDTO = new RoomDTO("123", "1", "1", "1");
+    RoomDTO roomDTO = new RoomDTO("123", "1", 1, "1");
     when(roomService.addRoom(
             any(HouseID.class), any(RoomName.class), any(Dimension.class), any(RoomFloor.class)))
         .thenReturn(mockRoom);
