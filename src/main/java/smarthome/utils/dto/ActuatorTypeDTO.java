@@ -1,21 +1,19 @@
 package smarthome.utils.dto;
 
-import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
 import smarthome.ddd.IDTO;
 
 /**
  * Data Transfer Object (DTO) representing an actuator type.
  */
-@Getter
 public class ActuatorTypeDTO extends RepresentationModel<ActuatorTypeDTO> implements IDTO {
 
   /**
    * Description of the actuator type.
    */
-  private final String actuatorTypeID;
-  private final String actuatorTypeDescription;
-  private final String unit;
+  public final String actuatorTypeID;
+  public final String actuatorTypeDescription;
+  public final String unit;
 
   /**
    * Constructs a new ActuatorTypeDTO object.

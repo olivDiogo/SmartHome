@@ -97,8 +97,8 @@ public class ActuatorTypeController {
   @RequestBody ActuatorTypeDataDTO actuatorTypeDataDTO)
       throws EmptyReturnException {
     TypeDescription typeDescription = new TypeDescription(
-        actuatorTypeDataDTO.getActuatorTypeDescription());
-    UnitID unitID = new UnitID(actuatorTypeDataDTO.getUnit());
+        actuatorTypeDataDTO.actuatorTypeDescription);
+    UnitID unitID = new UnitID(actuatorTypeDataDTO.unit);
     ActuatorType actuatorType = actuatorTypeService.createActuatorType(typeDescription, unitID);
     actuatorTypeService.addActuatorType(actuatorType);
 

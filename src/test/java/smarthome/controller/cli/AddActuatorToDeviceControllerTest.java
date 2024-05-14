@@ -789,8 +789,8 @@ class AddActuatorToDeviceControllerTest {
     // Assert
 
     assertEquals(
-        expectedActuatorTypeDTOList.get(0).getActuatorTypeID(),
-        ActuatorTypeDTOList.get(0).getActuatorTypeID());
+        expectedActuatorTypeDTOList.get(0).actuatorTypeID,
+        ActuatorTypeDTOList.get(0).actuatorTypeID);
   }
 
   /**

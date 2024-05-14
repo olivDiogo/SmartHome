@@ -9,14 +9,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Links;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.ddd.IAssembler;
@@ -24,6 +23,7 @@ import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.service.IActuatorTypeService;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.utils.dto.ActuatorTypeDTO;
+import smarthome.utils.dto.data_dto.ActuatorTypeDataDTO;
 
 
 @WebMvcTest(ActuatorTypeController.class)
@@ -45,7 +45,7 @@ class ActuatorTypeControllerTest {
   void shouldReturnActuatorTypes_WhenFound() throws Exception {
     // Arrange
     ActuatorType actuatorType = mock(ActuatorType.class);
-    ActuatorTypeDTO actuatorTypeDTO = mock(ActuatorTypeDTO.class);
+    ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO("Test", "Test", "Celsius");
     when(actuatorTypeService.getAllActuatorTypes()).thenReturn(
         Collections.singletonList(actuatorType));
     when(actuatorTypeAssembler.domainToDTO(Collections.singletonList(actuatorType)))
@@ -79,15 +79,9 @@ class ActuatorTypeControllerTest {
   void shouldReturnActuatorType_WhenFound() throws Exception {
     // Arrange
     ActuatorType actuatorType = mock(ActuatorType.class);
-    ActuatorTypeDTO actuatorTypeDTO = mock(ActuatorTypeDTO.class);
-    Link selfLink = Link.of("/actuator-types/1").withSelfRel();
+    ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO("Test", "Test", "Celsius");
     when(actuatorTypeService.getActuatorTypeByID(any())).thenReturn(Optional.of(actuatorType));
     when(actuatorTypeAssembler.domainToDTO(actuatorType)).thenReturn(actuatorTypeDTO);
-    when(actuatorTypeDTO.getActuatorTypeID()).thenReturn("1");
-    when(actuatorTypeDTO.getActuatorTypeDescription()).thenReturn("Test");
-    when(actuatorTypeDTO.getUnit()).thenReturn("Test");
-    when(actuatorTypeDTO.add(any(Link.class))).thenReturn(actuatorTypeDTO);
-    when(actuatorTypeDTO.getLinks()).thenReturn(Links.of(selfLink));
 
     // Act & Assert
     mockMvc.perform(get("/actuator-types/1")
@@ -121,22 +115,21 @@ class ActuatorTypeControllerTest {
   void shouldReturnCreated_WhenActuatorTypeAdded() throws Exception {
     // Arrange
     ActuatorType actuatorType = mock(ActuatorType.class);
-    ActuatorTypeDTO actuatorTypeDTO = mock(ActuatorTypeDTO.class);
-    Link selfLink = Link.of("/actuator-types/add-actuator-type").withSelfRel();
+    ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO("Test", "Test", "Celsius");
+    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", "Test");
+    ObjectMapper objectMapper = new ObjectMapper();
+    String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
-    when(actuatorType.getID()).thenReturn(actuatorTypeID); // Mock the getID method
-    when(actuatorTypeID.getID()).thenReturn("1"); // Mock the getID method of ActuatorTypeID
+    when(actuatorType.getID()).thenReturn(actuatorTypeID);
+    when(actuatorTypeID.getID()).thenReturn("1");
     when(actuatorTypeService.createActuatorType(any(), any())).thenReturn(actuatorType);
     when(actuatorTypeAssembler.domainToDTO(actuatorType)).thenReturn(actuatorTypeDTO);
-    when(actuatorTypeDTO.getActuatorTypeID()).thenReturn("1");
-    when(actuatorTypeDTO.getActuatorTypeDescription()).thenReturn("Test");
-    when(actuatorTypeDTO.getUnit()).thenReturn("Test");
-    when(actuatorTypeDTO.getLinks()).thenReturn(Links.of(selfLink));
 
     // Act & Assert
     mockMvc.perform(post("/actuator-types/add-actuator-type")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{\"actuatorTypeDescription\": \"Test\", \"unit\": \"Test\"}"))
+            .content(jsonContent)
+            .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.actuatorTypeDescription").exists())
         .andExpect(jsonPath("$.unit").exists())
@@ -149,10 +142,14 @@ class ActuatorTypeControllerTest {
    */
   @Test
   void shouldReturnBadRequest_WhenInvalidActuatorTypeAdded() throws Exception {
+    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("", "");
+    ObjectMapper objectMapper = new ObjectMapper();
+    String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
     // Act & Assert
     mockMvc.perform(post("/actuator-types/add-actuator-type")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{\"actuatorTypeDescription\": \"\", \"unit\": \"\"}"))
+            .content(jsonContent)
+            .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isBadRequest());
   }
 }

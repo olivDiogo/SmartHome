@@ -144,7 +144,7 @@ public class AddActuatorToDeviceController {
 
   public List<ActuatorModelDTO> getActuatorModels(ActuatorTypeDTO actuatorTypeDTO)
       throws EmptyReturnException {
-    ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeDTO.getActuatorTypeID());
+    ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeDTO.actuatorTypeID);
     if (actuatorTypeService.getActuatorTypeByID(actuatorTypeID).isEmpty()) {
       throw new IllegalArgumentException("Actuator type with ID " + actuatorTypeID + " not found.");
     }
