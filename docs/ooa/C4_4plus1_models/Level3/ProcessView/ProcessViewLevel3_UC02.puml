@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "RestClient" as RC
+
+box "Smart Home"
+    participant "Server" as Server
+    participant "Database" as DB
+end box
+
+User -> RC : I want to add a Room
+activate RC
+
+RC -> Server : addRoom(roomDataDTO)
+activate Server
+
+Server -> DB : save(roomDataModel)
+
+Server --> RC : roomDTO
+deactivate Server
+
+RC --> User : roomDTO
+deactivate RC
+@enduml
