@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "RestClient" as RC
+box "Smart Home"
+    participant "Backend" as BE
+end box
+
+User -> RC : I want to get all devices grouped by functionality
+activate RC
+
+RC -> BE : getAllDevicesGroupedByFunctionality()
+activate BE
+
+BE --> RC : deviceDTOListGroupedByFunctionality
+deactivate BE
+
+RC --> User : deviceDTOListGroupedByFunctionality
+deactivate RC
+
+@enduml
