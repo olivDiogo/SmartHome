@@ -102,7 +102,6 @@ public class ActuatorControllerTest {
     RoomID roomID = room.getID();
     String strDeviceName = "LivingRoomLight1";
     DeviceName deviceName = new DeviceName(strDeviceName);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
 
     String strTypeDescription = "Light";
     TypeDescription typeDescription = new TypeDescription(strTypeDescription);
@@ -111,7 +110,7 @@ public class ActuatorControllerTest {
     DeviceTypeID deviceTypeID = deviceType.getID();
 
     DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    return deviceFactory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    return deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
   }
 
   /**

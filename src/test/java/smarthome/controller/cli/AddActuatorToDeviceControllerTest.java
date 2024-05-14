@@ -159,8 +159,8 @@ class AddActuatorToDeviceControllerTest {
     DeviceName deviceName2 = new DeviceName(nameDevice);
     DeviceStatus deviceStatus = new DeviceStatus(true);
     DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-    deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
-    deviceServiceImpl.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
+    deviceServiceImpl.addDevice(roomID, deviceName, deviceTypeID);
+    deviceServiceImpl.addDevice(roomID, deviceName2, deviceTypeID);
     List<Device> devices = deviceServiceImpl.getDevicesByRoomId(roomID);
     return devices.get(0);
   }

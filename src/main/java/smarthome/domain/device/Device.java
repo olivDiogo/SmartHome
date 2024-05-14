@@ -23,17 +23,15 @@ public class Device implements IAggregateRoot<DeviceID> {
    *
    * @param roomID       The room ID where the device is located. Must not be null.
    * @param name   The name of the device. Must not be null.
-   * @param deviceStatus The state of the device. Must not be null.
    */
-  Device(RoomID roomID, DeviceName name, DeviceStatus deviceStatus,
+  Device(RoomID roomID, DeviceName name,
       DeviceTypeID deviceTypeID) {
     Validator.validateNotNull(roomID, "RoomID");
     Validator.validateNotNull(name, "DeviceName");
-    Validator.validateNotNull(deviceStatus, "DeviceStatus");
     Validator.validateNotNull(deviceTypeID, "DeviceTypeID");
     this.roomID = roomID;
     this.name = name;
-    this.status = deviceStatus;
+    setDeviceStatus();
     this.deviceTypeID = deviceTypeID;
     generateDeviceID();
   }
@@ -61,6 +59,13 @@ public class Device implements IAggregateRoot<DeviceID> {
     this.name = name;
     this.status = deviceStatus;
     this.deviceTypeID = deviceTypeID;
+  }
+
+  /**
+   * Device Status must be set to true by default
+   */
+  private void setDeviceStatus() {
+    this.status = new DeviceStatus(true);
   }
 
   /**

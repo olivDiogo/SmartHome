@@ -255,7 +255,6 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
 
     String name = "Light";
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
     String strDeviceTypeID1 = "Bedroom Light";
     String strDeviceTypeID2 = "Kitchen Light";
     TypeDescription deviceTypeDescription1 = new TypeDescription(strDeviceTypeID1);
@@ -267,9 +266,9 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     deviceTypeRepository.save(deviceType1);
     deviceTypeRepository.save(deviceType2);
 
-    Device device1 = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus,
+    Device device1 = deviceServiceImpl.addDevice(roomID, deviceName,
         deviceType1.getID());
-    Device device2 = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus,
+    Device device2 = deviceServiceImpl.addDevice(roomID, deviceName,
         deviceType2.getID());
 
     //Act
@@ -344,7 +343,6 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     String name2 = "Light2";
     DeviceName deviceName1 = new DeviceName(name1);
     DeviceName deviceName2 = new DeviceName(name2);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
     String strDeviceTypeID = "Bedroom Light";
     TypeDescription deviceTypeDescription = new TypeDescription(strDeviceTypeID);
 
@@ -352,9 +350,9 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
 
     deviceTypeRepository.save(deviceType);
 
-    Device device1 = deviceServiceImpl.addDevice(roomID, deviceName1, deviceStatus,
+    Device device1 = deviceServiceImpl.addDevice(roomID, deviceName1,
         deviceType.getID());
-    Device device2 = deviceServiceImpl.addDevice(roomID, deviceName2, deviceStatus,
+    Device device2 = deviceServiceImpl.addDevice(roomID, deviceName2,
         deviceType.getID());
 
     //Act
@@ -426,7 +424,6 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
 
     String name = "Light";
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
 
     String strDeviceTypeID = "Wrong Type Description";
     TypeDescription deviceTypeDescription = new TypeDescription(strDeviceTypeID);
@@ -435,7 +432,7 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     when(deviceType.getID()).thenReturn(new DeviceTypeID("Wrong Type ID"));
     when(deviceType.getDescription()).thenReturn(deviceTypeDescription);
 
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus,
+    Device device = deviceServiceImpl.addDevice(roomID, deviceName,
         deviceType.getID());
 
     String expectedMessage = "DeviceType not found.";

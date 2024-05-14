@@ -162,7 +162,6 @@ class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
     String name2 = "Light2";
     DeviceName deviceName1 = new DeviceName(name1);
     DeviceName deviceName2 = new DeviceName(name2);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
     String strDeviceTypeID = "Bedroom Light";
     TypeDescription deviceTypeDescription = new TypeDescription(strDeviceTypeID);
 
@@ -175,10 +174,10 @@ class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
     deviceTypeRepository.save(deviceType);
     deviceTypeRepository.save(deviceType2);
 
-    deviceService.addDevice(roomID, deviceName1, deviceStatus, deviceType.getID());
-    Device device1 = deviceService.addDevice(roomID, deviceName2, deviceStatus,
+    deviceService.addDevice(roomID, deviceName1, deviceType.getID());
+    Device device1 = deviceService.addDevice(roomID, deviceName2,
         deviceType2.getID());
-    Device device2 = deviceService.addDevice(roomID, deviceName2, deviceStatus,
+    Device device2 = deviceService.addDevice(roomID, deviceName2,
         deviceType2.getID());
 
     /* Get list of Rooms */
@@ -271,7 +270,6 @@ class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
     String name2 = "Light2";
     DeviceName deviceName1 = new DeviceName(name1);
     DeviceName deviceName2 = new DeviceName(name2);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
     String strDeviceTypeID = "Bedroom Light";
     TypeDescription deviceTypeDescription = new TypeDescription(strDeviceTypeID);
 
@@ -284,8 +282,8 @@ class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
     deviceTypeRepository.save(deviceType);
     deviceTypeRepository.save(deviceType2);
 
-    deviceService.addDevice(roomID, deviceName1, deviceStatus, deviceType.getID());
-    deviceService.addDevice(roomID, deviceName2, deviceStatus, deviceType2.getID());
+    deviceService.addDevice(roomID, deviceName1, deviceType.getID());
+    deviceService.addDevice(roomID, deviceName2, deviceType2.getID());
 
 
     /* Get map of devices grouped by functionality */

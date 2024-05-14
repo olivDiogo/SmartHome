@@ -17,9 +17,9 @@ public class DeviceFactoryImpl implements IDeviceFactory {
    * @return a newly created Device instance without ID
    */
   @Override
-  public Device createDevice(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus,
+  public Device createDevice(RoomID roomID, DeviceName deviceName,
       DeviceTypeID deviceTypeID) {
-    return new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    return new Device(roomID, deviceName, deviceTypeID);
   }
 
   /**

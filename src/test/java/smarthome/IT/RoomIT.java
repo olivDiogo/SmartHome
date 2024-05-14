@@ -234,9 +234,9 @@ class RoomIT {
     DeviceName deviceName = new DeviceName("device1");
     DeviceStatus deviceStatus = new DeviceStatus(true);
     DeviceTypeID deviceTypeID = new DeviceTypeID("device1");
-    Device device1 = deviceFactory.createDevice(room.getID(), deviceName, deviceStatus,
+    Device device1 = deviceFactory.createDevice(room.getID(), deviceName,
         deviceTypeID);
-    Device device2 = deviceFactory.createDevice(room.getID(), deviceName, deviceStatus,
+    Device device2 = deviceFactory.createDevice(room.getID(), deviceName,
         deviceTypeID);
     List<Device> devices = List.of(device1, device2);
     when(deviceService.getDevicesByRoomId(room.getID())).thenReturn(devices);

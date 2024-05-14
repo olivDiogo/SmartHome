@@ -23,16 +23,14 @@ class DeviceAggregateTest {
     //Arrange
     String roomIDName = "1a24";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
     //Act
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
 
     //Assert
     assertNotNull(device);
@@ -78,10 +76,9 @@ class DeviceAggregateTest {
 
     RoomID roomID = new RoomID(roomIDName);
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
 
     //Act
     RoomID result = device.getRoomID();
@@ -103,10 +100,9 @@ class DeviceAggregateTest {
 
     RoomID roomID = new RoomID(roomIDName);
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
 
     //Act
     DeviceID result = device.getID();
@@ -129,10 +125,9 @@ class DeviceAggregateTest {
 
     RoomID roomID = new RoomID(roomIDName);
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
 
     String expected = "Device name: lamp";
 
@@ -151,17 +146,15 @@ class DeviceAggregateTest {
     //Arrange
     String roomIDName = "1a24";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
     String expected = "ON";
 
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
 
     //Act
     DeviceStatus result = device.getDeviceStatus();
@@ -183,10 +176,9 @@ class DeviceAggregateTest {
 
     RoomID roomID = new RoomID(roomIDName);
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
 
     //Act
     boolean result = device.equals(device);
@@ -206,17 +198,15 @@ class DeviceAggregateTest {
     String roomIDName = "1a24";
     String roomIDName2 = "1a25";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
     RoomID roomID2 = new RoomID(roomIDName2);
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
-    Device device2 = new Device(roomID2, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
+    Device device2 = new Device(roomID2, deviceName, deviceTypeID);
 
     //Act
     boolean result = device.equals(device2);
@@ -235,15 +225,13 @@ class DeviceAggregateTest {
     //Arrange
     String roomIDName = "1a24";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
-    DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
+    DeviceName deviceName = new DeviceName(name);;
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
 
     //Act
     boolean result = device.equals(null);
@@ -262,21 +250,19 @@ class DeviceAggregateTest {
     //Arrange
     String roomIDName = "1a24";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
 
     String expectedString = "Device:" +
         "roomID=" + roomID +
         ", deviceID=" + device.getID() +
         ", deviceName=" + deviceName +
-        ", deviceStatus=" + deviceStatus;
+        ", deviceStatus=" + device.getDeviceStatus();
 
     //Act
     String result = device.toString();
@@ -295,15 +281,13 @@ class DeviceAggregateTest {
     //Arrange
     String roomIDName = "1a24";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
-    DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
+    DeviceName deviceName = new DeviceName(name);;
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
 
     //Act
     DeviceStatus result = device.deactivateDevice();
@@ -322,15 +306,13 @@ class DeviceAggregateTest {
     //Arrange
     String roomIDName = "1a24";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(status);
     DeviceTypeID deviceTypeID = new DeviceTypeID(typeID);
 
-    Device device = new Device(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = new Device(roomID, deviceName, deviceTypeID);
 
     //Act
     DeviceTypeID result = device.getDeviceTypeID();

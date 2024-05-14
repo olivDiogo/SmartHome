@@ -116,17 +116,15 @@ class DeviceControllerTest {
   DeviceDataDTO setupDeviceDataDTO(Room room, DeviceType deviceType) {
     String deviceTypeStr = deviceType.getID().toString();
     String deviceName = "Light";
-    boolean deviceStatus = true;
     String roomIDStr = room.getID().toString();
-    return new DeviceDataDTO(deviceTypeStr, deviceName, deviceStatus,roomIDStr);
+    return new DeviceDataDTO(deviceTypeStr, deviceName,roomIDStr);
   }
 
   Device setupDevice(DeviceDataDTO deviceDataDTO) {
     RoomID roomID = new RoomID(deviceDataDTO.roomID);
     DeviceName deviceName = new DeviceName(deviceDataDTO.deviceName);
     DeviceTypeID deviceTypeID = new DeviceTypeID(deviceDataDTO.deviceTypeID);
-    DeviceStatus deviceStatus = new DeviceStatus(deviceDataDTO.deviceStatus);
-    return deviceFactory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    return deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
   }
 
   RoomDataDTO setupRoomDataDTO(House house) {
@@ -481,9 +479,6 @@ class DeviceControllerTest {
     String keyTypeOne = deviceType.toString();
     String keyTypeTwo = deviceType2.toString();
 
-    System.out.println(keyTypeOne);
-    System.out.println(keyTypeTwo);
-
     // Act & Assert
     mockMvc.perform(get("/device/all/grouped")
             .accept(MediaType.APPLICATION_JSON))
@@ -494,8 +489,5 @@ class DeviceControllerTest {
         .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeTwo + "'][0].deviceID").value(deviceTwo.getID().getID()))
         .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeTwo + "'][1].deviceID").value(deviceThree.getID().getID()));
   }
-
-
-
 
 }

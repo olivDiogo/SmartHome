@@ -18,19 +18,18 @@ public interface IDeviceService extends IService {
   /**
    * Adds a new device to the repository.
    *
-   * @param roomID
-   * @param deviceName
-   * @param deviceStatus
-   * @param deviceTypeID
+   * @param roomID  The room ID where the device is located.
+   * @param deviceName The name of the device.
+   * @param deviceTypeID The type of the device.
    * @return the device that was added.
    */
-  Device addDevice(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus,
+  Device addDevice(RoomID roomID, DeviceName deviceName,
       DeviceTypeID deviceTypeID);
 
   /**
    * Deactivates a device by its ID.
    *
-   * @param deviceID
+   * @param deviceID The ID of the device to deactivate.
    * @return the device that was deactivated.
    */
   Device deactivateDeviceByID(DeviceID deviceID);
@@ -45,7 +44,7 @@ public interface IDeviceService extends IService {
   /**
    * Get a device by its ID.
    *
-   * @param deviceId
+   * @param deviceId The ID of the device to get.
    * @return the device with the provided ID.
    */
   Optional<Device> getDeviceByID(DeviceID deviceId);
@@ -53,7 +52,7 @@ public interface IDeviceService extends IService {
   /**
    * Get all devices in a room.
    *
-   * @param roomId
+   * @param roomId The ID of the room to get devices from.
    * @return a list of all devices in the room.
    */
   List<Device> getDevicesByRoomId(RoomID roomId);

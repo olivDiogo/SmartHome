@@ -13,22 +13,21 @@ public interface IDeviceFactory {
    * device state.
    *
    * @param roomID      The room ID where the device is located.
-   * @param deviceName  The name of the device.
-   * @param deviceState The state of the device.
+   * @param deviceName  The name of the device
    * @return a newly created Device instance without ID
    */
   Device createDevice(
-      RoomID roomID, DeviceName deviceName, DeviceStatus deviceState, DeviceTypeID deviceTypeID);
+      RoomID roomID, DeviceName deviceName, DeviceTypeID deviceTypeID);
 
   /**
    * Creates and returns a new {@link Device} instance with the provided device ID, room ID, device
    * name, device state, and device type ID.
    *
-   * @param deviceID
-   * @param roomID
-   * @param deviceName
-   * @param deviceState
-   * @param deviceTypeID
+   * @param deviceID    The device ID
+   * @param roomID     The room ID where the device is located
+   * @param deviceName The name of the device
+   * @param deviceState The state of the device
+   * @param deviceTypeID The device type ID
    * @return a newly created Device instance with ID
    */
 

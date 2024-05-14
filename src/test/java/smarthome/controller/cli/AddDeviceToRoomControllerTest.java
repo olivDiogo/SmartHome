@@ -377,7 +377,6 @@ class AddDeviceToRoomControllerTest {
 
     RoomID roomIdVO = new RoomID(roomID);
     DeviceName deviceNameVO = new DeviceName(deviceName);
-    DeviceStatus deviceStatusVO = new DeviceStatus(deviceStatus);
     DeviceTypeID deviceTypeIDVO = new DeviceTypeID(deviceTypeID);
 
     // Device
@@ -387,7 +386,7 @@ class AddDeviceToRoomControllerTest {
         new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
 
     Device device =
-        deviceServiceImpl.addDevice(roomIdVO, deviceNameVO, deviceStatusVO, deviceTypeIDVO);
+        deviceServiceImpl.addDevice(roomIdVO, deviceNameVO, deviceTypeIDVO);
 
     // DeviceDTO
     IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
@@ -397,7 +396,7 @@ class AddDeviceToRoomControllerTest {
 
     DeviceDTO expectedDeviceDTO = deviceAssembler.domainToDTO(device);
 
-    DeviceDataDTO deviceDataDTO = new DeviceDataDTO(deviceTypeID, deviceName, deviceStatus, roomID);
+    DeviceDataDTO deviceDataDTO = new DeviceDataDTO(deviceTypeID, deviceName, roomID);
 
     // Act
     DeviceDTO deviceDTO = addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
@@ -432,7 +431,7 @@ class AddDeviceToRoomControllerTest {
         new AddDeviceToRoomController(
             roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
-    DeviceDataDTO deviceDataDTO = new DeviceDataDTO("1", "Lamp", true, "1");
+    DeviceDataDTO deviceDataDTO = new DeviceDataDTO("1", "Lamp", "1");
 
     // Act + Assert
     assertThrows(

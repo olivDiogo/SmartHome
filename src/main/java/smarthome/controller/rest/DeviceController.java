@@ -77,9 +77,8 @@ public class DeviceController {
     RoomID roomID = new RoomID(data.roomID);
     DeviceTypeID deviceTypeID = new DeviceTypeID(data.deviceTypeID);
     DeviceName deviceName = new DeviceName(data.deviceName);
-    DeviceStatus deviceStatus = new DeviceStatus(data.deviceStatus);
 
-    Device device = deviceService.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = deviceService.addDevice(roomID, deviceName, deviceTypeID);
 
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(device);
 

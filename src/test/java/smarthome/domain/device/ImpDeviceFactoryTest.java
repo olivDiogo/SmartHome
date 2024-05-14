@@ -21,13 +21,12 @@ class ImpDeviceFactoryTest {
     //Arrange
     RoomID roomID = mock(RoomID.class);
     DeviceName deviceName = mock(DeviceName.class);
-    DeviceStatus deviceStatus = mock(DeviceStatus.class);
     DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
     DeviceFactoryImpl factory = new DeviceFactoryImpl();
 
     //Act
-    Device result = factory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device result = factory.createDevice(roomID, deviceName, deviceTypeID);
 
     //Assert
     assertNotNull(result);

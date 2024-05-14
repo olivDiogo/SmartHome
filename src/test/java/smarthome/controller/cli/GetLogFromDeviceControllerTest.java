@@ -133,10 +133,9 @@ class GetLogFromDeviceControllerTest {
   private Device createDevice(RoomID id) {
     String name = "Lampada";
     DeviceName deviceName = new DeviceName(name);
-    DeviceStatus deviceStatus = new DeviceStatus(true);
     DeviceTypeID deviceTypeID = new DeviceTypeID("1");
 
-    Device device = deviceService.addDevice(id, deviceName, deviceStatus, deviceTypeID);
+    Device device = deviceService.addDevice(id, deviceName, deviceTypeID);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
     return device;
   }

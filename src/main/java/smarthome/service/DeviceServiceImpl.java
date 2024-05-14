@@ -51,17 +51,16 @@ public class DeviceServiceImpl implements IDeviceService {
    *
    * @param roomID       is the room ID where the device is located.
    * @param deviceName   is the name of the device.
-   * @param deviceStatus is the state of the device.
    * @return the newly created device.
    */
-  public Device addDevice(RoomID roomID, DeviceName deviceName, DeviceStatus deviceStatus,
+  public Device addDevice(RoomID roomID, DeviceName deviceName,
       DeviceTypeID deviceTypeID) {
     Optional<Room> roomOptional = roomRepository.ofIdentity(roomID);
     if (roomOptional.isEmpty()) {
       throw new IllegalArgumentException("Room with ID " + roomID + " not found.");
     }
 
-    Device device = deviceFactory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
     deviceRepository.save(device);
     return device;
   }

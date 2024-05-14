@@ -157,9 +157,8 @@ class DeactivateDeviceControllerTest {
 
     // Add a device
     DeviceName deviceName = new DeviceName("Light bulb");
-    DeviceStatus deviceStatus = new DeviceStatus(false);
     DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-    Device device = deviceServiceImpl.addDevice(room.getID(), deviceName, deviceStatus,
+    Device device = deviceServiceImpl.addDevice(room.getID(), deviceName,
         deviceTypeID);
     when(deviceRepository.findAll()).thenReturn(List.of(device));
 
@@ -248,9 +247,9 @@ class DeactivateDeviceControllerTest {
 
     // Add a device
     DeviceName deviceName = new DeviceName("Lightbulb");
-    DeviceStatus deviceStatus = new DeviceStatus(false);
+    DeviceStatus deviceStatus = new DeviceStatus(true);
     DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-    Device device = deviceServiceImpl.addDevice(room.getID(), deviceName, deviceStatus,
+    Device device = deviceServiceImpl.addDevice(room.getID(), deviceName,
         deviceTypeID);
     DeviceID deviceId = device.getID();
 

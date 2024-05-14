@@ -104,7 +104,6 @@ class SensorControllerTest {
     String strDeviceName = "Light";
     DeviceName deviceName = new DeviceName(strDeviceName);
 
-    DeviceStatus deviceStatus = new DeviceStatus(true);
 
     String strDeviceType = "LightBulb";
     TypeDescription typeDescription = new TypeDescription(strDeviceType);
@@ -113,7 +112,7 @@ class SensorControllerTest {
     DeviceTypeID deviceTypeID = deviceType.getID();
 
     DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
-    return deviceFactory.createDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    return deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
   }
 
 

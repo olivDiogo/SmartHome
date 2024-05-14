@@ -143,11 +143,11 @@ class DeviceServiceImplTest {
     Device mockDevice = mock(Device.class);
 
     when(roomRepository.ofIdentity(roomID)).thenReturn(Optional.of(mockRoom));
-    when(deviceFactory.createDevice(any(RoomID.class), any(DeviceName.class),
-        any(DeviceStatus.class), any(DeviceTypeID.class))).thenReturn(mockDevice);
+    when(deviceFactory.createDevice(any(RoomID.class), any(DeviceName.class)
+        , any(DeviceTypeID.class))).thenReturn(mockDevice);
 
     //Act
-    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+    Device device = deviceServiceImpl.addDevice(roomID, deviceName, deviceTypeID);
 
     //Assert
     assertNotNull(device);
@@ -161,7 +161,6 @@ class DeviceServiceImplTest {
     // Arrange
     RoomID roomID = mock(RoomID.class);
     DeviceName deviceName = mock(DeviceName.class);
-    DeviceStatus deviceStatus = mock(DeviceStatus.class);
     DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
 
     DeviceRepository deviceRepository = mock(DeviceRepository.class);
@@ -177,7 +176,7 @@ class DeviceServiceImplTest {
 
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       //Act
-      deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
+      deviceServiceImpl.addDevice(roomID, deviceName, deviceTypeID);
     });
 
     String actualMessage = exception.getMessage();

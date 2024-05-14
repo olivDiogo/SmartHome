@@ -185,8 +185,8 @@ class AddSensorToDeviceControllerTest {
     DeviceName deviceName2 = new DeviceName(nameDevice);
     DeviceStatus deviceStatus = new DeviceStatus(true);
     DeviceTypeID deviceTypeID = new DeviceTypeID("1");
-    Device device1 = deviceServiceImpl.addDevice(roomID, deviceName, deviceStatus, deviceTypeID);
-    Device device2 = deviceServiceImpl.addDevice(roomID, deviceName2, deviceStatus, deviceTypeID);
+    Device device1 = deviceServiceImpl.addDevice(roomID, deviceName, deviceTypeID);
+    Device device2 = deviceServiceImpl.addDevice(roomID, deviceName2, deviceTypeID);
     when(deviceRepository.ofIdentity(device1.getID())).thenReturn(Optional.of(device1));
     when(deviceRepository.findByRoomID(roomID)).thenReturn(List.of(device1));
     List<Device> devices = deviceServiceImpl.getDevicesByRoomId(roomID);

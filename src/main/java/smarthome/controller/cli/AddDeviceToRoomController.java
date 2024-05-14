@@ -72,7 +72,6 @@ public class AddDeviceToRoomController {
 
     RoomID roomIdVO = new RoomID(deviceDataDTO.roomID);
     DeviceName deviceNameVO = new DeviceName(deviceDataDTO.deviceName);
-    DeviceStatus deviceStatusVO = new DeviceStatus(deviceDataDTO.deviceStatus);
     DeviceTypeID deviceTypeIDVO = new DeviceTypeID(deviceDataDTO.deviceTypeID);
 
     Optional<Room> roomOptional = roomService.getRoomById(roomIdVO);
@@ -80,7 +79,7 @@ public class AddDeviceToRoomController {
       throw new IllegalArgumentException("Room with ID " + roomIdVO + " not found.");
     }
 
-    Device device = deviceService.addDevice(roomIdVO, deviceNameVO, deviceStatusVO,
+    Device device = deviceService.addDevice(roomIdVO, deviceNameVO,
         deviceTypeIDVO);
 
     return deviceAssembler.domainToDTO(device);

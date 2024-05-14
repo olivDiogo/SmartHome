@@ -18,9 +18,6 @@ public class DeviceDataDTO {
   @NotBlank (message = "DeviceName cannot be empty")
   public final String deviceName;
 
-  @NotBlank (message = "DeviceStatus cannot be empty")
-  public final boolean deviceStatus;
-
   @NotBlank (message = "RoomID cannot be empty")
   public final String roomID;
 }
