@@ -2,10 +2,12 @@ package smarthome.controller.rest;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import smarthome.domain.service.ISensorTypeService;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
+import java.util.Collections;
 
 
 @SpringBootTest
@@ -49,10 +52,10 @@ class SensorTypeControllerTest {
     SensorType sensorType = new SensorType(typeDescription, unitID2);
 
     // Set up mock to return the SensorType object
-    when(sensorTypeService.createSensorType(any(), any())).thenReturn(sensorType);
+    when(sensorTypeService.createSensorType(any(TypeDescription.class), any(UnitID.class))).thenReturn(sensorType);
 
     // Act & Assert
-    mockMvc.perform(post("/sensorType/create")
+    mockMvc.perform(post("/sensor-types/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
         .andExpect(status().isCreated())
@@ -70,7 +73,7 @@ class SensorTypeControllerTest {
     SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(null, unitID);
 
     // Act & Assert
-    mockMvc.perform(post("/sensorType/create")
+    mockMvc.perform(post("/sensor-types/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
         .andExpect(status().isBadRequest());
@@ -87,25 +90,63 @@ class SensorTypeControllerTest {
     SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(sensorTypeDescription, null);
 
     // Act & Assert
-    mockMvc.perform(post("/sensorType/create")
+    mockMvc.perform(post("/sensor-types/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
         .andExpect(status().isBadRequest());
   }
 
   /**
-   * This test case verifies that the ActuatorTypeController returns a 404 Not Found status when no
+   * This test case verifies that the SensorTypeController returns a 404 Not Found status when no
    * actuator types are available.
    */
   @Test
-  void shouldReturnNotFoundWhenNoSensorTypesAvailable() throws Exception {
-    // Arrange: Configure the service to return an empty list when called
-    when(sensorTypeService.getAllSensorTypes()).thenReturn(null);
+  void shouldReturnNotFound_whenNoSensorTypesAvailable() throws Exception {
+    when(sensorTypeService.getAllSensorTypes()).thenReturn(Collections.emptyList());
 
-    // Act & Assert: Perform the request and expect a 404 Not Found status
-    mockMvc.perform(post("/sensorType/all")
+    mockMvc.perform(get("/sensor-types")
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound());
+        .andExpect(status().isNoContent());
   }
+
+  @Test
+  void shouldReturnSensorTypes_whenFound() throws Exception {
+    // Arrange
+    String sensorTypeDescription = "Temperature";
+    String unitID = "Celsius";
+    SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(sensorTypeDescription, unitID);
+
+    TypeDescription typeDescription = new TypeDescription(sensorTypeDescription);
+    UnitID unitID2 = new UnitID(unitID);
+    SensorType sensorType = new SensorType(typeDescription, unitID2);
+
+    // Set up mock to return the SensorType object
+    when(sensorTypeService.createSensorType(any(TypeDescription.class), any(UnitID.class))).thenReturn(sensorType);
+
+    // Act & Assert
+    mockMvc.perform(post("/sensor-types/")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.description").value(sensorTypeDescription))
+        .andExpect(jsonPath("$.unitID").value(unitID));
+  }
+
+  /**
+   * This test case verifies that the SensorTypeController returns a bad request status when an
+   * invalid sensor type is added.
+   */
+  @Test
+  void shouldReturnBadRequest_whenInvalidSensorTypeAdded() throws Exception {
+    // Arrange
+    SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO("", "");
+    // Act & Assert
+    mockMvc.perform(post("/sensor-types/")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
+        .andExpect(status().isBadRequest());
+  }
+
+
 }
 

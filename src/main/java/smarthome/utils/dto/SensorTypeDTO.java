@@ -1,11 +1,12 @@
 package smarthome.utils.dto;
 
+import org.springframework.hateoas.RepresentationModel;
 import smarthome.ddd.IDTO;
 
 /**
  * Data Transfer Object (DTO) representing a sensor type.
  */
-public class SensorTypeDTO implements IDTO {
+public class SensorTypeDTO extends RepresentationModel<SensorTypeDTO>  implements IDTO {
 
   public final String sensorTypeID;
   public final String description;
@@ -23,6 +24,11 @@ public class SensorTypeDTO implements IDTO {
     this.unitID = unitID;
   }
 
+  /**
+   * Returns a string representation of the SensorTypeDTO object.
+   *
+   * @return A string representation of the SensorTypeDTO object.
+   */
   @Override
   public String toString() {
     return sensorTypeID + " " + description + " " + unitID;
