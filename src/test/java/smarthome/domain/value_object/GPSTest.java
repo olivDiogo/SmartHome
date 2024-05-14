@@ -390,9 +390,9 @@ class GPSTest {
 
     GPS gps = new GPS(latitude, longitude);
 
-    String expected = "GPS:" +
-        "latitude=" + latitude +
-        ", longitude=" + longitude;
+    String expected = "GPS: " +
+        "Latitude= " + latitude +
+        ", Longitude= " + longitude;
 
     //Act
     String result = gps.toString();
