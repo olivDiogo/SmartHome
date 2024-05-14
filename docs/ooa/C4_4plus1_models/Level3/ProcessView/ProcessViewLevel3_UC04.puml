@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "RestClient" as RC
+box "Smart Home"
+    participant "Server" as SV
+    participant "DataBase" as DB
+end box
+
+
+User -> RC : I want to define a sensor type
+activate RC
+
+RC -> SV : createSensorType(sensorTypeDataDTO)
+activate SV
+
+SV -> DB : createSensorType(sensorTypeData)
+
+SV --> RC : sensorTypeDTO
+deactivate SV
+
+RC --> User : sensorTypeDTO
+deactivate RC
+
+@enduml
