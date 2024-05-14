@@ -44,7 +44,7 @@ public class ActuatorController {
    * @param actuatorDataDTO is the Actuator data.
    * @return the Actuator data transfer object.
    */
-  @PostMapping("/add")
+  @PostMapping("/")
   public ResponseEntity<EntityModel<ActuatorDTO>> addActuator(@RequestBody @Valid IActuatorDataDTO actuatorDataDTO) {
     IActuatorVOAssembler actuatorVOAssembler = new ActuatorVOAssemblerImpl();
     Object[] actuatorParameters = actuatorVOAssembler.getActuatorParameters(actuatorDataDTO);

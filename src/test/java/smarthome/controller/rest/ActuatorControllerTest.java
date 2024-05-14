@@ -145,7 +145,7 @@ public class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isCreated());
@@ -187,7 +187,7 @@ public class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isCreated());
@@ -223,7 +223,7 @@ public class ActuatorControllerTest {
         actuatorName, actuatorTypeID);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -262,7 +262,7 @@ public class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -301,7 +301,7 @@ public class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -340,7 +340,7 @@ public class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -380,7 +380,7 @@ public class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -421,7 +421,7 @@ public class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -462,7 +462,7 @@ public class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -504,7 +504,7 @@ public class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -546,7 +546,7 @@ public class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/add")
+    mockMvc.perform(post("/actuator/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
