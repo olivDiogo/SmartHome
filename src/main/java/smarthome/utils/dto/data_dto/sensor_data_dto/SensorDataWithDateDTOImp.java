@@ -6,9 +6,8 @@
 package smarthome.utils.dto.data_dto.sensor_data_dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+
 public class SensorDataWithDateDTOImp implements ISensorDataDTO {
 
   @NotBlank(message = "DeviceID cannot be empty")
@@ -28,4 +27,14 @@ public class SensorDataWithDateDTOImp implements ISensorDataDTO {
 
   @NotBlank(message = "End Date cannot be empty")
   public final String endDate;
+
+  public SensorDataWithDateDTOImp(String deviceID, String sensorModelPath, String sensorName,
+      String sensorTypeID, String startDate, String endDate) {
+    this.deviceID = deviceID;
+    this.sensorModelPath = sensorModelPath;
+    this.sensorName = sensorName;
+    this.sensorTypeID = sensorTypeID;
+    this.startDate = startDate;
+    this.endDate = endDate;
+  }
 }

@@ -9,8 +9,10 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device.Device;
+import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.sensor.ISensorFactory;
+import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.ModelPath;
@@ -32,9 +34,11 @@ class SensorServiceImplTest {
     SensorRepository sensorRepository = mock(SensorRepository.class);
     ISensorFactory sensorFactory = mock(ISensorFactory.class);
     DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
 
     // Act
-    sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
+    sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository,
+        sensorTypeRepository);
 
     // Assert
     assertNotNull(sensorServiceImpl);
@@ -50,10 +54,12 @@ class SensorServiceImplTest {
     SensorRepository sensorRepository = null;
     ISensorFactory sensorFactory = mock(ISensorFactory.class);
     DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
 
     // Act Assert
     assertThrows(IllegalArgumentException.class,
-        () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository));
+        () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository,
+            sensorTypeRepository));
   }
 
   /**
@@ -65,10 +71,12 @@ class SensorServiceImplTest {
     SensorRepository sensorRepository = mock(SensorRepository.class);
     ISensorFactory sensorFactory = null;
     DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
 
     // Act Assert
     assertThrows(IllegalArgumentException.class,
-        () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository));
+        () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository,
+            sensorTypeRepository));
   }
 
   /**
@@ -80,10 +88,12 @@ class SensorServiceImplTest {
     SensorRepository sensorRepository = mock(SensorRepository.class);
     ISensorFactory sensorFactory = mock(ISensorFactory.class);
     DeviceRepository deviceRepository = null;
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
 
     // Act Assert
     assertThrows(IllegalArgumentException.class,
-        () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository));
+        () -> new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository,
+            sensorTypeRepository));
   }
 
   /**
@@ -95,9 +105,10 @@ class SensorServiceImplTest {
     SensorRepository sensorRepository = mock(SensorRepository.class);
     ISensorFactory sensorFactory = mock(ISensorFactory.class);
     DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
 
     SensorServiceImpl sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory,
-        deviceRepository);
+        deviceRepository, sensorTypeRepository);
 
     DeviceID deviceID = new DeviceID("deviceID");
     ModelPath modelPath = new ModelPath("modelPath");
@@ -105,6 +116,11 @@ class SensorServiceImplTest {
     SensorName sensorName = new SensorName("sensorName");
     Device mockDevice = mock(Device.class);
     DeviceStatus mockDeviceStatus = mock(DeviceStatus.class);
+
+    SensorType sensorType = mock(SensorType.class);
+    when(sensorType.getID()).thenReturn(sensorTypeID);
+
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
     when(mockDevice.getDeviceStatus()).thenReturn(mockDeviceStatus);
@@ -133,16 +149,21 @@ class SensorServiceImplTest {
     SensorRepository sensorRepository = mock(SensorRepository.class);
     ISensorFactory sensorFactory = mock(ISensorFactory.class);
     DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+    SensorType sensorType = mock(SensorType.class);
+    when(sensorType.getID()).thenReturn(sensorTypeID);
 
     SensorServiceImpl sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory,
-        deviceRepository);
+        deviceRepository, sensorTypeRepository);
 
     DeviceID deviceID = new DeviceID("deviceID");
     ModelPath modelPath = new ModelPath("modelPath");
-    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+
     SensorName sensorName = new SensorName("sensorName");
 
     when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.empty());
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     String expectedMessage = "Device with ID " + deviceID + " not found.";
 
@@ -163,18 +184,24 @@ class SensorServiceImplTest {
     SensorRepository sensorRepository = mock(SensorRepository.class);
     ISensorFactory sensorFactory = mock(ISensorFactory.class);
     DeviceRepository deviceRepository = mock(DeviceRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    SensorType sensorType = mock(SensorType.class);
+    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+    when(sensorType.getID()).thenReturn(sensorTypeID);
+
 
     SensorServiceImpl sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory,
-        deviceRepository);
+        deviceRepository, sensorTypeRepository);
 
     DeviceID deviceID = new DeviceID("deviceID");
     ModelPath modelPath = new ModelPath("modelPath");
-    SensorTypeID sensorTypeID = new SensorTypeID("sensorTypeID");
+
     SensorName sensorName = new SensorName("sensorName");
     Device mockDevice = mock(Device.class);
     DeviceStatus mockDeviceStatus = mock(DeviceStatus.class);
 
     when(deviceRepository.ofIdentity(deviceID)).thenReturn(Optional.of(mockDevice));
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
     when(mockDevice.getDeviceStatus()).thenReturn(mockDeviceStatus);
     when(mockDeviceStatus.getStatus()).thenReturn(false);
 

@@ -18,12 +18,12 @@ public class SensorDTO implements IDTO {
    *
    * @param deviceID
    * @param modelPath
-   * @param sensorTypeID
    * @param sensorID
+   * @param sensorTypeID
    * @param sensorName
    */
   public SensorDTO(
-      String deviceID, String modelPath, String sensorTypeID, String sensorID, String sensorName) {
+      String deviceID, String modelPath, String sensorID, String sensorTypeID, String sensorName) {
     this.deviceID = deviceID;
     this.modelPath = modelPath;
     this.sensorTypeID = sensorTypeID;

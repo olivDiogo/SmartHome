@@ -2,7 +2,6 @@ package smarthome.mapper;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor.ISensor;
@@ -29,7 +28,7 @@ public class SensorAssembler implements IAssembler<ISensor, SensorDTO> {
     String sensorID = sensor.getID().toString();
     String sensorName = sensor.getName().toString();
 
-    return new SensorDTO(deviceID, modelPath, sensorTypeID, sensorID, sensorName);
+    return new SensorDTO(deviceID, modelPath, sensorID, sensorTypeID, sensorName);
   }
 
   /**

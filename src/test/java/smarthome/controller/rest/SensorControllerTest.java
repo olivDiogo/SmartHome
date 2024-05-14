@@ -21,6 +21,7 @@ import smarthome.domain.device_type.DeviceTypeFactoryImpl;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IDeviceRepository;
+import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
 import smarthome.domain.sensor_type.SensorType;
@@ -30,7 +31,6 @@ import smarthome.domain.unit.UnitFactoryImpl;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
@@ -63,6 +63,9 @@ class SensorControllerTest {
 
   @MockBean
   private IDeviceRepository deviceRepository;
+
+  @MockBean
+  private ISensorTypeRepository sensorTypeRepository;
 
   House setupHouse() {
     // Arrange
@@ -123,39 +126,28 @@ class SensorControllerTest {
    */
   @Test
   void shouldReturnSensorDTO_whenGenericSensorIsAddedToDevice() throws Exception {
-    // Arrange
     Device device = setupDevice();
     String deviceIDStr = device.getID().toString();
-
-    String strSensorType = "DewPoint";
-    TypeDescription typeDescription = new TypeDescription(strSensorType);
-
-    String unitDescription = "Celsius";
-    UnitDescription unit = new UnitDescription(unitDescription);
-
-    String unitSymbol = "C";
-    UnitSymbol strUnitSymbol = new UnitSymbol(unitSymbol);
-
-    UnitFactoryImpl unitFactory = new UnitFactoryImpl();
-    Unit sensorUnit = unitFactory.createUnit(unit, strUnitSymbol);
-
+    TypeDescription typeDescription = new TypeDescription("DewPoint");
+    UnitDescription unit = new UnitDescription("Celsius");
+    UnitSymbol strUnitSymbol = new UnitSymbol("C");
+    Unit sensorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
     String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
-    String sensorName = "DewPoint";
-
-    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorType sensorType = sensorTypeFactory.createSensorType(typeDescription, sensorUnit.getID());
-
+    SensorType sensorType = new SensorTypeFactoryImpl().createSensorType(typeDescription,
+        sensorUnit.getID());
+    String sensorTypeIDStr = sensorType.getID().toString();
     ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr, sensorModelPath,
-        sensorName, sensorType.getID().toString());
+        "DewPoint", sensorTypeIDStr);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
-    // Act & Assert
     mockMvc.perform(post("/sensor/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isCreated());
   }
+
 
   /**
    * Test to add a sensor with GPS to a device
@@ -193,6 +185,7 @@ class SensorControllerTest {
         sensorName, sensorType.getID().toString(), latitude, longitude);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act & Assert
     mockMvc.perform(post("/sensor/")
@@ -239,6 +232,7 @@ class SensorControllerTest {
         datePeriod.getEndDate().toString());
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act & Assert
     mockMvc.perform(post("/sensor/")
@@ -369,6 +363,7 @@ class SensorControllerTest {
         sensorName, sensorTypeID);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act & Assert
     mockMvc.perform(post("/sensor/")
@@ -376,6 +371,4 @@ class SensorControllerTest {
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isBadRequest());
   }
-
-
 }

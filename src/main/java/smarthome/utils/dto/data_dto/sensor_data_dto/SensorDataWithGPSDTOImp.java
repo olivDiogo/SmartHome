@@ -6,9 +6,8 @@
 package smarthome.utils.dto.data_dto.sensor_data_dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+
 public class SensorDataWithGPSDTOImp implements ISensorDataDTO {
 
   @NotBlank(message = "DeviceID cannot be empty")
@@ -28,4 +27,14 @@ public class SensorDataWithGPSDTOImp implements ISensorDataDTO {
 
   @NotBlank(message = "Longitude cannot be empty")
   public final String longitude;
+
+  public SensorDataWithGPSDTOImp(String deviceID, String sensorModelPath, String sensorName,
+      String sensorTypeID, String latitude, String longitude) {
+    this.deviceID = deviceID;
+    this.sensorModelPath = sensorModelPath;
+    this.sensorName = sensorName;
+    this.sensorTypeID = sensorTypeID;
+    this.latitude = latitude;
+    this.longitude = longitude;
+  }
 }

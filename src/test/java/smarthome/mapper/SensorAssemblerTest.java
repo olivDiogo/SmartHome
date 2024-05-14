@@ -1,5 +1,11 @@
 package smarthome.mapper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor.ISensor;
@@ -9,13 +15,6 @@ import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.dto.SensorDTO;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class SensorAssemblerTest {
 
@@ -158,8 +157,8 @@ class SensorAssemblerTest {
 
     List<ISensor> sensors = List.of(sensorDouble, sensorDouble2);
 
-    SensorDTO sensorDTO1 = new SensorDTO(deviceID, modelPath, sensorTypeID, sensorID, sensorName);
-    SensorDTO sensorDTO2 = new SensorDTO(deviceID2, modelPath2, sensorTypeID2, sensorID2,
+    SensorDTO sensorDTO1 = new SensorDTO(deviceID, modelPath, sensorID, sensorTypeID, sensorName);
+    SensorDTO sensorDTO2 = new SensorDTO(deviceID2, modelPath2, sensorID2, sensorTypeID2,
         sensorName2);
     List<SensorDTO> expected = List.of(sensorDTO1, sensorDTO2);
 

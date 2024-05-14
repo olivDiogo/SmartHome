@@ -55,9 +55,7 @@ import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
 import smarthome.domain.value_object.ModelPath;
-import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
@@ -66,6 +64,8 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
+import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.mapper.SensorAssembler;
 import smarthome.mapper.SensorModelAssembler;
 import smarthome.mapper.SensorTypeAssembler;
@@ -132,13 +132,17 @@ class AddSensorToDeviceControllerTest {
     sensorRepository = mock(ISensorRepository.class);
     sensorFactory = new SensorFactoryImpl();
     sensorAssembler = new SensorAssembler();
-    sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository);
 
     sensorTypeRepository = mock(ISensorTypeRepository.class);
     sensorTypeFactory = new SensorTypeFactoryImpl();
     sensorTypeAssembler = new SensorTypeAssembler();
-    sensorTypeServiceImpl =
-        new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory, unitRepository);
+    sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository, sensorTypeFactory,
+        unitRepository);
+
+    System.out.println("SensorTypeRepository: " + sensorTypeRepository); // Ensure this is not null
+    sensorServiceImpl = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository,
+        sensorTypeRepository);
+    System.out.println("SensorServiceImpl created"); // Ensure this is reached
 
     sensorModelRepository = mock(ISensorModelRepository.class);
     sensorModelFactory = new SensorModelFactoryImpl();
@@ -148,6 +152,7 @@ class AddSensorToDeviceControllerTest {
     actuatorModelRepository = mock(IActuatorModelRepository.class);
     actuatorModelFactory = new ActuatorModelFactoryImpl();
   }
+
 
   private House loadHouse() {
     String street = "Rua Do Isep";
@@ -632,6 +637,8 @@ class AddSensorToDeviceControllerTest {
             sensorAssembler,
             sensorServiceImpl);
 
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
@@ -674,6 +681,8 @@ class AddSensorToDeviceControllerTest {
             sensorTypeAssembler,
             sensorAssembler,
             sensorServiceImpl);
+
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -721,6 +730,8 @@ class AddSensorToDeviceControllerTest {
             sensorAssembler,
             sensorServiceImpl);
 
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
@@ -764,6 +775,8 @@ class AddSensorToDeviceControllerTest {
             sensorTypeAssembler,
             sensorAssembler,
             sensorServiceImpl);
+
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -809,6 +822,8 @@ class AddSensorToDeviceControllerTest {
             sensorAssembler,
             sensorServiceImpl);
 
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
@@ -852,6 +867,8 @@ class AddSensorToDeviceControllerTest {
             sensorTypeAssembler,
             sensorAssembler,
             sensorServiceImpl);
+
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -898,6 +915,8 @@ class AddSensorToDeviceControllerTest {
             sensorAssembler,
             sensorServiceImpl);
 
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
@@ -942,6 +961,8 @@ class AddSensorToDeviceControllerTest {
             sensorTypeAssembler,
             sensorAssembler,
             sensorServiceImpl);
+
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
@@ -988,6 +1009,7 @@ class AddSensorToDeviceControllerTest {
             sensorAssembler,
             sensorServiceImpl);
 
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
     // Act
     SensorDTO sensorDTO = addSensorToDeviceController.addSensorToDevice(sensorDataGenericDTOImp);
 
@@ -1073,6 +1095,8 @@ class AddSensorToDeviceControllerTest {
             sensorTypeAssembler,
             sensorAssembler,
             sensorServiceImpl);
+
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act
     IllegalArgumentException exception =
