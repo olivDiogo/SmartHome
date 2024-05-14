@@ -26,7 +26,7 @@ import smarthome.utils.dto.HouseDTO;
 import smarthome.utils.dto.data_dto.HouseDataDTO;
 
 @RestController
-@RequestMapping("/house")
+@RequestMapping("/houses")
 public class HouseController {
 
   private final IHouseService houseService;
@@ -48,7 +48,7 @@ public class HouseController {
    * @param houseDataDTO is the house data DTO
    * @return ResponseEntity<EntityModel<HouseDTO>> is the response entity
    */
-  @PostMapping("/configure")
+  @PostMapping("/")
   public ResponseEntity<EntityModel<HouseDTO>> configureHouseLocation(
       @Valid @RequestBody HouseDataDTO houseDataDTO) {
     Address address = new Address(houseDataDTO.street, houseDataDTO.doorNumber,

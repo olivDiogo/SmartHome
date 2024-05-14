@@ -32,7 +32,7 @@ import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
 
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/rooms")
 public class RoomController {
 
   private final IRoomService roomService;
@@ -59,7 +59,7 @@ public class RoomController {
    * @param data
    * @return The room that was added.
    */
-  @PostMapping("/add")
+  @PostMapping("/")
   public ResponseEntity<RoomDTO> addRoom(@Valid @RequestBody RoomDataDTO data) {
     HouseID houseID = new HouseID(data.houseID);
     RoomName name = new RoomName(data.name);
@@ -75,7 +75,7 @@ public class RoomController {
    *
    * @return a list of all rooms
    */
-  @GetMapping("/all")
+  @GetMapping("/")
   public ResponseEntity<List<RoomDTO>> getAllRooms() throws EmptyReturnException {
     List<Room> rooms = roomService.getAllRooms();
     List<RoomDTO> roomDTOs = roomAssembler.domainToDTO(rooms);

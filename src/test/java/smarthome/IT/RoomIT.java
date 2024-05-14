@@ -113,7 +113,7 @@ class RoomIT {
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
 
     // Act & Assert
-    mockMvc.perform(post("/room/add")
+    mockMvc.perform(post("/rooms/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(roomDataDTO)))
         .andExpect(status().isCreated())
@@ -137,7 +137,7 @@ class RoomIT {
     when(houseRepository.ofIdentity(houseID)).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(post("/room/add")
+    mockMvc.perform(post("/rooms/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(roomDataDTO)))
         .andExpect(status().isBadRequest());
@@ -161,7 +161,7 @@ class RoomIT {
     when(roomRepository.findAll()).thenReturn(List.of(room, room2));
 
     //Act & Assert
-    mockMvc.perform(get("/room/all"))
+    mockMvc.perform(get("/rooms/"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].roomName").value("Living Room"))
         .andExpect(jsonPath("$[1].roomName").value("Living Room"));
@@ -176,7 +176,7 @@ class RoomIT {
     when(roomRepository.findAll()).thenReturn(List.of());
 
     //Act & Assert
-    mockMvc.perform(get("/room/all"))
+    mockMvc.perform(get("/rooms/"))
         .andExpect(status().isNoContent());
   }
 
@@ -194,7 +194,7 @@ class RoomIT {
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
 
     // Act & Assert
-    mockMvc.perform(get("/room/" + room.getID()))
+    mockMvc.perform(get("/rooms/" + room.getID()))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.roomName").value("Living Room"));
   }
@@ -213,7 +213,7 @@ class RoomIT {
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(get("/room/" + room.getID()))
+    mockMvc.perform(get("/rooms/" + room.getID()))
         .andExpect(status().isNotFound());
   }
 
@@ -249,7 +249,7 @@ class RoomIT {
     when(deviceAssembler.domainToDTO(device2)).thenReturn(deviceDTO2);
 
     // Act & Assert
-    mockMvc.perform(get("/room/" + room.getID() + "/devices")
+    mockMvc.perform(get("/rooms/" + room.getID() + "/devices")
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._links.self").exists());
