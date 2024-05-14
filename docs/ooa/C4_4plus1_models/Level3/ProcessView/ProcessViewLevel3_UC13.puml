@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "RestClient" as RC
+
+box "SmartHome"
+    participant "Server" as SV
+    participant "DataBase" as BD
+end box
+
+User -> RC : I want to get the maximum instantaneous temperature difference between a device and outside
+activate RC
+
+RC -> SV : getMaxInstTempDiffBetweenDeviceAndOutside (outsideDeviceDTO, insideDeviceDTO, initialTime, endTime, timeDelta)
+activate SV
+
+SV -> BD : findByDeviceIDAndSensorIDAndTimestampBetween (deviceID, sensorTypeID, initialPeriod, endPeriod)
+activate BD
+
+BD --> SV : listLogDataModel
+deactivate BD
+
+SV --> RC : tempDiff
+deactivate SV
+
+RC --> User : tempDiff
+deactivate RC
+
+
+@enduml
