@@ -1,6 +1,5 @@
 package smarthome.domain.device_type;
 
-import java.util.UUID;
 import smarthome.ddd.IAggregateRoot;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
@@ -17,9 +16,10 @@ public class DeviceType implements IAggregateRoot<DeviceTypeID> {
    * @param deviceTypeDescription The description of the device type.
    */
   DeviceType(TypeDescription deviceTypeDescription) {
-    generateDeviceTypeID();
+
     Validator.validateNotNull(deviceTypeDescription, "DeviceTypeDescription");
     this.description = deviceTypeDescription;
+    generateDeviceTypeID(description);
   }
 
   /**
@@ -34,8 +34,8 @@ public class DeviceType implements IAggregateRoot<DeviceTypeID> {
   /**
    * Generates a new device type ID.
    */
-  private void generateDeviceTypeID() {
-    this.id = new DeviceTypeID(UUID.randomUUID().toString());
+  private void generateDeviceTypeID(TypeDescription description) {
+    this.id = new DeviceTypeID(description.getDescription());
   }
 
   /**

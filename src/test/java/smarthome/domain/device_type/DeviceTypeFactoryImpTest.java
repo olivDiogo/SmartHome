@@ -2,6 +2,7 @@ package smarthome.domain.device_type;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import smarthome.domain.value_object.DeviceTypeID;
@@ -17,6 +18,7 @@ class DeviceTypeFactoryImpTest {
   void shouldCreateDeviceType_WhenCreateDeviceTypeIsCalledWithValidParameters() {
     // Arrange
     TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
+    when(typeDescriptionDouble.getDescription()).thenReturn("Test");
     DeviceTypeFactoryImpl factory = new DeviceTypeFactoryImpl();
 
     // Act
