@@ -52,6 +52,7 @@ public class SensorTypeServiceImpl implements ISensorTypeService {
       throw new IllegalArgumentException("Please enter a valid measurement type.");
     }
     SensorType sensorType = sensorTypeFactory.createSensorType(name, unitID);
+    addSensorType(sensorType);
     return sensorType;
   }
 
