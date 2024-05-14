@@ -19,10 +19,8 @@ RC -> SV : configureHouseLocation(houseDataDTO)
 activate SV
 
 SV -> BD : saveHouse(houseDataDTO)
-activate BD
 
-BD -> SV : houseDTO
-deactivate BD
+
 SV --> RC : houseDTO
 deactivate SV
 
