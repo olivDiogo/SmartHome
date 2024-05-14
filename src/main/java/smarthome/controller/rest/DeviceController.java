@@ -35,17 +35,15 @@ import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
+import smarthome.domain.value_object.TypeDescription;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
 import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 
-/**
- * Class representing a REST controller for operations related to devices in the smart home.
- */
-
+/** Class representing a REST controller for operations related to devices in the smart home. */
 @RestController
-@RequestMapping("/device")
+@RequestMapping("/devices")
 public class DeviceController {
 
   private final IDeviceService deviceService;
@@ -55,12 +53,14 @@ public class DeviceController {
   /**
    * Constructor for the DeviceController class.
    *
-   * @param deviceService   The service for device operations.
+   * @param deviceService The service for device operations.
    * @param deviceAssembler The assembler for converting device objects to DTOs.
    */
   @Autowired
-  public DeviceController(IDeviceService deviceService,
-      IAssembler<Device, DeviceDTO> deviceAssembler, IDeviceTypeService deviceTypeService) {
+  public DeviceController(
+      IDeviceService deviceService,
+      IAssembler<Device, DeviceDTO> deviceAssembler,
+      IDeviceTypeService deviceTypeService) {
     this.deviceAssembler = deviceAssembler;
     this.deviceService = deviceService;
     this.deviceTypeService = deviceTypeService;
@@ -72,19 +72,21 @@ public class DeviceController {
    * @param data The data of the device to be added.
    * @return The response entity with the added device.
    */
-  @PostMapping("/add")
+  @PostMapping("/")
   public ResponseEntity<EntityModel<DeviceDTO>> addDevice(@Valid @RequestBody DeviceDataDTO data) {
     RoomID roomID = new RoomID(data.roomID);
-    DeviceTypeID deviceTypeID = new DeviceTypeID(data.deviceTypeID);
+    TypeDescription deviceTypeDescription = new TypeDescription(data.deviceTypeDescription);
     DeviceName deviceName = new DeviceName(data.deviceName);
 
-    Device device = deviceService.addDevice(roomID, deviceName, deviceTypeID);
+    DeviceType deviceType = deviceTypeService.addDeviceType(deviceTypeDescription);
+
+    Device device = deviceService.addDevice(roomID, deviceName, deviceType.getID());
 
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(device);
 
-    EntityModel<DeviceDTO> resource = EntityModel.of(deviceDTO,
-        linkTo(methodOn(DeviceController.class)
-            .addDevice(data)).withSelfRel());
+    EntityModel<DeviceDTO> resource =
+        EntityModel.of(
+            deviceDTO, linkTo(methodOn(DeviceController.class).addDevice(data)).withSelfRel());
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
@@ -96,7 +98,10 @@ public class DeviceController {
    * @return The response entity (link HAETOS) with the retrieved device.
    */
   @GetMapping("/{id}")
-  public ResponseEntity<EntityModel<DeviceDTO>> getDevice(@PathVariable String id, @RequestParam(required = false) IActuatorDataDTO actuatorDataDTO, @RequestParam(required = false) ISensorDataDTO sensorDataDTO){
+  public ResponseEntity<EntityModel<DeviceDTO>> getDevice(
+      @PathVariable String id,
+      @RequestParam(required = false) IActuatorDataDTO actuatorDataDTO,
+      @RequestParam(required = false) ISensorDataDTO sensorDataDTO) {
     DeviceID deviceID = new DeviceID(id);
     Optional<Device> device = deviceService.getDeviceByID(deviceID);
 
@@ -106,40 +111,40 @@ public class DeviceController {
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(device.get());
 
     // Link to self
-    Link selfLink = linkTo(
-        methodOn(DeviceController.class).getDevice(id, actuatorDataDTO, sensorDataDTO)).withSelfRel();
+    Link selfLink =
+        linkTo(methodOn(DeviceController.class).getDevice(id, actuatorDataDTO, sensorDataDTO))
+            .withSelfRel();
 
     // Link to addActuator method in ActuatorController
-    Link addActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(actuatorDataDTO)).withRel("add-actuator");
+    Link addActuatorLink =
+        linkTo(methodOn(ActuatorController.class).addActuator(actuatorDataDTO))
+            .withRel("add-actuator");
 
     // Link to addSensor method in SensorController
-    Link addSensorLink = linkTo(methodOn(SensorController.class).addSensor(sensorDataDTO)).withRel("add-sensor");
+    Link addSensorLink =
+        linkTo(methodOn(SensorController.class).addSensor(sensorDataDTO)).withRel("add-sensor");
 
-    EntityModel<DeviceDTO> entityModel = EntityModel.of(deviceDTO, selfLink, addActuatorLink, addSensorLink);
+    EntityModel<DeviceDTO> entityModel =
+        EntityModel.of(deviceDTO, selfLink, addActuatorLink, addSensorLink);
 
     return ResponseEntity.ok(entityModel);
   }
 
-  /**
-   * Handles HTTP GET requests for retrieving all devices.
-   */
-  @GetMapping("/all")
+  /** Handles HTTP GET requests for retrieving all devices. */
+  @GetMapping("/")
   public ResponseEntity<CollectionModel<DeviceDTO>> getAllDevices() throws EmptyReturnException {
     List<Device> devices = deviceService.getAllDevices();
     if (devices.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
     List<DeviceDTO> deviceDTOs = deviceAssembler.domainToDTO(devices);
-    CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
-        linkTo(
-            methodOn(DeviceController.class).getAllDevices())
-            .withSelfRel());
+    CollectionModel<DeviceDTO> resource =
+        CollectionModel.of(
+            deviceDTOs, linkTo(methodOn(DeviceController.class).getAllDevices()).withSelfRel());
     return ResponseEntity.ok(resource);
   }
 
-  /**
-   * Handles HTTP GET requests for deactivating a device.
-   */
+  /** Handles HTTP GET requests for deactivating a device. */
   @PutMapping("/deactivate/{id}")
   public ResponseEntity<EntityModel<DeviceDTO>> deactivateDevice(@PathVariable String id) {
     DeviceID deviceID = new DeviceID(id);
@@ -153,19 +158,17 @@ public class DeviceController {
 
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(deactivatedDevice);
 
-    Link selfLink = linkTo(
-        methodOn(DeviceController.class).deactivateDevice(id)).withSelfRel();
+    Link selfLink = linkTo(methodOn(DeviceController.class).deactivateDevice(id)).withSelfRel();
 
     EntityModel<DeviceDTO> entityModel = EntityModel.of(deviceDTO, selfLink);
 
     return ResponseEntity.ok(entityModel);
   }
 
-  /**
-   * Handles HTTP GET requests for retrieving all devices grouped by functionality.
-   */
-  @GetMapping("/all/grouped")
-  public ResponseEntity<CollectionModel<Map<DeviceType, List<DeviceDTO>>>> getAllDevicesGroupedByFunctionality() {
+  /** Handles HTTP GET requests for retrieving all devices grouped by functionality. */
+  @GetMapping("/grouped")
+  public ResponseEntity<CollectionModel<Map<DeviceType, List<DeviceDTO>>>>
+      getAllDevicesGroupedByFunctionality() {
     List<Device> devices = deviceService.getAllDevices();
 
     if (devices.isEmpty()) {
@@ -174,12 +177,12 @@ public class DeviceController {
     Map<DeviceType, List<DeviceDTO>> devicesGroupedByFunctionality = new LinkedHashMap<>();
 
     for (Device device : devices) {
-      Optional<DeviceType> deviceTypeOpt = deviceTypeService.getDeviceTypeByID(
-          device.getDeviceTypeID());
+      Optional<DeviceType> deviceTypeOpt =
+          deviceTypeService.getDeviceTypeByID(device.getDeviceTypeID());
 
       if (deviceTypeOpt.isEmpty()) {
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-            "DeviceType not found for ID: " + device.getDeviceTypeID());
+        throw new ResponseStatusException(
+            HttpStatus.BAD_REQUEST, "DeviceType not found for ID: " + device.getDeviceTypeID());
       } else {
         DeviceType deviceType = deviceTypeOpt.get();
 
@@ -192,15 +195,12 @@ public class DeviceController {
         }
       }
     }
-    CollectionModel<Map<DeviceType, List<DeviceDTO>>> resource = CollectionModel.of(
-        List.of(devicesGroupedByFunctionality),
-        linkTo(
-            methodOn(DeviceController.class).getAllDevicesGroupedByFunctionality())
-            .withSelfRel());
+    CollectionModel<Map<DeviceType, List<DeviceDTO>>> resource =
+        CollectionModel.of(
+            List.of(devicesGroupedByFunctionality),
+            linkTo(methodOn(DeviceController.class).getAllDevicesGroupedByFunctionality())
+                .withSelfRel());
 
     return ResponseEntity.ok(resource);
   }
-
 }
-
-

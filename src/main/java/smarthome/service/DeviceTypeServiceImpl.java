@@ -40,10 +40,8 @@ public class DeviceTypeServiceImpl implements IDeviceTypeService {
   @Override
   public DeviceType addDeviceType(TypeDescription deviceTypeName) {
     Validator.validateNotNull(deviceTypeName, "Device type");
-
     DeviceType deviceType = deviceTypeFactory.createDeviceType(deviceTypeName);
     deviceTypeRepository.save(deviceType);
-
     return deviceType;
 
   }

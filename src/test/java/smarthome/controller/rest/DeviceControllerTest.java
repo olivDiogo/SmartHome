@@ -113,17 +113,16 @@ class DeviceControllerTest {
     return deviceTypeFactory.createDeviceType(typeDescription);
   }
 
-  DeviceDataDTO setupDeviceDataDTO(Room room, DeviceType deviceType) {
-    String deviceTypeStr = deviceType.getID().toString();
+  DeviceDataDTO setupDeviceDataDTO(Room room, String deviceTypeDescription) {
     String deviceName = "Light";
     String roomIDStr = room.getID().toString();
-    return new DeviceDataDTO(deviceTypeStr, deviceName,roomIDStr);
+    return new DeviceDataDTO(deviceTypeDescription, deviceName,roomIDStr);
   }
 
   Device setupDevice(DeviceDataDTO deviceDataDTO) {
     RoomID roomID = new RoomID(deviceDataDTO.roomID);
     DeviceName deviceName = new DeviceName(deviceDataDTO.deviceName);
-    DeviceTypeID deviceTypeID = new DeviceTypeID(deviceDataDTO.deviceTypeID);
+    DeviceTypeID deviceTypeID = new DeviceTypeID(deviceDataDTO.deviceTypeDescription);
     return deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
   }
 
@@ -148,7 +147,8 @@ class DeviceControllerTest {
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
+    String deviceTypeDescription = "Bulb";
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -157,7 +157,7 @@ class DeviceControllerTest {
     when(deviceRepository.save(device)).thenReturn(device);
 
     // Act & Assert
-    mockMvc.perform(post("/device/add")
+    mockMvc.perform(post("/devices/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(deviceDataDTO)))
         .andExpect(status().isCreated())
@@ -175,7 +175,8 @@ class DeviceControllerTest {
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
+    String deviceTypeDescription = "Bulb";
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -184,7 +185,7 @@ class DeviceControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(get("/device/" + device.getID())
+    mockMvc.perform(get("/devices/" + device.getID())
          .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.deviceID").value(device.getID().toString()))
@@ -200,14 +201,15 @@ class DeviceControllerTest {
     House house = setupHouse();
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     DeviceType deviceType = setupDeviceType();
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    String deviceTypeDescription = "Bulb";
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
     when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
     when(roomRepository.ofIdentity(new RoomID(deviceDataDTO.roomID))).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(post("/device/add")
+    mockMvc.perform(post("/devices/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(deviceDataDTO)))
         .andExpect(status().isBadRequest());
@@ -222,14 +224,15 @@ class DeviceControllerTest {
     House house = setupHouse();
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     DeviceType deviceType = setupDeviceType();
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    String deviceTypeDescription = "Bulb";
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
-    when(deviceTypeRepository.ofIdentity(new DeviceTypeID(deviceDataDTO.deviceTypeID)))
+    when(deviceTypeRepository.ofIdentity(new DeviceTypeID(deviceDataDTO.deviceTypeDescription)))
         .thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(post("/device/add")
+    mockMvc.perform(post("/devices/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(deviceDataDTO)))
         .andExpect(status().isBadRequest());
@@ -244,12 +247,13 @@ class DeviceControllerTest {
     House house = setupHouse();
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     DeviceType deviceType = setupDeviceType();
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    String deviceTypeDescription = "Bulb";
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
 
     when(houseRepository.ofIdentity(new HouseID(roomDataDTO.houseID))).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(post("/device/add")
+    mockMvc.perform(post("/devices/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(deviceDataDTO)))
         .andExpect(status().isBadRequest());
@@ -264,7 +268,8 @@ class DeviceControllerTest {
     House house = setupHouse();
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     DeviceType deviceType = setupDeviceType();
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    String deviceTypeDescription = "Bulb";
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -273,7 +278,7 @@ class DeviceControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(get("/device/" + device.getID())
+    mockMvc.perform(get("/devices/" + device.getID())
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
@@ -287,14 +292,15 @@ class DeviceControllerTest {
     House house = setupHouse();
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     DeviceType deviceType = setupDeviceType();
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    String deviceTypeDescription = "Bulb";
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
     when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(get("/device/" + device.getID())
+    mockMvc.perform(get("/devices/" + device.getID())
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
@@ -310,9 +316,10 @@ class DeviceControllerTest {
 
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
+    String deviceTypeDescription = "Bulb";
 
-    DeviceDataDTO deviceDataDTO1 = setupDeviceDataDTO(room, deviceType);
-    DeviceDataDTO deviceDataDTO2 = setupDeviceDataDTO(room, deviceType);
+    DeviceDataDTO deviceDataDTO1 = setupDeviceDataDTO(room, deviceTypeDescription);
+    DeviceDataDTO deviceDataDTO2 = setupDeviceDataDTO(room, deviceTypeDescription);
 
     Device device = setupDevice(deviceDataDTO1);
     Device device2 = setupDevice(deviceDataDTO2);
@@ -320,13 +327,12 @@ class DeviceControllerTest {
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
     when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
-
     when(deviceRepository.findAll()).thenReturn(List.of(device, device2));
 
     int expectedSize = List.of(device, device2).size();
 
     // Act & Assert
-    mockMvc.perform(get("/device/all")
+    mockMvc.perform(get("/devices/")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.deviceDTOList", hasSize(expectedSize)))
@@ -349,7 +355,7 @@ class DeviceControllerTest {
     when(deviceRepository.findAll()).thenReturn(List.of());
 
     // Act & Assert
-    mockMvc.perform(get("/device/all")
+    mockMvc.perform(get("/devices/all")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
@@ -364,7 +370,8 @@ class DeviceControllerTest {
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     DeviceType deviceType = setupDeviceType();
     Room room = setupRoom(roomDataDTO);
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
+    String deviceTypeDescription = "Bulb";
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -373,7 +380,7 @@ class DeviceControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(put("/device/deactivate/" + device.getID())
+    mockMvc.perform(put("/devices/deactivate/" + device.getID())
          .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.deviceID").value(device.getID().toString()))
@@ -391,7 +398,8 @@ class DeviceControllerTest {
     House house = setupHouse();
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     DeviceType deviceType = setupDeviceType();
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceType);
+    String deviceTypeDescription = "Bulb";
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -400,7 +408,7 @@ class DeviceControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(put("/device/deactivate/" + device.getID())
+    mockMvc.perform(put("/devices/deactivate/" + device.getID())
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
@@ -423,7 +431,7 @@ class DeviceControllerTest {
     when(deviceRepository.findAll()).thenReturn(List.of());
 
     // Act & Assert
-    mockMvc.perform(get("/device/all/grouped")
+    mockMvc.perform(get("/devices/grouped")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
@@ -438,7 +446,8 @@ class DeviceControllerTest {
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
     DeviceType deviceType = setupDeviceType();
     Room room = setupRoom(roomDataDTO);
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceType);
+    String deviceTypeDescription = "Bulb";
+    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -447,7 +456,7 @@ class DeviceControllerTest {
     when(deviceRepository.findAll()).thenReturn(List.of(device));
 
     // Act & Assert
-    mockMvc.perform(get("/device/all/grouped")
+    mockMvc.perform(get("/devices/grouped")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isBadRequest());
   }
@@ -465,10 +474,12 @@ class DeviceControllerTest {
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     DeviceType deviceType2 = setupDeviceTypeTwo();
+    String deviceTypeDescription = "Bulb";
+    String deviceTypeDescription2 = "Fan";
 
-    Device device = setupDevice(setupDeviceDataDTO(room, deviceType));
-    Device deviceTwo = setupDevice(setupDeviceDataDTO(room, deviceType2));
-    Device deviceThree = setupDevice(setupDeviceDataDTO(room, deviceType2));
+    Device device = setupDevice(setupDeviceDataDTO(room, deviceTypeDescription));
+    Device deviceTwo = setupDevice(setupDeviceDataDTO(room, deviceTypeDescription2));
+    Device deviceThree = setupDevice(setupDeviceDataDTO(room, deviceTypeDescription2));
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
     when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
@@ -480,7 +491,7 @@ class DeviceControllerTest {
     String keyTypeTwo = deviceType2.toString();
 
     // Act & Assert
-    mockMvc.perform(get("/device/all/grouped")
+    mockMvc.perform(get("/devices/grouped")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + keyTypeOne + "']", hasSize(1)))

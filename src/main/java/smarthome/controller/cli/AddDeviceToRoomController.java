@@ -72,7 +72,7 @@ public class AddDeviceToRoomController {
 
     RoomID roomIdVO = new RoomID(deviceDataDTO.roomID);
     DeviceName deviceNameVO = new DeviceName(deviceDataDTO.deviceName);
-    DeviceTypeID deviceTypeIDVO = new DeviceTypeID(deviceDataDTO.deviceTypeID);
+    DeviceTypeID deviceTypeIDVO = new DeviceTypeID(deviceDataDTO.deviceTypeDescription);
 
     Optional<Room> roomOptional = roomService.getRoomById(roomIdVO);
     if (roomOptional.isEmpty()) {

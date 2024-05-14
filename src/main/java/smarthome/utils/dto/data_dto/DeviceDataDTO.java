@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 public class DeviceDataDTO {
 
   @NotBlank (message = "DeviceTypeID cannot be empty")
-  public final String deviceTypeID;
+  public final String deviceTypeDescription;
 
   @NotBlank (message = "DeviceName cannot be empty")
   public final String deviceName;
