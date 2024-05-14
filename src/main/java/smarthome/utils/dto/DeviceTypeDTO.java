@@ -1,8 +1,9 @@
 package smarthome.utils.dto;
 
+import org.springframework.hateoas.RepresentationModel;
 import smarthome.ddd.IDTO;
 
-public class DeviceTypeDTO implements IDTO {
+public class DeviceTypeDTO extends RepresentationModel<DeviceTypeDTO> implements IDTO {
 
   public final String deviceTypeID;
   public final String description;
