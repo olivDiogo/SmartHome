@@ -46,7 +46,7 @@ public class SensorController {
    * @param sensorDataDTO DTO with the sensor data
    * @return ResponseEntity with the sensor data
    */
-  @PostMapping("/add")
+  @PostMapping("/")
   public ResponseEntity<EntityModel<SensorDTO>> addSensor(@RequestBody @Valid ISensorDataDTO sensorDataDTO) {
     ISensorVOAssembler sensorVOAssembler = new SensorVOAssemblerImpl();
     Object[] sensorParameters = sensorVOAssembler.getSensorParameters(sensorDataDTO);

@@ -151,7 +151,7 @@ class SensorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/add")
+    mockMvc.perform(post("/sensor/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isCreated());
@@ -195,7 +195,7 @@ class SensorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/add")
+    mockMvc.perform(post("/sensor/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isCreated());
@@ -241,7 +241,7 @@ class SensorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/add")
+    mockMvc.perform(post("/sensor/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isCreated());
@@ -272,7 +272,7 @@ class SensorControllerTest {
         sensorName, sensorTypeID);
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/add")
+    mockMvc.perform(post("/sensor/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -306,7 +306,7 @@ class SensorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/add")
+    mockMvc.perform(post("/sensor/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -337,7 +337,7 @@ class SensorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/add")
+    mockMvc.perform(post("/sensor/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -371,7 +371,7 @@ class SensorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/add")
+    mockMvc.perform(post("/sensor/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isBadRequest());
