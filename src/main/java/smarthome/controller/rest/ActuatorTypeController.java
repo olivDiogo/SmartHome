@@ -53,7 +53,7 @@ public class ActuatorTypeController {
    * Get all actuator types
    * @return ResponseEntity<CollectionModel < ActuatorTypeDTO>> is the response entity
    */
-  @GetMapping()
+  @GetMapping("/")
   public ResponseEntity<CollectionModel<ActuatorTypeDTO>> getActuatorTypes()
       throws EmptyReturnException {
     List<ActuatorType> actuatorTypeList = actuatorTypeService.getAllActuatorTypes();
@@ -91,7 +91,7 @@ public class ActuatorTypeController {
   /**
    * Create an actuator type
    */
-  @PostMapping("/add-actuator-type")
+  @PostMapping("/")
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<ActuatorTypeDTO> addActuatorType(@Valid
   @RequestBody ActuatorTypeDataDTO actuatorTypeDataDTO)

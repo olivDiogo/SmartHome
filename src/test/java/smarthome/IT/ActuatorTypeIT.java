@@ -39,13 +39,13 @@ class ActuatorTypeIT {
     ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", "Celsius");
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
-    mockMvc.perform(post("/actuator-types/add-actuator-type")
+    mockMvc.perform(post("/actuator-types/")
         .contentType(MediaType.APPLICATION_JSON)
         .content(jsonContent)
         .accept(MediaType.APPLICATION_JSON));
 
     // Act & Assert
-    mockMvc.perform(get("/actuator-types")
+    mockMvc.perform(get("/actuator-types/")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.actuatorTypeDTOList[0].actuatorTypeID", is("Test")))
@@ -62,7 +62,7 @@ class ActuatorTypeIT {
    */
   @Test
   void shouldReturnEmptyList_WhenNoActuatorTypesAvailable() throws Exception {
-    mockMvc.perform(get("/actuator-types")
+    mockMvc.perform(get("/actuator-types/")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNoContent());
   }
@@ -77,7 +77,7 @@ class ActuatorTypeIT {
     ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", "Celsius");
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
-    mockMvc.perform(post("/actuator-types/add-actuator-type")
+    mockMvc.perform(post("/actuator-types/")
         .contentType(MediaType.APPLICATION_JSON)
         .content(jsonContent)
         .accept(MediaType.APPLICATION_JSON));
@@ -120,7 +120,7 @@ class ActuatorTypeIT {
    */
   @Test
   void shouldReturnBadRequest_WhenActuatorTypeIDisEmpty() throws Exception {
-    mockMvc.perform(get("/actuator-types/{id}", "")
+    mockMvc.perform(get("/actuator-types/{id}/", "")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
@@ -136,7 +136,7 @@ class ActuatorTypeIT {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/add-actuator-type")
+    mockMvc.perform(post("/actuator-types/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
@@ -158,7 +158,7 @@ class ActuatorTypeIT {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/add-actuator-type")
+    mockMvc.perform(post("/actuator-types/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
@@ -177,7 +177,7 @@ class ActuatorTypeIT {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/add-actuator-type")
+    mockMvc.perform(post("/actuator-types/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
@@ -197,7 +197,7 @@ class ActuatorTypeIT {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/add-actuator-type")
+    mockMvc.perform(post("/actuator-types/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
@@ -217,7 +217,7 @@ class ActuatorTypeIT {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/add-actuator-type")
+    mockMvc.perform(post("/actuator-types/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
@@ -237,7 +237,7 @@ class ActuatorTypeIT {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/add-actuator-type")
+    mockMvc.perform(post("/actuator-types/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
