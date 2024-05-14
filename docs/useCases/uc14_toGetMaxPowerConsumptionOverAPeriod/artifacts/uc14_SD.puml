@@ -13,37 +13,37 @@ User o-> Controller: getMaxPowerConsumption(initialTime, endTime)
 
 activate Controller
 
-Controller -> DeviceService: getDevicesByDeviceTypeID(DeviceType powerMeter)
+Controller -> DeviceService: getDevicesByDeviceTypeID(DeviceTypeID powerMeter)
 
 activate DeviceService
 
-DeviceService -> DeviceRepository: getDevicesByDeviceTypeID(DeviceType powerMeter)
+DeviceService -> DeviceRepository: getDevicesByDeviceTypeID(DeviceTypeID powerMeter)
 
 activate DeviceRepository
 
-DeviceRepository --> DeviceService: DeviceList
+DeviceRepository --> DeviceService: deviceList
 
 deactivate DeviceRepository
 
-DeviceService -> Controller: DeviceList
+DeviceService -> Controller: deviceList
 
 deactivate DeviceService
 
 '--------------------------------------------'
 
-Controller -> DeviceService: getDevicesByDeviceType(DeviceType powerSource)
+Controller -> DeviceService: getDevicesByDeviceType(DeviceTypeID powerSource)
 
 activate DeviceService
 
-DeviceService -> DeviceRepository: getDevicesByDeviceType(DeviceType powerSource)
+DeviceService -> DeviceRepository: getDevicesByDeviceType(DeviceTypeID powerSource)
 
 activate DeviceRepository
 
-DeviceRepository --> DeviceService: DeviceList
+DeviceRepository --> DeviceService: deviceList
 
 deactivate DeviceRepository
 
-DeviceService -> Controller: DeviceList
+DeviceService -> Controller: deviceList
 
 deactivate DeviceService
 
