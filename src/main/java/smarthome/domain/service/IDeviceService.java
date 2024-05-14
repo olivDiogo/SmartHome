@@ -8,7 +8,6 @@ import smarthome.domain.device.Device;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.utils.dto.DeviceDTO;
@@ -74,4 +73,6 @@ public interface IDeviceService extends IService {
    * @return The list of devices in the room.
    */
   List<DeviceDTO> getDevicesFromListByRoomId(List<DeviceDTO> devicesDTO, RoomID roomID);
+
+  List<Device> getDevicesByDeviceTypeID(DeviceTypeID deviceTypeID);
 }

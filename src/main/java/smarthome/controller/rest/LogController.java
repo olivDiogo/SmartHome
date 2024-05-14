@@ -2,6 +2,7 @@ package smarthome.controller.rest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.device.Device;
 import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
+import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
 import smarthome.utils.dto.LogDTO;
@@ -25,15 +29,18 @@ import smarthome.utils.dto.LogDTO;
 public class LogController {
 
   private final ILogService logService;
+  private static final Integer PEAK_POWER_CONSUMPTION_TIME_DELTA = 15;
   private final IAssembler<Log, LogDTO> logAssembler;
-
+  private final IDeviceService deviceService;
   /**
    * Constructor
    */
   @Autowired
-  public LogController(ILogService logService, IAssembler<Log, LogDTO> logAssembler) {
+  public LogController(ILogService logService, IAssembler<Log, LogDTO> logAssembler,
+      IDeviceService deviceService) {
     this.logService = logService;
     this.logAssembler = logAssembler;
+    this.deviceService = deviceService;
   }
 
   /**
@@ -86,5 +93,47 @@ public class LogController {
     int maxDiff = logService.getMaxDifferenceBetweenReadings(insideReadings, outsideReadings,
         timeDeltaObj);
     return ResponseEntity.ok(maxDiff);
+  }
+
+  @GetMapping("/peak-power-consumption")
+  public ResponseEntity<Integer> getMaxPowerConsumption(
+      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime initialTime,
+      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime finalTime) {
+    TimeDelta timeDelta = new TimeDelta(PEAK_POWER_CONSUMPTION_TIME_DELTA);
+    DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
+    DeviceTypeID powerMeterDevices = new DeviceTypeID("PowerMeter");
+    DeviceTypeID powerSourceDevices = new DeviceTypeID("PowerSource");
+    SensorTypeID sensorTypeID = new SensorTypeID("InstantPowerConsumption");
+
+    List<Device> powerMeterDevicesList = deviceService.getDevicesByDeviceTypeID(powerMeterDevices);
+    List<Device> powerSourceDevicesList = deviceService.getDevicesByDeviceTypeID(
+        powerSourceDevices);
+
+    List<Log> powerMeterReadings = getReadingsByDeviceList(powerMeterDevicesList, datePeriod,
+        sensorTypeID);
+    List<Log> powerSourceReadings = getReadingsByDeviceList(powerSourceDevicesList, datePeriod,
+        sensorTypeID);
+
+    Integer maxPowerConsumption = logService.getPeakPowerConsumption(powerMeterReadings,
+        powerSourceReadings, timeDelta);
+
+    return ResponseEntity.ok(maxPowerConsumption);
+  }
+
+
+  private List<Log> getReadingsByDeviceList(List<Device> devices, DatePeriod datePeriod,
+      SensorTypeID sensorTypeID) {
+    List<Log> readings = new ArrayList<>();
+    for (Device device : devices) {
+      DeviceID deviceID = device.getID();
+      try {
+        List<Log> deviceReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(deviceID,
+            sensorTypeID, datePeriod);
+        readings.addAll(deviceReadings);
+      } catch (EmptyReturnException ignored) {
+        readings.addAll(new ArrayList<>());
+      }
+    }
+    return readings;
   }
 }

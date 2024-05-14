@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +17,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import smarthome.domain.device.Device;
+import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.log.ILogFactory;
 import smarthome.domain.log.Log;
 import smarthome.domain.log.LogFactoryImpl;
+import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.DeviceName;
+import smarthome.domain.value_object.DeviceStatus;
+import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.ReadingValue;
+import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
-import smarthome.utils.dto.data_dto.LogDataDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -39,6 +44,12 @@ class LogControllerTest {
 
   @Autowired
   private ILogFactory logFactory;
+
+  @MockBean
+  private IDeviceRepository deviceRepository;
+
+  @Autowired
+  private IDeviceFactory deviceFactory;
 
   @MockBean
   private ILogRepository logRepository;
@@ -63,6 +74,44 @@ class LogControllerTest {
     DeviceID deviceID2 = new DeviceID("2");
     return logFactory.createLog(deviceID2, sensorID, timeStamp, readingValue, sensorTypeID, unitID);
   }
+
+  Device setupPowerMeter() {
+    RoomID roomID = new RoomID("1");
+    DeviceName deviceName = new DeviceName("PowerMeter");
+    DeviceID deviceID = new DeviceID("123");
+    DeviceTypeID deviceTypeID = new DeviceTypeID("PowerMeter");
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+
+    return deviceFactory.createDevice(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
+  }
+
+  Device setupPowerSource() {
+    RoomID roomID = new RoomID("1");
+    DeviceName deviceName = new DeviceName("PowerSource");
+    DeviceID deviceID = new DeviceID("1234");
+    DeviceTypeID deviceTypeID = new DeviceTypeID("PowerSource");
+    DeviceStatus deviceStatus = new DeviceStatus(true);
+
+    return deviceFactory.createDevice(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
+  }
+
+  List<Log> setupReadingsGivenDeviceAndTimePeriod(Device device, SensorTypeID sensorTypeID,
+      DatePeriod datePeriod, int timeBetweenReadings, String value) {
+    DeviceID deviceID = device.getID();
+    LocalDateTime startDate = datePeriod.getStartDate();
+    LocalDateTime endDate = datePeriod.getEndDate();
+    SensorID sensorID = new SensorID("1");
+    UnitID unitID = new UnitID("Watt");
+
+    List<Log> logs = new ArrayList<>();
+    for (LocalDateTime date = startDate; date.isBefore(endDate);
+        date = date.plusMinutes(timeBetweenReadings)) {
+      ReadingValue readingValue = new ReadingValue(value);
+      logs.add(logFactory.createLog(deviceID, sensorID, date, readingValue, sensorTypeID, unitID));
+    }
+    return logs;
+  }
+
 
 
   /**
@@ -272,4 +321,187 @@ class LogControllerTest {
             .param("timeDelta", String.valueOf(timeDelta)))
         .andExpect(status().isNoContent());
   }
+
+  /**
+   * Test method to get the peak power consumption in given time period
+   */
+  @Test
+  void shouldReturnMaxPowerConsumption_WhenParametersAreValid() throws Exception {
+    // Arrange
+    LocalDateTime initialTime = LocalDateTime.of(2021, 5, 1, 12, 0);
+    LocalDateTime finalTime = LocalDateTime.of(2021, 5, 1, 13, 0);
+
+    DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
+
+    Device powerMeter = setupPowerMeter();
+    Device powerSource = setupPowerSource();
+    SensorTypeID sensorTypeID = new SensorTypeID("InstantPowerConsumption");
+
+    String readingValue = String.valueOf(20);
+
+    List<Log> powerMeterLogs = setupReadingsGivenDeviceAndTimePeriod(powerMeter, sensorTypeID,
+        datePeriod, 5, readingValue);
+    List<Log> powerSourceLogs = setupReadingsGivenDeviceAndTimePeriod(powerSource, sensorTypeID,
+        datePeriod, 5, readingValue);
+
+    String expectedPowerConsumption = "40";
+    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID())).thenReturn(
+        List.of(powerMeter));
+    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID())).thenReturn(
+        List.of(powerSource));
+
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerMeter.getID(),
+        sensorTypeID, datePeriod))
+        .thenReturn(powerMeterLogs);
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerSource.getID(),
+        sensorTypeID, datePeriod))
+        .thenReturn(powerSourceLogs);
+
+    // Act & Assert
+    mockMvc.perform(get("/logs/peak-power-consumption")
+            .contentType(MediaType.APPLICATION_JSON)
+            .param("initialTime", initialTime.toString())
+            .param("finalTime", finalTime.toString()))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").value(expectedPowerConsumption));
+  }
+
+  /**
+   * Test method to get the peak power consumption in given time period when no logs are found
+   */
+  @Test
+  void shouldReturnZeroWhenNoLogsFound_WhenParametersAreValid() throws Exception {
+    // Arrange
+    LocalDateTime initialTime = LocalDateTime.of(2021, 5, 1, 12, 0);
+    LocalDateTime finalTime = LocalDateTime.of(2021, 5, 1, 13, 0);
+
+    DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
+
+    Device powerMeter = setupPowerMeter();
+    Device powerSource = setupPowerSource();
+    SensorTypeID sensorTypeID = new SensorTypeID("InstantPowerConsumption");
+
+    List<Log> powerMeterLogs = new ArrayList<>();
+    List<Log> powerSourceLogs = new ArrayList<>();
+
+    String expectedPowerConsumption = "0";
+    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID())).thenReturn(
+        List.of(powerMeter));
+    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID())).thenReturn(
+        List.of(powerSource));
+
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerMeter.getID(),
+        sensorTypeID, datePeriod))
+        .thenReturn(powerMeterLogs);
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerSource.getID(),
+        sensorTypeID, datePeriod))
+        .thenReturn(powerSourceLogs);
+
+    // Act & Assert
+    mockMvc.perform(get("/logs/peak-power-consumption")
+            .contentType(MediaType.APPLICATION_JSON)
+            .param("initialTime", initialTime.toString())
+            .param("finalTime", finalTime.toString()))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").value(expectedPowerConsumption));
+  }
+
+  /**
+   * Test method to get the peak power consumption in given time period when logs are out of time
+   *
+   * @throws Exception
+   */
+
+  @Test
+  void shouldReturnHighestReadingOfOneList_WhenLogsOutOfTimeDelta() throws Exception {
+    // Arrange
+    LocalDateTime initialTime = LocalDateTime.of(2021, 5, 1, 12, 0);
+    LocalDateTime finalTime = LocalDateTime.of(2021, 5, 1, 13, 0);
+
+    DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
+
+    LocalDateTime initialTimeOutOfDelta = LocalDateTime.of(2021, 5, 1, 13, 16);
+    LocalDateTime finalTimeOutOfDelta = LocalDateTime.of(2021, 5, 1, 14, 16);
+
+    DatePeriod datePeriodOutOfDelta = new DatePeriod(initialTimeOutOfDelta, finalTimeOutOfDelta);
+
+    Device powerMeter = setupPowerMeter();
+    Device powerSource = setupPowerSource();
+    SensorTypeID sensorTypeID = new SensorTypeID("InstantPowerConsumption");
+
+    String readingValuePowerMeter = String.valueOf(30);
+    String readingValuePowerSource = String.valueOf(20);
+
+    List<Log> powerMeterLogs = setupReadingsGivenDeviceAndTimePeriod(powerMeter, sensorTypeID,
+        datePeriod, 5, readingValuePowerMeter);
+    List<Log> powerSourceLogs = setupReadingsGivenDeviceAndTimePeriod(powerSource, sensorTypeID,
+        datePeriodOutOfDelta, 5, readingValuePowerSource);
+
+    String expectedPowerConsumption = "30";
+    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID())).thenReturn(
+        List.of(powerMeter));
+    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID())).thenReturn(
+        List.of(powerSource));
+
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerMeter.getID(),
+        sensorTypeID, datePeriod))
+        .thenReturn(powerMeterLogs);
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerSource.getID(),
+        sensorTypeID, datePeriod))
+        .thenReturn(powerSourceLogs);
+
+    // Act & Assert
+    mockMvc.perform(get("/logs/peak-power-consumption")
+            .contentType(MediaType.APPLICATION_JSON)
+            .param("initialTime", initialTime.toString())
+            .param("finalTime", finalTime.toString()))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").value(expectedPowerConsumption));
+  }
+
+  /***
+   * Test method to get the peak power consumption in given time period when only one list has values
+   * @throws Exception
+   */
+  @Test
+  void shouldReturnMaxPowerConsumption_WhenOnlyOneListHasValues() throws Exception {
+    // Arrange
+    LocalDateTime initialTime = LocalDateTime.of(2021, 5, 1, 12, 0);
+    LocalDateTime finalTime = LocalDateTime.of(2021, 5, 1, 13, 0);
+
+    DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
+
+    Device powerMeter = setupPowerMeter();
+    Device powerSource = setupPowerSource();
+    SensorTypeID sensorTypeID = new SensorTypeID("InstantPowerConsumption");
+
+    String readingValue = String.valueOf(20);
+
+    List<Log> powerMeterLogs = setupReadingsGivenDeviceAndTimePeriod(powerMeter, sensorTypeID,
+        datePeriod, 5, readingValue);
+    List<Log> powerSourceLogs = new ArrayList<>();
+
+    String expectedPowerConsumption = "20";
+    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID())).thenReturn(
+        List.of(powerMeter));
+    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID())).thenReturn(
+        List.of(powerSource));
+
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerMeter.getID(),
+        sensorTypeID, datePeriod))
+        .thenReturn(powerMeterLogs);
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerSource.getID(),
+        sensorTypeID, datePeriod))
+        .thenReturn(powerSourceLogs);
+
+    // Act & Assert
+    mockMvc.perform(get("/logs/peak-power-consumption")
+            .contentType(MediaType.APPLICATION_JSON)
+            .param("initialTime", initialTime.toString())
+            .param("finalTime", finalTime.toString()))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").value(expectedPowerConsumption));
+  }
+
+
 }

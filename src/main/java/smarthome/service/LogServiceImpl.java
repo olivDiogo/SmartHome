@@ -22,6 +22,7 @@ import smarthome.utils.Validator;
 public class LogServiceImpl implements ILogService {
 
   private final ILogRepository logRepository;
+  private static final int VALUE_IF_NO_CONSUMPTION = 0;
 
 
   /**
@@ -105,9 +106,14 @@ public class LogServiceImpl implements ILogService {
    */
 
   public int getPeakPowerConsumption(List<Log> readings, List<Log> readings2, TimeDelta timeDelta) {
-
-    int maxListOne = getMaximumValueFromListOfIntegers(readings);
-    int maxListTwo = getMaximumValueFromListOfIntegers(readings2);
+    int maxListOne = VALUE_IF_NO_CONSUMPTION;
+    int maxListTwo = VALUE_IF_NO_CONSUMPTION;
+    if (!readings.isEmpty()) {
+      maxListOne = getMaximumValueFromListOfIntegers(readings);
+    }
+    if (!readings2.isEmpty()) {
+      maxListTwo = getMaximumValueFromListOfIntegers(readings2);
+    }
     int maxWithinTimeDelta = getMaxValueFromTwoListsWithinTimeDelta(readings, readings2, timeDelta);
 
     return Math.max(maxListOne, Math.max(maxListTwo, maxWithinTimeDelta));
@@ -136,7 +142,7 @@ public class LogServiceImpl implements ILogService {
       sumOfReadings.add(sum);
     }
     if (sumOfReadings.isEmpty()) {
-      return 0;
+      return VALUE_IF_NO_CONSUMPTION;
     } else {
       return Collections.max(sumOfReadings);
     }
