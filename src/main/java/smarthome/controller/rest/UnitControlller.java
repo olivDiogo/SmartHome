@@ -16,7 +16,7 @@ import smarthome.domain.unit.Unit;
 import smarthome.utils.dto.UnitDTO;
 
 @RestController
-@RequestMapping("/unit")
+@RequestMapping()
 public class UnitControlller {
 
   @NotNull
@@ -42,7 +42,7 @@ public class UnitControlller {
    *
    * @return ResponseEntity<CollectionModel < UnitDTO>> is the response entity
    */
-  @GetMapping("/all")
+  @GetMapping("/units")
   public ResponseEntity<CollectionModel<UnitDTO>> getUnits() throws EmptyReturnException {
     List<Unit> unitList = unitService.getAllMeasurementTypes();
     if (unitList.isEmpty()) {

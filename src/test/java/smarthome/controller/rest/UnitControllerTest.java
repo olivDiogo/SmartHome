@@ -43,7 +43,7 @@ class UnitControllerTest {
     when(unitAssembler.domainToDTO(List.of(unit))).thenReturn(List.of(unitDTO));
 
     // Act & Assert
-    mockMvc.perform(get("/unit/all")
+    mockMvc.perform(get("/units")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.unitDTOList").exists())
@@ -59,7 +59,7 @@ class UnitControllerTest {
     // Arrange
     when(unitService.getAllMeasurementTypes()).thenReturn(List.of());
     // Act & Assert
-    mockMvc.perform(get("/unit/all")
+    mockMvc.perform(get("/units")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNoContent());
   }
