@@ -51,16 +51,16 @@ class UnitControllerTest {
   }
 
   /**
-   * This test case verifies that the UnitController returns a 404 Not Found status when no units
-   * are available.
+   * This test case verifies that the UnitController returns no units
    */
   @Test
-  void shouldReturnNotFound_WhenNoUnitsAvailable() throws Exception {
+  void shouldReturnNoUnits_WhenNoUnitsAvailable() throws Exception {
     // Arrange
     when(unitService.getAllMeasurementTypes()).thenReturn(List.of());
     // Act & Assert
     mockMvc.perform(get("/units")
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNoContent());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._links.self.href").exists());
   }
 }

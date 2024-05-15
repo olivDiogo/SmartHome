@@ -3,7 +3,6 @@ package smarthome.mapper;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.RoomDTO;
@@ -38,7 +37,7 @@ public class RoomAssembler implements IAssembler<Room, RoomDTO> {
    * @return the list of RoomDTOs.
    */
   @Override
-  public List<RoomDTO> domainToDTO(List<Room> rooms) throws EmptyReturnException {
+  public List<RoomDTO> domainToDTO(List<Room> rooms) {
     if (rooms == null) {
       throw new IllegalArgumentException("The list of Rooms cannot be null.");
     }

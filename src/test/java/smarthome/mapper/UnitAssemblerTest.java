@@ -148,4 +148,19 @@ class UnitAssemblerTest {
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
+
+  /**
+   * Should return an empty list when the list of MeasurementTypes is empty.
+   */
+  @Test
+  void shouldReturnEmptyList_WhenDomainToDTOIsCalledWithEmptyListOfMeasurementType()
+      throws EmptyReturnException {
+    // Arrange
+    UnitAssembler unitAssembler = new UnitAssembler();
+    List<Unit> unitList = List.of();
+    // Act
+    List<UnitDTO> actualList = unitAssembler.domainToDTO(unitList);
+    // Assert
+    assertEquals(0, actualList.size());
+  }
 }

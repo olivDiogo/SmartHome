@@ -141,7 +141,20 @@ class ActuatorModelAssemblerTest {
     Exception exception = assertThrows(IllegalArgumentException.class,
         () -> actuatorModelAssembler.domainToDTO(actuatorModels));
     assertEquals(expectedMessage, exception.getMessage());
+  }
 
-
+  /**
+   * Should return empty list when the list of actuator models is empty.
+   */
+  @Test
+  void shouldReturnEmptyList_whenActuatorModelListIsEmpty() throws EmptyReturnException {
+    // Arrange
+    List<ActuatorModel> actuatorModels = List.of();
+    ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
+    List<ActuatorModelDTO> expected = List.of();
+    // Act
+    List<ActuatorModelDTO> actuatorModelsDTO = actuatorModelAssembler.domainToDTO(actuatorModels);
+    // Assert
+    assertEquals(expected.toString(), actuatorModelsDTO.toString());
   }
 }

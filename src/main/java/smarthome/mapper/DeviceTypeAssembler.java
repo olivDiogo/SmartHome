@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device_type.DeviceType;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.DeviceTypeDTO;
 
@@ -41,7 +40,7 @@ public class DeviceTypeAssembler implements IAssembler<DeviceType, DeviceTypeDTO
    * @throws IllegalArgumentException if deviceTypes is null, empty, or contains null elements.
    */
   @Override
-  public List<DeviceTypeDTO> domainToDTO(List<DeviceType> deviceTypes) throws EmptyReturnException {
+  public List<DeviceTypeDTO> domainToDTO(List<DeviceType> deviceTypes) {
     if (deviceTypes == null) {
       throw new IllegalArgumentException("The list of DeviceTypes cannot be null.");
     }

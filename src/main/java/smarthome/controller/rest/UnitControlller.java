@@ -45,9 +45,7 @@ public class UnitControlller {
   @GetMapping("/units")
   public ResponseEntity<CollectionModel<UnitDTO>> getUnits() throws EmptyReturnException {
     List<Unit> unitList = unitService.getAllMeasurementTypes();
-    if (unitList.isEmpty()) {
-      return ResponseEntity.noContent().build();
-    }
+
     List<UnitDTO> unitDTOList = unitAssembler.domainToDTO(unitList);
     CollectionModel<UnitDTO> resource = CollectionModel.of(unitDTOList,
         WebMvcLinkBuilder.linkTo(

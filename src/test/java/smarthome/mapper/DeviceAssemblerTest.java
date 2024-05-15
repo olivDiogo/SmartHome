@@ -133,4 +133,20 @@ class DeviceAssemblerTest {
     String result = exception.getMessage();
     assertEquals(expectedMessage, result);
   }
+
+  /**
+   * should return empty list of DeviceDTO when the list of devices is empty
+   */
+  @Test
+  void shouldReturnEmptyListOfDeviceDTO_WhenGivenEmptyListOfDevices() throws EmptyReturnException {
+    //Arrange
+    List<Device> devices = List.of();
+    DeviceAssembler deviceAssembler = new DeviceAssembler();
+
+    //Act
+    List<DeviceDTO> deviceDTOs = deviceAssembler.domainToDTO(devices);
+
+    //Assert
+    assertEquals(0, deviceDTOs.size());
+  }
 }

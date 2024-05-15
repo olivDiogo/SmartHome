@@ -3,7 +3,6 @@ package smarthome.mapper;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorTypeDTO;
@@ -34,7 +33,7 @@ public class SensorTypeAssembler implements IAssembler<SensorType, SensorTypeDTO
    * @param sensorTypes is the list of domain entities to be converted.
    * @return a list of {@link SensorTypeDTO} data transfer objects.
    */
-  public List<SensorTypeDTO> domainToDTO(List<SensorType> sensorTypes) throws EmptyReturnException {
+  public List<SensorTypeDTO> domainToDTO(List<SensorType> sensorTypes) {
     if (sensorTypes == null) {
       throw new IllegalArgumentException("The list of sensor types cannot be null.");
     }

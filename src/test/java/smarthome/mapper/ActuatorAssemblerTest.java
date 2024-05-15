@@ -162,4 +162,21 @@ class ActuatorAssemblerTest {
         () -> actuatorAssembler.domainToDTO(actuators));
     assertEquals(expectedMessage, exception.getMessage());
   }
+
+  /**
+   * Should return empty list of ActuatorDTO when the list of Actuator is empty.
+   */
+  @Test
+  void shouldReturnEmptyListOfActuatorDTO_whenListOfActuatorIsEmpty() throws EmptyReturnException {
+    //Arrange
+    List<IActuator> actuators = List.of();
+    ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
+    List<ActuatorDTO> expected = List.of();
+
+    //Act
+    List<ActuatorDTO> actuatorsDTO = actuatorAssembler.domainToDTO(actuators);
+
+    //Assert
+    assertEquals(expected, actuatorsDTO);
+  }
 }

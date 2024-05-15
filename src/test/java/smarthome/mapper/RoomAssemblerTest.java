@@ -164,4 +164,20 @@ class RoomAssemblerTest {
     String result = exception.getMessage();
     assertEquals(expected, result);
   }
+
+  /**
+   * Should return empty list of RoomDTO when given empty list of Room.
+   */
+  @Test
+  void shouldReturnEmptyList_whenGivenEmptyList() throws EmptyReturnException {
+    // Arrange
+    List<Room> rooms = List.of();
+    RoomAssembler roomAssembler = new RoomAssembler();
+
+    // Act
+    List<RoomDTO> result = roomAssembler.domainToDTO(rooms);
+
+    // Assert
+    assertEquals(0, result.size());
+  }
 }

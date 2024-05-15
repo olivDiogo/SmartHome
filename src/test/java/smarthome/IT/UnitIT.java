@@ -5,8 +5,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +28,6 @@ class UnitIT {
 
   @Autowired
   private MockMvc mockMvc;
-
-  @Autowired
-  private ObjectMapper objectMapper;
 
   @MockBean
   private IUnitRepository unitRepository;
@@ -61,12 +56,11 @@ class UnitIT {
    */
   @Test
   void shouldReturnNotFound_WhenNoUnitsAvailable() throws Exception {
-    // Arrange
-    when(unitRepository.findAll()).thenReturn(Collections.emptyList());
     // Act & Assert
     mockMvc.perform(get("/units")
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNoContent());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._links.self.href").exists());
   }
 
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator.IActuator;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.ActuatorDTO;
 
@@ -38,7 +37,7 @@ public class ActuatorAssembler implements IAssembler<IActuator, ActuatorDTO> {
    * @return The list of ActuatorDTO data transfer objects.
    */
   @Override
-  public List<ActuatorDTO> domainToDTO(List<IActuator> actuators) throws EmptyReturnException {
+  public List<ActuatorDTO> domainToDTO(List<IActuator> actuators) {
     if (actuators == null) {
       throw new IllegalArgumentException("The list of Actuators cannot be null.");
     }

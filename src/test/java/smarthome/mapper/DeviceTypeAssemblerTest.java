@@ -100,4 +100,20 @@ class DeviceTypeAssemblerTest {
     // Assert
     assertEquals(expected.toString(), deviceTypeDTOS.toString());
   }
+
+  /**
+   * Should return empty list of DeviceTypeDTO when the list of device types is empty.
+   */
+  @Test
+  void shouldReturnEmptyList_WhenDeviceTypeListIsEmpty() throws EmptyReturnException {
+    // Arrange
+    List<DeviceType> deviceTypes = List.of();
+    DeviceTypeAssembler deviceTypeAssembler = new DeviceTypeAssembler();
+
+    // Act
+    List<DeviceTypeDTO> deviceTypeDTOS = deviceTypeAssembler.domainToDTO(deviceTypes);
+
+    // Assert
+    assertEquals(0, deviceTypeDTOS.size());
+  }
 }

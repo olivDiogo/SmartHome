@@ -148,4 +148,21 @@ class SensorModelAssemblerTest {
     String result = exception.getMessage();
     assertEquals(expected, result);
   }
+
+  /**
+   * Should return empty list of SensorModelDTO when the list of SensorModel is empty
+   */
+  @Test
+  void shouldReturnEmptyList_whenSensorModelListIsEmpty() throws EmptyReturnException {
+
+    // Arrange
+    List<SensorModel> sensorModels = List.of();
+    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
+
+    // Act
+    List<SensorModelDTO> sensorModelsDTO = sensorModelAssembler.domainToDTO(sensorModels);
+
+    // Assert
+    assertEquals(0, sensorModelsDTO.size());
+  }
 }

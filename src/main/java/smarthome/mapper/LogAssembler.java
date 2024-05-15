@@ -4,7 +4,6 @@ package smarthome.mapper;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.LogDTO;
@@ -41,7 +40,7 @@ public class LogAssembler implements IAssembler<Log, LogDTO> {
    */
 
   @Override
-  public List<LogDTO> domainToDTO(List<Log> domainEntities) throws EmptyReturnException {
+  public List<LogDTO> domainToDTO(List<Log> domainEntities) {
     if (domainEntities == null) {
       throw new IllegalArgumentException("The list of Logs cannot be null.");
     }

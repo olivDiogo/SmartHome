@@ -68,7 +68,8 @@ class ActuatorTypeControllerTest {
 
     mockMvc.perform(get("/actuator-types/")
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNoContent());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._links.self.href").exists());
   }
 
   /**

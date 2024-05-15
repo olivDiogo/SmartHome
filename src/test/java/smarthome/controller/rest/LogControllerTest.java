@@ -479,5 +479,26 @@ class LogControllerTest {
         .andExpect(jsonPath("$").value(expectedPowerConsumption));
   }
 
+  /**
+   * Should return empty list of logs when no logs are found
+   */
+  @Test
+  void shouldReturnEmptyList_WhenNoLogsFound() throws Exception {
+    // Arrange
+    String deviceIDStr = "123";
+    String timeStart = "2020-03-01T13:45:30";
+    String timeEnd = "2022-03-01T13:50:30";
 
+    when(logRepository.findByDeviceIDAndDatePeriodBetween(any(DeviceID.class),
+        any(DatePeriod.class)))
+        .thenReturn(new ArrayList<>());
+
+    // Act & Assert
+    mockMvc.perform(get("/logs/")
+            .param("deviceID", deviceIDStr)
+            .param("timeStart", timeStart)
+            .param("timeEnd", timeEnd))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(0)));
+  }
 }

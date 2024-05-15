@@ -54,17 +54,17 @@ public class ActuatorTypeController {
    * @return ResponseEntity<CollectionModel < ActuatorTypeDTO>> is the response entity
    */
   @GetMapping("/")
-  public ResponseEntity<CollectionModel<ActuatorTypeDTO>> getActuatorTypes()
-      throws EmptyReturnException {
+  public ResponseEntity<CollectionModel<ActuatorTypeDTO>> getActuatorTypes() {
     List<ActuatorType> actuatorTypeList = actuatorTypeService.getAllActuatorTypes();
-    if (actuatorTypeList.isEmpty()) {
-      return ResponseEntity.noContent().build();
-    }
     List<ActuatorTypeDTO> actuatorTypeDTOList = actuatorTypeAssembler.domainToDTO(actuatorTypeList);
-    CollectionModel<ActuatorTypeDTO> resource = CollectionModel.of(actuatorTypeDTOList,
+
+    CollectionModel<ActuatorTypeDTO> resource = CollectionModel.of(
+        actuatorTypeDTOList,
         WebMvcLinkBuilder.linkTo(
                 WebMvcLinkBuilder.methodOn(ActuatorTypeController.class).getActuatorTypes())
-            .withSelfRel());
+            .withSelfRel()
+    );
+
     return ResponseEntity.ok(resource);
   }
 

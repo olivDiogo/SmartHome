@@ -3,7 +3,6 @@ package smarthome.mapper;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor.ISensor;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorDTO;
@@ -38,7 +37,7 @@ public class SensorAssembler implements IAssembler<ISensor, SensorDTO> {
    * @return the list of DTOs that was created.
    */
   @Override
-  public List<SensorDTO> domainToDTO(List<ISensor> sensors) throws EmptyReturnException {
+  public List<SensorDTO> domainToDTO(List<ISensor> sensors) {
     if (sensors == null) {
       throw new IllegalArgumentException("The list of sensors cannot be null.");
     }
