@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -17,7 +16,6 @@ class CvsLoaderTest {
   private CvsLoader loadDefaultConfiguration = new CvsLoader();
 
   @Test
-  @Disabled
   void testLoadDefaultsFromCSVWithValidFile(@TempDir Path tempDir) throws IOException {
 
     Path csvFile = tempDir.resolve("test.csv");
@@ -31,7 +29,6 @@ class CvsLoaderTest {
   }
 
   @Test
-  @Disabled
   void testLoadDefaultsFromCSVWithEmptyFile(@TempDir Path tempDir) throws IOException {
     Path csvFile = tempDir.resolve("empty.csv");
     Files.write(csvFile, new byte[0]);
@@ -42,7 +39,6 @@ class CvsLoaderTest {
   }
 
   @Test
-  @Disabled
   void testLoadDefaultsFromCSVWithInvalidPath() {
     List<String[]> result = loadDefaultConfiguration.loadDefaultsFromCVS("invalid/path/to/csv");
 
@@ -50,7 +46,6 @@ class CvsLoaderTest {
   }
 
   @Test
-  @Disabled
   void testLoadDefaultsFromCSVWithSpecialCharacters(@TempDir Path tempDir) throws IOException {
     Path csvFile = tempDir.resolve("special.csv");
     Files.write(csvFile, "col1,\"col2 with, comma\"\n\"val1\nnewline\",val2".getBytes());

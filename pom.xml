@@ -168,6 +168,11 @@
             <version>1.18.32</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.5.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -238,7 +243,6 @@
                         <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>
                     </outputFormats>
-                    <!--<verbose>true</verbose>-->
                     <features>
                         <feature>+auto_threads</feature>
                     </features>
