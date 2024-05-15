@@ -8,8 +8,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     include = JsonTypeInfo.As.PROPERTY,
     property = "type")
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = ActuatorDataGenericDTOImp.class, name = "actuatorDataGenericDTOImp"),
-    @JsonSubTypes.Type(value = ActuatorDataWithIntegerLimitsDTOImp.class, name = "actuatorDataWithIntegerLimitsDTOImp")
+    @JsonSubTypes.Type(value = ActuatorDataGenericDTOImp.class, name = "genericActuator"),
+    @JsonSubTypes.Type(value = ActuatorDataWithIntegerLimitsDTOImp.class, name = "integerActuator"),
+    @JsonSubTypes.Type(value = ActuatorDataWithDecimalLimitsDTOImp.class, name = "decimalActuator"),
 })
 public interface IActuatorDataDTO {
 
