@@ -424,28 +424,6 @@ class DeviceControllerTest {
 
 
   /**
-   * Test getAllDevicesGroupedByFunctionality when no devices are available
-   */
-  @Test
-  void shouldReturnNotFound_whenNoDevicesGroupedByFunctionality() throws Exception {
-    // Arrange
-    House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
-    DeviceType deviceType = setupDeviceType();
-    Room room = setupRoom(roomDataDTO);
-
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
-    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
-    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
-    when(deviceRepository.findAll()).thenReturn(List.of());
-
-    // Act & Assert
-    mockMvc.perform(get("/devices/grouped")
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound());
-  }
-
-  /**
    * Test getAllDevicesGroupedByFunctionality when there is a device with no device type
    */
   @Test
@@ -498,6 +476,7 @@ class DeviceControllerTest {
 
     // Act & Assert
     mockMvc.perform(get("/devices/grouped")
+            .param("typeDescription",deviceTypeDescription)
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription + "']", hasSize(1)))

@@ -71,7 +71,6 @@ class DeviceAggregateTest {
     //Arrange
     String roomIDName = "1a24";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
@@ -95,7 +94,6 @@ class DeviceAggregateTest {
     //Arrange
     String roomIDName = "1a24";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
@@ -120,7 +118,6 @@ class DeviceAggregateTest {
     //Arrange
     String roomIDName = "1a24";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
@@ -171,7 +168,6 @@ class DeviceAggregateTest {
     //Arrange
     String roomIDName = "1a24";
     String name = "lamp";
-    boolean status = true;
     String typeID = "123";
 
     RoomID roomID = new RoomID(roomIDName);
