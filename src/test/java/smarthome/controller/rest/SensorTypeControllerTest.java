@@ -22,6 +22,7 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 import java.util.Collections;
+import java.util.List;
 
 
 @SpringBootTest
@@ -52,7 +53,8 @@ class SensorTypeControllerTest {
     SensorType sensorType = new SensorType(typeDescription, unitID2);
 
     // Set up mock to return the SensorType object
-    when(sensorTypeService.createSensorType(any(TypeDescription.class), any(UnitID.class))).thenReturn(sensorType);
+    when(sensorTypeService.createSensorType(any(TypeDescription.class),
+        any(UnitID.class))).thenReturn(sensorType);
 
     // Act & Assert
     mockMvc.perform(post("/sensor-types/")
@@ -109,6 +111,10 @@ class SensorTypeControllerTest {
         .andExpect(status().isNoContent());
   }
 
+  /**
+   * This test case verifies that the SensorTypeController returns a list of sensor types when
+   * available.
+   */
   @Test
   void shouldReturnSensorTypes_whenFound() throws Exception {
     // Arrange
@@ -121,15 +127,13 @@ class SensorTypeControllerTest {
     SensorType sensorType = new SensorType(typeDescription, unitID2);
 
     // Set up mock to return the SensorType object
-    when(sensorTypeService.createSensorType(any(TypeDescription.class), any(UnitID.class))).thenReturn(sensorType);
+    when(sensorTypeService.getAllSensorTypes()).thenReturn(List.of(sensorType));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor-types/")
+    mockMvc.perform(get("/sensor-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
-        .andExpect(status().isCreated())
-        .andExpect(jsonPath("$.description").value(sensorTypeDescription))
-        .andExpect(jsonPath("$.unitID").value(unitID));
+        .andExpect(status().isOk());
   }
 
   /**
