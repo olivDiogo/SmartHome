@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     include = JsonTypeInfo.As.PROPERTY,
     property = "type")
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = SensorDataGenericDTOImp.class, name = "sensorDataGenericDTOImp"),
-    @JsonSubTypes.Type(value = SensorDataWithDateDTOImp.class, name = "sensorDataWithDateDTOImp"),
-    @JsonSubTypes.Type(value = SensorDataWithGPSDTOImp.class, name = "sensorDataWithGPSDTOImp")
+    @JsonSubTypes.Type(value = SensorDataGenericDTOImp.class, name = "genericSensor"),
+    @JsonSubTypes.Type(value = SensorDataWithDateDTOImp.class, name = "dateSensor"),
+    @JsonSubTypes.Type(value = SensorDataWithGPSDTOImp.class, name = "gpsSensor")
 })
 public interface ISensorDataDTO {
 
