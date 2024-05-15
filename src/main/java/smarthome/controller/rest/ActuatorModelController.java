@@ -2,7 +2,6 @@ package smarthome.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +15,8 @@ import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.utils.dto.ActuatorModelDTO;
 import java.util.List;
 
-import static org.springframework.http.ResponseEntity.status;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/actuator-model")
@@ -39,25 +39,6 @@ public class ActuatorModelController {
     this.actuatorModelAssembler = actuatorModelAssembler;
   }
 
-//  @GetMapping("/all")
-//  public ResponseEntity<List<ActuatorModelDTO>> getAllActuatorModels() {
-//
-//    List<ActuatorModel> actuatorModels = actuatorModelService.getAllActuatorModels();
-//    List<ActuatorModelDTO> actuatorModelDTOS = actuatorModelAssembler.domainToDTO(actuatorModels);
-//    return ResponseEntity.status(HttpStatus.OK).body(actuatorModelDTOS);
-//  }
-//
-//  @GetMapping("/get")
-//  public ResponseEntity<ActuatorModelDTO> getActuatorModel(
-//      @Valid @RequestBody ActuatorDataGenericDTOImp actuatorDataDTO) {
-//
-//    ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
-//
-//    ActuatorModel actuatorModel = actuatorModelService.getActuatorModel(modelPath).get();
-//    ActuatorModelDTO actuatorModelDTO = actuatorModelAssembler.domainToDTO(actuatorModel);
-//    return ResponseEntity.status(HttpStatus.OK).body(actuatorModelDTO);
-//  }
-
   /**
    * Get all actuator models by actuator type ID.
    *
@@ -78,8 +59,7 @@ public ResponseEntity<CollectionModel<ActuatorModelDTO>> getActuatorModelsByActu
     }
 
     List<ActuatorModelDTO> actuatorModelDTOS = actuatorModelAssembler.domainToDTO(actuatorModels);
-    CollectionModel<ActuatorModelDTO> resource = CollectionModel.of(actuatorModelDTOS, WebMvcLinkBuilder.linkTo(
-            WebMvcLinkBuilder.methodOn(ActuatorModelController.class).getActuatorModelsByActuatorTypeId(actuatorTypeID))
+    CollectionModel<ActuatorModelDTO> resource = CollectionModel.of(actuatorModelDTOS, linkTo(methodOn(ActuatorModelController.class).getActuatorModelsByActuatorTypeId(actuatorTypeID))
         .withSelfRel());
     return ResponseEntity.ok(resource);
 }

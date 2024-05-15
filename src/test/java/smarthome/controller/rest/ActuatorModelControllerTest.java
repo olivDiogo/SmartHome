@@ -4,7 +4,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,31 +15,19 @@ import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
 import smarthome.domain.repository.IActuatorModelRepository;
-import smarthome.domain.service.IActuatorModelService;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
-import smarthome.mapper.ActuatorModelAssembler;
-import smarthome.utils.dto.ActuatorModelDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ActuatorModelControllerTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-  @MockBean
-  private IActuatorModelService actuatorModelService;
+  @Autowired private IActuatorModelFactory actuatorModelFactory;
 
-  @MockBean
-  private ActuatorModelAssembler actuatorModelAssembler;
-
-  @Autowired
-  private IActuatorModelFactory actuatorModelFactory;
-
-  @Autowired
-  private IActuatorModelRepository actuatorModelRepository;
+  @MockBean private IActuatorModelRepository actuatorModelRepository;
 
   /**
    * Test for the ActuatorModelController class.
@@ -50,6 +37,7 @@ public class ActuatorModelControllerTest {
   @Test
   void shouldReturnActuatorModelDTO_whenActuatorModelExists() throws Exception {
     // Arrange
+
     String actuatorModelPath = "path";
     String actuatorName = "Thermostat";
     String actuatorTypeID = "1";
@@ -58,41 +46,37 @@ public class ActuatorModelControllerTest {
     ActuatorTypeID typeID = new ActuatorTypeID(actuatorTypeID);
     ActuatorModelName actuatorName1 = new ActuatorModelName(actuatorName);
 
-    ActuatorModel actuatorModel = actuatorModelFactory.createActuatorModel(modelPath, actuatorName1,
-        typeID);
+    ActuatorModel actuatorModel =
+        actuatorModelFactory.createActuatorModel(modelPath, actuatorName1, typeID);
 
-    ActuatorModelDTO actuatorModelDTO = new ActuatorModelDTO(modelPath.getID(),
-        actuatorName1.getActuatorModelName());
-    List<ActuatorModelDTO> actuatorModelDTOs = List.of(actuatorModelDTO);
-
-    // Set up mock to return the ActuatorModel object
-    when(actuatorModelService.getActuatorModelsByActuatorTypeId(typeID)).thenReturn(List.of(actuatorModel));
-    when(actuatorModelAssembler.domainToDTO(List.of(actuatorModel))).thenReturn(actuatorModelDTOs);
+    when(actuatorModelRepository.findBy_actuatorTypeID(typeID)).thenReturn(List.of(actuatorModel));
 
     // Act & Assert
-    mockMvc.perform(get("/actuator-model/{actuatorTypeID}", actuatorTypeID)
-            .accept(MediaType.APPLICATION_JSON))
+    mockMvc
+        .perform(get("/actuator-model/" + actuatorTypeID).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.actuatorModelDTOList[0].actuatorModelName").value("Thermostat"))
+        .andExpect(
+            jsonPath("$._embedded.actuatorModelDTOList[0].actuatorModelName").value("Thermostat"))
         .andExpect(jsonPath("$._links.self").exists());
   }
 
-/**
+  /**
    * Test for the ActuatorModelController class.
    *
    * @throws Exception if the test fails
    */
-@Test
-void shouldReturnNotFound_WhenNoActuatorModelExists() throws Exception {
-  // Arrange
-  String actuatorTypeID = "1";
-  ActuatorTypeID typeID = new ActuatorTypeID(actuatorTypeID);
+  @Test
+  void shouldReturnNotFound_WhenNoActuatorModelExists() throws Exception {
+    // Arrange
+    String actuatorTypeID = "1";
+    ActuatorTypeID typeID = new ActuatorTypeID(actuatorTypeID);
 
-  when(actuatorModelService.getActuatorModelsByActuatorTypeId(typeID)).thenReturn(List.of());
-  // Act & Assert
-  mockMvc.perform(get("/actuator-model/{actuatorTypeID}", actuatorTypeID)
-          .accept(MediaType.APPLICATION_JSON))
-      .andExpect(status().isNotFound());
-}
-
+    when(actuatorModelRepository.findBy_actuatorTypeID(typeID)).thenReturn(List.of());
+    // Act & Assert
+    mockMvc
+        .perform(
+            get("/actuator-model/{actuatorTypeID}", actuatorTypeID)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNotFound());
+  }
 }
