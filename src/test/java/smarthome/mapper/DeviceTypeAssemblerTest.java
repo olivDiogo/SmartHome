@@ -1,19 +1,17 @@
 package smarthome.mapper;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.device_type.DeviceType;
-import smarthome.domain.exceptions.EmptyReturnException;
-import smarthome.utils.dto.DeviceTypeDTO;
-import smarthome.domain.value_object.DeviceTypeID;
-import smarthome.domain.value_object.TypeDescription;
-
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import smarthome.domain.device_type.DeviceType;
+import smarthome.domain.exceptions.EmptyReturnException;
+import smarthome.domain.value_object.DeviceTypeID;
+import smarthome.domain.value_object.TypeDescription;
+import smarthome.utils.dto.DeviceTypeDTO;
 
 
 class DeviceTypeAssemblerTest {
@@ -73,25 +71,6 @@ class DeviceTypeAssemblerTest {
     });
     assertEquals(expectedMessage, exception.getMessage());
 
-  }
-
-  /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the list of DeviceTypes
-   * is empty.
-   */
-  @Test
-  void shouldThrowIllegalArgumentException_WhenDeviceTypeListIsEmpty() {
-    // Arrange
-    List<DeviceType> deviceTypes = List.of();
-    DeviceTypeAssembler deviceTypeAssembler = new DeviceTypeAssembler();
-
-    String expectedMessage = "The list of DeviceTypes is empty.";
-
-    // Act & Assert
-    EmptyReturnException exception = assertThrows(EmptyReturnException.class, () -> {
-      deviceTypeAssembler.domainToDTO(deviceTypes);
-    });
-    assertEquals(expectedMessage, exception.getMessage());
   }
 
   /**

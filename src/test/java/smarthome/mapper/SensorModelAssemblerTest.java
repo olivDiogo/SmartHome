@@ -148,27 +148,4 @@ class SensorModelAssemblerTest {
     String result = exception.getMessage();
     assertEquals(expected, result);
   }
-
-  /**
-   * Test that the method domainToDTO throws an IllegalArgumentException when the list of
-   * SensorModel is empty
-   */
-  @Test
-  void shouldThrowException_whenSensorModelListIsEmpty() {
-
-    // Arrange
-    List<SensorModel> sensorModels = List.of();
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    String expected = "The list of Sensor Models is empty.";
-
-    // Act & Assert
-    EmptyReturnException exception =
-        assertThrows(
-            EmptyReturnException.class,
-            () -> {
-              sensorModelAssembler.domainToDTO(sensorModels);
-            });
-    String result = exception.getMessage();
-    assertEquals(expected, result);
-  }
 }

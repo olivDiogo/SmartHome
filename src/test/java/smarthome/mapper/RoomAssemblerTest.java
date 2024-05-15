@@ -1,23 +1,21 @@
 package smarthome.mapper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
-import smarthome.utils.dto.RoomDTO;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import smarthome.utils.dto.RoomDTO;
 
 class RoomAssemblerTest {
 
@@ -166,26 +164,4 @@ class RoomAssemblerTest {
     String result = exception.getMessage();
     assertEquals(expected, result);
   }
-
-  /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the list of Rooms is
-   * empty.
-   */
-  @Test
-  void shouldThrowIllegalArgumentException_WhenRoomListIsEmpty() {
-    // Arrange
-    List<Room> rooms = new ArrayList<>();
-    RoomAssembler roomAssembler = new RoomAssembler();
-
-    String expected = "The list of Rooms is empty.";
-
-    // Act & Assert
-    EmptyReturnException exception = assertThrows(EmptyReturnException.class,
-        () -> roomAssembler.domainToDTO(rooms));
-
-    String result = exception.getMessage();
-    assertEquals(expected, result);
-  }
-
-
 }

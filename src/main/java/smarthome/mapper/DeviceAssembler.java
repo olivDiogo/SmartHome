@@ -40,9 +40,6 @@ public class DeviceAssembler implements IAssembler<Device, DeviceDTO> {
     if (domainEntities == null) {
       throw new IllegalArgumentException("The list of Devices cannot be null.");
     }
-    if (domainEntities.isEmpty()) {
-      throw new EmptyReturnException("The list of Devices is empty.");
-    }
     return domainEntities.stream().map(this::domainToDTO).toList();
   }
 }

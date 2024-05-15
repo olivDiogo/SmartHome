@@ -1,21 +1,19 @@
 package smarthome.mapper;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import smarthome.domain.exceptions.EmptyReturnException;
-import smarthome.domain.house.House;
-import smarthome.domain.value_object.HouseID;
-import smarthome.utils.dto.HouseDTO;
-import smarthome.domain.value_object.Address;
-import smarthome.domain.value_object.GPS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.Test;
+import smarthome.domain.exceptions.EmptyReturnException;
+import smarthome.domain.house.House;
+import smarthome.domain.value_object.Address;
+import smarthome.domain.value_object.GPS;
+import smarthome.domain.value_object.HouseID;
+import smarthome.utils.dto.HouseDTO;
 
 class HouseAssemblerTest {
 
@@ -128,21 +126,6 @@ class HouseAssemblerTest {
     // Act
     IllegalArgumentException exception =
         assertThrows(IllegalArgumentException.class, () -> houseAssembler.domainToDTO(houses));
-
-    // Assert
-    assertEquals(expectedMessage, exception.getMessage());
-  }
-
-  @Test
-  void shouldThrowIllegalArgumentExceptionWhenHouseListIsEmpty() {
-    // Arrange
-    List<House> houses = new ArrayList<>();
-    HouseAssembler houseAssembler = new HouseAssembler();
-    String expectedMessage = "The list of Houses is empty.";
-
-    // Act
-    EmptyReturnException exception =
-        assertThrows(EmptyReturnException.class, () -> houseAssembler.domainToDTO(houses));
 
     // Assert
     assertEquals(expectedMessage, exception.getMessage());

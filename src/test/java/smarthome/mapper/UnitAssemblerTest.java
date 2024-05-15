@@ -1,23 +1,20 @@
 package smarthome.mapper;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import smarthome.domain.exceptions.EmptyReturnException;
-import smarthome.domain.unit.Unit;
-import smarthome.utils.dto.UnitDTO;
-import smarthome.domain.value_object.UnitDescription;
-import smarthome.domain.value_object.UnitID;
-import smarthome.domain.value_object.UnitSymbol;
-
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import smarthome.domain.exceptions.EmptyReturnException;
+import smarthome.domain.unit.Unit;
+import smarthome.domain.value_object.UnitDescription;
+import smarthome.domain.value_object.UnitID;
+import smarthome.domain.value_object.UnitSymbol;
+import smarthome.utils.dto.UnitDTO;
 
 class UnitAssemblerTest {
 
@@ -148,23 +145,6 @@ class UnitAssemblerTest {
     // Act
     IllegalArgumentException exception =
         assertThrows(IllegalArgumentException.class, () -> unitAssembler.domainToDTO(unitList));
-    // Assert
-    assertEquals(expectedMessage, exception.getMessage());
-  }
-
-  /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the list of
-   * MeasurementTypes is empty.
-   */
-  @Test
-  void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithEmptyListOfMeasurementType() {
-    // Arrange
-    UnitAssembler unitAssembler = new UnitAssembler();
-    String expectedMessage = "The list of Units is empty.";
-    List<Unit> unitList = List.of();
-    // Act
-    EmptyReturnException exception =
-        assertThrows(EmptyReturnException.class, () -> unitAssembler.domainToDTO(unitList));
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }

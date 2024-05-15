@@ -2,7 +2,6 @@ package smarthome.mapper;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.exceptions.EmptyReturnException;
@@ -42,9 +41,6 @@ public class ActuatorAssembler implements IAssembler<IActuator, ActuatorDTO> {
   public List<ActuatorDTO> domainToDTO(List<IActuator> actuators) throws EmptyReturnException {
     if (actuators == null) {
       throw new IllegalArgumentException("The list of Actuators cannot be null.");
-    }
-    if (actuators.isEmpty()) {
-      throw new EmptyReturnException("The list of Actuators is empty.");
     }
     return actuators.stream().map(this::domainToDTO).toList();
   }

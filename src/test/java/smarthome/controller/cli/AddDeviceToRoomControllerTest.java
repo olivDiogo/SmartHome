@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.List;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAggregateRoot;
 import smarthome.ddd.IAssembler;
@@ -27,16 +27,15 @@ import smarthome.domain.service.IHouseService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
-import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
+import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.mapper.DeviceAssembler;
 import smarthome.mapper.RoomAssembler;
 import smarthome.persistence.mem.DeviceRepository;
@@ -46,8 +45,8 @@ import smarthome.service.DeviceServiceImpl;
 import smarthome.service.HouseServiceImpl;
 import smarthome.service.RoomServiceImpl;
 import smarthome.utils.dto.DeviceDTO;
-import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.RoomDTO;
+import smarthome.utils.dto.data_dto.DeviceDataDTO;
 
 class AddDeviceToRoomControllerTest {
 
@@ -283,38 +282,6 @@ class AddDeviceToRoomControllerTest {
     List<String> actualList = List.of(actualRoomName, actualRoomID);
 
     assertEquals(expectedList, actualList);
-  }
-
-  /**
-   * Asserts that an exception is thrown when the list of rooms is empty.
-   */
-  @Test
-  void shouldThrowException_WhenListOfRoomsIsEmpty() {
-    // Arrange
-    IRoomRepository roomRepository = new RoomRepository();
-    IRoomFactory roomFactory = new RoomFactoryImpl();
-    IAssembler<Room, RoomDTO> roomAssembler = new RoomAssembler();
-    IHouseRepository houseRepository = new HouseRepository();
-
-    IRoomService roomServiceImpl =
-        new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-
-    IDeviceRepository deviceRepository = new DeviceRepository();
-    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
-
-    IDeviceService deviceServiceImpl =
-        new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
-
-    IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
-
-    AddDeviceToRoomController addDeviceToRoomController =
-        new AddDeviceToRoomController(
-            roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
-
-    // Act + Assert
-    assertThrows(
-        EmptyReturnException.class,
-        addDeviceToRoomController::getAllRooms);
   }
 
   /**

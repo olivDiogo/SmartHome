@@ -45,9 +45,6 @@ public class DeviceTypeAssembler implements IAssembler<DeviceType, DeviceTypeDTO
     if (deviceTypes == null) {
       throw new IllegalArgumentException("The list of DeviceTypes cannot be null.");
     }
-    if (deviceTypes.isEmpty()) {
-      throw new EmptyReturnException("The list of DeviceTypes is empty.");
-    }
     // Convert each DeviceType entity to DeviceTypeDTO using domainToDTO method
     return deviceTypes.stream().map(this::domainToDTO).toList();
   }

@@ -38,9 +38,6 @@ public class HouseAssembler implements IAssembler<House, HouseDTO> {
     if (houses == null) {
       throw new IllegalArgumentException("The list of Houses cannot be null.");
     }
-    if (houses.isEmpty()) {
-      throw new EmptyReturnException("The list of Houses is empty.");
-    }
 
     return houses.stream().map(this::domainToDTO).toList();
   }

@@ -1,21 +1,19 @@
 package smarthome.mapper;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.device.Device;
-import smarthome.domain.exceptions.EmptyReturnException;
-import smarthome.utils.dto.DeviceDTO;
-import smarthome.domain.value_object.DeviceID;
-import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
-import smarthome.domain.value_object.RoomID;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import smarthome.domain.device.Device;
+import smarthome.domain.exceptions.EmptyReturnException;
+import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.DeviceName;
+import smarthome.domain.value_object.DeviceStatus;
+import smarthome.domain.value_object.RoomID;
+import smarthome.utils.dto.DeviceDTO;
 
 class DeviceAssemblerTest {
 
@@ -129,27 +127,6 @@ class DeviceAssemblerTest {
 
     //Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> deviceAssembler.domainToDTO(devices));
-
-    //Assert
-    String result = exception.getMessage();
-    assertEquals(expectedMessage, result);
-  }
-
-  /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the list of devices is
-   * empty.
-   */
-  @Test
-  void shouldThrowIllegalArgumentException_WhenGivenEmptyDeviceList() {
-    //Arrange
-    DeviceAssembler deviceAssembler = new DeviceAssembler();
-    List<Device> devices = new ArrayList<>();
-
-    String expectedMessage = "The list of Devices is empty.";
-
-    //Act & Assert
-    EmptyReturnException exception = assertThrows(EmptyReturnException.class,
         () -> deviceAssembler.domainToDTO(devices));
 
     //Assert

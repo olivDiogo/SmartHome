@@ -46,9 +46,7 @@ public class UnitAssembler implements IAssembler<Unit, UnitDTO> {
     if (units == null) {
       throw new IllegalArgumentException("The list of Units cannot be null.");
     }
-    if (units.isEmpty()) {
-      throw new EmptyReturnException("The list of Units is empty.");
-    }
+
     List<UnitDTO> unitDTOS = new ArrayList<>();
     for (Unit unit : units) {
       UnitDTO unitDTO = domainToDTO(unit);

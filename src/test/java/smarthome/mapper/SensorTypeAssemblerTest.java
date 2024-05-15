@@ -1,19 +1,18 @@
 package smarthome.mapper;
 
-import org.junit.jupiter.api.Test;
-import smarthome.domain.exceptions.EmptyReturnException;
-import smarthome.domain.sensor_type.SensorType;
-import smarthome.utils.dto.SensorTypeDTO;
-import smarthome.domain.value_object.SensorTypeID;
-import smarthome.domain.value_object.TypeDescription;
-import smarthome.domain.value_object.UnitID;
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import smarthome.domain.exceptions.EmptyReturnException;
+import smarthome.domain.sensor_type.SensorType;
+import smarthome.domain.value_object.SensorTypeID;
+import smarthome.domain.value_object.TypeDescription;
+import smarthome.domain.value_object.UnitID;
+import smarthome.utils.dto.SensorTypeDTO;
 
 class SensorTypeAssemblerTest {
 
@@ -159,31 +158,4 @@ class SensorTypeAssemblerTest {
     String result = exception.getMessage();
     assertEquals(expected, result);
   }
-
-  /**
-   * Tests the conversion of a list of sensor types to a list of sensor type DTOs when the list is
-   * empty.
-   */
-  @Test
-  void shouldThrowException_whenListOfSensorTypesIsEmpty() {
-    // Arrange
-    List<SensorType> sensorTypes = List.of();
-
-    SensorTypeAssembler sensorTypeAssembler = new SensorTypeAssembler();
-
-    String expected = "The list of sensor types is empty.";
-
-    // Act + Assert
-    EmptyReturnException exception =
-        assertThrows(
-            EmptyReturnException.class,
-            () -> {
-              sensorTypeAssembler.domainToDTO(sensorTypes);
-            });
-
-    // Assert
-    String result = exception.getMessage();
-    assertEquals(expected, result);
-  }
-
 }

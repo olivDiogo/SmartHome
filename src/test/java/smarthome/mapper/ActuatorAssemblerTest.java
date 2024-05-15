@@ -1,9 +1,12 @@
 package smarthome.mapper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.value_object.ActuatorID;
@@ -12,11 +15,6 @@ import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.utils.dto.ActuatorDTO;
-
-import java.util.List;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class ActuatorAssemblerTest {
 
@@ -163,24 +161,5 @@ class ActuatorAssemblerTest {
     Exception exception = assertThrows(IllegalArgumentException.class,
         () -> actuatorAssembler.domainToDTO(actuators));
     assertEquals(expectedMessage, exception.getMessage());
-  }
-
-  /**
-   * Should throw IllegalArgumentException when the list of Actuator is empty.
-   */
-  @Test
-  void shouldThrowIllegalArgumentException_whenListOfActuatorIsEmpty() {
-    //Arrange
-    List<IActuator> actuators = List.of();
-    ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
-
-    String expectedMessage = "The list of Actuators is empty.";
-
-    //Act & Assert
-    Exception exception = assertThrows(EmptyReturnException.class,
-        () -> actuatorAssembler.domainToDTO(actuators));
-    assertEquals(expectedMessage, exception.getMessage());
-
-
   }
 }

@@ -45,9 +45,6 @@ public class LogAssembler implements IAssembler<Log, LogDTO> {
     if (domainEntities == null) {
       throw new IllegalArgumentException("The list of Logs cannot be null.");
     }
-    if (domainEntities.isEmpty()) {
-      throw new EmptyReturnException("The list of Logs is empty.");
-    }
     return domainEntities.stream().map(this::domainToDTO).toList();
   }
 }

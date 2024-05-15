@@ -42,10 +42,6 @@ public class RoomAssembler implements IAssembler<Room, RoomDTO> {
     if (rooms == null) {
       throw new IllegalArgumentException("The list of Rooms cannot be null.");
     }
-    if (rooms.isEmpty()) {
-      throw new EmptyReturnException("The list of Rooms is empty.");
-    }
-
     return rooms.stream().map(this::domainToDTO).toList();
   }
 

@@ -1,5 +1,12 @@
 package smarthome.mapper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
@@ -10,15 +17,6 @@ import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
 import smarthome.utils.dto.LogDTO;
-
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
 
 class LogAssemblerTest {
 
@@ -138,23 +136,6 @@ class LogAssemblerTest {
 
     //Assert
     assertEquals(expected, logDTO.toString());
-  }
-
-  /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the list of logs is
-   * empty.
-   */
-  @Test
-  void shouldThrowAnIllegalArgumentException_WhenGivenAnEmptyListOfLogs() {
-    //Arrange
-    List<Log> logs = List.of();
-    LogAssembler logAssembler = new LogAssembler();
-
-    //Act & Assert
-    EmptyReturnException exception = assertThrows(EmptyReturnException.class,
-        () -> logAssembler.domainToDTO(logs));
-
-    assertEquals("The list of Logs is empty.", exception.getMessage());
   }
 
   /**

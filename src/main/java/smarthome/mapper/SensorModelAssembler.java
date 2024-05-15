@@ -27,9 +27,7 @@ public class SensorModelAssembler implements IAssembler<SensorModel, SensorModel
     if (domainEntities == null) {
       throw new IllegalArgumentException("The list of Sensor Models cannot be null.");
     }
-    if (domainEntities.isEmpty()) {
-      throw new EmptyReturnException("The list of Sensor Models is empty.");
-    }
+
     return domainEntities.stream().map(this::domainToDTO).toList();
   }
 

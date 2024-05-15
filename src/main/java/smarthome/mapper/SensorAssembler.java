@@ -42,9 +42,7 @@ public class SensorAssembler implements IAssembler<ISensor, SensorDTO> {
     if (sensors == null) {
       throw new IllegalArgumentException("The list of sensors cannot be null.");
     }
-    if (sensors.isEmpty()) {
-      throw new EmptyReturnException("The list of sensors is empty.");
-    }
+
     return sensors.stream().map(this::domainToDTO).toList();
   }
 }

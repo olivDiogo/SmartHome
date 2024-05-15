@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -156,24 +155,4 @@ class ActuatorTypeAssemblerTest {
     String result = exception.getMessage();
     assertEquals(expected, result);
   }
-
-  @Test
-  void shouldThrowIllegalArgumentException_WhenActuatorTypeListIsEmpty() {
-    // Arrange
-    List<ActuatorType> actuatorTypeList = new ArrayList<>();
-    ActuatorTypeAssembler actuatorTypeAssembler = new ActuatorTypeAssembler();
-
-    String expected = "The list of ActuatorTypes is empty.";
-
-    // Act
-    EmptyReturnException exception =
-        assertThrows(
-            EmptyReturnException.class,
-            () -> actuatorTypeAssembler.domainToDTO(actuatorTypeList));
-
-    // Assert
-    String result = exception.getMessage();
-    assertEquals(expected, result);
-  }
-
 }

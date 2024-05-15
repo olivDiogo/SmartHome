@@ -168,19 +168,6 @@ class RoomIT {
   }
 
   /**
-   * Test getAllRooms method in RoomController when no rooms are found
-   */
-  @Test
-  void shouldReturnNotFound_whenNoRoomsFound() throws Exception {
-    //Arrange
-    when(roomRepository.findAll()).thenReturn(List.of());
-
-    //Act & Assert
-    mockMvc.perform(get("/rooms/"))
-        .andExpect(status().isNoContent());
-  }
-
-  /**
    * Test getRoomById method in RoomController
    */
   @Test

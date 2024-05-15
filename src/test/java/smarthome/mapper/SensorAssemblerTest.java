@@ -194,31 +194,4 @@ class SensorAssemblerTest {
     // Assert
     assertEquals(expected, result);
   }
-
-  /**
-   * Test that the method domainToDTO throws an exception when the list of Sensors is empty.
-   */
-  @Test
-  void shouldThrowException_WhenListOfSensorsIsEmpty() {
-    // Arrange
-    List<ISensor> sensors = List.of();
-
-    SensorAssembler sensorAssembler = new SensorAssembler();
-
-    // Act and Assert
-    Exception exception =
-        assertThrows(
-            EmptyReturnException.class,
-            () -> {
-              sensorAssembler.domainToDTO(sensors);
-            });
-
-    String expected = "The list of sensors is empty.";
-
-    String result = exception.getMessage();
-
-    // Assert
-    assertEquals(expected, result);
-  }
-
 }

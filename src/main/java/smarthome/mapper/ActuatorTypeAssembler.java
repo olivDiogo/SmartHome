@@ -44,9 +44,6 @@ public class ActuatorTypeAssembler implements IAssembler<ActuatorType, ActuatorT
     if (actuatorTypes == null) {
       throw new IllegalArgumentException("The list of ActuatorTypes cannot be null.");
     }
-    if (actuatorTypes.isEmpty()) {
-      throw new EmptyReturnException("The list of ActuatorTypes is empty.");
-    }
     return actuatorTypes.stream().map(this::domainToDTO).toList();
   }
 }

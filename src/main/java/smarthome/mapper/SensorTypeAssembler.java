@@ -38,9 +38,7 @@ public class SensorTypeAssembler implements IAssembler<SensorType, SensorTypeDTO
     if (sensorTypes == null) {
       throw new IllegalArgumentException("The list of sensor types cannot be null.");
     }
-    if (sensorTypes.isEmpty()) {
-      throw new EmptyReturnException("The list of sensor types is empty.");
-    }
+
     return sensorTypes.stream().map(this::domainToDTO).toList();
   }
 

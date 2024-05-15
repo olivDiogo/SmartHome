@@ -144,22 +144,4 @@ class ActuatorModelAssemblerTest {
 
 
   }
-
-  /**
-   * Tests the conversion of a list of actuator models to a list of actuator model DTOs when the
-   * list is empty.
-   */
-  @Test
-  void shouldThrowException_whenActuatorModelListIsEmpty() {
-    // Arrange
-    List<ActuatorModel> actuatorModels = List.of();
-    ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
-
-    String expectedMessage = "The list of Actuator Models is empty.";
-
-    // Act and Assert
-    Exception exception = assertThrows(EmptyReturnException.class,
-        () -> actuatorModelAssembler.domainToDTO(actuatorModels));
-    assertEquals(expectedMessage, exception.getMessage());
-  }
 }

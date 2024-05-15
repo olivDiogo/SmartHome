@@ -140,30 +140,6 @@ class LogControllerTest {
   }
 
   /**
-   * Test method to get Device Log (Readings) by Time Period when no logs are found
-   */
-  @Test
-  void shouldReturnNotFound_WhenNoLogsFound() throws Exception {
-    // Arrange
-    String deviceIDStr = "123";
-    String timeStart = "2020-03-01T13:45:30";
-    String timeEnd = "2022-03-01T13:50:30";
-    List<Log> logs = new ArrayList<>();
-
-    when(logRepository.findByDeviceIDAndDatePeriodBetween(any(DeviceID.class),
-        any(DatePeriod.class)))
-        .thenReturn(logs);
-
-    // Act & Assert
-    mockMvc.perform(get("/logs/")
-            .param("deviceID", deviceIDStr)
-            .param("timeStart", timeStart)
-            .param("timeEnd", timeEnd))
-        .andExpect(
-            status().isNoContent());
-  }
-
-  /**
    * Test method to get the maximum instantaneous temperature difference between a device and the
    * outside.
    */
