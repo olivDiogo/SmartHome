@@ -1,5 +1,9 @@
 package smarthome.mapper.actuator_vo_assembler;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
@@ -7,14 +11,10 @@ import smarthome.domain.value_object.DecimalLimits;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ActuatorVOAssemblerImplTest {
 
@@ -46,8 +46,8 @@ class ActuatorVOAssemblerImplTest {
     String actuatorModelPath = "actuatorModelPath";
     String actuatorName = "actuatorName";
     String actuatorTypeID = "actuatorTypeID";
-    String minLimit = "10";
-    String maxLimit = "50";
+    double minLimit = 10.0;
+    double maxLimit = 50.0;
     IActuatorDataDTO actuatorDataDTO =
         new ActuatorDataWithDecimalLimitsDTOImp(
             deviceID, actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
@@ -58,7 +58,7 @@ class ActuatorVOAssemblerImplTest {
     ActuatorName actuatorName1 = new ActuatorName(actuatorName);
     ActuatorTypeID actuatorTypeID1 = new ActuatorTypeID(actuatorTypeID);
     DecimalLimits decimalLimits =
-        new DecimalLimits(Double.parseDouble(minLimit), Double.parseDouble(maxLimit));
+        new DecimalLimits(minLimit, maxLimit);
     Object[] expected = {deviceID1, modelPath, actuatorTypeID1, actuatorName1, decimalLimits};
 
     // Act

@@ -42,8 +42,8 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
     ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
     ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
     ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataDTO.actuatorTypeID);
-    double minLimit = Double.parseDouble(actuatorDataDTO.minLimit);
-    double maxLimit = Double.parseDouble(actuatorDataDTO.maxLimit);
+    double minLimit = actuatorDataDTO.minLimit;
+    double maxLimit = actuatorDataDTO.maxLimit;
     DecimalLimits limits = new DecimalLimits(minLimit, maxLimit);
     return new Object[]{deviceID, modelPath, actuatorTypeID, actuatorName, limits};
   }

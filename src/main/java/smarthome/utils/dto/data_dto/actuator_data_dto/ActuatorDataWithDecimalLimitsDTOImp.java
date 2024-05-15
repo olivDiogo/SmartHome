@@ -24,8 +24,8 @@ public class ActuatorDataWithDecimalLimitsDTOImp implements IActuatorDataDTO {
   public final String actuatorTypeID;
 
   @NotBlank(message = "MinLimit cannot be empty")
-  public final String minLimit;
+  public final double minLimit;
 
   @NotBlank(message = "MaxLimit cannot be empty")
-  public final String maxLimit;
+  public final double maxLimit;
 }

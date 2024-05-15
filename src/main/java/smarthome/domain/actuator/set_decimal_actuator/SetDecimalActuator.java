@@ -164,7 +164,7 @@ public class SetDecimalActuator implements IActuator {
    * @throws IllegalArgumentException if the provided value is null or outside the specified
    *                                  limits.
    */
-  public IValueObject setValue(IValueObject value) {
+  public SetDecimalValue setValue(IValueObject value) {
     if (value == null) {
       throw new IllegalArgumentException("Value cannot be null");
     }

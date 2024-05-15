@@ -1090,8 +1090,8 @@ class AddActuatorToDeviceControllerTest {
   void shouldAddActuatorToDevice_whenParametersAreValidSetDecimalActuator()
       throws InstantiationException {
     // Arrange
-    String lowerLimit = "1.1";
-    String upperLimit = "99.8";
+    double lowerLimit = 1.1;
+    double upperLimit = 99.8;
     LoadModelsAndUnit loadModelsAndUnit =
         new LoadModelsAndUnit(
             sensorModelRepository,
