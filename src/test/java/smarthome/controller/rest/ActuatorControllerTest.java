@@ -2,6 +2,7 @@ package smarthome.controller.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,7 @@ import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.DeviceTypeFactoryImpl;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
+import smarthome.domain.repository.IActuatorTypeRepository;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.room.Room;
@@ -40,6 +42,7 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
+import smarthome.persistence.mem.ActuatorTypeRepository;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
@@ -63,6 +66,9 @@ public class ActuatorControllerTest {
 
   @MockBean
   private IDeviceRepository deviceRepository;
+
+  @MockBean
+  private IActuatorTypeRepository actuatorTypeRepository;
 
 
   House setupHouse() {
@@ -137,12 +143,15 @@ public class ActuatorControllerTest {
     ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
     ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
         new TypeDescription(strActuatorType), actuatorUnit.getID());
+
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
     IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath,
         actuatorName, actuatorTypeID);
+
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
 
     // Act & Assert
     mockMvc.perform(post("/actuator/")
@@ -185,6 +194,7 @@ public class ActuatorControllerTest {
     IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
         actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
 
     // Act & Assert
     mockMvc.perform(post("/actuator/")

@@ -126,22 +126,33 @@ class SensorControllerTest {
    */
   @Test
   void shouldReturnSensorDTO_whenGenericSensorIsAddedToDevice() throws Exception {
+    //Arrange
     Device device = setupDevice();
+
     String deviceIDStr = device.getID().toString();
-    TypeDescription typeDescription = new TypeDescription("DewPoint");
+    String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
+
+    /* create unit */
     UnitDescription unit = new UnitDescription("Celsius");
     UnitSymbol strUnitSymbol = new UnitSymbol("C");
     Unit sensorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
-    String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
-    SensorType sensorType = new SensorTypeFactoryImpl().createSensorType(typeDescription,
-        sensorUnit.getID());
+
+    /* create sensor type */
+    String strSensorType = "DewPoint";
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
+
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType), sensorUnit.getID());
+
     String sensorTypeIDStr = sensorType.getID().toString();
+
+    /* create dataDTO */
     ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr, sensorModelPath,
         "DewPoint", sensorTypeIDStr);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
+    //Act + Assert
     mockMvc.perform(post("/sensor/")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))

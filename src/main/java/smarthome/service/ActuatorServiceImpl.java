@@ -5,10 +5,13 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.IActuatorFactory;
+import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.device.Device;
 import smarthome.domain.repository.IActuatorRepository;
+import smarthome.domain.repository.IActuatorTypeRepository;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.value_object.ActuatorID;
+import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.utils.Validator;
 
@@ -18,18 +21,20 @@ public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorSe
   private final IActuatorRepository actuatorRepository;
   private final IActuatorFactory actuatorFactory;
   private final IDeviceRepository deviceRepository;
+  private final IActuatorTypeRepository actuatorTypeRepository;
 
   /**
    * Constructs an ActuatorService with the specified repositories and factory.
    *
    * @param actuatorRepository The repository for storing actuators.
-   * @param actuatorFactory The factory for creating actuators.
-   * @param deviceRepository The repository for accessing devices.
+   * @param actuatorFactory    The factory for creating actuators.
+   * @param deviceRepository   The repository for accessing devices.
+   * @param actuatorTypeRepository The repository for accessing actuator types.
    */
   public ActuatorServiceImpl(
       IActuatorRepository actuatorRepository,
       IActuatorFactory actuatorFactory,
-      IDeviceRepository deviceRepository) {
+      IDeviceRepository deviceRepository, IActuatorTypeRepository actuatorTypeRepository) {
 
     Validator.validateNotNull(actuatorRepository, "Actuator repository");
     this.actuatorRepository = actuatorRepository;
@@ -37,19 +42,38 @@ public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorSe
     this.actuatorFactory = actuatorFactory;
     Validator.validateNotNull(deviceRepository, "Device repository");
     this.deviceRepository = deviceRepository;
+    Validator.validateNotNull(actuatorTypeRepository, "Actuator type repository");
+    this.actuatorTypeRepository = actuatorTypeRepository;
   }
 
   /**
    * Adds a new actuator to the repository and saves it.
    *
    * @param parameters The parameters needed to create the actuator.The first parameter should * be
-   *     of type DeviceID. The rest of the parameters should be the required parameters to create *
-   *     an actuator object.
+   *                   of type DeviceID. The rest of the parameters should be the required
+   *                   parameters to create * an actuator object.
    * @return The created and saved actuator object.
    */
   @Override
   public IActuator addActuator(Object... parameters) {
     DeviceID deviceID = (DeviceID) parameters[0];
+    ActuatorTypeID actuatorTypeID = (ActuatorTypeID) parameters[2];
+
+    validateDeviceID(deviceID);
+    validateActuatorTypeID(actuatorTypeID);
+
+    IActuator actuator = actuatorFactory.create(parameters);
+    actuatorRepository.save(actuator);
+
+    return actuator;
+  }
+
+  /**
+   * Validates the device ID.
+   *
+   * @param deviceID The ID of the device to validate.
+   */
+  private void validateDeviceID(DeviceID deviceID) {
     Optional<Device> deviceOptional = deviceRepository.ofIdentity(deviceID);
     if (deviceOptional.isEmpty()) {
       throw new IllegalArgumentException("Device with ID " + deviceID + " not found.");
@@ -57,9 +81,18 @@ public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorSe
     if (!deviceOptional.get().getDeviceStatus().getStatus()) {
       throw new IllegalArgumentException("Device with ID " + deviceID + " is deactivated.");
     }
-    IActuator actuator = actuatorFactory.create(parameters);
-    actuatorRepository.save(actuator);
-    return actuator;
+  }
+
+  /**
+   * Validates the actuator type ID.
+   *
+   * @param actuatorTypeID The ID of the actuator type to validate.
+   */
+  private void validateActuatorTypeID(ActuatorTypeID actuatorTypeID) {
+    Optional<ActuatorType> actuatorTypeOptional = actuatorTypeRepository.ofIdentity(actuatorTypeID);
+    if (actuatorTypeOptional.isEmpty()) {
+      throw new IllegalArgumentException("ActuatorType with ID " + actuatorTypeID + " not found.");
+    }
   }
 
   /**

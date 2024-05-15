@@ -121,7 +121,7 @@ class AddActuatorToDeviceControllerTest {
   IAssembler<ActuatorType, ActuatorTypeDTO> actuatorTypeAssembler = new ActuatorTypeAssembler();
   IAssembler<IActuator, ActuatorDTO> actuatorAssembler = new ActuatorAssembler();
   IActuatorService actuatorService =
-      new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository);
+      new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository, actuatorTypeRepository);
   IDeviceService deviceServiceImpl =
       new DeviceServiceImpl(deviceRepository, deviceFactory, roomRepository);
   IAssembler<Device, DeviceDTO> deviceAssembler = new DeviceAssembler();
