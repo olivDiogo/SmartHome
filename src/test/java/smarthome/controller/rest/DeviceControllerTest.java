@@ -1,6 +1,9 @@
 package smarthome.controller.rest;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -17,12 +20,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.device.Device;
+import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.IDeviceTypeFactory;
+import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IDeviceRepository;
@@ -43,6 +50,8 @@ import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
+import smarthome.utils.dto.DeviceDTO;
+import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
 
@@ -496,6 +505,37 @@ class DeviceControllerTest {
         .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription2 + "']", hasSize(2)))
         .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription2 + "'][0].deviceID").value(deviceTwo.getID().getID()))
         .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription2 + "'][1].deviceID").value(deviceThree.getID().getID()));
+  }
+
+  /**
+   * test getDeviceByRoomId method in RoomController
+   */
+  @Test
+  void shouldReturnDevices_whenGetDevicesByRoomId() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    Room room = setupRoom(roomDataDTO);
+    DeviceType deviceType = setupDeviceType();
+    DeviceType deviceType2 = setupDeviceTypeTwo();
+    String deviceTypeDescription = "Bulb";
+    String deviceTypeDescription2 = "Fan";
+
+    Device device = setupDevice(setupDeviceDataDTO(room, deviceTypeDescription));
+    Device deviceTwo = setupDevice(setupDeviceDataDTO(room, deviceTypeDescription2));
+    Device deviceThree = setupDevice(setupDeviceDataDTO(room, deviceTypeDescription2));
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(deviceTypeRepository.ofIdentity(deviceType2.getID())).thenReturn(Optional.of(deviceType2));
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    when(deviceRepository.findByRoomID(room.getID())).thenReturn(List.of(device, deviceTwo, deviceThree));
+
+    // Act & Assert
+    mockMvc.perform(get("/devices/" + room.getID() + "/room")
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._links.self").exists());
   }
 
 }

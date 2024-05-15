@@ -203,42 +203,4 @@ class RoomIT {
     mockMvc.perform(get("/rooms/" + room.getID()))
         .andExpect(status().isNotFound());
   }
-
-  /**
-   * test getDeviceByRoomId method in RoomController
-   */
-  @Test
-  void shouldReturnDevices_whenGetDevicesByRoomId() throws Exception {
-    // Arrange
-    House house = setupHouse();
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
-
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
-    Room room = setupRoom(roomDataDTO);
-    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
-
-    IDeviceFactory deviceFactory = new DeviceFactoryImpl();
-    DeviceName deviceName = new DeviceName("device1");
-    DeviceStatus deviceStatus = new DeviceStatus(true);
-    DeviceTypeID deviceTypeID = new DeviceTypeID("device1");
-    Device device1 = deviceFactory.createDevice(room.getID(), deviceName,
-        deviceTypeID);
-    Device device2 = deviceFactory.createDevice(room.getID(), deviceName,
-        deviceTypeID);
-    List<Device> devices = List.of(device1, device2);
-    when(deviceService.getDevicesByRoomId(room.getID())).thenReturn(devices);
-
-    DeviceDTO deviceDTO1 = new DeviceDTO(device1.getID().toString(), room.getID().toString(),
-        deviceName.toString(), deviceStatus.toString());
-    DeviceDTO deviceDTO2 = new DeviceDTO(device2.getID().toString(), room.getID().toString(),
-        deviceName.toString(), deviceStatus.toString());
-    when(deviceAssembler.domainToDTO(device1)).thenReturn(deviceDTO1);
-    when(deviceAssembler.domainToDTO(device2)).thenReturn(deviceDTO2);
-
-    // Act & Assert
-    mockMvc.perform(get("/rooms/" + room.getID() + "/devices")
-            .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$._links.self").exists());
-  }
 }

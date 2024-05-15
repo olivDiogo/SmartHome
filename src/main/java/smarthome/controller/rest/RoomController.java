@@ -100,23 +100,4 @@ public class RoomController {
     }
   }
 
-  /**
-   * Get all devices in a room
-   *
-   * @param idStr is the room ID
-   * @return a list of all devices in the room with the given ID
-   */
-  @GetMapping("/{id}/devices")
-  public ResponseEntity<CollectionModel<DeviceDTO>> getDevicesInAGivenRoom(
-      @PathVariable("id") String idStr) {
-    RoomID id = new RoomID(idStr);
-    roomService.getRoomById(id); // Check if room exists
-    List<DeviceDTO> deviceDTOs = deviceService.getDevicesByRoomId(id)
-        .stream()
-        .map(deviceAssembler::domainToDTO)
-        .toList();
-    CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
-        linkTo(methodOn(RoomController.class).getDevicesInAGivenRoom(idStr)).withSelfRel());
-    return ResponseEntity.ok(resource);
-  }
 }

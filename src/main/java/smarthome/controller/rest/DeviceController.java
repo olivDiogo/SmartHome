@@ -28,8 +28,10 @@ import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.exceptions.EmptyReturnException;
+import smarthome.domain.room.Room;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IDeviceTypeService;
+import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
@@ -39,6 +41,7 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.mapper.DeviceTypeAssembler;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.DeviceTypeDTO;
+import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
 import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
@@ -52,6 +55,8 @@ public class DeviceController {
   private final IAssembler<Device, DeviceDTO> deviceAssembler;
   private final IDeviceTypeService deviceTypeService;
   private final DeviceTypeAssembler deviceTypeAssembler;
+  private final IRoomService roomService;
+  private final IAssembler<Room, RoomDTO> roomAssembler;
 
   /**
    * Constructor for the DeviceController class.
@@ -64,11 +69,14 @@ public class DeviceController {
       IDeviceService deviceService,
       IAssembler<Device, DeviceDTO> deviceAssembler,
       IDeviceTypeService deviceTypeService,
-      DeviceTypeAssembler deviceTypeAssembler) {
+      DeviceTypeAssembler deviceTypeAssembler, IRoomService roomService,
+      IAssembler<Room, RoomDTO> roomAssembler) {
     this.deviceAssembler = deviceAssembler;
     this.deviceService = deviceService;
     this.deviceTypeService = deviceTypeService;
     this.deviceTypeAssembler = deviceTypeAssembler;
+    this.roomAssembler = roomAssembler;
+    this.roomService = roomService;
   }
 
   /**
@@ -205,6 +213,27 @@ public class DeviceController {
             linkTo(methodOn(DeviceController.class).getAllDevicesGroupedByFunctionality())
                 .withSelfRel());
 
+    return ResponseEntity.ok(resource);
+  }
+
+
+  /**
+   * Get all devices in a room
+   *
+   * @param idStr is the room ID
+   * @return a list of all devices in the room with the given ID
+   */
+  @GetMapping("/{id}/room")
+  public ResponseEntity<CollectionModel<DeviceDTO>> getDevicesInAGivenRoom(
+      @PathVariable("id") String idStr) {
+    RoomID id = new RoomID(idStr);
+    roomService.getRoomById(id); // Check if room exists
+    List<DeviceDTO> deviceDTOs = deviceService.getDevicesByRoomId(id)
+        .stream()
+        .map(deviceAssembler::domainToDTO)
+        .toList();
+    CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
+        linkTo(methodOn(DeviceController.class).getDevicesInAGivenRoom(idStr)).withSelfRel());
     return ResponseEntity.ok(resource);
   }
 }

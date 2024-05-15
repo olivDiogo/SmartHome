@@ -141,21 +141,5 @@ class RoomControllerTest {
     assertEquals(HttpStatus.OK, response.getStatusCode());
   }
 
-  /** Unit Test get all devices in a room method */
-  @Test
-  void shouldReturnAllDevicesInRoom_whenGetDevicesInAGivenRoomIsCalled()
-      throws EmptyReturnException {
-    // Arrange
-    String id = "1";
-    Room mockRoom = mock(Room.class);
-    RoomDTO mockRoomDTO = mock(RoomDTO.class);
-    when(roomService.getRoomById(any(RoomID.class))).thenReturn(java.util.Optional.of(mockRoom));
-    when(roomAssembler.domainToDTO(mockRoom)).thenReturn(mockRoomDTO);
 
-    // Act
-    ResponseEntity<?> response = roomController.getDevicesInAGivenRoom(id);
-
-    // Assert
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-  }
 }
