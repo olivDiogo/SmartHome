@@ -1,0 +1,78 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+autonumber
+
+    participant " " as User
+    participant ":GetListOfDevicesByFuncionalityFromRoomForCloseBlinderRoller_Controller" as GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller
+    participant "actuatorTypeID:ActuatorTypeID" as ActuatorTypeID
+    participant "actuatorService:ActuatorService" as ActuatorService
+    participant "blindRollerValue:BlindRollerValue" as BlindRollerValue
+    participant "actuatorRepo:ActuatorRepo" as ActuatorRepo
+    participant "actuator:Actuator" as Actuator
+    participant "actuatorAssembler:ActuatorAssembler" as ActuatorAssembler
+
+
+
+' Request all devices by room and functionality
+    ref over User, GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: getRooms
+    ref over User, GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: getDevicesByRoomID(roomID)
+' Request to close the blind roller
+
+User o-> GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: closeBlindRollerToValue(deviceID, int value)
+activate GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller
+
+create ActuatorTypeID
+
+GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> ActuatorTypeID: new ActuatorTypeID
+GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> ActuatorService: getActuatorByDeviceIDAndActuatorTypeID(deviceID, actuatorTypeID)
+activate ActuatorService
+ActuatorService -> ActuatorRepo: ofDeviceIDByType(deviceID, actuatorTypeID)
+
+activate ActuatorRepo
+ActuatorRepo --> "ActuatorService": actuatorBlindRoller
+deactivate ActuatorRepo
+ActuatorService --> GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: actuatorBlindRoller
+deactivate ActuatorService
+create BlindRollerValue
+GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> BlindRollerValue: new BlindRollerValue(value)
+activate ActuatorService
+
+
+GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> ActuatorService: closeBlindRoller (actuatorBlindRoller, blindRollerValue)
+
+ActuatorService -> ActuatorService: checkIfValueIsLowerThanCurrent(actuatorBlindRoller, blindRollerValue)
+
+ActuatorService -> Actuator: closeBlindRoller(blindRollerValue)
+activate Actuator
+Actuator -> Actuator: setValue (blindRollerValue))
+Actuator --> ActuatorService: blindRollerValue
+deactivate Actuator
+
+ActuatorService --> GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: blindRollerValue
+deactivate ActuatorService
+GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> ActuatorService: update(actuatorBlindRoller)
+activate ActuatorService
+ActuatorService -> ActuatorRepo: update(actuatorBlindRoller)
+activate ActuatorRepo
+ActuatorRepo --> ActuatorService: actuatorBlindRoller
+deactivate ActuatorRepo
+ActuatorService --> GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: actuatorBlindRoller
+
+deactivate ActuatorService
+
+GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> ActuatorAssembler: domainToDTO(actuatorBlindRoller)
+activate ActuatorAssembler
+create ActuatorDTO
+ActuatorAssembler -> ActuatorDTO: createActuatorDTO(actuator)
+
+activate ActuatorDTO
+ActuatorDTO --> ActuatorAssembler: actuatorDTO
+deactivate ActuatorDTO
+ActuatorAssembler --> GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: actuatorDTO
+deactivate ActuatorAssembler
+GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller --> User: actuatorDTO
+deactivate GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller
+
+
+@enduml
