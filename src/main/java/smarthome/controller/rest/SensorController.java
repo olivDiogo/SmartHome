@@ -66,7 +66,7 @@ public class SensorController {
         .linkTo(WebMvcLinkBuilder.methodOn(SensorController.class).addSensor(sensorDataDTO));
 
     EntityModel<SensorDTO> resource = EntityModel.of(sensorDTO,
-        linkToSelf.withSelfRel().withHref("/sensor/" + sensorDTO.sensorID));
+        linkToSelf.withSelfRel().withHref("/sensors/" + sensorDTO.sensorID));
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
