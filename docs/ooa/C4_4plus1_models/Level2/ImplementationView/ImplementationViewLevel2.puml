@@ -12,13 +12,18 @@ component SmartHome <<system (C4)>> {
     component CLI{
         port p5
     }
+    component Rest{
+        port p7
+        port p8
+    }
 }
 
 CLIUI -down- p1
 p5 - p1
 CLI -- p4
+p3 -up- p7
+p8 - p2
 
-p3 - p2
 p2 -up- APIRest
 
 @enduml
