@@ -25,6 +25,9 @@ activate GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller
 create ActuatorTypeID
 
 GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> ActuatorTypeID: new ActuatorTypeID
+activate ActuatorTypeID
+ActuatorTypeID --> GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: actuatorTypeID
+deactivate ActuatorTypeID
 GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> ActuatorService: getActuatorByDeviceIDAndActuatorTypeID(deviceID, actuatorTypeID)
 activate ActuatorService
 ActuatorService -> ActuatorRepo: ofDeviceIDByType(deviceID, actuatorTypeID)
@@ -35,7 +38,11 @@ deactivate ActuatorRepo
 ActuatorService --> GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: actuatorBlindRoller
 deactivate ActuatorService
 create BlindRollerValue
+
 GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> BlindRollerValue: new BlindRollerValue(value)
+activate BlindRollerValue
+BlindRollerValue --> GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: blindRollerValue
+deactivate BlindRollerValue
 activate ActuatorService
 
 
