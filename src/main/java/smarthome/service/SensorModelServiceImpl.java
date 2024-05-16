@@ -2,6 +2,7 @@ package smarthome.service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Component;
 import smarthome.domain.repository.ISensorModelRepository;
 import smarthome.domain.sensor_model.ISensorModelFactory;
 import smarthome.domain.sensor_model.SensorModel;
@@ -11,6 +12,7 @@ import smarthome.domain.value_object.SensorModelName;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.Validator;
 
+@Component
 public class SensorModelServiceImpl implements ISensorModelService {
 
   private final ISensorModelRepository sensorModelRepository;
