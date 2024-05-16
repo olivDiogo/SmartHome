@@ -2,27 +2,27 @@
 
 package "Smart Home System" {
 
-    package Infrastructure {
+    Component Infrastructure {
         package Tests {
         }
         package Persistence {
         }
     }
 
-    package "Interface Adapters" {
+    Component "Interface Adapters" {
         package Controllers {
         }
         package Repositories {
         }
     }
 
-    package "Services Layer" {
+    Component "Services Layer" {
         package "Services" {
         }
 
     }
 
-    package "Entities/Core/Domain" {
+    Component "Entities/Core/Domain" {
         package Aggregates {
         }
         package "Value Objects" {
