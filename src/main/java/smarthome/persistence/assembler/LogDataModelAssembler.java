@@ -55,6 +55,12 @@ public class LogDataModelAssembler implements IDataModelAssembler<LogDataModel, 
     return log;
   }
 
+  /**
+   * Converts a list of LogDataModel instances to a list of Log instances.
+   *
+   * @param logDataModels is the list of domain entities to be converted.
+   * @return a list of Log instances.
+   */
   @Override
   public List<Log> toDomain(List<LogDataModel> logDataModels) {
     List<Log> logs = new ArrayList<>();

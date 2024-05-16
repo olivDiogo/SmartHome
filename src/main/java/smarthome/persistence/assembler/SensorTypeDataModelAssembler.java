@@ -27,6 +27,12 @@ public class SensorTypeDataModelAssembler implements
     this.sensorTypeFactory = sensorTypeFactory;
   }
 
+  /**
+   * Method to convert a domain entity into a DataModel.
+   *
+   * @param sensorTypeDataModel is the domain entity to be converted.
+   * @return the DataModel.
+   */
   @Override
   public SensorType toDomain(SensorTypeDataModel sensorTypeDataModel) {
     Validator.validateNotNull(sensorTypeDataModel, "Sensor Type Data Model");
@@ -38,11 +44,14 @@ public class SensorTypeDataModelAssembler implements
     return sensorTypeFactory.createSensorType(sensorTypeID, typeDescription, unitID);
   }
 
+  /**
+   * Method to convert a list of domain entities into a list of DataModels.
+   *
+   * @param sensorTypeDataModels is the list of domain entities to be converted.
+   * @return the list of DataModels.
+   */
   @Override
   public List<SensorType> toDomain(List<SensorTypeDataModel> sensorTypeDataModels) {
-    if (sensorTypeDataModels == null || sensorTypeDataModels.isEmpty()) {
-      throw new IllegalArgumentException("The list of sensor types cannot be null or empty.");
-    }
 
     List<SensorType> sensorTypes = new ArrayList<>();
 

@@ -176,47 +176,5 @@ class DeviceDataModelAssemblerTest {
     assertEquals(expectedList, result);
   }
 
-  /**
-   * Test to verify if the DeviceDataModelConverter throws an IllegalArgumentException when given a
-   * null list of DeviceDataModel
-   */
-  @Test
-  void shouldThrowIllegalArgumentException_whenDeviceDataModelListIsNull() {
-    //Arrange
-    List<DeviceDataModel> deviceDataModelList = null;
 
-    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-    DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
-
-    String expectedMessage = "The list of devices cannot be null or empty.";
-
-    //Act & Assert
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> deviceDataModelAssembler.toDomain(deviceDataModelList));
-    String actualMessage = exception.getMessage();
-
-    assertEquals(expectedMessage, actualMessage);
-  }
-
-  /**
-   * Test to verify if the DeviceDataModelConverter throws an IllegalArgumentException when given an
-   * empty list of DeviceDataModel
-   */
-  @Test
-  void shouldThrowIllegalArgumentException_whenDeviceDataModelListIsEmpty() {
-    //Arrange
-    List<DeviceDataModel> deviceDataModelList = new ArrayList<>();
-
-    IDeviceFactory deviceFactory = mock(IDeviceFactory.class);
-    DeviceDataModelAssembler deviceDataModelAssembler = new DeviceDataModelAssembler(deviceFactory);
-
-    String expectedMessage = "The list of devices cannot be null or empty.";
-
-    //Act & Assert
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> deviceDataModelAssembler.toDomain(deviceDataModelList));
-    String actualMessage = exception.getMessage();
-
-    assertEquals(expectedMessage, actualMessage);
-  }
 }

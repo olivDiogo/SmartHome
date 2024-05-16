@@ -166,45 +166,4 @@ class SensorTypeDataModelAssemblerTest {
     assertEquals(expectedList, result);
   }
 
-  @Test
-  void shouldThrowException_WhenListOfSensorTypeDataModelsIsNull() {
-    //Arrange
-    List<SensorTypeDataModel> sensorTypeDataModelList = null;
-
-    ISensorTypeFactory sensorTypeFactory = mock(ISensorTypeFactory.class);
-    SensorTypeDataModelAssembler sensorTypeDataModelConverter = new SensorTypeDataModelAssembler(
-        sensorTypeFactory);
-
-    String expected = "The list of sensor types cannot be null or empty.";
-
-    //Act
-    Exception exception = assertThrows(IllegalArgumentException.class,
-        () -> sensorTypeDataModelConverter.toDomain(sensorTypeDataModelList));
-
-    //Assert
-    String actual = exception.getMessage();
-    assertEquals(expected, actual);
-  }
-
-  @Test
-  void shouldThrowException_WhenListOfSensorTypeDataModelsIsEmpty() {
-    //Arrange
-    List<SensorTypeDataModel> sensorTypeDataModelList = new ArrayList<>();
-
-    ISensorTypeFactory sensorTypeFactory = mock(ISensorTypeFactory.class);
-    SensorTypeDataModelAssembler sensorTypeDataModelConverter = new SensorTypeDataModelAssembler(
-        sensorTypeFactory);
-
-    String expected = "The list of sensor types cannot be null or empty.";
-
-    //Act
-    Exception exception = assertThrows(IllegalArgumentException.class,
-        () -> sensorTypeDataModelConverter.toDomain(sensorTypeDataModelList));
-
-    //Assert
-    String actual = exception.getMessage();
-    assertEquals(expected, actual);
-  }
-
-
 }

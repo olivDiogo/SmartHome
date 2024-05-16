@@ -64,9 +64,7 @@ public class DeviceDataModelAssembler implements IDataModelAssembler<DeviceDataM
    */
   @Override
   public List<Device> toDomain(List<DeviceDataModel> deviceDataModels) {
-    if (deviceDataModels == null || deviceDataModels.isEmpty()) {
-      throw new IllegalArgumentException("The list of devices cannot be null or empty.");
-    }
+
     List<Device> listDomain = new ArrayList<>();
     for (DeviceDataModel deviceDataModel : deviceDataModels) {
       Device device = toDomain(deviceDataModel);

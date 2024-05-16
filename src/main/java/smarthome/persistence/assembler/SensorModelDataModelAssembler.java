@@ -56,10 +56,6 @@ public class SensorModelDataModelAssembler implements
    */
   @Override
   public List<SensorModel> toDomain(List<SensorModelDataModel> sensorModelDataModels) {
-    if (sensorModelDataModels == null || sensorModelDataModels.isEmpty()) {
-      throw new IllegalArgumentException("The list of sensor models cannot be null or empty.");
-    }
-
     List<SensorModel> sensorModels = new ArrayList<>();
 
     for (SensorModelDataModel sensorModelDataModel : sensorModelDataModels) {

@@ -17,12 +17,23 @@ public class HouseDataModelAssembler implements IDataModelAssembler<HouseDataMod
 
   private final IHouseFactory houseFactory;
 
+  /**
+   * Class constructor
+   *
+   * @param houseFactory is the factory used to create House instances.
+   */
   public HouseDataModelAssembler(IHouseFactory houseFactory) {
     Validator.validateNotNull(houseFactory, "House Factory");
 
     this.houseFactory = houseFactory;
   }
 
+  /**
+   * Converts a HouseDataModel instance to a House instance.
+   *
+   * @param houseDataModel is the domain entity to be converted.
+   * @return a House instance.
+   */
   @Override
   public House toDomain(HouseDataModel houseDataModel) {
     GPS gps = new GPS(houseDataModel.getLatitude(), houseDataModel.getLongitude());
@@ -33,6 +44,12 @@ public class HouseDataModelAssembler implements IDataModelAssembler<HouseDataMod
     return houseFactory.createHouse(houseID, address, gps);
   }
 
+  /**
+   * Converts a list of HouseDataModel instances to a list of House instances.
+   *
+   * @param houseDataModels is the list of domain entities to be converted.
+   * @return a list of House instances.
+   */
   @Override
   public List<House> toDomain(List<HouseDataModel> houseDataModels) {
     List<House> houses = new ArrayList<>();

@@ -26,7 +26,12 @@ public class DeviceTypeDataModelAssembler implements
     this.deviceTypeFactory = deviceTypeFactory;
   }
 
-
+  /**
+   * Method to convert a domain entity into a DataModel.
+   *
+   * @param deviceTypeDataModel is the domain entity to be converted.
+   * @return the DataModel.
+   */
   @Override
   public DeviceType toDomain(DeviceTypeDataModel deviceTypeDataModel) {
     Validator.validateNotNull(deviceTypeDataModel, "Device Type Data Model");
@@ -37,11 +42,14 @@ public class DeviceTypeDataModelAssembler implements
     return deviceTypeFactory.createDeviceType(deviceTypeID, typeDescription);
   }
 
+  /**
+   * Method to convert a list of domain entities into a list of DataModels.
+   *
+   * @param deviceTypeDataModels is the list of domain entities to be converted.
+   * @return the list of DataModels.
+   */
   @Override
   public List<DeviceType> toDomain(List<DeviceTypeDataModel> deviceTypeDataModels) {
-    if (deviceTypeDataModels == null || deviceTypeDataModels.isEmpty()) {
-      throw new IllegalArgumentException("The list of device types cannot be null or empty.");
-    }
 
     List<DeviceType> deviceTypes = new ArrayList<>();
 

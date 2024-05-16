@@ -17,6 +17,11 @@ public class ActuatorTypeDataModelAssembler implements
 
   private final IActuatorTypeFactory actuatorTypeFactory;
 
+  /**
+   * Class constructor.
+   *
+   * @param actuatorTypeFactory is the factory used to create ActuatorType instances.
+   */
   public ActuatorTypeDataModelAssembler(IActuatorTypeFactory actuatorTypeFactory) {
     Validator.validateNotNull(actuatorTypeFactory, "Actuator Type Factory");
     this.actuatorTypeFactory = actuatorTypeFactory;

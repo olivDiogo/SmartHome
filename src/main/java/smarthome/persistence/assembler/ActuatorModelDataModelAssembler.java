@@ -57,9 +57,6 @@ public class ActuatorModelDataModelAssembler
    */
   @Override
   public List<ActuatorModel> toDomain(List<ActuatorModelDataModel> actuatorModelDataModels) {
-    if (actuatorModelDataModels == null || actuatorModelDataModels.isEmpty()) {
-      throw new IllegalArgumentException("The list of actuator models cannot be null or empty.");
-    }
 
     List<ActuatorModel> actuatorModels = new ArrayList<>();
 

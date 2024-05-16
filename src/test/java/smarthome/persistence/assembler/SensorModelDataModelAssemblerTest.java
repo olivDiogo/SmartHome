@@ -160,52 +160,5 @@ class SensorModelDataModelAssemblerTest {
     assertEquals(expectedList, resultList);
   }
 
-  /**
-   * Test to check if the SensorModelDataModelAssembler throws an exception when the list of
-   * SensorModelDataModel is null
-   */
-  @Test
-  void shouldThrowException_WhenListOfSensorModelDataModelsIsNull() {
-    //Arrange
-    List<SensorModelDataModel> sensorModelDataModelList = null;
-
-    ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
-    SensorModelDataModelAssembler sensorModelDataModelAssembler = new SensorModelDataModelAssembler(
-        sensorModelFactory);
-
-    String expected = "The list of sensor models cannot be null or empty.";
-
-    //Act
-    Exception exception = assertThrows(IllegalArgumentException.class,
-        () -> sensorModelDataModelAssembler.toDomain(sensorModelDataModelList));
-
-    //Assert
-    String actual = exception.getMessage();
-    assertEquals(expected, actual);
-  }
-
-  /**
-   * Test to check if the SensorModelDataModelAssembler throws an exception when the list of
-   * SensorModelDataModel is empty
-   */
-  @Test
-  void shouldThrowException_WhenListOfSensorModelDataModelsIsEmpty() {
-    //Arrange
-    List<SensorModelDataModel> sensorModelDataModelList = new ArrayList<>();
-
-    ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
-    SensorModelDataModelAssembler sensorModelDataModelAssembler = new SensorModelDataModelAssembler(
-        sensorModelFactory);
-
-    String expected = "The list of sensor models cannot be null or empty.";
-
-    //Act
-    Exception exception = assertThrows(IllegalArgumentException.class,
-        () -> sensorModelDataModelAssembler.toDomain(sensorModelDataModelList));
-
-    //Assert
-    String actual = exception.getMessage();
-    assertEquals(expected, actual);
-  }
 }
 
