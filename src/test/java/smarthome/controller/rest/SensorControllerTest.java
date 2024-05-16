@@ -1,19 +1,28 @@
 package smarthome.controller.rest;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device_type.DeviceType;
@@ -21,27 +30,35 @@ import smarthome.domain.device_type.DeviceTypeFactoryImpl;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IDeviceRepository;
+import smarthome.domain.repository.ISensorRepository;
 import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
+import smarthome.domain.sensor.ISensor;
+import smarthome.domain.sensor.ISensorFactory;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.unit.UnitFactoryImpl;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DatePeriod;
+import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
+import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
+import smarthome.domain.value_object.SensorName;
+import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
+
 import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
 import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
@@ -61,11 +78,18 @@ class SensorControllerTest {
   @Autowired
   private IHouseFactory houseFactory;
 
+  @Autowired
+  private ISensorFactory sensorFactory;
+
   @MockBean
   private IDeviceRepository deviceRepository;
 
   @MockBean
   private ISensorTypeRepository sensorTypeRepository;
+
+  @MockBean
+  private ISensorRepository sensorRepository;
+
 
   House setupHouse() {
     // Arrange
@@ -78,8 +102,7 @@ class SensorControllerTest {
     Address address = new Address(street, doorNumber, postalCode, countryCode,
         new PostalCodeFactory());
     GPS gps = new GPS(latitude, longitude);
-    House house = houseFactory.createHouse(address, gps);
-    return house;
+    return houseFactory.createHouse(address, gps);
   }
 
   Room setupRoom() {
@@ -107,7 +130,6 @@ class SensorControllerTest {
     String strDeviceName = "Light";
     DeviceName deviceName = new DeviceName(strDeviceName);
 
-
     String strDeviceType = "LightBulb";
     TypeDescription typeDescription = new TypeDescription(strDeviceType);
     DeviceTypeFactoryImpl deviceTypeFactory = new DeviceTypeFactoryImpl();
@@ -116,6 +138,15 @@ class SensorControllerTest {
 
     DeviceFactoryImpl deviceFactory = new DeviceFactoryImpl();
     return deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
+  }
+
+  ISensor setupGenericSensor(SensorDataGenericDTOImp sensorDataDTO) {
+    DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
+    ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
+    SensorName sensorName = new SensorName(sensorDataDTO.sensorName);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorDataDTO.sensorTypeID);
+
+    return sensorFactory.create(deviceID, modelPath, sensorTypeID, sensorName);
   }
 
 
@@ -131,6 +162,7 @@ class SensorControllerTest {
 
     String deviceIDStr = device.getID().toString();
     String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
+    String sensorName = "DewPoint";
 
     /* create unit */
     UnitDescription unit = new UnitDescription("Celsius");
@@ -141,19 +173,20 @@ class SensorControllerTest {
     String strSensorType = "DewPoint";
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
 
-    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType), sensorUnit.getID());
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType),
+        sensorUnit.getID());
 
     String sensorTypeIDStr = sensorType.getID().toString();
 
     /* create dataDTO */
     ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr, sensorModelPath,
-        "DewPoint", sensorTypeIDStr);
+        sensorName, sensorTypeIDStr);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     //Act + Assert
-    mockMvc.perform(post("/sensor/")
+    mockMvc.perform(post("/sensors")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isCreated());
@@ -199,7 +232,7 @@ class SensorControllerTest {
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/")
+    mockMvc.perform(post("/sensors")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isCreated());
@@ -246,7 +279,7 @@ class SensorControllerTest {
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/")
+    mockMvc.perform(post("/sensors")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isCreated());
@@ -277,12 +310,17 @@ class SensorControllerTest {
         sensorName, sensorTypeID);
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/")
+    mockMvc.perform(post("/sensors")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isBadRequest());
   }
 
+  /**
+   * Should throw a bad request when sensor model path is null
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void shouldReturnBadRequest_WhenSensorModelPathIsNull() throws Exception {
     //Arrange
@@ -311,13 +349,18 @@ class SensorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/")
+    mockMvc.perform(post("/sensors")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isBadRequest());
 
   }
 
+  /**
+   * Should throw a bad request when sensor typeID is null
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void shouldReturnBadRequest_WhenSensorTypeIDIsNull() throws Exception {
     //Arrange
@@ -342,12 +385,17 @@ class SensorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/")
+    mockMvc.perform(post("/sensors")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isBadRequest());
   }
 
+  /**
+   * Should throw a bad request when sensor typeID is invalid
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void shouldReturnBadRequest_WhenSensorTypeIDIsInvalid() throws Exception {
     //Arrange
@@ -377,9 +425,191 @@ class SensorControllerTest {
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor/")
+    mockMvc.perform(post("/sensors")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorDataDTO)))
         .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Should return a sensor by ID
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnSensorByID() throws Exception {
+    //Arrange
+    Device device = setupDevice();
+
+    String deviceIDStr = device.getID().toString();
+    String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
+    String sensorName = "DewPoint";
+
+    /* create unit */
+    UnitDescription unit = new UnitDescription("Celsius");
+    UnitSymbol strUnitSymbol = new UnitSymbol("C");
+    Unit sensorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
+
+    /* create sensor type */
+    String strSensorType = "DewPoint";
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
+
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType),
+        sensorUnit.getID());
+
+    String sensorTypeIDStr = sensorType.getID().toString();
+
+    /* create dataDTO */
+    SensorDataGenericDTOImp sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr,
+        sensorModelPath,
+        sensorName, sensorTypeIDStr);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
+    ISensor sensor = setupGenericSensor(sensorDataDTO);
+    when(sensorRepository.ofIdentity(sensor.getID())).thenReturn(Optional.of(sensor));
+
+    //Act + Assert
+    mockMvc.perform(get("/sensors/" + sensor.getID().getID()))
+        .andExpect(status().isOk());
+
+  }
+
+  /**
+   * Should return a not found status when sensor is not found
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnEmptyList_WhenNoSensorIsFound() throws Exception {
+    //Arrange
+    Device device = setupDevice();
+
+    String deviceIDStr = device.getID().toString();
+    String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
+    String sensorName = "DewPoint";
+
+    /* create unit */
+    UnitDescription unit = new UnitDescription("Celsius");
+    UnitSymbol strUnitSymbol = new UnitSymbol("C");
+    Unit sensorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
+
+    /* create sensor type */
+    String strSensorType = "DewPoint";
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
+
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType),
+        sensorUnit.getID());
+
+    String sensorTypeIDStr = sensorType.getID().toString();
+
+    /* create dataDTO */
+    SensorDataGenericDTOImp sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr,
+        sensorModelPath,
+        sensorName, sensorTypeIDStr);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
+    ISensor sensor = setupGenericSensor(sensorDataDTO);
+    when(sensorRepository.ofIdentity(sensor.getID())).thenReturn(Optional.empty());
+
+    //Act + Assert
+    mockMvc.perform(get("/sensors/" + sensor.getID().getID()))
+        .andExpect(status().isNotFound());
+  }
+
+  /**
+   * Should return a list of sensors
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnAllSensors_WhenSensorIsFound() throws Exception {
+    //Arrange
+    Device device = setupDevice();
+
+    String deviceIDStr = device.getID().toString();
+    String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
+    String sensorName = "DewPoint";
+
+    /* create unit */
+    UnitDescription unit = new UnitDescription("Celsius");
+    UnitSymbol strUnitSymbol = new UnitSymbol("C");
+    Unit sensorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
+
+    /* create sensor type */
+    String strSensorType = "DewPoint";
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
+
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType),
+        sensorUnit.getID());
+
+    String sensorTypeIDStr = sensorType.getID().toString();
+
+    /* create dataDTO */
+    SensorDataGenericDTOImp sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr,
+        sensorModelPath,
+        sensorName, sensorTypeIDStr);
+    SensorDataGenericDTOImp sensorDataDTO2 = new SensorDataGenericDTOImp(deviceIDStr,
+        sensorModelPath,
+        sensorName, sensorTypeIDStr);
+
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
+    ISensor sensor = setupGenericSensor(sensorDataDTO);
+    ISensor sensor2 = setupGenericSensor(sensorDataDTO2);
+    when(sensorRepository.findAll()).thenReturn(List.of(sensor, sensor2));
+
+    //Act + Assert
+    mockMvc.perform(get("/sensors"))
+        .andExpect(status().isOk());
+  }
+
+  /**
+   * Should return a bad request when no sensors are found
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnBadRequest_WhenNoSensorsAreFound () throws Exception {
+    //Arrange
+    Device device = setupDevice();
+
+    String deviceIDStr = device.getID().toString();
+    String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
+    String sensorName = "DewPoint";
+
+    /* create unit */
+    UnitDescription unit = new UnitDescription("Celsius");
+    UnitSymbol strUnitSymbol = new UnitSymbol("C");
+    Unit sensorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
+
+    /* create sensor type */
+    String strSensorType = "DewPoint";
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
+
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType),
+        sensorUnit.getID());
+
+    String sensorTypeIDStr = sensorType.getID().toString();
+
+    /* create dataDTO */
+    SensorDataGenericDTOImp sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr,
+        sensorModelPath,
+        sensorName, sensorTypeIDStr);
+    SensorDataGenericDTOImp sensorDataDTO2 = new SensorDataGenericDTOImp(deviceIDStr,
+        sensorModelPath,
+        sensorName, sensorTypeIDStr);
+
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
+    ISensor sensor = setupGenericSensor(sensorDataDTO);
+    ISensor sensor2 = setupGenericSensor(sensorDataDTO2);
+    when(sensorRepository.findAll()).thenReturn(List.of());
+
+    //Act + Assert
+    mockMvc.perform(get("/sensors"))
+        .andExpect(status().isOk());
   }
 }

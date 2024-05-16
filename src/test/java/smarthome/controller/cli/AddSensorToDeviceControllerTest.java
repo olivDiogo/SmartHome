@@ -626,7 +626,7 @@ class AddSensorToDeviceControllerTest {
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
         new SensorDataGenericDTOImp(
-            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+            device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -671,7 +671,7 @@ class AddSensorToDeviceControllerTest {
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
         new SensorDataGenericDTOImp(
-            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+            device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -719,7 +719,7 @@ class AddSensorToDeviceControllerTest {
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
         new SensorDataGenericDTOImp(
-            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+            device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -765,7 +765,7 @@ class AddSensorToDeviceControllerTest {
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
         new SensorDataGenericDTOImp(
-            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+            device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -811,7 +811,7 @@ class AddSensorToDeviceControllerTest {
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
         new SensorDataGenericDTOImp(
-            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+            device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -857,7 +857,7 @@ class AddSensorToDeviceControllerTest {
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
         new SensorDataGenericDTOImp(
-            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+            device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -904,7 +904,7 @@ class AddSensorToDeviceControllerTest {
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
         new SensorDataGenericDTOImp(
-            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+            device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -951,7 +951,7 @@ class AddSensorToDeviceControllerTest {
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
         new SensorDataGenericDTOImp(
-            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+            device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -998,7 +998,7 @@ class AddSensorToDeviceControllerTest {
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
         new SensorDataGenericDTOImp(
-            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+            device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -1085,7 +1085,7 @@ class AddSensorToDeviceControllerTest {
 
     SensorDataGenericDTOImp sensorDataGenericDTOImp =
         new SensorDataGenericDTOImp(
-            device.getID().getID(), modelPath, sensorName, sensorType.getID().getID());
+            device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(

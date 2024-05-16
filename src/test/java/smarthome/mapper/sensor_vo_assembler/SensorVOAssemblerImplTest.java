@@ -78,7 +78,7 @@ class SensorVOAssemblerImplTest {
     String sensorName = "sensorName";
     String sensorTypeID = "sensorTypeID";
     ISensorDataDTO sensorDataDTO =
-        new SensorDataGenericDTOImp(deviceID, sensorModelPath, sensorName, sensorTypeID);
+        new SensorDataGenericDTOImp(deviceID, sensorModelPath,  sensorTypeID, sensorName);
     SensorVOAssemblerImpl sensorVOAssembler = new SensorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);

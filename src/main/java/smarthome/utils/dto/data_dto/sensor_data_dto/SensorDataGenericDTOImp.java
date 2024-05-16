@@ -22,8 +22,8 @@ public class SensorDataGenericDTOImp implements ISensorDataDTO {
   @NotBlank(message = "SensorTypeID cannot be empty")
   public final String sensorTypeID;
 
-  public SensorDataGenericDTOImp(String deviceID, String sensorModelPath, String sensorName,
-      String sensorTypeID) {
+  public SensorDataGenericDTOImp(String deviceID, String sensorModelPath,
+      String sensorTypeID, String sensorName) {
     this.deviceID = deviceID;
     this.sensorModelPath = sensorModelPath;
     this.sensorName = sensorName;
