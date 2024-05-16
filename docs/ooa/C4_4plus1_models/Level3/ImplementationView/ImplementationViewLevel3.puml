@@ -1,0 +1,41 @@
+@startuml
+
+package "Smart Home System" {
+
+    package Infrastructure {
+        package Tests {
+        }
+        package Persistence {
+        }
+    }
+
+    package "Interface Adapters" {
+        package Controllers {
+        }
+        package Repositories {
+        }
+    }
+
+    package "Services Layer" {
+        package "Services" {
+        }
+    }
+
+    package "Entities/Core/Domain" {
+        package Aggregates {
+        }
+        package "Value Objects" {
+        }
+
+    }
+
+    ' Dependencies
+    Infrastructure.Tests ..> "Interface Adapters.Controllers" : .
+    Infrastructure.Persistence <.. "Interface Adapters.Repositories" : .
+    "Interface Adapters.Controllers" ..> "Services" : .
+    "Services" ..> Aggregates : .
+    "Services" ..> "Value Objects" : .
+    "Interface Adapters.Repositories" ..> Services
+}
+
+@enduml
