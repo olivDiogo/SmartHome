@@ -163,8 +163,36 @@ class ActuatorModelServiceImplTest {
 
     //Assert
     assertEquals(expected, result);
+  }
 
+  /**
+   * Tests adding an actuator model.
+   */
+  @Test
+  void shouldAddActuatorModel_WhenParametersAreValid() {
+    //Arrange
+    ActuatorModel actuatorModel = mock(ActuatorModel.class);
+    IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
+    ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
 
+    ModelPath modelPath = mock(ModelPath.class);
+    ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);
+    ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
+
+    when(actuatorModelFactory.createActuatorModel(modelPath, actuatorModelName, actuatorTypeID))
+        .thenReturn(actuatorModel);
+
+    when(actuatorModelRepository.save(actuatorModel)).thenReturn(actuatorModel);
+
+    ActuatorModelServiceImpl actuatorModelServiceImpl = new ActuatorModelServiceImpl(
+        actuatorModelRepository, actuatorModelFactory);
+
+    //Act
+    ActuatorModel result = actuatorModelServiceImpl.addActuatorModel(modelPath, actuatorModelName,
+        actuatorTypeID);
+
+    //Assert
+    assertEquals(actuatorModel, result);
   }
 
 }

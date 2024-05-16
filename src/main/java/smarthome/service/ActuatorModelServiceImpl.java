@@ -7,6 +7,7 @@ import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
 import smarthome.domain.repository.IActuatorModelRepository;
 import smarthome.domain.service.IActuatorModelService;
+import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.utils.Validator;
@@ -19,6 +20,7 @@ import smarthome.utils.Validator;
 public class ActuatorModelServiceImpl implements IActuatorModelService {
 
   private final IActuatorModelRepository actuatorModelRepository;
+  private final IActuatorModelFactory factoryActuatorModel;
 
   /**
    * Constructs an ActuatorModelService with a specified repository and factory. Also attempts to
@@ -33,6 +35,7 @@ public class ActuatorModelServiceImpl implements IActuatorModelService {
     Validator.validateNotNull(factoryActuatorModel, "Actuator model factory");
     this.actuatorModelRepository = actuatorModelRepository;
     Validator.validateNotNull(actuatorModelRepository, "Actuator model repository");
+    this.factoryActuatorModel = factoryActuatorModel;
   }
 
 
@@ -66,6 +69,14 @@ public class ActuatorModelServiceImpl implements IActuatorModelService {
   @Override
   public List<ActuatorModel> getActuatorModelsByActuatorTypeId(ActuatorTypeID actuatorTypeID) {
     return actuatorModelRepository.findBy_actuatorTypeID(actuatorTypeID);
+  }
+
+  @Override
+  public ActuatorModel addActuatorModel(ModelPath modelPath, ActuatorModelName modelName,
+      ActuatorTypeID sensorTypeID1) {
+    ActuatorModel actuatorModel = factoryActuatorModel.createActuatorModel(modelPath, modelName,
+        sensorTypeID1);
+    return actuatorModelRepository.save(actuatorModel);
   }
 
 }
