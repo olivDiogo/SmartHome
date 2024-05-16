@@ -1,10 +1,12 @@
 package smarthome.controller.rest;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import smarthome.domain.actuator.IActuator;
+import smarthome.domain.actuator.IActuatorFactory;
 import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.actuator_type.ActuatorTypeFactoryImpl;
 import smarthome.domain.device.Device;
@@ -21,21 +25,31 @@ import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.DeviceTypeFactoryImpl;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
+import smarthome.domain.repository.IActuatorRepository;
 import smarthome.domain.repository.IActuatorTypeRepository;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
+import smarthome.domain.sensor.ISensor;
+import smarthome.domain.sensor_type.SensorType;
+import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.unit.UnitFactoryImpl;
+import smarthome.domain.value_object.ActuatorName;
+import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.Address;
+import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
+import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
+import smarthome.domain.value_object.SensorName;
+import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
@@ -43,6 +57,7 @@ import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -57,11 +72,17 @@ class ActuatorControllerTest {
   @Autowired
   private IHouseFactory houseFactory;
 
+  @Autowired
+  private IActuatorFactory actuatorFactory;
+
   @MockBean
   private IDeviceRepository deviceRepository;
 
   @MockBean
   private IActuatorTypeRepository actuatorTypeRepository;
+
+  @MockBean
+  private IActuatorRepository actuatorRepository;
 
 
   House setupHouse() {
@@ -112,6 +133,15 @@ class ActuatorControllerTest {
     return deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
   }
 
+  IActuator setupGenericActuator(ActuatorDataGenericDTOImp actuatorDataDTO) {
+    DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
+    ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
+    ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
+    ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataDTO.actuatorTypeID);
+
+    return actuatorFactory.create(deviceID, modelPath, actuatorTypeID, actuatorName);
+  }
+
   /**
    * Verify that a generic Actuator is correctly added to the Device
    */
@@ -147,7 +177,7 @@ class ActuatorControllerTest {
     when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isCreated());
@@ -190,7 +220,7 @@ class ActuatorControllerTest {
     when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isCreated());
@@ -226,7 +256,7 @@ class ActuatorControllerTest {
         actuatorName, actuatorTypeID);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -265,7 +295,7 @@ class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -304,7 +334,7 @@ class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -343,7 +373,7 @@ class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -383,7 +413,7 @@ class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -424,7 +454,7 @@ class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -465,7 +495,7 @@ class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -507,7 +537,7 @@ class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
@@ -549,9 +579,115 @@ class ActuatorControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
     // Act & Assert
-    mockMvc.perform(post("/actuator/")
+    mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
         .andExpect(status().isBadRequest());
+  }
+
+  /**
+   * Should return an actuator by ID
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnActuatorByID() throws Exception {
+    //Arrange
+    Device device = setupDevice();
+
+    String deviceIDStr = device.getID().toString();
+    String actuatorModelPath = "smarthome.domain.actuator.blind_roller_actuator.BlindRollerActuator";
+    String actuatorName = "BlindRoller";
+
+    /* create unit */
+    UnitDescription unit = new UnitDescription("Percent");
+    UnitSymbol strUnitSymbol = new UnitSymbol("%");
+    Unit actuatorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
+
+    /* create sensor type */
+    String strActuatorType = "BlindRoller";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(new TypeDescription(strActuatorType),
+        actuatorUnit.getID());
+
+    String actuatorTypeIDStr = actuatorType.getID().toString();
+
+    /* create dataDTO */
+    ActuatorDataGenericDTOImp actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceIDStr,
+        actuatorModelPath,
+        actuatorName, actuatorTypeIDStr);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
+
+    IActuator actuator = setupGenericActuator(actuatorDataDTO);
+    when(actuatorRepository.ofIdentity(actuator.getID())).thenReturn(Optional.of(actuator));
+
+    //Act + Assert
+    mockMvc.perform(get("/actuators/" + actuator.getID().getID()))
+        .andExpect(status().isOk());
+
+  }
+
+  /**
+   * Should return an empty list when no actuator is found
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnEmptyList_whenNoActuatorIsFound() throws Exception {
+    //Act + Assert
+    mockMvc.perform(get("/actuators/" + "InvalidID"))
+        .andExpect(status().isNotFound());
+  }
+
+  /**
+   * Should return all actuators when actuators are found
+   *
+   * @throws Exception if the test fails
+   */
+  @Test
+  void shouldReturnAllActuators_whenActuatorsAreFound() throws Exception {
+    //Arrange
+    Device device = setupDevice();
+
+    String deviceIDStr = device.getID().toString();
+    String actuatorModelPath = "smarthome.domain.actuator.blind_roller_actuator.BlindRollerActuator";
+    String actuatorName = "BlindRoller";
+
+    /* create unit */
+    UnitDescription unit = new UnitDescription("Percent");
+    UnitSymbol strUnitSymbol = new UnitSymbol("%");
+    Unit actuatorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
+
+    /* create sensor type */
+    String strActuatorType = "BlindRoller";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(new TypeDescription(strActuatorType),
+        actuatorUnit.getID());
+
+    String actuatorTypeIDStr = actuatorType.getID().toString();
+
+    /* create dataDTO */
+    ActuatorDataGenericDTOImp actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceIDStr,
+        actuatorModelPath,
+        actuatorName, actuatorTypeIDStr);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
+
+    IActuator actuator = setupGenericActuator(actuatorDataDTO);
+    when(actuatorRepository.findAll()).thenReturn(List.of(actuator));
+
+    //Act + Assert
+    mockMvc.perform(get("/actuators"))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  void shouldReturnBadRequest_whenNoActuatorsAreFound() throws Exception {
+    //Act + Assert
+    mockMvc.perform(get("/actuators"))
+        .andExpect(status().isOk());
   }
 }

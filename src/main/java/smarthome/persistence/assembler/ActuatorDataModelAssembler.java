@@ -43,9 +43,15 @@ public class ActuatorDataModelAssembler implements
     return actuatorFactory.create(parameters.toArray());
   }
 
+  /**
+   * Method to convert a list of ActuatorDataModel to a list of IActuator.
+   *
+   * @param domainEntities is the list of data models to be converted.
+   * @return the list of domain entities.
+   */
   @Override
   public List<IActuator> toDomain(List<ActuatorDataModel> domainEntities) {
-    return List.of();
+    return List.of(domainEntities.stream().map(this::toDomain).toArray(IActuator[]::new));
   }
 
   private boolean getDeviceID(ActuatorDataModel actuatorDataModel) {
