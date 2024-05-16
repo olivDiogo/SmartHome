@@ -19,6 +19,7 @@ package "Smart Home System" {
     package "Services Layer" {
         package "Services" {
         }
+
     }
 
     package "Entities/Core/Domain" {
@@ -26,6 +27,10 @@ package "Smart Home System" {
         }
         package "Value Objects" {
         }
+        package "IServices" {
+        }
+        package "IRepositories"{
+                }
 
     }
 
@@ -36,6 +41,8 @@ package "Smart Home System" {
     "Services" ..> Aggregates : .
     "Services" ..> "Value Objects" : .
     "Interface Adapters.Repositories" ..> Services
+    "Repositories" ..|> "IRepositories" : .
+    "Services" ..|> "IServices" : .
 }
 
 @enduml
