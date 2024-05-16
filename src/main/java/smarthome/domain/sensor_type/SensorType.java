@@ -40,6 +40,7 @@ public class SensorType implements IAggregateRoot<SensorTypeID> {
     Validator.validateNotNull(description, "Name");
     Validator.validateNotNull(unitID, "Unit");
 
+    this.id = sensorTypeID;
     this.description = description;
     this.unitID = unitID;
 

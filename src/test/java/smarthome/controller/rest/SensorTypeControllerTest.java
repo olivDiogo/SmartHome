@@ -1,6 +1,8 @@
 package smarthome.controller.rest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -9,20 +11,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.coyote.Response;
+import org.assertj.core.internal.ObjectArrayElementComparisonStrategy;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.sensor_type.SensorType;
+import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
 import smarthome.domain.service.ISensorTypeService;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
+import smarthome.utils.dto.SensorTypeDTO;
 import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 
 @SpringBootTest
@@ -36,7 +46,10 @@ class SensorTypeControllerTest {
   private ObjectMapper objectMapper;
 
   @MockBean
-  private ISensorTypeService sensorTypeService;
+  private ISensorTypeRepository sensorTypeRepository;
+
+  @Autowired
+  private SensorTypeFactoryImpl sensorTypeFactoryImpl;
 
   /**
    * Verify that a SensorType is correctly created
@@ -50,14 +63,13 @@ class SensorTypeControllerTest {
 
     TypeDescription typeDescription = new TypeDescription(sensorTypeDescription);
     UnitID unitID2 = new UnitID(unitID);
-    SensorType sensorType = new SensorType(typeDescription, unitID2);
 
-    // Set up mock to return the SensorType object
-    when(sensorTypeService.createSensorType(any(TypeDescription.class),
-        any(UnitID.class))).thenReturn(sensorType);
+    SensorType sensorType = sensorTypeFactoryImpl.createSensorType(typeDescription, unitID2);
+
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act & Assert
-    mockMvc.perform(post("/sensor-types/")
+    mockMvc.perform(post("/sensor-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
         .andExpect(status().isCreated())
@@ -75,7 +87,7 @@ class SensorTypeControllerTest {
     SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(null, unitID);
 
     // Act & Assert
-    mockMvc.perform(post("/sensor-types/")
+    mockMvc.perform(post("/sensor-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
         .andExpect(status().isBadRequest());
@@ -92,7 +104,7 @@ class SensorTypeControllerTest {
     SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(sensorTypeDescription, null);
 
     // Act & Assert
-    mockMvc.perform(post("/sensor-types/")
+    mockMvc.perform(post("/sensor-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
         .andExpect(status().isBadRequest());
@@ -104,11 +116,11 @@ class SensorTypeControllerTest {
    */
   @Test
   void shouldReturnNotFound_whenNoSensorTypesAvailable() throws Exception {
-    when(sensorTypeService.getAllSensorTypes()).thenReturn(Collections.emptyList());
+    when(sensorTypeRepository.findAll()).thenReturn(Collections.emptyList());
 
     mockMvc.perform(get("/sensor-types")
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNoContent());
+        .andExpect(status().isOk());
   }
 
   /**
@@ -120,20 +132,17 @@ class SensorTypeControllerTest {
     // Arrange
     String sensorTypeDescription = "Temperature";
     String unitID = "Celsius";
-    SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(sensorTypeDescription, unitID);
 
-    TypeDescription typeDescription = new TypeDescription(sensorTypeDescription);
-    UnitID unitID2 = new UnitID(unitID);
-    SensorType sensorType = new SensorType(typeDescription, unitID2);
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(sensorTypeDescription), new UnitID(unitID));
 
-    // Set up mock to return the SensorType object
-    when(sensorTypeService.getAllSensorTypes()).thenReturn(List.of(sensorType));
+    when(sensorTypeRepository.findAll()).thenReturn(Collections.singletonList(sensorType));
 
-    // Act & Assert
     mockMvc.perform(get("/sensor-types")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
-        .andExpect(status().isOk());
+            .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.sensorTypeDTOList[*].description").value(sensorTypeDescription))
+        .andExpect(jsonPath("$._embedded.sensorTypeDTOList.[*].unitID").value(unitID));
   }
 
   /**
@@ -145,11 +154,30 @@ class SensorTypeControllerTest {
     // Arrange
     SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO("", "");
     // Act & Assert
-    mockMvc.perform(post("/sensor-types/")
+    mockMvc.perform(post("/sensor-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
         .andExpect(status().isBadRequest());
   }
+
+  @Test
+  void shouldReturnSensorTypeByID_whenFound() throws Exception {
+    // Arrange
+    String sensorTypeDescription = "Temperature";
+    String unitID = "Celsius";
+
+    SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
+    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(sensorTypeDescription), new UnitID(unitID));
+
+    when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
+
+    mockMvc.perform(get("/sensor-types/" + sensorType.getID())
+            .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.description").value(sensorTypeDescription))
+        .andExpect(jsonPath("$.unitID").value(unitID));
+  }
+
 
 
 }
