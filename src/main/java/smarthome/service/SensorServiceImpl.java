@@ -1,5 +1,6 @@
 package smarthome.service;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import smarthome.domain.device.Device;
@@ -11,6 +12,7 @@ import smarthome.domain.sensor.ISensorFactory;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.service.ISensorService;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.Validator;
 
@@ -70,6 +72,27 @@ public class SensorServiceImpl implements ISensorService {
   }
 
   /**
+   * Retrieves a sensor by its ID
+   *
+   * @param sensorID is the sensorID
+   * @return An Optional containing the retrieved sensor, or empty if not found.
+   */
+  @Override
+  public Optional<ISensor> getSensorByID(SensorID sensorID) {
+    return sensorRepository.ofIdentity(sensorID);
+  }
+
+  /**
+   * Retrieves all sensors
+   *
+   * @return a list of all sensors
+   */
+  @Override
+  public List<ISensor> getAllSensors() {
+    return sensorRepository.findAll();
+  }
+
+  /**
    * Validates the device ID.
    *
    * @param deviceID The device ID to be validated.
@@ -95,4 +118,6 @@ public class SensorServiceImpl implements ISensorService {
       throw new IllegalArgumentException("SensorType with ID " + sensorTypeID + " not found.");
     }
   }
+
+
 }

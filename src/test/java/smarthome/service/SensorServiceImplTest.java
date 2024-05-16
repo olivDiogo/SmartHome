@@ -3,12 +3,16 @@ package smarthome.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device.Device;
+import smarthome.domain.repository.IDeviceRepository;
+import smarthome.domain.repository.ISensorRepository;
 import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.sensor.ISensorFactory;
@@ -16,6 +20,7 @@ import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.persistence.mem.DeviceRepository;
@@ -211,5 +216,97 @@ class SensorServiceImplTest {
 
     // Assert
     assertEquals("Device with ID " + deviceID + " is deactivated.", exception.getMessage());
+  }
+
+  /**
+   * Should return a sensor by its ID
+   */
+  @Test
+  void shouldGetSensorByID_WhenSensorIsFound () {
+    SensorID sensorID = mock(SensorID.class);
+
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorFactory sensorFactory = mock(ISensorFactory.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+
+    SensorServiceImpl sensorService = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository, sensorTypeRepository);
+
+    ISensor mockedSensor = mock(ISensor.class);
+    when(sensorRepository.ofIdentity(sensorID)).thenReturn(Optional.of(mockedSensor));
+
+    //Act
+    Optional<ISensor> sensor = sensorService.getSensorByID(sensorID);
+
+    //Assert
+    assertTrue(sensor.isPresent());
+  }
+
+  /**
+   * should return empty when no sensor is found
+   */
+  @Test
+  void shouldReturnEmptyOptional_WhenSensorIsNotFound () {
+    SensorID sensorID = mock(SensorID.class);
+
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorFactory sensorFactory = mock(ISensorFactory.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+
+    SensorServiceImpl sensorService = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository, sensorTypeRepository);
+
+    ISensor mockedSensor = mock(ISensor.class);
+    when(sensorRepository.ofIdentity(sensorID)).thenReturn(Optional.empty());
+
+    //Act
+    Optional<ISensor> sensor = sensorService.getSensorByID(sensorID);
+
+    //Assert
+    assertTrue(sensor.isEmpty());
+  }
+
+  /**
+   * should return a list of all sensors when sensors are found
+   */
+  @Test
+  void shouldReturnAListOfAllSensors_WhenSensorsAreFound () {
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorFactory sensorFactory = mock(ISensorFactory.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+
+    SensorServiceImpl sensorService = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository, sensorTypeRepository);
+
+    ISensor mockedSensor = mock(ISensor.class);
+    ISensor mockedSensor2 = mock(ISensor.class);
+    when(sensorRepository.findAll()).thenReturn(List.of(mockedSensor, mockedSensor2));
+
+    int expectedSensors = 2;
+    //Act
+    List<ISensor> sensor = sensorService.getAllSensors();
+
+    //Assert
+    assertEquals(expectedSensors, sensor.size());
+  }
+
+  /**
+   * should return an empty list when no sensors are found
+   */
+  @Test
+  void shouldReturnEmptyList_WhenNoSensorsAreFound () {
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorFactory sensorFactory = mock(ISensorFactory.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+
+    SensorServiceImpl sensorService = new SensorServiceImpl(sensorRepository, sensorFactory, deviceRepository, sensorTypeRepository);
+    when(sensorRepository.findAll()).thenReturn(List.of());
+
+    //Act
+    List<ISensor> sensor = sensorService.getAllSensors();
+
+    //Assert
+    assertTrue(sensor.isEmpty());
   }
 }
