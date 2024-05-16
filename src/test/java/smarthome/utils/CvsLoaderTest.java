@@ -16,42 +16,48 @@ class CvsLoaderTest {
   private CvsLoader loadDefaultConfiguration = new CvsLoader();
 
   @Test
-  void testLoadDefaultsFromCSVWithValidFile(@TempDir Path tempDir) throws IOException {
-
+  void shouldLoadCSV_WhenGivenValidPath(@TempDir Path tempDir) throws IOException {
+    //Arrange
     Path csvFile = tempDir.resolve("test.csv");
     Files.write(csvFile, "col1,col2\nval1,val2".getBytes());
-
-    List<String[]> result = loadDefaultConfiguration.loadDefaultsFromCVS(csvFile.toString());
-
+    //Act
+    List<String[]> result = loadDefaultConfiguration.loadCVSFileToListOfStrings(csvFile.toString());
+    //Assert
     assertEquals(2, result.size());
     assertArrayEquals(new String[]{"col1", "col2"}, result.get(0));
     assertArrayEquals(new String[]{"val1", "val2"}, result.get(1));
   }
 
   @Test
-  void testLoadDefaultsFromCSVWithEmptyFile(@TempDir Path tempDir) throws IOException {
+  void shouldReturnEmptyList_WhenCSVIsEmpty(@TempDir Path tempDir) throws IOException {
+    //Arrange
     Path csvFile = tempDir.resolve("empty.csv");
     Files.write(csvFile, new byte[0]);
-
-    List<String[]> result = loadDefaultConfiguration.loadDefaultsFromCVS(csvFile.toString());
-
+    //Act
+    List<String[]> result = loadDefaultConfiguration.loadCVSFileToListOfStrings(csvFile.toString());
+    //Assert
     assertTrue(result.isEmpty());
   }
 
   @Test
-  void testLoadDefaultsFromCSVWithInvalidPath() {
-    List<String[]> result = loadDefaultConfiguration.loadDefaultsFromCVS("invalid/path/to/csv");
-
-    assertTrue(result.isEmpty());
+  void shouldReturnEmptyList_WhenNoCSVFound() {
+    //Arrange
+    List<String[]> expected = List.of();
+    //Act
+    List<String[]> result = loadDefaultConfiguration.loadCVSFileToListOfStrings(
+        "invalid/path/to/csv");
+    //Assert
+    assertEquals(expected, result);
   }
 
   @Test
-  void testLoadDefaultsFromCSVWithSpecialCharacters(@TempDir Path tempDir) throws IOException {
+  void shouldLoadCVSToList_WhenSpecialCharactsPresent(@TempDir Path tempDir) throws IOException {
+    //Arrange
     Path csvFile = tempDir.resolve("special.csv");
     Files.write(csvFile, "col1,\"col2 with, comma\"\n\"val1\nnewline\",val2".getBytes());
-
-    List<String[]> result = loadDefaultConfiguration.loadDefaultsFromCVS(csvFile.toString());
-
+    //Act
+    List<String[]> result = loadDefaultConfiguration.loadCVSFileToListOfStrings(csvFile.toString());
+    //Assert
     assertEquals(2, result.size());
     assertArrayEquals(new String[]{"col1", "col2 with, comma"}, result.get(0));
     assertArrayEquals(new String[]{"val1\nnewline", "val2"}, result.get(1));

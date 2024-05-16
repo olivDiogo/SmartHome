@@ -6,10 +6,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CvsLoader {
 
-  public static List<String[]> loadDefaultsFromCVS(String cvsName) {
+  /**
+   * Method to load CSV files from the given path
+   *
+   * @param cvsName
+   * @return
+   */
+  public List<String[]> loadCVSFileToListOfStrings(String cvsName) {
     List<String[]> rows = new ArrayList<>();
     try (CSVReader reader = new CSVReader(new FileReader(cvsName))) {
       rows = reader.readAll();
