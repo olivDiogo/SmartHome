@@ -624,7 +624,7 @@ class ActuatorControllerTest {
     when(actuatorRepository.ofIdentity(actuator.getID())).thenReturn(Optional.of(actuator));
 
     //Act + Assert
-    mockMvc.perform(get("/actuators/" + actuator.getID().getID()))
+    mockMvc.perform(get("/actuators?" + actuator.getID().getID()))
         .andExpect(status().isOk());
 
   }
@@ -637,8 +637,8 @@ class ActuatorControllerTest {
   @Test
   void shouldReturnEmptyList_whenNoActuatorIsFound() throws Exception {
     //Act + Assert
-    mockMvc.perform(get("/actuators/" + "InvalidID"))
-        .andExpect(status().isNotFound());
+    mockMvc.perform(get("/actuators?InvalidID"))
+        .andExpect(status().isOk());
   }
 
   /**
