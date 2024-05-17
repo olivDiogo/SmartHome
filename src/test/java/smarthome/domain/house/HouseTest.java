@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
@@ -11,7 +12,7 @@ import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 
-class HouseIT {
+class HouseTest {
 
   /**
    * Validates construction with valid arguments.
@@ -143,19 +144,21 @@ class HouseIT {
    * Should return true when comparing same house.
    */
   @Test
-  void shouldReturnTrueWhenComparingSameHouse() {
+  void shouldReturnTrueWhenComparingTwoEqualHouses() {
     // Arrange
     Address addressDouble = mock(Address.class);
-    GPS gpsdouble = mock(GPS.class);
+    GPS gpsDouble = mock(GPS.class);
+    HouseID houseIDDouble = mock(HouseID.class);
 
-    try (MockedConstruction<HouseID> houseID = mockConstruction(HouseID.class)) {
-      House house = new House(addressDouble, gpsdouble);
+    try (MockedConstruction<HouseID> mockedHouseID = mockConstruction(HouseID.class)) {
+      House house1 = new House(houseIDDouble, addressDouble, gpsDouble);
+      House house2 = new House(houseIDDouble, addressDouble, gpsDouble);
       boolean expected = true;
 
-      //Act
-      boolean actual = house.equals(house);
+      // Act
+      boolean actual = house1.equals(house2);
 
-      //Assert
+      // Assert
       assertEquals(expected, actual);
     }
   }
