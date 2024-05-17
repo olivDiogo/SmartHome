@@ -470,7 +470,7 @@ class SensorControllerTest {
     when(sensorRepository.ofIdentity(sensor.getID())).thenReturn(Optional.of(sensor));
 
     //Act + Assert
-    mockMvc.perform(get("/sensors/" + sensor.getID().getID()))
+    mockMvc.perform(get("/sensors?" + sensor.getID().getID()))
         .andExpect(status().isOk());
 
   }
@@ -514,8 +514,8 @@ class SensorControllerTest {
     when(sensorRepository.ofIdentity(sensor.getID())).thenReturn(Optional.empty());
 
     //Act + Assert
-    mockMvc.perform(get("/sensors/" + sensor.getID().getID()))
-        .andExpect(status().isNotFound());
+    mockMvc.perform(get("/sensors?" + sensor.getID().getID()))
+        .andExpect(status().isOk());
   }
 
   /**

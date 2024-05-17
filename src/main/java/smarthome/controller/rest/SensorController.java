@@ -8,10 +8,10 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.sensor.ISensor;
@@ -77,15 +77,11 @@ public class SensorController {
    * @param id is the sensorID
    * @return a sensorDTO
    */
-  @GetMapping("/{id}")
-  public ResponseEntity<EntityModel<SensorDTO>> getSensorByID(@PathVariable String id) {
+  @GetMapping(params ="id")
+  public ResponseEntity<EntityModel<SensorDTO>> getSensorByID(@RequestParam("id") String id) {
     SensorID sensorID = new SensorID(id);
 
     Optional<ISensor> sensor = sensorService.getSensorByID(sensorID);
-
-    if (sensor.isEmpty()) {
-      return ResponseEntity.notFound().build();
-    }
 
     SensorDTO sensorDTO = sensorAssembler.domainToDTO(sensor.get());
 
