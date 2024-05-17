@@ -15,41 +15,38 @@ box "SmartHome"
     participant "DataBase" as BD
 end box
 
-User -> RC : I want to configure the house location
+User -> RC : I want to add a Room to a House
 activate RC
 
-RC -> CTRL : configureHouseLocation(houseDataDTO)
+RC -> CTRL : addRoom(roomDataDTO)
 activate CTRL
 
 
 
-CTRL -> DOM : createAddress(street, doorNumber, postalCode, countryCode, postalCodeFactory)
+CTRL -> DOM : createRoom(houseID, roomName, dimension, roomFloor)
 activate DOM
-DOM -> CTRL : address
-
-CTRL -> DOM : createGPS(latitude, longitude)
-DOM -> CTRL : gps
+DOM -> CTRL : room
 deactivate DOM
 
 CTRL -> SV : addHouse(address, gps)
 activate SV
 
-SV -> REPO : save(house)
+SV -> REPO : save(room)
 activate REPO
 REPO -> BD : save
 activate BD
 deactivate BD
-REPO -> SV : house
+REPO -> SV : room
 deactivate REPO
 
-SV -> CTRL : house
+SV -> CTRL : room
 deactivate SV
 
 
-CTRL --> RC : houseDTO
+CTRL --> RC : roomDTO
 deactivate CTRL
 
-RC --> User : houseDTO
+RC --> User : roomDTO
 deactivate RC
 
 
