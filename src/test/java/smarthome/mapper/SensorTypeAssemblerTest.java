@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
@@ -79,7 +78,7 @@ class SensorTypeAssemblerTest {
    */
   @Test
   void shouldConvertListOfSensorTypesToListOfSensorTypeDTOs_whenSensorTypesAreValid()
-      throws EmptyReturnException {
+    {
     // Arrange
     String sensorTypeID1 = "1";
     String sensorTypeDescription1 = "Temperature";

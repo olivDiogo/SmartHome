@@ -2,7 +2,7 @@ package smarthome.controller.cli;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import smarthome.domain.exceptions.EmptyReturnException;
+
 import smarthome.domain.log.Log;
 import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DatePeriod;
@@ -10,7 +10,6 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
 import smarthome.utils.Validator;
-import smarthome.utils.dto.data_dto.DeviceDataDTO;
 
 public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
 
@@ -36,8 +35,7 @@ public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
    * @return the maximum instantaneous temperature difference.
    */
   public int getMaxInstTempDiffBetweenDeviceAndOutside(String outsideDeviceIDStr,
-      String insideDeviceIDStr, LocalDateTime initialTime, LocalDateTime finalTime, int timeDelta)
-      throws EmptyReturnException {
+      String insideDeviceIDStr, LocalDateTime initialTime, LocalDateTime finalTime, int timeDelta) throws Exception{
     DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
     DeviceID insideDeviceID = new DeviceID(insideDeviceIDStr);
     DeviceID outsideDeviceID = new DeviceID(outsideDeviceIDStr);

@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.utils.Validator;
@@ -35,7 +34,7 @@ public class DeactivateDeviceController {
    *
    * @return a list of devices.
    */
-  public List<DeviceDTO> requestAllDevices() throws EmptyReturnException {
+  public List<DeviceDTO> requestAllDevices() {
     List<Device> deviceList = deviceService.getAllDevices();
     if (deviceList.isEmpty()) {
       return Collections.emptyList();

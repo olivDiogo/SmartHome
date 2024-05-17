@@ -2,7 +2,6 @@ package smarthome.domain.service;
 
 import java.util.List;
 import smarthome.ddd.IService;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
@@ -30,7 +29,7 @@ public interface ILogService extends IService {
    * @return List of Log
    */
   List<Log> getDeviceReadingsBySensorTypeAndTimePeriod(DeviceID deviceID, SensorTypeID sensorTypeID,
-      DatePeriod period) throws EmptyReturnException;
+      DatePeriod period) throws Exception;
 
 
   /**
@@ -41,7 +40,7 @@ public interface ILogService extends IService {
    * @return the Maximum difference between readings.
    */
   int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, TimeDelta timeDelta)
-      throws EmptyReturnException;
+      throws Exception;
 
   /**
    * Method to get the peak power consumption of a device in a given time period.

@@ -11,7 +11,6 @@ import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
@@ -26,7 +25,6 @@ import smarthome.domain.service.IHouseService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
@@ -223,7 +221,7 @@ class GetDevicesFromRoomControllerTest {
    * Test to get rooms from a house.
    */
   @Test
-  void shouldGetRoomsFromHouse_WhenGivenValidHouseID() throws EmptyReturnException {
+  void shouldGetRoomsFromHouse_WhenGivenValidHouseID() {
     // Arrange
     IRoomRepository roomRepository = new RoomRepository();
     IRoomFactory roomFactory = new RoomFactoryImpl();
@@ -355,7 +353,7 @@ class GetDevicesFromRoomControllerTest {
    * Test to get devices from a room.
    */
   @Test
-  void shouldGetDevicesFromRoom_WhenParametersAreValid() throws EmptyReturnException {
+  void shouldGetDevicesFromRoom_WhenParametersAreValid() {
     // Arrange
     IRoomRepository roomRepository = new RoomRepository();
     IRoomFactory roomFactory = new RoomFactoryImpl();

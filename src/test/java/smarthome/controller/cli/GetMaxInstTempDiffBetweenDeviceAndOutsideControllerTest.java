@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.ILogFactory;
 import smarthome.domain.log.Log;
 import smarthome.domain.log.LogFactoryImpl;
@@ -19,7 +18,6 @@ import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
 import smarthome.persistence.mem.LogRepository;
 import smarthome.service.LogServiceImpl;
-import smarthome.utils.dto.data_dto.DeviceDataDTO;
 
 class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
 
@@ -68,7 +66,7 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
    */
   @Test
   void shouldReturnCorrectValue_whenGetMaxInstTempDiffBetweenDeviceAndOutsideIsCalled()
-      throws EmptyReturnException {
+      throws Exception {
     //Arrange
     ILogRepository logRepository = new LogRepository();
     ILogService logService = new LogServiceImpl(logRepository);
@@ -173,7 +171,7 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
     String expected = "No readings found for the given time period";
 
     // Act
-    Exception result = assertThrows(EmptyReturnException.class,
+    Exception result = assertThrows(Exception.class,
         () -> getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
             outsideDeviceIDStr, insideDeviceIDStr, initialTime, finalTime, timeDelta));
 
@@ -226,7 +224,7 @@ class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {
     String expected = "No readings found for the given time period";
 
     // Act
-    Exception result = assertThrows(EmptyReturnException.class,
+    Exception result = assertThrows(Exception.class,
         () -> getMaxInstTempDiffBetweenDeviceAndOutsideController.getMaxInstTempDiffBetweenDeviceAndOutside(
             outsideDeviceIDStr, insideDeviceIDStr, initialTime, finalTime, timeDelta));
 

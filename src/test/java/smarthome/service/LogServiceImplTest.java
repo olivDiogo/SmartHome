@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.value_object.DatePeriod;
@@ -110,7 +109,7 @@ class LogServiceImplTest {
    */
   @Test
   void shouldReturnLogs_whenDeviceReadingsBySensorTypeAndTimePeriodIsCalled()
-      throws EmptyReturnException {
+      throws Exception {
     // Arrange
     DeviceID deviceID = mock(DeviceID.class);
     SensorTypeID sensorTypeID = mock(SensorTypeID.class);
@@ -158,7 +157,7 @@ class LogServiceImplTest {
     String expectedMessage = "No readings found for the given time period";
 
     // Act
-    EmptyReturnException exception = assertThrows(EmptyReturnException.class,
+    Exception exception = assertThrows(Exception.class,
         () -> logService.getDeviceReadingsBySensorTypeAndTimePeriod(deviceID, sensorTypeID,
             period));
 
@@ -171,8 +170,7 @@ class LogServiceImplTest {
    * Test for method getDifferenceBetweenReadings when single readings are within an interval of 5 minutes.
    */
   @Test
-  void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndReadingsAreWithin5MinutesInterval()
-      throws EmptyReturnException {
+  void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndReadingsAreWithin5MinutesInterval() throws Exception{
     // Arrange
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
@@ -211,8 +209,7 @@ class LogServiceImplTest {
    * Test for method getDifferenceBetweenReadings when multiple readings are within an interval of 5 minutes.
    */
   @Test
-  void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndMultipleReadingsAreWithin5MinutesInterval()
-      throws EmptyReturnException {
+  void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndMultipleReadingsAreWithin5MinutesInterval() throws Exception {
     // Arrange
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
@@ -565,7 +562,7 @@ class LogServiceImplTest {
 
   @Test
   void shouldReturnPeakPowerConsumptionWhenResultIsSumWithinDelta_WhenGetPeakPowerConsumptionIsCalled()
-      throws EmptyReturnException {
+       {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
     LogServiceImpl logService = new LogServiceImpl(logRepository);
@@ -598,7 +595,7 @@ class LogServiceImplTest {
 
   @Test
   void shouldReturnPeakPowerConsumptionWhenResultIsReadingFromFirstList_WhenGetPeakPowerConsumptionIsCalled()
-      throws EmptyReturnException {
+       {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
     LogServiceImpl logService = new LogServiceImpl(logRepository);
@@ -637,7 +634,7 @@ class LogServiceImplTest {
 
   @Test
   void shouldReturnPeakPowerConsumptionWhenResultIsReadingFromSecondList_WhenGetPeakPowerConsumptionIsCalled()
-      throws EmptyReturnException {
+       {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
     LogServiceImpl logService = new LogServiceImpl(logRepository);

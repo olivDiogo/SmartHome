@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.ILogService;
@@ -50,7 +49,7 @@ public class LogController {
   public ResponseEntity<List<LogDTO>> getDeviceReadingsByTimePeriod(
       @RequestParam String deviceID,
       @RequestParam String timeStart,
-      @RequestParam String timeEnd) throws EmptyReturnException {
+      @RequestParam String timeEnd) throws Exception {
     DeviceID deviceIDObj = new DeviceID(deviceID);
     LocalDateTime start = LocalDateTime.parse(timeStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     LocalDateTime end = LocalDateTime.parse(timeEnd, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
@@ -77,7 +76,7 @@ public class LogController {
       @RequestParam String insideDeviceIDStr,
       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime initialTime,
       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime finalTime,
-      @RequestParam int timeDelta) throws EmptyReturnException {
+      @RequestParam int timeDelta) throws Exception {
     DeviceID insideDeviceID = new DeviceID(outsideDeviceIDStr);
     DeviceID outsideDeviceID = new DeviceID(insideDeviceIDStr);
     SensorTypeID sensorTypeID = new SensorTypeID("Temperature");
@@ -130,7 +129,7 @@ public class LogController {
         List<Log> deviceReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(deviceID,
             sensorTypeID, datePeriod);
         readings.addAll(deviceReadings);
-      } catch (EmptyReturnException ignored) {
+      } catch (Exception ignored) {
         readings.addAll(new ArrayList<>());
       }
     }

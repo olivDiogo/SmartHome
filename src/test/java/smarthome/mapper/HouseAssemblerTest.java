@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
@@ -64,7 +63,7 @@ class HouseAssemblerTest {
    * Test that the HouseAssembler class can convert a House object list to a HouseDTO object list.
    */
   @Test
-  void shouldReturnANewHouseDTOListWhenGivenAListOfHouses() throws EmptyReturnException {
+  void shouldReturnANewHouseDTOListWhenGivenAListOfHouses() {
     // Arrange
     String address = "Test Address, 1";
     String gps = "GPS{latitude=90.0, longitude=180.0}";

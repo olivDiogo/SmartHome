@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator_type.ActuatorType;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
@@ -80,7 +79,7 @@ class ActuatorTypeAssemblerTest {
    */
   @Test
   void shouldReturnActuatorTypeAssemblerDTOList_WhenDescriptionTypeIsValid()
-      throws EmptyReturnException {
+       {
     // Arrange
     String actuatorTypeID1 = "BlindActuator";
     String typeDescription1 = "Blind Actuator";

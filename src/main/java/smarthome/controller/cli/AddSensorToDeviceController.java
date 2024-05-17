@@ -4,7 +4,6 @@ import static smarthome.utils.Validator.validateNotNull;
 
 import java.util.List;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.domain.sensor_type.SensorType;
@@ -68,7 +67,7 @@ public class AddSensorToDeviceController {
    *
    * @return a list of sensor types.
    */
-  public List<SensorTypeDTO> getSensorTypes() throws EmptyReturnException {
+  public List<SensorTypeDTO> getSensorTypes() {
     List<SensorType> sensorTypeList = sensorTypeService.getAllSensorTypes();
     if (sensorTypeList.isEmpty()) {
       throw new IllegalArgumentException("No sensor types found.");
@@ -82,8 +81,7 @@ public class AddSensorToDeviceController {
    *
    * @return a list of sensor models.
    */
-  public List<SensorModelDTO> getSensorModels(SensorTypeDTO sensorTypeDTO)
-      throws EmptyReturnException {
+  public List<SensorModelDTO> getSensorModels(SensorTypeDTO sensorTypeDTO){
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeDTO.sensorTypeID);
 
     if (sensorTypeService.getSensorTypeByID(sensorTypeID).isEmpty()) {

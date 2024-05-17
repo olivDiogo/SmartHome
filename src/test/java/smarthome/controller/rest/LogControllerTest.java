@@ -219,7 +219,7 @@ class LogControllerTest {
             .param("initialTime", initialTime.toString())
             .param("finalTime", finalTime.toString())
             .param("timeDelta", String.valueOf(timeDelta)))
-        .andExpect(status().isNoContent());
+        .andExpect(status().isNotFound());
   }
 
   /**
@@ -257,7 +257,7 @@ class LogControllerTest {
             .param("initialTime", initialTime.toString())
             .param("finalTime", finalTime.toString())
             .param("timeDelta", String.valueOf(timeDelta)))
-        .andExpect(status().isNoContent());
+        .andExpect(status().isNotFound());
   }
 
   /**
@@ -295,7 +295,7 @@ class LogControllerTest {
             .param("initialTime", initialTime.toString())
             .param("finalTime", finalTime.toString())
             .param("timeDelta", String.valueOf(timeDelta)))
-        .andExpect(status().isNoContent());
+        .andExpect(status().isNotFound());
   }
 
   /**

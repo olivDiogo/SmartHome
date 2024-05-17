@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.Unit;
 import smarthome.utils.dto.UnitDTO;
 
 @RestController
 @RequestMapping()
-public class UnitControlller {
+public class UnitController {
 
   @NotNull
   private final IUnitService unitService;
@@ -32,7 +31,7 @@ public class UnitControlller {
    * @param unitAssembler is the assembler for unit
    */
   @Autowired
-  public UnitControlller(IUnitService unitService, IAssembler<Unit, UnitDTO> unitAssembler) {
+  public UnitController(IUnitService unitService, IAssembler<Unit, UnitDTO> unitAssembler) {
     this.unitService = unitService;
     this.unitAssembler = unitAssembler;
   }
@@ -43,13 +42,13 @@ public class UnitControlller {
    * @return ResponseEntity<CollectionModel < UnitDTO>> is the response entity
    */
   @GetMapping("/units")
-  public ResponseEntity<CollectionModel<UnitDTO>> getUnits() throws EmptyReturnException {
+  public ResponseEntity<CollectionModel<UnitDTO>> getUnits() {
     List<Unit> unitList = unitService.getAllMeasurementTypes();
 
     List<UnitDTO> unitDTOList = unitAssembler.domainToDTO(unitList);
     CollectionModel<UnitDTO> resource = CollectionModel.of(unitDTOList,
         WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(UnitControlller.class).getUnits())
+                WebMvcLinkBuilder.methodOn(UnitController.class).getUnits())
             .withSelfRel());
     return ResponseEntity.ok(resource);
   }

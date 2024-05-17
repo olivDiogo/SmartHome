@@ -25,22 +25,17 @@ public class GlobalExceptionHandler {
   }
 
   /**
-   * Handle {@link EmptyReturnException}
-   * @param ex EmptyReturnException
-   * @return ResponseEntity
-   */
-  @ExceptionHandler(EmptyReturnException.class)
-  public ResponseEntity<Object> handleEmptyReturnException(EmptyReturnException ex) {
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NO_CONTENT);
-  }
-
-  /**
    * Handle {@link EntityNotFoundException}
    * @param ex EntityNotFoundException
    * @return ResponseEntity
    */
   @ExceptionHandler(EntityNotFoundException.class)
   public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<Object> handleException(Exception ex) {
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
   }
 }

@@ -28,15 +28,12 @@ import org.springframework.web.server.ResponseStatusException;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.domain.device_type.DeviceType;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IDeviceTypeService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
-import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.mapper.DeviceTypeAssembler;
@@ -147,7 +144,7 @@ public class DeviceController {
 
   /** Handles HTTP GET requests for retrieving all devices. */
   @GetMapping("/")
-  public ResponseEntity<CollectionModel<DeviceDTO>> getAllDevices() throws EmptyReturnException {
+  public ResponseEntity<CollectionModel<DeviceDTO>> getAllDevices() {
     List<Device> devices = deviceService.getAllDevices();
 
     List<DeviceDTO> deviceDTOs = deviceAssembler.domainToDTO(devices);

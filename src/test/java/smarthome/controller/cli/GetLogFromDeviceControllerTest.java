@@ -14,7 +14,6 @@ import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
@@ -36,7 +35,6 @@ import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
@@ -145,7 +143,7 @@ class GetLogFromDeviceControllerTest {
    * Test getLogFromDevice method.
    */
   @Test
-  void shouldGetLogFromDevice_WhenParametersAreValid() throws EmptyReturnException {
+  void shouldGetLogFromDevice_WhenParametersAreValid() {
     // Arrange
     // Add a house
     House house = createHouse();
@@ -231,7 +229,7 @@ class GetLogFromDeviceControllerTest {
    */
   @Test
   void shouldReturnNoMeasurementsAvailable_WhenNoMeasurementsForGivenPeriod()
-      throws EmptyReturnException {
+       {
     // Arrange
     // Add a house
     House house = createHouse();
@@ -274,7 +272,7 @@ class GetLogFromDeviceControllerTest {
    */
   @Test
   void shouldReturnLogFromCorrectDeviceOnly_WhenThereAreMultipleDevicesInRoom()
-      throws EmptyReturnException {
+       {
     // Arrange
     // Add a house
     House house = createHouse();

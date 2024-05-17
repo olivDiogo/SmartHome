@@ -20,16 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.device.Device;
-import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.IDeviceTypeFactory;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IDeviceRepository;
@@ -40,7 +36,6 @@ import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
@@ -50,8 +45,6 @@ import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.utils.dto.DeviceDTO;
-import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
 
@@ -427,7 +420,7 @@ class DeviceControllerTest {
    * Test getAllDevicesGroupedByFunctionality when there is a device with no device type
    */
   @Test
-  void shouldReturnBadRequest_whenThereIsNoDeviceType() throws Exception {
+  void shouldReturnNotFound_whenThereIsNoDeviceType() throws Exception {
     // Arrange
     House house = setupHouse();
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
@@ -445,7 +438,7 @@ class DeviceControllerTest {
     // Act & Assert
     mockMvc.perform(get("/devices/grouped")
         .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest());
+        .andExpect(status().isNotFound());
   }
 
 

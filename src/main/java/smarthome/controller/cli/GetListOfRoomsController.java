@@ -3,7 +3,6 @@ package smarthome.controller.cli;
 import java.util.Collections;
 import java.util.List;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IRoomService;
 import smarthome.utils.Validator;
@@ -35,7 +34,7 @@ public class GetListOfRoomsController {
    *
    * @return The list of rooms.
    */
-  public List<RoomDTO> getRooms() throws EmptyReturnException {
+  public List<RoomDTO> getRooms() {
 
     List<Room> listOfRooms = roomService.getAllRooms();
     if (listOfRooms.isEmpty()) {

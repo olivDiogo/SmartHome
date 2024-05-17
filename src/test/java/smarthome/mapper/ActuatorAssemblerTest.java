@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator.IActuator;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
@@ -86,7 +85,7 @@ class ActuatorAssemblerTest {
    */
   @Test
   void shouldConvertListOfActuatorToListOfActuatorDTO_whenListOfActuatorIsValid()
-      throws EmptyReturnException {
+       {
     //Arrange
     String actuatorID1 = "1";
     ActuatorID actuatorIdDouble1 = mock(ActuatorID.class);
@@ -167,7 +166,7 @@ class ActuatorAssemblerTest {
    * Should return empty list of ActuatorDTO when the list of Actuator is empty.
    */
   @Test
-  void shouldReturnEmptyListOfActuatorDTO_whenListOfActuatorIsEmpty() throws EmptyReturnException {
+  void shouldReturnEmptyListOfActuatorDTO_whenListOfActuatorIsEmpty()  {
     //Arrange
     List<IActuator> actuators = List.of();
     ActuatorAssembler actuatorAssembler = new ActuatorAssembler();

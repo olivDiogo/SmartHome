@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.utils.Validator;
@@ -56,7 +54,7 @@ public class AddDeviceToRoomController {
    *
    * @return a list of RoomDTOs.
    */
-  public List<RoomDTO> getAllRooms() throws EmptyReturnException {
+  public List<RoomDTO> getAllRooms() {
     List<Room> rooms = roomService.getAllRooms();
     return roomAssembler.domainToDTO(rooms);
   }

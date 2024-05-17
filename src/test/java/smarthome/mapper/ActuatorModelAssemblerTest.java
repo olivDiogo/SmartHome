@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator_model.ActuatorModel;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.utils.dto.ActuatorModelDTO;
@@ -72,7 +71,7 @@ class ActuatorModelAssemblerTest {
    */
   @Test
   void shouldConvertListOfActuatorModelsToListOfActuatorModelDTO_whenActuatorModelListIsValid()
-      throws EmptyReturnException {
+       {
     // Arrange
     /* ActuatorModel 1 */
     String actuatorModelID1 = "path1";
@@ -147,7 +146,7 @@ class ActuatorModelAssemblerTest {
    * Should return empty list when the list of actuator models is empty.
    */
   @Test
-  void shouldReturnEmptyList_whenActuatorModelListIsEmpty() throws EmptyReturnException {
+  void shouldReturnEmptyList_whenActuatorModelListIsEmpty()  {
     // Arrange
     List<ActuatorModel> actuatorModels = List.of();
     ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();

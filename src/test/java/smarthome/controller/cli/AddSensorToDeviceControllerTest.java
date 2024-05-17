@@ -16,7 +16,6 @@ import smarthome.domain.actuator_model.IActuatorModelFactory;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
@@ -383,7 +382,7 @@ class AddSensorToDeviceControllerTest {
    * Test to get available sensor models list when the sensor model repository is not empty.
    */
   @Test
-  void shouldGetAvailableSensorModelsList() throws InstantiationException, EmptyReturnException {
+  void shouldGetAvailableSensorModelsList() throws InstantiationException {
     // Arrange
     loadModelsAndUnit();
     TypeDescription typeDescription = new TypeDescription("Temperature");
@@ -427,7 +426,7 @@ class AddSensorToDeviceControllerTest {
   }
 
   @Test
-  void shouldThrowExceptionWhenSensorModelRepositoryIsEmpty() throws InstantiationException {
+  void shouldThrowExceptionWhenSensorModelRepositoryIsEmpty() {
     // Arrange
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitDescription unitDescription = new UnitDescription("Celsius");
@@ -465,7 +464,7 @@ class AddSensorToDeviceControllerTest {
    * sensor model list is null.
    */
   @Test
-  void shouldThrowExceptionWhenSensorModelListIsNull() throws InstantiationException {
+  void shouldThrowExceptionWhenSensorModelListIsNull() {
     // Arrange
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitDescription unitDescription = new UnitDescription("Celsius");
@@ -505,7 +504,7 @@ class AddSensorToDeviceControllerTest {
    * @throws InstantiationException
    */
   @Test
-  void shouldThrowExceptionWhenSensorTypeRepositoryIsEmpty() throws InstantiationException {
+  void shouldThrowExceptionWhenSensorTypeRepositoryIsEmpty() {
     // Act
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -529,7 +528,7 @@ class AddSensorToDeviceControllerTest {
    */
   @Test
   void shouldReturnListOfSensorTypes_whenSensorTypeRepositoryIsNotEmpty()
-      throws InstantiationException, EmptyReturnException {
+      throws InstantiationException {
     // Arrange
     loadModelsAndUnit();
 

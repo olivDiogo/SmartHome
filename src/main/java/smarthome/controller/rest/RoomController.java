@@ -1,13 +1,11 @@
 package smarthome.controller.rest;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IRoomService;
@@ -76,7 +73,7 @@ public class RoomController {
    * @return a list of all rooms
    */
   @GetMapping("/")
-  public ResponseEntity<List<RoomDTO>> getAllRooms() throws EmptyReturnException {
+  public ResponseEntity<List<RoomDTO>> getAllRooms() {
     List<Room> rooms = roomService.getAllRooms();
     List<RoomDTO> roomDTOs = roomAssembler.domainToDTO(rooms);
     return ResponseEntity.ok(roomDTOs);

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator_type.ActuatorType;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.service.IActuatorTypeService;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.TypeDescription;
@@ -94,8 +93,7 @@ public class ActuatorTypeController {
   @PostMapping("/")
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<ActuatorTypeDTO> addActuatorType(@Valid
-  @RequestBody ActuatorTypeDataDTO actuatorTypeDataDTO)
-      throws EmptyReturnException {
+  @RequestBody ActuatorTypeDataDTO actuatorTypeDataDTO) {
     TypeDescription typeDescription = new TypeDescription(
         actuatorTypeDataDTO.actuatorTypeDescription);
     UnitID unitID = new UnitID(actuatorTypeDataDTO.unit);

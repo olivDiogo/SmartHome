@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -93,7 +92,7 @@ class SensorAssemblerTest {
    * Test that the method domainToDTO throws an exception when the list of Sensors is null.
    */
   @Test
-  void shouldConvertSensorListToListOfSensorsDTOList() throws EmptyReturnException {
+  void shouldConvertSensorListToListOfSensorsDTOList(){
     // Arrange
     String deviceID = "123";
     String modelPath = "SmartHome.sensors.DewPointSensor";

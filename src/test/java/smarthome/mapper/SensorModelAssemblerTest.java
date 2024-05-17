@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorModelName;
@@ -73,7 +72,7 @@ class SensorModelAssemblerTest {
    */
   @Test
   void shouldConvertSensorModelListToSensorModelDTOList_whenSensorModelListIsValid()
-      throws EmptyReturnException {
+     {
 
     // Arrange
     /* Sensor Model 1 */
@@ -153,7 +152,7 @@ class SensorModelAssemblerTest {
    * Should return empty list of SensorModelDTO when the list of SensorModel is empty
    */
   @Test
-  void shouldReturnEmptyList_whenSensorModelListIsEmpty() throws EmptyReturnException {
+  void shouldReturnEmptyList_whenSensorModelListIsEmpty(){
 
     // Arrange
     List<SensorModel> sensorModels = List.of();

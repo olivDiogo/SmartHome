@@ -9,7 +9,6 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitID;
@@ -80,7 +79,7 @@ class UnitAssemblerTest {
    */
   @Test
   void shouldReturnMeasurementTypeDTOList_WhenDomainToDTOIsCalledWithListOfMeasurementType()
-      throws EmptyReturnException {
+  {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
 
@@ -154,7 +153,7 @@ class UnitAssemblerTest {
    */
   @Test
   void shouldReturnEmptyList_WhenDomainToDTOIsCalledWithEmptyListOfMeasurementType()
-      throws EmptyReturnException {
+  {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
     List<Unit> unitList = List.of();

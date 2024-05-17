@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.exceptions.ExceptionUtils;
 import smarthome.domain.house.House;
 import smarthome.domain.service.IHouseService;
@@ -54,7 +53,7 @@ public class HouseController {
    */
   @PostMapping
   public ResponseEntity<EntityModel<HouseDTO>> configureHouseLocation(
-      @Valid @RequestBody HouseDataDTO houseDataDTO) throws EmptyReturnException {
+      @Valid @RequestBody HouseDataDTO houseDataDTO) {
     Address address = new Address(houseDataDTO.street, houseDataDTO.doorNumber,
         houseDataDTO.postalCode, houseDataDTO.countryCode, new PostalCodeFactory());
     GPS gps = new GPS(houseDataDTO.latitude, houseDataDTO.longitude);

@@ -19,7 +19,7 @@ import smarthome.mapper.UnitAssembler;
 import smarthome.utils.dto.UnitDTO;
 
 
-@WebMvcTest(UnitControlller.class)
+@WebMvcTest(UnitController.class)
 class UnitControllerTest {
 
   @Autowired

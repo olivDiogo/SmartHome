@@ -3,7 +3,6 @@ package smarthome.controller.cli;
 import java.util.List;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IRoomService;
@@ -46,7 +45,7 @@ public class GetDevicesFromRoomController {
    *
    * @return a list of rooms.
    */
-  public List<RoomDTO> getRooms() throws EmptyReturnException {
+  public List<RoomDTO> getRooms() {
     List<Room> rooms = roomService.getAllRooms();
 
     List<RoomDTO> roomDTOList = roomAssembler.domainToDTO(rooms);
@@ -60,7 +59,7 @@ public class GetDevicesFromRoomController {
    * @param roomDTO is the room to get the devices from.
    * @return a list of devices.
    */
-  public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) throws EmptyReturnException {
+  public List<DeviceDTO> getDevicesFromRoom(RoomDTO roomDTO) {
     RoomID roomID = new RoomID(roomDTO.roomId);
 
     if (roomService.getRoomById(roomID).isEmpty()) {

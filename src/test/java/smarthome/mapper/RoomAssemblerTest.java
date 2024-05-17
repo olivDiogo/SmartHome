@@ -9,7 +9,6 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.Room;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.RoomFloor;
@@ -89,7 +88,7 @@ class RoomAssemblerTest {
 
 
   @Test
-  void shouldReturnANewRoomDTOList_whenGivenARoomList() throws EmptyReturnException {
+  void shouldReturnANewRoomDTOList_whenGivenARoomList() {
     // Arrange
     String roomName = "Test Room";
     String dimension = "Width: 10, Height: 10, Depth: 10 ";
@@ -169,7 +168,7 @@ class RoomAssemblerTest {
    * Should return empty list of RoomDTO when given empty list of Room.
    */
   @Test
-  void shouldReturnEmptyList_whenGivenEmptyList() throws EmptyReturnException {
+  void shouldReturnEmptyList_whenGivenEmptyList() {
     // Arrange
     List<Room> rooms = List.of();
     RoomAssembler roomAssembler = new RoomAssembler();

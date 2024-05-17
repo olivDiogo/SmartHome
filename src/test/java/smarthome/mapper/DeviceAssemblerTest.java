@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device.Device;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
@@ -79,7 +78,7 @@ class DeviceAssemblerTest {
    * valid.
    */
   @Test
-  void shouldReturnListOfDeviceDTO_WhenGivenListOfDevices() throws EmptyReturnException {
+  void shouldReturnListOfDeviceDTO_WhenGivenListOfDevices()  {
     //Arrange
     String deviceID = "1";
     String roomID = "1";
@@ -138,7 +137,7 @@ class DeviceAssemblerTest {
    * should return empty list of DeviceDTO when the list of devices is empty
    */
   @Test
-  void shouldReturnEmptyListOfDeviceDTO_WhenGivenEmptyListOfDevices() throws EmptyReturnException {
+  void shouldReturnEmptyListOfDeviceDTO_WhenGivenEmptyListOfDevices()  {
     //Arrange
     List<Device> devices = List.of();
     DeviceAssembler deviceAssembler = new DeviceAssembler();

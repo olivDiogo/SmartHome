@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IDeviceService;
@@ -110,7 +109,7 @@ class RoomControllerTest {
 
   /** Unit Test getAllRooms method */
   @Test
-  void shouldReturnAllRooms_whenGetAllRoomsIsCalled() throws EmptyReturnException {
+  void shouldReturnAllRooms_whenGetAllRoomsIsCalled()  {
     // Arrange
     Room mockRoom = mock(Room.class);
     RoomDTO mockRoomDTO = mock(RoomDTO.class);

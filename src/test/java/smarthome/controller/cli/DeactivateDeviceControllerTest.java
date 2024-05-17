@@ -13,7 +13,6 @@ import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device.IDeviceFactory;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
@@ -119,7 +118,7 @@ class DeactivateDeviceControllerTest {
    * Test to verify that the requestAllDevices method returns all devices.
    */
   @Test
-  void shouldReturnAllDevices_WhenRequestAllDevicesIsCalled() throws EmptyReturnException {
+  void shouldReturnAllDevices_WhenRequestAllDevicesIsCalled() {
     // Arrange
     IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
     IDeviceFactory deviceFactory = new DeviceFactoryImpl();
@@ -173,7 +172,7 @@ class DeactivateDeviceControllerTest {
    * Test to verify that the requestAllDevices method returns no devices.
    */
   @Test
-  void shouldReturnNoDevices_WhenRequestAllDevicesIsCalled() throws EmptyReturnException {
+  void shouldReturnNoDevices_WhenRequestAllDevicesIsCalled() {
     // Arrange
     IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
     IDeviceFactory deviceFactory = new DeviceFactoryImpl();

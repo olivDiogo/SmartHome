@@ -8,7 +8,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.service.IHouseService;
@@ -43,7 +42,7 @@ class HouseControllerTest {
    * Unit test to configure House location method
    */
   @Test
-  void shouldCreateHouse_WhenParametersAreValid() throws EmptyReturnException {
+  void shouldCreateHouse_WhenParametersAreValid()  {
     // Arrange
     String street = "Rua de Sao Bento";
     String doorNumber = "123";

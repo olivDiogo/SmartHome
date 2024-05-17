@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.LogID;
@@ -142,7 +141,7 @@ class LogAssemblerTest {
    * Test when the list of logs contains objects.
    */
   @Test
-  void shouldReturnANewLogDTOList_whenGivenALogList() throws EmptyReturnException {
+  void shouldReturnANewLogDTOList_whenGivenALogList() {
     //Arrange
     String logID = "1";
     String deviceID = "1";

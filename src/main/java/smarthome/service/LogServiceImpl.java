@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import smarthome.domain.exceptions.EmptyReturnException;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.service.ILogService;
@@ -61,12 +60,12 @@ public class LogServiceImpl implements ILogService {
    */
   @Override
   public List<Log> getDeviceReadingsBySensorTypeAndTimePeriod(DeviceID deviceID,
-      SensorTypeID sensorTypeID, DatePeriod period) throws EmptyReturnException {
+      SensorTypeID sensorTypeID, DatePeriod period) throws Exception {
     List<Log> deviceReadings = logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
         deviceID, sensorTypeID, period);
 
     if (deviceReadings.isEmpty()) {
-      throw new EmptyReturnException("No readings found for the given time period");
+      throw new Exception("No readings found for the given time period");
     }
 
     return deviceReadings;
@@ -82,7 +81,7 @@ public class LogServiceImpl implements ILogService {
    */
   @Override
   public int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, TimeDelta timeDelta)
-      throws EmptyReturnException {
+      throws Exception {
     List<Integer> valueDifferences = new ArrayList<>();
     int timeDeltaMinutes = timeDelta.getMinutes();
 
@@ -92,7 +91,7 @@ public class LogServiceImpl implements ILogService {
       valueDifferences.add(difference);
     }
     if (valueDifferences.isEmpty()) {
-      throw new EmptyReturnException("No readings found within the given time interval");
+      throw new Exception("No readings found within the given time interval");
     }else return Collections.max(valueDifferences);
   }
 
