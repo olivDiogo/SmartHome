@@ -1,8 +1,10 @@
 package smarthome.IT;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -146,7 +148,9 @@ class ActuatorTypeIT {
         .andExpect(jsonPath("$.actuatorTypeID").exists())
         .andExpect(jsonPath("$.actuatorTypeDescription", is("Test")))
         .andExpect(jsonPath("$.unit", is("Celsius")))
-        .andExpect(jsonPath("$._links.self.href").exists());
+        .andExpect(jsonPath("$._links.self.href").exists())
+        .andExpect(jsonPath("$._links.actuator-types.href").exists())
+        .andExpect(header().string("Location", containsString("/actuator-types/Test")));
   }
 
   /**

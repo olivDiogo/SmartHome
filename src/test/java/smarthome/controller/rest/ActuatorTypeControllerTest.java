@@ -1,11 +1,13 @@
 package smarthome.controller.rest;
 
 
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -134,7 +136,8 @@ class ActuatorTypeControllerTest {
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.actuatorTypeDescription").exists())
         .andExpect(jsonPath("$.unit").exists())
-        .andExpect(jsonPath("$._links.self.href").exists());
+        .andExpect(jsonPath("$._links.self.href").exists())
+        .andExpect(header().string("Location", containsString("/actuator-types/1")));
   }
 
   /**

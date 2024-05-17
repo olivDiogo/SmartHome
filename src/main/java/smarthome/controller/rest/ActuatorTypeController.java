@@ -106,8 +106,8 @@ public class ActuatorTypeController {
 
     // HATEOAS Links
     dto.add(WebMvcLinkBuilder.linkTo(
-            WebMvcLinkBuilder.methodOn(ActuatorTypeController.class).addActuatorType(
-                actuatorTypeDataDTO))
+            WebMvcLinkBuilder.methodOn(ActuatorTypeController.class)
+                .getActuatorType(actuatorType.getID().getID()))
         .withSelfRel());
     dto.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ActuatorTypeController.class)
         .getActuatorTypes()).withRel("actuator-types"));
