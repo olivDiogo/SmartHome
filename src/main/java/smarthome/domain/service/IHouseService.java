@@ -5,6 +5,7 @@ import smarthome.domain.house.House;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
+import java.util.Optional;
 
 public interface IHouseService extends IService {
 
@@ -19,5 +20,5 @@ public interface IHouseService extends IService {
 
   House addHouse(HouseID houseID, Address address, GPS gps);
 
-  boolean existsById(HouseID houseID);
+  Optional<House> getById(HouseID houseID);
 }

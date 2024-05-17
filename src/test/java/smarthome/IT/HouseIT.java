@@ -22,6 +22,7 @@ import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.utils.dto.data_dto.HouseDataDTO;
+import java.util.Optional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -66,7 +67,7 @@ class HouseIT {
     when(houseRepository.save(house)).thenReturn(house);
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(status().isCreated())
@@ -92,7 +93,7 @@ class HouseIT {
     when(houseRepository.save(house)).thenReturn(house);
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(status().isCreated())
@@ -118,7 +119,7 @@ class HouseIT {
     when(houseRepository.save(house)).thenReturn(house);
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(status().isCreated())
@@ -144,7 +145,7 @@ class HouseIT {
     when(houseRepository.save(house)).thenReturn(house);
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(status().isCreated())
@@ -168,7 +169,7 @@ class HouseIT {
     String expectedMessage = "Invalid postal code format";
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(status().isBadRequest())
@@ -191,7 +192,7 @@ class HouseIT {
         latitude, longitude);
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(status().isBadRequest())
@@ -214,7 +215,7 @@ class HouseIT {
         latitude, longitude);
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(status().isBadRequest())
@@ -237,7 +238,7 @@ class HouseIT {
         latitude, longitude);
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(status().isBadRequest())
@@ -260,7 +261,7 @@ class HouseIT {
         latitude, longitude);
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(status().isBadRequest())
@@ -283,7 +284,7 @@ class HouseIT {
         latitude, longitude);
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(status().isBadRequest())
@@ -309,25 +310,50 @@ class HouseIT {
     when(houseRepository.save(house)).thenReturn(house);
 
     // Act & Assert
-    mockMvc.perform(post("/houses/")
+    mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
         .andExpect(jsonPath("$._links.self.href").exists());
   }
 
   /**
-   * Test method to check if House exists by ID
+   * Test method to get House By Id when House exists
    */
   @Test
-  void shouldReturnTrue_whenHouseExists() throws Exception {
+  void shouldReturnHouse_WhenHouseExistByGivenId() throws Exception {
+    //Arrange
+    String street = "Rua de Sao Bento";
+    String doorNumber = "123";
+    String postalCode = "1200-109";
+    String countryCode = "PT";
+    double latitude = 38.7143;
+    double longitude = -9.1459;
+    String id = "123";
+    HouseID houseID = new HouseID(id);
+    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+        latitude, longitude);
+    House house = setupHouse(houseDataDTO);
+    when(houseRepository.ofIdentity(houseID)).thenReturn(Optional.ofNullable(house));
+
+    //Act & Assert
+    mockMvc.perform(get("/houses/" + id)
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
+
+  /**
+   * Test Method to get House by Id when house doesn't exist
+   */
+  @Test
+  void shouldReturnNotFoundStatus_WhenHouseDoesNotExistByGivenId() throws Exception {
     // Arrange
     String id = "123";
     HouseID houseID = new HouseID(id);
-    when(houseRepository.containsOfIdentity(houseID)).thenReturn(true);
+    when(houseRepository.ofIdentity(houseID)).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(get("/houses/{id}", id))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$").value(true));
+    mockMvc
+        .perform(get("/houses/" + id).contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNotFound());
   }
 }

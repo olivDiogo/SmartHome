@@ -9,6 +9,7 @@ import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.utils.Validator;
+import java.util.Optional;
 
 @Service
 public class HouseServiceImpl implements IHouseService {
@@ -45,14 +46,16 @@ public class HouseServiceImpl implements IHouseService {
     return house;
   }
 
+  @Override
   public House addHouse(HouseID houseID, Address address, GPS gps) {
     House house = houseFactory.createHouse(houseID, address, gps);
     houseRepository.save(house);
     return house;
   }
 
-  public boolean existsById(HouseID houseID) {
-    return houseRepository.containsOfIdentity(houseID);
+  @Override
+  public Optional<House> getById(HouseID houseID) {
+    return houseRepository.ofIdentity(houseID);
   }
 }
 

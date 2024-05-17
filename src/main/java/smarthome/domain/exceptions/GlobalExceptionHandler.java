@@ -31,11 +31,7 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(EmptyReturnException.class)
   public ResponseEntity<Object> handleEmptyReturnException(EmptyReturnException ex) {
-    ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-        HttpStatus.NO_CONTENT.value(),
-        ex.getMessage());
-
-    return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NO_CONTENT);
   }
 
   /**
@@ -45,10 +41,6 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(EntityNotFoundException.class)
   public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
-    ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-        HttpStatus.NOT_FOUND.value(),
-        ex.getMessage());
-
-    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
   }
 }

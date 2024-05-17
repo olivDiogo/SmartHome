@@ -43,7 +43,7 @@ class HouseControllerTest {
    * Unit test to configure House location method
    */
   @Test
-  void shouldCreateHouse_WhenParametersAreValid() {
+  void shouldCreateHouse_WhenParametersAreValid() throws EmptyReturnException {
     // Arrange
     String street = "Rua de Sao Bento";
     String doorNumber = "123";
@@ -75,23 +75,5 @@ class HouseControllerTest {
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
     assertNotNull(response.getBody());
     assertEquals("Rua de Sao Bento 123 1200-109 PT", response.getBody().getContent().address);
-  }
-
-  /**
-   * Unit test to check if house exists by ID
-   */
-  @Test
-  void shouldReturnTrue_WhenHouseExists() throws EmptyReturnException {
-    // Arrange
-    String id = "1";
-    HouseID houseID = new HouseID(id);
-    when(houseService.existsById(houseID)).thenReturn(true);
-
-    // Act
-    ResponseEntity<Boolean> response = houseController.getHouseById(id);
-
-    // Assert
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertTrue(response.getBody());
   }
 }
