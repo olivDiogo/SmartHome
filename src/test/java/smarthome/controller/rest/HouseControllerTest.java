@@ -68,7 +68,7 @@ class HouseControllerTest {
     when(houseAssembler.domainToDTO(mockHouse)).thenReturn(houseDTO);
 
     // Act
-    ResponseEntity<EntityModel<HouseDTO>> response = houseController.configureHouseLocation(houseDataDTO);
+    ResponseEntity<EntityModel<HouseDTO>> response = houseController.createHouseLocation(houseDataDTO);
 
     // Assert
     assertEquals(HttpStatus.CREATED, response.getStatusCode());

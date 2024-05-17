@@ -52,7 +52,7 @@ public class HouseController {
    * @return ResponseEntity<EntityModel<HouseDTO>> is the response entity
    */
   @PostMapping
-  public ResponseEntity<EntityModel<HouseDTO>> configureHouseLocation(
+  public ResponseEntity<EntityModel<HouseDTO>> createHouseLocation(
       @Valid @RequestBody HouseDataDTO houseDataDTO) {
     Address address = new Address(houseDataDTO.street, houseDataDTO.doorNumber,
         houseDataDTO.postalCode, houseDataDTO.countryCode, new PostalCodeFactory());
@@ -60,7 +60,7 @@ public class HouseController {
     House house = houseService.addHouse(address, gps);
     HouseDTO dto = houseAssembler.domainToDTO(house);
 
-    Link selfLink = linkTo(methodOn(HouseController.class).configureHouseLocation(houseDataDTO))
+    Link selfLink = linkTo(methodOn(HouseController.class).createHouseLocation(houseDataDTO))
         .withSelfRel();
     Link houseLink = linkTo(methodOn(HouseController.class).getHouseById(dto.houseID))
         .withRel("house");
@@ -74,7 +74,7 @@ public class HouseController {
    * Method to check if house exists by ID
    */
   @GetMapping("/{id}")
-  public ResponseEntity<EntityModel<House>> getHouseById(@PathVariable String id) {
+  public ResponseEntity<EntityModel<HouseDTO>> getHouseById(@PathVariable String id) {
     HouseID houseID = new HouseID(id);
     Optional<House> house = houseService.getById(houseID);
     if (house.isEmpty()) {
@@ -82,7 +82,7 @@ public class HouseController {
     }
     HouseDTO dto = houseAssembler.domainToDTO(house.get());
     Link selfLink = linkTo(methodOn(HouseController.class).getHouseById(id)).withSelfRel();
-    EntityModel entityModel = EntityModel.of(dto, selfLink);
+    EntityModel <HouseDTO> entityModel = EntityModel.of(dto, selfLink);
     return ResponseEntity.status(HttpStatus.OK).body(entityModel);
   }
 }

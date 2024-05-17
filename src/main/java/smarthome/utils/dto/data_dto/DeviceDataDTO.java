@@ -7,17 +7,18 @@ package smarthome.utils.dto.data_dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-
+@NoArgsConstructor
 @AllArgsConstructor
 public class DeviceDataDTO {
 
   @NotBlank (message = "DeviceTypeID cannot be empty")
-  public final String deviceTypeDescription;
+  public String deviceTypeDescription;
 
   @NotBlank (message = "DeviceName cannot be empty")
-  public final String deviceName;
+  public String deviceName;
 
   @NotBlank (message = "RoomID cannot be empty")
-  public final String roomID;
+  public String roomID;
 }

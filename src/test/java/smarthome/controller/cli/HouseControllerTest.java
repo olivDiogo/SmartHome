@@ -24,7 +24,7 @@ class HouseControllerTest {
    * arguments.
    */
   @Test
-  void shouldInstantiateUS01ConfigureHouseLocationController_whenConstructorArgumentsAreValid() {
+  void shouldInstantiateUS01CreateHouseLocationController_whenConstructorArgumentsAreValid() {
     // Arrange
     IHouseRepository houseRepository = mock(IHouseRepository.class);
     IHouseFactory houseFactory = new HouseFactoryImpl();

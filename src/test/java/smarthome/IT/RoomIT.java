@@ -56,12 +56,6 @@ class RoomIT {
   @MockBean
   private IRoomRepository roomRepository;
 
-  @MockBean
-  private IDeviceService deviceService;
-
-  @MockBean
-  private IAssembler<Device, DeviceDTO> deviceAssembler;
-
   @Autowired
   private IRoomFactory roomFactory;
 
@@ -113,7 +107,7 @@ class RoomIT {
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
 
     // Act & Assert
-    mockMvc.perform(post("/rooms/")
+    mockMvc.perform(post("/rooms")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(roomDataDTO)))
         .andExpect(status().isCreated())
@@ -137,7 +131,7 @@ class RoomIT {
     when(houseRepository.ofIdentity(houseID)).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(post("/rooms/")
+    mockMvc.perform(post("/rooms")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(roomDataDTO)))
         .andExpect(status().isBadRequest());
@@ -161,10 +155,10 @@ class RoomIT {
     when(roomRepository.findAll()).thenReturn(List.of(room, room2));
 
     //Act & Assert
-    mockMvc.perform(get("/rooms/"))
+    mockMvc.perform(get("/rooms"))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$[0].roomName").value("Living Room"))
-        .andExpect(jsonPath("$[1].roomName").value("Living Room"));
+        .andExpect(jsonPath("$._embedded.roomDTOList[0].roomName").value("Living Room"))
+        .andExpect(jsonPath("$._embedded.roomDTOList[1].roomName").value("Living Room"));
   }
 
   /**

@@ -48,7 +48,7 @@ class RoomControllerTest {
 
   /** Unit test to add a new room to the house */
   @Test
-  void shouldAddRoom_WhenParametersAreValid() {
+  void shouldCreateRoom_WhenParametersAreValid() {
     // Arrange
     String houseID = "123";
     String name = "Living Room";
@@ -74,7 +74,7 @@ class RoomControllerTest {
     when(roomAssembler.domainToDTO(mockRoom)).thenReturn(roomDTO);
 
     // Act
-    ResponseEntity<?> response = roomController.addRoom(roomDataDTO);
+    ResponseEntity<?> response = roomController.createRoom(roomDataDTO);
 
     // Assert
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -82,7 +82,7 @@ class RoomControllerTest {
 
   /** Unit test to add a new Room to the House with DTO mock */
   @Test
-  void shouldAddRoom_WhenParametersAreValidWithDTOMock() {
+  void shouldCreateRoom_WhenParametersAreValidWithDTOMock() {
     // Arrange
     // Arrange
     String houseID = "123";
@@ -101,7 +101,7 @@ class RoomControllerTest {
     when(roomAssembler.domainToDTO(mockRoom)).thenReturn(mockRoomDTO);
 
     // Act
-    ResponseEntity<?> response = roomController.addRoom(roomDataDTO);
+    ResponseEntity<?> response = roomController.createRoom(roomDataDTO);
 
     // Assert
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -139,6 +139,4 @@ class RoomControllerTest {
     // Assert
     assertEquals(HttpStatus.OK, response.getStatusCode());
   }
-
-
 }

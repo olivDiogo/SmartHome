@@ -1,11 +1,16 @@
 package smarthome.controller.rest;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.afford;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +31,7 @@ import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.RoomDTO;
+import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
 
 @RestController
@@ -34,8 +40,6 @@ public class RoomController {
 
   private final IRoomService roomService;
   private final IAssembler<Room, RoomDTO> roomAssembler;
-  private final IDeviceService deviceService;
-  private final IAssembler<Device, DeviceDTO> deviceAssembler;
 
   /**
    * Constructor
@@ -46,8 +50,6 @@ public class RoomController {
       IAssembler<Device, DeviceDTO> deviceAssembler) {
     this.roomAssembler = roomAssembler;
     this.roomService = roomService;
-    this.deviceService = deviceService;
-    this.deviceAssembler = deviceAssembler;
   }
 
   /**
@@ -56,15 +58,24 @@ public class RoomController {
    * @param data
    * @return The room that was added.
    */
-  @PostMapping("/")
-  public ResponseEntity<RoomDTO> addRoom(@Valid @RequestBody RoomDataDTO data) {
+  @PostMapping
+  public ResponseEntity<EntityModel<RoomDTO>> createRoom(
+      @Valid @RequestBody RoomDataDTO data) {
     HouseID houseID = new HouseID(data.houseID);
     RoomName name = new RoomName(data.name);
     RoomFloor floor = new RoomFloor(data.floor);
     Dimension dimension = new Dimension(data.width, data.length, data.height);
     Room room = roomService.addRoom(houseID, name, dimension, floor);
     RoomDTO roomDTO = roomAssembler.domainToDTO(room);
-    return ResponseEntity.status(HttpStatus.CREATED).body(roomDTO);
+
+    Link selfLink = linkTo(methodOn(RoomController.class).getRoomById(roomDTO.roomId))
+        .withRel("self");
+    Link deviceLink = linkTo(methodOn(DeviceController.class).addDevice(new DeviceDataDTO()))
+        .withRel("device")
+        .withType("method=POST");
+
+    EntityModel<RoomDTO> response = EntityModel.of(roomDTO, selfLink, deviceLink);
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
   /**
@@ -72,11 +83,13 @@ public class RoomController {
    *
    * @return a list of all rooms
    */
-  @GetMapping("/")
-  public ResponseEntity<List<RoomDTO>> getAllRooms() {
+  @GetMapping
+  public ResponseEntity<CollectionModel<List<RoomDTO>>> getAllRooms() {
     List<Room> rooms = roomService.getAllRooms();
     List<RoomDTO> roomDTOs = roomAssembler.domainToDTO(rooms);
-    return ResponseEntity.ok(roomDTOs);
+    Link selfLink = linkTo(methodOn(RoomController.class).getAllRooms()).withSelfRel();
+    CollectionModel <List<RoomDTO>> response = CollectionModel.of(List.of(roomDTOs), selfLink);
+    return ResponseEntity.ok(response);
   }
 
   /**
@@ -86,15 +99,17 @@ public class RoomController {
    * @return the room with the given ID
    */
   @GetMapping("/{id}")
-  public ResponseEntity<RoomDTO> getRoomById(@PathVariable("id") String idStr) {
+  public ResponseEntity<EntityModel<RoomDTO>> getRoomById(
+      @PathVariable("id") String idStr) {
     RoomID id = new RoomID(idStr);
     Optional<Room> room = roomService.getRoomById(id);
     if (room.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     } else {
       RoomDTO roomDTO = roomAssembler.domainToDTO(room.get());
-      return ResponseEntity.ok(roomDTO);
+      Link selfLink = linkTo(methodOn(RoomController.class).getRoomById(idStr)).withSelfRel();
+      EntityModel <RoomDTO> response = EntityModel.of(roomDTO, selfLink);
+      return ResponseEntity.ok(response);
     }
   }
-
 }
