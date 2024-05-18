@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator_model.ActuatorModel;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.ActuatorModelDTO;
 
@@ -22,6 +23,7 @@ public class ActuatorModelAssembler implements IAssembler<ActuatorModel, Actuato
 
     String actuatorModelName = domainEntity.getName().getActuatorModelName();
     String actuatorModelPath = domainEntity.getID().toString();
+    actuatorModelPath = PathEncoder.encode(actuatorModelPath);
 
     return new ActuatorModelDTO(actuatorModelPath, actuatorModelName);
   }

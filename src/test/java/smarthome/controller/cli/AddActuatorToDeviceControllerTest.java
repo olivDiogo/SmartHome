@@ -82,6 +82,7 @@ import smarthome.service.HouseServiceImpl;
 import smarthome.service.RoomServiceImpl;
 import smarthome.service.UnitServiceImpl;
 import smarthome.utils.LoadModelsAndUnit;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.ActuatorDTO;
 import smarthome.utils.dto.ActuatorModelDTO;
 import smarthome.utils.dto.ActuatorTypeDTO;
@@ -986,6 +987,7 @@ class AddActuatorToDeviceControllerTest {
     ActuatorTypeServiceImpl.addActuatorType(actuatorType);
 
     String modelPath = "smarthome.domain.actuator.blind_roller_actuator.BlindRollerActuator";
+    modelPath = PathEncoder.encode(modelPath);
     String actuatorName = "Actuator";
 
     int expected = 1;
@@ -1048,6 +1050,7 @@ class AddActuatorToDeviceControllerTest {
     ActuatorTypeServiceImpl.addActuatorType(actuatorType);
 
     String modelPath = "smarthome.domain.actuator.set_integer_actuator.SetIntegerActuator";
+    modelPath = PathEncoder.encode(modelPath);
     String actuatorName = "Actuator";
 
     int expected = 1;
@@ -1111,6 +1114,7 @@ class AddActuatorToDeviceControllerTest {
     ActuatorTypeServiceImpl.addActuatorType(actuatorType);
 
     String modelPath = "smarthome.domain.actuator.set_decimal_actuator.SetDecimalActuator";
+    modelPath = PathEncoder.encode(modelPath);
     String actuatorName = "Actuator";
 
     int expected = 1;
@@ -1171,6 +1175,7 @@ class AddActuatorToDeviceControllerTest {
     ActuatorTypeServiceImpl.addActuatorType(actuatorType);
 
     String modelPath = "smarthome.domain.actuator.switch_actuator.SwitchActuator";
+    modelPath = PathEncoder.encode(modelPath);
     String actuatorName = "Actuator";
 
     int expected = 1;
@@ -1287,6 +1292,7 @@ class AddActuatorToDeviceControllerTest {
     ActuatorTypeServiceImpl.addActuatorType(actuatorType);
 
     String modelPath = "smarthome.domain.actuator.switch_actuator.SwitchActuator";
+    modelPath = PathEncoder.encode(modelPath);
     String actuatorName = "Actuator";
 
     actuatorTypeAssembler.domainToDTO(actuatorType);

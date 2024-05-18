@@ -13,6 +13,7 @@ import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.ActuatorDTO;
 
 class ActuatorAssemblerTest {
@@ -22,7 +23,7 @@ class ActuatorAssemblerTest {
    */
   @Test
   void shouldConvertActuatorToActuatorDTO_whenActuatorIsValid() {
-    //Arrange
+    // Arrange
     String actuatorID = "1";
     ActuatorID actuatorIdDouble = mock(ActuatorID.class);
     when(actuatorIdDouble.getID()).thenReturn(actuatorID);
@@ -35,7 +36,7 @@ class ActuatorAssemblerTest {
     ActuatorName actuatorNameDouble = mock(ActuatorName.class);
     when(actuatorNameDouble.getName()).thenReturn(actuatorName);
 
-    String actuatorModelPath = "path";
+    String actuatorModelPath = "actuatorModelPath"; // Original path
     ModelPath modelPathDouble = mock(ModelPath.class);
     when(modelPathDouble.toString()).thenReturn(actuatorModelPath);
 
@@ -51,14 +52,13 @@ class ActuatorAssemblerTest {
     when(actuatorDouble.getDeviceID()).thenReturn(deviceIDDouble);
 
     ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
-    String expected =
-        actuatorID + " " + actuatorTypeID + " " + actuatorName + " " + actuatorModelPath + " "
-            + deviceID;
+    String encodedModelPath = PathEncoder.encode(actuatorModelPath);
+    String expected = actuatorID + " " + actuatorTypeID + " " + actuatorName + " " + encodedModelPath + " " + deviceID;
 
-    //Act
+    // Act
     ActuatorDTO actuatorDTO = actuatorAssembler.domainToDTO(actuatorDouble);
 
-    //Assert
+    // Assert
     assertEquals(expected, actuatorDTO.toString());
   }
 
@@ -84,9 +84,8 @@ class ActuatorAssemblerTest {
    * Should convert a list of Actuator to a list of ActuatorDTO when the list of Actuator is valid.
    */
   @Test
-  void shouldConvertListOfActuatorToListOfActuatorDTO_whenListOfActuatorIsValid()
-       {
-    //Arrange
+  void shouldConvertListOfActuatorToListOfActuatorDTO_whenListOfActuatorIsValid() {
+    // Arrange
     String actuatorID1 = "1";
     ActuatorID actuatorIdDouble1 = mock(ActuatorID.class);
     when(actuatorIdDouble1.getID()).thenReturn(actuatorID1);
@@ -132,18 +131,18 @@ class ActuatorAssemblerTest {
     List<IActuator> actuators = List.of(actuatorDouble1, actuatorDouble2);
 
     ActuatorAssembler actuatorAssembler = new ActuatorAssembler();
-    ActuatorDTO actuatorDTO1 = new ActuatorDTO(actuatorID1, actuatorTypeID, actuatorName1,
-        actuatorModelPath, deviceID);
-    ActuatorDTO actuatorDTO2 = new ActuatorDTO(actuatorID2, actuatorTypeID, actuatorName2,
-        actuatorModelPath, deviceID);
+    String encodedModelPath = PathEncoder.encode(actuatorModelPath);
+    ActuatorDTO actuatorDTO1 = new ActuatorDTO(actuatorID1, actuatorTypeID, actuatorName1, encodedModelPath, deviceID);
+    ActuatorDTO actuatorDTO2 = new ActuatorDTO(actuatorID2, actuatorTypeID, actuatorName2, encodedModelPath, deviceID);
     List<ActuatorDTO> expected = List.of(actuatorDTO1, actuatorDTO2);
 
-    //Act
+    // Act
     List<ActuatorDTO> actuatorsDTO = actuatorAssembler.domainToDTO(actuators);
 
-    //Assert
+    // Assert
     assertEquals(expected.toString(), actuatorsDTO.toString());
   }
+
 
   /**
    * Should throw IllegalArgumentException when the list of Actuator is null.

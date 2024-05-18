@@ -1,6 +1,8 @@
 package smarthome.mapper.actuator_vo_assembler;
 
+import static org.eclipse.persistence.jpa.jpql.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
@@ -11,6 +13,7 @@ import smarthome.domain.value_object.DecimalLimits;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
@@ -43,7 +46,7 @@ class ActuatorVOAssemblerImplTest {
   void shouldReturnArrayOfObjectsWhenActuatorDataDTOIsActuatorWithDecimalLimitsDataDTO() {
     // Arrange
     String deviceID = "deviceID";
-    String actuatorModelPath = "actuatorModelPath";
+    String actuatorModelPath = "YWN0dWF0b3JNb2RlbFBhdGg=";
     String actuatorName = "actuatorName";
     String actuatorTypeID = "actuatorTypeID";
     double minLimit = 10.0;
@@ -54,7 +57,8 @@ class ActuatorVOAssemblerImplTest {
     ActuatorVOAssemblerImpl actuatorVOAssembler = new ActuatorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);
-    ModelPath modelPath = new ModelPath(actuatorModelPath);
+    String decodedModelPath = PathEncoder.decode(actuatorModelPath);
+    ModelPath modelPath = new ModelPath(decodedModelPath);
     ActuatorName actuatorName1 = new ActuatorName(actuatorName);
     ActuatorTypeID actuatorTypeID1 = new ActuatorTypeID(actuatorTypeID);
     DecimalLimits decimalLimits =
@@ -74,7 +78,7 @@ class ActuatorVOAssemblerImplTest {
   void shouldReturnArrayOfObjectsWhenActuatorDataDTOIsActuatorGenericDataDTOImp() {
     // Arrange
     String deviceID = "deviceID";
-    String actuatorModelPath = "actuatorModelPath";
+    String actuatorModelPath = "YWN0dWF0b3JNb2RlbFBhdGg=";
     String actuatorName = "actuatorName";
     String actuatorTypeID = "actuatorTypeID";
     IActuatorDataDTO actuatorDataDTO =
@@ -82,7 +86,8 @@ class ActuatorVOAssemblerImplTest {
     ActuatorVOAssemblerImpl actuatorVOAssembler = new ActuatorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);
-    ModelPath modelPath = new ModelPath(actuatorModelPath);
+    String decodedModelPath = PathEncoder.decode(actuatorModelPath);
+    ModelPath modelPath = new ModelPath(decodedModelPath);
     ActuatorName actuatorName1 = new ActuatorName(actuatorName);
     ActuatorTypeID actuatorTypeID1 = new ActuatorTypeID(actuatorTypeID);
     Object[] expected = {deviceID1, modelPath, actuatorTypeID1, actuatorName1};
@@ -100,27 +105,26 @@ class ActuatorVOAssemblerImplTest {
   void shouldReturnArrayOfObjectsWhenActuatorDataDTOIsActuatorDataWithIntegerLimitsDTOImp() {
     // Arrange
     String deviceID = "deviceID";
-    String actuatorModelPath = "actuatorModelPath";
+    String actuatorModelPath = "YWN0dWF0b3JNb2RlbFBhdGg=";
     String actuatorName = "actuatorName";
     String actuatorTypeID = "actuatorTypeID";
     String minLimit = "1";
     String maxLimit = "10";
-    IActuatorDataDTO actuatorDataDTO =
-        new ActuatorDataWithIntegerLimitsDTOImp(
-            deviceID, actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
     ActuatorVOAssemblerImpl actuatorVOAssembler = new ActuatorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);
-    ModelPath modelPath = new ModelPath(actuatorModelPath);
+    String decodedModelPath = PathEncoder.decode(actuatorModelPath);
+    ModelPath modelPath = new ModelPath(decodedModelPath);
     ActuatorName actuatorName1 = new ActuatorName(actuatorName);
     ActuatorTypeID actuatorTypeID1 = new ActuatorTypeID(actuatorTypeID);
-    IntegerLimits integerLimits =
-        new IntegerLimits(Integer.parseInt(minLimit), Integer.parseInt(maxLimit));
+    IntegerLimits integerLimits = new IntegerLimits(Integer.parseInt(minLimit), Integer.parseInt(maxLimit));
 
     Object[] expected = {deviceID1, modelPath, actuatorTypeID1, actuatorName1, integerLimits};
 
     // Act
     Object[] result = actuatorVOAssembler.getActuatorParameters(actuatorDataDTO);
+
     // Assert
     assertEquals(Arrays.stream(expected).toList(), Arrays.stream(result).toList());
   }

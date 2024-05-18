@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.ActuatorModelDTO;
 
 class ActuatorModelAssemblerTest {
@@ -29,24 +30,23 @@ class ActuatorModelAssemblerTest {
     ActuatorModelName actuatorModelNameDouble = mock(ActuatorModelName.class);
     when(actuatorModelNameDouble.getActuatorModelName()).thenReturn(actuatorModelName);
 
-    String actuatorModelPath = "path";
-    ModelPath actuatorModelPathDouble = mock(ModelPath.class);
-    when(actuatorModelPathDouble.toString()).thenReturn(actuatorModelPath);
-
     ActuatorModel actuatorModelDouble = mock(ActuatorModel.class);
     when(actuatorModelDouble.getID()).thenReturn(actuatorModelIDDouble);
     when(actuatorModelDouble.getName()).thenReturn(actuatorModelNameDouble);
-    when(actuatorModelDouble.getID()).thenReturn(actuatorModelPathDouble);
 
     ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
-    String expected = actuatorModelPath + " " + actuatorModelName;
+    String expectedPath = PathEncoder.encode(actuatorModelID);
+    String expectedName = actuatorModelName;
 
     // Act
     ActuatorModelDTO actuatorModelDTO = actuatorModelAssembler.domainToDTO(actuatorModelDouble);
 
     // Assert
-    assertEquals(expected, actuatorModelDTO.toString());
+    assertEquals(expectedPath, actuatorModelDTO.actuatorModelPath);
+    assertEquals(expectedName, actuatorModelDTO.actuatorModelName);
   }
+
+
 
   /**
    * Tests the conversion of an actuator model to an actuator model DTO, when the actuator model is
@@ -70,8 +70,7 @@ class ActuatorModelAssemblerTest {
    * list of actuator models is valid.
    */
   @Test
-  void shouldConvertListOfActuatorModelsToListOfActuatorModelDTO_whenActuatorModelListIsValid()
-       {
+  void shouldConvertListOfActuatorModelsToListOfActuatorModelDTO_whenActuatorModelListIsValid() {
     // Arrange
     /* ActuatorModel 1 */
     String actuatorModelID1 = "path1";
@@ -82,14 +81,9 @@ class ActuatorModelAssemblerTest {
     ActuatorModelName actuatorModelNameDouble1 = mock(ActuatorModelName.class);
     when(actuatorModelNameDouble1.getActuatorModelName()).thenReturn(actuatorModelName1);
 
-    String actuatorModelPath1 = "path1";
-    ModelPath actuatorModelPathDouble1 = mock(ModelPath.class);
-    when(actuatorModelPathDouble1.toString()).thenReturn(actuatorModelPath1);
-
     ActuatorModel actuatorModelDouble1 = mock(ActuatorModel.class);
     when(actuatorModelDouble1.getID()).thenReturn(actuatorModelIDDouble1);
     when(actuatorModelDouble1.getName()).thenReturn(actuatorModelNameDouble1);
-    when(actuatorModelDouble1.getID()).thenReturn(actuatorModelPathDouble1);
 
     /* ActuatorModel 2 */
     String actuatorModelID2 = "path2";
@@ -100,30 +94,28 @@ class ActuatorModelAssemblerTest {
     ActuatorModelName actuatorModelNameDouble2 = mock(ActuatorModelName.class);
     when(actuatorModelNameDouble2.getActuatorModelName()).thenReturn(actuatorModelName2);
 
-    String actuatorModelPath2 = "path2";
-    ModelPath actuatorModelPathDouble2 = mock(ModelPath.class);
-    when(actuatorModelPathDouble2.toString()).thenReturn(actuatorModelPath2);
-
     ActuatorModel actuatorModelDouble2 = mock(ActuatorModel.class);
     when(actuatorModelDouble2.getID()).thenReturn(actuatorModelIDDouble2);
     when(actuatorModelDouble2.getName()).thenReturn(actuatorModelNameDouble2);
-    when(actuatorModelDouble2.getID()).thenReturn(actuatorModelPathDouble2);
 
     List<ActuatorModel> actuatorModels = List.of(actuatorModelDouble1, actuatorModelDouble2);
 
     ActuatorModelAssembler actuatorModelAssembler = new ActuatorModelAssembler();
-    ActuatorModelDTO actuatorModelDTO1 = new ActuatorModelDTO(actuatorModelPath1,
-        actuatorModelName1);
-    ActuatorModelDTO actuatorModelDTO2 = new ActuatorModelDTO(actuatorModelPath2,
-        actuatorModelName2);
-    List<ActuatorModelDTO> expected = List.of(actuatorModelDTO1, actuatorModelDTO2);
+    String expectedPath1 = PathEncoder.encode(actuatorModelID1);
+    String expectedPath2 = PathEncoder.encode(actuatorModelID2);
+    String expectedName1 = actuatorModelName1;
+    String expectedName2 = actuatorModelName2;
 
     // Act
     List<ActuatorModelDTO> actuatorModelsDTO = actuatorModelAssembler.domainToDTO(actuatorModels);
 
     // Assert
-    assertEquals(expected.toString(), actuatorModelsDTO.toString());
+    assertEquals(expectedPath1, actuatorModelsDTO.get(0).actuatorModelPath);
+    assertEquals(expectedName1, actuatorModelsDTO.get(0).actuatorModelName);
+    assertEquals(expectedPath2, actuatorModelsDTO.get(1).actuatorModelPath);
+    assertEquals(expectedName2, actuatorModelsDTO.get(1).actuatorModelName);
   }
+
 
   /**
    * Tests the conversion of a list of actuator models to a list of actuator model DTOs when the

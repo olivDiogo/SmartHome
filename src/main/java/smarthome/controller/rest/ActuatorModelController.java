@@ -1,7 +1,12 @@
 package smarthome.controller.rest;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +17,6 @@ import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.service.IActuatorModelService;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.utils.dto.ActuatorModelDTO;
-import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/actuator-model")
@@ -27,7 +28,7 @@ public class ActuatorModelController {
   /**
    * Instantiates a new Actuator model controller.
    *
-   * @param actuatorModelService the actuator model service
+   * @param actuatorModelService   the actuator model service
    * @param actuatorModelAssembler the actuator model assembler
    */
   @Autowired
@@ -45,8 +46,8 @@ public class ActuatorModelController {
    * @return the actuator models by actuator type ID
    */
   @GetMapping("/{actuatorTypeID}")
-public ResponseEntity<CollectionModel<ActuatorModelDTO>> getActuatorModelsByActuatorTypeId(
-    @PathVariable String actuatorTypeID){
+  public ResponseEntity<CollectionModel<ActuatorModelDTO>> getActuatorModelsByActuatorTypeId(
+      @PathVariable String actuatorTypeID) {
 
     ActuatorTypeID actuatorTypeIDObj = new ActuatorTypeID(actuatorTypeID);
 
@@ -57,10 +58,13 @@ public ResponseEntity<CollectionModel<ActuatorModelDTO>> getActuatorModelsByActu
       return ResponseEntity.notFound().build();
     }
 
+    Link selfLink = linkTo(
+        methodOn(ActuatorModelController.class).getActuatorModelsByActuatorTypeId(
+            actuatorTypeID)).withSelfRel();
+
     List<ActuatorModelDTO> actuatorModelDTOS = actuatorModelAssembler.domainToDTO(actuatorModels);
-    CollectionModel<ActuatorModelDTO> resource = CollectionModel.of(actuatorModelDTOS, linkTo(methodOn(ActuatorModelController.class).getActuatorModelsByActuatorTypeId(actuatorTypeID))
-        .withSelfRel());
+    CollectionModel<ActuatorModelDTO> resource = CollectionModel.of(actuatorModelDTOS, selfLink);
     return ResponseEntity.ok(resource);
-}
+  }
 
 }

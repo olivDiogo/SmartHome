@@ -7,6 +7,7 @@ import smarthome.domain.value_object.DecimalLimits;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
@@ -23,7 +24,8 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
    */
   private static Object[] getActuatorParameters(ActuatorDataGenericDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
-    ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
+    String decodedModelPath = PathEncoder.decode(actuatorDataDTO.actuatorModelPath);
+    ModelPath modelPath = new ModelPath(decodedModelPath);
     ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
     ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataDTO.actuatorTypeID);
     return new Object[]{deviceID, modelPath, actuatorTypeID, actuatorName};
@@ -39,7 +41,8 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
   private static Object[] getActuatorParameters(
       ActuatorDataWithDecimalLimitsDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
-    ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
+    String decodedModelPath = PathEncoder.decode(actuatorDataDTO.actuatorModelPath);
+    ModelPath modelPath = new ModelPath(decodedModelPath);
     ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
     ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataDTO.actuatorTypeID);
     double minLimit = actuatorDataDTO.minLimit;
@@ -58,7 +61,8 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
   private static Object[] getActuatorParameters(
       ActuatorDataWithIntegerLimitsDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
-    ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
+    String decodedModelPath = PathEncoder.decode(actuatorDataDTO.actuatorModelPath);
+    ModelPath modelPath = new ModelPath(decodedModelPath);
     ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
     ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorDataDTO.actuatorTypeID);
     int minLimit = Integer.parseInt(actuatorDataDTO.minLimit);
