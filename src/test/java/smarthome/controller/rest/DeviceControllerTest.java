@@ -159,7 +159,7 @@ class DeviceControllerTest {
     when(deviceRepository.save(device)).thenReturn(device);
 
     // Act & Assert
-    mockMvc.perform(post("/devices/")
+    mockMvc.perform(post("/devices")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(deviceDataDTO)))
         .andExpect(status().isCreated())
@@ -211,7 +211,7 @@ class DeviceControllerTest {
     when(roomRepository.ofIdentity(new RoomID(deviceDataDTO.roomID))).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(post("/devices/")
+    mockMvc.perform(post("/devices")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(deviceDataDTO)))
         .andExpect(status().isBadRequest());
@@ -234,7 +234,7 @@ class DeviceControllerTest {
         .thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(post("/devices/")
+    mockMvc.perform(post("/devices")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(deviceDataDTO)))
         .andExpect(status().isBadRequest());
@@ -255,7 +255,7 @@ class DeviceControllerTest {
     when(houseRepository.ofIdentity(new HouseID(roomDataDTO.houseID))).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(post("/devices/")
+    mockMvc.perform(post("/devices")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(deviceDataDTO)))
         .andExpect(status().isBadRequest());
@@ -280,7 +280,7 @@ class DeviceControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(get("/devices/" + device.getID())
+    mockMvc.perform(get("/devices" + device.getID())
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
@@ -302,7 +302,7 @@ class DeviceControllerTest {
     when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(get("/devices/" + device.getID())
+    mockMvc.perform(get("/devices" + device.getID())
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
@@ -334,7 +334,7 @@ class DeviceControllerTest {
     int expectedSize = List.of(device, device2).size();
 
     // Act & Assert
-    mockMvc.perform(get("/devices/")
+    mockMvc.perform(get("/devices")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.deviceDTOList", hasSize(expectedSize)))
@@ -357,7 +357,7 @@ class DeviceControllerTest {
     when(deviceRepository.findAll()).thenReturn(List.of());
 
     // Act & Assert
-    mockMvc.perform(get("/devices/all")
+    mockMvc.perform(get("/devicesall")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
@@ -410,7 +410,7 @@ class DeviceControllerTest {
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.empty());
 
     // Act & Assert
-    mockMvc.perform(put("/devices/deactivate/" + device.getID())
+    mockMvc.perform(put("/devicesdeactivate/" + device.getID())
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
@@ -436,7 +436,7 @@ class DeviceControllerTest {
     when(deviceRepository.findAll()).thenReturn(List.of(device));
 
     // Act & Assert
-    mockMvc.perform(get("/devices/grouped")
+    mockMvc.perform(get("/devicesgrouped")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }

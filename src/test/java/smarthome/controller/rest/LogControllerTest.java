@@ -131,7 +131,7 @@ class LogControllerTest {
         .thenReturn(logs);
 
     // Act & Assert
-    mockMvc.perform(get("/logs/")
+    mockMvc.perform(get("/logs")
             .param("deviceID", deviceIDStr)
             .param("timeStart", timeStart)
             .param("timeEnd", timeEnd))
@@ -212,7 +212,7 @@ class LogControllerTest {
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logs/temperature-difference")
+    mockMvc.perform(get("/logstemperature-difference")
             .contentType(MediaType.APPLICATION_JSON)
             .param("outsideDeviceIDStr", outsideDeviceIDStr)
             .param("insideDeviceIDStr", insideDeviceIDStr)
@@ -250,7 +250,7 @@ class LogControllerTest {
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logs/temperature-difference")
+    mockMvc.perform(get("/logstemperature-difference")
             .contentType(MediaType.APPLICATION_JSON)
             .param("outsideDeviceIDStr", outsideDeviceIDStr)
             .param("insideDeviceIDStr", insideDeviceIDStr)
@@ -288,7 +288,7 @@ class LogControllerTest {
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logs/temperature-difference")
+    mockMvc.perform(get("/logstemperature-difference")
             .contentType(MediaType.APPLICATION_JSON)
             .param("outsideDeviceIDStr", outsideDeviceIDStr)
             .param("insideDeviceIDStr", insideDeviceIDStr)
@@ -494,7 +494,7 @@ class LogControllerTest {
         .thenReturn(new ArrayList<>());
 
     // Act & Assert
-    mockMvc.perform(get("/logs/")
+    mockMvc.perform(get("/logs")
             .param("deviceID", deviceIDStr)
             .param("timeStart", timeStart)
             .param("timeEnd", timeEnd))

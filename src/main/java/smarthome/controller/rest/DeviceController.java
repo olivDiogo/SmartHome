@@ -83,7 +83,7 @@ public class DeviceController {
    * @param data The data of the device to be added.
    * @return The response entity with the added device.
    */
-  @PostMapping("/")
+  @PostMapping
   public ResponseEntity<EntityModel<DeviceDTO>> addDevice(@Valid @RequestBody DeviceDataDTO data) {
     RoomID roomID = new RoomID(data.roomID);
     TypeDescription deviceTypeDescription = new TypeDescription(data.deviceTypeDescription);
@@ -143,7 +143,7 @@ public class DeviceController {
   }
 
   /** Handles HTTP GET requests for retrieving all devices. */
-  @GetMapping("/")
+  @GetMapping
   public ResponseEntity<CollectionModel<DeviceDTO>> getAllDevices() {
     List<Device> devices = deviceService.getAllDevices();
 

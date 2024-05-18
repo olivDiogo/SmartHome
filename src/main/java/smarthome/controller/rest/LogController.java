@@ -45,7 +45,7 @@ public class LogController {
   /**
    * Method to get Device Log (Readings) by Time Period
    */
-  @GetMapping("/")
+  @GetMapping
   public ResponseEntity<List<LogDTO>> getDeviceReadingsByTimePeriod(
       @RequestParam String deviceID,
       @RequestParam String timeStart,
