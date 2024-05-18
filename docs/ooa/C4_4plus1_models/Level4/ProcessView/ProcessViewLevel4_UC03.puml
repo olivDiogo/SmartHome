@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "RestClient" as RC
+
+box "SmartHome"
+    participant "Controller" as CTRL
+    participant "Service" as SV
+    participant "Repository" as REPO
+    participant "DataBase" as BD
+end box
+
+User -> RC : want to have a list of existing rooms
+activate RC
+
+RC -> CTRL : getAllRooms()
+activate CTRL
+
+
+CTRL -> SV : getAllRooms()
+activate SV
+
+SV -> REPO : findAll()
+activate REPO
+REPO -> BD : find
+activate BD
+deactivate BD
+REPO -> SV : List<Room>
+deactivate REPO
+
+SV -> CTRL : List<Room>
+deactivate SV
+
+
+CTRL --> RC : List<RoomDTO>
+deactivate CTRL
+
+RC --> User : List<RoomDTO>
+deactivate RC
+
+
+@enduml
