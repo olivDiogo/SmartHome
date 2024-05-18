@@ -64,4 +64,12 @@ public class SensorModelName {
     return name.hashCode();
   }
 
+  /**
+   * @return The string representation of the object.
+   */
+  @Override
+  public String toString() {
+    return name;
+  }
+
 }

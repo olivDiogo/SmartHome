@@ -174,4 +174,19 @@ class SensorModelNameTest {
     assertEquals(expected, result);
 
   }
+
+  @Test
+  void shouldReturnStringRepresentation_whenCallingToString() {
+    // Arrange
+    String name = "SensorModelName";
+    SensorModelName sensorModelName = new SensorModelName(name);
+
+    String expected = name;
+
+    // Act
+    String result = sensorModelName.toString();
+
+    // Assert
+    assertEquals(expected, result);
+  }
 }
