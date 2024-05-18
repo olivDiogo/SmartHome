@@ -30,9 +30,6 @@ import smarthome.domain.repository.IActuatorTypeRepository;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
-import smarthome.domain.sensor.ISensor;
-import smarthome.domain.sensor_type.SensorType;
-import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.unit.UnitFactoryImpl;
 import smarthome.domain.value_object.ActuatorName;
@@ -48,8 +45,6 @@ import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
-import smarthome.domain.value_object.SensorName;
-import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
@@ -58,7 +53,6 @@ import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
 import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -627,7 +621,7 @@ class ActuatorControllerTest {
     when(actuatorRepository.ofIdentity(actuator.getID())).thenReturn(Optional.of(actuator));
 
     //Act + Assert
-    mockMvc.perform(get("/actuators?" + actuator.getID().getID()))
+    mockMvc.perform(get("/actuators/" + actuator.getID().getID()))
         .andExpect(status().isOk());
 
   }
@@ -640,8 +634,8 @@ class ActuatorControllerTest {
   @Test
   void shouldReturnEmptyList_whenNoActuatorIsFound() throws Exception {
     //Act + Assert
-    mockMvc.perform(get("/actuators?InvalidID"))
-        .andExpect(status().isOk());
+    mockMvc.perform(get("/actuators/InvalidID"))
+        .andExpect(status().isNotFound());
   }
 
   /**
