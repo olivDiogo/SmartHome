@@ -2,7 +2,6 @@ package smarthome.controller.rest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -108,9 +107,11 @@ public class LogController {
     List<Device> powerSourceDevicesList = deviceService.getDevicesByDeviceTypeID(
         powerSourceDevices);
 
-    List<Log> powerMeterReadings = getReadingsByDeviceList(powerMeterDevicesList, datePeriod,
+    List<Log> powerMeterReadings = logService.getReadingsInTimePeriodByListOfDevicesAndSensorType(
+        powerMeterDevicesList, datePeriod,
         sensorTypeID);
-    List<Log> powerSourceReadings = getReadingsByDeviceList(powerSourceDevicesList, datePeriod,
+    List<Log> powerSourceReadings = logService.getReadingsInTimePeriodByListOfDevicesAndSensorType(
+        powerSourceDevicesList, datePeriod,
         sensorTypeID);
 
     Integer maxPowerConsumption = logService.getPeakPowerConsumption(powerMeterReadings,
@@ -120,19 +121,4 @@ public class LogController {
   }
 
 
-  private List<Log> getReadingsByDeviceList(List<Device> devices, DatePeriod datePeriod,
-      SensorTypeID sensorTypeID) {
-    List<Log> readings = new ArrayList<>();
-    for (Device device : devices) {
-      DeviceID deviceID = device.getID();
-      try {
-        List<Log> deviceReadings = logService.getDeviceReadingsBySensorTypeAndTimePeriod(deviceID,
-            sensorTypeID, datePeriod);
-        readings.addAll(deviceReadings);
-      } catch (Exception ignored) {
-        readings.addAll(new ArrayList<>());
-      }
-    }
-    return readings;
-  }
 }

@@ -4,14 +4,23 @@ import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.withSettings;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.mockito.Answers;
+import smarthome.domain.device.Device;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.value_object.DatePeriod;
@@ -21,6 +30,17 @@ import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
 
 class LogServiceImplTest {
+
+  private Log createMockLog(String value, LocalDateTime timestamp) {
+    ReadingValue readingValue = mock(ReadingValue.class);
+    when(readingValue.getValue()).thenReturn(value);
+
+    Log log = mock(Log.class);
+    when(log.getReadingValue()).thenReturn(readingValue);
+    when(log.getTimeStamp()).thenReturn(timestamp);
+
+    return log;
+  }
 
   /**
    * Test that the LogServiceImpl class can be instantiated.
@@ -664,6 +684,126 @@ class LogServiceImplTest {
     // Assert
     assertEquals(expected, result);
   }
+
+  @Test
+  void shouldReturnLogsOnGetReadingsInTimePeriodByListOfDevicesAndSensorTypeIsCalled() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    // Mock Log data
+    Log log1 = createMockLog("5", LocalDateTime.of(2024, 1, 1, 1, 1));
+    Log log2 = createMockLog("10", LocalDateTime.of(2024, 1, 1, 1, 2));
+    List<Log> expectedLogs = List.of(log1, log2);
+
+    // Mock Device and related data
+    Device device = mock(Device.class);
+    DeviceID deviceID = mock(DeviceID.class);
+    when(device.getID()).thenReturn(deviceID);
+    List<Device> devices = List.of(device);
+
+    // Mock input parameters
+    DatePeriod datePeriod = mock(DatePeriod.class);
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID,
+        datePeriod))
+        .thenReturn(expectedLogs);
+
+    // Act
+    List<Log> result = logService.getReadingsInTimePeriodByListOfDevicesAndSensorType(devices,
+        datePeriod, sensorTypeID);
+
+    // Assert
+    assertEquals(expectedLogs, result);
+  }
+
+  @Test
+  void shouldReturnLogsForMultipleDevicesAndMultipleLogEntries() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    // Mock Log data (5 entries)
+    List<Log> sampleslogs = Arrays.asList(
+        createMockLog("2.5", LocalDateTime.of(2024, 1, 2, 10, 30)),
+        createMockLog("18.3", LocalDateTime.of(2024, 1, 3, 14, 15)),
+        createMockLog("7.2", LocalDateTime.of(2024, 1, 1, 12, 45)),
+        createMockLog("11.0", LocalDateTime.of(2024, 1, 2, 18, 0)),
+        createMockLog("4.8", LocalDateTime.of(2024, 1, 3, 9, 20))
+    );
+
+    List<Log> expectedLogs = new ArrayList<>();
+    expectedLogs.addAll(sampleslogs);
+    expectedLogs.addAll(sampleslogs);
+
+    // Mock 3 Devices
+    Device device1 = mock(Device.class, withSettings().defaultAnswer(Answers.RETURNS_DEEP_STUBS));
+    DeviceID deviceID1 = mock(DeviceID.class);
+    when(device1.getID()).thenReturn(deviceID1);
+
+    Device device2 = mock(Device.class, withSettings().defaultAnswer(Answers.RETURNS_DEEP_STUBS));
+    DeviceID deviceID2 = mock(DeviceID.class);
+    when(device2.getID()).thenReturn(deviceID2);
+
+    List<Device> devices = Arrays.asList(device1, device2);
+
+    // Mock input parameters and repository behavior
+    DatePeriod datePeriod = mock(DatePeriod.class);
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(any(DeviceID.class),
+        eq(sensorTypeID), eq(datePeriod)))
+        .thenReturn(sampleslogs); // Return all logs for any device
+
+    // Act
+    List<Log> result = logService.getReadingsInTimePeriodByListOfDevicesAndSensorType(devices,
+        datePeriod, sensorTypeID);
+
+    // Assert
+    assertEquals(expectedLogs, result);
+  }
+
+  @Test
+  void shouldReturnEmptyListWhenNoLogsFound() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    // Mock Devices (you can reuse the same devices from the previous example)
+    Device device1 = mock(Device.class, withSettings().defaultAnswer(Answers.RETURNS_DEEP_STUBS));
+    DeviceID deviceID1 = mock(DeviceID.class);
+    when(device1.getID()).thenReturn(deviceID1);
+
+    Device device2 = mock(Device.class, withSettings().defaultAnswer(Answers.RETURNS_DEEP_STUBS));
+    DeviceID deviceID2 = mock(DeviceID.class);
+    when(device2.getID()).thenReturn(deviceID2);
+
+    Device device3 = mock(Device.class, withSettings().defaultAnswer(Answers.RETURNS_DEEP_STUBS));
+    DeviceID deviceID3 = mock(DeviceID.class);
+    when(device3.getID()).thenReturn(deviceID3);
+
+    List<Device> devices = Arrays.asList(device1, device2, device3);
+
+    // Mock input parameters
+    DatePeriod datePeriod = mock(DatePeriod.class);
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+
+    // Mock repository to return an empty list
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(any(DeviceID.class),
+        eq(sensorTypeID), eq(datePeriod)))
+        .thenReturn(Collections.emptyList());
+
+    // Act
+    List<Log> result = logService.getReadingsInTimePeriodByListOfDevicesAndSensorType(devices,
+        datePeriod, sensorTypeID);
+
+    // Assert
+    assertTrue(result.isEmpty(), "Result should be an empty list when no logs are found");
+  }
+
+
+
+
+
 
 
 

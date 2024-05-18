@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import smarthome.domain.device.Device;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.service.ILogService;
@@ -232,5 +233,23 @@ public class LogServiceImpl implements ILogService {
 
     return Math.abs(diffInMinutes) < timeDelta;
   }
+
+  public List<Log> getReadingsInTimePeriodByListOfDevicesAndSensorType(List<Device> devices,
+      DatePeriod datePeriod,
+      SensorTypeID sensorTypeID) {
+    List<Log> readings = new ArrayList<>();
+    for (Device device : devices) {
+      DeviceID deviceID = device.getID();
+      try {
+        List<Log> deviceReadings = getDeviceReadingsBySensorTypeAndTimePeriod(deviceID,
+            sensorTypeID, datePeriod);
+        readings.addAll(deviceReadings);
+      } catch (Exception ignored) {
+        readings.addAll(new ArrayList<>());
+      }
+    }
+    return readings;
+  }
+
 }
 

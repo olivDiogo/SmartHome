@@ -2,6 +2,7 @@ package smarthome.domain.service;
 
 import java.util.List;
 import smarthome.ddd.IService;
+import smarthome.domain.device.Device;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
@@ -53,4 +54,16 @@ public interface ILogService extends IService {
 
   int getPeakPowerConsumption(List<Log> readings, List<Log> readings2, TimeDelta timeDelta);
 
+  /**
+   * Method to get the list of readings of a list of devices in a given time period.
+   *
+   * @param devices
+   * @param datePeriod
+   * @param sensorTypeID
+   * @return
+   */
+
+  List<Log> getReadingsInTimePeriodByListOfDevicesAndSensorType(List<Device> devices,
+      DatePeriod datePeriod,
+      SensorTypeID sensorTypeID);
 }
