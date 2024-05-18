@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -35,7 +34,6 @@ class SensorModelControllerTest {
 
 
   @Test
-  @Disabled
   void shouldReturnListOfSensorModelsBySensorTypeID_whenSensorModelsExist() throws Exception {
     // Arrange
     SensorModelName sensorModelName = new SensorModelName("sensorModelName");
@@ -57,7 +55,6 @@ class SensorModelControllerTest {
   }
 
   @Test
-  @Disabled
   void shouldReturnEmptyListOfSensorModelsBySensorTypeID_whenSensorModelsDoNotExist()
       throws Exception {
     // Arrange
