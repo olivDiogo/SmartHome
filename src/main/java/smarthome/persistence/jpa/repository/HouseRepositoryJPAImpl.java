@@ -12,6 +12,7 @@ import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.value_object.HouseID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.HouseDataModel;
+import smarthome.utils.Validator;
 
 public class HouseRepositoryJPAImpl implements IHouseRepository {
 
@@ -61,17 +62,20 @@ public class HouseRepositoryJPAImpl implements IHouseRepository {
    */
   @Override
   public House save(House house) {
-    if (house == null) {
-      throw new IllegalArgumentException();
+    Validator.validateNotNull(house, "House");
+
+    if (thereShouldBeOnlyOneHouse()) {
+      HouseDataModel houseDataModel = new HouseDataModel(house);
+      EntityManager em = getEntityManager();
+      EntityTransaction tx = em.getTransaction();
+      tx.begin();
+      em.persist(houseDataModel);
+      tx.commit();
+      em.close();
+      return house;
+    } else {
+      throw new IllegalArgumentException("The system supports only one house.");
     }
-    HouseDataModel houseDataModel = new HouseDataModel(house);
-    EntityManager em = getEntityManager();
-    EntityTransaction tx = em.getTransaction();
-    tx.begin();
-    em.persist(houseDataModel);
-    tx.commit();
-    em.close();
-    return house;
   }
 
   /**
@@ -114,6 +118,22 @@ public class HouseRepositoryJPAImpl implements IHouseRepository {
   public boolean containsOfIdentity(HouseID objectID) {
     Optional<House> houseDataModel = ofIdentity(objectID);
     return houseDataModel.isPresent();
+  }
+
+  @Override
+  public boolean thereShouldBeOnlyOneHouse() {
+    return findAll().isEmpty();
+  }
+
+  @Override
+  public Optional<House> getTheHouse() {
+    List<House> listHouse = findAll();
+    if (listHouse.size() == 1) {
+      House house = listHouse.get(0);
+      return Optional.of(house);
+    } else {
+      return Optional.empty();
+    }
   }
 }
 

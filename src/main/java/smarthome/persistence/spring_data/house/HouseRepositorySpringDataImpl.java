@@ -42,9 +42,13 @@ public class HouseRepositorySpringDataImpl implements IHouseRepository {
   @Transactional
   public House save(House house) {
     Validator.validateNotNull(house, "House");
+    if (thereShouldBeOnlyOneHouse()) {
     HouseDataModel dataModel = new HouseDataModel(house);
     repository.save(dataModel);
-    return house;
+      return house;
+    } else {
+      throw new IllegalArgumentException("The system supports only one house.");
+    }
   }
 
 
@@ -91,5 +95,21 @@ public class HouseRepositorySpringDataImpl implements IHouseRepository {
   @Override
   public boolean containsOfIdentity(HouseID objectID) {
     return this.repository.existsById(objectID.getID());
+  }
+
+  @Override
+  public boolean thereShouldBeOnlyOneHouse() {
+    return findAll().isEmpty();
+  }
+
+  @Override
+  public Optional<House> getTheHouse() {
+    List<House> listHouse = findAll();
+    if (listHouse.size() == 1) {
+      House house = listHouse.get(0);
+      return Optional.of(house);
+    } else {
+      return Optional.empty();
+    }
   }
 }

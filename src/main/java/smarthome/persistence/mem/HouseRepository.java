@@ -26,12 +26,12 @@ public class HouseRepository implements IHouseRepository {
   public House save(House house) {
     Validator.validateNotNull(house, "House");
 
-    if (containsOfIdentity(house.getID())) {
-      throw new IllegalArgumentException("House already exists.");
-    } else {
+    if (thereShouldBeOnlyOneHouse()) {
       DATA.put(house.getID(), house);
+      return house;
+    } else {
+      throw new IllegalArgumentException("The system supports only one house.");
     }
-    return house;
   }
 
   /**
@@ -64,5 +64,21 @@ public class HouseRepository implements IHouseRepository {
   @Override
   public boolean containsOfIdentity(HouseID houseID) {
     return DATA.containsKey(houseID);
+  }
+
+  @Override
+  public boolean thereShouldBeOnlyOneHouse() {
+    return findAll().isEmpty();
+  }
+
+  @Override
+  public Optional<House> getTheHouse() {
+    List<House> listHouse = findAll();
+    if (listHouse.size() == 1) {
+      House house = listHouse.get(0);
+      return Optional.of(house);
+    } else {
+      return Optional.empty();
+    }
   }
 }

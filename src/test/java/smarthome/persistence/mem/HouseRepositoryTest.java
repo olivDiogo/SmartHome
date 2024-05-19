@@ -61,13 +61,17 @@ class HouseRepositoryTest {
     HouseID houseID = mock(HouseID.class);
     when(house.getID()).thenReturn(houseID);
     HouseRepository houseRepository = new HouseRepository();
-
     houseRepository.save(house);
+
+    House secondHouse = mock(House.class);
+    HouseID secondHouseID = mock(HouseID.class);
+    when(secondHouse.getID()).thenReturn(secondHouseID);
+
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> houseRepository.save(house));
-    assertEquals("House already exists.", exception.getMessage());
+        () -> houseRepository.save(secondHouse));
+    assertEquals("The system supports only one house.", exception.getMessage());
   }
 
   /**
@@ -79,15 +83,12 @@ class HouseRepositoryTest {
     House firstHouse = mock(House.class);
     HouseID firstHouseID = mock(HouseID.class);
     when(firstHouse.getID()).thenReturn(firstHouseID);
-    House secondHouse = mock(House.class);
-    HouseID secondHouseID = mock(HouseID.class);
-    when(secondHouse.getID()).thenReturn(secondHouseID);
+
 
     HouseRepository houseRepository = new HouseRepository();
 
     houseRepository.save(firstHouse);
-    houseRepository.save(secondHouse);
-    List<House> expectedList = List.of(firstHouse, secondHouse);
+    List<House> expectedList = List.of(firstHouse);
 
     // Act
     List<House> allHouses = houseRepository.findAll();
@@ -192,5 +193,6 @@ class HouseRepositoryTest {
     // Assert
     assertFalse(containsHouse);
   }
+
 }
 
