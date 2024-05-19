@@ -1,5 +1,11 @@
 package smarthome.controller.rest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -12,7 +18,6 @@ import smarthome.domain.room.Room;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Dimension;
-import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
@@ -20,13 +25,6 @@ import smarthome.mapper.DeviceAssembler;
 import smarthome.mapper.RoomAssembler;
 import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class RoomControllerTest {
@@ -69,7 +67,7 @@ class RoomControllerTest {
     when(mockRoom.getID()).thenReturn(mockId);
     RoomDTO roomDTO = new RoomDTO("123", "1", 1, "1");
     when(roomService.addRoom(
-            any(HouseID.class), any(RoomName.class), any(Dimension.class), any(RoomFloor.class)))
+        any(RoomName.class), any(Dimension.class), any(RoomFloor.class)))
         .thenReturn(mockRoom);
     when(roomAssembler.domainToDTO(mockRoom)).thenReturn(roomDTO);
 
@@ -96,7 +94,7 @@ class RoomControllerTest {
     Room mockRoom = mock(Room.class);
 
     when(roomService.addRoom(
-            any(HouseID.class), any(RoomName.class), any(Dimension.class), any(RoomFloor.class)))
+        any(RoomName.class), any(Dimension.class), any(RoomFloor.class)))
         .thenReturn(mockRoom);
     when(roomAssembler.domainToDTO(mockRoom)).thenReturn(mockRoomDTO);
 

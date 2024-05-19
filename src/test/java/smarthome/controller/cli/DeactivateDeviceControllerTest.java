@@ -32,10 +32,10 @@ import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
-import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomName;
+import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.mapper.DeviceAssembler;
 import smarthome.service.DeviceServiceImpl;
 import smarthome.service.RoomServiceImpl;
@@ -143,7 +143,7 @@ class DeactivateDeviceControllerTest {
     Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
     GPS gps = new GPS(41.5514, -8.4221);
     House house = houseFactory.createHouse(address, gps);
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(houseRepository.getTheHouse()).thenReturn(Optional.of(house));
     houseRepository.save(house);
 
     // Add a room
@@ -151,7 +151,7 @@ class DeactivateDeviceControllerTest {
     RoomName roomName = new RoomName("Living Room");
     Dimension dimension = new Dimension(10, 10, 10);
     RoomFloor roomFloor = new RoomFloor(1);
-    Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    Room room = roomServiceImpl.addRoom(roomName, dimension, roomFloor);
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
 
     // Add a device
@@ -233,15 +233,14 @@ class DeactivateDeviceControllerTest {
     Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
     GPS gps = new GPS(41.5514, -8.4221);
     House house = houseFactory.createHouse(address, gps);
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(houseRepository.getTheHouse()).thenReturn(Optional.of(house));
     houseRepository.save(house);
 
     // Add a room
-    HouseID houseID = house.getID();
     RoomName roomName = new RoomName("Living Room");
     Dimension dimension = new Dimension(10, 10, 10);
     RoomFloor roomFloor = new RoomFloor(1);
-    Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    Room room = roomServiceImpl.addRoom(roomName, dimension, roomFloor);
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
 
     // Add a device
@@ -292,15 +291,14 @@ class DeactivateDeviceControllerTest {
     Address address = new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
     GPS gps = new GPS(41.5514, -8.4221);
     House house = houseFactory.createHouse(address, gps);
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(houseRepository.getTheHouse()).thenReturn(Optional.of(house));
     houseRepository.save(house);
 
     // Add a room
-    HouseID houseID = house.getID();
     RoomName roomName = new RoomName("Living Room");
     Dimension dimension = new Dimension(10, 10, 10);
     RoomFloor roomFloor = new RoomFloor(1);
-    Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    Room room = roomServiceImpl.addRoom(roomName, dimension, roomFloor);
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
 
     DeviceDTO deviceDTO = new DeviceDTO("does_not_exist", room.getID().toString(), "Lightbulb",
@@ -309,6 +307,6 @@ class DeactivateDeviceControllerTest {
     DeviceDTO deactivatedDevice = deactivateDeviceController.requestDeactivateDevice(deviceDTO);
 
     // Assert
-    assertEquals(deactivatedDevice.deviceID, "Device not found.");
+    assertEquals("Device not found.", deactivatedDevice.deviceID);
   }
 }

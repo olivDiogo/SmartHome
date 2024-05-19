@@ -262,7 +262,7 @@ class AddDeviceToRoomControllerTest {
     int floor = 1;
     RoomFloor roomFloor = new RoomFloor(floor);
 
-    roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    roomServiceImpl.addRoom(roomName, dimension, roomFloor);
 
     List<Room> rooms = roomRepository.findAll();
 
@@ -329,7 +329,7 @@ class AddDeviceToRoomControllerTest {
     int floor = 1;
     RoomFloor roomFloor = new RoomFloor(floor);
 
-    roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    roomServiceImpl.addRoom(roomName, dimension, roomFloor);
 
     List<Room> rooms = roomRepository.findAll();
 

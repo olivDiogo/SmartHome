@@ -5,7 +5,6 @@ import java.util.Optional;
 import smarthome.ddd.IService;
 import smarthome.domain.room.Room;
 import smarthome.domain.value_object.Dimension;
-import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
@@ -15,13 +14,12 @@ public interface IRoomService extends IService {
   /**
    * Adds a new room to the house with the provided house ID.
    *
-   * @param houseID
    * @param roomName
    * @param dimension
    * @param roomFloor
    * @return the room that was added.
    */
-  Room addRoom(HouseID houseID, RoomName roomName, Dimension dimension, RoomFloor roomFloor);
+  Room addRoom(RoomName roomName, Dimension dimension, RoomFloor roomFloor);
 
   /**
    * Returns all the rooms in the repository.

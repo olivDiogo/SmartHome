@@ -149,7 +149,7 @@ class AddActuatorToDeviceControllerTest {
     HouseID houseID = house.getID();
     Dimension dimension = new Dimension(width, length, height);
     RoomFloor roomFloor = new RoomFloor(floor);
-    roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
+    roomServiceImpl.addRoom(roomName1, dimension, roomFloor);
   }
 
   private Device loadDevice(RoomID roomID) {

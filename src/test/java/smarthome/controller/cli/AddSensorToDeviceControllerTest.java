@@ -53,7 +53,6 @@ import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
-import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
@@ -164,11 +163,11 @@ class AddSensorToDeviceControllerTest {
     Address newAddress =
         new Address(street, doorNumber, postalCode, countryCode, postalCodeFactory);
     House house = houseServiceImpl.addHouse(newAddress, newGPS);
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(houseRepository.getTheHouse()).thenReturn(Optional.of(house));
     return house;
   }
 
-  private Room loadRoom(HouseID houseID) {
+  private Room loadRoom() {
     String name = "Quarto da Maria";
     int width = 10;
     int length = 10;
@@ -177,7 +176,7 @@ class AddSensorToDeviceControllerTest {
     RoomName roomName1 = new RoomName(name);
     Dimension dimension = new Dimension(width, length, height);
     RoomFloor roomFloor = new RoomFloor(floor);
-    Room room = roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
+    Room room = roomServiceImpl.addRoom(roomName1, dimension, roomFloor);
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
     return room;
   }
@@ -609,7 +608,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
@@ -654,7 +653,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Humidity");
@@ -700,7 +699,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("AveragePowerConsumption");
@@ -747,7 +746,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Switch");
@@ -793,7 +792,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("DewPoint");
@@ -839,7 +838,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("SolarIrradiance");
@@ -885,7 +884,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("PercentagePosition");
@@ -932,7 +931,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("InstantPowerConsumption");
@@ -979,7 +978,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("PercentagePosition");
@@ -1024,7 +1023,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
@@ -1065,7 +1064,7 @@ class AddSensorToDeviceControllerTest {
     // Arrange
     loadModelsAndUnit();
     House house = loadHouse();
-    Room room = loadRoom(house.getID());
+    Room room = loadRoom();
     Device device = loadDevice(room.getID());
 
     deviceServiceImpl.deactivateDeviceByID(device.getID());

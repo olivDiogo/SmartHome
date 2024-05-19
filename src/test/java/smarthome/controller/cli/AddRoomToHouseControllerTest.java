@@ -23,9 +23,9 @@ import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomName;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.mapper.RoomAssembler;
 import smarthome.persistence.mem.HouseRepository;
 import smarthome.persistence.mem.RoomRepository;
@@ -79,7 +79,7 @@ class AddRoomToHouseControllerTest {
 
     // Act
     assertThrows(IllegalArgumentException.class, () -> {
-      addRoomToHouseController.addRoom("1", "Living Room", 1, 10, 10, 10);
+      addRoomToHouseController.addRoom("Living Room", 1, 10, 10, 10);
     });
 
   }
@@ -111,18 +111,16 @@ class AddRoomToHouseControllerTest {
     GPS newGPS = new GPS(latitude, longitude);
 
     House house = houseServiceImpl.addHouse(newAddress, newGPS);
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(houseRepository.getTheHouse()).thenReturn(Optional.of(house));
 
     HouseID houseID = house.getID();
 
-    String houseIDS = String.valueOf(houseID);
     String name = "Living Room";
     int floor = 1;
     int width = 10;
     int length = 10;
     int height = 10;
 
-    HouseID houseID1 = new HouseID(houseIDS);
     RoomName roomName = new RoomName(name);
     RoomFloor roomFloor = new RoomFloor(floor);
     Dimension dimension = new Dimension(width, length, height);
@@ -132,13 +130,13 @@ class AddRoomToHouseControllerTest {
     AddRoomToHouseController addRoomToHouseController = new AddRoomToHouseController(
         roomServiceImpl, roomAssembler);
 
-    Room room = roomServiceImpl.addRoom(houseID1, roomName, dimension, roomFloor);
+    Room room = roomServiceImpl.addRoom(roomName, dimension, roomFloor);
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
 
     RoomDTO expectedRoomDTO = roomAssembler.domainToDTO(room);
 
     // Act
-    RoomDTO roomDTO = addRoomToHouseController.addRoom(String.valueOf(houseID), name, floor, width,
+    RoomDTO roomDTO = addRoomToHouseController.addRoom(name, floor, width,
         length, height);
 
     // Assert
@@ -163,7 +161,7 @@ class AddRoomToHouseControllerTest {
 
     // Act
     assertThrows(IllegalArgumentException.class, () -> {
-      addRoomToHouseController.addRoom("1", null, 1, 10, 10, 10);
+      addRoomToHouseController.addRoom(null, 1, 10, 10, 10);
     });
 
   }
@@ -186,7 +184,7 @@ class AddRoomToHouseControllerTest {
 
     // Act
     assertThrows(IllegalArgumentException.class, () -> {
-      addRoomToHouseController.addRoom("1", "Living Room", -1000, 10, 10, 10);
+      addRoomToHouseController.addRoom("Living Room", -1000, 10, 10, 10);
     });
   }
 
@@ -208,7 +206,7 @@ class AddRoomToHouseControllerTest {
 
     // Act
     assertThrows(IllegalArgumentException.class, () -> {
-      addRoomToHouseController.addRoom("1", "Living Room", 1, -1000, 10, 10);
+      addRoomToHouseController.addRoom("Living Room", 1, -1000, 10, 10);
     });
   }
 
@@ -230,7 +228,7 @@ class AddRoomToHouseControllerTest {
 
     // Act
     assertThrows(IllegalArgumentException.class, () -> {
-      addRoomToHouseController.addRoom("1", "Living Room", 1, 10, -1000, 10);
+      addRoomToHouseController.addRoom("Living Room", 1, 10, -1000, 10);
     });
   }
 
@@ -252,7 +250,7 @@ class AddRoomToHouseControllerTest {
 
     // Act
     assertThrows(IllegalArgumentException.class, () -> {
-      addRoomToHouseController.addRoom("1", "Living Room", 1, 10, 10, -1000);
+      addRoomToHouseController.addRoom("Living Room", 1, 10, 10, -1000);
     });
   }
 

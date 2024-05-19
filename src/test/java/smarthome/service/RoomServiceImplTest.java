@@ -3,7 +3,6 @@ package smarthome.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -54,43 +53,42 @@ class RoomServiceImplTest {
     IRoomFactory roomFactory = mock(IRoomFactory.class);
     HouseRepository houseRepository = mock(HouseRepository.class);
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    HouseID houseID = mock(HouseID.class);
     RoomName roomName = mock(RoomName.class);
     Dimension dimension = mock(Dimension.class);
     RoomFloor roomFloor = mock(RoomFloor.class);
     House mockHouse = mock(House.class);
     Room mockRoom = mock(Room.class);
-    when(houseRepository.ofIdentity(any(HouseID.class))).thenReturn(Optional.of(mockHouse));
+    when(houseRepository.getTheHouse()).thenReturn(Optional.of(mockHouse));
+    when(mockHouse.getID()).thenReturn(mock(HouseID.class));
     when(roomFactory.createRoom(any(HouseID.class), any(RoomName.class), any(Dimension.class),
         any(RoomFloor.class))).thenReturn(mockRoom);
 
     // Act
-    Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    Room room = roomServiceImpl.addRoom(roomName, dimension, roomFloor);
     // Assert
-    assertNotNull(room);
+    assertEquals(mockRoom, room);
   }
 
   /**
    * Test the addRoom method of the RoomService class with an invalid houseID.
    */
   @Test
-  void shouldThrowException_whenHouseIDIsInvalid() {
+  void shouldThrowException_whenAddingRoomWithoutHouseBeingConfigured() {
     // Arrange
     RoomServiceImpl roomServiceImpl;
     RoomRepository roomRepository = mock(RoomRepository.class);
     IRoomFactory roomFactory = mock(IRoomFactory.class);
     HouseRepository houseRepository = mock(HouseRepository.class);
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
-    HouseID houseID = mock(HouseID.class);
     RoomName roomName = mock(RoomName.class);
     Dimension dimension = mock(Dimension.class);
     RoomFloor roomFloor = mock(RoomFloor.class);
-    when(houseRepository.ofIdentity(any(HouseID.class))).thenReturn(Optional.empty());
+    when(houseRepository.getTheHouse()).thenReturn(Optional.empty());
 
     // Act+Assert
     Throwable exception = assertThrows(IllegalArgumentException.class,
-        () -> roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor));
-    assertEquals("House with ID " + houseID + " not found.", exception.getMessage());
+        () -> roomServiceImpl.addRoom(roomName, dimension, roomFloor));
+    assertEquals("Configure the house before adding rooms.", exception.getMessage());
   }
 
   /**

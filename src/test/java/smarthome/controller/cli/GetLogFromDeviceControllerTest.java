@@ -38,9 +38,6 @@ import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
-import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
-import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.domain.value_object.ReadingValue;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
@@ -48,6 +45,8 @@ import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
+import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.mapper.LogAssembler;
 import smarthome.persistence.mem.LogRepository;
 import smarthome.service.DeviceServiceImpl;
@@ -107,11 +106,11 @@ class GetLogFromDeviceControllerTest {
     GPS newGPS = new GPS(latitude, longitude);
 
     House house = houseServiceImpl.addHouse(newAddress, newGPS);
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(houseRepository.getTheHouse()).thenReturn(Optional.of(house));
     return house;
   }
 
-  private Room createRoom(HouseID id) {
+  private Room createRoom() {
     String name1 = "Quarto do Joao";
     RoomName roomName1 = new RoomName(name1);
 
@@ -123,7 +122,7 @@ class GetLogFromDeviceControllerTest {
     int floor = 2;
     RoomFloor roomFloor = new RoomFloor(floor);
 
-    Room room = roomService.addRoom(id, roomName1, dimension, roomFloor);
+    Room room = roomService.addRoom(roomName1, dimension, roomFloor);
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
     return room;
   }
@@ -149,7 +148,7 @@ class GetLogFromDeviceControllerTest {
     House house = createHouse();
 
     // Add a room
-    Room room = createRoom(house.getID());
+    Room room = createRoom();
 
     // Add a device
     Device device = createDevice(room.getID());
@@ -195,7 +194,7 @@ class GetLogFromDeviceControllerTest {
     House house = createHouse();
 
     // Add a room
-    createRoom(house.getID());
+    createRoom();
 
     // Add a log
     ILogFactory logFactory = new LogFactoryImpl();
@@ -235,7 +234,7 @@ class GetLogFromDeviceControllerTest {
     House house = createHouse();
 
     // Add a room
-    Room room = createRoom(house.getID());
+         Room room = createRoom();
 
     // Add a device
     Device device = createDevice(room.getID());
@@ -278,7 +277,7 @@ class GetLogFromDeviceControllerTest {
     House house = createHouse();
 
     // Add a room
-    Room room = createRoom(house.getID());
+         Room room = createRoom();
 
     // Add a device
     Device device = createDevice(room.getID());

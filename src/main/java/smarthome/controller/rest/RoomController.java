@@ -1,6 +1,5 @@
 package smarthome.controller.rest;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.afford;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -25,7 +24,6 @@ import smarthome.domain.room.Room;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Dimension;
-import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
@@ -61,11 +59,10 @@ public class RoomController {
   @PostMapping
   public ResponseEntity<EntityModel<RoomDTO>> createRoom(
       @Valid @RequestBody RoomDataDTO data) {
-    HouseID houseID = new HouseID(data.houseID);
     RoomName name = new RoomName(data.name);
     RoomFloor floor = new RoomFloor(data.floor);
     Dimension dimension = new Dimension(data.width, data.length, data.height);
-    Room room = roomService.addRoom(houseID, name, dimension, floor);
+    Room room = roomService.addRoom(name, dimension, floor);
     RoomDTO roomDTO = roomAssembler.domainToDTO(room);
 
     Link selfLink = linkTo(methodOn(RoomController.class).getRoomById(roomDTO.roomId))

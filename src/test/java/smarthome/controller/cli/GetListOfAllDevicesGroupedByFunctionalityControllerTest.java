@@ -32,17 +32,16 @@ import smarthome.domain.service.IHouseService;
 import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
-import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.TypeDescription;
+import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.mapper.DeviceAssembler;
 import smarthome.mapper.RoomAssembler;
 import smarthome.persistence.mem.DeviceRepository;
@@ -248,7 +247,7 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     RoomFloor roomFloor = new RoomFloor(1);
     HouseID houseID = house.getID();
 
-    Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    Room room = roomServiceImpl.addRoom(roomName, dimension, roomFloor);
 
     /* Create and save devices */
     RoomID roomID = room.getID();
@@ -334,7 +333,7 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     RoomFloor roomFloor = new RoomFloor(1);
     HouseID houseID = house.getID();
 
-    Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    Room room = roomServiceImpl.addRoom(roomName, dimension, roomFloor);
 
     /* Create and save devices */
     RoomID roomID = room.getID();
@@ -417,7 +416,7 @@ class GetListOfAllDevicesGroupedByFunctionalityControllerTest {
     RoomFloor roomFloor = new RoomFloor(1);
     HouseID houseID = house.getID();
 
-    Room room = roomServiceImpl.addRoom(houseID, roomName, dimension, roomFloor);
+    Room room = roomServiceImpl.addRoom(roomName, dimension, roomFloor);
 
     /* Create and save devices */
     RoomID roomID = room.getID();

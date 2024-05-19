@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.List;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
@@ -29,11 +29,11 @@ import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
-import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
+import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.mapper.DeviceAssembler;
 import smarthome.mapper.RoomAssembler;
 import smarthome.persistence.mem.DeviceRepository;
@@ -273,8 +273,8 @@ class GetDevicesFromRoomControllerTest {
     int floor = 2;
     RoomFloor roomFloor = new RoomFloor(floor);
 
-    roomServiceImpl.addRoom(houseID, roomName1, dimension, roomFloor);
-    roomServiceImpl.addRoom(houseID, roomName2, dimension, roomFloor);
+    roomServiceImpl.addRoom(roomName1, dimension, roomFloor);
+    roomServiceImpl.addRoom(roomName2, dimension, roomFloor);
 
     List<Room> rooms = roomRepository.findAll();
 
@@ -402,7 +402,7 @@ class GetDevicesFromRoomControllerTest {
     RoomFloor roomFloor = new RoomFloor(floor);
     Dimension dimension = new Dimension(width, length, height);
 
-    Room room2 = roomServiceImpl.addRoom(houseID, roomName2, dimension, roomFloor);
+    Room room2 = roomServiceImpl.addRoom(roomName2, dimension, roomFloor);
 
     RoomID roomID = room2.getID();
     String name1 = "Lampada";

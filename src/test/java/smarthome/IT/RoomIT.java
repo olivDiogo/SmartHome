@@ -16,28 +16,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import smarthome.ddd.IAssembler;
-import smarthome.domain.device.Device;
-import smarthome.domain.device.DeviceFactoryImpl;
-import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
-import smarthome.domain.service.IDeviceService;
 import smarthome.domain.value_object.Address;
-import smarthome.domain.value_object.DeviceName;
-import smarthome.domain.value_object.DeviceStatus;
-import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
 
 @SpringBootTest
@@ -104,7 +95,7 @@ class RoomIT {
     // Arrange
     House house = setupHouse();
     RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
-    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(houseRepository.getTheHouse()).thenReturn(Optional.of(house));
 
     // Act & Assert
     mockMvc.perform(post("/rooms")

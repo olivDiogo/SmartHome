@@ -35,12 +35,12 @@ import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
-import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.TypeDescription;
+import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
+import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.mapper.DeviceAssembler;
 import smarthome.mapper.RoomAssembler;
 import smarthome.persistence.mem.DeviceRepository;
@@ -150,7 +150,7 @@ class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
     RoomFloor roomFloor = new RoomFloor(1);
     HouseID houseID = house.getID();
 
-    Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+    Room room = roomService.addRoom(roomName, dimension, roomFloor);
 
     /* Create and save devices */
     RoomID roomID = room.getID();
@@ -256,7 +256,7 @@ class GetDevicesByRoomAndTemperatureFunctionalityControllerTest {
     RoomFloor roomFloor = new RoomFloor(1);
     HouseID houseID = house.getID();
 
-    Room room = roomService.addRoom(houseID, roomName, dimension, roomFloor);
+    Room room = roomService.addRoom(roomName, dimension, roomFloor);
 
     RoomDTO roomDTO = roomAssembler.domainToDTO(room);
 

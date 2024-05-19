@@ -1,12 +1,13 @@
 package smarthome.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.house.House;
+import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
 import smarthome.domain.service.IRoomService;
@@ -15,14 +16,13 @@ import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
-import smarthome.utils.Validator;
 
 @Service
 public class RoomServiceImpl implements IRoomService {
 
   private final IRepository<RoomID, Room> roomRepository;
   private final IRoomFactory roomFactory;
-  private final IRepository<HouseID, House> houseRepository;
+  private final IHouseRepository houseRepository;
 
   /**
    * Constructor for RoomService.
@@ -33,7 +33,7 @@ public class RoomServiceImpl implements IRoomService {
    */
   @Autowired
   public RoomServiceImpl(IRepository<RoomID, Room> roomRepository, IRoomFactory roomFactory,
-      IRepository<HouseID, House> houseRepository) {
+      IHouseRepository houseRepository) {
     this.roomRepository = roomRepository;
     this.roomFactory = roomFactory;
     this.houseRepository = houseRepository;
@@ -42,20 +42,19 @@ public class RoomServiceImpl implements IRoomService {
   /**
    * Adds a new room to the house with the provided house ID.
    *
-   * @param houseID   The ID of the house to which the room belongs.
    * @param roomName  The name of the room.
    * @param dimension The dimensions of the room.
    * @param roomFloor The floor of the room.
    * @return The room that was added.
    */
   @Override
-  public Room addRoom(HouseID houseID, RoomName roomName, Dimension dimension,
+  public Room addRoom(RoomName roomName, Dimension dimension,
       RoomFloor roomFloor) {
-    Optional<House> houseOptional = houseRepository.ofIdentity(houseID);
+    Optional<House> houseOptional = houseRepository.getTheHouse();
     if (houseOptional.isEmpty()) {
-      throw new IllegalArgumentException("House with ID " + houseID + " not found.");
+      throw new IllegalArgumentException("Configure the house before adding rooms.");
     }
-
+    HouseID houseID = houseOptional.get().getID();
     Room room = roomFactory.createRoom(houseID, roomName, dimension, roomFloor);
     roomRepository.save(room);
     return room;
