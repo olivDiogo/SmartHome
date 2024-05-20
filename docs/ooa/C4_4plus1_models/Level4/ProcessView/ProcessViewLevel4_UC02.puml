@@ -23,12 +23,22 @@ activate CTRL
 
 
 
-CTRL -> DOM : createRoom(houseID, roomName, dimension, roomFloor)
+CTRL -> DOM : RoomName (strName)
 activate DOM
-DOM -> CTRL : room
+DOM -> CTRL : roomName
 deactivate DOM
 
-CTRL -> SV : addHouse(address, gps)
+CTRL -> DOM : Dimension (intWidth, intLength, intHeight)
+activate DOM
+DOM -> CTRL : dimension
+deactivate DOM
+
+CTRL -> DOM : RoomFloor (intFloor)
+activate DOM
+DOM -> CTRL : roomFloor
+deactivate DOM
+
+CTRL -> SV :addRoom(roomName,dimension,roomFloor)
 activate SV
 
 SV -> REPO : save(room)

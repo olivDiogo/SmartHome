@@ -21,9 +21,19 @@ activate RC
 RC -> CTRL : addDevice(deviceDataDTO)
 activate CTRL
 
-CTRL -> DOM : createDevice(roomID, deviceName, deviceTypeID)
+CTRL -> DOM : RoomID(idStr)
 activate DOM
-DOM -> CTRL : device
+DOM -> CTRL : roomID
+deactivate DOM
+
+CTRL -> DOM : DeviceName(strName)
+activate DOM
+DOM -> CTRL : deviceName
+deactivate DOM
+
+CTRL -> DOM : DeviceTypeID(idStr)
+activate DOM
+DOM -> CTRL : deviceTypeID
 deactivate DOM
 
 CTRL -> SV : addDevice(roomID, deviceName, deviceTypeID)
