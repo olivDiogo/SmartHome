@@ -103,7 +103,7 @@ class SwitchSensorTest {
       // Act
       SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-      SensorName result = switchSensor.getName();
+      SensorName result = switchSensor.getSensorName();
 
       // Assert
       assertEquals(expectedSensorName, result.toString());

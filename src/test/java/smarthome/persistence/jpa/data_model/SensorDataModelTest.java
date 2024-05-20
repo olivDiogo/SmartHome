@@ -41,7 +41,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
 
     String expected = "SensorDataModel{" +
         "sensorID='" + sensorID + '\'' +
@@ -87,7 +87,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
     SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
     String latitude = "10.0";
     //Act
@@ -123,7 +123,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
     SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
     String longitude = "20.0";
     //Act
@@ -159,7 +159,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
     SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
     String startDate = "2021-01-01";
     //Act
@@ -195,7 +195,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
     SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
     String endDate = "2021-01-01";
     //Act
@@ -231,7 +231,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
     SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
     //Act
     String result = sensorDataModel.getSensorID();
@@ -266,7 +266,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
     SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
     //Act
     String result = sensorDataModel.getDeviceID();
@@ -301,7 +301,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
     SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
     //Act
     String result = sensorDataModel.getModelPath();
@@ -336,7 +336,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
     SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
     //Act
     String result = sensorDataModel.getSensorTypeID();
@@ -371,7 +371,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
     SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
     //Act
     String result = sensorDataModel.getSensorName();
@@ -408,7 +408,7 @@ class SensorDataModelTest {
     when(sensorMock.getDeviceID()).thenReturn(deviceIDDouble);
     when(sensorMock.getModelPath()).thenReturn(modelPathDouble);
     when(sensorMock.getSensorTypeID()).thenReturn(sensorTypeIDDouble);
-    when(sensorMock.getName()).thenReturn(sensorNameDouble);
+    when(sensorMock.getSensorName()).thenReturn(sensorNameDouble);
     SensorDataModel sensorDataModel = new SensorDataModel(sensorMock);
     sensorDataModel.setLatitude(latitude);
     sensorDataModel.setLongitude(longitude);

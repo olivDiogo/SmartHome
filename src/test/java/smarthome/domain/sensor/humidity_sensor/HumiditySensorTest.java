@@ -102,7 +102,7 @@ class HumiditySensorTest {
       // Act
       HumiditySensor humiditySensor = new HumiditySensor(deviceID, modelPath, sensorTypeID,
           sensorName);
-      SensorName result = humiditySensor.getName();
+      SensorName result = humiditySensor.getSensorName();
 
       // Assert
       assertEquals(expectedSensorName, result.toString());

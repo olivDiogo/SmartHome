@@ -216,7 +216,7 @@ class WindSensorTest {
       // Act
       WindSensor sensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
-      SensorName result = sensor.getName();
+      SensorName result = sensor.getSensorName();
       // Assert
       assertEquals(sensorName, result);
     }

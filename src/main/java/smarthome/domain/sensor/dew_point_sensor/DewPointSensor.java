@@ -2,6 +2,7 @@ package smarthome.domain.sensor.dew_point_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -12,6 +13,7 @@ import smarthome.utils.Validator;
 import smarthome.utils.ValueSimulator;
 import smarthome.utils.visitor_pattern.ISensorVisitor;
 
+@Getter
 public class DewPointSensor implements ISensor {
 
   private final ModelPath modelPath;
@@ -78,26 +80,6 @@ public class DewPointSensor implements ISensor {
   }
 
   /**
-   * Gets the sensor name of the Dew Point Sensor.
-   *
-   * @return The sensor name.
-   */
-  @Override
-  public SensorName getName() {
-    return this.sensorName;
-  }
-
-  /**
-   * Gets the model path for the Dew Point Sensor.
-   *
-   * @return The model path.
-   */
-  @Override
-  public ModelPath getModelPath() {
-    return this.modelPath;
-  }
-
-  /**
    * Gets the sensor ID of the DewPointSensor.
    *
    * @return The sensor ID.
@@ -119,28 +101,6 @@ public class DewPointSensor implements ISensor {
     this.dewPointValue = new DewPointValue(dewPointValue);
 
     return this.dewPointValue;
-  }
-
-  /**
-   * Gets the sensor type ID for the Dew Point Sensor.
-   *
-   * @return The sensor type ID.
-   */
-  @Override
-  public SensorTypeID getSensorTypeID() {
-    return this.sensorTypeID;
-  }
-
-
-
-  /**
-   * Gets the device ID.
-   *
-   * @return The device ID.
-   */
-  @Override
-  public DeviceID getDeviceID() {
-    return this.deviceID;
   }
 
   /**

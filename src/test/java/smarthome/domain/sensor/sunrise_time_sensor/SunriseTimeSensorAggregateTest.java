@@ -435,7 +435,7 @@ class SunriseTimeSensorAggregateTest {
         sensorName, gps);
 
     // Act
-    SensorName result = sunriseTimeSensor.getName();
+    SensorName result = sunriseTimeSensor.getSensorName();
 
     // Assert
     assertEquals(result, sensorName);

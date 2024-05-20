@@ -343,7 +343,7 @@ class TemperatureSensorAggregateTest {
     TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
     // Act
-    SensorName result = sensor.getName();
+    SensorName result = sensor.getSensorName();
 
     // Assert
     assertEquals(sensorName, result);

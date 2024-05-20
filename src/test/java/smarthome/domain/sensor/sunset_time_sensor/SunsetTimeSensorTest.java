@@ -425,7 +425,7 @@ class SunsetTimeSensorTest {
           sensorName, gps);
 
       //Act
-      SensorName actualSensorName = sunsetTimeSensor.getName();
+      SensorName actualSensorName = sunsetTimeSensor.getSensorName();
 
       //Assert
       assertEquals(sensorName, actualSensorName);

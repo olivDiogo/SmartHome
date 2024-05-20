@@ -536,7 +536,7 @@ class AveragePowerConsumptionAggregateSensorTest {
         new AveragePowerConsumptionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
     //Act
-    SensorName result = averagePowerConsumptionSensor.getName();
+    SensorName result = averagePowerConsumptionSensor.getSensorName();
 
     //Assert
     Assertions.assertEquals(sensorName.toString(), result.toString());

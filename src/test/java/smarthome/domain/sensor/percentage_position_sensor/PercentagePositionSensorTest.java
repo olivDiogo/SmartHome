@@ -296,7 +296,7 @@ class PercentagePositionSensorTest {
           new PercentagePositionSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
       // Act
-      SensorName result = percentagePositionSensor.getName();
+      SensorName result = percentagePositionSensor.getSensorName();
 
       // Assert
       assertEquals(sensorName, result);

@@ -264,7 +264,7 @@ class PercentagePositionSensorAggregateTest {
         modelPath, sensorTypeID, sensorName);
 
     // Act
-    SensorName result = percentagePositionSensor.getName();
+    SensorName result = percentagePositionSensor.getSensorName();
 
     // Assert
 

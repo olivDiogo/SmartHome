@@ -99,7 +99,7 @@ class ElectricConsumptionWhSensorAggregateTest {
     ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(
         deviceID, modelPath, sensorTypeID, sensorName, datePeriod);
     //Assert
-    assertEquals(sensorName, electricConsumptionWhSensor.getName());
+    assertEquals(sensorName, electricConsumptionWhSensor.getSensorName());
   }
 
   /**

@@ -2,6 +2,7 @@ package smarthome.domain.sensor.temperature_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -12,6 +13,7 @@ import smarthome.utils.Validator;
 import smarthome.utils.ValueSimulator;
 import smarthome.utils.visitor_pattern.ISensorVisitor;
 
+@Getter
 public class TemperatureSensor implements ISensor {
 
   private final ModelPath modelPath;
@@ -87,47 +89,6 @@ public class TemperatureSensor implements ISensor {
     }
   }
 
-
-  /**
-   * Returns the sensor ID.
-   *
-   * @return The sensor ID.
-   */
-  @Override
-  public SensorID getID() {
-    return sensorID;
-  }
-
-  /**
-   * Returns the sensor name.
-   *
-   * @return The sensor name.
-   */
-  @Override
-  public SensorName getName() {
-    return sensorName;
-  }
-
-  /**
-   * Returns the model path.
-   *
-   * @return The model path.
-   */
-  @Override
-  public ModelPath getModelPath() {
-    return modelPath;
-  }
-
-  /**
-   * Returns the sensor type ID.
-   *
-   * @return The sensor type ID.
-   */
-  @Override
-  public SensorTypeID getSensorTypeID() {
-    return sensorTypeID;
-  }
-
   /**
    * Returns the value of the sensor.
    *
@@ -142,14 +103,9 @@ public class TemperatureSensor implements ISensor {
     return temperatureSensorValue;
   }
 
-  /**
-   * Returns the device ID.
-   *
-   * @return The device ID.
-   */
   @Override
-  public DeviceID getDeviceID() {
-    return deviceID;
+  public SensorID getID() {
+    return sensorID;
   }
 
   /**

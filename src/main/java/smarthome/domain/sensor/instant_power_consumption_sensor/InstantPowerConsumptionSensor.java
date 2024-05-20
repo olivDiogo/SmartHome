@@ -2,6 +2,7 @@ package smarthome.domain.sensor.instant_power_consumption_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -12,6 +13,7 @@ import smarthome.utils.Validator;
 import smarthome.utils.ValueSimulator;
 import smarthome.utils.visitor_pattern.ISensorVisitor;
 
+@Getter
 public class InstantPowerConsumptionSensor implements ISensor {
 
   private final ModelPath modelPath;
@@ -101,36 +103,6 @@ public class InstantPowerConsumptionSensor implements ISensor {
   }
 
   /**
-   * Gets the sensor name.
-   *
-   * @return The sensor name.
-   */
-  @Override
-  public SensorName getName() {
-    return this.sensorName;
-  }
-
-  /**
-   * Gets the model path.
-   *
-   * @return The model path.
-   */
-  @Override
-  public ModelPath getModelPath() {
-    return this.modelPath;
-  }
-
-  /**
-   * Gets the sensor type ID.
-   *
-   * @return The sensor type ID.
-   */
-  @Override
-  public SensorTypeID getSensorTypeID() {
-    return this.sensorTypeID;
-  }
-
-  /**
    * Returns the value of the sensor.
    */
   @Override
@@ -140,16 +112,6 @@ public class InstantPowerConsumptionSensor implements ISensor {
         new InstantPowerConsumptionValue(instantPowerConsumptionValue);
 
     return this.instantPowerConsumptionValue;
-  }
-
-  /**
-   * Returns the device ID.
-   *
-   * @return The device ID.
-   */
-  @Override
-  public DeviceID getDeviceID() {
-    return this.deviceID;
   }
 
   /**

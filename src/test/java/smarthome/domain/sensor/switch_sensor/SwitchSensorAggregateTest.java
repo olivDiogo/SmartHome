@@ -338,7 +338,7 @@ class SwitchSensorAggregateTest {
     SwitchSensor switchSensor = new SwitchSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
     // Act
-    SensorName result = switchSensor.getName();
+    SensorName result = switchSensor.getSensorName();
 
     // Assert
     assertEquals(sensorName, result);

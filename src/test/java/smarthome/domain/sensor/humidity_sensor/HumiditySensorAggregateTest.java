@@ -205,7 +205,7 @@ class HumiditySensorAggregateTest {
         sensorName);
 
     // Act
-    SensorName result = humiditySensor.getName();
+    SensorName result = humiditySensor.getSensorName();
 
     // Assert
     assertEquals(sensorName, result);

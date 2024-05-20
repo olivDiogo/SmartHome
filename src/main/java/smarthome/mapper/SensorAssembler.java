@@ -25,7 +25,7 @@ public class SensorAssembler implements IAssembler<ISensor, SensorDTO> {
     String modelPath = sensor.getModelPath().toString();
     String sensorTypeID = sensor.getSensorTypeID().toString();
     String sensorID = sensor.getID().toString();
-    String sensorName = sensor.getName().toString();
+    String sensorName = sensor.getSensorName().toString();
 
     return new SensorDTO(deviceID, modelPath, sensorID, sensorTypeID, sensorName);
   }

@@ -298,7 +298,7 @@ class SolarIrradianceSensorTest {
           new SolarIrradianceSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
       // Act
-      SensorName result = solarIrradianceSensor.getName();
+      SensorName result = solarIrradianceSensor.getSensorName();
 
       // Assert
       assertEquals(result, sensorName);

@@ -229,7 +229,7 @@ class DewPointSensorAggregateTest {
         sensorName);
 
     //Act
-    SensorName result = dewPointSensor.getName();
+    SensorName result = dewPointSensor.getSensorName();
 
     //Assert
     assertEquals(sensorName, result);

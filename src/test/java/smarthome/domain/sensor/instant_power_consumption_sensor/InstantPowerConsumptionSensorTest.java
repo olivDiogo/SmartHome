@@ -132,7 +132,7 @@ class InstantPowerConsumptionSensorTest {
       InstantPowerConsumptionSensor instantPowerConsumptionSensor = new InstantPowerConsumptionSensor(
           deviceID, modelPath, sensorTypeID, sensorName);
 
-      SensorName result = instantPowerConsumptionSensor.getName();
+      SensorName result = instantPowerConsumptionSensor.getSensorName();
 
       // Assert
       assertEquals(expectedSensorName, result.toString());

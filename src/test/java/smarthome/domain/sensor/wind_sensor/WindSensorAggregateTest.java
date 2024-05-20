@@ -308,7 +308,7 @@ class WindSensorAggregateTest {
     WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
 
     // Act
-    SensorName result = windSensor.getName();
+    SensorName result = windSensor.getSensorName();
 
     // Assert
     assertEquals(sensorName, result);

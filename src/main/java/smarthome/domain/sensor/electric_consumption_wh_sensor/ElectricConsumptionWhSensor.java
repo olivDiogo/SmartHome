@@ -2,6 +2,7 @@ package smarthome.domain.sensor.electric_consumption_wh_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
@@ -15,6 +16,7 @@ import smarthome.utils.visitor_pattern.ISensorVisitor;
 /**
  * Represents a sensor that measures electric consumption in watt-hours.
  */
+@Getter
 public class ElectricConsumptionWhSensor implements ISensor {
 
   /**
@@ -106,46 +108,6 @@ public class ElectricConsumptionWhSensor implements ISensor {
   @Override
   public SensorID getID() {
     return sensorID;
-  }
-
-  /**
-   * Returns the name of the sensor.
-   *
-   * @return the name of the sensor
-   */
-  @Override
-  public SensorName getName() {
-    return sensorName;
-  }
-
-  /**
-   * Returns the model path of the sensor.
-   *
-   * @return the model path of the sensor
-   */
-  @Override
-  public ModelPath getModelPath() {
-    return modelPath;
-  }
-
-  /**
-   * Returns the type ID of the sensor.
-   *
-   * @return the type ID of the sensor
-   */
-  @Override
-  public SensorTypeID getSensorTypeID() {
-    return sensorTypeID;
-  }
-
-  /**
-   * Returns the period during which the sensor measures consumption.
-   *
-   * @return the period during which the sensor measures consumption
-   */
-  @Override
-  public DeviceID getDeviceID() {
-    return deviceID;
   }
 
   /**

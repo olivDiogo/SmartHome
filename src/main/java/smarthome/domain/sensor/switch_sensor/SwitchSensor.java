@@ -2,6 +2,7 @@ package smarthome.domain.sensor.switch_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -12,6 +13,7 @@ import smarthome.utils.Validator;
 import smarthome.utils.ValueSimulator;
 import smarthome.utils.visitor_pattern.ISensorVisitor;
 
+@Getter
 public class SwitchSensor implements ISensor {
 
   private final ModelPath modelPath;
@@ -98,36 +100,6 @@ public class SwitchSensor implements ISensor {
   }
 
   /**
-   * Returns the sensor name.
-   *
-   * @return The sensor name.
-   */
-  @Override
-  public SensorName getName() {
-    return this.sensorName;
-  }
-
-  /**
-   * Returns the model path.
-   *
-   * @return The model path.
-   */
-  @Override
-  public ModelPath getModelPath() {
-    return this.modelPath;
-  }
-
-  /**
-   * Returns the sensor type ID.
-   *
-   * @return The sensor type ID.
-   */
-  @Override
-  public SensorTypeID getSensorTypeID() {
-    return this.sensorTypeID;
-  }
-
-  /**
    * Returns the sensor value.
    *
    * @return The sensor value.
@@ -138,16 +110,6 @@ public class SwitchSensor implements ISensor {
     this.switchSensorValue = new SwitchSensorValue(randomBoolean);
 
     return this.switchSensorValue;
-  }
-
-  /**
-   * Returns the device ID.
-   *
-   * @return The device ID.
-   */
-  @Override
-  public DeviceID getDeviceID() {
-    return this.deviceID;
   }
 
   /**

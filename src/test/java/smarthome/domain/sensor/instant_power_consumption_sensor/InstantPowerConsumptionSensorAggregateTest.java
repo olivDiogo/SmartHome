@@ -249,7 +249,7 @@ class InstantPowerConsumptionSensorAggregateTest {
     String expectedName = sensorName.toString();
 
     // Act
-    SensorName result = instantPowerConsumptionSensor.getName();
+    SensorName result = instantPowerConsumptionSensor.getSensorName();
 
     // Assert
     assertEquals(expectedName, result.toString());

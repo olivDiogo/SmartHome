@@ -2,6 +2,7 @@ package smarthome.domain.sensor.humidity_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -15,6 +16,7 @@ import smarthome.utils.visitor_pattern.ISensorVisitor;
 /**
  * Represents a humidity sensor.
  */
+@Getter
 public class HumiditySensor implements ISensor {
 
   private final SensorTypeID sensorTypeID;
@@ -101,37 +103,6 @@ public class HumiditySensor implements ISensor {
   public SensorID getID() {
     return sensorID;
   }
-
-  /**
-   * Returns the sensor name.
-   *
-   * @return The sensor name.
-   */
-  @Override
-  public SensorName getName() {
-    return sensorName;
-  }
-
-  /**
-   * Returns the model path.
-   *
-   * @return The model path.
-   */
-  @Override
-  public ModelPath getModelPath() {
-    return modelPath;
-  }
-
-  /**
-   * Returns the sensor type ID.
-   *
-   * @return The sensor type ID.
-   */
-  @Override
-  public SensorTypeID getSensorTypeID() {
-    return sensorTypeID;
-  }
-
   /**
    * Returns the humidity sensor value.
    *
@@ -142,16 +113,6 @@ public class HumiditySensor implements ISensor {
     int humidityReadingReading = ValueSimulator.generateRandomValue(0, 100);
     humiditySensorValue = new HumiditySensorValue(humidityReadingReading);
     return humiditySensorValue;
-  }
-
-  /**
-   * Returns the device ID.
-   *
-   * @return The device ID.
-   */
-  @Override
-  public DeviceID getDeviceID() {
-    return deviceID;
   }
 
   /**

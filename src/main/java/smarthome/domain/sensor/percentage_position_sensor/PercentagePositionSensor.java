@@ -1,6 +1,7 @@
 package smarthome.domain.sensor.percentage_position_sensor;
 
 import java.util.UUID;
+import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -14,6 +15,7 @@ import smarthome.utils.visitor_pattern.ISensorVisitor;
  * Represents a percentage position sensor. This sensor measures the percentage position of an
  * object.
  */
+@Getter
 public class PercentagePositionSensor implements ISensor {
 
   private final ModelPath modelPath;
@@ -103,46 +105,6 @@ public class PercentagePositionSensor implements ISensor {
   @Override
   public SensorID getID() {
     return sensorID;
-  }
-
-  /**
-   * Gets the name of the sensor.
-   *
-   * @return The name of the sensor.
-   */
-  @Override
-  public SensorName getName() {
-    return sensorName;
-  }
-
-  /**
-   * Gets the model path of the sensor.
-   *
-   * @return The model path of the sensor.
-   */
-  @Override
-  public ModelPath getModelPath() {
-    return modelPath;
-  }
-
-  /**
-   * Gets the type ID of the sensor.
-   *
-   * @return The type ID of the sensor.
-   */
-  @Override
-  public SensorTypeID getSensorTypeID() {
-    return sensorTypeID;
-  }
-
-  /**
-   * Gets the device ID associated with the sensor.
-   *
-   * @return The device ID associated with the sensor.
-   */
-  @Override
-  public DeviceID getDeviceID() {
-    return deviceID;
   }
 
   /**

@@ -239,7 +239,7 @@ class SunriseTimeSensorTest {
           sensorTypeIDDouble, sensorNameDouble, gpsDouble);
 
       //Act
-      SensorName result = sunriseTimeSensor.getName();
+      SensorName result = sunriseTimeSensor.getSensorName();
 
       //Assert
       assertEquals(sensorNameDouble, result);

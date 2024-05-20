@@ -275,7 +275,7 @@ class ElectricConsumptionWhSensorTest {
     ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(
         deviceID, modelPath, sensorTypeID, sensorName, datePeriod);
     //Act & Assert
-    assertEquals(sensorName, electricConsumptionWhSensor.getName());
+    assertEquals(sensorName, electricConsumptionWhSensor.getSensorName());
   }
 
   /**

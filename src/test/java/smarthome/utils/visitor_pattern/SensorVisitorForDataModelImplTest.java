@@ -65,7 +65,7 @@ class SensorVisitorForDataModelImplTest {
     when(temperatureSensor.getDeviceID()).thenReturn(deviceID);
     when(temperatureSensor.getModelPath()).thenReturn(modelPath);
     when(temperatureSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(temperatureSensor.getName()).thenReturn(sensorName);
+    when(temperatureSensor.getSensorName()).thenReturn(sensorName);
 
     String expected = "SensorDataModel{" +
         "sensorID='" + sensorID.getID() + '\'' +
@@ -112,7 +112,7 @@ class SensorVisitorForDataModelImplTest {
     when(humiditySensor.getDeviceID()).thenReturn(deviceID);
     when(humiditySensor.getModelPath()).thenReturn(modelPath);
     when(humiditySensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(humiditySensor.getName()).thenReturn(sensorName);
+    when(humiditySensor.getSensorName()).thenReturn(sensorName);
 
     String expected = "SensorDataModel{" +
         "sensorID='" + sensorID.getID() + '\'' +
@@ -162,7 +162,7 @@ class SensorVisitorForDataModelImplTest {
     when(sunsetTimeSensor.getDeviceID()).thenReturn(deviceID);
     when(sunsetTimeSensor.getModelPath()).thenReturn(modelPath);
     when(sunsetTimeSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(sunsetTimeSensor.getName()).thenReturn(sensorName);
+    when(sunsetTimeSensor.getSensorName()).thenReturn(sensorName);
     when(sunsetTimeSensor.getGPS()).thenReturn(gps);
 
     String expected = "SensorDataModel{" +
@@ -209,7 +209,7 @@ class SensorVisitorForDataModelImplTest {
     when(windSensor.getDeviceID()).thenReturn(deviceID);
     when(windSensor.getModelPath()).thenReturn(modelPath);
     when(windSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(windSensor.getName()).thenReturn(sensorName);
+    when(windSensor.getSensorName()).thenReturn(sensorName);
 
     String expected = "SensorDataModel{" +
         "sensorID='" + sensorID.getID() + '\'' +
@@ -255,7 +255,7 @@ class SensorVisitorForDataModelImplTest {
     when(switchSensor.getDeviceID()).thenReturn(deviceID);
     when(switchSensor.getModelPath()).thenReturn(modelPath);
     when(switchSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(switchSensor.getName()).thenReturn(sensorName);
+    when(switchSensor.getSensorName()).thenReturn(sensorName);
 
     String expected = "SensorDataModel{" +
         "sensorID='" + sensorID.getID() + '\'' +
@@ -305,7 +305,7 @@ class SensorVisitorForDataModelImplTest {
     when(sunriseTimeSensor.getDeviceID()).thenReturn(deviceID);
     when(sunriseTimeSensor.getModelPath()).thenReturn(modelPath);
     when(sunriseTimeSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(sunriseTimeSensor.getName()).thenReturn(sensorName);
+    when(sunriseTimeSensor.getSensorName()).thenReturn(sensorName);
     when(sunriseTimeSensor.getGPS()).thenReturn(gps);
 
     String expected = "SensorDataModel{" +
@@ -352,7 +352,7 @@ class SensorVisitorForDataModelImplTest {
     when(solarIrradiancesSensor.getDeviceID()).thenReturn(deviceID);
     when(solarIrradiancesSensor.getModelPath()).thenReturn(modelPath);
     when(solarIrradiancesSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(solarIrradiancesSensor.getName()).thenReturn(sensorName);
+    when(solarIrradiancesSensor.getSensorName()).thenReturn(sensorName);
 
     String expected = "SensorDataModel{" +
         "sensorID='" + sensorID.getID() + '\'' +
@@ -398,7 +398,7 @@ class SensorVisitorForDataModelImplTest {
     when(percentageSensor.getDeviceID()).thenReturn(deviceID);
     when(percentageSensor.getModelPath()).thenReturn(modelPath);
     when(percentageSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(percentageSensor.getName()).thenReturn(sensorName);
+    when(percentageSensor.getSensorName()).thenReturn(sensorName);
 
     String expected = "SensorDataModel{" +
         "sensorID='" + sensorID.getID() + '\'' +
@@ -444,7 +444,7 @@ class SensorVisitorForDataModelImplTest {
     when(instantPowerSensor.getDeviceID()).thenReturn(deviceID);
     when(instantPowerSensor.getModelPath()).thenReturn(modelPath);
     when(instantPowerSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(instantPowerSensor.getName()).thenReturn(sensorName);
+    when(instantPowerSensor.getSensorName()).thenReturn(sensorName);
 
     String expected = "SensorDataModel{" +
         "sensorID='" + sensorID.getID() + '\'' +
@@ -490,7 +490,7 @@ class SensorVisitorForDataModelImplTest {
     when(dewPointSensor.getDeviceID()).thenReturn(deviceID);
     when(dewPointSensor.getModelPath()).thenReturn(modelPath);
     when(dewPointSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(dewPointSensor.getName()).thenReturn(sensorName);
+    when(dewPointSensor.getSensorName()).thenReturn(sensorName);
 
     String expected = "SensorDataModel{" +
         "sensorID='" + sensorID.getID() + '\'' +
@@ -537,7 +537,7 @@ class SensorVisitorForDataModelImplTest {
     when(averagePowerConsumptionSensor.getDeviceID()).thenReturn(deviceID);
     when(averagePowerConsumptionSensor.getModelPath()).thenReturn(modelPath);
     when(averagePowerConsumptionSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(averagePowerConsumptionSensor.getName()).thenReturn(sensorName);
+    when(averagePowerConsumptionSensor.getSensorName()).thenReturn(sensorName);
 
     String expected = "SensorDataModel{" +
         "sensorID='" + sensorID.getID() + '\'' +
@@ -589,7 +589,7 @@ class SensorVisitorForDataModelImplTest {
     when(electricConsumptionWhSensor.getDeviceID()).thenReturn(deviceID);
     when(electricConsumptionWhSensor.getModelPath()).thenReturn(modelPath);
     when(electricConsumptionWhSensor.getSensorTypeID()).thenReturn(sensorTypeID);
-    when(electricConsumptionWhSensor.getName()).thenReturn(sensorName);
+    when(electricConsumptionWhSensor.getSensorName()).thenReturn(sensorName);
     when(electricConsumptionWhSensor.getDatePeriod()).thenReturn(datePeriod);
 
     String expected = "SensorDataModel{" +

@@ -46,7 +46,7 @@ public class SensorDataModel {
     this.deviceID = sensor.getDeviceID().getID();
     this.modelPath = sensor.getModelPath().getID();
     this.sensorTypeID = sensor.getSensorTypeID().getID();
-    this.sensorName = sensor.getName().getSensorName();
+    this.sensorName = sensor.getSensorName().getSensorName();
   }
 
   //Getters

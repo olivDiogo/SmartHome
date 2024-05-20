@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -14,6 +15,7 @@ import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.Validator;
 import smarthome.utils.visitor_pattern.ISensorVisitor;
 
+@Getter
 public class AveragePowerConsumptionSensor implements ISensor {
 
   /**
@@ -156,26 +158,6 @@ public class AveragePowerConsumptionSensor implements ISensor {
   @Override
   public SensorID getID() {
     return sensorID;
-  }
-
-  @Override
-  public SensorName getName() {
-    return sensorName;
-  }
-
-  @Override
-  public ModelPath getModelPath() {
-    return modelPath;
-  }
-
-  @Override
-  public SensorTypeID getSensorTypeID() {
-    return sensorTypeID;
-  }
-
-  @Override
-  public DeviceID getDeviceID() {
-    return deviceID;
   }
 
   /**

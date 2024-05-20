@@ -2,6 +2,7 @@ package smarthome.domain.sensor.solar_irradiance_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
@@ -11,6 +12,7 @@ import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.Validator;
 import smarthome.utils.visitor_pattern.ISensorVisitor;
 
+@Getter
 public class SolarIrradianceSensor implements ISensor {
 
   private SensorID sensorID;
@@ -96,35 +98,7 @@ public class SolarIrradianceSensor implements ISensor {
     return this.sensorID;
   }
 
-  /**
-   * Getter for sensorName
-   *
-   * @return sensor name
-   */
-  @Override
-  public SensorName getName() {
-    return this.sensorName;
-  }
 
-  /**
-   * Getter for modelPath
-   *
-   * @return the model path
-   */
-  @Override
-  public ModelPath getModelPath() {
-    return this.modelPath;
-  }
-
-  /**
-   * Getter for sensorTypeID
-   *
-   * @return sensor type id
-   */
-  @Override
-  public SensorTypeID getSensorTypeID() {
-    return this.sensorTypeID;
-  }
 
   /**
    * Getter for sensor value
@@ -135,16 +109,6 @@ public class SolarIrradianceSensor implements ISensor {
   public SolarIrradianceValue getValue() {
     this.value = new SolarIrradianceValue(4500);
     return this.value;
-  }
-
-  /**
-   * Getter for deviceID
-   *
-   * @return device id
-   */
-  @Override
-  public DeviceID getDeviceID() {
-    return this.deviceID;
   }
 
   @Override

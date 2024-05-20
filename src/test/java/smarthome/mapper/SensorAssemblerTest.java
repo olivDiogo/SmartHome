@@ -49,7 +49,7 @@ class SensorAssemblerTest {
     when(sensorDouble.getModelPath()).thenReturn(modelPathDouble);
     when(sensorDouble.getSensorTypeID()).thenReturn(sensorTypeDouble);
     when(sensorDouble.getID()).thenReturn(sensorIDDouble);
-    when(sensorDouble.getName()).thenReturn(sensorNameDouble);
+    when(sensorDouble.getSensorName()).thenReturn(sensorNameDouble);
 
     SensorAssembler sensorAssembler = new SensorAssembler();
     String expected =
@@ -127,7 +127,7 @@ class SensorAssemblerTest {
     when(sensorDouble.getModelPath()).thenReturn(modelPathDouble);
     when(sensorDouble.getSensorTypeID()).thenReturn(sensorTypeDouble);
     when(sensorDouble.getID()).thenReturn(sensorIDDouble);
-    when(sensorDouble.getName()).thenReturn(sensorNameDouble);
+    when(sensorDouble.getSensorName()).thenReturn(sensorNameDouble);
 
     // sensor2
     DeviceID deviceIDDouble2 = mock(DeviceID.class);
@@ -150,7 +150,7 @@ class SensorAssemblerTest {
     when(sensorDouble2.getModelPath()).thenReturn(modelPathDouble2);
     when(sensorDouble2.getSensorTypeID()).thenReturn(sensorTypeDouble2);
     when(sensorDouble2.getID()).thenReturn(sensorIDDouble2);
-    when(sensorDouble2.getName()).thenReturn(sensorNameDouble2);
+    when(sensorDouble2.getSensorName()).thenReturn(sensorNameDouble2);
 
     SensorAssembler sensorAssembler = new SensorAssembler();
 
