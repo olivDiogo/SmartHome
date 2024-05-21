@@ -12,7 +12,7 @@ box "SmartHome"
     participant "DataBase" as BD
 end box
 
-User -> RC : I want to add a device to a room
+User -> RC : I want to add a sensor to a device
 activate RC
 
 RC -> SV : addSensor(sensorDataDTO)
