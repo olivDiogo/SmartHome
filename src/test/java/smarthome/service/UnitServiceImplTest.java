@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
+import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.unit.IUnitFactory;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitDescription;
@@ -28,7 +29,7 @@ class UnitServiceImplTest {
   @Test
   void shouldInstantiateMeasurementTypeService_WhenConstructorInvoked() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     // Act
@@ -45,7 +46,7 @@ class UnitServiceImplTest {
   @Test
   void shouldThrowIllegalArgumentException_whenMeasurementTypeRepositoryIsNull() {
     // Arrange
-    UnitRepository unitRepositoryDouble = null;
+    IUnitRepository unitRepositoryDouble = null;
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     String expectedMessage = "MeasurementType repository is required";
@@ -65,7 +66,7 @@ class UnitServiceImplTest {
   @Test
   void shouldThrowIllegalArgumentException_whenMeasurementTypeFactoryIsNull() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = null;
 
     String expectedMessage = "MeasurementType factory is required";
@@ -84,7 +85,7 @@ class UnitServiceImplTest {
   @Test
   void shouldCreateAndSaveMeasurementType_WhenParameterAreValid() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble);
@@ -113,7 +114,7 @@ class UnitServiceImplTest {
   @Test
   void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsNull() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble);
@@ -138,7 +139,7 @@ class UnitServiceImplTest {
   @Test
   void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsEmpty() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble);
@@ -165,7 +166,7 @@ class UnitServiceImplTest {
   @Test
   void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsBlank() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble);
@@ -192,7 +193,7 @@ class UnitServiceImplTest {
   @Test
   void shouldThrowIllegalArgumentException_whenMeasurementTypeUnitIsNull() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble);
@@ -218,7 +219,7 @@ class UnitServiceImplTest {
   @Test
   void shouldThrowIllegalArgumentException_whenMeasurementTypeUnitIsEmpty() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble);
@@ -245,7 +246,7 @@ class UnitServiceImplTest {
   @Test
   void shouldReturnMeasurementType_WhenFindByIdInvoked() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble);
@@ -271,7 +272,7 @@ class UnitServiceImplTest {
   @Test
   void shouldThrowIllegalArgumentException_WhenFindByIdWithNullIDInvoked() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble);
@@ -297,7 +298,7 @@ class UnitServiceImplTest {
   @Test
   void shouldReturnAllMeasurementTypes_WhenFindAllMeasurementTypesInvoked() {
     // Arrange
-    UnitRepository unitRepositoryDouble = mock(UnitRepository.class);
+    IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble);
@@ -318,7 +319,7 @@ class UnitServiceImplTest {
   @Test
   void shouldNotReturnEmptyList_WhenFindAllMeasurementTypesIsCalledWithAvailableTypes() {
     // Arrange
-    UnitRepository unitRepository = mock(UnitRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
     IUnitFactory unitFactory = mock(IUnitFactory.class);
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
     Unit unit = mock(Unit.class);

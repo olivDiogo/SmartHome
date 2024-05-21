@@ -12,9 +12,10 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.IDeviceTypeFactory;
+import smarthome.domain.repository.IDeviceTypeRepository;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
-import smarthome.persistence.mem.DeviceTypeRepository;
+
 
 class DeviceTypeServiceImplTest {
 
@@ -24,7 +25,7 @@ class DeviceTypeServiceImplTest {
   @Test
   void shouldInstantiateDeviceTypeService_whenGivenValidParameters() {
     //Arrange
-    DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
+    IDeviceTypeRepository deviceTypeRepository = mock(IDeviceTypeRepository.class);
     IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
 
     //Act
@@ -42,7 +43,7 @@ class DeviceTypeServiceImplTest {
   @Test
   void shouldThrowException_whenDeviceTypeRepositoryIsNull() {
     //Arrange
-    DeviceTypeRepository deviceTypeRepository = null;
+    IDeviceTypeRepository deviceTypeRepository = null;
     IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
     String expectedMessage = "Device type repository is required";
 
@@ -61,7 +62,7 @@ class DeviceTypeServiceImplTest {
   @Test
   void shouldThrowException_whenDeviceTypeFactoryIsNull() {
     //Arrange
-    DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
+    IDeviceTypeRepository deviceTypeRepository = mock(IDeviceTypeRepository.class);
     IDeviceTypeFactory deviceTypeFactory = null;
     String expectedMessage = "Device type factory is required";
 
@@ -86,7 +87,7 @@ class DeviceTypeServiceImplTest {
     IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
     when(deviceTypeFactory.createDeviceType(typeDescription)).thenReturn(deviceType);
 
-    DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
+    IDeviceTypeRepository deviceTypeRepository = mock(IDeviceTypeRepository.class);
     when(deviceTypeRepository.save(deviceType)).thenReturn(deviceType);
 
     DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository,
@@ -105,7 +106,7 @@ class DeviceTypeServiceImplTest {
   @Test
   void shouldThrowException_whenDeviceTypeIsNull() {
     //Arrange
-    DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
+    IDeviceTypeRepository deviceTypeRepository = mock(IDeviceTypeRepository.class);
     IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
     DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository,
         deviceTypeFactory);
@@ -129,7 +130,7 @@ class DeviceTypeServiceImplTest {
     //Arrange
     DeviceType deviceType = mock(DeviceType.class);
     DeviceTypeID deviceTypeID = mock(DeviceTypeID.class);
-    DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
+    IDeviceTypeRepository deviceTypeRepository = mock(IDeviceTypeRepository.class);
     when(deviceTypeRepository.ofIdentity(deviceTypeID)).thenReturn(Optional.of(deviceType));
 
     IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
@@ -149,7 +150,7 @@ class DeviceTypeServiceImplTest {
   @Test
   void shouldThrowException_WhenFindingDeviceTypeByNullID() {
     //Arrange
-    DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
+    IDeviceTypeRepository deviceTypeRepository = mock(IDeviceTypeRepository.class);
     IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
     DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository,
         deviceTypeFactory);
@@ -171,7 +172,7 @@ class DeviceTypeServiceImplTest {
   @Test
   void shouldReturnAllDeviceTypes_whenFindingAllDeviceTypes() {
     //Arrange
-    DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
+    IDeviceTypeRepository deviceTypeRepository = mock(IDeviceTypeRepository.class);
     IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
     DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository,
         deviceTypeFactory);
@@ -192,7 +193,7 @@ class DeviceTypeServiceImplTest {
   @Test
   void shouldReturnEmptyList_WhenNoDeviceTypesExist() {
     //Arrange
-    DeviceTypeRepository deviceTypeRepository = mock(DeviceTypeRepository.class);
+    IDeviceTypeRepository deviceTypeRepository = mock(IDeviceTypeRepository.class);
     IDeviceTypeFactory deviceTypeFactory = mock(IDeviceTypeFactory.class);
     DeviceTypeServiceImpl deviceTypeServiceImpl = new DeviceTypeServiceImpl(deviceTypeRepository,
         deviceTypeFactory);
@@ -206,7 +207,6 @@ class DeviceTypeServiceImplTest {
 
     //Assert
     assertFalse(resultList.isEmpty());
-    //assertEquals(deviceTypes, resultList);
   }
 
 }

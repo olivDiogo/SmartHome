@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
+import smarthome.domain.repository.IActuatorModelRepository;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
@@ -28,7 +29,7 @@ class ActuatorModelServiceImplTest {
   void shouldInstantiateActuatorModelService_WhenGivenValidParameters() {
     //Arrange
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
-    ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
+    IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
 
     //Act
     ActuatorModelServiceImpl result = new ActuatorModelServiceImpl(actuatorModelRepository,
@@ -45,7 +46,7 @@ class ActuatorModelServiceImplTest {
   void shouldThrowException_WhenActuatorModelFactoryIsNull() {
     //Arrange
     IActuatorModelFactory actuatorModelFactory = null;
-    ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
+    IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
 
     String expectedMessage = "Actuator model factory is required";
 
@@ -64,7 +65,7 @@ class ActuatorModelServiceImplTest {
   void shouldThrowException_WhenActuatorModelRepositoryIsNull() {
     //Arrange
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
-    ActuatorModelRepository actuatorModelRepository = null;
+    IActuatorModelRepository actuatorModelRepository = null;
 
     String expectedMessage = "Actuator model repository is required";
 
@@ -84,7 +85,7 @@ class ActuatorModelServiceImplTest {
     //Arrange
     ActuatorModel actuatorModel = mock(ActuatorModel.class);
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
-    ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
+    IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
 
     when(actuatorModelRepository.findAll()).thenReturn(List.of(actuatorModel));
 
@@ -113,7 +114,7 @@ class ActuatorModelServiceImplTest {
     //Arrange
     ActuatorModel actuatorModel = mock(ActuatorModel.class);
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
-    ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
+    IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
 
     when(actuatorModelRepository.ofIdentity(any())).thenReturn(Optional.of(actuatorModel));
 
@@ -143,7 +144,7 @@ class ActuatorModelServiceImplTest {
     //Arrange
     ActuatorModel actuatorModel = mock(ActuatorModel.class);
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
-    ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
+    IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
 
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
 
@@ -173,7 +174,7 @@ class ActuatorModelServiceImplTest {
     //Arrange
     ActuatorModel actuatorModel = mock(ActuatorModel.class);
     IActuatorModelFactory actuatorModelFactory = mock(IActuatorModelFactory.class);
-    ActuatorModelRepository actuatorModelRepository = mock(ActuatorModelRepository.class);
+    IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
 
     ModelPath modelPath = mock(ModelPath.class);
     ActuatorModelName actuatorModelName = mock(ActuatorModelName.class);

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
+import smarthome.domain.repository.ISensorModelRepository;
 import smarthome.domain.sensor_model.ISensorModelFactory;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.domain.value_object.ModelPath;
@@ -30,7 +31,7 @@ class SensorModelServiceImplTest {
   void shouldInstantiateSensorModelServiceWhenGivenValidParameters() {
     //Arrange
     ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
-    SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
+    ISensorModelRepository sensorModelRepository = mock(ISensorModelRepository.class);
     //Act
     SensorModelServiceImpl sensorModelServiceImpl = new SensorModelServiceImpl(
         sensorModelRepository, sensorModelFactory);
@@ -45,7 +46,7 @@ class SensorModelServiceImplTest {
   void shouldThrowExceptionWhenSensorModelFactoryIsNull() {
     //Arrange
     ISensorModelFactory sensorModelFactory = null;
-    SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
+    ISensorModelRepository sensorModelRepository = mock(ISensorModelRepository.class);
 
     String expectedMessage = "Sensor model factory is required";
     //Act
@@ -62,7 +63,7 @@ class SensorModelServiceImplTest {
   void shouldThrowExceptionWhenSensorModelRepositoryIsNull() {
     //Arrange
     ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
-    SensorModelRepository sensorModelRepository = null;
+    ISensorModelRepository sensorModelRepository = null;
 
     String expectedMessage = "Sensor model repository is required";
     //Act
@@ -80,7 +81,7 @@ class SensorModelServiceImplTest {
     //Arrange
     SensorModel sensorModel = mock(SensorModel.class);
     ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
-    SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
+    ISensorModelRepository sensorModelRepository = mock(ISensorModelRepository.class);
     when(sensorModelRepository.findAll()).thenReturn(List.of(sensorModel));
     try (MockedConstruction<ModelPath> modelPathMockedConstruction = mockConstruction(
         ModelPath.class, (mock, context) -> {
@@ -110,7 +111,7 @@ class SensorModelServiceImplTest {
     when(sensorModel.getID()).thenReturn(sensorModelId);
 
     ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
-    SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
+    ISensorModelRepository sensorModelRepository = mock(ISensorModelRepository.class);
     when(sensorModelRepository.ofIdentity(sensorModelId)).thenReturn(Optional.of(sensorModel));
     try (MockedConstruction<ModelPath> modelPathMockedConstruction = mockConstruction(
         ModelPath.class, (mock, context) -> {
@@ -164,7 +165,7 @@ class SensorModelServiceImplTest {
     SensorModel sensorModel = mock(SensorModel.class);
     SensorTypeID sensorTypeID = mock(SensorTypeID.class);
     ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);
-    SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
+    ISensorModelRepository sensorModelRepository = mock(ISensorModelRepository.class);
     when(
         sensorModelFactory.createSensorModel(sensorModelName, sensorPath, sensorTypeID)).thenReturn(
         sensorModel);
@@ -190,7 +191,7 @@ class SensorModelServiceImplTest {
 
     SensorTypeID sensorTypeID = mock(SensorTypeID.class);
 
-    SensorModelRepository sensorModelRepository = mock(SensorModelRepository.class);
+    ISensorModelRepository sensorModelRepository = mock(ISensorModelRepository.class);
     when(sensorModelRepository.findBySensorTypeId(sensorTypeID)).thenReturn(expectedSensorModels);
 
     ISensorModelFactory sensorModelFactory = mock(ISensorModelFactory.class);

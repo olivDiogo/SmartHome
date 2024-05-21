@@ -2,15 +2,12 @@ package smarthome.controller.rest;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
@@ -22,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import smarthome.domain.device.Device;
 import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.device_type.DeviceType;
@@ -462,21 +460,31 @@ class DeviceControllerTest {
     Device deviceThree = setupDevice(setupDeviceDataDTO(room, deviceTypeDescription2));
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
-    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
-    when(deviceTypeRepository.ofIdentity(deviceType2.getID())).thenReturn(Optional.of(deviceType2));
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
-    when(deviceRepository.findAll()).thenReturn(List.of(device, deviceTwo, deviceThree));
+    when(deviceTypeRepository.findAll()).thenReturn(List.of(deviceType, deviceType2));
 
-    // Act & Assert
-    mockMvc.perform(get("/devices/grouped")
-            .param("typeDescription",deviceTypeDescription)
+    when(deviceRepository.findByDeviceTypeID(deviceType.getID())).thenReturn(List.of(device));
+    when(deviceRepository.findByDeviceTypeID(deviceType2.getID())).thenReturn(
+        List.of(deviceTwo, deviceThree));
+
+    String expectedResponse =
+        "{\"Bulb\":[{\"deviceID\":\"" + device.getID().getID() + "\",\"roomID\":\"" +
+            room.getID().getID() + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"}],"
+            + "\"Fan\":[{\"deviceID\":\"" + deviceTwo.getID().getID() + "\",\"roomID\":\""
+            + room.getID().getID()
+            + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"},{\"deviceID\":\""
+            + deviceThree.getID().getID()
+            + "\",\"roomID\":\"" + room.getID().getID()
+            + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"}]}";
+    // Act
+    MvcResult result = mockMvc.perform(get("/devices/grouped")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription + "']", hasSize(1)))
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription + "'][0].deviceID").value(device.getID().getID()))
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription2 + "']", hasSize(2)))
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription2 + "'][0].deviceID").value(deviceTwo.getID().getID()))
-        .andExpect(jsonPath("$._embedded.linkedHashMapList[0]['" + deviceTypeDescription2 + "'][1].deviceID").value(deviceThree.getID().getID()));
+        .andReturn();
+    String jsonResponse = result.getResponse().getContentAsString();
+
+    // Assert
+    assertEquals(expectedResponse, jsonResponse);
   }
 
   /**

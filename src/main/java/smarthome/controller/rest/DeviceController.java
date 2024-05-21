@@ -4,8 +4,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import jakarta.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.domain.device_type.DeviceType;
-import smarthome.domain.room.Room;
 import smarthome.domain.service.IDeviceService;
 import smarthome.domain.service.IDeviceTypeService;
 import smarthome.domain.service.IRoomService;
@@ -39,7 +35,6 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.mapper.DeviceTypeAssembler;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.DeviceTypeDTO;
-import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
 import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
@@ -54,7 +49,6 @@ public class DeviceController {
   private final IDeviceTypeService deviceTypeService;
   private final DeviceTypeAssembler deviceTypeAssembler;
   private final IRoomService roomService;
-  private final IAssembler<Room, RoomDTO> roomAssembler;
 
   /**
    * Constructor for the DeviceController class.
@@ -67,13 +61,11 @@ public class DeviceController {
       IDeviceService deviceService,
       IAssembler<Device, DeviceDTO> deviceAssembler,
       IDeviceTypeService deviceTypeService,
-      DeviceTypeAssembler deviceTypeAssembler, IRoomService roomService,
-      IAssembler<Room, RoomDTO> roomAssembler) {
+      DeviceTypeAssembler deviceTypeAssembler, IRoomService roomService) {
     this.deviceAssembler = deviceAssembler;
     this.deviceService = deviceService;
     this.deviceTypeService = deviceTypeService;
     this.deviceTypeAssembler = deviceTypeAssembler;
-    this.roomAssembler = roomAssembler;
     this.roomService = roomService;
   }
 
@@ -175,61 +167,20 @@ public class DeviceController {
     return ResponseEntity.ok(entityModel);
   }
 
-  /** Handles HTTP GET requests for retrieving all devices grouped by functionality. */
+
   @GetMapping("/grouped")
-  public ResponseEntity<CollectionModel<Map<DeviceTypeDTO, List<DeviceDTO>>>> getAllDevicesGroupedByFunctionality(
-      @RequestParam String typeDescription) {
-    List<Device> devices = deviceService.getAllDevices();
-
-    Map<DeviceTypeDTO, List<DeviceDTO>> devicesGroupedByFunctionality = groupDevicesByFunctionality(devices, typeDescription);
-
-    CollectionModel<Map<DeviceTypeDTO, List<DeviceDTO>>> resource =
-        CollectionModel.of(
-            Collections.singleton(devicesGroupedByFunctionality),
-            linkTo(methodOn(DeviceController.class).getAllDevicesGroupedByFunctionality(typeDescription))
-                .withSelfRel());
-
-    return ResponseEntity.ok(resource);
-  }
-
-  /**
-   * Private method to group devices by functionality.
-   * @param devices The list of devices to be grouped.
-   * @param typeDescription The description of the device type.
-   * @return The map of devices grouped by functionality.
-   */
-  private Map<DeviceTypeDTO, List<DeviceDTO>> groupDevicesByFunctionality(List<Device> devices, String typeDescription) {
+  public Map<DeviceTypeDTO, List<DeviceDTO>> getAllDevicesGroupedByFunctionality() {
+    List<DeviceType> deviceTypes = deviceTypeService.getAllDeviceTypes();
     Map<DeviceTypeDTO, List<DeviceDTO>> devicesGroupedByFunctionality = new LinkedHashMap<>();
-
-    for (Device device : devices) {
-      DeviceTypeDTO deviceTypeDTO = getDeviceTypeDTO(device);
-
-      if (devicesGroupedByFunctionality.containsKey(deviceTypeDTO)) {
-        devicesGroupedByFunctionality.get(deviceTypeDTO).add(deviceAssembler.domainToDTO(device));
-      } else {
-        List<DeviceDTO> newDeviceList = new ArrayList<>();
-        newDeviceList.add(deviceAssembler.domainToDTO(device));
-        devicesGroupedByFunctionality.put(deviceTypeDTO, newDeviceList);
-      }
+    for (DeviceType deviceType : deviceTypes) {
+      List<Device> devices = deviceService.getDevicesByDeviceTypeID(deviceType.getID());
+      DeviceTypeDTO deviceTypeDTO = deviceTypeAssembler.domainToDTO(deviceType);
+      List<DeviceDTO> deviceDTOs = deviceAssembler.domainToDTO(devices);
+      devicesGroupedByFunctionality.put(deviceTypeDTO, deviceDTOs);
     }
     return devicesGroupedByFunctionality;
   }
 
-  /**
-   * Private method to get the device type DTO
-   * @param device The device to get the device type DTO for.
-   * @return The device type DTO.
-   */
-  private DeviceTypeDTO getDeviceTypeDTO(Device device) {
-    Optional<DeviceType> deviceTypeOpt = deviceTypeService.getDeviceTypeByID(device.getDeviceTypeID());
-
-    if (deviceTypeOpt.isEmpty()) {
-      throw new ResponseStatusException(
-          HttpStatus.BAD_REQUEST, "DeviceType not found for ID: " + device.getDeviceTypeID());
-    }
-
-    return deviceTypeAssembler.domainToDTO(deviceTypeOpt.get());
-  }
 
   /**
    * Get all devices in a room

@@ -20,14 +20,9 @@ User -> RC : I want to get all devices grouped by functionality
 activate RC
 
 
-RC -> CTRL: getAllDevicesGroupedByFunctionality(strTypeDescription)
+RC -> CTRL: getAllDevicesGroupedByFunctionality()
 activate CTRL
 
-CTRL -> DOM : TypeDescription(strTypeDescription)
-activate DOM
-
-DOM -> CTRL : typeDescription
-deactivate DOM
 
 CTRL -> SV: getAllDevices()
 activate SV
@@ -37,18 +32,30 @@ activate REPO
 
 REPO -> BD : find
 
-REPO --> SV : List<Device>
+REPO --> SV : deviceTypeList
 deactivate BD
 
-SV --> CTRL : List<Device>
+SV --> CTRL : deviceTypeList
+
 deactivate REPO
 
-CTRL -> CTRL : groupDevicesByFunctionality(List<Device>, strTypeDescription)
+CTRL -> SV : getDevicesByDeviceTypeID(deviceTypeID)
 
-SV --> RC : List<DeviceDTO>
+SV -> REPO : findByDeviceTypeID(deviceTypeID)
+activate REPO
+
+REPO -> BD : find
+
+REPO --> SV : deviceList
+deactivate REPO
+
+SV --> CTRL : deviceList
 deactivate SV
 
-RC --> User : List<DeviceDTO>
+CTRL --> RC : map <deviceTypeDTO, List<deviceDTOList>>
+deactivate CTRL
+
+RC --> User : map <deviceTypeDTO, List<deviceDTOList>>
 deactivate RC
 
 
