@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
+import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.persistence.mem.HouseRepository;
@@ -39,7 +40,7 @@ class HouseServiceImplTest {
   void shouldThrowIllegalArgumentExceptionWhenHouseFactoryIsNull() {
     // Arrange
     IHouseFactory houseFactory = null;
-    HouseRepository houseRepository = mock(HouseRepository.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     String expectedMessage = "House factory is required";
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
@@ -56,7 +57,7 @@ class HouseServiceImplTest {
   void shouldThrowIllegalArgumentExceptionWhenHouseRepositoryIsNull() {
     // Arrange
     IHouseFactory houseFactory = mock(IHouseFactory.class);
-    HouseRepository houseRepository = null;
+    IHouseRepository houseRepository = null;
     String expectedMessage = "House repository is required";
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
@@ -74,7 +75,7 @@ class HouseServiceImplTest {
   void shouldReturnHouseInstanceWhenHouseFactoryAndHouseRepositoryAreValid() {
     // Arrange
     IHouseFactory houseFactory = mock(IHouseFactory.class);
-    HouseRepository houseRepository = mock(HouseRepository.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     House house = mock(House.class);
     Address address = mock(Address.class);
     GPS gps = mock(GPS.class);

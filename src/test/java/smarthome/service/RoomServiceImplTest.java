@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.house.House;
+import smarthome.domain.repository.IHouseRepository;
+import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
 import smarthome.domain.value_object.Dimension;
@@ -30,9 +32,9 @@ class RoomServiceImplTest {
   void shouldInstantiateRoomService_whenGivenValidParameters() {
     // Arrange
     RoomServiceImpl roomServiceImpl;
-    RoomRepository roomRepository = mock(RoomRepository.class);
+    IRoomRepository roomRepository = mock(IRoomRepository.class);
     IRoomFactory roomFactory = mock(IRoomFactory.class);
-    HouseRepository houseRepository = mock(HouseRepository.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
 
     // Act
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
@@ -49,9 +51,9 @@ class RoomServiceImplTest {
   void shouldAddARoom_WhenGivenValidParameters() {
     // Arrange
     RoomServiceImpl roomServiceImpl;
-    RoomRepository roomRepository = mock(RoomRepository.class);
+    IRoomRepository roomRepository = mock(IRoomRepository.class);
     IRoomFactory roomFactory = mock(IRoomFactory.class);
-    HouseRepository houseRepository = mock(HouseRepository.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
     RoomName roomName = mock(RoomName.class);
     Dimension dimension = mock(Dimension.class);
@@ -76,9 +78,9 @@ class RoomServiceImplTest {
   void shouldThrowException_whenAddingRoomWithoutHouseBeingConfigured() {
     // Arrange
     RoomServiceImpl roomServiceImpl;
-    RoomRepository roomRepository = mock(RoomRepository.class);
+    IRoomRepository roomRepository = mock(IRoomRepository.class);
     IRoomFactory roomFactory = mock(IRoomFactory.class);
-    HouseRepository houseRepository = mock(HouseRepository.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
     RoomName roomName = mock(RoomName.class);
     Dimension dimension = mock(Dimension.class);
@@ -98,9 +100,9 @@ class RoomServiceImplTest {
   void shouldReturnAllRooms_whenGetRoomsIsCalled() {
     // Arrange
     RoomServiceImpl roomServiceImpl;
-    RoomRepository roomRepository = mock(RoomRepository.class);
+    IRoomRepository roomRepository = mock(IRoomRepository.class);
     IRoomFactory roomFactory = mock(IRoomFactory.class);
-    HouseRepository houseRepository = mock(HouseRepository.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
     Room mockRoom = mock(Room.class);
     when(roomRepository.findAll()).thenReturn(List.of(mockRoom));
@@ -121,9 +123,9 @@ class RoomServiceImplTest {
   void shouldReturnEmptyList_whenGetRoomsIsCalledAndThereAreNoRooms() {
     // Arrange
     RoomServiceImpl roomServiceImpl;
-    RoomRepository roomRepository = mock(RoomRepository.class);
+    IRoomRepository roomRepository = mock(IRoomRepository.class);
     IRoomFactory roomFactory = mock(IRoomFactory.class);
-    HouseRepository houseRepository = mock(HouseRepository.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
     when(roomRepository.findAll()).thenReturn(List.of());
 
@@ -143,9 +145,9 @@ class RoomServiceImplTest {
   void shouldReturnAllRooms_whenGetRoomsIsCalledAndThereAreMultipleRooms() {
     // Arrange
     RoomServiceImpl roomServiceImpl;
-    RoomRepository roomRepository = mock(RoomRepository.class);
+    IRoomRepository roomRepository = mock(IRoomRepository.class);
     IRoomFactory roomFactory = mock(IRoomFactory.class);
-    HouseRepository houseRepository = mock(HouseRepository.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
     Room mockRoom1 = mock(Room.class);
     Room mockRoom2 = mock(Room.class);
@@ -167,9 +169,9 @@ class RoomServiceImplTest {
   void shouldReturnRoom_whenGetRoomByIdIsCalledWithValidRoomID() {
     // Arrange
     RoomServiceImpl roomServiceImpl;
-    RoomRepository roomRepository = mock(RoomRepository.class);
+    IRoomRepository roomRepository = mock(IRoomRepository.class);
     IRoomFactory roomFactory = mock(IRoomFactory.class);
-    HouseRepository houseRepository = mock(HouseRepository.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
     roomServiceImpl = new RoomServiceImpl(roomRepository, roomFactory, houseRepository);
     RoomID roomID = mock(RoomID.class);
     Room mockRoom = mock(Room.class);
