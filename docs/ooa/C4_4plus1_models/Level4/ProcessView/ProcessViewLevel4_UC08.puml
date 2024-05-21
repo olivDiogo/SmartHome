@@ -40,19 +40,19 @@ RC -> CTRL : requestDeactivateDevice(requestDeactivateDevice(deviceDTO))
 activate CTRL
 CTRL -> DOM : DeviceID(deviceID: String)
 activate DOM
-DOM -> CTRL : deviceID
+DOM --> CTRL : deviceID
 deactivate DOM
 CTRL -> SV : deactivateDeviceByID(deviceID)
 activate SV
 SV -> DOM : deactivateDevice(): Status
 activate DOM
-DOM -> SV : status
+DOM --> SV : status
 deactivate DOM
-SV -> CTRL : device
+SV --> CTRL : device
 deactivate SV
-CTRL -> RC : deviceDTO
+CTRL --> RC : deviceDTO
 deactivate CTRL
-RC -> User : deviceDTO
+RC --> User : deviceDTO
 deactivate RC
 
 @enduml

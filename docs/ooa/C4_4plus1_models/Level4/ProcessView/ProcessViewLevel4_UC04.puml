@@ -24,12 +24,12 @@ activate CTRL
 
 CTRL -> DOM : TypeDescription(strDescription)
 activate DOM
-DOM -> CTRL : typeDescription
+DOM --> CTRL : typeDescription
 deactivate DOM
 
 CTRL -> DOM : UnitID(strUnitID)
 activate DOM
-DOM -> CTRL : unitID
+DOM --> CTRL : unitID
 deactivate DOM
 
 CTRL -> SV : createSensorType(typeDescription, unitID)
@@ -40,10 +40,10 @@ activate REPO
 REPO -> BD : save
 activate BD
 deactivate BD
-REPO -> SV : sensorType
+REPO --> SV : sensorType
 deactivate REPO
 
-SV -> CTRL : sensorType
+SV --> CTRL : sensorType
 deactivate SV
 
 

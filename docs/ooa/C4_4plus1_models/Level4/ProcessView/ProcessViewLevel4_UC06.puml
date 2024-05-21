@@ -24,7 +24,7 @@ activate CTRL
 
 CTRL -> DOM : RoomID(idStr)
 activate DOM
-DOM -> CTRL : roomID
+DOM --> CTRL : roomID
 deactivate DOM
 
 CTRL -> SV : getDevicesByRoomId(roomID)
@@ -35,10 +35,10 @@ activate REPO
 REPO -> BD : find
 activate BD
 deactivate BD
-REPO -> SV : List<Device>
+REPO --> SV : List<Device>
 deactivate REPO
 
-SV -> CTRL : List<Device>
+SV --> CTRL : List<Device>
 deactivate SV
 
 

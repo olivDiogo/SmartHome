@@ -25,10 +25,10 @@ activate CTRL
 
 CTRL -> DOM : createAddress(street, doorNumber, postalCode, countryCode, postalCodeFactory)
 activate DOM
-DOM -> CTRL : address
+DOM --> CTRL : address
 
 CTRL -> DOM : createGPS(latitude, longitude)
-DOM -> CTRL : gps
+DOM --> CTRL : gps
 deactivate DOM
 
 CTRL -> SV : addHouse(address, gps)
@@ -39,10 +39,10 @@ activate REPO
 REPO -> BD : save
 activate BD
 deactivate BD
-REPO -> SV : house
+REPO --> SV : house
 deactivate REPO
 
-SV -> CTRL : house
+SV --> CTRL : house
 deactivate SV
 
 

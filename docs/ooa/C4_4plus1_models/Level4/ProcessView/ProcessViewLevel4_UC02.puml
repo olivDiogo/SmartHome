@@ -25,17 +25,17 @@ activate CTRL
 
 CTRL -> DOM : RoomName (strName)
 activate DOM
-DOM -> CTRL : roomName
+DOM --> CTRL : roomName
 deactivate DOM
 
 CTRL -> DOM : Dimension (intWidth, intLength, intHeight)
 activate DOM
-DOM -> CTRL : dimension
+DOM --> CTRL : dimension
 deactivate DOM
 
 CTRL -> DOM : RoomFloor (intFloor)
 activate DOM
-DOM -> CTRL : roomFloor
+DOM --> CTRL : roomFloor
 deactivate DOM
 
 CTRL -> SV :addRoom(roomName,dimension,roomFloor)
@@ -46,10 +46,10 @@ activate REPO
 REPO -> BD : save
 activate BD
 deactivate BD
-REPO -> SV : room
+REPO --> SV : room
 deactivate REPO
 
-SV -> CTRL : room
+SV --> CTRL : room
 deactivate SV
 
 

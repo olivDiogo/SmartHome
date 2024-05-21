@@ -29,10 +29,10 @@ activate REPO
 REPO -> BD : find
 activate BD
 deactivate BD
-REPO -> SV : List<Room>
+REPO --> SV : List<Room>
 deactivate REPO
 
-SV -> CTRL : List<Room>
+SV --> CTRL : List<Room>
 deactivate SV
 
 

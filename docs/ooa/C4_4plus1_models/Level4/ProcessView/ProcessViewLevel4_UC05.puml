@@ -23,17 +23,17 @@ activate CTRL
 
 CTRL -> DOM : RoomID(idStr)
 activate DOM
-DOM -> CTRL : roomID
+DOM --> CTRL : roomID
 deactivate DOM
 
 CTRL -> DOM : DeviceName(strName)
 activate DOM
-DOM -> CTRL : deviceName
+DOM --> CTRL : deviceName
 deactivate DOM
 
 CTRL -> DOM : DeviceTypeID(idStr)
 activate DOM
-DOM -> CTRL : deviceTypeID
+DOM --> CTRL : deviceTypeID
 deactivate DOM
 
 CTRL -> SV : addDevice(roomID, deviceName, deviceTypeID)
@@ -44,10 +44,10 @@ activate REPO
 REPO -> BD : save
 activate BD
 deactivate BD
-REPO -> SV : device
+REPO --> SV : device
 deactivate REPO
 
-SV -> CTRL : device
+SV --> CTRL : device
 deactivate SV
 
 

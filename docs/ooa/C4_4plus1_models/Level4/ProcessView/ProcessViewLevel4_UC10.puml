@@ -21,19 +21,19 @@ RC -> CTRL : addActuatorToDevice(actuatorDataDTO)
 activate CTRL
 CTRL -> DOM : CreateDeviceID(actuatorDataDTO)
 activate DOM
-DOM -> CTRL : deviceID
+DOM --> CTRL : deviceID
 deactivate DOM
 CTRL -> DOM : CreateModelPath(actuatorDataDTO)
 activate DOM
-DOM -> CTRL : modelPath
+DOM --> CTRL : modelPath
 deactivate DOM
 CTRL -> DOM : CreateActuatorTypeID(actuatorDataDTO)
 activate DOM
-DOM -> CTRL : actuatorTypeID
+DOM --> CTRL : actuatorTypeID
 deactivate DOM
 CTRL -> DOM : CreateActuatorName(actuatorDataDTO)
 activate DOM
-DOM -> CTRL : actuatorName
+DOM --> CTRL : actuatorName
 deactivate DOM
 
 CTRL -> SV : addActuatorToDevice(addActuatorToDevice(ActuatorModelID, deviceID, ActuatorTypeID, ActuatorName)
@@ -44,11 +44,11 @@ REPO -> BD : save(actuator)
 REPO --> SV : actuator
 deactivate REPO
 
-SV -> CTRL : actuator
+SV --> CTRL : actuator
 deactivate SV
-CTRL -> RC : actuator
+CTRL --> RC : actuator
 deactivate CTRL
-RC -> User : actuatorDTO
+RC --> User : actuatorDTO
 deactivate RC
 
 
