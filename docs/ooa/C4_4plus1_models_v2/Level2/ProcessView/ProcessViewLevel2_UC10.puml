@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "RestClient" as RC
+
+box "SmartHome"
+    participant "Server" as SV
+    participant "DataBase" as BD
+end box
+
+User -> RC : I want to add an actuator to a device
+activate RC
+
+RC -> SV : addActuator(actuatorDataDTO)
+activate SV
+
+SV -> BD : save(actuatorDataModel)
+
+SV --> RC : actuatorDTO
+deactivate SV
+
+RC --> User : actuatorDTO
+deactivate RC
+
+
+@enduml
