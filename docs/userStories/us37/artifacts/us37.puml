@@ -43,11 +43,9 @@ GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> BlindRol
 activate BlindRollerValue
 BlindRollerValue --> GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller: blindRollerValue
 deactivate BlindRollerValue
-activate ActuatorService
-
 
 GetListOfDevicesByFuncionalityFromRoomForCloseBlindRoller_Controller -> ActuatorService: closeBlindRoller (actuatorBlindRoller, blindRollerValue)
-
+activate ActuatorService
 ActuatorService -> ActuatorService: checkIfValueIsLowerThanCurrent(actuatorBlindRoller, blindRollerValue)
 
 ActuatorService -> Actuator: closeBlindRoller(blindRollerValue)
