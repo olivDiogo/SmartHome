@@ -2,6 +2,7 @@ package smarthome.utils;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.service.IActuatorModelService;
 import smarthome.domain.service.IActuatorTypeService;
@@ -18,6 +19,7 @@ import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
 
+@Component
 public class LoadDefaultConfiguration {
 
   private IUnitService unitService;
@@ -27,7 +29,8 @@ public class LoadDefaultConfiguration {
   private IActuatorTypeService actuatorTypeService;
   private CvsLoader cvsLoader;
 
-  public LoadDefaultConfiguration(@Autowired IUnitService unitService,
+  public LoadDefaultConfiguration(
+      @Autowired IUnitService unitService,
       @Autowired ISensorModelService sensorModelService,
       @Autowired ISensorTypeService sensorTypeService,
       @Autowired IActuatorModelService actuatorModelService,
@@ -40,15 +43,23 @@ public class LoadDefaultConfiguration {
     this.actuatorTypeService = actuatorTypeService;
     this.cvsLoader = cvsLoader;
 
-    loadDefaults();
+    loadDefaultUnits();
+    loadDefaultModels();
+    loadDefaultTypes();
   }
 
-  private void loadDefaults() {
+  private void loadDefaultUnits() {
     loadDefaultSupportedUnits("defaultconfig/units.csv");
-    loadDefaultSupportedSensorTypes("defaultconfig/sensortype.csv");
+  }
+
+  private void loadDefaultModels (){
     loadDefaultSupportedSensorModels("defaultconfig/sensormodel.csv");
-    loadDefaultSupportedActuatorTypes("defaultconfig/actuatortype.csv");
     loadDefaultSupportedActuatorModels("defaultconfig/actuatormodel.csv");
+  }
+
+  private void loadDefaultTypes(){
+    loadDefaultSupportedSensorTypes("defaultconfig/sensortype.csv");
+    loadDefaultSupportedActuatorTypes("defaultconfig/actuatortype.csv");
   }
 
 

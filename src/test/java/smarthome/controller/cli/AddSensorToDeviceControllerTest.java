@@ -74,7 +74,6 @@ import smarthome.service.SensorModelServiceImpl;
 import smarthome.service.SensorServiceImpl;
 import smarthome.service.SensorTypeServiceImpl;
 import smarthome.service.UnitServiceImpl;
-import smarthome.utils.LoadModelsAndUnit;
 import smarthome.utils.dto.SensorDTO;
 import smarthome.utils.dto.SensorModelDTO;
 import smarthome.utils.dto.SensorTypeDTO;
@@ -196,18 +195,7 @@ class AddSensorToDeviceControllerTest {
 
     return devices.get(0);
   }
-
-  private void loadModelsAndUnit() throws InstantiationException {
-    LoadModelsAndUnit loadModelsAndUnit =
-        new LoadModelsAndUnit(
-            sensorModelRepository,
-            actuatorModelRepository,
-            unitRepository,
-            sensorModelFactory,
-            actuatorModelFactory,
-            unitFactory);
-  }
-
+  
   /**
    * Test to check if the AddSensorToDeviceController is being created correctly.
    */
@@ -383,7 +371,7 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldGetAvailableSensorModelsList() throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unitID = new UnitID("Celsius");
     when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
@@ -529,8 +517,6 @@ class AddSensorToDeviceControllerTest {
   void shouldReturnListOfSensorTypes_whenSensorTypeRepositoryIsNotEmpty()
       throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
-
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unitID = new UnitID("Celsius");
     when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
@@ -562,7 +548,7 @@ class AddSensorToDeviceControllerTest {
    */
   @Test
   void shouldReturnEmptyList_whenThereAreNoSensorTypes() throws InstantiationException {
-    loadModelsAndUnit();
+    
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unitID = new UnitID("Celsius");
     when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
@@ -606,7 +592,7 @@ class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForTemperatureSensor()
       throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());
@@ -651,7 +637,7 @@ class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForHumiditySensor()
       throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());
@@ -697,7 +683,7 @@ class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForAveragePowerConsumptionSensor()
       throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());
@@ -744,7 +730,7 @@ class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForSwitchSensor()
       throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());
@@ -790,7 +776,7 @@ class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForDewPointSensor()
       throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());
@@ -836,7 +822,7 @@ class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForSolarIrradianceSensor()
       throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());
@@ -882,7 +868,7 @@ class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForPercentagePositionSensor()
       throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());
@@ -929,7 +915,7 @@ class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForInstantPowerConsumptionSensor()
       throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());
@@ -976,7 +962,7 @@ class AddSensorToDeviceControllerTest {
   void shouldAddSensorToDevice_whenParametersAreValidForInstantElectricConsumptionSensor()
       throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());
@@ -1021,7 +1007,7 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenParametersAreInvalid() throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());
@@ -1062,7 +1048,7 @@ class AddSensorToDeviceControllerTest {
   @Test
   void shouldThrowException_whenDeviceStatusIsOff() throws InstantiationException {
     // Arrange
-    loadModelsAndUnit();
+    
     House house = loadHouse();
     Room room = loadRoom();
     Device device = loadDevice(room.getID());

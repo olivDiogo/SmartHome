@@ -40,7 +40,6 @@ import smarthome.persistence.mem.SensorModelRepository;
 import smarthome.persistence.mem.SensorTypeRepository;
 import smarthome.service.SensorTypeServiceImpl;
 import smarthome.service.UnitServiceImpl;
-import smarthome.utils.LoadModelsAndUnit;
 import smarthome.utils.dto.SensorTypeDTO;
 import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 import smarthome.utils.dto.UnitDTO;
@@ -184,10 +183,6 @@ class AddSensorTypeControllerTest {
     IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
     IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
 
-    LoadModelsAndUnit loadModelsAndUnit = new LoadModelsAndUnit(sensorModelRepository,
-        actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory,
-        unitFactory);
-
     List<UnitDTO> expected = unitAssembler.domainToDTO(unitRepository.findAll());
 
     AddSensorTypeController addSensorTypeController = new AddSensorTypeController(
@@ -234,9 +229,6 @@ class AddSensorTypeControllerTest {
 
     IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
     IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
-
-    new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository,
-        sensorModelFactory, actuatorModelFactory, unitFactory);
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unitID = unit.getID();
@@ -296,9 +288,6 @@ class AddSensorTypeControllerTest {
     IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
     IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
 
-    new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository,
-        sensorModelFactory, actuatorModelFactory, unitFactory);
-
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unitID = unit.getID();
     AddSensorTypeController addSensorTypeController = new AddSensorTypeController(
@@ -348,10 +337,6 @@ class AddSensorTypeControllerTest {
 
     IActuatorModelRepository actuatorModelRepository = new ActuatorModelRepository();
     IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
-
-    LoadModelsAndUnit loadModelsAndUnit = new LoadModelsAndUnit(sensorModelRepository,
-        actuatorModelRepository, unitRepository, sensorModelFactory, actuatorModelFactory,
-        unitFactory);
 
     AddSensorTypeController addSensorTypeController = new AddSensorTypeController(
         sensorTypeServiceImpl, sensorTypeAssembler, unitServiceImpl, unitAssembler);
@@ -408,9 +393,6 @@ class AddSensorTypeControllerTest {
 
     IActuatorModelRepository actuatorModelRepository = mock(IActuatorModelRepository.class);
     IActuatorModelFactory actuatorModelFactory = new ActuatorModelFactoryImpl();
-
-    new LoadModelsAndUnit(sensorModelRepository, actuatorModelRepository, unitRepository,
-        sensorModelFactory, actuatorModelFactory, unitFactory);
 
     TypeDescription typeDescription = new TypeDescription("Temperature");
     UnitID unitID = unit.getID();

@@ -37,23 +37,14 @@ class ActuatorTypeControllerTest {
    */
   @Test
   void shouldReturnAllActuatorTypes_WhenRequested() throws Exception {
-    // Arrange
-    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", "Celsius");
-    String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
-
-    mockMvc.perform(post("/actuator-types/")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(jsonContent)
-        .accept(MediaType.APPLICATION_JSON));
-
     // Act & Assert
     mockMvc.perform(get("/actuator-types/")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.actuatorTypeDTOList[0].actuatorTypeID", is("Test")))
+        .andExpect(jsonPath("$._embedded.actuatorTypeDTOList[0].actuatorTypeID", is("BlindRoller")))
         .andExpect(
-            jsonPath("$._embedded.actuatorTypeDTOList[0].actuatorTypeDescription", is("Test")))
-        .andExpect(jsonPath("$._embedded.actuatorTypeDTOList[0].unit", is("Celsius")))
+            jsonPath("$._embedded.actuatorTypeDTOList[0].actuatorTypeDescription", is("BlindRoller")))
+        .andExpect(jsonPath("$._embedded.actuatorTypeDTOList[0].unit", is("Percent")))
         .andExpect(jsonPath("$._links.self.href").exists());
   }
 

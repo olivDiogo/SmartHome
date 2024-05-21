@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.unit.IUnitFactory;
@@ -20,6 +21,7 @@ import smarthome.domain.unit.Unit;
 import smarthome.domain.unit.UnitFactoryImpl;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
+import smarthome.utils.LoadDefaultConfiguration;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -31,6 +33,9 @@ class UnitControllerTest {
 
   @MockBean
   private IUnitRepository unitRepository;
+
+  @MockBean
+  private LoadDefaultConfiguration loadConfig;
 
 
   /**
@@ -45,10 +50,13 @@ class UnitControllerTest {
     Unit unit = unitFactory.createUnit(unitDescription, unitSymbol);
     when(unitRepository.findAll()).thenReturn(List.of(unit));
     // Act & Assert
-    mockMvc.perform(get("/units")
+    MvcResult result = mockMvc.perform(get("/units")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._links.self.href").exists());
+        .andExpect(jsonPath("$._links.self.href").exists())
+        .andReturn();
+
+    System.out.println(result.getResponse().getContentAsString());
   }
 
   /**
@@ -56,11 +64,11 @@ class UnitControllerTest {
    */
   @Test
   void shouldReturnNotFound_WhenNoUnitsAvailable() throws Exception {
+    when(unitRepository.findAll()).thenReturn(List.of());
     // Act & Assert
     mockMvc.perform(get("/units")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._links.self.href").exists());
   }
-
 }
