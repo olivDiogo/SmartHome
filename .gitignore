@@ -52,3 +52,4 @@ Thumbs.db
 /SmartHome.iml
 /src/main/resources/META-INF/test.mv.trace.db
 /src/main/resources/META-INF/test.mv.mv.db
+/src/test/java/smarthome/controller/rest/unit_testing_deprecated/
