@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+component SmartHome <<system (C4)>> {
+    port p1
+    port p2
+
+
+        component Database
+        component Server {
+        port p3
+        port p4
+        port p5
+        component Controllers{
+        port p6
+        port p7
+        }
+        component Repositories{
+        port p8
+        }
+        component Services
+        component Domain
+        }
+
+
+    component CLI{
+        port p10
+        port p11
+    }
+    component REST{
+    port p12
+    }
+}
+
+CLIUI -down- p1
+Controllers -(0- Services
+Services -(0- Repositories
+Services -(0- Domain
+p1 -(0- p11
+p2 -(0- p12
+p8 -(0- p5
+p12 -(0- p4
+p3 -(0- p6
+p4 -(0- p7
+
+
+p10 -(0- p3
+p2 -up- APIRest
+
+Database -(0- p5
+
+@enduml

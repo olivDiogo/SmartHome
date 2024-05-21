@@ -1,0 +1,47 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "RestClient" as RC
+
+box "SmartHome"
+    participant "Controller" as CTRL
+    participant "Service" as SV
+    participant "Repository" as REPO
+    participant "Domain" as DOM
+    participant "DataBase" as BD
+end box
+
+User o-> RC : I want to get a log from the device in a given time
+activate RC
+RC -> CTRL : getLogFromDevice(logDataDTO)
+activate CTRL
+CTRL -> DOM : DatePeriod (start, end)
+activate DOM
+DOM --> CTRL : datePeriod
+deactivate DOM
+CTRL -> DOM : CreateDeviceID(deviceID)
+activate DOM
+DOM --> CTRL : deviceID
+deactivate DOM
+
+CTRL -> SV : getDeviceReadingsByTimePeriod (deviceID, period)
+activate SV
+SV -> REPO : findByDeviceIdAndDatePeriodBetween(deviceID, period)
+activate REPO
+REPO -> BD : find
+REPO --> SV : logList
+deactivate REPO
+
+SV --> CTRL : logListDTO
+deactivate SV
+CTRL --> RC : logListDTO
+deactivate CTRL
+RC --> User : logListDTO
+deactivate RC
+
+
+@enduml
