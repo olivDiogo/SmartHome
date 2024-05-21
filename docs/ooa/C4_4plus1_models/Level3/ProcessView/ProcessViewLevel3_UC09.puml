@@ -15,7 +15,7 @@ end box
 User -> RC : I want to get all devices grouped by functionality
 activate RC
 
-RC -> SV : getAllDevicesGroupedByFunctionality()
+RC -> SV : getAllDevicesGroupedByFunctionality(strTypeDescription)
 activate SV
 
 SV -> BD : findAll()
