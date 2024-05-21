@@ -105,8 +105,6 @@ class AddSensorToDeviceControllerTest {
   private ISensorModelFactory sensorModelFactory;
   private IAssembler<SensorModel, SensorModelDTO> sensorModelAssembler;
   private ISensorModelService sensorModelServiceImpl;
-  private IActuatorModelRepository actuatorModelRepository;
-  private IActuatorModelFactory actuatorModelFactory;
 
   @BeforeEach
   void setUp() {
@@ -145,9 +143,6 @@ class AddSensorToDeviceControllerTest {
     sensorModelFactory = new SensorModelFactoryImpl();
     sensorModelAssembler = new SensorModelAssembler();
     sensorModelServiceImpl = new SensorModelServiceImpl(sensorModelRepository, sensorModelFactory);
-
-    actuatorModelRepository = mock(IActuatorModelRepository.class);
-    actuatorModelFactory = new ActuatorModelFactoryImpl();
   }
 
 

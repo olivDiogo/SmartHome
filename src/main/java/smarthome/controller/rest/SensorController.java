@@ -83,6 +83,7 @@ public class SensorController {
 
     Optional<ISensor> sensor = sensorService.getSensorByID(sensorID);
 
+    if (sensor.isPresent()) {
     SensorDTO sensorDTO = sensorAssembler.domainToDTO(sensor.get());
 
     WebMvcLinkBuilder linkToSelf = WebMvcLinkBuilder
@@ -91,6 +92,10 @@ public class SensorController {
     EntityModel<SensorDTO> resource = EntityModel.of(sensorDTO, linkToSelf.withSelfRel());
 
     return ResponseEntity.status(HttpStatus.OK).body(resource);
+    }
+    else {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
   }
 
   /**

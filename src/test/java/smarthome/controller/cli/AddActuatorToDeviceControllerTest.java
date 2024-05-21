@@ -110,10 +110,8 @@ class AddActuatorToDeviceControllerTest {
   private IActuatorRepository actuatorRepository;
   private IActuatorModelRepository actuatorModelRepository;
   private IDeviceRepository deviceRepository;
-  private ISensorModelFactory sensorModelFactory;
   private IRoomFactory roomFactory;
   private IAssembler<Room, RoomDTO> roomAssembler;
-  private IUnitFactory unitFactory;
   private IActuatorFactory actuatorFactory;
   private IActuatorTypeFactory actuatorTypeFactory;
   private IActuatorModelFactory actuatorModelFactory;
@@ -140,10 +138,8 @@ class AddActuatorToDeviceControllerTest {
     actuatorTypeRepository = mock(IActuatorTypeRepository.class);
     actuatorRepository = mock(IActuatorRepository.class);
     actuatorModelRepository = mock(IActuatorModelRepository.class);
-    sensorModelFactory = new SensorModelFactoryImpl();
     roomFactory = new RoomFactoryImpl();
     roomAssembler = new RoomAssembler();
-    unitFactory = new UnitFactoryImpl();
     actuatorFactory = new ActuatorFactoryImpl();
     actuatorTypeFactory = new ActuatorTypeFactoryImpl();
     actuatorModelFactory = new ActuatorModelFactoryImpl();
