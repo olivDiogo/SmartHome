@@ -1,0 +1,68 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "RestClient" as RC
+
+box "SmartHome"
+    participant "Controller" as CTRL
+    participant "Service" as SV
+    participant "Domain" as DM
+    participant "Repository" as RP
+    participant "DataBase" as BD
+end box
+
+User -> RC : I want to add a sensor to a device
+activate RC
+
+RC -> CTRL : addSensor(sensorDataDTO)
+activate CTRL
+
+CTRL -> DM : CreateDeviceID(strDeviceID)
+activate DM
+
+DM --> CTRL : deviceID
+deactivate DM
+
+CTRL -> DM : CreateModelPath(strModelPath)
+activate DM
+
+DM --> CTRL : modelPath
+deactivate DM
+
+CTRL -> DM : CreateSensorTypeID(strSensorTypeID)
+activate DM
+
+DM --> CTRL : sensorTypeID
+deactivate DM
+
+CTRL -> DM : CreateSensorName(strSensorName)
+activate DM
+
+DM --> CTRL : sensorName
+deactivate DM
+
+CTRL -> SV : addSensorToDevice(deviceID, modelPath, sensorTypeID, sensorName)
+activate SV
+
+SV -> RP : save(sensor)
+activate RP
+
+RP -> BD : save(sensorDataModel)
+
+RP --> SV : sensor
+deactivate RP
+
+SV --> CTRL : sensorDTO
+
+CTRL --> RC : sensorDTO
+deactivate CTRL
+
+RC --> User : sensorDTO
+deactivate RC
+
+
+@enduml
