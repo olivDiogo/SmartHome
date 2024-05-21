@@ -38,13 +38,13 @@ public class SensorServiceImpl implements ISensorService {
       ISensorFactory sensorFactory,
       IDeviceRepository deviceRepository, ISensorTypeRepository sensorTypeRepository) {
 
-    Validator.validateNotNull(sensorRepository, "Sensor repository.");
+    Validator.validateNotNull(sensorRepository, "Sensor repository");
     this.sensorRepository = sensorRepository;
-    Validator.validateNotNull(sensorFactory, "Sensor factory.");
+    Validator.validateNotNull(sensorFactory, "Sensor factory");
     this.sensorFactory = sensorFactory;
-    Validator.validateNotNull(deviceRepository, "Device repository.");
+    Validator.validateNotNull(deviceRepository, "Device repository");
     this.deviceRepository = deviceRepository;
-    Validator.validateNotNull(sensorTypeRepository, "Sensor type repository.");
+    Validator.validateNotNull(sensorTypeRepository, "Sensor type repository");
     this.sensorTypeRepository = sensorTypeRepository;
 
   }
