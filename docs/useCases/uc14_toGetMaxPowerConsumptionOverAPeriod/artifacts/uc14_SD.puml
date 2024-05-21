@@ -6,6 +6,7 @@ participant Controller as ":GetMaxPowerConsumptionOverAPeriod"
 participant DeviceService as ":DeviceService"
 participant LogService as ":LogService"
 participant DeviceRepository as ":DeviceRepository"
+participant LogRepository as ":LogRepository"
 
 autonumber
 
@@ -57,11 +58,11 @@ LogService -> LogRepository: findByDeviceIDAndSensorTypeAndDatePeriodBetween (po
 
 activate LogRepository
 
-LogRepository --> LogService: outsideTemperatureReadings
+LogRepository --> LogService: powerMeterReadings
 
 deactivate LogRepository
 
-LogService --> Controller: outsideTemperatureReadings
+LogService --> Controller: powerMeterReadings
 
 deactivate LogService
 
@@ -75,11 +76,11 @@ LogService -> LogRepository: findByDeviceIDAndSensorTypeAndDatePeriodBetween (po
 
 activate LogRepository
 
-LogRepository --> LogService: deviceTemperatureReadings
+LogRepository --> LogService: powerSourceReadings
 
 deactivate LogRepository
 
-LogService --> Controller: deviceTemperatureReadings
+LogService --> Controller: powerSourceReadings
 
 deactivate LogService
 
