@@ -1,11 +1,11 @@
 package smarthome.domain.service;
 
+import java.util.Optional;
 import smarthome.ddd.IService;
 import smarthome.domain.house.House;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import java.util.Optional;
 
 public interface IHouseService extends IService {
 
@@ -20,5 +20,5 @@ public interface IHouseService extends IService {
 
   House addHouse(HouseID houseID, Address address, GPS gps);
 
-  Optional<House> getById(HouseID houseID);
+  Optional<House> getHouse();
 }

@@ -3,30 +3,26 @@ package smarthome.controller.rest;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.exceptions.ExceptionUtils;
 import smarthome.domain.house.House;
 import smarthome.domain.service.IHouseService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
-import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.utils.dto.data_dto.HouseDataDTO;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/houses")
@@ -62,7 +58,7 @@ public class HouseController {
 
     Link selfLink = linkTo(methodOn(HouseController.class).createHouseLocation(houseDataDTO))
         .withSelfRel();
-    Link houseLink = linkTo(methodOn(HouseController.class).getHouseById(dto.houseID))
+    Link houseLink = linkTo(methodOn(HouseController.class).getHouse())
         .withRel("house");
 
     EntityModel<HouseDTO> resource = EntityModel.of(dto, selfLink, houseLink);
@@ -73,16 +69,18 @@ public class HouseController {
   /**
    * Method to check if house exists by ID
    */
-  @GetMapping("/{id}")
-  public ResponseEntity<EntityModel<HouseDTO>> getHouseById(@PathVariable String id) {
-    HouseID houseID = new HouseID(id);
-    Optional<House> house = houseService.getById(houseID);
+  @GetMapping()
+  public ResponseEntity<EntityModel<HouseDTO>> getHouse() {
+    Optional<House> house = houseService.getHouse();
     if (house.isEmpty()) {
-      throw new EntityNotFoundException(ExceptionUtils.generateNotFoundMessage("House", id));
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
     HouseDTO dto = houseAssembler.domainToDTO(house.get());
-    Link selfLink = linkTo(methodOn(HouseController.class).getHouseById(id)).withSelfRel();
-    EntityModel <HouseDTO> entityModel = EntityModel.of(dto, selfLink);
-    return ResponseEntity.status(HttpStatus.OK).body(entityModel);
+
+    Link selfLink = linkTo(methodOn(HouseController.class).getHouse()).withSelfRel();
+
+    EntityModel<HouseDTO> resource = EntityModel.of(dto, selfLink);
+
+    return ResponseEntity.status(HttpStatus.OK).body(resource);
   }
 }

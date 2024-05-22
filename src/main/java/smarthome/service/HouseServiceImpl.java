@@ -1,22 +1,22 @@
 package smarthome.service;
 
+import java.util.Optional;
 import org.springframework.stereotype.Service;
-import smarthome.ddd.IRepository;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
+import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.service.IHouseService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.utils.Validator;
-import java.util.Optional;
 
 @Service
 public class HouseServiceImpl implements IHouseService {
 
   final IHouseFactory houseFactory;
 
-  final IRepository<HouseID, House> houseRepository;
+  final IHouseRepository houseRepository;
 
   /**
    * Constructor for the HouseService class.
@@ -24,7 +24,7 @@ public class HouseServiceImpl implements IHouseService {
    * @param houseFactory    the factory for creating House instances
    * @param houseRepository the repository for storing House instances
    */
-  public HouseServiceImpl(IHouseFactory houseFactory, IRepository<HouseID, House> houseRepository) {
+  public HouseServiceImpl(IHouseFactory houseFactory, IHouseRepository houseRepository) {
     Validator.validateNotNull(houseFactory, "House factory");
     Validator.validateNotNull(houseRepository, "House repository");
     this.houseFactory = houseFactory;
@@ -54,8 +54,8 @@ public class HouseServiceImpl implements IHouseService {
   }
 
   @Override
-  public Optional<House> getById(HouseID houseID) {
-    return houseRepository.ofIdentity(houseID);
+  public Optional<House> getHouse() {
+    return houseRepository.getTheHouse();
   }
 }
 

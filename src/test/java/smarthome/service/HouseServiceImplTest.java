@@ -87,4 +87,39 @@ class HouseServiceImplTest {
     assertEquals(house, result);
   }
 
+  /**
+   * Test that the getHouse method returns a House instance when the HouseRepository is valid.
+   */
+  @Test
+  void shouldReturnHouseInstance_WhenHouseRepositoryIsValid() {
+    // Arrange
+    IHouseFactory houseFactory = mock(IHouseFactory.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
+    House house = mock(House.class);
+    when(houseRepository.getTheHouse()).thenReturn(java.util.Optional.of(house));
+    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+    // Act
+    java.util.Optional<House> result = houseServiceImpl.getHouse();
+    // Assert
+    assertEquals(java.util.Optional.of(house), result);
+  }
+
+  /**
+   * Test that the getHouse method returns an empty Optional instance when the HouseRepository is
+   * valid.
+   */
+  @Test
+  void shouldReturnEmptyOptionalInstance_WhenHouseRepositoryIsValid() {
+    // Arrange
+    IHouseFactory houseFactory = mock(IHouseFactory.class);
+    IHouseRepository houseRepository = mock(IHouseRepository.class);
+    when(houseRepository.getTheHouse()).thenReturn(java.util.Optional.empty());
+    HouseServiceImpl houseServiceImpl = new HouseServiceImpl(houseFactory, houseRepository);
+    // Act
+    java.util.Optional<House> result = houseServiceImpl.getHouse();
+    // Assert
+    assertEquals(java.util.Optional.empty(), result);
+  }
+
+
 }

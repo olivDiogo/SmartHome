@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,7 +23,6 @@ import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.utils.dto.data_dto.HouseDataDTO;
-import java.util.Optional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -317,7 +317,7 @@ class HouseControllerTest {
   }
 
   /**
-   * Test method to get House By Id when House exists
+   * Test method to get House when House exists
    */
   @Test
   void shouldReturnHouse_WhenHouseExistByGivenId() throws Exception {
@@ -333,27 +333,26 @@ class HouseControllerTest {
     HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
     House house = setupHouse(houseDataDTO);
-    when(houseRepository.ofIdentity(houseID)).thenReturn(Optional.ofNullable(house));
+    when(houseRepository.getTheHouse()).thenReturn(Optional.ofNullable(house));
 
     //Act & Assert
-    mockMvc.perform(get("/houses/" + id)
+    mockMvc.perform(get("/houses")
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
 
   /**
-   * Test Method to get House by Id when house doesn't exist
+   * Test Method to get House when house doesn't exist
    */
   @Test
-  void shouldReturnNotFoundStatus_WhenHouseDoesNotExistByGivenId() throws Exception {
+  void shouldReturnNotFoundStatus_WhenHouseDoesNotExist() throws Exception {
     // Arrange
     String id = "123";
-    HouseID houseID = new HouseID(id);
-    when(houseRepository.ofIdentity(houseID)).thenReturn(Optional.empty());
+    when(houseRepository.getTheHouse()).thenReturn(Optional.empty());
 
     // Act & Assert
     mockMvc
-        .perform(get("/houses/" + id).contentType(MediaType.APPLICATION_JSON))
+        .perform(get("/houses").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
 }
