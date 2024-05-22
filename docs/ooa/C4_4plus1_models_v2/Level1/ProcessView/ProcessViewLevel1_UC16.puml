@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+participant "SmartHome" as SH
+
+User -> SH : I want to close the blind roller device
+activate SH
+
+SH --> User : strBlindRollerValue
+deactivate SH
+
+@enduml
