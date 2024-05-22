@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IHouseRepository;
-import smarthome.domain.service.IHouseService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;

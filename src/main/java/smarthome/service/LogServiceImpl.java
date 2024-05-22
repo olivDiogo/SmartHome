@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import smarthome.domain.device.Device;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
-import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;

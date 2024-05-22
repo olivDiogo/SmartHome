@@ -2,6 +2,8 @@ package smarthome.controller.rest;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -16,14 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.sensor_type.SensorType;
-import smarthome.domain.service.ISensorTypeService;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
+import smarthome.service.ISensorTypeService;
 import smarthome.utils.dto.SensorTypeDTO;
 import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
-import java.util.List;
-import java.util.Optional;
 
 
 @RestController

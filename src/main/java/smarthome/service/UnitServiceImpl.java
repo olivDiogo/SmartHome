@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
-import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.IUnitFactory;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitDescription;

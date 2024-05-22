@@ -14,9 +14,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.controller.rest.UnitController;
-import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.Unit;
 import smarthome.mapper.UnitAssembler;
+import smarthome.service.IUnitService;
 import smarthome.utils.dto.UnitDTO;
 
 

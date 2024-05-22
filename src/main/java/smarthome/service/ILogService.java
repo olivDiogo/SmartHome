@@ -1,8 +1,7 @@
-package smarthome.domain.service;
+package smarthome.service;
 
 import java.util.List;
 import smarthome.ddd.IService;
-import smarthome.ddd.IValueObject;
 import smarthome.domain.device.Device;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DatePeriod;

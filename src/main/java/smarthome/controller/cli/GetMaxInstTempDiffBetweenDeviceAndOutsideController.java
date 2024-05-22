@@ -2,13 +2,12 @@ package smarthome.controller.cli;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import smarthome.domain.log.Log;
-import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
+import smarthome.service.ILogService;
 import smarthome.utils.Validator;
 
 public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {

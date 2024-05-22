@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.actuator_model.IActuatorModelFactory;
 import smarthome.domain.repository.IActuatorModelRepository;
-import smarthome.domain.service.IActuatorModelService;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;

@@ -11,7 +11,6 @@ import smarthome.domain.device.Device;
 import smarthome.domain.repository.IActuatorRepository;
 import smarthome.domain.repository.IActuatorTypeRepository;
 import smarthome.domain.repository.IDeviceRepository;
-import smarthome.domain.service.IActuatorService;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;

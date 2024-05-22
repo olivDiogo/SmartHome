@@ -16,14 +16,14 @@ import org.springframework.http.ResponseEntity;
 import smarthome.controller.rest.RoomController;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
-import smarthome.domain.service.IDeviceService;
-import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.mapper.DeviceAssembler;
 import smarthome.mapper.RoomAssembler;
+import smarthome.service.IDeviceService;
+import smarthome.service.IRoomService;
 import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
 

@@ -23,8 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import smarthome.controller.rest.ActuatorTypeController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator_type.ActuatorType;
-import smarthome.domain.service.IActuatorTypeService;
 import smarthome.domain.value_object.ActuatorTypeID;
+import smarthome.service.IActuatorTypeService;
 import smarthome.utils.dto.ActuatorTypeDTO;
 import smarthome.utils.dto.data_dto.ActuatorTypeDataDTO;
 

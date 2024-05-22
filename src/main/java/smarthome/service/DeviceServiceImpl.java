@@ -12,7 +12,6 @@ import smarthome.domain.device.IDeviceFactory;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.room.Room;
-import smarthome.domain.service.IDeviceService;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceTypeID;

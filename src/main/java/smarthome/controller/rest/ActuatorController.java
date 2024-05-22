@@ -1,6 +1,8 @@
 package smarthome.controller.rest;
 
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -17,18 +19,16 @@ import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smarthome.domain.log.Log;
-import smarthome.domain.service.IActuatorService;
-import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.mapper.actuator_vo_assembler.ActuatorVOAssemblerImpl;
 import smarthome.mapper.actuator_vo_assembler.IActuatorVOAssembler;
+import smarthome.service.IActuatorService;
+import smarthome.service.ILogService;
 import smarthome.utils.dto.ActuatorDTO;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorValueDTO;
 import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/actuators")

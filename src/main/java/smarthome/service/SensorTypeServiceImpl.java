@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.sensor_type.ISensorTypeFactory;
 import smarthome.domain.sensor_type.SensorType;
-import smarthome.domain.service.ISensorTypeService;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;

@@ -8,8 +8,8 @@ import java.util.Optional;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.domain.device_type.DeviceType;
-import smarthome.domain.service.IDeviceService;
-import smarthome.domain.service.IDeviceTypeService;
+import smarthome.service.IDeviceService;
+import smarthome.service.IDeviceTypeService;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.DeviceDTO;
 

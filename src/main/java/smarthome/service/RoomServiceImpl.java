@@ -10,7 +10,6 @@ import smarthome.domain.house.House;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
-import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;

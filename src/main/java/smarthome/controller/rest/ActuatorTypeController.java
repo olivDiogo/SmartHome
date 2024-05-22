@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator_type.ActuatorType;
-import smarthome.domain.service.IActuatorTypeService;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
+import smarthome.service.IActuatorTypeService;
 import smarthome.utils.dto.ActuatorTypeDTO;
 import smarthome.utils.dto.data_dto.ActuatorTypeDataDTO;
 

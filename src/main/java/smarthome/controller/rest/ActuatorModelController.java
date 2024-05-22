@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator_model.ActuatorModel;
-import smarthome.domain.service.IActuatorModelService;
 import smarthome.domain.value_object.ActuatorTypeID;
+import smarthome.service.IActuatorModelService;
 import smarthome.utils.dto.ActuatorModelDTO;
 
 @RestController

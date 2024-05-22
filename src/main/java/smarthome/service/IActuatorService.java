@@ -1,12 +1,10 @@
-package smarthome.domain.service;
+package smarthome.service;
 
 import java.util.List;
 import java.util.Optional;
 import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IService;
-import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.IActuator;
-import smarthome.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ReadingValue;

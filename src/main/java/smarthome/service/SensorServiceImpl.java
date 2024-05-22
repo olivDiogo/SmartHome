@@ -10,7 +10,6 @@ import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.sensor.ISensorFactory;
 import smarthome.domain.sensor_type.SensorType;
-import smarthome.domain.service.ISensorService;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;

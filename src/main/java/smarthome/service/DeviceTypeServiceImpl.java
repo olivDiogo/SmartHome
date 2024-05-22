@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import smarthome.ddd.IRepository;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.IDeviceTypeFactory;
-import smarthome.domain.service.IDeviceTypeService;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.utils.Validator;

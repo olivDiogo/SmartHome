@@ -10,13 +10,13 @@ import smarthome.domain.log.ILogFactory;
 import smarthome.domain.log.Log;
 import smarthome.domain.log.LogFactoryImpl;
 import smarthome.domain.repository.ILogRepository;
-import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ReadingValue;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
 import smarthome.persistence.mem.LogRepository;
+import smarthome.service.ILogService;
 import smarthome.service.LogServiceImpl;
 
 class GetMaxInstTempDiffBetweenDeviceAndOutsideControllerTest {

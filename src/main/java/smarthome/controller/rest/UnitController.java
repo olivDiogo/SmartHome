@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.Unit;
+import smarthome.service.IUnitService;
 import smarthome.utils.dto.UnitDTO;
 
 @RestController

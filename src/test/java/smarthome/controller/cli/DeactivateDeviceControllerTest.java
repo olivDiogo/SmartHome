@@ -22,8 +22,6 @@ import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
-import smarthome.domain.service.IDeviceService;
-import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
@@ -38,6 +36,8 @@ import smarthome.domain.value_object.postal_code.IPostalCodeFactory;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.mapper.DeviceAssembler;
 import smarthome.service.DeviceServiceImpl;
+import smarthome.service.IDeviceService;
+import smarthome.service.IRoomService;
 import smarthome.service.RoomServiceImpl;
 import smarthome.utils.dto.DeviceDTO;
 

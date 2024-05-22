@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.room.Room;
-import smarthome.domain.service.IRoomService;
+import smarthome.service.IRoomService;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.RoomDTO;
 

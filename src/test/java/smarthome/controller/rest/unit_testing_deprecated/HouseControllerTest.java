@@ -1,5 +1,11 @@
 package smarthome.controller.rest.unit_testing_deprecated;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -11,18 +17,13 @@ import org.springframework.http.ResponseEntity;
 import smarthome.controller.rest.HouseController;
 import smarthome.domain.house.House;
 import smarthome.domain.house.IHouseFactory;
-import smarthome.domain.service.IHouseService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.mapper.HouseAssembler;
+import smarthome.service.IHouseService;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.utils.dto.data_dto.HouseDataDTO;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class HouseControllerTest {

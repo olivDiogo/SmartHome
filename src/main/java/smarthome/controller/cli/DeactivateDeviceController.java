@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
-import smarthome.domain.service.IDeviceService;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.service.IDeviceService;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.DeviceDTO;
 

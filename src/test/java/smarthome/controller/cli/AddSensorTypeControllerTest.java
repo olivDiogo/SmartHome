@@ -21,8 +21,6 @@ import smarthome.domain.sensor_model.SensorModelFactoryImpl;
 import smarthome.domain.sensor_type.ISensorTypeFactory;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
-import smarthome.domain.service.ISensorTypeService;
-import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.IUnitFactory;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.unit.UnitFactoryImpl;
@@ -38,11 +36,13 @@ import smarthome.mapper.UnitAssembler;
 import smarthome.persistence.mem.ActuatorModelRepository;
 import smarthome.persistence.mem.SensorModelRepository;
 import smarthome.persistence.mem.SensorTypeRepository;
+import smarthome.service.ISensorTypeService;
+import smarthome.service.IUnitService;
 import smarthome.service.SensorTypeServiceImpl;
 import smarthome.service.UnitServiceImpl;
 import smarthome.utils.dto.SensorTypeDTO;
-import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 import smarthome.utils.dto.UnitDTO;
+import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 
 class AddSensorTypeControllerTest {
 

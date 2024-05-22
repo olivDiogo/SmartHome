@@ -3,15 +3,15 @@ package smarthome.controller.cli;
 import java.util.List;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.sensor_type.SensorType;
-import smarthome.domain.service.ISensorTypeService;
-import smarthome.domain.service.IUnitService;
 import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
+import smarthome.service.ISensorTypeService;
+import smarthome.service.IUnitService;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorTypeDTO;
-import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 import smarthome.utils.dto.UnitDTO;
+import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 
 public class AddSensorTypeController {
 

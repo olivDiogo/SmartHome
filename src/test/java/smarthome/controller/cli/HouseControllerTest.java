@@ -11,9 +11,9 @@ import smarthome.domain.house.House;
 import smarthome.domain.house.HouseFactoryImpl;
 import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.repository.IHouseRepository;
-import smarthome.domain.service.IHouseService;
 import smarthome.mapper.HouseAssembler;
 import smarthome.service.HouseServiceImpl;
+import smarthome.service.IHouseService;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.utils.dto.data_dto.HouseDataDTO;
 

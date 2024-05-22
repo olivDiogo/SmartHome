@@ -17,8 +17,6 @@ import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
-import smarthome.domain.service.IHouseService;
-import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.GPS;
@@ -30,6 +28,8 @@ import smarthome.mapper.RoomAssembler;
 import smarthome.persistence.mem.HouseRepository;
 import smarthome.persistence.mem.RoomRepository;
 import smarthome.service.HouseServiceImpl;
+import smarthome.service.IHouseService;
+import smarthome.service.IRoomService;
 import smarthome.service.RoomServiceImpl;
 import smarthome.utils.dto.RoomDTO;
 

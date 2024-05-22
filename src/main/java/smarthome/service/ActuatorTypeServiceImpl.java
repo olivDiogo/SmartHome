@@ -13,7 +13,7 @@ import smarthome.domain.value_object.UnitID;
 import smarthome.utils.Validator;
 
 @Service
-public class ActuatorTypeServiceImpl implements smarthome.domain.service.IActuatorTypeService {
+public class ActuatorTypeServiceImpl implements IActuatorTypeService {
 
   private final IActuatorTypeRepository actuatorTypeRepository;
   private final IActuatorTypeFactory actuatorTypeFactory;

@@ -8,11 +8,6 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import smarthome.domain.service.IActuatorModelService;
-import smarthome.domain.service.IActuatorTypeService;
-import smarthome.domain.service.ISensorModelService;
-import smarthome.domain.service.ISensorTypeService;
-import smarthome.domain.service.IUnitService;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
@@ -22,6 +17,11 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
+import smarthome.service.IActuatorModelService;
+import smarthome.service.IActuatorTypeService;
+import smarthome.service.ISensorModelService;
+import smarthome.service.ISensorTypeService;
+import smarthome.service.IUnitService;
 
 
 class LoadDefaultConfigurationTest {

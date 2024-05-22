@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.house.House;
-import smarthome.domain.service.IHouseService;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
+import smarthome.service.IHouseService;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.utils.dto.data_dto.HouseDataDTO;
 
@@ -67,7 +67,7 @@ public class HouseController {
   }
 
   /**
-   * Method to check if house exists by ID
+   * Method to get the house
    */
   @GetMapping()
   public ResponseEntity<EntityModel<HouseDTO>> getHouse() {

@@ -1,38 +1,27 @@
 package smarthome.controller.rest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.coyote.Response;
-import org.assertj.core.internal.ObjectArrayElementComparisonStrategy;
+import java.util.Collections;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
-import smarthome.domain.service.ISensorTypeService;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
-import smarthome.utils.dto.SensorTypeDTO;
 import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 
 @SpringBootTest

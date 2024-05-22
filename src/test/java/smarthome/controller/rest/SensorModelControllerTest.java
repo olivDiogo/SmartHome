@@ -15,10 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import smarthome.domain.repository.ISensorModelRepository;
 import smarthome.domain.sensor_model.SensorModel;
-import smarthome.domain.service.ISensorModelService;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorModelName;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.service.ISensorModelService;
 
 @SpringBootTest
 @AutoConfigureMockMvc

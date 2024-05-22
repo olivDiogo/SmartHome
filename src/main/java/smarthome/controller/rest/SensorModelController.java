@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.sensor_model.SensorModel;
-import smarthome.domain.service.ISensorModelService;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.service.ISensorModelService;
 import smarthome.utils.dto.SensorModelDTO;
 
 @RestController

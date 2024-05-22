@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.domain.log.Log;
-import smarthome.domain.service.IDeviceService;
-import smarthome.domain.service.ILogService;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
+import smarthome.service.IDeviceService;
+import smarthome.service.ILogService;
 import smarthome.utils.dto.LogDTO;
 
 @RestController

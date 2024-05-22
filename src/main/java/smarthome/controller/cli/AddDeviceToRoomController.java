@@ -5,15 +5,15 @@ import java.util.Optional;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
 import smarthome.domain.room.Room;
-import smarthome.domain.service.IDeviceService;
-import smarthome.domain.service.IRoomService;
 import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
+import smarthome.service.IDeviceService;
+import smarthome.service.IRoomService;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.DeviceDTO;
-import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.RoomDTO;
+import smarthome.utils.dto.data_dto.DeviceDataDTO;
 
 /**
  * Controller class responsible for handling device addition to rooms within a smart home domain.

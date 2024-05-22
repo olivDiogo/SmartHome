@@ -1,4 +1,4 @@
-package smarthome.domain.service;
+package smarthome.service;
 
 import java.util.Optional;
 import smarthome.ddd.IService;

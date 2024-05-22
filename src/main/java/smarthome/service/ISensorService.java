@@ -1,11 +1,10 @@
-package smarthome.domain.service;
+package smarthome.service;
 
+import java.util.List;
+import java.util.Optional;
 import smarthome.ddd.IService;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.SensorID;
-import javax.swing.text.html.Option;
-import java.util.List;
-import java.util.Optional;
 
 public interface ISensorService extends IService {
 
