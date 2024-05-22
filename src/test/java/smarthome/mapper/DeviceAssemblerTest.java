@@ -44,13 +44,12 @@ class DeviceAssemblerTest {
     DeviceAssembler deviceAssembler = new DeviceAssembler();
 
     DeviceDTO expectedDevice = new DeviceDTO(deviceID, roomID, deviceName, deviceStatus);
-    String expected = deviceID + " " + roomID + " " + deviceName + " " + deviceStatus;
 
     //Act
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(device);
 
     //Assert
-    assertEquals(expected, deviceDTO.toString());
+    assertEquals(expectedDevice.toString(), deviceDTO.toString());
   }
 
   /**
