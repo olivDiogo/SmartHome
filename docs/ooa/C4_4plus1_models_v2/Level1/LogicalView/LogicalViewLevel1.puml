@@ -3,10 +3,8 @@
 
 component SmartHome <<system (C4)>> {
 port p1
-port p2
 }
 
-CLIUI -down- p1
-APIRest -down- p2
+APIRest -down- p1
 
 @enduml

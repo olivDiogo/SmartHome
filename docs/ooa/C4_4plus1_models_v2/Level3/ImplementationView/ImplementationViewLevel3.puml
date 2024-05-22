@@ -19,6 +19,8 @@ package "Backend" {
     Component "Services Layer" {
         package "Services" {
         }
+        package "IServices" {
+        }
 
     }
 
@@ -26,8 +28,6 @@ package "Backend" {
         package Aggregates {
         }
         package "Value Objects" {
-        }
-        package "IServices" {
         }
         package "IRepositories"{
                 }
@@ -37,12 +37,12 @@ package "Backend" {
     ' Dependencies
     Infrastructure.Tests ..> "Interface Adapters.Controllers" : .
     Infrastructure.Persistence <.. "Interface Adapters.Repositories" : .
-    "Interface Adapters.Controllers" ..> "Services" : .
-    "Services" ..> Aggregates : .
-    "Services" ..> "Value Objects" : .
+    "Interface Adapters.Controllers" ..> "IServices" : .
+    "IServices" ..> Aggregates : .
+    "IServices" ..> "Value Objects" : .
     "Interface Adapters.Repositories" ..> Services
     "Repositories" ..|> "IRepositories" : .
-    "Services" ..|> "IServices" : .
+    "Services" ..right|> "IServices" : .
 }
 
 @enduml
