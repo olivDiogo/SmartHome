@@ -126,8 +126,7 @@ class DeviceControllerTest {
     return deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
   }
 
-  RoomDataDTO setupRoomDataDTO(House house) {
-    String houseIDStr = house.getID().toString();
+  RoomDataDTO setupRoomDataDTO() {
     String name = "Living Room";
     int floor = 1;
     int width = 10;
@@ -144,7 +143,7 @@ class DeviceControllerTest {
   void shouldReturnDeviceDTO_whenDeviceIsAddedToRoom() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
@@ -172,7 +171,7 @@ class DeviceControllerTest {
   void shouldReturnDeviceDTO_whenGetDeviceById() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
@@ -199,7 +198,7 @@ class DeviceControllerTest {
   void shouldReturnBadRequest_whenRoomDoesNotExist() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
     DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
@@ -222,8 +221,7 @@ class DeviceControllerTest {
   void shouldReturnBadRequest_whenDeviceTypeDoesNotExist() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
-    DeviceType deviceType = setupDeviceType();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     String deviceTypeDescription = "Bulb";
     DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
 
@@ -244,9 +242,7 @@ class DeviceControllerTest {
   @Test
   void shouldReturnBadRequest_whenHouseDoesNotExist() throws Exception {
     // Arrange
-    House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
-    DeviceType deviceType = setupDeviceType();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     String deviceTypeDescription = "Bulb";
     DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
 
@@ -266,7 +262,7 @@ class DeviceControllerTest {
   void shouldReturnNotFound_whenDeviceDoesNotExist() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
     DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
@@ -290,7 +286,7 @@ class DeviceControllerTest {
   void shouldReturnNotFound_whenDeviceTypeDoesNotExist() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
     DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
@@ -312,7 +308,7 @@ class DeviceControllerTest {
   void shouldReturnAllDevices_whenGetAllDevicesIsCalled() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
 
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
@@ -347,7 +343,7 @@ class DeviceControllerTest {
   void shouldReturnNotFound_whenNoDevicesAvailable() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -367,7 +363,7 @@ class DeviceControllerTest {
   void shouldReturnDeviceDTO_whenDeactivateDevice() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     Room room = setupRoom(roomDataDTO);
     String deviceTypeDescription = "Bulb";
@@ -396,7 +392,7 @@ class DeviceControllerTest {
   void shouldReturnNotFound_whenDeactivateDeviceDoesNotExist() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
     DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
@@ -421,7 +417,7 @@ class DeviceControllerTest {
   void shouldReturnNotFound_whenThereIsNoDeviceType() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     Room room = setupRoom(roomDataDTO);
     String deviceTypeDescription = "Bulb";
@@ -448,7 +444,7 @@ class DeviceControllerTest {
   void shouldReturnDevicesGroupedByFunctionality_whenDevicesHaveDifferentType() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     DeviceType deviceType2 = setupDeviceTypeTwo();
@@ -491,10 +487,10 @@ class DeviceControllerTest {
    * test getDeviceByRoomId method in RoomController
    */
   @Test
-  void shouldReturnDevices_whenGetDevicesByRoomId() throws Exception {
+  void shouldReturnDevices_whenGetDevicesWithRoomIdParameter() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     DeviceType deviceType2 = setupDeviceTypeTwo();
@@ -511,11 +507,71 @@ class DeviceControllerTest {
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
     when(deviceRepository.findByRoomID(room.getID())).thenReturn(List.of(device, deviceTwo, deviceThree));
 
+    String expected = "{\"_embedded\":"
+        + "{\"deviceDTOList\":["
+        + "{\"deviceID\":\"" + device.getID().getID() + "\",\"roomID\":\"" + room.getID().getID()
+        + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"},"
+        + "{\"deviceID\":\"" + deviceTwo.getID().getID() + "\",\"roomID\":\"" + room.getID().getID()
+        + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"},"
+        + "{\"deviceID\":\"" + deviceThree.getID().getID() + "\",\"roomID\":\"" + room.getID()
+        .getID() + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"}]},"
+        + "\"_links\":"
+        + "{\"self\":{\"href\":\"http://localhost/devices?room_id=" + room.getID().getID()
+        + "{&device_type_id}\",\"templated\":true}}}";
     // Act & Assert
-    mockMvc.perform(get("/devices/" + room.getID() + "/room")
+    MvcResult result = mockMvc.perform(
+            get("/devices?room_id=" + room.getID().getID() + "&device_type_id")
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._links.self").exists());
+        .andExpect(jsonPath("$._embedded.deviceDTOList", hasSize(3)))
+        .andExpect(jsonPath("$._links.self").exists())
+        .andReturn();
+    // Assert
+    assertEquals(expected, result.getResponse().getContentAsString());
+  }
+
+  @Test
+  void shouldReturnDevicesOfGivenType_whenGetDevicesWithRoomIdAndTypeParameter() throws Exception {
+    // Arrange
+    House house = setupHouse();
+    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    Room room = setupRoom(roomDataDTO);
+    DeviceType deviceType = setupDeviceType();
+    DeviceType deviceType2 = setupDeviceTypeTwo();
+    String deviceTypeDescription = "Bulb";
+    String deviceTypeDescription2 = "Fan";
+
+    Device device = setupDevice(setupDeviceDataDTO(room, deviceTypeDescription));
+    Device deviceTwo = setupDevice(setupDeviceDataDTO(room, deviceTypeDescription2));
+    Device deviceThree = setupDevice(setupDeviceDataDTO(room, deviceTypeDescription2));
+
+    when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
+    when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
+    when(deviceTypeRepository.ofIdentity(deviceType2.getID())).thenReturn(Optional.of(deviceType2));
+    when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
+    when(deviceRepository.findByRoomID(room.getID())).thenReturn(
+        List.of(device, deviceTwo, deviceThree));
+
+    String expected = "{\"_embedded\":"
+        + "{\"deviceDTOList\":["
+        + "{\"deviceID\":\"" + deviceTwo.getID().getID() + "\",\"roomID\":\"" + room.getID().getID()
+        + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"},"
+        + "{\"deviceID\":\"" + deviceThree.getID().getID() + "\",\"roomID\":\"" + room.getID()
+        .getID() + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"}]},"
+        + "\"_links\":"
+        + "{\"self\":{\"href\":\"http://localhost/devices?room_id=" + room.getID().getID()
+        + "&device_type_id=" + deviceType2.getID().getID() + "\"}}}";
+    // Act & Assert
+    MvcResult result = mockMvc.perform(
+            get("/devices?room_id=" + room.getID().getID() + "&device_type_id=" + deviceType2.getID()
+                .getID())
+                .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.deviceDTOList", hasSize(2)))
+        .andExpect(jsonPath("$._links.self").exists())
+        .andReturn();
+    // Assert
+    assertEquals(expected, result.getResponse().getContentAsString());
   }
 
 }

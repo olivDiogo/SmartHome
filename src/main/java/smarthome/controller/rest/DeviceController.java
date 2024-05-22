@@ -3,6 +3,7 @@ package smarthome.controller.rest;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,12 +28,12 @@ import smarthome.domain.device.Device;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceName;
+import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.mapper.DeviceTypeAssembler;
 import smarthome.service.IDeviceService;
 import smarthome.service.IDeviceTypeService;
-import smarthome.service.IRoomService;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.DeviceTypeDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
@@ -48,7 +49,6 @@ public class DeviceController {
   private final IAssembler<Device, DeviceDTO> deviceAssembler;
   private final IDeviceTypeService deviceTypeService;
   private final DeviceTypeAssembler deviceTypeAssembler;
-  private final IRoomService roomService;
 
   /**
    * Constructor for the DeviceController class.
@@ -61,12 +61,11 @@ public class DeviceController {
       IDeviceService deviceService,
       IAssembler<Device, DeviceDTO> deviceAssembler,
       IDeviceTypeService deviceTypeService,
-      DeviceTypeAssembler deviceTypeAssembler, IRoomService roomService) {
+      DeviceTypeAssembler deviceTypeAssembler) {
     this.deviceAssembler = deviceAssembler;
     this.deviceService = deviceService;
     this.deviceTypeService = deviceTypeService;
     this.deviceTypeAssembler = deviceTypeAssembler;
-    this.roomService = roomService;
   }
 
   /**
@@ -185,21 +184,34 @@ public class DeviceController {
   /**
    * Get all devices in a room
    *
-   * @param idStr is the room ID
+   * @param roomIdStr is the room ID
+   * @param deviceTypeIdStr is the device type
    * @return a list of all devices in the room with the given ID
    */
-  @GetMapping("/{id}/room")
-  public ResponseEntity<CollectionModel<DeviceDTO>> getDevicesByRoomID(
-      @PathVariable("id") String idStr) {
-    RoomID id = new RoomID(idStr);
+  @GetMapping(params = {"room_id", "device_type_id"})
+  public ResponseEntity<CollectionModel<DeviceDTO>> listDevices(
+      @RequestParam("room_id") String roomIdStr,
+      @Nullable @RequestParam("device_type_id") String deviceTypeIdStr) {
+    RoomID roomId = new RoomID(roomIdStr);
+    List<DeviceDTO> deviceDTOs;
 
-    roomService.getRoomById(id); // Check if room exists
-    List<DeviceDTO> deviceDTOs = deviceService.getDevicesByRoomId(id)
-        .stream()
-        .map(deviceAssembler::domainToDTO)
-        .toList();
+    List<Device> devices = deviceService.getDevicesByRoomId(roomId);
+
+    if (deviceTypeIdStr != null) {
+      DeviceTypeID deviceTypeId = new DeviceTypeID(deviceTypeIdStr);
+      deviceDTOs = devices.stream()
+          .filter(device -> device.getDeviceTypeID().equals(deviceTypeId))
+          .map(deviceAssembler::domainToDTO)
+          .toList();
+    } else {
+      deviceDTOs = devices.stream()
+          .map(deviceAssembler::domainToDTO)
+          .toList();
+    }
+
     CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
-        linkTo(methodOn(DeviceController.class).getDevicesByRoomID(idStr)).withSelfRel());
+        linkTo(methodOn(DeviceController.class).listDevices(roomIdStr,
+            deviceTypeIdStr)).withSelfRel());
     return ResponseEntity.ok(resource);
   }
 
