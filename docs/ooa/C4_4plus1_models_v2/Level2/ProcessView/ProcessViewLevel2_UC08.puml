@@ -22,7 +22,7 @@ activate SV
 SV -> DB : containsOfIdentity(deviceId)
 activate DB
 
-DB -> SV : true
+DB --> SV : true
 deactivate DB
 
 SV --> RC : deviceDTO
