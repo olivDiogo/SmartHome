@@ -96,7 +96,7 @@ class DeviceControllerTest {
   }
 
   Room setupRoom(RoomDataDTO roomDataDTO) {
-    HouseID houseID = new HouseID(roomDataDTO.houseID);
+    HouseID houseID = new HouseID("1");
     RoomName name = new RoomName(roomDataDTO.name);
     RoomFloor floor = new RoomFloor(roomDataDTO.floor);
     Dimension dimension = new Dimension(roomDataDTO.width, roomDataDTO.length, roomDataDTO.height);
@@ -133,7 +133,7 @@ class DeviceControllerTest {
     int width = 10;
     int length = 10;
     int height = 3;
-    return new RoomDataDTO(houseIDStr, name, floor, width, length, height);
+    return new RoomDataDTO(name, floor, width, length, height);
   }
 
 
@@ -250,7 +250,7 @@ class DeviceControllerTest {
     String deviceTypeDescription = "Bulb";
     DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
 
-    when(houseRepository.ofIdentity(new HouseID(roomDataDTO.houseID))).thenReturn(Optional.empty());
+    when(houseRepository.ofIdentity(new HouseID("1"))).thenReturn(Optional.empty());
 
     // Act & Assert
     mockMvc.perform(post("/devices")

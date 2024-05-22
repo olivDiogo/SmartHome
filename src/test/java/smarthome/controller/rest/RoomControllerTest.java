@@ -69,18 +69,17 @@ class RoomControllerTest {
   }
 
   RoomDataDTO setupRoomDataDTO(House house) {
-    String houseIDStr = house.getID().toString();
     String name = "Living Room";
     int floor = 1;
     int width = 10;
     int length = 10;
     int height = 3;
-    return new RoomDataDTO(houseIDStr, name, floor, width, length, height);
+    return new RoomDataDTO(name, floor, width, length, height);
   }
 
   // given a RoomDataDTO create a Room object using RoomFactory
   Room setupRoom(RoomDataDTO roomDataDTO) {
-    HouseID houseID = new HouseID(roomDataDTO.houseID);
+    HouseID houseID = new HouseID("1");
     RoomName name = new RoomName(roomDataDTO.name);
     RoomFloor floor = new RoomFloor(roomDataDTO.floor);
     Dimension dimension = new Dimension(roomDataDTO.width, roomDataDTO.length, roomDataDTO.height);
@@ -118,7 +117,7 @@ class RoomControllerTest {
     int width = 10;
     int length = 10;
     int height = 3;
-    RoomDataDTO roomDataDTO = new RoomDataDTO(houseIDStr, name, floor, width, length, height);
+    RoomDataDTO roomDataDTO = new RoomDataDTO(name, floor, width, length, height);
     when(houseRepository.ofIdentity(houseID)).thenReturn(Optional.empty());
 
     // Act & Assert

@@ -55,7 +55,7 @@ class RoomControllerTest {
     int width = 10;
     int length = 10;
     int height = 3;
-    RoomDataDTO roomDataDTO = new RoomDataDTO(houseID, name, floor, width, length, height);
+    RoomDataDTO roomDataDTO = new RoomDataDTO(name, floor, width, length, height);
 
     Room mockRoom = mock(Room.class);
     RoomName mockName = mock(RoomName.class);
@@ -90,7 +90,7 @@ class RoomControllerTest {
     int width = 10;
     int length = 10;
     int height = 3;
-    RoomDataDTO roomDataDTO = new RoomDataDTO(houseID, name, floor, width, length, height);
+    RoomDataDTO roomDataDTO = new RoomDataDTO(name, floor, width, length, height);
     RoomDTO mockRoomDTO = mock(RoomDTO.class);
     Room mockRoom = mock(Room.class);
 

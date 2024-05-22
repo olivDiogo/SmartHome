@@ -11,9 +11,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class RoomDataDTO {
 
-  @NotBlank (message = "HouseID cannot be empty")
-  public final String houseID;
-
   @NotBlank (message = "Name cannot be empty")
   public final String name;
 
