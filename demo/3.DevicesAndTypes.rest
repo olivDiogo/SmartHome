@@ -1,0 +1,9 @@
+//Add a device to a room
+POST http://localhost:8080/devices
+Content-Type: application/json
+
+{
+  "deviceTypeDescription": "Thermostat",
+  "deviceName": "My Beautiful Thermostat",
+  "roomID": "db521789-da9d-4736-a7b5-e7a274e00eb5"
+}
