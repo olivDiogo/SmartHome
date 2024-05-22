@@ -16,7 +16,7 @@ public interface IRepository<ID extends IDomainID, T extends IAggregateRoot<ID>>
   /**
    * Method to find all domain entities.
    *
-   * @return
+   * @return the list of domain entities.
    */
   List<T> findAll();
 

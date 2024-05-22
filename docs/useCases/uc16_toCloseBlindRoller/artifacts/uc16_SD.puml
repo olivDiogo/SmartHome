@@ -9,16 +9,25 @@ autonumber
     participant "logService:LogService" as LogService
     participant "actuatorRepo:ActuatorRepo" as ActuatorRepo
     participant "logRepository:LogRepository" as LogRepository
+    participant "sensorTypeID:SensorTypeID" as SensorTypeID
     participant "blindRollerValue:BlindRollerValue" as BlindRollerValue
     participant "actuatorID:ActuatorID" as ActuatorID
     participant "deviceID:DeviceID" as DeviceID
-
     participant "blindRollerActuator:BlindRollerActuator" as BlindRollerActuator
+    participant ":ActuatorAssembler" as ActuatorAssembler
+
 
     ref over User, ActuatorController: getActuatorsByDeviceID
 
 User o-> ActuatorController: closeBlindRoller(actuatorValueDTO)
 activate ActuatorController
+
+create SensorTypeID
+ActuatorController -> SensorTypeID: SensorTypeID ("PercentagePosition")
+activate SensorTypeID
+
+SensorTypeID --> ActuatorController: sensorTypeID
+deactivate SensorTypeID
 
 create BlindRollerValue
 ActuatorController -> BlindRollerValue: BlindRollerValue(value)
@@ -79,12 +88,18 @@ deactivate BlindRollerActuator
 ActuatorService --> ActuatorController: blindRollerValue
 
 else value higher than blindRollerValue
-ActuatorService --> ActuatorController: valueError
-deactivate ActuatorService
+ActuatorService --> ActuatorController: IllegalArgumentException
 
+deactivate ActuatorService
 end
 
-ActuatorController --> User: strBlindRollerValue
+ActuatorController -> ActuatorAssembler: domainToDTO (actuatorBlindRoller)
+activate ActuatorAssembler
+
+ActuatorAssembler --> ActuatorController: actuatorDTO
+deactivate ActuatorAssembler
+
+ActuatorController --> User: actuatorDTO
 deactivate ActuatorController
 
 @enduml
