@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+node "Backend" {
+  [Server] -0)- [DataBase]
+}
+
+node APIRest
+node CLIUI
+[Server] -left0)- APIRest
+[Server] -right0)- CLIUI
+
+@enduml
