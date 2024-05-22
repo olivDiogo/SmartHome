@@ -17,37 +17,47 @@ end box
 
 User o-> RC : I want to add an actuator to a device
 activate RC
+
 RC -> CTRL : addActuatorToDevice(actuatorDataDTO)
 activate CTRL
-CTRL -> DOM : CreateDeviceID(actuatorDataDTO)
+
+CTRL -> DOM : DeviceID(strDeviceID)
 activate DOM
 DOM --> CTRL : deviceID
 deactivate DOM
-CTRL -> DOM : CreateModelPath(actuatorDataDTO)
+
+CTRL -> DOM :ModelPath(strModelPath)
 activate DOM
 DOM --> CTRL : modelPath
 deactivate DOM
-CTRL -> DOM : CreateActuatorTypeID(actuatorDataDTO)
+
+CTRL -> DOM : ActuatorTypeID(strActuatorTypeID)
 activate DOM
 DOM --> CTRL : actuatorTypeID
 deactivate DOM
-CTRL -> DOM : CreateActuatorName(actuatorDataDTO)
+
+CTRL -> DOM :ActuatorName(strActuatorName)
 activate DOM
 DOM --> CTRL : actuatorName
 deactivate DOM
 
-CTRL -> SV : addActuatorToDevice(addActuatorToDevice(ActuatorModelID, deviceID, ActuatorTypeID, ActuatorName)
+CTRL -> SV : addActuatorToDevice(actuatorModelID, deviceID, actuatorTypeID, actuatorName)
 activate SV
+
 SV -> REPO : save(actuator)
 activate REPO
+
 REPO -> BD : save(actuator)
+
 REPO --> SV : actuator
 deactivate REPO
 
 SV --> CTRL : actuator
 deactivate SV
-CTRL --> RC : actuator
+
+CTRL --> RC : actuatorDTO
 deactivate CTRL
+
 RC --> User : actuatorDTO
 deactivate RC
 

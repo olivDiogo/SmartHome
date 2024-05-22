@@ -11,36 +11,48 @@ box "SmartHome"
     participant "Controller" as CTRL
     participant "Service" as SV
     participant "Repository" as REPO
+    participant "Domain" as DOM
     participant "DataBase" as BD
 end box
 
 
-User -> RC : I want to get all devices grouped by functionality
+User -> RC : I want to get all devices by room and temperature functionality
 activate RC
 
-
-RC -> CTRL: getAllDevicesGroupedByFunctionality()
+RC -> CTRL : getDevicesByRoomAndTemperatureFunctionality(roomID)
 activate CTRL
 
+CTRL -> DOM : RoomID(strRoomID)
+activate DOM
 
-CTRL -> SV: getAllDeviceTypes()
+DOM -> CTRL : roomID
+deactivate DOM
+
+CTRL -> SV: getDevicesByRoomID(roomID)
 activate SV
 
-SV -> REPO : findAll()
+SV -> REPO : findByRoomID(roomID)
 activate REPO
 
 REPO -> BD : find
 activate BD
 
-BD --> REPO : deviceTypeDataModelList
+
+BD --> REPO : deviceDataModelList
 deactivate BD
 
-REPO --> SV : deviceTypeList
-deactivate BD
+REPO --> SV : deviceList
 deactivate REPO
 
-SV --> CTRL : deviceTypeList
+SV --> CTRL : deviceList
+deactivate REPO
 deactivate SV
+
+CTRL -> DOM : deviceTypeID(strDeviceType)
+activate DOM
+
+DOM -> CTRL : deviceTypeID
+deactivate DOM
 
 CTRL -> SV : getDevicesByDeviceTypeID(deviceTypeID)
 activate SV
@@ -60,10 +72,10 @@ deactivate REPO
 SV --> CTRL : deviceList
 deactivate SV
 
-CTRL --> RC : deviceDTOListGroupedByFuncionallity
+CTRL --> RC : deviceDTOList
 deactivate CTRL
 
-RC --> User : deviceDTOListGroupedByFuncionallity
+RC --> User :  deviceDTOList
 deactivate RC
 
 

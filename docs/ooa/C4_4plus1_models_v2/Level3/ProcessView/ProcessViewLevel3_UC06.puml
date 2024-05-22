@@ -32,20 +32,23 @@ activate SV
 
 SV -> REPO : findByRoomID(roomId)
 activate REPO
+
 REPO -> BD : find
 activate BD
+
+BD --> REPO : deviceDataModelList
 deactivate BD
-REPO --> SV : List<Device>
+
+REPO --> SV : deviceList
 deactivate REPO
 
-SV --> CTRL : List<Device>
+SV --> CTRL : deviceList
 deactivate SV
 
-
-CTRL --> RC : List<DeviceDTO>
+CTRL --> RC : deviceDTOList
 deactivate CTRL
 
-RC --> User : List<DeviceDTO>
+RC --> User : deviceDTOList
 deactivate RC
 
 

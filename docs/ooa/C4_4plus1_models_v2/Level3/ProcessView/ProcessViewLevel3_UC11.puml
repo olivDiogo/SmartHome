@@ -17,22 +17,32 @@ end box
 
 User o-> RC : I want to get a log from the device in a given time
 activate RC
+
 RC -> CTRL : getLogFromDevice(logDataDTO)
 activate CTRL
+
 CTRL -> DOM : DatePeriod (start, end)
 activate DOM
 DOM --> CTRL : datePeriod
 deactivate DOM
-CTRL -> DOM : CreateDeviceID(deviceID)
+
+CTRL -> DOM : DeviceID(strDeviceID)
 activate DOM
 DOM --> CTRL : deviceID
 deactivate DOM
 
 CTRL -> SV : getDeviceReadingsByTimePeriod (deviceID, period)
 activate SV
+
 SV -> REPO : findByDeviceIdAndDatePeriodBetween(deviceID, period)
 activate REPO
+
 REPO -> BD : find
+activate BD
+
+BD --> REPO : readings
+deactivate BD
+
 REPO --> SV : logList
 deactivate REPO
 

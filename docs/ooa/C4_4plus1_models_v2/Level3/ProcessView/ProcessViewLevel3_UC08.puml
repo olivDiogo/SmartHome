@@ -19,39 +19,51 @@ end box
 User -> RC : I want to deactivate a device
 activate RC
 
-RC -> CTRL : requestAllDevices()
+RC -> CTRL : getAllDevices()
 activate CTRL
+
 CTRL -> SV : getAllDevices()
 activate SV
+
 SV -> REPO : findAll()
 activate REPO
-REPO -> BD : SELECT * FROM devices
+
+REPO -> BD : find
 activate BD
-BD --> REPO : deviceList
+
+BD --> REPO : deviceDataModelList
 deactivate BD
+
 REPO --> SV : deviceList
 deactivate REPO
-SV --> CTRL : deviceList
-CTRL --> RC : deviceList
-deactivate SV
-deactivate CTRL
 
-RC -> CTRL : requestDeactivateDevice(requestDeactivateDevice(deviceDTO))
-activate CTRL
-CTRL -> DOM : DeviceID(deviceID: String)
+SV --> CTRL : deviceList
+deactivate SV
+
+CTRL --> RC : deviceList
+
+RC -> CTRL : deactivateDevice(deviceDTO)
+
+CTRL -> DOM : DeviceID(strDeviceID)
 activate DOM
 DOM --> CTRL : deviceID
 deactivate DOM
+
 CTRL -> SV : deactivateDeviceByID(deviceID)
 activate SV
+
 SV -> DOM : deactivateDevice(): Status
 activate DOM
+
 DOM --> SV : status
 deactivate DOM
+
 SV --> CTRL : device
 deactivate SV
+
 CTRL --> RC : deviceDTO
 deactivate CTRL
+
 RC --> User : deviceDTO
 deactivate RC
 

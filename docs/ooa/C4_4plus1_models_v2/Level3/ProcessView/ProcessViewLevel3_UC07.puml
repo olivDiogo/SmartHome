@@ -21,25 +21,25 @@ activate RC
 RC -> CTRL : addSensor(sensorDataDTO)
 activate CTRL
 
-CTRL -> DM : CreateDeviceID(strDeviceID)
+CTRL -> DM : DeviceID(strDeviceID)
 activate DM
 
 DM --> CTRL : deviceID
 deactivate DM
 
-CTRL -> DM : CreateModelPath(strModelPath)
+CTRL -> DM : ModelPath(strModelPath)
 activate DM
 
 DM --> CTRL : modelPath
 deactivate DM
 
-CTRL -> DM : CreateSensorTypeID(strSensorTypeID)
+CTRL -> DM : SensorTypeID(strSensorTypeID)
 activate DM
 
 DM --> CTRL : sensorTypeID
 deactivate DM
 
-CTRL -> DM : CreateSensorName(strSensorName)
+CTRL -> DM : SensorName(strSensorName)
 activate DM
 
 DM --> CTRL : sensorName
