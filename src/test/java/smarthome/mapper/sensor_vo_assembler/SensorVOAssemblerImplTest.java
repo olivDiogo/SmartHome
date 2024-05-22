@@ -12,6 +12,7 @@ import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
 import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
@@ -45,13 +46,14 @@ class SensorVOAssemblerImplTest {
     // Arrange
     String deviceID = "deviceID";
     String sensorModelPath = "sensorModelPath";
+    String encodedSensorModelPath = PathEncoder.encode(sensorModelPath);
     String sensorName = "sensorName";
     String sensorTypeID = "sensorTypeID";
     String latitude = "8.5";
     String longitude = "0.7";
     ISensorDataDTO sensorDataDTO =
         new SensorDataWithGPSDTOImp(
-            deviceID, sensorModelPath, sensorName, sensorTypeID, latitude, longitude);
+            deviceID, encodedSensorModelPath, sensorName, sensorTypeID, latitude, longitude);
     SensorVOAssemblerImpl sensorVOAssembler = new SensorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);
@@ -75,10 +77,11 @@ class SensorVOAssemblerImplTest {
     // Arrange
     String deviceID = "deviceID";
     String sensorModelPath = "sensorModelPath";
+    String encodedSensorModelPath = PathEncoder.encode(sensorModelPath);
     String sensorName = "sensorName";
     String sensorTypeID = "sensorTypeID";
     ISensorDataDTO sensorDataDTO =
-        new SensorDataGenericDTOImp(deviceID, sensorModelPath,  sensorTypeID, sensorName);
+        new SensorDataGenericDTOImp(deviceID, encodedSensorModelPath, sensorTypeID, sensorName);
     SensorVOAssemblerImpl sensorVOAssembler = new SensorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);
@@ -101,13 +104,14 @@ class SensorVOAssemblerImplTest {
     // Arrange
     String deviceID = "deviceID";
     String sensorModelPath = "sensorModelPath";
+    String encodedSensorModelPath = PathEncoder.encode(sensorModelPath);
     String sensorName = "sensorName";
     String sensorTypeID = "sensorTypeID";
     String startDate = "2021-08-01T00:00:00";
     String endDate = "2021-08-02T00:00:00";
     ISensorDataDTO sensorDataDTO =
         new SensorDataWithDateDTOImp(
-            deviceID, sensorModelPath, sensorName, sensorTypeID, startDate, endDate);
+            deviceID, encodedSensorModelPath, sensorName, sensorTypeID, startDate, endDate);
     SensorVOAssemblerImpl sensorVOAssembler = new SensorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);

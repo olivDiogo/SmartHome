@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorModelName;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.SensorModelDTO;
 
 class SensorModelAssemblerTest {
@@ -29,7 +30,7 @@ class SensorModelAssemblerTest {
     SensorModelName sensorModelNameDouble = mock(SensorModelName.class);
     when(sensorModelNameDouble.toString()).thenReturn(sensorModelName);
 
-    String sensorModelPath = "path";
+    String sensorModelPath = PathEncoder.encode(sensorModelID);
     ModelPath sensorModelPathDouble = mock(ModelPath.class);
     when(sensorModelPathDouble.toString()).thenReturn(sensorModelPath);
 
@@ -75,57 +76,55 @@ class SensorModelAssemblerTest {
      {
 
     // Arrange
-    /* Sensor Model 1 */
-    String sensorModelID = "1";
-    ModelPath sensorModelIDDouble = mock(ModelPath.class);
-    when(sensorModelIDDouble.toString()).thenReturn(sensorModelID);
+       // sensorModel1
+       String sensorModelID = "1";
+       ModelPath sensorModelIDDouble = mock(ModelPath.class);
+       when(sensorModelIDDouble.toString()).thenReturn(sensorModelID);
 
-    String sensorModelName = "Temperature";
-    SensorModelName sensorModelNameDouble = mock(SensorModelName.class);
-    when(sensorModelNameDouble.toString()).thenReturn(sensorModelName);
+       String sensorModelName = "Temperature";
+       SensorModelName sensorModelNameDouble = mock(SensorModelName.class);
+       when(sensorModelNameDouble.toString()).thenReturn(sensorModelName);
 
-    String sensorModelPath = "path";
-    ModelPath sensorModelPathDouble = mock(ModelPath.class);
-    when(sensorModelPathDouble.toString()).thenReturn(sensorModelPath);
+       String sensorModelPath = PathEncoder.encode(sensorModelID);
+       ModelPath sensorModelPathDouble = mock(ModelPath.class);
+       when(sensorModelPathDouble.toString()).thenReturn(sensorModelPath);
 
-    SensorModel sensorModelDouble = mock(SensorModel.class);
-    when(sensorModelDouble.getID()).thenReturn(sensorModelIDDouble);
-    when(sensorModelDouble.getName()).thenReturn(sensorModelNameDouble);
-    when(sensorModelDouble.getModelPath()).thenReturn(sensorModelPathDouble);
+       SensorModel sensorModelDouble = mock(SensorModel.class);
+       when(sensorModelDouble.getID()).thenReturn(sensorModelIDDouble);
+       when(sensorModelDouble.getName()).thenReturn(sensorModelNameDouble);
+       when(sensorModelDouble.getModelPath()).thenReturn(sensorModelPathDouble);
 
-    /* Sensor Model 2 */
-    String sensorModelID2 = "2";
-    ModelPath sensorModelIDDouble2 = mock(ModelPath.class);
-    when(sensorModelIDDouble2.toString()).thenReturn(sensorModelID2);
+       SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
 
-    String sensorModelName2 = "Temperature";
-    SensorModelName sensorModelNameDouble2 = mock(SensorModelName.class);
-    when(sensorModelNameDouble2.toString()).thenReturn(sensorModelName2);
+       // sensorModel2
+       String sensorModelID2 = "2";
+       ModelPath sensorModelIDDouble2 = mock(ModelPath.class);
+       when(sensorModelIDDouble2.toString()).thenReturn(sensorModelID2);
 
-    String sensorModelPath2 = "path";
-    ModelPath sensorModelPathDouble2 = mock(ModelPath.class);
-    when(sensorModelPathDouble2.toString()).thenReturn(sensorModelPath2);
+       String sensorModelName2 = "Humidity";
+       SensorModelName sensorModelNameDouble2 = mock(SensorModelName.class);
+       when(sensorModelNameDouble2.toString()).thenReturn(sensorModelName2);
 
-    SensorModel sensorModelDouble2 = mock(SensorModel.class);
-    when(sensorModelDouble2.getID()).thenReturn(sensorModelIDDouble2);
-    when(sensorModelDouble2.getName()).thenReturn(sensorModelNameDouble2);
-    when(sensorModelDouble2.getModelPath()).thenReturn(sensorModelPathDouble2);
+       String sensorModelPath2 = PathEncoder.encode(sensorModelID2);
+       ModelPath sensorModelPathDouble2 = mock(ModelPath.class);
+       when(sensorModelPathDouble2.toString()).thenReturn(sensorModelPath2);
 
-    List sensorModels = List.of(sensorModelDouble, sensorModelDouble2);
+       SensorModel sensorModelDouble2 = mock(SensorModel.class);
+       when(sensorModelDouble2.getID()).thenReturn(sensorModelIDDouble2);
+       when(sensorModelDouble2.getName()).thenReturn(sensorModelNameDouble2);
+       when(sensorModelDouble2.getModelPath()).thenReturn(sensorModelPathDouble2);
 
-    SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-
-    SensorModelDTO sensorModelDTO =
-        new SensorModelDTO(sensorModelID, sensorModelName, sensorModelPath);
-    SensorModelDTO sensorModelDTO2 =
-        new SensorModelDTO(sensorModelID2, sensorModelName2, sensorModelPath2);
-    List<SensorModelDTO> expected = List.of(sensorModelDTO, sensorModelDTO2);
+       List<SensorModel> sensorModels = List.of(sensorModelDouble, sensorModelDouble2);
 
     // Act
     List<SensorModelDTO> sensorModelsDTO = sensorModelAssembler.domainToDTO(sensorModels);
 
     // Assert
-    assertEquals(expected.toString(), sensorModelsDTO.toString());
+       assertEquals(2, sensorModelsDTO.size());
+       assertEquals(sensorModelID + " " + sensorModelName + " " + sensorModelPath,
+           sensorModelsDTO.get(0).toString());
+       assertEquals(sensorModelID2 + " " + sensorModelName2 + " " + sensorModelPath2,
+           sensorModelsDTO.get(1).toString());
   }
 
   /**

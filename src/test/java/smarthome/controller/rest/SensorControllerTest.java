@@ -1,28 +1,21 @@
 package smarthome.controller.rest;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import smarthome.domain.device.Device;
 import smarthome.domain.device.DeviceFactoryImpl;
 import smarthome.domain.device_type.DeviceType;
@@ -58,7 +51,7 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
 import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
@@ -162,6 +155,7 @@ class SensorControllerTest {
 
     String deviceIDStr = device.getID().toString();
     String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
+    sensorModelPath = PathEncoder.encode(sensorModelPath);
     String sensorName = "DewPoint";
 
     /* create unit */
@@ -217,6 +211,7 @@ class SensorControllerTest {
     Unit sensorUnit = unitFactory.createUnit(unit, strUnitSymbol);
 
     String sensorModelPath = "smarthome.domain.sensor.sunset_time_sensor.SunsetTimeSensor";
+    sensorModelPath = PathEncoder.encode(sensorModelPath);
     String sensorName = "SunSet";
 
     String latitude = "38.7143";
@@ -262,6 +257,7 @@ class SensorControllerTest {
     Unit sensorUnit = unitFactory.createUnit(unit, strUnitSymbol);
 
     String sensorModelPath = "smarthome.domain.sensor.electric_consumption_wh_sensor.ElectricConsumptionWhSensor";
+    sensorModelPath = PathEncoder.encode(sensorModelPath);
     String sensorName = "ElectricConsumptionWh";
 
     LocalDateTime startDate = LocalDateTime.now().minusDays(1);

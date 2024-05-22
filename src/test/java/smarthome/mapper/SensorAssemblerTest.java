@@ -13,6 +13,7 @@ import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.SensorDTO;
 
 class SensorAssemblerTest {
@@ -24,7 +25,8 @@ class SensorAssemblerTest {
   void shouldConvertSensorToSensorDTO_WhenSensorIsValid() {
     // Arrange
     String deviceID = "123";
-    String modelPath = "SmartHome.sensors.DewPointSensor";
+    String modelPath = "sensorModelPath";
+    String expectedModelPath = PathEncoder.encode(modelPath);
     String sensorTypeID = "321";
     String sensorID = "432";
     String sensorName = "dewPoint";
@@ -53,7 +55,7 @@ class SensorAssemblerTest {
 
     SensorAssembler sensorAssembler = new SensorAssembler();
     String expected =
-        deviceID + " " + modelPath + " " + sensorTypeID + " " + sensorID + " " + sensorName;
+        deviceID + " " + expectedModelPath + " " + sensorTypeID + " " + sensorID + " " + sensorName;
 
     // Act
     SensorDTO sensorDTO = sensorAssembler.domainToDTO(sensorDouble);
@@ -95,13 +97,15 @@ class SensorAssemblerTest {
   void shouldConvertSensorListToListOfSensorsDTOList(){
     // Arrange
     String deviceID = "123";
-    String modelPath = "SmartHome.sensors.DewPointSensor";
+    String modelPath = "sensorModelPath";
+    String expectedModelPath = PathEncoder.encode(modelPath);
     String sensorTypeID = "321";
     String sensorID = "432";
     String sensorName = "dewPoint";
 
     String deviceID2 = "12";
-    String modelPath2 = "SmartHome.sensors.DewPointSensor";
+    String modelPath2 = "sensorModelPath2";
+    String expectedModelPath2 = PathEncoder.encode(modelPath2);
     String sensorTypeID2 = "321";
     String sensorID2 = "43212";
     String sensorName2 = "dewPoint2";
@@ -156,8 +160,9 @@ class SensorAssemblerTest {
 
     List<ISensor> sensors = List.of(sensorDouble, sensorDouble2);
 
-    SensorDTO sensorDTO1 = new SensorDTO(deviceID, modelPath, sensorID, sensorTypeID, sensorName);
-    SensorDTO sensorDTO2 = new SensorDTO(deviceID2, modelPath2, sensorID2, sensorTypeID2,
+    SensorDTO sensorDTO1 = new SensorDTO(deviceID, expectedModelPath, sensorID, sensorTypeID,
+        sensorName);
+    SensorDTO sensorDTO2 = new SensorDTO(deviceID2, expectedModelPath2, sensorID2, sensorTypeID2,
         sensorName2);
     List<SensorDTO> expected = List.of(sensorDTO1, sensorDTO2);
 

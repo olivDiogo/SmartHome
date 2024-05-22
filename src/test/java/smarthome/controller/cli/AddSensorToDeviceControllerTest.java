@@ -71,6 +71,7 @@ import smarthome.service.SensorModelServiceImpl;
 import smarthome.service.SensorServiceImpl;
 import smarthome.service.SensorTypeServiceImpl;
 import smarthome.service.UnitServiceImpl;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.SensorDTO;
 import smarthome.utils.dto.SensorModelDTO;
 import smarthome.utils.dto.SensorTypeDTO;
@@ -596,6 +597,7 @@ class AddSensorToDeviceControllerTest {
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smarthome.domain.sensor.temperature_sensor.TemperatureSensor";
+    modelPath = PathEncoder.encode(modelPath);
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
@@ -641,6 +643,7 @@ class AddSensorToDeviceControllerTest {
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smarthome.domain.sensor.humidity_sensor.HumiditySensor";
+    modelPath = PathEncoder.encode(modelPath);
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
@@ -689,6 +692,7 @@ class AddSensorToDeviceControllerTest {
 
     String modelPath =
         "smarthome.domain.sensor.average_power_consumption_sensor.AveragePowerConsumptionSensor";
+    modelPath = PathEncoder.encode(modelPath);
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
@@ -735,6 +739,8 @@ class AddSensorToDeviceControllerTest {
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smarthome.domain.sensor.switch_sensor.SwitchSensor";
+    modelPath = PathEncoder.encode(modelPath);
+
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
@@ -781,6 +787,7 @@ class AddSensorToDeviceControllerTest {
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
+    modelPath = PathEncoder.encode(modelPath);
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
@@ -827,6 +834,7 @@ class AddSensorToDeviceControllerTest {
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smarthome.domain.sensor.solar_irradiance_sensor.SolarIrradianceSensor";
+    modelPath = PathEncoder.encode(modelPath);
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
@@ -874,6 +882,7 @@ class AddSensorToDeviceControllerTest {
 
     String modelPath =
         "smarthome.domain.sensor.percentage_position_sensor.PercentagePositionSensor";
+    modelPath = PathEncoder.encode(modelPath);
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
@@ -921,6 +930,7 @@ class AddSensorToDeviceControllerTest {
 
     String modelPath =
         "smarthome.domain.sensor.instant_power_consumption_sensor.InstantPowerConsumptionSensor";
+    modelPath = PathEncoder.encode(modelPath);
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
@@ -968,6 +978,7 @@ class AddSensorToDeviceControllerTest {
 
     String modelPath =
         "smarthome.domain.sensor.percentage_position_sensor.PercentagePositionSensor";
+    modelPath = PathEncoder.encode(modelPath);
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);
@@ -1055,6 +1066,7 @@ class AddSensorToDeviceControllerTest {
     sensorTypeServiceImpl.addSensorType(sensorType);
 
     String modelPath = "smarthome.domain.sensor.temperature_sensor.TemperatureSensor";
+    modelPath = PathEncoder.encode(modelPath);
     String sensorName = "Sensor";
 
     sensorTypeAssembler.domainToDTO(sensorType);

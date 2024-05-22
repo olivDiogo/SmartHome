@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.sensor_model.SensorModel;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorModelDTO;
 
@@ -16,7 +17,8 @@ public class SensorModelAssembler implements IAssembler<SensorModel, SensorModel
 
     String sensorModelID = domainEntity.getID().toString();
     String sensorModelName = domainEntity.getName().toString();
-    String sensorModelPath = domainEntity.getModelPath().toString();
+    String sensorModelPath = domainEntity.getID().toString();
+    sensorModelPath = PathEncoder.encode(sensorModelPath);
 
     return new SensorModelDTO(sensorModelID, sensorModelName,
         sensorModelPath);

@@ -7,6 +7,7 @@ import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
+import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
 import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
@@ -22,7 +23,8 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
    */
   private static Object[] getSensorParameters(SensorDataGenericDTOImp sensorDataDTO) {
     DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
-    ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
+    String decodedModelPath = PathEncoder.decode(sensorDataDTO.sensorModelPath);
+    ModelPath modelPath = new ModelPath(decodedModelPath);
     SensorName sensorName = new SensorName(sensorDataDTO.sensorName);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorDataDTO.sensorTypeID);
     return new Object[]{deviceID, modelPath, sensorTypeID, sensorName};
@@ -36,7 +38,8 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
    */
   private static Object[] getSensorParameters(SensorDataWithGPSDTOImp sensorDataDTO) {
     DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
-    ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
+    String decodedModelPath = PathEncoder.decode(sensorDataDTO.sensorModelPath);
+    ModelPath modelPath = new ModelPath(decodedModelPath);
     SensorName sensorName = new SensorName(sensorDataDTO.sensorName);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorDataDTO.sensorTypeID);
     double latitude = Double.parseDouble(sensorDataDTO.latitude);
@@ -53,7 +56,8 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
    */
   private static Object[] getSensorParameters(SensorDataWithDateDTOImp sensorDataDTO) {
     DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
-    ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
+    String decodedModelPath = PathEncoder.decode(sensorDataDTO.sensorModelPath);
+    ModelPath modelPath = new ModelPath(decodedModelPath);
     SensorName sensorName = new SensorName(sensorDataDTO.sensorName);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorDataDTO.sensorTypeID);
     LocalDateTime startDate = LocalDateTime.parse(sensorDataDTO.startDate);
