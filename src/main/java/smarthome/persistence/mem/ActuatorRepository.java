@@ -76,9 +76,11 @@ public class ActuatorRepository implements IActuatorRepository {
    * @param deviceID is the unique identifier of the device.
    * @return the list of actuators in the device.
    */
-  public List<IActuator> findByDeviceID(DeviceID deviceID) {
+  @Override
+  public List<IActuator> ofDeviceID(DeviceID deviceID) {
     List<IActuator> actuators = DATA.values().stream()
         .filter(actuator -> actuator.getDeviceID().equals(deviceID)).toList();
     return actuators;
   }
+
 }

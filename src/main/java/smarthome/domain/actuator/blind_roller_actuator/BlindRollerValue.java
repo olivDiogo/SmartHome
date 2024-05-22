@@ -1,8 +1,8 @@
 package smarthome.domain.actuator.blind_roller_actuator;
 
-import smarthome.ddd.IValueObject;
+import smarthome.ddd.IActuatorValue;
 
-public class BlindRollerValue implements IValueObject {
+public class BlindRollerValue implements IActuatorValue {
 
   private final int value;
 

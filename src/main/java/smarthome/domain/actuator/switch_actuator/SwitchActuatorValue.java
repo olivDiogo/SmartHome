@@ -1,8 +1,9 @@
 package smarthome.domain.actuator.switch_actuator;
 
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IValueObject;
 
-public class SwitchActuatorValue implements IValueObject {
+public class SwitchActuatorValue implements IActuatorValue {
 
 
   private boolean value;

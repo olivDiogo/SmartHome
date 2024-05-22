@@ -106,4 +106,12 @@ public class LogRepository implements ILogRepository {
         .filter(log -> log.getTimeStamp().isBefore(period.getEndDate().plusSeconds(1)))
         .toList();
   }
+
+  @Override
+  public List<Log> findByDeviceIDAndSensorTypeID(DeviceID deviceID, SensorTypeID sensorTypeID) {
+    return DATA.values().stream()
+        .filter(log -> log.getDeviceID().getID().equals(deviceID.getID()))
+        .filter(log -> log.getDescription().getID().equals(sensorTypeID.getID()))
+        .toList();
+  }
 }

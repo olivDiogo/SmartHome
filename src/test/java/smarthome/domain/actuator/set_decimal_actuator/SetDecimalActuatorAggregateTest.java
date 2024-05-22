@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smarthome.domain.value_object.ActuatorID;
@@ -732,7 +733,7 @@ class SetDecimalActuatorAggregateTest {
     SetDecimalActuator setDecimalActuator = new SetDecimalActuator(deviceID, modelPath,
         actuatorTypeID, actuatorName, limits);
 
-    IValueObject nonDecimalValue = new BlindRollerValue(2);
+    IActuatorValue nonDecimalValue = new BlindRollerValue(2);
     IValueObject result = setDecimalActuator.setValue(nonDecimalValue);
 
     assertNull(result);

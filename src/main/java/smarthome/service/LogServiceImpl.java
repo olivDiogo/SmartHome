@@ -251,5 +251,15 @@ public class LogServiceImpl implements ILogService {
     return readings;
   }
 
+  /**
+   * Method to get the list of readings of a device.
+   * @param deviceID is the device ID.
+   * @return List of Log
+   */
+  @Override
+  public List<Log> getDeviceReadingsByDeviceIDAndSensorTypeID(DeviceID deviceID, SensorTypeID sensorTypeID) {
+    return logRepository.findByDeviceIDAndSensorTypeID(deviceID, sensorTypeID);
+  }
+
 }
 

@@ -1,6 +1,7 @@
 package smarthome.domain.actuator.set_decimal_actuator;
 
 import java.util.UUID;
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.value_object.ActuatorID;
@@ -164,7 +165,7 @@ public class SetDecimalActuator implements IActuator {
    * @throws IllegalArgumentException if the provided value is null or outside the specified
    *                                  limits.
    */
-  public SetDecimalValue setValue(IValueObject value) {
+  public SetDecimalValue setValue(IActuatorValue value) {
     if (value == null) {
       throw new IllegalArgumentException("Value cannot be null");
     }

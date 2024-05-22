@@ -1,11 +1,12 @@
 package smarthome.domain.actuator.set_decimal_actuator;
 
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IValueObject;
 
 /**
  * Represents a decimal value that can be set for an actuator.
  */
-public class SetDecimalValue implements IValueObject {
+public class SetDecimalValue implements IActuatorValue {
 
   private final double value;
 

@@ -1,6 +1,7 @@
 package smarthome.domain.actuator.switch_actuator;
 
 import java.util.UUID;
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.value_object.ActuatorID;
@@ -147,12 +148,10 @@ public class SwitchActuator implements IActuator {
    * @return the value object of this Actuator
    */
   @Override
-  public IValueObject setValue(IValueObject value) {
-    if (value == null) {
-      throw new IllegalArgumentException("The value of 'value' should not be null.");
-    } else if (value instanceof SwitchActuatorValue) {
-      this.value = (SwitchActuatorValue) value;
-      return value;
+  public SwitchActuatorValue setValue(IActuatorValue value) {
+    if (value instanceof SwitchActuatorValue switchActuatorValue) {
+      this.value = switchActuatorValue;
+      return switchActuatorValue;
     }
     return null;
   }

@@ -3,6 +3,7 @@ package smarthome.service;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import smarthome.ddd.IActuatorValue;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.IActuatorFactory;
 import smarthome.domain.actuator_type.ActuatorType;
@@ -10,13 +11,15 @@ import smarthome.domain.device.Device;
 import smarthome.domain.repository.IActuatorRepository;
 import smarthome.domain.repository.IActuatorTypeRepository;
 import smarthome.domain.repository.IDeviceRepository;
+import smarthome.domain.service.IActuatorService;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.ReadingValue;
 import smarthome.utils.Validator;
 
 @Service
-public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorService {
+public class ActuatorServiceImpl implements IActuatorService {
 
   private final IActuatorRepository actuatorRepository;
   private final IActuatorFactory actuatorFactory;
@@ -115,4 +118,24 @@ public class ActuatorServiceImpl implements smarthome.domain.service.IActuatorSe
   public List<IActuator> getAllActuators() {
     return actuatorRepository.findAll();
   }
+
+  @Override
+  public List<IActuator> getActuatorsByDeviceID(DeviceID deviceID) {
+    return actuatorRepository.ofDeviceID(deviceID);
+  }
+
+  @Override
+  public IActuatorValue setValue(IActuator actuator, IActuatorValue valueToSet, ReadingValue currentValue) {
+    int newValue = Integer.parseInt(valueToSet.toString());
+    int currentValueInt = Integer.parseInt(currentValue.getValue());
+
+    if(newValue >= 0 && newValue <=100 && newValue <= currentValueInt) {
+      actuator.setValue(valueToSet);
+    }
+    else {
+      throw new IllegalArgumentException("New value must be less than current value");
+    }
+    return valueToSet;
+  }
+
 }

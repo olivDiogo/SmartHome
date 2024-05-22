@@ -1,6 +1,7 @@
 package smarthome.domain.actuator.set_integer_actuator;
 
 import java.util.UUID;
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.value_object.ActuatorID;
@@ -161,7 +162,7 @@ public class SetIntegerActuator implements IActuator {
    * @return SetIntegerValue
    */
   @Override
-  public SetIntegerValue setValue(IValueObject value) {
+  public SetIntegerValue setValue(IActuatorValue value) {
     if (value == null) {
       throw new IllegalArgumentException("Value cannot be null");
     }

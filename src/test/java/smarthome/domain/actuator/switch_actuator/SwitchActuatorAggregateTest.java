@@ -11,6 +11,7 @@ import static org.mockito.Mockito.mock;
 
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smarthome.domain.value_object.ActuatorID;
@@ -571,38 +572,6 @@ class SwitchActuatorAggregateTest {
   }
 
   /**
-   * Should throw IllegalArgumentException when value is null.
-   */
-  @Test
-  void shouldThrowIllegalArgumentException_WhenValueIsNull() {
-    // Arrange
-    String deviceIDString = "deviceID";
-    String modelPathString = "modelPath";
-    String actuatorNameString = "actuatorName";
-    String actuatorTypeIDString = "Switch";
-
-    DeviceID deviceID = new DeviceID(deviceIDString);
-    ModelPath modelPath = new ModelPath(modelPathString);
-    ActuatorName actuatorName = new ActuatorName(actuatorNameString);
-    ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeIDString);
-    SwitchActuatorValue valueDouble = null;
-
-    SwitchActuator switchActuator = new SwitchActuator(deviceID, modelPath, actuatorTypeID,
-        actuatorName);
-
-    String expectedMessage = "The value of 'value' should not be null.";
-
-    // Act & Assert
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-      switchActuator.setValue(valueDouble);
-    });
-
-    String actualMessage = exception.getMessage();
-
-    assertEquals(expectedMessage, actualMessage);
-  }
-
-  /**
    * Should return null when value is not instance of SwitchActuatorValue.
    */
   @Test
@@ -619,13 +588,13 @@ class SwitchActuatorAggregateTest {
     ActuatorTypeID actuatorTypeID = new ActuatorTypeID(actuatorTypeIDString);
 
     int value = 1;
-    IValueObject valueDouble = new BlindRollerValue(value);
+    IActuatorValue valueDouble = new BlindRollerValue(value);
 
     SwitchActuator switchActuator = new SwitchActuator(deviceID, modelPath, actuatorTypeID,
         actuatorName);
 
     // Act
-    IValueObject result = switchActuator.setValue(valueDouble);
+    IActuatorValue  result = switchActuator.setValue(valueDouble);
 
     // Assert
     assertNull(result);

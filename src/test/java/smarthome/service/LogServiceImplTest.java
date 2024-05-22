@@ -800,6 +800,34 @@ class LogServiceImplTest {
     assertTrue(result.isEmpty(), "Result should be an empty list when no logs are found");
   }
 
+  @Test
+  void shouldReturnDevicesReadingsByDeviceIDAndSensorTypeID () {
+    //Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository);
+
+    // Mock Log data
+    Log log1 = createMockLog("5", LocalDateTime.of(2024, 1, 1, 1, 1));
+    Log log2 = createMockLog("10", LocalDateTime.of(2024, 1, 1, 1, 2));
+    List<Log> expectedLogs = List.of(log1, log2);
+
+    // Mock Device and related data
+    Device device = mock(Device.class);
+    DeviceID deviceID = mock(DeviceID.class);
+    when(device.getID()).thenReturn(deviceID);
+
+    // Mock input parameters
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    when(logRepository.findByDeviceIDAndSensorTypeID(deviceID, sensorTypeID))
+        .thenReturn(expectedLogs);
+
+    // Act
+    List<Log> result = logService.getDeviceReadingsByDeviceIDAndSensorTypeID(deviceID, sensorTypeID);
+
+    // Assert
+    assertEquals(expectedLogs, result);
+  }
+
 
 
 

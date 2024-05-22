@@ -189,7 +189,7 @@ public class DeviceController {
    * @return a list of all devices in the room with the given ID
    */
   @GetMapping("/{id}/room")
-  public ResponseEntity<CollectionModel<DeviceDTO>> getDevicesInAGivenRoom(
+  public ResponseEntity<CollectionModel<DeviceDTO>> getDevicesByRoomID(
       @PathVariable("id") String idStr) {
     RoomID id = new RoomID(idStr);
 
@@ -199,7 +199,7 @@ public class DeviceController {
         .map(deviceAssembler::domainToDTO)
         .toList();
     CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
-        linkTo(methodOn(DeviceController.class).getDevicesInAGivenRoom(idStr)).withSelfRel());
+        linkTo(methodOn(DeviceController.class).getDevicesByRoomID(idStr)).withSelfRel());
     return ResponseEntity.ok(resource);
   }
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.repository.IActuatorRepository;
 import smarthome.domain.value_object.ActuatorID;
+import smarthome.domain.value_object.DeviceID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 import smarthome.utils.Validator;
@@ -96,4 +97,16 @@ public class ActuatorSpringDataRepository implements IActuatorRepository {
     return this.repository.existsById(objectID.getID());
   }
 
+  /**
+   * Finds all actuator entities with the specified device ID.
+   * @param deviceID is the unique identifier of the device.
+   * @return a list of all actuator entities with the specified device ID.
+   */
+  @Override
+  public List<IActuator> ofDeviceID(DeviceID deviceID) {
+    List<ActuatorDataModel> listActuatorDataModel = repository.findByDeviceID(deviceID.getID());
+
+    return this.assembler.toDomain(listActuatorDataModel);
+
+  }
 }

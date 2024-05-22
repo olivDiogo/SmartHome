@@ -141,7 +141,7 @@ public class LogRepositoryJPAImpl implements ILogRepository {
     try {
       Query query =
           em.createQuery(
-              "SELECT e FROM LogDataModel e WHERE e._deviceID = :deviceID AND e._timestamp BETWEEN :start AND :end");
+              "SELECT e FROM LogDataModel e WHERE e.deviceID = :deviceID AND e.timestamp BETWEEN :start AND :end");
       query.setParameter("deviceID", deviceID.getID());
       query.setParameter("start", period.getStartDate());
       query.setParameter("end", period.getEndDate());
@@ -170,11 +170,30 @@ public class LogRepositoryJPAImpl implements ILogRepository {
     try {
       Query query =
           em.createQuery(
-              "SELECT e FROM LogDataModel e WHERE e._deviceID = :deviceID AND e._description = :sensorTypeID AND e._timestamp BETWEEN :start AND :end");
+              "SELECT e FROM LogDataModel e WHERE e.deviceID = :deviceID AND e.description = :sensorTypeID AND e.timestamp BETWEEN :start AND :end");
       query.setParameter("deviceID", deviceID.getID());
       query.setParameter("sensorTypeID", sensorTypeID.getID());
       query.setParameter("start", period.getStartDate());
       query.setParameter("end", period.getEndDate());
+
+      List<LogDataModel> logDataModels = query.getResultList();
+      List<Log> logs = dataModelAssembler.toDomain(logDataModels);
+
+      return logs;
+    } finally {
+      em.close();
+    }
+  }
+
+  @Override
+  public List<Log> findByDeviceIDAndSensorTypeID(DeviceID deviceID, SensorTypeID sensorTypeID) {
+    EntityManager em = getEntityManager();
+    try {
+      Query query =
+          em.createQuery(
+              "SELECT e FROM LogDataModel e WHERE e.deviceID = :deviceID AND e.description = :sensorTypeID");
+      query.setParameter("deviceID", deviceID.getID());
+      query.setParameter("sensorTypeID", sensorTypeID.getID());
 
       List<LogDataModel> logDataModels = query.getResultList();
       List<Log> logs = dataModelAssembler.toDomain(logDataModels);

@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
+import smarthome.ddd.IActuatorValue;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.IActuatorFactory;
 import smarthome.domain.actuator_type.ActuatorType;
@@ -23,6 +24,7 @@ import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.domain.value_object.ReadingValue;
 import smarthome.persistence.mem.ActuatorRepository;
 import smarthome.persistence.mem.DeviceRepository;
 
@@ -323,6 +325,177 @@ class ActuatorServiceImplTest {
                 actuatorServiceImpl.addActuator(deviceID, modelPath, actuatorTypeID, actuatorName));
 
     // Assert
+    assertEquals(expectedMessage, exception.getMessage());
+  }
+
+  /**
+   * Tests if the method getActuatorsByDeviceID returns a list of actuators when the device ID is valid
+   */
+  @Test
+  void shouldReturnActuatorListByDeviceID () {
+    //Arrange
+    IActuatorRepository actuatorRepository = mock(IActuatorRepository.class);
+    IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    IActuatorTypeRepository actuatorTypeRepository = mock(IActuatorTypeRepository.class);
+
+    ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository, actuatorTypeRepository);
+
+    DeviceID deviceID = mock(DeviceID.class);
+
+    IActuator actuatorMock = mock(IActuator.class);
+    IActuator actuatorMock2 = mock(IActuator.class);
+    when(actuatorRepository.ofDeviceID(deviceID)).thenReturn(List.of(actuatorMock, actuatorMock2));
+
+    int expectedActuators = 2;
+
+    //Act
+    List<IActuator> actuators = actuatorServiceImpl.getActuatorsByDeviceID(deviceID);
+
+    //Assert
+    assertEquals(expectedActuators, actuators.size());
+  }
+
+  /**
+   * Should set an actuator value when current value is higher than the value to set
+   */
+  @Test
+  void shouldSetValue_WhenValuesAreValid () {
+    //Arrange
+    IActuatorRepository actuatorRepository = mock(IActuatorRepository.class);
+    IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    IActuatorTypeRepository actuatorTypeRepository = mock(IActuatorTypeRepository.class);
+
+    ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository, actuatorTypeRepository);
+    IActuator actuatorMock = mock(IActuator.class);
+
+    IActuatorValue valueToSetMock = mock(IActuatorValue.class);
+    when(valueToSetMock.toString()).thenReturn("0");
+
+    ReadingValue currentValueMock = mock(ReadingValue.class);
+    when(currentValueMock.getValue()).thenReturn("10");
+
+    //Act
+    IActuatorValue actuatorValue = actuatorServiceImpl.setValue(actuatorMock, valueToSetMock, currentValueMock);
+
+    //Assert
+    assertEquals(valueToSetMock, actuatorValue);
+  }
+
+  /**
+   * Should set an actuator value when the value to set is 100
+   */
+  @Test
+  void shouldSetValue_WhenValueToSetIs100 () {
+    //Arrange
+    IActuatorRepository actuatorRepository = mock(IActuatorRepository.class);
+    IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    IActuatorTypeRepository actuatorTypeRepository = mock(IActuatorTypeRepository.class);
+
+    ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository, actuatorTypeRepository);
+    IActuator actuatorMock = mock(IActuator.class);
+
+    IActuatorValue valueToSetMock = mock(IActuatorValue.class);
+    when(valueToSetMock.toString()).thenReturn("100");
+
+    ReadingValue currentValueMock = mock(ReadingValue.class);
+    when(currentValueMock.getValue()).thenReturn("100");
+
+    //Act
+    IActuatorValue actuatorValue = actuatorServiceImpl.setValue(actuatorMock, valueToSetMock, currentValueMock);
+
+    //Assert
+    assertEquals(valueToSetMock, actuatorValue);
+  }
+
+  /**
+   * Should throw an exception when the value to set is higher than the current value
+   */
+  @Test
+  void shouldThrowException_WhenValueToSetIsLowerThanCurrentValue () {
+    //Arrange
+    IActuatorRepository actuatorRepository = mock(IActuatorRepository.class);
+    IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    IActuatorTypeRepository actuatorTypeRepository = mock(IActuatorTypeRepository.class);
+
+    ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository, actuatorTypeRepository);
+    IActuator actuatorMock = mock(IActuator.class);
+
+    IActuatorValue valueToSetMock = mock(IActuatorValue.class);
+    when(valueToSetMock.toString()).thenReturn("101");
+
+    ReadingValue currentValueMock = mock(ReadingValue.class);
+    when(currentValueMock.getValue()).thenReturn("10");
+
+    when(actuatorMock.setValue(valueToSetMock)).thenReturn(valueToSetMock);
+
+    String expectedMessage = "New value must be less than current value";
+
+    //Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorServiceImpl.setValue(actuatorMock, valueToSetMock, currentValueMock));
+
+    assertEquals(expectedMessage, exception.getMessage());
+  }
+
+  /**
+   * Should set an actuator value when the value to set is equal to the current value
+   */
+  @Test
+  void shouldThrowException_WhenTheValueToSetIsEqualToTheCurrentValue() {
+    // Arrange
+    IActuatorRepository actuatorRepository = mock(IActuatorRepository.class);
+    IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    IActuatorTypeRepository actuatorTypeRepository = mock(IActuatorTypeRepository.class);
+
+    ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository, actuatorTypeRepository);
+    IActuator actuatorMock = mock(IActuator.class);
+
+    IActuatorValue valueToSetMock = mock(IActuatorValue.class);
+    when(valueToSetMock.toString()).thenReturn("10");
+
+    ReadingValue currentValueMock = mock(ReadingValue.class);
+    when(currentValueMock.getValue()).thenReturn("10");
+
+    when(actuatorMock.setValue(valueToSetMock)).thenReturn(valueToSetMock);
+
+    //Act
+    IActuatorValue actuatorValue = actuatorServiceImpl.setValue(actuatorMock, valueToSetMock, currentValueMock);
+
+    //Assert
+    assertEquals(valueToSetMock, actuatorValue);
+  }
+
+  /**
+   * Should throw an exception when the value to set is negative
+   */
+  @Test
+  void shouldThrowException_WhenValueToSetIsNegative () {
+    //Arrange
+    IActuatorRepository actuatorRepository = mock(IActuatorRepository.class);
+    IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    IActuatorTypeRepository actuatorTypeRepository = mock(IActuatorTypeRepository.class);
+
+    ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository, actuatorTypeRepository);
+    IActuator actuatorMock = mock(IActuator.class);
+
+    IActuatorValue valueToSetMock = mock(IActuatorValue.class);
+    when(valueToSetMock.toString()).thenReturn("-10");
+
+    ReadingValue currentValueMock = mock(ReadingValue.class);
+    when(currentValueMock.getValue()).thenReturn("10");
+
+    when(actuatorMock.setValue(valueToSetMock)).thenReturn(valueToSetMock);
+
+    String expectedMessage = "New value must be less than current value";
+
+    //Act & Assert
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorServiceImpl.setValue(actuatorMock, valueToSetMock, currentValueMock));
+
     assertEquals(expectedMessage, exception.getMessage());
   }
 }

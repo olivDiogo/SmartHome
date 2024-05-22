@@ -107,7 +107,7 @@ public class Log implements IAggregateRoot<LogID> {
   }
 
   /**
-   * @return the _description
+   * @return the description
    */
   public SensorTypeID getDescription() {
     return description;

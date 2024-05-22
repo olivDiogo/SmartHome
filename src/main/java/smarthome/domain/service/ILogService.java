@@ -2,6 +2,7 @@ package smarthome.domain.service;
 
 import java.util.List;
 import smarthome.ddd.IService;
+import smarthome.ddd.IValueObject;
 import smarthome.domain.device.Device;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DatePeriod;
@@ -66,4 +67,11 @@ public interface ILogService extends IService {
   List<Log> getReadingsInTimePeriodByListOfDevicesAndSensorType(List<Device> devices,
       DatePeriod datePeriod,
       SensorTypeID sensorTypeID);
+
+  /**
+   * Method to get the list of readings of a list of devices.
+   * @param deviceID is the device ID.
+   * @return the list of readings.
+   */
+  List<Log> getDeviceReadingsByDeviceIDAndSensorTypeID(DeviceID deviceID, SensorTypeID sensorTypeID);
 }

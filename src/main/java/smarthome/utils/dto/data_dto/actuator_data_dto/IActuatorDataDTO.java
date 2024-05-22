@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = ActuatorDataGenericDTOImp.class, name = "genericActuator"),
     @JsonSubTypes.Type(value = ActuatorDataWithIntegerLimitsDTOImp.class, name = "integerActuator"),
     @JsonSubTypes.Type(value = ActuatorDataWithDecimalLimitsDTOImp.class, name = "decimalActuator"),
+    @JsonSubTypes.Type(value = ActuatorValueDTO.class, name = "valueDTO"),
 })
 public interface IActuatorDataDTO {
 

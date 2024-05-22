@@ -1,8 +1,8 @@
 package smarthome.domain.actuator.set_integer_actuator;
 
-import smarthome.ddd.IValueObject;
+import smarthome.ddd.IActuatorValue;
 
-public class SetIntegerValue implements IValueObject {
+public class SetIntegerValue implements IActuatorValue {
 
   private final int value;
 

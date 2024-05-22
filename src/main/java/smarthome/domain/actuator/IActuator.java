@@ -1,7 +1,7 @@
 package smarthome.domain.actuator;
 
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IAggregateRoot;
-import smarthome.ddd.IValueObject;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
@@ -10,6 +10,7 @@ import smarthome.domain.value_object.ModelPath;
 import smarthome.utils.visitor_pattern.IActuatorVisitor;
 
 public interface IActuator extends IAggregateRoot<ActuatorID> {
+
 
   /**
    * Gets the actuator ID.
@@ -56,7 +57,7 @@ public interface IActuator extends IAggregateRoot<ActuatorID> {
    *
    * @return the value.
    */
-  IValueObject setValue(IValueObject value);
+  IActuatorValue setValue(IActuatorValue value);
 
 
   /**

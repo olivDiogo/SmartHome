@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
@@ -368,7 +369,7 @@ class SwitchActuatorTest {
       SwitchActuator switchActuator = new SwitchActuator(deviceID, modelPath, actuatorTypeID,
           actuatorName);
 
-      IValueObject value = mock(IValueObject.class);
+      IActuatorValue value = mock(IActuatorValue.class);
       when(value.toString()).thenReturn("true");
 
       switchActuator.setValue(value);

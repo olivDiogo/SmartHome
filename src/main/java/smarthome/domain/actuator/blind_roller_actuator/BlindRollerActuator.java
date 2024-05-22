@@ -1,7 +1,7 @@
 package smarthome.domain.actuator.blind_roller_actuator;
 
 import java.util.UUID;
-import smarthome.ddd.IValueObject;
+import smarthome.ddd.IActuatorValue;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
@@ -151,13 +151,12 @@ public class BlindRollerActuator implements IActuator {
    * @return The set value if successful, null otherwise.
    */
   @Override
-  public BlindRollerValue setValue(IValueObject value) {
-    if (value instanceof BlindRollerValue newValue) {
-      this.value = newValue;
-      return newValue;
-    } else {
-      return null;
+  public BlindRollerValue setValue(IActuatorValue value) {
+   if (value instanceof BlindRollerValue blindRollerValue) {
+      this.value = blindRollerValue;
+      return blindRollerValue;
     }
+    return null;
   }
 
   /**

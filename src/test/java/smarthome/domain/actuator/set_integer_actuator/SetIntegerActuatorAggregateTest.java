@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smarthome.domain.value_object.ActuatorID;
@@ -401,7 +402,7 @@ class SetIntegerActuatorAggregateTest {
   void shouldThrowIllegalArgumentException_whenValueIsNotInstanceOfSetIntegerValue() {
     //Arrange
     int value = 1;
-    IValueObject valueDouble = new BlindRollerValue(value);
+    IActuatorValue valueDouble = new BlindRollerValue(value);
 
     int lowerLimit = 0;
     int upperLimit = 100;

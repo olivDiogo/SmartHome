@@ -220,7 +220,7 @@ class ActuatorRepositoryTest {
     int expectedSize = List.of(actuator).size();
 
     //Act
-    List<IActuator> actuators = actuatorRepository.findByDeviceID(deviceID);
+    List<IActuator> actuators = actuatorRepository.ofDeviceID(deviceID);
 
     //Assert
     assertEquals(expectedSize, actuators.size());

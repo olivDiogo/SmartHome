@@ -2,9 +2,14 @@ package smarthome.domain.service;
 
 import java.util.List;
 import java.util.Optional;
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IService;
+import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.IActuator;
+import smarthome.domain.actuator.blind_roller_actuator.BlindRollerValue;
 import smarthome.domain.value_object.ActuatorID;
+import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.ReadingValue;
 
 public interface IActuatorService extends IService {
 
@@ -19,7 +24,7 @@ public interface IActuatorService extends IService {
   /**
    * Gets all actuators in the repository by the provided actuator ID.
    *
-   * @param actuatorID
+   * @param actuatorID the actuator ID to search for.
    * @return the actuator with the provided actuator ID.
    */
   Optional<IActuator> getActuatorByID(ActuatorID actuatorID);
@@ -30,4 +35,17 @@ public interface IActuatorService extends IService {
    * @return a list of all actuators.
    */
   List<IActuator> getAllActuators();
+
+  /**
+   * Gets all actuators in the repository by the provided device ID.
+   * @param deviceID the device ID to search for.
+   * @return a list of all actuators with the provided device ID.
+   */
+  List<IActuator> getActuatorsByDeviceID(DeviceID deviceID);
+
+  /**
+   * Sets the value of the actuator with the provided actuator ID.
+   * @return the value of the actuator.
+   */
+  IActuatorValue setValue(IActuator actuator , IActuatorValue value, ReadingValue currentValue);
 }

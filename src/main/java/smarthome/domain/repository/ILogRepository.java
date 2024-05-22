@@ -32,4 +32,9 @@ public interface ILogRepository extends IRepository<LogID, Log> {
   List<Log> findByDeviceIDAndSensorTypeAndDatePeriodBetween(DeviceID deviceID,
       SensorTypeID sensorTypeID, DatePeriod period);
 
+  /**
+   * Method to find logs by device ID
+   * @return List of Log
+   */
+  List<Log> findByDeviceIDAndSensorTypeID(DeviceID deviceID, SensorTypeID sensorTypeID);
 }

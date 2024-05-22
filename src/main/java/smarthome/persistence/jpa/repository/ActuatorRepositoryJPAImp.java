@@ -10,6 +10,7 @@ import java.util.Optional;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.repository.IActuatorRepository;
 import smarthome.domain.value_object.ActuatorID;
+import smarthome.domain.value_object.DeviceID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 import smarthome.utils.visitor_pattern.IActuatorVisitorForDataModel;
@@ -148,5 +149,18 @@ public class ActuatorRepositoryJPAImp implements IActuatorRepository {
    */
   private EntityManager getEntityManager() {
     return factory.createEntityManager();
+  }
+
+  @Override
+  public List<IActuator> ofDeviceID(DeviceID deviceID) {
+    EntityManager em = getEntityManager();
+    try {
+      Query query = em.createQuery("SELECT e FROM ActuatorDataModel e WHERE e.deviceID = :deviceID");
+      query.setParameter("deviceID", deviceID.getID());
+      List<ActuatorDataModel> listDataModel = query.getResultList();
+      return dataModelAssembler.toDomain(listDataModel);
+    } finally {
+      em.close();
+    }
   }
 }
