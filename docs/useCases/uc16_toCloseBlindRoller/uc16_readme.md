@@ -52,7 +52,7 @@ This use case depends on UC15.
 ![UC016-SD](artifacts/uc16_SD_v1.svg)
 
 #### Ref - Get actuators by device ID
-![UC015-SD-ref1](../uc15_toGetActuatorByDeviceID/artifacts/uc15_SD_v1.svg)
+![UC015-SD-ref1](../uc15_toGetActuatorsByDeviceID/artifacts/uc15_SD_v1.svg)
 
 ### 2.3 Applied Patterns
 - All classes have only one and well-defined responsibility.

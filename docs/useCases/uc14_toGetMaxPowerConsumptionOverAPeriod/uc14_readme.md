@@ -42,7 +42,7 @@ This use case depends on UC09.
 
 
 ### 1.5. System Sequence Diagram
-![US012-SSD](artifacts/)
+![UC14-SSD](artifacts/uc14_SD_v1.svg)
 
 ## 2. Design
 
@@ -50,10 +50,10 @@ This use case depends on UC09.
 N/A
 
 ### 2.2. Sequence Diagram
-![US012-SD](artifacts/uc12_SD.svg)
+![UC014-SD](artifacts/uc14_SD_v1.svg)
 
 #### Ref - Get all devices grouped by functionality
-![US012-SD-ref2](../uc09_toGroupAllDevicesByFunctionality/artifacts/uc09_SD_v2.svg)
+![UC014-SD](../uc09_toGroupAllDevicesByFunctionality/artifacts/uc09_SD_v2.svg)
 
 ### 2.3 Applied Patterns
 - All classes have only one and well-defined responsibility.
