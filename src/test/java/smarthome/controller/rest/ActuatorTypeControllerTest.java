@@ -38,7 +38,7 @@ class ActuatorTypeControllerTest {
   @Test
   void shouldReturnAllActuatorTypes_WhenRequested() throws Exception {
     // Act & Assert
-    mockMvc.perform(get("/actuator-types/")
+    mockMvc.perform(get("/actuator-types")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.actuatorTypeDTOList[0].actuatorTypeID", is("BlindRoller")))
@@ -56,7 +56,7 @@ class ActuatorTypeControllerTest {
   @Test
   void shouldReturnEmptyList_WhenNoActuatorTypesAvailable() throws Exception {
     // Act & Assert
-    mockMvc.perform(get("/actuator-types/")
+    mockMvc.perform(get("/actuator-types")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._links.self.href").exists());
@@ -72,7 +72,7 @@ class ActuatorTypeControllerTest {
     ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", "Celsius");
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
-    mockMvc.perform(post("/actuator-types/")
+    mockMvc.perform(post("/actuator-types")
         .contentType(MediaType.APPLICATION_JSON)
         .content(jsonContent)
         .accept(MediaType.APPLICATION_JSON));
@@ -131,7 +131,7 @@ class ActuatorTypeControllerTest {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/")
+    mockMvc.perform(post("/actuator-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
@@ -155,7 +155,7 @@ class ActuatorTypeControllerTest {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/")
+    mockMvc.perform(post("/actuator-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
@@ -174,7 +174,7 @@ class ActuatorTypeControllerTest {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/")
+    mockMvc.perform(post("/actuator-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
@@ -194,7 +194,7 @@ class ActuatorTypeControllerTest {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/")
+    mockMvc.perform(post("/actuator-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
@@ -214,7 +214,7 @@ class ActuatorTypeControllerTest {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/")
+    mockMvc.perform(post("/actuator-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
@@ -234,7 +234,7 @@ class ActuatorTypeControllerTest {
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
-    mockMvc.perform(post("/actuator-types/")
+    mockMvc.perform(post("/actuator-types")
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))

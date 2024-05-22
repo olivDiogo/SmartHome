@@ -52,7 +52,7 @@ public class ActuatorTypeController {
    * Get all actuator types
    * @return ResponseEntity<CollectionModel < ActuatorTypeDTO>> is the response entity
    */
-  @GetMapping("/")
+  @GetMapping()
   public ResponseEntity<CollectionModel<ActuatorTypeDTO>> getActuatorTypes() {
     List<ActuatorType> actuatorTypeList = actuatorTypeService.getAllActuatorTypes();
     List<ActuatorTypeDTO> actuatorTypeDTOList = actuatorTypeAssembler.domainToDTO(actuatorTypeList);
@@ -90,7 +90,7 @@ public class ActuatorTypeController {
   /**
    * Create an actuator type
    */
-  @PostMapping("/")
+  @PostMapping()
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<ActuatorTypeDTO> addActuatorType(@Valid
   @RequestBody ActuatorTypeDataDTO actuatorTypeDataDTO) {
