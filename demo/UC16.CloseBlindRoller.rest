@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "type": "valueDTO",
-  "deviceID": "yourDeviceID",
-  "actuatorID": "yourActuatorID",
-  "value": 50
+  "deviceID": "{{blindsDeviceId}}",
+  "actuatorID": "{{blindRollerActuatorID}}",
+  "value": 0
 }

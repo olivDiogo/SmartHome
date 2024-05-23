@@ -1,4 +1,4 @@
-GET http://localhost:8080/actuator-models/Switch
+GET http://localhost:8080/actuator-models?actuatorTypeID=BlindRoller
 Content-Type: application/json
 
 > {%
@@ -13,8 +13,12 @@ Content-Type: application/json
 
 {
   "type": "genericActuator",
-  "deviceID": "{{deviceId}}",
+  "deviceID": "{{blindsDeviceId}}",
   "actuatorModelPath": "{{actuatorModelPath}}",
-  "actuatorName": "PowerSwitch",
-  "actuatorTypeID": "Switch"
+  "actuatorName": "GTX2000",
+  "actuatorTypeID": "BlindRoller"
 }
+
+> {%
+    client.global.set("blindRollerActuatorID", response.body.id);
+%}
