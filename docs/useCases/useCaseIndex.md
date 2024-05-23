@@ -27,3 +27,7 @@
 [uc13](uc13_toGetMaxInstTempDifBetweenDeviceAndOutside/uc13_readme.md) - To Get the Maximum Instantaneous Temperature Difference Between Device and Outside
 
 [uc14](uc14_toGetMaxPowerConsumptionOverAPeriod/uc14_readme.md) - To Get the Maximum Power Consumption over a Period
+
+[uc15]() - To Get Actuators By Device ID
+
+[uc16](uc16_toCloseBlindRoller/uc16_readme.md) - To close a Blind Roller
