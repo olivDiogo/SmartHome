@@ -837,4 +837,63 @@ class ActuatorControllerTest {
             .content(objectMapper.writeValueAsString(actuatorValueDTO)))
         .andExpect(status().isNotFound());
   }
+
+  /**
+   * Should return NoLogRecordsFoundException when no logs are found
+   */
+  @Test
+  void shouldReturnNoLogRecordsFoundException_WhenNoLogsAreFound() throws Exception {
+    // Arrange
+    Device device = setupDevice();
+
+    String deviceIDStr = device.getID().toString();
+    String actuatorModelPath = "smarthome.domain.actuator.blind_roller_actuator.BlindRollerActuator";
+    String actuatorName = "BlindRoller";
+
+    /* create unit */
+    UnitDescription unit = new UnitDescription("Percent");
+    UnitSymbol strUnitSymbol = new UnitSymbol("%");
+    Unit actuatorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
+
+    /* create actuator type */
+    String strActuatorType = "BlindRoller";
+    ActuatorTypeFactoryImpl actuatorTypeFactory = new ActuatorTypeFactoryImpl();
+
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(
+        new TypeDescription(strActuatorType),
+        actuatorUnit.getID());
+
+    String actuatorTypeIDStr = actuatorType.getID().toString();
+
+    /* create sensor */
+    ModelPath sensorModelPath = new ModelPath(
+        "smarthome.domain.sensor.percentage_position_sensor.PercentagePositionSensor");
+    SensorTypeID sensorTypeID = new SensorTypeID("PercentagePosition");
+    SensorName sensorName = new SensorName("Percent");
+    ISensor sensor = new SensorFactoryImpl().create(device.getID(), sensorModelPath, sensorTypeID,
+        sensorName);
+    when(sensorRepository.ofIdentity(sensor.getID())).thenReturn(Optional.of(sensor));
+
+    /* create dataDTO */
+    ActuatorDataGenericDTOImp actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceIDStr,
+        actuatorModelPath,
+        actuatorName, actuatorTypeIDStr);
+    when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
+    when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(
+        Optional.of(actuatorType));
+
+    IActuator actuator = setupGenericActuator(actuatorDataDTO);
+    when(actuatorService.getActuatorByID(actuator.getID())).thenReturn(Optional.of(actuator));
+
+    /* create actuator value DTO */
+    int valueToSet = 0;
+    ActuatorValueDTO actuatorValueDTO = new ActuatorValueDTO(deviceIDStr, actuator.getID().getID(),
+        valueToSet);
+
+    // Act + Assert
+    mockMvc.perform(post("/actuators/close-blind-roller")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(actuatorValueDTO)))
+        .andExpect(status().isNotFound());
+  }
 }

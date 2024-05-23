@@ -34,6 +34,15 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
   }
 
+  @ExceptionHandler(NoLogRecordsFoundException.class)
+  public ResponseEntity<Object> handleNoLogRecordsFoundException(NoLogRecordsFoundException ex) {
+    ErrorResponseDTO errorResponse = new ErrorResponseDTO(
+        HttpStatus.NOT_FOUND.value(),
+        ex.getMessage());
+
+    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+  }
+
   @ExceptionHandler(Exception.class)
   public ResponseEntity<Object> handleException(Exception ex) {
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);

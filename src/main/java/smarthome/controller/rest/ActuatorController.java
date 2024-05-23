@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.blind_roller_actuator.BlindRollerValue;
+import smarthome.domain.exceptions.NoLogRecordsFoundException;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
@@ -197,12 +198,18 @@ public class ActuatorController {
     Optional<IActuator> actuator = actuatorService.getActuatorByID(actuatorID);
 
     if (actuator.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     List<Log> logRecords = logService.getDeviceReadingsByDeviceIDAndSensorTypeID(deviceID,
         sensorTypeID);
     int index = logRecords.size();
+
+    if (index == 0) {
+      throw new NoLogRecordsFoundException(
+          "No log records found for the specified device and sensor type.");
+    }
+
     Log blindRollerCurrentValue = logRecords.get(index - 1);
 
     actuatorService.setValue(actuator.get(), blindRollerValueObject,
