@@ -45,7 +45,7 @@ class SensorModelControllerTest {
 
     when(sensorModelRepository.findBySensorTypeId(sensorTypeID)).thenReturn(List.of(sensorModel));
 
-    mockMvc.perform(get("/sensor-models/" + sensorTypeID.getID()).accept(
+    mockMvc.perform(get("/sensor-models?sensorTypeID=" + sensorTypeID.getID()).accept(
             MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._links.self").exists())
@@ -62,7 +62,7 @@ class SensorModelControllerTest {
 
     when(sensorModelRepository.findBySensorTypeId(sensorTypeID)).thenReturn(List.of());
 
-    mockMvc.perform(get("/sensor-models/" + sensorTypeID.getID()).accept(
+    mockMvc.perform(get("/sensor-models?sensorTypeID=" + sensorTypeID.getID()).accept(
             MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isEmpty());

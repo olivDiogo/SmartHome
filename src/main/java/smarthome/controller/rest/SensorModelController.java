@@ -8,8 +8,8 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.sensor_model.SensorModel;
@@ -37,9 +37,9 @@ public class SensorModelController {
    * @param sensorTypeID the sensor type ID
    * @return the sensor models by sensor type ID
    */
-  @GetMapping("/{sensorTypeID}")
+  @GetMapping(params = "sensorTypeID")
   public ResponseEntity<CollectionModel<SensorModelDTO>> getSensorModelsBySensorTypeId(
-      @PathVariable("sensorTypeID") String sensorTypeID) {
+      @RequestParam("sensorTypeID") String sensorTypeID) {
     SensorTypeID sensorTypeIDObj = new SensorTypeID(sensorTypeID);
 
     List<SensorModel> sensorModels =

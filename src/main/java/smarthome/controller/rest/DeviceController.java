@@ -3,7 +3,6 @@ package smarthome.controller.rest;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -188,10 +187,10 @@ public class DeviceController {
    * @param deviceTypeIdStr is the device type
    * @return a list of all devices in the room with the given ID
    */
-  @GetMapping(params = {"room_id", "device_type_id"})
+  @GetMapping(params = {"room_id"})
   public ResponseEntity<CollectionModel<DeviceDTO>> listDevices(
       @RequestParam("room_id") String roomIdStr,
-      @Nullable @RequestParam("device_type_id") String deviceTypeIdStr) {
+      @RequestParam(value = "device_type_id", required = false) String deviceTypeIdStr) {
     RoomID roomId = new RoomID(roomIdStr);
     List<DeviceDTO> deviceDTOs;
 

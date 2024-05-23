@@ -9,8 +9,8 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator_model.ActuatorModel;
@@ -45,9 +45,9 @@ public class ActuatorModelController {
    * @param actuatorTypeID the actuator type ID
    * @return the actuator models by actuator type ID
    */
-  @GetMapping("/{actuatorTypeID}")
+  @GetMapping(params = "actuatorTypeID")
   public ResponseEntity<CollectionModel<ActuatorModelDTO>> getActuatorModelsByActuatorTypeId(
-      @PathVariable String actuatorTypeID) {
+      @RequestParam("actuatorTypeID") String actuatorTypeID) {
 
     ActuatorTypeID actuatorTypeIDObj = new ActuatorTypeID(actuatorTypeID);
 

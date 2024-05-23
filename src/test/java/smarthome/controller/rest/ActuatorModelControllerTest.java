@@ -22,7 +22,7 @@ import smarthome.domain.value_object.ModelPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ActuatorModelControllerTest {
+class ActuatorModelControllerTest {
 
   @Autowired private MockMvc mockMvc;
 
@@ -54,7 +54,8 @@ public class ActuatorModelControllerTest {
 
     // Act & Assert
     mockMvc
-        .perform(get("/actuator-models/" + actuatorTypeID).accept(MediaType.APPLICATION_JSON))
+        .perform(get("/actuator-models?actuatorTypeID=" + actuatorTypeID).accept(
+            MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(
             jsonPath("$._embedded.actuatorModelDTOList[0].actuatorModelName").value("Thermostat"))
