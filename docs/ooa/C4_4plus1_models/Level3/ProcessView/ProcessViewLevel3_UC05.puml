@@ -8,20 +8,51 @@ actor "User" as User
 participant "RestClient" as RC
 
 box "SmartHome"
-    participant "Server" as SV
+    participant "Controller" as CTRL
+    participant "Service" as SV
+    participant "Repository" as REPO
+    participant "Domain" as DOM
     participant "DataBase" as BD
 end box
 
-User -> RC : I want to add a device to a room
+User o-> RC : I want to add a Device to a Room
 activate RC
 
-RC -> SV : addDeviceToRoom(deviceDataDTO)
+RC -> CTRL : addDevice(deviceDataDTO)
+activate CTRL
+
+CTRL -> DOM : RoomID(idStr)
+activate DOM
+DOM --> CTRL : roomID
+deactivate DOM
+
+CTRL -> DOM : DeviceName(strName)
+activate DOM
+DOM --> CTRL : deviceName
+deactivate DOM
+
+CTRL -> DOM : DeviceTypeID(idStr)
+activate DOM
+DOM --> CTRL : deviceTypeID
+deactivate DOM
+
+CTRL -> SV : addDevice(roomID, deviceName, deviceTypeID)
 activate SV
 
-SV -> BD : save(deviceDataModel)
+SV -> REPO : save(device)
+activate REPO
+REPO -> BD : save
+activate BD
+deactivate BD
+REPO --> SV : device
+deactivate REPO
 
-SV --> RC : deviceDTO
+SV --> CTRL : device
 deactivate SV
+
+
+CTRL --> RC : deviceDTO
+deactivate CTRL
 
 RC --> User : deviceDTO
 deactivate RC

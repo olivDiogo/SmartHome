@@ -7,19 +7,29 @@ autonumber
 
 actor "User" as User
 participant "RestClient" as RC
+
 box "Smart Home"
-    participant "Backend" as BE
+    participant "Server" as SV
+    participant "DataBase" as DB
 end box
 
 
 User -> RC : I want to get all devices by room and temperature functionality
 activate RC
 
-RC -> BE : getDevicesByRoomAndTemperatureFunctionality(roomID, deviceType)
-activate BE
+RC -> SV : getDevicesByRoomAndTemperatureFunctionality(roomID)
+activate SV
 
-BE --> RC : deviceDTOListByRoomAndTemperatureFunctionality
-deactivate BE
+SV -> DB : findAll()
+activate DB
+
+DB --> SV : deviceDTOListByRoomAndTemperatureFunctionality
+deactivate DB
+
+
+
+SV --> RC : deviceDTOListByRoomAndTemperatureFunctionality
+deactivate SV
 
 RC --> User : deviceDTOListByRoomAndTemperatureFunctionality
 deactivate RC

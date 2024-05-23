@@ -5,22 +5,30 @@
 autonumber
 
 actor "User" as User
-
-
 participant "RestClient" as RC
+
 box "SmartHome"
-    participant "Backend" as BE
+    participant "Server" as SV
+    participant "DataBase" as BD
 end box
 
-User -> RC : I want to get the peak power consumption of the house, in a given period
+User -> RC :  I want to get the peak power consumption of the house, in a given period
 activate RC
 
-RC -> BE : getMaxPowerConsumption (initialTime, endTime)
-activate BE
+RC -> SV : getMaxPowerConsumption (initialTime, endTime)
+activate SV
 
-BE --> RC : maxConsumption
-deactivate BE
+SV -> BD : getMaxPowerConsumptionReadings (initialTime, endTime)
+activate BD
+
+BD --> SV : listLogDataModel
+deactivate BD
+
+SV --> RC : maxConsumption
+deactivate SV
 
 RC --> User : maxConsumption
 deactivate RC
+
+
 @enduml

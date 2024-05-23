@@ -6,20 +6,12 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want get all devices grouped by functionality
-activate RC
-
-RC -> SH : getAllDevicesGroupedByFunctionality()
+User -> SH : I want get all devices grouped by functionality
 activate SH
 
-SH --> RC : deviceDTOListGroupedByFunctionality
+SH --> User : deviceDTOListGroupedByFunctionality
 deactivate SH
-
-RC --> User : deviceDTOListGroupedByFunctionality
-deactivate RC
 
 @enduml

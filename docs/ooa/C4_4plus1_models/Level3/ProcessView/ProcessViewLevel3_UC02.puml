@@ -7,22 +7,57 @@ autonumber
 actor "User" as User
 participant "RestClient" as RC
 
-box "Smart Home"
-    participant "Server" as Server
-    participant "Database" as DB
+box "SmartHome"
+    participant "Controller" as CTRL
+    participant "Service" as SV
+    participant "Repository" as REPO
+    participant "Domain" as DOM
+    participant "DataBase" as BD
 end box
 
-User -> RC : I want to add a Room
+User -> RC : I want to add a Room to a House
 activate RC
 
-RC -> Server : addRoom(roomDataDTO)
-activate Server
+RC -> CTRL : addRoom(roomDataDTO)
+activate CTRL
 
-Server -> DB : save(roomDataModel)
 
-Server --> RC : roomDTO
-deactivate Server
+
+CTRL -> DOM : RoomName (strName)
+activate DOM
+DOM --> CTRL : roomName
+deactivate DOM
+
+CTRL -> DOM : Dimension (intWidth, intLength, intHeight)
+activate DOM
+DOM --> CTRL : dimension
+deactivate DOM
+
+CTRL -> DOM : RoomFloor (intFloor)
+activate DOM
+DOM --> CTRL : roomFloor
+deactivate DOM
+
+CTRL -> SV :addRoom(roomName,dimension,roomFloor)
+activate SV
+
+SV -> REPO : save(room)
+activate REPO
+REPO -> BD : save
+activate BD
+deactivate BD
+REPO --> SV : room
+deactivate REPO
+
+SV --> CTRL : room
+deactivate SV
+
+
+CTRL --> RC : roomDTO
+deactivate CTRL
 
 RC --> User : roomDTO
 deactivate RC
+
+
 @enduml

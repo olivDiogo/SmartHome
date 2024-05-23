@@ -8,26 +8,62 @@ actor "User" as User
 participant "RestClient" as RC
 
 box "SmartHome"
-    participant "Server" as SV
+    participant "Controller" as CTRL
+    participant "Service" as SV
+    participant "Repository" as REPO
     participant "DataBase" as BD
 end box
+
 
 User -> RC : I want to get all devices grouped by functionality
 activate RC
 
-RC -> SV : getAllDevicesGroupedByFunctionality()
+
+RC -> CTRL: getAllDevicesGroupedByFunctionality()
+activate CTRL
+
+
+CTRL -> SV: getAllDeviceTypes()
 activate SV
 
-SV -> BD : findAll()
+SV -> REPO : findAll()
+activate REPO
+
+REPO -> BD : find
 activate BD
 
-BD --> SV : deviceDataModelList
+BD --> REPO : deviceTypeDataModelList
 deactivate BD
 
-SV --> RC : deviceDTOListGroupedByFunctionality
+REPO --> SV : deviceTypeList
+deactivate BD
+deactivate REPO
+
+SV --> CTRL : deviceTypeList
 deactivate SV
 
-RC --> User : deviceDTOListGroupedByFunctionality
+CTRL -> SV : getDevicesByDeviceTypeID(deviceTypeID)
+activate SV
+
+SV -> REPO : findByDeviceTypeID(deviceTypeID)
+activate REPO
+
+REPO -> BD : find
+activate BD
+
+BD --> REPO : deviceDataModelList
+deactivate BD
+
+REPO --> SV : deviceList
+deactivate REPO
+
+SV --> CTRL : deviceList
+deactivate SV
+
+CTRL --> RC : deviceDTOListGroupedByFuncionallity
+deactivate CTRL
+
+RC --> User : deviceDTOListGroupedByFuncionallity
 deactivate RC
 
 

@@ -6,27 +6,50 @@ autonumber
 
 actor "User" as User
 participant "RestClient" as RC
-box "Smart Home"
-    participant "Server" as Server
-    participant "Database" as DB
+
+box "SmartHome"
+    participant "Controller" as CTRL
+    participant "Service" as SV
+    participant "Repository" as REPO
+    participant "Domain" as DOM
+    participant "DataBase" as BD
 end box
 
-User -> RC : I want to get the list of all devices in a room
+User o-> RC : I want to get a list of all devices in a room
+
 activate RC
 
-RC -> Server : getDevicesByRoomID(roomID)
-activate Server
+RC -> CTRL : getDevicesInAGivenRoom(idStr)
+activate CTRL
 
-Server -> DB : findByRoomID(roomID)
-activate DB
+CTRL -> DOM : RoomID(idStr)
+activate DOM
+DOM --> CTRL : roomID
+deactivate DOM
 
-DB --> Server : deviceDataModelList
-deactivate DB
+CTRL -> SV : getDevicesByRoomId(roomID)
+activate SV
 
-Server --> RC : deviceDTOList
-deactivate Server
+SV -> REPO : findByRoomID(roomId)
+activate REPO
+
+REPO -> BD : find
+activate BD
+
+BD --> REPO : deviceDataModelList
+deactivate BD
+
+REPO --> SV : deviceList
+deactivate REPO
+
+SV --> CTRL : deviceList
+deactivate SV
+
+CTRL --> RC : deviceDTOList
+deactivate CTRL
 
 RC --> User : deviceDTOList
 deactivate RC
 
-@endumll
+
+@enduml

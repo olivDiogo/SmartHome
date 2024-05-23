@@ -8,24 +8,39 @@ actor "User" as User
 participant "RestClient" as RC
 
 box "SmartHome"
-    participant "Server" as SV
+    participant "Controller" as CTRL
+    participant "Service" as SV
+    participant "Repository" as REPO
     participant "DataBase" as BD
 end box
 
-User -> RC : I want to get the list of rooms
+User -> RC : want to have a list of existing rooms
 activate RC
 
-RC -> SV : getAllRooms()
+RC -> CTRL : getAllRooms()
+activate CTRL
+
+
+CTRL -> SV : getAllRooms()
 activate SV
 
-SV -> BD : findAll()
+SV -> REPO : findAll()
+activate REPO
+
+REPO -> BD : find
 activate BD
 
-BD -> SV : roomDataModelList
+BD --> REPO : roomDataModelList
 deactivate BD
 
-SV --> RC : roomDTOList
+REPO --> SV : roomList
+deactivate REPO
+
+SV --> CTRL : roomList
 deactivate SV
+
+CTRL --> RC : roomDTOList
+deactivate CTRL
 
 RC --> User : roomDTOList
 deactivate RC

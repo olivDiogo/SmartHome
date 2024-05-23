@@ -6,20 +6,12 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want to get the peak power consumption of the house
-activate RC
-
-RC -> SH : getMaxPowerConsumption (powerMeter, powerSource,initialTime,endTime,timeDelta)
+User -> SH : I want to get the peak power consumption of the house
 activate SH
 
-SH --> RC : peakPowerConsumption
+SH --> User : peakPowerConsumption
 deactivate SH
-
-RC --> User : peakPowerConsumption
-deactivate RC
 
 @enduml

@@ -7,27 +7,27 @@ autonumber
 actor "User" as User
 participant "RestClient" as RC
 
-box "SmartHome"
+box "Backend"
     participant "Server" as SV
     participant "DataBase" as BD
 end box
 
-User -> RC : I want to get all devices grouped by functionality
+User -> RC :  I want to get a list of all actuators in a device
 activate RC
 
-RC -> SV : getAllDevicesGroupedByFunctionality()
+RC -> SV : getActuatorsByDeviceID (deviceID)
 activate SV
 
-SV -> BD : findAll()
+SV -> BD : getActuatorsByDeviceID (deviceID)
 activate BD
 
-BD --> SV : deviceDataModelList
+BD --> SV : listActuatorDataModel
 deactivate BD
 
-SV --> RC : deviceDTOListGroupedByFunctionality
+SV --> RC : listActuatorsDTO
 deactivate SV
 
-RC --> User : deviceDTOListGroupedByFunctionality
+RC --> User : listActuatorsDTO
 deactivate RC
 
 

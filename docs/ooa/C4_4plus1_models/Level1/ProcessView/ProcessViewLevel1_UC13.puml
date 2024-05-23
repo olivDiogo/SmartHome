@@ -6,20 +6,12 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want to get the maximum instantaneous temperature difference between a device and outside
-activate RC
-
-RC -> SH : getMaxInstTempDiffBetweenDeviceAndOutside (outsideDeviceDTO, insideDeviceDTO, initialTime, endTime, timeDelta)
+User -> SH : I want to get the maximum instantaneous temperature difference between a device and outside
 activate SH
 
-SH --> RC : tempDiff
+SH --> User : temDiff
 deactivate SH
-
-RC --> User : temDiff
-deactivate RC
 
 @enduml

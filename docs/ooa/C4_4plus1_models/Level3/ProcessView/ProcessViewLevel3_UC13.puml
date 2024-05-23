@@ -1,34 +1,100 @@
 @startuml
 'https://plantuml.com/sequence-diagram
-!pragma layout smetana
+
+actor "User" as User
+participant RestClient as "RestClient"
+box "Power Consumption"
+participant Controller as "Controller"
+participant Service as "Service"
+participant Repository as "Repository"
+participant Domain as "Domain"
+participant DataBase as "DataBase"
+end box
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
+User -> RestClient :  want to get the maximum instantaneous temperature difference between a device in the room and the outside
 
-box "SmartHome"
-    participant "Server" as SV
-    participant "DataBase" as BD
-end box
+activate RestClient
 
-User -> RC : I want to get the maximum instantaneous temperature difference between a device and outside
-activate RC
+RestClient -> Controller: getMaxInstTempDiffBetweenDeviceAndOutside (outsideDeviceDTO, insideDeviceDTO, initialTime, endTime, timeDelta)
 
-RC -> SV : getMaxInstTempDiffBetweenDeviceAndOutside (outsideDeviceDTO, insideDeviceDTO, initialTime, endTime, timeDelta)
-activate SV
+activate Controller
 
-SV -> BD : findByDeviceIDAndSensorIDAndTimestampBetween (deviceID, sensorTypeID, initialPeriod, endPeriod)
-activate BD
+Controller -> Domain :DeviceID(outsideDeviceIDStr)
+activate Domain
+Domain --> Controller : deviceID
+deactivate Domain
 
-BD --> SV : listLogDataModel
-deactivate BD
+Controller -> Domain: DeviceID(insideDeviceIDStr)
+activate Domain
+Domain --> Controller : deviceID
+deactivate Domain
 
-SV --> RC : tempDiff
-deactivate SV
+Controller -> Domain: SensorType(strTemperature)
+activate Domain
+Domain --> Controller : sensorType
+deactivate Domain
 
-RC --> User : tempDiff
-deactivate RC
+Controller -> Domain: DatePeriod(initialTime, endTime)
+activate Domain
+Domain --> Controller : datePeriod
+deactivate Domain
+
+Controller -> Domain: TimeDelta(intTimeDelta)
+activate Domain
+Domain --> Controller : timeDelta
+deactivate Domain
+
+Controller -> Service: getMaxInstTempDiffBetweenDeviceAndOutside(insideDeviceID, sensorType, timeDelta)
+activate Service
+Service -> Repository: findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID, period)
+
+activate Repository
+Repository -> DataBase: find
+activate DataBase
+DataBase --> Repository: logList
+deactivate DataBase
+
+Repository --> Service: logInsideReadingsList
+deactivate Repository
+
+Service --> Controller: logInsideReadingsList
+deactivate Service
+
+Controller -> Service: getMaxInstTempDiffBetweenDeviceAndOutside(outsideDeviceID, sensorType, timeDelta)
+activate Service
+Service -> Repository: findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID, period)
+
+activate Repository
+Repository -> DataBase: find
+activate DataBase
+DataBase --> Repository: loglist
+deactivate DataBase
+
+
+
+Repository --> Service: listLogsOutsideReadings
+deactivate Repository
+
+Service --> Controller: listLogsOutsideReadings
+deactivate Service
+
+Controller -> Service: getMaxInstTempDiffBetweenDeviceAndOutside(insideReadings, outsideReadings, timeDelta)
+activate Service
+
+Service --> Controller: maxInstTempDiff
+deactivate Service
+
+Controller --> RestClient: maxInstTempDiff
+deactivate Controller
+
+RestClient --> User: maxInstTempDiff
+deactivate RestClient
+
+
+
+
 
 
 @enduml

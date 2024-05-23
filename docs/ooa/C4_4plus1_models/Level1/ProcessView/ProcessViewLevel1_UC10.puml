@@ -6,20 +6,12 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want to add an actuator to a device
-activate RC
-
-RC -> SH : addActuator(actuatorDataDTO)
+User -> SH : I want to add an actuator to a device
 activate SH
 
-SH --> RC : actuatorDTO
+SH --> User : actuatorDTO
 deactivate SH
-
-RC --> User : actuatorDTO
-deactivate RC
 
 @enduml

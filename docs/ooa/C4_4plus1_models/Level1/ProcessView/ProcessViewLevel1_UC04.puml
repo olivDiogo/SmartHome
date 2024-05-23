@@ -6,20 +6,12 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want to define a sensor type
-activate RC
-
-RC -> SH : createSensorType(sensorTypeDataDTO)
+User -> SH : I want to define a sensor type
 activate SH
 
-SH --> RC : sensorTypeDTO
+SH --> User : sensorTypeDTO
 deactivate SH
-
-RC --> User : sensorTypeDTO
-deactivate RC
 
 @enduml

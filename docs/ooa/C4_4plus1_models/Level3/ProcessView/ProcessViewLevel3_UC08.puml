@@ -7,8 +7,11 @@ autonumber
 actor "User" as User
 participant "RestClient" as RC
 box "Smart Home"
-    participant "Server" as SV
-    participant "DataBase" as DB
+    participant "Controller" as CTRL
+        participant "Service" as SV
+        participant "Repository" as REPO
+        participant "Domain" as DOM
+        participant "DataBase" as BD
 end box
 
 
@@ -16,18 +19,52 @@ end box
 User -> RC : I want to deactivate a device
 activate RC
 
-RC -> SV : deactivateDevice(deviceId)
+RC -> CTRL : getAllDevices()
+activate CTRL
+
+CTRL -> SV : getAllDevices()
 activate SV
 
-SV -> DB : containsOfIdentity(deviceId)
-activate DB
+SV -> REPO : findAll()
+activate REPO
 
-DB -> SV : true
-deactivate DB
+REPO -> BD : find
+activate BD
 
-SV --> RC : deviceDTO
+BD --> REPO : deviceDataModelList
+deactivate BD
+
+REPO --> SV : deviceList
+deactivate REPO
+
+SV --> CTRL : deviceList
 deactivate SV
+
+CTRL --> RC : deviceList
+
+RC -> CTRL : deactivateDevice(deviceDTO)
+
+CTRL -> DOM : DeviceID(strDeviceID)
+activate DOM
+DOM --> CTRL : deviceID
+deactivate DOM
+
+CTRL -> SV : deactivateDeviceByID(deviceID)
+activate SV
+
+SV -> DOM : deactivateDevice(): Status
+activate DOM
+
+DOM --> SV : status
+deactivate DOM
+
+SV --> CTRL : device
+deactivate SV
+
+CTRL --> RC : deviceDTO
+deactivate CTRL
 
 RC --> User : deviceDTO
 deactivate RC
+
 @enduml

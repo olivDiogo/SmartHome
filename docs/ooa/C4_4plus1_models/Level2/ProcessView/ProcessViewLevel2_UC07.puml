@@ -1,26 +1,31 @@
 @startuml
 'https://plantuml.com/sequence-diagram
-
 !pragma layout smetana
 
 autonumber
 
 actor "User" as User
 participant "RestClient" as RC
-box "Smart Home"
-    participant "Backend" as BE
+
+box "SmartHome"
+    participant "Server" as SV
+    participant "DataBase" as BD
 end box
 
 User -> RC : I want to add a sensor to a device
 activate RC
 
-RC -> BE : addSensor(sensorDataDTO)
-activate BE
+RC -> SV : addSensor(sensorDataDTO)
+activate SV
 
-BE --> RC : sensorDTO
-deactivate BE
+SV -> BD : save(sensorDataModel)
+
+
+SV --> RC : sensorDTO
+deactivate SV
 
 RC --> User : sensorDTO
 deactivate RC
+
 
 @enduml

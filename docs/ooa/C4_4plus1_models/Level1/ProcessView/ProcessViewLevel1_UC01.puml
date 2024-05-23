@@ -5,21 +5,13 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want to configure the house location
-activate RC
-
-RC -> SH : configureHouseLocation(houseDataDTO)
+User -> SH : I want to configure the house location
 activate SH
 
-SH --> RC : houseDTO
+SH --> User : houseDTO
 deactivate SH
-
-RC --> User : houseDTO
-deactivate RC
 
 
 

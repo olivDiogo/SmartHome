@@ -5,19 +5,11 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want to deactivate a device
-activate RC
-
-RC -> SH : deactivateDevice(deviceId)
+User -> SH : I want to deactivate a device
 activate SH
 
-SH --> RC : deviceDTO
+SH --> User : deviceDTO
 deactivate SH
-
-RC --> User : deviceDTO
-deactivate RC
 @enduml

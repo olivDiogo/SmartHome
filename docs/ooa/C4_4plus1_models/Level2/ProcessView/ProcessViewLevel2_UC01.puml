@@ -7,22 +7,25 @@ autonumber
 actor "User" as User
 participant "RestClient" as RC
 
-box "Smart Home"
-    participant "Backend" as BE
+box "SmartHome"
+    participant "Server" as SV
+    participant "DataBase" as BD
 end box
 
 User -> RC : I want to configure the house location
 activate RC
 
-RC -> BE : configureHouseLocation(houseDataDTO)
-activate BE
+RC -> SV : configureHouseLocation(houseDataDTO)
+activate SV
 
-BE --> RC : houseDTO
-deactivate BE
+SV -> BD : saveHouse(houseDataDTO)
+
+
+SV --> RC : houseDTO
+deactivate SV
 
 RC --> User : houseDTO
 deactivate RC
-
 
 
 @enduml

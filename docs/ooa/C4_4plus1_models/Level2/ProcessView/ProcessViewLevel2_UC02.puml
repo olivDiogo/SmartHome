@@ -8,17 +8,20 @@ actor "User" as User
 participant "RestClient" as RC
 
 box "Smart Home"
-    participant "Backend" as BE
+    participant "Server" as Server
+    participant "Database" as DB
 end box
 
 User -> RC : I want to add a Room
 activate RC
 
-RC -> BE : addRoom(roomDataDTO)
-activate BE
+RC -> Server : addRoom(roomDataDTO)
+activate Server
 
-BE --> RC : roomDTO
-deactivate BE
+Server -> DB : save(roomDataModel)
+
+Server --> RC : roomDTO
+deactivate Server
 
 RC --> User : roomDTO
 deactivate RC

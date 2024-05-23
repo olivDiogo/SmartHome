@@ -1,34 +1,142 @@
 @startuml
 'https://plantuml.com/sequence-diagram
-!pragma layout smetana
+
+actor "User" as User
+participant RestClient as "RestClient"
+box "Power Consumption"
+participant Controller as "Controller"
+participant Service as "Service"
+participant Repository as "Repository"
+participant DataBase as "DataBase"
+end box
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
+User -> RestClient :  I want to get the peak power consumption of the house, in a given period
+activate RestClient
 
-box "SmartHome"
-    participant "Server" as SV
-    participant "DataBase" as BD
-end box
+RestClient -> Controller: getMaxPowerConsumption(initialTime, endTime)
 
-User -> RC :  I want to get the peak power consumption of the house, in a given period
-activate RC
+activate Controller
 
-RC -> SV : getMaxPowerConsumption (initialTime, endTime)
-activate SV
+Controller -> Service: getDevicesByDeviceTypeID(powerMeterTypeID)
 
-SV -> BD : getMaxPowerConsumptionReadings (initialTime, endTime)
-activate BD
+activate Service
 
-BD --> SV : listLogDataModel
-deactivate BD
+Service -> Repository: getDevicesByDeviceTypeID(powerMeterTypeID)
 
-SV --> RC : maxConsumption
-deactivate SV
+activate Repository
 
-RC --> User : maxConsumption
-deactivate RC
+Repository -> DataBase: findByDeviceTypeID
 
+activate DataBase
+
+DataBase --> Repository : deviceList
+
+deactivate DataBase
+
+Repository --> Service: deviceList
+
+deactivate Repository
+
+Service -> Controller: deviceList
+
+deactivate Service
+
+'--------------------------------------------'
+
+Controller -> Service: getDevicesByDeviceType(powerSourceTypeID)
+
+activate Service
+
+Service -> Repository: getDevicesByDeviceType(powerSourceTypeID)
+
+activate Repository
+
+Repository -> DataBase: findByDeviceTypeID
+
+activate DataBase
+
+DataBase --> Repository : deviceList
+
+deactivate DataBase
+
+Repository --> Service: deviceList
+
+deactivate Repository
+
+Service -> Controller: deviceList
+
+deactivate Service
+
+'--------------------------------------------'
+
+Controller -> Service: getDeviceReadingsBySensorTypeAndTimePeriod (powerMeterDeviceID, sensorTypeID, datePeriod)
+
+activate Service
+
+Service -> Repository: findByDeviceIDAndSensorTypeAndDatePeriodBetween (powerMeterDeviceID, sensorTypeID, datePeriod)
+
+activate Repository
+
+Repository -> DataBase: findByDeviceTypeID
+
+activate DataBase
+
+DataBase --> Repository : readingsList
+
+deactivate DataBase
+
+Repository --> Service: powerMeterReadings
+
+deactivate Repository
+
+Service --> Controller: powerMeterReadings
+
+deactivate Service
+
+Controller -> Service: getDeviceReadingsBySensorTypeAndTimePeriod (powerSourceDeviceID, sensorTypeID, datePeriod)
+
+'--------------------------------------------'
+
+activate Service
+
+Service -> Repository: findByDeviceIDAndSensorTypeAndDatePeriodBetween (powerSourceDeviceID, sensorTypeID, datePeriod)
+
+activate Repository
+
+Repository -> DataBase: findByDeviceIDAndSensorTypeAndDatePeriodBetween
+
+activate DataBase
+
+DataBase --> Repository : readingsList
+
+deactivate DataBase
+
+Repository --> Service: powerSourceReadings
+
+deactivate Repository
+
+Service --> Controller: powerSourceReadings
+
+deactivate Service
+
+Controller -> Service: getMaxPowerConsumption(powerMeterReadings, powerSourceReadings, timeDelta)
+
+'--------------------------------------------'
+
+activate Service
+
+Service --> Controller: maxPowerConsumptionValue
+
+deactivate Service
+
+Controller --> RestClient: maxPowerConsumptionValue
+
+deactivate Controller
+
+RestClient --> User: maxPowerConsumptionValue
+
+deactivate RestClient
 
 @enduml

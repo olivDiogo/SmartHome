@@ -6,21 +6,29 @@ autonumber
 
 actor "User" as User
 participant "RestClient" as RC
-box "Smart Home"
-    participant "Backend" as BE
+
+box "SmartHome"
+    participant "Server" as SV
+    participant "DataBase" as BD
 end box
-
-
 
 User -> RC : I want to get the list of rooms
 activate RC
 
-RC -> BE : getAllRooms()
-activate BE
+RC -> SV : getAllRooms()
+activate SV
 
-BE --> RC : roomDTOList
-deactivate BE
+SV -> BD : findAll()
+activate BD
+
+BD -> SV : roomDataModelList
+deactivate BD
+
+SV --> RC : roomDTOList
+deactivate SV
 
 RC --> User : roomDTOList
 deactivate RC
+
+
 @enduml

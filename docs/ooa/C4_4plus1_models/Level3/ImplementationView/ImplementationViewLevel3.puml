@@ -1,35 +1,48 @@
 @startuml
-'https://plantuml.com/component-diagram
-component SmartHome <<system (C4)>> {
-    port p1
-    port p2
 
-    component Backend {
-        port p3
-        port p4
-         component Database
-         component Server
+package "Backend" {
+
+    Component Infrastructure {
+        package Tests {
+        }
+        package Persistence {
+        }
     }
 
-    component CLI{
-        port p5
+    Component "Interface Adapters" {
+        package Controllers {
+        }
+        package Repositories {
+        }
     }
 
-    component Rest{
-        port p7
-        port p8
+    Component "Services Layer" {
+        package "Services" {
+        }
+        package "IServices" {
+        }
+
     }
+
+    Component "Entities/Core/Domain" {
+        package Aggregates {
+        }
+        package "Value Objects" {
+        }
+        package "IRepositories"{
+                }
+
+    }
+
+    ' Dependencies
+    Infrastructure.Tests ..> "Interface Adapters.Controllers" : .
+    Infrastructure.Persistence <.. "Interface Adapters.Repositories" : .
+    "Interface Adapters.Controllers" ..> "IServices" : .
+    "IServices" ..> Aggregates : .
+    "IServices" ..> "Value Objects" : .
+    "Interface Adapters.Repositories" ..> Services
+    "Repositories" ..|> "IRepositories" : .
+    "Services" ..right|> "IServices" : .
 }
-
-CLIUI -down- p1
-p5 - p1
-CLI -- p4
-
-p3 -up- p8
-p7 - p2
-p2 -up- APIRest
-Server -0)- Database
-Server - p3
-Server - p4
 
 @enduml

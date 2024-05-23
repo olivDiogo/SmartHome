@@ -7,7 +7,8 @@ autonumber
 actor "User" as User
 participant "RestClient" as RC
 box "Smart Home"
-    participant "Backend" as BE
+    participant "Server" as SV
+    participant "DataBase" as DB
 end box
 
 
@@ -15,11 +16,17 @@ end box
 User -> RC : I want to deactivate a device
 activate RC
 
-RC -> BE : deactivateDevice(deviceId)
-activate BE
+RC -> SV : deactivateDevice(deviceId)
+activate SV
 
-BE --> RC : deviceDTO
-deactivate BE
+SV -> DB : containsOfIdentity(deviceId)
+activate DB
+
+DB --> SV : true
+deactivate DB
+
+SV --> RC : deviceDTO
+deactivate SV
 
 RC --> User : deviceDTO
 deactivate RC

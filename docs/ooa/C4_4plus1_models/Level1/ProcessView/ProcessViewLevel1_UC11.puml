@@ -5,19 +5,11 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want to get the log from a device, in a time period
-activate RC
-
-RC -> SH : getDeviceReadingsByTimePeriod(logDataDTO)
+User -> SH : I want to get the log from a device, in a time period
 activate SH
 
-SH --> RC : logDTO
+SH --> User : logDTO
 deactivate SH
-
-RC --> User : logDTO
-deactivate RC
 @enduml

@@ -6,20 +6,12 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want to add a sensor to a device
-activate RC
-
-RC -> SH : addSensor(sensorDataDTO)
+User -> SH : I want to add a sensor to a device
 activate SH
 
-SH --> RC : sensorDTO
+SH --> User : sensorDTO
 deactivate SH
-
-RC --> User : sensorDTO
-deactivate RC
 
 @enduml

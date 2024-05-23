@@ -5,21 +5,13 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want to get the list of rooms
-activate RC
-
-RC -> SH : getAllRooms()
+User -> SH : I want to get the list of rooms
 activate SH
 
-SH --> RC : roomDTOList
+SH --> User : roomDTOList
 deactivate SH
-
-RC --> User : roomDTOList
-deactivate RC
 
 
 

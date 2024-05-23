@@ -8,19 +8,26 @@ autonumber
 actor "User" as User
 participant "RestClient" as RC
 box "Smart Home"
-    participant "Backend" as BE
+    participant "Server" as Server
+    participant "Database" as DB
 end box
 
 User -> RC : I want to get the log from a device, in a time period
 activate RC
 
-RC -> BE : getDeviceReadingsByTimePeriod(logDataDTO)
-activate BE
+RC -> Server : getDeviceReadingsByTimePeriod(logDataDTO)
+activate Server
 
-BE --> RC : logDTO
-deactivate BE
+Server -> DB : findByDeviceIDAndTimestampBetween(deviceID, startDate, endDate)
+activate DB
 
-RC --> User : logDTO
+DB --> Server : logDataModelList
+deactivate DB
+
+Server --> RC : logDTOList
+deactivate Server
+
+RC --> User : logDTOList
 deactivate RC
 
 @enduml

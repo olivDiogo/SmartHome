@@ -8,18 +8,21 @@ autonumber
 actor "User" as User
 participant "RestClient" as RC
 box "Smart Home"
-    participant "Backend" as BE
+    participant "Server" as SV
+    participant "DataBase" as DB
 end box
 
 
 User -> RC : I want to define a sensor type
 activate RC
 
-RC -> BE : createSensorType(sensorTypeDataDTO)
-activate BE
+RC -> SV : createSensorType(sensorTypeDataDTO)
+activate SV
 
-BE --> RC : sensorTypeDTO
-deactivate BE
+SV -> DB : createSensorType(sensorTypeData)
+
+SV --> RC : sensorTypeDTO
+deactivate SV
 
 RC --> User : sensorTypeDTO
 deactivate RC

@@ -5,19 +5,11 @@
 autonumber
 
 actor "User" as User
-participant "RestClient" as RC
 participant "SmartHome" as SH
 
-
-User -> RC : I want to add a Room
-activate RC
-
-RC -> SH : addRoom(roomDataDTO)
+User -> SH : I want to add a Room
 activate SH
 
-SH --> RC : roomDTO
+SH --> User : roomDTO
 deactivate SH
-
-RC --> User : roomDTO
-deactivate RC
 @enduml
