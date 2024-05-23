@@ -40,7 +40,7 @@ class SensorModelAssemblerTest {
     when(sensorModelDouble.getModelPath()).thenReturn(sensorModelPathDouble);
 
     SensorModelAssembler sensorModelAssembler = new SensorModelAssembler();
-    String expected = sensorModelID + " " + sensorModelName + " " + sensorModelPath;
+    String expected = sensorModelName + " " + sensorModelPath;
 
     // Act
     SensorModelDTO sensorModelDTO = sensorModelAssembler.domainToDTO(sensorModelDouble);
@@ -121,9 +121,9 @@ class SensorModelAssemblerTest {
 
     // Assert
        assertEquals(2, sensorModelsDTO.size());
-       assertEquals(sensorModelID + " " + sensorModelName + " " + sensorModelPath,
+       assertEquals(sensorModelName + " " + sensorModelPath,
            sensorModelsDTO.get(0).toString());
-       assertEquals(sensorModelID2 + " " + sensorModelName2 + " " + sensorModelPath2,
+       assertEquals(sensorModelName2 + " " + sensorModelPath2,
            sensorModelsDTO.get(1).toString());
   }
 

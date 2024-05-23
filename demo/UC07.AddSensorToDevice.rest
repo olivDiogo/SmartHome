@@ -82,6 +82,30 @@ Content-Type: application/json
     client.global.set("sunsetTimeSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
 %}
 
+###
+GET http://localhost:8080/sensor-models?sensorTypeID=SunsetTime
+Content-Type: application/json
+
+> {%
+    client.global.set("sunsetTimeSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+%}
+
+###
+GET http://localhost:8080/sensor-models?sensorTypeID=ElectricConsumptionWh
+Content-Type: application/json
+
+> {%
+    client.global.set("electricConsumptionWh", response.body._embedded.sensorModelDTOList[0]._modelPath);
+%}
+
+###
+GET http://localhost:8080/sensor-models?sensorTypeID=Position
+Content-Type: application/json
+
+> {%
+    client.global.set("position", response.body._embedded.sensorModelDTOList[0]._modelPath);
+%}
+
 
 ###
 
@@ -248,3 +272,30 @@ Content-Type: application/json
   "latitude": 48.8566,
   "longitude": 2.3522
 }
+
+###
+POST http://localhost:8080/sensors
+Content-Type: application/json
+
+{
+  "type": "dateSensor",
+  "deviceID": "{{houseDeviceID}}",
+  "sensorModelPath": "{{electricConsumptionWh}}",
+  "sensorName": "XKU20K",
+  "sensorTypeID": "ElectricConsumptionWh",
+  "startDate": "2024-02-12T00:00:00",
+  "endDate": "2024-02-12T23:59:59"
+}
+
+###
+POST http://localhost:8080/sensors
+Content-Type: application/json
+
+{
+  "type": "genericSensor",
+  "deviceID": "{{houseDeviceID}}",
+  "sensorModelPath": "{{position}}",
+  "sensorName": "XPTO24T",
+  "sensorTypeID": "PercentagePosition"
+}
+

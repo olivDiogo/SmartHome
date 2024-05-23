@@ -126,7 +126,7 @@ public class GPS implements IValueObject {
    */
   @Override
   public String toString() {
-    return "GPS: " +
+    return
         "Latitude= " + latitude +
         ", Longitude= " + longitude;
   }

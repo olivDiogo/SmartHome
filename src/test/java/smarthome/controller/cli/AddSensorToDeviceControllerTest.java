@@ -402,7 +402,7 @@ class AddSensorToDeviceControllerTest {
 
     // Assert
     assertEquals(
-        expectedSensorModelDTOList.get(0).sensorModelID, sensorModelDTOList.get(0).sensorModelID);
+        expectedSensorModelDTOList.get(0).modelPath, sensorModelDTOList.get(0).modelPath);
   }
 
   @Test

@@ -71,7 +71,6 @@ public class SensorName implements IValueObject {
    * @return The string representation of the sensor name.
    */
   public String toString() {
-    return "SensorName:" +
-        " name=" + name;
+    return name;
   }
 }

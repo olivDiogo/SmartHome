@@ -15,12 +15,11 @@ public class SensorModelAssembler implements IAssembler<SensorModel, SensorModel
   public SensorModelDTO domainToDTO(SensorModel domainEntity) {
     Validator.validateNotNull(domainEntity, "Sensor Model");
 
-    String sensorModelID = domainEntity.getID().toString();
     String sensorModelName = domainEntity.getName().toString();
     String sensorModelPath = domainEntity.getID().toString();
     sensorModelPath = PathEncoder.encode(sensorModelPath);
 
-    return new SensorModelDTO(sensorModelID, sensorModelName,
+    return new SensorModelDTO(sensorModelName,
         sensorModelPath);
   }
 

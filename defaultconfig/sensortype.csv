@@ -5,7 +5,7 @@ Switch,Status
 AveragePowerConsumption,KilowattHour
 DewPoint,Celsius
 Wind,KilometerPerHour
-Position,Percent
+PercentagePosition,Percent
 SunriseTime,Time
 InstantPowerConsumption,Watt
 SolarIrradiance,WattBySquareMeter
