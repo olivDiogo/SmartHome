@@ -80,3 +80,18 @@ Content-Type: application/json
 > {%
     client.global.set("deviceId", response.body.deviceID);
 %}
+
+###
+POST http://localhost:8080/devices
+Content-Type: application/json
+
+{
+  "deviceTypeDescription": "General Device",
+  "deviceName": "House Device",
+  "roomID": "{{roomId}}"
+}
+
+> {%
+    client.global.set("houseDeviceID", response.body.deviceID);
+%}
+
