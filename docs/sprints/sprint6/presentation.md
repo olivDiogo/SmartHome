@@ -2,7 +2,7 @@ Presentation Index - Sprint 6
 
 ### 1. [Task Distribution](readme.md)
 
-- [Agile Sprint Overview: Progress and Task Management](resources/issues_project_github.png)
+- [Agile Sprint Overview: Progress and Task Management](../sprint6/resources/scrum.png)
 
 ### 2. Domain Diagram
 
@@ -10,8 +10,8 @@ Presentation Index - Sprint 6
 
 ### 3. Reports
 
-- [Coverage](resources/)
-- [Mutation](resources/mutation.png)
+- [Coverage](../sprint6/resources/coverage.png)
+- [Mutation](../sprint6/resources/mutation.png)
 
 ### 4. US035 - The project to have a REST API
 
