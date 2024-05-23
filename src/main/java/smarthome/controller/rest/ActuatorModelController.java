@@ -19,7 +19,7 @@ import smarthome.service.IActuatorModelService;
 import smarthome.utils.dto.ActuatorModelDTO;
 
 @RestController
-@RequestMapping("/actuator-model")
+@RequestMapping("/actuator-models")
 public class ActuatorModelController {
 
   private final IActuatorModelService actuatorModelService;

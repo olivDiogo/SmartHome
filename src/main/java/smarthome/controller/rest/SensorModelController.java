@@ -18,7 +18,7 @@ import smarthome.service.ISensorModelService;
 import smarthome.utils.dto.SensorModelDTO;
 
 @RestController
-@RequestMapping("/sensor-model")
+@RequestMapping("/sensor-models")
 public class SensorModelController {
 
   private final ISensorModelService sensorModelService;

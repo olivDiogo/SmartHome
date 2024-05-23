@@ -1,4 +1,4 @@
-GET http://localhost:8080/actuator-model/Switch
+GET http://localhost:8080/actuator-models/Switch
 Content-Type: application/json
 
 > {%

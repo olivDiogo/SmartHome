@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class ActuatorModelControllerTest {
 
     // Act & Assert
     mockMvc
-        .perform(get("/actuator-model/" + actuatorTypeID).accept(MediaType.APPLICATION_JSON))
+        .perform(get("/actuator-models/" + actuatorTypeID).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(
             jsonPath("$._embedded.actuatorModelDTOList[0].actuatorModelName").value("Thermostat"))
@@ -75,7 +76,7 @@ public class ActuatorModelControllerTest {
     // Act & Assert
     mockMvc
         .perform(
-            get("/actuator-model/{actuatorTypeID}", actuatorTypeID)
+            get("/actuator-models/{actuatorTypeID}", actuatorTypeID)
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }

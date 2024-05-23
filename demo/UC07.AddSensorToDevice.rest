@@ -1,4 +1,4 @@
-GET http://localhost:8080/sensor-model?sensorTypeID=InstantPowerConsumption
+GET http://localhost:8080/sensor-models?sensorTypeID=InstantPowerConsumption
 Content-Type: application/json
 
 > {%
@@ -6,7 +6,7 @@ Content-Type: application/json
 %}
 
 ###
-GET http://localhost:8080/sensor-model?sensorTypeID=Temperature
+GET http://localhost:8080/sensor-models?sensorTypeID=Temperature
 Content-Type: application/json
 
 > {%
