@@ -22,12 +22,12 @@ The team is made up of the following dedicated students:
 
 _During Sprint 5, task assignments are laid out as below:_
 
-| Task  | Student Assigned                         |
-|-------|------------------------------------------|
-| O.A.  | Team                                     |
-| US 35 | Team                                     |
-| US 36 | Simão Campos, Ruelo Parente              |
-| US 37 | Diogo Oliveira, João Mouta, Wagner Paiva |
+| Task  | Student Assigned                                        |
+|-------|---------------------------------------------------------|
+| O.A.  | Team                                                    |
+| US 35 | Team                                                    |
+| US 36 | Simão Campos, Ruelo Parente                             |
+| US 37 | Diogo Oliveira, João Mouta, Wagner Paiva, Luisa Remelhe | 
 
 
 
