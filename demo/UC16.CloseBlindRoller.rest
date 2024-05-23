@@ -1,0 +1,9 @@
+POST http://localhost:8080/actuators/close-blind-roller
+Content-Type: application/json
+
+{
+  "type": "valueDTO",
+  "deviceID": "yourDeviceID",
+  "actuatorID": "yourActuatorID",
+  "value": 50
+}

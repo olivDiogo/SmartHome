@@ -1,0 +1,64 @@
+GET http://localhost:8080/sensor-model?sensorTypeID=InstantPowerConsumption
+Content-Type: application/json
+
+> {%
+    client.global.set("instantPowerSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+%}
+
+###
+GET http://localhost:8080/sensor-model?sensorTypeID=Temperature
+Content-Type: application/json
+
+> {%
+    client.global.set("temperatureSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+%}
+
+
+###
+
+POST http://localhost:8080/sensors
+Content-Type: application/json
+
+{
+  "type": "genericSensor",
+  "deviceID": "{{powerMeterDeviceId}}",
+  "sensorModelPath": "{{instantPowerSensor}}",
+  "sensorName": "GA100K",
+  "sensorTypeID": "InstantPowerConsumption"
+}
+
+###
+POST http://localhost:8080/sensors
+Content-Type: application/json
+
+{
+  "type": "genericSensor",
+  "deviceID": "{{powerSourceDeviceId}}",
+  "sensorModelPath": "{{instantPowerSensor}}",
+  "sensorName": "GA100K",
+  "sensorTypeID": "InstantPowerConsumption"
+}
+
+###
+POST http://localhost:8080/sensors
+Content-Type: application/json
+
+{
+  "type": "genericSensor",
+  "deviceID": "{{temperatureGardenDeviceId}}",
+  "sensorModelPath": "{{temperatureSensor}}",
+  "sensorName": "TX200K",
+  "sensorTypeID": "Temperature"
+}
+
+###
+POST http://localhost:8080/sensors
+Content-Type: application/json
+
+{
+  "type": "genericSensor",
+  "deviceID": "{{temperatureIndoorDeviceId}}",
+  "sensorModelPath": "{{temperatureSensor}}",
+  "sensorName": "TX200K",
+  "sensorTypeID": "Temperature"
+}

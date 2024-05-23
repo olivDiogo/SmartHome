@@ -1,0 +1,20 @@
+GET http://localhost:8080/actuator-model/Switch
+Content-Type: application/json
+
+> {%
+    client.global.set("actuatorModelPath", response.body._embedded.actuatorModelDTOList[0].actuatorModelPath);
+%}
+
+
+###
+
+POST http://localhost:8080/actuators
+Content-Type: application/json
+
+{
+  "type": "genericActuator",
+  "deviceID": "{{deviceId}}",
+  "actuatorModelPath": "{{actuatorModelPath}}",
+  "actuatorName": "PowerSwitch",
+  "actuatorTypeID": "Switch"
+}
