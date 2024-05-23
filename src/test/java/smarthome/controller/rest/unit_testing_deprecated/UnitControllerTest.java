@@ -40,7 +40,7 @@ class UnitControllerTest {
     // Arrange
     Unit unit = mock(Unit.class);
     UnitDTO unitDTO = mock(UnitDTO.class);
-    when(unitService.getAllMeasurementTypes()).thenReturn(List.of(unit));
+    when(unitService.getAllunitTypes()).thenReturn(List.of(unit));
     when(unitAssembler.domainToDTO(List.of(unit))).thenReturn(List.of(unitDTO));
 
     // Act & Assert
@@ -57,7 +57,7 @@ class UnitControllerTest {
   @Test
   void shouldReturnNoUnits_WhenNoUnitsAvailable() throws Exception {
     // Arrange
-    when(unitService.getAllMeasurementTypes()).thenReturn(List.of());
+    when(unitService.getAllunitTypes()).thenReturn(List.of());
     // Act & Assert
     mockMvc.perform(get("/units")
             .accept(MediaType.APPLICATION_JSON))

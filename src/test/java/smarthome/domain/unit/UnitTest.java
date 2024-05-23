@@ -35,7 +35,7 @@ class UnitTest {
 
 
   /**
-   * Expects IllegalArgumentException for null measurement unit.
+   * Expects IllegalArgumentException for null unit unit.
    */
   @Test
   void shouldThrowIllegalArgumentException_WhenGivenNullUnitSymbol() {
@@ -93,7 +93,7 @@ class UnitTest {
   }
 
   /**
-   * Expects IllegalArgumentException for null measurement unit.
+   * Expects IllegalArgumentException for null unit unit.
    */
   @Test
   void shouldThrowIllegalArgumentException_WhenGivenNullUnitSymbolWithID() {

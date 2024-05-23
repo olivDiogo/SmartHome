@@ -7,12 +7,12 @@ public class TemperatureSensorValue implements IValueObject {
 
   /**
    * Represents the value of the temperature measured by the sensor. This class is used to
-   * encapsulate the numeric value of the temperature measurement.
+   * encapsulate the numeric value of the temperature unit.
    */
   private double temperatureValue;
 
   /**
-   * Constructs a new TemperatureSensorValue with the specified temperature measurement.
+   * Constructs a new TemperatureSensorValue with the specified temperature unit.
    *
    * @param dValue The numeric value of the temperature, in degrees Celsius.
    */
@@ -37,7 +37,7 @@ public class TemperatureSensorValue implements IValueObject {
   }
 
   /**
-   * Returns a string representation of the temperature measurement. This method allows the
+   * Returns a string representation of the temperature unit. This method allows the
    * temperature value to be easily printed or logged.
    *
    * @return A string representation of the temperature value, in degrees Celsius.

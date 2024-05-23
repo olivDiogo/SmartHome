@@ -80,7 +80,7 @@ US31 - As Product Owner, I want the system to support data persistence using JPA
 
 US32 - As Product Owner, I want the system to support data persistence using Spring.
 
-[US33](us33/us33_readme.md) - As a Room Owner [or Power User, or Administrator], I want to get a list of all measurement
+[US33](us33/us33_readme.md) - As a Room Owner [or Power User, or Administrator], I want to get a list of all unit
 of a device in a room, in a given period.
 
 [US34](us34/us34_readme.md) - As a Room Owner [or Power User, or Administrator], I want to get the maximum instantaneous

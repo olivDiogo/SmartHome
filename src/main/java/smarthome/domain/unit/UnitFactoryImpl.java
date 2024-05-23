@@ -12,8 +12,8 @@ import smarthome.domain.value_object.UnitSymbol;
 public class UnitFactoryImpl implements IUnitFactory {
 
   /**
-   * Creates and returns a new {@link Unit} instance with the provided measurement value,
-   * measurement type, and measurement time.
+   * Creates and returns a new {@link Unit} instance with the provided unit value,
+   * unit type, and unit time.
    */
 
   @Override
@@ -23,8 +23,8 @@ public class UnitFactoryImpl implements IUnitFactory {
   }
 
   /**
-   * Creates and returns a new {@link Unit} instance with the provided measurement value,
-   * measurement type, measurement time, and unit ID.
+   * Creates and returns a new {@link Unit} instance with the provided unit value,
+   * unit type, unit time, and unit ID.
    */
   @Override
   public Unit createUnit(UnitDescription unitDescription, UnitSymbol unitSymbol, UnitID unitID)

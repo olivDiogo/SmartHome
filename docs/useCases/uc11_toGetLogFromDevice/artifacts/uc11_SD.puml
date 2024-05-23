@@ -2,7 +2,7 @@
 !pragma layout smetana
 
 participant " " as User
-participant ":GetListOfAllMeasurementsOfOneDeviceController" as Controller
+participant ":GetListOfAllunitsOfOneDeviceController" as Controller
 
 participant "period:DatePeriod" as DatePeriod
 participant "deviceID:DeviceID" as DeviceID
@@ -39,13 +39,13 @@ DeviceID --> Controller: deviceID
 deactivate DeviceID
 
 
-'getAllMeasurementsOfDeviceInGivenPeriod -> getStartDate, getEndDate
+'getAllunitsOfDeviceInGivenPeriod -> getStartDate, getEndDate
 Controller -> LogService: getDeviceReadingsByTimePeriod (deviceID, period)
 
 'getStartDate -> localDateTimeStart
 activate LogService
 
-'findByDeviceIdAndTimeStampBetween -> look in all measurement repositories
+'findByDeviceIdAndTimeStampBetween -> look in all unit repositories
 LogService -> Repository: findByDeviceIdAndDatePeriodBetween(deviceID, period)
 
 activate Repository

@@ -14,18 +14,18 @@ public class UnitRepository implements IUnitRepository {
   private final Map<UnitID, Unit> DATA = new LinkedHashMap<>();
 
   /**
-   * Save a MeasurementType. If the MeasurementType is null, throw an IllegalArgumentException. If
-   * the MeasurementType already exists, throw an IllegalArgumentException.
+   * Save a unitType. If the unitType is null, throw an IllegalArgumentException. If
+   * the unitType already exists, throw an IllegalArgumentException.
    *
    * @param entity is the domain entity to be saved.
    * @return the saved domain entity.
    */
   @Override
   public Unit save(Unit entity) {
-    Validator.validateNotNull(entity, "MeasurementType");
+    Validator.validateNotNull(entity, "unitType");
 
     if (containsOfIdentity(entity.getID())) {
-      throw new IllegalArgumentException("MeasurementType already exists.");
+      throw new IllegalArgumentException("unitType already exists.");
     } else {
       DATA.put(entity.getID(), entity);
     }
@@ -33,9 +33,9 @@ public class UnitRepository implements IUnitRepository {
   }
 
   /**
-   * Method to find all MeasurementTypes.
+   * Method to find all unitTypes.
    *
-   * @return a list of all MeasurementTypes.
+   * @return a list of all unitTypes.
    */
   @Override
   public List<Unit> findAll() {
@@ -44,19 +44,19 @@ public class UnitRepository implements IUnitRepository {
   }
 
   /**
-   * Method to find a MeasurementType by its unique identifier.
+   * Method to find a unitType by its unique identifier.
    *
    * @param objectID is the unique identifier of the domain entity.
    * @return the domain entity.
    */
   @Override
   public Optional<Unit> ofIdentity(UnitID objectID) {
-    Optional<Unit> measurementType = Optional.ofNullable(DATA.get(objectID));
-    return measurementType;
+    Optional<Unit> unitType = Optional.ofNullable(DATA.get(objectID));
+    return unitType;
   }
 
   /**
-   * Method to check if a MeasurementType exists by its unique identifier.
+   * Method to check if a unitType exists by its unique identifier.
    *
    * @param objectID is the unique identifier of the domain entity.
    * @return true if the domain entity exists, false otherwise.

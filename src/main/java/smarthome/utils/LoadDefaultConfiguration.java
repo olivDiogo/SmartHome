@@ -74,7 +74,7 @@ public class LoadDefaultConfiguration {
         UnitDescription unitDescription1 = new UnitDescription(unitDescription);
         String unitSymbol = rows.get(i)[1];
         UnitSymbol unitSymbol1 = new UnitSymbol(unitSymbol);
-        unitService.addMeasurementType(unitDescription1, unitSymbol1);
+        unitService.addunitType(unitDescription1, unitSymbol1);
       }
     }
   }

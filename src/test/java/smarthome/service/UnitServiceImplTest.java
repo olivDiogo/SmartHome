@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -19,15 +18,14 @@ import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
-import smarthome.persistence.mem.UnitRepository;
 
 class UnitServiceImplTest {
 
   /**
-   * Test that the constructor of MeasurementTypeService is instantiated correctly.
+   * Test that the constructor of unitTypeService is instantiated correctly.
    */
   @Test
-  void shouldInstantiateMeasurementTypeService_WhenConstructorInvoked() {
+  void shouldInstantiateunitTypeService_WhenConstructorInvoked() {
     // Arrange
     IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
@@ -40,16 +38,16 @@ class UnitServiceImplTest {
   }
 
   /**
-   * Test that the MeasurementTypeService can throw an IllegalArgumentException when the
-   * MeasurementType repository is null.
+   * Test that the unitTypeService can throw an IllegalArgumentException when the
+   * unitType repository is null.
    */
   @Test
-  void shouldThrowIllegalArgumentException_whenMeasurementTypeRepositoryIsNull() {
+  void shouldThrowIllegalArgumentException_whenunitTypeRepositoryIsNull() {
     // Arrange
     IUnitRepository unitRepositoryDouble = null;
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
 
-    String expectedMessage = "MeasurementType repository is required";
+    String expectedMessage = "unitType repository is required";
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
@@ -60,16 +58,16 @@ class UnitServiceImplTest {
   }
 
   /**
-   * Test that the MeasurementTypeService can throw an IllegalArgumentException when the
-   * MeasurementType factory is null.
+   * Test that the unitTypeService can throw an IllegalArgumentException when the
+   * unitType factory is null.
    */
   @Test
-  void shouldThrowIllegalArgumentException_whenMeasurementTypeFactoryIsNull() {
+  void shouldThrowIllegalArgumentException_whenunitTypeFactoryIsNull() {
     // Arrange
     IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = null;
 
-    String expectedMessage = "MeasurementType factory is required";
+    String expectedMessage = "unitType factory is required";
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
@@ -80,10 +78,10 @@ class UnitServiceImplTest {
   }
 
   /**
-   * Test that the MeasurementTypeService can create and save a MeasurementType.
+   * Test that the unitTypeService can create and save a unitType.
    */
   @Test
-  void shouldCreateAndSaveMeasurementType_WhenParameterAreValid() {
+  void shouldCreateAndSaveunitType_WhenParameterAreValid() {
     // Arrange
     IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
@@ -101,18 +99,18 @@ class UnitServiceImplTest {
     when(unitRepositoryDouble.save(unitDouble)).thenReturn(unitDouble);
 
     // Act
-    Unit measurementUnit = unitServiceImpl.addMeasurementType(description, unit);
+    Unit unitUnit = unitServiceImpl.addunitType(description, unit);
 
     // Assert
-    assertEquals(unitDouble, measurementUnit);
+    assertEquals(unitDouble, unitUnit);
   }
 
   /**
-   * Test that the MeasurementTypeService can throw an IllegalArgumentException when the
-   * MeasurementType description is null.
+   * Test that the unitTypeService can throw an IllegalArgumentException when the
+   * unitType description is null.
    */
   @Test
-  void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsNull() {
+  void shouldThrowIllegalArgumentException_whenunitTypeDescriptionIsNull() {
     // Arrange
     IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
@@ -122,22 +120,22 @@ class UnitServiceImplTest {
     UnitDescription description = null;
     UnitSymbol unit = mock(UnitSymbol.class);
 
-    String expectedMessage = "Measurement type description cannot be null or empty.";
+    String expectedMessage = "unit type description cannot be null or empty.";
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> unitServiceImpl.addMeasurementType(description, unit));
+        () -> unitServiceImpl.addunitType(description, unit));
 
     //Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
 
   /**
-   * Test that the MeasurementTypeService can throw an IllegalArgumentException when the
-   * MeasurementType description is empty.
+   * Test that the unitTypeService can throw an IllegalArgumentException when the
+   * unitType description is empty.
    */
   @Test
-  void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsEmpty() {
+  void shouldThrowIllegalArgumentException_whenunitTypeDescriptionIsEmpty() {
     // Arrange
     IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
@@ -149,22 +147,22 @@ class UnitServiceImplTest {
 
     when(description.getDescription()).thenReturn("");
 
-    String expectedMessage = "Measurement type description cannot be null or empty.";
+    String expectedMessage = "unit type description cannot be null or empty.";
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> unitServiceImpl.addMeasurementType(description, unit));
+        () -> unitServiceImpl.addunitType(description, unit));
 
     //Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
 
   /**
-   * Test that the MeasurementTypeService can throw an IllegalArgumentException when the
-   * MeasurementType description is blank.
+   * Test that the unitTypeService can throw an IllegalArgumentException when the
+   * unitType description is blank.
    */
   @Test
-  void shouldThrowIllegalArgumentException_whenMeasurementTypeDescriptionIsBlank() {
+  void shouldThrowIllegalArgumentException_whenunitTypeDescriptionIsBlank() {
     // Arrange
     IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
@@ -176,22 +174,22 @@ class UnitServiceImplTest {
 
     when(description.getDescription()).thenReturn(" ");
 
-    String expectedMessage = "Measurement type description cannot be null or empty.";
+    String expectedMessage = "unit type description cannot be null or empty.";
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> unitServiceImpl.addMeasurementType(description, unit));
+        () -> unitServiceImpl.addunitType(description, unit));
 
     //Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
 
   /**
-   * Test that the MeasurementTypeService can throw an IllegalArgumentException when the
-   * MeasurementType unit is null.
+   * Test that the unitTypeService can throw an IllegalArgumentException when the
+   * unitType unit is null.
    */
   @Test
-  void shouldThrowIllegalArgumentException_whenMeasurementTypeUnitIsNull() {
+  void shouldThrowIllegalArgumentException_whenunitTypeUnitIsNull() {
     // Arrange
     IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
@@ -202,22 +200,22 @@ class UnitServiceImplTest {
     when(description.getDescription()).thenReturn("Temperature");
     UnitSymbol unit = null;
 
-    String expectedMessage = "Measurement type unit cannot be null or empty.";
+    String expectedMessage = "unit type unit cannot be null or empty.";
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> unitServiceImpl.addMeasurementType(description, unit));
+        () -> unitServiceImpl.addunitType(description, unit));
 
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
 
   /**
-   * Test that the MeasurementTypeService can throw an IllegalArgumentException when the
-   * MeasurementType unit is empty.
+   * Test that the unitTypeService can throw an IllegalArgumentException when the
+   * unitType unit is empty.
    */
   @Test
-  void shouldThrowIllegalArgumentException_whenMeasurementTypeUnitIsEmpty() {
+  void shouldThrowIllegalArgumentException_whenunitTypeUnitIsEmpty() {
     // Arrange
     IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
@@ -230,21 +228,21 @@ class UnitServiceImplTest {
 
     when(unit.getUnit()).thenReturn("");
 
-    String expectedMessage = "Measurement type unit cannot be null or empty.";
+    String expectedMessage = "unit type unit cannot be null or empty.";
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> unitServiceImpl.addMeasurementType(description, unit));
+        () -> unitServiceImpl.addunitType(description, unit));
 
     //Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
 
   /**
-   * Test findMeasurementTypeById method of MeasurementTypeService.
+   * Test findunitTypeById method of unitTypeService.
    */
   @Test
-  void shouldReturnMeasurementType_WhenFindByIdInvoked() {
+  void shouldReturnunitType_WhenFindByIdInvoked() {
     // Arrange
     IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
@@ -255,19 +253,19 @@ class UnitServiceImplTest {
     when(unitID.toString()).thenReturn("1");
     Unit unitDouble = mock(Unit.class);
 
-    // Wrap the measurementTypeDouble in an Optional
+    // Wrap the unitTypeDouble in an Optional
     when(unitRepositoryDouble.ofIdentity(unitID)).thenReturn(Optional.of(unitDouble));
 
     // Act
-    Optional<Unit> result = unitServiceImpl.getMeasurementTypeById(unitID);
+    Optional<Unit> result = unitServiceImpl.getunitTypeById(unitID);
 
     // Assert
     assertTrue(result.isPresent()); // Ensure the result is present
-    assertEquals(unitDouble, result.get()); // Compare the actual MeasurementType object
+    assertEquals(unitDouble, result.get()); // Compare the actual unitType object
   }
 
   /**
-   * Test findMeasurementTypeById method of MeasurementTypeService, when the MeasurementID is null.
+   * Test findunitTypeById method of unitTypeService, when the unitID is null.
    */
   @Test
   void shouldThrowIllegalArgumentException_WhenFindByIdWithNullIDInvoked() {
@@ -282,7 +280,7 @@ class UnitServiceImplTest {
 
     // Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> unitServiceImpl.getMeasurementTypeById(unitID));
+        () -> unitServiceImpl.getunitTypeById(unitID));
 
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
@@ -290,13 +288,13 @@ class UnitServiceImplTest {
 
 
   /**
-   * Test that the MeasurementTypeService can return all MeasurementTypes in the repository. Aims to
+   * Test that the unitTypeService can return all unitTypes in the repository. Aims to
    * ensure that the interaction between the service and the repository occurs as expected,ensuring
    * that the data are effectively fetched from the repository. This test is a good example of a
    * test that ensures the correct interaction between the service and the repository.
    */
   @Test
-  void shouldReturnAllMeasurementTypes_WhenFindAllMeasurementTypesInvoked() {
+  void shouldReturnAllunitTypes_WhenFindAllunitTypesInvoked() {
     // Arrange
     IUnitRepository unitRepositoryDouble = mock(IUnitRepository.class);
     IUnitFactory unitFactoryDouble = mock(IUnitFactory.class);
@@ -304,20 +302,20 @@ class UnitServiceImplTest {
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepositoryDouble, unitFactoryDouble);
 
     // Act
-    List<Unit> result = unitServiceImpl.getAllMeasurementTypes();
+    List<Unit> result = unitServiceImpl.getAllunitTypes();
 
     // Assert
     assertEquals(result, unitRepositoryDouble.findAll());
   }
 
   /**
-   * Test that the MeasurementTypeService can return a non-empty list when measurement types are
+   * Test that the unitTypeService can return a non-empty list when unit types are
    * available. Focuses on ensuring that the service correctly handles the data received from the
    * repository, especially in scenarios where data exists to be returned. This test is a good
    * example of a test that ensures the correct handling of data by the service.
    */
   @Test
-  void shouldNotReturnEmptyList_WhenFindAllMeasurementTypesIsCalledWithAvailableTypes() {
+  void shouldNotReturnEmptyList_WhenFindAllunitTypesIsCalledWithAvailableTypes() {
     // Arrange
     IUnitRepository unitRepository = mock(IUnitRepository.class);
     IUnitFactory unitFactory = mock(IUnitFactory.class);
@@ -328,7 +326,7 @@ class UnitServiceImplTest {
     when(unitRepository.findAll()).thenReturn(availableTypes);
 
     // Act
-    List<Unit> result = unitServiceImpl.getAllMeasurementTypes();
+    List<Unit> result = unitServiceImpl.getAllunitTypes();
 
     // Assert
     assertFalse(result.isEmpty());

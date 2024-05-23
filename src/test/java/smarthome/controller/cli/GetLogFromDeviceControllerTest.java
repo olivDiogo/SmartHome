@@ -224,10 +224,10 @@ class GetLogFromDeviceControllerTest {
   }
 
   /**
-   * Test when no measurements are available for the given period.
+   * Test when no units are available for the given period.
    */
   @Test
-  void shouldReturnNoMeasurementsAvailable_WhenNoMeasurementsForGivenPeriod()
+  void shouldReturnNounitsAvailable_WhenNounitsForGivenPeriod()
        {
     // Arrange
     // Add a house

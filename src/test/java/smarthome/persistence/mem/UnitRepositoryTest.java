@@ -16,10 +16,10 @@ import smarthome.domain.value_object.UnitID;
 class UnitRepositoryTest {
 
   /**
-   * Test of save method when given valid MeasurementType.
+   * Test of save method when given valid unitType.
    */
   @Test
-  void shouldSaveSensorType_whenGivenValidMeasurementType() {
+  void shouldSaveSensorType_whenGivenValidunitType() {
     //Arrange
     Unit Unit = mock(Unit.class);
 
@@ -33,14 +33,14 @@ class UnitRepositoryTest {
   }
 
   /**
-   * Test of save method when given null MeasurementType.
+   * Test of save method when given null unitType.
    */
   @Test
-  void shouldThrowIllegalArgumentException_whenGivenNullMeasurementType() {
+  void shouldThrowIllegalArgumentException_whenGivenNullunitType() {
     //Arrange
     Unit unit = null;
     UnitRepository unitRepository = new UnitRepository();
-    String expectedMessage = "MeasurementType is required";
+    String expectedMessage = "unitType is required";
 
     //Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
@@ -51,17 +51,17 @@ class UnitRepositoryTest {
   }
 
   /**
-   * Test of save method when MeasurementType already exists.
+   * Test of save method when unitType already exists.
    */
   @Test
-  void shouldThrowException_whenMeasurementTypeAlreadyExists() {
+  void shouldThrowException_whenunitTypeAlreadyExists() {
     //Arrange
     Unit unit = mock(Unit.class);
 
     UnitRepository unitRepository = new UnitRepository();
 
     unitRepository.save(unit);
-    String expectedMessage = "MeasurementType already exists.";
+    String expectedMessage = "unitType already exists.";
 
     //Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
@@ -72,10 +72,10 @@ class UnitRepositoryTest {
   }
 
   /**
-   * Test of findAll method when there are MeasurementTypes saved.
+   * Test of findAll method when there are unitTypes saved.
    */
   @Test
-  void shouldReturnAllMeasurementTypes_whenFindAllIsCalled() {
+  void shouldReturnAllunitTypes_whenFindAllIsCalled() {
     //Arrange
     Unit unit1 = mock(Unit.class);
     UnitID unitID1 = mock(UnitID.class);
@@ -99,10 +99,10 @@ class UnitRepositoryTest {
   }
 
   /**
-   * Test of findAll method when there are no MeasurementTypes saved.
+   * Test of findAll method when there are no unitTypes saved.
    */
   @Test
-  void shouldReturnEmptyList_whenNoMeasurementTypesAreSaved() {
+  void shouldReturnEmptyList_whenNounitTypesAreSaved() {
     //Arrange
     UnitRepository unitRepository = new UnitRepository();
 
@@ -117,17 +117,17 @@ class UnitRepositoryTest {
    * Test of ofIdentity method when given valid ID.
    */
   @Test
-  void shouldReturnMeasurementType_whenGivenValidID() {
+  void shouldReturnunitType_whenGivenValidID() {
     //Arrange
     Unit unit = mock(Unit.class);
-    UnitID measurementTypeID = mock(UnitID.class);
-    when(unit.getID()).thenReturn(measurementTypeID);
+    UnitID unitTypeID = mock(UnitID.class);
+    when(unit.getID()).thenReturn(unitTypeID);
 
     UnitRepository unitRepository = new UnitRepository();
     unitRepository.save(unit);
 
     //Act
-    Unit returnedUnit = unitRepository.ofIdentity(measurementTypeID).get();
+    Unit returnedUnit = unitRepository.ofIdentity(unitTypeID).get();
 
     //Assert
     assertEquals(unit, returnedUnit);
@@ -142,18 +142,18 @@ class UnitRepositoryTest {
     UnitRepository unitRepository = new UnitRepository();
 
     Unit unit = mock(Unit.class);
-    UnitID measurementTypeID = mock(UnitID.class);
-    when(unit.getID()).thenReturn(measurementTypeID);
+    UnitID unitTypeID = mock(UnitID.class);
+    when(unit.getID()).thenReturn(unitTypeID);
 
     unitRepository.save(unit);
 
     UnitID nonExistentID = mock(UnitID.class);
 
     //Act
-    Optional<Unit> returnedMeasurementType = unitRepository.ofIdentity(nonExistentID);
+    Optional<Unit> returnedunitType = unitRepository.ofIdentity(nonExistentID);
 
     //Assert
-    assertTrue(returnedMeasurementType.isEmpty());
+    assertTrue(returnedunitType.isEmpty());
   }
 
   /**
@@ -163,17 +163,17 @@ class UnitRepositoryTest {
   void shouldReturnTrue_whenGivenValidID() {
     //Arrange
     Unit unit = mock(Unit.class);
-    UnitID measurementTypeID = mock(UnitID.class);
-    when(unit.getID()).thenReturn(measurementTypeID);
+    UnitID unitTypeID = mock(UnitID.class);
+    when(unit.getID()).thenReturn(unitTypeID);
 
     UnitRepository unitRepository = new UnitRepository();
     unitRepository.save(unit);
 
     //Act
-    boolean containsMeasurementType = unitRepository.containsOfIdentity(measurementTypeID);
+    boolean containsunitType = unitRepository.containsOfIdentity(unitTypeID);
 
     //Assert
-    assertTrue(containsMeasurementType);
+    assertTrue(containsunitType);
   }
 
   /**
@@ -185,18 +185,18 @@ class UnitRepositoryTest {
     UnitRepository unitRepository = new UnitRepository();
 
     Unit unit = mock(Unit.class);
-    UnitID measurementTypeID = mock(UnitID.class);
-    when(unit.getID()).thenReturn(measurementTypeID);
+    UnitID unitTypeID = mock(UnitID.class);
+    when(unit.getID()).thenReturn(unitTypeID);
 
     unitRepository.save(unit);
 
     UnitID nonExistentID = mock(UnitID.class);
 
     //Act
-    boolean containsMeasurementType = unitRepository.containsOfIdentity(nonExistentID);
+    boolean containsunitType = unitRepository.containsOfIdentity(nonExistentID);
 
     //Assert
-    assertFalse(containsMeasurementType);
+    assertFalse(containsunitType);
   }
 
 }

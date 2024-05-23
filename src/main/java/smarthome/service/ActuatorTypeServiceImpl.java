@@ -49,7 +49,7 @@ public class ActuatorTypeServiceImpl implements IActuatorTypeService {
   @Override
   public ActuatorType createActuatorType(TypeDescription name, UnitID unitID) {
     if (!unitRepository.containsOfIdentity(unitID)) {
-      throw new IllegalArgumentException("Please enter a valid measurement type.");
+      throw new IllegalArgumentException("Please enter a valid unit type.");
     }
     ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(name, unitID);
     return actuatorType;

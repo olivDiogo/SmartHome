@@ -16,7 +16,7 @@ public class SensorTypeDTO extends RepresentationModel<SensorTypeDTO>  implement
    * Constructs a new SensorTypeDTO object.
    *
    * @param description The description of the sensor type.
-   * @param unitID                  The unit of measurement for the sensor type.
+   * @param unitID                  The unit of unit for the sensor type.
    */
   public SensorTypeDTO(String sensorTypeID, String description, String unitID) {
     this.sensorTypeID = sensorTypeID;

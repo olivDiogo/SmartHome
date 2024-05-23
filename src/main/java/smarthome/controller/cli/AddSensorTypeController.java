@@ -49,7 +49,7 @@ public class AddSensorTypeController {
    * @return The list of supported units.
    */
   public List<UnitDTO> getSupportedUnits() {
-    List<Unit> units = unitService.getAllMeasurementTypes();
+    List<Unit> units = unitService.getAllunitTypes();
     return unitAssembler.domainToDTO(units);
   }
 

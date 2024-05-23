@@ -7,7 +7,7 @@ participant ":UnitService" as UnitService
 participant ":UnitRepo" as Unit
 participant ":UnitAssembler" as UnitAssembler
 
-participant ":MeasurementTypeDTO" as MeasurementTypeDTO
+participant ":unitTypeDTO" as unitTypeDTO
 
 participant ":UnitID" as UnitID
 participant ":Description" as Description
@@ -19,7 +19,7 @@ participant "sensorType:SensorType" as Type
 participant ":SensorTypeRepository" as Repository
 participant ":SensorTypeDTO" as SensorTypeDTO
 
-User o-> Controller: 1: getSupportedMeasurementTypes()
+User o-> Controller: 1: getSupportedunitTypes()
 activate Controller
 Controller -> UnitService: 1.1: getAllSupportedUnits()
 activate UnitService
@@ -32,12 +32,12 @@ deactivate UnitService
 Controller -> UnitAssembler: 1.2: domainToDTO(listUnits)
 activate UnitAssembler
 loop
-create MeasurementTypeDTO
-  UnitAssembler -> MeasurementTypeDTO: 1.2.1: createMeasurementTypeDTO(measurementType)
-  activate MeasurementTypeDTO
-  MeasurementTypeDTO --> UnitAssembler: measurementTypeDTO
-  UnitAssembler -> UnitAssembler: 1.2.2: addMeasurementTypeDTO(measurementTypeDTO)
-  deactivate MeasurementTypeDTO
+create unitTypeDTO
+  UnitAssembler -> unitTypeDTO: 1.2.1: createunitTypeDTO(unitType)
+  activate unitTypeDTO
+  unitTypeDTO --> UnitAssembler: unitTypeDTO
+  UnitAssembler -> UnitAssembler: 1.2.2: addunitTypeDTO(unitTypeDTO)
+  deactivate unitTypeDTO
 end loop
 UnitAssembler --> Controller: listUnitsDTO
   deactivate UnitAssembler
@@ -52,7 +52,7 @@ User o-> Controller: 2: createSensorType(dataSensorTypeDTO data)
 '------------------------------------------------------------------'
 activate Controller
 create UnitID
-Controller -> UnitID: 2.1: createMeasurementTypeID(srtUnitID)
+Controller -> UnitID: 2.1: createunitTypeID(srtUnitID)
 activate UnitID
 UnitID --> Controller: unitID
 deactivate UnitID

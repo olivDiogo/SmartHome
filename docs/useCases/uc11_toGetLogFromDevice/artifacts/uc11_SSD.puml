@@ -14,9 +14,9 @@ activate User
 ref over User, System: uc6 - get devices in room
 activate System
 deactivate System
-User -> System: For this Device, I want the list of measurements
+User -> System: For this Device, I want the list of units
 activate System
-System --> User: List of measurements
+System --> User: List of units
 deactivate System
 deactivate User
 

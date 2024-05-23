@@ -11,26 +11,26 @@ import smarthome.domain.value_object.UnitSymbol;
 public interface IUnitService extends IService {
 
   /**
-   * Adds a new measurement type to the repository.
+   * Adds a new unit type to the repository.
    *
-   * @param description The description of the measurement type.
-   * @param unit        The unit of the measurement type.
-   * @return The created and saved MeasurementType object.
+   * @param description The description of the unit type.
+   * @param unit        The unit of the unit type.
+   * @return The created and saved unitType object.
    */
-  Unit addMeasurementType(UnitDescription description, UnitSymbol unit);
+  Unit addunitType(UnitDescription description, UnitSymbol unit);
 
   /**
-   * Retrieves a measurement type by its ID.
+   * Retrieves a unit type by its ID.
    *
-   * @param unitID The ID of the measurement type to retrieve.
-   * @return The measurement type with the given ID, if it exists.
+   * @param unitID The ID of the unit type to retrieve.
+   * @return The unit type with the given ID, if it exists.
    */
-  Optional<Unit> getMeasurementTypeById(UnitID unitID);
+  Optional<Unit> getunitTypeById(UnitID unitID);
 
   /**
-   * Retrieves all measurement types from the repository.
+   * Retrieves all unit types from the repository.
    *
-   * @return A list of all measurement types.
+   * @return A list of all unit types.
    */
-  List<Unit> getAllMeasurementTypes();
+  List<Unit> getAllunitTypes();
 }

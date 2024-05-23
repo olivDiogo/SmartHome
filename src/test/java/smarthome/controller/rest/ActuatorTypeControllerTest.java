@@ -146,10 +146,10 @@ class ActuatorTypeControllerTest {
 
   /**
    * This test case verifies that the ActuatorTypeController returns a bad request status when
-   * invalid measurement type
+   * invalid unit type
    */
   @Test
-  void shouldReturnBadRequest_WhenInvalidMeasurementType() throws Exception {
+  void shouldReturnBadRequest_WhenInvalidunitType() throws Exception {
     // Arrange
     ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", "C");
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
@@ -160,7 +160,7 @@ class ActuatorTypeControllerTest {
             .content(jsonContent)
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$.message", is("Please enter a valid measurement type.")));
+        .andExpect(jsonPath("$.message", is("Please enter a valid unit type.")));
   }
 
   /**

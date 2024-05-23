@@ -38,5 +38,5 @@ _During Sprint 5, task assignments are laid out as below:_
 
  - support data persistence using JPA
  - support data persistence using Spring
- - get a list of all measurement of a device in a room, in a given period
+- get a list of all unit of a device in a room, in a given period
  - get the maximum instantaneous temperature difference between a device in the room and the outside, in a given period.

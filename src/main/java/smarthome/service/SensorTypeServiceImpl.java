@@ -48,7 +48,7 @@ public class SensorTypeServiceImpl implements ISensorTypeService {
   @Override
   public SensorType createSensorType(TypeDescription name, UnitID unitID) {
     if (!unitRepository.containsOfIdentity(unitID)) {
-      throw new IllegalArgumentException("Please enter a valid measurement type.");
+      throw new IllegalArgumentException("Please enter a valid unit type.");
     }
     SensorType sensorType = sensorTypeFactory.createSensorType(name, unitID);
     addSensorType(sensorType);

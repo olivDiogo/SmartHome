@@ -18,14 +18,14 @@ public class UnitServiceImpl implements IUnitService {
   private final IUnitFactory unitFactory;
 
   /**
-   * Constructor for MeasurementTypeService.
+   * Constructor for unitTypeService.
    *
-   * @param unitRepository The repository for the measurement type.
-   * @param unitFactory    The factory for the measurement type.
+   * @param unitRepository The repository for the unit type.
+   * @param unitFactory    The factory for the unit type.
    */
   public UnitServiceImpl(IRepository<UnitID, Unit> unitRepository, IUnitFactory unitFactory) {
-    Validator.validateNotNull(unitRepository, "MeasurementType repository");
-    Validator.validateNotNull(unitFactory, "MeasurementType factory");
+    Validator.validateNotNull(unitRepository, "unitType repository");
+    Validator.validateNotNull(unitFactory, "unitType factory");
 
     this.unitRepository = unitRepository;
     this.unitFactory = unitFactory;
@@ -33,19 +33,19 @@ public class UnitServiceImpl implements IUnitService {
 
 
   /**
-   * Creates a new MeasurementType and saves it in the repository.
+   * Creates a new unitType and saves it in the repository.
    *
-   * @param description The description of the measurement type.
-   * @param unit        The unit of the measurement type.
-   * @return The created and saved MeasurementType object.
+   * @param description The description of the unit type.
+   * @param unit        The unit of the unit type.
+   * @return The created and saved unitType object.
    */
   @Override
-  public Unit addMeasurementType(UnitDescription description, UnitSymbol unit) {
+  public Unit addunitType(UnitDescription description, UnitSymbol unit) {
     validateDescription(description);
     validateUnit(unit);
 
-    Unit measurementUnit = unitFactory.createUnit(description, unit);
-    return unitRepository.save(measurementUnit);
+    Unit unitUnit = unitFactory.createUnit(description, unit);
+    return unitRepository.save(unitUnit);
   }
 
   /**
@@ -56,7 +56,7 @@ public class UnitServiceImpl implements IUnitService {
    */
   private void validateDescription(UnitDescription description) {
     if (description == null || description.getDescription().trim().isEmpty()) {
-      throw new IllegalArgumentException("Measurement type description cannot be null or empty.");
+      throw new IllegalArgumentException("unit type description cannot be null or empty.");
     }
   }
 
@@ -68,18 +68,18 @@ public class UnitServiceImpl implements IUnitService {
    */
   private void validateUnit(UnitSymbol unit) {
     if (unit == null || unit.getUnit().trim().isEmpty()) {
-      throw new IllegalArgumentException("Measurement type unit cannot be null or empty.");
+      throw new IllegalArgumentException("unit type unit cannot be null or empty.");
     }
   }
 
   /**
-   * Finds a MeasurementType by its ID.
+   * Finds a unitType by its ID.
    *
-   * @param unitID The unique identifier of the MeasurementType.
-   * @return An Optional containing the found MeasurementType, or an empty Optional if not found.
+   * @param unitID The unique identifier of the unitType.
+   * @return An Optional containing the found unitType, or an empty Optional if not found.
    */
   @Override
-  public Optional<Unit> getMeasurementTypeById(UnitID unitID) {
+  public Optional<Unit> getunitTypeById(UnitID unitID) {
     if (unitID == null) {
       throw new IllegalArgumentException("Please enter a valid sensor type ID.");
     }
@@ -87,12 +87,12 @@ public class UnitServiceImpl implements IUnitService {
   }
 
   /**
-   * Returns a list of all MeasurementTypes.
+   * Returns a list of all unitTypes.
    *
-   * @return A List containing all MeasurementTypes.
+   * @return A List containing all unitTypes.
    */
   @Override
-  public List<Unit> getAllMeasurementTypes() {
+  public List<Unit> getAllunitTypes() {
     return unitRepository.findAll();
   }
 

@@ -7,8 +7,8 @@ import smarthome.domain.value_object.UnitSymbol;
 import smarthome.utils.Validator;
 
 /**
- * Represents a type of measurement in the SmartHomeDDD domain. This class includes information
- * about the measurement's unit and its description. It acts as an aggregate root in the
+ * Represents a type of unit in the SmartHomeDDD domain. This class includes information
+ * about the unit's unit and its description. It acts as an aggregate root in the
  * domain-driven design (DDD) context.
  */
 public class Unit implements IAggregateRoot<UnitID> {
@@ -18,13 +18,13 @@ public class Unit implements IAggregateRoot<UnitID> {
   private UnitID unitID;
 
   /**
-   * Constructs a new instance of MeasurementType with the specified unit description and
-   * measurement unit. This constructor ensures the measurement type is fully initialized and
+   * Constructs a new instance of unitType with the specified unit description and
+   * unit unit. This constructor ensures the unit type is fully initialized and
    * valid.
    *
-   * @param unitDescription The description of the measurement unit, not null.
-   * @param unitSymbol      The unit of measurement, not null.
-   * @throws IllegalArgumentException if either the unit description or measurement unit is null.
+   * @param unitDescription The description of the unit unit, not null.
+   * @param unitSymbol      The unit of unit, not null.
+   * @throws IllegalArgumentException if either the unit description or unit unit is null.
    */
   public Unit(UnitDescription unitDescription, UnitSymbol unitSymbol) {
     Validator.validateNotNull(unitDescription, "UnitDescription");
@@ -36,14 +36,14 @@ public class Unit implements IAggregateRoot<UnitID> {
   }
 
   /**
-   * Constructs a new instance of MeasurementType with the specified unit description, measurement
-   * unit, and unit ID. This constructor ensures the measurement type is fully initialized and
+   * Constructs a new instance of unitType with the specified unit description, unit
+   * unit, and unit ID. This constructor ensures the unit type is fully initialized and
    * valid.
    *
-   * @param unitDescription The description of the measurement unit, not null.
-   * @param unitSymbol      The unit of measurement, not null.
-   * @param unitID          The unique identifier for the measurement type, not null.
-   * @throws IllegalArgumentException if either the unit description, measurement unit, or unit ID
+   * @param unitDescription The description of the unit unit, not null.
+   * @param unitSymbol      The unit of unit, not null.
+   * @param unitID          The unique identifier for the unit type, not null.
+   * @throws IllegalArgumentException if either the unit description, unit unit, or unit ID
    *                                  is null.
    */
   Unit(UnitDescription unitDescription, UnitSymbol unitSymbol, UnitID unitID) {
@@ -57,7 +57,7 @@ public class Unit implements IAggregateRoot<UnitID> {
 
 
   /**
-   * Generates a unique identifier for the measurement type.
+   * Generates a unique identifier for the unit type.
    */
   private void
 
@@ -66,9 +66,9 @@ public class Unit implements IAggregateRoot<UnitID> {
   }
 
   /**
-   * Returns the unique identifier for the measurement type.
+   * Returns the unique identifier for the unit type.
    *
-   * @return The measurement type's ID.
+   * @return The unit type's ID.
    */
   @Override
   public UnitID getID() {
@@ -76,18 +76,18 @@ public class Unit implements IAggregateRoot<UnitID> {
   }
 
   /**
-   * Returns the description associated with this measurement type.
+   * Returns the description associated with this unit type.
    *
-   * @return The unit of measurement.
+   * @return The unit of unit.
    */
   public UnitDescription getUnitDescription() {
     return description;
   }
 
   /**
-   * Returns the symbol associated with this measurement type.
+   * Returns the symbol associated with this unit type.
    *
-   * @return The unit of measurement.
+   * @return The unit of unit.
    */
   public UnitSymbol getUnitSymbol() {
     return unitSymbol;
@@ -119,9 +119,9 @@ public class Unit implements IAggregateRoot<UnitID> {
   }
 
   /**
-   * Returns a string representation of the measurement type.
+   * Returns a string representation of the unit type.
    *
-   * @return A string representation of the measurement type.
+   * @return A string representation of the unit type.
    */
   @Override
   public String toString() {

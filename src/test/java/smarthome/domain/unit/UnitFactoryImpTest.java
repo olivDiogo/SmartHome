@@ -9,7 +9,7 @@ import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
 
 /**
- * Tests for the {@link UnitFactoryImpl} class to ensure that measurement types are created
+ * Tests for the {@link UnitFactoryImpl} class to ensure that unit types are created
  * correctly under various conditions and that appropriate exceptions are thrown when invalid
  * parameters are provided.
  */

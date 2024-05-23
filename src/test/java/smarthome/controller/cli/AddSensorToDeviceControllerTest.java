@@ -414,7 +414,7 @@ class AddSensorToDeviceControllerTest {
     when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
     UnitSymbol unitSymbol = new UnitSymbol("C");
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
-    unitServiceImpl.addMeasurementType(unitDescription, unitSymbol);
+    unitServiceImpl.addunitType(unitDescription, unitSymbol);
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
@@ -452,7 +452,7 @@ class AddSensorToDeviceControllerTest {
     when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
     UnitSymbol unitSymbol = new UnitSymbol("C");
     UnitServiceImpl unitServiceImpl = new UnitServiceImpl(unitRepository, unitFactory);
-    unitServiceImpl.addMeasurementType(unitDescription, unitSymbol);
+    unitServiceImpl.addunitType(unitDescription, unitSymbol);
     SensorType sensorType = sensorTypeServiceImpl.createSensorType(typeDescription, unitID);
     sensorTypeServiceImpl.addSensorType(sensorType);
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));

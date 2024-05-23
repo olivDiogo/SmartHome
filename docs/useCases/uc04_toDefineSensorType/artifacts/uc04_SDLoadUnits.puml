@@ -11,16 +11,16 @@ participant ":Unit" as unit
 create config
 started o-> config : create (UnitRepository, UnitFabric, ModelRepository, ModelService)
 activate config
-config -> unitRepo : 1.1: getListMeasurementTypes()
+config -> unitRepo : 1.1: getListunitTypes()
 activate unitRepo
-unitRepo -> configProps : 1.1.1: config.getStringArray("measurement")
+unitRepo -> configProps : 1.1.1: config.getStringArray("unit")
 activate configProps
-configProps -> unitRepo : listStringMeasurementTypes
+configProps -> unitRepo : listStringunitTypes
 deactivate configProps
-unitRepo -> config : listStringMeasurementTypes
+unitRepo -> config : listStringunitTypes
 deactivate unitRepo
 create unitDesc
-loop for each strMeasurementType in listStringMeasurementTypes
+loop for each strunitType in listStringunitTypes
 config -> unitDesc : 1.2: createUnitDescription(strDescription)
 activate unitDesc
 unitDesc --> config : unitDesc

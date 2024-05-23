@@ -16,9 +16,9 @@ class UnitIDTest {
   @Test
   void shouldGetValidObject_whenUsingValidStringInConstructor() {
     // Arrange
-    String measurementID = "measurement1";
+    String strUnitID = "unit1";
     // Act
-    UnitID unitID = new UnitID(measurementID);
+    UnitID unitID = new UnitID(strUnitID);
     // Assert
     assertNotNull(unitID);
   }
@@ -27,15 +27,15 @@ class UnitIDTest {
    * test construct if null
    */
   @Test
-  void shouldThrowException_whenMeasurementIDIsNull() {
+  void shouldThrowException_whenunitIDIsNull() {
     // Arrange
-    String measurementID = null;
+    String unitID = null;
 
     String expectedMessage = "The value of 'UnitID' should not null, blank, or empty.";
 
     // Act + Assert
     Exception exception = assertThrows(IllegalArgumentException.class,
-        () -> new UnitID(measurementID));
+        () -> new UnitID(unitID));
 
     String actualMessage = exception.getMessage();
 
@@ -48,15 +48,15 @@ class UnitIDTest {
    * test construct if blank
    */
   @Test
-  void shouldThrowException_whenMeasurementIDIsBlank() {
+  void shouldThrowException_whenunitIDIsBlank() {
     // Arrange
-    String measurementID = " ";
+    String unitID = " ";
 
     String expectedMessage = "The value of 'UnitID' should not null, blank, or empty.";
 
     // Act + Assert
     Exception exception = assertThrows(IllegalArgumentException.class,
-        () -> new UnitID(measurementID));
+        () -> new UnitID(unitID));
 
     String actualMessage = exception.getMessage();
 
@@ -69,15 +69,15 @@ class UnitIDTest {
    * test construct if empty
    */
   @Test
-  void shouldThrowException_whenMeasurementIDIsEmpty() {
+  void shouldThrowException_whenunitIDIsEmpty() {
     // Arrange
-    String measurementID = "";
+    String unitID = "";
 
     String expectedMessage = "The value of 'UnitID' should not null, blank, or empty.";
 
     // Act + Assert
     Exception exception = assertThrows(IllegalArgumentException.class,
-        () -> new UnitID(measurementID));
+        () -> new UnitID(unitID));
 
     String actualMessage = exception.getMessage();
 
@@ -90,11 +90,11 @@ class UnitIDTest {
    * test equals
    */
   @Test
-  void shouldReturnTrue_whenComparingTwoEqualMeasurementIDs() {
+  void shouldReturnTrue_whenComparingTwoEqualunitIDs() {
     // Arrange
-    String measurementID = "measurement1";
-    UnitID unitID1 = new UnitID(measurementID);
-    UnitID unitID2 = new UnitID(measurementID);
+    String unitID = "unit1";
+    UnitID unitID1 = new UnitID(unitID);
+    UnitID unitID2 = new UnitID(unitID);
 
     // Act
     boolean result = unitID1.equals(unitID2);
@@ -106,10 +106,10 @@ class UnitIDTest {
    * test equals if same object
    */
   @Test
-  void shouldReturnTrue_whenComparingMeasurementIDToItself() {
+  void shouldReturnTrue_whenComparingunitIDToItself() {
     // Arrange
-    String measurementID = "measurement1";
-    UnitID unitID1 = new UnitID(measurementID);
+    String unitID = "unit1";
+    UnitID unitID1 = new UnitID(unitID);
     // Act
     boolean result = unitID1.equals(unitID1);
     // Assert
@@ -120,13 +120,13 @@ class UnitIDTest {
    * test equals if different object
    */
   @Test
-  void shouldReturnFalse_whenComparingMeasurementIDToDifferentObject() {
+  void shouldReturnFalse_whenComparingunitIDToDifferentObject() {
     // Arrange
-    String measurementID = "measurement1";
-    String measurementID2 = "measurement2";
+    String unitID = "unit1";
+    String strUnitID2 = "unit2";
 
-    UnitID unitID1 = new UnitID(measurementID);
-    UnitID unitID2 = new UnitID(measurementID2);
+    UnitID unitID1 = new UnitID(unitID);
+    UnitID unitID2 = new UnitID(strUnitID2);
 
     // Act
     boolean result = unitID1.equals(unitID2);
@@ -135,10 +135,10 @@ class UnitIDTest {
   }
 
   @Test
-  void shouldReturnFalse_whenComparingMeasurementIDToNull() {
+  void shouldReturnFalse_whenComparingUnitIDToNull() {
     // Arrange
-    String measurementID = "measurement1";
-    UnitID unitID1 = new UnitID(measurementID);
+    String unitID = "unit1";
+    UnitID unitID1 = new UnitID(unitID);
     // Act
     boolean result = unitID1.equals(null);
     // Assert
@@ -149,15 +149,15 @@ class UnitIDTest {
    * test get id
    */
   @Test
-  void shouldReturnMeasurementID_whenGetIDIsCalled() {
+  void shouldReturnunitID_whenGetIDIsCalled() {
     // Arrange
-    String measurementID = "measurement1";
-    UnitID unitID1 = new UnitID(measurementID);
+    String unitID = "unit1";
+    UnitID unitID1 = new UnitID(unitID);
 
     // Act
     String result = unitID1.getID();
     // Assert
-    assertEquals(measurementID, result);
+    assertEquals(unitID, result);
   }
 
   /**
@@ -166,12 +166,12 @@ class UnitIDTest {
   @Test
   void shouldReturnHashCode_whenHashCodeIsCalled() {
     // Arrange
-    String measurementID = "measurement1";
-    UnitID unitID1 = new UnitID(measurementID);
+    String unitID = "unit1";
+    UnitID unitID1 = new UnitID(unitID);
     // Act
     int result = unitID1.hashCode();
     // Assert
-    assertEquals(result, measurementID.hashCode());
+    assertEquals(result, unitID.hashCode());
   }
 
 

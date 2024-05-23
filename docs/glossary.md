@@ -86,12 +86,12 @@ function._
 ### Unit
 
 [unit]: #unit
-_Is the unit of measurement of the physical quantity that each [sensor] will measure. It has a description._
+_Is the unit of unit of the physical quantity that each [sensor] will measure. It has a description._
 
 ### Value
 
 [value]: #value
-_The value is the measurement itself of the physical quantity that each [sensor] will measure. It has a quantity and
+_The value is the unit itself of the physical quantity that each [sensor] will measure. It has a quantity and
 a [unit]._
 
 ## Supported Sensors
@@ -156,7 +156,7 @@ value and a unit._
 ### Temperature
 
 [temperature]: #temperature
-_The temperature is a measurement of the warmth or coldness of an object or substance with reference to some standard
+_The temperature is a unit of the warmth or coldness of an object or substance with reference to some standard
 value. It will have a value and a unit._
 
 ### Wind Speed and Direction
@@ -191,5 +191,5 @@ _The switch is a device that will toggle between an 'on' and 'off' state. It wil
 ### Log
 
 [log]: #log
-_The log stores the measurements (readings) of the sensors within a given device. Each log entry is identified by their
+_The log stores the units (readings) of the sensors within a given device. Each log entry is identified by their
 logID, and it also identifies the device and sensor by their respective IDs_

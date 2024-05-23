@@ -17,7 +17,6 @@ import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
-import smarthome.persistence.mem.UnitRepository;
 
 class SensorTypeServiceImplTest {
 
@@ -65,7 +64,7 @@ class SensorTypeServiceImplTest {
   }
 
   @Test
-  void shouldThrowExceptionWhenMeasurementTypeRepositoryIsNull() {
+  void shouldThrowExceptionWhenunitTypeRepositoryIsNull() {
     //Arrange
     ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
     SensorTypeFactoryImpl sensorTypeFactory = mock(SensorTypeFactoryImpl.class);
@@ -101,7 +100,7 @@ class SensorTypeServiceImplTest {
   }
 
   @Test
-  void shouldThrowExceptionWhenMeasurementIDIsInvalid() {
+  void shouldThrowExceptionWhenunitIDIsInvalid() {
     //Arrange
     TypeDescription typeDescription = mock(TypeDescription.class);
     UnitID unitID = mock(UnitID.class);
@@ -116,7 +115,7 @@ class SensorTypeServiceImplTest {
 
     SensorTypeServiceImpl sensorTypeServiceImpl = new SensorTypeServiceImpl(sensorTypeRepository,
         sensorTypeFactory, unitRepository);
-    String expectedMessage = "Please enter a valid measurement type.";
+    String expectedMessage = "Please enter a valid unit type.";
     //Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
         () -> sensorTypeServiceImpl.createSensorType(typeDescription, unitID));

@@ -9,10 +9,10 @@ public class UnitDTO implements IDTO {
   public final String unitSymbol;
 
   /**
-   * Constructor for the MeasurementDTO class.
+   * Constructor for the unitDTO class.
    *
-   * @param unitID      is the ID of the Measurement.
-   * @param description is the description of the Measurement.
+   * @param unitID      is the ID of the unit.
+   * @param description is the description of the unit.
    */
   public UnitDTO(String unitID, String description, String unitSymbol) {
 

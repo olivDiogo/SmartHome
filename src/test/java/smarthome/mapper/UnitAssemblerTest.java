@@ -33,7 +33,7 @@ class UnitAssemblerTest {
    * Test if the domainToDTO method returns a UnitDTO object when the unit is valid.
    */
   @Test
-  void shouldReturnMeasurementTypeDTO_WhenDomainToDTOIsCalledWithMeasurementType() {
+  void shouldReturnunitTypeDTO_WhenDomainToDTOIsCalledWithunitType() {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
 
@@ -58,11 +58,11 @@ class UnitAssemblerTest {
   }
 
   /**
-   * Test if the domainToDTO method throws an IllegalArgumentException when the MeasurementType is
+   * Test if the domainToDTO method throws an IllegalArgumentException when the unitType is
    * null.
    */
   @Test
-  void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithNullMeasurementType() {
+  void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithNullunitType() {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
     String expectedMessage = "Unit is required";
@@ -78,7 +78,7 @@ class UnitAssemblerTest {
    * Test if the domainToDTO method returns a UnitDTO object when the unit is valid.
    */
   @Test
-  void shouldReturnMeasurementTypeDTOList_WhenDomainToDTOIsCalledWithListOfMeasurementType()
+  void shouldReturnunitTypeDTOList_WhenDomainToDTOIsCalledWithListOfunitType()
   {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
@@ -87,41 +87,41 @@ class UnitAssemblerTest {
     UnitDescription unitDescription = mock(UnitDescription.class);
     UnitSymbol unitSymbol = mock(UnitSymbol.class);
 
-    String measurementIDData = "f47b3b2d-0b7d-4e7b-8b8f-5f3b6d6b1f1d";
-    String measurementTypeDescriptionData = "Celcius";
-    String measurementTypeSymbolData = "C";
+    String unitIDData = "f47b3b2d-0b7d-4e7b-8b8f-5f3b6d6b1f1d";
+    String unitTypeDescriptionData = "Celcius";
+    String unitTypeSymbolData = "C";
 
     Unit unit = mock(Unit.class);
     when(unit.getID()).thenReturn(unitID);
-    when(unitID.toString()).thenReturn(measurementIDData);
+    when(unitID.toString()).thenReturn(unitIDData);
     when(unit.getUnitDescription()).thenReturn(unitDescription);
-    when(unitDescription.toString()).thenReturn(measurementTypeDescriptionData);
+    when(unitDescription.toString()).thenReturn(unitTypeDescriptionData);
     when(unit.getUnitSymbol()).thenReturn(unitSymbol);
-    when(unitSymbol.toString()).thenReturn(measurementTypeSymbolData);
+    when(unitSymbol.toString()).thenReturn(unitTypeSymbolData);
 
     Unit unit2 = mock(Unit.class);
     UnitID unitID2 = mock(UnitID.class);
     UnitSymbol unitSymbol2 = mock(UnitSymbol.class);
-    String measurementIDData2 = "f47b3b2d-0b7d-4e7b-8b8f-5f3b6d6b1f1e";
-    String measurementTypeDescriptionData2 = "Percentage";
-    String measurementTypeSymbolData2 = "%";
+    String unitIDData2 = "f47b3b2d-0b7d-4e7b-8b8f-5f3b6d6b1f1e";
+    String unitTypeDescriptionData2 = "Percentage";
+    String unitTypeSymbolData2 = "%";
 
     UnitDescription unitDescription2 = mock(UnitDescription.class);
     when(unit2.getID()).thenReturn(unitID2);
-    when(unitID2.toString()).thenReturn(measurementIDData2);
+    when(unitID2.toString()).thenReturn(unitIDData2);
     when(unit2.getUnitDescription()).thenReturn(unitDescription2);
-    when(unitDescription2.toString()).thenReturn(measurementTypeDescriptionData2);
+    when(unitDescription2.toString()).thenReturn(unitTypeDescriptionData2);
     when(unit2.getUnitSymbol()).thenReturn(unitSymbol2);
-    when(unitSymbol2.toString()).thenReturn(measurementTypeSymbolData2);
+    when(unitSymbol2.toString()).thenReturn(unitTypeSymbolData2);
 
     List<Unit> unitList = Arrays.asList(unit, unit2);
 
     // Expected list
     UnitDTO unitDTO =
-        new UnitDTO(measurementIDData, measurementTypeDescriptionData, measurementTypeSymbolData);
+        new UnitDTO(unitIDData, unitTypeDescriptionData, unitTypeSymbolData);
     UnitDTO unitDTO2 =
         new UnitDTO(
-            measurementIDData2, measurementTypeDescriptionData2, measurementTypeSymbolData2);
+            unitIDData2, unitTypeDescriptionData2, unitTypeSymbolData2);
     List<UnitDTO> expectedList = List.of(unitDTO, unitDTO2);
 
     // Act
@@ -133,10 +133,10 @@ class UnitAssemblerTest {
 
   /**
    * Test if the domainToDTO method throws an IllegalArgumentException when the list of
-   * MeasurementTypes is null.
+   * unitTypes is null.
    */
   @Test
-  void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithNullListOfMeasurementType() {
+  void shouldThrowIllegalArgumentException_WhenDomainToDTOIsCalledWithNullListOfunitType() {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();
     String expectedMessage = "The list of Units cannot be null.";
@@ -149,10 +149,10 @@ class UnitAssemblerTest {
   }
 
   /**
-   * Should return an empty list when the list of MeasurementTypes is empty.
+   * Should return an empty list when the list of unitTypes is empty.
    */
   @Test
-  void shouldReturnEmptyList_WhenDomainToDTOIsCalledWithEmptyListOfMeasurementType()
+  void shouldReturnEmptyList_WhenDomainToDTOIsCalledWithEmptyListOfunitType()
   {
     // Arrange
     UnitAssembler unitAssembler = new UnitAssembler();

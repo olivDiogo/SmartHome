@@ -60,9 +60,9 @@ class LoadDefaultConfigurationTest {
     // Act
     loadDefaultConfiguration.loadDefaultSupportedUnits("defaultconfig/units.csv");
 
-    // Verify that the unitService.addMeasurementType method was called with the correct parameters
-    verify(unitService).addMeasurementType(unitDescription1, unitSymbol1);
-    verify(unitService).addMeasurementType(unitDescription2, unitSymbol2);
+    // Verify that the unitService.addunitType method was called with the correct parameters
+    verify(unitService).addunitType(unitDescription1, unitSymbol1);
+    verify(unitService).addunitType(unitDescription2, unitSymbol2);
   }
 
   @Test

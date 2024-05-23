@@ -18,7 +18,7 @@ skinparam ActorBackgroundColor black
 (UC8: To deactivate a device) as (Use8)
 (UC9: To group all devices by functionality) as (Use9)
 (UC10: To add a new actuator to a device) as (Use10)
-(UC11: To get list of measurements from a device in a room, in a given period) as (Use11)
+(UC11: To get list of units from a device in a room, in a given period) as (Use11)
 (UC12: To get devices in a room with temperature reading functionality) as (Use12)
 (UC13: To get maximum temperature difference between a device in a room and the outside, in a given period) as (Use13)
 

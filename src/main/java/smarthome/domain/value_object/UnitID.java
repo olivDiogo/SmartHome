@@ -3,53 +3,52 @@ package smarthome.domain.value_object;
 import smarthome.ddd.IDomainID;
 
 /**
- * This class ensures that the measurement ID adheres to specific validation rules before it is
+ * This class ensures that the unit ID adheres to specific validation rules before it is
  * assigned.
  */
 public class UnitID implements IDomainID {
 
-  private final String UnitID;
+  private final String unitID;
 
   /**
-   * Constructs a new MeasurementID instance after validating the provided ID.
+   * Constructs a new unitID instance after validating the provided ID.
    *
-   * @param UnitID The string representation of the measurement ID. It must not be null, empty, or
-   *               blank.
+   * @param unitID The string representation of the unit ID. It must not be null, empty, or blank.
    * @throws IllegalArgumentException if the UnitID is null, empty, or blank.
    */
-  public UnitID(String UnitID) {
-    validateID(UnitID);
-    this.UnitID = UnitID.trim();
+  public UnitID(String unitID) {
+    validateID(unitID);
+    this.unitID = unitID.trim();
   }
 
   /**
-   * Validates the given measurement ID.
+   * Validates the given unit ID.
    *
-   * @param UnitID The measurement ID to validate.
+   * @param unitID The unit ID to validate.
    * @throws IllegalArgumentException if the UnitID is null, empty, or blank.
    */
-  private void validateID(String UnitID) {
-    if (UnitID == null || UnitID.isBlank()) {
+  private void validateID(String unitID) {
+    if (unitID == null || unitID.isBlank()) {
       throw new IllegalArgumentException(
           "The value of 'UnitID' should not null, blank, or empty.");
     }
   }
 
   /**
-   * Retrieves the measurement ID.
+   * Retrieves the unit ID.
    *
-   * @return The measurement ID as a string.
+   * @return The unit ID as a string.
    */
   public String getID() {
-    return UnitID;
+    return unitID;
   }
 
   /**
-   * Checks if this MeasurementID is equal to another object. Two MeasurementID instances are
+   * Checks if this unitID is equal to another object. Two unitID instances are
    * considered equal if their IDs are equal.
    *
    * @param o The object to compare this instance against.
-   * @return true if the given object is an instance of MeasurementID and has an equal ID; false
+   * @return true if the given object is an instance of unitID and has an equal ID; false
    * otherwise.
    */
   @Override
@@ -59,28 +58,28 @@ public class UnitID implements IDomainID {
     }
 
     if (o instanceof UnitID objectUnitId) {
-      return this.UnitID.equals(objectUnitId.UnitID);
+      return this.unitID.equals(objectUnitId.unitID);
     }
     return false;
   }
 
   /**
-   * Generates a hash code for this MeasurementID.
+   * Generates a hash code for this unitID.
    *
-   * @return The hash code of the measurement ID.
+   * @return The hash code of the unit ID.
    */
   @Override
   public int hashCode() {
-    return UnitID.hashCode();
+    return unitID.hashCode();
   }
 
   /**
-   * Returns the string representation of the measurement ID.
+   * Returns the string representation of the unit ID.
    *
-   * @return The measurement ID as a string.
+   * @return The unit ID as a string.
    */
   @Override
   public String toString() {
-    return UnitID;
+    return unitID;
   }
 }
