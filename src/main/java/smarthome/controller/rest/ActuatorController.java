@@ -3,7 +3,9 @@ package smarthome.controller.rest;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -68,18 +70,18 @@ public class ActuatorController {
     IActuator actuator = actuatorService.addActuator(actuatorParameters);
     ActuatorDTO actuatorDTO = actuatorAssembler.domainToDTO(actuator);
 
-    // Create link to self
+    // Create link to the newly created actuator by its ID (self link)
     WebMvcLinkBuilder linkToSelf = WebMvcLinkBuilder
-        .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class).addActuator(actuatorDataDTO));
-
-    // Create link to get the Actuator by its ID
-    WebMvcLinkBuilder linkToActuator = WebMvcLinkBuilder
         .linkTo(
             WebMvcLinkBuilder.methodOn(ActuatorController.class).getActuatorByID(actuatorDTO.id));
 
+    // Create link to add another actuator
+    WebMvcLinkBuilder linkToAddActuator = WebMvcLinkBuilder
+        .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class).addActuator(null));
+
     EntityModel<ActuatorDTO> resource = EntityModel.of(actuatorDTO,
-        linkToSelf.withSelfRel().withRel("add-actuator"),
-        linkToActuator.withRel("get-added-actuator"));
+        linkToSelf.withSelfRel(), // self link
+        linkToAddActuator.withRel("add-actuator")); // Link to add another actuator
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
@@ -90,32 +92,33 @@ public class ActuatorController {
    * @return a collection of Actuator data transfer objects.
    */
   @GetMapping
-  public ResponseEntity<List<EntityModel<ActuatorDTO>>> getAllActuators() {
+  public ResponseEntity<CollectionModel<EntityModel<ActuatorDTO>>> getAllActuators() {
     List<IActuator> actuators = actuatorService.getAllActuators();
     List<ActuatorDTO> actuatorDTOs = actuatorAssembler.domainToDTO(actuators);
-    List<EntityModel<ActuatorDTO>> resources = new java.util.ArrayList<>(List.of());
 
-    // Create link to self
+    // Transform each ActuatorDTO into EntityModel<ActuatorDTO>
+    List<EntityModel<ActuatorDTO>> resources = actuatorDTOs.stream()
+        .map(actuatorDTO -> {
+          WebMvcLinkBuilder linkToActuator = WebMvcLinkBuilder
+              .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class)
+                  .getActuatorByID(actuatorDTO.id));
+
+          return EntityModel.of(actuatorDTO,
+              linkToActuator.withRel("get-actuator-by-id"));
+        })
+        .collect(Collectors.toList());
+
+    // Link to the collection itself
     WebMvcLinkBuilder linkToSelf = WebMvcLinkBuilder
         .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class).getAllActuators());
 
-    for (ActuatorDTO actuatorDTO : actuatorDTOs) {
-      WebMvcLinkBuilder linkToActuator = WebMvcLinkBuilder
-          .linkTo(
-              WebMvcLinkBuilder.methodOn(ActuatorController.class).getActuatorByID(actuatorDTO.id));
+    // Creating CollectionModel containing all EntityModel<ActuatorDTO>
+    CollectionModel<EntityModel<ActuatorDTO>> collectionModel = CollectionModel.of(resources,
+        linkToSelf.withSelfRel());
 
-      EntityModel<ActuatorDTO> resource = EntityModel.of(
-          actuatorDTO,
-          linkToSelf.withSelfRel().withRel("get-all-actuators"),
-          linkToActuator.withRel("get-actuator-by-id")
-      );
-
-      resources.add(resource);
-    }
-
-    return ResponseEntity.status(HttpStatus.OK)
-        .body(resources);
+    return ResponseEntity.ok(collectionModel);
   }
+
 
   /**
    * Method to get an Actuator by its ID.

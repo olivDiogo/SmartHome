@@ -3,6 +3,7 @@ package smarthome.controller.rest;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -205,7 +206,10 @@ class ActuatorControllerTest {
     mockMvc.perform(post("/actuators")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorDataDTO)))
-        .andExpect(status().isCreated());
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.deviceID").value(deviceID))
+        .andExpect(jsonPath("$.modelPath").value(actuatorModelPath))
+        .andExpect(jsonPath("$._links.self.href").exists());
   }
 
   /**
@@ -712,7 +716,13 @@ class ActuatorControllerTest {
 
     //Act + Assert
     mockMvc.perform(get("/actuators"))
-        .andExpect(status().isOk());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.actuatorDTOList").exists())
+        .andExpect(jsonPath("$._embedded.actuatorDTOList.length()").value(1))
+        .andExpect(jsonPath("$._embedded.actuatorDTOList[0].id").value(actuator.getID().getID()))
+        .andExpect(jsonPath("$._links.self.href").exists())
+        .andExpect(
+            jsonPath("$._embedded.actuatorDTOList[0]._links.get-actuator-by-id.href").exists());
   }
 
   @Test
