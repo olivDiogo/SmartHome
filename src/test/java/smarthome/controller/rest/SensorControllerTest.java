@@ -3,6 +3,7 @@ package smarthome.controller.rest;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -434,42 +435,37 @@ class SensorControllerTest {
    */
   @Test
   void shouldReturnSensorByID() throws Exception {
-    //Arrange
+    // Arrange
     Device device = setupDevice();
-
     String deviceIDStr = device.getID().toString();
     String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
     String sensorName = "DewPoint";
 
-    /* create unit */
     UnitDescription unit = new UnitDescription("Celsius");
     UnitSymbol strUnitSymbol = new UnitSymbol("C");
     Unit sensorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
 
-    /* create sensor type */
     String strSensorType = "DewPoint";
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-
     SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType),
         sensorUnit.getID());
-
     String sensorTypeIDStr = sensorType.getID().toString();
 
-    /* create dataDTO */
     SensorDataGenericDTOImp sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr,
-        sensorModelPath,
-        sensorName, sensorTypeIDStr);
+        sensorModelPath, sensorName, sensorTypeIDStr);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     ISensor sensor = setupGenericSensor(sensorDataDTO);
     when(sensorRepository.ofIdentity(sensor.getID())).thenReturn(Optional.of(sensor));
 
-    //Act + Assert
-    mockMvc.perform(get("/sensors?" + sensor.getID().getID()))
-        .andExpect(status().isOk());
-
+    // Act + Assert
+    mockMvc.perform(get("/sensors?id=" + sensor.getID().getID()))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.sensorID").value(sensor.getID().getID()))
+        .andExpect(jsonPath("$.sensorName").value(sensorName));
   }
+
 
   /**
    * Should return a not found status when sensor is not found
@@ -477,42 +473,36 @@ class SensorControllerTest {
    * @throws Exception if the test fails
    */
   @Test
-  void shouldReturnEmptyList_WhenNoSensorIsFound() throws Exception {
-    //Arrange
+  void shouldNotFound_WhenNoSensorIsFound() throws Exception {
+    // Arrange
     Device device = setupDevice();
-
     String deviceIDStr = device.getID().toString();
     String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
     String sensorName = "DewPoint";
 
-    /* create unit */
     UnitDescription unit = new UnitDescription("Celsius");
     UnitSymbol strUnitSymbol = new UnitSymbol("C");
     Unit sensorUnit = new UnitFactoryImpl().createUnit(unit, strUnitSymbol);
 
-    /* create sensor type */
     String strSensorType = "DewPoint";
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-
     SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(strSensorType),
         sensorUnit.getID());
-
     String sensorTypeIDStr = sensorType.getID().toString();
 
-    /* create dataDTO */
     SensorDataGenericDTOImp sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr,
-        sensorModelPath,
-        sensorName, sensorTypeIDStr);
+        sensorModelPath, sensorName, sensorTypeIDStr);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     ISensor sensor = setupGenericSensor(sensorDataDTO);
     when(sensorRepository.ofIdentity(sensor.getID())).thenReturn(Optional.empty());
 
-    //Act + Assert
-    mockMvc.perform(get("/sensors?" + sensor.getID().getID()))
-        .andExpect(status().isOk());
+    // Act + Assert
+    mockMvc.perform(get("/sensors?id=" + sensor.getID().getID()))
+        .andExpect(status().isNotFound());
   }
+
 
   /**
    * Should return a list of sensors
