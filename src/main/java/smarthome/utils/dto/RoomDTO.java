@@ -1,11 +1,12 @@
 package smarthome.utils.dto;
 
+import org.springframework.hateoas.RepresentationModel;
 import smarthome.ddd.IDTO;
 
 /**
  * Data Transfer Object (DTO) representing information about a room.
  */
-public class RoomDTO implements IDTO {
+public class RoomDTO extends RepresentationModel<RoomDTO> implements IDTO {
 
   public final String roomName;
   public final String dimensions;

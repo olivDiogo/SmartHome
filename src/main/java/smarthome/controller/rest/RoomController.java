@@ -19,15 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
-import smarthome.domain.device.Device;
 import smarthome.domain.room.Room;
 import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
-import smarthome.service.IDeviceService;
 import smarthome.service.IRoomService;
-import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
@@ -44,8 +41,7 @@ public class RoomController {
    */
   @Autowired
   public RoomController(IRoomService roomService,
-      IAssembler<Room, RoomDTO> roomAssembler, IDeviceService deviceService,
-      IAssembler<Device, DeviceDTO> deviceAssembler) {
+      IAssembler<Room, RoomDTO> roomAssembler) {
     this.roomAssembler = roomAssembler;
     this.roomService = roomService;
   }
@@ -84,8 +80,22 @@ public class RoomController {
   public ResponseEntity<CollectionModel<List<RoomDTO>>> getAllRooms() {
     List<Room> rooms = roomService.getAllRooms();
     List<RoomDTO> roomDTOs = roomAssembler.domainToDTO(rooms);
-    Link selfLink = linkTo(methodOn(RoomController.class).getAllRooms()).withSelfRel();
-    CollectionModel <List<RoomDTO>> response = CollectionModel.of(List.of(roomDTOs), selfLink);
+
+    for (RoomDTO roomDTO : roomDTOs) {
+      Link selfLink = linkTo(
+          methodOn(RoomController.class).getRoomById(roomDTO.roomId)).withSelfRel()
+          .withRel("self")
+          .withTitle("Get room")
+          .withType("GET");
+      Link addDevice = linkTo(methodOn(DeviceController.class).addDevice(new DeviceDataDTO()))
+          .withRel("add-device")
+          .withTitle("Add a device")
+          .withType("POST");
+
+      roomDTO.add(selfLink, addDevice);
+    }
+
+    CollectionModel<List<RoomDTO>> response = CollectionModel.of(List.of(roomDTOs));
     return ResponseEntity.ok(response);
   }
 
@@ -104,8 +114,21 @@ public class RoomController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     } else {
       RoomDTO roomDTO = roomAssembler.domainToDTO(room.get());
-      Link selfLink = linkTo(methodOn(RoomController.class).getRoomById(idStr)).withSelfRel();
-      EntityModel <RoomDTO> response = EntityModel.of(roomDTO, selfLink);
+      Link selfLink = linkTo(methodOn(RoomController.class).getRoomById(idStr))
+          .withRel("self")
+          .withType("GET")
+          .withTitle("Get room");
+      Link getAllDevices = linkTo(methodOn(DeviceController.class).listDevices(idStr, null))
+          .withRel("room-devices")
+          .withTitle("Get all room devices")
+          .withType("GET");
+      Link addDevice = linkTo(methodOn(DeviceController.class).addDevice(new DeviceDataDTO()))
+          .withRel("add-device")
+          .withTitle("Add a device")
+          .withType("POST");
+
+      roomDTO.add(selfLink, getAllDevices, addDevice);
+      EntityModel<RoomDTO> response = EntityModel.of(roomDTO);
       return ResponseEntity.ok(response);
     }
   }

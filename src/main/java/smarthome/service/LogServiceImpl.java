@@ -113,7 +113,7 @@ public class LogServiceImpl implements ILogService {
     if (!readings2.isEmpty()) {
       maxListTwo = getMaximumValueFromListOfIntegers(readings2);
     }
-    int maxWithinTimeDelta = getMaxValueFromTwoListsWithinTimeDelta(readings, readings2, timeDelta);
+    int maxWithinTimeDelta = getMaxSumWithinDelta(readings, readings2, timeDelta);
 
     return Math.max(maxListOne, Math.max(maxListTwo, maxWithinTimeDelta));
 
@@ -128,7 +128,7 @@ public class LogServiceImpl implements ILogService {
    * @param timeDelta
    * @return
    */
-  protected int getMaxValueFromTwoListsWithinTimeDelta(List<Log> readings1, List<Log> readings2,
+  protected int getMaxSumWithinDelta(List<Log> readings1, List<Log> readings2,
       TimeDelta timeDelta) {
     List<Integer> sumOfReadings = new ArrayList<>();
     int timeDeltaMinutes = timeDelta.getMinutes();

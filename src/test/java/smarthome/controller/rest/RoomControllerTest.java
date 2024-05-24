@@ -148,7 +148,11 @@ class RoomControllerTest {
     mockMvc.perform(get("/rooms"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.roomDTOList[0].roomName").value("Living Room"))
-        .andExpect(jsonPath("$._embedded.roomDTOList[1].roomName").value("Living Room"));
+        .andExpect(jsonPath("$._embedded.roomDTOList[0]._links.['self']").exists())
+        .andExpect(jsonPath("$._embedded.roomDTOList[0]._links.['add-device']").exists())
+        .andExpect(jsonPath("$._embedded.roomDTOList[1].roomName").value("Living Room"))
+        .andExpect(jsonPath("$._embedded.roomDTOList[1]._links.['self']").exists())
+        .andExpect(jsonPath("$._embedded.roomDTOList[1]._links.['add-device']").exists());
   }
 
   /**
@@ -167,7 +171,10 @@ class RoomControllerTest {
     // Act & Assert
     mockMvc.perform(get("/rooms/" + room.getID()))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.roomName").value("Living Room"));
+        .andExpect(jsonPath("$.roomName").value("Living Room"))
+        .andExpect(jsonPath("$._links.['self']").exists())
+        .andExpect(jsonPath("$._links.['room-devices']").exists())
+        .andExpect(jsonPath("$._links.['add-device']").exists());
   }
 
   /**

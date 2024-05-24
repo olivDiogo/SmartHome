@@ -20,9 +20,7 @@ import smarthome.domain.value_object.Dimension;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
-import smarthome.mapper.DeviceAssembler;
 import smarthome.mapper.RoomAssembler;
-import smarthome.service.IDeviceService;
 import smarthome.service.IRoomService;
 import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
@@ -33,8 +31,7 @@ class RoomControllerTest {
   @MockBean IRoomService roomService;
   @MockBean IRoomFactory roomFactory;
   @MockBean RoomAssembler roomAssembler;
-  @MockBean IDeviceService deviceService;
-  @MockBean DeviceAssembler deviceAssembler;
+
 
   private RoomController roomController;
 
@@ -42,7 +39,7 @@ class RoomControllerTest {
   public void setUp() {
     MockitoAnnotations.openMocks(this);
     this.roomController =
-        new RoomController(roomService, roomAssembler, deviceService, deviceAssembler);
+        new RoomController(roomService, roomAssembler);
   }
 
   /** Unit test to add a new room to the house */

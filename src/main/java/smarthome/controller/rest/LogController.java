@@ -97,7 +97,7 @@ public class LogController {
   public ResponseEntity<Integer> getMaxPowerConsumption(
       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime initialTime,
       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime finalTime) {
-    TimeDelta timeDelta = new TimeDelta(PEAK_POWER_CONSUMPTION_TIME_DELTA);
+    TimeDelta timeDeltaInMinutes = new TimeDelta(PEAK_POWER_CONSUMPTION_TIME_DELTA);
     DatePeriod datePeriod = new DatePeriod(initialTime, finalTime);
     DeviceTypeID powerMeterDevices = new DeviceTypeID("PowerMeter");
     DeviceTypeID powerSourceDevices = new DeviceTypeID("PowerSource");
@@ -115,7 +115,7 @@ public class LogController {
         sensorTypeID);
 
     Integer maxPowerConsumption = logService.getPeakPowerConsumption(powerMeterReadings,
-        powerSourceReadings, timeDelta);
+        powerSourceReadings, timeDeltaInMinutes);
 
     return ResponseEntity.ok(maxPowerConsumption);
   }
