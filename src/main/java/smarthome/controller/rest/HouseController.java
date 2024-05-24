@@ -55,13 +55,14 @@ public class HouseController {
     GPS gps = new GPS(houseDataDTO.latitude, houseDataDTO.longitude);
     House house = houseService.addHouse(address, gps);
     HouseDTO dto = houseAssembler.domainToDTO(house);
+    dto.add(Link.of("http://localhost:8080/rooms", "create - room")
+        .withTitle("Create a room")
+        .withType("POST"));
+    dto.add(linkTo(methodOn(HouseController.class).getHouse()).withRel("get - house")
+        .withTitle("Get the house")
+        .withType("GET"));
 
-    Link selfLink = linkTo(methodOn(HouseController.class).createHouseLocation(houseDataDTO))
-        .withSelfRel();
-    Link houseLink = linkTo(methodOn(HouseController.class).getHouse())
-        .withRel("house");
-
-    EntityModel<HouseDTO> resource = EntityModel.of(dto, selfLink, houseLink);
+    EntityModel<HouseDTO> resource = EntityModel.of(dto);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
@@ -76,10 +77,13 @@ public class HouseController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
     HouseDTO dto = houseAssembler.domainToDTO(house.get());
-
-    Link selfLink = linkTo(methodOn(HouseController.class).getHouse()).withSelfRel();
-
-    EntityModel<HouseDTO> resource = EntityModel.of(dto, selfLink);
+    dto.add(linkTo(methodOn(RoomController.class).createRoom(null)).withRel("create - room")
+        .withTitle("Create a room")
+        .withType("POST"));
+    dto.add(linkTo(methodOn(RoomController.class).getAllRooms()).withRel("get - rooms")
+        .withTitle("Get all rooms")
+        .withType("GET"));
+    EntityModel<HouseDTO> resource = EntityModel.of(dto);
 
     return ResponseEntity.status(HttpStatus.OK).body(resource);
   }

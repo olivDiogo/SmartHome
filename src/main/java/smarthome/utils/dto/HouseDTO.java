@@ -1,8 +1,10 @@
 package smarthome.utils.dto;
 
+
+import org.springframework.hateoas.RepresentationModel;
 import smarthome.ddd.IDTO;
 
-public class HouseDTO implements IDTO {
+public class HouseDTO extends RepresentationModel<ActuatorTypeDTO> implements IDTO {
 
   public final String address;
   public final String gps;
@@ -20,6 +22,7 @@ public class HouseDTO implements IDTO {
     this.houseID = houseID;
   }
 
+  @Override
   public String toString() {
     return address + " " + gps + " " + houseID;
   }

@@ -313,7 +313,8 @@ class HouseControllerTest {
     mockMvc.perform(post("/houses")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(houseDataDTO)))
-        .andExpect(jsonPath("$._links.self.href").exists());
+        .andExpect(jsonPath("$._links['create - room']").exists())
+        .andExpect(jsonPath("$._links['get - house']").exists());
   }
 
   /**
