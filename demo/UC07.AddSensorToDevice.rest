@@ -2,7 +2,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=InstantPowerConsumption
 Content-Type: application/json
 
 > {%
-    client.global.set("instantPowerSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("instantPowerSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 ###
@@ -10,7 +10,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=Temperature
 Content-Type: application/json
 
 > {%
-    client.global.set("temperatureSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("temperatureSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 ###
@@ -18,7 +18,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=AveragePowerConsumption
 Content-Type: application/json
 
 > {%
-    client.global.set("averagePowerConsumptionSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("averagePowerConsumptionSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 ###
@@ -26,7 +26,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=DewPoint
 Content-Type: application/json
 
 > {%
-    client.global.set("dewPointSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("dewPointSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 ###
@@ -34,7 +34,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=Humidity
 Content-Type: application/json
 
 > {%
-    client.global.set("humiditySensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("humiditySensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 
@@ -44,7 +44,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=SolarIrradiance
 Content-Type: application/json
 
 > {%
-    client.global.set("solarIrradianceSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("solarIrradianceSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 ###
@@ -52,7 +52,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=Switch
 Content-Type: application/json
 
 > {%
-    client.global.set("switchSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("switchSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 ###
@@ -60,7 +60,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=Wind
 Content-Type: application/json
 
 > {%
-    client.global.set("windSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("windSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 
@@ -70,7 +70,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=SunriseTime
 Content-Type: application/json
 
 > {%
-    client.global.set("sunriseTimeSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("sunriseTimeSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 
@@ -79,7 +79,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=SunsetTime
 Content-Type: application/json
 
 > {%
-    client.global.set("sunsetTimeSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("sunsetTimeSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 ###
@@ -87,7 +87,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=SunsetTime
 Content-Type: application/json
 
 > {%
-    client.global.set("sunsetTimeSensor", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("sunsetTimeSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 ###
@@ -95,7 +95,7 @@ GET http://localhost:8080/sensor-models?sensorTypeID=ElectricConsumptionWh
 Content-Type: application/json
 
 > {%
-    client.global.set("electricConsumptionWh", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("electricConsumptionWh", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 ###
@@ -103,7 +103,15 @@ GET http://localhost:8080/sensor-models?sensorTypeID=Position
 Content-Type: application/json
 
 > {%
-    client.global.set("position", response.body._embedded.sensorModelDTOList[0]._modelPath);
+    client.global.set("position", response.body._embedded.sensorModelDTOList[0].modelPath);
+%}
+
+###
+GET http://localhost:8080/sensor-models?sensorTypeID=SunsetTime
+Content-Type: application/json
+
+> {%
+    client.global.set("sunsetTimeSensor", response.body._embedded.sensorModelDTOList[0].modelPath);
 %}
 
 
@@ -142,6 +150,20 @@ Content-Type: application/json
   "sensorModelPath": "{{temperatureSensor}}",
   "sensorName": "TX200K",
   "sensorTypeID": "Temperature"
+}
+
+###
+POST http://localhost:8080/sensors
+Content-Type: application/json
+
+{
+  "type": "gpsSensor",
+  "deviceID": "{{temperatureIndoorDeviceId}}",
+  "sensorModelPath": "{{sunsetTimeSensor}}",
+  "sensorName": "GPS300K",
+  "sensorTypeID": "SunsetTime",
+  "latitude": 48.8566,
+  "longitude": 2.3522
 }
 
 ###

@@ -37,25 +37,16 @@ This use case depends on UC09.
 
 ### 1.3. Relevant domain aggregate model
 ![Device](../../ooa/4.agreggateModels/Device_v1.svg)
+![Repository](../../ooa/4.agreggateModels/Log_v1.svg)
 
 ### 1.4. Customer Specifications and Clarifications
 
+- See US36 documentation for more details.
 
 ### 1.5. System Sequence Diagram
 ![UC14-SSD](artifacts/uc14_SD_v1.svg)
 
-## 2. Design
-
-### 2.1 Class Diagram
-N/A
-
-### 2.2. Sequence Diagram
-![UC014-SD](artifacts/uc14_SD_v1.svg)
-
-#### Ref - Get all devices grouped by functionality
-![UC014-SD](../uc09_toGroupAllDevicesByFunctionality/artifacts/uc09_SD_v2.svg)
-
-### 2.3 Applied Patterns
+### 1.6 Applied Patterns
 - All classes have only one and well-defined responsibility.
 - A controller receives and coordinates system operations connecting the UI layer to the App's logic layer.
 - The flow of this process is entirely made following this principle: for a particular responsibility, it is determined the information needed to fulfill it and where that information is stored.

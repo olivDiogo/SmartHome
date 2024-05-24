@@ -50,7 +50,7 @@ public class SensorModelController {
       return ResponseEntity.ok(CollectionModel.of(sensorModelDTOs));
     }
     Link selfLink = linkTo(
-        methodOn(ActuatorModelController.class).getActuatorModelsByActuatorTypeId(
+        methodOn(SensorModelController.class).getSensorModelsBySensorTypeId(
             sensorTypeID)).withSelfRel();
     return ResponseEntity.ok(CollectionModel.of(sensorModelDTOs, selfLink));
   }
