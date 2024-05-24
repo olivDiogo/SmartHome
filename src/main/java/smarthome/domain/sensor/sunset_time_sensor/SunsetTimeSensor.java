@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.UUID;
+import lombok.AccessLevel;
 import lombok.Getter;
 import org.shredzone.commons.suncalc.SunTimes;
 import smarthome.domain.sensor.ISensor;
@@ -20,6 +21,7 @@ import smarthome.utils.visitor_pattern.ISensorVisitor;
 @Getter
 public class SunsetTimeSensor implements ISensor {
 
+  @Getter(AccessLevel.NONE)
   private SunsetTimeSensorValue sunsetTimeSensorValue;
   private final SensorTypeID sensorTypeID;
   private SensorID sensorID;

@@ -2,6 +2,7 @@ package smarthome.domain.sensor.temperature_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.AccessLevel;
 import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
@@ -18,8 +19,10 @@ public class TemperatureSensor implements ISensor {
 
   private final ModelPath modelPath;
   private final SensorName sensorName;
+  @Getter(AccessLevel.NONE)
   private SensorID sensorID;
   private final SensorTypeID sensorTypeID;
+  @Getter(AccessLevel.NONE)
   private TemperatureSensorValue temperatureSensorValue;
   private final DeviceID deviceID;
 

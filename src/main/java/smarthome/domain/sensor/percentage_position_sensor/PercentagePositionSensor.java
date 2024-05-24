@@ -1,6 +1,7 @@
 package smarthome.domain.sensor.percentage_position_sensor;
 
 import java.util.UUID;
+import lombok.AccessLevel;
 import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
@@ -20,8 +21,10 @@ public class PercentagePositionSensor implements ISensor {
 
   private final ModelPath modelPath;
   private final SensorName sensorName;
+  @Getter(AccessLevel.NONE)
   private SensorID sensorID;
   private final SensorTypeID sensorTypeID;
+  @Getter(AccessLevel.NONE)
   private PercentagePositionSensorValue percentagePositionSensorValue;
   private final DeviceID deviceID;
 

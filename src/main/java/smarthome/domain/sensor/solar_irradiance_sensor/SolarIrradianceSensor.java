@@ -2,6 +2,7 @@ package smarthome.domain.sensor.solar_irradiance_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.AccessLevel;
 import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
@@ -15,11 +16,13 @@ import smarthome.utils.visitor_pattern.ISensorVisitor;
 @Getter
 public class SolarIrradianceSensor implements ISensor {
 
+  @Getter(AccessLevel.NONE)
   private SensorID sensorID;
   private final SensorName sensorName;
   private final ModelPath modelPath;
   private final SensorTypeID sensorTypeID;
   private final DeviceID deviceID;
+  @Getter(AccessLevel.NONE)
   private SolarIrradianceValue value;
 
   /**

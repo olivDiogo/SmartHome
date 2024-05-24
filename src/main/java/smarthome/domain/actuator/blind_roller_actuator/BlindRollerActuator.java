@@ -1,6 +1,8 @@
 package smarthome.domain.actuator.blind_roller_actuator;
 
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.Getter;
 import smarthome.ddd.IActuatorValue;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.value_object.ActuatorID;
@@ -21,7 +23,9 @@ public class BlindRollerActuator implements IActuator {
   private final ModelPath modelPath;
   private final ActuatorTypeID actuatorTypeID;
   private final ActuatorName actuatorName;
+  @Getter(AccessLevel.NONE)
   private ActuatorID actuatorID;
+  @Getter(AccessLevel.NONE)
   private BlindRollerValue value;
 
   /**

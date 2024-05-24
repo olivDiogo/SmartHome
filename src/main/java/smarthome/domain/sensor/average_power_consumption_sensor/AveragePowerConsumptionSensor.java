@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import lombok.AccessLevel;
 import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
@@ -25,8 +26,10 @@ public class AveragePowerConsumptionSensor implements ISensor {
    */
 
   private final HashMap<LocalDateTime, Double> powerConsumptions;
+  @Getter(AccessLevel.NONE)
   private AveragePowerConsumptionSensorValue averagePowerConsumptionSensorValue;
   private final SensorTypeID sensorTypeID;
+  @Getter(AccessLevel.NONE)
   private SensorID sensorID;
   private final SensorName sensorName;
   private final DeviceID deviceID;

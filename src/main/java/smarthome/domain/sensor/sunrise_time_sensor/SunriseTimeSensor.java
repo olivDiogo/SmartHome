@@ -3,6 +3,7 @@ package smarthome.domain.sensor.sunrise_time_sensor;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
+import lombok.AccessLevel;
 import lombok.Getter;
 import org.shredzone.commons.suncalc.SunTimes;
 import smarthome.domain.sensor.ISensor;
@@ -18,8 +19,10 @@ import smarthome.utils.visitor_pattern.ISensorVisitor;
 @Getter
 public class SunriseTimeSensor implements ISensor {
 
+  @Getter(AccessLevel.NONE)
   private SunriseTimeSensorValue sunriseTimeSensorValue;
   private final SensorTypeID sensorTypeID;
+  @Getter(AccessLevel.NONE)
   private SensorID sensorID;
   private final SensorName sensorName;
   private final DeviceID deviceID;

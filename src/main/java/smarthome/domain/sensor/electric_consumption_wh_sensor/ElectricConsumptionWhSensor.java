@@ -2,6 +2,7 @@ package smarthome.domain.sensor.electric_consumption_wh_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.AccessLevel;
 import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DatePeriod;
@@ -31,8 +32,10 @@ public class ElectricConsumptionWhSensor implements ISensor {
   private final DeviceID deviceID;
   private final ModelPath modelPath;
   private final SensorTypeID sensorTypeID;
+  @Getter(AccessLevel.NONE)
   private ElectricConsumptionWhValue electricConsumptionWhValue;
   private final SensorName sensorName;
+  @Getter(AccessLevel.NONE)
   private SensorID sensorID;
   private final DatePeriod datePeriod;
 

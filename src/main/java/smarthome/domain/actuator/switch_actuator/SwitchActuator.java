@@ -1,8 +1,9 @@
 package smarthome.domain.actuator.switch_actuator;
 
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.Getter;
 import smarthome.ddd.IActuatorValue;
-import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
@@ -18,7 +19,9 @@ public class SwitchActuator implements IActuator {
   private final ActuatorName actuatorName;
   private final ModelPath modelPath;
   private final ActuatorTypeID actuatorTypeID;
+  @Getter(AccessLevel.NONE)
   private ActuatorID actuatorID;
+  @Getter(AccessLevel.NONE)
   private SwitchActuatorValue value;
 
   /**

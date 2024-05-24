@@ -1,8 +1,9 @@
 package smarthome.domain.actuator.set_integer_actuator;
 
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.Getter;
 import smarthome.ddd.IActuatorValue;
-import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorName;
@@ -20,7 +21,9 @@ public class SetIntegerActuator implements IActuator {
   private final ActuatorTypeID actuatorTypeID;
   private final DeviceID deviceID;
   private final IntegerLimits limits;
+  @Getter(AccessLevel.NONE)
   private ActuatorID actuatorID;
+  @Getter(AccessLevel.NONE)
   private SetIntegerValue value;
 
   /**

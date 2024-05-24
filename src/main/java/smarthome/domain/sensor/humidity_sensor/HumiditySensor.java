@@ -2,6 +2,7 @@ package smarthome.domain.sensor.humidity_sensor;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.AccessLevel;
 import lombok.Getter;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
@@ -23,7 +24,9 @@ public class HumiditySensor implements ISensor {
   private final DeviceID deviceID;
   private final ModelPath modelPath;
   private final SensorName sensorName;
+  @Getter(AccessLevel.NONE)
   private SensorID sensorID;
+  @Getter(AccessLevel.NONE)
   private HumiditySensorValue humiditySensorValue;
 
   /**
