@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
+import smarthome.persistence.spring_data.unit.UnitSpringDataRepository;
+import smarthome.utils.LoadDefaultConfiguration;
 import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 
 
@@ -40,6 +43,12 @@ class SensorTypeControllerTest {
   @Autowired
   private SensorTypeFactoryImpl sensorTypeFactoryImpl;
 
+  @MockBean
+  private UnitSpringDataRepository unitRepository;
+
+  @MockBean
+  private LoadDefaultConfiguration loadDefaultConfiguration;
+
   /**
    * Verify that a SensorType is correctly created
    */
@@ -53,8 +62,9 @@ class SensorTypeControllerTest {
     TypeDescription typeDescription = new TypeDescription(sensorTypeDescription);
     UnitID unitID2 = new UnitID(unitID);
 
-    SensorType sensorType = sensorTypeFactoryImpl.createSensorType(typeDescription, unitID2);
 
+    SensorType sensorType = sensorTypeFactoryImpl.createSensorType(typeDescription, unitID2);
+    when(unitRepository.containsOfIdentity(sensorType.getUnitID())).thenReturn(true);
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
     // Act & Assert
@@ -63,7 +73,8 @@ class SensorTypeControllerTest {
             .content(objectMapper.writeValueAsString(sensorTypeDataDTO)))
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.description").value(sensorTypeDescription))
-        .andExpect(jsonPath("$.unitID").value(unitID));
+        .andExpect(jsonPath("$.unitID").value(unitID))
+        .andExpect(jsonPath("$._links.self").exists());
   }
 
   /**
@@ -125,13 +136,15 @@ class SensorTypeControllerTest {
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(sensorTypeDescription), new UnitID(unitID));
 
-    when(sensorTypeRepository.findAll()).thenReturn(Collections.singletonList(sensorType));
+    when(sensorTypeRepository.findAll()).thenReturn(List.of(sensorType));
 
     mockMvc.perform(get("/sensor-types")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.sensorTypeDTOList[*].description").value(sensorTypeDescription))
-        .andExpect(jsonPath("$._embedded.sensorTypeDTOList.[*].unitID").value(unitID));
+        .andExpect(jsonPath("$._embedded.sensorTypeDTOList.[*].unitID").value(unitID))
+        .andExpect(jsonPath("$._embedded.sensorTypeDTOList[*]._links.['sensor-models']").exists())
+        .andExpect(jsonPath("$._embedded.sensorTypeDTOList[*]._links.['self']").exists());
   }
 
   /**
@@ -154,9 +167,13 @@ class SensorTypeControllerTest {
     // Arrange
     String sensorTypeDescription = "Temperature";
     String unitID = "Celsius";
+    UnitID unitIDVO = new UnitID(unitID);
 
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
-    SensorType sensorType = sensorTypeFactory.createSensorType(new TypeDescription(sensorTypeDescription), new UnitID(unitID));
+    SensorType sensorType = sensorTypeFactory.createSensorType(
+        new TypeDescription(sensorTypeDescription), unitIDVO);
+
+    when(unitRepository.containsOfIdentity(sensorType.getUnitID())).thenReturn(true);
 
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
 
@@ -164,7 +181,9 @@ class SensorTypeControllerTest {
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.description").value(sensorTypeDescription))
-        .andExpect(jsonPath("$.unitID").value(unitID));
+        .andExpect(jsonPath("$.unitID").value(unitID))
+        .andExpect(jsonPath("$._links.['sensor-models']").exists())
+        .andExpect(jsonPath("$._links.['self']").exists());
   }
 
 

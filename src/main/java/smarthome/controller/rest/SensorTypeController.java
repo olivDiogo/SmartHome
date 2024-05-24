@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,10 +64,11 @@ public class SensorTypeController {
     SensorType sensorType = sensorTypeService.createSensorType(typeDescription, unitID);
     SensorTypeDTO sensorTypeDTO = sensorTypeAssembler.domainToDTO(sensorType);
 
-    WebMvcLinkBuilder linkToSelf = WebMvcLinkBuilder.linkTo(
-        WebMvcLinkBuilder.methodOn(SensorTypeController.class).createSensorType(sensorTypeDataDTO));
+    Link linkToSelf = WebMvcLinkBuilder.linkTo(
+            WebMvcLinkBuilder.methodOn(SensorTypeController.class).createSensorType(sensorTypeDataDTO))
+        .withSelfRel();
 
-    EntityModel<SensorTypeDTO> resource = EntityModel.of(sensorTypeDTO, linkToSelf.withSelfRel());
+    EntityModel<SensorTypeDTO> resource = EntityModel.of(sensorTypeDTO, linkToSelf);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
@@ -83,12 +85,23 @@ public class SensorTypeController {
     List<SensorType> sensorTypeList = sensorTypeService.getAllSensorTypes();
     List<SensorTypeDTO> sensorTypeDTOList = sensorTypeAssembler.domainToDTO(sensorTypeList);
 
+    for (SensorTypeDTO sensorTypeDTO : sensorTypeDTOList) {
+      sensorTypeDTO.add(WebMvcLinkBuilder.linkTo(
+              WebMvcLinkBuilder.methodOn(SensorModelController.class)
+                  .getSensorModelsBySensorTypeId(sensorTypeDTO.sensorTypeID))
+          .withRel("sensor-models")
+          .withTitle("Get sensor models of Type")
+          .withType("GET"));
+      sensorTypeDTO.add(WebMvcLinkBuilder.linkTo(
+              WebMvcLinkBuilder.methodOn(SensorTypeController.class)
+                  .getSensorTypeByID(sensorTypeDTO.sensorTypeID))
+          .withRel("self")
+          .withTitle("Get sensor type")
+          .withType("GET"));
+    }
+
     CollectionModel<SensorTypeDTO> resource = CollectionModel.of(
-        sensorTypeDTOList,
-        WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(SensorTypeController.class).getSensorTypes())
-            .withSelfRel()
-    );
+        sensorTypeDTOList);
 
     return ResponseEntity.ok(resource);
   }
@@ -111,7 +124,14 @@ public class SensorTypeController {
     // HATEOAS Links
     dto.add(WebMvcLinkBuilder.linkTo(
             WebMvcLinkBuilder.methodOn(SensorTypeController.class).getSensorTypeByID(id))
-        .withSelfRel());
+        .withRel("self")
+        .withTitle("Get sensor type")
+        .withType("GET"));
+    dto.add(WebMvcLinkBuilder.linkTo(
+            WebMvcLinkBuilder.methodOn(SensorModelController.class).getSensorModelsBySensorTypeId(id))
+        .withRel("sensor-models")
+        .withTitle("Get sensor models of Type")
+        .withType("GET"));
 
     return ResponseEntity.ok(dto);
   }
