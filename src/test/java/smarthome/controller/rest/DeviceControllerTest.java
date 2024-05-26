@@ -2,6 +2,7 @@ package smarthome.controller.rest;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -350,10 +351,16 @@ class DeviceControllerTest {
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
     when(deviceRepository.findAll()).thenReturn(List.of());
 
+    String expected = "{\"_links\":{\"self\":{\"href\":\"http://localhost/devices\",\"title\":\"Get All Devices\",\"type\":\"GET\"}}}";
+
     // Act & Assert
-    mockMvc.perform(get("/devicesall")
+    MvcResult result = mockMvc.perform(get("/devices")
         .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound());
+        .andExpect(status().isOk())
+        .andReturn();
+
+    // Assert
+    assertEquals(expected, result.getResponse().getContentAsString());
   }
 
   /**
@@ -465,13 +472,13 @@ class DeviceControllerTest {
 
     String expectedResponse =
         "{\"Bulb\":[{\"deviceID\":\"" + device.getID().getID() + "\",\"roomID\":\"" +
-            room.getID().getID() + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"}],"
+            room.getID().getID() + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\",\"links\":[]}],"
             + "\"Fan\":[{\"deviceID\":\"" + deviceTwo.getID().getID() + "\",\"roomID\":\""
             + room.getID().getID()
-            + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"},{\"deviceID\":\""
+            + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\",\"links\":[]},{\"deviceID\":\""
             + deviceThree.getID().getID()
             + "\",\"roomID\":\"" + room.getID().getID()
-            + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"}]}";
+            + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\",\"links\":[]}]}";
     // Act
     MvcResult result = mockMvc.perform(get("/devices/grouped")
             .accept(MediaType.APPLICATION_JSON))
@@ -507,17 +514,21 @@ class DeviceControllerTest {
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
     when(deviceRepository.findByRoomID(room.getID())).thenReturn(List.of(device, deviceTwo, deviceThree));
 
+    String linkDevice = "http://localhost/devices/" + device.getID().getID();
+    String linkDeviceTwo = "http://localhost/devices/" + deviceTwo.getID().getID();
+    String linkDeviceThree = "http://localhost/devices/" + deviceThree.getID().getID();
+
     String expected = "{\"_embedded\":"
         + "{\"deviceDTOList\":["
         + "{\"deviceID\":\"" + device.getID().getID() + "\",\"roomID\":\"" + room.getID().getID()
-        + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"},"
+        + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\",\"_links\":{\"get-device\":{\"href\":\"" + linkDevice + "\",\"title\":\"Get Device\",\"type\":\"GET\"}}},"
         + "{\"deviceID\":\"" + deviceTwo.getID().getID() + "\",\"roomID\":\"" + room.getID().getID()
-        + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"},"
+        + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\",\"_links\":{\"get-device\":{\"href\":\"" + linkDeviceTwo + "\",\"title\":\"Get Device\",\"type\":\"GET\"}}},"
         + "{\"deviceID\":\"" + deviceThree.getID().getID() + "\",\"roomID\":\"" + room.getID()
-        .getID() + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"}]},"
+        .getID() + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\",\"_links\":{\"get-device\":{\"href\":\"" + linkDeviceThree +"\",\"title\":\"Get Device\",\"type\":\"GET\"}}}]},"
         + "\"_links\":"
         + "{\"self\":{\"href\":\"http://localhost/devices?room_id=" + room.getID().getID()
-        + "{&device_type_id}\",\"templated\":true}}}";
+        + "{&device_type_id}\",\"title\":\"Get All Devices by Room ID and Device Type ID\",\"type\":\"GET\",\"templated\":true}}}";
     // Act & Assert
     MvcResult result = mockMvc.perform(
             get("/devices?room_id=" + room.getID().getID() + "&device_type_id")
@@ -552,15 +563,18 @@ class DeviceControllerTest {
     when(deviceRepository.findByRoomID(room.getID())).thenReturn(
         List.of(device, deviceTwo, deviceThree));
 
+    String linkDeviceTwo = "http://localhost/devices/" + deviceTwo.getID().getID();
+    String linkDeviceThree = "http://localhost/devices/" + deviceThree.getID().getID();
+
     String expected = "{\"_embedded\":"
         + "{\"deviceDTOList\":["
         + "{\"deviceID\":\"" + deviceTwo.getID().getID() + "\",\"roomID\":\"" + room.getID().getID()
-        + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"},"
+        + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\",\"_links\":{\"get-device\":{\"href\":\"" + linkDeviceTwo + "\",\"title\":\"Get Device\",\"type\":\"GET\"}}},"
         + "{\"deviceID\":\"" + deviceThree.getID().getID() + "\",\"roomID\":\"" + room.getID()
-        .getID() + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\"}]},"
+        .getID() + "\",\"deviceName\":\"Light\",\"deviceStatus\":\"ON\",\"_links\":{\"get-device\":{\"href\":\"" + linkDeviceThree +"\",\"title\":\"Get Device\",\"type\":\"GET\"}}}]},"
         + "\"_links\":"
         + "{\"self\":{\"href\":\"http://localhost/devices?room_id=" + room.getID().getID()
-        + "&device_type_id=" + deviceType2.getID().getID() + "\"}}}";
+        + "&device_type_id=" + deviceType2.getID().getID() + "\",\"title\":\"Get All Devices by Room ID and Device Type ID\",\"type\":\"GET\"}}}";
     // Act & Assert
     MvcResult result = mockMvc.perform(
             get("/devices?room_id=" + room.getID().getID() + "&device_type_id=" + deviceType2.getID()
@@ -570,6 +584,7 @@ class DeviceControllerTest {
         .andExpect(jsonPath("$._embedded.deviceDTOList", hasSize(2)))
         .andExpect(jsonPath("$._links.self").exists())
         .andReturn();
+
     // Assert
     assertEquals(expected, result.getResponse().getContentAsString());
   }

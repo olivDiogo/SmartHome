@@ -53,7 +53,7 @@ class ActuatorVOAssemblerImplTest {
     double maxLimit = 50.0;
     IActuatorDataDTO actuatorDataDTO =
         new ActuatorDataWithDecimalLimitsDTOImp(
-            deviceID, actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
+            deviceID, actuatorModelPath, actuatorTypeID, actuatorName, minLimit, maxLimit);
     ActuatorVOAssemblerImpl actuatorVOAssembler = new ActuatorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);
@@ -82,7 +82,7 @@ class ActuatorVOAssemblerImplTest {
     String actuatorName = "actuatorName";
     String actuatorTypeID = "actuatorTypeID";
     IActuatorDataDTO actuatorDataDTO =
-        new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID);
+        new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath, actuatorTypeID, actuatorName);
     ActuatorVOAssemblerImpl actuatorVOAssembler = new ActuatorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);
@@ -110,7 +110,7 @@ class ActuatorVOAssemblerImplTest {
     String actuatorTypeID = "actuatorTypeID";
     String minLimit = "1";
     String maxLimit = "10";
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
+    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID, actuatorModelPath, actuatorTypeID, actuatorName, minLimit, maxLimit);
     ActuatorVOAssemblerImpl actuatorVOAssembler = new ActuatorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);

@@ -53,7 +53,7 @@ class SensorVOAssemblerImplTest {
     String longitude = "0.7";
     ISensorDataDTO sensorDataDTO =
         new SensorDataWithGPSDTOImp(
-            deviceID, encodedSensorModelPath, sensorName, sensorTypeID, latitude, longitude);
+            deviceID, encodedSensorModelPath, sensorTypeID,  sensorName, latitude, longitude);
     SensorVOAssemblerImpl sensorVOAssembler = new SensorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);
@@ -111,7 +111,7 @@ class SensorVOAssemblerImplTest {
     String endDate = "2021-08-02T00:00:00";
     ISensorDataDTO sensorDataDTO =
         new SensorDataWithDateDTOImp(
-            deviceID, encodedSensorModelPath, sensorName, sensorTypeID, startDate, endDate);
+            deviceID, encodedSensorModelPath, sensorTypeID, sensorName, startDate, endDate);
     SensorVOAssemblerImpl sensorVOAssembler = new SensorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);

@@ -6,8 +6,11 @@
 package smarthome.utils.dto.data_dto.sensor_data_dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-
+@NoArgsConstructor(force = true)
+@AllArgsConstructor
 public class SensorDataGenericDTOImp implements ISensorDataDTO {
 
   @NotBlank(message = "DeviceID cannot be empty")
@@ -16,17 +19,11 @@ public class SensorDataGenericDTOImp implements ISensorDataDTO {
   @NotBlank(message = "SensorModelPath cannot be empty")
   public final String sensorModelPath;
 
-  @NotBlank(message = "SensorName cannot be empty")
-  public final String sensorName;
-
   @NotBlank(message = "SensorTypeID cannot be empty")
   public final String sensorTypeID;
 
-  public SensorDataGenericDTOImp(String deviceID, String sensorModelPath,
-      String sensorTypeID, String sensorName) {
-    this.deviceID = deviceID;
-    this.sensorModelPath = sensorModelPath;
-    this.sensorName = sensorName;
-    this.sensorTypeID = sensorTypeID;
-  }
+  @NotBlank(message = "SensorName cannot be empty")
+  public final String sensorName;
+
+
 }

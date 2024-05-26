@@ -36,8 +36,12 @@ import smarthome.service.IDeviceTypeService;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.DeviceTypeDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
-import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
-import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
+import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
+import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
+import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
+import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
+import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
+import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithGPSDTOImp;
 
 /** Class representing a REST controller for operations related to devices in the smart home. */
 @RestController
@@ -85,9 +89,40 @@ public class DeviceController {
 
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(device);
 
+    Link selfLink = linkTo(methodOn(DeviceController.class).addDevice(data)).withRel("self")
+        .withTitle("Add Device")
+        .withType("POST");
+
+    // Links to addActuator method in ActuatorController
+    Link addGenericActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataGenericDTOImp())).withRel("add-actuator")
+        .withTitle("Add Generic Actuator")
+        .withType("POST");
+
+    Link addIntegerActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataWithIntegerLimitsDTOImp())).withRel("add-actuator")
+        .withTitle("Add Set Integer Actuator")
+        .withType("POST");
+
+    Link addDecimalActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataWithDecimalLimitsDTOImp())).withRel("add-actuator")
+        .withTitle("Add Set Decimal Actuator")
+        .withType("POST");
+
+
+    // Links to addSensor method in SensorController
+    Link addGenericSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataGenericDTOImp())).withRel("add-sensor")
+        .withTitle("Add Generic Sensor")
+        .withType("POST");
+
+    Link addGpsSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataWithGPSDTOImp())).withRel("add-sensor")
+        .withTitle("Add GPS Sensor")
+        .withType("POST");
+
+    Link addDateSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataWithDateDTOImp())).withRel("add-sensor")
+        .withTitle("Add Date Sensor")
+        .withType("POST");
+
     EntityModel<DeviceDTO> resource =
         EntityModel.of(
-            deviceDTO, linkTo(methodOn(DeviceController.class).addDevice(data)).withSelfRel());
+            deviceDTO, selfLink, addGenericActuatorLink, addIntegerActuatorLink, addDecimalActuatorLink, addGenericSensorLink, addGpsSensorLink, addDateSensorLink);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
@@ -100,9 +135,7 @@ public class DeviceController {
    */
   @GetMapping("/{id}")
   public ResponseEntity<EntityModel<DeviceDTO>> getDevice(
-      @PathVariable String id,
-      @RequestParam(required = false) IActuatorDataDTO actuatorDataDTO,
-      @RequestParam(required = false) ISensorDataDTO sensorDataDTO)
+      @PathVariable String id)
   {
     DeviceID deviceID = new DeviceID(id);
     Optional<Device> device = deviceService.getDeviceByID(deviceID);
@@ -114,33 +147,70 @@ public class DeviceController {
 
     // Link to self
     Link selfLink =
-        linkTo(methodOn(DeviceController.class).getDevice(id, actuatorDataDTO, sensorDataDTO))
-            .withSelfRel();
+        linkTo(methodOn(DeviceController.class).getDevice(id))
+            .withRel("self")
+            .withTitle("Get Device")
+            .withType("GET");
 
-    // Link to addActuator method in ActuatorController
-    Link addActuatorLink =
-        linkTo(methodOn(ActuatorController.class).addActuator(actuatorDataDTO))
-            .withRel("add-actuator");
+    Link deactivateDeviceLink = linkTo(methodOn(DeviceController.class).deactivateDevice(id)).withRel("deactivate-device")
+        .withTitle("Deactivate Device")
+        .withType("PUT");
 
-    // Link to addSensor method in SensorController
-    Link addSensorLink =
-        linkTo(methodOn(SensorController.class).addSensor(sensorDataDTO)).withRel("add-sensor");
+    // Links to addActuator method in ActuatorController
+    Link addGenericActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataGenericDTOImp())).withRel("add-actuator")
+            .withTitle("Add Generic Actuator")
+            .withType("POST");
+
+    Link addIntegerActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataWithIntegerLimitsDTOImp())).withRel("add-actuator")
+            .withTitle("Add Set Integer Actuator")
+            .withType("POST");
+
+    Link addDecimalActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataWithDecimalLimitsDTOImp())).withRel("add-actuator")
+            .withTitle("Add Set Decimal Actuator")
+            .withType("POST");
+
+
+    // Links to addSensor method in SensorController
+    Link addGenericSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataGenericDTOImp())).withRel("add-sensor")
+        .withTitle("Add Generic Sensor")
+        .withType("POST");
+
+    Link addGpsSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataWithGPSDTOImp())).withRel("add-sensor")
+        .withTitle("Add GPS Sensor")
+        .withType("POST");
+
+    Link addDateSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataWithDateDTOImp())).withRel("add-sensor")
+        .withTitle("Add Date Sensor")
+        .withType("POST");
+
 
     EntityModel<DeviceDTO> entityModel =
-        EntityModel.of(deviceDTO, selfLink, addActuatorLink, addSensorLink);
+        EntityModel.of(deviceDTO, selfLink, deactivateDeviceLink, addGenericActuatorLink, addIntegerActuatorLink, addDecimalActuatorLink, addGenericSensorLink, addGpsSensorLink, addDateSensorLink);
 
     return ResponseEntity.ok(entityModel);
   }
 
   /** Handles HTTP GET requests for retrieving all devices. */
   @GetMapping
-  public ResponseEntity<CollectionModel<DeviceDTO>> getAllDevices() {
+  public ResponseEntity<CollectionModel<DeviceDTO>> listDevices() {
     List<Device> devices = deviceService.getAllDevices();
 
     List<DeviceDTO> deviceDTOs = deviceAssembler.domainToDTO(devices);
+
+    for (DeviceDTO deviceDTO : deviceDTOs) {
+      Link getDeviceLink = linkTo(methodOn(DeviceController.class).getDevice(deviceDTO.deviceID)).withRel("get-device")
+          .withTitle("Get Device")
+          .withType("GET");
+      deviceDTO.add(getDeviceLink);
+    }
+
+    Link selfLink = linkTo(methodOn(DeviceController.class).listDevices()).withRel("self")
+        .withTitle("Get All Devices")
+        .withType("GET");
+
     CollectionModel<DeviceDTO> resource =
         CollectionModel.of(
-            deviceDTOs, linkTo(methodOn(DeviceController.class).getAllDevices()).withSelfRel());
+            deviceDTOs, selfLink);
     return ResponseEntity.ok(resource);
   }
 
@@ -158,7 +228,9 @@ public class DeviceController {
 
     DeviceDTO deviceDTO = deviceAssembler.domainToDTO(deactivatedDevice);
 
-    Link selfLink = linkTo(methodOn(DeviceController.class).deactivateDevice(id)).withSelfRel();
+    Link selfLink = linkTo(methodOn(DeviceController.class).deactivateDevice(id)).withRel("self")
+        .withTitle("Deactivate Device")
+        .withType("PUT");
 
     EntityModel<DeviceDTO> entityModel = EntityModel.of(deviceDTO, selfLink);
 
@@ -208,9 +280,19 @@ public class DeviceController {
           .toList();
     }
 
-    CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs,
-        linkTo(methodOn(DeviceController.class).listDevices(roomIdStr,
-            deviceTypeIdStr)).withSelfRel());
+    for (DeviceDTO deviceDTO : deviceDTOs) {
+      Link getDeviceLink = linkTo(methodOn(DeviceController.class).getDevice(deviceDTO.deviceID)).withRel("get-device")
+          .withTitle("Get Device")
+          .withType("GET");
+      deviceDTO.add(getDeviceLink);
+    }
+
+    Link selfLink = linkTo(methodOn(DeviceController.class).listDevices(roomIdStr,
+        deviceTypeIdStr)).withRel("self")
+        .withTitle("Get All Devices by Room ID and Device Type ID")
+        .withType("GET");
+
+    CollectionModel<DeviceDTO> resource = CollectionModel.of(deviceDTOs, selfLink);
     return ResponseEntity.ok(resource);
   }
 

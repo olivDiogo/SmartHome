@@ -6,9 +6,12 @@
 package smarthome.utils.dto.data_dto.sensor_data_dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
+@AllArgsConstructor
+@NoArgsConstructor(force = true)
 public class SensorDataWithDateDTOImp implements ISensorDataDTO {
 
   @NotBlank(message = "DeviceID cannot be empty")
@@ -17,11 +20,11 @@ public class SensorDataWithDateDTOImp implements ISensorDataDTO {
   @NotBlank(message = "SensorModelPath cannot be empty")
   public final String sensorModelPath;
 
-  @NotBlank(message = "SensorName cannot be empty")
-  public final String sensorName;
-
   @NotBlank(message = "SensorTypeID cannot be empty")
   public final String sensorTypeID;
+
+  @NotBlank(message = "SensorName cannot be empty")
+  public final String sensorName;
 
   @NotBlank(message = "Start Date cannot be empty")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -30,14 +33,4 @@ public class SensorDataWithDateDTOImp implements ISensorDataDTO {
   @NotBlank(message = "End Date cannot be empty")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   public final String endDate;
-
-  public SensorDataWithDateDTOImp(String deviceID, String sensorModelPath, String sensorName,
-      String sensorTypeID, String startDate, String endDate) {
-    this.deviceID = deviceID;
-    this.sensorModelPath = sensorModelPath;
-    this.sensorName = sensorName;
-    this.sensorTypeID = sensorTypeID;
-    this.startDate = startDate;
-    this.endDate = endDate;
-  }
 }

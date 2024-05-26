@@ -196,7 +196,7 @@ class ActuatorControllerTest {
 
     /* Create ActuatorDataDTO */
     IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath,
-        actuatorName, actuatorTypeID);
+     actuatorTypeID, actuatorName);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
     when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(

@@ -223,8 +223,8 @@ class SensorControllerTest {
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorType sensorType = sensorTypeFactory.createSensorType(typeDescription, sensorUnit.getID());
 
-    ISensorDataDTO sensorDataDTO = new SensorDataWithGPSDTOImp(deviceIDStr, sensorModelPath,
-        sensorName, sensorType.getID().toString(), latitude, longitude);
+    ISensorDataDTO sensorDataDTO = new SensorDataWithGPSDTOImp(deviceIDStr, sensorModelPath, sensorType.getID().toString(),
+        sensorName, latitude, longitude);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
