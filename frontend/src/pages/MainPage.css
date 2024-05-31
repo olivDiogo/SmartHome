@@ -1,0 +1,19 @@
+.main-page-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.main-page-body-widgets {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 300px;
+    height: 100px;
+}
+
+.widget {
+    width: 300px;
+}
