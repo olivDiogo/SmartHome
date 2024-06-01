@@ -1,8 +1,7 @@
 package smarthome.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.time.LocalDateTime;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 import smarthome.domain.log.ILogFactory;
 import smarthome.domain.log.Log;
 import smarthome.domain.repository.ILogRepository;
@@ -12,18 +11,14 @@ import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
 
-import java.time.LocalDateTime;
 
 
-
-@Component
 public class DataLoader implements CommandLineRunner {
 
 
   private final ILogRepository logRepository;
   private final ILogFactory logFactory;
 
-  @Autowired
   public DataLoader(ILogRepository logRepository, ILogFactory logFactory) {
     this.logRepository = logRepository;
     this.logFactory = logFactory;
