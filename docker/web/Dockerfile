@@ -6,6 +6,6 @@ EXPOSE 8080
 
 RUN mv /usr/local/tomcat/webapps /usr/local/tomcat/webapps2; mv /usr/local/tomcat/webapps.dist /usr/local/tomcat/webapps; cp /tmp/context.xml /usr/local/tomcat/webapps/manager/META-INF/context.xml;
 
-COPY smarthome.war /usr/local/tomcat/webapps/
+COPY switch2023project_g1-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/smarthome.war
 
 CMD ["catalina.sh", "run"]
