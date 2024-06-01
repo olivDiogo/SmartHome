@@ -34,6 +34,10 @@ function RoomsList() {
         navigate(`/rooms/${roomId}`);
     };
 
+    const handleOpenDevicesClick = (roomId) => {
+        navigate(`/rooms/${roomId}/devices`);
+    };
+
     return (
         <div>
             {rooms.map((room) => (
@@ -51,6 +55,9 @@ function RoomsList() {
                         </Typography>
                     </AccordionDetails>
                     <AccordionActions>
+                        <Button size="small" color="primary" onClick={() => handleOpenDevicesClick(room.roomId)}>
+                            Open Devices
+                            </Button>
                         <Button size="small" color="primary" onClick={() => handleAddDeviceClick(room.roomId)}>
                             Add Device
                         </Button>

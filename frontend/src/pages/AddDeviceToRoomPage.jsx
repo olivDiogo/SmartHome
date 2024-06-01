@@ -29,7 +29,7 @@ const simulatedRooms = [
 
 const deviceTypes = ["Fridge", "Blind", "Light"]; // Example device types
 
-function RoomDetailsPage() {
+function AddDeviceToRoomPage() {
     const {roomId} = useParams();
     const [room, setRoom] = useState(null);
     const [deviceName, setDeviceName] = useState('');
@@ -131,4 +131,4 @@ function RoomDetailsPage() {
     );
 }
 
-export default RoomDetailsPage;
+export default AddDeviceToRoomPage;
