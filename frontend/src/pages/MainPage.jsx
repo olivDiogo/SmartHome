@@ -1,30 +1,32 @@
-import React, {useState, useEffect} from 'react';
-import SunriseSunsetWidget from "../components/SunriseSunsetWidget.jsx";
-import OutsideTemperatureWidget from "../components/OutsideTemperatureWidget.jsx";
-import Header from "../components/Header.jsx";
+import React from 'react';
+import SunriseSunsetWidget from "../components/SunriseSunsetWidget";
+import OutsideTemperatureWidget from "../components/OutsideTemperatureWidget";
+import Header from "../components/Header";
+import RoomsList from "../components/RoomsList";
 import './MainPage.css';
 
-
 function MainPage() {
-
     return (
-        <div className={"main-page"}>
+        <div className="main-page">
             <Header/>
-            <div className={"main-page-body"}>
-                <div className={"main-page-body-widgets"}>
-                    <div className={"widget"}>
+            <div className="main-page-body">
+                <div className="rooms-container">
+                    <h3 className="rooms-container-header">Rooms</h3>
+                    <RoomsList/>
+                </div>
+                <div className="main-page-body-widgets">
+                    <div className="widget">
                         <OutsideTemperatureWidget/>
                     </div>
-                    <div className={"widget"}>
+                    <div className="widget">
                         <SunriseSunsetWidget/>
                     </div>
                 </div>
             </div>
-            <div className={"main-page-footer"}>
+            <div className="main-page-footer">
             </div>
         </div>
-    )
+    );
 }
 
 export default MainPage;
-

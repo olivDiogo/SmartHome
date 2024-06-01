@@ -1,5 +1,6 @@
-import * as React from 'react';
-import {styled, alpha} from '@mui/material/styles';
+import React from 'react';
+import {useNavigate} from 'react-router-dom';
+import {alpha, styled} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -43,7 +44,6 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     width: '100%',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         [theme.breakpoints.up('sm')]: {
@@ -55,8 +55,9 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     },
 }));
 
-export default function SearchAppBar() {
+export default function Header() {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
+    const navigate = useNavigate();
 
     const handleDrawerOpen = () => {
         setDrawerOpen(true);
@@ -64,10 +65,14 @@ export default function SearchAppBar() {
 
     const handleDrawerClose = () => {
         setDrawerOpen(false);
-    }
+    };
+
+    const handleAddDeviceClick = () => {
+        navigate('/add-device');
+    };
 
     return (
-        <Box sx={{flexGrow: 1, bgcolor: 'lightgrey'}}>
+        <Box sx={{flexGrow: 1, bgcolor: 'lightgrey', borderRadius: 2}}>
             <AppBar position="static" sx={{bgcolor: 'black', borderRadius: 2}}>
                 <Toolbar>
                     <IconButton
@@ -102,24 +107,17 @@ export default function SearchAppBar() {
             <Drawer
                 anchor="left"
                 open={drawerOpen}
-                onClose={handleDrawerClose}>
-
+                onClose={handleDrawerClose}
+            >
                 <List>
-                    <ListItem button component={"a"} href={"/"}>
+                    <ListItem button component="a" href="/">
                         <ListItemText primary="Dashboard"/>
                     </ListItem>
-                    {/*<ListItem button component={"a"} href={"/rooms"}>*/}
-                    {/*    <ListItemText primary="Rooms"/>*/}
-                    {/*</ListItem>*/}
-                    {/*<ListItem button component={"a"} href={"/devices"}>*/}
-                    {/*    <ListItemText primary="Devices"/>*/}
-                    {/*</ListItem>*/}
-                    {/*<ListItem button component={"a"} href={"/help"}>*/}
-                    {/*    <ListItemText primary="Help"/>*/}
-                    {/*</ListItem>*/}
+                    <ListItem button onClick={handleAddDeviceClick}>
+                        <ListItemText primary="Add a Device"/>
+                    </ListItem>
                 </List>
             </Drawer>
         </Box>
     );
 }
-

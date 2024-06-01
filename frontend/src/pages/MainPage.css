@@ -5,6 +5,38 @@
     position: relative;
 }
 
+.rooms-container {
+    margin-top: 100px;
+    height: 300px;
+    width: 40%;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rooms-container-header {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.rooms-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.rooms-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.rooms-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 .main-page-body-widgets {
     display: flex;
     flex-direction: row;
