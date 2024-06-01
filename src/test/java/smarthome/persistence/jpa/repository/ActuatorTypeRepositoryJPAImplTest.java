@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.repository.IActuatorTypeRepository;
@@ -21,10 +22,11 @@ class ActuatorTypeRepositoryJPAImplTest {
     //Arrange
     IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler = mock(
         IDataModelAssembler.class);
+    EntityManagerFactory entityManagerFactory = mock(EntityManagerFactory.class);
 
     //Act
     IActuatorTypeRepository repositoryActuatorTypeJPA = new ActuatorTypeRepositoryJPAImpl(
-        dataModelAssembler);
+        dataModelAssembler, entityManagerFactory);
 
     //Assert
     assertNotNull(repositoryActuatorTypeJPA);
@@ -38,12 +40,13 @@ class ActuatorTypeRepositoryJPAImplTest {
   void shouldThrowIllegalArgumentException_whenGivenNullDataModelConverter() {
     //Arrange
     IDataModelAssembler<ActuatorTypeDataModel, ActuatorType> dataModelAssembler = null;
+    EntityManagerFactory entityManagerFactory = mock(EntityManagerFactory.class);
 
     String expectedMessage = "The data model assembler must not be null.";
 
     //Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> new ActuatorTypeRepositoryJPAImpl(dataModelAssembler));
+        () -> new ActuatorTypeRepositoryJPAImpl(dataModelAssembler, entityManagerFactory));
 
     String actualMessage = exception.getMessage();
 

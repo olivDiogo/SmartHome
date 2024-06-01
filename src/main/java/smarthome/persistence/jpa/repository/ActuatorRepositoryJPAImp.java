@@ -3,7 +3,6 @@ package smarthome.persistence.jpa.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
@@ -27,13 +26,14 @@ public class ActuatorRepositoryJPAImp implements IActuatorRepository {
    *
    * @param dataModelAssembler          is the data model assembler
    * @param actuatorVisitorForDataModel is the actuator visitor for data model
+   * @param factory
    */
   public ActuatorRepositoryJPAImp(
       IDataModelAssembler<ActuatorDataModel, IActuator> dataModelAssembler,
-      IActuatorVisitorForDataModel actuatorVisitorForDataModel) {
+      IActuatorVisitorForDataModel actuatorVisitorForDataModel, EntityManagerFactory factory) {
     validateDataModelAssembler(dataModelAssembler);
     this.dataModelAssembler = dataModelAssembler;
-    factory = Persistence.createEntityManagerFactory("smarthome");
+    this.factory = factory;
     validateActuatorVisitorForDataModel(actuatorVisitorForDataModel);
     this.actuatorVisitorForDataModel = actuatorVisitorForDataModel;
   }

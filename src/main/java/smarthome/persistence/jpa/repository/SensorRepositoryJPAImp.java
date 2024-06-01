@@ -3,11 +3,9 @@ package smarthome.persistence.jpa.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.ISensorRepository;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.SensorID;
@@ -32,13 +30,12 @@ public class SensorRepositoryJPAImp implements ISensorRepository {
    * @param sensorVisitorForDataModel the sensor visitor for data model
    */
   public SensorRepositoryJPAImp(IDataModelAssembler<SensorDataModel, ISensor> dataModelAssembler,
-      ISensorVisitorForDataModel sensorVisitorForDataModel) {
+      ISensorVisitorForDataModel sensorVisitorForDataModel, EntityManagerFactory factory) {
     Validator.validateNotNull(dataModelAssembler, "Data model assembler");
     this.dataModelAssembler = dataModelAssembler;
     Validator.validateNotNull(sensorVisitorForDataModel, "Sensor visitor for data model");
     this.sensorVisitorForDataModel = sensorVisitorForDataModel;
-    factory = Persistence.createEntityManagerFactory("smarthome");
-
+    this.factory = factory;
   }
 
   /**

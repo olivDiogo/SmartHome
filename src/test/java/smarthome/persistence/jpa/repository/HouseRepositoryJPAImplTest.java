@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.persistence.assembler.IDataModelAssembler;
@@ -18,9 +19,10 @@ class HouseRepositoryJPAImplTest {
   void shouldInstantiateHouseRepositoryJPAImpl_whenAttributesAreValid() {
     //Arrange
     IDataModelAssembler dataModelAssembler = mock(IDataModelAssembler.class);
+    EntityManagerFactory factory = mock(EntityManagerFactory.class);
 
     //Act
-    IHouseRepository houseRepositoryJPA = new HouseRepositoryJPAImpl(dataModelAssembler);
+    IHouseRepository houseRepositoryJPA = new HouseRepositoryJPAImpl(dataModelAssembler, factory);
 
     //Assert
     assertNotNull(houseRepositoryJPA);
@@ -34,12 +36,12 @@ class HouseRepositoryJPAImplTest {
   void shouldThrowIllegalArgumentException_whenGivenNullDataModelAssembler() {
     //Arrange
     IDataModelAssembler dataModelAssembler = null;
-
+    EntityManagerFactory factory = mock(EntityManagerFactory.class);
     String expectedMessage = "Data model assembler cannot be null.";
 
     //Act & Assert
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> new HouseRepositoryJPAImpl(dataModelAssembler));
+        () -> new HouseRepositoryJPAImpl(dataModelAssembler, factory));
     String actualMessage = exception.getMessage();
 
     assertEquals(expectedMessage, actualMessage);

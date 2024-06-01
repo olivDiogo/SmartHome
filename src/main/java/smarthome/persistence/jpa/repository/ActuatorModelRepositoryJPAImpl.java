@@ -3,7 +3,6 @@ package smarthome.persistence.jpa.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +12,6 @@ import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
-
 public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository {
 
   private final EntityManagerFactory factory;
@@ -25,9 +23,10 @@ public class ActuatorModelRepositoryJPAImpl implements IActuatorModelRepository 
    * @param dataModelAssembler IDataModelAssembler<ActuatorModelDataModel, ActuatorModel>
    */
   public ActuatorModelRepositoryJPAImpl(
-      IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelAssembler) {
+      IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelAssembler,
+      EntityManagerFactory factory) {
     validateDataModelConverter(dataModelAssembler);
-    factory = Persistence.createEntityManagerFactory("smarthome");
+    this.factory = factory;
     this.dataModelAssembler = dataModelAssembler;
   }
 

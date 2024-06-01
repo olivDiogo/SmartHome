@@ -9,7 +9,6 @@
           <factory-entry name="smarthome" value="ffd0078f-3d0f-4571-8b58-a262724869ac" />
         </datasource-mapping>
         <naming-strategy-map />
-        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
     </facet>
   </component>

@@ -3,7 +3,6 @@ package smarthome.persistence.jpa.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
@@ -33,9 +32,10 @@ public class DeviceRepositoryJPAImpl implements IDeviceRepository {
    *                           objects.
    */
 
-  public DeviceRepositoryJPAImpl(IDataModelAssembler<DeviceDataModel, Device> dataModelConverter) {
+  public DeviceRepositoryJPAImpl(IDataModelAssembler<DeviceDataModel, Device> dataModelConverter,
+      EntityManagerFactory factory) {
     validateDataModelAssembler(dataModelConverter);
-    factory = Persistence.createEntityManagerFactory("smarthome");
+    this.factory = factory;
     dataModelAssembler = dataModelConverter;
   }
 

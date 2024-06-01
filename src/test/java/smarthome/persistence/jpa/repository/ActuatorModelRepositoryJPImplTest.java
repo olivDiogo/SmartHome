@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator_model.ActuatorModel;
 import smarthome.domain.repository.IActuatorModelRepository;
@@ -22,9 +23,11 @@ class ActuatorModelRepositoryJPImplTest {
     IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelConverter = mock(
         IDataModelAssembler.class);
 
+    EntityManagerFactory factory = mock(EntityManagerFactory.class);
+
     //Act
     IActuatorModelRepository repositoryActuatorModelJPA = new ActuatorModelRepositoryJPAImpl(
-        dataModelConverter);
+        dataModelConverter, factory);
 
     //Assert
     assertNotNull(repositoryActuatorModelJPA);
@@ -38,12 +41,13 @@ class ActuatorModelRepositoryJPImplTest {
   void shouldThrowIllegalArgumentException_whenGivenNullDataModelConverter() {
     //Arrange
     IDataModelAssembler<ActuatorModelDataModel, ActuatorModel> dataModelConverter = null;
+    EntityManagerFactory factory = mock(EntityManagerFactory.class);
 
     String expectedMessage = "Data model converter cannot be null";
 
     //Act + Assert
     Exception exception = assertThrows(IllegalArgumentException.class,
-        () -> new ActuatorModelRepositoryJPAImpl(dataModelConverter));
+        () -> new ActuatorModelRepositoryJPAImpl(dataModelConverter, factory));
 
     String actualMessage = exception.getMessage();
 

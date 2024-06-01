@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.repository.ISensorTypeRepository;
 import smarthome.domain.sensor_type.SensorType;
@@ -21,10 +22,12 @@ class SensorTypeRepositoryJPAImplTest {
     //Arrange
     IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter = mock(
         IDataModelAssembler.class);
+    EntityManagerFactory entityManagerFactory = mock(EntityManagerFactory.class);
+
 
     //Act
     ISensorTypeRepository repositorySensorTypeJPA = new SensorTypeRepositoryJPAImpl(
-        dataModelConverter);
+        dataModelConverter, entityManagerFactory);
 
     //Assert
     assertNotNull(repositorySensorTypeJPA);
@@ -38,49 +41,17 @@ class SensorTypeRepositoryJPAImplTest {
   void shouldThrowIllegalArgumentException_whenGivenNullDataModelConverter() {
     //Arrange
     IDataModelAssembler<SensorTypeDataModel, SensorType> dataModelConverter = null;
+    EntityManagerFactory entityManagerFactory = mock(EntityManagerFactory.class);
 
     String expectedMessage = "Data model converter cannot be null.";
 
     //Act + Assert
     Exception exception = assertThrows(IllegalArgumentException.class,
-        () -> new SensorTypeRepositoryJPAImpl(dataModelConverter));
+        () -> new SensorTypeRepositoryJPAImpl(dataModelConverter, entityManagerFactory));
 
     String actualMessage = exception.getMessage();
 
     assertEquals(expectedMessage, actualMessage);
   }
-
-//    @Test
-//    void shouldSaveSensorType_whenGivenValidSensorType() {
-//        //Arrange
-//        String strSensorTypeID = "123";
-//        String strTypeDescription = "Temperature";
-//        String strUnitID = "C";
-//
-//        SensorTypeID sensorTypeIDDouble = mock(SensorTypeID.class);
-//        when(sensorTypeIDDouble.toString()).thenReturn(strSensorTypeID);
-//
-//        TypeDescription typeDescriptionDouble = mock(TypeDescription.class);
-//        when(typeDescriptionDouble.toString()).thenReturn(strTypeDescription);
-//
-//        UnitID unitIDDouble = mock(UnitID.class);
-//        when(unitIDDouble.toString()).thenReturn(strUnitID);
-//
-//        ISensorTypeFactory sensorTypeFactory = mock(ISensorTypeFactory.class);
-//        IDataModelConverter<SensorTypeDataModel, SensorType>  dataModelConverter = mock(IDataModelConverter.class);
-//
-//        RepositorySensorTypeJPAImpl repositorySensorTypeJPA = new RepositorySensorTypeJPAImpl(sensorTypeFactory, dataModelConverter);
-//
-//        SensorType sensorType = mock(SensorType.class);
-//        when(sensorType.getID()).thenReturn(sensorTypeIDDouble);
-//        when(sensorType.getName()).thenReturn(typeDescriptionDouble);
-//        when(sensorType.getUnit()).thenReturn(unitIDDouble);
-//
-//        //Act
-//        SensorType savedSensorType = repositorySensorTypeJPA.save(sensorType);
-//
-//        //Assert
-//        assertEquals(sensorType, savedSensorType);
-//    }
 
 }

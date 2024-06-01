@@ -3,7 +3,9 @@ package smarthome.persistence.jpa.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
 
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Test;
 import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.unit.UnitFactoryImpl;
@@ -19,9 +21,12 @@ class UnitRepositoryJPAImplTest {
   void shouldInstantiateRepositoryUninJPAImpl_whenAttributesAreValid() {
     //Arrange
     UnitDataModelAssembler dataModelAssembler = new UnitDataModelAssembler(new UnitFactoryImpl());
+    EntityManagerFactory entityManagerFactory = mock(EntityManagerFactory.class);
+
 
     //Act
-    IUnitRepository repositoryUninJPA = new UnitRepositoryJPAImpl(dataModelAssembler);
+    IUnitRepository repositoryUninJPA = new UnitRepositoryJPAImpl(dataModelAssembler,
+        entityManagerFactory);
 
     //Assert
     assertNotNull(repositoryUninJPA);
@@ -34,12 +39,13 @@ class UnitRepositoryJPAImplTest {
   void shouldThrowIllegalArgumentException_whenGivenNullDataModelAssembler() {
     //Arrange
     IDataModelAssembler dataModelAssembler = null;
+    EntityManagerFactory entityManagerFactory = mock(EntityManagerFactory.class);
 
     String expectedMessage = "Data model assembler cannot be null.";
 
     //Act + Assert
     Exception e = assertThrows(IllegalArgumentException.class,
-        () -> new UnitRepositoryJPAImpl(dataModelAssembler));
+        () -> new UnitRepositoryJPAImpl(dataModelAssembler, entityManagerFactory));
 
     //Assert
     String actualMessage = e.getMessage();

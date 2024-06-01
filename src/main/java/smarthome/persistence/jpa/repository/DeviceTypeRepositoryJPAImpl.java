@@ -3,11 +3,8 @@ package smarthome.persistence.jpa.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Repository;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.repository.IDeviceTypeRepository;
 import smarthome.domain.value_object.DeviceTypeID;
@@ -25,10 +22,11 @@ public class DeviceTypeRepositoryJPAImpl implements IDeviceTypeRepository {
    * assembler.
    */
   public DeviceTypeRepositoryJPAImpl(
-      IDataModelAssembler<DeviceTypeDataModel, DeviceType> dataModelAssembler) {
+      IDataModelAssembler<DeviceTypeDataModel, DeviceType> dataModelAssembler,
+      EntityManagerFactory factory) {
     validateDataModelAssembler(dataModelAssembler);
     this.dataModelAssembler = dataModelAssembler;
-    this.factory = Persistence.createEntityManagerFactory("smarthome");
+    this.factory = factory;
   }
 
   /**
