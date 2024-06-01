@@ -18,7 +18,7 @@ function SunriseSunsetWidget() {
 
     return (
         <Box>
-            <Card style={{ backgroundColor: 'darkgrey', color: 'black',
+            <Card style={{ backgroundColor: 'white', color: 'black',
                 display: 'flex', flexDirection: 'column',
                 alignItems: 'center', justifyContent: 'center', height: 100}}>
                 <CardContent>

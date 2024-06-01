@@ -4,6 +4,17 @@ import { Provider } from './AppContext.jsx';
 import reducer from './Reducer.jsx';
 
 const initialState = {
+    rooms: {
+        loading: true,
+        error: null,
+        data: [],
+    },
+
+    devices: {
+        loading: false,
+        error: null,
+        data: [],
+    },
 
 };
 
