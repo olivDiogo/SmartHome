@@ -24,6 +24,7 @@ function MainPage() {
                 </div>
             </div>
             <div className="main-page-footer">
+                <p>Smart Home 2024 - Switch Dev Grupo 1</p>
             </div>
         </div>
     );

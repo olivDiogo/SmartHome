@@ -67,12 +67,8 @@ export default function Header() {
         setDrawerOpen(false);
     };
 
-    const handleAddDeviceClick = () => {
-        navigate('/add-device');
-    };
-
     return (
-        <Box sx={{flexGrow: 1, bgcolor: 'lightgrey', borderRadius: 2}}>
+        <Box sx={{flexGrow: 1, borderRadius: 2}}>
             <AppBar position="static" sx={{bgcolor: 'black', borderRadius: 2}}>
                 <Toolbar>
                     <IconButton
@@ -112,9 +108,6 @@ export default function Header() {
                 <List>
                     <ListItem button component="a" href="/">
                         <ListItemText primary="Dashboard"/>
-                    </ListItem>
-                    <ListItem button onClick={handleAddDeviceClick}>
-                        <ListItemText primary="Add a Device"/>
                     </ListItem>
                 </List>
             </Drawer>

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AppContext from "../context/AppContext.jsx";
 import DeviceList from '../components/DeviceList';
 
 function DevicesInRoomPage() {
+    const { state } = useContext(AppContext);
+    const { currentRoom } = state;
+    const roomName = currentRoom.roomName;
+
     return (
-        <div>
-            <h1>Devices in Room</h1>
+        <div className={"devices-in-room-page"}>
+            <h1>Devices in {roomName}</h1>
             <DeviceList/>
         </div>
     );

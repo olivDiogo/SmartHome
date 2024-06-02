@@ -10,6 +10,11 @@ const initialState = {
         data: [],
     },
 
+    currentRoom: {
+        roomId: null,
+        roomName: null,
+    },
+
     devices: {
         loading: false,
         error: null,

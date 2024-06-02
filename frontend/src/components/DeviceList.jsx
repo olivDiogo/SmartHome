@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useContext} from "react";
 import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -7,51 +7,65 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {useNavigate} from 'react-router-dom';
+import AppContext from "../context/AppContext.jsx";
+import {fetchDevicesByRoomId} from "../context/Actions.jsx";
 
-const deviceList = [
-    {id: 1, name: 'Thermostat'},
-    {id: 2, name: 'Light Bulb'},
-    {id: 3, name: 'Tv'},
-];
 
 function DeviceList() {
-    const [sensors, setDevices] = useState([]);
+    const {state, dispatch} = useContext(AppContext);
+    const {currentRoom} = state;
+    const roomId = currentRoom.roomId;
+
+    const {devices} = state;
+    const {loading, error, data} = devices;
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Simulate API call
-        setDevices(deviceList);
-    }, []);
+        fetchDevicesByRoomId(dispatch, roomId);
+    }, [dispatch, roomId]);
 
-    const handleAddDeviceOnClick = (deviceID) => {
-        navigate(`/devices/${deviceID}`);
+    const handleAddDeviceOnClick = (deviceId) => {
+        navigate(`/devices/${deviceId}`);
     };
 
-    return (
-        <div>
-            {sensors.map((device) => (
-                <Accordion key={device.id}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        aria-controls={`panel${device.id}-content`}
-                        id={`panel${device.id}-header`}
-                    >
-                        <Typography>{device.id}</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Here are some details about {device.name}. You can add more information about the device here.
-                        </Typography>
-                    </AccordionDetails>
-                    <AccordionActions>
-                        <Button size="small" color="primary" onClick={() => handleAddDeviceOnClick(device.id)}>
-                            Configure Device
-                        </Button>
-                    </AccordionActions>
-                </Accordion>
-            ))}
-        </div>
-    );
+    if (loading === true) {
+        return <h1>Loading ....</h1>;
+    } else {
+        if (error !== null) {
+            return <h1>Error ....</h1>;
+        } else {
+            if (data.length > 0) {
+                return (
+                    <div>
+                        {data.map((device) => (
+                            <Accordion key={device.deviceID}>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon/>}
+                                    aria-controls={`panel${device.deviceID}-content`}
+                                    id={`panel${device.deviceID}-header`}
+                                >
+                                    <Typography>{device.deviceName}</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography>
+                                        Here are some details about {device.deviceName}. You can add more information about
+                                        the device here.
+                                    </Typography>
+                                </AccordionDetails>
+                                <AccordionActions>
+                                    <Button size="small" color="primary"
+                                            onClick={() => handleAddDeviceOnClick(device.deviceID)}>
+                                        Configure Device
+                                    </Button>
+                                </AccordionActions>
+                            </Accordion>
+                        ))}
+                    </div>
+                );
+            }
+        }
+    }
 }
 
 export default DeviceList;

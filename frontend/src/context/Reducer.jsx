@@ -13,7 +13,7 @@ import {
     FETCH_SENSOR_MODELS_FAILURE,
     FETCH_ACTUATOR_MODELS_STARTED,
     FETCH_ACTUATOR_MODELS_SUCCESS,
-    FETCH_ACTUATOR_MODELS_FAILURE
+    FETCH_ACTUATOR_MODELS_FAILURE, SET_CURRENT_ROOM
 } from './Actions';
 
 function reducer(state, action) {
@@ -47,6 +47,15 @@ function reducer(state, action) {
                     data: [],
                 }
             }
+
+        case SET_CURRENT_ROOM:
+            return {
+                ...state,
+                currentRoom: {
+                    roomId: action.payload.roomId,
+                    roomName: action.payload.roomName
+                }
+            };
 
         case FETCH_ROOM_BY_ID_STARTED:
             return {

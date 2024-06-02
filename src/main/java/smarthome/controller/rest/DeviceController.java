@@ -14,6 +14,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,7 @@ import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
 import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithGPSDTOImp;
 
 /** Class representing a REST controller for operations related to devices in the smart home. */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {
