@@ -13,7 +13,11 @@ import {
     FETCH_SENSOR_MODELS_FAILURE,
     FETCH_ACTUATOR_MODELS_STARTED,
     FETCH_ACTUATOR_MODELS_SUCCESS,
-    FETCH_ACTUATOR_MODELS_FAILURE, SET_CURRENT_ROOM
+    FETCH_ACTUATOR_MODELS_FAILURE,
+    SET_CURRENT_ROOM,
+    FETCH_TEMPERATURE_STARTED,
+    FETCH_TEMPERATURE_FAILURE,
+    FETCH_TEMPERATURE_SUCCESS
 } from './Actions';
 
 function reducer(state, action) {
@@ -175,6 +179,36 @@ function reducer(state, action) {
                     loading: false,
                     error: action.payload.error,
                     data: [],
+                }
+            }
+
+        case FETCH_TEMPERATURE_STARTED:
+            return {
+                ...state,
+                temperature: {
+                    loading: true,
+                    error: null,
+                    data: null
+                }
+            }
+
+        case FETCH_TEMPERATURE_SUCCESS:
+            return {
+                ...state,
+                temperature: {
+                    loading: false,
+                    error: null,
+                    data: action.payload.data
+                }
+            }
+
+        case FETCH_TEMPERATURE_FAILURE:
+            return {
+                ...state,
+                temperature: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: null
                 }
             }
 

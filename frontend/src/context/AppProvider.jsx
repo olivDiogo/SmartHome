@@ -21,6 +21,12 @@ const initialState = {
         data: [],
     },
 
+    temperature: {
+        loading: true,
+        error: null,
+        data: null,
+    },
+
 };
 
 const AppProvider = (props) => {
