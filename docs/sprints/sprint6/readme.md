@@ -1,5 +1,9 @@
 # Switch-Dev Project - Sprint 6
 
+Start: April 30th
+
+End: May 24th
+
 ## 1. Team members
 
 The team is made up of the following dedicated students:
