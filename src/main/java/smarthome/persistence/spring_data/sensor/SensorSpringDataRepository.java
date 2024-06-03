@@ -9,12 +9,16 @@ import smarthome.domain.value_object.SensorID;
 import smarthome.persistence.assembler.IDataModelAssembler;
 import smarthome.persistence.jpa.data_model.SensorDataModel;
 import smarthome.utils.Validator;
+import smarthome.utils.visitor_pattern.ISensorVisitorForDataModel;
+
 @Repository
 public class SensorSpringDataRepository implements ISensorRepository {
 
   private final ISensorSpringDataRepository repository;
 
   private final IDataModelAssembler<SensorDataModel, ISensor> assembler;
+
+  private final ISensorVisitorForDataModel sensorVisitorForDataModel;
 
   /**
    * Constructs a new repository instance with the specified entity manager factory and data model
@@ -25,11 +29,14 @@ public class SensorSpringDataRepository implements ISensorRepository {
    *                           versa
    */
   public SensorSpringDataRepository(ISensorSpringDataRepository repository,
-      IDataModelAssembler<SensorDataModel, ISensor> dataModelAssembler) {
+      IDataModelAssembler<SensorDataModel, ISensor> dataModelAssembler,
+      ISensorVisitorForDataModel sensorVisitorForDataModel) {
     Validator.validateNotNull(dataModelAssembler, "Data model assembler");
     assembler = dataModelAssembler;
     Validator.validateNotNull(repository, "Repository");
     this.repository = repository;
+    Validator.validateNotNull(sensorVisitorForDataModel, "Actuator visitor for data model");
+    this.sensorVisitorForDataModel = sensorVisitorForDataModel;
   }
 
   /**
@@ -42,7 +49,8 @@ public class SensorSpringDataRepository implements ISensorRepository {
   @Override
   public ISensor save(ISensor sensor) {
     Validator.validateNotNull(sensor, "Sensor");
-    SensorDataModel sensorDataModel = new SensorDataModel(sensor);
+    sensor.accept(sensorVisitorForDataModel);
+    SensorDataModel sensorDataModel = sensorVisitorForDataModel.getSensorDataModel();
     repository.save(sensorDataModel);
     return sensor;
   }
