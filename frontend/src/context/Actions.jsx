@@ -1,8 +1,9 @@
 import {
-    fetchRoomsFromServer,
-    fetchRoomByIdFromServer,
-    fetchDevicesByRoomIdFromServer,
+    addDeviceToRoom as addDeviceToRoomService,
     fetchActuatorModelsFromServer,
+    fetchDevicesByRoomIdFromServer,
+    fetchRoomByIdFromServer,
+    fetchRoomsFromServer,
     fetchSensorModelsFromServer,
     fetchTemperatureFromWS
 } from "../services/Service.jsx";
@@ -10,6 +11,9 @@ import {
 export const FETCH_ROOMS_STARTED = 'FETCH_ROOMS_STARTED';
 export const FETCH_ROOMS_SUCCESS = 'FETCH_ROOMS_SUCCESS';
 export const FETCH_ROOMS_FAILURE = 'FETCH_ROOMS_FAILURE';
+export const ADD_DEVICE_STARTED = 'ADD_DEVICE_STARTED';
+export const ADD_DEVICE_SUCCESS = 'ADD_DEVICE_SUCCESS';
+export const ADD_DEVICE_FAILURE = 'ADD_DEVICE_FAILURE';
 
 export function fetchRooms(dispatch) {
     const action = {
@@ -275,4 +279,15 @@ function fetchTemperatureFailure(message) {
             error: message
         }
     }
+}
+
+export function addDeviceToRoom(dispatch, roomId, device) {
+    dispatch({type: 'ADD_DEVICE_STARTED'});
+
+    addDeviceToRoomService(
+        roomId,
+        device,
+        data => dispatch({type: 'ADD_DEVICE_SUCCESS', payload: {device: data}}),
+        err => dispatch({type: 'ADD_DEVICE_FAILURE', payload: {error: err}})
+    );
 }

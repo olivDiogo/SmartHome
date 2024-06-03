@@ -1,23 +1,26 @@
 import {
-    FETCH_ROOMS_STARTED,
-    FETCH_ROOMS_SUCCESS,
-    FETCH_ROOMS_FAILURE,
-    FETCH_ROOM_BY_ID_STARTED,
-    FETCH_ROOM_BY_ID_SUCCESS,
-    FETCH_ROOM_BY_ID_FAILURE,
-    FETCH_DEVICES_STARTED,
-    FETCH_DEVICES_SUCCESS,
-    FETCH_DEVICES_FAILURE,
-    FETCH_SENSOR_MODELS_STARTED,
-    FETCH_SENSOR_MODELS_SUCCESS,
-    FETCH_SENSOR_MODELS_FAILURE,
+    ADD_DEVICE_FAILURE,
+    ADD_DEVICE_STARTED,
+    ADD_DEVICE_SUCCESS,
+    FETCH_ACTUATOR_MODELS_FAILURE,
     FETCH_ACTUATOR_MODELS_STARTED,
     FETCH_ACTUATOR_MODELS_SUCCESS,
-    FETCH_ACTUATOR_MODELS_FAILURE,
-    SET_CURRENT_ROOM,
-    FETCH_TEMPERATURE_STARTED,
+    FETCH_DEVICES_FAILURE,
+    FETCH_DEVICES_STARTED,
+    FETCH_DEVICES_SUCCESS,
+    FETCH_ROOM_BY_ID_FAILURE,
+    FETCH_ROOM_BY_ID_STARTED,
+    FETCH_ROOM_BY_ID_SUCCESS,
+    FETCH_ROOMS_FAILURE,
+    FETCH_ROOMS_STARTED,
+    FETCH_ROOMS_SUCCESS,
+    FETCH_SENSOR_MODELS_FAILURE,
+    FETCH_SENSOR_MODELS_STARTED,
+    FETCH_SENSOR_MODELS_SUCCESS,
     FETCH_TEMPERATURE_FAILURE,
-    FETCH_TEMPERATURE_SUCCESS
+    FETCH_TEMPERATURE_STARTED,
+    FETCH_TEMPERATURE_SUCCESS,
+    SET_CURRENT_ROOM
 } from './Actions';
 
 function reducer(state, action) {
@@ -211,6 +214,31 @@ function reducer(state, action) {
                     data: null
                 }
             }
+
+        case ADD_DEVICE_STARTED:
+            return {
+                ...state,
+                addingDevice: true,
+                addDeviceError: null
+            };
+
+        case ADD_DEVICE_SUCCESS:
+            return {
+                ...state,
+                addingDevice: false,
+                addDeviceError: null,
+                devices: {
+                    ...state.devices,
+                    data: [...state.devices.data, action.payload.device]
+                }
+            };
+
+        case ADD_DEVICE_FAILURE:
+            return {
+                ...state,
+                addingDevice: false,
+                addDeviceError: action.payload.error
+            };
 
         default:
             return state;

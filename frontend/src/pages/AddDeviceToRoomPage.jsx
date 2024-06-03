@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {
     Alert,
@@ -13,41 +13,46 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-import {addDeviceToRoom, fetchRoomByIdFromServer} from '../services/Service.jsx';
+import {addDeviceToRoom, fetchRoomById} from '../context/Actions.jsx';
+import AppContext from '../context/AppContext.jsx';
 
-const deviceTypes = ["Fridge", "Blind", "Light"]; // Example device types
+const deviceTypes = ["PowerMeter", "PowerSource", "TemperatureGarden", "TemperatureBedroom", "AutomaticBlinds", "LightSensor", "GeneralDevice"]; // Example device types
 
 function AddDeviceToRoomPage() {
     const {roomId} = useParams();
-    const [room, setRoom] = useState(null);
     const [deviceName, setDeviceName] = useState('');
     const [deviceType, setDeviceType] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     const navigate = useNavigate();
+    const {dispatch} = useContext(AppContext);
+
+    // Ref para o elemento de áudio
+    const audioRef = useRef(null);
 
     useEffect(() => {
-        const fetchRoom = async () => {
-            try {
-                const room = await fetchRoomByIdFromServer(roomId);
-                setRoom(room);
-            } catch (error) {
-                console.error('Error fetching room:', error);
-            }
-        };
-
-        fetchRoom();
-    }, [roomId]);
+        fetchRoomById(dispatch, roomId);
+    }, [roomId, dispatch]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (deviceName && deviceType) {
             try {
                 const device = {name: deviceName, type: deviceType};
-                await addDeviceToRoom(roomId, device);
+                await addDeviceToRoom(dispatch, roomId, device);
                 setSnackbarMessage('Device added successfully!');
                 setSnackbarSeverity('success');
+                console.log("Device added successfully, attempting to play audio...");
+                if (audioRef.current) {
+                    audioRef.current.play()
+                        .then(() => {
+                            console.log("Audio played successfully.");
+                        })
+                        .catch((error) => {
+                            console.error("Error playing audio:", error);
+                        });
+                }
             } catch (error) {
                 setSnackbarMessage(`Failed to add device: ${error.message}`);
                 setSnackbarSeverity('error');
@@ -67,8 +72,6 @@ function AddDeviceToRoomPage() {
         navigate('/');
     };
 
-    if (!room) return <div>Loading...</div>;
-
     return (
         <Container maxWidth="sm">
             <Box
@@ -79,7 +82,7 @@ function AddDeviceToRoomPage() {
                 minHeight="100vh"
             >
                 <Typography variant="h4" gutterBottom>
-                    {room.name}
+                    Add New Device
                 </Typography>
                 <form onSubmit={handleSubmit} style={{width: '100%'}}>
                     <TextField
@@ -127,6 +130,9 @@ function AddDeviceToRoomPage() {
                         {snackbarMessage}
                     </Alert>
                 </Snackbar>
+                {/* Elemento de áudio oculto para reprodução de som */}
+                <audio ref={audioRef} src="/sounds/SuccessSpeech.mp3" preload="auto"
+                       onCanPlayThrough={() => console.log("Audio is ready to play")}/>
             </Box>
         </Container>
     );

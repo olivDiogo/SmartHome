@@ -41,13 +41,17 @@ export function fetchActuatorModelsFromServer(success, failure) {
         .catch(err => failure(err.message));
 }
 
-export function addDeviceToRoom(roomId, device) {
-    return fetch(`${URL_API}/devices`, {
+export function addDeviceToRoom(roomId, device, success, failure) {
+    fetch(`${URL_API}/devices`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(device),
+        body: JSON.stringify({
+            roomID: roomId,
+            deviceTypeDescription: device.type,
+            deviceName: device.name
+        }),
     })
         .then(res => {
             if (!res.ok) {
@@ -55,9 +59,8 @@ export function addDeviceToRoom(roomId, device) {
             }
             return res.json();
         })
-        .catch(err => {
-            throw new Error(`Adding device failed: ${err.message}`);
-        });
+        .then(data => success(data))
+        .catch(err => failure(err.message));
 }
 
 export function configureWeatherService() {
