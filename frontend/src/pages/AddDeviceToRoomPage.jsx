@@ -13,19 +13,7 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-
-const simulatedRooms = [
-    {roomId: '1', name: 'Living Room'},
-    {roomId: '2', name: 'Bedroom'},
-    {roomId: '3', name: 'Kitchen'},
-    {roomId: '4', name: 'Bathroom'},
-    {roomId: '5', name: 'Garage'},
-    {roomId: '6', name: 'Office'},
-    {roomId: '7', name: 'Basement'},
-    {roomId: '8', name: 'Attic'},
-    {roomId: '9', name: 'Patio'},
-    {roomId: '10', name: 'Backyard'}
-];
+import {addDeviceToRoom, fetchRoomByIdFromServer} from '../services/Service.jsx';
 
 const deviceTypes = ["Fridge", "Blind", "Light"]; // Example device types
 
@@ -40,19 +28,32 @@ function AddDeviceToRoomPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Simulate API call
-        const selectedRoom = simulatedRooms.find(room => room.roomId === roomId);
-        setRoom(selectedRoom);
+        const fetchRoom = async () => {
+            try {
+                const room = await fetchRoomByIdFromServer(roomId);
+                setRoom(room);
+            } catch (error) {
+                console.error('Error fetching room:', error);
+            }
+        };
+
+        fetchRoom();
     }, [roomId]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (deviceName && deviceType) {
-            console.log({deviceName, deviceType, roomId});
-            setSnackbarMessage('Device added successfully!');
-            setSnackbarSeverity('success');
+            try {
+                const device = {name: deviceName, type: deviceType};
+                await addDeviceToRoom(roomId, device);
+                setSnackbarMessage('Device added successfully!');
+                setSnackbarSeverity('success');
+            } catch (error) {
+                setSnackbarMessage(`Failed to add device: ${error.message}`);
+                setSnackbarSeverity('error');
+            }
         } else {
-            setSnackbarMessage('Failed to add device. Please fill in all fields.');
+            setSnackbarMessage('Please fill in all fields.');
             setSnackbarSeverity('error');
         }
         setOpenSnackbar(true);
