@@ -285,6 +285,47 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version> <executions>
+                <execution>
+                    <id>copy-backup-file</id>
+                    <phase>package</phase> <goals>
+                    <goal>copy-resources</goal>
+                </goals>
+                    <configuration>
+                        <outputDirectory>docker/web</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>target/</directory>
+                                <includes>
+                                    <include>switch2023project_g1-1.0-SNAPSHOT.war</include> </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>copy-to-backup</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>docker_dei/web</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>target/</directory>
+                                <includes>
+                                    <include>switch2023project_g1-1.0-SNAPSHOT.war</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
+            </plugin>
+
         </plugins>
     </build>
 

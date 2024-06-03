@@ -6,7 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" />
-          <factory-entry name="smarthome" value="ffd0078f-3d0f-4571-8b58-a262724869ac" />
+          <factory-entry name="smarthome"/>
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

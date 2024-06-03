@@ -1,4 +1,4 @@
-FROM tomcat:10.1.24-jdk17
+FROM tomcat:10.1-jdk17
 
 COPY tomcat-users.xml $CATALINA_HOME/conf/tomcat-users.xml
 COPY context.xml /tmp/context.xml

@@ -24,13 +24,7 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/smarthome
-      SPRING_DATASOURCE_USERNAME: smarthome
-      SPRING_DATASOURCE_PASSWORD: smarthome
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.mariadb.jdbc.Driver
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
-      SPRING_JPA_HIBERNATE_DDL_AUTO: create
-      SPRING_DATA_REST_BASE_PATH: /api
+      SPRING_PROFILES_ACTIVE: docker
 
 
 volumes:
