@@ -1,8 +1,10 @@
 import React, {useEffect, useContext} from "react";
 import {Card, CardContent, Typography} from "@material-ui/core";
 import Box from "@mui/material/Box";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import AppContext from "../context/AppContext.jsx";
 import {initializeTemperatureFetching} from "../context/TemperatureActions.jsx";
+
 
 function OutsideTemperatureWidget() {
     const {state, dispatch} = useContext(AppContext);
@@ -20,9 +22,15 @@ function OutsideTemperatureWidget() {
 
     const renderContent = () => {
         if (loading === true && error === null) {
-            return <Typography variant="h6">Loading ...</Typography>;
+            return <CircularProgress/>;
         } else if (error !== null) {
-            return <Typography variant="h6">Error: {error}</Typography>;
+            // Truncate the error message to fit within the box
+            const truncatedError = error.length > 50 ? error.substring(0, 50) + '...' : error;
+            return (
+                <Typography variant="h6" style={{textAlign: 'center'}}>
+                    Error: {truncatedError}
+                </Typography>
+            );
         } else if (data) {
             return <Typography variant="h6" component="h2">Outside temperature: {data}</Typography>;
         } else {

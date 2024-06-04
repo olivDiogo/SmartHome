@@ -13,7 +13,7 @@ export function configureWeatherService() {
         }
         return response.json();
     }).catch(error => {
-        throw new Error("Failed to connect to weather service");
+        throw new Error("Please check your VPN DEI connection and try again");
     });
 }
 
