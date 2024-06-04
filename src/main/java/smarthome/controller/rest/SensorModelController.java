@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,8 @@ import smarthome.domain.value_object.SensorTypeID;
 import smarthome.service.ISensorModelService;
 import smarthome.utils.dto.SensorModelDTO;
 
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/sensor-models")
 public class SensorModelController {
@@ -37,6 +40,8 @@ public class SensorModelController {
    * @param sensorTypeID the sensor type ID
    * @return the sensor models by sensor type ID
    */
+
+
   @GetMapping(params = "sensorTypeID")
   public ResponseEntity<CollectionModel<SensorModelDTO>> getSensorModelsBySensorTypeId(
       @RequestParam("sensorTypeID") String sensorTypeID) {

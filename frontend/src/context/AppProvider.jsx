@@ -41,6 +41,26 @@ const initialState = {
     timeStart: '',
     timeEnd: '',
 
+    typesOfSensor : ['gpsSensor', 'dateSensor', 'genericSensor'],
+
+    selectedTypeOfSensor: "",
+
+    sensorTypes: {
+        loading: true,
+        error: null,
+        data: [],
+    },
+
+    selectedSensorTypeId: "",
+
+    sensorModels: {
+        loading: true,
+        error: null,
+        data: [],
+    },
+
+    selectedSensorModel: "",
+
 };
 
 const AppProvider = (props) => {

@@ -2,9 +2,6 @@ import {
     ADD_DEVICE_FAILURE,
     ADD_DEVICE_STARTED,
     ADD_DEVICE_SUCCESS,
-    FETCH_ACTUATOR_MODELS_FAILURE,
-    FETCH_ACTUATOR_MODELS_STARTED,
-    FETCH_ACTUATOR_MODELS_SUCCESS,
     FETCH_DEVICES_FAILURE,
     FETCH_DEVICES_STARTED,
     FETCH_DEVICES_SUCCESS,
@@ -17,14 +14,20 @@ import {
     FETCH_SENSOR_MODELS_FAILURE,
     FETCH_SENSOR_MODELS_STARTED,
     FETCH_SENSOR_MODELS_SUCCESS,
-    SET_CURRENT_ROOM,
     FETCH_LOGS_STARTED,
     FETCH_LOGS_SUCCESS,
     FETCH_LOGS_FAILURE,
     UPDATE_DEVICE_STARTED,
     UPDATE_DEVICE_SUCCESS,
-    UPDATE_DEVICE_FAILURE
+    UPDATE_DEVICE_FAILURE,
 
+    SET_CURRENT_ROOM,
+    FETCH_SENSOR_TYPES_FAILURE,
+    FETCH_SENSOR_TYPES_STARTED,
+    FETCH_SENSOR_TYPES_SUCCESS,
+    UPDATE_SELECTED_TYPE_OF_SENSOR,
+    UPDATE_SELECTED_SENSOR_MODEL,
+    UPDATE_SELECTED_SENSOR_TYPE_ID
 } from './Actions';
 import {
     FETCH_TEMPERATURE_FAILURE,
@@ -134,66 +137,6 @@ function reducer(state, action) {
                 }
             }
 
-        case FETCH_SENSOR_MODELS_STARTED:
-            return {
-                ...state,
-                sensorModels: {
-                    loading: true,
-                    error: null,
-                    data: []
-                }
-            }
-
-        case FETCH_SENSOR_MODELS_SUCCESS:
-            return {
-                ...state,
-                sensorModels: {
-                    loading: false,
-                    error: null,
-                    data: [...action.payload.data]
-                }
-            }
-
-        case FETCH_SENSOR_MODELS_FAILURE:
-            return {
-                ...state,
-                sensorModels: {
-                    loading: false,
-                    error: action.payload.error,
-                    data: [],
-                }
-            }
-
-        case FETCH_ACTUATOR_MODELS_STARTED:
-            return {
-                ...state,
-                actuatorModels: {
-                    loading: true,
-                    error: null,
-                    data: []
-                }
-            }
-
-        case FETCH_ACTUATOR_MODELS_SUCCESS:
-            return {
-                ...state,
-                actuatorModels: {
-                    loading: false,
-                    error: null,
-                    data: [...action.payload.data]
-                }
-            }
-
-        case FETCH_ACTUATOR_MODELS_FAILURE:
-            return {
-                ...state,
-                actuatorModels: {
-                    loading: false,
-                    error: action.payload.error,
-                    data: [],
-                }
-            }
-
         case FETCH_TEMPERATURE_STARTED:
             return {
                 ...state,
@@ -223,6 +166,96 @@ function reducer(state, action) {
                     data: null
                 }
             }
+
+        case FETCH_SENSOR_MODELS_STARTED:
+            return {
+                ...state,
+                sensorModels: {
+                    loading: true,
+                    error: null,
+                    data: []
+                }
+            }
+
+        case FETCH_SENSOR_MODELS_SUCCESS:
+            return {
+                ...state,
+                sensorModels: {
+                    loading: false,
+                    error: null,
+                    data: [...action.payload.data]
+                }
+            }
+
+
+
+        case FETCH_SENSOR_MODELS_FAILURE:
+            return {
+                ...state,
+                sensorModels: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: [],
+                }
+            }
+
+
+
+        case ADD_DEVICE_STARTED:
+            return {
+                ...state,
+                addingDevice: true,
+                addDeviceError: null
+            };
+
+        case ADD_DEVICE_SUCCESS:
+            return {
+                ...state,
+                addingDevice: false,
+                addDeviceError: null,
+                devices: {
+                    ...state.devices,
+                    data: [...state.devices.data, action.payload.device]
+                }
+            };
+
+        case ADD_DEVICE_FAILURE:
+            return {
+                ...state,
+                addingDevice: false,
+                addDeviceError: action.payload.error
+            };
+
+            case FETCH_SENSOR_TYPES_STARTED:
+            return {
+                ...state,
+                sensorTypes: {
+                    loading: true,
+                    error: null,
+                    data: []
+                }
+            };
+
+        case FETCH_SENSOR_TYPES_SUCCESS:
+            return {
+                ...state,
+                sensorTypes: {
+                    loading: false,
+                    error: null,
+                    data: [...action.payload.data]
+                }
+            };
+
+        case FETCH_SENSOR_TYPES_FAILURE:
+            return {
+                ...state,
+                sensorTypes: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: []
+                }
+            };
+
 
         case FETCH_LOGS_STARTED:
             return {
@@ -284,29 +317,23 @@ function reducer(state, action) {
                 }
             };
 
-        case ADD_DEVICE_STARTED:
+        case UPDATE_SELECTED_SENSOR_TYPE_ID:
             return {
                 ...state,
-                addingDevice: true,
-                addDeviceError: null
+                selectedSensorTypeId: action.payload.selectedSensorType
             };
 
-        case ADD_DEVICE_SUCCESS:
+
+        case UPDATE_SELECTED_SENSOR_MODEL:
             return {
                 ...state,
-                addingDevice: false,
-                addDeviceError: null,
-                devices: {
-                    ...state.devices,
-                    data: [...state.devices.data, action.payload.device]
-                }
+                selectedSensorModel: action.payload.selectedSensorModel
             };
 
-        case ADD_DEVICE_FAILURE:
+            case UPDATE_SELECTED_TYPE_OF_SENSOR:
             return {
                 ...state,
-                addingDevice: false,
-                addDeviceError: action.payload.error
+                selectedTypeOfSensor: action.payload.selectedTypeOfSensor
             };
 
         default:

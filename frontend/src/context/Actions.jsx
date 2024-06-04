@@ -4,9 +4,10 @@ import {
     fetchDevicesByRoomIdFromServer,
     fetchRoomByIdFromServer,
     fetchRoomsFromServer,
-    fetchSensorModelsFromServer,
+    fetchSensorModelsBySensorTypeIdFromServer,
     fetchLogsByDeviceIdFromServer,
-    updateCurrentDeviceFromServer
+    updateCurrentDeviceFromServer,
+    fetchSensorTypesFromServer,
 } from "../services/Service.jsx";
 
 
@@ -159,26 +160,82 @@ function fetchDevicesByRoomIdFailure(message) {
     }
 }
 
+
+export function addDeviceToRoom(dispatch, roomId, device) {
+    dispatch({type: 'ADD_DEVICE_STARTED'});
+
+    addDeviceToRoomService(
+        roomId,
+        device,
+        data => dispatch({type: 'ADD_DEVICE_SUCCESS', payload: {device: data}}),
+        err => dispatch({type: 'ADD_DEVICE_FAILURE', payload: {error: err}})
+    );
+}
+
+
+export const FETCH_SENSOR_TYPES_STARTED = 'FETCH_SENSOR_TYPES_STARTED';
+export const FETCH_SENSOR_TYPES_SUCCESS = 'FETCH_SENSOR_TYPES_SUCCESS';
+export const FETCH_SENSOR_TYPES_FAILURE = 'FETCH_SENSOR_TYPES_FAILURE';
+
+export function fetchSensorTypes(dispatch) {
+    const action = {
+        type: FETCH_SENSOR_TYPES_STARTED
+    }
+    dispatch(action);
+
+    const success = (res) => {
+        const action = fetchSensorTypesSuccess(res);
+        dispatch(action);
+    };
+
+    const failure = (err) => {
+        const action = fetchSensorTypesFailure(err.message);
+        dispatch(action);
+    };
+
+    fetchSensorTypesFromServer(success, failure);
+}
+
+function fetchSensorTypesSuccess (sensorTypes) {
+    return {
+        type: FETCH_SENSOR_TYPES_SUCCESS,
+        payload: {
+            data: sensorTypes
+        }
+    }
+}
+
+function fetchSensorTypesFailure (message) {
+    return {
+        type: FETCH_SENSOR_TYPES_FAILURE,
+        payload: {
+            error: message
+        }
+    }
+}
+
+
 export const FETCH_SENSOR_MODELS_STARTED = 'FETCH_SENSOR_MODELS_STARTED';
 export const FETCH_SENSOR_MODELS_SUCCESS = 'FETCH_SENSOR_MODELS_SUCCESS';
 export const FETCH_SENSOR_MODELS_FAILURE = 'FETCH_SENSOR_MODELS_FAILURE';
 
-export function fetchSensorModels(dispatch) {
+export function fetchSensorModels(dispatch, sensorTypeId) {
     const action = {
         type: FETCH_SENSOR_MODELS_STARTED
     }
     dispatch(action);
+
     const success = (res) => {
         const action = fetchSensorModelsSuccess(res);
         dispatch(action);
     };
+
     const failure = (err) => {
         const action = fetchSensorModelsFailure(err.message);
         dispatch(action);
     };
 
-    fetchSensorModelsFromServer(success, failure);
-
+    fetchSensorModelsBySensorTypeIdFromServer(success, failure, sensorTypeId);
 }
 
 function fetchSensorModelsSuccess(sensorModels) {
@@ -186,7 +243,7 @@ function fetchSensorModelsSuccess(sensorModels) {
         type: FETCH_SENSOR_MODELS_SUCCESS,
         payload: {
             data:
-                [...sensorModels]
+                sensorModels
         }
 
     }
@@ -241,19 +298,6 @@ function fetchActuatorModelsFailure(message) {
         }
     }
 }
-
-
-export function addDeviceToRoom(dispatch, roomId, device) {
-    dispatch({type: 'ADD_DEVICE_STARTED'});
-
-    addDeviceToRoomService(
-        roomId,
-        device,
-        data => dispatch({type: 'ADD_DEVICE_SUCCESS', payload: {device: data}}),
-        err => dispatch({type: 'ADD_DEVICE_FAILURE', payload: {error: err}})
-    );
-}
-
 
 export const FETCH_LOGS_STARTED = 'FETCH_LOGS_STARTED';
 export const FETCH_LOGS_SUCCESS = 'FETCH_LOGS_SUCCESS';
@@ -332,3 +376,40 @@ function updateCurrentDeviceFailure(message) {
         }
     }
 }
+
+export const UPDATE_SELECTED_SENSOR_TYPE_ID = 'UPDATE_SELECTED_SENSOR_TYPE_ID';
+
+export function updateSensorTypeId(dispatch, selectedSensorType) {
+    const action = {
+        type: UPDATE_SELECTED_SENSOR_TYPE_ID,
+        payload: {
+            selectedSensorType: selectedSensorType
+        }
+    }
+    dispatch(action);
+}
+
+export const UPDATE_SELECTED_SENSOR_MODEL = 'UPDATE_SELECTED_SENSOR_MODEL';
+
+export function updateSelectedSensorModel(dispatch, selectedSensorModel) {
+    const action = {
+        type: UPDATE_SELECTED_SENSOR_MODEL,
+        payload: {
+            selectedSensorModel: selectedSensorModel
+        }
+    }
+    dispatch(action);
+}
+
+
+export const UPDATE_SELECTED_TYPE_OF_SENSOR = 'UPDATE_SELECTED_TYPE_OF_SENSOR';
+export function updateSelectedTypeOfSensor(dispatch, selectedTypeOfSensor) {
+    const action = {
+        type: UPDATE_SELECTED_TYPE_OF_SENSOR,
+        payload: {
+            selectedTypeOfSensor: selectedTypeOfSensor
+        }
+    }
+    dispatch(action);
+}
+

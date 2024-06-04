@@ -27,12 +27,6 @@ export function fetchDevicesByRoomIdFromServer(success, failure, id) {
         .catch(err => failure(err.message));
 }
 
-export function fetchSensorModelsFromServer(success, failure) {
-    fetch(`${URL_API}/sensorModels`)
-        .then(res => res.json())
-        .then(res => success(res))
-        .catch(err => failure(err.message));
-}
 
 export function fetchActuatorModelsFromServer(success, failure) {
     fetch(`${URL_API}/actuatorModels`)
@@ -105,4 +99,31 @@ export function updateCurrentDeviceFromServer(success, failure, deviceId, device
             failure(err.message);
             console.error("Fetch error:", err.message);
         });
+}
+export function fetchSensorTypesFromServer(success, failure) {
+    fetch(`${URL_API}/sensor-types`)
+        .then(res => res.json())
+        .then(res => {
+            console.log('Fetched sensor types:', res);
+            if (res._embedded && res._embedded.sensorTypeDTOList) {
+                success(res._embedded.sensorTypeDTOList);
+            } else {
+                throw new Error('Invalid response structure');
+            }
+        })
+        .catch(err => failure(err.message));
+}
+
+export function fetchSensorModelsBySensorTypeIdFromServer(success, failure, sensorTypeID) {
+    fetch(`${URL_API}/sensor-models?sensorTypeID=${sensorTypeID}`)
+        .then(res => res.json())
+        .then(res => {
+            console.log(`Fetched sensor models for sensorTypeID ${sensorTypeID}:`, res);
+            if (res._embedded && res._embedded.sensorModelDTOList) {
+                success(res._embedded.sensorModelDTOList);
+            } else {
+                throw new Error('Invalid response structure');
+            }
+        })
+        .catch(err => failure(err.message));
 }
