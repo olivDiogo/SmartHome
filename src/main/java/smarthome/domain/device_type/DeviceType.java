@@ -7,7 +7,7 @@ import smarthome.utils.Validator;
 
 public class DeviceType implements IAggregateRoot<DeviceTypeID> {
 
-  private final TypeDescription description;
+  private TypeDescription description;
   private DeviceTypeID id;
 
   /**
