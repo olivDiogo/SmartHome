@@ -17,11 +17,13 @@ import {
     FETCH_SENSOR_MODELS_FAILURE,
     FETCH_SENSOR_MODELS_STARTED,
     FETCH_SENSOR_MODELS_SUCCESS,
-    FETCH_TEMPERATURE_FAILURE,
-    FETCH_TEMPERATURE_STARTED,
-    FETCH_TEMPERATURE_SUCCESS,
     SET_CURRENT_ROOM
 } from './Actions';
+import {
+    FETCH_TEMPERATURE_FAILURE,
+    FETCH_TEMPERATURE_STARTED,
+    FETCH_TEMPERATURE_SUCCESS
+} from './TemperatureActions';
 
 function reducer(state, action) {
     switch (action.type) {
