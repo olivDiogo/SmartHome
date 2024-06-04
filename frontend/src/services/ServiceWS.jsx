@@ -1,19 +1,19 @@
+import {FETCH_TEMPERATURE_FAILURE} from "../context/TemperatureActions.jsx";
+
 export function configureWeatherService() {
     return fetch("http://10.9.24.170:8080/WeatherServiceConfiguration", {
-        method: "POST",
-        headers: {
+        method: "POST", headers: {
             "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            "groupNumber": 1,
-            "latitude": 40.00,
-            "longitude": 80.00
+        }, body: JSON.stringify({
+            "groupNumber": 1, "latitude": 40.00, "longitude": 80.00
         })
     }).then(response => {
         if (!response.ok) {
             throw new Error("Weather service configuration failed");
         }
         return response.json();
+    }).catch(error => {
+        throw new Error("Failed to connect to weather service");
     });
 }
 
@@ -74,6 +74,8 @@ export function configureAndFetchTemperature(dispatch, fetchTemperature) {
         .then(startFetching)
         .catch((err) => {
             console.error("Error configuring weather service:", err);
+            // If there's an error, update loading state to false
+            dispatch({type: FETCH_TEMPERATURE_FAILURE, payload: {error: err.message}});
         });
 
     return {

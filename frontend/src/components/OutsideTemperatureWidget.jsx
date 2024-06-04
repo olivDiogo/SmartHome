@@ -19,10 +19,10 @@ function OutsideTemperatureWidget() {
     }, [dispatch]);
 
     const renderContent = () => {
-        if (loading === true) {
-            return <Typography variant="h6">Loading ....</Typography>;
+        if (loading === true && error === null) {
+            return <Typography variant="h6">Loading ...</Typography>;
         } else if (error !== null) {
-            return <Typography variant="h6">Error ....</Typography>;
+            return <Typography variant="h6">Error: {error}</Typography>;
         } else if (data) {
             return <Typography variant="h6" component="h2">Outside temperature: {data}</Typography>;
         } else {
