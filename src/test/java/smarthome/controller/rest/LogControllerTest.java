@@ -39,21 +39,15 @@ import smarthome.domain.value_object.UnitID;
 @AutoConfigureMockMvc
 class LogControllerTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-  @Autowired
-  private ILogFactory logFactory;
+  @Autowired private ILogFactory logFactory;
 
-  @MockBean
-  private IDeviceRepository deviceRepository;
+  @MockBean private IDeviceRepository deviceRepository;
 
-  @Autowired
-  private IDeviceFactory deviceFactory;
+  @Autowired private IDeviceFactory deviceFactory;
 
-  @MockBean
-  private ILogRepository logRepository;
-
+  @MockBean private ILogRepository logRepository;
 
   Log setupLog() {
     ILogFactory logFactory = new LogFactoryImpl();
@@ -95,8 +89,12 @@ class LogControllerTest {
     return deviceFactory.createDevice(deviceID, roomID, deviceName, deviceStatus, deviceTypeID);
   }
 
-  List<Log> setupReadingsGivenDeviceAndTimePeriod(Device device, SensorTypeID sensorTypeID,
-      DatePeriod datePeriod, int timeBetweenReadings, String value) {
+  List<Log> setupReadingsGivenDeviceAndTimePeriod(
+      Device device,
+      SensorTypeID sensorTypeID,
+      DatePeriod datePeriod,
+      int timeBetweenReadings,
+      String value) {
     DeviceID deviceID = device.getID();
     LocalDateTime startDate = datePeriod.getStartDate();
     LocalDateTime endDate = datePeriod.getEndDate();
@@ -104,7 +102,8 @@ class LogControllerTest {
     UnitID unitID = new UnitID("Watt");
 
     List<Log> logs = new ArrayList<>();
-    for (LocalDateTime date = startDate; date.isBefore(endDate);
+    for (LocalDateTime date = startDate;
+        date.isBefore(endDate);
         date = date.plusMinutes(timeBetweenReadings)) {
       ReadingValue readingValue = new ReadingValue(value);
       logs.add(logFactory.createLog(deviceID, sensorID, date, readingValue, sensorTypeID, unitID));
@@ -112,11 +111,7 @@ class LogControllerTest {
     return logs;
   }
 
-
-
-  /**
-   * Test method to get Device Log (Readings) by Time Period
-   */
+  /** Test method to get Device Log (Readings) by Time Period */
   @Test
   void shouldGetLogFromDevice_WhenParametersAreValid() throws Exception {
     // Arrange
@@ -126,15 +121,17 @@ class LogControllerTest {
     Log log = setupLog();
     List<Log> logs = List.of(log);
 
-    when(logRepository.findByDeviceIDAndDatePeriodBetween(any(DeviceID.class),
-        any(DatePeriod.class)))
+    when(logRepository.findByDeviceIDAndDatePeriodBetween(
+            any(DeviceID.class), any(DatePeriod.class)))
         .thenReturn(logs);
 
     // Act & Assert
-    mockMvc.perform(get("/logs")
-            .param("deviceID", deviceIDStr)
-            .param("timeStart", timeStart)
-            .param("timeEnd", timeEnd))
+    mockMvc
+        .perform(
+            get("/logs")
+                .param("deviceID", deviceIDStr)
+                .param("timeStart", timeStart)
+                .param("timeEnd", timeEnd))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1))); // Assuming the response is a list of logs
   }
@@ -153,31 +150,33 @@ class LogControllerTest {
     LocalDateTime finalTime = LocalDateTime.of(2021, 5, 1, 13, 0);
     int timeDelta = 5;
 
-    //Set up a single log for outside
+    // Set up a single log for outside
     LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 5);
     Log log1 = setupLogWithTimeAndValue(timeStamp, "20");
     List<Log> outsideDeviceLogs = List.of(log1);
 
-    //Set up a single log for inside
+    // Set up a single log for inside
     LocalDateTime timeStamp2 = LocalDateTime.of(2021, 5, 1, 12, 5);
     Log log2 = setupLogWithTimeAndValue(timeStamp2, "25");
     List<Log> insideDeviceLogs = List.of(log2);
 
     String expectedTemperatureDifference = "5";
 
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(any(DeviceID.class),
-        any(SensorTypeID.class), any(DatePeriod.class)))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
         .thenReturn(outsideDeviceLogs)
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logs/temperature-difference")
-            .contentType(MediaType.APPLICATION_JSON)
-            .param("outsideDeviceIDStr", outsideDeviceIDStr)
-            .param("insideDeviceIDStr", insideDeviceIDStr)
-            .param("initialTime", initialTime.toString())
-            .param("finalTime", finalTime.toString())
-            .param("timeDelta", String.valueOf(timeDelta)))
+    mockMvc
+        .perform(
+            get("/logs/temperature-difference")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("outsideDeviceIDStr", outsideDeviceIDStr)
+                .param("insideDeviceIDStr", insideDeviceIDStr)
+                .param("initialTime", initialTime.toString())
+                .param("finalTime", finalTime.toString())
+                .param("timeDelta", String.valueOf(timeDelta)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").value(expectedTemperatureDifference));
   }
@@ -196,29 +195,31 @@ class LogControllerTest {
     LocalDateTime finalTime = LocalDateTime.of(2021, 5, 1, 13, 0);
     int timeDelta = 5;
 
-    //Set up a single log for outside
+    // Set up a single log for outside
     LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 5);
     Log log1 = setupLogWithTimeAndValue(timeStamp, "20");
     List<Log> outsideDeviceLogs = List.of(log1);
 
-    //Set up a single log for inside
+    // Set up a single log for inside
     LocalDateTime timeStamp2 = LocalDateTime.of(2021, 5, 1, 13, 0);
     Log log2 = setupLogWithTimeAndValue(timeStamp2, "25");
     List<Log> insideDeviceLogs = List.of(log2);
 
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(any(DeviceID.class),
-        any(SensorTypeID.class), any(DatePeriod.class)))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
         .thenReturn(outsideDeviceLogs)
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logstemperature-difference")
-            .contentType(MediaType.APPLICATION_JSON)
-            .param("outsideDeviceIDStr", outsideDeviceIDStr)
-            .param("insideDeviceIDStr", insideDeviceIDStr)
-            .param("initialTime", initialTime.toString())
-            .param("finalTime", finalTime.toString())
-            .param("timeDelta", String.valueOf(timeDelta)))
+    mockMvc
+        .perform(
+            get("/logstemperature-difference")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("outsideDeviceIDStr", outsideDeviceIDStr)
+                .param("insideDeviceIDStr", insideDeviceIDStr)
+                .param("initialTime", initialTime.toString())
+                .param("finalTime", finalTime.toString())
+                .param("timeDelta", String.valueOf(timeDelta)))
         .andExpect(status().isNotFound());
   }
 
@@ -236,27 +237,29 @@ class LogControllerTest {
     LocalDateTime finalTime = LocalDateTime.of(2021, 5, 1, 13, 0);
     int timeDelta = 5;
 
-    //Set up a single log for outside - empty
+    // Set up a single log for outside - empty
     List<Log> outsideDeviceLogs = new ArrayList<>();
 
-    //Set up a single log for inside
+    // Set up a single log for inside
     LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 5);
     Log log = setupLogWithTimeAndValue(timeStamp, "25");
     List<Log> insideDeviceLogs = List.of(log);
 
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(any(DeviceID.class),
-        any(SensorTypeID.class), any(DatePeriod.class)))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
         .thenReturn(outsideDeviceLogs)
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logstemperature-difference")
-            .contentType(MediaType.APPLICATION_JSON)
-            .param("outsideDeviceIDStr", outsideDeviceIDStr)
-            .param("insideDeviceIDStr", insideDeviceIDStr)
-            .param("initialTime", initialTime.toString())
-            .param("finalTime", finalTime.toString())
-            .param("timeDelta", String.valueOf(timeDelta)))
+    mockMvc
+        .perform(
+            get("/logstemperature-difference")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("outsideDeviceIDStr", outsideDeviceIDStr)
+                .param("insideDeviceIDStr", insideDeviceIDStr)
+                .param("initialTime", initialTime.toString())
+                .param("finalTime", finalTime.toString())
+                .param("timeDelta", String.valueOf(timeDelta)))
         .andExpect(status().isNotFound());
   }
 
@@ -274,33 +277,33 @@ class LogControllerTest {
     LocalDateTime finalTime = LocalDateTime.of(2021, 5, 1, 13, 0);
     int timeDelta = 5;
 
-    //Set up a single log for outside - empty
+    // Set up a single log for outside - empty
     LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 5);
     Log log = setupLogWithTimeAndValue(timeStamp, "25");
     List<Log> outsideDeviceLogs = List.of(log);
 
-    //Set up a single log for inside
+    // Set up a single log for inside
     List<Log> insideDeviceLogs = new ArrayList<>();
 
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(any(DeviceID.class),
-        any(SensorTypeID.class), any(DatePeriod.class)))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
         .thenReturn(outsideDeviceLogs)
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logstemperature-difference")
-            .contentType(MediaType.APPLICATION_JSON)
-            .param("outsideDeviceIDStr", outsideDeviceIDStr)
-            .param("insideDeviceIDStr", insideDeviceIDStr)
-            .param("initialTime", initialTime.toString())
-            .param("finalTime", finalTime.toString())
-            .param("timeDelta", String.valueOf(timeDelta)))
+    mockMvc
+        .perform(
+            get("/logstemperature-difference")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("outsideDeviceIDStr", outsideDeviceIDStr)
+                .param("insideDeviceIDStr", insideDeviceIDStr)
+                .param("initialTime", initialTime.toString())
+                .param("finalTime", finalTime.toString())
+                .param("timeDelta", String.valueOf(timeDelta)))
         .andExpect(status().isNotFound());
   }
 
-  /**
-   * Test method to get the peak power consumption in given time period
-   */
+  /** Test method to get the peak power consumption in given time period */
   @Test
   void shouldReturnMaxPowerConsumption_WhenParametersAreValid() throws Exception {
     // Arrange
@@ -315,36 +318,38 @@ class LogControllerTest {
 
     String readingValue = String.valueOf(20);
 
-    List<Log> powerMeterLogs = setupReadingsGivenDeviceAndTimePeriod(powerMeter, sensorTypeID,
-        datePeriod, 5, readingValue);
-    List<Log> powerSourceLogs = setupReadingsGivenDeviceAndTimePeriod(powerSource, sensorTypeID,
-        datePeriod, 5, readingValue);
+    List<Log> powerMeterLogs =
+        setupReadingsGivenDeviceAndTimePeriod(
+            powerMeter, sensorTypeID, datePeriod, 5, readingValue);
+    List<Log> powerSourceLogs =
+        setupReadingsGivenDeviceAndTimePeriod(
+            powerSource, sensorTypeID, datePeriod, 5, readingValue);
 
     String expectedPowerConsumption = "40";
-    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID())).thenReturn(
-        List.of(powerMeter));
-    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID())).thenReturn(
-        List.of(powerSource));
+    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID()))
+        .thenReturn(List.of(powerMeter));
+    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID()))
+        .thenReturn(List.of(powerSource));
 
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerMeter.getID(),
-        sensorTypeID, datePeriod))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            powerMeter.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerMeterLogs);
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerSource.getID(),
-        sensorTypeID, datePeriod))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            powerSource.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerSourceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logs/peak-power-consumption")
-            .contentType(MediaType.APPLICATION_JSON)
-            .param("initialTime", initialTime.toString())
-            .param("finalTime", finalTime.toString()))
+    mockMvc
+        .perform(
+            get("/logs/peak-power-consumption")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("initialTime", initialTime.toString())
+                .param("finalTime", finalTime.toString()))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").value(expectedPowerConsumption));
   }
 
-  /**
-   * Test method to get the peak power consumption in given time period when no logs are found
-   */
+  /** Test method to get the peak power consumption in given time period when no logs are found */
   @Test
   void shouldReturnZeroWhenNoLogsFound_WhenParametersAreValid() throws Exception {
     // Arrange
@@ -361,23 +366,25 @@ class LogControllerTest {
     List<Log> powerSourceLogs = new ArrayList<>();
 
     String expectedPowerConsumption = "0";
-    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID())).thenReturn(
-        List.of(powerMeter));
-    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID())).thenReturn(
-        List.of(powerSource));
+    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID()))
+        .thenReturn(List.of(powerMeter));
+    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID()))
+        .thenReturn(List.of(powerSource));
 
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerMeter.getID(),
-        sensorTypeID, datePeriod))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            powerMeter.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerMeterLogs);
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerSource.getID(),
-        sensorTypeID, datePeriod))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            powerSource.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerSourceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logs/peak-power-consumption")
-            .contentType(MediaType.APPLICATION_JSON)
-            .param("initialTime", initialTime.toString())
-            .param("finalTime", finalTime.toString()))
+    mockMvc
+        .perform(
+            get("/logs/peak-power-consumption")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("initialTime", initialTime.toString())
+                .param("finalTime", finalTime.toString()))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").value(expectedPowerConsumption));
   }
@@ -387,7 +394,6 @@ class LogControllerTest {
    *
    * @throws Exception
    */
-
   @Test
   void shouldReturnHighestReadingOfOneList_WhenLogsOutOfTimeDelta() throws Exception {
     // Arrange
@@ -408,29 +414,33 @@ class LogControllerTest {
     String readingValuePowerMeter = String.valueOf(30);
     String readingValuePowerSource = String.valueOf(20);
 
-    List<Log> powerMeterLogs = setupReadingsGivenDeviceAndTimePeriod(powerMeter, sensorTypeID,
-        datePeriod, 5, readingValuePowerMeter);
-    List<Log> powerSourceLogs = setupReadingsGivenDeviceAndTimePeriod(powerSource, sensorTypeID,
-        datePeriodOutOfDelta, 5, readingValuePowerSource);
+    List<Log> powerMeterLogs =
+        setupReadingsGivenDeviceAndTimePeriod(
+            powerMeter, sensorTypeID, datePeriod, 5, readingValuePowerMeter);
+    List<Log> powerSourceLogs =
+        setupReadingsGivenDeviceAndTimePeriod(
+            powerSource, sensorTypeID, datePeriodOutOfDelta, 5, readingValuePowerSource);
 
     String expectedPowerConsumption = "30";
-    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID())).thenReturn(
-        List.of(powerMeter));
-    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID())).thenReturn(
-        List.of(powerSource));
+    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID()))
+        .thenReturn(List.of(powerMeter));
+    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID()))
+        .thenReturn(List.of(powerSource));
 
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerMeter.getID(),
-        sensorTypeID, datePeriod))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            powerMeter.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerMeterLogs);
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerSource.getID(),
-        sensorTypeID, datePeriod))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            powerSource.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerSourceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logs/peak-power-consumption")
-            .contentType(MediaType.APPLICATION_JSON)
-            .param("initialTime", initialTime.toString())
-            .param("finalTime", finalTime.toString()))
+    mockMvc
+        .perform(
+            get("/logs/peak-power-consumption")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("initialTime", initialTime.toString())
+                .param("finalTime", finalTime.toString()))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").value(expectedPowerConsumption));
   }
@@ -453,35 +463,36 @@ class LogControllerTest {
 
     String readingValue = String.valueOf(20);
 
-    List<Log> powerMeterLogs = setupReadingsGivenDeviceAndTimePeriod(powerMeter, sensorTypeID,
-        datePeriod, 5, readingValue);
+    List<Log> powerMeterLogs =
+        setupReadingsGivenDeviceAndTimePeriod(
+            powerMeter, sensorTypeID, datePeriod, 5, readingValue);
     List<Log> powerSourceLogs = new ArrayList<>();
 
     String expectedPowerConsumption = "20";
-    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID())).thenReturn(
-        List.of(powerMeter));
-    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID())).thenReturn(
-        List.of(powerSource));
+    when(deviceRepository.findByDeviceTypeID(powerMeter.getDeviceTypeID()))
+        .thenReturn(List.of(powerMeter));
+    when(deviceRepository.findByDeviceTypeID(powerSource.getDeviceTypeID()))
+        .thenReturn(List.of(powerSource));
 
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerMeter.getID(),
-        sensorTypeID, datePeriod))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            powerMeter.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerMeterLogs);
-    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(powerSource.getID(),
-        sensorTypeID, datePeriod))
+    when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
+            powerSource.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerSourceLogs);
 
     // Act & Assert
-    mockMvc.perform(get("/logs/peak-power-consumption")
-            .contentType(MediaType.APPLICATION_JSON)
-            .param("initialTime", initialTime.toString())
-            .param("finalTime", finalTime.toString()))
+    mockMvc
+        .perform(
+            get("/logs/peak-power-consumption")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("initialTime", initialTime.toString())
+                .param("finalTime", finalTime.toString()))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").value(expectedPowerConsumption));
   }
 
-  /**
-   * Should return empty list of logs when no logs are found
-   */
+  /** Should return empty list of logs when no logs are found */
   @Test
   void shouldReturnEmptyList_WhenNoLogsFound() throws Exception {
     // Arrange
@@ -489,22 +500,25 @@ class LogControllerTest {
     String timeStart = "2020-03-01T13:45:30";
     String timeEnd = "2022-03-01T13:50:30";
 
-    when(logRepository.findByDeviceIDAndDatePeriodBetween(any(DeviceID.class),
-        any(DatePeriod.class)))
+    when(logRepository.findByDeviceIDAndDatePeriodBetween(
+            any(DeviceID.class), any(DatePeriod.class)))
         .thenReturn(new ArrayList<>());
 
     // Act & Assert
-    mockMvc.perform(get("/logs")
-            .param("deviceID", deviceIDStr)
-            .param("timeStart", timeStart)
-            .param("timeEnd", timeEnd))
+    mockMvc
+        .perform(
+            get("/logs")
+                .param("deviceID", deviceIDStr)
+                .param("timeStart", timeStart)
+                .param("timeEnd", timeEnd))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(0)));
   }
 
+  /** Should return the position of the blind roller */
   @Test
   void shouldReturnThePositionOfTheBlindRoller() throws Exception {
-    //Arrange
+    // Arrange
     Log log = setupLog();
 
     String deviceIDStr = "2";
@@ -512,14 +526,38 @@ class LogControllerTest {
     DeviceID deviceID = new DeviceID(deviceIDStr);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDStr);
 
-    when(logRepository.findByDeviceIDAndSensorTypeID(deviceID, sensorTypeID)).thenReturn(List.of(log));
+    when(logRepository.findByDeviceIDAndSensorTypeID(deviceID, sensorTypeID))
+        .thenReturn(List.of(log));
 
     // Act & Assert
-    mockMvc.perform(get("/logs/get-position-blindRoller")
-            .contentType(MediaType.APPLICATION_JSON)
-            .param("deviceID", deviceIDStr)
-            .param("sensorTypeID", sensorTypeIDStr))
+    mockMvc
+        .perform(
+            get("/logs/get-position-blindRoller")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("deviceID", deviceIDStr)
+                .param("sensorTypeID", sensorTypeIDStr))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").value("20"));
+  }
+
+  /** Should return an message error when empty logs */
+  @Test
+  void shouldReturnEmptyList_WhenNoLogsFoundForBlindRoller() throws Exception {
+    // Arrange
+    String deviceIDStr = "2";
+    String sensorTypeIDStr = "PercentagePosition";
+    DeviceID deviceID = new DeviceID(deviceIDStr);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDStr);
+
+    when(logRepository.findByDeviceIDAndSensorTypeID(deviceID, sensorTypeID)).thenReturn(List.of());
+
+    // Act & Assert
+    mockMvc
+        .perform(
+            get("/logs/get-position-blindRoller")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("deviceID", deviceIDStr)
+                .param("sensorTypeID", sensorTypeIDStr))
+        .andExpect(status().isNotFound());
   }
 }
