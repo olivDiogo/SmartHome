@@ -29,6 +29,8 @@ public class ActuatorDTO implements IDTO {
 
   public final String deviceID;
 
+  public String actuatorValue;
+
   /**
    * Constructs a new ActuatorDTO object with the specified actuator details.
    *
@@ -48,6 +50,21 @@ public class ActuatorDTO implements IDTO {
     this.actuatorName = actuatorName;
     this.modelPath = modelPath;
     this.deviceID = deviceID;
+    this.actuatorValue = null;
+  }
+
+  public ActuatorDTO(
+      String actuatorID,
+      String actuatorTypeID,
+      String actuatorName,
+      String modelPath,
+      String deviceID, String actuatorValue) {
+    this.id = actuatorID;
+    this.actuatorTypeID = actuatorTypeID;
+    this.actuatorName = actuatorName;
+    this.modelPath = modelPath;
+    this.deviceID = deviceID;
+    this.actuatorValue = actuatorValue;
   }
 
   @Override

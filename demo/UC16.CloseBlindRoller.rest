@@ -1,9 +1,12 @@
-POST http://localhost:8080/actuators/close-blind-roller
+POST http://localhost:8080/actuators/set-blindRoller
 Content-Type: application/json
 
 {
   "type": "valueDTO",
-  "deviceID": "{{blindsDeviceId}}",
-  "actuatorID": "{{blindRollerActuatorID}}",
-  "value": 0
+  "deviceID": "demoDevice4",
+  "actuatorID": "actuator1",
+  "value": 90
 }
+
+### Get the position of the blind roller
+GET http://localhost:8080/logs/get-position-blindRoller?deviceID=demoDevice4

@@ -1,5 +1,7 @@
 package smarthome.ddd;
 
+import smarthome.domain.actuator.IActuator;
+import smarthome.utils.dto.ActuatorDTO;
 import java.util.List;
 
 public interface IAssembler<ID extends IAggregateRoot, T extends IDTO> {
@@ -11,6 +13,7 @@ public interface IAssembler<ID extends IAggregateRoot, T extends IDTO> {
    * @return the DTO.
    */
   T domainToDTO(ID domainEntity);
+
 
   /**
    * Method to convert a list of domain entities into a list of DTOs.

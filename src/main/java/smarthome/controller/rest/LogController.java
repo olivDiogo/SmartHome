@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.device.Device;
+import smarthome.domain.exceptions.NoLogRecordsFoundException;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
@@ -122,5 +123,21 @@ public class LogController {
     return ResponseEntity.ok(maxPowerConsumption);
   }
 
+  @GetMapping("/get-position-blindRoller")
+  public ResponseEntity<Integer> getPositionBlindRoller(
+      @RequestParam String deviceID) {
+    DeviceID deviceIDObj = new DeviceID(deviceID);
+    SensorTypeID sensorTypeID = new SensorTypeID("PercentagePosition");
+    List<Log> logRecords = logService.getDeviceReadingsByDeviceIDAndSensorTypeID(deviceIDObj,
+        sensorTypeID);
+    int index = logRecords.size();
 
+    if (index == 0) {
+      throw new NoLogRecordsFoundException(
+          "No log records found for the specified device and sensor type.");
+    }
+    String value = logRecords.get(index - 1).getReadingValue().getValue();
+    int currentValueInt = Integer.parseInt(value);
+    return ResponseEntity.ok(currentValueInt);
+  }
 }

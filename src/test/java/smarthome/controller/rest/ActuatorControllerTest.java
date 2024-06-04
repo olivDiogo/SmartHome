@@ -824,7 +824,7 @@ class ActuatorControllerTest {
         sensorTypeID)).thenReturn(List.of(log1));
 
     //Act + Assert
-    mockMvc.perform(post("/actuators/close-blind-roller")
+    mockMvc.perform(post("/actuators//set-blindRoller")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorValueDTO)))
         .andExpect(status().isCreated());
@@ -842,7 +842,7 @@ class ActuatorControllerTest {
         0);
 
     // Act + Assert
-    mockMvc.perform(post("/close-blind-roller")
+    mockMvc.perform(post("/set-blindRoller")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorValueDTO)))
         .andExpect(status().isNotFound());
@@ -901,7 +901,7 @@ class ActuatorControllerTest {
         valueToSet);
 
     // Act + Assert
-    mockMvc.perform(post("/actuators/close-blind-roller")
+    mockMvc.perform(post("/actuators/set-blindRoller")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(actuatorValueDTO)))
         .andExpect(status().isNotFound());

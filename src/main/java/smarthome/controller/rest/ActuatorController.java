@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.blind_roller_actuator.BlindRollerValue;
@@ -44,12 +45,14 @@ public class ActuatorController {
   /**
    * Constructor
    *
-   * @param actuatorService   is the service for the Actuator.
+   * @param actuatorService is the service for the Actuator.
    * @param actuatorAssembler is the assembler for the Actuator.
    */
   @Autowired
-  public ActuatorController(IActuatorService actuatorService,
-      IAssembler<IActuator, ActuatorDTO> actuatorAssembler, ILogService logService) {
+  public ActuatorController(
+      IActuatorService actuatorService,
+      IAssembler<IActuator, ActuatorDTO> actuatorAssembler,
+      ILogService logService) {
     this.actuatorService = actuatorService;
     this.actuatorAssembler = actuatorAssembler;
     this.logService = logService;
@@ -71,17 +74,20 @@ public class ActuatorController {
     ActuatorDTO actuatorDTO = actuatorAssembler.domainToDTO(actuator);
 
     // Create link to the newly created actuator by its ID (self link)
-    WebMvcLinkBuilder linkToSelf = WebMvcLinkBuilder
-        .linkTo(
+    WebMvcLinkBuilder linkToSelf =
+        WebMvcLinkBuilder.linkTo(
             WebMvcLinkBuilder.methodOn(ActuatorController.class).getActuatorByID(actuatorDTO.id));
 
     // Create link to add another actuator
-    WebMvcLinkBuilder linkToAddActuator = WebMvcLinkBuilder
-        .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class).addActuator(null));
+    WebMvcLinkBuilder linkToAddActuator =
+        WebMvcLinkBuilder.linkTo(
+            WebMvcLinkBuilder.methodOn(ActuatorController.class).addActuator(null));
 
-    EntityModel<ActuatorDTO> resource = EntityModel.of(actuatorDTO,
-        linkToSelf.withSelfRel(), // self link
-        linkToAddActuator.withRel("add-actuator")); // Link to add another actuator
+    EntityModel<ActuatorDTO> resource =
+        EntityModel.of(
+            actuatorDTO,
+            linkToSelf.withSelfRel(), // self link
+            linkToAddActuator.withRel("add-actuator")); // Link to add another actuator
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
@@ -97,28 +103,30 @@ public class ActuatorController {
     List<ActuatorDTO> actuatorDTOs = actuatorAssembler.domainToDTO(actuators);
 
     // Transform each ActuatorDTO into EntityModel<ActuatorDTO>
-    List<EntityModel<ActuatorDTO>> resources = actuatorDTOs.stream()
-        .map(actuatorDTO -> {
-          WebMvcLinkBuilder linkToActuator = WebMvcLinkBuilder
-              .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class)
-                  .getActuatorByID(actuatorDTO.id));
+    List<EntityModel<ActuatorDTO>> resources =
+        actuatorDTOs.stream()
+            .map(
+                actuatorDTO -> {
+                  WebMvcLinkBuilder linkToActuator =
+                      WebMvcLinkBuilder.linkTo(
+                          WebMvcLinkBuilder.methodOn(ActuatorController.class)
+                              .getActuatorByID(actuatorDTO.id));
 
-          return EntityModel.of(actuatorDTO,
-              linkToActuator.withRel("get-actuator-by-id"));
-        })
-        .collect(Collectors.toList());
+                  return EntityModel.of(actuatorDTO, linkToActuator.withRel("get-actuator-by-id"));
+                })
+            .collect(Collectors.toList());
 
     // Link to the collection itself
-    WebMvcLinkBuilder linkToSelf = WebMvcLinkBuilder
-        .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class).getAllActuators());
+    WebMvcLinkBuilder linkToSelf =
+        WebMvcLinkBuilder.linkTo(
+            WebMvcLinkBuilder.methodOn(ActuatorController.class).getAllActuators());
 
     // Creating CollectionModel containing all EntityModel<ActuatorDTO>
-    CollectionModel<EntityModel<ActuatorDTO>> collectionModel = CollectionModel.of(resources,
-        linkToSelf.withSelfRel());
+    CollectionModel<EntityModel<ActuatorDTO>> collectionModel =
+        CollectionModel.of(resources, linkToSelf.withSelfRel());
 
     return ResponseEntity.ok(collectionModel);
   }
-
 
   /**
    * Method to get an Actuator by its ID.
@@ -137,16 +145,20 @@ public class ActuatorController {
     ActuatorDTO actuatorDTO = actuatorAssembler.domainToDTO(actuator.get());
 
     // Create link to self
-    WebMvcLinkBuilder linkToSelf = WebMvcLinkBuilder
-        .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class).getActuatorByID(id));
+    WebMvcLinkBuilder linkToSelf =
+        WebMvcLinkBuilder.linkTo(
+            WebMvcLinkBuilder.methodOn(ActuatorController.class).getActuatorByID(id));
 
     // Create link to get all Actuators
-    WebMvcLinkBuilder linkToActuators = WebMvcLinkBuilder
-        .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class).getAllActuators());
+    WebMvcLinkBuilder linkToActuators =
+        WebMvcLinkBuilder.linkTo(
+            WebMvcLinkBuilder.methodOn(ActuatorController.class).getAllActuators());
 
-    EntityModel<ActuatorDTO> resource = EntityModel.of(actuatorDTO,
-        linkToSelf.withSelfRel().withRel("get-actuator-by-id"),
-        linkToActuators.withRel("get-actuators"));
+    EntityModel<ActuatorDTO> resource =
+        EntityModel.of(
+            actuatorDTO,
+            linkToSelf.withSelfRel().withRel("get-actuator-by-id"),
+            linkToActuators.withRel("get-actuators"));
 
     return ResponseEntity.status(HttpStatus.OK).body(resource);
   }
@@ -162,26 +174,26 @@ public class ActuatorController {
     List<EntityModel<ActuatorDTO>> resources = new java.util.ArrayList<>(List.of());
 
     // Create link to self
-    WebMvcLinkBuilder linkToSelf = WebMvcLinkBuilder
-        .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class)
-            .getActuatorsByDeviceID(strDeviceID));
+    WebMvcLinkBuilder linkToSelf =
+        WebMvcLinkBuilder.linkTo(
+            WebMvcLinkBuilder.methodOn(ActuatorController.class)
+                .getActuatorsByDeviceID(strDeviceID));
 
     for (ActuatorDTO actuatorDTO : actuatorDTOs) {
-      WebMvcLinkBuilder linkToActuator = WebMvcLinkBuilder
-          .linkTo(
+      WebMvcLinkBuilder linkToActuator =
+          WebMvcLinkBuilder.linkTo(
               WebMvcLinkBuilder.methodOn(ActuatorController.class).getActuatorByID(actuatorDTO.id));
 
-      EntityModel<ActuatorDTO> resource = EntityModel.of(
-          actuatorDTO,
-          linkToSelf.withSelfRel().withRel("get-actuator-by-device-id"),
-          linkToActuator.withRel("get-actuator-by-id")
-      );
+      EntityModel<ActuatorDTO> resource =
+          EntityModel.of(
+              actuatorDTO,
+              linkToSelf.withSelfRel().withRel("get-actuator-by-device-id"),
+              linkToActuator.withRel("get-actuator-by-id"));
 
       resources.add(resource);
     }
 
-    return ResponseEntity.status(HttpStatus.OK)
-        .body(resources);
+    return ResponseEntity.status(HttpStatus.OK).body(resources);
   }
 
   /**
@@ -190,7 +202,7 @@ public class ActuatorController {
    * @param actuatorValueDTO is the Actuator value data transfer object.
    * @return the Actuator value data transfer object.
    */
-  @PostMapping("/close-blind-roller")
+  @PostMapping("/set-blindRoller")
   public ResponseEntity<EntityModel<ActuatorDTO>> closeBlindRoller(
       @RequestBody @Valid ActuatorValueDTO actuatorValueDTO) {
     SensorTypeID sensorTypeID = new SensorTypeID("PercentagePosition");
@@ -204,8 +216,8 @@ public class ActuatorController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    List<Log> logRecords = logService.getDeviceReadingsByDeviceIDAndSensorTypeID(deviceID,
-        sensorTypeID);
+    List<Log> logRecords =
+        logService.getDeviceReadingsByDeviceIDAndSensorTypeID(deviceID, sensorTypeID);
     int index = logRecords.size();
 
     if (index == 0) {
@@ -213,26 +225,27 @@ public class ActuatorController {
           "No log records found for the specified device and sensor type.");
     }
 
-    Log blindRollerCurrentValue = logRecords.get(index - 1);
-
-    actuatorService.setValue(actuator.get(), blindRollerValueObject,
-        blindRollerCurrentValue.getReadingValue());
+    IActuatorValue value = actuatorService.setValue(actuator.get(), blindRollerValueObject);
 
     /* Create ActuatorDTO*/
     ActuatorDTO actuatorDTO = actuatorAssembler.domainToDTO(actuator.get());
+    actuatorDTO.actuatorValue = String.valueOf(actuatorValueDTO.value);
 
     // Create link to self
-    WebMvcLinkBuilder linkToSelf = WebMvcLinkBuilder
-        .linkTo(WebMvcLinkBuilder.methodOn(ActuatorController.class)
-            .closeBlindRoller(actuatorValueDTO));
+    WebMvcLinkBuilder linkToSelf =
+        WebMvcLinkBuilder.linkTo(
+            WebMvcLinkBuilder.methodOn(ActuatorController.class)
+                .closeBlindRoller(actuatorValueDTO));
 
-    WebMvcLinkBuilder linkToActuator = WebMvcLinkBuilder
-        .linkTo(
+    WebMvcLinkBuilder linkToActuator =
+        WebMvcLinkBuilder.linkTo(
             WebMvcLinkBuilder.methodOn(ActuatorController.class).getActuatorByID(deviceID.getID()));
 
-    EntityModel<ActuatorDTO> resource = EntityModel.of(actuatorDTO,
-        linkToSelf.withSelfRel().withRel("close-blind-roller"),
-        linkToActuator.withRel("get-actuator-by-id"));
+    EntityModel<ActuatorDTO> resource =
+        EntityModel.of(
+            actuatorDTO,
+            linkToSelf.withSelfRel().withRel("close-blind-roller"),
+            linkToActuator.withRel("get-actuator-by-id"));
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }

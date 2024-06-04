@@ -45,5 +45,5 @@ public interface IActuatorService extends IService {
    * Sets the value of the actuator with the provided actuator ID.
    * @return the value of the actuator.
    */
-  IActuatorValue setValue(IActuator actuator , IActuatorValue value, ReadingValue currentValue);
+  IActuatorValue setValue(IActuator actuator , IActuatorValue value);
 }

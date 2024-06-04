@@ -11,6 +11,7 @@ import smarthome.domain.device.Device;
 import smarthome.domain.repository.IActuatorRepository;
 import smarthome.domain.repository.IActuatorTypeRepository;
 import smarthome.domain.repository.IDeviceRepository;
+import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;
@@ -37,7 +38,6 @@ public class ActuatorServiceImpl implements IActuatorService {
       IActuatorRepository actuatorRepository,
       IActuatorFactory actuatorFactory,
       IDeviceRepository deviceRepository, IActuatorTypeRepository actuatorTypeRepository) {
-
     Validator.validateNotNull(actuatorRepository, "Actuator repository");
     this.actuatorRepository = actuatorRepository;
     Validator.validateNotNull(actuatorFactory, "Actuator factory");
@@ -124,16 +124,16 @@ public class ActuatorServiceImpl implements IActuatorService {
   }
 
   @Override
-  public IActuatorValue setValue(IActuator actuator, IActuatorValue valueToSet, ReadingValue currentValue) {
+  public IActuatorValue setValue(IActuator actuator, IActuatorValue valueToSet) {
     int newValue = Integer.parseInt(valueToSet.toString());
-    int currentValueInt = Integer.parseInt(currentValue.getValue());
 
-    if(newValue >= 0 && newValue <=100 && newValue <= currentValueInt) {
+    if(newValue >= 0 && newValue <=100) {
       actuator.setValue(valueToSet);
     }
     else {
-      throw new IllegalArgumentException("New value must be less than current value");
+      throw new IllegalArgumentException("New value must be between 0 and 100.");
     }
+
     return valueToSet;
   }
 

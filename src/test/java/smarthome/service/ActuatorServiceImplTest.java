@@ -373,11 +373,8 @@ class ActuatorServiceImplTest {
     IActuatorValue valueToSetMock = mock(IActuatorValue.class);
     when(valueToSetMock.toString()).thenReturn("0");
 
-    ReadingValue currentValueMock = mock(ReadingValue.class);
-    when(currentValueMock.getValue()).thenReturn("10");
-
     //Act
-    IActuatorValue actuatorValue = actuatorServiceImpl.setValue(actuatorMock, valueToSetMock, currentValueMock);
+    IActuatorValue actuatorValue = actuatorServiceImpl.setValue(actuatorMock, valueToSetMock);
 
     //Assert
     assertEquals(valueToSetMock, actuatorValue);
@@ -400,74 +397,13 @@ class ActuatorServiceImplTest {
     IActuatorValue valueToSetMock = mock(IActuatorValue.class);
     when(valueToSetMock.toString()).thenReturn("100");
 
-    ReadingValue currentValueMock = mock(ReadingValue.class);
-    when(currentValueMock.getValue()).thenReturn("100");
-
     //Act
-    IActuatorValue actuatorValue = actuatorServiceImpl.setValue(actuatorMock, valueToSetMock, currentValueMock);
+    IActuatorValue actuatorValue = actuatorServiceImpl.setValue(actuatorMock, valueToSetMock);
 
     //Assert
     assertEquals(valueToSetMock, actuatorValue);
   }
 
-  /**
-   * Should throw an exception when the value to set is higher than the current value
-   */
-  @Test
-  void shouldThrowException_WhenValueToSetIsLowerThanCurrentValue () {
-    //Arrange
-    IActuatorRepository actuatorRepository = mock(IActuatorRepository.class);
-    IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
-    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
-    IActuatorTypeRepository actuatorTypeRepository = mock(IActuatorTypeRepository.class);
-
-    ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository, actuatorTypeRepository);
-    IActuator actuatorMock = mock(IActuator.class);
-
-    IActuatorValue valueToSetMock = mock(IActuatorValue.class);
-    when(valueToSetMock.toString()).thenReturn("101");
-
-    ReadingValue currentValueMock = mock(ReadingValue.class);
-    when(currentValueMock.getValue()).thenReturn("10");
-
-    when(actuatorMock.setValue(valueToSetMock)).thenReturn(valueToSetMock);
-
-    String expectedMessage = "New value must be less than current value";
-
-    //Act & Assert
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorServiceImpl.setValue(actuatorMock, valueToSetMock, currentValueMock));
-
-    assertEquals(expectedMessage, exception.getMessage());
-  }
-
-  /**
-   * Should set an actuator value when the value to set is equal to the current value
-   */
-  @Test
-  void shouldThrowException_WhenTheValueToSetIsEqualToTheCurrentValue() {
-    // Arrange
-    IActuatorRepository actuatorRepository = mock(IActuatorRepository.class);
-    IActuatorFactory actuatorFactory = mock(IActuatorFactory.class);
-    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
-    IActuatorTypeRepository actuatorTypeRepository = mock(IActuatorTypeRepository.class);
-
-    ActuatorServiceImpl actuatorServiceImpl = new ActuatorServiceImpl(actuatorRepository, actuatorFactory, deviceRepository, actuatorTypeRepository);
-    IActuator actuatorMock = mock(IActuator.class);
-
-    IActuatorValue valueToSetMock = mock(IActuatorValue.class);
-    when(valueToSetMock.toString()).thenReturn("10");
-
-    ReadingValue currentValueMock = mock(ReadingValue.class);
-    when(currentValueMock.getValue()).thenReturn("10");
-
-    when(actuatorMock.setValue(valueToSetMock)).thenReturn(valueToSetMock);
-
-    //Act
-    IActuatorValue actuatorValue = actuatorServiceImpl.setValue(actuatorMock, valueToSetMock, currentValueMock);
-
-    //Assert
-    assertEquals(valueToSetMock, actuatorValue);
-  }
 
   /**
    * Should throw an exception when the value to set is negative
@@ -486,15 +422,12 @@ class ActuatorServiceImplTest {
     IActuatorValue valueToSetMock = mock(IActuatorValue.class);
     when(valueToSetMock.toString()).thenReturn("-10");
 
-    ReadingValue currentValueMock = mock(ReadingValue.class);
-    when(currentValueMock.getValue()).thenReturn("10");
-
     when(actuatorMock.setValue(valueToSetMock)).thenReturn(valueToSetMock);
 
-    String expectedMessage = "New value must be less than current value";
+    String expectedMessage = "New value must be between 0 and 100.";
 
     //Act & Assert
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorServiceImpl.setValue(actuatorMock, valueToSetMock, currentValueMock));
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> actuatorServiceImpl.setValue(actuatorMock, valueToSetMock));
 
     assertEquals(expectedMessage, exception.getMessage());
   }

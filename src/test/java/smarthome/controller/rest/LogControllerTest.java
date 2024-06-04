@@ -60,7 +60,7 @@ class LogControllerTest {
     LocalDateTime timeStamp = LocalDateTime.of(2021, 5, 1, 12, 0);
     ReadingValue readingValue = new ReadingValue("20");
     SensorID sensorID = new SensorID("1");
-    SensorTypeID sensorTypeID = new SensorTypeID("Temperature");
+    SensorTypeID sensorTypeID = new SensorTypeID("PositionMeter");
     UnitID unitID = new UnitID("C");
     DeviceID deviceID2 = new DeviceID("2");
     return logFactory.createLog(deviceID2, sensorID, timeStamp, readingValue, sensorTypeID, unitID);
@@ -500,5 +500,26 @@ class LogControllerTest {
             .param("timeEnd", timeEnd))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(0)));
+  }
+
+  @Test
+  void shouldReturnThePositionOfTheBlindRoller() throws Exception {
+    //Arrange
+    Log log = setupLog();
+
+    String deviceIDStr = "2";
+    String sensorTypeIDStr = "PercentagePosition";
+    DeviceID deviceID = new DeviceID(deviceIDStr);
+    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDStr);
+
+    when(logRepository.findByDeviceIDAndSensorTypeID(deviceID, sensorTypeID)).thenReturn(List.of(log));
+
+    // Act & Assert
+    mockMvc.perform(get("/logs/get-position-blindRoller")
+            .contentType(MediaType.APPLICATION_JSON)
+            .param("deviceID", deviceIDStr)
+            .param("sensorTypeID", sensorTypeIDStr))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").value("20"));
   }
 }
