@@ -5,6 +5,8 @@ import {
     fetchRoomByIdFromServer,
     fetchRoomsFromServer,
     fetchSensorModelsFromServer,
+    fetchLogsByDeviceIdFromServer,
+    updateCurrentDeviceFromServer
 } from "../services/Service.jsx";
 
 
@@ -250,4 +252,83 @@ export function addDeviceToRoom(dispatch, roomId, device) {
         data => dispatch({type: 'ADD_DEVICE_SUCCESS', payload: {device: data}}),
         err => dispatch({type: 'ADD_DEVICE_FAILURE', payload: {error: err}})
     );
+}
+
+
+export const FETCH_LOGS_STARTED = 'FETCH_LOGS_STARTED';
+export const FETCH_LOGS_SUCCESS = 'FETCH_LOGS_SUCCESS';
+export const FETCH_LOGS_FAILURE = 'FETCH_LOGS_FAILURE';
+
+export function fetchLogsByDeviceId(dispatch, deviceId, timeStart, timeEnd) {
+    const action = {
+        type: FETCH_LOGS_STARTED
+    }
+    dispatch(action);
+    const success = (res) => {
+        const action = fetchLogsSuccess(res);
+        dispatch(action);
+    };
+    const failure = (err) => {
+        const action = fetchLogsFailure(err);
+        dispatch(action);
+    };
+
+    fetchLogsByDeviceIdFromServer(success, failure, deviceId, timeStart, timeEnd);
+}
+
+function fetchLogsSuccess(logs) {
+    return {
+        type: FETCH_LOGS_SUCCESS,
+        payload: {
+            data: logs
+        }
+    }
+}
+
+function fetchLogsFailure(message) {
+    return {
+        type: FETCH_LOGS_FAILURE,
+        payload: {
+            error: message
+        }
+    }
+}
+
+export const UPDATE_DEVICE_STARTED = 'UPDATE_DEVICE_STARTED';
+export const UPDATE_DEVICE_SUCCESS = 'UPDATE_DEVICE_SUCCESS';
+export const UPDATE_DEVICE_FAILURE = 'UPDATE_DEVICE_FAILURE';
+
+export function updateCurrentDevice(dispatch, deviceId, deviceName) {
+    const action = {
+        type: UPDATE_DEVICE_STARTED
+    }
+    dispatch(action);
+    const success = (res) => {
+        const action = updateCurrentDeviceSuccess(res);
+        dispatch(action);
+    };
+    const failure = (err) => {
+        const action = updateCurrentDeviceFailure(err.message);
+        dispatch(action);
+    };
+
+    updateCurrentDeviceFromServer(success, failure, deviceId, deviceName); // Correct function call
+}
+
+function updateCurrentDeviceSuccess(device) {
+    return {
+        type: UPDATE_DEVICE_SUCCESS,
+        payload: {
+            data: device
+        }
+    }
+}
+
+function updateCurrentDeviceFailure(message) {
+    return {
+        type: UPDATE_DEVICE_FAILURE,
+        payload: {
+            error: message
+        }
+    }
 }

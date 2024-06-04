@@ -21,11 +21,25 @@ const initialState = {
         data: [],
     },
 
+    currentDevice: {
+        deviceId: null,
+        deviceName: null,
+    },
+
     temperature: {
         loading: true,
         error: null,
         data: null,
     },
+
+    logs: {
+        loading: true,
+        error: null,
+        data: [],
+    },
+
+    timeStart: '',
+    timeEnd: '',
 
 };
 

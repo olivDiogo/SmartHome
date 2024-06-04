@@ -63,3 +63,46 @@ export function addDeviceToRoom(roomId, device, success, failure) {
         .catch(err => failure(err.message));
 }
 
+export function fetchLogsByDeviceIdFromServer(success, failure, deviceId, timeStart, timeEnd) {
+    const url = `${URL_API}/logs?deviceID=${deviceId}&timeStart=${timeStart}&timeEnd=${timeEnd}`;
+    console.log("Requesting URL:", url);
+    fetch(url)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(data => {
+            success(data);
+            console.log(data);
+        })
+        .catch(err => {
+            failure(err.message);
+            console.error("Fetch error:", err.message);
+        });
+}
+
+export function updateCurrentDeviceFromServer(success, failure, deviceId, deviceName) {
+    fetch(`${URL_API}/devices/${deviceId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: deviceName })
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(data => {
+            success(data);
+            console.log(data);
+        })
+        .catch(err => {
+            failure(err.message);
+            console.error("Fetch error:", err.message);
+        });
+}

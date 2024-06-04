@@ -17,7 +17,14 @@ import {
     FETCH_SENSOR_MODELS_FAILURE,
     FETCH_SENSOR_MODELS_STARTED,
     FETCH_SENSOR_MODELS_SUCCESS,
-    SET_CURRENT_ROOM
+    SET_CURRENT_ROOM,
+    FETCH_LOGS_STARTED,
+    FETCH_LOGS_SUCCESS,
+    FETCH_LOGS_FAILURE,
+    UPDATE_DEVICE_STARTED,
+    UPDATE_DEVICE_SUCCESS,
+    UPDATE_DEVICE_FAILURE
+
 } from './Actions';
 import {
     FETCH_TEMPERATURE_FAILURE,
@@ -216,6 +223,66 @@ function reducer(state, action) {
                     data: null
                 }
             }
+
+        case FETCH_LOGS_STARTED:
+            return {
+                ...state,
+                logs: {
+                    loading: true,
+                    error: null,
+                    data: []
+                }
+            };
+
+        case FETCH_LOGS_SUCCESS:
+            return {
+                ...state,
+                logs: {
+                    loading: false,
+                    error: null,
+                    data: [...action.payload.data]
+                }
+            };
+
+        case FETCH_LOGS_FAILURE:
+            return {
+                ...state,
+                logs: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: [],
+                }
+            };
+
+        case UPDATE_DEVICE_STARTED:
+            return {
+                ...state,
+                updateDevice: {
+                    loading: true,
+                    error: null,
+                    data: null
+                }
+            };
+
+        case UPDATE_DEVICE_SUCCESS:
+            return {
+                ...state,
+                updateDevice: {
+                    loading: false,
+                    error: null,
+                    data: action.payload.data
+                }
+            };
+
+        case UPDATE_DEVICE_FAILURE:
+            return {
+                ...state,
+                updateDevice: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: null
+                }
+            };
 
         case ADD_DEVICE_STARTED:
             return {
