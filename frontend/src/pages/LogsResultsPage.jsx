@@ -40,7 +40,7 @@ function LogsResultsPage() {
                     data.map((log) => (
                         <ListItem key={log.id}>
                             <ListItemText
-                                primary={`${log.type}: ${log.value}`}
+                                primary={`Name: ${log.sensorTypeID}, Reading: ${log.reading}, Unit: ${log.unitID}`}
                                 secondary={`Date: ${log.timestamp}`}
                             />
                         </ListItem>
