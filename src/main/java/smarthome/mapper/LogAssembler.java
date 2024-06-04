@@ -24,8 +24,8 @@ public class LogAssembler implements IAssembler<Log, LogDTO> {
     String logID = domainEntity.getID().toString();
     String deviceID = domainEntity.getDeviceID().toString();
     String sensorID = domainEntity.getSensorID().toString();
-    String sensorTypeID = domainEntity.getID().toString();
-    String reading = domainEntity.getReadingValue().toString();
+    String sensorTypeID = domainEntity.getDescription().toString();
+    String reading = domainEntity.getReadingValue().getValue();
     String timestamp = domainEntity.getTimeStamp().toString();
     String unitID = domainEntity.getUnit().toString();
 
