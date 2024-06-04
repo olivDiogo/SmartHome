@@ -46,7 +46,7 @@ The core focus is on separating the business logic from infrastructure concerns 
 2. **Build the project:**
 ```bash
 cd smarthome
-./mvnw clean package
+./build.sh
 ```
 
 3. **Run the application:**
@@ -58,6 +58,19 @@ cd smarthome
    * Start with the `domain` package to understand the core entities and their relationships.
    * Review the `repository` package to see how data access is abstracted.
    * Look into the `persistence` package to explore the specific persistence implementations.
+  
+### Docker deploymnet:
+1. **Clone the repository:**
+   ```
+   git clone https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1 smarthome
+   ```
+2. **Run the bash script:**
+```bash
+cd smarthome
+./build_docker.sh
+```
+3. **Explore the application**
+    * This will start three containers locally, mariadb adminer and tomcat. You can acess the application at http://localhost:8080/smarthome and explore the database with adminer at http://localhost:8282.
 
 ### Project Structure:
 
@@ -72,6 +85,3 @@ cd smarthome
 ### Future Enhancements:
 
 * **Event Sourcing:**  Introduce an event-driven architecture to capture the history of changes, enabling audit trails and more complex business logic.
-* **CQRS (Command Query Responsibility Segregation):**  Separate read and write models for optimized data access and performance.
-* **External Integrations:**  Extend the model to integrate with actual smart home devices and platforms.
-* **More Domain Logic:**  Add further business rules and behaviors to support more advanced smart home scenarios. 
