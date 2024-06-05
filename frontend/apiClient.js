@@ -58,13 +58,13 @@ async function addRooms() {
 
 async function addDevices(gardenId, bedroomId) {
     const devices = [
-        { type: "PowerMeter", name: "EDP PowerMeter", roomId: gardenId },
-        { type: "PowerSource", name: "Solar Panel", roomId: gardenId },
-        { type: "TemperatureGarden", name: "Temperature Sensor", roomId: gardenId },
-        { type: "TemperatureBedroom", name: "Temperature Sensor", roomId: bedroomId },
-        { type: "AutomaticBlinds", name: "Bedroom Blinds", roomId: bedroomId },
-        { type: "LightSensor", name: "Light Intensity", roomId: bedroomId },
-        { type: "GeneralDevice", name: "House Device", roomId: bedroomId }
+        {type: "PowerMeter", name: "EDP PowerMeter", roomId: gardenId},
+        {type: "PowerSource", name: "Solar Panel", roomId: gardenId},
+        {type: "TemperatureGarden", name: "Temperature Sensor", roomId: gardenId},
+        {type: "TemperatureBedroom", name: "Temperature Sensor", roomId: bedroomId},
+        {type: "BlindRoller", name: "BlindRoller", roomId: bedroomId},
+        {type: "LightSensor", name: "Light Intensity", roomId: bedroomId},
+        {type: "GeneralDevice", name: "House Device", roomId: bedroomId}
     ];
 
     const deviceIds = {};
@@ -88,27 +88,27 @@ async function addDevices(gardenId, bedroomId) {
 
 async function fetchAndStoreSensorModels() {
     const sensorTypes = [
-        { type: 'InstantPowerConsumption', variable: 'instantPowerSensor' },
-        { type: 'Temperature', variable: 'temperatureSensor' },
-        { type: 'AveragePowerConsumption', variable: 'averagePowerConsumptionSensor' },
-        { type: 'DewPoint', variable: 'dewPointSensor' },
-        { type: 'Humidity', variable: 'humiditySensor' },
-        { type: 'SolarIrradiance', variable: 'solarIrradianceSensor' },
-        { type: 'Switch', variable: 'switchSensor' },
-        { type: 'Wind', variable: 'windSensor' },
-        { type: 'SunriseTime', variable: 'sunriseTimeSensor' },
-        { type: 'SunsetTime', variable: 'sunsetTimeSensor' },
-        { type: 'ElectricConsumptionWh', variable: 'electricConsumptionWh' },
-        { type: 'Position', variable: 'position' }
+        {type: 'InstantPowerConsumption', variable: 'instantPowerSensor'},
+        {type: 'Temperature', variable: 'temperatureSensor'},
+        {type: 'AveragePowerConsumption', variable: 'averagePowerConsumptionSensor'},
+        {type: 'DewPoint', variable: 'dewPointSensor'},
+        {type: 'Humidity', variable: 'humiditySensor'},
+        {type: 'SolarIrradiance', variable: 'solarIrradianceSensor'},
+        {type: 'Switch', variable: 'switchSensor'},
+        {type: 'Wind', variable: 'windSensor'},
+        {type: 'SunriseTime', variable: 'sunriseTimeSensor'},
+        {type: 'SunsetTime', variable: 'sunsetTimeSensor'},
+        {type: 'ElectricConsumptionWh', variable: 'electricConsumptionWh'},
+        {type: 'PercentagePosition', variable: 'percentagePosition'}
     ];
 
     const globalSettings = {};
 
     try {
         // Iterate through each sensor type and make a GET request
-        for (const { type, variable } of sensorTypes) {
+        for (const {type, variable} of sensorTypes) {
             const response = await axios.get(`http://localhost:8080/sensor-models?sensorTypeID=${type}`, {
-                headers: { 'Content-Type': 'application/json' }
+                headers: {'Content-Type': 'application/json'}
             });
             // Store the model path in a global settings object
             globalSettings[variable] = response.data._embedded.sensorModelDTOList[0].modelPath;
@@ -123,27 +123,27 @@ async function fetchAndStoreSensorModels() {
 
 async function addSensors(deviceIds, globalSettings) {
     const sensorRequests = [
-        // {
-        //     type: 'genericSensor',
-        //     deviceID: deviceIds.powermeterDeviceId,
-        //     sensorModelPath: globalSettings.instantPowerSensor,
-        //     sensorName: 'GA100K',
-        //     sensorTypeID: 'InstantPowerConsumption'
-        // },
-        // {
-        //     type: 'genericSensor',
-        //     deviceID: deviceIds.powersourceDeviceId,
-        //     sensorModelPath: globalSettings.instantPowerSensor,
-        //     sensorName: 'GA100K',
-        //     sensorTypeID: 'InstantPowerConsumption'
-        // },
-        // {
-        //     type: 'genericSensor',
-        //     deviceID: deviceIds.temperaturegardenDeviceId,
-        //     sensorModelPath: globalSettings.temperatureSensor,
-        //     sensorName: 'TX200K',
-        //     sensorTypeID: 'Temperature'
-        // },
+/*        {
+            type: 'genericSensor',
+            deviceID: deviceIds.powermeterDeviceId,
+            sensorModelPath: globalSettings.instantPowerSensor,
+            sensorName: 'GA100K',
+            sensorTypeID: 'InstantPowerConsumption'
+        },
+        {
+            type: 'genericSensor',
+            deviceID: deviceIds.powersourceDeviceId,
+            sensorModelPath: globalSettings.instantPowerSensor,
+            sensorName: 'GA100K',
+            sensorTypeID: 'InstantPowerConsumption'
+        },
+        {
+            type: 'genericSensor',
+            deviceID: deviceIds.temperaturegardenDeviceId,
+            sensorModelPath: globalSettings.temperatureSensor,
+            sensorName: 'TX200K',
+            sensorTypeID: 'Temperature'
+        },
         {
             type: 'gpsSensor',
             deviceID: deviceIds.temperaturebedroomDeviceId,
@@ -153,27 +153,36 @@ async function addSensors(deviceIds, globalSettings) {
             latitude: 48.8566,
             longitude: 2.3522
         },
-        // {
-        //     type: 'genericSensor',
-        //     deviceID: deviceIds.temperaturebedroomDeviceId,
-        //     sensorModelPath: globalSettings.temperatureSensor,
-        //     sensorName: "TX200K",
-        //     sensorTypeID: "Temperature"
-        // },
-        // {
-        //   type: 'genericSensor',
-        //   deviceID: deviceIds.generaldeviceDeviceId,
-        //     sensorModelPath: globalSettings.averagePowerConsumptionSensor,
-        //     sensorName: "RD320C",
-        //     sensorTypeID: "AveragePowerConsumption"
-        // },
+        {
+            type: 'genericSensor',
+            deviceID: deviceIds.temperaturebedroomDeviceId,
+            sensorModelPath: globalSettings.temperatureSensor,
+            sensorName: "TX200K",
+            sensorTypeID: "Temperature"
+        },
+        {
+            type: 'genericSensor',
+            deviceID: deviceIds.generaldeviceDeviceId,
+            sensorModelPath: globalSettings.averagePowerConsumptionSensor,
+            sensorName: "RD320C",
+            sensorTypeID: "AveragePowerConsumption"
+        },
+
+ */
+        {
+            type: 'genericSensor',
+            deviceID: deviceIds.blindrollerDeviceId,
+            sensorModelPath: globalSettings.percentagePosition,
+            sensorName: "PS100K",
+            sensorTypeID: "PercentagePosition"
+        }
     ];
 
     try {
         const responses = await Promise.all(
             sensorRequests.map(sensorData =>
                 axios.post('http://localhost:8080/sensors', sensorData, {
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: {'Content-Type': 'application/json'}
                 })
             )
         );
@@ -191,7 +200,7 @@ async function addSensors(deviceIds, globalSettings) {
 // Start by adding a house
 addHouse().then(() => {
     // Once the house is added, add rooms
-    addRooms().then(({ gardenId, bedroomId }) => {
+    addRooms().then(({gardenId, bedroomId}) => {
         // After rooms, add devices using the IDs from rooms
         addDevices(gardenId, bedroomId).then(deviceIds => {
             // Fetch and store sensor models

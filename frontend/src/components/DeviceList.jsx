@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, {useEffect, useContext} from "react";
 import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -6,16 +6,17 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import AppContext from "../context/AppContext.jsx";
-import { fetchDevicesByRoomId } from "../context/Actions.jsx";
-import { updateCurrentDevice } from "../context/Actions.jsx";
+import {fetchDevicesByRoomId} from "../context/Actions.jsx";
+import {updateCurrentDevice} from "../context/Actions.jsx";
+import BlindRollerPosition from "./BlindRollerPosition.jsx";
 
 function DeviceList() {
-    const { state, dispatch } = useContext(AppContext);
-    const { currentRoom, devices, currentDevice } = state;
-    const { roomId } = currentRoom;
-    const { loading, error, data } = devices;
+    const {state, dispatch} = useContext(AppContext);
+    const {currentRoom, devices, currentDevice} = state;
+    const {roomId} = currentRoom;
+    const {loading, error, data} = devices;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,22 +42,27 @@ function DeviceList() {
                 {data.map((device) => (
                     <Accordion key={device.deviceID}>
                         <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
+                            expandIcon={<ExpandMoreIcon/>}
                             aria-controls={`panel${device.deviceID}-content`}
                             id={`panel${device.deviceID}-header`}
                         >
                             <Typography>{device.deviceName}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography>
-                                Here are some details about {device.deviceName}. You can add more information about the device here.
+                            <Typography component="div">
+                                Here are some details about {device.deviceName}. You can add more information about the
+                                device here.
+                                {device.deviceName === 'BlindRoller' &&
+                                    <BlindRollerPosition deviceId={device.deviceID}/>}
                             </Typography>
                         </AccordionDetails>
                         <AccordionActions>
-                            <Button size="small" color="primary" onClick={() => handleViewLogsOnClick(device.deviceID, device.deviceName)}>
+                            <Button size="small" color="primary"
+                                    onClick={() => handleViewLogsOnClick(device.deviceID, device.deviceName)}>
                                 View Logs
                             </Button>
-                            <Button size="small" color="primary" onClick={() => handleAddDeviceOnClick(device.deviceID)}>
+                            <Button size="small" color="primary"
+                                    onClick={() => handleAddDeviceOnClick(device.deviceID)}>
                                 Configure Device
                             </Button>
                         </AccordionActions>

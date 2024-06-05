@@ -132,8 +132,14 @@ export function fetchSensorModelsBySensorTypeIdFromServer(success, failure, sens
 export function fetchCurrentPositionValue(success, failure, deviceID) {
     fetch(`${URL_API}/logs/get-position-blindRoller?deviceID=${deviceID}`)
         .then(res => res.json())
-        .then(res => success(res))
-        .catch(err => failure(err.message));
+        .then(res => {
+            console.log("Success:", res);
+            success(res)
+        })
+        .catch(err => {
+            console.error("Error fetching position:", err);
+            failure(err.message)
+        });
 }
 
 export function setBlindRollerValue(success, failure, deviceID, actuatorID, value) {

@@ -342,30 +342,30 @@ function reducer(state, action) {
         case FETCH_CURRENT_POSITION_STARTED:
             return {
                 ...state,
-                currentPosition: {
+                position: {
+                    ...state.position,
                     loading: true,
-                    error: null,
-                    data: null
+                    error: null
                 }
             };
-
         case FETCH_CURRENT_POSITION_SUCCESS:
             return {
                 ...state,
-                currentPosition: {
+                position: {
+                    ...state.position,
                     loading: false,
-                    error: null,
-                    data: action.payload.data
+                    data: action.payload.data,
+                    error: null
                 }
             };
-
         case FETCH_CURRENT_POSITION_FAILURE:
             return {
                 ...state,
-                currentPosition: {
+                position: {
+                    ...state.position,
                     loading: false,
-                    error: action.payload.error,
-                    data: null
+                    data: null,
+                    error: action.payload.error
                 }
             };
 
