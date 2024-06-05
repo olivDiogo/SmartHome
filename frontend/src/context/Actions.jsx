@@ -9,7 +9,7 @@ import {
     updateCurrentDeviceFromServer,
     fetchSensorTypesFromServer,
     fetchCurrentPositionValue,
-    setBlindRollerValue
+    setBlindRollerValue, fetchActuatorsByDeviceId
 } from "../services/Service.jsx";
 
 
@@ -467,5 +467,30 @@ export function setBlindRoller(dispatch, deviceID, actuatorID, value) {
     };
 
     setBlindRollerValue(success, failure, deviceID, actuatorID, value);
+}
+
+export const FETCH_ACTUATORS_STARTED = 'FETCH_ACTUATORS_STARTED';
+export const FETCH_ACTUATORS_SUCCESS = 'FETCH_ACTUATORS_SUCCESS';
+export const FETCH_ACTUATORS_FAILURE = 'FETCH_ACTUATORS_FAILURE';
+
+// Action Creators
+export function fetchActuators(dispatch, deviceId) {
+    dispatch({ type: FETCH_ACTUATORS_STARTED });
+
+    fetchActuatorsByDeviceId(
+        data => {
+            dispatch({
+                type: FETCH_ACTUATORS_SUCCESS,
+                payload: { actuators: data }
+            });
+        },
+        error => {
+            dispatch({
+                type: FETCH_ACTUATORS_FAILURE,
+                payload: { error }
+            });
+        },
+        deviceId
+    );
 }
 

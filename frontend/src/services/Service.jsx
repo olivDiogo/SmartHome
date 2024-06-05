@@ -145,6 +145,22 @@ export function fetchCurrentPositionValue(success, failure, deviceID) {
         });
 }
 
+export function fetchActuatorsByDeviceId(success, failure, deviceId) {
+    fetch(`${URL_API}/actuators?deviceID=${deviceId}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to fetch actuators');
+            }
+            return res.json();
+        })
+        .then(data => {
+            console.log('Data received:', data);
+            success(data);
+        })
+        .catch(err => failure(err.message));
+}
+
+
 export function setBlindRollerValue(success, failure, deviceID, actuatorID, value) {
     fetch(`${URL_API}/actuators/set-blindRoller`, {
         method: 'POST',

@@ -32,7 +32,10 @@ import {
     FETCH_CURRENT_POSITION_FAILURE,
     SET_BLIND_ROLLER_VALUE_STARTED,
     SET_BLIND_ROLLER_VALUE_SUCCESS,
-    SET_BLIND_ROLLER_VALUE_FAILURE
+    SET_BLIND_ROLLER_VALUE_FAILURE,
+    FETCH_ACTUATORS_STARTED,
+    FETCH_ACTUATORS_SUCCESS,
+    FETCH_ACTUATORS_FAILURE
 } from './Actions';
 import {
     FETCH_TEMPERATURE_FAILURE,
@@ -398,6 +401,13 @@ function reducer(state, action) {
                     message: null
                 }
             };
+
+        case FETCH_ACTUATORS_STARTED:
+            return {...state, actuators: {loading: true, error: null, data: []}};
+        case FETCH_ACTUATORS_SUCCESS:
+            return {...state, actuators: {loading: false, error: null, data: action.payload.actuators}};
+        case FETCH_ACTUATORS_FAILURE:
+            return {...state, actuators: {loading: false, error: action.payload.error, data: []}};
 
         default:
             return state;
