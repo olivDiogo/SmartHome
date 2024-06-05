@@ -1,5 +1,6 @@
 package smarthome.service;
 
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,18 +10,31 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import smarthome.domain.device.Device;
+import smarthome.domain.log.ILogFactory;
 import smarthome.domain.log.Log;
+import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.repository.ILogRepository;
+import smarthome.domain.repository.ISensorRepository;
+import smarthome.domain.repository.ISensorTypeRepository;
+import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.ReadingValue;
+import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
+import smarthome.domain.value_object.UnitID;
 import smarthome.utils.Validator;
 
 @Service
 public class LogServiceImpl implements ILogService {
 
   private final ILogRepository logRepository;
+  private final IDeviceRepository deviceRepository;
+  private final ISensorRepository sensorRepository;
+  private final ISensorTypeRepository sensorTypeRepository;
+  private final IUnitRepository unitRepository;
+  private final ILogFactory logFactory;
   private static final int VALUE_IF_NO_CONSUMPTION = 0;
 
 
@@ -31,11 +45,85 @@ public class LogServiceImpl implements ILogService {
    */
 
   @Autowired
-  public LogServiceImpl(ILogRepository logRepository) {
+  public LogServiceImpl(ILogRepository logRepository, IDeviceRepository deviceRepository,
+      ISensorRepository sensorRepository, ISensorTypeRepository sensorTypeRepository,
+      IUnitRepository unitRepository, ILogFactory logFactory) {
+    this.deviceRepository = deviceRepository;
+    this.sensorRepository = sensorRepository;
+    this.sensorTypeRepository = sensorTypeRepository;
+    this.unitRepository = unitRepository;
+    this.logFactory = logFactory;
     Validator.validateNotNull(logRepository, "Log Repository");
     this.logRepository = logRepository;
   }
 
+  /**
+   * Method to add a new log
+   *
+   * @param deviceID
+   * @param sensorID
+   * @param localDateTime
+   * @param readingValue
+   * @param sensorTypeID
+   * @param unitID
+   */
+  @Override
+  public Log addLog(DeviceID deviceID, SensorID sensorID, LocalDateTime localDateTime,
+      ReadingValue readingValue, SensorTypeID sensorTypeID, UnitID unitID) {
+    deviceIDexists(deviceID);
+    sensorIDexists(sensorID);
+    sensorTypeIDexists(sensorTypeID);
+    unitIDexists(unitID);
+
+    Log log = logFactory.createLog(deviceID, sensorID, localDateTime, readingValue, sensorTypeID,
+        unitID);
+
+    return logRepository.save(log);
+  }
+
+  /**
+   * Method to check if the device ID exists
+   *
+   * @param deviceID DeviceID object
+   */
+  private void deviceIDexists(DeviceID deviceID) {
+    if (!deviceRepository.containsOfIdentity(deviceID)) {
+      throw new IllegalArgumentException("Device ID does not exist");
+    }
+  }
+
+  /**
+   * Method to check if the sensor ID exists
+   *
+   * @param sensorID SensorID object
+   */
+  private void sensorIDexists(SensorID sensorID) {
+    if (!sensorRepository.containsOfIdentity(sensorID)) {
+      throw new IllegalArgumentException("Sensor ID does not exist");
+    }
+  }
+
+  /**
+   * Method to check if the sensor type ID exists
+   *
+   * @param sensorTypeID SensorTypeID object
+   */
+  private void sensorTypeIDexists(SensorTypeID sensorTypeID) {
+    if (!sensorTypeRepository.containsOfIdentity(sensorTypeID)) {
+      throw new IllegalArgumentException("Sensor Type ID does not exist");
+    }
+  }
+
+  /**
+   * Method to check if the unit ID exists
+   *
+   * @param unitID UnitID object
+   */
+  private void unitIDexists(UnitID unitID) {
+    if (!unitRepository.containsOfIdentity(unitID)) {
+      throw new IllegalArgumentException("Unit ID does not exist");
+    }
+  }
 
   /**
    * Method to get device readings by time period

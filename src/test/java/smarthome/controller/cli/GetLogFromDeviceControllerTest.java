@@ -24,6 +24,9 @@ import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.repository.ILogRepository;
 import smarthome.domain.repository.IRoomRepository;
+import smarthome.domain.repository.ISensorRepository;
+import smarthome.domain.repository.ISensorTypeRepository;
+import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.room.IRoomFactory;
 import smarthome.domain.room.Room;
 import smarthome.domain.room.RoomFactoryImpl;
@@ -60,6 +63,10 @@ class GetLogFromDeviceControllerTest {
 
   private ILogRepository logRepository;
   private IDeviceRepository deviceRepository;
+  private ISensorRepository sensorRepository;
+  private ISensorTypeRepository sensorTypeRepository;
+  private IUnitRepository unitRepository;
+  private ILogFactory logFactory;
   private IRoomRepository roomRepository;
   private IHouseRepository houseRepository;
   private IHouseService houseServiceImpl;
@@ -77,7 +84,8 @@ class GetLogFromDeviceControllerTest {
   @BeforeEach
   void setup() {
     logRepository = mock(LogRepository.class);
-    ILogService logService = new LogServiceImpl(logRepository);
+    ILogService logService = new LogServiceImpl(logRepository, deviceRepository, sensorRepository,
+        sensorTypeRepository, unitRepository, logFactory);
     IAssembler<Log, LogDTO> logAssembler = new LogAssembler();
     deviceRepository = mock(IDeviceRepository.class);
     IDeviceFactory deviceFactory = new DeviceFactoryImpl();

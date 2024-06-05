@@ -1,15 +1,26 @@
 package smarthome.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import smarthome.ddd.IService;
 import smarthome.domain.device.Device;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
+import smarthome.domain.value_object.ReadingValue;
+import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
+import smarthome.domain.value_object.UnitID;
 
 public interface ILogService extends IService {
+
+
+  /**
+   * Method to add a new log
+   */
+  Log addLog(DeviceID deviceID, SensorID sensorID, LocalDateTime localDateTime,
+      ReadingValue readingValue, SensorTypeID sensorTypeID, UnitID unitID);
 
   /**
    * Method to get device readings by time period

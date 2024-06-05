@@ -21,8 +21,14 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.mockito.Answers;
 import smarthome.domain.device.Device;
+import smarthome.domain.log.ILogFactory;
 import smarthome.domain.log.Log;
+import smarthome.domain.log.LogFactoryImpl;
+import smarthome.domain.repository.IDeviceRepository;
 import smarthome.domain.repository.ILogRepository;
+import smarthome.domain.repository.ISensorRepository;
+import smarthome.domain.repository.ISensorTypeRepository;
+import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ReadingValue;
@@ -48,10 +54,17 @@ class LogServiceImplTest {
   @Test
   void shouldInstantiateValidLog() {
     // Arrange
-    ILogRepository logRepositoryDouble = mock(ILogRepository.class);
+    ILogRepository logRepository = mock(ILogRepository.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
 
     // Act
-    LogServiceImpl result = new LogServiceImpl(logRepositoryDouble);
+    LogServiceImpl result = new LogServiceImpl(logRepository, deviceRepository, sensorRepository,
+        sensorTypeRepository, unitRepository, logFactory);
+
 
     // Assert
     assertNotNull(result);
@@ -64,11 +77,17 @@ class LogServiceImplTest {
   @Test
   void shouldThrowIllegalArgumentExceptionWhenLogRepositoryIsNull() {
     // Arrange
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
     ILogRepository logRepository = null;
     String expectedMessage = "Log Repository is required";
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> new LogServiceImpl(logRepository));
+        () -> new LogServiceImpl(logRepository, deviceRepository, sensorRepository,
+            sensorTypeRepository, unitRepository, logFactory));
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
@@ -79,6 +98,11 @@ class LogServiceImplTest {
   @Test
   void shouldReturnLogs_whenDeviceReadingsByTimePeriodIsCalled() {
     // Arrange
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
     DeviceID deviceID = mock(DeviceID.class);
     DatePeriod period = mock(DatePeriod.class);
 
@@ -91,7 +115,8 @@ class LogServiceImplTest {
     when(logRepository.findByDeviceIDAndDatePeriodBetween(deviceID, period)).thenReturn(
         expectedLogs);
 
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     // Act
     List<Log> actualLogs = logService.getDeviceReadingsByTimePeriod(deviceID, period);
@@ -106,6 +131,11 @@ class LogServiceImplTest {
   @Test
   void shouldReturnEmptyList_whenDeviceReadingsByTimePeriodIsCalled() {
     // Arrange
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
     DeviceID deviceID = mock(DeviceID.class);
     DatePeriod period = mock(DatePeriod.class);
 
@@ -115,7 +145,8 @@ class LogServiceImplTest {
     when(logRepository.findByDeviceIDAndDatePeriodBetween(deviceID, period)).thenReturn(
         expectedLogs);
 
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     // Act
     List<Log> actualLogs = logService.getDeviceReadingsByTimePeriod(deviceID, period);
@@ -131,6 +162,12 @@ class LogServiceImplTest {
   void shouldReturnLogs_whenDeviceReadingsBySensorTypeAndTimePeriodIsCalled()
       throws Exception {
     // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
     DeviceID deviceID = mock(DeviceID.class);
     SensorTypeID sensorTypeID = mock(SensorTypeID.class);
     DatePeriod period = mock(DatePeriod.class);
@@ -140,12 +177,12 @@ class LogServiceImplTest {
 
     List<Log> expectedLogs = List.of(log, log2);
 
-    ILogRepository logRepository = mock(ILogRepository.class);
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(deviceID, sensorTypeID,
         period))
         .thenReturn(expectedLogs);
 
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     // Act
     List<Log> actualLogs = logService.getDeviceReadingsBySensorTypeAndTimePeriod(deviceID,
@@ -161,6 +198,12 @@ class LogServiceImplTest {
   @Test
   void shouldThrowException_whenDeviceReadingsBySensorTypeAndTimePeriodIsCalledAndGetsEmptyList() {
     // Arrange
+
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
     DeviceID deviceID = mock(DeviceID.class);
     SensorTypeID sensorTypeID = mock(SensorTypeID.class);
     DatePeriod period = mock(DatePeriod.class);
@@ -172,7 +215,8 @@ class LogServiceImplTest {
         period))
         .thenReturn(emptyLogs);
 
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     String expectedMessage = "No readings found for the given time period";
 
@@ -192,6 +236,11 @@ class LogServiceImplTest {
   @Test
   void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndReadingsAreWithin5MinutesInterval() throws Exception{
     // Arrange
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
     when(readingValue1.getValue()).thenReturn("5");
@@ -211,7 +260,8 @@ class LogServiceImplTest {
     List<Log> list2 = List.of(log2);
 
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     TimeDelta timeDelta = mock(TimeDelta.class);
     when(timeDelta.getMinutes()).thenReturn(5);
@@ -231,6 +281,11 @@ class LogServiceImplTest {
   @Test
   void shouldReturnMaxDifferenceBetweenReadings_whenGetMaxDifferenceBetweenReadingsIsCalledAndMultipleReadingsAreWithin5MinutesInterval() throws Exception {
     // Arrange
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
     when(readingValue1.getValue()).thenReturn("5");
@@ -257,7 +312,8 @@ class LogServiceImplTest {
     List<Log> list2 = List.of(log2, log3);
 
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     TimeDelta timeDelta = mock(TimeDelta.class);
     when(timeDelta.getMinutes()).thenReturn(5);
@@ -279,6 +335,11 @@ class LogServiceImplTest {
   @Test
   void shouldThrowException_whenGetMaxDifferenceBetweenReadingsIsCalledAndReadingsAreNotWithin5MinutesInterval() {
     // Arrange
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
     /* Mocking one log object and adding it to a list*/
     ReadingValue readingValue1 = mock(ReadingValue.class);
     when(readingValue1.getValue()).thenReturn("5");
@@ -298,7 +359,8 @@ class LogServiceImplTest {
     List<Log> list2 = List.of(log2);
 
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     TimeDelta timeDelta = mock(TimeDelta.class);
     when(timeDelta.getMinutes()).thenReturn(5);
@@ -318,7 +380,13 @@ class LogServiceImplTest {
   void shouldReturnSumOfTwoReadingContainingInteger_WhenGetSumOfTwoIntegerReadingsCalled() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("5");
     Log log = mock(Log.class);
@@ -338,7 +406,13 @@ class LogServiceImplTest {
   void shouldThrowExeption_WhenGetSumOfTwoIntegerReadingsCalledOnNonIntengerReading() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("testes");
     Log log = mock(Log.class);
@@ -361,7 +435,13 @@ class LogServiceImplTest {
   void shouldReturnDifferenceOfTwoReadingContainingInteger_WhenGetDifferenceBetweenReadingsCalled() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("5");
     Log log = mock(Log.class);
@@ -381,7 +461,13 @@ class LogServiceImplTest {
   void shouldThrowExeption_WWhenGetDifferenceBetweenReadingsCalledWithNonIntengerReading() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("testes");
     Log log = mock(Log.class);
@@ -404,7 +490,13 @@ class LogServiceImplTest {
   void shouldReturnTheMaximumValueFromAListOfLogs_WhenGetMaximumValueFromListOfIntegersIsCalled() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("5");
     Log log = mock(Log.class);
@@ -428,7 +520,13 @@ class LogServiceImplTest {
   void shouldReturnTheMaximumValueFromAListOfLogsWithNegativeAndZero_WhenGetMaximumValueFromListOfIntegersIsCalled() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("5");
     Log log = mock(Log.class);
@@ -457,7 +555,13 @@ class LogServiceImplTest {
   void shouldReturnMapWithAllPositionsOfTwoListsThatAreWithinTimeDelta_WhenGetPositionsOfReadingsWithinTimeDeltaIsCalled() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("5");
@@ -496,7 +600,13 @@ class LogServiceImplTest {
   void shouldReturnEmptyMapWhenNoReadingsAreWithinTimeDelta_WhenGetPositionsOfReadingsWithinTimeDeltaIsCalled() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("5");
@@ -528,7 +638,13 @@ class LogServiceImplTest {
   void shouldReturnTrueWhenTwoLogsAreWithinTimeDelta_WheShouldReturnTrueWhenReadingIsWithinTimeDeltaIsCalled() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("5");
@@ -556,7 +672,13 @@ class LogServiceImplTest {
   void shouldReturnFalseWhenTwoLogsAreNotWithinTimeDelta_WheShouldReturnTrueWhenReadingIsWithinTimeDeltaIsCalled() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("5");
@@ -584,8 +706,14 @@ class LogServiceImplTest {
   void shouldReturnPeakPowerConsumptionWhenResultIsSumWithinDelta_WhenGetPeakPowerConsumptionIsCalled()
        {
     // Arrange
-    ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+         ILogRepository logRepository = mock(ILogRepository.class);
+         IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+         ISensorRepository sensorRepository = mock(ISensorRepository.class);
+         ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+         IUnitRepository unitRepository = mock(IUnitRepository.class);
+         ILogFactory logFactory = new LogFactoryImpl();
+         LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+             sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("5");
@@ -617,8 +745,14 @@ class LogServiceImplTest {
   void shouldReturnPeakPowerConsumptionWhenResultIsReadingFromFirstList_WhenGetPeakPowerConsumptionIsCalled()
        {
     // Arrange
-    ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+         ILogRepository logRepository = mock(ILogRepository.class);
+         IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+         ISensorRepository sensorRepository = mock(ISensorRepository.class);
+         ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+         IUnitRepository unitRepository = mock(IUnitRepository.class);
+         ILogFactory logFactory = new LogFactoryImpl();
+         LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+             sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("10");
@@ -656,8 +790,14 @@ class LogServiceImplTest {
   void shouldReturnPeakPowerConsumptionWhenResultIsReadingFromSecondList_WhenGetPeakPowerConsumptionIsCalled()
        {
     // Arrange
-    ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+         ILogRepository logRepository = mock(ILogRepository.class);
+         IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+         ISensorRepository sensorRepository = mock(ISensorRepository.class);
+         ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+         IUnitRepository unitRepository = mock(IUnitRepository.class);
+         ILogFactory logFactory = new LogFactoryImpl();
+         LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+             sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     ReadingValue readingValue = mock(ReadingValue.class);
     when(readingValue.getValue()).thenReturn("5");
@@ -689,7 +829,13 @@ class LogServiceImplTest {
   void shouldReturnLogsOnGetReadingsInTimePeriodByListOfDevicesAndSensorTypeIsCalled() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     // Mock Log data
     Log log1 = createMockLog("5", LocalDateTime.of(2024, 1, 1, 1, 1));
@@ -721,7 +867,13 @@ class LogServiceImplTest {
   void shouldReturnLogsForMultipleDevicesAndMultipleLogEntries() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     // Mock Log data (5 entries)
     List<Log> sampleslogs = Arrays.asList(
@@ -766,7 +918,13 @@ class LogServiceImplTest {
   void shouldReturnEmptyListWhenNoLogsFound() {
     // Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     // Mock Devices (you can reuse the same devices from the previous example)
     Device device1 = mock(Device.class, withSettings().defaultAnswer(Answers.RETURNS_DEEP_STUBS));
@@ -804,7 +962,13 @@ class LogServiceImplTest {
   void shouldReturnDevicesReadingsByDeviceIDAndSensorTypeID () {
     //Arrange
     ILogRepository logRepository = mock(ILogRepository.class);
-    LogServiceImpl logService = new LogServiceImpl(logRepository);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = new LogFactoryImpl();
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
 
     // Mock Log data
     Log log1 = createMockLog("5", LocalDateTime.of(2024, 1, 1, 1, 1));
@@ -827,14 +991,4 @@ class LogServiceImplTest {
     // Assert
     assertEquals(expectedLogs, result);
   }
-
-
-
-
-
-
-
-
-
-
 }
