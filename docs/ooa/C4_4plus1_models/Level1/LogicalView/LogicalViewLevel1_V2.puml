@@ -5,6 +5,6 @@ component SmartHome <<system (C4)>> {
 port p1
 }
 
-APIRest -down- p1
+UI -down- p1
 
 @enduml
