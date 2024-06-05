@@ -20,7 +20,7 @@ const BlindRollerPosition = ({ deviceId }) => {
             return <Typography variant="h6">Error: {error}</Typography>;
         }
         if (data) {
-            return <Typography variant="h7">Current Blind Roller position: {data}</Typography>;
+            return <Typography variant="h6">Current Blind Roller position: {data}</Typography>;
         }
         return <Typography variant="h6">No data available</Typography>;
     };

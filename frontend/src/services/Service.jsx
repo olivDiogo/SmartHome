@@ -133,11 +133,14 @@ export function fetchCurrentPositionValue(success, failure, deviceID) {
     fetch(`${URL_API}/logs/get-position-blindRoller?deviceID=${deviceID}`)
         .then(res => res.json())
         .then(res => {
-            console.log("Success:", res);
-            success(res)
+            if (res.status === 404) {
+                success('No logs found');
+            } else {
+                console.log("Success:", res);
+                success(res);
+            }
         })
         .catch(err => {
-            console.error("Error fetching position:", err);
             failure(err.message)
         });
 }
