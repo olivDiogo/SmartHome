@@ -27,7 +27,7 @@ function OutsideTemperatureWidget() {
             // Truncate the error message to fit within the box
             const truncatedError = error.length > 50 ? error.substring(0, 50) + '...' : error;
             return (
-                <Typography variant="h6" style={{textAlign: 'center'}}>
+                <Typography variant="subtitle1" style={{textAlign: 'center'}}>
                     Error: {truncatedError}
                 </Typography>
             );

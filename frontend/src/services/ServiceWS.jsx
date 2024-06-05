@@ -1,28 +1,47 @@
 import {FETCH_TEMPERATURE_FAILURE} from "../context/TemperatureActions.jsx";
 
 export function configureWeatherService() {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 7000); // 7 seconds timeout
+
     return fetch("http://10.9.24.170:8080/WeatherServiceConfiguration", {
-        method: "POST", headers: {
+        method: "POST",
+        headers: {
             "Content-Type": "application/json",
-        }, body: JSON.stringify({
-            "groupNumber": 1, "latitude": 40.00, "longitude": 80.00
-        })
+        },
+        body: JSON.stringify({
+            "groupNumber": 1,
+            "latitude": 40.00,
+            "longitude": 80.00
+        }),
+        signal: controller.signal
     }).then(response => {
+        clearTimeout(timeoutId); // Clear the timeout on success
         if (!response.ok) {
             throw new Error("Weather service configuration failed");
         }
         return response.json();
     }).catch(error => {
+        clearTimeout(timeoutId); // Clear the timeout on failure
+        if (error.name === 'AbortError') {
+            throw new Error("Please check your VPN DEI connection and try again");
+        }
         throw new Error("Please check your VPN DEI connection and try again");
     });
 }
 
 export function fetchTemperatureFromWS(success, failure) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 7000); // 7 seconds timeout
+
     const now = new Date();
     const hour = now.getHours();
 
-    fetch(`http://10.9.24.170:8080/InstantaneousTemperature?groupNumber=1&hour=${hour}`)
-        .then((response) => response.json())
+    fetch(`http://10.9.24.170:8080/InstantaneousTemperature?groupNumber=1&hour=${hour}`, {signal: controller.signal})
+        .then((response) => {
+            clearTimeout(timeoutId); // Clear the timeout on success
+            return response.json();
+        })
         .then((data) => {
             if (data && data.measurement !== "NaN" && data.unit === "C") {
                 success(`${data.measurement}ºC`);
@@ -31,8 +50,13 @@ export function fetchTemperatureFromWS(success, failure) {
             }
         })
         .catch((err) => {
-            console.error("Error fetching temperature:", err);
-            failure("Error fetching temperature");
+            clearTimeout(timeoutId); // Clear the timeout on failure
+            if (err.name === 'AbortError') {
+                failure("Please check your VPN DEI connection and try again");
+            } else {
+                console.error("Error fetching temperature:", err);
+                failure("Error fetching temperature");
+            }
         });
 }
 
