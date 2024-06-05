@@ -2,22 +2,27 @@ export const URL_API = 'http://localhost:8080';
 
 export function fetchRoomsFromServer(success, failure) {
     fetch(`${URL_API}/rooms`)
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`Network response was not ok: ${res.statusText}`);
+            }
+            return res.json();
+        })
         .then(res => success(res))
         .catch(err => failure(err.message));
 }
 
-export function fetchRoomByIdFromServer(id) {
-    return fetch(`${URL_API}/rooms/${id}`)
+
+export function fetchRoomByIdFromServer(success, failure, id) {
+    fetch(`${URL_API}/rooms/${id}`)
         .then(res => {
             if (!res.ok) {
                 throw new Error('Network response was not ok');
             }
             return res.json();
         })
-        .catch(err => {
-            throw new Error(`Fetching room failed: ${err.message}`);
-        });
+        .then(res => success(res))
+        .catch(err => failure(err.message));
 }
 
 export function fetchDevicesByRoomIdFromServer(success, failure, id) {
@@ -26,7 +31,6 @@ export function fetchDevicesByRoomIdFromServer(success, failure, id) {
         .then(res => success(res._embedded.deviceDTOList))
         .catch(err => failure(err.message));
 }
-
 
 export function fetchActuatorModelsFromServer(success, failure) {
     fetch(`${URL_API}/actuatorModels`)
@@ -160,7 +164,6 @@ export function fetchActuatorsByDeviceId(success, failure, deviceId) {
         .catch(err => failure(err.message));
 }
 
-
 export function setBlindRollerValue(success, failure, deviceID, actuatorID, value) {
     fetch(`${URL_API}/actuators/set-blindRoller`, {
         method: 'POST',
@@ -180,5 +183,19 @@ export function setBlindRollerValue(success, failure, deviceID, actuatorID, valu
             return res.json();
         })
         .then(data => success(data))
+        .catch(err => failure(err.message));
+}
+
+export function fetchDeviceTypesFromServer(success, failure) {
+    fetch(`${URL_API}/device-types`)
+        .then(res => res.json())
+        .then(res => {
+            console.log('Fetched device types:', res);
+            if (res._embedded && res._embedded.deviceTypeDTOList) {
+                success(res._embedded.deviceTypeDTOList);
+            } else {
+                throw new Error('Invalid response structure');
+            }
+        })
         .catch(err => failure(err.message));
 }

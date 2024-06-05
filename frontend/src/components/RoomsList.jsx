@@ -37,7 +37,7 @@ function RoomsList() {
         return <h1>Error: {error}</h1>;
     }
 
-    if (data.length === 0) {
+    if (!Array.isArray(data) || data.length === 0) {
         return <h1>No data ....</h1>;
     }
 

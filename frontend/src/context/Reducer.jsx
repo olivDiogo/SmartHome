@@ -2,9 +2,21 @@ import {
     ADD_DEVICE_FAILURE,
     ADD_DEVICE_STARTED,
     ADD_DEVICE_SUCCESS,
+    FETCH_ACTUATORS_FAILURE,
+    FETCH_ACTUATORS_STARTED,
+    FETCH_ACTUATORS_SUCCESS,
+    FETCH_CURRENT_POSITION_FAILURE,
+    FETCH_CURRENT_POSITION_STARTED,
+    FETCH_CURRENT_POSITION_SUCCESS,
+    FETCH_DEVICE_TYPES_FAILURE,
+    FETCH_DEVICE_TYPES_STARTED,
+    FETCH_DEVICE_TYPES_SUCCESS,
     FETCH_DEVICES_FAILURE,
     FETCH_DEVICES_STARTED,
     FETCH_DEVICES_SUCCESS,
+    FETCH_LOGS_FAILURE,
+    FETCH_LOGS_STARTED,
+    FETCH_LOGS_SUCCESS,
     FETCH_ROOM_BY_ID_FAILURE,
     FETCH_ROOM_BY_ID_STARTED,
     FETCH_ROOM_BY_ID_SUCCESS,
@@ -14,36 +26,27 @@ import {
     FETCH_SENSOR_MODELS_FAILURE,
     FETCH_SENSOR_MODELS_STARTED,
     FETCH_SENSOR_MODELS_SUCCESS,
-    FETCH_LOGS_STARTED,
-    FETCH_LOGS_SUCCESS,
-    FETCH_LOGS_FAILURE,
-    UPDATE_DEVICE_STARTED,
-    UPDATE_DEVICE_SUCCESS,
-    UPDATE_DEVICE_FAILURE,
-    SET_CURRENT_ROOM,
     FETCH_SENSOR_TYPES_FAILURE,
     FETCH_SENSOR_TYPES_STARTED,
     FETCH_SENSOR_TYPES_SUCCESS,
-    UPDATE_SELECTED_TYPE_OF_SENSOR,
-    UPDATE_SELECTED_SENSOR_MODEL,
-    UPDATE_SELECTED_SENSOR_TYPE_ID,
-    FETCH_CURRENT_POSITION_STARTED,
-    FETCH_CURRENT_POSITION_SUCCESS,
-    FETCH_CURRENT_POSITION_FAILURE,
+    SET_BLIND_ROLLER_VALUE_FAILURE,
     SET_BLIND_ROLLER_VALUE_STARTED,
     SET_BLIND_ROLLER_VALUE_SUCCESS,
-    SET_BLIND_ROLLER_VALUE_FAILURE,
-    FETCH_ACTUATORS_STARTED,
-    FETCH_ACTUATORS_SUCCESS,
-    FETCH_ACTUATORS_FAILURE
-} from './Actions';
+    SET_CURRENT_ROOM,
+    UPDATE_DEVICE_FAILURE,
+    UPDATE_DEVICE_STARTED,
+    UPDATE_DEVICE_SUCCESS,
+    UPDATE_SELECTED_SENSOR_MODEL,
+    UPDATE_SELECTED_SENSOR_TYPE_ID,
+    UPDATE_SELECTED_TYPE_OF_SENSOR
+} from "./Actions.jsx";
 import {
     FETCH_TEMPERATURE_FAILURE,
     FETCH_TEMPERATURE_STARTED,
     FETCH_TEMPERATURE_SUCCESS
-} from './TemperatureActions';
+} from "./TemperatureActions.jsx";
 
-function reducer(state, action) {
+function reducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_ROOMS_STARTED:
             return {
@@ -53,28 +56,25 @@ function reducer(state, action) {
                     error: null,
                     data: []
                 }
-            }
-
+            };
         case FETCH_ROOMS_SUCCESS:
             return {
                 ...state,
                 rooms: {
                     loading: false,
                     error: null,
-                    data: [...action.payload.data]
+                    data: action.payload.data
                 }
-            }
-
+            };
         case FETCH_ROOMS_FAILURE:
             return {
                 ...state,
                 rooms: {
                     loading: false,
                     error: action.payload.error,
-                    data: [],
+                    data: []
                 }
-            }
-
+            };
         case SET_CURRENT_ROOM:
             return {
                 ...state,
@@ -83,38 +83,33 @@ function reducer(state, action) {
                     roomName: action.payload.roomName
                 }
             };
-
         case FETCH_ROOM_BY_ID_STARTED:
             return {
                 ...state,
                 room: {
                     loading: true,
                     error: null,
-                    data: []
+                    data: null
                 }
-            }
-
+            };
         case FETCH_ROOM_BY_ID_SUCCESS:
-
             return {
                 ...state,
                 room: {
                     loading: false,
                     error: null,
-                    data: [...action.payload.data]
+                    data: action.payload.data
                 }
-            }
-
+            };
         case FETCH_ROOM_BY_ID_FAILURE:
             return {
                 ...state,
                 room: {
                     loading: false,
                     error: action.payload.error,
-                    data: [],
+                    data: null
                 }
-            }
-
+            };
         case FETCH_DEVICES_STARTED:
             return {
                 ...state,
@@ -123,28 +118,25 @@ function reducer(state, action) {
                     error: null,
                     data: []
                 }
-            }
-
+            };
         case FETCH_DEVICES_SUCCESS:
             return {
                 ...state,
                 devices: {
                     loading: false,
                     error: null,
-                    data: [...action.payload.data]
+                    data: action.payload.data
                 }
-            }
-
+            };
         case FETCH_DEVICES_FAILURE:
             return {
                 ...state,
                 devices: {
                     loading: false,
                     error: action.payload.error,
-                    data: [],
+                    data: []
                 }
-            }
-
+            };
         case FETCH_TEMPERATURE_STARTED:
             return {
                 ...state,
@@ -153,8 +145,7 @@ function reducer(state, action) {
                     error: null,
                     data: null
                 }
-            }
-
+            };
         case FETCH_TEMPERATURE_SUCCESS:
             return {
                 ...state,
@@ -163,8 +154,7 @@ function reducer(state, action) {
                     error: null,
                     data: action.payload.data
                 }
-            }
-
+            };
         case FETCH_TEMPERATURE_FAILURE:
             return {
                 ...state,
@@ -173,8 +163,7 @@ function reducer(state, action) {
                     error: action.payload.error,
                     data: null
                 }
-            }
-
+            };
         case FETCH_SENSOR_MODELS_STARTED:
             return {
                 ...state,
@@ -183,37 +172,31 @@ function reducer(state, action) {
                     error: null,
                     data: []
                 }
-            }
-
+            };
         case FETCH_SENSOR_MODELS_SUCCESS:
             return {
                 ...state,
                 sensorModels: {
                     loading: false,
                     error: null,
-                    data: [...action.payload.data]
+                    data: action.payload.data
                 }
-            }
-
-
+            };
         case FETCH_SENSOR_MODELS_FAILURE:
             return {
                 ...state,
                 sensorModels: {
                     loading: false,
                     error: action.payload.error,
-                    data: [],
+                    data: []
                 }
-            }
-
-
+            };
         case ADD_DEVICE_STARTED:
             return {
                 ...state,
                 addingDevice: true,
                 addDeviceError: null
             };
-
         case ADD_DEVICE_SUCCESS:
             return {
                 ...state,
@@ -224,14 +207,12 @@ function reducer(state, action) {
                     data: [...state.devices.data, action.payload.device]
                 }
             };
-
         case ADD_DEVICE_FAILURE:
             return {
                 ...state,
                 addingDevice: false,
                 addDeviceError: action.payload.error
             };
-
         case FETCH_SENSOR_TYPES_STARTED:
             return {
                 ...state,
@@ -241,17 +222,15 @@ function reducer(state, action) {
                     data: []
                 }
             };
-
         case FETCH_SENSOR_TYPES_SUCCESS:
             return {
                 ...state,
                 sensorTypes: {
                     loading: false,
                     error: null,
-                    data: [...action.payload.data]
+                    data: action.payload.data
                 }
             };
-
         case FETCH_SENSOR_TYPES_FAILURE:
             return {
                 ...state,
@@ -261,8 +240,6 @@ function reducer(state, action) {
                     data: []
                 }
             };
-
-
         case FETCH_LOGS_STARTED:
             return {
                 ...state,
@@ -272,27 +249,24 @@ function reducer(state, action) {
                     data: []
                 }
             };
-
         case FETCH_LOGS_SUCCESS:
             return {
                 ...state,
                 logs: {
                     loading: false,
                     error: null,
-                    data: [...action.payload.data]
+                    data: action.payload.data
                 }
             };
-
         case FETCH_LOGS_FAILURE:
             return {
                 ...state,
                 logs: {
                     loading: false,
                     error: action.payload.error,
-                    data: [],
+                    data: []
                 }
             };
-
         case UPDATE_DEVICE_STARTED:
             return {
                 ...state,
@@ -302,7 +276,6 @@ function reducer(state, action) {
                     data: null
                 }
             };
-
         case UPDATE_DEVICE_SUCCESS:
             return {
                 ...state,
@@ -312,7 +285,6 @@ function reducer(state, action) {
                     data: action.payload.data
                 }
             };
-
         case UPDATE_DEVICE_FAILURE:
             return {
                 ...state,
@@ -322,26 +294,21 @@ function reducer(state, action) {
                     data: null
                 }
             };
-
         case UPDATE_SELECTED_SENSOR_TYPE_ID:
             return {
                 ...state,
                 selectedSensorTypeId: action.payload.selectedSensorType
             };
-
-
         case UPDATE_SELECTED_SENSOR_MODEL:
             return {
                 ...state,
                 selectedSensorModel: action.payload.selectedSensorModel
             };
-
         case UPDATE_SELECTED_TYPE_OF_SENSOR:
             return {
                 ...state,
                 selectedTypeOfSensor: action.payload.selectedTypeOfSensor
             };
-
         case FETCH_CURRENT_POSITION_STARTED:
             return {
                 ...state,
@@ -371,7 +338,6 @@ function reducer(state, action) {
                     error: action.payload.error
                 }
             };
-
         case SET_BLIND_ROLLER_VALUE_STARTED:
             return {
                 ...state,
@@ -381,7 +347,6 @@ function reducer(state, action) {
                     message: null
                 }
             };
-
         case SET_BLIND_ROLLER_VALUE_SUCCESS:
             return {
                 ...state,
@@ -391,7 +356,6 @@ function reducer(state, action) {
                     message: action.payload.message
                 }
             };
-
         case SET_BLIND_ROLLER_VALUE_FAILURE:
             return {
                 ...state,
@@ -401,19 +365,63 @@ function reducer(state, action) {
                     message: null
                 }
             };
-
+        case FETCH_DEVICE_TYPES_STARTED:
+            return {
+                ...state,
+                deviceTypes: {
+                    loading: true,
+                    error: null,
+                    data: []
+                }
+            };
+        case FETCH_DEVICE_TYPES_SUCCESS:
+            return {
+                ...state,
+                deviceTypes: {
+                    loading: false,
+                    error: null,
+                    data: action.payload.data
+                }
+            };
+        case FETCH_DEVICE_TYPES_FAILURE:
+            return {
+                ...state,
+                deviceTypes: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: []
+                }
+            };
         case FETCH_ACTUATORS_STARTED:
-            return {...state, actuators: {loading: true, error: null, data: []}};
+            return {
+                ...state,
+                actuators: {
+                    loading: true,
+                    error: null,
+                    data: []
+                }
+            };
         case FETCH_ACTUATORS_SUCCESS:
-            return {...state, actuators: {loading: false, error: null, data: action.payload.actuators}};
+            return {
+                ...state,
+                actuators: {
+                    loading: false,
+                    error: null,
+                    data: action.payload.actuators
+                }
+            };
         case FETCH_ACTUATORS_FAILURE:
-            return {...state, actuators: {loading: false, error: action.payload.error, data: []}};
-
+            return {
+                ...state,
+                actuators: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: []
+                }
+            };
         default:
             return state;
     }
-
 }
-
 
 export default reducer;

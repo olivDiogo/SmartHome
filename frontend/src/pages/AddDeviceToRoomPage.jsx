@@ -1,9 +1,10 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {
     Alert,
     Box,
     Button,
+    CircularProgress,
     Container,
     FormControl,
     InputLabel,
@@ -13,10 +14,8 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-import {addDeviceToRoom, fetchRoomById} from '../context/Actions.jsx';
+import {addDeviceToRoom, fetchDeviceTypes, fetchRoomById} from '../context/Actions.jsx';
 import AppContext from '../context/AppContext.jsx';
-
-const deviceTypes = ["PowerMeter", "PowerSource", "TemperatureGarden", "TemperatureBedroom", "AutomaticBlinds", "LightSensor", "GeneralDevice"]; // Example device types
 
 function AddDeviceToRoomPage() {
     const {roomId} = useParams();
@@ -26,13 +25,11 @@ function AddDeviceToRoomPage() {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     const navigate = useNavigate();
-    const {dispatch} = useContext(AppContext);
-
-    // Ref para o elemento de áudio
-    const audioRef = useRef(null);
+    const {state, dispatch} = useContext(AppContext);
 
     useEffect(() => {
         fetchRoomById(dispatch, roomId);
+        fetchDeviceTypes(dispatch);
     }, [roomId, dispatch]);
 
     const handleSubmit = async (e) => {
@@ -43,16 +40,6 @@ function AddDeviceToRoomPage() {
                 await addDeviceToRoom(dispatch, roomId, device);
                 setSnackbarMessage('Device added successfully!');
                 setSnackbarSeverity('success');
-                console.log("Device added successfully, attempting to play audio...");
-                if (audioRef.current) {
-                    audioRef.current.play()
-                        .then(() => {
-                            console.log("Audio played successfully.");
-                        })
-                        .catch((error) => {
-                            console.error("Error playing audio:", error);
-                        });
-                }
             } catch (error) {
                 setSnackbarMessage(`Failed to add device: ${error.message}`);
                 setSnackbarSeverity('error');
@@ -72,6 +59,20 @@ function AddDeviceToRoomPage() {
         navigate('/');
     };
 
+    const {room, deviceTypes} = state;
+
+    if (room.loading || deviceTypes.loading) {
+        return <CircularProgress/>;
+    }
+
+    if (room.error) {
+        return <Alert severity="error">Error loading room: {room.error}</Alert>;
+    }
+
+    if (deviceTypes.error) {
+        return <Alert severity="error">Error loading device types: {deviceTypes.error}</Alert>;
+    }
+
     return (
         <Container maxWidth="sm">
             <Box
@@ -82,7 +83,7 @@ function AddDeviceToRoomPage() {
                 minHeight="100vh"
             >
                 <Typography variant="h4" gutterBottom>
-                    Add New Device
+                    Add New Device to {room.data?.name || 'Room'}
                 </Typography>
                 <form onSubmit={handleSubmit} style={{width: '100%'}}>
                     <TextField
@@ -101,9 +102,9 @@ function AddDeviceToRoomPage() {
                             <MenuItem value="" disabled>
                                 Select a device type
                             </MenuItem>
-                            {deviceTypes.map((type, index) => (
-                                <MenuItem key={index} value={type}>
-                                    {type}
+                            {deviceTypes.data.map((type, index) => (
+                                <MenuItem key={index} value={type.description}>
+                                    {type.description}
                                 </MenuItem>
                             ))}
                         </Select>
@@ -130,9 +131,6 @@ function AddDeviceToRoomPage() {
                         {snackbarMessage}
                     </Alert>
                 </Snackbar>
-                {/* Elemento de áudio oculto para reprodução de som */}
-                <audio ref={audioRef} src="/sounds/SuccessSpeech.mp3" preload="auto"
-                       onCanPlayThrough={() => console.log("Audio is ready to play")}/>
             </Box>
         </Container>
     );
