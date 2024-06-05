@@ -8,6 +8,8 @@ import {
     fetchLogsByDeviceIdFromServer,
     updateCurrentDeviceFromServer,
     fetchSensorTypesFromServer,
+    fetchCurrentPositionValue,
+    setBlindRollerValue
 } from "../services/Service.jsx";
 
 
@@ -196,7 +198,7 @@ export function fetchSensorTypes(dispatch) {
     fetchSensorTypesFromServer(success, failure);
 }
 
-function fetchSensorTypesSuccess (sensorTypes) {
+function fetchSensorTypesSuccess(sensorTypes) {
     return {
         type: FETCH_SENSOR_TYPES_SUCCESS,
         payload: {
@@ -205,7 +207,7 @@ function fetchSensorTypesSuccess (sensorTypes) {
     }
 }
 
-function fetchSensorTypesFailure (message) {
+function fetchSensorTypesFailure(message) {
     return {
         type: FETCH_SENSOR_TYPES_FAILURE,
         payload: {
@@ -243,7 +245,7 @@ function fetchSensorModelsSuccess(sensorModels) {
         type: FETCH_SENSOR_MODELS_SUCCESS,
         payload: {
             data:
-                sensorModels
+            sensorModels
         }
 
     }
@@ -403,6 +405,7 @@ export function updateSelectedSensorModel(dispatch, selectedSensorModel) {
 
 
 export const UPDATE_SELECTED_TYPE_OF_SENSOR = 'UPDATE_SELECTED_TYPE_OF_SENSOR';
+
 export function updateSelectedTypeOfSensor(dispatch, selectedTypeOfSensor) {
     const action = {
         type: UPDATE_SELECTED_TYPE_OF_SENSOR,
@@ -411,5 +414,58 @@ export function updateSelectedTypeOfSensor(dispatch, selectedTypeOfSensor) {
         }
     }
     dispatch(action);
+}
+
+export const FETCH_CURRENT_POSITION_STARTED = 'FETCH_CURRENT_POSITION_STARTED';
+export const FETCH_CURRENT_POSITION_SUCCESS = 'FETCH_CURRENT_POSITION_SUCCESS';
+export const FETCH_CURRENT_POSITION_FAILURE = 'FETCH_CURRENT_POSITION_FAILURE';
+
+export function fetchCurrentPosition(dispatch, deviceID) {
+
+    dispatch({type: FETCH_CURRENT_POSITION_STARTED});
+
+    const success = (position) => {
+        dispatch({
+            type: FETCH_CURRENT_POSITION_SUCCESS,
+            payload: {data: position}
+        });
+    };
+    const failure = (error) => {
+        dispatch({
+            type: FETCH_CURRENT_POSITION_FAILURE,
+            payload: {error: error.message}
+        });
+    };
+
+    fetchCurrentPositionValue(success, failure, deviceID);
+}
+
+export const SET_BLIND_ROLLER_VALUE_STARTED = 'SET_BLIND_ROLLER_VALUE_STARTED';
+export const SET_BLIND_ROLLER_VALUE_SUCCESS = 'SET_BLIND_ROLLER_VALUE_SUCCESS';
+export const SET_BLIND_ROLLER_VALUE_FAILURE = 'SET_BLIND_ROLLER_VALUE_FAILURE';
+
+export function setBlindRoller(dispatch, deviceID, actuatorID, value) {
+
+    dispatch({type: SET_BLIND_ROLLER_VALUE_STARTED});
+
+    const success = (data) => {
+        dispatch({
+            type: SET_BLIND_ROLLER_VALUE_SUCCESS,
+            payload: {
+                data: data,
+                message: 'Blind roller value set successfully'
+            }
+        });
+    };
+    const failure = (error) => {
+        dispatch({
+            type: SET_BLIND_ROLLER_VALUE_FAILURE,
+            payload: {
+                error: error.message
+            }
+        });
+    };
+
+    setBlindRollerValue(success, failure, deviceID, actuatorID, value);
 }
 

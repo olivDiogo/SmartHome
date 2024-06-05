@@ -83,7 +83,7 @@ export function updateCurrentDeviceFromServer(success, failure, deviceId, device
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: deviceName })
+        body: JSON.stringify({name: deviceName})
     })
         .then(res => {
             if (!res.ok) {
@@ -100,6 +100,7 @@ export function updateCurrentDeviceFromServer(success, failure, deviceId, device
             console.error("Fetch error:", err.message);
         });
 }
+
 export function fetchSensorTypesFromServer(success, failure) {
     fetch(`${URL_API}/sensor-types`)
         .then(res => res.json())
@@ -125,5 +126,34 @@ export function fetchSensorModelsBySensorTypeIdFromServer(success, failure, sens
                 throw new Error('Invalid response structure');
             }
         })
+        .catch(err => failure(err.message));
+}
+
+export function fetchCurrentPositionValue(success, failure, deviceID) {
+    fetch(`${URL_API}/logs/get-position-blindRoller?deviceID=${deviceID}`)
+        .then(res => res.json())
+        .then(res => success(res))
+        .catch(err => failure(err.message));
+}
+
+export function setBlindRollerValue(success, failure, deviceID, actuatorID, value) {
+    fetch(`${URL_API}/actuators/set-blindRoller`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            deviceID: deviceID,
+            actuatorID: actuatorID,
+            value: value
+        }),
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .then(data => success(data))
         .catch(err => failure(err.message));
 }

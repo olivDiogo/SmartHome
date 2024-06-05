@@ -61,6 +61,12 @@ const initialState = {
 
     selectedSensorModel: "",
 
+    position:{
+        loading:true,
+        error: null,
+        data: null
+    }
+
 };
 
 const AppProvider = (props) => {

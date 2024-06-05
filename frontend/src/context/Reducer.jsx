@@ -20,14 +20,19 @@ import {
     UPDATE_DEVICE_STARTED,
     UPDATE_DEVICE_SUCCESS,
     UPDATE_DEVICE_FAILURE,
-
     SET_CURRENT_ROOM,
     FETCH_SENSOR_TYPES_FAILURE,
     FETCH_SENSOR_TYPES_STARTED,
     FETCH_SENSOR_TYPES_SUCCESS,
     UPDATE_SELECTED_TYPE_OF_SENSOR,
     UPDATE_SELECTED_SENSOR_MODEL,
-    UPDATE_SELECTED_SENSOR_TYPE_ID
+    UPDATE_SELECTED_SENSOR_TYPE_ID,
+    FETCH_CURRENT_POSITION_STARTED,
+    FETCH_CURRENT_POSITION_SUCCESS,
+    FETCH_CURRENT_POSITION_FAILURE,
+    SET_BLIND_ROLLER_VALUE_STARTED,
+    SET_BLIND_ROLLER_VALUE_SUCCESS,
+    SET_BLIND_ROLLER_VALUE_FAILURE
 } from './Actions';
 import {
     FETCH_TEMPERATURE_FAILURE,
@@ -188,7 +193,6 @@ function reducer(state, action) {
             }
 
 
-
         case FETCH_SENSOR_MODELS_FAILURE:
             return {
                 ...state,
@@ -198,7 +202,6 @@ function reducer(state, action) {
                     data: [],
                 }
             }
-
 
 
         case ADD_DEVICE_STARTED:
@@ -226,7 +229,7 @@ function reducer(state, action) {
                 addDeviceError: action.payload.error
             };
 
-            case FETCH_SENSOR_TYPES_STARTED:
+        case FETCH_SENSOR_TYPES_STARTED:
             return {
                 ...state,
                 sensorTypes: {
@@ -330,10 +333,70 @@ function reducer(state, action) {
                 selectedSensorModel: action.payload.selectedSensorModel
             };
 
-            case UPDATE_SELECTED_TYPE_OF_SENSOR:
+        case UPDATE_SELECTED_TYPE_OF_SENSOR:
             return {
                 ...state,
                 selectedTypeOfSensor: action.payload.selectedTypeOfSensor
+            };
+
+        case FETCH_CURRENT_POSITION_STARTED:
+            return {
+                ...state,
+                currentPosition: {
+                    loading: true,
+                    error: null,
+                    data: null
+                }
+            };
+
+        case FETCH_CURRENT_POSITION_SUCCESS:
+            return {
+                ...state,
+                currentPosition: {
+                    loading: false,
+                    error: null,
+                    data: action.payload.data
+                }
+            };
+
+        case FETCH_CURRENT_POSITION_FAILURE:
+            return {
+                ...state,
+                currentPosition: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: null
+                }
+            };
+
+        case SET_BLIND_ROLLER_VALUE_STARTED:
+            return {
+                ...state,
+                setBlindRollerStatus: {
+                    loading: true,
+                    error: null,
+                    message: null
+                }
+            };
+
+        case SET_BLIND_ROLLER_VALUE_SUCCESS:
+            return {
+                ...state,
+                setBlindRollerStatus: {
+                    loading: false,
+                    error: null,
+                    message: action.payload.message
+                }
+            };
+
+        case SET_BLIND_ROLLER_VALUE_FAILURE:
+            return {
+                ...state,
+                setBlindRollerStatus: {
+                    loading: false,
+                    error: action.payload.error,
+                    message: null
+                }
             };
 
         default:
