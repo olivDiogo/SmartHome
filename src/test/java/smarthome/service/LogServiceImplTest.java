@@ -32,8 +32,10 @@ import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ReadingValue;
+import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TimeDelta;
+import smarthome.domain.value_object.UnitID;
 
 class LogServiceImplTest {
 
@@ -69,6 +71,187 @@ class LogServiceImplTest {
     // Assert
     assertNotNull(result);
   }
+
+  /**
+   * Test that the LogServiceImpl adds a log when all IDs exist.
+   */
+  @Test
+  void shouldAddLog_WhenAllIDsExist() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = mock(
+        ILogFactory.class); // mock the logFactory to ensure proper behavior
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
+
+    DeviceID deviceID = mock(DeviceID.class);
+    SensorID sensorID = mock(SensorID.class);
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    UnitID unitID = mock(UnitID.class);
+    LocalDateTime localDateTime = LocalDateTime.now();
+    ReadingValue readingValue = mock(ReadingValue.class);
+
+    Log expectedLog = mock(Log.class);
+
+    when(deviceRepository.containsOfIdentity(deviceID)).thenReturn(true);
+    when(sensorRepository.containsOfIdentity(sensorID)).thenReturn(true);
+    when(sensorTypeRepository.containsOfIdentity(sensorTypeID)).thenReturn(true);
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(true);
+    when(logFactory.createLog(deviceID, sensorID, localDateTime, readingValue, sensorTypeID,
+        unitID)).thenReturn(expectedLog);
+    when(logRepository.save(expectedLog)).thenReturn(expectedLog);
+
+    // Act
+    Log actualLog = logService.addLog(deviceID, sensorID, localDateTime, readingValue, sensorTypeID,
+        unitID);
+
+    // Assert
+    assertNotNull(actualLog);
+    assertEquals(expectedLog, actualLog);
+  }
+
+  /**
+   * Test that the LogServiceImpl throws an IllegalArgumentException when the deviceID does not
+   * exist.
+   */
+  @Test
+  void shouldThrowException_WhenDeviceIDDoesNotExist() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = mock(ILogFactory.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
+
+    DeviceID deviceID = mock(DeviceID.class);
+    SensorID sensorID = mock(SensorID.class);
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    UnitID unitID = mock(UnitID.class);
+    LocalDateTime localDateTime = LocalDateTime.now();
+    ReadingValue readingValue = mock(ReadingValue.class);
+
+    when(deviceRepository.containsOfIdentity(deviceID)).thenReturn(false);
+
+    // Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> logService.addLog(deviceID, sensorID, localDateTime, readingValue, sensorTypeID,
+            unitID));
+    assertEquals("Device ID does not exist", exception.getMessage());
+  }
+
+  /**
+   * Test that the LogServiceImpl throws an IllegalArgumentException when the sensorID does not
+   * exist.
+   */
+  @Test
+  void shouldThrowException_WhenSensorIDDoesNotExist() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = mock(ILogFactory.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
+
+    DeviceID deviceID = mock(DeviceID.class);
+    SensorID sensorID = mock(SensorID.class);
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    UnitID unitID = mock(UnitID.class);
+    LocalDateTime localDateTime = LocalDateTime.now();
+    ReadingValue readingValue = mock(ReadingValue.class);
+
+    when(deviceRepository.containsOfIdentity(deviceID)).thenReturn(true);
+    when(sensorRepository.containsOfIdentity(sensorID)).thenReturn(false);
+
+    // Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> logService.addLog(deviceID, sensorID, localDateTime, readingValue, sensorTypeID,
+            unitID));
+    assertEquals("Sensor ID does not exist", exception.getMessage());
+  }
+
+  /**
+   * Test that the LogServiceImpl throws an IllegalArgumentException when the sensorTypeID does not
+   * exist.
+   */
+  @Test
+  void shouldThrowException_WhenSensorTypeIDDoesNotExist() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = mock(ILogFactory.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
+
+    DeviceID deviceID = mock(DeviceID.class);
+    SensorID sensorID = mock(SensorID.class);
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    UnitID unitID = mock(UnitID.class);
+    LocalDateTime localDateTime = LocalDateTime.now();
+    ReadingValue readingValue = mock(ReadingValue.class);
+
+    when(deviceRepository.containsOfIdentity(deviceID)).thenReturn(true);
+    when(sensorRepository.containsOfIdentity(sensorID)).thenReturn(true);
+    when(sensorTypeRepository.containsOfIdentity(sensorTypeID)).thenReturn(false);
+
+    // Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> logService.addLog(deviceID, sensorID, localDateTime, readingValue, sensorTypeID,
+            unitID));
+    assertEquals("Sensor Type ID does not exist", exception.getMessage());
+  }
+
+  /**
+   * Test that the LogServiceImpl throws an IllegalArgumentException when the unitID does not
+   * exist.
+   */
+  @Test
+  void shouldThrowException_WhenUnitIDDoesNotExist() {
+    // Arrange
+    ILogRepository logRepository = mock(ILogRepository.class);
+    IDeviceRepository deviceRepository = mock(IDeviceRepository.class);
+    ISensorRepository sensorRepository = mock(ISensorRepository.class);
+    ISensorTypeRepository sensorTypeRepository = mock(ISensorTypeRepository.class);
+    IUnitRepository unitRepository = mock(IUnitRepository.class);
+    ILogFactory logFactory = mock(ILogFactory.class);
+    LogServiceImpl logService = new LogServiceImpl(logRepository, deviceRepository,
+        sensorRepository, sensorTypeRepository, unitRepository, logFactory);
+
+    DeviceID deviceID = mock(DeviceID.class);
+    SensorID sensorID = mock(SensorID.class);
+    SensorTypeID sensorTypeID = mock(SensorTypeID.class);
+    UnitID unitID = mock(UnitID.class);
+    LocalDateTime localDateTime = LocalDateTime.now();
+    ReadingValue readingValue = mock(ReadingValue.class);
+
+    when(deviceRepository.containsOfIdentity(deviceID)).thenReturn(true);
+    when(sensorRepository.containsOfIdentity(sensorID)).thenReturn(true);
+    when(sensorTypeRepository.containsOfIdentity(sensorTypeID)).thenReturn(true);
+    when(unitRepository.containsOfIdentity(unitID)).thenReturn(false);
+
+    // Act & Assert
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> logService.addLog(deviceID, sensorID, localDateTime, readingValue, sensorTypeID,
+            unitID));
+    assertEquals("Unit ID does not exist", exception.getMessage());
+  }
+
+
+
+
+
 
   /**
    * Test that the LogServiceImpl class throws an IllegalArgumentException when the LogRepository is
