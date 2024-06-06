@@ -8,7 +8,7 @@ import ConfigureDevice from "../components/ConfigureDevice.jsx";
 import SubmitButton from "../components/SubmitButton.jsx";
 import FormDataContext from "../context/FormDataContext.jsx";
 
-function DevicePage() {
+function AddSensorPage() {
     const {state, dispatch} = useContext(AppContext);
     const { formState, formDispatch} = useContext(FormDataContext);
     const { sensorName } = formState;
@@ -64,4 +64,4 @@ function DevicePage() {
 
 
 }
-export default DevicePage;
+export default AddSensorPage;

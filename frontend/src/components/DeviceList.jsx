@@ -28,10 +28,15 @@ function DeviceList() {
         fetchActuators(dispatch, deviceId);
     };
 
-    const handleConfigureDeviceOnClick = (deviceId) => {
+    const handleAddSensorToDeviceOnClick = (deviceId) => {
         saveCurrentDevice(dispatch, deviceId)
-        navigate(`/devices/${deviceId}`);
+        navigate(`/devices/${deviceId}/add-sensor`);
     };
+
+    const handleAddActuatorToDeviceOnClick = (deviceId) => {
+        saveCurrentDevice(dispatch, deviceId)
+        navigate(`/devices/${deviceId}/add-actuator`);
+    }
 
     const handleViewLogsOnClick = (deviceId, deviceName) => {
         updateCurrentDevice(dispatch, deviceId, deviceName);
@@ -70,8 +75,12 @@ function DeviceList() {
                                 View Logs
                             </Button>
                             <Button size="small" color="primary"
-                                    onClick={() => handleConfigureDeviceOnClick(device.deviceID)}>
-                                Configure Device
+                                    onClick={() => handleAddSensorToDeviceOnClick(device.deviceID)}>
+                                Add Sensor
+                            </Button>
+                            <Button size="small" color="primary"
+                                    onClick={() => handleAddActuatorToDeviceOnClick(device.deviceID)}>
+                                Add Actuator
                             </Button>
                         </AccordionActions>
                     </Accordion>

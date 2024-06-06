@@ -85,7 +85,21 @@ const initialState = {
     addingSensor: {
         status: 'idle',
         error: null,
-    }
+    },
+
+    selectedActuatorModelName: "",
+    selectedActuatorModelPath: "",
+    addingActuator: {
+        status: 'idle',
+        error: null,
+    },
+
+    selectedActuatorTypeId: "",
+    actuatorModels: {
+        loading: true,
+        error: null,
+        data: [],
+    },
 };
 
 
