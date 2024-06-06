@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import smarthome.ddd.IValueObject;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator_model.ActuatorModel;
@@ -66,7 +67,8 @@ public class DemoApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
-
+@Bean
+@Profile("frontendtest")
   public CommandLineRunner demo (IHouseService houseService, IRoomService roomService, IDeviceService deviceService, IDeviceTypeService deviceTypeService,
         IUnitService unitService, ISensorTypeService sensorTypeService, ISensorModelService sensorModelService, IActuatorModelService actuatorModelService, IActuatorTypeService actuatorTypeService,
         ISensorService sensorService, IActuatorService actuatorService, ILogService logService) {
@@ -149,6 +151,9 @@ public class DemoApplication extends SpringBootServletInitializer {
           UnitDescription status = new UnitDescription("Status");
           UnitSymbol statusSymbol = new UnitSymbol("-");
           Unit statusUnit = unitService.addunitType(status, statusSymbol);
+          UnitDescription kilowattHours = new UnitDescription("KilowattHour");
+          UnitSymbol kilowattHoursSymbol = new UnitSymbol("kWh");
+          Unit kilowattHoursUnit = unitService.addunitType(kilowattHours, kilowattHoursSymbol);
 
           // Let's add a few sensor types
           TypeDescription temperatureDesc = new TypeDescription("Temperature");
@@ -403,8 +408,6 @@ public class DemoApplication extends SpringBootServletInitializer {
           IValueObject sunriseTimeSensorValue = deviceSunriseTimeSensor.getValue();
           logGeneratorForDemoPurposes(logService, sunsetAndSunriseDevice.getID(), deviceSunsetTimeSensor.getID(), sunsetTime.getID(), timeUnit.getID(), sunsetTimeSensorValue);
           logGeneratorForDemoPurposes(logService, sunsetAndSunriseDevice.getID(), deviceSunsetTimeSensor.getID(), sunsetTime.getID(), timeUnit.getID(), sunriseTimeSensorValue);
-
-
 
         }
       };
