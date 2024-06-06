@@ -11,7 +11,12 @@ import {
     fetchSensorTypesFromServer,
     setBlindRollerValue,
     updateCurrentDeviceFromServer,
-    addGenericSensor, addGPSSensor, addDateSensor, fetchActuatorsByDeviceId
+    addGenericSensor,
+    addGPSSensor,
+    addDateSensor,
+    fetchActuatorsByDeviceId,
+    fetchActuatorTypesFromServer,
+    addGenericActuator, fetchActuatorModelsByActuatorTypeIdFromServer, addDecimalActuator, addIntegerActuator
 } from "../services/Service.jsx";
 
 // Actions
@@ -581,13 +586,13 @@ export function updateActuatorTypeId(dispatch, selectedActuatorType) {
 
 // ------------------------------ Actuator Models ------------------------------//
 
-export function fetchActuatorModels(dispatch) {
+export function fetchActuatorModels(dispatch, actuatorTypeId) {
     dispatch({type: FETCH_ACTUATOR_MODELS_STARTED});
 
     const success = (res) => dispatch(fetchActuatorModelsSuccess(res));
     const failure = (err) => dispatch(fetchActuatorModelsFailure(err.message));
 
-    fetchActuatorModelsFromServer(success, failure);
+    fetchActuatorModelsByActuatorTypeIdFromServer(success, failure, actuatorTypeId);
 }
 
 function fetchActuatorModelsSuccess(actuatorModels) {
@@ -621,11 +626,172 @@ export function updateSelectedActuatorModelPath(dispatch, actuatorModel) {
     const action = {
         type: UPDATE_SELECTED_ACTUATOR_MODEL_PATH,
         payload: {
-            selectedActuatorModelPath: actuatorModel.modelPath
+            selectedActuatorModelPath: actuatorModel.actuatorModelPath
         }
     }
     dispatch(action);
 
+}
+
+// ------------------------------ Add actuators ------------------------------//
+export const UPDATE_GENERIC_ACTUATOR_DATA = 'UPDATE_GENERIC_ACTUATOR_DATA';
+export function updateGenericActuatorData(formDispatch, actuatorName) {
+    const action = {
+        type: UPDATE_GENERIC_ACTUATOR_DATA,
+        payload: {
+            actuatorName: actuatorName
+        }
+    }
+    formDispatch(action);
+
+}
+
+export const UPDATE_MIN_LIMIT_DATA = 'UPDATE_MIN_LIMIT_DATA';
+export function updateMinLimitData(formDispatch, minLimit) {
+    const action = {
+        type: UPDATE_MIN_LIMIT_DATA,
+        payload: {
+            minLimit: minLimit
+        }
+    }
+    formDispatch(action);
+}
+
+export const UPDATE_MAX_LIMIT_DATA = 'UPDATE_MAX_LIMIT_DATA';
+export function updateMaxLimitData(formDispatch, maxLimit) {
+    const action = {
+        type: UPDATE_MAX_LIMIT_DATA,
+        payload: {
+            maxLimit: maxLimit
+        }
+    }
+    formDispatch(action);
+}
+
+
+export const ADD_GENERIC_ACTUATOR_TO_DEVICE_STARTED = 'ADD_GENERIC_ACTUATOR_TO_DEVICE_STARTED';
+export const ADD_GENERIC_ACTUATOR_TO_DEVICE_SUCCESS = 'ADD_GENERIC_ACTUATOR_TO_DEVICE_SUCCESS';
+export const ADD_GENERIC_ACTUATOR_TO_DEVICE_FAILURE = 'ADD_GENERIC_ACTUATOR_TO_DEVICE_FAILURE';
+export function addGenericActuatorToDevice(dispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName) {
+    const action = {
+        type: ADD_GENERIC_ACTUATOR_TO_DEVICE_STARTED,
+        payload: {
+            data: {selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName}
+        }
+    }
+    dispatch(action);
+
+    const success = () => {
+        const action = addGenericActuatorSuccess()
+        dispatch(action)
+    };
+
+    const failure = (error) => {
+        const action = addGenericActuatorFailure(error)
+        dispatch(action)
+    };
+    addGenericActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, success, failure)
+}
+
+function addGenericActuatorSuccess() {
+    return {
+        type: ADD_GENERIC_ACTUATOR_TO_DEVICE_SUCCESS,
+        payload: "Generic actuator added successfully"
+    }
+}
+
+function addGenericActuatorFailure(err){
+    return {
+        type: ADD_GENERIC_ACTUATOR_TO_DEVICE_FAILURE,
+        payload: {
+            error: err.message
+        }
+    }
+}
+
+export const ADD_DECIMAL_ACTUATOR_TO_DEVICE_STARTED = 'ADD_DECIMAL_ACTUATOR_TO_DEVICE_STARTED';
+export const ADD_DECIMAL_ACTUATOR_TO_DEVICE_SUCCESS = 'ADD_DECIMAL_ACTUATOR_TO_DEVICE_SUCCESS';
+export const ADD_DECIMAL_ACTUATOR_TO_DEVICE_FAILURE = 'ADD_DECIMAL_ACTUATOR_TO_DEVICE_FAILURE';
+export function  addDecimalActuatorToDevice(dispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit) {
+    const action = {
+        type: ADD_DECIMAL_ACTUATOR_TO_DEVICE_STARTED,
+        payload: {
+            data: {selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit}
+        }
+    }
+    dispatch(action)
+
+    const success = () => {
+        const action = addDecimalActuatorSuccess()
+        dispatch(action)
+    };
+
+    const failure = (error) => {
+        const action = addDecimalActuatorFailure(error)
+        dispatch(action)
+    };
+
+    addDecimalActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, success, failure)
+}
+
+function addDecimalActuatorSuccess () {
+    return {
+        type: ADD_DECIMAL_ACTUATOR_TO_DEVICE_SUCCESS,
+        payload: "Decimal actuator added successfully"
+    }
+}
+
+function addDecimalActuatorFailure (err) {
+    return {
+        type: ADD_DECIMAL_ACTUATOR_TO_DEVICE_FAILURE,
+        payload: {
+            error: err.message
+        }
+
+    }
+}
+
+
+export const ADD_INTEGER_ACTUATOR_TO_DEVICE_STARTED = 'ADD_INTEGER_ACTUATOR_TO_DEVICE_STARTED';
+export const ADD_INTEGER_ACTUATOR_TO_DEVICE_SUCCESS = 'ADD_INTEGER_ACTUATOR_TO_DEVICE_SUCCESS';
+export const ADD_INTEGER_ACTUATOR_TO_DEVICE_FAILURE = 'ADD_INTEGER_ACTUATOR_TO_DEVICE_FAILURE';
+export function  addIntegerActuatorToDevice(dispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit) {
+    const action = {
+        type: ADD_INTEGER_ACTUATOR_TO_DEVICE_STARTED,
+        payload: {
+            data: {selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit}
+        }
+    }
+    dispatch(action)
+
+    const success = () => {
+        const action = addIntegerActuatorSuccess()
+        dispatch(action)
+    };
+
+    const failure = (error) => {
+        const action = addIntegerActuatorFailure(error)
+        dispatch(action)
+    };
+
+    addIntegerActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, success, failure)
+}
+
+function addIntegerActuatorSuccess () {
+    return {
+        type: ADD_INTEGER_ACTUATOR_TO_DEVICE_SUCCESS,
+        payload: "Integer actuator added successfully"
+    }
+}
+
+function addIntegerActuatorFailure (err) {
+    return {
+        type: ADD_INTEGER_ACTUATOR_TO_DEVICE_FAILURE,
+        payload: {
+            error: err.message
+        }
+
+    }
 }
 
 

@@ -4,7 +4,7 @@ import SensorTypes from "../components/SensorTypes.jsx";
 import SensorModels from "../components/SensorModels.jsx";
 import AppContext from "../context/AppContext.jsx";
 import {useContext, useEffect, useState} from "react";
-import ConfigureDevice from "../components/ConfigureDevice.jsx";
+import ConfigureSensor from "../components/ConfigureSensor.jsx";
 import SubmitButton from "../components/SubmitButton.jsx";
 import FormDataContext from "../context/FormDataContext.jsx";
 
@@ -20,7 +20,7 @@ function AddSensorPage() {
     if ( selectedTypeOfSensor === "") {
         return (
             <div>
-                <h1>Device Page</h1>
+                <h1>Let's add a Sensor</h1>
                 <TypesOfSensor/>
             </div>
         );
@@ -39,7 +39,7 @@ function AddSensorPage() {
     if ( selectedTypeOfSensor !== "" && selectedSensorTypeId !== "" && selectedSensorModelName === "") {
         return (
             <div>
-                <h1>Device Page</h1>
+                <h1>Let's add a Sensor</h1>
                 <TypesOfSensor/>
                 <SensorTypes/>
                 <SensorModels/>
@@ -51,17 +51,17 @@ function AddSensorPage() {
     if (selectedTypeOfSensor !== "" && selectedSensorTypeId !== "" && selectedSensorModelName !== "") {
         return (
             <div>
-                <h1>Device Page</h1>
+                <h1>Let's add a Sensor</h1>
                 <TypesOfSensor/>
                 <SensorTypes/>
                 <SensorModels/>
-                <ConfigureDevice/>
+                <ConfigureSensor/>
                 {sensorName !== "" && <SubmitButton/>}
             </div>
         );
     }
 
 
-
 }
+
 export default AddSensorPage;

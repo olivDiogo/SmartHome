@@ -11,7 +11,10 @@ const initialState = {
     longitude: '',
     sensorName: '',
     startDate: null,
-    endDate: null
+    endDate: null,
+    actuatorName: '',
+    minLimit: '',
+    maxLimit: '',
 };
 
 

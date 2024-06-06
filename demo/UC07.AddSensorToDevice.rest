@@ -320,4 +320,3 @@ Content-Type: application/json
   "sensorName": "XPTO24T",
   "sensorTypeID": "PercentagePosition"
 }
-

@@ -16,7 +16,7 @@ import {
 } from "../context/Actions.jsx";
 
 
-const ConfigureDevice = () => {
+const ConfigureSensor = () => {
     const {state} = useContext(AppContext);
     const {selectedTypeOfSensor, selectedSensorTypeId, currentDevice, selectedSensorModelPath} = state;
     const {deviceId} = currentDevice;
@@ -185,4 +185,4 @@ const ConfigureDevice = () => {
     );
 };
 
-export default ConfigureDevice;
+export default ConfigureSensor;

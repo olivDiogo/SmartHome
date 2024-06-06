@@ -1,62 +1,62 @@
 
-import TypesOfSensor from "../components/TypesOfSensor.jsx";
-import SensorTypes from "../components/SensorTypes.jsx";
-import SensorModels from "../components/SensorModels.jsx";
 import AppContext from "../context/AppContext.jsx";
 import {useContext, useEffect, useState} from "react";
-import ConfigureDevice from "../components/ConfigureDevice.jsx";
 import SubmitButton from "../components/SubmitButton.jsx";
 import FormDataContext from "../context/FormDataContext.jsx";
+import TypesOfActuator from "../components/TypesOfActuator.jsx";
+import ActuatorTypes from "../components/ActuatorTypes.jsx";
+import ActuatorModels from "../components/ActuatorModels.jsx";
+import ConfigureActuator from "../components/ConfigureActuator.jsx";
 
-function AddSensorPage() {
+function AddActuatorPage() {
     const {state, dispatch} = useContext(AppContext);
     const { formState, formDispatch} = useContext(FormDataContext);
-    const { sensorName } = formState;
-    const {selectedSensorTypeId} = state;
-    const {selectedTypeOfSensor} = state;
-    const {selectedSensorModelName} = state;
+    const { actuatorName } = formState;
+    const {selectedActuatorTypeId} = state;
+    const {selectedTypeOfActuator} = state;
+    const {selectedActuatorModelName} = state;
 
 
-    if ( selectedTypeOfSensor === "") {
+    if ( selectedTypeOfActuator === "") {
         return (
             <div>
-                <h1>Device Page</h1>
-                <TypesOfSensor/>
+                <h1>Let's add an Actuator</h1>
+                <TypesOfActuator/>
             </div>
         );
     }
 
-    if (selectedTypeOfSensor !== "" && selectedSensorTypeId === "") {
+    if (selectedTypeOfActuator !== "" && selectedActuatorTypeId === "") {
         return (
             <div>
-                <h1>Device Page</h1>
-                <TypesOfSensor/>
-                <SensorTypes/>
+                <h1>Let's add an Actuator</h1>
+                <TypesOfActuator/>
+                <ActuatorTypes/>
             </div>
         );
     }
 
-    if ( selectedTypeOfSensor !== "" && selectedSensorTypeId !== "" && selectedSensorModelName === "") {
+    if ( selectedTypeOfActuator !== "" && selectedActuatorTypeId !== "" && selectedActuatorModelName === "") {
         return (
             <div>
-                <h1>Device Page</h1>
-                <TypesOfSensor/>
-                <SensorTypes/>
-                <SensorModels/>
+                <h1>Let's add an Actuator</h1>
+                <TypesOfActuator/>
+                <ActuatorTypes/>
+                <ActuatorModels/>
 
             </div>
         );
     }
 
-    if (selectedTypeOfSensor !== "" && selectedSensorTypeId !== "" && selectedSensorModelName !== "") {
+    if (selectedTypeOfActuator !== "" && selectedActuatorTypeId !== "" && selectedActuatorModelName !== "") {
         return (
             <div>
-                <h1>Device Page</h1>
-                <TypesOfSensor/>
-                <SensorTypes/>
-                <SensorModels/>
-                <ConfigureDevice/>
-                {sensorName !== "" && <SubmitButton/>}
+                <h1>Let's add an Actuator</h1>
+                <TypesOfActuator/>
+                <ActuatorTypes/>
+                <ActuatorModels/>
+                <ConfigureActuator/>
+                {actuatorName !== "" && <SubmitButton/>}
             </div>
         );
     }
@@ -64,4 +64,4 @@ function AddSensorPage() {
 
 
 }
-export default AddSensorPage;
+export default AddActuatorPage;

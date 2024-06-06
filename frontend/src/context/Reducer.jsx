@@ -56,7 +56,28 @@ import {
     UPDATE_END_DATE_DATA,
     ADD_DATE_SENSOR_TO_DEVICE_STARTED,
     ADD_DATE_SENSOR_TO_DEVICE_SUCCESS,
-    ADD_DATE_SENSOR_TO_DEVICE_FAILURE, UPDATE_SELECTED_ACTUATOR_MODEL_PATH, UPDATE_SELECTED_ACTUATOR_MODEL_NAME
+    ADD_DATE_SENSOR_TO_DEVICE_FAILURE,
+    UPDATE_SELECTED_ACTUATOR_MODEL_PATH,
+    UPDATE_SELECTED_ACTUATOR_MODEL_NAME,
+    UPDATE_SELECTED_ACTUATOR_TYPE_ID,
+    FETCH_ACTUATOR_MODELS_STARTED,
+    FETCH_ACTUATOR_MODELS_SUCCESS,
+    FETCH_ACTUATOR_MODELS_FAILURE,
+    FETCH_ACTUATOR_TYPES_STARTED,
+    FETCH_ACTUATOR_TYPES_SUCCESS,
+    FETCH_ACTUATOR_TYPES_FAILURE,
+    UPDATE_GENERIC_ACTUATOR_DATA,
+    UPDATE_MIN_LIMIT_DATA,
+    UPDATE_MAX_LIMIT_DATA,
+    ADD_GENERIC_ACTUATOR_TO_DEVICE_STARTED,
+    ADD_GENERIC_ACTUATOR_TO_DEVICE_SUCCESS,
+    ADD_GENERIC_ACTUATOR_TO_DEVICE_FAILURE,
+    ADD_DECIMAL_ACTUATOR_TO_DEVICE_STARTED,
+    ADD_DECIMAL_ACTUATOR_TO_DEVICE_SUCCESS,
+    ADD_DECIMAL_ACTUATOR_TO_DEVICE_FAILURE,
+    ADD_INTEGER_ACTUATOR_TO_DEVICE_STARTED,
+    ADD_INTEGER_ACTUATOR_TO_DEVICE_SUCCESS,
+    ADD_INTEGER_ACTUATOR_TO_DEVICE_FAILURE
 } from "./Actions.jsx";
 import {
     FETCH_TEMPERATURE_FAILURE,
@@ -601,6 +622,35 @@ function reducer(state = initialState, action) {
             };
 
         // ------------------------------ Actuators Model ------------------------------//
+        case FETCH_ACTUATOR_MODELS_STARTED:
+            return {
+                ...state,
+                actuatorModels: {
+                    loading: true,
+                    error: null,
+                    data: []
+                }
+            };
+
+        case FETCH_ACTUATOR_MODELS_SUCCESS:
+            return {
+                ...state,
+                actuatorModels: {
+                    loading: false,
+                    error: null,
+                    data: action.payload.data
+                }
+            };
+
+        case FETCH_ACTUATOR_MODELS_FAILURE:
+            return {
+                ...state,
+                actuatorModels: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: []
+                }
+            };
 
         case  UPDATE_SELECTED_ACTUATOR_MODEL_PATH:
             return {
@@ -614,6 +664,143 @@ function reducer(state = initialState, action) {
                 selectedActuatorModelName: action.payload.selectedActuatorModelName
             };
 
+        // ------------------------------ Actuators Types ------------------------------//
+
+        case FETCH_ACTUATOR_TYPES_STARTED:
+            return {
+                ...state,
+                actuatorTypes: {
+                    loading: true,
+                    error: null,
+                    data: []
+                }
+            };
+
+        case FETCH_ACTUATOR_TYPES_SUCCESS:
+            return {
+                ...state,
+                actuatorTypes: {
+                    loading: false,
+                    error: null,
+                    data: action.payload.data
+                }
+            };
+
+        case FETCH_ACTUATOR_TYPES_FAILURE:
+            return {
+                ...state,
+                actuatorTypes: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: []
+                }
+            };
+
+        case UPDATE_SELECTED_ACTUATOR_TYPE_ID:
+            return {
+                ...state,
+                selectedActuatorTypeId: action.payload.selectedActuatorType
+            };
+
+        // ------------------------------ Add Actuator ------------------------------//
+            case UPDATE_GENERIC_ACTUATOR_DATA:
+            return {
+                ...state,
+                actuatorName: action.payload.actuatorName
+            };
+
+        case UPDATE_MIN_LIMIT_DATA:
+            return {
+                ...state,
+                minLimit: action.payload.minLimit
+            };
+
+        case UPDATE_MAX_LIMIT_DATA:
+            return {
+                ...state,
+                maxLimit: action.payload.maxLimit
+            };
+
+            case ADD_GENERIC_ACTUATOR_TO_DEVICE_STARTED:
+            return {
+                ...state,
+                addingActuator: {
+                    status: true,
+                    error: null,
+                }
+            };
+
+            case ADD_GENERIC_ACTUATOR_TO_DEVICE_SUCCESS:
+            return {
+                ...state,
+                addingActuator: {
+                    status: false,
+                    error: null,
+                }
+            };
+
+            case ADD_GENERIC_ACTUATOR_TO_DEVICE_FAILURE:
+            return {
+                ...state,
+                addingActuator: {
+                    status: false,
+                    error: action.payload.error,
+                }
+            };
+
+        case ADD_DECIMAL_ACTUATOR_TO_DEVICE_STARTED:
+            return {
+                ...state,
+                addingActuator: {
+                    status: true,
+                    error: null,
+                }
+            };
+
+        case ADD_DECIMAL_ACTUATOR_TO_DEVICE_SUCCESS:
+            return {
+                ...state,
+                addingActuator: {
+                    status: false,
+                    error: null,
+                }
+            };
+
+        case ADD_DECIMAL_ACTUATOR_TO_DEVICE_FAILURE:
+            return {
+                ...state,
+                addingActuator: {
+                    status: false,
+                    error: action.payload.error,
+                }
+            };
+
+        case ADD_INTEGER_ACTUATOR_TO_DEVICE_STARTED:
+            return {
+                ...state,
+                addingActuator: {
+                    status: true,
+                    error: null,
+                }
+            };
+
+        case ADD_INTEGER_ACTUATOR_TO_DEVICE_SUCCESS:
+            return {
+                ...state,
+                addingActuator: {
+                    status: false,
+                    error: null,
+                }
+            };
+
+        case ADD_INTEGER_ACTUATOR_TO_DEVICE_FAILURE:
+            return {
+                ...state,
+                addingActuator: {
+                    status: false,
+                    error: action.payload.error,
+                }
+            };
 
         default:
             return state;

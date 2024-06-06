@@ -9,6 +9,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ import smarthome.service.IActuatorTypeService;
 import smarthome.utils.dto.ActuatorTypeDTO;
 import smarthome.utils.dto.data_dto.ActuatorTypeDataDTO;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/actuator-types")
 public class ActuatorTypeController {

@@ -277,3 +277,113 @@ export function addDateSensor(selectedTypeOfSensor, deviceId, selectedSensorMode
         .then(res => success(res))
         .catch(err => failure(err.message));
 }
+
+export function fetchActuatorTypesFromServer(success, failure) {
+    fetch(`${URL_API}/actuator-types`)
+        .then(res => res.json())
+        .then(res => {
+            console.log('Fetched actuator types:', res);
+            if (res._embedded && res._embedded.actuatorTypeDTOList) {
+                success(res._embedded.actuatorTypeDTOList);
+            } else {
+                throw new Error('Invalid response structure');
+            }
+        })
+        .catch(err => failure(err.message));
+
+}
+
+export function fetchActuatorModelsByActuatorTypeIdFromServer(success, failure, actuatorTypeID) {
+    fetch(`${URL_API}/actuator-models?actuatorTypeID=${actuatorTypeID}`)
+        .then(res => res.json())
+        .then(res => {
+            console.log(`Fetched actuator models for actuatorTypeID ${actuatorTypeID}:`, res);
+            if (res._embedded && res._embedded.actuatorModelDTOList) {
+                success(res._embedded.actuatorModelDTOList);
+            } else {
+                throw new Error('Invalid response structure');
+            }
+        })
+        .catch(err => failure(err.message));
+
+}
+
+export function addGenericActuator (selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, success, failure) {
+
+    fetch(`${URL_API}/actuators`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            type: selectedTypeOfActuator,
+            deviceID: deviceId,
+            actuatorModelPath: selectedActuatorModelPath,
+            actuatorTypeID: selectedActuatorTypeId,
+            actuatorName: actuatorName
+
+        }),
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .then(res => success(res))
+        .catch(err => failure(err.message));
+}
+
+export function addDecimalActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, success, failure) {
+
+    fetch(`${URL_API}/actuators`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            type: selectedTypeOfActuator,
+            deviceID: deviceId,
+            actuatorModelPath: selectedActuatorModelPath,
+            actuatorTypeID: selectedActuatorTypeId,
+            actuatorName: actuatorName,
+            minLimit: minLimit,
+            maxLimit: maxLimit
+        }),
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .then(res => success(res))
+        .catch(err => failure(err.message));
+}
+
+export function addIntegerActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, success, failure) {
+
+    fetch(`${URL_API}/actuators`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            type: selectedTypeOfActuator,
+            deviceID: deviceId,
+            actuatorModelPath: selectedActuatorModelPath,
+            actuatorTypeID: selectedActuatorTypeId,
+            actuatorName: actuatorName,
+            minLimit: minLimit,
+            maxLimit: maxLimit
+        }),
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .then(res => success(res))
+        .catch(err => failure(err.message));
+}

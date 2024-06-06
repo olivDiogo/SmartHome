@@ -79,27 +79,35 @@ const initialState = {
     selectedSensorModelName: "",
 
     selectedSensorModelPath: "",
-
-    typesOfActuator : ['genericActuator', 'integerActuator', 'decimalActuator'],
-
     addingSensor: {
         status: 'idle',
         error: null,
     },
 
-    selectedActuatorModelName: "",
-    selectedActuatorModelPath: "",
-    addingActuator: {
-        status: 'idle',
+    typesOfActuator : ['genericActuator', 'integerActuator', 'decimalActuator'],
+    selectedTypeOfActuator: "",
+
+    actuatorTypes: {
+        loading: true,
         error: null,
+        data: [],
     },
 
     selectedActuatorTypeId: "",
+
     actuatorModels: {
         loading: true,
         error: null,
         data: [],
     },
+
+    selectedActuatorModelName: "",
+    selectedActuatorModelPath: "",
+
+    addingActuator: {
+        status: 'idle',
+        error: null,
+    }
 };
 
 
