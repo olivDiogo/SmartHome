@@ -56,7 +56,7 @@ import {
     UPDATE_END_DATE_DATA,
     ADD_DATE_SENSOR_TO_DEVICE_STARTED,
     ADD_DATE_SENSOR_TO_DEVICE_SUCCESS,
-    ADD_DATE_SENSOR_TO_DEVICE_FAILURE
+    ADD_DATE_SENSOR_TO_DEVICE_FAILURE, UPDATE_SELECTED_ACTUATOR_MODEL_PATH, UPDATE_SELECTED_ACTUATOR_MODEL_NAME
 } from "./Actions.jsx";
 import {
     FETCH_TEMPERATURE_FAILURE,
@@ -185,33 +185,7 @@ function reducer(state = initialState, action) {
                     lastUpdated: null
                 }
             };
-        case FETCH_SENSOR_MODELS_STARTED:
-            return {
-                ...state,
-                sensorModels: {
-                    loading: true,
-                    error: null,
-                    data: []
-                }
-            };
-        case FETCH_SENSOR_MODELS_SUCCESS:
-            return {
-                ...state,
-                sensorModels: {
-                    loading: false,
-                    error: null,
-                    data: action.payload.data
-                }
-            };
-        case FETCH_SENSOR_MODELS_FAILURE:
-            return {
-                ...state,
-                sensorModels: {
-                    loading: false,
-                    error: action.payload.error,
-                    data: []
-                }
-            };
+
         case ADD_DEVICE_STARTED:
             return {
                 ...state,
@@ -234,33 +208,7 @@ function reducer(state = initialState, action) {
                 addingDevice: false,
                 addDeviceError: action.payload.error
             };
-        case FETCH_SENSOR_TYPES_STARTED:
-            return {
-                ...state,
-                sensorTypes: {
-                    loading: true,
-                    error: null,
-                    data: []
-                }
-            };
-        case FETCH_SENSOR_TYPES_SUCCESS:
-            return {
-                ...state,
-                sensorTypes: {
-                    loading: false,
-                    error: null,
-                    data: action.payload.data
-                }
-            };
-        case FETCH_SENSOR_TYPES_FAILURE:
-            return {
-                ...state,
-                sensorTypes: {
-                    loading: false,
-                    error: action.payload.error,
-                    data: []
-                }
-            };
+
         case FETCH_LOGS_STARTED:
             return {
                 ...state,
@@ -315,21 +263,8 @@ function reducer(state = initialState, action) {
                     data: null
                 }
             };
-        case UPDATE_SELECTED_SENSOR_TYPE_ID:
-            return {
-                ...state,
-                selectedSensorTypeId: action.payload.selectedSensorType
-            };
-        case UPDATE_SELECTED_SENSOR_MODEL:
-            return {
-                ...state,
-                selectedSensorModel: action.payload.selectedSensorModel
-            };
-        case UPDATE_SELECTED_TYPE_OF_SENSOR:
-            return {
-                ...state,
-                selectedTypeOfSensor: action.payload.selectedTypeOfSensor
-            };
+
+
         case FETCH_CURRENT_POSITION_STARTED:
             return {
                 ...state,
@@ -413,33 +348,110 @@ function reducer(state = initialState, action) {
                     data: []
                 }
             };
-        case FETCH_ACTUATORS_STARTED:
+
+
+        case SAVE_CURRENT_DEVICE:
             return {
                 ...state,
-                actuators: {
+                currentDevice: {
+                    deviceId: action.payload.deviceId
+                }
+            };
+
+// ------------------------------ Sensor ------------------------------//
+
+// ------------------------------ Types of Sensor ------------------------------//
+        case UPDATE_SELECTED_TYPE_OF_SENSOR:
+            return {
+                ...state,
+                selectedTypeOfSensor: action.payload.selectedTypeOfSensor
+            };
+// ------------------------------ Sensor Models ------------------------------//
+
+        case FETCH_SENSOR_MODELS_STARTED:
+            return {
+                ...state,
+                sensorModels: {
                     loading: true,
                     error: null,
                     data: []
                 }
             };
-        case FETCH_ACTUATORS_SUCCESS:
+        case FETCH_SENSOR_MODELS_SUCCESS:
             return {
                 ...state,
-                actuators: {
+                sensorModels: {
                     loading: false,
                     error: null,
-                    data: action.payload.actuators
+                    data: action.payload.data
                 }
             };
-        case FETCH_ACTUATORS_FAILURE:
+        case FETCH_SENSOR_MODELS_FAILURE:
             return {
                 ...state,
-                actuators: {
+                sensorModels: {
                     loading: false,
                     error: action.payload.error,
                     data: []
                 }
             };
+
+        case UPDATE_SELECTED_SENSOR_MODEL:
+            return {
+                ...state,
+                selectedSensorModel: action.payload.selectedSensorModel
+            };
+
+        case UPDATE_SELECTED_SENSOR_MODEL_PATH:
+            return {
+                ...state,
+                selectedSensorModelPath: action.payload.selectedSensorModelPath
+            };
+
+        case UPDATE_SELECTED_SENSOR_MODEL_NAME:
+            return {
+                ...state,
+                selectedSensorModelName: action.payload.selectedSensorModelName
+            };
+
+        // ------------------------------ Sensor Types ------------------------------//
+
+        case FETCH_SENSOR_TYPES_STARTED:
+            return {
+                ...state,
+                sensorTypes: {
+                    loading: true,
+                    error: null,
+                    data: []
+                }
+            };
+        case FETCH_SENSOR_TYPES_SUCCESS:
+            return {
+                ...state,
+                sensorTypes: {
+                    loading: false,
+                    error: null,
+                    data: action.payload.data
+                }
+            };
+        case FETCH_SENSOR_TYPES_FAILURE:
+            return {
+                ...state,
+                sensorTypes: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: []
+                }
+            };
+
+
+        case UPDATE_SELECTED_SENSOR_TYPE_ID:
+            return {
+                ...state,
+                selectedSensorTypeId: action.payload.selectedSensorType
+            };
+
+        // ------------------------------ Add Sensor ------------------------------//
         case UPDATE_GENERIC_SENSOR_DATA:
             return {
                 ...state,
@@ -551,34 +563,57 @@ function reducer(state = initialState, action) {
                 }
             };
 
-        case SAVE_CURRENT_DEVICE:
+        // ------------------------------ Actuators ------------------------------//
+// ------------------------------ Fetch Actuator ------------------------------//
+        case FETCH_ACTUATORS_STARTED:
             return {
                 ...state,
-                currentDevice: {
-                    deviceId: action.payload.deviceId
+                actuators: {
+                    loading: true,
+                    error: null,
+                    data: []
+                }
+            };
+        case FETCH_ACTUATORS_SUCCESS:
+            return {
+                ...state,
+                actuators: {
+                    loading: false,
+                    error: null,
+                    data: action.payload.actuators
+                }
+            };
+        case FETCH_ACTUATORS_FAILURE:
+            return {
+                ...state,
+                actuators: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: []
                 }
             };
 
-
-
+// ------------------------------ Types of Actuator ------------------------------//
         case UPDATE_SELECTED_TYPE_OF_ACTUATOR:
             return {
                 ...state,
                 selectedTypeOfActuator: action.payload.selectedTypeOfActuator
             };
 
+        // ------------------------------ Actuators Model ------------------------------//
 
-        case UPDATE_SELECTED_SENSOR_MODEL_PATH:
+        case  UPDATE_SELECTED_ACTUATOR_MODEL_PATH:
             return {
                 ...state,
-                selectedSensorModelPath: action.payload.selectedSensorModelPath
+                selectedActuatorModelPath: action.payload.selectedActuatorModelPath
             };
 
-        case UPDATE_SELECTED_SENSOR_MODEL_NAME:
+        case UPDATE_SELECTED_ACTUATOR_MODEL_NAME:
             return {
                 ...state,
-                selectedSensorModelName: action.payload.selectedSensorModelName
+                selectedActuatorModelName: action.payload.selectedActuatorModelName
             };
+
 
         default:
             return state;
