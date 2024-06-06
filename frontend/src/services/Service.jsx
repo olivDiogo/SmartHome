@@ -224,14 +224,21 @@ export function addGenericSensor(selectedTypeOfSensor, deviceId, selectedSensorM
             sensorTypeID: selectedSensorTypeId
         }),
     })
-        .then(res => {
+        .then(res => res.json().then(data => {
             if (!res.ok) {
-                throw new Error('Network response was not ok');
+                const errorMessage = data.message || 'Network response was not ok';
+                throw new Error(errorMessage);
             }
-            return res.json();
+            return data;
+        }))
+        .then(data => {
+            success(data);
+            toast.success("Sensor added successfully!");
         })
-        .then(res => success(res))
-        .catch(err => failure(err.message));
+        .catch(err => {
+            failure(err.message);
+            toast.error(`Failed to add sensor: ${err.message}`);
+        });
 }
 
 export function addGPSSensor(selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, latitude, longitude, success, failure) {
@@ -251,14 +258,21 @@ export function addGPSSensor(selectedTypeOfSensor, deviceId, selectedSensorModel
             longitude: longitude
         }),
     })
-        .then(res => {
+        .then(res => res.json().then(data => {
             if (!res.ok) {
-                throw new Error('Network response was not ok');
+                const errorMessage = data.message || 'Network response was not ok';
+                throw new Error(errorMessage);
             }
-            return res.json();
+            return data;
+        }))
+        .then(data => {
+            success(data);
+            toast.success("Sensor added successfully!");
         })
-        .then(res => success(res))
-        .catch(err => failure(err.message));
+        .catch(err => {
+            failure(err.message);
+            toast.error(`Failed to add sensor: ${err.message}`);
+        });
 }
 
 export function addDateSensor(selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, startDate, endDate, success, failure) {
@@ -277,14 +291,21 @@ export function addDateSensor(selectedTypeOfSensor, deviceId, selectedSensorMode
             endDate: endDate.format('YYYY-MM-DDTHH:mm:ss')
         }),
     })
-        .then(res => {
+        .then(res => res.json().then(data => {
             if (!res.ok) {
-                throw new Error('Network response was not ok');
+                const errorMessage = data.message || 'Network response was not ok';
+                throw new Error(errorMessage);
             }
-            return res.json();
+            return data;
+        }))
+        .then(data => {
+            success(data);
+            toast.success("Sensor added successfully!");
         })
-        .then(res => success(res))
-        .catch(err => failure(err.message));
+        .catch(err => {
+            failure(err.message);
+            toast.error(`Failed to add sensor: ${err.message}`);
+        });
 }
 
 export function fetchActuatorTypesFromServer(success, failure) {
@@ -333,14 +354,21 @@ export function addGenericActuator(selectedTypeOfActuator, deviceId, selectedAct
 
         }),
     })
-        .then(res => {
+        .then(res => res.json().then(data => {
             if (!res.ok) {
-                throw new Error('Network response was not ok');
+                const errorMessage = data.message || 'Network response was not ok';
+                throw new Error(errorMessage);
             }
-            return res.json();
+            return data;
+        }))
+        .then(data => {
+            success(data);
+            toast.success("Actuator added successfully!");
         })
-        .then(res => success(res))
-        .catch(err => failure(err.message));
+        .catch(err => {
+            failure(err.message);
+            toast.error(`Failed to add actuator: ${err.message}`);
+        });
 }
 
 export function addDecimalActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, success, failure) {
@@ -360,14 +388,22 @@ export function addDecimalActuator(selectedTypeOfActuator, deviceId, selectedAct
             maxLimit: maxLimit
         }),
     })
-        .then(res => {
+        .then(res => res.json().then(data => {
             if (!res.ok) {
-                throw new Error('Network response was not ok');
+                const errorMessage = data.message || 'Network response was not ok';
+                throw new Error(errorMessage);
             }
-            return res.json();
+            return data;
+        }))
+        .then(data => {
+            success(data);
+            toast.success("Actuator added successfully!");
         })
-        .then(res => success(res))
-        .catch(err => failure(err.message));
+        .catch(err => {
+            failure(err.message);
+            toast.error(`Failed to add actuator: ${err.message}`);
+        });
+
 }
 
 export function addIntegerActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, success, failure) {
@@ -387,12 +423,19 @@ export function addIntegerActuator(selectedTypeOfActuator, deviceId, selectedAct
             maxLimit: maxLimit
         }),
     })
-        .then(res => {
+        .then(res => res.json().then(data => {
             if (!res.ok) {
-                throw new Error('Network response was not ok');
+                const errorMessage = data.message || 'Network response was not ok';
+                throw new Error(errorMessage);
             }
-            return res.json();
+            return data;
+        }))
+        .then(data => {
+            success(data);
+            toast.success("Actuator added successfully!");
         })
-        .then(res => success(res))
-        .catch(err => failure(err.message));
+        .catch(err => {
+            failure(err.message);
+            toast.error(`Failed to add actuator: ${err.message}`);
+        });
 }
