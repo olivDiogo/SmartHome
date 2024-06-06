@@ -3,8 +3,8 @@ Content-Type: application/json
 
 {
   "type": "valueDTO",
-  "deviceID": "demoDevice4",
-  "actuatorID": "actuator1",
+  "deviceID": "72e287c5-9679-407f-af3f-bb8c0d00b757",
+  "actuatorID": "1001",
   "value": 90
 }
 

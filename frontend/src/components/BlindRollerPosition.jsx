@@ -5,8 +5,10 @@ import { fetchCurrentPosition } from '../context/Actions.jsx';
 
 const BlindRollerPosition = ({ deviceId }) => {
     const { state, dispatch } = useContext(AppContext);
-    const { position } = state;
+    const { position, actuators} = state;
     const { loading, error, data } = position;
+
+    const actuator = actuators.data.find(act => act.deviceID === deviceId);
 
     useEffect(() => {
         fetchCurrentPosition(dispatch, deviceId);

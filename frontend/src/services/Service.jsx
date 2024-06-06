@@ -173,7 +173,7 @@ export function setBlindRollerValue(success, failure, deviceID, actuatorID, valu
         body: JSON.stringify({
             deviceID: deviceID,
             actuatorID: actuatorID,
-            value: value
+            value: parseInt(value, 10)
         }),
     })
         .then(res => {
@@ -182,7 +182,10 @@ export function setBlindRollerValue(success, failure, deviceID, actuatorID, valu
             }
             return res.json();
         })
-        .then(data => success(data))
+        .then(data => {
+            console.log("Server replied:", data);
+            success(data)
+        })
         .catch(err => failure(err.message));
 }
 

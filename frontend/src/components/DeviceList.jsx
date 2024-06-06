@@ -11,6 +11,7 @@ import AppContext from "../context/AppContext.jsx";
 import {fetchActuators, fetchDevicesByRoomId, saveCurrentDevice} from "../context/Actions.jsx";
 import {updateCurrentDevice} from "../context/Actions.jsx";
 import BlindRollerPosition from "./BlindRollerPosition.jsx";
+import BlindRollerControl from "./BlindRollerControl.jsx";
 
 function DeviceList() {
     const {state, dispatch} = useContext(AppContext);
@@ -63,10 +64,13 @@ function DeviceList() {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography component="div">
-                                Here are some details about {device.deviceName}. You can add more information about the
-                                device here.
-                                {device.deviceName === 'BlindRoller' &&
-                                    <BlindRollerPosition deviceId={device.deviceID}/>}
+                                Here are some details about {device.deviceName}. You can add more information about the device here.
+                                {device.deviceName === 'BlindRoller' && (
+                                    <>
+                                        <BlindRollerPosition deviceId={device.deviceID}/>
+                                        <BlindRollerControl deviceId={device.deviceID}/>
+                                    </>
+                                )}
                             </Typography>
                         </AccordionDetails>
                         <AccordionActions>

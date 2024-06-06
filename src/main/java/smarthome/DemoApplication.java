@@ -67,7 +67,7 @@ public class DemoApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
-//@Bean
+@Bean
 @Profile("frontendtest")
   public CommandLineRunner demo (IHouseService houseService, IRoomService roomService, IDeviceService deviceService, IDeviceTypeService deviceTypeService,
         IUnitService unitService, ISensorTypeService sensorTypeService, ISensorModelService sensorModelService, IActuatorModelService actuatorModelService, IActuatorTypeService actuatorTypeService,
@@ -310,7 +310,7 @@ public class DemoApplication extends SpringBootServletInitializer {
           Device gardenPowerMeter = deviceService.addDevice(garden.getID(),
               new DeviceName("Garden Power Meter"), powerMeter.getID());
           Device bedroomBlindRoller = deviceService.addDevice(bedroom.getID(),
-              new DeviceName("Bedroom Blind Roller"), blindroller.getID());
+              new DeviceName("BlindRoller"), blindroller.getID());
           Device sunsetAndSunriseDevice = deviceService.addDevice(garden.getID(),
               new DeviceName("Sunset And Sunrise"), sunsetAndSunrise.getID());
           Device nasaSpaceStation = deviceService.addDevice(garden.getID(),

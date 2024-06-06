@@ -1,6 +1,14 @@
 import {
+    addDateSensor,
+    addDecimalActuator,
     addDeviceToRoom as addDeviceToRoomService,
-    fetchActuatorModelsFromServer,
+    addGenericActuator,
+    addGenericSensor,
+    addGPSSensor,
+    addIntegerActuator,
+    fetchActuatorModelsByActuatorTypeIdFromServer,
+    fetchActuatorsByDeviceId,
+    fetchActuatorTypesFromServer,
     fetchCurrentPositionValue,
     fetchDevicesByRoomIdFromServer,
     fetchDeviceTypesFromServer,
@@ -10,13 +18,7 @@ import {
     fetchSensorModelsBySensorTypeIdFromServer,
     fetchSensorTypesFromServer,
     setBlindRollerValue,
-    updateCurrentDeviceFromServer,
-    addGenericSensor,
-    addGPSSensor,
-    addDateSensor,
-    fetchActuatorsByDeviceId,
-    fetchActuatorTypesFromServer,
-    addGenericActuator, fetchActuatorModelsByActuatorTypeIdFromServer, addDecimalActuator, addIntegerActuator
+    updateCurrentDeviceFromServer
 } from "../services/Service.jsx";
 
 // Actions
@@ -152,13 +154,6 @@ export function addDeviceToRoom(dispatch, roomId, device) {
 }
 
 
-
-
-
-
-
-
-
 export function fetchLogsByDeviceId(dispatch, deviceId, timeStart, timeEnd) {
     dispatch({type: FETCH_LOGS_STARTED});
 
@@ -247,8 +242,10 @@ export function addGenericSensorToDevice(dispatch, selectedTypeOfSensor, deviceI
     const action = {
         type: ADD_GENERIC_SENSOR_TO_DEVICE_STARTED,
         payload: {
-            data: {selectedSensorTypeId, selectedSensorModelPath, selectedTypeOfSensor,
-                deviceId, sensorName}
+            data: {
+                selectedSensorTypeId, selectedSensorModelPath, selectedTypeOfSensor,
+                deviceId, sensorName
+            }
         }
     }
     dispatch(action);
@@ -273,7 +270,7 @@ function addGenericSensorSuccess() {
     }
 }
 
-function addGenericSensorFailure(err){
+function addGenericSensorFailure(err) {
     return {
         type: ADD_GENERIC_SENSOR_TO_DEVICE_FAILURE,
         payload: {
@@ -286,13 +283,16 @@ function addGenericSensorFailure(err){
 export const ADD_GPS_SENSOR_TO_DEVICE_STARTED = 'ADD_GPS_SENSOR_TO_DEVICE_STARTED';
 export const ADD_GPS_SENSOR_TO_DEVICE_SUCCESS = 'ADD_GPS_SENSOR_TO_DEVICE_SUCCESS';
 export const ADD_GPS_SENSOR_TO_DEVICE_FAILURE = 'ADD_GPS_SENSOR_TO_DEVICE_FAILURE';
-export function addGPSSensorToDevice(dispatch, selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, latitude, longitude){
+
+export function addGPSSensorToDevice(dispatch, selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, latitude, longitude) {
 
     const action = {
         type: ADD_GPS_SENSOR_TO_DEVICE_STARTED,
         payload: {
-            data: {selectedSensorTypeId, selectedSensorModelPath, selectedTypeOfSensor,
-                deviceId, sensorName, latitude, longitude}
+            data: {
+                selectedSensorTypeId, selectedSensorModelPath, selectedTypeOfSensor,
+                deviceId, sensorName, latitude, longitude
+            }
         }
     }
     dispatch(action);
@@ -317,7 +317,7 @@ function addGPSSensorSuccess() {
     }
 }
 
-function addGPSSensorFailure(err){
+function addGPSSensorFailure(err) {
     return {
         type: ADD_GPS_SENSOR_TO_DEVICE_FAILURE,
         payload: {
@@ -329,13 +329,16 @@ function addGPSSensorFailure(err){
 export const ADD_DATE_SENSOR_TO_DEVICE_STARTED = 'ADD_DATE_SENSOR_TO_DEVICE_STARTED';
 export const ADD_DATE_SENSOR_TO_DEVICE_SUCCESS = 'ADD_DATE_SENSOR_TO_DEVICE_SUCCESS';
 export const ADD_DATE_SENSOR_TO_DEVICE_FAILURE = 'ADD_DATE_SENSOR_TO_DEVICE_FAILURE';
+
 export function addDateSensorToDevice(dispatch, selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, startDate, endDate) {
 
     const action = {
         type: ADD_DATE_SENSOR_TO_DEVICE_STARTED,
         payload: {
-            data: {selectedSensorTypeId, selectedSensorModelPath, selectedTypeOfSensor,
-                deviceId, sensorName,startDate, endDate}
+            data: {
+                selectedSensorTypeId, selectedSensorModelPath, selectedTypeOfSensor,
+                deviceId, sensorName, startDate, endDate
+            }
         }
     }
     dispatch(action);
@@ -360,7 +363,7 @@ function addDateSensorSuccess() {
     }
 }
 
-function addDateSensorFailure(err){
+function addDateSensorFailure(err) {
     return {
         type: ADD_DATE_SENSOR_TO_DEVICE_FAILURE,
         payload: {
@@ -371,6 +374,7 @@ function addDateSensorFailure(err){
 
 
 export const UPDATE_GENERIC_SENSOR_DATA = 'UPDATE_GENERIC_SENSOR_DATA';
+
 export function updateGenericSensorData(formDispatch, sensorName) {
     const action = {
         type: UPDATE_GENERIC_SENSOR_DATA,
@@ -382,6 +386,7 @@ export function updateGenericSensorData(formDispatch, sensorName) {
 }
 
 export const UPDATE_LATITUDE_DATA = 'UPDATE_LATITUDE_DATA';
+
 export function updateLatitudeData(formDispatch, latitude) {
     const action = {
         type: UPDATE_LATITUDE_DATA,
@@ -393,6 +398,7 @@ export function updateLatitudeData(formDispatch, latitude) {
 }
 
 export const UPDATE_LONGITUDE_DATA = 'UPDATE_LONGITUDE_DATA';
+
 export function updateLongitudeData(formDispatch, longitude) {
     const action = {
         type: UPDATE_LONGITUDE_DATA,
@@ -404,7 +410,8 @@ export function updateLongitudeData(formDispatch, longitude) {
 }
 
 export const UPDATE_START_DATE_DATA = 'UPDATE_START_DATE_DATA';
-export function updateStartDateData (formDispatch, startDate) {
+
+export function updateStartDateData(formDispatch, startDate) {
     const action = {
         type: UPDATE_START_DATE_DATA,
         payload: {
@@ -416,7 +423,8 @@ export function updateStartDateData (formDispatch, startDate) {
 
 
 export const UPDATE_END_DATE_DATA = 'UPDATE_END_DATE_DATA';
-export function updateEndDateData (formDispatch, endDate) {
+
+export function updateEndDateData(formDispatch, endDate) {
     const action = {
         type: UPDATE_END_DATE_DATA,
         payload: {
@@ -526,16 +534,16 @@ export function updateSelectedSensorModelPath(dispatch, selectedSensorModel) {
 }
 
 
-
 // ------------------------------ Actuators ------------------------------//
 export function fetchActuators(dispatch, deviceId) {
-    dispatch({ type: FETCH_ACTUATORS_STARTED });
+    dispatch({type: FETCH_ACTUATORS_STARTED});
 
     const success = (data) => dispatch({type: FETCH_ACTUATORS_SUCCESS, payload: {actuators: data}});
-    const failure = (error) => dispatch({type: FETCH_ACTUATORS_FAILURE, payload: {error}});
+    const failure = (error) => dispatch({type: FETCH_ACTUATORS_FAILURE, payload: {error: error}});
 
     fetchActuatorsByDeviceId(success, failure, deviceId);
 }
+
 // ------------------------------ Type Of Actuator ------------------------------//
 export const UPDATE_SELECTED_TYPE_OF_ACTUATOR = 'UPDATE_SELECTED_TYPE_OF_ACTUATOR';
 
@@ -611,6 +619,7 @@ function fetchActuatorModelsFailure(message) {
 
 
 export const UPDATE_SELECTED_ACTUATOR_MODEL_NAME = 'UPDATE_SELECTED_ACTUATOR_MODEL_NAME';
+
 export function updateSelectedActuatorModelName(dispatch, actuatorModel) {
     const action = {
         type: UPDATE_SELECTED_ACTUATOR_MODEL_NAME,
@@ -622,6 +631,7 @@ export function updateSelectedActuatorModelName(dispatch, actuatorModel) {
 }
 
 export const UPDATE_SELECTED_ACTUATOR_MODEL_PATH = 'UPDATE_SELECTED_ACTUATOR_MODEL_PATH';
+
 export function updateSelectedActuatorModelPath(dispatch, actuatorModel) {
     const action = {
         type: UPDATE_SELECTED_ACTUATOR_MODEL_PATH,
@@ -635,6 +645,7 @@ export function updateSelectedActuatorModelPath(dispatch, actuatorModel) {
 
 // ------------------------------ Add actuators ------------------------------//
 export const UPDATE_GENERIC_ACTUATOR_DATA = 'UPDATE_GENERIC_ACTUATOR_DATA';
+
 export function updateGenericActuatorData(formDispatch, actuatorName) {
     const action = {
         type: UPDATE_GENERIC_ACTUATOR_DATA,
@@ -647,6 +658,7 @@ export function updateGenericActuatorData(formDispatch, actuatorName) {
 }
 
 export const UPDATE_MIN_LIMIT_DATA = 'UPDATE_MIN_LIMIT_DATA';
+
 export function updateMinLimitData(formDispatch, minLimit) {
     const action = {
         type: UPDATE_MIN_LIMIT_DATA,
@@ -658,6 +670,7 @@ export function updateMinLimitData(formDispatch, minLimit) {
 }
 
 export const UPDATE_MAX_LIMIT_DATA = 'UPDATE_MAX_LIMIT_DATA';
+
 export function updateMaxLimitData(formDispatch, maxLimit) {
     const action = {
         type: UPDATE_MAX_LIMIT_DATA,
@@ -672,6 +685,7 @@ export function updateMaxLimitData(formDispatch, maxLimit) {
 export const ADD_GENERIC_ACTUATOR_TO_DEVICE_STARTED = 'ADD_GENERIC_ACTUATOR_TO_DEVICE_STARTED';
 export const ADD_GENERIC_ACTUATOR_TO_DEVICE_SUCCESS = 'ADD_GENERIC_ACTUATOR_TO_DEVICE_SUCCESS';
 export const ADD_GENERIC_ACTUATOR_TO_DEVICE_FAILURE = 'ADD_GENERIC_ACTUATOR_TO_DEVICE_FAILURE';
+
 export function addGenericActuatorToDevice(dispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName) {
     const action = {
         type: ADD_GENERIC_ACTUATOR_TO_DEVICE_STARTED,
@@ -700,7 +714,7 @@ function addGenericActuatorSuccess() {
     }
 }
 
-function addGenericActuatorFailure(err){
+function addGenericActuatorFailure(err) {
     return {
         type: ADD_GENERIC_ACTUATOR_TO_DEVICE_FAILURE,
         payload: {
@@ -712,11 +726,20 @@ function addGenericActuatorFailure(err){
 export const ADD_DECIMAL_ACTUATOR_TO_DEVICE_STARTED = 'ADD_DECIMAL_ACTUATOR_TO_DEVICE_STARTED';
 export const ADD_DECIMAL_ACTUATOR_TO_DEVICE_SUCCESS = 'ADD_DECIMAL_ACTUATOR_TO_DEVICE_SUCCESS';
 export const ADD_DECIMAL_ACTUATOR_TO_DEVICE_FAILURE = 'ADD_DECIMAL_ACTUATOR_TO_DEVICE_FAILURE';
-export function  addDecimalActuatorToDevice(dispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit) {
+
+export function addDecimalActuatorToDevice(dispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit) {
     const action = {
         type: ADD_DECIMAL_ACTUATOR_TO_DEVICE_STARTED,
         payload: {
-            data: {selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit}
+            data: {
+                selectedTypeOfActuator,
+                deviceId,
+                selectedActuatorModelPath,
+                selectedActuatorTypeId,
+                actuatorName,
+                minLimit,
+                maxLimit
+            }
         }
     }
     dispatch(action)
@@ -734,14 +757,14 @@ export function  addDecimalActuatorToDevice(dispatch, selectedTypeOfActuator, de
     addDecimalActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, success, failure)
 }
 
-function addDecimalActuatorSuccess () {
+function addDecimalActuatorSuccess() {
     return {
         type: ADD_DECIMAL_ACTUATOR_TO_DEVICE_SUCCESS,
         payload: "Decimal actuator added successfully"
     }
 }
 
-function addDecimalActuatorFailure (err) {
+function addDecimalActuatorFailure(err) {
     return {
         type: ADD_DECIMAL_ACTUATOR_TO_DEVICE_FAILURE,
         payload: {
@@ -755,11 +778,20 @@ function addDecimalActuatorFailure (err) {
 export const ADD_INTEGER_ACTUATOR_TO_DEVICE_STARTED = 'ADD_INTEGER_ACTUATOR_TO_DEVICE_STARTED';
 export const ADD_INTEGER_ACTUATOR_TO_DEVICE_SUCCESS = 'ADD_INTEGER_ACTUATOR_TO_DEVICE_SUCCESS';
 export const ADD_INTEGER_ACTUATOR_TO_DEVICE_FAILURE = 'ADD_INTEGER_ACTUATOR_TO_DEVICE_FAILURE';
-export function  addIntegerActuatorToDevice(dispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit) {
+
+export function addIntegerActuatorToDevice(dispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit) {
     const action = {
         type: ADD_INTEGER_ACTUATOR_TO_DEVICE_STARTED,
         payload: {
-            data: {selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit}
+            data: {
+                selectedTypeOfActuator,
+                deviceId,
+                selectedActuatorModelPath,
+                selectedActuatorTypeId,
+                actuatorName,
+                minLimit,
+                maxLimit
+            }
         }
     }
     dispatch(action)
@@ -777,14 +809,14 @@ export function  addIntegerActuatorToDevice(dispatch, selectedTypeOfActuator, de
     addIntegerActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, success, failure)
 }
 
-function addIntegerActuatorSuccess () {
+function addIntegerActuatorSuccess() {
     return {
         type: ADD_INTEGER_ACTUATOR_TO_DEVICE_SUCCESS,
         payload: "Integer actuator added successfully"
     }
 }
 
-function addIntegerActuatorFailure (err) {
+function addIntegerActuatorFailure(err) {
     return {
         type: ADD_INTEGER_ACTUATOR_TO_DEVICE_FAILURE,
         payload: {
@@ -795,9 +827,9 @@ function addIntegerActuatorFailure (err) {
 }
 
 
-
 export const SAVE_CURRENT_DEVICE = 'SAVE_CURRENT_DEVICE';
-export function saveCurrentDevice(dispatch, deviceId){
+
+export function saveCurrentDevice(dispatch, deviceId) {
     const action = {
         type: SAVE_CURRENT_DEVICE,
         payload: {

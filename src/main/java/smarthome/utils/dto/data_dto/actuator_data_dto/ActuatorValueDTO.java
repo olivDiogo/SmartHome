@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 
 
 @AllArgsConstructor
-public class ActuatorValueDTO implements IActuatorDataDTO {
+public class ActuatorValueDTO {
 
   @NotBlank(message = "DeviceID cannot be empty")
   public final String deviceID;
