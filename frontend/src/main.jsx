@@ -11,12 +11,15 @@ import LogsPage from "./pages/LogsPage.jsx";
 import LogsResultsPage from "./pages/LogsResultsPage.jsx";
 import FormDataProvider from "./context/FormDataProvider.jsx";
 import AddActuatorPage from "./pages/AddActuatorPage.jsx";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <AppProvider>
         <React.StrictMode>
             <Router>
                 <FormDataProvider>
+                    <ToastContainer position="top-right" autoClose={5000} />
                     <Routes>
                         <Route path="/" element={<MainPage/>}/>
                         <Route path="/rooms/:roomId" element={<AddDeviceToRoomPage/>}/>

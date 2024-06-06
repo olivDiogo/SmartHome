@@ -1,3 +1,5 @@
+import {toast} from 'react-toastify';
+
 export const URL_API = 'http://localhost:8080';
 
 export function fetchRoomsFromServer(success, failure) {
@@ -176,17 +178,21 @@ export function setBlindRollerValue(success, failure, deviceID, actuatorID, valu
             value: parseInt(value, 10)
         }),
     })
-        .then(res => {
+        .then(res => res.json().then(data => {
             if (!res.ok) {
-                throw new Error('Network response was not ok');
+                const errorMessage = data.message || 'Network response was not ok';
+                throw new Error(errorMessage);
             }
-            return res.json();
-        })
+            return data;
+        }))
         .then(data => {
-            console.log("Server replied:", data);
-            success(data)
+            success(data);
+            toast.success("Blind roller value set successfully!");
         })
-        .catch(err => failure(err.message));
+        .catch(err => {
+            failure(err.message);
+            toast.error(`Failed to set value: ${err.message}`);
+        });
 }
 
 export function fetchDeviceTypesFromServer(success, failure) {
@@ -311,7 +317,7 @@ export function fetchActuatorModelsByActuatorTypeIdFromServer(success, failure, 
 
 }
 
-export function addGenericActuator (selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, success, failure) {
+export function addGenericActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, success, failure) {
 
     fetch(`${URL_API}/actuators`, {
         method: 'POST',
