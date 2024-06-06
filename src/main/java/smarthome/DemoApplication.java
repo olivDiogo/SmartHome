@@ -67,7 +67,7 @@ public class DemoApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
-@Bean
+//@Bean
 @Profile("frontendtest")
   public CommandLineRunner demo (IHouseService houseService, IRoomService roomService, IDeviceService deviceService, IDeviceTypeService deviceTypeService,
         IUnitService unitService, ISensorTypeService sensorTypeService, ISensorModelService sensorModelService, IActuatorModelService actuatorModelService, IActuatorTypeService actuatorTypeService,
