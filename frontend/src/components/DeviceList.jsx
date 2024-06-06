@@ -51,44 +51,53 @@ function DeviceList() {
     } else if (data.length > 0) {
         return (
             <div>
-                {data.map((device) => (
-                    <Accordion key={device.deviceID}
-                        onChange={() => fetchActuatorsForDevice(device.deviceID)}
+                {data.map((device) => {
+                    console.log("device", device); // Add this line to log the device
+                    return (
+                        <Accordion key={device.deviceID}
+                                   onChange={() => fetchActuatorsForDevice(device.deviceID)}
                         >
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon/>}
-                            aria-controls={`panel${device.deviceID}-content`}
-                            id={`panel${device.deviceID}-header`}
-                        >
-                            <Typography>{device.deviceName}</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography component="div">
-                                Here are some details about {device.deviceName}. You can add more information about the device here.
-                                {device.deviceName === 'BlindRoller' && (
-                                    <>
-                                        <BlindRollerPosition deviceId={device.deviceID}/>
-                                        <BlindRollerControl deviceId={device.deviceID}/>
-                                    </>
-                                )}
-                            </Typography>
-                        </AccordionDetails>
-                        <AccordionActions>
-                            <Button size="small" color="primary"
-                                    onClick={() => handleViewLogsOnClick(device.deviceID, device.deviceName)}>
-                                View Logs
-                            </Button>
-                            <Button size="small" color="primary"
-                                    onClick={() => handleAddSensorToDeviceOnClick(device.deviceID)}>
-                                Add Sensor
-                            </Button>
-                            <Button size="small" color="primary"
-                                    onClick={() => handleAddActuatorToDeviceOnClick(device.deviceID)}>
-                                Add Actuator
-                            </Button>
-                        </AccordionActions>
-                    </Accordion>
-                ))}
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon/>}
+                                aria-controls={`panel${device.deviceID}-content`}
+                                id={`panel${device.deviceID}-header`}
+                            >
+                                <Typography>{device.deviceName}</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography component="div">
+                                    <div style={{ marginBottom: '16px' }}>
+                                        Here are some details about {device.deviceName}. You can add more information about the device here.
+                                    </div>
+                                    {device.deviceName === 'BlindRoller' && (
+                                        <>
+                                            <div style={{ marginBottom: '16px' }}>
+                                                <BlindRollerPosition deviceId={device.deviceID}/>
+                                            </div>
+                                            <div>
+                                                <BlindRollerControl deviceId={device.deviceID}/>
+                                            </div>
+                                        </>
+                                    )}
+                                </Typography>
+                            </AccordionDetails>
+                            <AccordionActions>
+                                <Button size="small" color="primary"
+                                        onClick={() => handleViewLogsOnClick(device.deviceID, device.deviceName)}>
+                                    View Logs
+                                </Button>
+                                <Button size="small" color="primary"
+                                        onClick={() => handleAddSensorToDeviceOnClick(device.deviceID)}>
+                                    Add Sensor
+                                </Button>
+                                <Button size="small" color="primary"
+                                        onClick={() => handleAddActuatorToDeviceOnClick(device.deviceID)}>
+                                    Add Actuator
+                                </Button>
+                            </AccordionActions>
+                        </Accordion>
+                    );
+                })}
             </div>
         );
     }
