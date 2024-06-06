@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!pragma layout smetana
+
+autonumber
+
+participant " " as HTTP
+box "Smart Home"
+    participant "Backend" as BE
+end box
+
+
+HTTP -> BE : GET /logs?deviceID={deviceID}&timeStart={timeStart}&timeEnd={timeEnd}
+activate BE
+
+BE --> HTTP : logDTOList
+deactivate BE
+
+
+@enduml

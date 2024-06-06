@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+autonumber
+
+participant " " as HTTP
+
+box "SmartHome"
+    participant "Backend" as BE
+end box
+
+
+HTTP -> BE : POST /device
+activate BE
+
+
+BE --> HTTP : deviceDTO
+deactivate BE
+
+deactivate HTTP
+
+
+@enduml
