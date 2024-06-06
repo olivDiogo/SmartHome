@@ -217,6 +217,7 @@
                     <excludes>
                         <exclude>**/persistence/**/*.java</exclude>
                         <exclude>**/ddd/**/*.java</exclude>
+                        <exclude>**/DemoApplication.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -237,6 +238,8 @@
                         <exclude>**/ui/**/*</exclude>
                         <exclude>**/ddd/**/*</exclude>
                         <exclude>**/persistence/**/*</exclude>
+                        <exclude>**/DemoApplication.java</exclude>
+
                     </excludes>
                 </configuration>
                 <executions>
@@ -271,10 +274,14 @@
                     <excludedClasses>
                         <param>**.ddd.**.*</param>
                         <param>**.persistence.**.*</param>
+                        <exclude>**/DemoApplication.java</exclude>
+
                     </excludedClasses>
                     <excludedTestClasses>
                         <param>**.ddd.**.*</param>
                         <param>**.persistence.**.*</param>
+                        <exclude>**/DemoApplication.java</exclude>
+
                     </excludedTestClasses>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
