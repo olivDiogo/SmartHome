@@ -161,7 +161,8 @@ function reducer(state = initialState, action) {
                 temperature: {
                     loading: true,
                     error: null,
-                    data: null
+                    data: null,
+                    lastUpdated: null
                 }
             };
         case FETCH_TEMPERATURE_SUCCESS:
@@ -170,7 +171,8 @@ function reducer(state = initialState, action) {
                 temperature: {
                     loading: false,
                     error: null,
-                    data: action.payload.data
+                    data: action.payload.data,
+                    lastUpdated: action.payload.lastUpdated
                 }
             };
         case FETCH_TEMPERATURE_FAILURE:
@@ -179,7 +181,8 @@ function reducer(state = initialState, action) {
                 temperature: {
                     loading: false,
                     error: action.payload.error,
-                    data: null
+                    data: null,
+                    lastUpdated: null
                 }
             };
         case FETCH_SENSOR_MODELS_STARTED:
