@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Card, CardContent, Typography, Box, CircularProgress } from '@material-ui/core';
+import { Card, CardContent, Typography, Box, Grid, CircularProgress } from '@mui/material';
 import AppContext from '../context/AppContext.jsx';
 import { fetchCurrentPosition } from '../context/Actions.jsx';
 import './BlindRollerPosition.css'; // Import the CSS file for additional styling
@@ -34,25 +34,29 @@ const BlindRollerPosition = ({ deviceId }) => {
     };
 
     return (
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 2,
-            bgcolor: 'background.paper',
-            borderRadius: '10px',
-            boxShadow: 3,
-            maxWidth: 400,
-            margin: 'auto',
-            mt: 2,  // margin top
-        }}>
-            <Card sx={{ width: '100%', boxShadow: 3 }}>
-                <CardContent>
-                    {renderContent()}
-                </CardContent>
-            </Card>
-        </Box>
+        <Grid container spacing={2} justifyContent="center">
+            <Grid item xs={12} sm={6}>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: 2,
+                    bgcolor: 'background.paper',
+                    borderRadius: '10px',
+                    boxShadow: 3,
+                    maxWidth: 400,
+                    margin: 'auto',
+                    mt: 2,  // margin top
+                }}>
+                    <Card sx={{ width: '100%', boxShadow: 3 }}>
+                        <CardContent>
+                            {renderContent()}
+                        </CardContent>
+                    </Card>
+                </Box>
+            </Grid>
+        </Grid>
     );
 };
 
