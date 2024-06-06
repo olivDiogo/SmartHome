@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import AppContext from "../context/AppContext.jsx";
-import {fetchSensorModels, updateSelectedSensorModel} from "../context/Actions.jsx";
+import {fetchSensorModels, updateSelectedSensorModelName, updateSelectedSensorModelPath} from "../context/Actions.jsx";
 
 
 const SensorModels = () => {
@@ -16,15 +16,17 @@ const SensorModels = () => {
     const {selectedSensorTypeId} = state;
     const {selectedTypeOfSensor} = state;
 
-    const {selectedSensorModel} = state;
+    const {selectedSensorModelName} = state;
+    const {selectedSensorModelPath} = state;
 
 
     useEffect(() => {
         fetchSensorModels(dispatch, selectedSensorTypeId);
     }, [dispatch, selectedSensorTypeId, selectedTypeOfSensor]);
 
-    const handleTypeChange = (event) => {
-        updateSelectedSensorModel(dispatch, event.target.value);
+    const handleTypeChange = (sensorModel) => {
+        updateSelectedSensorModelName(dispatch, sensorModel);
+        updateSelectedSensorModelPath(dispatch, sensorModel)
     }
 
 
@@ -35,15 +37,15 @@ const SensorModels = () => {
                 <Select
                     labelId="type-label"
                     id="model"
-                    value={selectedSensorModel}
-                    onChange={handleTypeChange}
+                    value={selectedSensorModelName.sensorModelName}
+                    onChange={(event) => handleTypeChange(data.find(item => item.sensorModelName === event.target.value))}
                     label="Select Model"
                 >
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
                     {data.map((sensorModel) => (
-                        <MenuItem key={sensorModel.sensorModelName} value={sensorModel.sensorModelName}>
+                        <MenuItem key={sensorModel.modelPath} value={sensorModel.sensorModelName}>
                             {sensorModel.sensorModelName}
                         </MenuItem>
                     ))}

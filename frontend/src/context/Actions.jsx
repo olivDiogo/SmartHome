@@ -10,7 +10,8 @@ import {
     fetchSensorModelsBySensorTypeIdFromServer,
     fetchSensorTypesFromServer,
     setBlindRollerValue,
-    updateCurrentDeviceFromServer
+    updateCurrentDeviceFromServer,
+    addGenericSensor, addGPSSensor, addDateSensor, fetchActuatorsByDeviceId
 } from "../services/Service.jsx";
 
 // Actions
@@ -316,4 +317,245 @@ export function fetchActuators(dispatch, deviceId) {
     const failure = (error) => dispatch({type: FETCH_ACTUATORS_FAILURE, payload: {error}});
 
     fetchActuatorsByDeviceId(success, failure, deviceId);
+}
+
+export const UPDATE_SELECTED_SENSOR_MODEL_NAME = 'UPDATE_SELECTED_SENSOR_MODEL_NAME';
+
+export function updateSelectedSensorModelName(dispatch, selectedSensorModel) {
+    const action = {
+        type: UPDATE_SELECTED_SENSOR_MODEL_NAME,
+        payload: {
+            selectedSensorModelName: selectedSensorModel.sensorModelName
+        }
+    }
+    dispatch(action);
+}
+
+export const UPDATE_SELECTED_SENSOR_MODEL_PATH = 'UPDATE_SELECTED_SENSOR_MODEL_PATH';
+
+export function updateSelectedSensorModelPath(dispatch, selectedSensorModel) {
+    const action = {
+        type: UPDATE_SELECTED_SENSOR_MODEL_PATH,
+        payload: {
+            selectedSensorModelPath: selectedSensorModel.modelPath
+        }
+    }
+    dispatch(action);
+}
+
+export const ADD_GENERIC_SENSOR_TO_DEVICE_STARTED = 'ADD_GENERIC_SENSOR_TO_DEVICE_STARTED';
+export const ADD_GENERIC_SENSOR_TO_DEVICE_SUCCESS = 'ADD_GENERIC_SENSOR_TO_DEVICE_SUCCESS';
+export const ADD_GENERIC_SENSOR_TO_DEVICE_FAILURE = 'ADD_GENERIC_SENSOR_TO_DEVICE_FAILURE';
+
+export function addGenericSensorToDevice(dispatch, selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName) {
+    const action = {
+        type: ADD_GENERIC_SENSOR_TO_DEVICE_STARTED,
+        payload: {
+            data: {selectedSensorTypeId, selectedSensorModelPath, selectedTypeOfSensor,
+                deviceId, sensorName}
+        }
+    }
+    dispatch(action);
+
+    const success = () => {
+        const action = addGenericSensorSuccess()
+        dispatch(action)
+    };
+
+    const failure = (error) => {
+        const action = addGenericSensorFailure(error)
+        dispatch(action)
+    };
+
+    addGenericSensor(selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, success, failure)
+}
+
+function addGenericSensorSuccess() {
+    return {
+        type: ADD_GENERIC_SENSOR_TO_DEVICE_SUCCESS,
+        payload: "Generic sensor added successfully"
+    }
+}
+
+function addGenericSensorFailure(err){
+    return {
+        type: ADD_GENERIC_SENSOR_TO_DEVICE_FAILURE,
+        payload: {
+            error: err.message
+        }
+    }
+}
+
+
+export const ADD_GPS_SENSOR_TO_DEVICE_STARTED = 'ADD_GPS_SENSOR_TO_DEVICE_STARTED';
+export const ADD_GPS_SENSOR_TO_DEVICE_SUCCESS = 'ADD_GPS_SENSOR_TO_DEVICE_SUCCESS';
+export const ADD_GPS_SENSOR_TO_DEVICE_FAILURE = 'ADD_GPS_SENSOR_TO_DEVICE_FAILURE';
+export function addGPSSensorToDevice(dispatch, selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, latitude, longitude){
+
+    const action = {
+        type: ADD_GPS_SENSOR_TO_DEVICE_STARTED,
+        payload: {
+            data: {selectedSensorTypeId, selectedSensorModelPath, selectedTypeOfSensor,
+                deviceId, sensorName, latitude, longitude}
+        }
+    }
+    dispatch(action);
+
+    const success = () => {
+        const action = addGPSSensorSuccess()
+        dispatch(action)
+    };
+
+    const failure = (error) => {
+        const action = addGPSSensorFailure(error)
+        dispatch(action)
+    };
+
+    addGPSSensor(selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, latitude, longitude, success, failure)
+}
+
+function addGPSSensorSuccess() {
+    return {
+        type: ADD_GPS_SENSOR_TO_DEVICE_SUCCESS,
+        payload: "GPS sensor added successfully"
+    }
+}
+
+function addGPSSensorFailure(err){
+    return {
+        type: ADD_GPS_SENSOR_TO_DEVICE_FAILURE,
+        payload: {
+            error: err.message
+        }
+    }
+}
+
+export const ADD_DATE_SENSOR_TO_DEVICE_STARTED = 'ADD_DATE_SENSOR_TO_DEVICE_STARTED';
+export const ADD_DATE_SENSOR_TO_DEVICE_SUCCESS = 'ADD_DATE_SENSOR_TO_DEVICE_SUCCESS';
+export const ADD_DATE_SENSOR_TO_DEVICE_FAILURE = 'ADD_DATE_SENSOR_TO_DEVICE_FAILURE';
+export function addDateSensorToDevice(dispatch, selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, startDate, endDate) {
+
+    const action = {
+        type: ADD_DATE_SENSOR_TO_DEVICE_STARTED,
+        payload: {
+            data: {selectedSensorTypeId, selectedSensorModelPath, selectedTypeOfSensor,
+                deviceId, sensorName,startDate, endDate}
+        }
+    }
+    dispatch(action);
+
+    const success = () => {
+        const action = addDateSensorSuccess()
+        dispatch(action)
+    };
+
+    const failure = (error) => {
+        const action = addDateSensorFailure(error)
+        dispatch(action)
+    };
+
+    addDateSensor(selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, startDate, endDate, success, failure)
+}
+
+function addDateSensorSuccess() {
+    return {
+        type: ADD_DATE_SENSOR_TO_DEVICE_SUCCESS,
+        payload: "Date sensor added successfully"
+    }
+}
+
+function addDateSensorFailure(err){
+    return {
+        type: ADD_DATE_SENSOR_TO_DEVICE_FAILURE,
+        payload: {
+            error: err.message
+        }
+    }
+}
+
+
+
+
+
+export const UPDATE_GENERIC_SENSOR_DATA = 'UPDATE_GENERIC_SENSOR_DATA';
+export function updateGenericSensorData(formDispatch, sensorName) {
+    const action = {
+        type: UPDATE_GENERIC_SENSOR_DATA,
+        payload: {
+            sensorName: sensorName
+        }
+    }
+    formDispatch(action);
+}
+
+export const UPDATE_LATITUDE_DATA = 'UPDATE_LATITUDE_DATA';
+export function updateLatitudeData(formDispatch, latitude) {
+    const action = {
+        type: UPDATE_LATITUDE_DATA,
+        payload: {
+            latitude: latitude
+        }
+    }
+    formDispatch(action);
+}
+
+export const UPDATE_LONGITUDE_DATA = 'UPDATE_LONGITUDE_DATA';
+export function updateLongitudeData(formDispatch, longitude) {
+    const action = {
+        type: UPDATE_LONGITUDE_DATA,
+        payload: {
+            longitude: longitude
+        }
+    }
+    formDispatch(action);
+}
+
+export const UPDATE_START_DATE_DATA = 'UPDATE_START_DATE_DATA';
+export function updateStartDateData (formDispatch, startDate) {
+    const action = {
+        type: UPDATE_START_DATE_DATA,
+        payload: {
+            startDate: startDate
+        }
+    }
+    formDispatch(action);
+}
+
+
+export const UPDATE_END_DATE_DATA = 'UPDATE_END_DATE_DATA';
+export function updateEndDateData (formDispatch, endDate) {
+    const action = {
+        type: UPDATE_END_DATE_DATA,
+        payload: {
+            endDate: endDate
+        }
+    }
+    formDispatch(action);
+}
+
+// ------------------------------ Actuators ------------------------------//
+
+// ------------------------------ Type Of Actuator ------------------------------//
+export const UPDATE_SELECTED_TYPE_OF_ACTUATOR = 'UPDATE_SELECTED_TYPE_OF_ACTUATOR';
+
+export function updateSelectedTypeOfActuator(dispatch, selectedTypeOfActuator) {
+    const action = {
+        type: UPDATE_SELECTED_TYPE_OF_ACTUATOR,
+        payload: {
+            selectedTypeOfActuator: selectedTypeOfActuator
+        }
+    }
+    dispatch(action);
+}
+
+
+export const SAVE_CURRENT_DEVICE = 'SAVE_CURRENT_DEVICE';
+export function saveCurrentDevice(dispatch, deviceId){
+    const action = {
+        type: SAVE_CURRENT_DEVICE,
+        payload: {
+            deviceId: deviceId
+        }
+    }
+    dispatch(action);
 }

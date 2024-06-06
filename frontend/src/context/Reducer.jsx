@@ -37,8 +37,26 @@ import {
     UPDATE_DEVICE_STARTED,
     UPDATE_DEVICE_SUCCESS,
     UPDATE_SELECTED_SENSOR_MODEL,
+    UPDATE_SELECTED_SENSOR_MODEL_NAME,
     UPDATE_SELECTED_SENSOR_TYPE_ID,
-    UPDATE_SELECTED_TYPE_OF_SENSOR
+    UPDATE_SELECTED_TYPE_OF_SENSOR,
+    UPDATE_SELECTED_TYPE_OF_ACTUATOR,
+    UPDATE_SELECTED_SENSOR_MODEL_PATH,
+    ADD_GENERIC_SENSOR_TO_DEVICE_SUCCESS,
+    UPDATE_GENERIC_SENSOR_DATA,
+    ADD_GENERIC_SENSOR_TO_DEVICE_STARTED,
+    ADD_GENERIC_SENSOR_TO_DEVICE_FAILURE,
+    SAVE_CURRENT_DEVICE,
+    UPDATE_LATITUDE_DATA,
+    UPDATE_LONGITUDE_DATA,
+    ADD_GPS_SENSOR_TO_DEVICE_FAILURE,
+    ADD_GPS_SENSOR_TO_DEVICE_SUCCESS,
+    ADD_GPS_SENSOR_TO_DEVICE_STARTED,
+    UPDATE_START_DATE_DATA,
+    UPDATE_END_DATE_DATA,
+    ADD_DATE_SENSOR_TO_DEVICE_STARTED,
+    ADD_DATE_SENSOR_TO_DEVICE_SUCCESS,
+    ADD_DATE_SENSOR_TO_DEVICE_FAILURE
 } from "./Actions.jsx";
 import {
     FETCH_TEMPERATURE_FAILURE,
@@ -419,6 +437,146 @@ function reducer(state = initialState, action) {
                     data: []
                 }
             };
+        case UPDATE_GENERIC_SENSOR_DATA:
+            return {
+                ...state,
+                sensorName: action.payload.sensorName,
+            };
+
+        case UPDATE_LATITUDE_DATA:
+            return {
+                ...state,
+                latitude: action.payload.latitude,
+            };
+
+        case UPDATE_LONGITUDE_DATA:
+            return {
+                ...state,
+                longitude: action.payload.longitude,
+            };
+
+        case UPDATE_START_DATE_DATA:
+            return {
+                ...state,
+                startDate: action.payload.startDate,
+            };
+
+        case UPDATE_END_DATE_DATA:
+            return {
+                ...state,
+                endDate: action.payload.endDate,
+            };
+
+        case ADD_GENERIC_SENSOR_TO_DEVICE_STARTED:
+            return {
+                ...state,
+                addingSensor: {
+                    status: true,
+                    error: null,
+                }
+            };
+
+        case ADD_GENERIC_SENSOR_TO_DEVICE_SUCCESS:
+            return {
+                ...state,
+                addingSensor: {
+                    status: false,
+                    error: null,
+                }
+            };
+
+        case ADD_GENERIC_SENSOR_TO_DEVICE_FAILURE:
+            return {
+                ...state,
+                addingSensor: {
+                    status: false,
+                    error: action.payload.error,
+                }
+            };
+
+        case ADD_GPS_SENSOR_TO_DEVICE_STARTED:
+            return {
+                ...state,
+                addingSensor: {
+                    status: true,
+                    error: null,
+                }
+            };
+
+        case ADD_GPS_SENSOR_TO_DEVICE_SUCCESS:
+            return {
+                ...state,
+                addingSensor: {
+                    status: false,
+                    error: null,
+                }
+            };
+
+        case ADD_GPS_SENSOR_TO_DEVICE_FAILURE:
+            return {
+                ...state,
+                addingSensor: {
+                    status: false,
+                    error: action.payload.error,
+                }
+            };
+
+        case ADD_DATE_SENSOR_TO_DEVICE_STARTED:
+            return {
+                ...state,
+                addingSensor: {
+                    status: true,
+                    error: null,
+                }
+            };
+
+        case ADD_DATE_SENSOR_TO_DEVICE_SUCCESS:
+            return {
+                ...state,
+                addingSensor: {
+                    status: false,
+                    error: null,
+                }
+            };
+
+        case ADD_DATE_SENSOR_TO_DEVICE_FAILURE:
+            return {
+                ...state,
+                addingSensor: {
+                    status: false,
+                    error: action.payload.error,
+                }
+            };
+
+        case SAVE_CURRENT_DEVICE:
+            return {
+                ...state,
+                currentDevice: {
+                    deviceId: action.payload.deviceId
+                }
+            };
+
+
+
+        case UPDATE_SELECTED_TYPE_OF_ACTUATOR:
+            return {
+                ...state,
+                selectedTypeOfActuator: action.payload.selectedTypeOfActuator
+            };
+
+
+        case UPDATE_SELECTED_SENSOR_MODEL_PATH:
+            return {
+                ...state,
+                selectedSensorModelPath: action.payload.selectedSensorModelPath
+            };
+
+        case UPDATE_SELECTED_SENSOR_MODEL_NAME:
+            return {
+                ...state,
+                selectedSensorModelName: action.payload.selectedSensorModelName
+            };
+
         default:
             return state;
     }

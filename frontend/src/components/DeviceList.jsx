@@ -8,13 +8,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {useNavigate} from 'react-router-dom';
 import AppContext from "../context/AppContext.jsx";
-import {fetchActuators, fetchDevicesByRoomId} from "../context/Actions.jsx";
+import {fetchActuators, fetchDevicesByRoomId, saveCurrentDevice} from "../context/Actions.jsx";
 import {updateCurrentDevice} from "../context/Actions.jsx";
 import BlindRollerPosition from "./BlindRollerPosition.jsx";
 
 function DeviceList() {
     const {state, dispatch} = useContext(AppContext);
     const {currentRoom, devices, currentDevice, actuators} = state;
+    const {deviceId} = currentDevice;
     const {roomId} = currentRoom;
     const {loading, error, data} = devices;
     const navigate = useNavigate();
@@ -27,7 +28,8 @@ function DeviceList() {
         fetchActuators(dispatch, deviceId);
     };
 
-    const handleAddDeviceOnClick = (deviceId) => {
+    const handleConfigureDeviceOnClick = (deviceId) => {
+        saveCurrentDevice(dispatch, deviceId)
         navigate(`/devices/${deviceId}`);
     };
 
@@ -68,7 +70,7 @@ function DeviceList() {
                                 View Logs
                             </Button>
                             <Button size="small" color="primary"
-                                    onClick={() => handleAddDeviceOnClick(device.deviceID)}>
+                                    onClick={() => handleConfigureDeviceOnClick(device.deviceID)}>
                                 Configure Device
                             </Button>
                         </AccordionActions>

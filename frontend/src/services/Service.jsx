@@ -199,3 +199,81 @@ export function fetchDeviceTypesFromServer(success, failure) {
         })
         .catch(err => failure(err.message));
 }
+
+export function addGenericSensor(selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, success, failure) {
+
+    fetch(`${URL_API}/sensors`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            type: selectedTypeOfSensor,
+            deviceID: deviceId,
+            sensorModelPath: selectedSensorModelPath,
+            sensorName: sensorName,
+            sensorTypeID: selectedSensorTypeId
+        }),
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .then(res => success(res))
+        .catch(err => failure(err.message));
+}
+
+export function addGPSSensor(selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, latitude, longitude, success, failure) {
+
+    fetch(`${URL_API}/sensors`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            type: selectedTypeOfSensor,
+            deviceID: deviceId,
+            sensorModelPath: selectedSensorModelPath,
+            sensorName: sensorName,
+            sensorTypeID: selectedSensorTypeId,
+            latitude: latitude,
+            longitude: longitude
+        }),
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .then(res => success(res))
+        .catch(err => failure(err.message));
+}
+
+export function addDateSensor(selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, startDate, endDate, success, failure) {
+    fetch(`${URL_API}/sensors`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            type: selectedTypeOfSensor,
+            deviceID: deviceId,
+            sensorModelPath: selectedSensorModelPath,
+            sensorTypeID: selectedSensorTypeId,
+            sensorName: sensorName,
+            startDate: startDate.format('YYYY-MM-DDTHH:mm:ss'),
+            endDate: endDate.format('YYYY-MM-DDTHH:mm:ss')
+        }),
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .then(res => success(res))
+        .catch(err => failure(err.message));
+}

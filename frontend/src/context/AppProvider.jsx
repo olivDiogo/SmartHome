@@ -23,6 +23,12 @@ const initialState = {
         error: null,
         data: [],
     },
+
+    currentDevice: {
+        deviceId: null,
+        deviceName: null,
+    },
+
     temperature: {
         loading: true,
         error: null,
@@ -48,7 +54,7 @@ const initialState = {
         error: null,
         data: [],
     },
-    selectedSensorModel: "",
+
     position: {
         loading: true,
         error: null,
@@ -69,6 +75,17 @@ const initialState = {
         error: null,
         data: [],
     },
+
+    selectedSensorModelName: "",
+
+    selectedSensorModelPath: "",
+
+    typesOfActuator : ['genericActuator', 'integerActuator', 'decimalActuator'],
+
+    addingSensor: {
+        status: 'idle',
+        error: null,
+    }
 };
 
 

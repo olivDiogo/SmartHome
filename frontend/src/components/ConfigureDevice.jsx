@@ -1,170 +1,187 @@
-import React, {useState} from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import AppContext from "../context/AppContext.jsx";
+import React, {useContext, useState} from "react";
+import {TextField, Button} from "@mui/material";
+import Box from "@mui/material/Box";
+import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
+import FormDataContext from "../context/FormDataContext.jsx";
+import dayjs from 'dayjs';
+import {
+    updateEndDateData,
+    updateGenericSensorData,
+    updateLatitudeData,
+    updateLongitudeData, updateStartDateData
+} from "../context/Actions.jsx";
 
-const ConfigureDevice = ({ sensorTypeID, deviceID, selectedSensorModel, selectedType }) => {
-    const [sensorName, setSensorName] = useState('');
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalTitle, setModalTitle] = useState('');
-    const [modalMessage, setModalMessage] = useState('');
 
+const ConfigureDevice = () => {
+    const {state} = useContext(AppContext);
+    const {selectedTypeOfSensor, selectedSensorTypeId, currentDevice, selectedSensorModelPath} = state;
+    const {deviceId} = currentDevice;
 
-    const handleSensorNameChange = (event) => {
-        setSensorName(event.target.value);
+    const {formState, formDispatch} = useContext(FormDataContext);
+    const {latitude, longitude, sensorName, startDate, endDate} = formState;
+    const [errors, setErrors] = useState({});
+
+    const validateFields = () => {
+        const newErrors = {};
+        if (sensorName === "") newErrors.sensorName = "Sensor Name is required";
+        if (selectedTypeOfSensor === 'gpsSensor') {
+            if (latitude === "") newErrors.latitude = "Latitude is required";
+            if (longitude === "") newErrors.longitude = "Longitude is required";
+        }
+        if (selectedTypeOfSensor === 'dateSensor') {
+            if (!startDate ) newErrors.startDate = "Start Date is required";
+            if (!endDate ) newErrors.endDate = "End Date is required";
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
-    const handleDateTimeChange = (newValue, type) => {
-        if (type === 'start') {
-            setStartDate(newValue);
+
+    const handleInputChange = (e) => {
+        validateFields();
+        updateGenericSensorData(formDispatch, e.target.value)
+    };
+
+
+    const handleLatitudeChange = (e) => {
+        const value = e.target.value;
+        if (/^-?\d*\.?\d*$/.test(value)) {
+            updateLatitudeData(formDispatch, value)
+        }
+    }
+
+    const handleLongitudeChange = (e) => {
+        const value = e.target.value;
+        if (/^-?\d*\.?\d*$/.test(value)) {
+            updateLongitudeData(formDispatch, value);
+        }
+    };
+
+    const handleStartDateChange = (date) => {
+        if (date && date.isValid()) {
+            updateStartDateData(formDispatch, date);
+        }
+    }
+
+    const handleEndDateChange = (date) => {
+        if (date && date.isValid()) {
+            updateEndDateData(formDispatch, date);
+        }
+    }
+
+
+    const filterSensorsConfiguration = (selectedTypeOfSensor) => {
+        if (selectedTypeOfSensor === 'gpsSensor') {
+            return (
+                <Box
+                    component="form"
+                    sx={{'& > :not(style)': {m: 1, width: '25ch'}}}
+                    noValidate
+                    autoComplete="off"
+                >
+                    <TextField
+                        id="latitude"
+                        label="Latitude"
+                        variant="outlined"
+                        value={latitude}
+                        onChange={handleLatitudeChange}
+                        required
+                        error={!!errors.latitude}
+                        helperText={errors.latitude}
+                    />
+                    <TextField
+                        id="longitude"
+                        label="Longitude"
+                        variant="outlined"
+                        value={longitude}
+                        onChange={handleLongitudeChange}
+                        required
+                        error={!!errors.longitude}
+                        helperText={errors.longitude}
+                    />
+                    <TextField
+                        id="sensorName"
+                        label="Sensor Name"
+                        variant="outlined"
+                        value={sensorName}
+                        onChange={handleInputChange}
+                        required
+                        error={!!errors.sensorName}
+                        helperText={errors.sensorName}
+                    />
+                </Box>
+            );
+        } else if (selectedTypeOfSensor === 'dateSensor') {
+            return (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer components={['DateTimePicker']}>
+                        <DateTimePicker
+                            label="Start Date"
+                            value={startDate ? dayjs(startDate) : null}
+                            onChange={handleStartDateChange}
+                            required
+                            error={!!errors.startDate}
+                            helperText={errors.startDate}
+                        />
+                        <DateTimePicker
+                            label="End Date"
+                            value={endDate ? dayjs(endDate) : null}
+                            onChange={handleEndDateChange}
+                            required
+                            error={!!errors.endDate}
+                            helperText={errors.endDate}
+                        />
+                    </DemoContainer>
+                    <Box
+                        component="form"
+                        sx={{'& > :not(style)': {m: 1, width: '25ch'}}}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <TextField
+                            id="sensorName"
+                            label="Sensor Name"
+                            variant="outlined"
+                            value={sensorName}
+                            onChange={handleInputChange}
+                            required
+                            error={!!errors.sensorName}
+                            helperText={errors.sensorName}
+                        />
+                    </Box>
+                </LocalizationProvider>
+            );
         } else {
-            setEndDate(newValue);
+            return (
+                <Box
+                    component="form"
+                    sx={{'& > :not(style)': {m: 1, width: '25ch'}}}
+                    noValidate
+                    autoComplete="off"
+                >
+                    <TextField
+                        id="sensorName"
+                        label="Sensor Name"
+                        variant="outlined"
+                        value={sensorName}
+                        onChange={handleInputChange}
+                        required
+                        error={!!errors.sensorName}
+                        helperText={errors.sensorName}
+                    />
+                </Box>
+            );
         }
-    };
-
-    const handleLocationChange = (event) => {
-        if (event.target.name === 'latitude') {
-            setLatitude(event.target.value);
-        } else {
-            setLongitude(event.target.value);
-        }
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        const deviceConfiguration = {
-            type: selectedSensorModel.selectedType,
-            deviceID,
-            sensorModelPath: selectedSensorModel.selectedSensorModel,
-            sensorName,
-            sensorTypeID,
-        };
-
-        if (selectedSensorModel.selectedType === 'dateSensor') {
-            if (!startDate || !endDate) {
-                showModal('Error', 'Please select both start and end date/time.');
-                return;
-            }
-            deviceConfiguration.startDate = startDate.toISOString();
-            deviceConfiguration.endDate = endDate.toISOString();
-        } else if (selectedSensorModel.selectedType === 'gpsSensor') {
-            if (!latitude || !longitude) {
-                showModal('Error', 'Please enter both latitude and longitude.');
-                return;
-            }
-            deviceConfiguration.latitude = latitude;
-            deviceConfiguration.longitude = longitude;
-        }
-
-        sendDeviceConfiguration(deviceConfiguration);
-    };
-
-    const showModal = (title, message) => {
-        setModalTitle(title);
-        setModalMessage(message);
-        setModalOpen(true);
-    };
-
-    const sendDeviceConfiguration = (deviceConfiguration) => {
-        fetch('http://localhost:8080/sensors', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(deviceConfiguration),
-        })
-            .then(response => response.json())
-            .then(data => {
-                showModal("Success", "Functionalities added successfully");
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                showModal("Error", "Failed to add functionalities");
-            });
     };
 
     return (
-        <Box sx={{ padding: 2 }}>
-            <Typography variant="h6">Configure Device</Typography>
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    fullWidth
-                    label="Sensor Name"
-                    value={sensorName}
-                    onChange={handleSensorNameChange}
-                    margin="normal"
-                    required
-                    error={!sensorName}
-                    helperText="Please enter a sensor name."
-                />
-
-                {selectedType === 'dateSensor' && (
-                    <>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DateTimePicker
-                                label="Start Date and Time"
-                                value={startDate}
-                                onChange={(newValue) => handleDateTimeChange(newValue, 'start')}
-                                renderInput={(props) => <TextField {...props} />}
-                                margin="normal"
-                            />
-                            <DateTimePicker
-                                label="End Date and Time"
-                                value={endDate}
-                                onChange={(newValue) => handleDateTimeChange(newValue, 'end')}
-                                renderInput={(props) => <TextField {...props} />}
-                                margin="normal"
-                            />
-                        </LocalizationProvider>
-                    </>
-                )}
-
-                {selectedType === 'gpsSensor' && (
-                    <>
-                        <TextField
-                            fullWidth
-                            label="Latitude"
-                            value={latitude}
-                            onChange={handleLocationChange}
-                            margin="normal"
-                            name="latitude"
-                        />
-                        <TextField
-                            fullWidth
-                            label="Longitude"
-                            value={longitude}
-                            onChange={handleLocationChange}
-                            margin="normal"
-                            name="longitude"
-                        />
-                    </>
-                )}
-
-                <Button variant="contained" color="primary" type="submit">
-                    Submit
-                </Button>
-            </form>
-
-            <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-                <Box sx={{
-                    padding: 2,
-                    backgroundColor: 'white',
-                    margin: 'auto',
-                    top: '50%',
-                    transform: 'translateY(-50%)'
-                }}>
-                    <Typography variant="h6">{modalTitle}</Typography>
-                    <Typography>{modalMessage}</Typography>
-                </Box>
-            </Modal>
-        </Box>
+        <div>
+            {filterSensorsConfiguration(selectedTypeOfSensor)}
+        </div>
     );
 };
 
