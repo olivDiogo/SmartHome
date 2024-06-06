@@ -99,7 +99,7 @@ Content-Type: application/json
 %}
 
 ###
-GET http://localhost:8080/sensor-models?sensorTypeID=Position
+GET http://localhost:8080/sensor-models?sensorTypeID=PercentagePosition
 Content-Type: application/json
 
 > {%

@@ -205,7 +205,7 @@ public class ActuatorController {
    * @return the Actuator value data transfer object.
    */
   @PostMapping("/set-blindRoller")
-  public ResponseEntity<EntityModel<ActuatorDTO>> closeBlindRoller(
+  public ResponseEntity<EntityModel<ActuatorDTO>> setBlindRoller(
       @RequestBody @Valid ActuatorValueDTO actuatorValueDTO) {
     SensorTypeID sensorTypeID = new SensorTypeID("PercentagePosition");
     BlindRollerValue blindRollerValueObject = new BlindRollerValue(actuatorValueDTO.value);
@@ -227,7 +227,7 @@ public class ActuatorController {
           "No log records found for the specified device and sensor type.");
     }
 
-    IActuatorValue value = actuatorService.setValue(actuator.get(), blindRollerValueObject);
+    actuatorService.setValue(actuator.get(), blindRollerValueObject);
 
     /* Create ActuatorDTO*/
     ActuatorDTO actuatorDTO = actuatorAssembler.domainToDTO(actuator.get());
@@ -237,7 +237,7 @@ public class ActuatorController {
     WebMvcLinkBuilder linkToSelf =
         WebMvcLinkBuilder.linkTo(
             WebMvcLinkBuilder.methodOn(ActuatorController.class)
-                .closeBlindRoller(actuatorValueDTO));
+                .setBlindRoller(actuatorValueDTO));
 
     WebMvcLinkBuilder linkToActuator =
         WebMvcLinkBuilder.linkTo(
