@@ -15,17 +15,10 @@ end box
 HTTP -> BE : GET /logs/temperature-difference?outsideDeviceIDStr={outsideDeviceIDStr}&insideDeviceIDStr={insideDeviceIDStr}&initialTime={initialTime}&finalTime={finalTime}&timeDelta={timeDelta}
 activate BE
 
-BE -> BD : findByDeviceIDAndSensorIDAndTimestampBetween (deviceID, sensorTypeID, initialPeriod, endPeriod)
-activate BD
-
-BD --> BE : listLogDataModel
-deactivate BD
 
 BE --> HTTP : tempDiff
 deactivate BE
 
-HTTP --> HTTP : tempDiff
-deactivate HTTP
 
 
 @enduml
