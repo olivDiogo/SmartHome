@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+autonumber
+
+actor "User" as User
+
+    box SmartHome
+    participant Frontend as FE
+    participant Backend as BE
+    end box
+
+
+User -> FE : I want to configure a device in a room using the Web App
+activate FE
+
+FE -> BE : POST /sensors
+activate BE
+
+BE --> FE : sensors
+deactivate BE
+
+FE -> BE : POST /actuators
+activate BE
+
+BE --> FE : actuators
+deactivate BE
+
+FE --> User : configuredDevice
+deactivate FE
+
+
+
+
+
+@endumll

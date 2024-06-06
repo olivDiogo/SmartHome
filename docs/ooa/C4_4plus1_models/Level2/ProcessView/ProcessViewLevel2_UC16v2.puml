@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma layout smetana
+
+autonumber
+
+    participant " " as HTTP
+    box SmartHome
+    participant Backend as BE
+    end box
+
+HTTP -> BE : POST /actuators/set-blindRoller
+activate BE
+
+BE --> HTTP : closeBlindRoller(actuatorValueDTO)
+deactivate BE
+
+@endumll
