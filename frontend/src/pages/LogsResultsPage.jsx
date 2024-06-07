@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { CircularProgress, Typography, List, ListItem, ListItemText } from '@mui/material';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { CircularProgress, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 import AppContext from "../context/AppContext.jsx";
 import { fetchLogsByDeviceId } from '../context/Actions.jsx';
 
@@ -14,6 +14,7 @@ function LogsResultsPage() {
     const query = useQuery();
     const startPeriod = query.get('start');
     const endPeriod = query.get('end');
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (deviceId && startPeriod && endPeriod) {
@@ -24,31 +25,70 @@ function LogsResultsPage() {
     const { logs } = state;
     const { loading, error, data } = logs;
 
-    if (loading) {
-        return <CircularProgress />;
-    }
+    const handleGoBackToDevices = () => {
+        navigate(-1);
+    };
 
-    if (error) {
-        return <Typography color="error">{error}</Typography>;
-    }
+    const handleGoBackToMain = () => {
+        navigate('/');
+    };
 
     return (
         <div className="logs-results-page">
             <h1>Logs for Device</h1>
-            <List>
-                {data && data.length > 0 ? (
-                    data.map((log) => (
-                        <ListItem key={log.id}>
-                            <ListItemText
-                                primary={`Name: ${log.sensorTypeID}, Reading: ${log.reading}, Unit: ${log.unitID}`}
-                                secondary={`Date: ${log.timestamp}`}
-                            />
-                        </ListItem>
-                    ))
-                ) : (
-                    <Typography>No readings yet</Typography>
-                )}
-            </List>
+            <Button
+                variant="contained"
+                color="secondary"
+                fullWidth
+                onClick={handleGoBackToDevices}
+                style={{ marginTop: '20px' }}
+            >
+                Back
+            </Button>
+            <Button
+                variant="contained"
+                color="secondary"
+                fullWidth
+                onClick={handleGoBackToMain}
+                style={{ marginTop: '20px' }}
+            >
+                Back to Home
+            </Button>
+
+            {loading ? (
+                <CircularProgress style={{ marginTop: '20px' }} />
+            ) : error ? (
+                <Typography color="error">{error}</Typography>
+            ) : (
+                <TableContainer component={Paper} style={{ marginTop: '20px' }}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Reading</TableCell>
+                                <TableCell>Unit</TableCell>
+                                <TableCell>Date</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {data && data.length > 0 ? (
+                                data.map((log) => (
+                                    <TableRow key={log.id}>
+                                        <TableCell>{log.sensorTypeID}</TableCell>
+                                        <TableCell>{log.reading}</TableCell>
+                                        <TableCell>{log.unitID}</TableCell>
+                                        <TableCell>{log.timestamp}</TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={4}>No readings yet</TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            )}
         </div>
     );
 }
