@@ -54,14 +54,21 @@ export function addDeviceToRoom(roomId, device, success, failure) {
             deviceName: device.name
         }),
     })
-        .then(res => {
+        .then(res => res.json().then(data => {
             if (!res.ok) {
-                throw new Error('Network response was not ok');
+                const errorMessage = data.message || 'Network response was not ok';
+                throw new Error(errorMessage);
             }
-            return res.json();
+            return data;
+        }))
+        .then(data => {
+            success(data);
+            toast.success("Device added successfully!");
         })
-        .then(data => success(data))
-        .catch(err => failure(err.message));
+        .catch(err => {
+            failure(err.message);
+            toast.error(`Failed to add device: ${err.message}`);
+        });
 }
 
 export function fetchLogsByDeviceIdFromServer(success, failure, deviceId, timeStart, timeEnd) {

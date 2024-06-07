@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {
-    Alert,
     Box,
     Button,
     CircularProgress,
@@ -10,10 +9,11 @@ import {
     InputLabel,
     MenuItem,
     Select,
-    Snackbar,
     TextField,
     Typography
 } from '@mui/material';
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {addDeviceToRoom, fetchDeviceTypes, fetchRoomById} from '../context/Actions.jsx';
 import AppContext from '../context/AppContext.jsx';
 
@@ -21,9 +21,6 @@ function AddDeviceToRoomPage() {
     const {roomId} = useParams();
     const [deviceName, setDeviceName] = useState('');
     const [deviceType, setDeviceType] = useState('');
-    const [openSnackbar, setOpenSnackbar] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-    const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     const navigate = useNavigate();
     const {state, dispatch} = useContext(AppContext);
 
@@ -34,25 +31,13 @@ function AddDeviceToRoomPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (deviceName && deviceType) {
-            try {
-                const device = {name: deviceName, type: deviceType};
-                await addDeviceToRoom(dispatch, roomId, device);
-                setSnackbarMessage('Device added successfully!');
-                setSnackbarSeverity('success');
-            } catch (error) {
-                setSnackbarMessage(`Failed to add device: ${error.message}`);
-                setSnackbarSeverity('error');
-            }
-        } else {
-            setSnackbarMessage('Please fill in all fields.');
-            setSnackbarSeverity('error');
+        if (!deviceName || !deviceType) {
+            toast.error('Please fill in all fields.');
+            return;
         }
-        setOpenSnackbar(true);
-    };
 
-    const handleCloseSnackbar = () => {
-        setOpenSnackbar(false);
+        const device = {name: deviceName, type: deviceType};
+        await addDeviceToRoom(dispatch, roomId, device);
     };
 
     const handleBackToHome = () => {
@@ -75,6 +60,7 @@ function AddDeviceToRoomPage() {
 
     return (
         <Container maxWidth="sm">
+            <ToastContainer/>
             <Box
                 display="flex"
                 flexDirection="column"
@@ -122,15 +108,6 @@ function AddDeviceToRoomPage() {
                 >
                     Back to Home
                 </Button>
-                <Snackbar
-                    open={openSnackbar}
-                    autoHideDuration={6000}
-                    onClose={handleCloseSnackbar}
-                >
-                    <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{width: '100%'}}>
-                        {snackbarMessage}
-                    </Alert>
-                </Snackbar>
             </Box>
         </Container>
     );
