@@ -28,6 +28,7 @@ function DeviceList() {
     const navigate = useNavigate();
 
     const [deactivatedDevices, setDeactivatedDevices] = useState({});
+    const [loadingDevices, setLoadingDevices] = useState({});
 
     useEffect(() => {
         fetchDevicesByRoomId(dispatch, roomId);
@@ -53,10 +54,11 @@ function DeviceList() {
     };
 
     const handleToggle = (deviceId) => {
+        setLoadingDevices(prevState => ({...prevState, [deviceId]: true}));
          deactivateDeviceFromServer(dispatch, deviceId)
              .then(() => {
-                 setDeactivatedDevices(prevState =>
-                     ({...prevState, [deviceId]: true}));
+                setDeactivatedDevices(prevState => ({...prevState, [deviceId]: true}));
+                setLoadingDevices(prevState => ({...prevState, [deviceId]: false}));
              });
     }
 
@@ -83,11 +85,12 @@ function DeviceList() {
                                 <Typography component="div">
                                     <div style={{marginBottom: '16px'}}>
                                         Here are some details about {device.deviceName}.
-                                        {!deactivatedDevices[device.deviceID] && (
-                                            <p>Here is the device status: {device.deviceStatus}.</p>
-                                        )}
-                                        {deactivatedDevices[device.deviceID] && (
+                                        {loadingDevices[device.deviceID] ? (
+                                            <p>The device is deactivated </p>
+                                        ) : deactivatedDevices[device.deviceID] ? (
                                             <p>The device is deactivated.</p>
+                                        ) : (
+                                            <p>Here is the device status: {device.deviceStatus}.</p>
                                         )}
                                     </div>
                                     {device.deviceName === 'BlindRoller' && (
