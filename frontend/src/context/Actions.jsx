@@ -5,7 +5,7 @@ import {
     addGenericActuator,
     addGenericSensor,
     addGPSSensor,
-    addIntegerActuator,
+    addIntegerActuator, deactivateDevice,
     fetchActuatorModelsByActuatorTypeIdFromServer,
     fetchActuatorsByDeviceId,
     fetchActuatorTypesFromServer,
@@ -70,6 +70,9 @@ export const FETCH_ACTUATORS_FAILURE = 'FETCH_ACTUATORS_FAILURE';
 export const FETCH_ACTUATOR_TYPES_STARTED = 'FETCH_ACTUATOR_TYPES_STARTED';
 export const FETCH_ACTUATOR_TYPES_SUCCESS = 'FETCH_ACTUATOR_TYPES_SUCCESS';
 export const FETCH_ACTUATOR_TYPES_FAILURE = 'FETCH_ACTUATOR_TYPES_FAILURE';
+export const DEACTIVATE_DEVICE_STARTED = 'DEACTIVATE_DEVICE_STARTED';
+export const DEACTIVATE_DEVICE_SUCCESS = 'DEACTIVATE_DEVICE_SUCCESS';
+export const DEACTIVATE_DEVICE_FAILURE = 'DEACTIVATE_DEVICE_FAILURE';
 
 export function fetchRooms(dispatch) {
     dispatch({type: FETCH_ROOMS_STARTED});
@@ -826,6 +829,19 @@ function addIntegerActuatorFailure(err) {
     }
 }
 
+
+export function deactivateDeviceFromServer(dispatch, deviceId) {
+    dispatch({ type: DEACTIVATE_DEVICE_STARTED});
+
+    const success = data => dispatch ({
+        type: DEACTIVATE_DEVICE_SUCCESS,
+        payload: {data, message: 'Device deactivated successfully'}
+    });
+    const failure = error => dispatch({
+        type: DEACTIVATE_DEVICE_FAILURE, payload: {error: error.message}});
+
+    deactivateDevice(success, failure, deviceId);
+}
 
 export const SAVE_CURRENT_DEVICE = 'SAVE_CURRENT_DEVICE';
 

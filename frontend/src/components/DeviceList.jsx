@@ -8,7 +8,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {useNavigate} from 'react-router-dom';
 import AppContext from "../context/AppContext.jsx";
-import {fetchActuators, fetchDevicesByRoomId, saveCurrentDevice} from "../context/Actions.jsx";
+import {
+    deactivateDeviceFromServer,
+    fetchActuators,
+    fetchDevicesByRoomId,
+    saveCurrentDevice
+} from "../context/Actions.jsx";
 import {updateCurrentDevice} from "../context/Actions.jsx";
 import BlindRollerPosition from "./BlindRollerPosition.jsx";
 import BlindRollerControl from "./BlindRollerControl.jsx";
@@ -21,6 +26,8 @@ function DeviceList() {
     const {roomId} = currentRoom;
     const {loading, error, data} = devices;
     const navigate = useNavigate();
+
+    const [deactivatedDevices, setDeactivatedDevices] = useState({});
 
     useEffect(() => {
         fetchDevicesByRoomId(dispatch, roomId);
@@ -45,6 +52,14 @@ function DeviceList() {
         navigate(`/logs/${deviceId}`);
     };
 
+    const handleToggle = (deviceId) => {
+         deactivateDeviceFromServer(dispatch, deviceId)
+             .then(() => {
+                 setDeactivatedDevices(prevState =>
+                     ({...prevState, [deviceId]: true}));
+             });
+    }
+
     if (loading) {
         return <h1>Loading ....</h1>;
     } else if (error) {
@@ -53,7 +68,6 @@ function DeviceList() {
         return (
             <div>
                 {data.map((device) => {
-                    console.log("device", device); // Add this line to log the device
                     return (
                         <Accordion key={device.deviceID}
                                    onChange={() => fetchActuatorsForDevice(device.deviceID)}
@@ -67,13 +81,18 @@ function DeviceList() {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography component="div">
-                                    <div style={{ marginBottom: '16px' }}>
+                                    <div style={{marginBottom: '16px'}}>
                                         Here are some details about {device.deviceName}.
-                                        <p>Here is the device status: {device.deviceStatus}.</p>
+                                        {!deactivatedDevices[device.deviceID] && (
+                                            <p>Here is the device status: {device.deviceStatus}.</p>
+                                        )}
+                                        {deactivatedDevices[device.deviceID] && (
+                                            <p>The device is deactivated.</p>
+                                        )}
                                     </div>
                                     {device.deviceName === 'BlindRoller' && (
                                         <>
-                                            <div style={{ marginBottom: '16px' }}>
+                                            <div style={{marginBottom: '16px'}}>
                                                 <BlindRollerPosition deviceId={device.deviceID}/>
                                             </div>
                                             <div>
@@ -83,21 +102,26 @@ function DeviceList() {
                                     )}
                                 </Typography>
                             </AccordionDetails>
-                            <AccordionActions>
-                                <Button size="small" color="primary"
-                                        onClick={() => handleViewLogsOnClick(device.deviceID, device.deviceName)}>
-                                    View Logs
-                                </Button>
-                                <Button size="small" color="primary"
-                                        onClick={() => handleAddSensorToDeviceOnClick(device.deviceID)}>
-                                    Add Sensor
-                                </Button>
-                                <Button size="small" color="primary"
-                                        onClick={() => handleAddActuatorToDeviceOnClick(device.deviceID)}>
-                                    Add Actuator
-                                </Button>
-                                <FormControlLabel control={<Switch defaultChecked />} label="Deactivate" />
-                            </AccordionActions>
+                            {!deactivatedDevices[device.deviceID] && (
+                                <AccordionActions>
+                                    <Button size="small" color="primary"
+                                            onClick={() => handleViewLogsOnClick(device.deviceID, device.deviceName)}>
+                                        View Logs
+                                    </Button>
+                                    <Button size="small" color="primary"
+                                            onClick={() => handleAddSensorToDeviceOnClick(device.deviceID)}>
+                                        Add Sensor
+                                    </Button>
+                                    <Button size="small" color="primary"
+                                            onClick={() => handleAddActuatorToDeviceOnClick(device.deviceID)}>
+                                        Add Actuator
+                                    </Button>
+                                    <Button size="small" color="primary"
+                                            onClick={() => handleToggle(device.deviceID)}>
+                                        Deactivate
+                                    </Button>
+                                </AccordionActions>
+                            )}
                         </Accordion>
                     );
                 })}

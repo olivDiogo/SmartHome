@@ -408,15 +408,6 @@ export function addDecimalActuator(selectedTypeOfActuator, deviceId, selectedAct
 }
 
 export function addIntegerActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, success, failure) {
-    console.log({
-        type: selectedTypeOfActuator,
-        deviceID: deviceId,
-        actuatorModelPath: selectedActuatorModelPath,
-        actuatorTypeID: selectedActuatorTypeId,
-        actuatorName: actuatorName,
-        minLimit: minLimit,
-        maxLimit: maxLimit
-    });
     fetch(`${URL_API}/actuators`, {
         method: 'POST',
         headers: {
@@ -448,3 +439,28 @@ export function addIntegerActuator(selectedTypeOfActuator, deviceId, selectedAct
             toast.error(`Failed to add actuator: ${err.message}`);
         });
 }
+
+export function deactivateDevice(success, failure, deviceId) {
+    fetch (`${URL_API}/devices/deactivate/${deviceId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to deactivate device');
+            }
+            return res.json();
+        })
+        .then(data => {
+            success(data);
+            toast.success("Device deactivated successfully!")
+        })
+        .catch(err => {
+            failure(err.message);
+            toast.error(`Failed to deactivate device: ${err.message}`);
+        });
+}
+
+

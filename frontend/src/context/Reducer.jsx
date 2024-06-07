@@ -20,6 +20,9 @@ import {
     ADD_INTEGER_ACTUATOR_TO_DEVICE_FAILURE,
     ADD_INTEGER_ACTUATOR_TO_DEVICE_STARTED,
     ADD_INTEGER_ACTUATOR_TO_DEVICE_SUCCESS,
+    DEACTIVATE_DEVICE_FAILURE,
+    DEACTIVATE_DEVICE_STARTED,
+    DEACTIVATE_DEVICE_SUCCESS,
     FETCH_ACTUATOR_MODELS_FAILURE,
     FETCH_ACTUATOR_MODELS_STARTED,
     FETCH_ACTUATOR_MODELS_SUCCESS,
@@ -800,6 +803,27 @@ function reducer(state = initialState, action) {
                     status: false,
                     error: action.payload.error,
                 }
+            };
+
+        case DEACTIVATE_DEVICE_STARTED:
+            return {
+                ...state,
+                deactivatingDevice: true,
+                deactivateDeviceError: null
+            };
+
+        case DEACTIVATE_DEVICE_SUCCESS:
+            return {
+                ...state,
+                deactivatingDevice: false,
+                deactivateDeviceError: null
+            };
+
+        case DEACTIVATE_DEVICE_FAILURE:
+            return {
+                ...state,
+                deactivatingDevice: false,
+                deactivateDeviceError: action.payload.error
             };
 
         default:
