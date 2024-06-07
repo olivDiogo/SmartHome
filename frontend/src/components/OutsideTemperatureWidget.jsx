@@ -1,7 +1,7 @@
 import React, {useEffect, useContext, useState} from "react";
-import {Card, CardContent, Typography} from "@material-ui/core";
+import {Card, CardContent, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import AppContext from "../context/AppContext.jsx";
 import {initializeTemperatureFetching} from "../context/TemperatureActions.jsx";
 
