@@ -3,8 +3,10 @@
 
 component SmartHome <<system (C4)>> {
 port p1
+port p2
 }
 
 UI -down- p1
+SunTimeAPI )-down- p2
 
 @enduml
