@@ -1,6 +1,7 @@
 import {toast} from 'react-toastify';
 
-export const URL_API = 'http://localhost:8080';
+const URL_API = import.meta.env.VITE_API_URL || 'http://localhost:8080'; // Fallback to localhost if VITE_API_URL isn't defined
+
 
 export function fetchRoomsFromServer(success, failure) {
     fetch(`${URL_API}/rooms`)
