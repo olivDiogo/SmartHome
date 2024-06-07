@@ -2,6 +2,7 @@ package smarthome.utils;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.value_object.ActuatorModelName;
@@ -20,6 +21,7 @@ import smarthome.service.ISensorTypeService;
 import smarthome.service.IUnitService;
 
 @Component
+@Profile({"!docker", "!demo", "!frontendtest"})
 public class LoadDefaultConfiguration {
 
   private IUnitService unitService;
