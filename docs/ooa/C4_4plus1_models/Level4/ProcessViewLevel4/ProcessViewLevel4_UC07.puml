@@ -4,21 +4,19 @@
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
+participant " " as HTTP
 
-box "SmartHome"
+box "Server"
     participant "Controller" as CTRL
     participant "Service" as SV
     participant "Domain" as DM
     participant "Repository" as RP
-    participant "DataBase" as BD
+
 end box
+participant "DataBase" as BD
 
-User -> RC : I want to add a sensor to a device
-activate RC
 
-RC -> CTRL : addSensor(sensorDataDTO)
+HTTP -> CTRL : POST /sensor
 activate CTRL
 
 CTRL -> DM : DeviceID(strDeviceID)
@@ -57,12 +55,10 @@ RP --> SV : sensor
 deactivate RP
 
 SV --> CTRL : sensorDTO
+deactivate SV
 
-CTRL --> RC : sensorDTO
+CTRL --> HTTP : sensorDTO
 deactivate CTRL
-
-RC --> User : sensorDTO
-deactivate RC
 
 
 @enduml

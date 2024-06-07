@@ -4,23 +4,21 @@
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
 
-box "SmartHome"
+participant " " as HTTP
+
+box "Server"
     participant "Controller" as CTRL
     participant "Service" as SV
     participant "Repository" as REPO
     participant "Domain" as DOM
-    participant "DataBase" as BD
+
 end box
+participant "DataBase" as BD
 
-User -> RC : I want to configure the house location
-activate RC
 
-RC -> CTRL : configureHouseLocation(houseDataDTO)
+HTTP -> CTRL : POST /house
 activate CTRL
-
 
 
 CTRL -> DOM : createAddress(street, doorNumber, postalCode, countryCode, postalCodeFactory)
@@ -37,8 +35,6 @@ activate SV
 SV -> REPO : save(house)
 activate REPO
 REPO -> BD : save
-activate BD
-deactivate BD
 REPO --> SV : house
 deactivate REPO
 
@@ -46,11 +42,11 @@ SV --> CTRL : house
 deactivate SV
 
 
-CTRL --> RC : houseDTO
+CTRL --> HTTP : houseDTO
 deactivate CTRL
 
-RC --> User : houseDTO
-deactivate RC
+
+deactivate HTTP
 
 
 @enduml

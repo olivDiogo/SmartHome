@@ -7,15 +7,15 @@ autonumber
 participant " " as HTTP
 
 box "Smart Home"
-    participant "Server" as Server
+    participant "Backend" as Backend
 end box
 
 
-HTTP -> Server: POST /Room
-activate Server
+HTTP -> Backend: POST /Room
+activate Backend
 
-Server --> HTTP: roomDTO
-deactivate Server
+Backend --> HTTP: roomDTO
+deactivate Backend
 
 
 

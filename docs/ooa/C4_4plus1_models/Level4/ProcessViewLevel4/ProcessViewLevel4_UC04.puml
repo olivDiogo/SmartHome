@@ -4,22 +4,19 @@
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
+participant " " as HTTP
 
-box "SmartHome"
+box "Server"
     participant "Controller" as CTRL
     participant "Service" as SV
     participant "Repository" as REPO
     participant "Domain" as DOM
-    participant "DataBase" as BD
 end box
 
-User o-> RC : I want to define a sensor type
+participant "DataBase" as BD
 
-activate RC
 
-RC -> CTRL : createSensorType(sensorTypeDataDTO)
+HTTP -> CTRL : POST /sensor-types
 activate CTRL
 
 CTRL -> DOM : TypeDescription(strDescription)
@@ -47,11 +44,9 @@ SV --> CTRL : sensorType
 deactivate SV
 
 
-CTRL --> RC : sensorTypeDTO
+CTRL --> HTTP : sensorTypeDTO
 deactivate CTRL
 
-RC --> User : sensorTypeDTO
-deactivate RC
 
 
 @enduml

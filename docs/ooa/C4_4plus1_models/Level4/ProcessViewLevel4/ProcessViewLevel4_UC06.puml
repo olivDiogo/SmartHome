@@ -4,22 +4,20 @@
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
 
-box "SmartHome"
+participant " " as HTTP
+
+box "Server"
     participant "Controller" as CTRL
     participant "Service" as SV
     participant "Repository" as REPO
     participant "Domain" as DOM
-    participant "DataBase" as BD
+
 end box
+participant "DataBase" as BD
 
-User o-> RC : I want to get a list of all devices in a room
 
-activate RC
-
-RC -> CTRL : getDevicesInAGivenRoom(idStr)
+HTTP -> CTRL : GET /devices?room_id={roomId}
 activate CTRL
 
 CTRL -> DOM : RoomID(idStr)
@@ -45,11 +43,9 @@ deactivate REPO
 SV --> CTRL : deviceList
 deactivate SV
 
-CTRL --> RC : deviceDTOList
+CTRL --> HTTP : deviceDTOList
 deactivate CTRL
 
-RC --> User : deviceDTOList
-deactivate RC
 
 
 @enduml

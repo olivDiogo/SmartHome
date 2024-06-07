@@ -4,21 +4,19 @@
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
+participant " " as HTTP
 
-box "SmartHome"
+box "Server"
     participant "Controller" as CTRL
     participant "Service" as SV
     participant "Repository" as REPO
     participant "Domain" as DOM
-    participant "DataBase" as BD
+
 end box
+participant "DataBase" as BD
 
-User -> RC : I want to add a Room to a House
-activate RC
 
-RC -> CTRL : addRoom(roomDataDTO)
+HTTP -> CTRL : POST /Room
 activate CTRL
 
 
@@ -53,11 +51,11 @@ SV --> CTRL : room
 deactivate SV
 
 
-CTRL --> RC : roomDTO
+CTRL --> HTTP : roomDTO
 deactivate CTRL
 
-RC --> User : roomDTO
-deactivate RC
+
+
 
 
 @enduml

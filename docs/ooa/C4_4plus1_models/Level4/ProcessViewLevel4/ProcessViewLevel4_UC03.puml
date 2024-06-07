@@ -4,20 +4,18 @@
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
 
-box "SmartHome"
+participant " " as HTTP
+
+box "Server"
     participant "Controller" as CTRL
     participant "Service" as SV
     participant "Repository" as REPO
-    participant "DataBase" as BD
+
 end box
+participant "DataBase" as BD
 
-User -> RC : want to have a list of existing rooms
-activate RC
-
-RC -> CTRL : getAllRooms()
+HTTP -> CTRL : GET /rooms
 activate CTRL
 
 
@@ -39,11 +37,8 @@ deactivate REPO
 SV --> CTRL : roomList
 deactivate SV
 
-CTRL --> RC : roomDTOList
+CTRL --> HTTP : roomDTOList
 deactivate CTRL
-
-RC --> User : roomDTOList
-deactivate RC
 
 
 @enduml
