@@ -407,7 +407,15 @@ export function addDecimalActuator(selectedTypeOfActuator, deviceId, selectedAct
 }
 
 export function addIntegerActuator(selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, success, failure) {
-
+    console.log({
+        type: selectedTypeOfActuator,
+        deviceID: deviceId,
+        actuatorModelPath: selectedActuatorModelPath,
+        actuatorTypeID: selectedActuatorTypeId,
+        actuatorName: actuatorName,
+        minLimit: minLimit,
+        maxLimit: maxLimit
+    });
     fetch(`${URL_API}/actuators`, {
         method: 'POST',
         headers: {

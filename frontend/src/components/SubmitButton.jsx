@@ -14,7 +14,7 @@ import {
 
 const SubmitButton = () => {
     const { formState, formDispatch } = useContext(FormDataContext);
-    const { latitude, longitude, sensorName, startDate, endDate, actuatorName, minLimitDecimal, minLimitInteger, maxLimitInteger, maxLimitDecimal } = formState;
+    const { latitude, longitude, sensorName, startDate, endDate, actuatorName, minLimit, maxLimit } = formState;
 
     const { state } = useContext(AppContext);
     const { selectedTypeOfSensor, selectedSensorTypeId, currentDevice, selectedSensorModelPath, selectedTypeOfActuator, selectedActuatorTypeId, selectedActuatorModelPath } = state;
@@ -68,10 +68,10 @@ const SubmitButton = () => {
             addGenericSensorToDevice(formDispatch, selectedTypeOfSensor, deviceId, selectedSensorModelPath, selectedSensorTypeId, sensorName, successCallback, failureCallback);
         }
         if (selectedTypeOfActuator === 'decimalActuator') {
-            addDecimalActuatorToDevice(formDispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimitDecimal, maxLimitDecimal, successCallback, failureCallback);
+            addDecimalActuatorToDevice(formDispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, successCallback, failureCallback);
         }
         if (selectedTypeOfActuator === 'integerActuator') {
-            addIntegerActuatorToDevice(formDispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimitInteger, maxLimitInteger, successCallback, failureCallback);
+            addIntegerActuatorToDevice(formDispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, minLimit, maxLimit, successCallback, failureCallback);
         }
         if (selectedTypeOfActuator === 'genericActuator') {
             addGenericActuatorToDevice(formDispatch, selectedTypeOfActuator, deviceId, selectedActuatorModelPath, selectedActuatorTypeId, actuatorName, successCallback, failureCallback);

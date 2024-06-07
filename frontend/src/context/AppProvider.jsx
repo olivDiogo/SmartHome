@@ -27,6 +27,7 @@ const initialState = {
     currentDevice: {
         deviceId: null,
         deviceName: null,
+        deviceStatus: null,
     },
 
     temperature: {

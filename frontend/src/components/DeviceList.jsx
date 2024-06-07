@@ -12,6 +12,7 @@ import {fetchActuators, fetchDevicesByRoomId, saveCurrentDevice} from "../contex
 import {updateCurrentDevice} from "../context/Actions.jsx";
 import BlindRollerPosition from "./BlindRollerPosition.jsx";
 import BlindRollerControl from "./BlindRollerControl.jsx";
+import {FormControlLabel, Switch} from "@mui/material";
 
 function DeviceList() {
     const {state, dispatch} = useContext(AppContext);
@@ -67,7 +68,8 @@ function DeviceList() {
                             <AccordionDetails>
                                 <Typography component="div">
                                     <div style={{ marginBottom: '16px' }}>
-                                        Here are some details about {device.deviceName}. You can add more information about the device here.
+                                        Here are some details about {device.deviceName}.
+                                        <p>Here is the device status: {device.deviceStatus}.</p>
                                     </div>
                                     {device.deviceName === 'BlindRoller' && (
                                         <>
@@ -94,6 +96,7 @@ function DeviceList() {
                                         onClick={() => handleAddActuatorToDeviceOnClick(device.deviceID)}>
                                     Add Actuator
                                 </Button>
+                                <FormControlLabel control={<Switch defaultChecked />} label="Deactivate" />
                             </AccordionActions>
                         </Accordion>
                     );
