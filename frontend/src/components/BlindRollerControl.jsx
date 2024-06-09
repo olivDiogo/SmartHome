@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import AppContext, {BlindRollerContext} from '../context/AppContext.jsx';
+import AppContext, { BlindRollerContext } from '../context/AppContext.jsx';
 import { Button, TextField, Typography, Box, Grid } from '@mui/material';
 import { setBlindRoller } from "../context/Actions.jsx";
 import { ToastContainer, toast } from 'react-toastify';
@@ -22,6 +22,14 @@ const BlindRollerControl = ({ deviceId }) => {
         const numericValue = Number(value);
         if (numericValue < 0 || numericValue > 100) {
             toast.error('Only values between 0 and 100 are allowed');
+            const audio = document.getElementById('SuccessSpeech');
+            if (audio) {
+                audio.play().catch(error => {
+                    console.error('Failed to play audio:', error);
+                });
+            } else {
+                console.error('Audio element not found');
+            }
             return;
         }
         if (value && actuatorId) {
@@ -73,6 +81,7 @@ const BlindRollerControl = ({ deviceId }) => {
                     </Button>
                 </Grid>
             </Grid>
+            <audio id="SuccessSpeech" src="/sounds/SuccessSpeech.mp3" preload="auto"></audio>
             <ToastContainer />
         </Box>
     );
