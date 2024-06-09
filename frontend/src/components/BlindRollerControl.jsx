@@ -1,13 +1,16 @@
 import React, { useContext, useState } from 'react';
-import AppContext from '../context/AppContext.jsx';
+import AppContext, {BlindRollerContext} from '../context/AppContext.jsx';
 import { Button, TextField, Typography, Box, Grid } from '@mui/material';
 import { setBlindRoller } from "../context/Actions.jsx";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BlindRollerControl = ({ deviceId }) => {
     const { state, dispatch } = useContext(AppContext);
     const [value, setValue] = useState('');
 
-    // Safely access actuators data
+    const { setBlindRollerValue } = useContext(BlindRollerContext);
+
     const actuators = state.actuators || { data: [] }; // Ensure actuators object and data array are defined
     const actuatorId = actuators.data.length > 0 ? actuators.data[0].id : null;
 
@@ -16,8 +19,14 @@ const BlindRollerControl = ({ deviceId }) => {
     };
 
     const handleSubmit = () => {
+        const numericValue = Number(value);
+        if (numericValue < 0 || numericValue > 100) {
+            toast.error('Only values between 0 and 100 are allowed');
+            return;
+        }
         if (value && actuatorId) {
             setBlindRoller(dispatch, deviceId, actuatorId, value);
+            setBlindRollerValue(value);
         } else {
             console.error('Actuator ID is not available or invalid input.');
         }
@@ -64,6 +73,7 @@ const BlindRollerControl = ({ deviceId }) => {
                     </Button>
                 </Grid>
             </Grid>
+            <ToastContainer />
         </Box>
     );
 };

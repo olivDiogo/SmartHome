@@ -1,14 +1,14 @@
 import React, { useEffect, useContext } from 'react';
 import { Card, CardContent, Typography, Box, Grid, CircularProgress } from '@mui/material';
-import AppContext from '../context/AppContext.jsx';
+import AppContext, { BlindRollerContext } from '../context/AppContext.jsx';
 import { fetchCurrentPosition } from '../context/Actions.jsx';
-import './BlindRollerPosition.css'; // Import the CSS file for additional styling
+import './BlindRollerPosition.css';
 
 const BlindRollerPosition = ({ deviceId }) => {
     const { state, dispatch } = useContext(AppContext);
     const { position, actuators } = state;
     const { loading, error, data } = position;
-
+    const { blindRollerValue } = useContext(BlindRollerContext);
     const actuator = actuators.data.find(act => act.deviceID === deviceId);
 
     useEffect(() => {
@@ -21,6 +21,14 @@ const BlindRollerPosition = ({ deviceId }) => {
         }
         if (error) {
             return <Typography variant="h6">Error: {error}</Typography>;
+        }
+        if (blindRollerValue){
+            return (
+                <Box className="digital-box">
+                    <Typography variant="h6" className="digital-label">Current Blind Roller Position:</Typography>
+                    <Typography variant="h4" className="digital-number">{blindRollerValue}</Typography>
+                </Box>
+            );
         }
         if (data) {
             return (
