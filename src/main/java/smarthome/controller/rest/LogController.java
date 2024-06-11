@@ -91,7 +91,7 @@ public class LogController {
         outsideDeviceID, sensorTypeID, datePeriod);
     TimeDelta timeDeltaObj = new TimeDelta(timeDelta);
 
-    int maxDiff = logService.getMaxDifferenceBetweenReadings(insideReadings, outsideReadings,
+    int maxDiff = logService.getMaxDifferenceBetweenReadingsThatAreWithinTimeDelta(insideReadings, outsideReadings,
         timeDeltaObj);
     return ResponseEntity.ok(maxDiff);
   }

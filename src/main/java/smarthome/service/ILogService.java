@@ -51,7 +51,7 @@ public interface ILogService extends IService {
    * @param readings2 is another list of readings.
    * @return the Maximum difference between readings.
    */
-  int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, TimeDelta timeDelta)
+  int getMaxDifferenceBetweenReadingsThatAreWithinTimeDelta(List<Log> readings1, List<Log> readings2, TimeDelta timeDelta)
       throws Exception;
 
   /**

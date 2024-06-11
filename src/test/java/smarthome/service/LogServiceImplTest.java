@@ -452,7 +452,7 @@ class LogServiceImplTest {
     int expectedDifference = 9;
 
     // Act
-    int actualDifference = logService.getMaxDifferenceBetweenReadings(list1, list2, timeDelta);
+    int actualDifference = logService.getMaxDifferenceBetweenReadingsThatAreWithinTimeDelta(list1, list2, timeDelta);
 
     // Assert
     assertEquals(expectedDifference, actualDifference);
@@ -504,7 +504,7 @@ class LogServiceImplTest {
     int expectedDifference = 15;
 
     // Act
-    int actualDifference = logService.getMaxDifferenceBetweenReadings(list1, list2, timeDelta);
+    int actualDifference = logService.getMaxDifferenceBetweenReadingsThatAreWithinTimeDelta(list1, list2, timeDelta);
 
     // Assert
     assertEquals(expectedDifference, actualDifference);
@@ -552,7 +552,7 @@ class LogServiceImplTest {
 
     // Act
     Exception exception = assertThrows(Exception.class,
-        () -> logService.getMaxDifferenceBetweenReadings(list1, list2, timeDelta));
+        () -> logService.getMaxDifferenceBetweenReadingsThatAreWithinTimeDelta(list1, list2, timeDelta));
 
     // Assert
     String actualMessage = exception.getMessage();
@@ -773,7 +773,7 @@ class LogServiceImplTest {
     expected.put(0, 0);
 
     // Act
-    Map<Integer, Integer> result = logService.getPositionsOfReadingsWithinTimeDelta(list1, list2,
+    Map<Integer, Integer> result = logService.calculateMapWithPositionsOfReadingsWithinTimeDelta(list1, list2,
         timeDelta);
     // Assert
     assertEquals(expected, result);
@@ -811,7 +811,7 @@ class LogServiceImplTest {
     Map<Integer, Integer> expected = new HashMap<>();
 
     // Act
-    Map<Integer, Integer> result = logService.getPositionsOfReadingsWithinTimeDelta(list1, list2,
+    Map<Integer, Integer> result = logService.calculateMapWithPositionsOfReadingsWithinTimeDelta(list1, list2,
         timeDelta);
     // Assert
     assertEquals(expected, result);

@@ -35,7 +35,7 @@ public class LogServiceImpl implements ILogService {
   private final ISensorTypeRepository sensorTypeRepository;
   private final IUnitRepository unitRepository;
   private final ILogFactory logFactory;
-  private static final int VALUE_IF_NO_CONSUMPTION = 0;
+  private static final int VALUE_IF_NO_POWER_CONSUMPTION = 0;
 
 
   /**
@@ -168,12 +168,12 @@ public class LogServiceImpl implements ILogService {
    * @return the list of the differences between the values, as Integers.
    */
   @Override
-  public int getMaxDifferenceBetweenReadings(List<Log> readings1, List<Log> readings2, TimeDelta timeDelta)
+  public int getMaxDifferenceBetweenReadingsThatAreWithinTimeDelta(List<Log> readings1, List<Log> readings2, TimeDelta timeDelta)
       throws Exception {
     List<Integer> valueDifferences = new ArrayList<>();
     int timeDeltaMinutes = timeDelta.getMinutes();
 
-    Map<Integer, Integer> positionMap = getPositionsOfReadingsWithinTimeDelta(readings1, readings2, timeDeltaMinutes);
+    Map<Integer, Integer> positionMap = calculateMapWithPositionsOfReadingsWithinTimeDelta(readings1, readings2, timeDeltaMinutes);
     for (Map.Entry<Integer, Integer> entry : positionMap.entrySet()) {
       int difference = getDifferenceBetweenReadings(readings1.get(entry.getKey()), readings2.get(entry.getValue()));
       valueDifferences.add(difference);
@@ -193,15 +193,15 @@ public class LogServiceImpl implements ILogService {
    */
 
   public int getPeakPowerConsumption(List<Log> readings, List<Log> readings2, TimeDelta timeDelta) {
-    int maxListOne = VALUE_IF_NO_CONSUMPTION;
-    int maxListTwo = VALUE_IF_NO_CONSUMPTION;
+    int maxListOne = VALUE_IF_NO_POWER_CONSUMPTION;
+    int maxListTwo = VALUE_IF_NO_POWER_CONSUMPTION;
     if (!readings.isEmpty()) {
       maxListOne = getMaximumValueFromListOfIntegers(readings);
     }
     if (!readings2.isEmpty()) {
       maxListTwo = getMaximumValueFromListOfIntegers(readings2);
     }
-    int maxWithinTimeDelta = getMaxSumWithinDelta(readings, readings2, timeDelta);
+    int maxWithinTimeDelta = getMaxSumOfAnyReadingsWithinDelta(readings, readings2, timeDelta);
 
     return Math.max(maxListOne, Math.max(maxListTwo, maxWithinTimeDelta));
 
@@ -216,12 +216,12 @@ public class LogServiceImpl implements ILogService {
    * @param timeDelta
    * @return
    */
-  protected int getMaxSumWithinDelta(List<Log> readings1, List<Log> readings2,
+  protected int getMaxSumOfAnyReadingsWithinDelta(List<Log> readings1, List<Log> readings2,
       TimeDelta timeDelta) {
     List<Integer> sumOfReadings = new ArrayList<>();
     int timeDeltaMinutes = timeDelta.getMinutes();
 
-    Map<Integer, Integer> positionMap = getPositionsOfReadingsWithinTimeDelta(readings1, readings2,
+    Map<Integer, Integer> positionMap = calculateMapWithPositionsOfReadingsWithinTimeDelta(readings1, readings2,
         timeDeltaMinutes);
     for (Map.Entry<Integer, Integer> entry : positionMap.entrySet()) {
       int sum = getSumOfTwoIntegerReadings(readings1.get(entry.getKey()),
@@ -229,7 +229,7 @@ public class LogServiceImpl implements ILogService {
       sumOfReadings.add(sum);
     }
     if (sumOfReadings.isEmpty()) {
-      return VALUE_IF_NO_CONSUMPTION;
+      return VALUE_IF_NO_POWER_CONSUMPTION;
     } else {
       return Collections.max(sumOfReadings);
     }
@@ -292,7 +292,7 @@ public class LogServiceImpl implements ILogService {
    * @return a map of the positions of readings within the time delta.
    */
 
-  protected Map<Integer, Integer> getPositionsOfReadingsWithinTimeDelta(List<Log> readings1,
+  protected Map<Integer, Integer> calculateMapWithPositionsOfReadingsWithinTimeDelta(List<Log> readings1,
       List<Log> readings2, int timeDelta) {
     Map<Integer, Integer> positionMap = new HashMap<>();
     for (int i = 0; i < readings1.size(); i++) {

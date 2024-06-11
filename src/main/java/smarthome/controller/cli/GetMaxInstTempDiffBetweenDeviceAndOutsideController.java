@@ -47,7 +47,7 @@ public class GetMaxInstTempDiffBetweenDeviceAndOutsideController {
         outsideDeviceID, sensorTypeID, datePeriod);
     TimeDelta timeDeltaObj = new TimeDelta(timeDelta);
     /* Get the maximum temperature difference */
-    return logService.getMaxDifferenceBetweenReadings(insideReadings,
+    return logService.getMaxDifferenceBetweenReadingsThatAreWithinTimeDelta(insideReadings,
         outsideReadings, timeDeltaObj);
   }
 }
