@@ -15,7 +15,6 @@ import static org.mockito.Mockito.*;
 
 class WindSensorTest {
 
-
   /**
    * Tests the instantiation of WindSensor when the constructor arguments are valid.
    */
@@ -451,6 +450,4 @@ class WindSensorTest {
     //Assert
     assertNotNull(windSensor);
   }
-
-
 }

@@ -65,7 +65,6 @@ public class WindSensor implements ISensor {
     this.sensorID = sensorID;
   }
 
-
   /**
    * Generates a new sensor id.
    */
@@ -87,7 +86,6 @@ public class WindSensor implements ISensor {
     }
   }
 
-
   /**
    * Gets the sensor ID.
    *
@@ -97,7 +95,6 @@ public class WindSensor implements ISensor {
   public SensorID getID() {
     return this.sensorID;
   }
-
 
   /**
    * Method to get the value object of the sensor.
