@@ -19,7 +19,6 @@ import smarthome.service.ISensorModelService;
 import smarthome.utils.dto.SensorModelDTO;
 
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/sensor-models")
 public class SensorModelController {

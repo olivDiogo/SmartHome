@@ -26,7 +26,6 @@ import smarthome.service.IActuatorTypeService;
 import smarthome.utils.dto.ActuatorTypeDTO;
 import smarthome.utils.dto.data_dto.ActuatorTypeDataDTO;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/actuator-types")
 public class ActuatorTypeController {

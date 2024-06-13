@@ -28,7 +28,6 @@ import smarthome.utils.dto.ActuatorDTO;
 import smarthome.utils.dto.SensorDTO;
 import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/sensors")
 public class SensorController {

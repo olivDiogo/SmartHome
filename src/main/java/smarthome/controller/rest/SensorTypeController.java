@@ -27,7 +27,6 @@ import smarthome.service.ISensorTypeService;
 import smarthome.utils.dto.SensorTypeDTO;
 import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/sensor-types")
 public class SensorTypeController {
