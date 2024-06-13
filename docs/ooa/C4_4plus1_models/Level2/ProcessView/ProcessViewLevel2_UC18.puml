@@ -4,28 +4,34 @@
 
 autonumber
 
-actor "User" as User
+
 
     box SmartHome
     participant Frontend as FE
-    participant WeatherServiceAPI as WS
+    participant WeatherService as WS
     end box
 
 
 
-User -> FE : I want to have current outside temperature on the main page
+[o-> FE : I want to have current outside temperature on the main page
 activate FE
 
-FE -> WS : initializeTemperatureFetching()
+FE -> WS : POST / WeatherServiceConfiguration
 activate WS
+
+WS --> FE : Response
+
+
+WS -> WS : GET / InstantaneousTemperature
 
 WS --> FE : outsideTemperature
 deactivate WS
 
-FE --> User : outsideTemperature
+
+[o<-- FE : outsideTemperature
 deactivate FE
 
 
 
 
-@endumll
+@enduml
