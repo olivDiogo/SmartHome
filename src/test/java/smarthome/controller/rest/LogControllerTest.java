@@ -39,15 +39,20 @@ import smarthome.domain.value_object.UnitID;
 @AutoConfigureMockMvc
 class LogControllerTest {
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @Autowired private ILogFactory logFactory;
+  @Autowired
+  private ILogFactory logFactory;
 
-  @MockBean private IDeviceRepository deviceRepository;
+  @MockBean
+  private IDeviceRepository deviceRepository;
 
-  @Autowired private IDeviceFactory deviceFactory;
+  @Autowired
+  private IDeviceFactory deviceFactory;
 
-  @MockBean private ILogRepository logRepository;
+  @MockBean
+  private ILogRepository logRepository;
 
   Log setupLog() {
     ILogFactory logFactory = new LogFactoryImpl();
@@ -111,7 +116,9 @@ class LogControllerTest {
     return logs;
   }
 
-  /** Test method to get Device Log (Readings) by Time Period */
+  /**
+   * Test method to get Device Log (Readings) by Time Period
+   */
   @Test
   void shouldGetLogFromDevice_WhenParametersAreValid() throws Exception {
     // Arrange
@@ -122,7 +129,7 @@ class LogControllerTest {
     List<Log> logs = List.of(log);
 
     when(logRepository.findByDeviceIDAndDatePeriodBetween(
-            any(DeviceID.class), any(DatePeriod.class)))
+        any(DeviceID.class), any(DatePeriod.class)))
         .thenReturn(logs);
 
     // Act & Assert
@@ -133,7 +140,81 @@ class LogControllerTest {
                 .param("timeStart", timeStart)
                 .param("timeEnd", timeEnd))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(1))); // Assuming the response is a list of logs
+        .andExpect(jsonPath("$", hasSize(1)));
+  }
+
+  /**
+   * Test method to get Device Log (Readings) by Time Period with multiple logs
+   */
+  @Test
+  void shouldGetMultipleLogsFromDevice_WhenParametersAreValid() throws Exception {
+    // Arrange
+    String deviceIDStr = "123";
+    String timeStart = "2020-03-01T13:45:30";
+    String timeEnd = "2022-03-01T13:50:30";
+    Log log1 = setupLog();
+    Log log2 = setupLog();
+    List<Log> logs = List.of(log1, log2);
+
+    when(logRepository.findByDeviceIDAndDatePeriodBetween(
+        any(DeviceID.class), any(DatePeriod.class)))
+        .thenReturn(logs);
+
+    // Act & Assert
+    mockMvc
+        .perform(
+            get("/logs")
+                .param("deviceID", deviceIDStr)
+                .param("timeStart", timeStart)
+                .param("timeEnd", timeEnd))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(2)));
+  }
+
+  /**
+   * Should return empty list of logs when no logs are found
+   */
+  @Test
+  void shouldReturnEmptyList_WhenNoLogsFound() throws Exception {
+    // Arrange
+    String deviceIDStr = "123";
+    String timeStart = "2020-03-01T13:45:30";
+    String timeEnd = "2022-03-01T13:50:30";
+
+    when(logRepository.findByDeviceIDAndDatePeriodBetween(
+        any(DeviceID.class), any(DatePeriod.class)))
+        .thenReturn(new ArrayList<>());
+
+    // Act & Assert
+    mockMvc
+        .perform(
+            get("/logs")
+                .param("deviceID", deviceIDStr)
+                .param("timeStart", timeStart)
+                .param("timeEnd", timeEnd))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(0)));
+  }
+
+  /**
+   * Should return bad request when start date is after end date
+   */
+  @Test
+  void shouldReturnBadRequest_WhenStartDateIsAfterEndDate() throws Exception {
+    // Arrange
+    String deviceIDStr = "123";
+    String timeStart = "2022-03-01T13:45:30";
+    String timeEnd = "2020-03-01T13:50:30";
+
+    // Act & Assert
+    mockMvc
+        .perform(
+            get("/logs")
+                .param("deviceID", deviceIDStr)
+                .param("timeStart", timeStart)
+                .param("timeEnd", timeEnd))
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.message").value("Start date cannot be after end date."));
   }
 
   /**
@@ -163,7 +244,7 @@ class LogControllerTest {
     String expectedTemperatureDifference = "5";
 
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
+        any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
         .thenReturn(outsideDeviceLogs)
         .thenReturn(insideDeviceLogs);
 
@@ -206,21 +287,22 @@ class LogControllerTest {
     List<Log> insideDeviceLogs = List.of(log2);
 
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
+        any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
         .thenReturn(outsideDeviceLogs)
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
     mockMvc
         .perform(
-            get("/logstemperature-difference")
+            get("/logs/temperature-difference")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("outsideDeviceIDStr", outsideDeviceIDStr)
                 .param("insideDeviceIDStr", insideDeviceIDStr)
                 .param("initialTime", initialTime.toString())
                 .param("finalTime", finalTime.toString())
                 .param("timeDelta", String.valueOf(timeDelta)))
-        .andExpect(status().isNotFound());
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.message").value("No readings found within the given time interval"));
   }
 
   /**
@@ -246,21 +328,22 @@ class LogControllerTest {
     List<Log> insideDeviceLogs = List.of(log);
 
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
+        any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
         .thenReturn(outsideDeviceLogs)
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
     mockMvc
         .perform(
-            get("/logstemperature-difference")
+            get("/logs/temperature-difference")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("outsideDeviceIDStr", outsideDeviceIDStr)
                 .param("insideDeviceIDStr", insideDeviceIDStr)
                 .param("initialTime", initialTime.toString())
                 .param("finalTime", finalTime.toString())
                 .param("timeDelta", String.valueOf(timeDelta)))
-        .andExpect(status().isNotFound());
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.message").value("No readings found for the given time period"));
   }
 
   /**
@@ -286,24 +369,27 @@ class LogControllerTest {
     List<Log> insideDeviceLogs = new ArrayList<>();
 
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
+        any(DeviceID.class), any(SensorTypeID.class), any(DatePeriod.class)))
         .thenReturn(outsideDeviceLogs)
         .thenReturn(insideDeviceLogs);
 
     // Act & Assert
     mockMvc
         .perform(
-            get("/logstemperature-difference")
+            get("/logs/temperature-difference")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("outsideDeviceIDStr", outsideDeviceIDStr)
                 .param("insideDeviceIDStr", insideDeviceIDStr)
                 .param("initialTime", initialTime.toString())
                 .param("finalTime", finalTime.toString())
                 .param("timeDelta", String.valueOf(timeDelta)))
-        .andExpect(status().isNotFound());
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.message").value("No readings found for the given time period"));
   }
 
-  /** Test method to get the peak power consumption in given time period */
+  /**
+   * Test method to get the peak power consumption in given time period
+   */
   @Test
   void shouldReturnMaxPowerConsumption_WhenParametersAreValid() throws Exception {
     // Arrange
@@ -332,10 +418,10 @@ class LogControllerTest {
         .thenReturn(List.of(powerSource));
 
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            powerMeter.getID(), sensorTypeID, datePeriod))
+        powerMeter.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerMeterLogs);
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            powerSource.getID(), sensorTypeID, datePeriod))
+        powerSource.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerSourceLogs);
 
     // Act & Assert
@@ -349,7 +435,9 @@ class LogControllerTest {
         .andExpect(jsonPath("$").value(expectedPowerConsumption));
   }
 
-  /** Test method to get the peak power consumption in given time period when no logs are found */
+  /**
+   * Test method to get the peak power consumption in given time period when no logs are found
+   */
   @Test
   void shouldReturnZeroWhenNoLogsFound_WhenParametersAreValid() throws Exception {
     // Arrange
@@ -372,10 +460,10 @@ class LogControllerTest {
         .thenReturn(List.of(powerSource));
 
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            powerMeter.getID(), sensorTypeID, datePeriod))
+        powerMeter.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerMeterLogs);
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            powerSource.getID(), sensorTypeID, datePeriod))
+        powerSource.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerSourceLogs);
 
     // Act & Assert
@@ -428,10 +516,10 @@ class LogControllerTest {
         .thenReturn(List.of(powerSource));
 
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            powerMeter.getID(), sensorTypeID, datePeriod))
+        powerMeter.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerMeterLogs);
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            powerSource.getID(), sensorTypeID, datePeriod))
+        powerSource.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerSourceLogs);
 
     // Act & Assert
@@ -475,10 +563,10 @@ class LogControllerTest {
         .thenReturn(List.of(powerSource));
 
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            powerMeter.getID(), sensorTypeID, datePeriod))
+        powerMeter.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerMeterLogs);
     when(logRepository.findByDeviceIDAndSensorTypeAndDatePeriodBetween(
-            powerSource.getID(), sensorTypeID, datePeriod))
+        powerSource.getID(), sensorTypeID, datePeriod))
         .thenReturn(powerSourceLogs);
 
     // Act & Assert
@@ -492,30 +580,9 @@ class LogControllerTest {
         .andExpect(jsonPath("$").value(expectedPowerConsumption));
   }
 
-  /** Should return empty list of logs when no logs are found */
-  @Test
-  void shouldReturnEmptyList_WhenNoLogsFound() throws Exception {
-    // Arrange
-    String deviceIDStr = "123";
-    String timeStart = "2020-03-01T13:45:30";
-    String timeEnd = "2022-03-01T13:50:30";
-
-    when(logRepository.findByDeviceIDAndDatePeriodBetween(
-            any(DeviceID.class), any(DatePeriod.class)))
-        .thenReturn(new ArrayList<>());
-
-    // Act & Assert
-    mockMvc
-        .perform(
-            get("/logs")
-                .param("deviceID", deviceIDStr)
-                .param("timeStart", timeStart)
-                .param("timeEnd", timeEnd))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(0)));
-  }
-
-  /** Should return the position of the blind roller */
+  /**
+   * Should return the position of the blind roller
+   */
   @Test
   void shouldReturnThePositionOfTheBlindRoller() throws Exception {
     // Arrange
@@ -540,7 +607,9 @@ class LogControllerTest {
         .andExpect(jsonPath("$").value("20"));
   }
 
-  /** Should return an message error when empty logs */
+  /**
+   * Should return a message error when empty logs
+   */
   @Test
   void shouldReturnEmptyList_WhenNoLogsFoundForBlindRoller() throws Exception {
     // Arrange
@@ -558,6 +627,8 @@ class LogControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("deviceID", deviceIDStr)
                 .param("sensorTypeID", sensorTypeIDStr))
-        .andExpect(status().isNotFound());
+        .andExpect(status().isNotFound())
+        .andExpect(jsonPath("$.message").value(
+            "No log records found for the specified device and sensor type."));
   }
 }
