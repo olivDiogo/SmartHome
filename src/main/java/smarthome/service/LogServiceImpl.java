@@ -153,7 +153,7 @@ public class LogServiceImpl implements ILogService {
         deviceID, sensorTypeID, period);
 
     if (deviceReadings.isEmpty()) {
-      throw new Exception("No readings found for the given time period");
+      throw new IllegalArgumentException(("No readings found for the given time period"));
     }
 
     return deviceReadings;
@@ -179,7 +179,7 @@ public class LogServiceImpl implements ILogService {
       valueDifferences.add(difference);
     }
     if (valueDifferences.isEmpty()) {
-      throw new Exception("No readings found within the given time interval");
+      throw new IllegalArgumentException(("No readings found within the given time interval"));
     }else return Collections.max(valueDifferences);
   }
 
