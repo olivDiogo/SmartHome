@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Card, CardContent, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 
 
@@ -17,18 +17,13 @@ function SunriseSunsetWidget() {
     }, []);
 
     return (
-        <Box>
-            <Card style={{backgroundColor: "lightgray",  border: '1px solid black', borderRadius: '10px', display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center', height: 100}}>
-                <CardContent>
-                    <Typography variant="h6" component="h3" >
-                        Sunrise: {sunrise}
-                    </Typography>
-                    <Typography variant="h6" component="h5" >
-                        Sunset: {sunset}
-                    </Typography>
-                </CardContent>
-            </Card>
+        <Box display={"flex"} flexDirection={"column"} gap={"30px"} alignItems={"center"} justifyContent={"center"}>
+            <Typography variant="h4" component="h3" >
+                Sunrise: {sunrise}
+            </Typography>
+            <Typography variant="h4" component="h5">
+                Sunset: {sunset}
+            </Typography>
         </Box>
     )
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import AddDeviceToRoomPage from './pages/AddDeviceToRoomPage.jsx';
-import MainPage from "./pages/MainPage";
 import DevicesInRoomPage from "./pages/DevicesInRoomPage";
 import AddSensorPage from "./pages/AddSensorPage.jsx";
 import "./index.css";
@@ -13,6 +12,7 @@ import FormDataProvider from "./context/FormDataProvider.jsx";
 import AddActuatorPage from "./pages/AddActuatorPage.jsx";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from "./pages/Dashboard.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <AppProvider>
@@ -21,13 +21,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <FormDataProvider>
                     <ToastContainer position="top-right" autoClose={5000} />
                     <Routes>
-                        <Route path="/" element={<MainPage/>}/>
                         <Route path="/rooms/:roomId" element={<AddDeviceToRoomPage/>}/>
                         <Route path="/rooms/:roomId/devices" element={<DevicesInRoomPage/>}/>
                         <Route path="/devices/:deviceId/add-sensor" element={<AddSensorPage/>}/>
                         <Route path="/devices/:deviceId/add-actuator" element={<AddActuatorPage/>}/>
                         <Route path="/logs/:deviceId" element={<LogsPage/>}/>
                         <Route path="/logs/:deviceId/results" element={<LogsResultsPage/>}/>
+                        <Route path="/" element={<Dashboard/>}/>
                     </Routes>
                 </FormDataProvider>
             </Router>

@@ -1,5 +1,5 @@
 import React, {useEffect, useContext, useState} from "react";
-import {Card, CardContent, Typography} from "@mui/material";
+import { Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import AppContext from "../context/AppContext.jsx";
@@ -66,14 +66,14 @@ function OutsideTemperatureWidget() {
             );
         } else if (data) {
             return (
-                <div style={{textAlign: "center"}}>
-                    <Typography variant="h6" component="h2">
+                <div style={{textAlign: "center", justifyContent: "center", alignItems:"center"}}>
+                    <Typography variant="h4" component="h2" marginBottom="40px">
                         Outside temperature: {data}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="h6" color="textSecondary">
                         Last updated: {validLastUpdated}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="h6" color="textSecondary">
                         Next update at: {nextUpdate}
                     </Typography>
                 </div>
@@ -85,20 +85,7 @@ function OutsideTemperatureWidget() {
 
     return (
         <Box>
-            <Card
-                style={{
-                    backgroundColor: "lightgray",
-                    border: "1px solid black",
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: 100,
-                }}
-            >
-                <CardContent>{renderContent()}</CardContent>
-            </Card>
+                {renderContent()}
         </Box>
     );
 }
