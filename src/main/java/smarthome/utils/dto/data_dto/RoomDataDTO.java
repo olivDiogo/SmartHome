@@ -7,22 +7,24 @@ package smarthome.utils.dto.data_dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 public class RoomDataDTO {
 
   @NotBlank (message = "Name cannot be empty")
-  public final String name;
+  public String name;
 
   @NotBlank (message = "Floor cannot be empty")
-  public final int floor;
+  public int floor;
 
   @NotBlank (message = "Width cannot be empty")
-  public final int width;
+  public int width;
 
   @NotBlank (message = "Length cannot be empty")
-  public final int length;
+  public int length;
 
   @NotBlank (message = "Height cannot be empty")
-  public final int height;
+  public int height;
 }

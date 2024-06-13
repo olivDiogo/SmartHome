@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.service.IHouseService;
 import smarthome.utils.dto.HouseDTO;
 import smarthome.utils.dto.data_dto.HouseDataDTO;
+import smarthome.utils.dto.data_dto.RoomDataDTO;
 
 @RestController
 @RequestMapping("/houses")
@@ -31,12 +33,9 @@ public class HouseController {
   private final IHouseService houseService;
   private final IAssembler<House, HouseDTO> houseAssembler;
 
-  /**
-   * Constructor for HouseController
-   */
+  /** Constructor for HouseController */
   @Autowired
-  public HouseController(IHouseService houseService,
-      IAssembler<House, HouseDTO> houseAssembler) {
+  public HouseController(IHouseService houseService, IAssembler<House, HouseDTO> houseAssembler) {
     this.houseAssembler = houseAssembler;
     this.houseService = houseService;
   }
@@ -50,26 +49,32 @@ public class HouseController {
   @PostMapping
   public ResponseEntity<EntityModel<HouseDTO>> createHouseLocation(
       @Valid @RequestBody HouseDataDTO houseDataDTO) {
-    Address address = new Address(houseDataDTO.street, houseDataDTO.doorNumber,
-        houseDataDTO.postalCode, houseDataDTO.countryCode, new PostalCodeFactory());
+    Address address =
+        new Address(
+            houseDataDTO.street,
+            houseDataDTO.doorNumber,
+            houseDataDTO.postalCode,
+            houseDataDTO.countryCode,
+            new PostalCodeFactory());
     GPS gps = new GPS(houseDataDTO.latitude, houseDataDTO.longitude);
     House house = houseService.addHouse(address, gps);
     HouseDTO dto = houseAssembler.domainToDTO(house);
-    dto.add(Link.of("http://localhost:8080/rooms", "create - room")
-        .withTitle("Create a room")
-        .withType("POST"));
-    dto.add(linkTo(methodOn(HouseController.class).getHouse()).withRel("get - house")
-        .withTitle("Get the house")
-        .withType("GET"));
+    dto.add(
+        Link.of("http://localhost:8080/rooms", "create - room")
+            .withTitle("Create a room")
+            .withType("POST"));
+    dto.add(
+        linkTo(methodOn(HouseController.class).getHouse())
+            .withRel("get - house")
+            .withTitle("Get the house")
+            .withType("GET"));
 
     EntityModel<HouseDTO> resource = EntityModel.of(dto);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
 
-  /**
-   * Method to get the house
-   */
+  /** Method to get the house */
   @GetMapping()
   public ResponseEntity<EntityModel<HouseDTO>> getHouse() {
     Optional<House> house = houseService.getHouse();
@@ -77,12 +82,17 @@ public class HouseController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
     HouseDTO dto = houseAssembler.domainToDTO(house.get());
-    dto.add(linkTo(methodOn(RoomController.class).createRoom(null)).withRel("create - room")
-        .withTitle("Create a room")
-        .withType("POST"));
-    dto.add(linkTo(methodOn(RoomController.class).getAllRooms()).withRel("get - rooms")
-        .withTitle("Get all rooms")
-        .withType("GET"));
+    dto.add(
+        WebMvcLinkBuilder.linkTo(
+                WebMvcLinkBuilder.methodOn(RoomController.class).createRoom(new RoomDataDTO()))
+            .withRel("create-room")
+            .withTitle("Create a room")
+            .withType("POST"));
+    dto.add(
+        WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RoomController.class).getAllRooms())
+            .withRel("get-rooms")
+            .withTitle("Get all rooms")
+            .withType("GET"));
     EntityModel<HouseDTO> resource = EntityModel.of(dto);
 
     return ResponseEntity.status(HttpStatus.OK).body(resource);
