@@ -46,16 +46,20 @@ public class LogController {
 
   /**
    * Method to get Device Log (Readings) by Time Period
+   *
+   * @param deviceID is the device id.
+   * @param timeStart is the start time.
+   * @param timeEnd is the end time.
    */
   @GetMapping
   public ResponseEntity<List<LogDTO>> getDeviceReadingsByTimePeriod(
       @RequestParam String deviceID,
       @RequestParam String timeStart,
-      @RequestParam String timeEnd) throws Exception {
-    DeviceID deviceIDObj = new DeviceID(deviceID);
+      @RequestParam String timeEnd) {
     LocalDateTime start = LocalDateTime.parse(timeStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     LocalDateTime end = LocalDateTime.parse(timeEnd, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     DatePeriod period = new DatePeriod(start, end);
+    DeviceID deviceIDObj = new DeviceID(deviceID);
     List<Log> logs = logService.getDeviceReadingsByTimePeriod(deviceIDObj, period);
     if (logs.isEmpty()) {
       ResponseEntity.notFound().build();
@@ -123,6 +127,11 @@ public class LogController {
     return ResponseEntity.ok(maxPowerConsumption);
   }
 
+  /**
+   * Method to get the current position of a blind roller.
+   * @param deviceID is the device id.
+   * @return the current position of the blind roller.
+   */
   @GetMapping("/get-position-blindRoller")
   public ResponseEntity<Integer> getPositionBlindRoller(
       @RequestParam String deviceID) {
