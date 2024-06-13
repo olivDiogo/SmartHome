@@ -61,6 +61,7 @@ import smarthome.utils.dto.data_dto.LogDataDTO;
 
 class GetLogFromDeviceControllerTest {
 
+
   private ILogRepository logRepository;
   private IDeviceRepository deviceRepository;
   private ISensorRepository sensorRepository;
@@ -75,19 +76,17 @@ class GetLogFromDeviceControllerTest {
   private IPostalCodeFactory postalCodeFactory;
   private GetLogFromDeviceController getLogFromDeviceController;
 
-  /**
-   * These changes ensure that each test has access to the necessary instances that are
-   * reinitialized before each test, maintaining isolation between tests and ensuring that the state
-   * of one test does not affect another.
-   */
-
   @BeforeEach
   void setup() {
     logRepository = mock(LogRepository.class);
+    deviceRepository = mock(IDeviceRepository.class);
+    sensorRepository = mock(ISensorRepository.class);
+    sensorTypeRepository = mock(ISensorTypeRepository.class);
+    unitRepository = mock(IUnitRepository.class);
+    logFactory = new LogFactoryImpl();
     ILogService logService = new LogServiceImpl(logRepository, deviceRepository, sensorRepository,
         sensorTypeRepository, unitRepository, logFactory);
     IAssembler<Log, LogDTO> logAssembler = new LogAssembler();
-    deviceRepository = mock(IDeviceRepository.class);
     IDeviceFactory deviceFactory = new DeviceFactoryImpl();
     roomRepository = mock(IRoomRepository.class);
     IRoomFactory roomFactory = new RoomFactoryImpl();
