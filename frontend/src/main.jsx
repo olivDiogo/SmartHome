@@ -13,6 +13,8 @@ import AddActuatorPage from "./pages/AddActuatorPage.jsx";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from "./pages/Dashboard.jsx";
+import ActuatorsPage from "./pages/ActuatorsPage.jsx";
+import SensorsPage from "./pages/SensorsPage.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <AppProvider>
@@ -23,6 +25,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Routes>
                         <Route path="/rooms/:roomId" element={<AddDeviceToRoomPage/>}/>
                         <Route path="/rooms/:roomId/devices" element={<DevicesInRoomPage/>}/>
+                        <Route path={"/devices/:deviceId/actuators"} element={<ActuatorsPage/>}/>
+                        <Route path={"/devices/:deviceId/sensors"} element={<SensorsPage/>}/>
                         <Route path="/devices/:deviceId/add-sensor" element={<AddSensorPage/>}/>
                         <Route path="/devices/:deviceId/add-actuator" element={<AddActuatorPage/>}/>
                         <Route path="/logs/:deviceId" element={<LogsPage/>}/>

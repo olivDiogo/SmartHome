@@ -55,7 +55,7 @@ import {
     FETCH_SENSOR_MODELS_SUCCESS,
     FETCH_SENSOR_TYPES_FAILURE,
     FETCH_SENSOR_TYPES_STARTED,
-    FETCH_SENSOR_TYPES_SUCCESS,
+    FETCH_SENSOR_TYPES_SUCCESS, FETCH_SENSORS_FAILURE, FETCH_SENSORS_STARTED, FETCH_SENSORS_SUCCESS,
     SAVE_CURRENT_DEVICE,
     SET_BLIND_ROLLER_VALUE_FAILURE,
     SET_BLIND_ROLLER_VALUE_STARTED,
@@ -383,6 +383,33 @@ function reducer(state = initialState, action) {
             };
 
 // ------------------------------ Sensor ------------------------------//
+        case FETCH_SENSORS_STARTED:
+            return {
+                ...state,
+                sensors: {
+                    loading: true,
+                    error: null,
+                    data: []
+                }
+            };
+        case FETCH_SENSORS_SUCCESS:
+            return {
+                ...state,
+                sensors: {
+                    loading: false,
+                    error: null,
+                    data: action.payload.sensors
+                }
+            };
+        case FETCH_SENSORS_FAILURE:
+            return {
+                ...state,
+                sensors: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: []
+                }
+            };
 
 // ------------------------------ Types of Sensor ------------------------------//
         case UPDATE_SELECTED_TYPE_OF_SENSOR:
@@ -825,6 +852,8 @@ function reducer(state = initialState, action) {
                 deactivatingDevice: false,
                 deactivateDeviceError: action.payload.error
             };
+
+
 
         default:
             return state;

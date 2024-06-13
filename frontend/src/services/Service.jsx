@@ -174,6 +174,21 @@ export function fetchActuatorsByDeviceId(success, failure, deviceId) {
         .catch(err => failure(err.message));
 }
 
+export function fetchSensorsByDeviceId(success, failure, deviceId) {
+    fetch(`${URL_API}/sensors?deviceID=${deviceId}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to fetch actuators');
+            }
+            return res.json();
+        })
+        .then(data => {
+            console.log('Data received:', data);
+            success(data);
+        })
+        .catch(err => failure(err.message));
+}
+
 export function setBlindRollerValue(success, failure, deviceID, actuatorID, value) {
     fetch(`${URL_API}/actuators/set-blindRoller`, {
         method: 'POST',
@@ -469,5 +484,7 @@ export function deactivateDevice(success, failure, deviceId) {
             toast.error(`Failed to deactivate device: ${err.message}`);
         });
 }
+
+
 
 

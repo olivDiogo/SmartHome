@@ -546,4 +546,26 @@ class SensorControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._links.self.href").exists());
   }
+
+  @Test
+  void shouldReturnSensorsByDeviceID () throws Exception {
+    //Arrange
+    Device device = setupDevice();
+    String deviceIDStr = device.getID().getID();
+    String sensorModelPath = "smarthome.domain.sensor.dew_point_sensor.DewPointSensor";
+    String strSensorName = "DewPoint";
+    String strSensorType = "DewPoint";
+
+    SensorDataGenericDTOImp sensorDataGenericDTOImp = new SensorDataGenericDTOImp(
+        deviceIDStr, sensorModelPath, strSensorType, strSensorName
+    );
+
+    ISensor sensor = setupGenericSensor(sensorDataGenericDTOImp);
+    when(sensorRepository.ofDeviceID(device.getID())).thenReturn(List.of(sensor));
+
+    //Act + Assert
+    mockMvc.perform(get("/sensors?deviceID=" + deviceIDStr))
+        .andExpect(status().isOk());
+
+  }
 }

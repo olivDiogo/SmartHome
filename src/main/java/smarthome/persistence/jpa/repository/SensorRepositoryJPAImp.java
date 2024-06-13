@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Optional;
 import smarthome.domain.repository.ISensorRepository;
 import smarthome.domain.sensor.ISensor;
+import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorID;
 import smarthome.persistence.assembler.IDataModelAssembler;
+import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 import smarthome.persistence.jpa.data_model.SensorDataModel;
 import smarthome.utils.Validator;
 import smarthome.utils.visitor_pattern.ISensorVisitorForDataModel;
@@ -123,5 +125,18 @@ public class SensorRepositoryJPAImp implements ISensorRepository {
   @Override
   public boolean containsOfIdentity(SensorID sensorID) {
     return ofIdentity(sensorID).isPresent();
+  }
+
+  @Override
+  public List<ISensor> ofDeviceID(DeviceID deviceID) {
+    EntityManager em = getEntityManager();
+    try {
+      Query query = em.createQuery("SELECT e FROM SensorDataModel e WHERE e.deviceID = :deviceID");
+      query.setParameter("deviceID", deviceID.getID());
+      List<SensorDataModel> listDataModel = query.getResultList();
+      return dataModelAssembler.toDomain(listDataModel);
+    } finally {
+      em.close();
+    }
   }
 }

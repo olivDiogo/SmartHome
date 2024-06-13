@@ -15,7 +15,7 @@ import {
     fetchLogsByDeviceIdFromServer,
     fetchRoomByIdFromServer,
     fetchRoomsFromServer,
-    fetchSensorModelsBySensorTypeIdFromServer,
+    fetchSensorModelsBySensorTypeIdFromServer, fetchSensorsByDeviceId,
     fetchSensorTypesFromServer,
     setBlindRollerValue,
     updateCurrentDeviceFromServer
@@ -67,6 +67,9 @@ export const FETCH_DEVICE_TYPES_FAILURE = 'FETCH_DEVICE_TYPES_FAILURE';
 export const FETCH_ACTUATORS_STARTED = 'FETCH_ACTUATORS_STARTED';
 export const FETCH_ACTUATORS_SUCCESS = 'FETCH_ACTUATORS_SUCCESS';
 export const FETCH_ACTUATORS_FAILURE = 'FETCH_ACTUATORS_FAILURE';
+export const FETCH_SENSORS_STARTED = 'FETCH_SENSORS_STARTED';
+export const FETCH_SENSORS_SUCCESS = 'FETCH_SENSORS_SUCCESS';
+export const FETCH_SENSORS_FAILURE = 'FETCH_SENSORS_FAILURE';
 export const FETCH_ACTUATOR_TYPES_STARTED = 'FETCH_ACTUATOR_TYPES_STARTED';
 export const FETCH_ACTUATOR_TYPES_SUCCESS = 'FETCH_ACTUATOR_TYPES_SUCCESS';
 export const FETCH_ACTUATOR_TYPES_FAILURE = 'FETCH_ACTUATOR_TYPES_FAILURE';
@@ -545,6 +548,16 @@ export function fetchActuators(dispatch, deviceId) {
     const failure = (error) => dispatch({type: FETCH_ACTUATORS_FAILURE, payload: {error: error}});
 
     fetchActuatorsByDeviceId(success, failure, deviceId);
+}
+
+export function fetchSensors(dispatch, deviceId) {
+    dispatch({type: FETCH_SENSORS_STARTED});
+
+    const success = (data) => dispatch({type: FETCH_SENSORS_SUCCESS, payload: {sensors: data}});
+    const failure = (error) => dispatch({type: FETCH_SENSORS_FAILURE, payload: {error: error}});
+
+    fetchSensorsByDeviceId(success, failure, deviceId);
+
 }
 
 // ------------------------------ Type Of Actuator ------------------------------//

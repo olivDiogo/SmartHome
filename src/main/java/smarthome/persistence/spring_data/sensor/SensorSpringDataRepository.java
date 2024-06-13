@@ -5,8 +5,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 import smarthome.domain.repository.ISensorRepository;
 import smarthome.domain.sensor.ISensor;
+import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorID;
 import smarthome.persistence.assembler.IDataModelAssembler;
+import smarthome.persistence.jpa.data_model.ActuatorDataModel;
 import smarthome.persistence.jpa.data_model.SensorDataModel;
 import smarthome.utils.Validator;
 import smarthome.utils.visitor_pattern.ISensorVisitorForDataModel;
@@ -98,5 +100,11 @@ public class SensorSpringDataRepository implements ISensorRepository {
   }
 
 
+  @Override
+  public List<ISensor> ofDeviceID(DeviceID deviceID) {
+    List<SensorDataModel> listSensorDataModel = repository.findByDeviceID(deviceID.getID());
+
+    return this.assembler.toDomain(listSensorDataModel);
+  }
 }
 

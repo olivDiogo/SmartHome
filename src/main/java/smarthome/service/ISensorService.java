@@ -3,7 +3,9 @@ package smarthome.service;
 import java.util.List;
 import java.util.Optional;
 import smarthome.ddd.IService;
+import smarthome.domain.actuator.IActuator;
 import smarthome.domain.sensor.ISensor;
+import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorID;
 
 public interface ISensorService extends IService {
@@ -30,5 +32,7 @@ public interface ISensorService extends IService {
    * @return a list of sensors
    */
   List<ISensor> getAllSensors();
+
+  List<ISensor> getSensorsByDeviceID(DeviceID deviceID);
 
 }

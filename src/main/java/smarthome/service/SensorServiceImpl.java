@@ -91,6 +91,11 @@ public class SensorServiceImpl implements ISensorService {
     return sensorRepository.findAll();
   }
 
+  @Override
+  public List<ISensor> getSensorsByDeviceID(DeviceID deviceID) {
+    return sensorRepository.ofDeviceID(deviceID);
+  }
+
   /**
    * Validates the device ID.
    *

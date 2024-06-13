@@ -3,6 +3,7 @@ package smarthome.persistence.assembler;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.stereotype.Component;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.sensor.ISensorFactory;
@@ -45,8 +46,15 @@ public class SensorDataModelAssembler implements IDataModelAssembler<SensorDataM
     getModelPath(sensorDataModel);
     getSensorTypeID(sensorDataModel);
     getSensorName(sensorDataModel);
-    getGPS(sensorDataModel);
-    getDatePeriod(sensorDataModel);
+    if (Objects.equals(sensorDataModel.getSensorTypeID(), "SunriseTime")
+        || Objects.equals(sensorDataModel.getSensorTypeID(), "SunsetTime")) {
+      getGPS(sensorDataModel);
+    }
+
+    if (Objects.equals(sensorDataModel.getSensorTypeID(), "ElectricConsumptionWh")) {
+      getDatePeriod(sensorDataModel);
+
+    }
     getSensorID(sensorDataModel);
     return sensorFactory.create(parameters.toArray());
   }

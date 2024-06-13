@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.ddd.IAssembler;
+import smarthome.domain.actuator.IActuator;
 import smarthome.domain.sensor.ISensor;
+import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorID;
 import smarthome.mapper.sensor_vo_assembler.ISensorVOAssembler;
 import smarthome.mapper.sensor_vo_assembler.SensorVOAssemblerImpl;
 import smarthome.service.ISensorService;
+import smarthome.utils.dto.ActuatorDTO;
 import smarthome.utils.dto.SensorDTO;
 import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
 
@@ -98,6 +101,39 @@ public class SensorController {
     else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
+  }
+
+  @GetMapping(params = "deviceID")
+  public ResponseEntity<List<EntityModel<SensorDTO>>> getSensorsByDeviceID(
+      @RequestParam("deviceID") String strDeviceID) {
+    DeviceID deviceID = new DeviceID(strDeviceID);
+
+    List<ISensor> sensors = sensorService.getSensorsByDeviceID(deviceID);
+
+    List<SensorDTO> sensorDTOs =sensorAssembler.domainToDTO(sensors);
+    List<EntityModel<SensorDTO>> resources = new java.util.ArrayList<>(List.of());
+
+    // Create link to self
+    WebMvcLinkBuilder linkToSelf =
+        WebMvcLinkBuilder.linkTo(
+            WebMvcLinkBuilder.methodOn(SensorController.class)
+                .getSensorsByDeviceID(strDeviceID));
+
+    for (SensorDTO sensorDTO : sensorDTOs) {
+      WebMvcLinkBuilder linkToActuator =
+          WebMvcLinkBuilder.linkTo(
+              WebMvcLinkBuilder.methodOn(SensorController.class).getSensorByID(sensorDTO.sensorID));
+
+      EntityModel<SensorDTO> resource =
+          EntityModel.of(
+              sensorDTO,
+              linkToSelf.withSelfRel().withRel("get-sensor-by-device-id"),
+              linkToActuator.withRel("get-sensor-by-id"));
+
+      resources.add(resource);
+    }
+
+    return ResponseEntity.status(HttpStatus.OK).body(resources);
   }
 
   /**

@@ -68,6 +68,7 @@ public class SwitchSensor implements ISensor {
     this.sensorName = sensorName;
     this.sensorTypeID = sensorTypeID;
     this.deviceID = deviceID;
+    this.sensorID = sensorID;
 
   }
 

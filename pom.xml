@@ -274,13 +274,13 @@
                     <excludedClasses>
                         <param>**.ddd.**.*</param>
                         <param>**.persistence.**.*</param>
-                        <exclude>**/DemoApplication.java</exclude>
+                        <exclude>**.DemoApplication.java</exclude>
 
                     </excludedClasses>
                     <excludedTestClasses>
                         <param>**.ddd.**.*</param>
                         <param>**.persistence.**.*</param>
-                        <exclude>**/DemoApplication.java</exclude>
+                        <exclude>**.DemoApplication.java</exclude>
 
                     </excludedTestClasses>
                     <outputFormats>

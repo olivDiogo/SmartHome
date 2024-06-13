@@ -1,77 +1,81 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import {useEffect, useState} from "react";
-import {fetchActuatorModelsByActuatorTypeIdFromServer, fetchActuatorTypesFromServer} from "../services/Service.jsx";
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import {useContext, useEffect} from "react";
+import AppContext from "../context/AppContext.jsx";
+import {fetchActuators} from "../context/Actions.jsx";
 
-function ActuatorsList({ selectedActuator, setSelectedActuator }) {
-    const [actuatorTypes, setActuatorTypes] = useState('');
-    const [selectedActuatorType, setSelectedActuatorType] = useState('');
-    const [actuatorModels, setActuatorModels] = useState([]);
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
+
+function ActuatorsList() {
+    const {state, dispatch} = useContext(AppContext);
+    const {currentDevice, actuators} = state;
+    const {deviceId} = currentDevice;
+    const {loading, error, data} = actuators;
+
+    const fetchActuatorsForDevice = (deviceId) => {
+        fetchActuators(dispatch, deviceId);
+    }
 
     useEffect(() => {
-        fetchActuatorTypesFromServer((data) => {
-            console.log('Fetched actuator types:', data);
-            if (data._embedded && Array.isArray(data._embedded.actuatorTypeDTOList)) {
-                setActuatorTypes(data._embedded.actuatorTypeDTOList);
-            }
-        }, console.error);
-    }, []);
+        fetchActuatorsForDevice(deviceId);
+    }, [deviceId]);
 
-    useEffect(() => {
-        if (selectedActuatorType) {
-            fetchActuatorModelsByActuatorTypeIdFromServer((data) => {
-                console.log('Fetched actuator models:', data);
-                setActuatorModels(data);
-            }, console.error, selectedActuatorType);
-        }
-    }, [selectedActuatorType]);
-
-    const handleActuatorTypeChange = (event) => {
-        setSelectedActuatorType(event.target.value);
-    };
-
-    const handleActuatorModelChange = (event) => {
-        setSelectedActuator(event.target.value);
-    };
-
-    return (
-        <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-                <InputLabel id="actuator-type-select-label">Actuator Type</InputLabel>
-                <Select
-                    labelId="actuator-type-select-label"
-                    id="actuator-type-select"
-                    value={selectedActuatorType}
-                    label="Actuator Type"
-                    onChange={handleActuatorTypeChange}
-                >
-                    <MenuItem value="">None</MenuItem>
-                    {Array.isArray(actuatorTypes) && actuatorTypes.map((actuatorType, index) => (
-                        <MenuItem key={index} value={actuatorType.actuatorTypeID}>{actuatorType.actuatorTypeID}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-            <FormControl fullWidth>
-                <InputLabel id="actuator-select-label">Actuator</InputLabel>
-                <Select
-                    labelId="actuator-select-label"
-                    id="actuator-select"
-                    value={selectedActuator}
-                    label="Actuator"
-                    onChange={handleActuatorModelChange}
-                >
-                    <MenuItem value="">None</MenuItem>
-                    {Array.isArray(actuatorModels) && actuatorModels.map((actuatorModel, index) => (
-                        <MenuItem key={index} value={actuatorModel.actuatorModelID}>{actuatorModel.actuatorModelID}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-        </Box>
-    );
+    if (loading) {
+        return <h1>Loading ....</h1>;
+    } else if (error) {
+        return <h1>Error ....</h1>;
+    } else if (data.length > 0) {
+        return (
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Actuator ID</StyledTableCell>
+                            <StyledTableCell>Actuator Name</StyledTableCell>
+                            {/* Add more headers as needed */}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((actuator) => (
+                            <StyledTableRow key={actuator.id}>
+                                <StyledTableCell component="th" scope="row">
+                                    {actuator.actuatorTypeID}
+                                </StyledTableCell>
+                                <StyledTableCell>{actuator.actuatorName}</StyledTableCell>
+                                {/* Add more cells as needed */}
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        );
+    }
+    return <h3>No Actuators Found</h3>;
 }
 
 export default ActuatorsList;

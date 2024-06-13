@@ -77,6 +77,12 @@ const initialState = {
         data: [],
     },
 
+    sensors: {
+        loading: false,
+        error: null,
+        data: [],
+    },
+
     selectedSensorModelName: "",
 
     selectedSensorModelPath: "",

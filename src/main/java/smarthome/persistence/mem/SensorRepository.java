@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
+import smarthome.domain.actuator.IActuator;
 import smarthome.domain.repository.ISensorRepository;
 import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
@@ -80,4 +81,10 @@ public class SensorRepository implements ISensorRepository {
     return Sensors;
   }
 
+  @Override
+  public List<ISensor> ofDeviceID(DeviceID deviceID) {
+    List<ISensor> sensors = DATA.values().stream()
+        .filter(sensor -> sensor.getDeviceID().equals(deviceID)).toList();
+    return sensors;
+  }
 }

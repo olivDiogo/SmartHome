@@ -2,6 +2,7 @@ package smarthome.persistence.assembler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import smarthome.domain.actuator.IActuator;
@@ -36,8 +37,13 @@ public class ActuatorDataModelAssembler implements
     getModelPath(domainEntity);
     getActuatorTypeID(domainEntity);
     getActuatorName(domainEntity);
-    getIntegerLimits(domainEntity);
-    getDecimalLimits(domainEntity);
+    if (Objects.equals(domainEntity.getActuatorTypeID(), "SetInteger")){
+      getIntegerLimits(domainEntity);
+    }
+
+    if (Objects.equals(domainEntity.getActuatorTypeID(), "SetDecimal")){
+      getDecimalLimits(domainEntity);
+    }
     getActuatorID(domainEntity);
 
     return actuatorFactory.create(parameters.toArray());
