@@ -32,10 +32,12 @@ class SensorDataModelAssemblerTest {
     SensorName sensorName = new SensorName(sensorNameValue);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
 
-    TemperatureSensor sensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID, sensorName);
-    SensorDataModel sensorDataModel = new SensorDataModel(sensor);
-
     ISensorFactory sensorFactory = new SensorFactoryImpl();
+
+    TemperatureSensor sensor = (TemperatureSensor) sensorFactory.create(deviceID, modelPath,
+        sensorTypeID, sensorName);
+
+    SensorDataModel sensorDataModel = new SensorDataModel(sensor);
 
     SensorDataModelAssembler sensorDataModelAssembler = new SensorDataModelAssembler(sensorFactory);
 
@@ -61,16 +63,16 @@ class SensorDataModelAssemblerTest {
     SensorName sensorName = new SensorName(sensorNameValue);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
     GPS gps = new GPS(GPSLatitude, GPSLongitude);
+    ISensorFactory sensorFactory = new SensorFactoryImpl();
 
-    // Act
-    SunriseTimeSensor result = new SunriseTimeSensor(deviceID, modelPath, sensorTypeID, sensorName,
-        gps);
+    SunriseTimeSensor result = (SunriseTimeSensor) sensorFactory.create(deviceID, modelPath,
+        sensorTypeID, sensorName, gps);
     SensorDataModel sensorDataModel = new SensorDataModel(result);
     sensorDataModel.setLatitude(String.valueOf(GPSLatitude));
     sensorDataModel.setLongitude(String.valueOf(GPSLongitude));
-
-    ISensorFactory sensorFactory = new SensorFactoryImpl();
     SensorDataModelAssembler sensorDataModelAssembler = new SensorDataModelAssembler(sensorFactory);
+
+    // Act
     ISensor sensor = sensorDataModelAssembler.toDomain(sensorDataModel);
 
     // Assert
@@ -88,14 +90,15 @@ class SensorDataModelAssemblerTest {
     LocalDateTime startDate = LocalDateTime.now().minusDays(1);
     LocalDateTime endDate = LocalDateTime.now();
     DatePeriod datePeriod = new DatePeriod(startDate, endDate);
-    ElectricConsumptionWhSensor electricConsumptionWhSensor = new ElectricConsumptionWhSensor(
+    ISensorFactory sensorFactory = new SensorFactoryImpl();
+    ElectricConsumptionWhSensor electricConsumptionWhSensor = (ElectricConsumptionWhSensor) sensorFactory.create(
         deviceID, modelPath, sensorTypeID, sensorName, datePeriod);
 
     SensorDataModel sensorDataModel = new SensorDataModel(electricConsumptionWhSensor);
     sensorDataModel.setStartDate(startDate.toString());
     sensorDataModel.setEndDate(endDate.toString());
 
-    ISensorFactory sensorFactory = new SensorFactoryImpl();
+
     SensorDataModelAssembler sensorDataModelAssembler = new SensorDataModelAssembler(sensorFactory);
 
     //Act
@@ -118,8 +121,10 @@ class SensorDataModelAssemblerTest {
     SensorName sensorName = new SensorName(sensorNameTemp);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDTemp);
 
-    TemperatureSensor temperatureSensor = new TemperatureSensor(deviceID, modelPath, sensorTypeID,
-        sensorName);
+    ISensorFactory sensorFactory = new SensorFactoryImpl();
+
+    TemperatureSensor temperatureSensor = (TemperatureSensor) sensorFactory.create(deviceID,
+        modelPath, sensorTypeID, sensorName);
     SensorDataModel tempatureSensorDataModel = new SensorDataModel(temperatureSensor);
 
     //Sensor Sunrise
@@ -136,8 +141,8 @@ class SensorDataModelAssemblerTest {
     SensorTypeID sunrSensorTypeID = new SensorTypeID(sensorTypeIDSunr);
     GPS gps = new GPS(GPSLatitude, GPSLongitude);
 
-    SunriseTimeSensor sunriseTimeSensor = new SunriseTimeSensor(sunrDeviceID, sunrModelPath,
-        sunrSensorTypeID, sunrSensorName, gps);
+    SunriseTimeSensor sunriseTimeSensor = (SunriseTimeSensor) sensorFactory.create(sunrDeviceID,
+        sunrModelPath, sunrSensorTypeID, sunrSensorName, gps);
     SensorDataModel sunriseSensorDataModel = new SensorDataModel(sunriseTimeSensor);
     sunriseSensorDataModel.setLatitude(String.valueOf(GPSLatitude));
     sunriseSensorDataModel.setLongitude(String.valueOf(GPSLongitude));
@@ -145,8 +150,6 @@ class SensorDataModelAssemblerTest {
     List<SensorDataModel> sensorDataModels = List.of(tempatureSensorDataModel,
         sunriseSensorDataModel);
     List<ISensor> expected = List.of(temperatureSensor, sunriseTimeSensor);
-
-    ISensorFactory sensorFactory = new SensorFactoryImpl();
 
     SensorDataModelAssembler sensorDataModelAssembler = new SensorDataModelAssembler(sensorFactory);
     //Act
