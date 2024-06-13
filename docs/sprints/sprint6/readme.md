@@ -24,7 +24,7 @@ The team is made up of the following dedicated students:
 
 ## 2. Task Distribution
 
-_During Sprint 5, task assignments are laid out as below:_
+_During Sprint 6, task assignments are laid out as below:_
 
 | Task  | Student Assigned                                        |
 |-------|---------------------------------------------------------|
@@ -38,7 +38,7 @@ _During Sprint 5, task assignments are laid out as below:_
 
 ## 3. Sprint 6 Overview
 
-**Sprint 5 Goals:**
+**Sprint 6 Goals:**
 
 - have a REST API (HTTP REST controllers, implemented using Spring Boot, including HATEOAS).
 - get the peak power consumption of  the house, in a given period.

@@ -96,3 +96,30 @@ array).
 
 [US37](us37/us37_readme.md) - As a Room Owner [or Power User, or Administrator], I want to close a blind roller that is
 in a room.
+
+[US38]() - As a User, I want to have today’s sunrise and sunset hours on the front/main
+page of my Web App.
+
+[US39](us39/us39_readme.md) - As a User, I want to have current outside temperature on the front/main page of
+my Web App (updated every 15 minutes, starting at 00:00).
+
+[US40](us40/us40_readme.md) - As a Power User , I want to add a new device to a room using the Web App.
+
+[US41](us41/us41_readme.md) - As a Power User , I want to configure a device in a room using the Web App.
+
+[US42](us42/us42_readme.md) - As a User, I want to have a list of all rooms in the house in my Web App.
+
+[US43]() - As a Room Owner [or Power User, or Administrator], I want to get a list of all
+devices in a room, so that I can configure them in my Web App.
+
+[US44]() - As a Room Owner [or Power User, or Administrator], I want to get a list of all
+measurement of a device in my Web App.
+
+[US45]() - As a Room Owner [or Power User, or Administrator], in my Web App I want to
+know the current position, open or close a blind roller that is in a room.
+
+[US46]() - As Product Owner, I want the project database (Maria DB or MySQL) to be
+deployed in a docker.
+
+[US47]() - As Product Owner, I want the system to be hosted in a tomcat server and
+connect to a database container to persist information.
