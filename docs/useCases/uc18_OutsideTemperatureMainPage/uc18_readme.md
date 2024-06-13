@@ -42,5 +42,5 @@ None.
 - All classes have only one and well-defined responsibility.
 - **Container Components:** We use container components to manage state and business logic.
 - **Presentational Components:** Presentational components focus solely on rendering UI based on the props they receive. 
-- **Material-UI for UI Components**: Instead of CSS Modules, we integrate Material-UI for styling and UI components. ** For styling our components, we adopt CSS Modules.
+- **Material-UI for UI Components**: Instead of CSS Modules, we integrate Material-UI for styling and UI components.
 - **State Management with Redux**: We employ Redux to manage the global state of our application.
