@@ -10,11 +10,13 @@ box "SmartHome"
     participant Backend as BE
 end box
 
-User o-> FE : POST /device
+
+User o-> FE : POST /devices
 activate FE
 
-FE -> BE : POST /device
+FE -> BE : POST /devices
 activate BE
+
 BE --> FE : HTTP status 200
 deactivate BE
 
