@@ -5,14 +5,15 @@
 autonumber
 
 actor "User" as User
+
 participant "SmartHome" as SH
 
-User -> SH : I want to configure the house location
+User -> SH : I want to get the list of rooms
 activate SH
 
-SH --> User : houseDTO
-deactivate SH
 
+SH --> User : Room list
+deactivate SH
 
 
 @enduml

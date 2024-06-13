@@ -5,11 +5,15 @@
 autonumber
 
 actor "User" as User
+
 participant "SmartHome" as SH
 
-User -> SH : I want to add a Room
+User -> SH : I want to get a list of all devices in a room
 activate SH
 
-SH --> User : roomDTO
+
+SH --> User : Device list in a room
 deactivate SH
+
+
 @enduml
