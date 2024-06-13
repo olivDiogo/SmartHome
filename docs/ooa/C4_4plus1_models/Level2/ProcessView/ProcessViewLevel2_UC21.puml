@@ -4,7 +4,7 @@
 
 autonumber
 
-actor "User" as User
+participant " " as User
 
 
 box "SmartHome"
@@ -12,16 +12,16 @@ box "SmartHome"
     participant "Backend" as SV
 end box
 
-User -> FE : I want to get the list of rooms
+User o-> FE : GET /rooms
 activate FE
 
 FE -> SV : GET /rooms
 activate SV
 
-SV --> FE : roomDTOList
+SV --> FE : HTTP 200 Ok
 deactivate SV
 
-FE --> User : roomDTOList
+FE -->o User : ok
 deactivate FE
 
 

@@ -3,22 +3,22 @@
 !pragma layout smetana
 
 autonumber
-actor "User" as User
+participant " " as User
 
 box "SmartHome"
     participant Frontend as FE
     participant Backend as BE
 end box
 
-User -> FE : I want to add a new device to a room
+User o-> FE : POST /device
 activate FE
 
 FE -> BE : POST /device
 activate BE
-BE --> FE : deviceDTO
+BE --> FE : HTTP status 200
 deactivate BE
 
-FE --> User : deviceDTO
+FE -->o User : ok
 deactivate FE
 
 

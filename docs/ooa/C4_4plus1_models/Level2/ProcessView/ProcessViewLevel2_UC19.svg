@@ -1,1 +1,92 @@
-<?xml version="1.0" encoding="us-ascii" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="316px" preserveAspectRatio="none" style="width:432px;height:316px;background:#FFFFFF;" version="1.1" viewBox="0 0 432 316" width="432px" zoomAndPan="magnify"><defs/><g><rect fill="#DDDDDD" height="304.4063" style="stroke:#181818;stroke-width:0.5;" width="197.5" x="228.5" y="6"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="75" x="289.75" y="20.0283">SmartHome</text><rect fill="#FFFFFF" height="93.873" style="stroke:#181818;stroke-width:1.0;" width="10" x="263.5" y="116.9121"/><rect fill="#FFFFFF" height="31.291" style="stroke:#181818;stroke-width:1.0;" width="10" x="382.5" y="148.2031"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="22" x2="22" y1="83.6211" y2="228.7852"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="268.5" x2="268.5" y1="83.6211" y2="228.7852"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="387" x2="387" y1="83.6211" y2="228.7852"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="29" x="5" y="80.1074">User</text><ellipse cx="22.5" cy="13.5" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M22.5,21.5 L22.5,48.5 M9.5,29.5 L35.5,29.5 M22.5,48.5 L9.5,63.5 M22.5,48.5 L35.5,63.5 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="29" x="5" y="242.8926">User</text><ellipse cx="22.5" cy="254.9063" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M22.5,262.9063 L22.5,289.9063 M9.5,270.9063 L35.5,270.9063 M22.5,289.9063 L9.5,304.9063 M22.5,289.9063 L35.5,304.9063 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#E2E2F0" height="32.6211" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="72" x="232.5" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="239.5" y="72.1074">Frontend</text><rect fill="#E2E2F0" height="32.6211" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="72" x="232.5" y="227.7852"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="239.5" y="249.8926">Frontend</text><rect fill="#E2E2F0" height="32.6211" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="69" x="353" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55" x="360" y="72.1074">Backend</text><rect fill="#E2E2F0" height="32.6211" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="69" x="353" y="227.7852"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55" x="360" y="249.8926">Backend</text><rect fill="#FFFFFF" height="93.873" style="stroke:#181818;stroke-width:1.0;" width="10" x="263.5" y="116.9121"/><rect fill="#FFFFFF" height="31.291" style="stroke:#181818;stroke-width:1.0;" width="10" x="382.5" y="148.2031"/><polygon fill="#181818" points="251.5,112.9121,261.5,116.9121,251.5,120.9121,255.5,116.9121" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="22.5" x2="257.5" y1="116.9121" y2="116.9121"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="29.5" y="111.6494">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="211" x="40.5" y="111.6494">I want to add a new device to a room</text><polygon fill="#181818" points="370.5,144.2031,380.5,148.2031,370.5,152.2031,374.5,148.2031" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="273.5" x2="376.5" y1="148.2031" y2="148.2031"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="280.5" y="142.9404">2</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="291.5" y="142.9404">POST /device</text><polygon fill="#181818" points="284.5,175.4941,274.5,179.4941,284.5,183.4941,280.5,179.4941" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="278.5" x2="386.5" y1="179.4941" y2="179.4941"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="290.5" y="174.2314">3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="62" x="301.5" y="174.2314">deviceDTO</text><polygon fill="#181818" points="33.5,206.7852,23.5,210.7852,33.5,214.7852,29.5,210.7852" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="27.5" x2="267.5" y1="210.7852" y2="210.7852"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="39.5" y="205.5225">4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="62" x="50.5" y="205.5225">deviceDTO</text><!--SRC=[TOx1JWCn34Jl_Wgp5qxBtdlWiA8LFHMfvGFSn2ehDd58d1R-7cSB0WcHa-DvC-FR5zLKLiEGPefQmtpd90o5tof7nxsVw9Gfm4tAT0g4Ctr8LIo1bI81K5M9DHmv0pcLZDrpuTmX5Mm3m57UiTi7oleeWJj0Uyb-avkI5U8cIrIElZaswp_oIExrIntNq2OB16ZPsD-R0rUunKj3LP2yaHZvWfxFa-DbXraajEkcCoct4Z2RcSTcVjhj3pXSyH_8kapjlnkkyiDX1vv_CqkGGSiv_s2j3pu1]--></g></svg>
+<?xml version="1.0" encoding="us-ascii" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" contentStyleType="text/css"
+     height="234px" preserveAspectRatio="none" style="width:330px;height:234px;background:#FFFFFF;" version="1.1"
+     viewBox="0 0 330 234" width="330px" zoomAndPan="magnify">
+    <defs/>
+    <g>
+        <rect fill="#DDDDDD" height="222.5293" style="stroke:#181818;stroke-width:0.5;" width="233" x="91.5" y="6"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="78" x="169" y="18.5684">SmartHome
+        </text>
+        <rect fill="#FFFFFF" height="87.9316" style="stroke:#181818;stroke-width:1.0;" width="10" x="129" y="88.1094"/>
+        <rect fill="#FFFFFF" height="29.3105" style="stroke:#181818;stroke-width:1.0;" width="10" x="280" y="117.4199"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="14" x2="14" y1="56.7988"
+              y2="194.041"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="133.5" x2="133.5" y1="56.7988"
+              y2="194.041"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="284.5" x2="284.5" y1="56.7988"
+              y2="194.041"/>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="18"
+              x="5" y="25.3105"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="12"
+              y="45.8457">&#160;
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="18"
+              x="5" y="193.041"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="12"
+              y="213.5762">&#160;
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="77"
+              x="95.5" y="25.3105"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="102.5"
+              y="45.8457">Frontend
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="77"
+              x="95.5" y="193.041"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="102.5"
+              y="213.5762">Frontend
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="71"
+              x="249.5" y="25.3105"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="256.5"
+              y="45.8457">Backend
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="71"
+              x="249.5" y="193.041"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="256.5"
+              y="213.5762">Backend
+        </text>
+        <rect fill="#FFFFFF" height="87.9316" style="stroke:#181818;stroke-width:1.0;" width="10" x="129" y="88.1094"/>
+        <rect fill="#FFFFFF" height="29.3105" style="stroke:#181818;stroke-width:1.0;" width="10" x="280" y="117.4199"/>
+        <ellipse cx="13.5" cy="87.3594" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.5;"/>
+        <polygon fill="#181818" points="117,84.1094,127,88.1094,117,92.1094,121,88.1094"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="18" x2="123" y1="88.1094" y2="88.1094"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="9" x="21" y="83.3672">1
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="34"
+              y="83.3672">POST /device
+        </text>
+        <polygon fill="#181818" points="268,113.4199,278,117.4199,268,121.4199,272,117.4199"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="139" x2="274" y1="117.4199" y2="117.4199"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="9" x="146" y="112.6777">2
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="159"
+              y="112.6777">POST /device
+        </text>
+        <polygon fill="#181818" points="150,142.7305,140,146.7305,150,150.7305,146,146.7305"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="144" x2="284" y1="146.7305"
+              y2="146.7305"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="9" x="156" y="141.9883">3
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="104" x="169"
+              y="141.9883">HTTP status 200
+        </text>
+        <ellipse cx="13.5" cy="175.291" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:1.5;"/>
+        <polygon fill="#181818" points="30.5,172.041,20.5,176.041,30.5,180.041,26.5,176.041"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="28.5" x2="133" y1="176.041"
+              y2="176.041"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="9" x="31" y="171.2988">4
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="16" x="44"
+              y="171.2988">ok
+        </text><!--SRC=[TOyzYm8n443x-HLpsrZjhLXQM2meTWgkFs3C3bvmyt79HCv_xqGyM3WkQKBUcnUo-1A9UTrrSI8lnKsV9hWkytTXRxWTBLqJEVY8YQwESA97A8BPiP0d02eIV74NJX0fYJKsQWORtPJndFKUBk47cvDJl0-E6q1TStcNWXVsOvtORV_WdipjJVijr9C60MeRGxlH4LpZyN0Qi1lvRWq36R5t4gurKAnI_x-aKQNjRsa_34VCGb8ohfPB67bkldBj9ho-fdQupONw7Zm1]-->
+    </g>
+</svg>
