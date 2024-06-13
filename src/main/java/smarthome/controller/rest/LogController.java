@@ -24,7 +24,6 @@ import smarthome.service.IDeviceService;
 import smarthome.service.ILogService;
 import smarthome.utils.dto.LogDTO;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/logs")
 public class LogController {

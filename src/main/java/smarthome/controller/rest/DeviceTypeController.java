@@ -14,7 +14,6 @@ import smarthome.domain.device_type.DeviceType;
 import smarthome.service.IDeviceTypeService;
 import smarthome.utils.dto.DeviceTypeDTO;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/device-types")
 public class DeviceTypeController {

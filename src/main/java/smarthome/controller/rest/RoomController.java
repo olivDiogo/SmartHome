@@ -30,7 +30,7 @@ import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost")
 @RestController
 @RequestMapping("/rooms")
 public class RoomController {

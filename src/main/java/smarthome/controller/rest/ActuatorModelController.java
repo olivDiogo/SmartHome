@@ -20,7 +20,6 @@ import smarthome.service.IActuatorModelService;
 import smarthome.utils.dto.ActuatorModelDTO;
 
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/actuator-models")
 public class ActuatorModelController {

@@ -35,7 +35,6 @@ import smarthome.utils.dto.ActuatorDTO;
 import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorValueDTO;
 import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/actuators")
 public class ActuatorController {
