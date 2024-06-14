@@ -1,3 +1,11 @@
+/* 
+ * School Project, educational software development.
+ * This school project is open source and does not have a specific license.
+ * It is intended for educational purposes only and should not be trusted for commercial purposes.
+ * First see if it works.  Copyright (C) 2024
+ * For any inquiries or further information, contact amm@isep.ipp.pt.
+ */ 
+
 package smarthome.controller.rest;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -30,7 +38,6 @@ import smarthome.utils.dto.RoomDTO;
 import smarthome.utils.dto.data_dto.DeviceDataDTO;
 import smarthome.utils.dto.data_dto.RoomDataDTO;
 
-@CrossOrigin(origins = "http://localhost")
 @RestController
 @RequestMapping("/rooms")
 public class RoomController {

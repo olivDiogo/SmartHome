@@ -1,3 +1,11 @@
+/* 
+ * School Project, educational software development.
+ * This school project is open source and does not have a specific license.
+ * It is intended for educational purposes only and should not be trusted for commercial purposes.
+ * First see if it works.  Copyright (C) 2024
+ * For any inquiries or further information, contact amm@isep.ipp.pt.
+ */ 
+
 /**
  * Represents a geographical location using GPS coordinates. This class ensures that latitude and
  * longitude values are within valid ranges and that they are precise up to five decimal places.
