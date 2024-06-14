@@ -10,33 +10,21 @@ box "Server"
     participant "Controller" as CTRL
     participant "Service" as SV
     participant "Repository" as REPO
-    participant "Domain" as DOM
 end box
 
-participant "DataBase" as BD
+participant " " as BD
 
 
 HTTP -> CTRL : POST /sensor-types
 activate CTRL
+CTRL -> SV : createSensorType(SensorTypeEntryDTO)
 
-CTRL -> DOM : TypeDescription(strDescription)
-activate DOM
-DOM --> CTRL : typeDescription
-deactivate DOM
-
-CTRL -> DOM : UnitID(strUnitID)
-activate DOM
-DOM --> CTRL : unitID
-deactivate DOM
-
-CTRL -> SV : createSensorType(typeDescription, unitID)
 activate SV
 
-SV -> REPO : save(typeDescription, unitID)
+SV -> REPO : createSensorType(typeDescription, unitID)
 activate REPO
-REPO -> BD : save
-activate BD
-deactivate BD
+REPO ->o BD : save
+
 REPO --> SV : sensorType
 deactivate REPO
 
@@ -44,7 +32,7 @@ SV --> CTRL : sensorType
 deactivate SV
 
 
-CTRL --> HTTP : sensorTypeDTO
+CTRL --> HTTP : JSON/status 20
 deactivate CTRL
 
 

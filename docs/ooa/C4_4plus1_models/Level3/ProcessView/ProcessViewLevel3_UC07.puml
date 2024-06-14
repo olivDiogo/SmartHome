@@ -9,7 +9,6 @@ participant " " as HTTP
 box "Server"
     participant "Controller" as CTRL
     participant "Service" as SV
-    participant "Domain" as DM
     participant "Repository" as RP
 
 end box
@@ -30,10 +29,10 @@ RP ->o BD : save(sensorDataModel)
 RP --> SV : sensor
 deactivate RP
 
-SV --> CTRL : sensorDTO
+SV --> CTRL : sensor
 deactivate SV
 
-CTRL --> HTTP : sensorDTO
+CTRL --> HTTP : JSON/status 201
 deactivate CTRL
 
 

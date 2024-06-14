@@ -1,21 +1,20 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-actor "User" as User
-participant RestClient as "RestClient"
-box "Power Consumption"
+
+participant " " as HTTP
+
+box "Server"
 participant Controller as "Controller"
 participant Service as "Service"
 participant Repository as "Repository"
-participant DataBase as "DataBase"
 end box
+
+participant DataBase as " "
 
 autonumber
 
-User -> RestClient :  I want to get the peak power consumption of the house, in a given period
-activate RestClient
-
-RestClient -> Controller: getMaxPowerConsumption(initialTime, endTime)
+HTTP -> Controller : GET /peak-power-consumption
 
 activate Controller
 
@@ -27,13 +26,9 @@ Service -> Repository: getDevicesByDeviceTypeID(powerMeterTypeID)
 
 activate Repository
 
-Repository -> DataBase: findByDeviceTypeID
+Repository ->o DataBase: findByDeviceTypeID
 
-activate DataBase
-
-DataBase --> Repository : deviceList
-
-deactivate DataBase
+DataBase o--> Repository : deviceList
 
 Repository --> Service: deviceList
 
@@ -53,13 +48,9 @@ Service -> Repository: getDevicesByDeviceType(powerSourceTypeID)
 
 activate Repository
 
-Repository -> DataBase: findByDeviceTypeID
+Repository ->o DataBase: findByDeviceTypeID
 
-activate DataBase
-
-DataBase --> Repository : deviceList
-
-deactivate DataBase
+DataBase o--> Repository : deviceList
 
 Repository --> Service: deviceList
 
@@ -79,13 +70,9 @@ Service -> Repository: findByDeviceIDAndSensorTypeAndDatePeriodBetween (powerMet
 
 activate Repository
 
-Repository -> DataBase: findByDeviceTypeID
+Repository ->o DataBase: findByDeviceTypeID
 
-activate DataBase
-
-DataBase --> Repository : readingsList
-
-deactivate DataBase
+DataBase o--> Repository : readingsList
 
 Repository --> Service: powerMeterReadings
 
@@ -105,13 +92,9 @@ Service -> Repository: findByDeviceIDAndSensorTypeAndDatePeriodBetween (powerSou
 
 activate Repository
 
-Repository -> DataBase: findByDeviceIDAndSensorTypeAndDatePeriodBetween
+Repository ->o DataBase: findByDeviceIDAndSensorTypeAndDatePeriodBetween
 
-activate DataBase
-
-DataBase --> Repository : readingsList
-
-deactivate DataBase
+DataBase o--> Repository : readingsList
 
 Repository --> Service: powerSourceReadings
 
@@ -131,12 +114,8 @@ Service --> Controller: maxPowerConsumptionValue
 
 deactivate Service
 
-Controller --> RestClient: maxPowerConsumptionValue
+Controller --> HTTP: JSON / Status 200
 
 deactivate Controller
-
-RestClient --> User: maxPowerConsumptionValue
-
-deactivate RestClient
 
 @enduml

@@ -3,73 +3,21 @@
 !pragma layout smetana
 autonumber
 
-    actor "User" as User
-    participant RestClient as "RestClient"
-    box SmartHome
+participant " " as HTTP
+
+box "Server"
     participant "Controller" as Controller
-    participant "sensorTypeID:SensorTypeID" as SensorTypeID
-    participant "blindRollerValue:BlindRollerValue" as BlindRollerValue
-    participant "actuatorID:ActuatorID" as ActuatorID
-    participant "deviceID:DeviceID" as DeviceID
     participant Service as Service
     participant Repository as Repository
     participant BlindRollerActuator as BlindRollerActuator
 
     end box
 
-    participant DataBase as DataBase
+    participant DataBase as " "
 
-User -> RestClient: I want to close a blond roller in a room
-activate RestClient
 
-RestClient -> Controller: closeBlindRoller(actuatorValueDTO)
+HTTP -> Controller: POST/set-blindRoller
 activate Controller
-
-create SensorTypeID
-Controller -> SensorTypeID: SensorTypeID ("PercentagePosition")
-activate SensorTypeID
-
-SensorTypeID --> Controller: sensorTypeID
-deactivate SensorTypeID
-
-create BlindRollerValue
-Controller -> BlindRollerValue: BlindRollerValue(value)
-activate BlindRollerValue
-
-BlindRollerValue --> Controller: blindRollerValue
-deactivate BlindRollerValue
-
-create ActuatorID
-Controller -> ActuatorID : ActuatorID (strActuatorID)
-activate ActuatorID
-
-ActuatorID --> Controller: actuatorID
-deactivate ActuatorID
-
-create DeviceID
-Controller -> DeviceID : DeviceID (strDeviceID)
-activate DeviceID
-
-DeviceID --> Controller: deviceID
-deactivate DeviceID
-
-Controller -> Service: getActuatorByID (actuatorID)
-activate Service
-
-Service -> Repository: ofIdentity(actuatorID)
-activate Repository
-
-Repository -> DataBase: findById(actuatorID)
-activate DataBase
-
-DataBase --> Repository: actuatorBlindRoller
-deactivate DataBase
-
-Repository --> Service: actuatorBlindRoller
-deactivate Repository
-
-Service --> Controller: actuatorBlindRoller
-deactivate Service
 
 Controller -> Service: getDeviceReadings (deviceID, sensorTypeID)
 activate Service
@@ -77,11 +25,9 @@ activate Service
 Service -> Repository: getDeviceReadings (deviceID, sensorTypeID)
 activate Repository
 
-Repository -> DataBase: findAll()
-activate DataBase
+Repository ->o DataBase: findAll()
 
-DataBase --> Repository: deviceReadingsList
-deactivate DataBase
+DataBase o--> Repository: deviceReadingsList
 
 Repository --> Service: deviceReadingsList
 deactivate Repository
@@ -101,10 +47,7 @@ deactivate BlindRollerActuator
 Service --> Controller: blindRollerValue
 deactivate Service
 
-Controller --> RestClient: blindRollerValue
-deactivate Controller
+Controller --> HTTP: JSON / Status 201
 
-RestClient --> User: blindRollerValue
-deactivate RestClient
 
 @enduml
