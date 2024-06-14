@@ -52,8 +52,8 @@ public class UnitController {
   @GetMapping
   public ResponseEntity<CollectionModel<UnitDTO>> getUnits() {
     List<Unit> unitList = unitService.getAllunitTypes();
-
     List<UnitDTO> unitDTOList = unitAssembler.domainToDTO(unitList);
+
     CollectionModel<UnitDTO> resource = CollectionModel.of(unitDTOList,
         WebMvcLinkBuilder.linkTo(
                 WebMvcLinkBuilder.methodOn(UnitController.class).getUnits())

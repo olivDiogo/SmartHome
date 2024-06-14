@@ -21,12 +21,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 import smarthome.domain.repository.IUnitRepository;
 import smarthome.domain.unit.IUnitFactory;
 import smarthome.domain.unit.Unit;
-import smarthome.domain.unit.UnitFactoryImpl;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.utils.LoadDefaultConfiguration;
@@ -38,6 +36,9 @@ class UnitControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
+
+  @Autowired
+  private IUnitFactory unitFactory;
 
   @MockBean
   private IUnitRepository unitRepository;
@@ -52,19 +53,16 @@ class UnitControllerTest {
   @Test
   void shouldReturnAllUnits_WhenRequested() throws Exception {
     // Arrange
-    IUnitFactory unitFactory = new UnitFactoryImpl();
     UnitDescription unitDescription = new UnitDescription("Test");
     UnitSymbol unitSymbol = new UnitSymbol("C");
     Unit unit = unitFactory.createUnit(unitDescription, unitSymbol);
     when(unitRepository.findAll()).thenReturn(List.of(unit));
     // Act & Assert
-    MvcResult result = mockMvc.perform(get("/units")
+    mockMvc.perform(get("/units")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._links.self.href").exists())
-        .andReturn();
-
-    System.out.println(result.getResponse().getContentAsString());
+        .andExpect(jsonPath("$._embedded.unitDTOList[0].unitID").value(unit.getID().getID()));
   }
 
   /**
@@ -77,6 +75,7 @@ class UnitControllerTest {
     mockMvc.perform(get("/units")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._links.self.href").exists());
+        .andExpect(jsonPath("$._links.self.href").exists())
+        .andExpect(jsonPath("$._embedded.unitDTOList").doesNotExist());
   }
 }
