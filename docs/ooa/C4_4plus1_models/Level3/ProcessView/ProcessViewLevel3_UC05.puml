@@ -7,15 +7,18 @@ autonumber
 participant " " as HTTP
 
 box "Server"
+participant "Routing" as ROUT
     participant "Controller" as CTRL
     participant "Service" as SV
     participant "Repository" as REPO
     participant "Domain" as DOM
-
 end box
-participant "DataBase" as BD
+participant " " as BD
 
-HTTP -> CTRL : POST /device
+HTTP -> ROUT : POST /device
+activate ROUT
+
+ROUT -> CTRL : addDevice (deviceEntryDTO)
 activate CTRL
 
 CTRL -> DOM : RoomID(idStr)
@@ -38,17 +41,20 @@ activate SV
 
 SV -> REPO : save(device)
 activate REPO
-REPO -> BD : save
-activate BD
-deactivate BD
+REPO ->o BD : save
+
+
 REPO --> SV : device
 deactivate REPO
 
 SV --> CTRL : device
 deactivate SV
 
-CTRL --> HTTP : deviceDTO
+CTRL --> ROUT : deviceDTO
 deactivate CTRL
+
+ROUT --> HTTP : JSON Status ok
+deactivate ROUT
 
 
 @enduml
