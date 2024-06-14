@@ -19,16 +19,14 @@ activate FE
 FE -> WS : POST / WeatherServiceConfiguration
 activate WS
 
-WS --> FE : Response
-
+WS --> FE : json, status CREATED
 
 WS -> WS : GET / InstantaneousTemperature
 
-WS --> FE : outsideTemperature
+WS --> FE : json, status OK
 deactivate WS
 
-
-[o<-- FE : outsideTemperature
+[o<-- FE : json, status OK
 deactivate FE
 
 
