@@ -3,27 +3,17 @@
 !pragma layout smetana
 autonumber
 
-actor "User" as User
-participant RestClient as "RestClient"
-box "SmartHome"
+participant " " as HTTP
+
+box "Server"
 participant Controller as "Controller"
 participant Service as "Service"
 participant Repository as "Repository"
-participant Domain as "Domain"
-participant DataBase as "DataBase"
 end box
+participant DataBase as " "
 
-User o-> RestClient: getActuatorsByDeviceID(strDeviceID)
-activate RestClient
-
-RestClient -> Controller: getActuatorsByDeviceID(strDeviceID)
+HTTP -> Controller: GET {deviceID}
 activate Controller
-
-Controller -> Domain: DeviceID(strDeviceID)
-activate Domain
-
-Domain --> Controller: deviceID
-deactivate Domain
 
 Controller -> Service : getActuatorsByDeviceID(deviceID)
 activate Service
@@ -31,11 +21,9 @@ activate Service
 Service -> Repository: ofDeviceID(deviceID)
 activate Repository
 
-Repository -> DataBase: findByDeviceID
-activate DataBase
+Repository ->o DataBase: findByDeviceID
 
-DataBase --> Repository: listActuatorsDataModel
-deactivate DataBase
+DataBase o--> Repository: listActuatorsDataModel
 
 Repository --> Service: listActuators
 deactivate Repository
@@ -43,11 +31,9 @@ deactivate Repository
 Service --> Controller: listActuators
 deactivate Service
 
-Controller --> RestClient: actuatorListDTO
+Controller --> HTTP: JSON / Status 200
 deactivate Controller
 
-RestClient --> User: actuatorListDTO
-deactivate RestClient
 
 
 
