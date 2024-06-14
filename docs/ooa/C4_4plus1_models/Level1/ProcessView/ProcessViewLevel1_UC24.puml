@@ -10,9 +10,11 @@ participant "SmartHome" as SH
 
 User -> SH : I want to get the blind roller position
 activate SH
+activate User
 
 SH --> User : Position of the blind roller
 deactivate SH
+deactivate User
 
 
 @enduml
