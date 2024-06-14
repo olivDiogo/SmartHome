@@ -13,43 +13,19 @@ box "Server"
     participant "Repository" as RP
 
 end box
-participant "DataBase" as BD
+participant " " as BD
 
 
 HTTP -> CTRL : POST /sensor
 activate CTRL
 
-CTRL -> DM : DeviceID(strDeviceID)
-activate DM
-
-DM --> CTRL : deviceID
-deactivate DM
-
-CTRL -> DM : ModelPath(strModelPath)
-activate DM
-
-DM --> CTRL : modelPath
-deactivate DM
-
-CTRL -> DM : SensorTypeID(strSensorTypeID)
-activate DM
-
-DM --> CTRL : sensorTypeID
-deactivate DM
-
-CTRL -> DM : SensorName(strSensorName)
-activate DM
-
-DM --> CTRL : sensorName
-deactivate DM
-
-CTRL -> SV : addSensorToDevice(deviceID, modelPath, sensorTypeID, sensorName)
+CTRL -> SV : addSensor(sensorEntryDTO)
 activate SV
 
-SV -> RP : save(sensor)
+SV -> RP : addSensor(parameters)
 activate RP
 
-RP -> BD : save(sensorDataModel)
+RP ->o BD : save(sensorDataModel)
 
 RP --> SV : sensor
 deactivate RP
