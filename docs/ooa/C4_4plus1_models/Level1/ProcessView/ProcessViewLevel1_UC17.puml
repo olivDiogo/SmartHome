@@ -10,14 +10,16 @@ participant "WeatherAPI" as WeatherAPI
 
 User -> SmartHome : I want to have today’s sunrise and sunset hours on the front/main page
 activate SmartHome
+activate User
 
 SmartHome -> WeatherAPI : GET /sunriseSunsetHours
 activate WeatherAPI
-WeatherAPI --> SmartHome : Status (Sunrise and sunset hours for today)
+WeatherAPI --> SmartHome : HTTP Status (Sunrise and sunset hours for today)
 deactivate WeatherAPI
 
 SmartHome --> User : OK (Shows today’s sunrise and sunset hours on the front/main page)
 deactivate SmartHome
+deactivate User
 
 
 

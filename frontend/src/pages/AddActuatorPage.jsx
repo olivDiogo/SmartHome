@@ -8,6 +8,7 @@ import ActuatorModels from "../components/ActuatorModels.jsx";
 import ConfigureActuator from "../components/ConfigureActuator.jsx";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {resetChanges} from "../context/Actions.jsx";
 
 function AddActuatorPage() {
     const {state, dispatch} = useContext(AppContext);
@@ -20,10 +21,12 @@ function AddActuatorPage() {
     const navigate = useNavigate();
 
     const handleGoBack = () => {
+        resetChanges (dispatch)
         navigate(-1);
     };
 
     const handleBackToHome = () => {
+        resetChanges (dispatch)
         navigate('/');
     };
 

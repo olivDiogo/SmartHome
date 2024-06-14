@@ -5,17 +5,16 @@
 autonumber
 
 actor "User" as User
-
 participant "SmartHome" as SH
 
-User -> SH : I want to get a list of all measurement of a device
+User -> SH : I want to get the list of all devices in a room
 activate SH
 activate User
 
-
-SH --> User : Logs in a Device
+SH --> User : List of devices in a room
 deactivate SH
 deactivate User
+
 
 
 @enduml

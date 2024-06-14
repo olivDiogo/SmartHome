@@ -8,6 +8,7 @@ import SubmitButton from "../components/SubmitButton.jsx";
 import FormDataContext from "../context/FormDataContext.jsx";
 import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
+import {resetChanges} from "../context/Actions.jsx";
 
 function AddSensorPage() {
     const {state, dispatch} = useContext(AppContext);
@@ -19,12 +20,15 @@ function AddSensorPage() {
     const navigate = useNavigate();
 
     const handleGoBack = () => {
+        resetChanges (dispatch)
         navigate(-1);
     };
 
     const handleBackToHome = () => {
+        resetChanges (dispatch)
         navigate('/');
     };
+
 
 
     if (selectedTypeOfSensor === "") {

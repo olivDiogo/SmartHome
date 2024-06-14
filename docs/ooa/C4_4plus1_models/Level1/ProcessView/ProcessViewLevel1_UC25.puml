@@ -10,9 +10,11 @@ participant "SmartHome" as SH
 
 User -> SH : I want to set the Blinder Role position
 activate SH
+activate User
 
 SH --> User : Blinder Role position set
 deactivate SH
+deactivate User
 
 
 @enduml

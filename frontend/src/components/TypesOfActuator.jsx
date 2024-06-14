@@ -12,8 +12,14 @@ const TypesOfActuator = () => {
     const {typesOfActuator} = state;
     const {selectedTypeOfActuator} = state;
 
+    const actuatorTypeMapping = {
+        "integerActuator": "Integer Actuator",
+        "genericActuator": "Generic Actuator",
+        "decimalActuator": "Decimal Actuator"
+    };
+
     const handleTypeChange = (event) => {
-        updateSelectedTypeOfActuator (dispatch, event.target.value);
+        updateSelectedTypeOfActuator(dispatch, event.target.value);
     };
 
     return (
@@ -32,7 +38,7 @@ const TypesOfActuator = () => {
                     </MenuItem>
                     {typesOfActuator.map((type) => (
                         <MenuItem key={type} value={type}>
-                            {type}
+                            {actuatorTypeMapping[type]}
                         </MenuItem>
                     ))}
                 </Select>

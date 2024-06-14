@@ -52,6 +52,7 @@ const ConfigureSensor = () => {
         if (/^-?\d*\.?\d*$/.test(value)) {
             updateLatitudeData(formDispatch, value)
         }
+
     }
 
     const handleLongitudeChange = (e) => {
