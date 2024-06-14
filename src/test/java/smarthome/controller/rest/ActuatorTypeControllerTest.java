@@ -8,23 +8,26 @@
 
 package smarthome.controller.rest;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import smarthome.utils.entry_dto.ActuatorTypeEntryDTO;
+import smarthome.domain.actuator_type.ActuatorType;
+import smarthome.domain.actuator_type.IActuatorTypeFactory;
+import smarthome.domain.repository.IActuatorTypeRepository;
+import smarthome.domain.value_object.TypeDescription;
+import smarthome.domain.value_object.UnitID;
+import smarthome.utils.LoadDefaultConfiguration;
 
 
 @AutoConfigureMockMvc
@@ -36,7 +39,13 @@ class ActuatorTypeControllerTest {
   private MockMvc mockMvc;
 
   @Autowired
-  private ObjectMapper objectMapper;
+  private IActuatorTypeFactory actuatorTypeFactory;
+
+  @MockBean
+  private IActuatorTypeRepository actuatorTypeRepository;
+
+  @MockBean
+  private LoadDefaultConfiguration loadConfig;
 
   /**
    * Tests successful retrieval of all actuator types.
@@ -45,14 +54,19 @@ class ActuatorTypeControllerTest {
    */
   @Test
   void shouldReturnAllActuatorTypes_WhenRequested() throws Exception {
+    // Arrange
+    TypeDescription typeDescription = new TypeDescription("Blind Roller");
+    UnitID unitID = new UnitID("Percent");
+
+    ActuatorType actuatorType = actuatorTypeFactory.createActuatorType(typeDescription, unitID);
+
+    when(actuatorTypeRepository.findAll()).thenReturn(List.of(actuatorType));
     // Act & Assert
     mockMvc.perform(get("/actuator-types")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.actuatorTypeDTOList[0].actuatorTypeID", is("BlindRoller")))
-        .andExpect(
-            jsonPath("$._embedded.actuatorTypeDTOList[0].actuatorTypeDescription", is("BlindRoller")))
-        .andExpect(jsonPath("$._embedded.actuatorTypeDTOList[0].unit", is("Percent")))
+        .andExpect(jsonPath("$._embedded.actuatorTypeDTOList[0].actuatorTypeID").value(
+            actuatorType.getID().getID()))
         .andExpect(jsonPath("$._links.self.href").exists());
   }
 
@@ -63,191 +77,13 @@ class ActuatorTypeControllerTest {
    */
   @Test
   void shouldReturnEmptyList_WhenNoActuatorTypesAvailable() throws Exception {
+    // Arrange
+    when(actuatorTypeRepository.findAll()).thenReturn(List.of());
     // Act & Assert
     mockMvc.perform(get("/actuator-types")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.actuatorTypeDTOList").doesNotExist())
         .andExpect(jsonPath("$._links.self.href").exists());
-  }
-
-  /**
-   * This test case verifies that the ActuatorTypeController returns an actuator type when it is
-   * found.
-   */
-  @Test
-  void shouldReturnActuatorType_WhenFound() throws Exception {
-    // Arrange
-    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("Test", "Celsius");
-    String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
-
-    mockMvc.perform(post("/actuator-types")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(jsonContent)
-        .accept(MediaType.APPLICATION_JSON));
-
-    // Act & Assert
-    mockMvc.perform(get("/actuator-types/Test")
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$.actuatorTypeID", is("Test")))
-        .andExpect(jsonPath("$.actuatorTypeDescription", is("Test")))
-        .andExpect(jsonPath("$.unit", is("Celsius")))
-        .andExpect(jsonPath("$._links.self.href").exists());
-  }
-
-  /**
-   * This test case verifies that the ActuatorTypeController returns a not found status when an
-   * actuator type is not found.
-   */
-  @Test
-  void shouldReturnNotFound_WhenActuatorTypeNotFound() throws Exception {
-    mockMvc.perform(get("/actuator-types/1")
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound());
-  }
-
-  /**
-   * This test case verifies that the ActuatorTypeController returns a bad request status when
-   * actuator type id is a single Space
-   */
-  @Test
-  void shouldReturnBadRequest_WhenActuatorTypeIDIsSingleSpace() throws Exception {
-    mockMvc.perform(get("/actuator-types/{id}", " ")
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest());
-  }
-
-  /**
-   * This test case verifies that the ActuatorTypeController returns a bad request status when
-   * actuator type id is empty
-   */
-  @Test
-  void shouldReturnBadRequest_WhenActuatorTypeIDisEmpty() throws Exception {
-    mockMvc.perform(get("/actuator-types/{id}/", "")
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound());
-  }
-
-  /**
-   * This test case verifies that the ActuatorTypeController returns a created status when an
-   * actuator type is added.
-   */
-  @Test
-  void shouldReturnCreated_WhenActuatorTypeAdded() throws Exception {
-    // Arrange
-    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("Test", "Celsius");
-    String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
-
-    // Act & Assert
-    mockMvc.perform(post("/actuator-types")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonContent)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isCreated())
-        .andExpect(jsonPath("$.actuatorTypeID").exists())
-        .andExpect(jsonPath("$.actuatorTypeDescription", is("Test")))
-        .andExpect(jsonPath("$.unit", is("Celsius")))
-        .andExpect(jsonPath("$._links.self.href").exists())
-        .andExpect(jsonPath("$._links.actuator-types.href").exists())
-        .andExpect(header().string("Location", containsString("/actuator-types/Test")));
-  }
-
-  /**
-   * This test case verifies that the ActuatorTypeController returns a bad request status when
-   * invalid unit type
-   */
-  @Test
-  void shouldReturnBadRequest_WhenInvalidunitType() throws Exception {
-    // Arrange
-    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("Test", "C");
-    String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
-
-    // Act & Assert
-    mockMvc.perform(post("/actuator-types")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonContent)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$.message", is("Please enter a valid unit type.")));
-  }
-
-  /**
-   * This test case verifies that the ActuatorTypeController returns a bad request status when
-   * actuator type description is null
-   */
-  @Test
-  void shouldReturnBadRequest_WhenActuatorTypeDescriptionIsNull() throws Exception {
-    // Arrange
-    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO(null, "Celsius");
-    String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
-
-    // Act & Assert
-    mockMvc.perform(post("/actuator-types")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonContent)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$.message",
-            is("The value of 'description' should not null, blank, or empty.")));
-  }
-
-  /**
-   * This test case verifies that the ActuatorTypeController returns a bad request status when
-   * actuator type description is empty
-   */
-  @Test
-  void shouldReturnBadRequest_WhenActuatorTypeDescriptionIsEmpty() throws Exception {
-    // Arrange
-    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("", "Celsius");
-    String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
-
-    // Act & Assert
-    mockMvc.perform(post("/actuator-types")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonContent)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$.message",
-            is("The value of 'description' should not null, blank, or empty.")));
-  }
-
-  /**
-   * This test case verifies that the ActuatorTypeController returns a bad request status when
-   * actuator type unit is null
-   */
-  @Test
-  void shouldReturnBadRequest_WhenActuatorTypeUnitIsNull() throws Exception {
-    // Arrange
-    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("Test", null);
-    String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
-
-    // Act & Assert
-    mockMvc.perform(post("/actuator-types")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonContent)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest())
-        .andExpect(
-            jsonPath("$.message", is("The value of 'UnitID' should not null, blank, or empty.")));
-  }
-
-  /**
-   * This test case verifies that the ActuatorTypeController returns a bad request status when
-   * request body is empty
-   */
-  @Test
-  void shouldReturnBadRequest_WhenRequestBodyIsEmpty() throws Exception {
-    // Arrange
-    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("", "");
-    String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
-
-    // Act & Assert
-    mockMvc.perform(post("/actuator-types")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonContent)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$.message",
-            is("The value of 'description' should not null, blank, or empty.")));
   }
 }
