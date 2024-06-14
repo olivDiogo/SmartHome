@@ -109,13 +109,13 @@ my Web App (updated every 15 minutes, starting at 00:00).
 
 [US42](us42/us42_readme.md) - As a User, I want to have a list of all rooms in the house in my Web App.
 
-[US43]() - As a Room Owner [or Power User, or Administrator], I want to get a list of all
+[US43](us43/us43_readme.md) - As a Room Owner [or Power User, or Administrator], I want to get a list of all
 devices in a room, so that I can configure them in my Web App.
 
 [US44]() - As a Room Owner [or Power User, or Administrator], I want to get a list of all
 measurement of a device in my Web App.
 
-[US45]() - As a Room Owner [or Power User, or Administrator], in my Web App I want to
+[US45](us45/us45_readme.md) - As a Room Owner [or Power User, or Administrator], in my Web App I want to
 know the current position, open or close a blind roller that is in a room.
 
 [US46]() - As Product Owner, I want the project database (Maria DB or MySQL) to be

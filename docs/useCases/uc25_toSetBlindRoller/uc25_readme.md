@@ -40,9 +40,6 @@ _To set a blind roller that is in a room_
 
 This use case depends on UC15.
 
-### 1.3. Customer Specifications and Clarifications
--
-
 ### 1.4. System Sequence Diagram
 
 ![UC025-SSD](artifacts/UC25_SSD.svg)

@@ -35,11 +35,6 @@ _To get a blind roller position that is in a room_
     1. The user selects the wrong device.
     2. The system fails and returns an error value.
 
-### 1.2. Dependency on other use cases
--
-
-### 1.3. Customer Specifications and Clarifications
--
 
 ### 1.4. System Sequence Diagram
 
