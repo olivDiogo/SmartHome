@@ -2,35 +2,34 @@
 
 ## 0. Description
 
-To get a log of all units of a device in a room, in a given period.
+To get log (measurements) of a device in a room, in a given period.
 
 ## 1. Analysis
 A device will be selected, as well as a time frame.
-The system will then return a list of all units recorded by the selected device during the specified period.
+The system will then return a list of all logs recorded by the selected device during the specified period.
 
 ### 1.1. Use Case Description
 
-    Use Case Name: To get a log of all units of a device in a room, in a given period.
+    Use Case Name: To get a log of all measurements of a device in a room, in a given period.
 
     Actor: Room Owner [or Power User, or Administrator]
 
-    Goal: To provide to the user a list of units of a device in a room, in a given period.
+    Goal: To provide to the user a list of logs of a device in a room, in a given period.
 
     Preconditions:
     The user must have selected a room and a device.
 
-    Trigger: The user selects an option to get the units for a specific device
+    Trigger: The user selects an option to get the logs for a specific device
 
     Basic Flow:
     1. The user selects a room.
-    2. The user selects a device.
-    2. The system provides to the user a list units for that device.
+    2. The user selects a device.   
+    3. The user selects "Logs" option.
+    3. The system provides to the user a log for that device.
 
     Alternative Flows:
-    1. The user selects a room that does not exist.
-    2. The user selects a device that does not exist.
-    3. The user selects a device that has no units.
-    4. The user selects a device and a period that has no units.
+    1. The user selects a device that has an empty log.
+    2. The user selects a device and a period that has no logs.
 
 ### 1.2. Dependency of other use cases
 This use case depends on UC03 and UC06.
@@ -39,7 +38,7 @@ This use case depends on UC03 and UC06.
 ![Log](../../ooa/4.agreggateModels/Log_v1.svg)
 
 ### 1.4. System Sequence Diagram
-![UC11-SSD](artifacts/uc11_SSD_v1.svg)
+![UC11-SSD](artifacts/uc11_SSD_v2.svg)
 
 ## 2. Design
 

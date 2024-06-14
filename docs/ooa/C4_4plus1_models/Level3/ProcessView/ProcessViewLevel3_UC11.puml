@@ -4,23 +4,19 @@
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
+participant " " as User
 
-box "SmartHome"
+box "Server"
     participant "Controller" as CTRL
     participant "Service" as SV
     participant "Repository" as REPO
     participant "Domain" as DOM
-    participant "DataBase" as BD
 end box
 
-User o-> RC : I want to get a log from the device in a given time
-activate RC
+participant " " as BD
 
-RC -> CTRL : getLogFromDevice(logDataDTO)
+User o-> CTRL : GET /logs?deviceID={deviceID}&timeStart={timeStart}&timeEnd={timeEnd}
 activate CTRL
-
 CTRL -> DOM : DatePeriod (start, end)
 activate DOM
 DOM --> CTRL : datePeriod
@@ -37,21 +33,16 @@ activate SV
 SV -> REPO : findByDeviceIdAndDatePeriodBetween(deviceID, period)
 activate REPO
 
-REPO -> BD : find
-activate BD
-
-BD --> REPO : readings
-deactivate BD
+REPO ->o BD : find
+BD o--> REPO : readings
 
 REPO --> SV : logList
 deactivate REPO
 
-SV --> CTRL : logListDTO
+SV --> CTRL : logList
 deactivate SV
-CTRL --> RC : logListDTO
+CTRL -->o User : json 200
 deactivate CTRL
-RC --> User : logListDTO
-deactivate RC
 
 
 @enduml

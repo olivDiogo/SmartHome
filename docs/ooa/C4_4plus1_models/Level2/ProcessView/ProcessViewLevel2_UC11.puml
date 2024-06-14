@@ -14,7 +14,7 @@ end box
 HTTP -> BE : GET /logs?deviceID={deviceID}&timeStart={timeStart}&timeEnd={timeEnd}
 activate BE
 
-BE --> HTTP : logDTOList
+BE --> HTTP : json 200
 deactivate BE
 
 

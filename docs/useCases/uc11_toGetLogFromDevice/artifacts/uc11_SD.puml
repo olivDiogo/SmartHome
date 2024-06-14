@@ -2,7 +2,7 @@
 !pragma layout smetana
 
 participant " " as User
-participant ":GetListOfAllunitsOfOneDeviceController" as Controller
+participant ":GetLogFromDeviceController" as Controller
 
 participant "period:DatePeriod" as DatePeriod
 participant "deviceID:DeviceID" as DeviceID
@@ -22,7 +22,7 @@ end note
 
 
 
-User o-> Controller: getLogFromDevice(logDataDTO)
+User o-> Controller: getLogFromDevice(logEntryDTO)
 
 activate Controller
 'DatePeriod and DeviceID are created

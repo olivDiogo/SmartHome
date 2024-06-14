@@ -10,6 +10,7 @@ package smarthome.controller.rest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -62,15 +63,16 @@ public class LogController {
       @RequestParam String deviceID,
       @RequestParam String timeStart,
       @RequestParam String timeEnd) {
-    LocalDateTime start = LocalDateTime.parse(timeStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-    LocalDateTime end = LocalDateTime.parse(timeEnd, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-    DatePeriod period = new DatePeriod(start, end);
-    DeviceID deviceIDObj = new DeviceID(deviceID);
-    List<Log> logs = logService.getDeviceReadingsByTimePeriod(deviceIDObj, period);
-    if (logs.isEmpty()) {
-      ResponseEntity.notFound().build();
+    try {
+      LocalDateTime start = LocalDateTime.parse(timeStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+      LocalDateTime end = LocalDateTime.parse(timeEnd, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+      DatePeriod period = new DatePeriod(start, end);
+      DeviceID deviceIDObj = new DeviceID(deviceID);
+      List<Log> logs = logService.getDeviceReadingsByTimePeriod(deviceIDObj, period);
+      return ResponseEntity.ok(logAssembler.domainToDTO(logs));
+    } catch (DateTimeParseException e) {
+      return ResponseEntity.badRequest().build();
     }
-    return ResponseEntity.ok(logAssembler.domainToDTO(logs));
   }
 
   /**

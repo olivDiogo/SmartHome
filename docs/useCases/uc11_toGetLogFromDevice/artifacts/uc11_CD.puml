@@ -1,13 +1,4 @@
 @startuml
-class MyClass {
-    -privateAttribute
-    +publicMethod()
-}
-
-note right of MyClass : This is a note\nto explain MyClass.
-@enduml
-
-@startuml
 !pragma layout smetana
 
 class GetLogFromDeviceController {
@@ -17,7 +8,7 @@ class GetLogFromDeviceController {
  - logAssembler: IAssembler <Log, LogDTO>
 
  '+ GetLogFromDeviceController(logService: ILogService, deviceService: IDeviceService, logAssembler: IAssembler <Log, LogDTO>, roomService: IRoomService, roomAssembler: IAssembler <Room, RoomDTO>, deviceAssembler: IAssembler <Device, DeviceDTO>)
- + getLogsFromDevice(logDataDto : LogDataDTO): List<LogDTO>
+ + getLogsFromDevice(logEntryDto : logEntryDTO): List<LogDTO>
 }
 
 note right of GetLogFromDeviceController: Ref UC06:  I want to get a list all devices in a room.

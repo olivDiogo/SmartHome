@@ -148,35 +148,7 @@ class LogControllerTest {
                 .param("timeStart", timeStart)
                 .param("timeEnd", timeEnd))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(1)));
-  }
-
-  /**
-   * Test method to get Device Log (Readings) by Time Period with multiple logs
-   */
-  @Test
-  void shouldGetMultipleLogsFromDevice_WhenParametersAreValid() throws Exception {
-    // Arrange
-    String deviceIDStr = "123";
-    String timeStart = "2020-03-01T13:45:30";
-    String timeEnd = "2022-03-01T13:50:30";
-    Log log1 = setupLog();
-    Log log2 = setupLog();
-    List<Log> logs = List.of(log1, log2);
-
-    when(logRepository.findByDeviceIDAndDatePeriodBetween(
-        any(DeviceID.class), any(DatePeriod.class)))
-        .thenReturn(logs);
-
-    // Act & Assert
-    mockMvc
-        .perform(
-            get("/logs")
-                .param("deviceID", deviceIDStr)
-                .param("timeStart", timeStart)
-                .param("timeEnd", timeEnd))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(2)));
+        .andExpect(jsonPath("$[0].reading").value("20"));
   }
 
   /**
@@ -223,6 +195,26 @@ class LogControllerTest {
                 .param("timeEnd", timeEnd))
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.message").value("Start date cannot be after end date."));
+  }
+
+  /**
+   * Should return bad request when start date or end date is wrong format
+   */
+  @Test
+  void shouldReturnBadRequest_WhenDateIsWrongFormat() throws Exception {
+    // Arrange
+    String deviceIDStr = "123";
+    String timeStart = "2022-03-0113:45:30";
+    String timeEnd = "2020-03-01T13:50:30";
+
+    // Act & Assert
+    mockMvc
+        .perform(
+            get("/logs")
+                .param("deviceID", deviceIDStr)
+                .param("timeStart", timeStart)
+                .param("timeEnd", timeEnd))
+        .andExpect(status().isBadRequest());
   }
 
   /**

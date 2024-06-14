@@ -10,13 +10,17 @@ participant System
 'System --> User: List of Rooms
 'User -> System: Give me the list of devices in this room
 'System --> User: List of Devices
-activate User
+
 ref over User, System: uc6 - get devices in room
+
+User -> System: Select View Logs in Device
+activate User
 activate System
+System -> User: Which time period?
 deactivate System
-User -> System: For this Device, I want the list of units
+User -> System: Time period
 activate System
-System --> User: List of units
+System --> User: List of Logs
 deactivate System
 deactivate User
 
