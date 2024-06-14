@@ -11,11 +11,11 @@ box "SmartHome"
 end box
 
 
-HTTP -> BE : POST /device
+HTTP o-> BE : POST /device
 activate BE
 
 
-BE --> HTTP : deviceDTO
+BE --> HTTP : JSON Status ok
 deactivate BE
 
 deactivate HTTP
