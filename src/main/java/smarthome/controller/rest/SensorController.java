@@ -41,6 +41,8 @@ public class SensorController {
   private final ISensorService sensorService;
   @NotNull
   private final IAssembler<ISensor, SensorDTO> sensorAssembler;
+  @NotNull
+  private final ISensorVOAssembler sensorVOAssembler;
 
 
   /**
@@ -50,9 +52,10 @@ public class SensorController {
    * @param sensorAssembler is the assembler that will convert the sensor to a DTO
    */
   public SensorController(ISensorService sensorService,
-      IAssembler<ISensor, SensorDTO> sensorAssembler) {
+      IAssembler<ISensor, SensorDTO> sensorAssembler, ISensorVOAssembler sensorVOAssembler) {
     this.sensorService = sensorService;
     this.sensorAssembler = sensorAssembler;
+    this.sensorVOAssembler = sensorVOAssembler;
   }
 
   /**
@@ -64,7 +67,6 @@ public class SensorController {
   @PostMapping
   public ResponseEntity<EntityModel<SensorDTO>> addSensor(
       @RequestBody @Valid ISensorEntryDTO sensorDataDTO) {
-    ISensorVOAssembler sensorVOAssembler = new SensorVOAssemblerImpl();
     Object[] sensorParameters = sensorVOAssembler.getSensorParameters(sensorDataDTO);
 
     ISensor sensor = sensorService.addSensor(sensorParameters);
@@ -107,6 +109,11 @@ public class SensorController {
     }
   }
 
+  /**
+   * Get sensors by deviceID
+   * @param strDeviceID is the deviceID
+   * @return a list of sensors
+   */
   @GetMapping(params = "deviceID")
   public ResponseEntity<List<EntityModel<SensorDTO>>> getSensorsByDeviceID(
       @RequestParam("deviceID") String strDeviceID) {

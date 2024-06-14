@@ -33,7 +33,6 @@ import smarthome.domain.log.Log;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorTypeID;
-import smarthome.mapper.actuator_vo_assembler.ActuatorVOAssemblerImpl;
 import smarthome.mapper.actuator_vo_assembler.IActuatorVOAssembler;
 import smarthome.service.IActuatorService;
 import smarthome.service.ILogService;
@@ -48,6 +47,7 @@ public class ActuatorController {
   private final IActuatorService actuatorService;
   private final IAssembler<IActuator, ActuatorDTO> actuatorAssembler;
   private final ILogService logService;
+  private final IActuatorVOAssembler actuatorVOAssembler;
 
   /**
    * Constructor
@@ -59,10 +59,11 @@ public class ActuatorController {
   public ActuatorController(
       IActuatorService actuatorService,
       IAssembler<IActuator, ActuatorDTO> actuatorAssembler,
-      ILogService logService) {
+      ILogService logService, IActuatorVOAssembler actuatorVOAssembler) {
     this.actuatorService = actuatorService;
     this.actuatorAssembler = actuatorAssembler;
     this.logService = logService;
+    this.actuatorVOAssembler = actuatorVOAssembler;
   }
 
   /**
@@ -74,18 +75,15 @@ public class ActuatorController {
   @PostMapping
   public ResponseEntity<EntityModel<ActuatorDTO>> addActuator(
       @RequestBody @Valid IActuatorEntryDTO actuatorDataDTO) {
-    IActuatorVOAssembler actuatorVOAssembler = new ActuatorVOAssemblerImpl();
     Object[] actuatorParameters = actuatorVOAssembler.getActuatorParameters(actuatorDataDTO);
 
     IActuator actuator = actuatorService.addActuator(actuatorParameters);
     ActuatorDTO actuatorDTO = actuatorAssembler.domainToDTO(actuator);
 
-    // Create link to the newly created actuator by its ID (self link)
     WebMvcLinkBuilder linkToSelf =
         WebMvcLinkBuilder.linkTo(
             WebMvcLinkBuilder.methodOn(ActuatorController.class).getActuatorByID(actuatorDTO.id));
 
-    // Create link to add another actuator
     WebMvcLinkBuilder linkToAddActuator =
         WebMvcLinkBuilder.linkTo(
             WebMvcLinkBuilder.methodOn(ActuatorController.class).addActuator(null));
@@ -93,8 +91,8 @@ public class ActuatorController {
     EntityModel<ActuatorDTO> resource =
         EntityModel.of(
             actuatorDTO,
-            linkToSelf.withSelfRel(), // self link
-            linkToAddActuator.withRel("add-actuator")); // Link to add another actuator
+            linkToSelf.withSelfRel(),
+            linkToAddActuator.withRel("add-actuator"));
 
     return ResponseEntity.status(HttpStatus.CREATED).body(resource);
   }
@@ -170,6 +168,11 @@ public class ActuatorController {
     return ResponseEntity.status(HttpStatus.OK).body(resource);
   }
 
+  /**
+   * Method to get all Actuators by Device ID.
+   * @param strDeviceID is the Device ID.
+   * @return a collection of Actuator data transfer objects.
+   */
   @GetMapping(params = "deviceID")
   public ResponseEntity<List<EntityModel<ActuatorDTO>>> getActuatorsByDeviceID(
       @RequestParam("deviceID") String strDeviceID) {

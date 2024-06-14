@@ -9,6 +9,7 @@
 package smarthome.mapper.sensor_vo_assembler;
 
 import java.time.LocalDateTime;
+import org.springframework.stereotype.Component;
 import smarthome.domain.value_object.DatePeriod;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.GPS;
@@ -21,6 +22,7 @@ import smarthome.utils.entry_dto.sensor_entry_dto.SensorGenericEntryDTOImp;
 import smarthome.utils.entry_dto.sensor_entry_dto.SensorWithDateEntryDTOImp;
 import smarthome.utils.entry_dto.sensor_entry_dto.SensorWithGPSEntryDTOImp;
 
+@Component
 public class SensorVOAssemblerImpl implements ISensorVOAssembler {
 
   /**
