@@ -11,7 +11,7 @@ Some actuators might have additional information.
 
 ### 1.1. Created/Affected Use Cases
 
-* Creates: Use Case 10 - To add an actuator to a device in a room
+* Creates: [Use Case 10](../../useCases/uc10_toAddActuator/uc10_readme.md) - To add an actuator to a device in a room
 
 ### 1.2. Acceptance Criteria
 

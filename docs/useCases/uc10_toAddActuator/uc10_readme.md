@@ -5,7 +5,7 @@
 To add an actuator to an existing Device in a Room.
 
 ## 1. Analysis
-All actuators will have an ID, a device ID, a model, a name, an actuator type ID and a value.
+All actuators will have an ID, a device ID, a model, a name, an actuator type ID.
 Some actuators might have additional information.
 
 ### 1.1. Use Case Description
@@ -49,7 +49,7 @@ _To add an actuator to a device_
 This use case depends on UC03 and UC06.
 
 ### 1.3. Relevant domain aggregate model
-![Device](../../../../../../../docs/ooa/4.agreggateModels/ActuatorType_v1.svg)
+![Device](../../../docs/ooa/4.agreggateModels/ActuatorType_v1.svg)
 
 ### 1.4. Customer Specifications and Clarifications
 

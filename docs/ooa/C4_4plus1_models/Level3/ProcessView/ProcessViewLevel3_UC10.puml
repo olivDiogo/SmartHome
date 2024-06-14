@@ -4,62 +4,48 @@
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
+participant " " as User
 
-box "SmartHome"
-    participant "Controller" as CTRL
-    participant "Service" as SV
-    participant "Repository" as REPO
-    participant "Domain" as DOM
-    participant "DataBase" as BD
+box "Server"
+    participant "Controller" as Controller
+    participant "Service" as Service
+    participant "Repository" as Repo
+    participant "Domain" as Domain
 end box
 
-User o-> RC : I want to add an actuator to a device
-activate RC
+    participant "DataBase" as BD
 
-RC -> CTRL : addActuatorToDevice(actuatorDataDTO)
-activate CTRL
+User o-> Controller : POST /actuator (json)
+activate Controller
 
-CTRL -> DOM : DeviceID(strDeviceID)
-activate DOM
-DOM --> CTRL : deviceID
-deactivate DOM
+'Controller -> Controller: actuatorEntryDTO = deserialize(json)
 
-CTRL -> DOM :ModelPath(strModelPath)
-activate DOM
-DOM --> CTRL : modelPath
-deactivate DOM
+'Controller -> Controller: actuatorParameters = getActuatorParameters(actuatorEntryDTO)
 
-CTRL -> DOM : ActuatorTypeID(strActuatorTypeID)
-activate DOM
-DOM --> CTRL : actuatorTypeID
-deactivate DOM
+Controller -> Service : addActuator(actuatorParameters)
+activate Service
 
-CTRL -> DOM :ActuatorName(strActuatorName)
-activate DOM
-DOM --> CTRL : actuatorName
-deactivate DOM
+Service -> Domain: actuator = create(actuatorParameters)
+activate Domain
+deactivate Domain
 
-CTRL -> SV : addActuatorToDevice(actuatorModelID, deviceID, actuatorTypeID, actuatorName)
-activate SV
+Service -> Repo : save(actuator)
+activate Repo
 
-SV -> REPO : save(actuator)
-activate REPO
+Repo ->o BD : save(actuator)
 
-REPO -> BD : save(actuator)
+Repo --> Service : actuator
+deactivate Repo
 
-REPO --> SV : actuator
-deactivate REPO
+Service --> Controller : actuator
+deactivate Service
 
-SV --> CTRL : actuator
-deactivate SV
+'Controller -> Controller : actuatorDTO = domainToDTO(actuator)
 
-CTRL --> RC : actuatorDTO
-deactivate CTRL
+'Controller -> Controller : json = serialize(actuatorDTO)
 
-RC --> User : actuatorDTO
-deactivate RC
+Controller -->o User : json 201
+deactivate Controller
 
 
 @enduml
