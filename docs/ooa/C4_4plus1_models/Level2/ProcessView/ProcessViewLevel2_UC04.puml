@@ -1,19 +1,24 @@
 @startuml
 'https://plantuml.com/sequence-diagram
+
 !pragma layout smetana
 
 autonumber
 
 participant " " as HTTP
 
-box "SmartHome"
+box "Smart Home"
     participant "Backend" as BE
 end box
 
-HTTP -> BE : POST /sensor
+HTTP -> BE : POST /sensor-types
+
 activate BE
 
-BE --> HTTP : sensorDTO
+BE --> HTTP : JSON/ status 201
 deactivate BE
+
+
+
 
 @enduml

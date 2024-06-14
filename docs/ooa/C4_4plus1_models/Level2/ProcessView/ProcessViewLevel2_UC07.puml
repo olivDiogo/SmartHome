@@ -4,20 +4,16 @@
 
 autonumber
 
-
 participant " " as HTTP
 
 box "SmartHome"
     participant "Backend" as BE
 end box
 
-HTTP -> BE : GET /logs/peak-power-consumption?initialTime&finalTime
+HTTP -> BE : POST /sensor
 activate BE
 
-
-BE --> HTTP : maxConsumption
+BE --> HTTP : JSON/ status 201
 deactivate BE
-
-
 
 @enduml

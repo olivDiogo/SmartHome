@@ -12,6 +12,10 @@ User -> SH : I want to add a sensor to a device
 activate SH
 activate User
 
+SH --> User : Which device do you want to add the sensor to?
+deactivate SH
+User -> SH : This device!
+activate SH
 SH --> User : Sensor added to device
 deactivate SH
 deactivate User
