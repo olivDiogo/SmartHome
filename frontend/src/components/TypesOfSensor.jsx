@@ -12,6 +12,12 @@ const TypesOfSensor = () => {
     const {typesOfSensor} = state;
     const {selectedTypeOfSensor} = state;
 
+    const sensorTypeMapping = {
+        "gpsSensor": "GPS Sensor",
+        "dateSensor": "Date Sensor",
+        "genericSensor": "Generic Sensor"
+    };
+
     const handleTypeChange = (event) => {
         updateSelectedTypeOfSensor(dispatch, event.target.value);
     };
@@ -19,7 +25,7 @@ const TypesOfSensor = () => {
     return (
         <Box sx={{ padding: 2 }}>
             <FormControl fullWidth variant="outlined" margin="normal">
-                <InputLabel id="type-label">Select Type</InputLabel>
+                <InputLabel id="type-label">Select Type of Sensor</InputLabel>
                 <Select
                     labelId="type-label"
                     id="type"
@@ -32,7 +38,7 @@ const TypesOfSensor = () => {
                     </MenuItem>
                     {typesOfSensor.map((type) => (
                         <MenuItem key={type} value={type}>
-                            {type}
+                            {sensorTypeMapping[type]}
                         </MenuItem>
                     ))}
                 </Select>

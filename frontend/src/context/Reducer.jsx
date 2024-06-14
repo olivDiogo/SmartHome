@@ -853,6 +853,25 @@ function reducer(state = initialState, action) {
                 deactivateDeviceError: action.payload.error
             };
 
+        case 'RESET_CHANGES':
+            return {
+                ...state,
+                selectedTypeOfActuator: "",
+                selectedTypeOfSensor: "",
+                selectedSensorTypeId: "",
+                selectedSensorModelName: "",
+                sensorName: "",
+                selectedActuatorTypeId: "",
+                selectedActuatorModelName: "",
+                latitude: '',
+                longitude: '',
+                startDate: null,
+                endDate: null,
+                actuatorName: '',
+                minLimit: '',
+                maxLimit: '',
+
+            };
 
 
         default:

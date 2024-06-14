@@ -5,12 +5,12 @@ import Box from "@mui/material/Box";
 
 import FormDataContext from "../context/FormDataContext.jsx";
 import {
-    updateMaxLimitData, updateGenericActuatorData, updateMinLimitData,
+    updateMaxLimitData, updateGenericActuatorData, updateMinLimitData, resetChanges,
 } from "../context/Actions.jsx";
 
 
 const ConfigureActuator = () => {
-    const {state} = useContext(AppContext);
+    const {state, dispatch} = useContext(AppContext);
     const {selectedTypeOfActuator, selectedActuatorTypeId, currentDevice, selectedActuatorModelPath} = state;
     const {deviceId} = currentDevice;
 
@@ -64,7 +64,7 @@ const ConfigureActuator = () => {
     const handleMaxLimitChangeDecimal = (e) => {
         const value = e.target.value;
         if (/^-?\d*\.?\d*$/.test(value)) { // This regex will match both integer and decimal numbers
-            updateMaxLimitData(formDispatch, value);
+            updateMaxLimitData(formDispatch, value)
         }
     };
 

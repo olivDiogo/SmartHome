@@ -77,6 +77,12 @@ export const DEACTIVATE_DEVICE_STARTED = 'DEACTIVATE_DEVICE_STARTED';
 export const DEACTIVATE_DEVICE_SUCCESS = 'DEACTIVATE_DEVICE_SUCCESS';
 export const DEACTIVATE_DEVICE_FAILURE = 'DEACTIVATE_DEVICE_FAILURE';
 
+export const resetChanges = (dispatch) => {
+    dispatch({
+        type: 'RESET_CHANGES',
+    });
+};
+
 export function fetchRooms(dispatch) {
     dispatch({type: FETCH_ROOMS_STARTED});
 
@@ -866,4 +872,7 @@ export function saveCurrentDevice(dispatch, deviceId) {
         }
     }
     dispatch(action);
+
+
+
 }
