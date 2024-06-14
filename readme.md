@@ -44,15 +44,15 @@ The core focus is on separating the business logic from infrastructure concerns 
    ```
    
 2. **Build the project:**
-```bash
-cd smarthome
-./build.sh
-```
+   ```bash
+   cd smarthome
+   ./build.sh
+   ```
 
 3. **Run the application:**
-```bash
-./mvnw spring-boot:run
-```
+   ```bash
+   ./mvnw spring-boot:run
+   ```
    
 4. **Explore the codebase:**
    * Start with the `domain` package to understand the core entities and their relationships.
@@ -65,12 +65,19 @@ cd smarthome
    git clone https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1 smarthome
    ```
 2. **Run the bash script:**
-```bash
-cd smarthome
-./build_docker.sh
-```
+   ```bash
+   cd smarthome
+   ./build.sh docker
+   ```
+    * This will deploy 4 container, adminer for database management, tomcat to host the application backend, nginx to host the frontend, mariadb for the persistence!
+      
 3. **Explore the application**
     * This will start three containers locally, mariadb adminer and tomcat. You can acess the application at http://localhost:8080/smarthome and explore the database with adminer at http://localhost:8282.
+  
+4. **A live demo of the application is running on the DEI servers**
+    * For more information regarding deployment to a web server visit our wiki.
+    * Check our application: [Live demo](http://vs460.dei.isep.ipp.pt/)
+    * For deployment of recent versions: [Jenkins login](http://vs460.dei.isep.ipp.pt/jenkins)
 
 ### Project Structure:
 
