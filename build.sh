@@ -32,35 +32,9 @@ echo "npm build succeeded. Running mvnw package in ${MVN_DIR}..."
 
 if [ -x "${MVN_DIR}/mvnw" ]; then
     case "$MODE" in
-        "demo")
-
-            echo "Running mvnw package without tests in ${MVN_DIR} with demo profile..."
-            "${MVN_DIR}/mvnw" -f "${MVN_DIR}/pom.xml" package -DskipTests -Dspring.profiles.active=demo || handle_error "mvnw package failed."
-
-
-
-            # Move files for demo mode (example)
-            echo "Moving files for demo mode..."
-            mv "${MVN_DIR}/target/switch2023project_g1-1.0-SNAPSHOT.war" "/var/lib/tomcat10/webapps/smarthome.war" || handle_error "Moving WAR file for demo failed."
-
-
-            echo "Backing up current frontend build folder..."
-            if [ -d "/var/www/frontend/dist" ]; then
-                mv "/var/www/frontend/dist" "/var/www/frontend/dist_backup" || handle_error "Backup of frontend build folder failed."
-            fi
-
-            echo "Moving new frontend build folder..."
-            mv "${NPM_DIR}/dist" "/var/www/frontend/" || handle_error "Moving frontend build folder for demo failed."
-
-            # Cleanup trap on exit and failure
-            trap 'if [ -d "/var/www/frontend/dist_backup" ]; then mv "/var/www/frontend/dist_backup" "/var/www/frontend/dist"; echo "Restored backup of frontend build folder."; fi' ERR
-            trap 'if [ -d "/var/www/frontend/dist_backup" ]; then rm -rf "/var/www/frontend/dist_backup"; echo "Removed backup of frontend build folder."; fi' EXIT
-            ;;
-
-
         "docker")
             echo "Running mvnw package in ${MVN_DIR} with docker profile..."
-            "${MVN_DIR}/mvnw" -f "${MVN_DIR}/pom.xml" package -DskipTests -Dspring.profiles.active=docker || handle_error "mvnw package failed."
+            "${MVN_DIR}/mvnw" -f "${MVN_DIR}/pom.xml" clean package -DskipTests -Dspring.profiles.active=docker || handle_error "mvnw package failed."
 
             # Move files for docker mode
             echo "Moving files for docker mode..."
@@ -83,7 +57,7 @@ if [ -x "${MVN_DIR}/mvnw" ]; then
             ;;
         *)
             echo "Running mvnw package in ${MVN_DIR} with default profile..."
-            "${MVN_DIR}/mvnw" -f "${MVN_DIR}/pom.xml" package || handle_error "mvnw package failed."
+            "${MVN_DIR}/mvnw" -f "${MVN_DIR}/pom.xml" clean package || handle_error "mvnw package failed."
             rm -rf "${MVN_DIR}/src/main/resources/static" || handle_error "Removing frontend build folder for default profile failed."
             mv "${NPM_DIR}dist/" "${MVN_DIR}/src/main/resources/static/" || handle_error "Moving frontend build folder for default profile failed."
             ;;

@@ -4,20 +4,22 @@
 
 autonumber
 
-actor "User" as User
+actor "Web Client" as User
 
 participant "SmartHome" as SH
 
 User -> SH : I want to configure a device in a room
+activate User
 activate SH
 
 SH --> User : which sensor or actuator?
-deactivate SH
+
 
 User -> SH : this sensor or actuator
-activate SH
+
 
 SH --> User : sensor added or actuator added
+deactivate User
 deactivate SH
 
 
