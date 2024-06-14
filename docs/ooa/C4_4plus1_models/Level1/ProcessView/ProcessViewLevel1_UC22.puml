@@ -4,15 +4,17 @@
 
 autonumber
 
-actor "User" as User
+actor "Web Client" as User
 
 participant "SmartHome" as SH
 
 User -> SH : I want to get a list of all devices in a room
+activate User
 activate SH
 
 
 SH --> User : Device list in a room
+deactivate User
 deactivate SH
 
 

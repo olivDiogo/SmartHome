@@ -4,24 +4,23 @@
 
 autonumber
 
-actor "User" as User
-
+participant " " as User
 
 box "SmartHome"
     participant "Frontend" as FE
     participant "Backend" as SV
 end box
 
-User -> FE : I want to get a list of all devices in a room
+User o-> FE : GET /devices
 activate FE
 
 FE -> SV : GET /devices?room_id={roomId}
 activate SV
 
-SV --> FE : deviceDTOList
+SV --> FE : Json, status OK
 deactivate SV
 
-FE --> User : deviceDTOList
+FE -->o User : status OK
 deactivate FE
 
 
