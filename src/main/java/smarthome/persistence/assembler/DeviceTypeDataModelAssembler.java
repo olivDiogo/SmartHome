@@ -15,7 +15,7 @@ import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.device_type.IDeviceTypeFactory;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
-import smarthome.persistence.jpa.data_model.DeviceTypeDataModel;
+import smarthome.persistence.data_model.DeviceTypeDataModel;
 import smarthome.utils.Validator;
 
 @Component

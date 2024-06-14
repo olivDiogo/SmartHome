@@ -16,10 +16,10 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.utils.PathEncoder;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorGenericDataDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorWithDecimalLimitsEntryDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorWithIntegerLimitsEntryDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.IActuatorEntryDTO;
 
 @Component
 public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
@@ -30,7 +30,7 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
    * @param actuatorDataDTO The actuator data DTO.
    * @return An array of objects that are needed to create an actuator.
    */
-  private static Object[] getActuatorParameters(ActuatorDataGenericDTOImp actuatorDataDTO) {
+  private static Object[] getActuatorParameters(ActuatorGenericDataDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
     String decodedModelPath = PathEncoder.decode(actuatorDataDTO.actuatorModelPath);
     ModelPath modelPath = new ModelPath(decodedModelPath);
@@ -47,7 +47,7 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
    * @return An array of objects that are needed to create an actuator.
    */
   private static Object[] getActuatorParameters(
-      ActuatorDataWithDecimalLimitsDTOImp actuatorDataDTO) {
+      ActuatorWithDecimalLimitsEntryDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
     String decodedModelPath = PathEncoder.decode(actuatorDataDTO.actuatorModelPath);
     ModelPath modelPath = new ModelPath(decodedModelPath);
@@ -67,7 +67,7 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
    * @return An array of objects that are needed to create an actuator.
    */
   private static Object[] getActuatorParameters(
-      ActuatorDataWithIntegerLimitsDTOImp actuatorDataDTO) {
+      ActuatorWithIntegerLimitsEntryDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
     String decodedModelPath = PathEncoder.decode(actuatorDataDTO.actuatorModelPath);
     ModelPath modelPath = new ModelPath(decodedModelPath);
@@ -86,14 +86,14 @@ public class ActuatorVOAssemblerImpl implements IActuatorVOAssembler {
    * @return An array of objects that are needed to create an actuator.
    */
   @Override
-  public Object[] getActuatorParameters(IActuatorDataDTO actuatorDataDTO) {
-    if (actuatorDataDTO instanceof ActuatorDataGenericDTOImp actuatorDataGenericDTOImp) {
+  public Object[] getActuatorParameters(IActuatorEntryDTO actuatorDataDTO) {
+    if (actuatorDataDTO instanceof ActuatorGenericDataDTOImp actuatorDataGenericDTOImp) {
       return getActuatorParameters(actuatorDataGenericDTOImp);
     } else if (actuatorDataDTO
-        instanceof ActuatorDataWithDecimalLimitsDTOImp actuatorDataWithDecimalLimitsDTOImp) {
+        instanceof ActuatorWithDecimalLimitsEntryDTOImp actuatorDataWithDecimalLimitsDTOImp) {
       return getActuatorParameters(actuatorDataWithDecimalLimitsDTOImp);
     } else if (actuatorDataDTO
-        instanceof ActuatorDataWithIntegerLimitsDTOImp actuatorDataWithIntegerLimitsDTOImp) {
+        instanceof ActuatorWithIntegerLimitsEntryDTOImp actuatorDataWithIntegerLimitsDTOImp) {
       return getActuatorParameters(actuatorDataWithIntegerLimitsDTOImp);
     } else {
       throw new IllegalArgumentException("Unsupported actuator data DTO");

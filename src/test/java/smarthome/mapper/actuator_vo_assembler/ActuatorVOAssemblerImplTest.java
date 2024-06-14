@@ -8,7 +8,6 @@
 
 package smarthome.mapper.actuator_vo_assembler;
 
-import static org.eclipse.persistence.jpa.jpql.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,10 +21,10 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.utils.PathEncoder;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorGenericDataDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorWithDecimalLimitsEntryDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorWithIntegerLimitsEntryDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.IActuatorEntryDTO;
 
 class ActuatorVOAssemblerImplTest {
 
@@ -37,7 +36,7 @@ class ActuatorVOAssemblerImplTest {
     // Arrange
     ActuatorVOAssemblerImpl actuatorVOAssembler = new ActuatorVOAssemblerImpl();
     String message = "Unsupported actuator data DTO";
-    IActuatorDataDTO actuatorDataDTO = null;
+    IActuatorEntryDTO actuatorDataDTO = null;
     // Act
     IllegalArgumentException exception =
         assertThrows(
@@ -59,8 +58,8 @@ class ActuatorVOAssemblerImplTest {
     String actuatorTypeID = "actuatorTypeID";
     double minLimit = 10.0;
     double maxLimit = 50.0;
-    IActuatorDataDTO actuatorDataDTO =
-        new ActuatorDataWithDecimalLimitsDTOImp(
+    IActuatorEntryDTO actuatorDataDTO =
+        new ActuatorWithDecimalLimitsEntryDTOImp(
             deviceID, actuatorModelPath, actuatorTypeID, actuatorName, minLimit, maxLimit);
     ActuatorVOAssemblerImpl actuatorVOAssembler = new ActuatorVOAssemblerImpl();
 
@@ -89,8 +88,8 @@ class ActuatorVOAssemblerImplTest {
     String actuatorModelPath = "YWN0dWF0b3JNb2RlbFBhdGg=";
     String actuatorName = "actuatorName";
     String actuatorTypeID = "actuatorTypeID";
-    IActuatorDataDTO actuatorDataDTO =
-        new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath, actuatorTypeID, actuatorName);
+    IActuatorEntryDTO actuatorDataDTO =
+        new ActuatorGenericDataDTOImp(deviceID, actuatorModelPath, actuatorTypeID, actuatorName);
     ActuatorVOAssemblerImpl actuatorVOAssembler = new ActuatorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);
@@ -118,7 +117,7 @@ class ActuatorVOAssemblerImplTest {
     String actuatorTypeID = "actuatorTypeID";
     String minLimit = "1";
     String maxLimit = "10";
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID, actuatorModelPath, actuatorTypeID, actuatorName, minLimit, maxLimit);
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorWithIntegerLimitsEntryDTOImp(deviceID, actuatorModelPath, actuatorTypeID, actuatorName, minLimit, maxLimit);
     ActuatorVOAssemblerImpl actuatorVOAssembler = new ActuatorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);

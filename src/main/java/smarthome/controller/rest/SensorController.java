@@ -31,7 +31,7 @@ import smarthome.mapper.sensor_vo_assembler.ISensorVOAssembler;
 import smarthome.mapper.sensor_vo_assembler.SensorVOAssemblerImpl;
 import smarthome.service.ISensorService;
 import smarthome.utils.dto.SensorDTO;
-import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
+import smarthome.utils.entry_dto.sensor_entry_dto.ISensorEntryDTO;
 
 @RestController
 @RequestMapping("/sensors")
@@ -63,7 +63,7 @@ public class SensorController {
    */
   @PostMapping
   public ResponseEntity<EntityModel<SensorDTO>> addSensor(
-      @RequestBody @Valid ISensorDataDTO sensorDataDTO) {
+      @RequestBody @Valid ISensorEntryDTO sensorDataDTO) {
     ISensorVOAssembler sensorVOAssembler = new SensorVOAssemblerImpl();
     Object[] sensorParameters = sensorVOAssembler.getSensorParameters(sensorDataDTO);
 

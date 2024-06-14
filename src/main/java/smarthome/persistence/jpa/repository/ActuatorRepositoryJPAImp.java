@@ -19,7 +19,7 @@ import smarthome.domain.repository.IActuatorRepository;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.ActuatorDataModel;
+import smarthome.persistence.data_model.ActuatorDataModel;
 import smarthome.utils.visitor_pattern.IActuatorVisitorForDataModel;
 
 

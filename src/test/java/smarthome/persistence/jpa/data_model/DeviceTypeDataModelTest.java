@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.TypeDescription;
+import smarthome.persistence.data_model.DeviceTypeDataModel;
 
 class DeviceTypeDataModelTest {
 

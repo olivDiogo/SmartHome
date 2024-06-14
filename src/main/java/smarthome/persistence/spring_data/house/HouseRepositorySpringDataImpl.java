@@ -16,7 +16,7 @@ import smarthome.domain.house.House;
 import smarthome.domain.repository.IHouseRepository;
 import smarthome.domain.value_object.HouseID;
 import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.HouseDataModel;
+import smarthome.persistence.data_model.HouseDataModel;
 import smarthome.utils.Validator;
 
 @Repository

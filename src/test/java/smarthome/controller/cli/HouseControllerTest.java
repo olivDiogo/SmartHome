@@ -23,7 +23,7 @@ import smarthome.mapper.HouseAssembler;
 import smarthome.service.HouseServiceImpl;
 import smarthome.service.IHouseService;
 import smarthome.utils.dto.HouseDTO;
-import smarthome.utils.dto.data_dto.HouseDataDTO;
+import smarthome.utils.entry_dto.HouseEntryDTO;
 
 class HouseControllerTest {
 
@@ -107,7 +107,7 @@ class HouseControllerTest {
     String countryCode = "PT";
     double latitude = 41.14961;
     double longitude = -8.61099;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     // Act
@@ -137,7 +137,7 @@ class HouseControllerTest {
     String countryCode = "ES";
     double latitude = 40.41536;
     double longitude = -3.70739;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     // Act
@@ -167,7 +167,7 @@ class HouseControllerTest {
     String countryCode = "CA";
     double latitude = 45.42153;
     double longitude = -75.69719;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     // Act
@@ -197,7 +197,7 @@ class HouseControllerTest {
     String countryCode = "US";
     double latitude = 37.4220;
     double longitude = -122.0841;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     // Act
@@ -229,7 +229,7 @@ class HouseControllerTest {
     String countryCode = "PT";
     double latitude = 41.14961;
     double longitude = -8.61099;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
     String expected = "Invalid postal code format";
 

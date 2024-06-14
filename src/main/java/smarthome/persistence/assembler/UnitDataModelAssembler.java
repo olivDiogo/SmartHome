@@ -16,7 +16,7 @@ import smarthome.domain.unit.Unit;
 import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.domain.value_object.UnitSymbol;
-import smarthome.persistence.jpa.data_model.UnitDataModel;
+import smarthome.persistence.data_model.UnitDataModel;
 import smarthome.utils.Validator;
 
 @Component

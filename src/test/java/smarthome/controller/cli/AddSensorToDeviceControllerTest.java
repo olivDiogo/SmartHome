@@ -83,7 +83,7 @@ import smarthome.utils.PathEncoder;
 import smarthome.utils.dto.SensorDTO;
 import smarthome.utils.dto.SensorModelDTO;
 import smarthome.utils.dto.SensorTypeDTO;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorGenericEntryDTOImp;
 
 class AddSensorToDeviceControllerTest {
 
@@ -610,8 +610,8 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp =
-        new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp =
+        new SensorGenericEntryDTOImp(
             device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -656,8 +656,8 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp =
-        new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp =
+        new SensorGenericEntryDTOImp(
             device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -705,8 +705,8 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp =
-        new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp =
+        new SensorGenericEntryDTOImp(
             device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -753,8 +753,8 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp =
-        new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp =
+        new SensorGenericEntryDTOImp(
             device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -800,8 +800,8 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp =
-        new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp =
+        new SensorGenericEntryDTOImp(
             device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -847,8 +847,8 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp =
-        new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp =
+        new SensorGenericEntryDTOImp(
             device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -895,8 +895,8 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp =
-        new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp =
+        new SensorGenericEntryDTOImp(
             device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -943,8 +943,8 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp =
-        new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp =
+        new SensorGenericEntryDTOImp(
             device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -991,8 +991,8 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp =
-        new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp =
+        new SensorGenericEntryDTOImp(
             device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =
@@ -1032,7 +1032,7 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp = null;
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp = null;
 
     AddSensorToDeviceController addSensorToDeviceController =
         new AddSensorToDeviceController(
@@ -1079,8 +1079,8 @@ class AddSensorToDeviceControllerTest {
 
     sensorTypeAssembler.domainToDTO(sensorType);
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp =
-        new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp =
+        new SensorGenericEntryDTOImp(
             device.getID().getID(), modelPath, sensorType.getID().getID(), sensorName);
 
     AddSensorToDeviceController addSensorToDeviceController =

@@ -21,7 +21,7 @@ import smarthome.domain.sensor.sunset_time_sensor.SunsetTimeSensor;
 import smarthome.domain.sensor.switch_sensor.SwitchSensor;
 import smarthome.domain.sensor.temperature_sensor.TemperatureSensor;
 import smarthome.domain.sensor.wind_sensor.WindSensor;
-import smarthome.persistence.jpa.data_model.SensorDataModel;
+import smarthome.persistence.data_model.SensorDataModel;
 
 
 @Component

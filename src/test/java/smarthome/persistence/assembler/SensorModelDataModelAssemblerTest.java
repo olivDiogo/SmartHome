@@ -23,7 +23,7 @@ import smarthome.domain.sensor_model.SensorModel;
 import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorModelName;
 import smarthome.domain.value_object.SensorTypeID;
-import smarthome.persistence.jpa.data_model.SensorModelDataModel;
+import smarthome.persistence.data_model.SensorModelDataModel;
 
 class SensorModelDataModelAssemblerTest {
 

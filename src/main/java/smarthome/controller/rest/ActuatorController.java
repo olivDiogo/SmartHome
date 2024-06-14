@@ -18,7 +18,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,11 +25,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import smarthome.ddd.IActuatorValue;
 import smarthome.ddd.IAssembler;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.blind_roller_actuator.BlindRollerValue;
-import smarthome.domain.exceptions.NoLogRecordsFoundException;
+import smarthome.utils.exceptions.NoLogRecordsFoundException;
 import smarthome.domain.log.Log;
 import smarthome.domain.value_object.ActuatorID;
 import smarthome.domain.value_object.DeviceID;
@@ -40,8 +38,8 @@ import smarthome.mapper.actuator_vo_assembler.IActuatorVOAssembler;
 import smarthome.service.IActuatorService;
 import smarthome.service.ILogService;
 import smarthome.utils.dto.ActuatorDTO;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorValueDTO;
-import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorValueEntryDTO;
+import smarthome.utils.entry_dto.actuator_entry_dto.IActuatorEntryDTO;
 
 @RestController
 @RequestMapping("/actuators")
@@ -75,7 +73,7 @@ public class ActuatorController {
    */
   @PostMapping
   public ResponseEntity<EntityModel<ActuatorDTO>> addActuator(
-      @RequestBody @Valid IActuatorDataDTO actuatorDataDTO) {
+      @RequestBody @Valid IActuatorEntryDTO actuatorDataDTO) {
     IActuatorVOAssembler actuatorVOAssembler = new ActuatorVOAssemblerImpl();
     Object[] actuatorParameters = actuatorVOAssembler.getActuatorParameters(actuatorDataDTO);
 
@@ -213,7 +211,7 @@ public class ActuatorController {
    */
   @PostMapping("/set-blindRoller")
   public ResponseEntity<EntityModel<ActuatorDTO>> setBlindRoller(
-      @RequestBody @Valid ActuatorValueDTO actuatorValueDTO) {
+      @RequestBody @Valid ActuatorValueEntryDTO actuatorValueDTO) {
     SensorTypeID sensorTypeID = new SensorTypeID("PercentagePosition");
     BlindRollerValue blindRollerValueObject = new BlindRollerValue(actuatorValueDTO.value);
     ActuatorID actuatorID = new ActuatorID(actuatorValueDTO.actuatorID);

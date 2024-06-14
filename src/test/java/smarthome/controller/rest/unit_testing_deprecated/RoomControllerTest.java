@@ -31,7 +31,7 @@ import smarthome.domain.value_object.RoomName;
 import smarthome.mapper.RoomAssembler;
 import smarthome.service.IRoomService;
 import smarthome.utils.dto.RoomDTO;
-import smarthome.utils.dto.data_dto.RoomDataDTO;
+import smarthome.utils.entry_dto.RoomEntryDTO;
 
 @SpringBootTest
 class RoomControllerTest {
@@ -60,7 +60,7 @@ class RoomControllerTest {
     int width = 10;
     int length = 10;
     int height = 3;
-    RoomDataDTO roomDataDTO = new RoomDataDTO(name, floor, width, length, height);
+    RoomEntryDTO roomDataDTO = new RoomEntryDTO(name, floor, width, length, height);
 
     Room mockRoom = mock(Room.class);
     RoomName mockName = mock(RoomName.class);
@@ -95,7 +95,7 @@ class RoomControllerTest {
     int width = 10;
     int length = 10;
     int height = 3;
-    RoomDataDTO roomDataDTO = new RoomDataDTO(name, floor, width, length, height);
+    RoomEntryDTO roomDataDTO = new RoomEntryDTO(name, floor, width, length, height);
     RoomDTO mockRoomDTO = mock(RoomDTO.class);
     Room mockRoom = mock(Room.class);
 

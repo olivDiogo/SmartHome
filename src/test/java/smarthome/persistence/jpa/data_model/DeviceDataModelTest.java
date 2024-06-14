@@ -22,6 +22,7 @@ import smarthome.domain.value_object.DeviceName;
 import smarthome.domain.value_object.DeviceStatus;
 import smarthome.domain.value_object.DeviceTypeID;
 import smarthome.domain.value_object.RoomID;
+import smarthome.persistence.data_model.DeviceDataModel;
 
 class DeviceDataModelTest {
 

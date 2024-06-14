@@ -21,7 +21,7 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.LogID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.LogDataModel;
+import smarthome.persistence.data_model.LogDataModel;
 import smarthome.utils.Validator;
 
 public class LogRepositoryJPAImpl implements ILogRepository {

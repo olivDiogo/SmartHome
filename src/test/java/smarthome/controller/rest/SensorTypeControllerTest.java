@@ -32,7 +32,7 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.persistence.spring_data.unit.UnitSpringDataRepository;
 import smarthome.utils.LoadDefaultConfiguration;
-import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
+import smarthome.utils.entry_dto.SensorTypeEntryDTO;
 
 
 @SpringBootTest
@@ -65,7 +65,7 @@ class SensorTypeControllerTest {
     // Arrange
     String sensorTypeDescription = "Temperature";
     String unitID = "Celsius";
-    SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(sensorTypeDescription, unitID);
+    SensorTypeEntryDTO sensorTypeDataDTO = new SensorTypeEntryDTO(sensorTypeDescription, unitID);
 
     TypeDescription typeDescription = new TypeDescription(sensorTypeDescription);
     UnitID unitID2 = new UnitID(unitID);
@@ -92,7 +92,7 @@ class SensorTypeControllerTest {
   void shouldReturnBadRequest_whenSensorTypeDescriptionIsNull() throws Exception {
     // Arrange
     String unitID = "Celsius";
-    SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(null, unitID);
+    SensorTypeEntryDTO sensorTypeDataDTO = new SensorTypeEntryDTO(null, unitID);
 
     // Act & Assert
     mockMvc.perform(post("/sensor-types")
@@ -109,7 +109,7 @@ class SensorTypeControllerTest {
   void shouldReturnBadRequest_whenUnitIDIsNull() throws Exception {
     // Arrange
     String sensorTypeDescription = "Temperature";
-    SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(sensorTypeDescription, null);
+    SensorTypeEntryDTO sensorTypeDataDTO = new SensorTypeEntryDTO(sensorTypeDescription, null);
 
     // Act & Assert
     mockMvc.perform(post("/sensor-types")
@@ -162,7 +162,7 @@ class SensorTypeControllerTest {
   @Test
   void shouldReturnBadRequest_whenInvalidSensorTypeAdded() throws Exception {
     // Arrange
-    SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO("", "");
+    SensorTypeEntryDTO sensorTypeDataDTO = new SensorTypeEntryDTO("", "");
     // Act & Assert
     mockMvc.perform(post("/sensor-types")
             .contentType(MediaType.APPLICATION_JSON)

@@ -25,7 +25,7 @@ import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorDTO;
 import smarthome.utils.dto.SensorModelDTO;
 import smarthome.utils.dto.SensorTypeDTO;
-import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
+import smarthome.utils.entry_dto.sensor_entry_dto.ISensorEntryDTO;
 
 
 public class AddSensorToDeviceController {
@@ -112,7 +112,7 @@ public class AddSensorToDeviceController {
    * @param sensorDataDTOImp is the sensor data to add.
    * @return the sensor DTO.
    */
-  public SensorDTO addSensorToDevice(ISensorDataDTO sensorDataDTOImp) {
+  public SensorDTO addSensorToDevice(ISensorEntryDTO sensorDataDTOImp) {
     validateNotNull(sensorDataDTOImp, "Sensor data DTO");
     ISensorVOAssembler sensorVOAssembler = new SensorVOAssemblerImpl();
     Object[] sensorParameters = sensorVOAssembler.getSensorParameters(sensorDataDTOImp);

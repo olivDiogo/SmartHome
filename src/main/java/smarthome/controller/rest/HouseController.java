@@ -31,8 +31,8 @@ import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.service.IHouseService;
 import smarthome.utils.dto.HouseDTO;
-import smarthome.utils.dto.data_dto.HouseDataDTO;
-import smarthome.utils.dto.data_dto.RoomDataDTO;
+import smarthome.utils.entry_dto.HouseEntryDTO;
+import smarthome.utils.entry_dto.RoomEntryDTO;
 
 @RestController
 @RequestMapping("/houses")
@@ -56,7 +56,7 @@ public class HouseController {
    */
   @PostMapping
   public ResponseEntity<EntityModel<HouseDTO>> createHouseLocation(
-      @Valid @RequestBody HouseDataDTO houseDataDTO) {
+      @Valid @RequestBody HouseEntryDTO houseDataDTO) {
     Address address =
         new Address(
             houseDataDTO.street,
@@ -92,7 +92,7 @@ public class HouseController {
     HouseDTO dto = houseAssembler.domainToDTO(house.get());
     dto.add(
         WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(RoomController.class).createRoom(new RoomDataDTO()))
+                WebMvcLinkBuilder.methodOn(RoomController.class).createRoom(new RoomEntryDTO()))
             .withRel("create-room")
             .withTitle("Create a room")
             .withType("POST"));

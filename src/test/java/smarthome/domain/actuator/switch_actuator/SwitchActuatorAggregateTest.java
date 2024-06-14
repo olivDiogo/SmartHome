@@ -27,7 +27,7 @@ import smarthome.domain.value_object.ActuatorName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.ModelPath;
-import smarthome.persistence.jpa.data_model.ActuatorDataModel;
+import smarthome.persistence.data_model.ActuatorDataModel;
 import smarthome.utils.visitor_pattern.ActuatorVisitorForDataModelImpl;
 import smarthome.utils.visitor_pattern.IActuatorVisitor;
 

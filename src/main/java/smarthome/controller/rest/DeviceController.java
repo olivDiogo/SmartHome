@@ -22,7 +22,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,13 +43,13 @@ import smarthome.service.IDeviceService;
 import smarthome.service.IDeviceTypeService;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.DeviceTypeDTO;
-import smarthome.utils.dto.data_dto.DeviceDataDTO;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithGPSDTOImp;
+import smarthome.utils.entry_dto.DeviceEntryDTO;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorGenericDataDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorWithDecimalLimitsEntryDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorWithIntegerLimitsEntryDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorGenericEntryDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorWithDateEntryDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorWithGPSEntryDTOImp;
 
 /** Class representing a REST controller for operations related to devices in the smart home. */
 @RestController
@@ -87,7 +86,7 @@ public class DeviceController {
    * @return The response entity with the added device.
    */
   @PostMapping
-  public ResponseEntity<EntityModel<DeviceDTO>> addDevice(@Valid @RequestBody DeviceDataDTO data) {
+  public ResponseEntity<EntityModel<DeviceDTO>> addDevice(@Valid @RequestBody DeviceEntryDTO data) {
     RoomID roomID = new RoomID(data.roomID);
     TypeDescription deviceTypeDescription = new TypeDescription(data.deviceTypeDescription);
     DeviceName deviceName = new DeviceName(data.deviceName);
@@ -103,29 +102,29 @@ public class DeviceController {
         .withType("POST");
 
     // Links to addActuator method in ActuatorController
-    Link addGenericActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataGenericDTOImp())).withRel("add-actuator")
+    Link addGenericActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorGenericDataDTOImp())).withRel("add-actuator")
         .withTitle("Add Generic Actuator")
         .withType("POST");
 
-    Link addIntegerActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataWithIntegerLimitsDTOImp())).withRel("add-actuator")
+    Link addIntegerActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorWithIntegerLimitsEntryDTOImp())).withRel("add-actuator")
         .withTitle("Add Set Integer Actuator")
         .withType("POST");
 
-    Link addDecimalActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataWithDecimalLimitsDTOImp())).withRel("add-actuator")
+    Link addDecimalActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorWithDecimalLimitsEntryDTOImp())).withRel("add-actuator")
         .withTitle("Add Set Decimal Actuator")
         .withType("POST");
 
 
     // Links to addSensor method in SensorController
-    Link addGenericSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataGenericDTOImp())).withRel("add-sensor")
+    Link addGenericSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorGenericEntryDTOImp())).withRel("add-sensor")
         .withTitle("Add Generic Sensor")
         .withType("POST");
 
-    Link addGpsSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataWithGPSDTOImp())).withRel("add-sensor")
+    Link addGpsSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorWithGPSEntryDTOImp())).withRel("add-sensor")
         .withTitle("Add GPS Sensor")
         .withType("POST");
 
-    Link addDateSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataWithDateDTOImp())).withRel("add-sensor")
+    Link addDateSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorWithDateEntryDTOImp())).withRel("add-sensor")
         .withTitle("Add Date Sensor")
         .withType("POST");
 
@@ -166,29 +165,29 @@ public class DeviceController {
         .withType("PUT");
 
     // Links to addActuator method in ActuatorController
-    Link addGenericActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataGenericDTOImp())).withRel("add-actuator")
+    Link addGenericActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorGenericDataDTOImp())).withRel("add-actuator")
             .withTitle("Add Generic Actuator")
             .withType("POST");
 
-    Link addIntegerActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataWithIntegerLimitsDTOImp())).withRel("add-actuator")
+    Link addIntegerActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorWithIntegerLimitsEntryDTOImp())).withRel("add-actuator")
             .withTitle("Add Set Integer Actuator")
             .withType("POST");
 
-    Link addDecimalActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorDataWithDecimalLimitsDTOImp())).withRel("add-actuator")
+    Link addDecimalActuatorLink = linkTo(methodOn(ActuatorController.class).addActuator(new ActuatorWithDecimalLimitsEntryDTOImp())).withRel("add-actuator")
             .withTitle("Add Set Decimal Actuator")
             .withType("POST");
 
 
     // Links to addSensor method in SensorController
-    Link addGenericSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataGenericDTOImp())).withRel("add-sensor")
+    Link addGenericSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorGenericEntryDTOImp())).withRel("add-sensor")
         .withTitle("Add Generic Sensor")
         .withType("POST");
 
-    Link addGpsSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataWithGPSDTOImp())).withRel("add-sensor")
+    Link addGpsSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorWithGPSEntryDTOImp())).withRel("add-sensor")
         .withTitle("Add GPS Sensor")
         .withType("POST");
 
-    Link addDateSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorDataWithDateDTOImp())).withRel("add-sensor")
+    Link addDateSensorLink = linkTo(methodOn(SensorController.class).addSensor(new SensorWithDateEntryDTOImp())).withRel("add-sensor")
         .withTitle("Add Date Sensor")
         .withType("POST");
 

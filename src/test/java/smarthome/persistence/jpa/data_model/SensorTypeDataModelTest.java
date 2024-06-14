@@ -20,6 +20,7 @@ import smarthome.domain.sensor_type.SensorType;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
+import smarthome.persistence.data_model.SensorTypeDataModel;
 
 class SensorTypeDataModelTest {
 

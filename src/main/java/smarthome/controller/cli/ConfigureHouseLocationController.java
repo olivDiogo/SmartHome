@@ -16,7 +16,7 @@ import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.service.IHouseService;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.HouseDTO;
-import smarthome.utils.dto.data_dto.HouseDataDTO;
+import smarthome.utils.entry_dto.HouseEntryDTO;
 
 /**
  * Controller responsible for configuring the location of a house.
@@ -50,7 +50,7 @@ public class ConfigureHouseLocationController {
    * @param houseDataDTO The data transfer object containing house location information.
    * @return The DTO representing the configured house.
    */
-  public HouseDTO configureHouseLocation(HouseDataDTO houseDataDTO) {
+  public HouseDTO configureHouseLocation(HouseEntryDTO houseDataDTO) {
     Address address = new Address(houseDataDTO.street, houseDataDTO.doorNumber,
         houseDataDTO.postalCode, houseDataDTO.countryCode, new PostalCodeFactory());
     GPS gps = new GPS(houseDataDTO.latitude, houseDataDTO.longitude);

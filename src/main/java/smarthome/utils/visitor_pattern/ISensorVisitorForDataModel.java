@@ -8,7 +8,7 @@
 
 package smarthome.utils.visitor_pattern;
 
-import smarthome.persistence.jpa.data_model.SensorDataModel;
+import smarthome.persistence.data_model.SensorDataModel;
 
 public interface ISensorVisitorForDataModel extends ISensorVisitor {
 

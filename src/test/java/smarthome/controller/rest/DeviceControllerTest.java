@@ -52,8 +52,8 @@ import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.utils.dto.data_dto.DeviceDataDTO;
-import smarthome.utils.dto.data_dto.RoomDataDTO;
+import smarthome.utils.entry_dto.DeviceEntryDTO;
+import smarthome.utils.entry_dto.RoomEntryDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -104,7 +104,7 @@ class DeviceControllerTest {
     return houseFactory.createHouse(address, gps);
   }
 
-  Room setupRoom(RoomDataDTO roomDataDTO) {
+  Room setupRoom(RoomEntryDTO roomDataDTO) {
     HouseID houseID = new HouseID("1");
     RoomName name = new RoomName(roomDataDTO.name);
     RoomFloor floor = new RoomFloor(roomDataDTO.floor);
@@ -122,26 +122,26 @@ class DeviceControllerTest {
     return deviceTypeFactory.createDeviceType(typeDescription);
   }
 
-  DeviceDataDTO setupDeviceDataDTO(Room room, String deviceTypeDescription) {
+  DeviceEntryDTO setupDeviceDataDTO(Room room, String deviceTypeDescription) {
     String deviceName = "Light";
     String roomIDStr = room.getID().toString();
-    return new DeviceDataDTO(deviceTypeDescription, deviceName,roomIDStr);
+    return new DeviceEntryDTO(deviceTypeDescription, deviceName,roomIDStr);
   }
 
-  Device setupDevice(DeviceDataDTO deviceDataDTO) {
+  Device setupDevice(DeviceEntryDTO deviceDataDTO) {
     RoomID roomID = new RoomID(deviceDataDTO.roomID);
     DeviceName deviceName = new DeviceName(deviceDataDTO.deviceName);
     DeviceTypeID deviceTypeID = new DeviceTypeID(deviceDataDTO.deviceTypeDescription);
     return deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
   }
 
-  RoomDataDTO setupRoomDataDTO() {
+  RoomEntryDTO setupRoomDataDTO() {
     String name = "Living Room";
     int floor = 1;
     int width = 10;
     int length = 10;
     int height = 3;
-    return new RoomDataDTO(name, floor, width, length, height);
+    return new RoomEntryDTO(name, floor, width, length, height);
   }
 
 
@@ -152,11 +152,11 @@ class DeviceControllerTest {
   void shouldReturnDeviceDTO_whenDeviceIsAddedToRoom() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -180,11 +180,11 @@ class DeviceControllerTest {
   void shouldReturnDeviceDTO_whenGetDeviceById() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -207,10 +207,10 @@ class DeviceControllerTest {
   void shouldReturnBadRequest_whenRoomDoesNotExist() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
     when(deviceTypeRepository.ofIdentity(deviceType.getID())).thenReturn(Optional.of(deviceType));
@@ -230,9 +230,9 @@ class DeviceControllerTest {
   void shouldReturnBadRequest_whenDeviceTypeDoesNotExist() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     String deviceTypeDescription = "Bulb";
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
     when(deviceTypeRepository.ofIdentity(new DeviceTypeID(deviceDataDTO.deviceTypeDescription)))
@@ -251,9 +251,9 @@ class DeviceControllerTest {
   @Test
   void shouldReturnBadRequest_whenHouseDoesNotExist() throws Exception {
     // Arrange
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     String deviceTypeDescription = "Bulb";
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
 
     when(houseRepository.ofIdentity(new HouseID("1"))).thenReturn(Optional.empty());
 
@@ -271,10 +271,10 @@ class DeviceControllerTest {
   void shouldReturnNotFound_whenDeviceDoesNotExist() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -295,10 +295,10 @@ class DeviceControllerTest {
   void shouldReturnNotFound_whenDeviceTypeDoesNotExist() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -317,14 +317,14 @@ class DeviceControllerTest {
   void shouldReturnAllDevices_whenGetAllDevicesIsCalled() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
 
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
 
-    DeviceDataDTO deviceDataDTO1 = setupDeviceDataDTO(room, deviceTypeDescription);
-    DeviceDataDTO deviceDataDTO2 = setupDeviceDataDTO(room, deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO1 = setupDeviceDataDTO(room, deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO2 = setupDeviceDataDTO(room, deviceTypeDescription);
 
     Device device = setupDevice(deviceDataDTO1);
     Device device2 = setupDevice(deviceDataDTO2);
@@ -352,7 +352,7 @@ class DeviceControllerTest {
   void shouldReturnNotFound_whenNoDevicesAvailable() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -378,11 +378,11 @@ class DeviceControllerTest {
   void shouldReturnDeviceDTO_whenDeactivateDevice() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     Room room = setupRoom(roomDataDTO);
     String deviceTypeDescription = "Bulb";
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -407,10 +407,10 @@ class DeviceControllerTest {
   void shouldReturnNotFound_whenDeactivateDeviceDoesNotExist() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     String deviceTypeDescription = "Bulb";
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO = setupDeviceDataDTO(setupRoom(roomDataDTO), deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -432,11 +432,11 @@ class DeviceControllerTest {
   void shouldReturnNotFound_whenThereIsNoDeviceType() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     DeviceType deviceType = setupDeviceType();
     Room room = setupRoom(roomDataDTO);
     String deviceTypeDescription = "Bulb";
-    DeviceDataDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
+    DeviceEntryDTO deviceDataDTO = setupDeviceDataDTO(room, deviceTypeDescription);
     Device device = setupDevice(deviceDataDTO);
 
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
@@ -459,7 +459,7 @@ class DeviceControllerTest {
   void shouldReturnDevicesGroupedByFunctionality_whenDevicesHaveDifferentType() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     DeviceType deviceType2 = setupDeviceTypeTwo();
@@ -505,7 +505,7 @@ class DeviceControllerTest {
   void shouldReturnDevices_whenGetDevicesWithRoomIdParameter() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     DeviceType deviceType2 = setupDeviceTypeTwo();
@@ -553,7 +553,7 @@ class DeviceControllerTest {
   void shouldReturnDevicesOfGivenType_whenGetDevicesWithRoomIdAndTypeParameter() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO();
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO();
     Room room = setupRoom(roomDataDTO);
     DeviceType deviceType = setupDeviceType();
     DeviceType deviceType2 = setupDeviceTypeTwo();

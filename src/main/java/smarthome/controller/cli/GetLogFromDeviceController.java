@@ -18,7 +18,7 @@ import smarthome.domain.value_object.DeviceID;
 import smarthome.service.ILogService;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.LogDTO;
-import smarthome.utils.dto.data_dto.LogDataDTO;
+import smarthome.utils.entry_dto.LogEntryDTO;
 
 public class GetLogFromDeviceController {
 
@@ -44,7 +44,7 @@ public class GetLogFromDeviceController {
    * @param logDataDTO LogDataDTO object
    * @return List of LogDTO
    */
-  public List<LogDTO> getLogFromDevice(LogDataDTO logDataDTO) {
+  public List<LogDTO> getLogFromDevice(LogEntryDTO logDataDTO) {
     DeviceID deviceID = new DeviceID(logDataDTO.deviceID);
     LocalDateTime start = LocalDateTime.parse(logDataDTO.timeStart,
         DateTimeFormatter.ISO_LOCAL_DATE_TIME);

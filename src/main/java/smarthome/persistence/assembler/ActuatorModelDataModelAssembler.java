@@ -18,7 +18,7 @@ import smarthome.domain.actuator_model.IActuatorModelFactory;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
-import smarthome.persistence.jpa.data_model.ActuatorModelDataModel;
+import smarthome.persistence.data_model.ActuatorModelDataModel;
 
 @Component
 public class ActuatorModelDataModelAssembler

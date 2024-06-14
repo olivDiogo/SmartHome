@@ -17,7 +17,7 @@ import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.persistence.jpa.data_model.HouseDataModel;
+import smarthome.persistence.data_model.HouseDataModel;
 import smarthome.utils.Validator;
 
 @Component

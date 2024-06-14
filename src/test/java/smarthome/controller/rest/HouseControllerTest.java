@@ -30,7 +30,7 @@ import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.utils.dto.data_dto.HouseDataDTO;
+import smarthome.utils.entry_dto.HouseEntryDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -49,7 +49,7 @@ class HouseControllerTest {
   private IHouseRepository houseRepository;
 
 
-  House setupHouse(HouseDataDTO houseDataDTO) {
+  House setupHouse(HouseEntryDTO houseDataDTO) {
     Address address = new Address(houseDataDTO.street, houseDataDTO.doorNumber,
         houseDataDTO.postalCode, houseDataDTO.countryCode, new PostalCodeFactory());
     GPS gps = new GPS(houseDataDTO.latitude, houseDataDTO.longitude);
@@ -68,7 +68,7 @@ class HouseControllerTest {
     String countryCode = "PT";
     double latitude = 38.7143;
     double longitude = -9.1459;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     House house = setupHouse(houseDataDTO);
@@ -94,7 +94,7 @@ class HouseControllerTest {
     String countryCode = "US";
     double latitude = 37.4220;
     double longitude = -122.0841;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     House house = setupHouse(houseDataDTO);
@@ -120,7 +120,7 @@ class HouseControllerTest {
     String countryCode = "ES";
     double latitude = 40.4189;
     double longitude = -3.6939;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     House house = setupHouse(houseDataDTO);
@@ -146,7 +146,7 @@ class HouseControllerTest {
     String countryCode = "CA";
     double latitude = 45.4972;
     double longitude = -73.5796;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     House house = setupHouse(houseDataDTO);
@@ -172,7 +172,7 @@ class HouseControllerTest {
     String countryCode = "PT";
     double latitude = 38.7143;
     double longitude = -9.1459;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
     String expectedMessage = "Invalid postal code format";
 
@@ -196,7 +196,7 @@ class HouseControllerTest {
     String countryCode = "PT";
     double latitude = 38.7143;
     double longitude = -9.1459;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     // Act & Assert
@@ -219,7 +219,7 @@ class HouseControllerTest {
     String countryCode = "PT";
     double latitude = 38.7143;
     double longitude = -9.1459;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     // Act & Assert
@@ -242,7 +242,7 @@ class HouseControllerTest {
     String countryCode = "";
     double latitude = 38.7143;
     double longitude = -9.1459;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     // Act & Assert
@@ -265,7 +265,7 @@ class HouseControllerTest {
     String countryCode = "PT";
     double latitude = 91.7143;
     double longitude = -9.1459;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     // Act & Assert
@@ -288,7 +288,7 @@ class HouseControllerTest {
     String countryCode = "PT";
     double latitude = 38.7143;
     double longitude = -181.1459;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     // Act & Assert
@@ -311,7 +311,7 @@ class HouseControllerTest {
     String countryCode = "PT";
     double latitude = 38.7143;
     double longitude = -9.1459;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
 
     House house = setupHouse(houseDataDTO);
@@ -339,7 +339,7 @@ class HouseControllerTest {
     double longitude = -9.1459;
     String id = "123";
     HouseID houseID = new HouseID(id);
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode,
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode,
         latitude, longitude);
     House house = setupHouse(houseDataDTO);
     when(houseRepository.getTheHouse()).thenReturn(Optional.ofNullable(house));

@@ -50,7 +50,7 @@ import smarthome.service.SensorTypeServiceImpl;
 import smarthome.service.UnitServiceImpl;
 import smarthome.utils.dto.SensorTypeDTO;
 import smarthome.utils.dto.UnitDTO;
-import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
+import smarthome.utils.entry_dto.SensorTypeEntryDTO;
 
 class AddSensorTypeControllerTest {
 
@@ -249,7 +249,7 @@ class AddSensorTypeControllerTest {
 
     String sensorTypeDescription = "Temperature";
     String supportedUnit = "Celsius";
-    SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(sensorTypeDescription,
+    SensorTypeEntryDTO sensorTypeDataDTO = new SensorTypeEntryDTO(sensorTypeDescription,
         supportedUnit);
     SensorTypeDTO expectedSensorTypeDTO = sensorTypeAssembler.domainToDTO(sensorType);
     //Act
@@ -306,7 +306,7 @@ class AddSensorTypeControllerTest {
 
     String sensorTypeDescription = "Temperature";
     String supportedUnit = "Celsius";
-    SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(sensorTypeDescription,
+    SensorTypeEntryDTO sensorTypeDataDTO = new SensorTypeEntryDTO(sensorTypeDescription,
         supportedUnit);
     SensorTypeDTO expectedSensorTypeDTO = sensorTypeAssembler.domainToDTO(sensorType);
 
@@ -352,7 +352,7 @@ class AddSensorTypeControllerTest {
     String sensorTypeDescription = "Temperature";
 
     String unsupportedUnit = "UnsupportedUnit";
-    SensorTypeDataDTO unsupportedSensorTypeDataDTO = new SensorTypeDataDTO(sensorTypeDescription,
+    SensorTypeEntryDTO unsupportedSensorTypeDataDTO = new SensorTypeEntryDTO(sensorTypeDescription,
         unsupportedUnit);
 
     String expectedMessage = "Invalid sensor type data.";
@@ -413,13 +413,13 @@ class AddSensorTypeControllerTest {
 
     String sensorTypeDescription = "Temperature";
     String supportedUnit = "Celsius";
-    SensorTypeDataDTO sensorTypeDataDTO = new SensorTypeDataDTO(sensorTypeDescription,
+    SensorTypeEntryDTO sensorTypeDataDTO = new SensorTypeEntryDTO(sensorTypeDescription,
         supportedUnit);
     SensorTypeDTO expectedSensorTypeDTO = sensorTypeAssembler.domainToDTO(sensorType);
 
     String sensorTypeDescription2 = "Temperature";
     String supportedUnit2 = "Kelvin";
-    SensorTypeDataDTO sensorTypeDataDTO2 = new SensorTypeDataDTO(sensorTypeDescription2,
+    SensorTypeEntryDTO sensorTypeDataDTO2 = new SensorTypeEntryDTO(sensorTypeDescription2,
         supportedUnit2);
 
     String expectedMessage = "Invalid sensor type data.";

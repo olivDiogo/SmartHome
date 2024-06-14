@@ -16,10 +16,10 @@ import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.PathEncoder;
-import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithGPSDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.ISensorEntryDTO;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorGenericEntryDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorWithDateEntryDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorWithGPSEntryDTOImp;
 
 public class SensorVOAssemblerImpl implements ISensorVOAssembler {
 
@@ -29,7 +29,7 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
    * @param sensorDataDTO The sensor data DTO.
    * @return The parameters needed to create a sensor.
    */
-  private static Object[] getSensorParameters(SensorDataGenericDTOImp sensorDataDTO) {
+  private static Object[] getSensorParameters(SensorGenericEntryDTOImp sensorDataDTO) {
     DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
     String decodedModelPath = PathEncoder.decode(sensorDataDTO.sensorModelPath);
     ModelPath modelPath = new ModelPath(decodedModelPath);
@@ -44,7 +44,7 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
    * @param sensorDataDTO The sensor data DTO.
    * @return The parameters needed to create a sensor.
    */
-  private static Object[] getSensorParameters(SensorDataWithGPSDTOImp sensorDataDTO) {
+  private static Object[] getSensorParameters(SensorWithGPSEntryDTOImp sensorDataDTO) {
     DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
     String decodedModelPath = PathEncoder.decode(sensorDataDTO.sensorModelPath);
     ModelPath modelPath = new ModelPath(decodedModelPath);
@@ -62,7 +62,7 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
    * @param sensorDataDTO The sensor data DTO.
    * @return The parameters needed to create a sensor.
    */
-  private static Object[] getSensorParameters(SensorDataWithDateDTOImp sensorDataDTO) {
+  private static Object[] getSensorParameters(SensorWithDateEntryDTOImp sensorDataDTO) {
     DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
     String decodedModelPath = PathEncoder.decode(sensorDataDTO.sensorModelPath);
     ModelPath modelPath = new ModelPath(decodedModelPath);
@@ -81,12 +81,12 @@ public class SensorVOAssemblerImpl implements ISensorVOAssembler {
    * @return The parameters needed to create a sensor.
    */
   @Override
-  public Object[] getSensorParameters(ISensorDataDTO sensorDataDTO) {
-    if (sensorDataDTO instanceof SensorDataGenericDTOImp sensorDataGenericDTOImp) {
+  public Object[] getSensorParameters(ISensorEntryDTO sensorDataDTO) {
+    if (sensorDataDTO instanceof SensorGenericEntryDTOImp sensorDataGenericDTOImp) {
       return getSensorParameters(sensorDataGenericDTOImp);
-    } else if (sensorDataDTO instanceof SensorDataWithGPSDTOImp sensorWithGPSDataDTO) {
+    } else if (sensorDataDTO instanceof SensorWithGPSEntryDTOImp sensorWithGPSDataDTO) {
       return getSensorParameters(sensorWithGPSDataDTO);
-    } else if (sensorDataDTO instanceof SensorDataWithDateDTOImp sensorDataWithDateDTO) {
+    } else if (sensorDataDTO instanceof SensorWithDateEntryDTOImp sensorDataWithDateDTO) {
       return getSensorParameters(sensorDataWithDateDTO);
     } else {
       throw new IllegalArgumentException("Unsupported sensor data DTO");

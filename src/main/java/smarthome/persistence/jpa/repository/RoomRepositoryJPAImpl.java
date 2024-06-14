@@ -18,7 +18,7 @@ import smarthome.domain.repository.IRoomRepository;
 import smarthome.domain.room.Room;
 import smarthome.domain.value_object.RoomID;
 import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.RoomDataModel;
+import smarthome.persistence.data_model.RoomDataModel;
 import smarthome.utils.Validator;
 
 public class RoomRepositoryJPAImpl implements IRoomRepository {

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.repository.IActuatorRepository;
 import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.ActuatorDataModel;
+import smarthome.persistence.data_model.ActuatorDataModel;
 import smarthome.utils.visitor_pattern.IActuatorVisitorForDataModel;
 
 class ActuatorRepositoryJPAImpTest {

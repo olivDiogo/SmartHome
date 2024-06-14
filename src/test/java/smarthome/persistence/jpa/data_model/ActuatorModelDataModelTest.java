@@ -20,6 +20,7 @@ import smarthome.domain.value_object.ActuatorModelID;
 import smarthome.domain.value_object.ActuatorModelName;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.ModelPath;
+import smarthome.persistence.data_model.ActuatorModelDataModel;
 
 class ActuatorModelDataModelTest {
 

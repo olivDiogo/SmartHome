@@ -63,10 +63,10 @@ import smarthome.domain.value_object.UnitDescription;
 import smarthome.domain.value_object.UnitSymbol;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
 import smarthome.utils.PathEncoder;
-import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithGPSDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.ISensorEntryDTO;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorGenericEntryDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorWithDateEntryDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorWithGPSEntryDTOImp;
 
 
 @SpringBootTest
@@ -144,7 +144,7 @@ class SensorControllerTest {
     return deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
   }
 
-  ISensor setupGenericSensor(SensorDataGenericDTOImp sensorDataDTO) {
+  ISensor setupGenericSensor(SensorGenericEntryDTOImp sensorDataDTO) {
     DeviceID deviceID = new DeviceID(sensorDataDTO.deviceID);
     ModelPath modelPath = new ModelPath(sensorDataDTO.sensorModelPath);
     SensorName sensorName = new SensorName(sensorDataDTO.sensorName);
@@ -184,7 +184,7 @@ class SensorControllerTest {
     String sensorTypeIDStr = sensorType.getID().toString();
 
     /* create dataDTO */
-    ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr, sensorModelPath,
+    ISensorEntryDTO sensorDataDTO = new SensorGenericEntryDTOImp(deviceIDStr, sensorModelPath,
         sensorName, sensorTypeIDStr);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -231,7 +231,7 @@ class SensorControllerTest {
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorType sensorType = sensorTypeFactory.createSensorType(typeDescription, sensorUnit.getID());
 
-    ISensorDataDTO sensorDataDTO = new SensorDataWithGPSDTOImp(deviceIDStr, sensorModelPath, sensorType.getID().toString(),
+    ISensorEntryDTO sensorDataDTO = new SensorWithGPSEntryDTOImp(deviceIDStr, sensorModelPath, sensorType.getID().toString(),
         sensorName, latitude, longitude);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -278,7 +278,7 @@ class SensorControllerTest {
     SensorTypeFactoryImpl sensorTypeFactory = new SensorTypeFactoryImpl();
     SensorType sensorType = sensorTypeFactory.createSensorType(typeDescription, sensorUnit.getID());
 
-    ISensorDataDTO sensorDataDTO = new SensorDataWithDateDTOImp(deviceIDStr, sensorModelPath,
+    ISensorEntryDTO sensorDataDTO = new SensorWithDateEntryDTOImp(deviceIDStr, sensorModelPath,
         sensorName, sensorType.getID().toString(), datePeriod.getStartDate().toString(),
         datePeriod.getEndDate().toString());
 
@@ -313,7 +313,7 @@ class SensorControllerTest {
         unit.getID());
     String sensorTypeID = sensorType.getID().getID();
 
-    ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceID, sensorModelPath,
+    ISensorEntryDTO sensorDataDTO = new SensorGenericEntryDTOImp(deviceID, sensorModelPath,
         sensorName, sensorTypeID);
 
     // Act & Assert
@@ -350,7 +350,7 @@ class SensorControllerTest {
         unit.getID());
     String sensorTypeID = sensorType.getID().getID();
 
-    ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr, sensorModelPath,
+    ISensorEntryDTO sensorDataDTO = new SensorGenericEntryDTOImp(deviceIDStr, sensorModelPath,
         sensorName, sensorTypeID);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -386,7 +386,7 @@ class SensorControllerTest {
 
     String sensorTypeID = null;
 
-    ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr, sensorModelPath,
+    ISensorEntryDTO sensorDataDTO = new SensorGenericEntryDTOImp(deviceIDStr, sensorModelPath,
         sensorName, sensorTypeID);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -425,7 +425,7 @@ class SensorControllerTest {
         unit.getID());
     String sensorTypeID = sensorType.getID().getID();
 
-    ISensorDataDTO sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr, sensorModelPath,
+    ISensorEntryDTO sensorDataDTO = new SensorGenericEntryDTOImp(deviceIDStr, sensorModelPath,
         sensorName, sensorTypeID);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -461,7 +461,7 @@ class SensorControllerTest {
         sensorUnit.getID());
     String sensorTypeIDStr = sensorType.getID().toString();
 
-    SensorDataGenericDTOImp sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr,
+    SensorGenericEntryDTOImp sensorDataDTO = new SensorGenericEntryDTOImp(deviceIDStr,
         sensorModelPath, sensorName, sensorTypeIDStr);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
     when(sensorTypeRepository.ofIdentity(sensorType.getID())).thenReturn(Optional.of(sensorType));
@@ -519,10 +519,10 @@ class SensorControllerTest {
     String sensorTypeIDStr = sensorType.getID().toString();
 
     /* create dataDTO */
-    SensorDataGenericDTOImp sensorDataDTO = new SensorDataGenericDTOImp(deviceIDStr,
+    SensorGenericEntryDTOImp sensorDataDTO = new SensorGenericEntryDTOImp(deviceIDStr,
         sensorModelPath,
         sensorName, sensorTypeIDStr);
-    SensorDataGenericDTOImp sensorDataDTO2 = new SensorDataGenericDTOImp(deviceIDStr,
+    SensorGenericEntryDTOImp sensorDataDTO2 = new SensorGenericEntryDTOImp(deviceIDStr,
         sensorModelPath,
         sensorName, sensorTypeIDStr);
 
@@ -564,7 +564,7 @@ class SensorControllerTest {
     String strSensorName = "DewPoint";
     String strSensorType = "DewPoint";
 
-    SensorDataGenericDTOImp sensorDataGenericDTOImp = new SensorDataGenericDTOImp(
+    SensorGenericEntryDTOImp sensorDataGenericDTOImp = new SensorGenericEntryDTOImp(
         deviceIDStr, sensorModelPath, strSensorType, strSensorName
     );
 

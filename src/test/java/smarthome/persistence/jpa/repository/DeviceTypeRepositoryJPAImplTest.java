@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.domain.device_type.DeviceType;
 import smarthome.domain.repository.IDeviceTypeRepository;
 import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.DeviceTypeDataModel;
+import smarthome.persistence.data_model.DeviceTypeDataModel;
 
 class DeviceTypeRepositoryJPAImplTest {
 

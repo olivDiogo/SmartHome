@@ -65,7 +65,7 @@ import smarthome.service.IRoomService;
 import smarthome.service.LogServiceImpl;
 import smarthome.service.RoomServiceImpl;
 import smarthome.utils.dto.LogDTO;
-import smarthome.utils.dto.data_dto.LogDataDTO;
+import smarthome.utils.entry_dto.LogEntryDTO;
 
 class GetLogFromDeviceControllerTest {
 
@@ -184,7 +184,7 @@ class GetLogFromDeviceControllerTest {
     // Create LogDataDTO
     String timeStart = "2020-03-01T13:45:30";
     String timeEnd = "2022-03-01T13:50:30";
-    LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
+    LogEntryDTO logDataDTO = new LogEntryDTO(deviceID.toString(), timeStart, timeEnd);
     DatePeriod datePeriod = new DatePeriod(LocalDateTime.parse(timeStart),
         LocalDateTime.parse(timeEnd));
 
@@ -226,7 +226,7 @@ class GetLogFromDeviceControllerTest {
     // Create LogDataDTO
     String timeEnd = "2020-03-01T13:45:30";
     String timeStart = "2022-03-01T13:50:30";
-    LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
+    LogEntryDTO logDataDTO = new LogEntryDTO(deviceID.toString(), timeStart, timeEnd);
 
     String expected = "Start date cannot be after end date.";
 
@@ -270,7 +270,7 @@ class GetLogFromDeviceControllerTest {
     // Create LogDataDTO
     String timeStart = "2020-03-01T13:45:30";
     String timeEnd = "2022-03-01T13:50:30";
-    LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
+    LogEntryDTO logDataDTO = new LogEntryDTO(deviceID.toString(), timeStart, timeEnd);
 
     // Act
     List<LogDTO> logs = getLogFromDeviceController.getLogFromDevice(logDataDTO);
@@ -319,7 +319,7 @@ class GetLogFromDeviceControllerTest {
     // Create LogDataDTO
     String timeStart = "2020-03-01T13:45:30";
     String timeEnd = "2022-03-01T13:50:30";
-    LogDataDTO logDataDTO = new LogDataDTO(deviceID.toString(), timeStart, timeEnd);
+    LogEntryDTO logDataDTO = new LogEntryDTO(deviceID.toString(), timeStart, timeEnd);
 
     int expected = 1;
 

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.domain.repository.ISensorModelRepository;
 import smarthome.domain.sensor_model.SensorModel;
 import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.SensorModelDataModel;
+import smarthome.persistence.data_model.SensorModelDataModel;
 
 
 class SensorModelRepositoryJPAImplTest {

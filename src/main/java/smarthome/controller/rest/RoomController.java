@@ -20,7 +20,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,8 +34,8 @@ import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
 import smarthome.service.IRoomService;
 import smarthome.utils.dto.RoomDTO;
-import smarthome.utils.dto.data_dto.DeviceDataDTO;
-import smarthome.utils.dto.data_dto.RoomDataDTO;
+import smarthome.utils.entry_dto.DeviceEntryDTO;
+import smarthome.utils.entry_dto.RoomEntryDTO;
 
 @RestController
 @RequestMapping("/rooms")
@@ -63,7 +62,7 @@ public class RoomController {
    */
   @PostMapping
   public ResponseEntity<EntityModel<RoomDTO>> createRoom(
-      @Valid @RequestBody RoomDataDTO data) {
+      @Valid @RequestBody RoomEntryDTO data) {
     RoomName name = new RoomName(data.name);
     RoomFloor floor = new RoomFloor(data.floor);
     Dimension dimension = new Dimension(data.width, data.length, data.height);
@@ -72,7 +71,7 @@ public class RoomController {
 
     Link selfLink = linkTo(methodOn(RoomController.class).getRoomById(roomDTO.roomId))
         .withRel("self");
-    Link deviceLink = linkTo(methodOn(DeviceController.class).addDevice(new DeviceDataDTO()))
+    Link deviceLink = linkTo(methodOn(DeviceController.class).addDevice(new DeviceEntryDTO()))
         .withRel("device")
         .withType("method=POST");
 
@@ -96,7 +95,7 @@ public class RoomController {
           .withRel("self")
           .withTitle("Get room")
           .withType("GET");
-      Link addDevice = linkTo(methodOn(DeviceController.class).addDevice(new DeviceDataDTO()))
+      Link addDevice = linkTo(methodOn(DeviceController.class).addDevice(new DeviceEntryDTO()))
           .withRel("add-device")
           .withTitle("Add a device")
           .withType("POST");
@@ -131,7 +130,7 @@ public class RoomController {
           .withRel("room-devices")
           .withTitle("Get all room devices")
           .withType("GET");
-      Link addDevice = linkTo(methodOn(DeviceController.class).addDevice(new DeviceDataDTO()))
+      Link addDevice = linkTo(methodOn(DeviceController.class).addDevice(new DeviceEntryDTO()))
           .withRel("add-device")
           .withTitle("Add a device")
           .withType("POST");

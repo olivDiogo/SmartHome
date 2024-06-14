@@ -21,6 +21,7 @@ import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomID;
 import smarthome.domain.value_object.RoomName;
+import smarthome.persistence.data_model.RoomDataModel;
 
 class RoomDataModelTest {
 

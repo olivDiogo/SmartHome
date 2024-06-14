@@ -24,7 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import smarthome.utils.dto.data_dto.ActuatorTypeDataDTO;
+import smarthome.utils.entry_dto.ActuatorTypeEntryDTO;
 
 
 @AutoConfigureMockMvc
@@ -77,7 +77,7 @@ class ActuatorTypeControllerTest {
   @Test
   void shouldReturnActuatorType_WhenFound() throws Exception {
     // Arrange
-    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", "Celsius");
+    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("Test", "Celsius");
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     mockMvc.perform(post("/actuator-types")
@@ -135,7 +135,7 @@ class ActuatorTypeControllerTest {
   @Test
   void shouldReturnCreated_WhenActuatorTypeAdded() throws Exception {
     // Arrange
-    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", "Celsius");
+    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("Test", "Celsius");
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
@@ -159,7 +159,7 @@ class ActuatorTypeControllerTest {
   @Test
   void shouldReturnBadRequest_WhenInvalidunitType() throws Exception {
     // Arrange
-    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", "C");
+    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("Test", "C");
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
@@ -178,7 +178,7 @@ class ActuatorTypeControllerTest {
   @Test
   void shouldReturnBadRequest_WhenActuatorTypeDescriptionIsNull() throws Exception {
     // Arrange
-    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO(null, "Celsius");
+    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO(null, "Celsius");
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
@@ -198,7 +198,7 @@ class ActuatorTypeControllerTest {
   @Test
   void shouldReturnBadRequest_WhenActuatorTypeDescriptionIsEmpty() throws Exception {
     // Arrange
-    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("", "Celsius");
+    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("", "Celsius");
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
@@ -218,7 +218,7 @@ class ActuatorTypeControllerTest {
   @Test
   void shouldReturnBadRequest_WhenActuatorTypeUnitIsNull() throws Exception {
     // Arrange
-    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", null);
+    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("Test", null);
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert
@@ -238,7 +238,7 @@ class ActuatorTypeControllerTest {
   @Test
   void shouldReturnBadRequest_WhenRequestBodyIsEmpty() throws Exception {
     // Arrange
-    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("", "");
+    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("", "");
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
 
     // Act & Assert

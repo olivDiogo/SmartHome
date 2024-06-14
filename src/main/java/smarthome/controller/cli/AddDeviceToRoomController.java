@@ -21,7 +21,7 @@ import smarthome.service.IRoomService;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.RoomDTO;
-import smarthome.utils.dto.data_dto.DeviceDataDTO;
+import smarthome.utils.entry_dto.DeviceEntryDTO;
 
 /**
  * Controller class responsible for handling device addition to rooms within a smart home domain.
@@ -74,7 +74,7 @@ public class AddDeviceToRoomController {
    * @return A DeviceDTO representing the added device.
    * @throws IllegalArgumentException if the specified room does not exist.
    */
-  public DeviceDTO addDeviceToRoom(DeviceDataDTO deviceDataDTO) {
+  public DeviceDTO addDeviceToRoom(DeviceEntryDTO deviceDataDTO) {
 
     RoomID roomIdVO = new RoomID(deviceDataDTO.roomID);
     DeviceName deviceNameVO = new DeviceName(deviceDataDTO.deviceName);

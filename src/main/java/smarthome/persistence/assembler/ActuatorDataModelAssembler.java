@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import smarthome.domain.actuator.IActuator;
 import smarthome.domain.actuator.IActuatorFactory;
 import smarthome.domain.value_object.ActuatorID;
@@ -22,7 +21,7 @@ import smarthome.domain.value_object.DecimalLimits;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.IntegerLimits;
 import smarthome.domain.value_object.ModelPath;
-import smarthome.persistence.jpa.data_model.ActuatorDataModel;
+import smarthome.persistence.data_model.ActuatorDataModel;
 import smarthome.utils.Validator;
 
 @Component

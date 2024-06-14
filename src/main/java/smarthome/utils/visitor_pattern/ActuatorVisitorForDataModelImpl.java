@@ -14,7 +14,7 @@ import smarthome.domain.actuator.blind_roller_actuator.BlindRollerActuator;
 import smarthome.domain.actuator.set_decimal_actuator.SetDecimalActuator;
 import smarthome.domain.actuator.set_integer_actuator.SetIntegerActuator;
 import smarthome.domain.actuator.switch_actuator.SwitchActuator;
-import smarthome.persistence.jpa.data_model.ActuatorDataModel;
+import smarthome.persistence.data_model.ActuatorDataModel;
 import smarthome.utils.Validator;
 
 @Component

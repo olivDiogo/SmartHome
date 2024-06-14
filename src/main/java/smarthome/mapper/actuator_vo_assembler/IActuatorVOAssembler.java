@@ -8,9 +8,9 @@
 
 package smarthome.mapper.actuator_vo_assembler;
 
-import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.entry_dto.actuator_entry_dto.IActuatorEntryDTO;
 
 public interface IActuatorVOAssembler {
 
-  Object[] getActuatorParameters(IActuatorDataDTO actuatorDataDTO);
+  Object[] getActuatorParameters(IActuatorEntryDTO actuatorDataDTO);
 }

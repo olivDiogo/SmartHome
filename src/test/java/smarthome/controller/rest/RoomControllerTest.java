@@ -37,7 +37,7 @@ import smarthome.domain.value_object.HouseID;
 import smarthome.domain.value_object.RoomFloor;
 import smarthome.domain.value_object.RoomName;
 import smarthome.domain.value_object.postal_code.PostalCodeFactory;
-import smarthome.utils.dto.data_dto.RoomDataDTO;
+import smarthome.utils.entry_dto.RoomEntryDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -76,17 +76,17 @@ class RoomControllerTest {
     return house;
   }
 
-  RoomDataDTO setupRoomDataDTO(House house) {
+  RoomEntryDTO setupRoomDataDTO(House house) {
     String name = "Living Room";
     int floor = 1;
     int width = 10;
     int length = 10;
     int height = 3;
-    return new RoomDataDTO(name, floor, width, length, height);
+    return new RoomEntryDTO(name, floor, width, length, height);
   }
 
   // given a RoomDataDTO create a Room object using RoomFactory
-  Room setupRoom(RoomDataDTO roomDataDTO) {
+  Room setupRoom(RoomEntryDTO roomDataDTO) {
     HouseID houseID = new HouseID("1");
     RoomName name = new RoomName(roomDataDTO.name);
     RoomFloor floor = new RoomFloor(roomDataDTO.floor);
@@ -101,7 +101,7 @@ class RoomControllerTest {
   void shouldReturnRoomDTO_whenRoomIsAddedToHouse() throws Exception {
     // Arrange
     House house = setupHouse();
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO(house);
     when(houseRepository.getTheHouse()).thenReturn(Optional.of(house));
 
     // Act & Assert
@@ -125,7 +125,7 @@ class RoomControllerTest {
     int width = 10;
     int length = 10;
     int height = 3;
-    RoomDataDTO roomDataDTO = new RoomDataDTO(name, floor, width, length, height);
+    RoomEntryDTO roomDataDTO = new RoomEntryDTO(name, floor, width, length, height);
     when(houseRepository.ofIdentity(houseID)).thenReturn(Optional.empty());
 
     // Act & Assert
@@ -144,8 +144,8 @@ class RoomControllerTest {
     House house = setupHouse();
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
 
-    RoomDataDTO dto1 = setupRoomDataDTO(house);
-    RoomDataDTO dto2 = setupRoomDataDTO(house);
+    RoomEntryDTO dto1 = setupRoomDataDTO(house);
+    RoomEntryDTO dto2 = setupRoomDataDTO(house);
 
     Room room = setupRoom(dto1);
     Room room2 = setupRoom(dto2);
@@ -172,7 +172,7 @@ class RoomControllerTest {
     House house = setupHouse();
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
 
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO(house);
     Room room = setupRoom(roomDataDTO);
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.of(room));
 
@@ -194,7 +194,7 @@ class RoomControllerTest {
     House house = setupHouse();
     when(houseRepository.ofIdentity(house.getID())).thenReturn(Optional.of(house));
 
-    RoomDataDTO roomDataDTO = setupRoomDataDTO(house);
+    RoomEntryDTO roomDataDTO = setupRoomDataDTO(house);
     Room room = setupRoom(roomDataDTO);
     when(roomRepository.ofIdentity(room.getID())).thenReturn(Optional.empty());
 

@@ -20,7 +20,7 @@ import smarthome.domain.value_object.ReadingValue;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.UnitID;
-import smarthome.persistence.jpa.data_model.LogDataModel;
+import smarthome.persistence.data_model.LogDataModel;
 import smarthome.utils.Validator;
 
 @Component

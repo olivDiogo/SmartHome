@@ -16,7 +16,7 @@ import smarthome.domain.actuator_type.IActuatorTypeFactory;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
-import smarthome.persistence.jpa.data_model.ActuatorTypeDataModel;
+import smarthome.persistence.data_model.ActuatorTypeDataModel;
 import smarthome.utils.Validator;
 
 @Component

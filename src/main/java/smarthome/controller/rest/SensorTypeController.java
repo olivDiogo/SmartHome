@@ -19,7 +19,6 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +32,7 @@ import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
 import smarthome.service.ISensorTypeService;
 import smarthome.utils.dto.SensorTypeDTO;
-import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
+import smarthome.utils.entry_dto.SensorTypeEntryDTO;
 
 @RestController
 @RequestMapping("/sensor-types")
@@ -65,7 +64,7 @@ public class SensorTypeController {
    */
   @PostMapping
   public ResponseEntity<EntityModel<SensorTypeDTO>> createSensorType(
-      @RequestBody @Valid SensorTypeDataDTO sensorTypeDataDTO) {
+      @RequestBody @Valid SensorTypeEntryDTO sensorTypeDataDTO) {
     TypeDescription typeDescription = new TypeDescription(sensorTypeDataDTO.description);
     UnitID unitID = new UnitID(sensorTypeDataDTO.unitID);
 

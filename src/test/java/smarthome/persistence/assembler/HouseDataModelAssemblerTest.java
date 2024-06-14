@@ -23,7 +23,7 @@ import smarthome.domain.house.IHouseFactory;
 import smarthome.domain.value_object.Address;
 import smarthome.domain.value_object.GPS;
 import smarthome.domain.value_object.HouseID;
-import smarthome.persistence.jpa.data_model.HouseDataModel;
+import smarthome.persistence.data_model.HouseDataModel;
 
 class HouseDataModelAssemblerTest {
 

@@ -91,10 +91,10 @@ import smarthome.utils.dto.ActuatorModelDTO;
 import smarthome.utils.dto.ActuatorTypeDTO;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.RoomDTO;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithDecimalLimitsDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorGenericDataDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorWithDecimalLimitsEntryDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorWithIntegerLimitsEntryDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.IActuatorEntryDTO;
 
 class AddActuatorToDeviceControllerTest {
 
@@ -824,8 +824,8 @@ class AddActuatorToDeviceControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO =
-        new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID);
+    IActuatorEntryDTO actuatorDataDTO =
+        new ActuatorGenericDataDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID);
     when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
 
     AddActuatorToDeviceController controller =
@@ -883,7 +883,7 @@ class AddActuatorToDeviceControllerTest {
   String actuatorTypeID = actuatorType.getID().toString();
 
   /* Create ActuatorDataDTO */
-  IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+  IActuatorEntryDTO actuatorDataDTO = new ActuatorWithIntegerLimitsEntryDTOImp(deviceID,
       actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
   when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
 
@@ -942,8 +942,8 @@ class AddActuatorToDeviceControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO =
-        new ActuatorDataWithDecimalLimitsDTOImp(
+    IActuatorEntryDTO actuatorDataDTO =
+        new ActuatorWithDecimalLimitsEntryDTOImp(
             deviceID, actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
     when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
 
@@ -1000,8 +1000,8 @@ class AddActuatorToDeviceControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO =
-        new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID);
+    IActuatorEntryDTO actuatorDataDTO =
+        new ActuatorGenericDataDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID);
     when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
 
     AddActuatorToDeviceController controller =
@@ -1037,7 +1037,7 @@ class AddActuatorToDeviceControllerTest {
     Device device = loadDevice(roomID);
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO =
+    IActuatorEntryDTO actuatorDataDTO =
         null;
 
     AddActuatorToDeviceController controller =
@@ -1099,8 +1099,8 @@ class AddActuatorToDeviceControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO =
-        new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID);
+    IActuatorEntryDTO actuatorDataDTO =
+        new ActuatorGenericDataDTOImp(deviceID, actuatorModelPath, actuatorName, actuatorTypeID);
     when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(Optional.of(actuatorType));
 
     AddActuatorToDeviceController controller =

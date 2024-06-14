@@ -34,7 +34,7 @@ import smarthome.domain.actuator_type.ActuatorType;
 import smarthome.domain.value_object.ActuatorTypeID;
 import smarthome.service.IActuatorTypeService;
 import smarthome.utils.dto.ActuatorTypeDTO;
-import smarthome.utils.dto.data_dto.ActuatorTypeDataDTO;
+import smarthome.utils.entry_dto.ActuatorTypeEntryDTO;
 
 
 @WebMvcTest(ActuatorTypeController.class)
@@ -128,7 +128,7 @@ class ActuatorTypeControllerTest {
     // Arrange
     ActuatorType actuatorType = mock(ActuatorType.class);
     ActuatorTypeDTO actuatorTypeDTO = new ActuatorTypeDTO("Test", "Test", "Celsius");
-    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("Test", "Test");
+    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("Test", "Test");
     ObjectMapper objectMapper = new ObjectMapper();
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
     ActuatorTypeID actuatorTypeID = mock(ActuatorTypeID.class);
@@ -155,7 +155,7 @@ class ActuatorTypeControllerTest {
    */
   @Test
   void shouldReturnBadRequest_WhenInvalidActuatorTypeAdded() throws Exception {
-    ActuatorTypeDataDTO actuatorTypeDataDTO = new ActuatorTypeDataDTO("", "");
+    ActuatorTypeEntryDTO actuatorTypeDataDTO = new ActuatorTypeEntryDTO("", "");
     ObjectMapper objectMapper = new ObjectMapper();
     String jsonContent = objectMapper.writeValueAsString(actuatorTypeDataDTO);
     // Act & Assert

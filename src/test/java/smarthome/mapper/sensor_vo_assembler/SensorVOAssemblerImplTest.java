@@ -21,10 +21,10 @@ import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.utils.PathEncoder;
-import smarthome.utils.dto.data_dto.sensor_data_dto.ISensorDataDTO;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataGenericDTOImp;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithDateDTOImp;
-import smarthome.utils.dto.data_dto.sensor_data_dto.SensorDataWithGPSDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.ISensorEntryDTO;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorGenericEntryDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorWithDateEntryDTOImp;
+import smarthome.utils.entry_dto.sensor_entry_dto.SensorWithGPSEntryDTOImp;
 
 class SensorVOAssemblerImplTest {
 
@@ -36,7 +36,7 @@ class SensorVOAssemblerImplTest {
     // Arrange
     SensorVOAssemblerImpl sensorVOAssembler = new SensorVOAssemblerImpl();
     String message = "Unsupported sensor data DTO";
-    ISensorDataDTO sensorDataDTO = null;
+    ISensorEntryDTO sensorDataDTO = null;
     // Act
     IllegalArgumentException exception =
         assertThrows(
@@ -59,8 +59,8 @@ class SensorVOAssemblerImplTest {
     String sensorTypeID = "sensorTypeID";
     String latitude = "8.5";
     String longitude = "0.7";
-    ISensorDataDTO sensorDataDTO =
-        new SensorDataWithGPSDTOImp(
+    ISensorEntryDTO sensorDataDTO =
+        new SensorWithGPSEntryDTOImp(
             deviceID, encodedSensorModelPath, sensorTypeID,  sensorName, latitude, longitude);
     SensorVOAssemblerImpl sensorVOAssembler = new SensorVOAssemblerImpl();
 
@@ -88,8 +88,8 @@ class SensorVOAssemblerImplTest {
     String encodedSensorModelPath = PathEncoder.encode(sensorModelPath);
     String sensorName = "sensorName";
     String sensorTypeID = "sensorTypeID";
-    ISensorDataDTO sensorDataDTO =
-        new SensorDataGenericDTOImp(deviceID, encodedSensorModelPath, sensorTypeID, sensorName);
+    ISensorEntryDTO sensorDataDTO =
+        new SensorGenericEntryDTOImp(deviceID, encodedSensorModelPath, sensorTypeID, sensorName);
     SensorVOAssemblerImpl sensorVOAssembler = new SensorVOAssemblerImpl();
 
     DeviceID deviceID1 = new DeviceID(deviceID);
@@ -117,8 +117,8 @@ class SensorVOAssemblerImplTest {
     String sensorTypeID = "sensorTypeID";
     String startDate = "2021-08-01T00:00:00";
     String endDate = "2021-08-02T00:00:00";
-    ISensorDataDTO sensorDataDTO =
-        new SensorDataWithDateDTOImp(
+    ISensorEntryDTO sensorDataDTO =
+        new SensorWithDateEntryDTOImp(
             deviceID, encodedSensorModelPath, sensorTypeID, sensorName, startDate, endDate);
     SensorVOAssemblerImpl sensorVOAssembler = new SensorVOAssemblerImpl();
 

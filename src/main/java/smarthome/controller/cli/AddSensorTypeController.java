@@ -19,7 +19,7 @@ import smarthome.service.IUnitService;
 import smarthome.utils.Validator;
 import smarthome.utils.dto.SensorTypeDTO;
 import smarthome.utils.dto.UnitDTO;
-import smarthome.utils.dto.data_dto.SensorTypeDataDTO;
+import smarthome.utils.entry_dto.SensorTypeEntryDTO;
 
 public class AddSensorTypeController {
 
@@ -67,7 +67,7 @@ public class AddSensorTypeController {
    * @param sensorTypeDataDTO The sensor type data to add and save.
    * @return The sensor type DTO.
    */
-  public SensorTypeDTO addAndSaveSensorType(SensorTypeDataDTO sensorTypeDataDTO) {
+  public SensorTypeDTO addAndSaveSensorType(SensorTypeEntryDTO sensorTypeDataDTO) {
     try {
       TypeDescription typeDescription = new TypeDescription(
           sensorTypeDataDTO.description);

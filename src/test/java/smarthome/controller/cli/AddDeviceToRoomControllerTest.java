@@ -53,7 +53,7 @@ import smarthome.service.IRoomService;
 import smarthome.service.RoomServiceImpl;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.RoomDTO;
-import smarthome.utils.dto.data_dto.DeviceDataDTO;
+import smarthome.utils.entry_dto.DeviceEntryDTO;
 
 class AddDeviceToRoomControllerTest {
 
@@ -370,7 +370,7 @@ class AddDeviceToRoomControllerTest {
 
     DeviceDTO expectedDeviceDTO = deviceAssembler.domainToDTO(device);
 
-    DeviceDataDTO deviceDataDTO = new DeviceDataDTO(deviceTypeID, deviceName, roomID);
+    DeviceEntryDTO deviceDataDTO = new DeviceEntryDTO(deviceTypeID, deviceName, roomID);
 
     // Act
     DeviceDTO deviceDTO = addDeviceToRoomController.addDeviceToRoom(deviceDataDTO);
@@ -405,7 +405,7 @@ class AddDeviceToRoomControllerTest {
         new AddDeviceToRoomController(
             roomServiceImpl, roomAssembler, deviceServiceImpl, deviceAssembler);
 
-    DeviceDataDTO deviceDataDTO = new DeviceDataDTO("1", "Lamp", "1");
+    DeviceEntryDTO deviceDataDTO = new DeviceEntryDTO("1", "Lamp", "1");
 
     // Act + Assert
     assertThrows(

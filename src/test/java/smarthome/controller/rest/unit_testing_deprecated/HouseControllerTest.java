@@ -31,7 +31,7 @@ import smarthome.domain.value_object.HouseID;
 import smarthome.mapper.HouseAssembler;
 import smarthome.service.IHouseService;
 import smarthome.utils.dto.HouseDTO;
-import smarthome.utils.dto.data_dto.HouseDataDTO;
+import smarthome.utils.entry_dto.HouseEntryDTO;
 
 @SpringBootTest
 class HouseControllerTest {
@@ -60,7 +60,7 @@ class HouseControllerTest {
     String countryCode = "PT";
     double latitude = 38.7143;
     double longitude = -9.1459;
-    HouseDataDTO houseDataDTO = new HouseDataDTO(street, doorNumber, postalCode, countryCode, latitude, longitude);
+    HouseEntryDTO houseDataDTO = new HouseEntryDTO(street, doorNumber, postalCode, countryCode, latitude, longitude);
 
     House mockHouse = mock(House.class);
     Address mockAddress = mock(Address.class);

@@ -31,7 +31,7 @@ import smarthome.utils.dto.ActuatorModelDTO;
 import smarthome.utils.dto.ActuatorTypeDTO;
 import smarthome.utils.dto.DeviceDTO;
 import smarthome.utils.dto.RoomDTO;
-import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.entry_dto.actuator_entry_dto.IActuatorEntryDTO;
 
 public class AddActuatorToDeviceController {
 
@@ -173,7 +173,7 @@ public class AddActuatorToDeviceController {
    * @param actuatorDataDTOImp is the actuator data DTO.
    * @return the actuator DTO.
    */
-  public ActuatorDTO addActuatorToDevice(IActuatorDataDTO actuatorDataDTOImp) {
+  public ActuatorDTO addActuatorToDevice(IActuatorEntryDTO actuatorDataDTOImp) {
     Validator.validateNotNull(actuatorDataDTOImp, "Actuator data DTO");
 
     IActuatorVOAssembler actuatorVOAssembler = new ActuatorVOAssemblerImpl();

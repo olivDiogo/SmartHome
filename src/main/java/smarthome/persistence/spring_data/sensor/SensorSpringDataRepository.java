@@ -16,8 +16,7 @@ import smarthome.domain.sensor.ISensor;
 import smarthome.domain.value_object.DeviceID;
 import smarthome.domain.value_object.SensorID;
 import smarthome.persistence.assembler.IDataModelAssembler;
-import smarthome.persistence.jpa.data_model.ActuatorDataModel;
-import smarthome.persistence.jpa.data_model.SensorDataModel;
+import smarthome.persistence.data_model.SensorDataModel;
 import smarthome.utils.Validator;
 import smarthome.utils.visitor_pattern.ISensorVisitorForDataModel;
 

@@ -73,10 +73,10 @@ import smarthome.service.IActuatorService;
 import smarthome.service.ILogService;
 import smarthome.service.SensorServiceImpl;
 import smarthome.utils.PathEncoder;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataGenericDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorDataWithIntegerLimitsDTOImp;
-import smarthome.utils.dto.data_dto.actuator_data_dto.ActuatorValueDTO;
-import smarthome.utils.dto.data_dto.actuator_data_dto.IActuatorDataDTO;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorGenericDataDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorWithIntegerLimitsEntryDTOImp;
+import smarthome.utils.entry_dto.actuator_entry_dto.ActuatorValueEntryDTO;
+import smarthome.utils.entry_dto.actuator_entry_dto.IActuatorEntryDTO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -165,7 +165,7 @@ class ActuatorControllerTest {
     return deviceFactory.createDevice(roomID, deviceName, deviceTypeID);
   }
 
-  IActuator setupGenericActuator(ActuatorDataGenericDTOImp actuatorDataDTO) {
+  IActuator setupGenericActuator(ActuatorGenericDataDTOImp actuatorDataDTO) {
     DeviceID deviceID = new DeviceID(actuatorDataDTO.deviceID);
     ModelPath modelPath = new ModelPath(actuatorDataDTO.actuatorModelPath);
     ActuatorName actuatorName = new ActuatorName(actuatorDataDTO.actuatorName);
@@ -203,7 +203,7 @@ class ActuatorControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorGenericDataDTOImp(deviceID, actuatorModelPath,
      actuatorTypeID, actuatorName);
 
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -252,7 +252,7 @@ class ActuatorControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorWithIntegerLimitsEntryDTOImp(deviceID,
         actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
     when(actuatorTypeRepository.ofIdentity(actuatorType.getID())).thenReturn(
@@ -291,7 +291,7 @@ class ActuatorControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(null, actuatorModelPath,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorGenericDataDTOImp(null, actuatorModelPath,
         actuatorName, actuatorTypeID);
 
     // Act & Assert
@@ -329,7 +329,7 @@ class ActuatorControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, null, actuatorName,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorGenericDataDTOImp(deviceID, null, actuatorName,
         actuatorTypeID);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
@@ -368,7 +368,7 @@ class ActuatorControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorGenericDataDTOImp(deviceID, actuatorModelPath,
         null, actuatorTypeID);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
@@ -407,7 +407,7 @@ class ActuatorControllerTest {
         new TypeDescription(strActuatorType), actuatorUnit.getID());
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorGenericDataDTOImp(deviceID, actuatorModelPath,
         actuatorName, null);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
@@ -447,7 +447,7 @@ class ActuatorControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceID, actuatorModelPath,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorGenericDataDTOImp(deviceID, actuatorModelPath,
         actuatorName, "InvalidActuatorTypeID");
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
@@ -488,7 +488,7 @@ class ActuatorControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorWithIntegerLimitsEntryDTOImp(deviceID,
         actuatorModelPath, actuatorName, actuatorTypeID, null, maxLimit);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
@@ -529,7 +529,7 @@ class ActuatorControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorWithIntegerLimitsEntryDTOImp(deviceID,
         actuatorModelPath, actuatorName, actuatorTypeID, minLimit, null);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
@@ -571,7 +571,7 @@ class ActuatorControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorWithIntegerLimitsEntryDTOImp(deviceID,
         actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
@@ -613,7 +613,7 @@ class ActuatorControllerTest {
     String actuatorTypeID = actuatorType.getID().toString();
 
     /* Create ActuatorDataDTO */
-    IActuatorDataDTO actuatorDataDTO = new ActuatorDataWithIntegerLimitsDTOImp(deviceID,
+    IActuatorEntryDTO actuatorDataDTO = new ActuatorWithIntegerLimitsEntryDTOImp(deviceID,
         actuatorModelPath, actuatorName, actuatorTypeID, minLimit, maxLimit);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
 
@@ -654,7 +654,7 @@ class ActuatorControllerTest {
     String actuatorTypeIDStr = actuatorType.getID().toString();
 
     /* create dataDTO */
-    ActuatorDataGenericDTOImp actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceIDStr,
+    ActuatorGenericDataDTOImp actuatorDataDTO = new ActuatorGenericDataDTOImp(deviceIDStr,
         actuatorModelPath,
         actuatorName, actuatorTypeIDStr);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -712,7 +712,7 @@ class ActuatorControllerTest {
     String actuatorTypeIDStr = actuatorType.getID().toString();
 
     /* create dataDTO */
-    ActuatorDataGenericDTOImp actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceIDStr,
+    ActuatorGenericDataDTOImp actuatorDataDTO = new ActuatorGenericDataDTOImp(deviceIDStr,
         actuatorModelPath,
         actuatorName, actuatorTypeIDStr);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -754,7 +754,7 @@ class ActuatorControllerTest {
     String strActuatorName = "BlindRoller";
     String strActuatorTypeID = "BlindRoller";
 
-    ActuatorDataGenericDTOImp actuatorDataDTO = new ActuatorDataGenericDTOImp(strDeviceID,
+    ActuatorGenericDataDTOImp actuatorDataDTO = new ActuatorGenericDataDTOImp(strDeviceID,
         modelPathStr, strActuatorName, strActuatorTypeID);
 
     IActuator actuator = setupGenericActuator(actuatorDataDTO);
@@ -806,7 +806,7 @@ class ActuatorControllerTest {
 
 
     /* create dataDTO */
-    ActuatorDataGenericDTOImp actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceIDStr,
+    ActuatorGenericDataDTOImp actuatorDataDTO = new ActuatorGenericDataDTOImp(deviceIDStr,
         actuatorModelPath,
         actuatorName, actuatorTypeIDStr);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -818,7 +818,7 @@ class ActuatorControllerTest {
 
     /* create actuator value DTO */
     int valueToSet = 0;
-    ActuatorValueDTO actuatorValueDTO = new ActuatorValueDTO(deviceIDStr, actuator.getID().getID(),
+    ActuatorValueEntryDTO actuatorValueDTO = new ActuatorValueEntryDTO(deviceIDStr, actuator.getID().getID(),
         valueToSet);
 
     /* create List of Log */
@@ -878,7 +878,7 @@ class ActuatorControllerTest {
 
 
     /* create dataDTO */
-    ActuatorDataGenericDTOImp actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceIDStr,
+    ActuatorGenericDataDTOImp actuatorDataDTO = new ActuatorGenericDataDTOImp(deviceIDStr,
         actuatorModelPath,
         actuatorName, actuatorTypeIDStr);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -890,7 +890,7 @@ class ActuatorControllerTest {
 
     /* create actuator value DTO */
     int valueToSet = 100;
-    ActuatorValueDTO actuatorValueDTO = new ActuatorValueDTO(deviceIDStr, actuator.getID().getID(),
+    ActuatorValueEntryDTO actuatorValueDTO = new ActuatorValueEntryDTO(deviceIDStr, actuator.getID().getID(),
         valueToSet);
 
     /* create List of Log */
@@ -918,7 +918,7 @@ class ActuatorControllerTest {
   @Test
   void shouldReturnNotFound_WhenActuatorIsNotFound() throws Exception {
     // Arrange
-    ActuatorValueDTO actuatorValueDTO = new ActuatorValueDTO("invalidDeviceID", "invalidActuatorID",
+    ActuatorValueEntryDTO actuatorValueDTO = new ActuatorValueEntryDTO("invalidDeviceID", "invalidActuatorID",
         0);
 
     // Act + Assert
@@ -965,7 +965,7 @@ class ActuatorControllerTest {
     when(sensorRepository.ofIdentity(sensor.getID())).thenReturn(Optional.of(sensor));
 
     /* create dataDTO */
-    ActuatorDataGenericDTOImp actuatorDataDTO = new ActuatorDataGenericDTOImp(deviceIDStr,
+    ActuatorGenericDataDTOImp actuatorDataDTO = new ActuatorGenericDataDTOImp(deviceIDStr,
         actuatorModelPath,
         actuatorName, actuatorTypeIDStr);
     when(deviceRepository.ofIdentity(device.getID())).thenReturn(Optional.of(device));
@@ -977,7 +977,7 @@ class ActuatorControllerTest {
 
     /* create actuator value DTO */
     int valueToSet = 0;
-    ActuatorValueDTO actuatorValueDTO = new ActuatorValueDTO(deviceIDStr, actuator.getID().getID(),
+    ActuatorValueEntryDTO actuatorValueDTO = new ActuatorValueEntryDTO(deviceIDStr, actuator.getID().getID(),
         valueToSet);
 
     // Act + Assert

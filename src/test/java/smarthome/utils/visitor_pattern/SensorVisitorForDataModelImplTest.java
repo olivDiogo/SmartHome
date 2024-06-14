@@ -33,7 +33,7 @@ import smarthome.domain.value_object.ModelPath;
 import smarthome.domain.value_object.SensorID;
 import smarthome.domain.value_object.SensorName;
 import smarthome.domain.value_object.SensorTypeID;
-import smarthome.persistence.jpa.data_model.SensorDataModel;
+import smarthome.persistence.data_model.SensorDataModel;
 
 class SensorVisitorForDataModelImplTest {
 

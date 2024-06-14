@@ -24,7 +24,7 @@ import smarthome.domain.sensor_type.SensorTypeFactoryImpl;
 import smarthome.domain.value_object.SensorTypeID;
 import smarthome.domain.value_object.TypeDescription;
 import smarthome.domain.value_object.UnitID;
-import smarthome.persistence.jpa.data_model.SensorTypeDataModel;
+import smarthome.persistence.data_model.SensorTypeDataModel;
 
 class SensorTypeDataModelAssemblerTest {
 
