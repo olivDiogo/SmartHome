@@ -4,30 +4,29 @@
 
 autonumber
 
-actor "User" as User
-
+participant " " as User
     box SmartHome
     participant Frontend as FE
     participant Backend as BE
     end box
 
 
-User -> FE : I want to configure a device in a room using the Web App
+User o-> FE :  GET / configureDevice
 activate FE
 
 FE -> BE : POST /sensors
 activate BE
 
-BE --> FE : sensors
+BE --> FE : Json, status CREATED
 deactivate BE
 
 FE -> BE : POST /actuators
 activate BE
 
-BE --> FE : actuators
+BE --> FE :  Json, status CREATED
 deactivate BE
 
-FE --> User : configuredDevice
+FE -->o User : status CREATED
 deactivate FE
 
 
