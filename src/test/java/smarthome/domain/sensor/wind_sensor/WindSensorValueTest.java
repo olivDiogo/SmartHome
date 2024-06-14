@@ -13,7 +13,7 @@ class WindSensorValueTest {
   void shouldInstantiateWindSensorValue() {
     // Arrange
     double speed = 10.5;
-    double direction = 20.5;
+    double direction = 6;
 
     // Act
     WindSensorValue result = new WindSensorValue(speed, direction);
@@ -23,13 +23,52 @@ class WindSensorValueTest {
   }
 
   /**
+   * Test if the constructor throws exception when the speed is negative.
+   */
+  @Test
+  void shouldThrowException_whenSpeedIsNegative() {
+    // Arrange
+    double speed = -10.5;
+    double direction = 6;
+
+    // Act & Assert
+    assertThrows(IllegalArgumentException.class, () -> new WindSensorValue(speed, direction));
+  }
+
+  /**
+   * Test if the constructor throws exception when the direction is negative.
+   */
+  @Test
+  void shouldThrowException_whenDirectionIsNegative() {
+    // Arrange
+    double speed = 10.5;
+    double direction = -20.5;
+
+    // Act & Assert
+    assertThrows(IllegalArgumentException.class, () -> new WindSensorValue(speed, direction));
+  }
+
+  /**
+   * Test if the constructor throws exception when the direction is greater than 2 * Math.PI.
+   */
+  @Test
+  void shouldThrowException_whenDirectionIsGreaterThan2Pi() {
+    // Arrange
+    double speed = 10.5;
+    double direction = 20;
+
+    // Act & Assert
+    assertThrows(IllegalArgumentException.class, () -> new WindSensorValue(speed, direction));
+  }
+
+  /**
    * Test if the getSpeed method returns the correct speed.
    */
   @Test
   void shouldReturnSpeed() {
     // Arrange
     double speed = 10.5;
-    double direction = 20.5;
+    double direction = 6;
 
     WindSensorValue windSensorValue = new WindSensorValue(speed, direction);
 
@@ -47,7 +86,7 @@ class WindSensorValueTest {
   void shouldReturnDirection() {
     // Arrange
     double speed = 10.5;
-    double direction = 20.5;
+    double direction = 6;
 
     WindSensorValue windSensorValue = new WindSensorValue(speed, direction);
 
@@ -65,7 +104,7 @@ class WindSensorValueTest {
   void shouldReturnTrue_whenObjectsAreEqual() {
     // Arrange
     double speed = 10.5;
-    double direction = 20.5;
+    double direction = 6;
 
     WindSensorValue windSensorValue1 = new WindSensorValue(speed, direction);
     WindSensorValue windSensorValue2 = new WindSensorValue(speed, direction);
@@ -84,10 +123,10 @@ class WindSensorValueTest {
   void shouldReturnFalse_whenObjectsAreNotEqual() {
     // Arrange
     double speed = 10.5;
-    double direction = 20.5;
+    double direction = 6;
 
     WindSensorValue windSensorValue = new WindSensorValue(speed, direction);
-    WindSensorValue other = new WindSensorValue(20.5, 10.5);
+    WindSensorValue other = new WindSensorValue(3, 3);
 
     // Act
     boolean result = windSensorValue.equals(other);
@@ -103,7 +142,7 @@ class WindSensorValueTest {
   void shouldReturnFalse_whenObjectsAreNotWindSensorValue() {
     // Arrange
     double speed = 10.5;
-    double direction = 20.5;
+    double direction = 6;
 
     WindSensorValue windSensorValue = new WindSensorValue(speed, direction);
 
@@ -121,7 +160,7 @@ class WindSensorValueTest {
   void equalsObjectsShouldReturnTheSameHash() {
     // Arrange
     double speed = 10.5;
-    double direction = 20.5;
+    double direction = 6;
 
     WindSensorValue windSensorValue = new WindSensorValue(speed, direction);
     WindSensorValue windSensorValue2 = new WindSensorValue(speed, direction);
@@ -142,7 +181,7 @@ class WindSensorValueTest {
   void shouldReturnHashCode_WhenHashCodeIsCalled() {
     // Arrange
     double speed = 10.5;
-    double direction = 20.5;
+    double direction = 6;
 
     WindSensorValue windSensorValue = new WindSensorValue(speed, direction);
     WindSensorValue windSensorValue2 = new WindSensorValue(speed, direction);
@@ -161,8 +200,8 @@ class WindSensorValueTest {
   @Test
   void shouldReturnNotEquals_WhenHashCodeCalledIsDifferent() {
     // Arrange
-    WindSensorValue windSensorValue = new WindSensorValue(10.5, 20.5);
-    int expected = Double.hashCode(10.5) - Double.hashCode(20.5);
+    WindSensorValue windSensorValue = new WindSensorValue(10.5, 3);
+    int expected = Double.hashCode(10.5) - Double.hashCode(4);
     // Act
     int result = windSensorValue.hashCode();
 
@@ -176,7 +215,7 @@ class WindSensorValueTest {
   @Test
   void shouldNotReturnZero_WhenValuesAreNonZero() {
     // Arrange
-    WindSensorValue windSensorValue = new WindSensorValue(10.5, 20.5);
+    WindSensorValue windSensorValue = new WindSensorValue(10.5, 3);
 
     // Act
     int hashCode = windSensorValue.hashCode();

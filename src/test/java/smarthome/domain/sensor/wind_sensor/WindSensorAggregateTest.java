@@ -74,7 +74,7 @@ class WindSensorAggregateTest {
 
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> new WindSensor(deviceID, null, sensorTypeID, sensorName));
+        () -> new WindSensor(deviceID, modelPath, sensorTypeID, sensorName));
 
     // Assert
     assertEquals("ModelPath is required", exception.getMessage());
@@ -95,7 +95,7 @@ class WindSensorAggregateTest {
 
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> new WindSensor(deviceID, modelPath, sensorTypeID, null));
+        () -> new WindSensor(deviceID, modelPath, sensorTypeID, sensorName));
 
     // Assert
     assertEquals("SensorName is required", exception.getMessage());
@@ -116,7 +116,7 @@ class WindSensorAggregateTest {
 
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> new WindSensor(deviceID, modelPath, null, sensorName));
+        () -> new WindSensor(deviceID, modelPath, sensorTypeID, sensorName));
 
     // Assert
     assertEquals("SensorTypeID is required", exception.getMessage());
@@ -188,7 +188,7 @@ class WindSensorAggregateTest {
 
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> new WindSensor(null, modelPath, sensorTypeID, sensorName, sensorID));
+        () -> new WindSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));
 
     // Assert
     assertEquals("DeviceID is required", exception.getMessage());
@@ -212,7 +212,7 @@ class WindSensorAggregateTest {
 
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> new WindSensor(deviceID, null, sensorTypeID, sensorName, sensorID));
+        () -> new WindSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));
 
     // Assert
     assertEquals("ModelPath is required", exception.getMessage());
@@ -236,7 +236,7 @@ class WindSensorAggregateTest {
 
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> new WindSensor(deviceID, modelPath, sensorTypeID, null, sensorID));
+        () -> new WindSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));
 
     // Assert
     assertEquals("SensorName is required", exception.getMessage());
@@ -260,7 +260,7 @@ class WindSensorAggregateTest {
 
     // Act
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-        () -> new WindSensor(deviceID, modelPath, null, sensorName, sensorID));
+        () -> new WindSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID));
 
     // Assert
     assertEquals("SensorTypeID is required", exception.getMessage());
@@ -407,8 +407,6 @@ class WindSensorAggregateTest {
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
         () -> new WindSensor(deviceID, modelPath, sensorTypeID, sensorName));
 
-    String actualMessage = exception.getMessage();
-
     // Assert
     assertEquals(expectedMessage, exception.getMessage());
   }
@@ -499,11 +497,8 @@ class WindSensorAggregateTest {
     ModelPath modelPath = new ModelPath(modelPathValue);
     SensorName sensorName = new SensorName(sensorNameValue);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-
     WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
-
     SensorID sensorID = windSensor.getID();
-
     int expected = sensorID.hashCode();
 
     // Act
@@ -527,9 +522,7 @@ class WindSensorAggregateTest {
     ModelPath modelPath = new ModelPath(modelPathValue);
     SensorName sensorName = new SensorName(sensorNameValue);
     SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-
     WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName);
-
     String expected = "WindSensor: DeviceID= " + deviceIDValue + " ModelPath= " + modelPathValue
         + " SensorTypeID= " + sensorTypeIDValue + " SensorName= " + sensorNameValue + " SensorID= "
         + windSensor.getID();
@@ -542,30 +535,8 @@ class WindSensorAggregateTest {
   }
 
   /**
-   * Tests the instantiation of WindSensor when the constructor arguments are valid.
+   * Tests the instantiation of WindSensor when the deviceID is null.
    */
-  @Test
-  void shouldInstantiateWindSensor_WhenSensorIDIsValid() {
-    // Arrange
-    String deviceIDValue = "some-device-id";
-    String modelPathValue = "some-model-path";
-    String sensorNameValue = "sensorName";
-    String sensorTypeIDValue = "Wind";
-    String sensorIDValue = "sensorID";
-
-    DeviceID deviceID = new DeviceID(deviceIDValue);
-    ModelPath modelPath = new ModelPath(modelPathValue);
-    SensorName sensorName = new SensorName(sensorNameValue);
-    SensorTypeID sensorTypeID = new SensorTypeID(sensorTypeIDValue);
-    SensorID sensorID = new SensorID(sensorIDValue);
-
-    // Act
-    WindSensor windSensor = new WindSensor(deviceID, modelPath, sensorTypeID, sensorName, sensorID);
-
-    // Assert
-    assertNotNull(windSensor);
-  }
-
   @Test
   void shouldThrowException_WhenSensorIDIsNull() {
     // Arrange
@@ -592,6 +563,9 @@ class WindSensorAggregateTest {
 
   }
 
+  /**
+   * Tests the accept method of WindSensor.
+   */
   @Test
   void shouldAcceptVisitorAndReturnInstanceOfObjectInString() {
     // Arrange
@@ -615,6 +589,4 @@ class WindSensorAggregateTest {
     // Assert
     assertEquals(expected, result);
   }
-
-
 }
