@@ -1,84 +1,99 @@
 <?xml version="1.0" encoding="us-ascii" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" contentStyleType="text/css"
-     height="299px" preserveAspectRatio="none" style="width:346px;height:299px;background:#FFFFFF;" version="1.1"
-     viewBox="0 0 346 299" width="346px" zoomAndPan="magnify">
+     height="280.8px" preserveAspectRatio="none" style="width:550px;height:280px;background:#FFFFFF;" version="1.1"
+     viewBox="0 0 550 280" width="550.8px" zoomAndPan="magnify">
     <defs/>
     <g>
-        <rect fill="#FFFFFF" height="87.9316" style="stroke:#181818;stroke-width:1.0;" width="10" x="18.5"
-              y="112.7988"/>
-        <rect fill="#FFFFFF" height="29.3105" style="stroke:#181818;stroke-width:1.0;" width="10" x="288.5"
-              y="112.7988"/>
-        <rect fill="#FFFFFF" height="29.3105" style="stroke:#181818;stroke-width:1.0;" width="10" x="288.5"
-              y="171.4199"/>
-        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="23" x2="23" y1="81.4883"
-              y2="218.7305"/>
-        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="293.5" x2="293.5" y1="81.4883"
-              y2="218.7305"/>
-        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="5"
-              y="78.5352">User
+        <rect fill="#DDDDDD" height="267.0352" style="stroke:#181818;stroke-width:0.6;" width="256.8" x="287.4"
+              y="7.2"/>
+        <text fill="#000000" font-family="sans-serif" font-size="15.6" font-weight="bold" lengthAdjust="spacing"
+              textLength="93.6" x="369" y="22.282">SmartHome
         </text>
-        <ellipse cx="23.5" cy="13.5" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
-        <path d="M23.5,21.5 L23.5,48.5 M10.5,29.5 L36.5,29.5 M23.5,48.5 L10.5,63.5 M23.5,48.5 L36.5,63.5 " fill="none"
-              style="stroke:#181818;stroke-width:0.5;"/>
-        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="5"
-              y="231.2656">User
+        <rect fill="#FFFFFF" height="105.518" style="stroke:#181818;stroke-width:1.2;" width="12" x="332.4"
+              y="105.7313"/>
+        <rect fill="#FFFFFF" height="35.1727" style="stroke:#181818;stroke-width:1.2;" width="12" x="490.8"
+              y="140.9039"/>
+        <line style="stroke:#181818;stroke-width:0.6;stroke-dasharray:5.0,5.0;" x1="16.8" x2="16.8" y1="68.1586"
+              y2="232.8492"/>
+        <line style="stroke:#181818;stroke-width:0.6;stroke-dasharray:5.0,5.0;" x1="337.8" x2="337.8" y1="68.1586"
+              y2="232.8492"/>
+        <line style="stroke:#181818;stroke-width:0.6;stroke-dasharray:5.0,5.0;" x1="496.2" x2="496.2" y1="68.1586"
+              y2="232.8492"/>
+        <rect fill="#E2E2F0" height="36.5859" rx="3" ry="3" style="stroke:#181818;stroke-width:0.6;" width="21.6" x="6"
+              y="30.3727"/>
+        <text fill="#000000" font-family="sans-serif" font-size="16.8" lengthAdjust="spacing" textLength="4.8" x="14.4"
+              y="55.0148">&#160;
         </text>
-        <ellipse cx="23.5" cy="242.7188" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
-        <path d="M23.5,250.7188 L23.5,277.7188 M10.5,258.7188 L36.5,258.7188 M23.5,277.7188 L10.5,292.7188 M23.5,277.7188 L36.5,292.7188 "
-              fill="none" style="stroke:#181818;stroke-width:0.5;"/>
-        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="94"
-              x="246.5" y="50"/>
-        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="253.5"
-              y="70.5352">SmartHome
+        <rect fill="#E2E2F0" height="36.5859" rx="3" ry="3" style="stroke:#181818;stroke-width:0.6;" width="21.6" x="6"
+              y="231.6492"/>
+        <text fill="#000000" font-family="sans-serif" font-size="16.8" lengthAdjust="spacing" textLength="4.8" x="14.4"
+              y="256.2914">&#160;
         </text>
-        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="94"
-              x="246.5" y="217.7305"/>
-        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="253.5"
-              y="238.2656">SmartHome
+        <rect fill="#E2E2F0" height="36.5859" rx="3" ry="3" style="stroke:#181818;stroke-width:0.6;" width="92.4"
+              x="292.2" y="30.3727"/>
+        <text fill="#000000" font-family="sans-serif" font-size="16.8" lengthAdjust="spacing" textLength="75.6"
+              x="300.6" y="55.0148">Frontend
         </text>
-        <rect fill="#FFFFFF" height="87.9316" style="stroke:#181818;stroke-width:1.0;" width="10" x="18.5"
-              y="112.7988"/>
-        <rect fill="#FFFFFF" height="29.3105" style="stroke:#181818;stroke-width:1.0;" width="10" x="288.5"
-              y="112.7988"/>
-        <rect fill="#FFFFFF" height="29.3105" style="stroke:#181818;stroke-width:1.0;" width="10" x="288.5"
-              y="171.4199"/>
-        <polygon fill="#181818" points="276.5,108.7988,286.5,112.7988,276.5,116.7988,280.5,112.7988"
-                 style="stroke:#181818;stroke-width:1.0;"/>
-        <line style="stroke:#181818;stroke-width:1.0;" x1="28.5" x2="282.5" y1="112.7988" y2="112.7988"/>
-        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
-              textLength="9" x="35.5" y="108.0566">1
+        <rect fill="#E2E2F0" height="36.5859" rx="3" ry="3" style="stroke:#181818;stroke-width:0.6;" width="92.4"
+              x="292.2" y="231.6492"/>
+        <text fill="#000000" font-family="sans-serif" font-size="16.8" lengthAdjust="spacing" textLength="75.6"
+              x="300.6" y="256.2914">Frontend
         </text>
-        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="202" x="48.5"
-              y="108.0566">I want to add a device to a room
+        <rect fill="#E2E2F0" height="36.5859" rx="3" ry="3" style="stroke:#181818;stroke-width:0.6;" width="85.2"
+              x="454.2" y="30.3727"/>
+        <text fill="#000000" font-family="sans-serif" font-size="16.8" lengthAdjust="spacing" textLength="68.4"
+              x="462.6" y="55.0148">Backend
         </text>
-        <polygon fill="#181818" points="39.5,138.1094,29.5,142.1094,39.5,146.1094,35.5,142.1094"
-                 style="stroke:#181818;stroke-width:1.0;"/>
-        <line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="33.5" x2="292.5" y1="142.1094"
-              y2="142.1094"/>
-        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
-              textLength="9" x="45.5" y="137.3672">2
+        <rect fill="#E2E2F0" height="36.5859" rx="3" ry="3" style="stroke:#181818;stroke-width:0.6;" width="85.2"
+              x="454.2" y="231.6492"/>
+        <text fill="#000000" font-family="sans-serif" font-size="16.8" lengthAdjust="spacing" textLength="68.4"
+              x="462.6" y="256.2914">Backend
         </text>
-        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="223" x="58.5"
-              y="137.3672">which room, device name and type?
+        <rect fill="#FFFFFF" height="105.518" style="stroke:#181818;stroke-width:1.2;" width="12" x="332.4"
+              y="105.7313"/>
+        <rect fill="#FFFFFF" height="35.1727" style="stroke:#181818;stroke-width:1.2;" width="12" x="490.8"
+              y="140.9039"/>
+        <ellipse cx="16.2" cy="104.8313" fill="none" rx="4.8" ry="4.8"
+                 style="stroke:#181818;stroke-width:1.7999999999999998;"/>
+        <polygon fill="#181818" points="318,100.9312,330,105.7313,318,110.5313,322.8,105.7313"
+                 style="stroke:#181818;stroke-width:1.2;"/>
+        <line style="stroke:#181818;stroke-width:1.2;" x1="21.6" x2="325.2" y1="105.7313" y2="105.7313"/>
+        <text fill="#000000" font-family="sans-serif" font-size="15.6" font-weight="bold" lengthAdjust="spacing"
+              textLength="10.8" x="25.2" y="100.0406">1
         </text>
-        <polygon fill="#181818" points="276.5,167.4199,286.5,171.4199,276.5,175.4199,280.5,171.4199"
-                 style="stroke:#181818;stroke-width:1.0;"/>
-        <line style="stroke:#181818;stroke-width:1.0;" x1="28.5" x2="282.5" y1="171.4199" y2="171.4199"/>
-        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
-              textLength="9" x="35.5" y="166.6777">3
+        <text fill="#000000" font-family="sans-serif" font-size="15.6" lengthAdjust="spacing" textLength="277.2"
+              x="40.8" y="100.0406">I want to add a new device to a room
         </text>
-        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="177" x="48.5"
-              y="166.6777">room, device name and type
+        <polygon fill="#181818" points="476.4,136.1039,488.4,140.9039,476.4,145.7039,481.2,140.9039"
+                 style="stroke:#181818;stroke-width:1.2;"/>
+        <line style="stroke:#181818;stroke-width:1.2;" x1="344.4" x2="483.6" y1="140.9039" y2="140.9039"/>
+        <text fill="#000000" font-family="sans-serif" font-size="15.6" font-weight="bold" lengthAdjust="spacing"
+              textLength="10.8" x="352.8" y="135.2133">2
         </text>
-        <polygon fill="#181818" points="34.5,196.7305,24.5,200.7305,34.5,204.7305,30.5,200.7305"
-                 style="stroke:#181818;stroke-width:1.0;"/>
-        <line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="28.5" x2="292.5" y1="200.7305"
-              y2="200.7305"/>
-        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
-              textLength="9" x="40.5" y="195.9883">4
+        <text fill="#000000" font-family="sans-serif" font-size="15.6" lengthAdjust="spacing" textLength="108" x="368.4"
+              y="135.2133">POST /devices
         </text>
-        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="82" x="53.5"
-              y="195.9883">device added
-        </text><!--SRC=[TOwnZW8n34HxVuLlcsjksNwBe-Lgn0UOn68ZhPDSue3uUvA8Em4ItOmyypoVYshCypJ5bRmMMJSco9Jvjx0tF5f7fqG2y14JdOHmfMieYbbOoHC05Gs-o95JrKP3mk6GEGr86Pk0I4cTSR7ISTXBTRiWtE_x7K3BuFXTDSxuWvSMqu1aBH9QFZl3tMCAGTe7ToRbLltN_GrKm5WvdJVZPN5cwPslFuedOIHlKQ-Hjs3v4VQyuttlQS7Bptk-JcVxYd-mVUuD]-->
+        <polygon fill="#181818" points="357.6,171.2766,345.6,176.0766,357.6,180.8766,352.8,176.0766"
+                 style="stroke:#181818;stroke-width:1.2;"/>
+        <line style="stroke:#181818;stroke-width:1.2;stroke-dasharray:2.0,2.0;" x1="350.4" x2="495.6" y1="176.0766"
+              y2="176.0766"/>
+        <text fill="#000000" font-family="sans-serif" font-size="15.6" font-weight="bold" lengthAdjust="spacing"
+              textLength="10.8" x="364.8" y="170.3859">3
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="15.6" lengthAdjust="spacing" textLength="70.8"
+              x="380.4" y="170.3859">Json, 201
+        </text>
+        <ellipse cx="16.2" cy="210.3492" fill="none" rx="4.8" ry="4.8"
+                 style="stroke:#181818;stroke-width:1.7999999999999998;"/>
+        <polygon fill="#181818" points="36.6,206.4492,24.6,211.2492,36.6,216.0492,31.8,211.2492"
+                 style="stroke:#181818;stroke-width:1.2;"/>
+        <line style="stroke:#181818;stroke-width:1.2;stroke-dasharray:2.0,2.0;" x1="34.2" x2="337.2" y1="211.2492"
+              y2="211.2492"/>
+        <text fill="#000000" font-family="sans-serif" font-size="15.6" font-weight="bold" lengthAdjust="spacing"
+              textLength="10.8" x="37.2" y="205.5586">4
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="15.6" lengthAdjust="spacing" textLength="70.8" x="52.8"
+              y="205.5586">Json, 201
+        </text><!--SRC=[TO_1JiGm34Jl_WhJ2nTAWUCUE5JQ2hY0jF01tiJQhMZYaZYxyFSu1GG8uLmipviPvNIlEkTLryqJHIrXEdSIkimlXQFZre-qInJWP4wq2uGJlKbHp86L8W5GKOabR3d1J4b7DyuMWuqzolYKxGvRUSLc4qo-aS0DeCrFU4WIbQElZc7zH-x9FN-g_HhgPe40KCDHsclpu0flyLXX5IHlB4O-ekV3w7YvOH89G4x70odN6Z2RcVjgVhZVF6BtWUTlokh0zFQhuovBFCEhYqlm_0iQ5aYM__x7rKfu1m00]-->
     </g>
 </svg>

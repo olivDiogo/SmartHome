@@ -12,16 +12,16 @@ box "SmartHome"
     participant "Backend" as SV
 end box
 
-User o-> FE : GET /rooms
+User o-> FE : I want to have a list of all rooms in the house
 activate FE
 
 FE -> SV : GET /rooms
 activate SV
 
-SV --> FE : HTTP 200 Ok
+SV --> FE : Json, 200
 deactivate SV
 
-FE -->o User : ok
+FE -->o User : Json, 200
 deactivate FE
 
 

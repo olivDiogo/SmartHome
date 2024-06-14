@@ -11,16 +11,16 @@ box "SmartHome"
 end box
 
 
-User o-> FE : POST /devices
+User o-> FE : I want to add a new device to a room
 activate FE
 
 FE -> BE : POST /devices
 activate BE
 
-BE --> FE : HTTP status 200
+BE --> FE : Json, 201
 deactivate BE
 
-FE -->o User : ok
+FE -->o User : Json, 201
 deactivate FE
 
 
