@@ -1,6 +1,6 @@
-## Smart Home Domain Model
+## Smart Home - Switch 2023/2024 - Group 1
 
-This repository contains a well-structured domain model for a smart home system, built using a Domain-Driven Design (DDD) approach. 
+This repository contains a well-structured domain model for a smart home system, built using a Domain-Driven Design (DDD) approach and Clean Architecture. 
 
 The core focus is on separating the business logic from infrastructure concerns like persistence, allowing for clean, testable, and maintainable code.
 
@@ -36,6 +36,13 @@ The core focus is on separating the business logic from infrastructure concerns 
 
 * **DTO Mapping:**  Assemblers handle the conversion between domain objects and data transfer objects (DTOs), isolating the domain model from external concerns.
 
+### Requirements:
+
+* **Java:** JDK 17 or later.
+* **npm:** v6 or later
+* **Maven:** v3.6 or later
+* **Docker:** for docker deploymnet.
+
 ### Getting Started:
 
 1. **Clone the repository:**
@@ -69,15 +76,15 @@ The core focus is on separating the business logic from infrastructure concerns 
    cd smarthome
    ./build.sh docker
    ```
-    * This will deploy 4 container, adminer for database management, tomcat to host the application backend, nginx to host the frontend, mariadb for the persistence!
+    * This will deploy 4 container, adminer for easier database management, tomcat to host the application backend, nginx to host the frontend, mariadb for the persistence.
+    * Further information regarding the docker deployment can be found in the wiki of this project.
       
 3. **Explore the application**
-    * This will start three containers locally, mariadb adminer and tomcat. You can acess the application at http://localhost:8080/smarthome and explore the database with adminer at http://localhost:8282.
-  
-4. **A live demo of the application is running on the DEI servers**
+    * A live demo of the application is running on the DEI servers
+    * You will need to connect to the DEI VPN in order to acess the demo.
     * For more information regarding deployment to a web server visit our wiki.
     * Check our application: [Live demo](http://vs460.dei.isep.ipp.pt/)
-    * For deployment of recent versions: [Jenkins login](http://vs460.dei.isep.ipp.pt/jenkins)
+    * Deployment of recent versions is done using: [Jenkins](http://vs460.dei.isep.ipp.pt/jenkins)
 
 ### Project Structure:
 
