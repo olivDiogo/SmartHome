@@ -1,43 +1,14 @@
-import {FETCH_TEMPERATURE_FAILURE} from "../context/TemperatureActions.jsx";
-
-export function configureWeatherService() {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 7000); // 7 seconds timeout
-
-    return fetch("http://10.9.24.170:8080/WeatherServiceConfiguration", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            "groupNumber": 1,
-            "latitude": 40.00,
-            "longitude": 80.00
-        }),
-        signal: controller.signal
-    }).then(response => {
-        clearTimeout(timeoutId); // Clear the timeout on success
-        if (!response.ok) {
-            throw new Error("Weather service configuration failed");
-        }
-        return response.json();
-    }).catch(error => {
-        clearTimeout(timeoutId); // Clear the timeout on failure
-        if (error.name === 'AbortError') {
-            throw new Error("Please check your VPN DEI connection and try again");
-        }
-        throw new Error("Please check your VPN DEI connection and try again");
-    });
-}
-
 export function fetchTemperatureFromWS(success, failure) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 7000); // 7 seconds timeout
 
     const now = new Date();
     const hour = now.getHours();
+    const groupNumber = 1;
+    const latitude = 41.1784964;
+    const longitude = -8.6089491;
 
-    fetch(`http://10.9.24.170:8080/InstantaneousTemperature?groupNumber=1&hour=${hour}`, {signal: controller.signal})
+    fetch(`http://10.9.24.170:8080/InstantaneousTemperature?groupNumber=${groupNumber}&latitude=${latitude}&longitude=${longitude}&hour=${hour}`, {signal: controller.signal})
         .then((response) => {
             clearTimeout(timeoutId); // Clear the timeout on success
             return response.json();
@@ -94,13 +65,7 @@ export function configureAndFetchTemperature(dispatch, fetchTemperature) {
         }, delay);
     };
 
-    configureWeatherService()
-        .then(startFetching)
-        .catch((err) => {
-            console.error("Error configuring weather service:", err);
-            // If there's an error, update loading state to false
-            dispatch({type: FETCH_TEMPERATURE_FAILURE, payload: {error: err.message}});
-        });
+    startFetching();
 
     return {
         clearTimers: () => {
