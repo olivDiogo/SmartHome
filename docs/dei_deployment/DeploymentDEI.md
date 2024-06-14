@@ -206,6 +206,6 @@
 
 - 2 - The pipeline will build the application and deploy it to the tomcat server.
 
-![img.png](pipelineStages.png)
+![img.png](screenshots/pipelineStages.png)
 
 - 3 - There is no stage for tests due to memory limits withing the DEI server
