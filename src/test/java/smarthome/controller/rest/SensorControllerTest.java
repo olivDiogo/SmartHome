@@ -565,7 +565,8 @@ class SensorControllerTest {
 
     //Act + Assert
     mockMvc.perform(get("/sensors?deviceID=" + deviceIDStr))
-        .andExpect(status().isOk());
-
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].sensorID").value(sensor.getID().getID()))
+        .andExpect(jsonPath("$[0].sensorName").value(sensor.getSensorName().getSensorName()));
   }
 }
