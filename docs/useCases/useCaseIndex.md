@@ -28,6 +28,24 @@
 
 [uc14](uc14_toGetMaxPowerConsumptionOverAPeriod/uc14_readme.md) - To Get the Maximum Power Consumption over a Period
 
-[uc15]() - To Get Actuators By Device ID
+[uc15](uc15_toGetActuatorsByDeviceID/uc15_readme.md) - To Get Actuators By Device ID
 
 [uc16](uc16_toCloseBlindRoller/uc16_readme.md) - To close a Blind Roller
+
+[uc17]() - To open a Blind Roller
+
+[uc18](uc18_frontendToOutsideTemperatureMainPage/uc18_readme.md) - To get the outside temperature on main page
+
+[uc19](uc19_frontendToAddDeviceToRoom/uc19_readme.md) - To add device to a room
+
+[uc20](uc20_frontendToConfigureADevice/uc20_readme.md) - To configure a device
+
+[uc21](uc21_frontendToHaveListAllRoomsInTheHouse/uc21_readme.md) - To have a list of rooms in the house
+
+[uc22](uc22_frontendToGetListOfDevices/uc22_readme.md) - To get a lis of devices in a room
+
+[uc23](uc23_frontendToGetListOfLogs/uc23_readme.md) - To get a list of logs in a device
+
+[uc24](uc24_frontendToGetBlinRollerPosition/uc24_readme.md) - To get a blind roller position
+
+[uc25](uc25_frontendToSetBlindRoller/uc25_readme.md) - To set the position for a blind roller that is in a room
