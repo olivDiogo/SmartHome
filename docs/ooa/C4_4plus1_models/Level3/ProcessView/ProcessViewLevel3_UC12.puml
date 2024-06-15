@@ -4,8 +4,7 @@
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
+participant " " as User
 
 box "SmartHome"
     participant "Controller" as CTRL
@@ -16,16 +15,14 @@ box "SmartHome"
 end box
 
 
-User -> RC : I want to get all devices by room and temperature functionality
-activate RC
+User o-> CTRL : GET /devices?room_id={roomId}&device_type_id={Temperature}
 
-RC -> CTRL : getDevicesByRoomAndTemperatureFunctionality(roomID)
 activate CTRL
 
 CTRL -> DOM : RoomID(strRoomID)
 activate DOM
 
-DOM -> CTRL : roomID
+DOM --> CTRL : roomID
 deactivate DOM
 
 CTRL -> SV: getDevicesByRoomID(roomID)
@@ -51,7 +48,7 @@ deactivate SV
 CTRL -> DOM : deviceTypeID(strDeviceType)
 activate DOM
 
-DOM -> CTRL : deviceTypeID
+DOM --> CTRL : deviceTypeID
 deactivate DOM
 
 CTRL -> SV : getDevicesByDeviceTypeID(deviceTypeID)
@@ -72,11 +69,9 @@ deactivate REPO
 SV --> CTRL : deviceList
 deactivate SV
 
-CTRL --> RC : deviceDTOList
+CTRL -->o User : Json/status 200
 deactivate CTRL
 
-RC --> User :  deviceDTOList
-deactivate RC
 
 
 @enduml

@@ -1,8 +1,7 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-actor "User" as User
-participant RestClient as "RestClient"
+participant " " as User
 box "Power Consumption"
 participant Controller as "Controller"
 participant Service as "Service"
@@ -13,21 +12,20 @@ end box
 
 autonumber
 
-User -> RestClient :  want to get the maximum instantaneous temperature difference between a device in the room and the outside
 
-activate RestClient
-
-RestClient -> Controller: getMaxInstTempDiffBetweenDeviceAndOutside (outsideDeviceDTO, insideDeviceDTO, initialTime, endTime, timeDelta)
+User o-> Controller: GET /logs/temperature-difference?outsideDeviceIDStr={outsideDeviceIDStr}&insideDeviceIDStr={insideDeviceIDStr}&initialTime={initialTime}&finalTime={finalTime}&timeDelta={timeDelta} (outsideDeviceDTO, insideDeviceDTO, initialTime, endTime, timeDelta)
 
 activate Controller
 
 Controller -> Domain :DeviceID(outsideDeviceIDStr)
 activate Domain
+
 Domain --> Controller : deviceID
 deactivate Domain
 
 Controller -> Domain: DeviceID(insideDeviceIDStr)
 activate Domain
+
 Domain --> Controller : deviceID
 deactivate Domain
 
@@ -86,11 +84,9 @@ activate Service
 Service --> Controller: maxInstTempDiff
 deactivate Service
 
-Controller --> RestClient: maxInstTempDiff
+Controller -->o User: maxInstTempDiff
 deactivate Controller
 
-RestClient --> User: maxInstTempDiff
-deactivate RestClient
 
 
 
