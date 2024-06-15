@@ -195,7 +195,6 @@ class SwitchSensorTest {
     SwitchSensorValue sensorValue = mock(SwitchSensorValue.class);
     when(sensorValue.toString()).thenReturn("On");
 
-    String expectedSensorValue = "On";
 
     try (MockedConstruction<SensorID> sensorIDMockedConstruction = mockConstruction(SensorID.class,
         (mock, context) -> {
