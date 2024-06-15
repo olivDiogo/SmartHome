@@ -53,7 +53,7 @@ if [ -x "${MVN_DIR}/mvnw" ]; then
             trap 'if [ -d "${DOCKER_COMPOSE_DIR}/frontend/dist_backup" ]; then rm -rf "${DOCKER_COMPOSE_DIR}/frontend/dist_backup"; echo "Removed backup of frontend build folder."; fi' EXIT
 
             echo "Deploying docker-compose..."
-            sudo docker compose -f "${DOCKER_COMPOSE_DIR}/docker-compose.yml" up -d || handle_error "docker compose up failed."
+            docker compose -f "${DOCKER_COMPOSE_DIR}/docker-compose.yml" up -d || handle_error "docker compose up failed."
             ;;
         *)
             echo "Running mvnw package in ${MVN_DIR} with default profile..."
