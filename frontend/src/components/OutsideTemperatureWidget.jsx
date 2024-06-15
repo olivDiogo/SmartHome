@@ -58,9 +58,9 @@ function OutsideTemperatureWidget() {
             return <CircularProgress/>;
         } else if (error !== null) {
             // Truncate the error message to fit within the box
-            const truncatedError = error.length > 50 ? error.substring(0, 50) + "..." : error;
+            const truncatedError = error ? (error.length > 50 ? error.substring(0, 50) + "..." : error) : "Please check your VPN DEI connection and try again";
             return (
-                <Typography variant="subtitle1" style={{textAlign: "center"}}>
+                <Typography variant="h5" style={{textAlign: "center"}}>
                     Error: {truncatedError}
                 </Typography>
             );
@@ -85,7 +85,7 @@ function OutsideTemperatureWidget() {
 
     return (
         <Box>
-                {renderContent()}
+            {renderContent()}
         </Box>
     );
 }
