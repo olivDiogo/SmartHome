@@ -71,13 +71,11 @@ public class SwitchSensor implements ISensor {
     Validator.validateNotNull(sensorName, "SensorName");
     Validator.validateNotNull(sensorID, "SensorID");
 
-    switchSensorValue = new SwitchSensorValue(false);
     this.modelPath = modelPath;
     this.sensorName = sensorName;
     this.sensorTypeID = sensorTypeID;
     this.deviceID = deviceID;
     this.sensorID = sensorID;
-
   }
 
 
