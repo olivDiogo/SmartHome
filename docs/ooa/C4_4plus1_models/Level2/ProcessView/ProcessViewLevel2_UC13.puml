@@ -7,17 +7,24 @@ autonumber
 participant " " as HTTP
 
 box "SmartHome"
+    participant "Frontend" as FE
     participant "Backend" as BE
 
 end box
 
 
-HTTP o-> BE : GET /logs/temperature-difference?outsideDeviceIDStr={outsideDeviceIDStr}&insideDeviceIDStr={insideDeviceIDStr}&initialTime={initialTime}&finalTime={finalTime}&timeDelta={timeDelta}
+HTTP o-> FE : I want the maximum instantaneous temperature difference between outside and inside
+activate FE
+
+FE -> BE : GET /temperature
 activate BE
 
-
-BE -->o HTTP : Json status 200 ok
+BE --> FE : JSON, status 200
 deactivate BE
+
+FE -->o HTTP : temperature
+deactivate FE
+
 
 
 

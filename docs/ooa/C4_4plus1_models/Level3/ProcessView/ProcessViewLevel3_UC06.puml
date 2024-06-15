@@ -14,7 +14,7 @@ box "Server"
     participant "Domain" as DOM
 
 end box
-participant "DataBase" as BD
+participant " " as BD
 
 
 HTTP o-> CTRL : GET /devices?room_id={roomId}
@@ -31,11 +31,9 @@ activate SV
 SV -> REPO : findByRoomID(roomId)
 activate REPO
 
-REPO -> BD : find
-activate BD
+REPO ->o BD : find
 
-BD --> REPO : deviceDataModelList
-deactivate BD
+BD o--> REPO : deviceDataModelList
 
 REPO --> SV : deviceList
 deactivate REPO

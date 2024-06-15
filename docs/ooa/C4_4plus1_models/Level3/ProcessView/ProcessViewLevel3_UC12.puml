@@ -11,8 +11,9 @@ box "SmartHome"
     participant "Service" as SV
     participant "Repository" as REPO
     participant "Domain" as DOM
-    participant "DataBase" as BD
 end box
+    participant " " as BD
+
 
 
 User o-> CTRL : GET /devices?room_id={roomId}&device_type_id={Temperature}
@@ -31,12 +32,10 @@ activate SV
 SV -> REPO : findByRoomID(roomID)
 activate REPO
 
-REPO -> BD : find
-activate BD
+REPO ->o BD : find
 
 
-BD --> REPO : deviceDataModelList
-deactivate BD
+BD o--> REPO : deviceDataModelList
 
 REPO --> SV : deviceList
 deactivate REPO
@@ -57,11 +56,9 @@ activate SV
 SV -> REPO : findByDeviceTypeID(deviceTypeID)
 activate REPO
 
-REPO -> BD : find
-activate BD
+REPO ->o BD : find
 
-BD --> REPO : deviceDataModelList
-deactivate BD
+BD o--> REPO : deviceDataModelList
 
 REPO --> SV : deviceList
 deactivate REPO
