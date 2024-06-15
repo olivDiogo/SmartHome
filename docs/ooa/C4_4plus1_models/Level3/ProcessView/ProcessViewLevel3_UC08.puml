@@ -4,67 +4,63 @@
 
 autonumber
 
-actor "User" as User
-participant "RestClient" as RC
-box "Smart Home"
+participant " " as HTTP
+
+box "Server"
     participant "Controller" as CTRL
         participant "Service" as SV
         participant "Repository" as REPO
         participant "Domain" as DOM
-        participant "DataBase" as BD
 end box
+participant " " as BD
 
 
 
-User -> RC : I want to deactivate a device
-activate RC
-
-RC -> CTRL : getAllDevices()
+HTTP o-> CTRL : PUT /devices/deactivate/{id}
 activate CTRL
 
-CTRL -> SV : getAllDevices()
-activate SV
-
-SV -> REPO : findAll()
-activate REPO
-
-REPO -> BD : find
-activate BD
-
-BD --> REPO : deviceDataModelList
-deactivate BD
-
-REPO --> SV : deviceList
-deactivate REPO
-
-SV --> CTRL : deviceList
-deactivate SV
-
-CTRL --> RC : deviceList
-
-RC -> CTRL : deactivateDevice(deviceDTO)
-
-CTRL -> DOM : DeviceID(strDeviceID)
+CTRL -> DOM: DeviceID(strDeviceID)
 activate DOM
+
 DOM --> CTRL : deviceID
 deactivate DOM
 
-CTRL -> SV : deactivateDeviceByID(deviceID)
+CTRL -> SV : getDeviceByID(deviceID)
 activate SV
 
-SV -> DOM : deactivateDevice(): Status
-activate DOM
-
-DOM --> SV : status
-deactivate DOM
+SV -> REPO : ofIdentity(deviceId)
+activate REPO
+REPO ->o BD : findDeviceByID
+BD o--> REPO : device
+REPO --> SV : device
+deactivate REPO
 
 SV --> CTRL : device
 deactivate SV
 
-CTRL --> RC : deviceDTO
+
+CTRL -> SV : deactivateDeviceByID(deviceID)
+activate SV
+
+
+SV -> DOM : deactivateDevice(): Status
+activate DOM
+DOM --> SV : status
+deactivate DOM
+
+SV -> REPO : update(device)
+activate REPO
+
+REPO ->o BD : update
+BD o--> REPO : deviceUpdated
+REPO --> SV : deviceUpdated
+deactivate REPO
+
+SV --> CTRL : deviceUpdated
+deactivate SV
+
+CTRL -->o HTTP : JSON status 200 OK
 deactivate CTRL
 
-RC --> User : deviceDTO
-deactivate RC
 
 @enduml

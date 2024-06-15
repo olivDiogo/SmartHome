@@ -9,10 +9,10 @@ box "Smart Home"
     participant "Backend" as BE
 end box
 
-HTTP -> BE : PUT /device/deactivate/{id}
+HTTP o-> BE : PUT /device/deactivate/{id}
 activate BE
 
-BE --> HTTP : deviceDTO
+BE -->o HTTP : JSON 200 OK
 deactivate BE
 
 @enduml
