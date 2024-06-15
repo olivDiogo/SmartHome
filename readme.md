@@ -66,7 +66,7 @@ The core focus is on separating the business logic from infrastructure concerns 
    * Review the `repository` package to see how data access is abstracted.
    * Look into the `persistence` package to explore the specific persistence implementations.
   
-### Docker deploymnet:
+### Docker deployment:
 1. **Clone the repository:**
    ```
    git clone https://github.com/Departamento-de-Engenharia-Informatica/2023-2024-switch-dev-project-assignment-grupo-1 smarthome
