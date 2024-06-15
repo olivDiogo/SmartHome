@@ -32,7 +32,7 @@
 
 [uc16](uc16_toCloseBlindRoller/uc16_readme.md) - To close a Blind Roller
 
-[uc17]() - To open a Blind Roller
+[uc17](uc17_toGetSunsetSunriseTimes/uc17_readme.md) - To open a Blind Roller
 
 [uc18](uc18_frontendToOutsideTemperatureMainPage/uc18_readme.md) - To get the outside temperature on main page
 
