@@ -10,11 +10,11 @@ participant SmartHome as SH
 
 activate User
 
-User -> SH : I want to have current outside temperature on the main page
+User -> SH : I want to have sunrise and sunset times on the main page
 activate SH
 
 
-SH --> User : outsideTemperature
+SH --> User : sunset and sunrise times
 deactivate SH
 deactivate User
 
