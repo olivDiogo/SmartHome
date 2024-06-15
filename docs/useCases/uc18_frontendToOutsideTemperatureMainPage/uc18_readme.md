@@ -35,7 +35,7 @@ None.
 ## 2. Design
 
 ### 2.1. Sequence Diagram
-![UC018-SD](artifacts/uc18_SD_v1.svg)
+![UC018-SD](artifacts/uc18_SD_v2.svg)
 
 
 ### 2.3 Applied Patterns

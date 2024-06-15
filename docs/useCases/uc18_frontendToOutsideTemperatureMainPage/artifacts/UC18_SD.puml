@@ -16,17 +16,11 @@ autonumber
 [o-> FE : I want to have current outside temperature on the main page
 activate FE
 
-FE -> WS : POST / WeatherServiceConfiguration
+FE -> WS : GET / InstantaneousTemperature
 activate WS
 
-WS --> FE : Response
-
-
-WS -> WS : GET / InstantaneousTemperature
-
-WS --> FE : outsideTemperature
+WS --> FE : Json, status 200
 deactivate WS
-
 
 [o<-- FE : outsideTemperature
 deactivate FE
