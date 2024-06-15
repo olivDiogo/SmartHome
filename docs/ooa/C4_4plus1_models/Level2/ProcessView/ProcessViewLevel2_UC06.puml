@@ -10,10 +10,10 @@ box "Smart Home"
     participant "Backend" as BE
 end box
 
-HTTP -> BE : GET /devices?room_id={roomId}
+HTTP o-> BE : GET /devices?room_id={roomId}
 activate BE
 
-BE --> HTTP : deviceDTOList
+BE -->o HTTP : Json status 200 ok
 deactivate BE
 
 @enduml

@@ -12,10 +12,10 @@ box "SmartHome"
 
 end box
 
-HTTP -> BE : GET /devices?room_id={roomId}&device_type_id={Temperature}
+HTTP o-> BE : GET /devices?room_id={roomId}&device_type_id={Temperature}
 activate BE
 
-BE --> HTTP : deviceDTOListByRoomAndTemperatureFunctionality
+BE -->o HTTP : Json status 200 OK
 deactivate BE
 
 @enduml

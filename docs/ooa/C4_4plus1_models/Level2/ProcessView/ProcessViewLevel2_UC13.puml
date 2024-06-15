@@ -12,11 +12,11 @@ box "SmartHome"
 end box
 
 
-HTTP -> BE : GET /logs/temperature-difference?outsideDeviceIDStr={outsideDeviceIDStr}&insideDeviceIDStr={insideDeviceIDStr}&initialTime={initialTime}&finalTime={finalTime}&timeDelta={timeDelta}
+HTTP o-> BE : GET /logs/temperature-difference?outsideDeviceIDStr={outsideDeviceIDStr}&insideDeviceIDStr={insideDeviceIDStr}&initialTime={initialTime}&finalTime={finalTime}&timeDelta={timeDelta}
 activate BE
 
 
-BE --> HTTP : tempDiff
+BE -->o HTTP : Json status 200 ok
 deactivate BE
 
 
