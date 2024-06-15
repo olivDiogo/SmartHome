@@ -43,6 +43,11 @@ class Device {
     -status: DeviceStatus
 }
 
+class DeviceType {
+    -description: TypeDescription
+    -id: DeviceTypeID
+}
+
 class Sensor {
     -id: SensorID
     -name: SensorName
@@ -106,6 +111,7 @@ Room "1" <-- Device : belongs to
 Room "*" -right-> "1" Dimensions : has
 Device "1" <-- Sensor : knows
 Device "1" <-- Actuator : knows
+Device "1" --> DeviceType : knows
 Sensor --> "1" SensorType : knows
 
 Actuator --> "1" ActuatorType : knows
